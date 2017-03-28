@@ -27,7 +27,7 @@ public:
   ~MainView() override;
 
   // View overrides:
-  void SetSamples(std::vector<search::Sample> const & samples) override;
+  void SetSamples(ContextList::SamplesSlice const & samples) override;
   void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) override;
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
 

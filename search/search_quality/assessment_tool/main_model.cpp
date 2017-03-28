@@ -65,7 +65,7 @@ void MainModel::Open(std::string const & path)
     context.m_sample = samples[i];
   }
 
-  m_view->SetSamples(samples);
+  m_view->SetSamples(ContextList::SamplesSlice(m_contexts));
 }
 
 void MainModel::OnSampleSelected(int index)

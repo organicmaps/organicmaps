@@ -14,30 +14,19 @@ SamplesView::Model::Model(QWidget * parent)
 {
 }
 
-void SamplesView::Model::SetSamples(std::vector<search::Sample> const & samples)
-{
-  removeRows(0, rowCount());
-  for (auto const & sample : samples)
-    appendRow(new QStandardItem(ToQString(sample.m_query)));
-
-  m_changed.assign(samples.size(), false);
-}
-
-void SamplesView::Model::OnSampleChanged(size_t index, bool hasEdits)
-{
-  CHECK_LESS(index, m_changed.size(), ());
-  m_changed[index] = hasEdits;
-}
-
 QVariant SamplesView::Model::data(QModelIndex const & index, int role) const
 {
-  if (role != Qt::BackgroundRole)
-    return QStandardItemModel::data(index, role);
+  auto const row = index.row();
 
-  CHECK_LESS(index.row(), m_changed.size(), ());
-  if (m_changed[index.row()])
-    return QBrush(QColor(255, 255, 200));
-  return QBrush(Qt::transparent);
+  if (role == Qt::DisplayRole && m_samples.IsValid())
+    return QString::fromStdString(m_samples.GetLabel(row));
+  if (role == Qt::BackgroundRole && m_samples.IsValid())
+  {
+    if (m_samples.IsChanged(row))
+      return QBrush(QColor(255, 255, 200));
+    return QBrush(Qt::transparent);
+  }
+  return QStandardItemModel::data(index, role);
 }
 
 // SamplesView -------------------------------------------------------------------------------------

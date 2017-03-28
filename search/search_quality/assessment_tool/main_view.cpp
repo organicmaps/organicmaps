@@ -45,7 +45,7 @@ MainView::~MainView()
   }
 }
 
-void MainView::SetSamples(std::vector<search::Sample> const & samples)
+void MainView::SetSamples(ContextList::SamplesSlice const & samples)
 {
   m_samplesView->SetSamples(samples);
 }
@@ -74,7 +74,6 @@ void MainView::OnSampleChanged(size_t index, bool hasEdits)
     else
       m_sampleDock->setWindowTitle(tr("Sample"));
   }
-  m_samplesView->OnSampleChanged(index, hasEdits);
 }
 
 void MainView::OnSamplesChanged(bool hasEdits)

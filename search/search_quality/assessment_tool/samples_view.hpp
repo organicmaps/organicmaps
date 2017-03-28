@@ -1,6 +1,6 @@
 #pragma once
 
-#include "search/search_quality/sample.hpp"
+#include "search/search_quality/assessment_tool/context.hpp"
 
 #include <cstddef>
 #include <vector>
@@ -13,8 +13,7 @@ class SamplesView : public QTableView
 public:
   explicit SamplesView(QWidget * parent);
 
-  void SetSamples(std::vector<search::Sample> const & samples) { m_model->SetSamples(samples); }
-  void OnSampleChanged(size_t index, bool hasEdits) { m_model->OnSampleChanged(index, hasEdits); }
+  void SetSamples(ContextList::SamplesSlice const & samples) { m_model->SetSamples(samples); }
   bool IsSelected(size_t index) const;
 
 private:
@@ -23,14 +22,19 @@ private:
   public:
     explicit Model(QWidget * parent);
 
-    void SetSamples(std::vector<search::Sample> const & samples);
-    void OnSampleChanged(size_t index, bool hasEdits);
+    void SetSamples(ContextList::SamplesSlice const & samples)
+    {
+      removeRows(0, rowCount());
+      m_samples = samples;
+      if (m_samples.IsValid())
+        insertRows(0, m_samples.Size());
+    }
 
     // QStandardItemModel overrides:
     QVariant data(QModelIndex const & index, int role = Qt::DisplayRole) const override;
 
   private:
-    std::vector<bool> m_changed;
+    ContextList::SamplesSlice m_samples;
   };
 
   Model * m_model = nullptr;

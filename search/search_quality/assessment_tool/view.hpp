@@ -1,7 +1,7 @@
 #pragma once
 
 #include "search/result.hpp"
-#include "search/search_quality/sample.hpp"
+#include "search/search_quality/assessment_tool/context.hpp"
 
 #include <cstddef>
 #include <string>
@@ -17,7 +17,7 @@ public:
 
   void SetModel(Model & model) { m_model = &model; }
 
-  virtual void SetSamples(std::vector<search::Sample> const & samples) = 0;
+  virtual void SetSamples(ContextList::SamplesSlice const & samples) = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) = 0;
   virtual void ShowResults(search::Results::Iter begin, search::Results::Iter end) = 0;
 

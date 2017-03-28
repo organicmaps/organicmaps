@@ -10,7 +10,7 @@
 
 struct Context
 {
-  explicit Context(Edits::OnUpdate onUpdate): m_edits(onUpdate) {}
+  explicit Context(Edits::OnUpdate onUpdate) : m_edits(onUpdate) {}
 
   bool HasChanges() const { return m_initialized && m_edits.HasChanges(); }
   void Clear();
@@ -24,6 +24,27 @@ struct Context
 class ContextList
 {
 public:
+  class SamplesSlice
+  {
+  public:
+    SamplesSlice() = default;
+    explicit SamplesSlice(ContextList const & contexts) : m_contexts(&contexts) {}
+
+    bool IsValid() const { return m_contexts != nullptr; }
+
+    string GetLabel(size_t index) const
+    {
+      return strings::ToUtf8((*m_contexts)[index].m_sample.m_query);
+    }
+
+    bool IsChanged(size_t index) const { return (*m_contexts)[index].m_edits.HasChanges(); }
+
+    size_t Size() const { return m_contexts->Size(); }
+
+  private:
+    ContextList const * m_contexts = nullptr;
+  };
+
   using OnUpdate = std::function<void(size_t index)>;
 
   explicit ContextList(OnUpdate onUpdate);
