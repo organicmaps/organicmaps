@@ -229,9 +229,9 @@ void CaptionDescription::Init(FeatureType const & f,
                               bool const auxCaptionExists)
 {
   if (auxCaptionExists || type == feature::GEOM_LINE)
-    f.GetPreferredNames(m_mainText, m_auxText);
+    f.GetPreferredNames(true /* allowTranslit */, m_mainText, m_auxText);
   else
-    f.GetReadableName(m_mainText);
+    f.GetReadableName(true /* allowTranslit */, m_mainText);
 
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();

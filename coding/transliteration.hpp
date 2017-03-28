@@ -23,6 +23,5 @@ public:
 private:
   Transliteration() = default;
 
-  struct TransliteratorWrapper;
   std::map<std::string, std::unique_ptr<icu::Transliterator>> m_transliterators;
 };

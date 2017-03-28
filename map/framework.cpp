@@ -2975,7 +2975,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       }
 
       string name;
-      ft.GetReadableName(name);
+      ft.GetReadableName(false /* allowTranslit */, name);
       feature::TypesHolder const types(ft);
       search::Result::Metadata smd;
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(ft), name, edit.second,
@@ -3006,7 +3006,7 @@ WARN_UNUSED_RESULT bool LocalizeStreet(Index const & index, FeatureID const & fi
     return false;
 
   ft.GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
-  ft.GetReadableName(result.m_localizedName);
+  ft.GetReadableName(false /* allowTranslit */, result.m_localizedName);
   if (result.m_localizedName == result.m_defaultName)
     result.m_localizedName.clear();
   return true;

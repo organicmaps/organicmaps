@@ -491,7 +491,7 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & primary, string & secondary) const
+void FeatureType::GetPreferredNames(bool allowTranslit, string & primary, string & secondary) const
 {
   if (!HasName())
     return;
@@ -503,11 +503,11 @@ void FeatureType::GetPreferredNames(string & primary, string & secondary) const
 
   ParseCommon();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, true /* allowTranslit */,
+  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit,
                       primary, secondary);
 }
 
-void FeatureType::GetReadableName(string & name) const
+void FeatureType::GetReadableName(bool allowTranslit, string & name) const
 {
   if (!HasName())
     return;
@@ -519,7 +519,7 @@ void FeatureType::GetReadableName(string & name) const
 
   ParseCommon();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, true /* allowTranslit */, name);
+  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
 }
 
 string FeatureType::GetHouseNumber() const
