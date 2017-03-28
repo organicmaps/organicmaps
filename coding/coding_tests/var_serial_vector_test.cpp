@@ -107,5 +107,5 @@ UNIT_TEST(EncodeDecode)
   VarSerialVectorReader<MemReader> reader(memSource);
 
   for (size_t i = 0; i < elements.size(); ++i)
-    TEST_EQUAL(reader.Read(i), elements[i], ());
+    TEST_EQUAL(reader.Read(static_cast<uint32_t>(i)), elements[i], ());
 }

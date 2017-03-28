@@ -4,6 +4,8 @@
 #include "search/geocoder_context.hpp"
 #include "search/token_slice.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
@@ -62,7 +64,8 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       // Skip locality candidates that match only numbers.
       if (!m_params.IsNumberTokens(tokenRange))
       {
-        intersection.ForEach([&](uint32_t featureId) {
+        intersection.ForEach([&](uint64_t bit) {
+          auto const featureId = base::asserted_cast<uint32_t>(bit);
           double const prob = static_cast<double>(intersection.PopCount()) /
                               static_cast<double>(unfilteredIntersection.PopCount());
           localities.emplace_back(countryId, featureId, tokenRange, prob);

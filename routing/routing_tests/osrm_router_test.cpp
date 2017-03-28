@@ -16,6 +16,7 @@
 
 #include "defines.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/scope_guard.hpp"
 
 #include "std/bind.hpp"
@@ -117,7 +118,7 @@ void TestMapping(InputDataT const & data,
 
     for (size_t i = 0; i < mapping.GetSegmentsCount(); ++i)
     {
-      TOsrmNodeId const node = mapping.GetNodeId(i);
+      TOsrmNodeId const node = mapping.GetNodeId(base::checked_cast<uint32_t>(i));
       size_t count = 0;
       mapping.ForEachFtSeg(node, [&] (OsrmMappingTypes::FtSeg const & s)
       {
