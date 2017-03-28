@@ -19,6 +19,7 @@ namespace feature
   /// - device language name;
   /// - international name;
   /// - english name.
+  /// - transliterated name.
   /// Secondary name using priority:
   /// - default name;
   /// - international name;
@@ -27,20 +28,22 @@ namespace feature
   /// In case when primary name is empty it will be propagated from secondary and secondary will be
   /// cleared. In case when primary name contains secondary name then secondary will be cleared.
   void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const & src,
-                         int8_t const deviceLang, string & primary, string & secondary);
+                         int8_t const deviceLang, bool allowTranslit, string & primary, string & secondary);
 
   /// When MWM contains user's language, the priority is the following:
   /// - device language name;
   /// - default name;
   /// - international name;
   /// - english name;
+  /// - transliterated name;
   /// - country language name.
   /// When MWM does not contain user's language, the priority is the following:
   /// - device language name;
   /// - international name;
   /// - english name;
+  /// - transliterated name;
   /// - default name;
   /// - country language name.
   void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & src,
-                       int8_t const deviceLang, string & out);
+                       int8_t const deviceLang, bool allowTranslit, string & out);
 }  // namespace feature

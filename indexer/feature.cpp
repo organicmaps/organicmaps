@@ -503,7 +503,8 @@ void FeatureType::GetPreferredNames(string & primary, string & secondary) const
 
   ParseCommon();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, primary, secondary);
+  ::GetPreferredNames(mwmInfo->GetRegionData(), GetNames(), deviceLang, true /* allowTranslit */,
+                      primary, secondary);
 }
 
 void FeatureType::GetReadableName(string & name) const
@@ -518,7 +519,7 @@ void FeatureType::GetReadableName(string & name) const
 
   ParseCommon();
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, name);
+  ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, true /* allowTranslit */, name);
 }
 
 string FeatureType::GetHouseNumber() const

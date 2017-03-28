@@ -30,7 +30,7 @@ void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang 
   }
 }
 
-void GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
+bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
 {
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
@@ -42,15 +42,17 @@ void GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
     {
       out = Transliteration::GetInstance().Transliterate(srcName, code);
       if (!out.empty())
-        return;
+        return true;
     }
   }
   if (!mwmLangCodes.empty() && src.GetString(StringUtf8Multilang::kDefaultCode, srcName))
     out = Transliteration::GetInstance().Transliterate(srcName, mwmLangCodes[0]);
+  return !out.empty();
 }
 
-void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
+bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
+  out.clear();
   auto bestIndex = priorityList.size();
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
@@ -80,6 +82,8 @@ void GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   {
     out = out.substr(0, out.find_first_of(','));
   }
+
+  return !out.empty();
 }
 }  // namespace
 
@@ -224,7 +228,7 @@ int GetFeatureViewportScale(TypesHolder const & types)
 }
 
 void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const & src,
-                       int8_t const deviceLang, string & primary, string & secondary)
+                       int8_t const deviceLang, bool allowTranslit, string & primary, string & secondary)
 {
   primary.clear();
   secondary.clear();
@@ -232,31 +236,31 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
   if (src.IsEmpty())
     return;
 
-  GetBestName(src, {deviceLang, StrUtf8::kInternationalCode}, primary);
-  if (primary.empty())
+  if (!GetBestName(src, {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode}, primary) &&
+      allowTranslit)
   {
     GetTransliteratedName(regionData, src, primary);
-    if (primary.empty())
-      GetBestName(src, {StrUtf8::kEnglishCode}, primary);
   }
+
+  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
+                                   StrUtf8::kInternationalCode};
 
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
-  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
-                                   StrUtf8::kInternationalCode};
   secondaryCodes.insert(secondaryCodes.end(), mwmLangCodes.begin(), mwmLangCodes.end());
+
   secondaryCodes.push_back(StrUtf8::kEnglishCode);
 
   GetBestName(src, secondaryCodes, secondary);
 
   if (primary.empty())
-    primary.swap(secondary);  
+    primary.swap(secondary);
   else if (!secondary.empty() && primary.find(secondary) != string::npos)
     secondary.clear();
 }
 
 void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & src,
-                     int8_t const deviceLang, string & out)
+                     int8_t const deviceLang, bool allowTranslit, string & out)
 {
   out.clear();
 
@@ -267,25 +271,24 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
   // If MWM contains user's language.
   bool const preferDefault = regionData.HasLanguage(deviceLang);
   if (preferDefault)
-    codes = {deviceLang, StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
+    codes = {deviceLang, StrUtf8::kDefaultCode, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
   else
-    codes = {deviceLang, StrUtf8::kInternationalCode};
+    codes = {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
 
-  GetBestName(src, codes, out);
-  if (out.empty())
+  if (GetBestName(src, codes, out))
+      return;
+
+  if (allowTranslit && GetTransliteratedName(regionData, src, out))
+    return;
+
+  if (!preferDefault)
   {
-    GetTransliteratedName(regionData, src, out);
-    if (out.empty())
-    {
-      if (preferDefault)
-        codes = {StrUtf8::kEnglishCode};
-      else
-        codes = {StrUtf8::kEnglishCode, StrUtf8::kDefaultCode};
-      GetBestName(src, codes, out);
-      if (out.empty())
-        GetMwmLangName(regionData, src, out);
-    }
+    codes = {StrUtf8::kDefaultCode};
+    if (GetBestName(src, codes, out))
+      return;
   }
+
+  GetMwmLangName(regionData, src, out);
 }
 
 } // namespace feature

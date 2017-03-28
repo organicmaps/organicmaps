@@ -11,7 +11,6 @@ UNIT_TEST(Transliteration_CompareSamples)
   Transliteration & translit = Transliteration::GetInstance();
   translit.Init(GetPlatform().ResourcesDir());
 
-  TEST_EQUAL("rì běn yǔ", translit.Transliterate("日本語", StringUtf8Multilang::GetLangIndex("ja")), ());
   TEST_EQUAL("ạlʿrbyẗ", translit.Transliterate("العربية", StringUtf8Multilang::GetLangIndex("ar")), ());
   TEST_EQUAL("Russkiy", translit.Transliterate("Русский", StringUtf8Multilang::GetLangIndex("ru")), ());
   TEST_EQUAL("zhōng wén", translit.Transliterate("中文", StringUtf8Multilang::GetLangIndex("zh")), ());
