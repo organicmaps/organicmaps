@@ -11,7 +11,7 @@ namespace
 // our current encoding (6 bit to store language code).
 StringUtf8Multilang::Languages const g_languages = {{
     {"default", "Native for each country", "Any-Latin"},
-    {"en", "English", ""}, {"ja", "日本語", "Any-Latin"}, {"fr", "Français", ""},
+    {"en", "English", ""}, {"ja", "日本語", ""}, {"fr", "Français", ""},
     {"ko_rm", "Korean (Romanized)", "Korean-Latin/BGN"}, {"ar", "العربية", "Any-Latin"},
     {"de", "Deutsch", ""}, {"int_name", "International (Latin)", "Any-Latin"},
     {"ru", "Русский", "Russian-Latin/BGN"}, {"sv", "Svenska", "Any-Latin"},
