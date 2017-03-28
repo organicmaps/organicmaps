@@ -104,6 +104,7 @@
 @green3: #C6D9AB;
 @green4: #C6D9AB;
 @green5: #C6D9AB;
+@green6: #9EB360;
 
 /* BUILDINGS */
 @housename: #65655E;
@@ -124,6 +125,7 @@
 @sport: #C8DBAD;
 @parking: #F2F2CE;
 @parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
+@military: #E53935;
 
 /* BARRIERS */
 @fence: #999999;

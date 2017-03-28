@@ -65,8 +65,7 @@ area[amenity=parking]
 {z-index: 6;}
 
 area[natural=wood],
-area[landuse=forest],
-area[leisure=nature_reserve]
+area[landuse=forest]
 {z-index: 30;}
 
 area[leisure=park],
@@ -82,6 +81,10 @@ area[landuse=meadow],
 area[landuse=recreation_ground],
 area[landuse=village_green],
 area[landuse=field],
+{z-index: 41;}
+
+area[natural=wetland],
+line[waterway=stream][intermittent=yes]
 {z-index: 42;}
 
 area[landuse=cemetery],
@@ -102,10 +105,6 @@ area[natural=grassland],
 area[leisure=golf_course],
 area[natural=heath]
 {z-index: 45;}
-
-area[natural=wetland],
-line[waterway=stream][intermittent=yes]
-{z-index: 49;}
 
 line[waterway=river],
 line[waterway=riverbank],
@@ -145,6 +144,11 @@ line[man_made=cutline]
 
 line[boundary=administrative]
 {z-index: 130;}
+
+area[leisure=nature_reserve],
+area[boundary=national_park],
+area[landuse=military]
+{z-index: 140;}
 
 area[building],
 area[building:part],
@@ -246,12 +250,8 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-position: background; fill-opacity: 1;}
 
-area|z10-[leisure=nature_reserve]
-{fill-position: background; fill-opacity: 0.2;}
-
 area|z10[natural=wood],
 area|z10[landuse=forest],
-area|z10[leisure=nature_reserve],
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
@@ -269,14 +269,12 @@ area|z14-[landuse=field],
 
 area|z11-12[natural=wood],
 area|z11-12[landuse=forest],
-area|z11-12[leisure=nature_reserve],
 area|z10-12[leisure=park],
 area|z12[leisure=garden],
 {fill-color: @green2;}
 
 area|z13[natural=wood],
 area|z13[landuse=forest],
-area|z13[leisure=nature_reserve],
 area|z13[leisure=park],
 area|z13[leisure=garden]
 {fill-color: @green3;}
@@ -296,23 +294,27 @@ area|z12-13[landuse=village_green],
 area|z12-13[landuse=field],
 {fill-color: @green0;}
 
+area|z14-[leisure=nature_reserve],
+area|z14-[boundary=national_park],
+{fill-position: background; fill-opacity: 1; fill-color: @green6;}
+
+area|z14-[landuse=military]
+{fill-position: background; fill-opacity: 1; fill-color: @military;}
+
 area|z14[natural=wood],
 area|z14[landuse=forest],
-area|z14[leisure=nature_reserve],
 area|z14[leisure=park],
 area|z14[leisure=garden]
 {fill-color: @green4;}
 
 area|z15[natural=wood],
 area|z15[landuse=forest],
-area|z15[leisure=nature_reserve],
 area|z15[leisure=park],
 area|z15[leisure=garden]
 {fill-color: @green5;}
 
 area|z16-[natural=wood],
 area|z16-[landuse=forest],
-area|z16-[leisure=nature_reserve],
 area|z16-[leisure=park],
 area|z16-[leisure=garden]
 {fill-color: @forest;}
