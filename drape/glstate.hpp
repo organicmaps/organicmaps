@@ -43,7 +43,7 @@ public:
     Gui
   };
 
-  GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);
+  GLState(int gpuProgramIndex, DepthLayer depthLayer);
 
   DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
 
@@ -58,7 +58,7 @@ public:
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
 
-  void SetProgram3dIndex(uint32_t gpuProgram3dIndex) { m_gpuProgram3dIndex = gpuProgram3dIndex; }
+  void SetProgram3dIndex(int gpuProgram3dIndex) { m_gpuProgram3dIndex = gpuProgram3dIndex; }
   int GetProgram3dIndex() const { return m_gpuProgram3dIndex; }
 
   glConst GetDepthFunction() const;
@@ -77,8 +77,8 @@ public:
   bool operator!=(GLState const & other) const;
 
 private:
-  uint32_t m_gpuProgramIndex;
-  uint32_t m_gpuProgram3dIndex;
+  int m_gpuProgramIndex;
+  int m_gpuProgram3dIndex;
   DepthLayer m_depthLayer;
   Blending m_blending;
   glConst m_depthFunction;
@@ -103,6 +103,6 @@ private:
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
 void ApplyState(GLState state, ref_ptr<GpuProgram> program);
-void ApplyBlending(GLState state, ref_ptr<GpuProgram> program);
+void ApplyBlending(GLState state);
 
 } // namespace dp

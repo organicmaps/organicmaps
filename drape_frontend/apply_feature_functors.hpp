@@ -102,9 +102,10 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                   bool isBuilding, bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
-                   uint8_t rank, CaptionDescription const & captions);
+  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                   FeatureID const & id, double currentScaleGtoP, bool isBuilding,
+                   bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
+                   uint8_t rank, CaptionDescription const & captions, bool hatchingArea);
 
   using TBase::operator ();
 
@@ -130,6 +131,8 @@ private:
   float const m_minPosZ;
   bool const m_isBuilding;
   bool const m_skipAreaGeometry;
+  bool const m_hatchingArea;
+  double const m_currentScaleGtoP;
 };
 
 class ApplyLineFeature : public BaseApplyFeature

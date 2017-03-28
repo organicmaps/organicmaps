@@ -106,6 +106,7 @@ public:
 
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
+  ref_ptr<Texture> GetHatchingTexture() const;
 
 private:
   struct GlyphGroup
@@ -244,6 +245,7 @@ private:
   std::list<drape_ptr<Texture>> m_glyphTextures;
 
   drape_ptr<Texture> m_trafficArrowTexture;
+  drape_ptr<Texture> m_hatchingTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

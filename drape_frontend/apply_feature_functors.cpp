@@ -515,13 +515,16 @@ void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsCont
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   bool isBuilding, bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
-                                   uint8_t rank, CaptionDescription const & captions)
+ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                                   FeatureID const & id, double currentScaleGtoP, bool isBuilding,
+                                   bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
+                                   uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
+  , m_hatchingArea(hatchingArea)
+  , m_currentScaleGtoP(currentScaleGtoP)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -674,7 +677,7 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
 void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   drule::BaseRule const * pRule = rule.first;
-  double const depth = rule.second;
+  float const depth = static_cast<float>(rule.second);
 
   AreaRuleProto const * areaRule = pRule->GetArea();
   if (areaRule && !m_triangles.empty())
@@ -687,6 +690,8 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_rank = m_rank;
     params.m_minPosZ = m_minPosZ;
     params.m_posZ = m_posZ;
+    params.m_hatching = m_hatchingArea;
+    params.m_baseGtoPScale = static_cast<float>(m_currentScaleGtoP);
 
     BuildingOutline outline;
     if (m_isBuilding)

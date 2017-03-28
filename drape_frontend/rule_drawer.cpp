@@ -254,6 +254,8 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     m2::PointD featureCenter;
 
+    bool hatchingArea = false;
+
     float areaHeight = 0.0f;
     float areaMinHeight = 0.0f;
     if (is3dBuilding)
@@ -280,19 +282,23 @@ void RuleDrawer::operator()(FeatureType const & f)
       }
 
       value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
-      double minHeigthInMeters = 0.0;
+      double minHeightInMeters = 0.0;
       if (!value.empty())
-        strings::to_double(value, minHeigthInMeters);
+        strings::to_double(value, minHeightInMeters);
 
       featureCenter = feature::GetCenter(f, zoomLevel);
       double const lon = MercatorBounds::XToLon(featureCenter.x);
       double const lat = MercatorBounds::YToLat(featureCenter.y);
 
       m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
-      areaHeight = (rectMercator.SizeX() + rectMercator.SizeY()) / 2.0;
+      areaHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
 
-      rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeigthInMeters);
-      areaMinHeight = (rectMercator.SizeX() + rectMercator.SizeY()) / 2.0;
+      rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeightInMeters);
+      areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
+    }
+    else
+    {
+      hatchingArea = IsHatchingTerritoryChecker::Instance()(f);
     }
 
     bool applyPointStyle = s.PointStyleExists();
@@ -307,9 +313,9 @@ void RuleDrawer::operator()(FeatureType const & f)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
     ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
-                           isBuilding, m_is3dBuildings && isBuildingOutline,
-                           areaMinHeight, areaHeight, minVisibleScale,
-                           f.GetRank(),  s.GetCaptionDescription());
+                           m_currentScaleGtoP, isBuilding, m_is3dBuildings && isBuildingOutline,
+                           areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
+                           s.GetCaptionDescription(), hatchingArea);
     f.ForEachTriangle(apply, zoomLevel);
     apply.SetHotelData(ExtractHotelData(f));
     if (applyPointStyle)

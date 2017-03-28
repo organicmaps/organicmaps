@@ -40,6 +40,21 @@ struct Area3dVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct HatchingAreaVertex : BaseVertex
+{
+  using TMaskTexCoord = glsl::vec2;
+
+  HatchingAreaVertex();
+  HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord,
+                     TMaskTexCoord const & maskTexCoord);
+
+  TPosition m_position;
+  TTexCoord m_colorTexCoord;
+  TMaskTexCoord m_maskTexCoord;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct SolidTexturingVertex : BaseVertex
 {
   SolidTexturingVertex();
