@@ -1,7 +1,5 @@
 #include "search/search_quality/assessment_tool/context.hpp"
 
-#include "base/string_utils.hpp"
-
 // Context -----------------------------------------------------------------------------------------
 void Context::Clear()
 {

@@ -15,7 +15,6 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -55,8 +54,6 @@ void MainModel::Open(std::string const & path)
 
   ResetSearch();
 
-  MY_SCOPE_GUARD(cleanup, [this]() { m_loading = false; });
-  m_loading = true;
   m_contexts.Resize(samples.size());
   for (size_t i = 0; i < samples.size(); ++i)
   {
@@ -133,10 +130,6 @@ void MainModel::OnSampleSelected(int index)
 
 void MainModel::OnUpdate(size_t index)
 {
-  // Skip update signals during loading.
-  if (m_loading)
-    return;
-
   CHECK_LESS(index, m_contexts.Size(), ());
   auto & context = m_contexts[index];
   m_view->OnSampleChanged(index, context.HasChanges());

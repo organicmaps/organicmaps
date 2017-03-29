@@ -4,8 +4,11 @@
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <cstddef>
 #include <functional>
+#include <string>
 #include <vector>
 
 struct Context
@@ -32,7 +35,7 @@ public:
 
     bool IsValid() const { return m_contexts != nullptr; }
 
-    string GetLabel(size_t index) const
+    std::string GetLabel(size_t index) const
     {
       return strings::ToUtf8((*m_contexts)[index].m_sample.m_query);
     }

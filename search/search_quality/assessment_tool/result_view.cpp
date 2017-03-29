@@ -126,7 +126,7 @@ void ResultView::OnRelevanceChanged()
 
   bool changed = m_editor->Set(relevance);
   if (changed)
-    setStyleSheet("#result {background: rgb(255, 255, 200, 50%)}");
+    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
   else
     setStyleSheet("");
 }

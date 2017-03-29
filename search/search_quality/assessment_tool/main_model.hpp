@@ -41,8 +41,6 @@ private:
   Index const & m_index;
   ContextList m_contexts;
 
-  bool m_loading = false;
-
   std::weak_ptr<search::ProcessorHandle> m_queryHandle;
   uint64_t m_queryTimestamp = 0;
   size_t m_numShownResults = 0;
