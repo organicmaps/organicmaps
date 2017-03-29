@@ -24,6 +24,9 @@ public:
 
   void EnableEditing(Edits & edits);
 
+  void Update(Edits::Update const & update);
+  void Clear();
+
 private:
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;

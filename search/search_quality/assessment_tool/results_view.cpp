@@ -32,6 +32,20 @@ ResultView const & ResultsView::Get(size_t i) const
   return *m_results[i];
 }
 
+void ResultsView::Update(Edits::Update const & update)
+{
+  switch (update.m_type)
+  {
+  case Edits::Update::Type::SingleRelevance:
+    m_results[update.m_index]->Update();
+    break;
+  case Edits::Update::Type::AllRelevances:
+    for (auto * result : m_results)
+      result->Update();
+    break;
+  }
+}
+
 void ResultsView::Clear()
 {
   m_results.clear();

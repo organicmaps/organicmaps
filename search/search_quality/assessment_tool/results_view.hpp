@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/search_quality/assessment_tool/edits.hpp"
+
 #include <cstddef>
 #include <vector>
 
@@ -22,6 +24,7 @@ public:
 
   ResultView & Get(size_t i);
   ResultView const & Get(size_t i) const;
+  void Update(Edits::Update const & update);
 
   size_t Size() const { return m_results.size(); }
 

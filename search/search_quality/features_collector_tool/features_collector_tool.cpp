@@ -1,3 +1,4 @@
+#include "search/feature_loader.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
@@ -162,7 +163,8 @@ int main(int argc, char * argv[])
   }
 
   vector<Stats> stats(samples.size());
-  Matcher matcher(engine);
+  FeatureLoader loader(engine);
+  Matcher matcher(loader);
 
   cout << "SampleId,";
   RankingInfo::PrintCSVHeader(cout);

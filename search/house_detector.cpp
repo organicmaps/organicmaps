@@ -223,26 +223,6 @@ bool House::GetNearbyMatch(ParsedNumber const & number) const
   return m_number.IsIntersect(number, HN_NEARBY_DISTANCE);
 }
 
-FeatureLoader::FeatureLoader(Index const & index) : m_index(index) {}
-
-void FeatureLoader::CreateLoader(MwmSet::MwmId const & mwmId)
-{
-  if (!m_guard || mwmId != m_guard->GetId())
-    m_guard = make_unique<Index::FeaturesLoaderGuard>(m_index, mwmId);
-}
-
-bool FeatureLoader::Load(FeatureID const & id, FeatureType & f)
-{
-  CreateLoader(id.m_mwmId);
-  return m_guard->GetFeatureByIndex(id.m_index, f);
-}
-
-template <class ToDo>
-void FeatureLoader::ForEachInRect(m2::RectD const & rect, ToDo toDo)
-{
-  m_index.ForEachInRect(toDo, rect, scales::GetUpperScale());
-}
-
 m2::RectD Street::GetLimitRect(double offsetMeters) const
 {
   m2::RectD rect;
@@ -481,7 +461,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     }
   }
 
-  m_loader.Free();
+  m_loader.Reset();
   return count;
 }
 

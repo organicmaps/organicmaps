@@ -19,7 +19,6 @@ set(
   languages_list.hpp
   main_model.cpp
   main_model.hpp
-  main_model.hpp
   main_view.cpp
   main_view.hpp
   model.hpp

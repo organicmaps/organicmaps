@@ -24,6 +24,8 @@ set(
   engine.cpp
   engine.hpp
   everywhere_search_params.hpp
+  feature_loader.cpp
+  feature_loader.hpp
   feature_offset_match.hpp
   features_filter.cpp
   features_filter.hpp

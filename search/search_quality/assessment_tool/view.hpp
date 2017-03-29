@@ -2,6 +2,7 @@
 
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/context.hpp"
+#include "search/search_quality/assessment_tool/edits.hpp"
 
 #include <cstddef>
 #include <string>
@@ -21,7 +22,7 @@ public:
   virtual void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) = 0;
   virtual void ShowResults(search::Results::Iter begin, search::Results::Iter end) = 0;
 
-  virtual void OnSampleChanged(size_t index, bool hasEdits) = 0;
+  virtual void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) = 0;
   virtual void EnableSampleEditing(size_t index, Edits & edits) = 0;
   virtual void OnSamplesChanged(bool hasEdits) = 0;
 

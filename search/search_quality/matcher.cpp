@@ -1,8 +1,9 @@
 #include "search/search_quality/matcher.hpp"
 
+#include "search/feature_loader.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_decl.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -15,7 +16,7 @@ namespace search
 // static
 size_t constexpr Matcher::kInvalidId;
 
-Matcher::Matcher(Index const & index) : m_index(index) {}
+Matcher::Matcher(FeatureLoader & loader) : m_loader(loader) {}
 
 void Matcher::Match(std::vector<Sample::Result> const & golden, std::vector<Result> const & actual,
                     std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching)
@@ -49,14 +50,6 @@ void Matcher::Match(std::vector<Sample::Result> const & golden, std::vector<Resu
   }
 }
 
-bool Matcher::GetFeature(FeatureID const & id, FeatureType & ft)
-{
-  auto const & mwmId = id.m_mwmId;
-  if (!m_guard || m_guard->GetId() != mwmId)
-    m_guard = my::make_unique<Index::FeaturesLoaderGuard>(m_index, mwmId);
-  return m_guard->GetFeatureByIndex(id.m_index, ft);
-}
-
 bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)
 {
   static double constexpr kToleranceMeters = 50;
@@ -65,7 +58,7 @@ bool Matcher::Matches(Sample::Result const & golden, search::Result const & actu
     return false;
 
   FeatureType ft;
-  if (!GetFeature(actual.GetFeatureID(), ft))
+  if (!m_loader.Load(actual.GetFeatureID(), ft))
     return false;
 
   auto const houseNumber = ft.GetHouseNumber();

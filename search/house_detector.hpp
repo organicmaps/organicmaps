@@ -1,4 +1,6 @@
 #pragma once
+
+#include "search/feature_loader.hpp"
 #include "search/projection_on_street.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -12,26 +14,10 @@
 #include "std/string.hpp"
 #include "std/queue.hpp"
 
+class Index;
 
 namespace search
 {
-
-class FeatureLoader
-{
-  Index const & m_index;
-  unique_ptr<Index::FeaturesLoaderGuard> m_guard;
-
-  void CreateLoader(MwmSet::MwmId const & mwmId);
-
-public:
-  FeatureLoader(Index const & index);
-
-  WARN_UNUSED_RESULT bool Load(FeatureID const & id, FeatureType & f);
-  inline void Free() { m_guard.reset(); }
-
-  template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo);
-};
-
 struct ParsedNumber
 {
   string m_fullN;

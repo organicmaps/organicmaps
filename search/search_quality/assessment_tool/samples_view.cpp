@@ -3,7 +3,6 @@
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
 
 #include <QtGui/QStandardItem>
 #include <QtWidgets/QHeaderView>
@@ -47,5 +46,5 @@ SamplesView::SamplesView(QWidget * parent) : QTableView(parent)
 
 bool SamplesView::IsSelected(size_t index) const
 {
-  return selectionModel()->isRowSelected(index, QModelIndex());
+  return selectionModel()->isRowSelected(base::checked_cast<int>(index), QModelIndex());
 }

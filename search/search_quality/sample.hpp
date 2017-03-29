@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+class FeatureType;
+
 namespace search
 {
 struct Sample
@@ -22,6 +24,8 @@ struct Sample
       Relevant,
       Vital
     };
+
+    static Result Build(FeatureType & ft, Relevance relevance);
 
     bool operator<(Result const & rhs) const;
 

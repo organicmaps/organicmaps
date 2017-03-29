@@ -61,6 +61,14 @@ void ResultView::EnableEditing(Edits::RelevanceEditor && editor)
   setEnabled(true);
 }
 
+void ResultView::Update()
+{
+  if (m_editor && m_editor->HasChanges())
+    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
+  else
+    setStyleSheet("");
+}
+
 void ResultView::Init()
 {
   auto * layout = new QVBoxLayout(this /* parent */);
@@ -124,9 +132,5 @@ void ResultView::OnRelevanceChanged()
   else if (m_vital->isChecked())
     relevance = Relevance::Vital;
 
-  bool changed = m_editor->Set(relevance);
-  if (changed)
-    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
-  else
-    setStyleSheet("");
+  m_editor->Set(relevance);
 }

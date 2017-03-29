@@ -31,7 +31,7 @@ public:
   void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) override;
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
 
-  void OnSampleChanged(size_t index, bool hasEdits) override;
+  void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) override;
   void EnableSampleEditing(size_t index, Edits & edits) override;
   void OnSamplesChanged(bool hasEdits) override;
 
@@ -46,6 +46,8 @@ private:
   void InitMenuBar();
 
   void Open();
+  void Save();
+  void SaveAs();
 
   QDockWidget * CreateDock(std::string const & title, QWidget & widget);
 
@@ -56,4 +58,7 @@ private:
 
   SampleView * m_sampleView = nullptr;
   QDockWidget * m_sampleDock = nullptr;
+
+  QAction * m_save = nullptr;
+  QAction * m_saveAs = nullptr;
 };

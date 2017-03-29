@@ -24,6 +24,8 @@ public:
 
   void EnableEditing(Edits::RelevanceEditor && editor);
 
+  void Update();
+
 private:
   void Init();
   void SetContents(search::Result const & result);

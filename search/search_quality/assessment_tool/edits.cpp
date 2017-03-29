@@ -20,10 +20,15 @@ Edits::Relevance Edits::RelevanceEditor::Get() const
   return relevances[m_index];
 }
 
+bool Edits::RelevanceEditor::HasChanges() const
+{
+  return m_parent.HasChanges(m_index);
+}
+
 // Edits -------------------------------------------------------------------------------------------
 void Edits::ResetRelevances(std::vector<Relevance> const & relevances)
 {
-  WithObserver([this, &relevances]() {
+  WithObserver(Update::AllRelevancesUpdate(), [this, &relevances]() {
     m_origRelevances = relevances;
     m_currRelevances = relevances;
     m_numEdits = 0;
@@ -32,7 +37,7 @@ void Edits::ResetRelevances(std::vector<Relevance> const & relevances)
 
 bool Edits::SetRelevance(size_t index, Relevance relevance)
 {
-  return WithObserver([this, index, relevance]() {
+  return WithObserver(Update::SingleRelevanceUpdate(index), [this, index, relevance]() {
     CHECK_LESS(index, m_currRelevances.size(), ());
     CHECK_EQUAL(m_currRelevances.size(), m_origRelevances.size(), ());
 
@@ -53,7 +58,7 @@ bool Edits::SetRelevance(size_t index, Relevance relevance)
 
 void Edits::Clear()
 {
-  WithObserver([this]() {
+  WithObserver(Update::AllRelevancesUpdate(), [this]() {
     m_origRelevances.clear();
     m_currRelevances.clear();
     m_numEdits = 0;
@@ -61,3 +66,9 @@ void Edits::Clear()
 }
 
 bool Edits::HasChanges() const { return m_numEdits != 0; }
+
+bool Edits::HasChanges(size_t index) const
+{
+  CHECK_LESS(index, m_currRelevances.size(), ());
+  return m_currRelevances[index] != m_origRelevances[index];
+}

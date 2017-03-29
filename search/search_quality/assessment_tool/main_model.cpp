@@ -1,5 +1,6 @@
 #include "search/search_quality/assessment_tool/main_model.hpp"
 
+#include "search/feature_loader.hpp"
 #include "search/search_quality/assessment_tool/view.hpp"
 #include "search/search_quality/matcher.hpp"
 
@@ -18,9 +19,11 @@
 
 #include <algorithm>
 #include <fstream>
+#include <functional>
 #include <iterator>
 
 using Relevance = search::Sample::Result::Relevance;
+using namespace std;
 
 // MainModel::SampleContext ------------------------------------------------------------------------
 
@@ -28,24 +31,27 @@ using Relevance = search::Sample::Result::Relevance;
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)
   , m_index(m_framework.GetIndex())
-  , m_contexts([this](size_t index) { OnUpdate(index); })
+  , m_contexts([this](size_t index, Edits::Update const & update) { OnUpdate(index, update); })
 {
 }
 
-void MainModel::Open(std::string const & path)
+void MainModel::Open(string const & path)
 {
   CHECK(m_view, ());
 
-  std::ifstream ifs(path);
-  if (!ifs)
+  string contents;
+
   {
-    m_view->ShowError("Can't open file: " + path);
-    return;
+    ifstream ifs(path);
+    if (!ifs)
+    {
+      m_view->ShowError("Can't open file: " + path);
+      return;
+    }
+    contents.assign(istreambuf_iterator<char>(ifs), istreambuf_iterator<char>());
   }
 
-  std::string const contents((std::istreambuf_iterator<char>(ifs)),
-                             (std::istreambuf_iterator<char>()));
-  std::vector<search::Sample> samples;
+  vector<search::Sample> samples;
   if (!search::Sample::DeserializeFromJSON(contents, samples))
   {
     m_view->ShowError("Can't parse samples: " + path);
@@ -61,8 +67,39 @@ void MainModel::Open(std::string const & path)
     context.Clear();
     context.m_sample = samples[i];
   }
+  m_path = path;
 
   m_view->SetSamples(ContextList::SamplesSlice(m_contexts));
+}
+
+void MainModel::Save()
+{
+  CHECK(HasChanges(), ());
+  SaveAs(m_path);
+}
+
+void MainModel::SaveAs(string const & path)
+{
+  CHECK(HasChanges(), ());
+  CHECK(!path.empty(), ());
+
+  search::FeatureLoader loader(m_index);
+
+  string contents;
+  search::Sample::SerializeToJSON(m_contexts.MakeSamples(loader), contents);
+
+  {
+    ofstream ofs(path);
+    if (!ofs)
+    {
+      m_view->ShowError("Can't open file: " + path);
+      return;
+    }
+    copy(contents.begin(), contents.end(), ostreambuf_iterator<char>(ofs));
+  }
+
+  m_contexts.ApplyEdits();
+  m_path = path;
 }
 
 void MainModel::OnSampleSelected(int index)
@@ -83,7 +120,8 @@ void MainModel::OnSampleSelected(int index)
 
   if (context.m_initialized)
   {
-    OnResults(timestamp, index, context.m_results, context.m_edits.GetRelevances());
+    OnResults(timestamp, index, context.m_results, context.m_edits.GetRelevances(),
+              context.m_goldenMatching, context.m_actualMatching);
     return;
   }
 
@@ -98,19 +136,17 @@ void MainModel::OnSampleSelected(int index)
     params.SetPosition(latLon.lat, latLon.lon);
 
     params.m_onResults = [this, index, sample, timestamp](search::Results const & results) {
-      std::vector<Relevance> relevances;
+      vector<Relevance> relevances;
+      vector<size_t> goldenMatching;
+      vector<size_t> actualMatching;
 
       if (results.IsEndedNormal())
       {
-        search::Matcher matcher(m_index);
+        search::FeatureLoader loader(m_index);
+        search::Matcher matcher(loader);
 
-        std::vector<search::Result> const actual(results.begin(), results.end());
-        std::vector<size_t> goldenMatching;
-        {
-          std::vector<size_t> actualMatching;
-          matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
-        }
-
+        vector<search::Result> const actual(results.begin(), results.end());
+        matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
         relevances.assign(actual.size(), Relevance::Irrelevant);
         for (size_t i = 0; i < goldenMatching.size(); ++i)
         {
@@ -119,25 +155,27 @@ void MainModel::OnSampleSelected(int index)
         }
       }
 
-      GetPlatform().RunOnGuiThread([this, timestamp, index, results, relevances]() {
-        OnResults(timestamp, index, results, relevances);
-      });
+      GetPlatform().RunOnGuiThread(bind(&MainModel::OnResults, this, timestamp, index, results,
+                                        relevances, goldenMatching, actualMatching));
     };
 
     m_queryHandle = engine.Search(params, sample.m_viewport);
   }
 }
 
-void MainModel::OnUpdate(size_t index)
+bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
+
+void MainModel::OnUpdate(size_t index, Edits::Update const & update)
 {
   CHECK_LESS(index, m_contexts.Size(), ());
   auto & context = m_contexts[index];
-  m_view->OnSampleChanged(index, context.HasChanges());
+  m_view->OnSampleChanged(index, update, context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 }
 
 void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results const & results,
-                          std::vector<Relevance> const & relevances)
+                          vector<Relevance> const & relevances, vector<size_t> goldenMatching,
+                          vector<size_t> actualMatching)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
 
@@ -156,9 +194,11 @@ void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results cons
   {
     context.m_results = results;
     context.m_edits.ResetRelevances(relevances);
+    context.m_goldenMatching = goldenMatching;
+    context.m_actualMatching = actualMatching;
     context.m_initialized = true;
   }
-  m_view->OnSampleChanged(index, context.HasChanges());
+  m_view->OnSampleChanged(index, Edits::Update::AllRelevancesUpdate(), context.HasChanges());
   m_view->EnableSampleEditing(index, context.m_edits);
 }
 

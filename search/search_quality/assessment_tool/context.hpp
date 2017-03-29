@@ -11,6 +11,11 @@
 #include <string>
 #include <vector>
 
+namespace search
+{
+class FeatureLoader;
+}
+
 struct Context
 {
   explicit Context(Edits::OnUpdate onUpdate) : m_edits(onUpdate) {}
@@ -18,9 +23,19 @@ struct Context
   bool HasChanges() const { return m_initialized && m_edits.HasChanges(); }
   void Clear();
 
+  // Makes sample in accordance with uncommited edits.
+  search::Sample MakeSample(search::FeatureLoader & loader) const;
+
+  // Commits all edits.
+  void ApplyEdits();
+
   search::Sample m_sample;
   search::Results m_results;
   Edits m_edits;
+
+  std::vector<size_t> m_goldenMatching;
+  std::vector<size_t> m_actualMatching;
+
   bool m_initialized = false;
 };
 
@@ -48,7 +63,7 @@ public:
     ContextList const * m_contexts = nullptr;
   };
 
-  using OnUpdate = std::function<void(size_t index)>;
+  using OnUpdate = std::function<void(size_t index, Edits::Update const & update)>;
 
   explicit ContextList(OnUpdate onUpdate);
 
@@ -59,6 +74,12 @@ public:
   Context const & operator[](size_t i) const { return m_contexts[i]; }
 
   bool HasChanges() const { return m_numChanges != 0; }
+
+  // Generates search samples in accordance with uncommited edits.
+  std::vector<search::Sample> MakeSamples(search::FeatureLoader & loader) const;
+
+  // Commits all edits.
+  void ApplyEdits();
 
 private:
   std::vector<Context> m_contexts;

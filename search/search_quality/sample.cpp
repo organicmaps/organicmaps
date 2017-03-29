@@ -2,6 +2,10 @@
 
 #include "search/search_quality/helpers.hpp"
 
+#include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
+
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -51,6 +55,22 @@ struct FreeDeletor
 
 namespace search
 {
+// static
+Sample::Result Sample::Result::Build(FeatureType & ft, Relevance relevance)
+{
+  Sample::Result r;
+  r.m_pos = feature::GetCenter(ft);
+  {
+    string name;
+    ft.GetReadableName(name);
+    r.m_name = strings::MakeUniString(name);
+  }
+  r.m_houseNumber = ft.GetHouseNumber();
+  r.m_types = feature::TypesHolder(ft).ToObjectNames();
+  r.m_relevance = relevance;
+  return r;
+}
+
 bool Sample::Result::operator<(Sample::Result const & rhs) const
 {
   if (m_pos != rhs.m_pos)

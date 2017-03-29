@@ -23,6 +23,7 @@ HEADERS += \
     emitter.hpp \
     engine.hpp \
     everywhere_search_params.hpp \
+    feature_loader.hpp \
     feature_offset_match.hpp \
     features_filter.hpp \
     features_layer.hpp \
@@ -90,6 +91,7 @@ SOURCES += \
     dummy_rank_table.cpp \
     editor_delegate.cpp \
     engine.cpp \
+    feature_loader.cpp \
     features_filter.cpp \
     features_layer.cpp \
     features_layer_matcher.cpp \

@@ -59,6 +59,8 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
   }
 
   setLayout(mainLayout);
+
+  Clear();
 }
 
 void SampleView::SetContents(search::Sample const & sample)
@@ -85,4 +87,14 @@ void SampleView::EnableEditing(Edits & edits)
   CHECK_EQUAL(m_results->Size(), numRelevances, ());
   for (size_t i = 0; i < numRelevances; ++i)
     m_results->Get(i).EnableEditing(Edits::RelevanceEditor(*m_edits, i));
+}
+
+void SampleView::Update(Edits::Update const & update) { m_results->Update(update); }
+
+void SampleView::Clear()
+{
+  m_query->setText(QString());
+  m_langs->Select("default");
+  m_results->Clear();
+  m_edits = nullptr;
 }

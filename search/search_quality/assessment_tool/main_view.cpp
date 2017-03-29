@@ -25,6 +25,11 @@
 
 using Relevance = search::Sample::Result::Relevance;
 
+namespace
+{
+char const kJSON[] = "JSON files (*.json)";
+}  // namespace
+
 MainView::MainView(Framework & framework) : m_framework(framework)
 {
   QDesktopWidget const * desktop = QApplication::desktop();
@@ -48,6 +53,7 @@ MainView::~MainView()
 void MainView::SetSamples(ContextList::SamplesSlice const & samples)
 {
   m_samplesView->SetSamples(samples);
+  m_sampleView->Clear();
 }
 
 void MainView::ShowSample(size_t index, search::Sample const & sample, bool hasEdits)
@@ -57,7 +63,7 @@ void MainView::ShowSample(size_t index, search::Sample const & sample, bool hasE
   m_sampleView->SetContents(sample);
   m_sampleView->show();
 
-  OnSampleChanged(index, hasEdits);
+  OnSampleChanged(index, Edits::Update::AllRelevancesUpdate(), hasEdits);
 }
 
 void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
@@ -65,15 +71,16 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
   m_sampleView->ShowResults(begin, end);
 }
 
-void MainView::OnSampleChanged(size_t index, bool hasEdits)
+void MainView::OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits)
 {
-  if (m_samplesView->IsSelected(index))
-  {
-    if (hasEdits)
-      m_sampleDock->setWindowTitle(tr("Sample *"));
-    else
-      m_sampleDock->setWindowTitle(tr("Sample"));
-  }
+  m_samplesView->OnUpdate(index);
+  if (!m_samplesView->IsSelected(index))
+    return;
+  if (hasEdits)
+    m_sampleDock->setWindowTitle(tr("Sample *"));
+  else
+    m_sampleDock->setWindowTitle(tr("Sample"));
+  m_sampleView->Update(update);
 }
 
 void MainView::OnSamplesChanged(bool hasEdits)
@@ -82,6 +89,8 @@ void MainView::OnSamplesChanged(bool hasEdits)
     m_samplesDock->setWindowTitle("Samples *");
   else
     m_samplesDock->setWindowTitle("Samples");
+  m_save->setEnabled(hasEdits);
+  m_saveAs->setEnabled(hasEdits);
 }
 
 void MainView::EnableSampleEditing(size_t index, Edits & edits)
@@ -113,11 +122,29 @@ void MainView::InitMenuBar()
   auto * fileMenu = bar->addMenu(tr("&File"));
 
   {
-    auto * open = new QAction(tr("&Open queries..."), this /* parent */);
+    auto * open = new QAction(tr("&Open samples..."), this /* parent */);
     open->setShortcuts(QKeySequence::Open);
-    open->setStatusTip(tr("Open the file with queries for assessment"));
+    open->setStatusTip(tr("Open the file with samples for assessment"));
     connect(open, &QAction::triggered, this, &MainView::Open);
     fileMenu->addAction(open);
+  }
+
+  {
+    m_save = new QAction(tr("Save samples"), this /* parent */);
+    m_save->setShortcuts(QKeySequence::Save);
+    m_save->setStatusTip(tr("Save the file with assessed samples"));
+    m_save->setEnabled(false);
+    connect(m_save, &QAction::triggered, this, &MainView::Save);
+    fileMenu->addAction(m_save);
+  }
+
+  {
+    m_saveAs = new QAction(tr("Save samples as..."), this /* parent */);
+    m_saveAs->setShortcuts(QKeySequence::SaveAs);
+    m_saveAs->setStatusTip(tr("Save the file with assessed samples"));
+    m_saveAs->setEnabled(false);
+    connect(m_saveAs, &QAction::triggered, this, &MainView::SaveAs);
+    fileMenu->addAction(m_saveAs);
   }
 
   fileMenu->addSeparator();
@@ -185,13 +212,24 @@ void MainView::Open()
 {
   CHECK(m_model, ());
 
-  auto const file = QFileDialog::getOpenFileName(this, tr("Open samples..."), QString(),
-                                                 tr("JSON files (*.json)"))
+  auto const file = QFileDialog::getOpenFileName(this /* parent */, tr("Open samples..."),
+                                                 QString() /* dir */, tr(kJSON))
                         .toStdString();
   if (file.empty())
     return;
 
   m_model->Open(file);
+}
+
+void MainView::Save() { m_model->Save(); }
+
+void MainView::SaveAs()
+{
+  auto const file = QFileDialog::getSaveFileName(this /* parent */, tr("Save samples as..."),
+                                                 QString() /* dir */, tr(kJSON))
+                        .toStdString();
+  if (!file.empty())
+    m_model->SaveAs(file);
 }
 
 QDockWidget * MainView::CreateDock(std::string const & title, QWidget & widget)
