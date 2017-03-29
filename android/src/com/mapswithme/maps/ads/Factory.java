@@ -11,4 +11,11 @@ public class Factory
   {
     return new FacebookAdsLoader(cacheListener, tracker);
   }
+
+  @NonNull
+  public static NativeAdLoader createMyTargetAdLoader(@Nullable OnAdCacheModifiedListener cacheListener,
+                                                      @Nullable AdTracker tracker)
+  {
+    return new MyTargetAdsLoader(cacheListener, tracker);
+  }
 }

@@ -1,20 +1,16 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
-import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
-import ru.mail.android.mytarget.core.net.Hosts;
-import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
-import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
+import com.my.target.nativeads.NativeAppwallAd;
+import com.my.target.nativeads.banners.NativeAppwallBanner;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -43,11 +39,6 @@ public final class MytargetHelper
   {
     void onNoAds();
     void onDataReady(@Nullable T data);
-  }
-
-  static
-  {
-    Hosts.setMyComHost();
   }
 
   public MytargetHelper(final @NonNull Listener<Void> listener)

@@ -35,9 +35,9 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.my.target.nativeads.banners.NativeAppwallBanner;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 import java.util.ArrayList;
 import java.util.Collection;

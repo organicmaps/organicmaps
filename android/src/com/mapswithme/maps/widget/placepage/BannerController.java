@@ -269,6 +269,7 @@ final class BannerController
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
     {
+      LOGGER.d(TAG, "onAdLoaded, title = " + ad.getTitle() + " provider = " + ad.getProvider());
       if (mBanner == null || TextUtils.isEmpty(mBanner.getId()))
         return;
 

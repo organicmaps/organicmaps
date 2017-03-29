@@ -10,27 +10,21 @@ import com.mapswithme.maps.R;
 import java.util.ArrayList;
 import java.util.List;
 
-class FacebookNativeAd implements MwmNativeAd
+class FacebookNativeAd extends CachedMwmNativeAd
 {
   @NonNull
   private final NativeAd mAd;
-  private final long mLoadedTime;
 
   FacebookNativeAd(@NonNull NativeAd ad, long timestamp)
   {
-    mLoadedTime = timestamp;
+    super(timestamp);
     mAd = ad;
   }
 
   FacebookNativeAd(@NonNull NativeAd ad)
   {
-    mLoadedTime = 0;
+    super(0);
     mAd = ad;
-  }
-
-  long getLoadedTime()
-  {
-    return mLoadedTime;
   }
 
   @NonNull
