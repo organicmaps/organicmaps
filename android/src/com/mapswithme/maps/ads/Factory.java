@@ -18,4 +18,9 @@ public class Factory
   {
     return new MyTargetAdsLoader(cacheListener, tracker);
   }
+
+  public static BannerKey createBannerKey(@NonNull String provider, @NonNull String bannerId)
+  {
+    return new BannerKey(provider, bannerId);
+  }
 }

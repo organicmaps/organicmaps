@@ -16,7 +16,7 @@ import net.jcip.annotations.NotThreadSafe;
 import java.util.EnumSet;
 
 @NotThreadSafe
-class FacebookAdsLoader extends CachedNativeAdLoader implements AdListener
+class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = FacebookAdsLoader.class.getSimpleName();
@@ -33,9 +33,7 @@ class FacebookAdsLoader extends CachedNativeAdLoader implements AdListener
     LOGGER.w(TAG, "A error '" + adError.getErrorMessage() + "' is occurred while loading " +
                   "an ad for banner id '" + ad.getPlacementId() + "'");
 
-    onError(ad.getPlacementId());
-    if (getAdListener() != null)
-      getAdListener().onError(new FacebookNativeAd((NativeAd)ad), new FacebookAdError(adError));
+    onError(ad.getPlacementId(), new FacebookNativeAd((NativeAd)ad), new FacebookAdError(adError));
   }
 
   @Override
@@ -52,11 +50,18 @@ class FacebookAdsLoader extends CachedNativeAdLoader implements AdListener
   }
 
   @Override
-  void requestAdForBannerId(@NonNull Context context, @NonNull String bannerId)
+  void loadAdFromProvider(@NonNull Context context, @NonNull String bannerId)
   {
     NativeAd ad = new NativeAd(context, bannerId);
     ad.setAdListener(this);
     LOGGER.d(TAG, "Loading is started");
     ad.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
+  }
+
+  @NonNull
+  @Override
+  public String getProvider()
+  {
+    return Providers.FACEBOOK;
   }
 }

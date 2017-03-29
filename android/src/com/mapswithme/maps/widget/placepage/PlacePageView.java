@@ -384,7 +384,7 @@ public class PlacePageView extends RelativeLayout
     if (bannerView != null)
     {
       DefaultAdTracker tracker = new DefaultAdTracker();
-      NativeAdLoader loader = Factory.createMyTargetAdLoader(tracker, tracker);
+      NativeAdLoader loader = Factory.createFacebookAdLoader(tracker, tracker);
       mBannerController = new BannerController(bannerView, this, loader, tracker);
     }
 

@@ -68,6 +68,6 @@ class FacebookNativeAd extends CachedMwmNativeAd
   @Override
   public String getProvider()
   {
-    return "FB";
+    return Providers.FACEBOOK;
   }
 }

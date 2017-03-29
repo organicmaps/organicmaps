@@ -28,4 +28,10 @@ public interface NativeAdLoader
    * @return <code>true</code> if loading is in a progress, otherwise - <code>false</code>.
    */
   boolean isAdLoading(@NonNull String bannerId);
+
+  /**
+   * Returns a name of native ad provider.
+   */
+  @NonNull
+  String getProvider();
 }

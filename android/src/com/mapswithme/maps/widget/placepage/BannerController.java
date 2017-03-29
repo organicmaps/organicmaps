@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.AdTracker;
+import com.mapswithme.maps.ads.Factory;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
@@ -214,9 +215,9 @@ final class BannerController
       return;
 
     if (isVisible)
-      mAdTracker.onViewShown(banner.getId());
+      mAdTracker.onViewShown(Factory.createBannerKey(mAdsLoader.getProvider(), banner.getId()));
     else
-      mAdTracker.onViewHidden(banner.getId());
+      mAdTracker.onViewHidden(Factory.createBannerKey(mAdsLoader.getProvider(), banner.getId()));
   }
 
   void onChangedVisibility(boolean isVisible)
@@ -284,7 +285,7 @@ final class BannerController
       loadIconAndOpenIfNeeded(ad, mBanner);
 
       if (mAdTracker != null)
-        mAdTracker.onContentObtained(mBanner.getId());
+        mAdTracker.onContentObtained(Factory.createBannerKey(mAdsLoader.getProvider(), mBanner.getId()));
 
       if (mListener != null && mOpened)
         mListener.onSizeChanged();

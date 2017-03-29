@@ -59,6 +59,6 @@ class MyTargetNativeAd extends CachedMwmNativeAd
   @Override
   public String getProvider()
   {
-    return "MY_TARGET";
+    return Providers.MY_TARGET;
   }
 }

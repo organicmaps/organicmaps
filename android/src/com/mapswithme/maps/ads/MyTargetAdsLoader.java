@@ -9,8 +9,10 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.my.target.ads.CustomParams;
 import com.my.target.nativeads.NativeAd;
+import net.jcip.annotations.NotThreadSafe;
 
-class MyTargetAdsLoader extends CachedNativeAdLoader implements NativeAd.NativeAdListener
+@NotThreadSafe
+class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.NativeAdListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MyTargetAdsLoader.class.getSimpleName();
@@ -24,12 +26,11 @@ class MyTargetAdsLoader extends CachedNativeAdLoader implements NativeAd.NativeA
   }
 
   @Override
-  void requestAdForBannerId(@NonNull Context context, @NonNull String bannerId)
+  void loadAdFromProvider(@NonNull Context context, @NonNull String bannerId)
   {
     NativeAd ad = new NativeAd(SLOT, context);
     ad.setListener(this);
-    //TODO: use parametr banner Id
-    ad.getCustomParams().setCustomParam(ZONE_KEY_PARAMETER, "3");
+    ad.getCustomParams().setCustomParam(ZONE_KEY_PARAMETER, bannerId);
     ad.load();
   }
 
@@ -47,9 +48,7 @@ class MyTargetAdsLoader extends CachedNativeAdLoader implements NativeAd.NativeA
     LOGGER.w(TAG, "onNoAd s = " + s);
     CustomParams params = nativeAd.getCustomParams();
     String bannerId = params.getData().get(ZONE_KEY_PARAMETER);
-    onError(bannerId);
-    if (getAdListener() != null)
-      getAdListener().onError(new MyTargetNativeAd(nativeAd, 0),  new MyTargetAdError(s));
+    onError(bannerId, new MyTargetNativeAd(nativeAd, 0), new MyTargetAdError(s));
   }
 
   @Override
@@ -58,5 +57,12 @@ class MyTargetAdsLoader extends CachedNativeAdLoader implements NativeAd.NativeA
     CustomParams params = nativeAd.getCustomParams();
     String bannerId = params.getData().get(ZONE_KEY_PARAMETER);
     onAdClicked(bannerId);
+  }
+
+  @NonNull
+  @Override
+  public String getProvider()
+  {
+    return Providers.MY_TARGET;
   }
 }

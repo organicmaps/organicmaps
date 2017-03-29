@@ -14,35 +14,35 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private final static String TAG = DefaultAdTracker.class.getSimpleName();
   private final static int IMPRESSION_TIME_MS = 2500;
-  private final static Map<String, TrackInfo> TRACKS = new HashMap<>();
+  private final static Map<BannerKey, TrackInfo> TRACKS = new HashMap<>();
 
   @Override
-  public void onViewShown(@NonNull String bannerId)
+  public void onViewShown(@NonNull BannerKey key)
   {
-    LOGGER.d(TAG, "onViewShown bannerId = " + bannerId);
-    TrackInfo info = TRACKS.get(bannerId);
+    LOGGER.d(TAG, "onViewShown bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info == null)
     {
       info = new TrackInfo();
-      TRACKS.put(bannerId, info);
+      TRACKS.put(key, info);
     }
     info.setVisible(true);
   }
 
   @Override
-  public void onViewHidden(@NonNull String bannerId)
+  public void onViewHidden(@NonNull BannerKey key)
   {
-    LOGGER.d(TAG, "onViewHidden bannerId = " + bannerId);
-    TrackInfo info = TRACKS.get(bannerId);
+    LOGGER.d(TAG, "onViewHidden bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info != null)
       info.setVisible(false);
   }
 
   @Override
-  public void onContentObtained(@NonNull String bannerId)
+  public void onContentObtained(@NonNull BannerKey key)
   {
-    LOGGER.d(TAG, "onContentObtained bannerId = " + bannerId);
-    TrackInfo info = TRACKS.get(bannerId);
+    LOGGER.d(TAG, "onContentObtained bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info == null)
       throw new AssertionError("A track info must be put in a cache before a content is obtained");
 
@@ -50,25 +50,25 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   }
 
   @Override
-  public boolean isImpressionGood(@NonNull String bannerId)
+  public boolean isImpressionGood(@NonNull BannerKey key)
   {
-    TrackInfo info = TRACKS.get(bannerId);
+    TrackInfo info = TRACKS.get(key);
     return info != null && info.getShowTime() > IMPRESSION_TIME_MS;
   }
 
   @Override
-  public void onRemoved(@NonNull String bannerId)
+  public void onRemoved(@NonNull BannerKey key)
   {
-    TRACKS.remove(bannerId);
+    TRACKS.remove(key);
   }
 
   @Override
-  public void onPut(@NonNull String bannerId)
+  public void onPut(@NonNull BannerKey key)
   {
-    TrackInfo info = TRACKS.get(bannerId);
+    TrackInfo info = TRACKS.get(key);
     if (info == null)
     {
-      TRACKS.put(bannerId, new TrackInfo());
+      TRACKS.put(key, new TrackInfo());
       return;
     }
 

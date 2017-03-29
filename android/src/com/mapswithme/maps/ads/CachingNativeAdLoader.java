@@ -7,26 +7,28 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import net.jcip.annotations.NotThreadSafe;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-abstract class CachedNativeAdLoader extends BaseNativeAdLoader
+@NotThreadSafe
+abstract class CachingNativeAdLoader extends BaseNativeAdLoader
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = CachedNativeAdLoader.class.getSimpleName();
+  private static final String TAG = CachingNativeAdLoader.class.getSimpleName();
   private static final long REQUEST_INTERVAL_MS = 30 * 1000;
-  private static final Map<String, CachedMwmNativeAd> CACHE = new HashMap<>();
-  private static final Set<String> PENDING_REQUESTS = new HashSet<>();
+  private static final Map<BannerKey, CachedMwmNativeAd> CACHE = new HashMap<>();
+  private static final Set<BannerKey> PENDING_REQUESTS = new HashSet<>();
 
   @Nullable
-  private AdTracker mTracker;
+  private final AdTracker mTracker;
   @Nullable
-  private OnAdCacheModifiedListener mCacheListener;
+  private final OnAdCacheModifiedListener mCacheListener;
 
-  CachedNativeAdLoader(@Nullable AdTracker tracker, @Nullable OnAdCacheModifiedListener listener)
+  CachingNativeAdLoader(@Nullable AdTracker tracker, @Nullable OnAdCacheModifiedListener listener)
   {
     mTracker = tracker;
     mCacheListener = listener;
@@ -46,55 +48,61 @@ abstract class CachedNativeAdLoader extends BaseNativeAdLoader
   public void loadAd(@NonNull Context context, @NonNull String bannerId)
   {
     LOGGER.d(TAG, "Load the ad for a banner id '" + bannerId + "'");
+    final BannerKey key = new BannerKey(getProvider(), bannerId);
+    CachedMwmNativeAd cachedAd = getAdByIdFromCache(key);
 
+    if (cachedAd == null)
+    {
+      LOGGER.d(TAG, "There is no an ad in a cache");
+      loadAdInternally(context, bannerId);
+      return;
+    }
+
+    if (mTracker != null && mTracker.isImpressionGood(key)
+        && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
+    {
+      LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
+      loadAdInternally(context, bannerId);
+    }
+
+    if (getAdListener() != null)
+    {
+      LOGGER.d(TAG, "A cached ad '" + cachedAd.getTitle() + "' is set immediately");
+      getAdListener().onAdLoaded(cachedAd);
+    }
+  }
+
+  private void loadAdInternally(@NonNull Context context, @NonNull String bannerId)
+  {
     if (isAdLoading(bannerId))
     {
       LOGGER.d(TAG, "The ad request for banner id '" + bannerId + "' hasn't been completed yet.");
       return;
     }
 
-    CachedMwmNativeAd cachedAd = getAdByIdFromCache(bannerId);
+    loadAdFromProvider(context, bannerId);
+    PENDING_REQUESTS.add(new BannerKey(getProvider(), bannerId));
+  }
 
-    if (cachedAd == null)
-    {
-      LOGGER.d(TAG, "There is no an ad in a cache");
-      requestAd(context, bannerId);
-      return;
-    }
+  abstract void loadAdFromProvider(@NonNull Context context, @NonNull String bannerId);
 
-    if (mTracker != null && mTracker.isImpressionGood(bannerId)
-        && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
-    {
-      LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
-      requestAd(context, bannerId);
-    }
-
+  void onError(@NonNull String bannerId, @NonNull MwmNativeAd ad, @NonNull NativeAdError error)
+  {
+    PENDING_REQUESTS.remove(new BannerKey(getProvider(), bannerId));
     if (getAdListener() != null)
-      getAdListener().onAdLoaded(cachedAd);
-  }
-
-  private void requestAd(@NonNull Context context, @NonNull String bannerId)
-  {
-    requestAdForBannerId(context, bannerId);
-    PENDING_REQUESTS.add(bannerId);
-  }
-
-  abstract void requestAdForBannerId(@NonNull Context context, @NonNull String bannerId);
-
-  void onError(@NonNull String bannerId)
-  {
-    PENDING_REQUESTS.remove(bannerId);
+      getAdListener().onError(ad, error);
   }
 
   void onAdLoaded(@NonNull String bannerId, @NonNull CachedMwmNativeAd ad)
   {
-    LOGGER.d(TAG, "An ad for id '" + bannerId + "' is loaded");
-    PENDING_REQUESTS.remove(bannerId);
+    BannerKey key = new BannerKey(getProvider(), bannerId);
+    LOGGER.d(TAG, "A new ad for id '" + key + "' is loaded, title = " + ad.getTitle());
+    PENDING_REQUESTS.remove(key);
 
-    boolean isCacheWasEmpty = isCacheEmptyForId(bannerId);
+    boolean isCacheWasEmpty = isCacheEmptyForId(key);
 
-    LOGGER.d(TAG, "Put the ad to cache");
-    putInCache(bannerId, ad);
+    LOGGER.d(TAG, "Put the ad '" + ad.getTitle() + "' to cache, isCacheWasEmpty = " + isCacheWasEmpty);
+    putInCache(key, ad);
 
     if (isCacheWasEmpty && getAdListener() != null)
       getAdListener().onAdLoaded(ad);
@@ -104,7 +112,7 @@ abstract class CachedNativeAdLoader extends BaseNativeAdLoader
   {
     if (getAdListener() != null)
     {
-      MwmNativeAd nativeAd = getAdByIdFromCache(bannerId);
+      MwmNativeAd nativeAd = getAdByIdFromCache(new BannerKey(getProvider(), bannerId));
       if (nativeAd == null)
         throw new AssertionError("A facebook native ad must be presented in a cache when it's clicked!");
 
@@ -120,17 +128,17 @@ abstract class CachedNativeAdLoader extends BaseNativeAdLoader
    */
   public boolean isAdLoading(@NonNull String bannerId)
   {
-    return PENDING_REQUESTS.contains(bannerId);
+    return PENDING_REQUESTS.contains(new BannerKey(getProvider(), bannerId));
   }
 
-  private void putInCache(@NonNull String key, @NonNull CachedMwmNativeAd value)
+  private void putInCache(@NonNull BannerKey key, @NonNull CachedMwmNativeAd value)
   {
     CACHE.put(key, value);
     if (mCacheListener != null)
       mCacheListener.onPut(key);
   }
 
-  private void removeFromCache(@NonNull String key, @NonNull CachedMwmNativeAd value)
+  private void removeFromCache(@NonNull BannerKey key, @NonNull CachedMwmNativeAd value)
   {
     CACHE.remove(key);
     if (mCacheListener != null)
@@ -138,13 +146,13 @@ abstract class CachedNativeAdLoader extends BaseNativeAdLoader
   }
 
   @Nullable
-  private CachedMwmNativeAd getAdByIdFromCache(@NonNull String bannerId)
+  private CachedMwmNativeAd getAdByIdFromCache(@NonNull BannerKey key)
   {
-    return CACHE.get(bannerId);
+    return CACHE.get(key);
   }
 
-  private boolean isCacheEmptyForId(@NonNull String bannerId)
+  private boolean isCacheEmptyForId(@NonNull BannerKey key)
   {
-    return getAdByIdFromCache(bannerId) == null;
+    return getAdByIdFromCache(key) == null;
   }
 }
