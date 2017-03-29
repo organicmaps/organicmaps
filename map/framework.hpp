@@ -195,6 +195,8 @@ protected:
 
   void CallDrapeFunction(TDrapeFunction const & fn) const;
 
+  void InitTransliteration();
+
 public:
   Framework();
   virtual ~Framework();

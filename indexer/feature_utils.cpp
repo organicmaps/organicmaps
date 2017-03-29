@@ -37,22 +37,18 @@ bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
 
   string srcName;
   for (auto const code : mwmLangCodes)
-  {
-    if (src.GetString(code, srcName))
-    {
-      out = Transliteration::GetInstance().Transliterate(srcName, code);
-      if (!out.empty())
-        return true;
-    }
-  }
+    if (src.GetString(code, srcName) && Transliteration::Instance().Transliterate(srcName, code, out))
+      return true;
+
+  // If default name is available, interpret it as a name for the first mwm language.
   if (!mwmLangCodes.empty() && src.GetString(StringUtf8Multilang::kDefaultCode, srcName))
-    out = Transliteration::GetInstance().Transliterate(srcName, mwmLangCodes[0]);
-  return !out.empty();
+    return Transliteration::Instance().Transliterate(srcName, mwmLangCodes[0], out);
+
+  return false;
 }
 
 bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
-  out.clear();
   auto bestIndex = priorityList.size();
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
@@ -72,7 +68,6 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
       return false;
 
     findAndSet(priorityList, code, name, bestIndex, out);
-
     return true;
   });
 
@@ -83,7 +78,7 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
     out = out.substr(0, out.find_first_of(','));
   }
 
-  return !out.empty();
+  return bestIndex < priorityList.size();
 }
 }  // namespace
 
@@ -236,11 +231,12 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
   if (src.IsEmpty())
     return;
 
-  if (!GetBestName(src, {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode}, primary) &&
-      allowTranslit)
-  {
+  vector<int8_t> const primaryCodes = {deviceLang,
+                                       StrUtf8::kInternationalCode,
+                                       StrUtf8::kEnglishCode};
+
+  if (!GetBestName(src, primaryCodes, primary) && allowTranslit)
     GetTransliteratedName(regionData, src, primary);
-  }
 
   vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
                                    StrUtf8::kInternationalCode};
@@ -276,7 +272,7 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
     codes = {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
 
   if (GetBestName(src, codes, out))
-      return;
+    return;
 
   if (allowTranslit && GetTransliteratedName(regionData, src, out))
     return;
@@ -290,5 +286,4 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
 
   GetMwmLangName(regionData, src, out);
 }
-
 } // namespace feature

@@ -15,6 +15,7 @@ set(
   gps_track_test.cpp
   kmz_unarchive_test.cpp
   mwm_url_tests.cpp
+  transliteration_test.cpp
   working_time_tests.cpp
 )
 

@@ -71,8 +71,8 @@ set(
   succinct_mapper.hpp
   traffic.cpp
   traffic.hpp
-  transliterator.cpp
-  transliterator.hpp
+  transliteration.cpp
+  transliteration.hpp
   uri.cpp
   uri.hpp
   url_encode.hpp

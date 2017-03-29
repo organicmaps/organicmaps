@@ -18,8 +18,8 @@ namespace feature
   /// Primary name using priority:
   /// - device language name;
   /// - international name;
-  /// - english name.
-  /// - transliterated name.
+  /// - english name;
+  /// - transliterated name (if allowed).
   /// Secondary name using priority:
   /// - default name;
   /// - international name;
@@ -35,13 +35,13 @@ namespace feature
   /// - default name;
   /// - international name;
   /// - english name;
-  /// - transliterated name;
+  /// - transliterated name (if allowed);
   /// - country language name.
   /// When MWM does not contain user's language, the priority is the following:
   /// - device language name;
   /// - international name;
   /// - english name;
-  /// - transliterated name;
+  /// - transliterated name (if allowed);
   /// - default name;
   /// - country language name.
   void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & src,

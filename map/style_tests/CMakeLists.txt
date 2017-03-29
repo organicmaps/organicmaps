@@ -25,11 +25,11 @@ omim_link_libraries(
   oauthcpp
   platform
   jansson
-  icu
   geometry
   coding
   base
   protobuf
+  icu
   stats_client
   ${LIBZ}
 )

@@ -14,11 +14,11 @@ class Transliteration
 public:
   ~Transliteration();
 
-  static Transliteration & GetInstance();
+  static Transliteration & Instance();
 
   void Init(std::string const & icuDataDir);
 
-  std::string Transliterate(std::string const & str, int8_t langCode) const;
+  bool Transliterate(std::string const & str, int8_t langCode, std::string & out) const;
 
 private:
   Transliteration() = default;

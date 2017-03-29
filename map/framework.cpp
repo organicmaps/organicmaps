@@ -131,7 +131,9 @@ char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 
+#if defined(OMIM_OS_ANDROID)
 char const kICUDataFile[] = "icudt57l.dat";
+#endif
 
 double const kDistEqualQueryMeters = 100.0;
 double const kLargeFontsScaleFactor = 1.6;
@@ -195,7 +197,7 @@ string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi
 {
   search::ReverseGeocoder const coder(index);
   string hotelName;
-  ft.GetReadableName(hotelName);
+  ft.GetReadableName(false /* allowTranslit */, hotelName);
 
   auto const lang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   string city = cityFinder.GetCityName(ft.GetCenter(), lang);
@@ -498,16 +500,8 @@ Framework::Framework()
 
   m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
 
-#ifdef OMIM_OS_ANDROID
-  ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
-                           std::string("assets/") + kICUDataFile,
-                           GetPlatform().WritableDir() + kICUDataFile);
-
-  Transliteration::GetInstance().Init(GetPlatform().WritableDir());
-#else
-  Transliteration::GetInstance().Init(GetPlatform().ResourcesDir());
-#endif
-
+  InitTransliteration();
+  LOG(LDEBUG, ("Transliterators initialized"));
 }
 
 Framework::~Framework()
@@ -1432,6 +1426,25 @@ void Framework::InitSearchEngine()
   }
 }
 
+void Framework::InitTransliteration()
+{
+#if defined(OMIM_OS_ANDROID)
+  try
+  {
+    ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
+                             std::string("assets/") + kICUDataFile,
+                             GetPlatform().WritableDir() + kICUDataFile);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.what()));
+  }
+  Transliteration::GetInstance().Init(GetPlatform().WritableDir());
+#else
+  Transliteration::Instance().Init(GetPlatform().ResourcesDir());
+#endif
+}
+
 storage::TCountryId Framework::GetCountryIndex(m2::PointD const & pt) const
 {
   return m_infoGetter->GetRegionCountryId(pt);
@@ -2135,7 +2148,6 @@ void Framework::SetMapSelectionListeners(TActivateMapSelectionFn const & activat
 void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
                                      place_page::Info const & info)
 {
-
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
