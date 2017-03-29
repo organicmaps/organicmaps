@@ -199,7 +199,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
     SUBDIRS *= routing_integration_tests
 
     routing_consistency_tests.subdir = routing/routing_consistency_tests
-    routing_consistency_tests.depends = $$MapDepLibs routing
+    routing_consistency_tests.depends = $$MapDepLibs routing generator
     SUBDIRS *= routing_consistency_tests
 
     srtm_coverage_checker.subdir = generator/srtm_coverage_checker

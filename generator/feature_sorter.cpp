@@ -540,9 +540,11 @@ namespace feature
           fb.GetMetadata().Serialize(*w);
         }
 
-        uint64_t const osmID = fb.GetWayIDForRouting();
-        if (osmID != 0)
-          m_osm2ft.Add(make_pair(osmID, featureId));
+        if (!fb.GetOsmIds().empty())
+        {
+          osm::Id const osmId = fb.GetMostGenericOsmId();
+          m_osm2ft.Add(make_pair(osmId, featureId));
+        }
       };
       return featureId;
     }

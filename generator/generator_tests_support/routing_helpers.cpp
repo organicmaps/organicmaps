@@ -3,6 +3,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/gen_mwm_info.hpp"
+#include "generator/osm_id.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -16,7 +17,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string con
 {
   strings::SimpleTokenizer lineIter(mappingContent, "\n\r" /* line delimiters */);
 
-  gen::Accumulator<pair<uint64_t, uint32_t>> osmIdsToFeatureIds;
+  gen::Accumulator<pair<osm::Id, uint32_t>> osmIdsToFeatureIds;
   for (; lineIter; ++lineIter)
   {
     strings::SimpleTokenizer idIter(*lineIter, ", \t" /* id delimiters */);
@@ -29,7 +30,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string con
     uint32_t featureId = 0;
     TEST(idIter, ());
     TEST(strings::to_uint(*idIter, featureId), ("Cannot convert to uint:", *idIter));
-    osmIdsToFeatureIds.Add(make_pair(osmId, featureId));
+    osmIdsToFeatureIds.Add(make_pair(osm::Id::Way(osmId), featureId));
     ++idIter;
     TEST(!idIter, ());
   }

@@ -120,7 +120,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
       auto const & startSeg = data.m_segments.front();
       auto const & endSeg = data.m_segments.back();
       // Check if we have geometry for our candidate.
-      if (osm2ft.GetFeatureID(startSeg.wayId) || osm2ft.GetFeatureID(endSeg.wayId))
+      if (osm2ft.GetRoadFeatureID(startSeg.wayId) || osm2ft.GetRoadFeatureID(endSeg.wayId))
       {
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
@@ -177,7 +177,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
           {
             FeatureType ft;
             Index::FeaturesLoaderGuard loader(index, mwmId);
-            if (loader.GetFeatureByIndex(osm2ft.GetFeatureID(startSeg.wayId), ft))
+            if (loader.GetFeatureByIndex(osm2ft.GetRoadFeatureID(startSeg.wayId), ft))
             {
               LOG(LINFO,
                   ("Double border intersection", wgsIntersection, "rank:", GetWarningRank(ft)));
@@ -313,7 +313,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       ++all;
 
       // now need to determine feature id and segments in it
-      uint32_t const fID = osm2ft.GetFeatureID(seg.wayId);
+      uint32_t const fID = osm2ft.GetRoadFeatureID(seg.wayId);
       if (fID == 0)
       {
         LOG(LWARNING, ("No feature id for way:", seg.wayId));

@@ -28,8 +28,9 @@ public:
   /// For debug output
   string Type() const;
 
-  bool operator<(Id const & other) const { return m_encodedId < other.m_encodedId; }
-  bool operator==(Id const & other) const { return m_encodedId == other.m_encodedId; }
+  inline bool operator<(Id const & other) const { return m_encodedId < other.m_encodedId; }
+  inline bool operator==(Id const & other) const { return m_encodedId == other.m_encodedId; }
+  inline bool operator!=(Id const & other) const { return !(*this == other); }
   bool operator==(uint64_t other) const { return OsmId() == other; }
 };
 

@@ -39,7 +39,10 @@ bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
   }
 
   osmIdsToFeatureIds.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
-    AddFeatureId(osmIdToFeatureId, p.second /* feature id */, p.first /* osm id */);
+    if (p.first.IsWay())
+    {
+      AddFeatureId(osmIdToFeatureId, p.second /* feature id */, p.first.OsmId() /* osm id */);
+    }
   });
 
   return true;
