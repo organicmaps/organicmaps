@@ -27,11 +27,14 @@ public:
   ~MainView() override;
 
   // View overrides:
-  void SetSamples(std::vector<search::Sample> const & samples) override;
-  void ShowSample(search::Sample const & sample) override;
+  void SetSamples(ContextList::SamplesSlice const & samples) override;
+  void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) override;
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
-  void SetResultRelevances(
-      std::vector<search::Sample::Result::Relevance> const & relevances) override;
+
+  void OnSampleChanged(size_t index, bool hasEdits) override;
+  void EnableSampleEditing(size_t index, Edits & edits) override;
+  void OnSamplesChanged(bool hasEdits) override;
+
   void ShowError(std::string const & msg) override;
 
 private Q_SLOTS:

@@ -17,7 +17,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QVBoxLayout>
 
-SampleView::SampleView(QWidget * parent) : QWidget(parent), m_edits(*this /* delegate */)
+SampleView::SampleView(QWidget * parent) : QWidget(parent)
 {
   auto * mainLayout = BuildLayoutWithoutMargins<QVBoxLayout>(this /* parent */);
 
@@ -28,10 +28,18 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent), m_edits(*this /* del
 
     m_query = new QLineEdit(this /* parent */);
     m_query->setToolTip(tr("Query text"));
+
+    // TODO (@y): enable this as soon as editing of query will be
+    // ready.
+    m_query->setEnabled(false);
     layout->addWidget(m_query);
 
     m_langs = new LanguagesList(this /* parent */);
     m_langs->setToolTip(tr("Query input language"));
+
+    // TODO (@y): enable this as soon as editing of input language
+    // will be ready.
+    m_langs->setEnabled(false);
     layout->addWidget(m_langs);
 
     mainLayout->addWidget(box);
@@ -69,13 +77,12 @@ void SampleView::ShowResults(search::Results::Iter begin, search::Results::Iter 
     m_results->Add(*it /* result */);
 }
 
-void SampleView::SetResultRelevances(std::vector<Relevance> const & relevances)
+void SampleView::EnableEditing(Edits & edits)
 {
-  CHECK_EQUAL(relevances.size(), m_results->Size(), ());
+  m_edits = &edits;
 
-  m_edits.ResetRelevances(relevances);
-  for (size_t i = 0; i < relevances.size(); ++i)
-    m_results->Get(i).EnableEditing(Edits::RelevanceEditor(m_edits, i));
+  size_t const numRelevances = m_edits->GetRelevances().size();
+  CHECK_EQUAL(m_results->Size(), numRelevances, ());
+  for (size_t i = 0; i < numRelevances; ++i)
+    m_results->Get(i).EnableEditing(Edits::RelevanceEditor(*m_edits, i));
 }
-
-void SampleView::OnUpdate() { emit EditStateUpdated(m_edits.HasChanges()); }
