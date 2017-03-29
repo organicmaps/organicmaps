@@ -3,6 +3,7 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/city_finder.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/mwm_url.hpp"
@@ -876,5 +877,7 @@ public:
   bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
 
 private:
+  std::unique_ptr<CityFinder> m_cityFinder;
+
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

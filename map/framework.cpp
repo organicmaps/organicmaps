@@ -24,6 +24,7 @@
 #include "search/everywhere_search_params.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
+#include "search/locality_finder.hpp"
 #include "search/processor_factory.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
@@ -168,6 +169,35 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
   if (auto queryHandle = handle.lock())
     queryHandle->Cancel();
   handle.reset();
+}
+
+string GetStreet(search::ReverseGeocoder const & coder, FeatureType const & ft)
+{
+  auto const & editor = osm::Editor::Instance();
+  string streetName;
+
+  if (editor.GetFeatureStatus(ft.GetID()) == osm::Editor::FeatureStatus::Created)
+  {
+    VERIFY(editor.GetEditedFeatureStreet(ft.GetID(), streetName), ("Feature is in editor."));
+    return streetName;
+  }
+  search::ReverseGeocoder::Address address;
+  coder.GetNearbyAddress(ft.GetCenter(), address);
+  return address.GetStreetName();
+}
+
+string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi,
+                            CityFinder & cityFinder, FeatureType const & ft,
+                            string const & localizedType)
+{
+  search::ReverseGeocoder const coder(index);
+  string hotelName;
+  ft.GetReadableName(hotelName);
+
+  auto const lang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  string city = cityFinder.GetCityName(ft.GetCenter(), lang);
+
+  return bookingApi.GetSearchUrl(city, GetStreet(coder, ft), hotelName, localizedType);
 }
 }  // namespace
 
@@ -462,6 +492,8 @@ Framework::Framework()
   LOG(LINFO, ("Editor initialized"));
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
+
+  m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
 }
 
 Framework::~Framework()
@@ -859,6 +891,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     auto const & url = opentable::Api::GetBookTableUrl(sponsoredId);
     info.m_sponsoredUrl = url;
     info.m_sponsoredDescriptionUrl = url;
+  }
+  else if (ftypes::IsHotelChecker::Instance()(ft))
+  {
+    info.m_bookingSearchUrl = MakeSearchBookingUrl(m_model.GetIndex(), *m_bookingApi, *m_cityFinder,
+                                                   ft, info.GetLocalizedType());
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
