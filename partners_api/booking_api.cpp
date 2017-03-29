@@ -3,6 +3,8 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/url_encode.hpp"
+
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/thread.hpp"
@@ -26,6 +28,7 @@ string const kBookingApiBaseUrl = "https://distribution-xml.booking.com/json/boo
 string const kExtendedHotelInfoBaseUrl = "https://hotels.maps.me/getDescription";
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
+string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string g_BookingUrlForTesting = "";
 
 bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & result)
@@ -284,6 +287,28 @@ string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) c
   ostringstream os;
   os << GetDescriptionUrl(baseUrl) << "&tab=4&label=hotel-" << hotelId << "_reviews";
   return os.str();
+}
+
+string Api::GetSearchUrl(string const & city, string const & street, string const & hotelName,
+                         string const & type) const
+{
+  if (city.empty() || type.empty())
+    return "";
+
+  ostringstream paramStream;
+  if (!street.empty())
+    paramStream << city << " " << street << " " << type;
+  else if (!hotelName.empty())
+    paramStream << city << " " << hotelName << " " << type;
+
+  auto const urlEncodedParams = UrlEncode(paramStream.str());
+
+  ostringstream resultStream;
+  if (!urlEncodedParams.empty())
+    resultStream << kSearchBaseUrl << "?aid=" << BOOKING_AFFILIATE_ID << ";" << "ss="
+                 << urlEncodedParams << ";";
+
+  return resultStream.str();
 }
 
 void Api::GetMinPrice(string const & hotelId, string const & currency,

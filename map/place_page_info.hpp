@@ -89,6 +89,8 @@ public:
 
   vector<string> GetRawTypes() const;
 
+  string const & GetBookingSearchUrl() const;
+
   /// Comes from API, shared links etc.
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
@@ -128,5 +130,7 @@ public:
   string m_localizedWifiString;
   /// Booking rating string
   string m_localizedRatingString;
+
+  string m_bookingSearchUrl;
 };
 }  // namespace place_page
