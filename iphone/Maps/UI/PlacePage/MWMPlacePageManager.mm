@@ -192,26 +192,26 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatSource}];
-  [self close];
   [[MWMRouter router] buildFromPoint:self.target bestRouter:YES];
+  [self close];
 }
 
 - (void)routeTo
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
-  [self close];
   [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
+  [self close];
 }
 
 - (void)taxiTo
 {
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : kStatUber, kStatTags : self.data.statisticsTags}];
-  [self close];
   auto router = [MWMRouter router];
   router.type = MWMRouterTypeTaxi;
   [router buildToPoint:self.target bestRouter:NO];
+  [self close];
 }
 
 - (MWMRoutePoint *)target
