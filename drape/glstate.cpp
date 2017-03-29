@@ -4,8 +4,6 @@
 #include "base/buffer_vector.hpp"
 #include "std/bind.hpp"
 
-#define TEXTURE_BIT 0x1
-
 namespace dp
 {
 
@@ -44,7 +42,7 @@ bool Blending::operator == (Blending const & other) const
   return m_isEnabled == other.m_isEnabled;
 }
 
-GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
+GLState::GLState(int gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_gpuProgram3dIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
@@ -197,7 +195,7 @@ void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> pr
   applyer.m_program = nullptr;
 }
 
-void ApplyBlending(GLState state, ref_ptr<GpuProgram> program)
+void ApplyBlending(GLState state)
 {
   state.GetBlending().Apply();
 }
@@ -205,9 +203,10 @@ void ApplyBlending(GLState state, ref_ptr<GpuProgram> program)
 void ApplyState(GLState state, ref_ptr<GpuProgram> program)
 {
   TextureState::ApplyTextures(state, program);
-  ApplyBlending(state, program);
+  ApplyBlending(state);
   GLFunctions::glDepthFunc(state.GetDepthFunction());
-  GLFunctions::glLineWidth(state.GetLineWidth());
+  ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
+  GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
 }
 
 }

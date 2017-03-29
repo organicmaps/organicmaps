@@ -16,7 +16,6 @@
 
 namespace df
 {
-
 AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
   : m_vertexes(move(triangleList))
@@ -40,6 +39,8 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
   if (m_params.m_is3D)
     DrawArea3D(batcher, colorUv, outlineUv, region.GetTexture());
+  else if (m_params.m_hatching)
+    DrawHatchingArea(batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture());
   else
     DrawArea(batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -60,7 +61,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   dp::GLState state(gpu::AREA_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(texture);
 
-  dp::AttributeProvider provider(1, static_cast<uint32_t>(m_vertexes.size()));
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleList(state, make_ref(&provider));
 
@@ -78,14 +79,47 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
       vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, m_params.m_depth), ouv));
     }
 
-    dp::GLState state(gpu::AREA_OUTLINE_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetColorTexture(texture);
-    state.SetDrawAsLine(true);
+    dp::GLState outlineState(gpu::AREA_OUTLINE_PROGRAM, dp::GLState::GeometryLayer);
+    outlineState.SetColorTexture(texture);
+    outlineState.SetDrawAsLine(true);
 
     dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
-    batcher->InsertLineRaw(state, make_ref(&outlineProvider), m_buildingOutline.m_indices);
+    batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
+}
+
+void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                                 ref_ptr<dp::Texture> texture, ref_ptr<dp::Texture> hatchingTexture) const
+{
+  glsl::vec2 const uv = glsl::ToVec2(colorUv);
+
+  m2::RectD bbox;
+  for (auto const & v : m_vertexes)
+    bbox.Add(v);
+
+  double const maxU = bbox.SizeX() * m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
+  double const maxV = bbox.SizeY() * m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+
+  buffer_vector<gpu::HatchingAreaVertex, 128> vertexes;
+  vertexes.resize(m_vertexes.size());
+  for (size_t i = 0; i < m_vertexes.size(); ++i)
+  {
+    vertexes[i].m_position = glsl::vec3(glsl::ToVec2(ConvertToLocal(m_vertexes[i], m_params.m_tileCenter,
+                                                                    kShapeCoordScalar)), m_params.m_depth);
+    vertexes[i].m_colorTexCoord = uv;
+    vertexes[i].m_maskTexCoord.x = static_cast<float>(maxU * (m_vertexes[i].x - bbox.minX()) / bbox.SizeX());
+    vertexes[i].m_maskTexCoord.y = static_cast<float>(maxV * (m_vertexes[i].y - bbox.minY()) / bbox.SizeY());
+  }
+
+  dp::GLState state(gpu::HATCHING_AREA_PROGRAM, dp::GLState::GeometryLayer);
+  state.SetColorTexture(texture);
+  state.SetMaskTexture(hatchingTexture);
+  state.SetTextureFilter(gl_const::GLLinear);
+
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
+  provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
+  batcher->InsertTriangleList(state, make_ref(&provider));
 }
 
 void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
@@ -101,8 +135,8 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
 
   for (size_t i = 0; i < m_buildingOutline.m_normals.size(); i++)
   {
-    size_t const startIndex = m_buildingOutline.m_indices[i * 2];
-    size_t const endIndex = m_buildingOutline.m_indices[i * 2 + 1];
+    int const startIndex = m_buildingOutline.m_indices[i * 2];
+    int const endIndex = m_buildingOutline.m_indices[i * 2 + 1];
 
     glsl::vec2 const startPt = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[startIndex],
                                                            m_params.m_tileCenter, kShapeCoordScalar));
@@ -158,5 +192,4 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
 }
-
-} // namespace df
+}  // namespace df

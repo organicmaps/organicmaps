@@ -30,6 +30,13 @@ public:
   static IsBuildingPartChecker const & Instance();
 };
 
+class IsHatchingTerritoryChecker : public ftypes::BaseChecker
+{
+  IsHatchingTerritoryChecker();
+public:
+  static IsHatchingTerritoryChecker const & Instance();
+};
+
 struct CaptionDescription
 {
   void Init(FeatureType const & f,

@@ -47,7 +47,6 @@ inline drule::rule_type_t Convert(Type t)
 
 double constexpr kMinPriority = numeric_limits<double>::lowest();
 
-// ==================================== //
 
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
@@ -189,7 +188,7 @@ IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
 // static
 IsBuildingHasPartsChecker const & IsBuildingHasPartsChecker::Instance()
 {
-  static const IsBuildingHasPartsChecker inst;
+  static IsBuildingHasPartsChecker const inst;
   return inst;
 }
 
@@ -205,7 +204,23 @@ IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
   return inst;
 }
 
-// ==================================== //
+IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
+{
+  Classificator const & c = classif();
+  char const * arr[][2] = {{"leisure", "nature_reserve"},
+                           {"boundary", "national_park"},
+                           {"landuse", "military"}};
+  for (auto const & p : arr)
+    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
+}
+
+// static
+IsHatchingTerritoryChecker const & IsHatchingTerritoryChecker::Instance()
+{
+  static IsHatchingTerritoryChecker const inst;
+  return inst;
+}
+
 
 void CaptionDescription::Init(FeatureType const & f,
                               int const zoomLevel,

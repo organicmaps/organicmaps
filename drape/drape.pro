@@ -31,6 +31,8 @@ OTHER_FILES += \
     shaders/debug_rect_fragment_shader.fsh \
     shaders/debug_rect_vertex_shader.vsh \
     shaders/discarded_texturing_fragment_shader.fsh \
+    shaders/hatching_area_fragment_shader.fsh \
+    shaders/hatching_area_vertex_shader.vsh \
     shaders/line_fragment_shader.fsh \
     shaders/line_vertex_shader.vsh \
     shaders/masked_texturing_billboard_vertex_shader.vsh \

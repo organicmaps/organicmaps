@@ -10,6 +10,7 @@ enum VertexType
 {
   Area,
   Area3d,
+  HatchingArea,
   SolidTexturing,
   MaskedTexturing,
   TextStatic,
@@ -46,13 +47,26 @@ dp::BindingInfo Area3dBindingInit()
 {
   static_assert(sizeof(Area3dVertex) == (sizeof(Area3dVertex::TPosition) +
                                          sizeof(Area3dVertex::TNormal3d) +
-                                       sizeof(Area3dVertex::TTexCoord)), "");
+                                         sizeof(Area3dVertex::TTexCoord)), "");
 
   dp::BindingFiller<Area3dVertex> filler(3);
   filler.FillDecl<Area3dVertex::TPosition>("a_position");
   filler.FillDecl<Area3dVertex::TNormal3d>("a_normal");
   filler.FillDecl<Area3dVertex::TTexCoord>("a_colorTexCoords");
 
+  return filler.m_info;
+}
+
+dp::BindingInfo HatchingAreaBindingInit()
+{
+  static_assert(sizeof(HatchingAreaVertex) == (sizeof(HatchingAreaVertex::TPosition) +
+                                               sizeof(HatchingAreaVertex::TTexCoord) +
+                                               sizeof(HatchingAreaVertex::TMaskTexCoord)), "");
+
+  dp::BindingFiller<HatchingAreaVertex> filler(3);
+  filler.FillDecl<HatchingAreaVertex::TPosition>("a_position");
+  filler.FillDecl<HatchingAreaVertex::TNormal>("a_colorTexCoords");
+  filler.FillDecl<HatchingAreaVertex::TMaskTexCoord>("a_maskTexCoords");
   return filler.m_info;
 }
 
@@ -185,6 +199,7 @@ TInitFunction g_initFunctions[TypeCount] =
 {
   &AreaBindingInit,
   &Area3dBindingInit,
+  &HatchingAreaBindingInit,
   &SolidTexturingBindingInit,
   &MaskedTexturingBindingInit,
   &TextStaticBindingInit,
@@ -245,6 +260,26 @@ Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal,
 dp::BindingInfo const & Area3dVertex::GetBindingInfo()
 {
   return GetBinding(Area3d);
+}
+
+HatchingAreaVertex::HatchingAreaVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+  , m_maskTexCoord(0.0, 0.0)
+{
+}
+
+HatchingAreaVertex::HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord,
+                                       TMaskTexCoord const & maskTexCoord)
+  : m_position(position)
+  , m_colorTexCoord(colorTexCoord)
+  , m_maskTexCoord(maskTexCoord)
+{
+}
+
+dp::BindingInfo const & HatchingAreaVertex::GetBindingInfo()
+{
+  return GetBinding(HatchingArea);
 }
 
 SolidTexturingVertex::SolidTexturingVertex()
