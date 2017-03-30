@@ -155,8 +155,28 @@ protected:
     /// @todo Review route relations in future.
     /// Actually, now they give a lot of dummy tags.
     string const & type = e.GetType();
-    if (TBase::IsSkipRelation(type) || type == "route")
+    if (TBase::IsSkipRelation(type))
       return;
+
+    if (type == "route")
+    {
+      if (e.GetTagValue("route") == "road")
+      {
+        // Append "network/ref" to the feature ref tag.
+        string ref = e.GetTagValue("ref");
+        if (!ref.empty())
+        {
+          string const & network = e.GetTagValue("network");
+          if (!network.empty() && network.find('/') == string::npos)
+            ref = network + '/' + ref;
+          string const & refBase = m_current->GetTag("ref");
+          if (!refBase.empty())
+            ref = refBase + ';' + ref;
+          TBase::AddCustomTag({"ref", std::move(ref)});
+        }
+      }
+      return;
+    }
 
     if (type == "restriction")
     {
