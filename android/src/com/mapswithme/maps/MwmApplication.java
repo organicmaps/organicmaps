@@ -10,7 +10,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.multidex.MultiDex;
-import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -33,6 +32,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -56,9 +56,7 @@ public class MwmApplication extends Application
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
 
-  private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
-  private boolean mIsPlatformInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -157,9 +155,6 @@ public class MwmApplication extends Application
 
   public void initNativePlatform()
   {
-    if (mIsPlatformInitialized)
-      return;
-
     final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
 
     initTracker();
@@ -185,8 +180,6 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
-
-    mIsPlatformInitialized = true;
   }
 
   public void initNativeCore()
@@ -262,11 +255,6 @@ public class MwmApplication extends Application
   public boolean isFrameworkInitialized()
   {
     return mIsFrameworkInitialized;
-  }
-
-  public boolean isPlatformInitialized()
-  {
-    return mIsPlatformInitialized;
   }
 
   public String getApkPath()
@@ -370,19 +358,9 @@ public class MwmApplication extends Application
     MyTracker.initTracker();
   }
 
-  public void initCounters()
-  {
-    if (!mAreCountersInitialized)
-    {
-      mAreCountersInitialized = true;
-      Config.updateLaunchCounter();
-      PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
-    }
-  }
-
   public static void onUpgrade()
   {
-    Config.resetAppSessionCounters();
+    Counters.resetAppSessionCounters();
   }
 
   @SuppressWarnings("unused")

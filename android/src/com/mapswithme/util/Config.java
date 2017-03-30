@@ -1,19 +1,11 @@
 package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
 
-import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.MwmApplication;
 
 public final class Config
 {
-  private static final String KEY_APP_FIRST_INSTALL_VERSION = "FirstInstallVersion";
-  private static final String KEY_APP_LAUNCH_NUMBER = "LaunchNumber";
-  private static final String KEY_APP_SESSION_NUMBER = "SessionNumber";
-  private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
-  private static final String KEY_APP_FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
   private static final String KEY_APP_STORAGE = "StoragePath";
 
   private static final String KEY_TTS_ENABLED = "TtsEnabled";
@@ -25,13 +17,8 @@ public final class Config
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
-  private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
-  private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
-
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
   private static final String KEY_MISC_KITKAT_MIGRATED = "KitKatMigrationCompleted";
-  private static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
-  private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
@@ -106,83 +93,6 @@ public final class Config
     nativeSetBoolean(key, value);
   }
 
-  /**
-   * Increments integer value.
-   * @return Previous value before increment.
-   */
-  private static int increment(String key)
-  {
-    int res = getInt(key);
-    setInt(key, res + 1);
-    return res;
-  }
-
-  public static int getFirstInstallVersion()
-  {
-    return getInt(KEY_APP_FIRST_INSTALL_VERSION);
-  }
-
-  /**
-   * Increments counter of app starts.
-   * @return Previous value before increment.
-   */
-  private static int incrementLaunchNumber()
-  {
-    return increment(KEY_APP_LAUNCH_NUMBER);
-  }
-
-  /**
-   * Session = single day, when app was started any number of times.
-   */
-  public static int getSessionCount()
-  {
-    return getInt(KEY_APP_SESSION_NUMBER);
-  }
-
-  private static void incrementSessionNumber()
-  {
-    long lastSessionTimestamp = getLong(KEY_APP_LAST_SESSION_TIMESTAMP);
-    if (DateUtils.isToday(lastSessionTimestamp))
-      return;
-
-    setLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
-    increment(KEY_APP_SESSION_NUMBER);
-  }
-
-  public static void resetAppSessionCounters()
-  {
-    setInt(KEY_APP_LAUNCH_NUMBER, 0);
-    setInt(KEY_APP_SESSION_NUMBER, 0);
-    setLong(KEY_APP_LAST_SESSION_TIMESTAMP, 0L);
-    setInt(KEY_LIKES_LAST_RATED_SESSION, 0);
-    incrementSessionNumber();
-  }
-
-  public static String getInstallFlavor()
-  {
-    return getString(KEY_APP_FIRST_INSTALL_FLAVOR);
-  }
-
-  private static void updateInstallFlavor()
-  {
-    String installedFlavor = getInstallFlavor();
-    if (TextUtils.isEmpty(installedFlavor))
-      setString(KEY_APP_FIRST_INSTALL_FLAVOR, BuildConfig.FLAVOR);
-  }
-
-  public static void updateLaunchCounter()
-  {
-    if (incrementLaunchNumber() == 0)
-    {
-      if (getFirstInstallVersion() == 0)
-        setInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
-
-      updateInstallFlavor();
-    }
-
-    incrementSessionNumber();
-  }
-
   public static String getStoragePath()
   {
     return getString(KEY_APP_STORAGE);
@@ -235,12 +145,12 @@ public final class Config
 
   public static boolean isStatisticsEnabled()
   {
-    return getBool(KEY_PREF_STATISTICS, true);
+    return MwmApplication.prefs().getBoolean(KEY_PREF_STATISTICS, true);
   }
 
   public static void setStatisticsEnabled(boolean enabled)
   {
-    setBool(KEY_PREF_STATISTICS, enabled);
+    MwmApplication.prefs().edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
   }
 
   public static boolean useGoogleServices()
@@ -251,26 +161,6 @@ public final class Config
   public static void setUseGoogleService(boolean use)
   {
     setBool(KEY_PREF_USE_GS, use);
-  }
-
-  public static boolean isRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
-  {
-    return getBool(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName());
-  }
-
-  public static void setRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
-  {
-    setBool(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName());
-  }
-
-  public static boolean isSessionRated(int session)
-  {
-    return (getInt(KEY_LIKES_LAST_RATED_SESSION) >= session);
-  }
-
-  public static void setRatedSession(int session)
-  {
-    setInt(KEY_LIKES_LAST_RATED_SESSION, session);
   }
 
   public static boolean isRoutingDisclaimerAccepted()
@@ -291,26 +181,6 @@ public final class Config
   public static void setKitKatMigrationComplete()
   {
     setBool(KEY_MISC_KITKAT_MIGRATED);
-  }
-
-  public static int getLastWhatsNewVersion()
-  {
-    return getInt(KEY_MISC_NEWS_LAST_VERSION);
-  }
-
-  public static void setWhatsNewShown()
-  {
-    setInt(KEY_MISC_NEWS_LAST_VERSION, BuildConfig.VERSION_CODE);
-  }
-
-  public static boolean isFirstStartDialogSeen()
-  {
-    return getBool(KEY_MISC_FIRST_START_DIALOG_SEEN);
-  }
-
-  public static void setFirstStartDialogSeen()
-  {
-    setBool(KEY_MISC_FIRST_START_DIALOG_SEEN);
   }
 
   @NonNull

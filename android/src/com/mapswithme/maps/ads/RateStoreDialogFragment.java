@@ -22,8 +22,8 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -64,7 +64,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
         mRating = rating;
         if (rating >= BuildConfig.RATING_THRESHOLD)
         {
-          Config.setRatingApplied(RateStoreDialogFragment.class);
+          Counters.setRatingApplied(RateStoreDialogFragment.class);
           dismiss();
           Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
         }
@@ -109,7 +109,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
     switch (v.getId())
     {
     case R.id.btn__explain_bad_rating:
-      Config.setRatingApplied(GooglePlusDialogFragment.class);
+      Counters.setRatingApplied(GooglePlusDialogFragment.class);
       dismiss();
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       final PackageInfo info;

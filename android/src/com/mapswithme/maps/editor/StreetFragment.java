@@ -25,10 +25,10 @@ public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextD
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     mSelectedString = Editor.nativeGetStreet();
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
   }
 
   @Override

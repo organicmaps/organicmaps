@@ -14,20 +14,23 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
   @CallSuper
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  protected void onCreate(@Nullable Bundle savedInstanceState)
   {
-    super.safeOnCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
 
     Toolbar toolbar = getToolbar();
-    UiUtils.extendViewWithStatusBar(toolbar);
-    int title = getToolbarTitle();
-    if (title == 0)
-      toolbar.setTitle(getTitle());
-    else
-      toolbar.setTitle(title);
+    if (toolbar != null)
+    {
+      UiUtils.extendViewWithStatusBar(toolbar);
+      int title = getToolbarTitle();
+      if (title == 0)
+        toolbar.setTitle(getTitle());
+      else
+        toolbar.setTitle(title);
 
-    UiUtils.showHomeUpButton(toolbar);
-    displayToolbarAsActionBar();
+      UiUtils.showHomeUpButton(toolbar);
+      displayToolbarAsActionBar();
+    }
   }
 
   @StringRes

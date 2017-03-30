@@ -3,13 +3,14 @@ package com.mapswithme.maps.news;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.util.Config;
+import com.mapswithme.util.Counters;
 
 public class FirstStartFragment extends BaseNewsFragment
 {
@@ -73,22 +74,23 @@ public class FirstStartFragment extends BaseNewsFragment
     LocationHelper.INSTANCE.onExitFromFirstRun();
   }
 
-  public static boolean showOn(@NonNull FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity,
+                               @Nullable NewsDialogListener listener)
   {
-    if (Config.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
+    if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
 
     FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
       return false;
 
-    if (Config.isFirstStartDialogSeen() &&
+    if (Counters.isFirstStartDialogSeen() &&
         !recreate(activity, FirstStartFragment.class))
       return false;
 
-    create(activity, FirstStartFragment.class);
+    create(activity, FirstStartFragment.class, listener);
 
-    Config.setFirstStartDialogSeen();
+    Counters.setFirstStartDialogSeen();
     return true;
   }
 }

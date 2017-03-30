@@ -116,9 +116,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
   }
 
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override

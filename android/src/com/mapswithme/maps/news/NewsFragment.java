@@ -1,6 +1,7 @@
 package com.mapswithme.maps.news;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -8,8 +9,8 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.Counters;
 
 public class NewsFragment extends BaseNewsFragment
 {
@@ -91,22 +92,23 @@ public class NewsFragment extends BaseNewsFragment
    * Displays "What's new" dialog on given {@code activity}. Or not.
    * @return whether "What's new" dialog should be shown.
    */
-  public static boolean showOn(@NonNull FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity,
+                               @Nullable NewsDialogListener listener)
   {
-    if (Config.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
+    if (Counters.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
       return false;
 
     FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
       return false;
 
-    if (Config.getLastWhatsNewVersion() / 10 >= BuildConfig.VERSION_CODE / 10 &&
+    if (Counters.getLastWhatsNewVersion() / 10 >= BuildConfig.VERSION_CODE / 10 &&
         !recreate(activity, NewsFragment.class))
       return false;
 
-    create(activity, NewsFragment.class);
+    create(activity, NewsFragment.class, listener);
 
-    Config.setWhatsNewShown();
+    Counters.setWhatsNewShown();
     return true;
   }
 }

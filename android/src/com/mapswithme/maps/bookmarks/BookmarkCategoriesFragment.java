@@ -51,9 +51,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
 
     if (getAdapter() != null)
     {

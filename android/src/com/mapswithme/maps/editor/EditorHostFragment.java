@@ -121,9 +121,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
 
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()

@@ -50,7 +50,7 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  protected void safeOnViewCreated(@NonNull View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
   {
     mBookmark = getArguments().getParcelable(EXTRA_BOOKMARK);
     String description = null;

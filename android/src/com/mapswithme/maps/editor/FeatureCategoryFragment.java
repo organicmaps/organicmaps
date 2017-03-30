@@ -34,9 +34,9 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
 
     if (getArguments() != null && getArguments().containsKey(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY))
       mSelectedCategory = getArguments().getParcelable(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY);

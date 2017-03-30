@@ -18,7 +18,8 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    if (!ConnectionState.isWifiConnected() || MapManager.nativeNeedMigrate())
+    if (!MwmApplication.get().isFrameworkInitialized() || !ConnectionState.isWifiConnected()
+        || MapManager.nativeNeedMigrate())
       return;
 
     final long lastEventTimestamp = prefs().getLong(DOWNLOAD_UPDATE_TIMESTAMP, 0);

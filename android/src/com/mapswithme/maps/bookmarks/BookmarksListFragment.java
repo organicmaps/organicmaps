@@ -43,8 +43,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
   @CallSuper
   @Override
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  public void onCreate(@Nullable Bundle savedInstanceState)
   {
+    super.onCreate(savedInstanceState);
     mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, -1);
     mCategory = BookmarkManager.INSTANCE.getCategory(mCategoryIndex);
   }
@@ -57,9 +58,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
     initList();
     setHasOptionsMenu(true);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -68,8 +69,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
-  protected void safeOnResume()
+  public void onResume()
   {
+    super.onResume();
     if (mAdapter == null)
       return;
 

@@ -8,8 +8,8 @@ import java.lang.ref.WeakReference;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.concurrency.UiThread;
 
 public enum LikesManager
@@ -19,7 +19,7 @@ public enum LikesManager
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
   private static final int DIALOG_DELAY_SHORT = 5000;
-  private static final int SESSION_NUM = Config.getSessionCount();
+  private static final int SESSION_NUM = Counters.getSessionCount();
 
   /*
    Maps type of like dialog to the dialog, performing like.
@@ -72,7 +72,7 @@ public enum LikesManager
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
   }
 
-  private final boolean mIsNewUser = (Config.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
+  private final boolean mIsNewUser = (Counters.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
 
@@ -95,10 +95,10 @@ public enum LikesManager
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass, final int delayMillis)
   {
-    if (Config.isSessionRated(SESSION_NUM) || Config.isRatingApplied(dialogFragmentClass))
+    if (Counters.isSessionRated(SESSION_NUM) || Counters.isRatingApplied(dialogFragmentClass))
       return;
 
-    Config.setRatedSession(SESSION_NUM);
+    Counters.setRatedSession(SESSION_NUM);
 
     UiThread.cancelDelayedTasks(mLikeRunnable);
     mLikeRunnable = new Runnable()

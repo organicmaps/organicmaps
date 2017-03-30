@@ -126,7 +126,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     mIsViewCreated = true;
 

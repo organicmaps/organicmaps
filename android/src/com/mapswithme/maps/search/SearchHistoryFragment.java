@@ -36,9 +36,9 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
     getRecyclerView().setLayoutManager(new LinearLayoutManager(view.getContext()));
     mPlaceHolder = (PlaceholderView) view.findViewById(R.id.placeholder);
     mPlaceHolder.setContent(R.drawable.img_search_empty_history_light,
@@ -60,8 +60,9 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
 
   @CallSuper
   @Override
-  protected void safeOnActivityCreated(@Nullable Bundle savedInstanceState)
+  public void onActivityCreated(@Nullable Bundle savedInstanceState)
   {
+    super.onActivityCreated(savedInstanceState);
     ((SearchFragment) getParentFragment()).setRecyclerScrollListener(getRecyclerView());
   }
 }

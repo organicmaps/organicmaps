@@ -1,11 +1,13 @@
 package com.mapswithme.maps.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,20 +21,12 @@ import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
 public abstract class BaseMwmRecyclerFragment extends Fragment
 {
   private Toolbar mToolbar;
   @Nullable
   private RecyclerView mRecycler;
   private PlaceholderView mPlaceholder;
-
-  @Nullable
-  private View mView;
-  @Nullable
-  private Bundle mSavedInstanceState;
 
   protected abstract RecyclerView.Adapter createAdapter();
 
@@ -48,25 +42,30 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   }
 
   @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    if (context instanceof AppCompatActivity && !MwmApplication.get().isFrameworkInitialized())
+    {
+      ((AppCompatActivity)context).getSupportFragmentManager()
+                                  .beginTransaction()
+                                  .detach(this)
+                                  .commit();
+    }
+  }
+
+  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(getLayoutRes(), container, false);
   }
 
+  @CallSuper
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mView = view;
-    mSavedInstanceState = savedInstanceState;
-    if (MwmApplication.get().isPlatformInitialized() && Utils.isWriteExternalGranted(getActivity()))
-      safeOnViewCreated(view, savedInstanceState);
-  }
-
-  @CallSuper
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-  {
     mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
     if (mToolbar != null)
     {
@@ -92,50 +91,6 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
 
     mPlaceholder = (PlaceholderView) view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);
-  }
-
-  @CallSuper
-  @Override
-  public void onDestroyView()
-  {
-    mView = null;
-    mSavedInstanceState = null;
-    super.onDestroyView();
-  }
-
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-    if (MwmApplication.get().isPlatformInitialized() && Utils.isWriteExternalGranted(getActivity()))
-      safeOnActivityCreated(savedInstanceState);
-  }
-
-  protected void safeOnActivityCreated(@Nullable Bundle savedInstanceState)
-  {
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-  {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (grantResults.length == 0)
-      return;
-
-    boolean isWriteGranted = false;
-    for (int i = 0; i < permissions.length; ++i)
-    {
-      int result = grantResults[i];
-      String permission = permissions[i];
-      if (permission.equals(WRITE_EXTERNAL_STORAGE) && result == PERMISSION_GRANTED)
-        isWriteGranted = true;
-    }
-
-    if (isWriteGranted && mView != null)
-    {
-      safeOnViewCreated(mView, mSavedInstanceState);
-      safeOnActivityCreated(mSavedInstanceState);
-    }
   }
 
   public Toolbar getToolbar()

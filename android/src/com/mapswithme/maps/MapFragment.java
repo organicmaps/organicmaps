@@ -166,7 +166,7 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    boolean firstStart = ((MwmActivity) getMwmActivity()).isFirstStart();
+    boolean firstStart = SplashActivity.isFirstStart();
     if (firstStart)
       PushwooshHelper.nativeProcessFirstLaunch();
 

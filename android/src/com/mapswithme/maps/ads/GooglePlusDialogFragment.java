@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import com.google.android.gms.plus.PlusOneButton;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.statistics.Statistics;
 
 public class GooglePlusDialogFragment extends BaseMwmDialogFragment
@@ -31,7 +31,7 @@ public class GooglePlusDialogFragment extends BaseMwmDialogFragment
       @Override
       public void onPlusOneClick(Intent intent)
       {
-        Config.setRatingApplied(GooglePlusDialogFragment.class);
+        Counters.setRatingApplied(GooglePlusDialogFragment.class);
         dismiss();
         startActivityForResult(intent, 0);
       }

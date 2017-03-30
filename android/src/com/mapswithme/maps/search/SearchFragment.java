@@ -288,9 +288,9 @@ public class SearchFragment extends BaseMwmFragment
 
   @CallSuper
   @Override
-  protected void safeOnViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.safeOnViewCreated(view, savedInstanceState);
+    super.onViewCreated(view, savedInstanceState);
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
@@ -390,8 +390,9 @@ public class SearchFragment extends BaseMwmFragment
   }
 
 
-  protected void safeOnResume()
+  public void onResume()
   {
+    super.onResume();
     LocationHelper.INSTANCE.addListener(mLocationListener, true);
     mAppBarLayout.addOnOffsetChangedListener(mOffsetListener);
   }
