@@ -46,7 +46,7 @@ set(
   uniform_value_tests.cpp
 )
 
-add_executable(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

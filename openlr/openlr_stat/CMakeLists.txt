@@ -7,7 +7,7 @@ set(
   openlr_stat.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME}
   openlr
   routing

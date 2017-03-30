@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
+option(USE_ASAN "Enable Address Sanitizer" OFF)
+
+if (USE_ASAN)
+  message("Address Sanitizer is enabled")
+endif()
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Set environment variables
@@ -134,10 +140,16 @@ include_directories(
 )
 
 # Functions for using in subdirectories
+function(omim_add_executable executable)
+  add_executable(${executable} ${ARGN})
+  if (USE_ASAN)
+    target_link_libraries(${executable} "-fsanitize=address" "-fno-omit-frame-pointer")
+  endif()
+endfunction()
 
 function(omim_add_test executable)
   if (NOT SKIP_TESTS)
-    add_executable(${executable} ${OMIM_ROOT}/testing/testingmain.cpp ${ARGN})
+    omim_add_executable(${executable} ${OMIM_ROOT}/testing/testingmain.cpp ${ARGN})
   endif()
 endfunction()
 
@@ -243,6 +255,13 @@ add_compile_options(
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(
     "-Wshorten-64-to-32"
+  )
+endif()
+
+if (USE_ASAN)
+  add_compile_options(
+    "-fsanitize=address"
+    "-fno-omit-frame-pointer"
   )
 endif()
 

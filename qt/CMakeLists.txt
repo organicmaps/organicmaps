@@ -50,7 +50,7 @@ set(
   update_dialog.hpp
 )
 
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
+omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

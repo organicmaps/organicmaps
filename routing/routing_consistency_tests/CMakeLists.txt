@@ -12,7 +12,7 @@ set(
 )
 
 # Not using omim_add_test because we don't need testingmain.cpp
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

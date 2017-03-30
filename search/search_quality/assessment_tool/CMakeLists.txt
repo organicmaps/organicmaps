@@ -34,7 +34,7 @@ set(
   view.hpp
 )
 
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
+omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

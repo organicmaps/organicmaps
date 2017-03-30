@@ -4,7 +4,7 @@ include_directories(${OMIM_PATH}/3party/gflags/src)
 
 set(SRC generator_tool.cpp)
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

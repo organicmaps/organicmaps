@@ -4,7 +4,7 @@ include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(SRC search_quality_tool.cpp)
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
