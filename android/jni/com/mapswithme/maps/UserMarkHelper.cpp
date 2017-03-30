@@ -44,7 +44,7 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
-                            "String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
+                            "String;Lcom/mapswithme/maps/ads/Banner;Z)V");
 
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
@@ -69,7 +69,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz,
-        "(IILjava/lang/String;Ljava/lang/String;Lcom/mapswithme/maps/bookmarks/data/Banner;Z)V");
+        "(IILjava/lang/String;Ljava/lang/String;Lcom/mapswithme/maps/ads/Banner;Z)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);

@@ -60,7 +60,7 @@ class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
 
   @NonNull
   @Override
-  public String getProvider()
+  String getProvider()
   {
     return Providers.FACEBOOK;
   }

@@ -44,7 +44,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_httpHeaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$HttpHeader");
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
   g_utilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/Utils");
-  g_bannerClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/Banner");
+  g_bannerClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ads/Banner");
   g_loggerFactoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/LoggerFactory");
 
   return JNI_VERSION_1_6;

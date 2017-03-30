@@ -17,7 +17,7 @@ import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
 import com.mapswithme.maps.ads.NativeAdLoader;
-import com.mapswithme.maps.bookmarks.data.Banner;
+import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
@@ -215,9 +215,9 @@ final class BannerController
       return;
 
     if (isVisible)
-      mAdTracker.onViewShown(Factory.createBannerKey(mAdsLoader.getProvider(), banner.getId()));
+      mAdTracker.onViewShown(banner);
     else
-      mAdTracker.onViewHidden(Factory.createBannerKey(mAdsLoader.getProvider(), banner.getId()));
+      mAdTracker.onViewHidden(banner);
   }
 
   void onChangedVisibility(boolean isVisible)
@@ -285,7 +285,7 @@ final class BannerController
       loadIconAndOpenIfNeeded(ad, mBanner);
 
       if (mAdTracker != null)
-        mAdTracker.onContentObtained(Factory.createBannerKey(mAdsLoader.getProvider(), mBanner.getId()));
+        mAdTracker.onContentObtained(mBanner);
 
       if (mListener != null && mOpened)
         mListener.onSizeChanged();

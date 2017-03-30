@@ -1,12 +1,15 @@
-package com.mapswithme.maps.bookmarks.data;
+package com.mapswithme.maps.ads;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public final class Banner implements Parcelable
 {
   public static final Banner EMPTY = new Banner((String) null);
+  private static final int TYPE_FACEBOOK = 1;
+  private static final int TYPE_RB = 2;
 
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
@@ -25,6 +28,10 @@ public final class Banner implements Parcelable
 
   @Nullable
   private final String mId;
+  //TODO: pass as argument constructor and read a correct value
+  private int mType = TYPE_FACEBOOK;
+  @Nullable
+  private BannerKey mKey;
 
   public Banner(@Nullable String id)
   {
@@ -41,6 +48,31 @@ public final class Banner implements Parcelable
   {
     return mId;
   }
+
+  @NonNull
+  BannerKey getKey()
+  {
+    if (mKey != null)
+      return mKey;
+
+    String provider;
+    switch (mType)
+    {
+      case TYPE_FACEBOOK:
+        provider = Providers.FACEBOOK;
+        break;
+      case TYPE_RB:
+        provider = Providers.MY_TARGET;
+        break;
+      default:
+        throw new AssertionError("Unsupported banner type: " + mType);
+    }
+    //noinspection ConstantConditions
+    mKey = new BannerKey(provider, mId);
+
+    return mKey;
+  }
+
 
   @Override
   public int describeContents()

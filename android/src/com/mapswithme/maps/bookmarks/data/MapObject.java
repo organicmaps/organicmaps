@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.ads.Banner;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

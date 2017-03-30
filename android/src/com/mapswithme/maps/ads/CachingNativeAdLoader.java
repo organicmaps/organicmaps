@@ -86,6 +86,12 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
 
   abstract void loadAdFromProvider(@NonNull Context context, @NonNull String bannerId);
 
+  /**
+   * Returns a provider name for this ad.
+   */
+  @NonNull
+  abstract String getProvider();
+
   void onError(@NonNull String bannerId, @NonNull MwmNativeAd ad, @NonNull NativeAdError error)
   {
     PENDING_REQUESTS.remove(new BannerKey(getProvider(), bannerId));

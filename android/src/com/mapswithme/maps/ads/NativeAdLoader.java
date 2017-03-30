@@ -10,7 +10,7 @@ public interface NativeAdLoader
    * Loads an ad for the specified banner id. A caller will be notified about loading through
    * {@link NativeAdListener} interface.
    *
-   * @param context An activity context.
+   * @param context  An activity context.
    * @param bannerId A banner id that ad will be loaded for.
    */
   void loadAd(@NonNull Context context, @NonNull String bannerId);
@@ -24,14 +24,9 @@ public interface NativeAdLoader
 
   /**
    * Indicated whether the ad for the specified banner is loading right now or not.
+   *
    * @param bannerId A specified banner id.
    * @return <code>true</code> if loading is in a progress, otherwise - <code>false</code>.
    */
   boolean isAdLoading(@NonNull String bannerId);
-
-  /**
-   * Returns a name of native ad provider.
-   */
-  @NonNull
-  String getProvider();
 }

@@ -8,6 +8,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
 
 public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
 {
@@ -17,32 +18,32 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   private final static Map<BannerKey, TrackInfo> TRACKS = new HashMap<>();
 
   @Override
-  public void onViewShown(@NonNull BannerKey key)
+  public void onViewShown(@NonNull Banner banner)
   {
-    LOGGER.d(TAG, "onViewShown bannerId = " + key);
-    TrackInfo info = TRACKS.get(key);
+    LOGGER.d(TAG, "onViewShown bannerId = " + banner.getKey());
+    TrackInfo info = TRACKS.get(banner.getKey());
     if (info == null)
     {
       info = new TrackInfo();
-      TRACKS.put(key, info);
+      TRACKS.put(banner.getKey(), info);
     }
     info.setVisible(true);
   }
 
   @Override
-  public void onViewHidden(@NonNull BannerKey key)
+  public void onViewHidden(@NonNull Banner banner)
   {
-    LOGGER.d(TAG, "onViewHidden bannerId = " + key);
-    TrackInfo info = TRACKS.get(key);
+    LOGGER.d(TAG, "onViewHidden bannerId = " + banner.getKey());
+    TrackInfo info = TRACKS.get(banner.getKey());
     if (info != null)
       info.setVisible(false);
   }
 
   @Override
-  public void onContentObtained(@NonNull BannerKey key)
+  public void onContentObtained(@NonNull Banner banner)
   {
-    LOGGER.d(TAG, "onContentObtained bannerId = " + key);
-    TrackInfo info = TRACKS.get(key);
+    LOGGER.d(TAG, "onContentObtained bannerId = " + banner.getKey());
+    TrackInfo info = TRACKS.get(banner.getKey());
     if (info == null)
       throw new AssertionError("A track info must be put in a cache before a content is obtained");
 

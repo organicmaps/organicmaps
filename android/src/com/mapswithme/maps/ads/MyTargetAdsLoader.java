@@ -61,7 +61,7 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
 
   @NonNull
   @Override
-  public String getProvider()
+  String getProvider()
   {
     return Providers.MY_TARGET;
   }
