@@ -280,18 +280,36 @@ void ReadManager::SetTrafficEnabled(bool trafficEnabled)
   }
 }
 
-void ReadManager::UpdateCustomSymbols(CustomSymbols && symbols)
+void ReadManager::UpdateCustomSymbols(CustomSymbols const & symbols)
 {
-  auto customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(symbols));
+  CustomSymbols currentSymbols = m_customSymbolsContext ? m_customSymbolsContext->m_symbols :
+                                 CustomSymbols();
+  for (auto const & s : symbols)
+    currentSymbols[s.first] = s.second;
+  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(currentSymbols));
+}
 
-#if !defined(OMIM_OS_LINUX)
-  std::atomic_exchange(&m_customSymbolsContext, customSymbolsContext);
-#else
+void ReadManager::RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds)
+{
+  if (!m_customSymbolsContext)
+    return;
+
+  CustomSymbols currentSymbols;
+  leftoverIds.reserve(m_customSymbolsContext->m_symbols.size());
+  for (auto const & s : m_customSymbolsContext->m_symbols)
   {
-    lock_guard<mutex> guard(m_customSymbolsContextMutex);
-    std::swap(m_customSymbolsContext, customSymbolsContext);
+    if (s.first.m_mwmId != mwmId)
+    {
+      currentSymbols.insert(std::make_pair(s.first, s.second));
+      leftoverIds.push_back(s.first);
+    }
   }
-#endif
+  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(currentSymbols));
+}
+
+void ReadManager::RemoveAllCustomSymbols()
+{
+  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(CustomSymbols());
 }
 
 } // namespace df

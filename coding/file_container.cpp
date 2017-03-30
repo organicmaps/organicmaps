@@ -440,7 +440,13 @@ void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
 void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)
 {
   if (!buffer.empty())
-    GetWriter(tag).Write(&buffer[0], buffer.size());
+    GetWriter(tag).Write(buffer.data(), buffer.size());
+}
+
+void FilesContainerW::Write(vector<uint8_t> const & buffer, Tag const & tag)
+{
+  if (!buffer.empty())
+    GetWriter(tag).Write(buffer.data(), buffer.size());
 }
 
 void FilesContainerW::Finish()

@@ -16,6 +16,7 @@ data/*.mwm.osm2ft
 data/*.mwm.routing
 data/*.mwmmeta
 data/[!W]*.mwm
+data/hla*.dat
 
 # Compiled Python
 *.pyc

@@ -238,6 +238,7 @@ public:
   void Write(string const & fPath, Tag const & tag);
   void Write(ModelReaderPtr reader, Tag const & tag);
   void Write(vector<char> const & buffer, Tag const & tag);
+  void Write(vector<uint8_t> const & buffer, Tag const & tag);
 
   void Finish();
 

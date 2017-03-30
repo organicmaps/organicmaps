@@ -6,6 +6,7 @@
 #include "map/city_finder.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
+#include "map/hla_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
 #include "map/track.hpp"
@@ -175,6 +176,8 @@ protected:
   tracking::Reporter m_trackingReporter;
 
   TrafficManager m_trafficManager;
+
+  HLAManager m_hlaManager;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -369,7 +372,8 @@ public:
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
-  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect);
+  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect) const;
+  MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
 private:
   struct TapEvent
@@ -788,6 +792,8 @@ public:
   void SaveAutoZoom(bool allowAutoZoom);
 
   TrafficManager & GetTrafficManager();
+
+  HLAManager & GetHLAManager();
 
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);

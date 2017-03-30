@@ -580,10 +580,24 @@ void DrapeEngine::RunScenario(ScenarioManager::ScenarioData && scenarioData,
     manager->RunScenario(move(scenarioData), onStartFn, onFinishFn);
 }
 
-void DrapeEngine::SetCustomSymbols(CustomSymbols && symbols)
+void DrapeEngine::AddCustomSymbols(CustomSymbols && symbols)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetCustomSymbolsMessage>(std::move(symbols)),
+                                  make_unique_dp<AddCustomSymbolsMessage>(std::move(symbols)),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::RemoveCustomSymbols(MwmSet::MwmId const & mwmId)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<RemoveCustomSymbolsMessage>(mwmId),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::RemoveAllCustomSymbols()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<RemoveCustomSymbolsMessage>(),
                                   MessagePriority::Normal);
 }
 

@@ -43,6 +43,8 @@ set(
   gps_track.hpp
   gps_tracker.cpp
   gps_tracker.hpp
+  hla_manager.cpp
+  hla_manager.hpp
   mwm_url.cpp
   mwm_url.hpp
   place_page_info.cpp
