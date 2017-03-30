@@ -521,21 +521,21 @@ public enum Statistics
     trackHotelEvent(PP_SPONSORED_BOOK, hotel, mapObject);
   }
 
-  public void trackFacebookBanner(@NonNull String eventName, @NonNull Banner banner, int state)
+  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, int state)
   {
     trackEvent(eventName, Statistics.params()
-                                    .add(BANNER, banner.getId())
-                                    .add(PROVIDER, "FB")
+                                    .add(BANNER, ad.getBannerId())
+                                    .add(PROVIDER, ad.getProvider())
                                     .add(BANNER_STATE, String.valueOf(state)));
   }
 
-  public void trackNativeAdError(@NonNull String bannerId, @NonNull MwmNativeAd ad,
+  public void trackPPBannerError(@NonNull MwmNativeAd ad,
                                  @Nullable NativeAdError error, int state)
   {
     boolean isAdBlank = error != null && error.getCode() == AdError.NO_FILL_ERROR_CODE;
     String eventName = isAdBlank ? PP_BANNER_BLANK : PP_BANNER_ERROR;
     Statistics.ParameterBuilder builder = Statistics.params();
-    builder.add(BANNER, !TextUtils.isEmpty(bannerId) ? bannerId : "N/A")
+    builder.add(BANNER, !TextUtils.isEmpty(ad.getBannerId()) ? ad.getBannerId() : "N/A")
            .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
            .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
            .add(PROVIDER, ad.getProvider())

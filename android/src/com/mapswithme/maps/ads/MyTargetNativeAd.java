@@ -4,19 +4,34 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.my.target.ads.CustomParams;
 import com.my.target.nativeads.NativeAd;
 import com.my.target.nativeads.banners.NativePromoBanner;
 import com.my.target.nativeads.models.ImageData;
+
+import java.util.Map;
 
 class MyTargetNativeAd extends CachedMwmNativeAd
 {
   @NonNull
   private final NativeAd mAd;
+  @NonNull
+  private final String mBannerId;
 
   MyTargetNativeAd(@NonNull NativeAd ad, long timestamp)
   {
     super(timestamp);
     mAd = ad;
+    CustomParams params = mAd.getCustomParams();
+    Map<String, String> data = params.getData();
+    mBannerId = data.get(MyTargetAdsLoader.ZONE_KEY_PARAMETER);
+  }
+
+  @NonNull
+  @Override
+  public String getBannerId()
+  {
+    return mBannerId;
   }
 
   @NonNull

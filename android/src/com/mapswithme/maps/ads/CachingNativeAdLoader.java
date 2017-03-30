@@ -58,7 +58,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
       return;
     }
 
-    if (mTracker != null && mTracker.isImpressionGood(key)
+    if (mTracker != null && mTracker.isImpressionGood(cachedAd.getProvider(), cachedAd.getBannerId())
         && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
     {
       LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
@@ -120,7 +120,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
     {
       MwmNativeAd nativeAd = getAdByIdFromCache(new BannerKey(getProvider(), bannerId));
       if (nativeAd == null)
-        throw new AssertionError("A facebook native ad must be presented in a cache when it's clicked!");
+        throw new AssertionError("A native ad must be presented in a cache when it's clicked!");
 
       getAdListener().onClick(nativeAd);
     }

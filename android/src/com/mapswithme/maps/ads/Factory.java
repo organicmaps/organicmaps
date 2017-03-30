@@ -6,21 +6,35 @@ import android.support.annotation.Nullable;
 public class Factory
 {
   @NonNull
-  public static NativeAdLoader createFacebookAdLoader(@Nullable OnAdCacheModifiedListener cacheListener,
+  private static NativeAdLoader createFacebookAdLoader(@Nullable OnAdCacheModifiedListener cacheListener,
                                         @Nullable AdTracker tracker)
   {
     return new FacebookAdsLoader(cacheListener, tracker);
   }
 
   @NonNull
-  public static NativeAdLoader createMyTargetAdLoader(@Nullable OnAdCacheModifiedListener cacheListener,
+  private static NativeAdLoader createMyTargetAdLoader(@Nullable OnAdCacheModifiedListener cacheListener,
                                                       @Nullable AdTracker tracker)
   {
     return new MyTargetAdsLoader(cacheListener, tracker);
   }
 
-  public static BannerKey createBannerKey(@NonNull String provider, @NonNull String bannerId)
+  @NonNull
+  static NativeAdLoader createLoaderForBanner(@NonNull Banner banner,
+                                                     @Nullable OnAdCacheModifiedListener cacheListener,
+                                                     @Nullable AdTracker tracker)
   {
-    return new BannerKey(provider, bannerId);
+    String provider = banner.getProvider();
+    if (provider.equals(Providers.FACEBOOK))
+      return createFacebookAdLoader(cacheListener, tracker);
+    else
+      return createMyTargetAdLoader(cacheListener, tracker);
+  }
+
+  @NonNull
+  public static CompoundNativeAdLoader createCompoundLoader(
+      @Nullable OnAdCacheModifiedListener cacheListener, @Nullable AdTracker tracker)
+  {
+    return new CompoundNativeAdLoader(cacheListener, tracker);
   }
 }

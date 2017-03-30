@@ -10,6 +10,9 @@ import android.view.View;
 public interface MwmNativeAd
 {
   @NonNull
+  String getBannerId();
+
+  @NonNull
   String getTitle();
 
   @NonNull

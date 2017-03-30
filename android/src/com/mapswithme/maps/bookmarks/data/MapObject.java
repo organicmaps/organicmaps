@@ -11,6 +11,8 @@ import com.mapswithme.maps.ads.Banner;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
@@ -140,10 +142,22 @@ public class MapObject implements Parcelable
     return mApiId;
   }
 
+  //TODO: remove
   @Nullable
   public Banner getBanner()
   {
     return mBanner;
+  }
+
+  //TODO: dummy implementation
+  @Nullable
+  public List<Banner> getBanners()
+  {
+    List<Banner> banners = new ArrayList<>();
+    banners.add(getBanner());
+/*    Banner banner = new Banner("1", 2);
+    banners.add(banner);*/
+    return banners;
   }
 
   public boolean isReachableByTaxi()

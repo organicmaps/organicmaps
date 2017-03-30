@@ -29,6 +29,13 @@ class FacebookNativeAd extends CachedMwmNativeAd
 
   @NonNull
   @Override
+  public String getBannerId()
+  {
+    return mAd.getPlacementId();
+  }
+
+  @NonNull
+  @Override
   public String getTitle()
   {
     return mAd.getAdTitle();

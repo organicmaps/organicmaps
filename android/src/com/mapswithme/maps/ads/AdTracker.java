@@ -9,8 +9,8 @@ import android.support.annotation.NonNull;
  */
 public interface AdTracker
 {
-  void onViewShown(@NonNull Banner banner);
-  void onViewHidden(@NonNull Banner banner);
-  void onContentObtained(@NonNull Banner banner);
-  boolean isImpressionGood(@NonNull BannerKey key);
+  void onViewShown(@NonNull String provider, @NonNull String bannerId);
+  void onViewHidden(@NonNull String provider, @NonNull String bannerId);
+  void onContentObtained(@NonNull String provider, @NonNull String bannerId);
+  boolean isImpressionGood(@NonNull String provider, @NonNull String bannerId);
 }

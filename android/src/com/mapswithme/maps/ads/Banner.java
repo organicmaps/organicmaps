@@ -38,6 +38,12 @@ public final class Banner implements Parcelable
     mId = id;
   }
 
+  public Banner(@NonNull String id, int type)
+  {
+    this(id);
+    mType = type;
+  }
+
   protected Banner(Parcel in)
   {
     mId = in.readString();
@@ -55,22 +61,25 @@ public final class Banner implements Parcelable
     if (mKey != null)
       return mKey;
 
-    String provider;
-    switch (mType)
-    {
-      case TYPE_FACEBOOK:
-        provider = Providers.FACEBOOK;
-        break;
-      case TYPE_RB:
-        provider = Providers.MY_TARGET;
-        break;
-      default:
-        throw new AssertionError("Unsupported banner type: " + mType);
-    }
+    String provider = getProvider();
     //noinspection ConstantConditions
     mKey = new BannerKey(provider, mId);
 
     return mKey;
+  }
+
+  @NonNull
+  String getProvider()
+  {
+    switch (mType)
+    {
+      case TYPE_FACEBOOK:
+        return Providers.FACEBOOK;
+      case TYPE_RB:
+        return Providers.MY_TARGET;
+      default:
+        throw new AssertionError("Unsupported banner type: " + mType);
+    }
   }
 
 

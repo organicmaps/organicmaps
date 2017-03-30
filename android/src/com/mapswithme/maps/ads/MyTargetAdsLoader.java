@@ -18,7 +18,7 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
   private static final String TAG = MyTargetAdsLoader.class.getSimpleName();
   //FIXME: read correct slot from private.h
   private static final int SLOT = 93418;
-  private static final String ZONE_KEY_PARAMETER = "_SITEZONE";
+  static final String ZONE_KEY_PARAMETER = "_SITEZONE";
 
   MyTargetAdsLoader(@Nullable OnAdCacheModifiedListener listener, @Nullable AdTracker tracker)
   {
@@ -37,18 +37,16 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
   @Override
   public void onLoad(NativeAd nativeAd)
   {
-    CustomParams params = nativeAd.getCustomParams();
-    String bannerId = params.getData().get(ZONE_KEY_PARAMETER);
-    onAdLoaded(bannerId, new MyTargetNativeAd(nativeAd, SystemClock.elapsedRealtime()));
+    CachedMwmNativeAd ad = new MyTargetNativeAd(nativeAd, SystemClock.elapsedRealtime());
+    onAdLoaded(ad.getBannerId(), ad);
   }
 
   @Override
   public void onNoAd(String s, NativeAd nativeAd)
   {
     LOGGER.w(TAG, "onNoAd s = " + s);
-    CustomParams params = nativeAd.getCustomParams();
-    String bannerId = params.getData().get(ZONE_KEY_PARAMETER);
-    onError(bannerId, new MyTargetNativeAd(nativeAd, 0), new MyTargetAdError(s));
+    CachedMwmNativeAd ad = new MyTargetNativeAd(nativeAd, 0);
+    onError(ad.getBannerId(), ad, new MyTargetAdError(s));
   }
 
   @Override

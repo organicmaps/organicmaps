@@ -40,7 +40,7 @@ class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
   public void onAdLoaded(Ad ad)
   {
     CachedMwmNativeAd nativeAd = new FacebookNativeAd((NativeAd) ad, SystemClock.elapsedRealtime());
-    onAdLoaded(ad.getPlacementId(), nativeAd);
+    onAdLoaded(nativeAd.getBannerId(), nativeAd);
   }
 
   @Override

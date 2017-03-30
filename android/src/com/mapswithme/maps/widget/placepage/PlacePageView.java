@@ -43,6 +43,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.Factory;
 import com.mapswithme.maps.ads.NativeAdLoader;
@@ -384,7 +385,7 @@ public class PlacePageView extends RelativeLayout
     if (bannerView != null)
     {
       DefaultAdTracker tracker = new DefaultAdTracker();
-      NativeAdLoader loader = Factory.createFacebookAdLoader(tracker, tracker);
+      CompoundNativeAdLoader loader = Factory.createCompoundLoader(tracker, tracker);
       mBannerController = new BannerController(bannerView, this, loader, tracker);
     }
 
@@ -1129,7 +1130,7 @@ public class PlacePageView extends RelativeLayout
     {
       boolean canShow = mapObject.getMapObjectType() != MapObject.MY_POSITION
                         && policy.сanUseNetwork();
-      mBannerController.updateData(canShow ? mapObject.getBanner() : null);
+      mBannerController.updateData(canShow ? mapObject.getBanners() : null);
     }
 
     refreshPreview(mapObject);

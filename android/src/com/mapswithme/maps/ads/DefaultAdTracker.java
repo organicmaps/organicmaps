@@ -18,32 +18,35 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   private final static Map<BannerKey, TrackInfo> TRACKS = new HashMap<>();
 
   @Override
-  public void onViewShown(@NonNull Banner banner)
+  public void onViewShown(@NonNull String provider, @NonNull String bannerId)
   {
-    LOGGER.d(TAG, "onViewShown bannerId = " + banner.getKey());
-    TrackInfo info = TRACKS.get(banner.getKey());
+    BannerKey key = new BannerKey(provider, bannerId);
+    LOGGER.d(TAG, "onViewShown bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info == null)
     {
       info = new TrackInfo();
-      TRACKS.put(banner.getKey(), info);
+      TRACKS.put(key, info);
     }
     info.setVisible(true);
   }
 
   @Override
-  public void onViewHidden(@NonNull Banner banner)
+  public void onViewHidden(@NonNull String provider, @NonNull String bannerId)
   {
-    LOGGER.d(TAG, "onViewHidden bannerId = " + banner.getKey());
-    TrackInfo info = TRACKS.get(banner.getKey());
+    BannerKey key = new BannerKey(provider, bannerId);
+    LOGGER.d(TAG, "onViewHidden bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info != null)
       info.setVisible(false);
   }
 
   @Override
-  public void onContentObtained(@NonNull Banner banner)
+  public void onContentObtained(@NonNull String provider, @NonNull String bannerId)
   {
-    LOGGER.d(TAG, "onContentObtained bannerId = " + banner.getKey());
-    TrackInfo info = TRACKS.get(banner.getKey());
+    BannerKey key = new BannerKey(provider, bannerId);
+    LOGGER.d(TAG, "onContentObtained bannerId = " + key);
+    TrackInfo info = TRACKS.get(key);
     if (info == null)
       throw new AssertionError("A track info must be put in a cache before a content is obtained");
 
@@ -51,8 +54,9 @@ public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
   }
 
   @Override
-  public boolean isImpressionGood(@NonNull BannerKey key)
+  public boolean isImpressionGood(@NonNull String provider, @NonNull String bannerId)
   {
+    BannerKey key = new BannerKey(provider, bannerId);
     TrackInfo info = TRACKS.get(key);
     return info != null && info.getShowTime() > IMPRESSION_TIME_MS;
   }
