@@ -34,34 +34,34 @@ bool ReadRegionDataImpl(string const & countryName, RegionData & data)
     my::Json root(buffer.data());
 
     json_t * jsonData = nullptr;
-    my::FromJSONObjectOptionalField(root.get(), countryName, jsonData);
+    FromJSONObjectOptionalField(root.get(), countryName, jsonData);
     if (!jsonData)
       return false;
 
     vector<string> languages;
-    my::FromJSONObjectOptionalField(jsonData, "languages", languages);
+    FromJSONObjectOptionalField(jsonData, "languages", languages);
     if (!languages.empty())
       data.SetLanguages(languages);
 
     string driving;
-    my::FromJSONObjectOptionalField(jsonData, "driving", driving);
+    FromJSONObjectOptionalField(jsonData, "driving", driving);
     if (driving == "l" || driving == "r")
       data.Set(RegionData::Type::RD_DRIVING, driving);
 
     string timezone;
-    my::FromJSONObjectOptionalField(jsonData, "timezone", timezone);
+    FromJSONObjectOptionalField(jsonData, "timezone", timezone);
     if (!timezone.empty())
       data.Set(RegionData::Type::RD_TIMEZONE, timezone);
 
     bool allow_housenames;
-    my::FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames, false);
+    FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames, false);
     if (allow_housenames)
       data.Set(RegionData::Type::RD_ALLOW_HOUSENAMES, "y");
 
     // Public holidays: an array of arrays of [string/number, number].
     // See https://github.com/opening-hours/opening_hours.js/blob/master/docs/holidays.md
     vector<json_t *> holidays;
-    my::FromJSONObjectOptionalField(jsonData, "holidays", holidays);
+    FromJSONObjectOptionalField(jsonData, "holidays", holidays);
     for (json_t * holiday : holidays)
     {
       if (!json_is_array(holiday) || json_array_size(holiday) != 2)

@@ -5,13 +5,25 @@
 #include "base/exception.hpp"
 #include "base/string_utils.hpp"
 
-#include "3party/jansson/src/jansson.h"
+#include <memory>
+#include <string>
+#include <vector>
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include "3party/jansson/src/jansson.h"
 
 namespace my
 {
+struct JSONDecRef
+{
+  void operator()(json_t * root) const { json_decref(root); }
+};
+
+using JSONPtr = std::unique_ptr<json_t, JSONDecRef>;
+
+inline JSONPtr NewJSONObject() { return JSONPtr(json_object()); }
+inline JSONPtr NewJSONArray() { return JSONPtr(json_array()); }
+inline JSONPtr NewJSONString(std::string const & s) { return JSONPtr(json_string(s.c_str())); }
+
 class Json
 {
   JsonHandle m_handle;
@@ -29,16 +41,30 @@ public:
 
   json_t * get() const { return m_handle.get(); }
 };
+}  // namespace my
 
-void FromJSON(json_t * root, string & result);
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
-void FromJSONObject(json_t * root, string const & field, string & result);
-void FromJSONObject(json_t * root, string const & field, strings::UniString & result);
-void FromJSONObject(json_t * root, string const & field, double & result);
-void FromJSONObject(json_t * root, string const & field, json_int_t & result);
+
+void FromJSONObject(json_t * root, std::string const & field, double & result);
+void FromJSONObject(json_t * root, std::string const & field, json_int_t & result);
+
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, json_int_t & result);
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, double & result);
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, bool & result,
+                                 bool def = false);
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, json_t *& result);
+
+void ToJSONObject(json_t & root, std::string const & field, double value);
+void ToJSONObject(json_t & root, std::string const & field, int value);
+
+void FromJSON(json_t * root, std::string & result);
+inline my::JSONPtr ToJSON(std::string const & s) { return my::NewJSONString(s); }
+
+void FromJSONObject(json_t * root, std::string const & field, std::string & result);
+void ToJSONObject(json_t & root, std::string const & field, std::string const & value);
 
 template <typename T>
-void FromJSONObject(json_t * root, string const & field, vector<T> & result)
+void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & result)
 {
   json_t * arr = json_object_get(root, field.c_str());
   if (!arr)
@@ -51,14 +77,19 @@ void FromJSONObject(json_t * root, string const & field, vector<T> & result)
     FromJSON(json_array_get(arr, i), result[i]);
 }
 
-void FromJSONObjectOptionalField(json_t * root, string const & field, string & result);
-void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result);
-void FromJSONObjectOptionalField(json_t * root, string const & field, double & result);
-void FromJSONObjectOptionalField(json_t * root, string const & field, bool & result, bool def = false);
-void FromJSONObjectOptionalField(json_t * root, string const & field, json_t *& result);
+template <typename T>
+void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const & values)
+{
+  auto arr = my::NewJSONArray();
+  for (auto const & value : values)
+    json_array_append_new(arr.get(), ToJSON(value).release());
+  json_object_set_new(&root, field.c_str(), arr.release());
+}
+
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::string & result);
 
 template <typename T>
-void FromJSONObjectOptionalField(json_t * root, string const & field, vector<T> & result)
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
 {
   json_t * arr = json_object_get(root, field.c_str());
   if (!arr)
@@ -73,4 +104,9 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, vector<T> 
   for (size_t i = 0; i < sz; ++i)
     FromJSON(json_array_get(arr, i), result[i]);
 }
-}  // namespace my
+
+namespace strings
+{
+void FromJSONObject(json_t * root, std::string const & field, UniString & result);
+void ToJSONObject(json_t & root, std::string const & field, UniString const & value);
+}

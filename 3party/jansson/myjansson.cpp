@@ -1,32 +1,6 @@
 #include "3party/jansson/myjansson.hpp"
 
-namespace my
-{
-void FromJSON(json_t * root, string & result)
-{
-  if (!json_is_string(root))
-    MYTHROW(my::Json::Exception, ("The field must contain a json string."));
-  result = string(json_string_value(root));
-}
-
-void FromJSONObject(json_t * root, string const & field, string & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  if (!json_is_string(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
-  result = string(json_string_value(val));
-}
-
-void FromJSONObject(json_t * root, string const & field, strings::UniString & result)
-{
-  string s;
-  FromJSONObject(root, field, s);
-  result = strings::MakeUniString(s);
-}
+using namespace std;
 
 void FromJSONObject(json_t * root, string const & field, double & result)
 {
@@ -50,21 +24,6 @@ void FromJSONObject(json_t * root, string const & field, json_int_t & result)
   if (!json_is_number(val))
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
   result = json_integer_value(val);
-}
-
-void FromJSONObjectOptionalField(json_t * root, string const & field, string & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-  {
-    result.clear();
-    return;
-  }
-  if (!json_is_string(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
-  result = string(json_string_value(val));
 }
 
 void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result)
@@ -124,4 +83,67 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, json_t *& 
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json object."));
   FromJSON(obj, result);
 }
-}  // namespace my
+
+void ToJSONObject(json_t & root, string const & field, double value)
+{
+  json_object_set_new(&root, field.c_str(), json_real(value));
+}
+
+void ToJSONObject(json_t & root, string const & field, int value)
+{
+  json_object_set_new(&root, field.c_str(), json_integer(value));
+}
+
+void FromJSON(json_t * root, string & result)
+{
+  if (!json_is_string(root))
+    MYTHROW(my::Json::Exception, ("The field must contain a json string."));
+  result = string(json_string_value(root));
+}
+
+void FromJSONObject(json_t * root, string const & field, string & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_string(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
+  result = string(json_string_value(val));
+}
+
+void ToJSONObject(json_t & root, string const & field, string const & value)
+{
+  json_object_set_new(&root, field.c_str(), json_string(value.c_str()));
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, string & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+  {
+    result.clear();
+    return;
+  }
+  if (!json_is_string(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
+  result = string(json_string_value(val));
+}
+
+namespace strings
+{
+void FromJSONObject(json_t * root, string const & field, UniString & result)
+{
+  string s;
+  FromJSONObject(root, field, s);
+  result = strings::MakeUniString(s);
+}
+
+void ToJSONObject(json_t & root, string const & field, UniString const & value)
+{
+  return ToJSONObject(root, field, strings::ToUtf8(value));
+}
+}  // namespace strings

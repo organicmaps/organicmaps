@@ -61,8 +61,8 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     uber::Product product;
     json_int_t estimatedTime = 0;
     auto const item = json_array_get(time, i);
-    my::FromJSONObject(item, "display_name", product.m_name);
-    my::FromJSONObject(item, "estimate", estimatedTime);
+    FromJSONObject(item, "display_name", product.m_name);
+    FromJSONObject(item, "estimate", estimatedTime);
     product.m_time = strings::to_string(estimatedTime);
     products.push_back(move(product));
   }
@@ -74,7 +74,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     string name;
     auto const item = json_array_get(price, i);
 
-    my::FromJSONObject(item, "display_name", name);
+    FromJSONObject(item, "display_name", name);
     auto const it = find_if(products.begin(), products.end(), [&name](uber::Product const & product)
     {
       return product.m_name == name;
@@ -83,8 +83,8 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     if (it == products.end())
       continue;
 
-    my::FromJSONObject(item, "product_id", it->m_productId);
-    my::FromJSONObject(item, "estimate", it->m_price);
+    FromJSONObject(item, "product_id", it->m_productId);
+    FromJSONObject(item, "estimate", it->m_price);
 
     // The field currency_code can contain null in case when price equal to Metered.
     auto const currency = json_object_get(item, "currency_code");

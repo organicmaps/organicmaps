@@ -1,13 +1,14 @@
-#include "sample.hpp"
+#include "search/search_quality/sample.hpp"
+
+#include "search/search_quality/helpers.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-
-#include "3party/jansson/myjansson.hpp"
+#include <algorithm>
+#include <memory>
+#include <sstream>
+#include <string>
 
 using namespace my;
 
@@ -27,7 +28,7 @@ bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
 }
 
 template <typename T>
-bool Less(vector<T> lhs, vector<T> rhs)
+bool Less(std::vector<T> lhs, std::vector<T> rhs)
 {
   sort(lhs.begin(), lhs.end());
   sort(rhs.begin(), rhs.end());
@@ -35,61 +36,18 @@ bool Less(vector<T> lhs, vector<T> rhs)
 }
 
 template <typename T>
-bool Equal(vector<T> lhs, vector<T> rhs)
+bool Equal(std::vector<T> lhs, std::vector<T> rhs)
 {
   sort(lhs.begin(), lhs.end());
   sort(rhs.begin(), rhs.end());
   return lhs == rhs;
 }
+
+struct FreeDeletor
+{
+  void operator()(char * buffer) const { free(buffer); }
+};
 }  // namespace
-
-void FromJSONObject(json_t * root, string const & field, m2::RectD & result)
-{
-  json_t * rect = json_object_get(root, field.c_str());
-  if (!rect)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  double minX, minY, maxX, maxY;
-  FromJSONObject(rect, "minx", minX);
-  FromJSONObject(rect, "miny", minY);
-  FromJSONObject(rect, "maxx", maxX);
-  FromJSONObject(rect, "maxy", maxY);
-  result.setMinX(minX);
-  result.setMinY(minY);
-  result.setMaxX(maxX);
-  result.setMaxY(maxY);
-}
-
-void FromJSONObject(json_t * root, string const & field, m2::PointD & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  FromJSONObject(val, "x", result.x);
-  FromJSONObject(val, "y", result.y);
-}
-
-void FromJSONObject(json_t * root, string const & field, search::Sample::Result::Relevance & r)
-{
-  string relevance;
-  FromJSONObject(root, field, relevance);
-  if (relevance == "vital")
-    r = search::Sample::Result::Relevance::Vital;
-  else if (relevance == "relevant")
-    r = search::Sample::Result::Relevance::Relevant;
-  else
-    r = search::Sample::Result::Relevance::Irrelevant;
-}
-
-void FromJSON(json_t * root, search::Sample::Result & result)
-{
-  FromJSONObject(root, "position", result.m_pos);
-  FromJSONObject(root, "name", result.m_name);
-  FromJSONObject(root, "houseNumber", result.m_houseNumber);
-  FromJSONObject(root, "types", result.m_types);
-  FromJSONObject(root, "relevancy", result.m_relevance);
-}
 
 namespace search
 {
@@ -128,6 +86,13 @@ bool Sample::DeserializeFromJSON(string const & jsonStr)
   return false;
 }
 
+my::JSONPtr Sample::SerializeToJSON() const
+{
+  auto json = my::NewJSONObject();
+  SerializeToJSONImpl(*json);
+  return json;
+}
+
 bool Sample::operator<(Sample const & rhs) const
 {
   if (m_query != rhs.m_query)
@@ -148,7 +113,7 @@ bool Sample::operator==(Sample const & rhs) const
 }
 
 // static
-bool Sample::DeserializeFromJSON(string const & jsonStr, vector<Sample> & samples)
+bool Sample::DeserializeFromJSON(string const & jsonStr, std::vector<Sample> & samples)
 {
   try
   {
@@ -168,6 +133,17 @@ bool Sample::DeserializeFromJSON(string const & jsonStr, vector<Sample> & sample
   return false;
 }
 
+// static
+void Sample::SerializeToJSON(std::vector<Sample> const & samples, std::string & jsonStr)
+{
+  auto array = my::NewJSONArray();
+  for (auto const & sample : samples)
+    json_array_append_new(array.get(), sample.SerializeToJSON().release());
+  std::unique_ptr<char, FreeDeletor> buffer(
+      json_dumps(array.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  jsonStr.assign(buffer.get());
+}
+
 void Sample::DeserializeFromJSONImpl(json_t * root)
 {
   FromJSONObject(root, "query", m_query);
@@ -175,6 +151,64 @@ void Sample::DeserializeFromJSONImpl(json_t * root)
   FromJSONObject(root, "position", m_pos);
   FromJSONObject(root, "viewport", m_viewport);
   FromJSONObject(root, "results", m_results);
+}
+
+void Sample::SerializeToJSONImpl(json_t & root) const
+{
+  ToJSONObject(root, "query", m_query);
+  ToJSONObject(root, "locale", m_locale);
+  ToJSONObject(root, "position", m_pos);
+  ToJSONObject(root, "viewport", m_viewport);
+  ToJSONObject(root, "results", m_results);
+}
+
+void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)
+{
+  string r;
+  FromJSONObject(root, field, r);
+  if (r == "vital")
+    relevance = search::Sample::Result::Relevance::Vital;
+  else if (r == "relevant")
+    relevance = search::Sample::Result::Relevance::Relevant;
+  else if (r == "irrelevant")
+    relevance = search::Sample::Result::Relevance::Irrelevant;
+  else
+    CHECK(false, ("Unknown relevance:", r));
+}
+
+void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance relevance)
+{
+  using Relevance = Sample::Result::Relevance;
+
+  string r;
+  switch (relevance)
+  {
+  case Relevance::Vital: r = "vital"; break;
+  case Relevance::Relevant: r = "relevant"; break;
+  case Relevance::Irrelevant: r = "irrelevant"; break;
+  }
+
+  json_object_set_new(&root, field.c_str(), json_string(r.c_str()));
+}
+
+void FromJSON(json_t * root, Sample::Result & result)
+{
+  FromJSONObject(root, "position", result.m_pos);
+  FromJSONObject(root, "name", result.m_name);
+  FromJSONObject(root, "houseNumber", result.m_houseNumber);
+  FromJSONObject(root, "types", result.m_types);
+  FromJSONObject(root, "relevancy", result.m_relevance);
+}
+
+my::JSONPtr ToJSON(Sample::Result const & result)
+{
+  auto root = my::NewJSONObject();
+  ToJSONObject(*root, "position", result.m_pos);
+  ToJSONObject(*root, "name", result.m_name);
+  ToJSONObject(*root, "houseNumber", result.m_houseNumber);
+  ToJSONObject(*root, "types", result.m_types);
+  ToJSONObject(*root, "relevancy", result.m_relevance);
+  return root;
 }
 
 string DebugPrint(Sample::Result::Relevance r)
