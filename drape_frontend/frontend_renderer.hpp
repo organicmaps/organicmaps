@@ -333,11 +333,12 @@ private:
 
   bool m_needRestoreSize;
 
-  bool m_needRegenerateTraffic;
   bool m_trafficEnabled;
 
   drape_ptr<OverlaysTracker> m_overlaysTracker;
   OverlaysShowStatsCallback m_overlaysShowStatsCallback;
+
+  bool m_forceUpdateScene;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
 

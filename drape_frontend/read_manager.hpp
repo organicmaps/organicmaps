@@ -32,7 +32,7 @@ public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
               bool allow3dBuildings, bool trafficEnabled);
 
-  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool needRegenerateTraffic,
+  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();

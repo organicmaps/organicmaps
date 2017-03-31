@@ -87,13 +87,13 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   myPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool needRegenerateTraffic,
+void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
                                  TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
 {
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
 
-  if (m_modeChanged || needRegenerateTraffic || MustDropAllTiles(screen))
+  if (m_modeChanged || forceUpdate || MustDropAllTiles(screen))
   {
     m_modeChanged = false;
 

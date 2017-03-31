@@ -135,10 +135,10 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_needRestoreSize(false)
-  , m_needRegenerateTraffic(false)
   , m_trafficEnabled(params.m_trafficEnabled)
   , m_overlaysTracker(new OverlaysTracker())
   , m_overlaysShowStatsCallback(move(params.m_overlaysShowStatsCallback))
+  , m_forceUpdateScene(false)
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
 #endif
@@ -339,7 +339,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
         CheckIsometryMinScale(screen);
         UpdateDisplacementEnabled();
-        InvalidateRect(screen.ClipRect());
+        m_forceUpdateScene = true;
       }
 
       if (m_guiRenderer->HasWidget(gui::WIDGET_RULER))
@@ -623,7 +623,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_enable3dBuildings = msg->Allow3dBuildings();
         CheckIsometryMinScale(screen);
-        InvalidateRect(screen.ClipRect());
+        m_forceUpdateScene = true;
       }
 
       if (m_enablePerspectiveInNavigation != msg->AllowPerspective())
@@ -731,7 +731,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<EnableTrafficMessage> msg = message;
       m_trafficEnabled = msg->IsTrafficEnabled();
       if (msg->IsTrafficEnabled())
-        m_needRegenerateTraffic = true;
+        m_forceUpdateScene = true;
       else
         m_trafficRenderer->ClearGLDependentResources();
       break;
@@ -740,7 +740,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::RegenerateTraffic:
   case Message::SetSimplifiedTrafficColors:
     {
-      m_needRegenerateTraffic = true;
+      m_forceUpdateScene = true;
       break;
     }
 
@@ -781,8 +781,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<UpdateCustomSymbolsMessage> msg = message;
       m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptSymbolsFeatures());
-      ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-      InvalidateRect(screen.ClipRect());
+      m_forceUpdateScene = true;
       break;
     }
 
@@ -835,7 +834,7 @@ void FrontendRenderer::UpdateGLResources()
   // Request new tiles.
   ScreenBase screen = m_userEventStream.GetCurrentScreen();
   m_lastReadedModelView = screen;
-  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_needRegenerateTraffic, ResolveTileKeys(screen));
+  m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_forceUpdateScene, ResolveTileKeys(screen));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::UberHighSingleton);
@@ -890,8 +889,8 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
     // Request new tiles.
     m_lastReadedModelView = screen;
-    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
-                          m_needRegenerateTraffic, ResolveTileKeys(screen));
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_forceUpdateScene,
+                          ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
@@ -1748,7 +1747,7 @@ void FrontendRenderer::Routine::Do()
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
 
-    if (modelViewChanged || m_renderer.m_needRegenerateTraffic)
+    if (modelViewChanged || m_renderer.m_forceUpdateScene)
       m_renderer.UpdateScene(modelView);
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
@@ -1911,16 +1910,16 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  if (m_needRegenerateTraffic || m_lastReadedModelView != modelView)
+  if (m_forceUpdateScene || m_lastReadedModelView != modelView)
   {
     EmitModelViewChanged(modelView);
     m_lastReadedModelView = modelView;
-    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), m_needRegenerateTraffic,
+    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), m_forceUpdateScene,
                           ResolveTileKeys(modelView));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
-    m_needRegenerateTraffic = false;
+    m_forceUpdateScene = false;
   }
 }
 

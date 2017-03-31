@@ -114,9 +114,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         ScreenBase screen;
         bool have3dBuildings;
-        bool needRegenerateTraffic;
-        m_requestedTiles->GetParams(screen, have3dBuildings, needRegenerateTraffic);
-        m_readManager->UpdateCoverage(screen, have3dBuildings, needRegenerateTraffic, tiles, m_texMng);
+        bool forceRequest;
+        m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, tiles, m_texMng);
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;

@@ -11,6 +11,8 @@
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
+#include "base/bits.hpp"
+
 namespace
 {
 std::string const kCampaignFile = "local_ads_campaigns.dat";
@@ -19,11 +21,12 @@ auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
 
 std::vector<uint8_t> SerializeTimestamp(std::chrono::steady_clock::time_point ts)
 {
-  long hours = std::chrono::duration_cast<std::chrono::hours>(ts.time_since_epoch()).count();
+  auto hours = std::chrono::duration_cast<std::chrono::hours>(ts.time_since_epoch()).count();
+  uint64_t const encodedHours = bits::ZigZagEncode(static_cast<int64_t>(hours));
 
   std::vector<uint8_t> result;
   MemWriter<decltype(result)> writer(result);
-  writer.Write(&hours, sizeof(hours));
+  writer.Write(&encodedHours, sizeof(encodedHours));
 
   return result;
 }
@@ -37,9 +40,10 @@ std::chrono::steady_clock::time_point DeserializeTimestamp(ModelReaderPtr const 
 
   MemReaderWithExceptions memReader(bytes.data(), bytes.size());
   ReaderSource<decltype(memReader)> src(memReader);
-  long hours = ReadPrimitiveFromSource<long>(src);
+  uint64_t hours = ReadPrimitiveFromSource<uint64_t>(src);
+  int64_t const decodedHours = bits::ZigZagDecode(hours);
 
-  return std::chrono::steady_clock::time_point(std::chrono::hours(hours));
+  return std::chrono::steady_clock::time_point(std::chrono::hours(decodedHours));
 }
 
 std::string GetPath(std::string const & fileName)
@@ -129,7 +133,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
         if (!needUpdateByTimeout && it != m_expiration.end())
         {
           auto const currentTime = std::chrono::steady_clock::now();
-          needUpdateByTimeout = (currentTime - it->second) > kWWanUpdateTimeout;
+          needUpdateByTimeout = currentTime > (it->second + kWWanUpdateTimeout);
         }
 
         if (needUpdateByTimeout || it == m_expiration.end())
@@ -152,7 +156,7 @@ void LocalAdsManager::ThreadRoutine()
   std::string const campaignFile = GetPath(kCampaignFile);
   std::string const expirationFile = GetPath(kExpirationFile);
 
-  // Read persistence data (expiration file must be read the first).
+  // Read persistence data (expiration file must be read first).
   ReadExpirationFile(expirationFile);
   ReadCampaignFile(campaignFile);
 
@@ -321,7 +325,7 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
 
       ASSERT(m_expiration.find(tag) != m_expiration.end(), ());
       auto ts = m_expiration[tag];
-      auto symbols = DeserializeCampaign(std::move(rawData), ts);
+      auto const symbols = DeserializeCampaign(std::move(rawData), ts);
       allSymbols.insert(symbols.begin(), symbols.end());
     });
     SendSymbolsToRendering(std::move(allSymbols));
@@ -334,6 +338,9 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
 
 void LocalAdsManager::SendSymbolsToRendering(df::CustomSymbols && symbols)
 {
+  if (symbols.empty())
+    return;
+
   if (m_drapeEngine == nullptr)
   {
     std::lock_guard<std::mutex> lock(m_symbolsCacheMutex);
