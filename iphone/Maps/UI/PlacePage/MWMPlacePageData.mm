@@ -1,5 +1,6 @@
 #import "MWMPlacePageData.h"
 #import "AppInfo.h"
+#import "MWMBannerHelpers.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
 #import "Statistics.h"
@@ -26,7 +27,7 @@ using namespace place_page;
 @interface MWMPlacePageData ()
 
 @property(copy, nonatomic) NSString * cachedMinPrice;
-@property(nonatomic) FBNativeAd * nativeAd;
+@property(nonatomic) id<MWMBanner> nativeAd;
 @property(copy, nonatomic) NSArray<MWMGalleryItemModel *> * photos;
 
 @end
@@ -104,17 +105,18 @@ using namespace place_page;
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
   {
     __weak auto wSelf = self;
-    // Dummy should be changed by IOS developer
-    [[MWMBannersCache cache] get:@(m_info.GetBanners()[0].m_bannerId.c_str()) completion:^(FBNativeAd * ad, BOOL isAsync) {
-      __strong auto self = wSelf;
-      if (!self)
-        return;
-      
-      self.nativeAd = ad;
-      self->m_previewRows.push_back(PreviewRows::Banner);
-      if (isAsync)
-        self.bannerIsReadyCallback();
-    }];
+    [[MWMBannersCache cache]
+        getWithCoreBanners:banner_helpers::MatchPriorityBanners(m_info.GetBanners())
+                completion:^(id<MWMBanner> ad, BOOL isAsync) {
+                  __strong auto self = wSelf;
+                  if (!self)
+                    return;
+
+                  self.nativeAd = ad;
+                  self->m_previewRows.push_back(PreviewRows::Banner);
+                  if (isAsync)
+                    self.bannerIsReadyCallback();
+                }];
   }
 }
 
@@ -302,11 +304,8 @@ using namespace place_page;
 
 - (void)dealloc
 {
-  if (m_info.HasBanner())
-  {
-    // Dummy should be changed by IOS developer
-    [[MWMBannersCache cache] bannerIsOutOfScreen:@(m_info.GetBanners()[0].m_bannerId.c_str())];
-  }
+  if (self.nativeAd)
+    [[MWMBannersCache cache] bannerIsOutOfScreenWithCoreBanner:self.nativeAd];
 }
 
 #pragma mark - Getters

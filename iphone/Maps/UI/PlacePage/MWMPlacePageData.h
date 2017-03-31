@@ -1,3 +1,5 @@
+#import "SwiftBridge.h"
+
 #include "map/place_page_info.hpp"
 
 #include "std/vector.hpp"
@@ -97,7 +99,6 @@ using BannerIsReady = void (^)();
 
 
 @class MWMGalleryItemModel;
-@class FBNativeAd;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject
@@ -136,7 +137,7 @@ using BannerIsReady = void (^)();
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
 // Banner
-- (FBNativeAd *)nativeAd;
+- (id<MWMBanner>)nativeAd;
 
 // API
 - (NSString *)apiURL;

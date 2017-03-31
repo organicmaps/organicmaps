@@ -1,6 +1,7 @@
-#import "MWMPlacePageLayout.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
 #import "MWMPPPreviewLayoutHelper.h"
+#import "MWMPlacePageLayout.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -267,6 +268,12 @@ CGFloat const kMinOffset = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  auto cell = [tableView cellForRowAtIndexPath:indexPath];
+  if ([cell isKindOfClass:[MWMAdBanner class]])
+  {
+    [static_cast<MWMAdBanner *>(cell) highlightButton];
+    return;
+  }
   if (indexPath.section != 0)
     return;
 

@@ -2,14 +2,18 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+#import <MyTargetSDK/MyTargetSDK.h>
 #import <UIKit/UIKit.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#import "private.h"
 
 #import "AppInfo.h"
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
+#import "MWMCoreBanner.h"
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
@@ -24,6 +28,7 @@
 #import "MWMTypes.h"
 #import "MWMViewController.h"
 #import "Statistics.h"
+#import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIKitCategories.h"

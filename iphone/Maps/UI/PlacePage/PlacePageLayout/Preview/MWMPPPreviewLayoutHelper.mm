@@ -124,7 +124,7 @@ namespace
 array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTitle class],
                                         [_MWMPPPSubtitle class], [_MWMPPPSchedule class],
                                         [_MWMPPPBooking class], [_MWMPPPAddress class],
-                                        [_MWMPPPSpace class], [MWMFBAdsBanner class]}};
+                                        [_MWMPPPSpace class], [MWMAdBanner class]}};
 }  // namespace
 
 @interface MWMPPPreviewLayoutHelper ()
@@ -145,7 +145,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 @property(nonatomic) BOOL lastCellIsBanner;
 @property(nonatomic) NSUInteger distanceRow;
 
-@property(weak, nonatomic) MWMFBAdsBanner * cachedBannerCell;
+@property(weak, nonatomic) MWMAdBanner * cachedBannerCell;
 
 @end
 
@@ -234,7 +234,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   case PreviewRows::Space:
     return c;
   case PreviewRows::Banner:
-    auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
+    auto bannerCell = static_cast<MWMAdBanner *>(c);
     [bannerCell configWithAd:data.nativeAd];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
@@ -314,8 +314,8 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     return height;
 
   auto constexpr gapBannerHeight = 4.0;
-  CGFloat const excessHeight = self.cachedBannerCell.state == MWMFBAdsBannerStateDetailed
-                                   ? [MWMFBAdsBanner detailedBannerExcessHeight]
+  CGFloat const excessHeight = self.cachedBannerCell.state == MWMAdBannerStateDetailed
+                                   ? [MWMAdBanner detailedBannerExcessHeight]
                                    : 0;
 
   return height + gapBannerHeight - excessHeight;
@@ -327,7 +327,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     return;
 
   [self.tableView update:^{
-    self.cachedBannerCell.state = isOpen ? MWMFBAdsBannerStateDetailed : MWMFBAdsBannerStateCompact;
+    self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
   }];
 }
 

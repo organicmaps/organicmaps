@@ -1,5 +1,6 @@
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMPlacePageLayout.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -9,7 +10,7 @@ CGFloat const kTopOffset = 36;
 CGFloat const kBottomOffset = 60;
 }  // namespace
 
-@interface MWMiPadPlacePageLayoutImpl ()
+@interface MWMiPadPlacePageLayoutImpl ()<UITableViewDelegate>
 
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
@@ -32,6 +33,7 @@ CGFloat const kBottomOffset = 60;
   {
     _ownerView = ownerView;
     self.placePageView = placePageView;
+    placePageView.tableView.delegate = self;
     _delegate = delegate;
     [self addShadow];
   }
@@ -182,6 +184,15 @@ CGFloat const kBottomOffset = 60;
 
 - (CGFloat)topBound { return _topBound + kTopOffset; }
 - (CGFloat)leftBound { return _leftBound + kLeftOffset; }
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto cell = [tableView cellForRowAtIndexPath:indexPath];
+  if ([cell isKindOfClass:[MWMAdBanner class]])
+    [static_cast<MWMAdBanner *>(cell) highlightButton];
+}
+
 #pragma mark - Properties
 
 - (void)setPlacePageView:(MWMPPView *)placePageView

@@ -158,6 +158,7 @@ static NSString * const kStatPlacePage = @"Place page";
 static NSString * const kStatPlacePageBannerBlank = @"Placepage_Banner_blank";
 static NSString * const kStatPlacePageBannerError = @"Placepage_Banner_error";
 static NSString * const kStatPlacePageBannerShow = @"Placepage_Banner_show";
+static NSString * const kStatRB = @"RB";
 static NSString * const kPlacePageHotelBook = @"Placepage_Hotel_book";
 static NSString * const kPlacePageHotelDetails = @"Placepage_Hotel_details";
 static NSString * const kPlacePageHotelFacilities = @"PlacePage_Hotel_Facilities_open";

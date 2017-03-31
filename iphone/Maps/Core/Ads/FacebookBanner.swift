@@ -1,29 +1,16 @@
 import FBAudienceNetwork
 
-// MARK: CacheableFacebookBanner
-final class CacheableFacebookBanner: FBNativeAd, Cacheable {
+// MARK: FacebookBanner
+final class FacebookBanner: FBNativeAd, Banner {
+  fileprivate var success: Banner.Success!
+  fileprivate var failure: Banner.Failure!
 
-  fileprivate var success: Cacheable.Success!
-  fileprivate var failure: Cacheable.Failure!
+  func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure) {
+    self.success = success
+    self.failure = failure
 
-  func reload(_ suc: @escaping Cacheable.Success, failure fail: @escaping Cacheable.Failure) {
-    success = suc
-    failure = fail
-
-    mediaCachePolicy = .all
-    delegate = self
     load()
     requestDate = Date()
-  }
-
-  func bannerIsOutOfScreen() {
-    stopCountTimeOnScreen()
-    isBannerOnScreen = false
-  }
-
-  func bannerIsOnScreen() {
-    isBannerOnScreen = true
-    startCountTimeOnScreen()
   }
 
   var isPossibleToReload: Bool {
@@ -34,8 +21,18 @@ final class CacheableFacebookBanner: FBNativeAd, Cacheable {
   }
 
   var isNeedToRetain: Bool = true
-  var adID: String { return placementID }
-  private(set) var isBannerOnScreen = false
+  var type: BannerType { return .facebook(bannerID) }
+  var mwmType: MWMBannerType { return type.mwmType }
+  var bannerID: String! { return placementID }
+  var isBannerOnScreen = false {
+    didSet {
+      if isBannerOnScreen {
+        startCountTimeOnScreen()
+      } else {
+        stopCountTimeOnScreen()
+      }
+    }
+  }
 
   // MARK: Helpers
   private var requestDate: Date?
@@ -76,8 +73,10 @@ final class CacheableFacebookBanner: FBNativeAd, Cacheable {
     isNeedToRetain = false
   }
 
-  override init(placementID: String) {
-    super.init(placementID: placementID)
+  init(bannerID: String) {
+    super.init(placementID: bannerID)
+    mediaCachePolicy = .all
+    delegate = self
     let center = NotificationCenter.default
     center.addObserver(self,
                        selector: #selector(enterForeground),
@@ -104,11 +103,10 @@ final class CacheableFacebookBanner: FBNativeAd, Cacheable {
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-
 }
 
-// MARK: CacheableFaceebookBanner: FBNativeAdDelegate
-extension CacheableFacebookBanner: FBNativeAdDelegate {
+// MARK: FacebookBanner: FBNativeAdDelegate
+extension FacebookBanner: FBNativeAdDelegate {
 
   func nativeAdDidLoad(_ nativeAd: FBNativeAd) {
     success(self)
@@ -126,16 +124,9 @@ extension CacheableFacebookBanner: FBNativeAdDelegate {
     } else {
       event = kStatPlacePageBannerError
       params[kStatErrorCode] = e.code
-
-      var message: String = ""
-      for (k, v) in e.userInfo {
-        message += "\(k) : \(v)\n"
-      }
-
-      params[kStatErrorMessage] = message
     }
     
-    failure(event, params, e)
+    failure(self, event, params, e)
   }
 }
 
