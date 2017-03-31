@@ -49,6 +49,27 @@ public class SplashActivity extends AppCompatActivity
   private View mIvLogo;
 
   private boolean mPermissionsGranted;
+  private boolean mCanceled;
+
+  @NonNull
+  private final Runnable mDelayedTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      init();
+      UiThread.runLater(mFinalTask);
+    }
+  };
+  @NonNull
+  private final Runnable mFinalTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      resumeDialogs();
+    }
+  };
 
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart)
@@ -69,6 +90,8 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    UiThread.cancelDelayedTasks(mDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalTask);
     Counters.initCounters(this);
     initView();
   }
@@ -77,6 +100,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    mCanceled = false;
     mPermissionsGranted = Utils.checkPermissions(this, PERMISSIONS);
     if (!mPermissionsGranted)
     {
@@ -85,21 +109,22 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    UiThread.runLater(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        init();
-        resumeDialogs();
-      }
-    }, DELAY);
+    UiThread.runLater(mDelayedTask, DELAY);
+  }
+
+  @Override
+  protected void onPause()
+  {
+    mCanceled = true;
+    UiThread.cancelDelayedTasks(mDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalTask);
+    super.onPause();
   }
 
   private void resumeDialogs()
   {
     //  TODO show permissions dialog if Permissions is not granted
-    if (!mPermissionsGranted)
+    if (!mPermissionsGranted || mCanceled)
       return;
 
     sFirstStart = FirstStartFragment.showOn(this, this);
