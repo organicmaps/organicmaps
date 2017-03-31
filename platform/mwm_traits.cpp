@@ -22,6 +22,8 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
 
 bool MwmTraits::HasOffsetsTable() const { return GetFormat() >= version::Format::v6; }
 
+bool MwmTraits::HasCrossMwmSection() const { return GetFormat() >= version::Format::v9; }
+
 bool MwmTraits::HasRoutingIndex() const
 {
   uint32_t constexpr kFirstVersionWithRoutingIndex = 161206;

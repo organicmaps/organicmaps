@@ -88,6 +88,7 @@ private:
   // this method should be moved to routing loader.
   bool DoesEdgeIndexExist(Index::MwmId const & mwmId);
   bool AllMwmsHaveRoutingIndex() const;
+  bool ThereIsCrossMwmMix(Route & route) const;
 
   /*!
    * \brief Builds a route within one mwm using A* if edge index section is available and osrm

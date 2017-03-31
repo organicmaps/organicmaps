@@ -239,6 +239,19 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
 
   return routing::IRouter::NoError;
 }
+
+template <typename ToDo>
+void ForEachCountryInfo(Index & index, ToDo && toDo)
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  index.GetMwmsInfo(infos);
+
+  for (auto const & info : infos)
+  {
+    if (info->GetType() == MwmInfo::COUNTRY)
+      toDo(*info);
+  }
+}
 }  //  namespace
 
 // static
@@ -403,6 +416,9 @@ CarRouter::ResultCode CarRouter::CalculateRoute(m2::PointD const & startPoint,
 {
   if (AllMwmsHaveRoutingIndex())
     return m_router->CalculateRoute(startPoint, startDirection, finalPoint, delegate, route);
+
+  if (ThereIsCrossMwmMix(route))
+    return CarRouter::ResultCode::FileTooOld;
 
   my::HighResTimer timer(true);
 
@@ -584,18 +600,43 @@ bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
 
 bool CarRouter::AllMwmsHaveRoutingIndex() const
 {
-  vector<shared_ptr<MwmInfo>> infos;
-  m_index.GetMwmsInfo(infos);
-  for (auto const & info : infos)
-  {
-    if (info->GetType() != MwmInfo::COUNTRY)
-      continue;
+  bool result = true;
 
-    if (!version::MwmTraits(info->m_version).HasRoutingIndex())
-      return false;
+  ForEachCountryInfo(m_index, [&](MwmInfo const & info) {
+    if (!version::MwmTraits(info.m_version).HasRoutingIndex())
+      result = false;
+  });
+
+  return result;
+}
+
+bool CarRouter::ThereIsCrossMwmMix(Route & route) const
+{
+  bool oldMwmExists = false;
+  bool newMwmExists = false;
+  vector<string> oldMwms;
+
+  ForEachCountryInfo(m_index, [&](MwmInfo const & info) {
+    if (version::MwmTraits(info.m_version).HasCrossMwmSection())
+    {
+      newMwmExists = true;
+    }
+    else
+    {
+      oldMwmExists = true;
+      oldMwms.push_back(info.GetCountryName());
+    }
+  });
+
+  if (oldMwmExists && newMwmExists)
+  {
+    for (auto const & oldMwm : oldMwms)
+      route.AddAbsentCountry(oldMwm);
+
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source,
