@@ -1,6 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -99,11 +102,7 @@ final class BannerController
       @Override
       public void onClick(View v)
       {
-        View view = mOpened ? mFrame.findViewById(R.id.tv__action_large)
-                            : mFrame.findViewById(R.id.tv__action_small);
-        ObjectAnimator anim = ObjectAnimator.ofFloat(view, "alpha", 0.3f, 1f);
-        anim.setDuration(700);
-        anim.start();
+        animateActionButton();
       }
     });
   }
@@ -261,6 +260,30 @@ final class BannerController
   boolean isActionButtonTouched(@NonNull MotionEvent event)
   {
     return isTouched(mFrame, event);
+  }
+
+  private void animateActionButton()
+  {
+    View view = mOpened ? mFrame.findViewById(R.id.tv__action_large)
+                        : mFrame.findViewById(R.id.tv__action_small);
+    ObjectAnimator animator;
+    if (mOpened)
+    {
+      Context context = mFrame.getContext();
+      Resources res = context.getResources();
+      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_start_anim_night)
+                                                : res.getColor(R.color.bg_banner_button);
+      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_end_anim_night)
+                                              : res.getColor(R.color.banner_action_btn_end_anim);
+      animator = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(),
+                                         colorFrom, colorTo, colorFrom);
+    }
+    else
+    {
+      animator = ObjectAnimator.ofFloat(view, "alpha", 0.3f, 1f);
+    }
+    animator.setDuration(300);
+    animator.start();
   }
 
   interface BannerListener

@@ -161,9 +161,12 @@
   <color name="bg_banner_color_night">#FF555A5A</color>
   <color name="text_banner_color">#28000000</color>
   <color name="text_banner_color_night">#28FFFFFF</color>
-  <color name="bg_banner_button_color">#FFF3EBDA</color>
-  <color name="bg_banner_button_color_night">#4CFFFAE1</color>
+  <color name="bg_banner_button">#FFF3EBDA</color>
+  <color name="bg_banner_button_night">#4CFFFAE1</color>
   <color name="text_ads_color">#FFFFFBF2</color>
   <color name="text_ads_color_night">#FFFFFBF2</color>
+  <color name="banner_action_btn_start_anim_night">#FF888A82</color>
+  <color name="banner_action_btn_end_anim">#FFD9D2C3</color>
+  <color name="banner_action_btn_end_anim_night">#FF71736C</color>
 
 </resources>
