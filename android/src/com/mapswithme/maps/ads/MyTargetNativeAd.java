@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mapswithme.maps.R;
 import com.my.target.ads.CustomParams;
 import com.my.target.nativeads.NativeAd;
 import com.my.target.nativeads.banners.NativePromoBanner;
@@ -67,7 +68,8 @@ class MyTargetNativeAd extends CachedMwmNativeAd
   @Override
   public void registerView(@NonNull View bannerView)
   {
-    mAd.registerView(bannerView);
+    mAd.registerView(bannerView.findViewById(R.id.tv__action_small));
+    mAd.registerView(bannerView.findViewById(R.id.tv__action_large));
   }
 
   @NonNull

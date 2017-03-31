@@ -1,9 +1,9 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +94,18 @@ final class BannerController
     loader.setAdListener(new MyNativeAdsListener());
     mAdsLoader = loader;
     mAdTracker = tracker;
+    mFrame.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        View view = mOpened ? mFrame.findViewById(R.id.tv__action_large)
+                            : mFrame.findViewById(R.id.tv__action_small);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(view, "alpha", 0.3f, 1f);
+        anim.setDuration(700);
+        anim.start();
+      }
+    });
   }
 
   private void setErrorStatus(boolean value)
@@ -248,8 +260,7 @@ final class BannerController
 
   boolean isActionButtonTouched(@NonNull MotionEvent event)
   {
-    return isTouched(mActionSmall, event) || isTouched(mActionLarge, event)
-           || isTouched(mTitle, event);
+    return isTouched(mFrame, event);
   }
 
   interface BannerListener

@@ -10,6 +10,7 @@
   android:paddingTop="@dimen/margin_half"
   android:background="?bannerBackground"
   android:clipToPadding="false"
+  android:clickable="true"
   tools:layout_height="wrap_content">
 
   <TextView

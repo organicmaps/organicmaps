@@ -65,7 +65,6 @@ class FacebookNativeAd extends CachedMwmNativeAd
   public void registerView(@NonNull View bannerView)
   {
     List<View> clickableViews = new ArrayList<>();
-    clickableViews.add(bannerView.findViewById(R.id.tv__banner_title));
     clickableViews.add(bannerView.findViewById(R.id.tv__action_small));
     clickableViews.add(bannerView.findViewById(R.id.tv__action_large));
     mAd.registerViewForInteraction(bannerView, clickableViews);

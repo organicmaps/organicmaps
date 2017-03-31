@@ -155,8 +155,8 @@ public class MapObject implements Parcelable
   {
     List<Banner> banners = new ArrayList<>();
     banners.add(getBanner());
-/*    Banner banner = new Banner("1", 2);
-    banners.add(banner);*/
+//    Banner banner = new Banner("1", 2);
+//    banners.add(banner);
     return banners;
   }
 
