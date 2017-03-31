@@ -2,6 +2,8 @@
 
 #include "map/place_page_info.hpp"
 
+#include "partners_api/ads_engine.hpp"
+
 #include "base/string_utils.hpp"
 
 namespace usermark_helper
@@ -57,7 +59,10 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jobject jbanner = nullptr;
   if (info.HasBanner())
-    jbanner = CreateBanner(env, info.GetBanner().m_bannerId);
+  {
+    // Dummy should be changed by android developer.
+    jbanner = CreateBanner(env, info.GetBanners()[0].m_bannerId);
+  }
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,

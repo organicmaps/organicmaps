@@ -26,6 +26,8 @@ win*|linux* {
 
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
+    ads_engine_tests.cpp \
     booking_tests.cpp \
     facebook_tests.cpp \
+    rb_tests.cpp \
     uber_tests.cpp \

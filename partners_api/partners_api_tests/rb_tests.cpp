@@ -4,53 +4,63 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "partners_api/facebook_ads.hpp"
+#include "partners_api/rb_ads.hpp"
 
 namespace
 {
-UNIT_TEST(Facebook_GetBanner)
+UNIT_TEST(Rb_GetBanner)
 {
   classificator::Load();
   Classificator const & c = classif();
-  ads::Facebook const facebook;
+  ads::Rb const rb;
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "185237551520383_1384652351578891", ());
+    TEST_EQUAL(rb.GetBannerId(holder), "7", ());
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "185237551520383_1384652351578891", ());
+    TEST_EQUAL(rb.GetBannerId(holder), "7", ());
   }
   {
     feature::TypesHolder holder;
-    holder.Add(c.GetTypeByPath({"amenity", "restaurant"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "185237551520383_1384650164912443", ());
+    holder.Assign(c.GetTypeByPath({"amenity", "restaurant"}));
+    TEST_EQUAL(rb.GetBannerId(holder), "1", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"tourism", "information", "map"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "185237551520383_1384651734912286", ());
+    TEST_EQUAL(rb.GetBannerId(holder), "5", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"shop", "ticket"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "185237551520383_1384650804912379", ());
+    TEST_EQUAL(rb.GetBannerId(holder), "2", ());
+  }
+  {
+    feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"amenity", "bank"}));
+    TEST_EQUAL(rb.GetBannerId(holder), "8", ());
+  }
+  {
+    feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"amenity", "atm"}));
+    TEST_EQUAL(rb.GetBannerId(holder), "8", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    auto const bannerId = facebook.GetBannerIdForOtherTypes();
-    TEST_EQUAL(facebook.GetBannerId(holder), bannerId, ());
+    auto const bannerId = rb.GetBannerIdForOtherTypes();
+    TEST_EQUAL(rb.GetBannerId(holder), bannerId, ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    auto const bannerId = facebook.GetBannerIdForOtherTypes();
-    TEST_EQUAL(facebook.GetBannerId(holder), bannerId, ());
+    auto const bannerId = rb.GetBannerIdForOtherTypes();
+    TEST_EQUAL(rb.GetBannerId(holder), bannerId, ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
-    TEST_EQUAL(facebook.GetBannerId(holder), "", ());
+    TEST_EQUAL(rb.GetBannerId(holder), "", ());
   }
 }
 }  // namespace

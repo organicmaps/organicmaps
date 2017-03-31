@@ -98,6 +98,11 @@ namespace platform
 class NetworkPolicy;
 }
 
+namespace ads
+{
+class Engine;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -892,6 +897,7 @@ public:
 
 private:
   std::unique_ptr<CityFinder> m_cityFinder;
+  unique_ptr<ads::Engine> m_adsEngine;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

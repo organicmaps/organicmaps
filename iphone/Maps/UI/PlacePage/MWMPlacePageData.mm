@@ -9,7 +9,7 @@
 
 #include "Framework.h"
 
-#include "indexer/banners.hpp"
+#include "partners_api/banner.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -104,7 +104,8 @@ using namespace place_page;
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
   {
     __weak auto wSelf = self;
-    [[MWMBannersCache cache] get:@(m_info.GetBanner().m_bannerId.c_str()) completion:^(FBNativeAd * ad, BOOL isAsync) {
+    // Dummy should be changed by IOS developer
+    [[MWMBannersCache cache] get:@(m_info.GetBanners()[0].m_bannerId.c_str()) completion:^(FBNativeAd * ad, BOOL isAsync) {
       __strong auto self = wSelf;
       if (!self)
         return;
@@ -302,7 +303,10 @@ using namespace place_page;
 - (void)dealloc
 {
   if (m_info.HasBanner())
-    [[MWMBannersCache cache] bannerIsOutOfScreen:@(m_info.GetBanner().m_bannerId.c_str())];
+  {
+    // Dummy should be changed by IOS developer
+    [[MWMBannersCache cache] bannerIsOutOfScreen:@(m_info.GetBanners()[0].m_bannerId.c_str())];
+  }
 }
 
 #pragma mark - Getters

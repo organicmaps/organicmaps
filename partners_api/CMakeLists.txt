@@ -4,14 +4,21 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
-  booking_api.hpp
+  ads_base.cpp
+  ads_base.hpp
+  ads_engine.cpp
+  ads_engine.hpp
+  banner.hpp
   booking_api.cpp
-  facebook_ads.hpp
+  booking_api.hpp
   facebook_ads.cpp
-  opentable_api.hpp
+  facebook_ads.hpp
   opentable_api.cpp
-  uber_api.hpp
+  opentable_api.hpp
+  rb_ads.cpp
+  rb_ads.hpp
   uber_api.cpp
+  uber_api.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

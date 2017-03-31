@@ -1,7 +1,8 @@
 #include "map/place_page_info.hpp"
 #include "map/reachable_by_taxi_checker.hpp"
 
-#include "partners_api/facebook_ads.hpp"
+#include "partners_api/ads_engine.hpp"
+#include "partners_api/banner.hpp"
 
 #include "indexer/feature_utils.hpp"
 #include "indexer/osm_editor.hpp"
@@ -174,20 +175,21 @@ string Info::GetApproximatePricing() const
 
 bool Info::HasBanner() const
 {
+  if (!m_adsEngine)
+    return false;
+
   if (IsMyPosition())
     return false;
 
-  return facebook::Ads::Instance().HasBanner(m_types);
+  return m_adsEngine->HasBanner(m_types);
 }
 
-banners::Banner Info::GetBanner() const
+vector<ads::Banner> Info::GetBanners() const
 {
-  using namespace banners;
-  auto const bannerId = facebook::Ads::Instance().GetBannerId(m_types);
-  if (!bannerId.empty())
-    return {Banner::Type::Facebook, bannerId};
+  if (!m_adsEngine)
+    return {};
 
-  return {Banner::Type::None, ""};
+  return m_adsEngine->GetBanners(m_types);
 }
 
 bool Info::IsReachableByTaxi() const

@@ -83,6 +83,7 @@
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "partners_api/ads_engine.hpp"
 #include "partners_api/opentable_api.hpp"
 
 #include "base/logging.hpp"
@@ -534,6 +535,8 @@ Framework::Framework(FrameworkParams const & params)
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 
   m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
+
+  m_adsEngine = make_unique<ads::Engine>();
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
@@ -2354,6 +2357,8 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     FillMyPositionInfo(outInfo);
     return df::SelectionShape::OBJECT_MY_POSITION;
   }
+
+  outInfo.m_adsEngine = m_adsEngine.get();
 
   df::VisualParams const & vp = df::VisualParams::Instance();
 

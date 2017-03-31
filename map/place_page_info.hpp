@@ -4,7 +4,6 @@
 
 #include "storage/index.hpp"
 
-#include "indexer/banners.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/map_object.hpp"
@@ -14,6 +13,14 @@
 #include "geometry/point2d.hpp"
 
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
+
+namespace ads
+{
+struct Banner;
+class Engine;
+}
 
 namespace place_page
 {
@@ -81,7 +88,7 @@ public:
   string GetApproximatePricing() const;
 
   bool HasBanner() const;
-  banners::Banner GetBanner() const;
+  vector<ads::Banner> GetBanners() const;
 
   bool IsReachableByTaxi() const;
 
@@ -132,5 +139,7 @@ public:
   string m_localizedRatingString;
 
   string m_bookingSearchUrl;
+  /// Ads source.
+  ads::Engine * m_adsEngine = nullptr;
 };
 }  // namespace place_page

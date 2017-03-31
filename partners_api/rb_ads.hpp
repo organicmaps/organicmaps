@@ -4,11 +4,11 @@
 
 namespace ads
 {
-// Class which matches feature types and facebook banner ids.
-class Facebook : public Container
+// Class which matches feature types and RB banner ids.
+class Rb : public Container
 {
 public:
-  Facebook();
+  Rb();
 
   // ContainerBase overrides:
   std::string GetBannerIdForOtherTypes() const override;
