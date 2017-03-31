@@ -23,9 +23,7 @@ namespace m2
 {
 void FromJSONObject(json_t * root, string const & field, RectD & rect)
 {
-  json_t * r = json_object_get(root, field.c_str());
-  if (!r)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  json_t * r = my::GetJSONObligatoryField(root, field);
   double minX, minY, maxX, maxY;
   FromJSONObject(r, "minx", minX);
   FromJSONObject(r, "miny", minY);
@@ -49,11 +47,7 @@ void ToJSONObject(json_t & root, string const & field, RectD const & rect)
 
 void FromJSONObject(json_t * root, string const & field, PointD & point)
 {
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
-  json_t * p = json_object_get(root, field.c_str());
-  if (!p)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  json_t * p = my::GetJSONObligatoryField(root, field);
   FromJSONObject(p, "x", point.x);
   FromJSONObject(p, "y", point.y);
 }

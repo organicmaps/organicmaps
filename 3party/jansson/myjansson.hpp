@@ -41,6 +41,9 @@ public:
 
   json_t * get() const { return m_handle.get(); }
 };
+
+json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
+json_t * GetJSONOptionalField(json_t * root, std::string const & field);
 }  // namespace my
 
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
@@ -66,9 +69,7 @@ void ToJSONObject(json_t & root, std::string const & field, std::string const & 
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  json_t * arr = json_object_get(root, field.c_str());
-  if (!arr)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  auto * arr = my::GetJSONObligatoryField(root, field);
   if (!json_is_array(arr))
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
   size_t sz = json_array_size(arr);
@@ -91,7 +92,7 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  json_t * arr = json_object_get(root, field.c_str());
+  json_t * arr = my::GetJSONOptionalField(root, field);
   if (!arr)
   {
     result.clear();
