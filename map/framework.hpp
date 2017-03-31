@@ -6,7 +6,7 @@
 #include "map/city_finder.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/feature_vec_model.hpp"
-#include "map/hla_manager.hpp"
+#include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
 #include "map/track.hpp"
@@ -177,7 +177,7 @@ protected:
 
   TrafficManager m_trafficManager;
 
-  HLAManager m_hlaManager;
+  LocalAdsManager m_localAdsManager;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -793,7 +793,7 @@ public:
 
   TrafficManager & GetTrafficManager();
 
-  HLAManager & GetHLAManager();
+  LocalAdsManager & GetLocalAdsManager();
 
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);

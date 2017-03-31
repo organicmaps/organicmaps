@@ -1,4 +1,4 @@
-#include "map/hla_manager.hpp"
+#include "map/local_ads_manager.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -13,8 +13,8 @@
 
 namespace
 {
-std::string const kCampaignFile = "hla_campaigns.dat";
-std::string const kExpirationFile = "hla_expiration.dat";
+std::string const kCampaignFile = "local_ads_campaigns.dat";
+std::string const kExpirationFile = "local_ads_expiration.dat";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
 
 std::vector<uint8_t> SerializeTimestamp(std::chrono::steady_clock::time_point ts)
@@ -48,17 +48,17 @@ std::string GetPath(std::string const & fileName)
 }
 }  // namespace
 
-HLAManager::HLAManager(GetMwmsByRectFn const & getMwmsByRectFn,
+LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
                        GetMwmIdByName const & getMwmIdByName)
   : m_getMwmsByRectFn(getMwmsByRectFn)
   , m_getMwmIdByNameFn(getMwmIdByName)
-  , m_thread(&HLAManager::ThreadRoutine, this)
+  , m_thread(&LocalAdsManager::ThreadRoutine, this)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
 }
 
-HLAManager::~HLAManager()
+LocalAdsManager::~LocalAdsManager()
 {
 #ifdef DEBUG
   {
@@ -68,7 +68,7 @@ HLAManager::~HLAManager()
 #endif
 }
 
-void HLAManager::Teardown()
+void LocalAdsManager::Teardown()
 {
   {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -80,7 +80,7 @@ void HLAManager::Teardown()
   m_thread.join();
 }
 
-void HLAManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine = engine;
   {
@@ -90,7 +90,7 @@ void HLAManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   }
 }
 
-void HLAManager::UpdateViewport(ScreenBase const & screen)
+void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
   auto connectionStatus = GetPlatform().ConnectionStatus();
   if (connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
@@ -104,7 +104,7 @@ void HLAManager::UpdateViewport(ScreenBase const & screen)
   if (mwms.empty())
     return;
 
-  // Request HLA campaigns.
+  // Request local ads campaigns.
   {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -147,7 +147,7 @@ void HLAManager::UpdateViewport(ScreenBase const & screen)
   }
 }
 
-void HLAManager::ThreadRoutine()
+void LocalAdsManager::ThreadRoutine()
 {
   std::string const campaignFile = GetPath(kCampaignFile);
   std::string const expirationFile = GetPath(kExpirationFile);
@@ -213,7 +213,7 @@ void HLAManager::ThreadRoutine()
   }
 }
 
-bool HLAManager::WaitForRequest(std::vector<Request> & campaignMwms)
+bool LocalAdsManager::WaitForRequest(std::vector<Request> & campaignMwms)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
 
@@ -228,14 +228,14 @@ bool HLAManager::WaitForRequest(std::vector<Request> & campaignMwms)
   return true;
 }
 
-void HLAManager::OnDownloadCountry(std::string const & countryName)
+void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_campaigns.erase(countryName);
   m_expiration.erase(countryName);
 }
 
-void HLAManager::OnDeleteCountry(std::string const & countryName)
+void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_campaigns.erase(countryName);
@@ -244,14 +244,14 @@ void HLAManager::OnDeleteCountry(std::string const & countryName)
   m_condition.notify_one();
 }
 
-string HLAManager::MakeRemoteURL(MwmSet::MwmId const &mwmId) const
+string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const &mwmId) const
 {
   // TODO: build correct URL after server completion.
 
   return "http://172.27.15.68/campaigns.data";
 }
 
-std::vector<uint8_t> HLAManager::DownloadCampaign(MwmSet::MwmId const & mwmId) const
+std::vector<uint8_t> LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId) const
 {
   platform::HttpClient request(MakeRemoteURL(mwmId));
   if (!request.RunHttpRequest() || request.ErrorCode() != 200)
@@ -260,7 +260,7 @@ std::vector<uint8_t> HLAManager::DownloadCampaign(MwmSet::MwmId const & mwmId) c
   return std::vector<uint8_t>(response.cbegin(), response.cend());
 }
 
-df::CustomSymbols HLAManager::DeserializeCampaign(std::vector<uint8_t> && rawData,
+df::CustomSymbols LocalAdsManager::DeserializeCampaign(std::vector<uint8_t> && rawData,
                                                   std::chrono::steady_clock::time_point timestamp)
 {
   df::CustomSymbols symbols;
@@ -276,7 +276,7 @@ df::CustomSymbols HLAManager::DeserializeCampaign(std::vector<uint8_t> && rawDat
   return symbols;
 }
 
-void HLAManager::ReadExpirationFile(std::string const & expirationFile)
+void LocalAdsManager::ReadExpirationFile(std::string const & expirationFile)
 {
   if (!GetPlatform().IsFileExistsByFullPath(expirationFile))
   {
@@ -299,7 +299,7 @@ void HLAManager::ReadExpirationFile(std::string const & expirationFile)
   }
 }
 
-void HLAManager::ReadCampaignFile(std::string const & campaignFile)
+void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
 {
   if (!GetPlatform().IsFileExistsByFullPath(campaignFile))
   {
@@ -332,7 +332,7 @@ void HLAManager::ReadCampaignFile(std::string const & campaignFile)
   }
 }
 
-void HLAManager::SendSymbolsToRendering(df::CustomSymbols && symbols)
+void LocalAdsManager::SendSymbolsToRendering(df::CustomSymbols && symbols)
 {
   if (m_drapeEngine == nullptr)
   {
@@ -343,7 +343,7 @@ void HLAManager::SendSymbolsToRendering(df::CustomSymbols && symbols)
   m_drapeEngine->AddCustomSymbols(std::move(symbols));
 }
 
-void HLAManager::DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId)
+void LocalAdsManager::DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RemoveCustomSymbols(mwmId);

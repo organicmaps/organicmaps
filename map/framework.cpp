@@ -276,9 +276,9 @@ TrafficManager & Framework::GetTrafficManager()
   return m_trafficManager;
 }
 
-HLAManager & Framework::GetHLAManager()
+LocalAdsManager & Framework::GetLocalAdsManager()
 {
-  return m_hlaManager;
+  return m_localAdsManager;
 }
 
 bool Framework::IsTrackingReporterEnabled() const
@@ -314,7 +314,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_currentModelView = screen;
 
   m_trafficManager.UpdateViewport(m_currentModelView);
-  m_hlaManager.UpdateViewport(m_currentModelView);
+  m_localAdsManager.UpdateViewport(m_currentModelView);
 
   if (m_viewportChanged != nullptr)
     m_viewportChanged(screen);
@@ -399,7 +399,7 @@ Framework::Framework()
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1), kMaxTrafficCacheSizeBytes,
                      // Note. |m_routingSession| should be declared before |m_trafficManager|.
                      m_routingSession)
-  , m_hlaManager(bind(&Framework::GetMwmsByRect, this, _1), bind(&Framework::GetMwmIdByName, this, _1))
+  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1), bind(&Framework::GetMwmIdByName, this, _1))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -506,7 +506,7 @@ Framework::Framework()
 Framework::~Framework()
 {
   m_trafficManager.Teardown();
-  m_hlaManager.Teardown();
+  m_localAdsManager.Teardown();
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
@@ -623,7 +623,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
       rect = id.GetInfo()->m_limitRect;
   }
   m_trafficManager.Invalidate();
-  m_hlaManager.OnDownloadCountry(countryId);
+  m_localAdsManager.OnDownloadCountry(countryId);
   InvalidateRect(rect);
   m_searchEngine->ClearCaches();
 }
@@ -648,7 +648,7 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
     m_model.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
     m_trafficManager.OnMwmDelete(mwmId);
-    m_hlaManager.OnDeleteCountry(countryId);
+    m_localAdsManager.OnDeleteCountry(countryId);
   }
   InvalidateRect(rect);
 
@@ -1795,7 +1795,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   m_drapeApi.SetEngine(make_ref(m_drapeEngine));
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
-  m_hlaManager.SetDrapeEngine(make_ref(m_drapeEngine));
+  m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
 
   benchmark::RunGraphicsBenchmark(this);
 }
@@ -1832,7 +1832,7 @@ void Framework::DestroyDrapeEngine()
   {
     m_drapeApi.SetEngine(nullptr);
     m_trafficManager.Teardown();
-    m_hlaManager.Teardown();
+    m_localAdsManager.Teardown();
     GpsTracker::Instance().Disconnect();
     m_drapeEngine.reset();
   }

@@ -23,16 +23,15 @@ namespace df
 class DrapeEngine;
 }  // namespace df
 
-// Hyper Local Ads (HLA) manager.
-class HLAManager final
+class LocalAdsManager final
 {
 public:
   using GetMwmsByRectFn = function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
   using GetMwmIdByName = function<MwmSet::MwmId(std::string const &)>;
 
-  HLAManager(GetMwmsByRectFn const & getMwmsByRectFn, GetMwmIdByName const & getMwmIdByName);
-  HLAManager(HLAManager && /* hlaManager */) = default;
-  ~HLAManager();
+  LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn, GetMwmIdByName const & getMwmIdByName);
+  LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
+  ~LocalAdsManager();
 
   void Teardown();
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
