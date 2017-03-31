@@ -117,15 +117,15 @@ final class RBBanner: MTRGNativeAd, Banner {
 
 extension RBBanner: MTRGNativeAdDelegate {
   func onLoad(with promoBanner: MTRGNativePromoBanner!, nativeAd: MTRGNativeAd!) {
-    guard nativeAd == self else { return }
+    guard nativeAd === self else { return }
     success(self)
   }
 
   func onNoAd(withReason reason: String!, nativeAd: MTRGNativeAd!) {
-    guard nativeAd == self else { return }
+    guard nativeAd === self else { return }
     let params: [String: Any] = [kStatBanner : bannerID, kStatProvider : kStatRB]
     let event = kStatPlacePageBannerError
     let error = NSError(domain: kMapsmeErrorDomain, code: 1001, userInfo: params)
-    failure(self, event, params, error)
+    failure(self.type, event, params, error)
   }
 }

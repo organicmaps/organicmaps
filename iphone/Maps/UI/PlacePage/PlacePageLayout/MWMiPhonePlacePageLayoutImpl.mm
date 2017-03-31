@@ -268,14 +268,15 @@ CGFloat const kMinOffset = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (indexPath.section != 0)
+    return;
+
   auto cell = [tableView cellForRowAtIndexPath:indexPath];
   if ([cell isKindOfClass:[MWMAdBanner class]])
   {
     [static_cast<MWMAdBanner *>(cell) highlightButton];
     return;
   }
-  if (indexPath.section != 0)
-    return;
 
   CGFloat offset = 0;
   if (self.state == State::Top)

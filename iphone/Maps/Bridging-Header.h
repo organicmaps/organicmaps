@@ -10,10 +10,10 @@
 #import "private.h"
 
 #import "AppInfo.h"
+#import "MWMBanner.h"
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
-#import "MWMCoreBanner.h"
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"

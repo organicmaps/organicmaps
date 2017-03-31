@@ -1,13 +1,3 @@
-//
-//  UIColor+Modifications.swift
-//  Maps
-//
-//  Created by Ilya Grechuhin on 30.03.17.
-//  Copyright © 2017 MapsWithMe. All rights reserved.
-//
-
-import UIKit
-
 extension UIColor {
   func lighter(percent: CGFloat) ->  UIColor {
     return colorWithBrightnessFactor(factor: 1 + percent)

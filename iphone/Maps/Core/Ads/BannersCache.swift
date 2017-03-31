@@ -40,7 +40,7 @@ final class BannersCache: NSObject {
     self.completion = nil
   }
 
-  func get(coreBanners: [MWMCoreBanner], completion: @escaping Completion) {
+  func get(coreBanners: [CoreBanner], completion: @escaping Completion) {
     self.completion = completion
     loadStates = coreBanners.map { coreBanner in
       let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID)
@@ -62,12 +62,12 @@ final class BannersCache: NSObject {
     banner.reload(success: { [unowned self] banner in
       Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.type.statisticsDescription)
       self.setLoaded(banner: banner)
-    }, failure: { [unowned self] banner, event, errorDetails, error in
+    }, failure: { [unowned self] bannerType, event, errorDetails, error in
       var statParams = errorDetails
       statParams[kStatErrorMessage] = (error as NSError).userInfo.reduce("") { $0 + "\($1.key) : \($1.value)\n" }
       Statistics.logEvent(event, withParameters: statParams)
       Crashlytics.sharedInstance().recordError(error)
-      self.setError(banner: banner)
+      self.setError(bannerType: bannerType)
     })
   }
 
@@ -90,8 +90,7 @@ final class BannersCache: NSObject {
     onCompletion(isAsync: true)
   }
 
-  private func setError(banner: Banner) {
-    let bannerType = banner.type
+  private func setError(bannerType: BannerType) {
     if let notLoadedIndex = notLoadedIndex(bannerType: bannerType) {
       loadStates[notLoadedIndex] = .error
     }

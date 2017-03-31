@@ -126,7 +126,7 @@ extension FacebookBanner: FBNativeAdDelegate {
       params[kStatErrorCode] = e.code
     }
     
-    failure(self, event, params, e)
+    failure(self.type, event, params, e)
   }
 }
 

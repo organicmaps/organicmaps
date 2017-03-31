@@ -1,5 +1,3 @@
-import Foundation
-
 enum BannerType {
   case none
   case facebook(String)

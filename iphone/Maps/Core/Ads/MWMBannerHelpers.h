@@ -1,4 +1,4 @@
-#import "MWMCoreBanner.h"
+#import "MWMBanner.h"
 #import "SwiftBridge.h"
 
 #include "partners_api/banner.hpp"
@@ -17,8 +17,8 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
 
 static inline MWMCoreBanner * MatchBanner(ads::Banner const & banner)
 {
-  return [[MWMCoreBanner alloc] initWith:MatchBannerType(banner.m_type)
-                                bannerID:@(banner.m_bannerId.c_str())];
+  return [[MWMCoreBanner alloc] initWithMwmType:MatchBannerType(banner.m_type)
+                                       bannerID:@(banner.m_bannerId.c_str())];
 }
 
 static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(vector<ads::Banner> const & banners)

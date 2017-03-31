@@ -22,8 +22,8 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adIconImageView: UIImageView!
   @IBOutlet private weak var adTitleLabel: UILabel!
   @IBOutlet private weak var adBodyLabel: UILabel!
-  @IBOutlet private var adCallToActionButtonCompact: UIButton!
-  @IBOutlet private var adCallToActionButtonDetailed: UIButton!
+  @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
+  @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   static let detailedBannerExcessHeight: Float = 36
 
   var state = alternative(iPhone: AdBannerState.compact, iPad: AdBannerState.detailed) {
@@ -34,7 +34,7 @@ final class AdBanner: UITableViewCell {
       detailedModeConstraints.forEach { $0.priority = config.priority }
       setNeedsLayout()
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
-      registerRBBanner()
+      refreshBannerIfNeeded()
     }
   }
 
@@ -119,16 +119,17 @@ final class AdBanner: UITableViewCell {
     adBodyLabel.numberOfLines = config.numberOfBodyLines
 
     [adCallToActionButtonCompact, adCallToActionButtonDetailed].forEach { $0.setTitle(banner.ctaText, for: .normal) }
-    registerRBBanner()
+    refreshBannerIfNeeded()
   }
 
-  private func registerRBBanner() {
-    guard let ad = nativeAd as? MTRGNativeAd else { return }
-    let clickableView: UIView
-    switch state {
-    case .compact: clickableView = adCallToActionButtonCompact
-    case .detailed: clickableView = adCallToActionButtonDetailed
+  private func refreshBannerIfNeeded() {
+    if let ad = nativeAd as? MTRGNativeAd {
+      let clickableView: UIView
+      switch state {
+      case .compact: clickableView = adCallToActionButtonCompact
+      case .detailed: clickableView = adCallToActionButtonDetailed
+      }
+      ad.register(clickableView, with: UIViewController.topViewController())
     }
-    ad.register(clickableView, with: UIViewController.topViewController())
   }
 }
