@@ -57,6 +57,7 @@ public class MwmApplication extends Application
   private AppBackgroundTracker mBackgroundTracker;
 
   private boolean mIsFrameworkInitialized;
+  private boolean mIsPlatformInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -155,6 +156,9 @@ public class MwmApplication extends Application
 
   public void initNativePlatform()
   {
+    if (mIsPlatformInitialized)
+      return;
+
     final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
 
     initTracker();
@@ -180,6 +184,7 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
+    mIsPlatformInitialized = true;
   }
 
   public void initNativeCore()
@@ -255,6 +260,10 @@ public class MwmApplication extends Application
   public boolean isFrameworkInitialized()
   {
     return mIsFrameworkInitialized;
+  }
+  public boolean isPlatformInitialized()
+  {
+    return mIsPlatformInitialized;
   }
 
   public String getApkPath()

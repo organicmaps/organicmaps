@@ -450,6 +450,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
+    super.safeOnCreate(savedInstanceState);
     if (savedInstanceState != null)
       mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
     mIsFragmentContainer = getResources().getBoolean(R.bool.tabletLayout);

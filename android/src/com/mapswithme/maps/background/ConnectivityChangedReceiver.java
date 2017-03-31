@@ -18,7 +18,8 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    if (!MwmApplication.get().isFrameworkInitialized() || !ConnectionState.isWifiConnected()
+    MwmApplication.get().initNativePlatform();
+    if (!ConnectionState.isWifiConnected()
         || MapManager.nativeNeedMigrate())
       return;
 

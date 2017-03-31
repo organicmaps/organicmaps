@@ -13,7 +13,7 @@ public class BaseMwmFragment extends Fragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    if (context instanceof AppCompatActivity && !MwmApplication.get().isFrameworkInitialized())
+    if (context instanceof AppCompatActivity && !MwmApplication.get().isPlatformInitialized())
     {
       ((AppCompatActivity)context).getSupportFragmentManager()
                                   .beginTransaction()

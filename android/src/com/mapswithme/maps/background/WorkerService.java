@@ -125,9 +125,21 @@ public class WorkerService extends IntentService
   private static boolean processLocation()
   {
     final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
-    final Location l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+    Location l = null;
+    try
+    {
+      l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+    }
+    catch (SecurityException e)
+    {
+      e.printStackTrace();
+    }
+
     if (l == null || LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
       return false;
+
+    MwmApplication.get().initNativePlatform();
+    MwmApplication.get().initNativeCore();
 
     String country = MapManager.nativeFindCountry(l.getLatitude(), l.getLongitude());
     if (TextUtils.isEmpty(country))

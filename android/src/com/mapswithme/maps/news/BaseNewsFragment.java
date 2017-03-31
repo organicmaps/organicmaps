@@ -308,9 +308,9 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       final BaseNewsFragment fragment = clazz.newInstance();
       fragment.mListener = listener;
       activity.getSupportFragmentManager()
-              .beginTransaction()
-              .add(fragment, clazz.getName())
-              .commitAllowingStateLoss();
+          .beginTransaction()
+          .add(fragment, clazz.getName())
+          .commitAllowingStateLoss();
     } catch (java.lang.InstantiationException ignored)
     {}
     catch (IllegalAccessException ignored)

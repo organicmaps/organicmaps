@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.editor.ViralFragment;
@@ -44,6 +45,8 @@ public class SplashActivity extends AppCompatActivity
 
   // The first launch of application ever - onboarding screen will be shown.
   private static boolean sFirstStart;
+
+  private View mIvLogo;
 
   private boolean mPermissionsGranted;
 
@@ -101,25 +104,30 @@ public class SplashActivity extends AppCompatActivity
 
     sFirstStart = FirstStartFragment.showOn(this, this);
     if (sFirstStart)
+    {
+      UiUtils.hide(mIvLogo);
       return;
+    }
 
-    if (!NewsFragment.showOn(this, this))
+    boolean showNews = NewsFragment.showOn(this, this);
+    if (!showNews)
     {
       if (ViralFragment.shouldDisplay())
       {
+        UiUtils.hide(mIvLogo);
         ViralFragment dialog = new ViralFragment();
         dialog.onDismiss(new DialogInterface()
         {
           @Override
           public void cancel()
           {
-            processNavigation();
+            onDialogDone();
           }
 
           @Override
           public void dismiss()
           {
-            processNavigation();
+            onDialogDone();
           }
         });
         dialog.show(getSupportFragmentManager(), "");
@@ -129,6 +137,10 @@ public class SplashActivity extends AppCompatActivity
         LikesManager.INSTANCE.showDialogs(this);
         processNavigation();
       }
+    }
+    else
+    {
+      UiUtils.hide(mIvLogo);
     }
   }
 
@@ -141,7 +153,7 @@ public class SplashActivity extends AppCompatActivity
       return;
 
     boolean isWriteGranted = false;
-    for (int i = 0; i < permissions.length; ++i)
+    for (int i = 0; i < permissions.length; i++)
     {
       int result = grantResults[i];
       String permission = permissions[i];
@@ -171,6 +183,7 @@ public class SplashActivity extends AppCompatActivity
   {
     UiUtils.setupStatusBar(this);
     setContentView(R.layout.activity_splash);
+    mIvLogo = findViewById(R.id.iv__logo);
   }
 
   private void init()

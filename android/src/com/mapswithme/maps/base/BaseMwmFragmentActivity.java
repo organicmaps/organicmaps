@@ -55,7 +55,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     mSavedState = savedInstanceState;
-    if (!MwmApplication.get().isFrameworkInitialized()
+    if (!MwmApplication.get().isPlatformInitialized()
         || !Utils.checkPermissions(this, SplashActivity.PERMISSIONS))
     {
       super.onCreate(savedInstanceState);
@@ -67,6 +67,12 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     mBaseDelegate.onCreate();
     super.onCreate(savedInstanceState);
 
+    safeOnCreate(savedInstanceState);
+  }
+
+  @CallSuper
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  {
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
     if (layoutId != 0)
@@ -85,12 +91,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     attachDefaultFragment();
-
-    safeOnCreate(savedInstanceState);
-  }
-
-  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
-  {
   }
 
   protected boolean isInitializationComplete()
