@@ -3,11 +3,10 @@ package com.mapswithme.maps.ads;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 public final class Banner implements Parcelable
 {
-  public static final Banner EMPTY = new Banner((String) null);
+  private static final int TYPE_NONE = 0;
   private static final int TYPE_FACEBOOK = 1;
   private static final int TYPE_RB = 2;
 
@@ -26,46 +25,26 @@ public final class Banner implements Parcelable
     }
   };
 
-  @Nullable
+  @NonNull
   private final String mId;
-  //TODO: pass as argument constructor and read a correct value
-  private int mType = TYPE_FACEBOOK;
-  @Nullable
-  private BannerKey mKey;
-
-  public Banner(@Nullable String id)
-  {
-    mId = id;
-  }
+  private final int mType;
 
   public Banner(@NonNull String id, int type)
   {
-    this(id);
+    mId = id;
     mType = type;
   }
 
   protected Banner(Parcel in)
   {
     mId = in.readString();
-  }
-
-  @Nullable
-  public String getId()
-  {
-    return mId;
+    mType = in.readInt();
   }
 
   @NonNull
-  BannerKey getKey()
+  public String getId()
   {
-    if (mKey != null)
-      return mKey;
-
-    String provider = getProvider();
-    //noinspection ConstantConditions
-    mKey = new BannerKey(provider, mId);
-
-    return mKey;
+    return mId;
   }
 
   @NonNull
@@ -82,6 +61,14 @@ public final class Banner implements Parcelable
     }
   }
 
+  @Override
+  public String toString()
+  {
+    return "Banner{" +
+           "mId='" + mId + '\'' +
+           ", provider=" + getProvider() +
+           '}';
+  }
 
   @Override
   public int describeContents()
@@ -93,14 +80,7 @@ public final class Banner implements Parcelable
   public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeString(mId);
-  }
-
-  @Override
-  public String toString()
-  {
-    return "Banner{" +
-           "mId='" + mId + '\'' +
-           '}';
+    dest.writeInt(mType);
   }
 
   @Override
@@ -111,12 +91,12 @@ public final class Banner implements Parcelable
 
     Banner banner = (Banner) o;
 
-    return mId != null ? mId.equals(banner.mId) : banner.mId == null;
+    return  mId.equals(banner.mId);
   }
 
   @Override
   public int hashCode()
   {
-    return mId != null ? mId.hashCode() : 0;
+    return mId.hashCode();
   }
 }

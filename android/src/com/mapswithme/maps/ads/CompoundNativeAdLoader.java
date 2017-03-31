@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +25,8 @@ import java.util.Set;
  */
 public class CompoundNativeAdLoader extends BaseNativeAdLoader implements NativeAdListener
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = CompoundNativeAdLoader.class.getSimpleName();
   private static final int TIMEOUT_MS = 5000;
   @Nullable
   private final OnAdCacheModifiedListener mCacheListener;
@@ -48,6 +52,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   @android.support.annotation.UiThread
   public void loadAd(@NonNull Context context, @NonNull List<Banner> banners)
   {
+    LOGGER.i(TAG, "Load ads for " + banners);
     mLoadingCompleted = false;
     mBannerCount = banners.size();
 

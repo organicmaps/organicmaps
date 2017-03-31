@@ -5,6 +5,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.my.target.ads.CustomParams;
@@ -16,8 +17,7 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MyTargetAdsLoader.class.getSimpleName();
-  //FIXME: read correct slot from private.h
-  private static final int SLOT = 93418;
+  private static final int SLOT = PrivateVariables.myTargetRbSlot();
   static final String ZONE_KEY_PARAMETER = "_SITEZONE";
 
   MyTargetAdsLoader(@Nullable OnAdCacheModifiedListener listener, @Nullable AdTracker tracker)

@@ -1037,7 +1037,7 @@ public class PlacePageView extends RelativeLayout
 
   private boolean isNetworkNeeded()
   {
-    return mMapObject != null && (isSponsored() || mMapObject.getBanner() != null);
+    return mMapObject != null && (isSponsored() || mMapObject.getBanners() != null);
   }
 
   private void refreshViews(@NonNull NetworkPolicy policy)

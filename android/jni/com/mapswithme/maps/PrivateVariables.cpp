@@ -28,6 +28,12 @@ extern "C"
     return MY_TARGET_KEY;
   }
 
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_myTargetRbSlot(JNIEnv * env, jclass clazz)
+  {
+    return MY_TARGET_RB_KEY;
+  }
+
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_PrivateVariables_myTargetCheckUrl(JNIEnv * env, jclass clazz)
   {

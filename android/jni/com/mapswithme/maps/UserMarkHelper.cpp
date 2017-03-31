@@ -4,7 +4,10 @@
 
 #include "partners_api/ads_engine.hpp"
 
+#include "partners_api/banner.hpp"
+
 #include "base/string_utils.hpp"
+
 
 namespace usermark_helper
 {
@@ -26,17 +29,17 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-jobject CreateBanner(JNIEnv * env, string const & id)
+jobject CreateBanner(JNIEnv * env, string const & id, jint type)
 {
   static jmethodID const bannerCtorId =
-      jni::GetConstructorID(env, g_bannerClazz, "(Ljava/lang/String;)V");
+      jni::GetConstructorID(env, g_bannerClazz, "(Ljava/lang/String;I)V");
 
-  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id));
+  return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id), type);
 }
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                         string const & subtitle, double lat, double lon, string const & address,
-                        Metadata const & metadata, string const & apiId, jobject jbanner,
+                        Metadata const & metadata, string const & apiId, jobjectArray jbanners,
                         bool isReachableByTaxi)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat,
@@ -44,12 +47,12 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
-                            "String;Lcom/mapswithme/maps/ads/Banner;Z)V");
+                            "String;[Lcom/mapswithme/maps/ads/Banner;Z)V");
 
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
                      jni::ToJavaString(env, subtitle), jni::ToJavaString(env, address), lat, lon,
-                     jni::ToJavaString(env, apiId), jbanner, isReachableByTaxi);
+                     jni::ToJavaString(env, apiId), jbanners, isReachableByTaxi);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -57,11 +60,10 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
-  jobject jbanner = nullptr;
+  jobjectArray jbanners = nullptr;
   if (info.HasBanner())
   {
-    // Dummy should be changed by android developer.
-    jbanner = CreateBanner(env, info.GetBanners()[0].m_bannerId);
+    jbanners = ToBannersArray(env, info.GetBanners());
   }
   if (info.IsBookmark())
   {
@@ -69,7 +71,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId = jni::GetConstructorID(
         env, g_bookmarkClazz,
-        "(IILjava/lang/String;Ljava/lang/String;Lcom/mapswithme/maps/ads/Banner;Z)V");
+        "(IILjava/lang/String;Ljava/lang/String;[Lcom/mapswithme/maps/ads/Banner;Z)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
@@ -81,7 +83,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     jobject mapObject =
         env->NewObject(g_bookmarkClazz, ctorId, static_cast<jint>(info.m_bac.m_categoryIndex),
                        static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
-                       jbanner, info.IsReachableByTaxi());
+                       jbanners, info.IsReachableByTaxi());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
@@ -95,16 +97,24 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
     return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), {}, "", jbanner, info.IsReachableByTaxi());
+                           address.FormatAddress(), {}, "", jbanners, info.IsReachableByTaxi());
 
   if (info.HasApiUrl())
     return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(),
-                           jbanner, info.IsReachableByTaxi());
+                           jbanners, info.IsReachableByTaxi());
 
   return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                          address.FormatAddress(),
-                         info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanner,
+                         info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners,
                          info.IsReachableByTaxi());
+}
+
+jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
+{
+  return jni::ToJavaArray(env, g_bannerClazz, banners,
+                          [](JNIEnv * env, ads::Banner const & item) {
+                            return CreateBanner(env, item.m_bannerId, static_cast<jint>(item.m_type));
+                          });
 }
 }  // namespace usermark_helper

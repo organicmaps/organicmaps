@@ -24,9 +24,9 @@ public class Bookmark extends MapObject
   private final String mObjectTitle;
 
   Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
-           @Nullable String objectTitle, @Nullable Banner banner, boolean reachableByTaxi)
+           @Nullable String objectTitle, @Nullable Banner[] banners, boolean reachableByTaxi)
   {
-    super(BOOKMARK, title, "", "", 0, 0, "", banner, reachableByTaxi);
+    super(BOOKMARK, title, "", "", 0, 0, "", banners, reachableByTaxi);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
