@@ -19,7 +19,7 @@
 -dontwarn com.arellomobile.**
 
 # myTarget
--dontwarn ru.mail.android.mytarget.**
+-keep class com.my.target.** {*;}
 -dontwarn com.mopub.**
 
 -dontoptimize
