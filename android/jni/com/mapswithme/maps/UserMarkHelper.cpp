@@ -3,11 +3,9 @@
 #include "map/place_page_info.hpp"
 
 #include "partners_api/ads_engine.hpp"
-
 #include "partners_api/banner.hpp"
 
 #include "base/string_utils.hpp"
-
 
 namespace usermark_helper
 {
@@ -62,9 +60,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jobjectArray jbanners = nullptr;
   if (info.HasBanner())
-  {
     jbanners = ToBannersArray(env, info.GetBanners());
-  }
+
   if (info.IsBookmark())
   {
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,

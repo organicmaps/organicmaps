@@ -91,7 +91,7 @@ public final class Banner implements Parcelable
 
     Banner banner = (Banner) o;
 
-    return  mId.equals(banner.mId);
+    return mId.equals(banner.mId);
   }
 
   @Override
