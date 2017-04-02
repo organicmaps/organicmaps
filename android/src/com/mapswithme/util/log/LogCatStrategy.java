@@ -39,50 +39,43 @@ class LogCatStrategy implements LoggerStrategy
   @Override
   public void i(String tag, String msg)
   {
-    if (canLog())
-      Log.i(tag, msg);
+    Log.i(tag, msg);
   }
 
   @Override
   public void i(String tag, String msg, Throwable tr)
   {
-    if (canLog())
-      Log.i(tag, msg, tr);
+    Log.i(tag, msg, tr);
   }
 
   @Override
   public void w(String tag, String msg)
   {
-    if (canLog())
-      Log.w(tag, msg);
+    Log.w(tag, msg);
   }
 
   @Override
   public void w(String tag, String msg, Throwable tr)
   {
-    if (canLog())
-      Log.w(tag, msg, tr);
+    Log.w(tag, msg, tr);
   }
 
   @Override
   public void w(String tag, Throwable tr)
   {
-    if (canLog())
-      Log.w(tag, tr);
+    Log.w(tag, tr);
   }
 
   @Override
   public void e(String tag, String msg)
   {
-    if (canLog())
-      Log.e(tag, msg);
+    Log.e(tag, msg);
   }
 
   @Override
   public void e(String tag, String msg, Throwable tr)
   {
-    if (canLog())
-      Log.e(tag, msg, tr);
+    Log.e(tag, msg, tr);
   }
 
   private static boolean canLog()
