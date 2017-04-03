@@ -15,6 +15,7 @@ DEPENDENCIES = map drape_frontend routing traffic routing_common search_tests_su
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
 # needed for Platform::WorkingDir() and unicode combining
 QT *= core network opengl

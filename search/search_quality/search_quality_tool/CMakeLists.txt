@@ -1,6 +1,7 @@
 project(search_quality_tool)
 
 include_directories(${OMIM_ROOT}/3party/gflags/src)
+include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(SRC search_quality_tool.cpp)
 
