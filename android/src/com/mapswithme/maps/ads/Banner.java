@@ -86,10 +86,16 @@ public final class Banner implements Parcelable
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+
+    if (o == null || getClass() != o.getClass())
+      return false;
 
     Banner banner = (Banner) o;
+
+    if (mType != banner.mType)
+      return false;
 
     return mId.equals(banner.mId);
   }
@@ -97,6 +103,8 @@ public final class Banner implements Parcelable
   @Override
   public int hashCode()
   {
-    return mId.hashCode();
+    int result = mId.hashCode();
+    result = 31 * result + mType;
+    return result;
   }
 }

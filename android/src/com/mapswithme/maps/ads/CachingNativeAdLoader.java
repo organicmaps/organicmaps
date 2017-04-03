@@ -58,8 +58,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
       return;
     }
 
-    if (mTracker != null && mTracker.isImpressionGood(cachedAd.getProvider(), cachedAd.getBannerId())
-        && SystemClock.elapsedRealtime() - cachedAd.getLoadedTime() >= REQUEST_INTERVAL_MS)
+    if (isImpressionGood(cachedAd) && canBeReloaded(cachedAd))
     {
       LOGGER.d(TAG, "A new ad will be loaded because the previous one has a good impression");
       loadAdInternally(context, bannerId);
@@ -70,6 +69,16 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
       LOGGER.d(TAG, "A cached ad '" + cachedAd.getTitle() + "' is set immediately");
       getAdListener().onAdLoaded(cachedAd);
     }
+  }
+
+  private boolean isImpressionGood(@NonNull CachedMwmNativeAd ad)
+  {
+    return mTracker != null && mTracker.isImpressionGood(ad.getProvider(), ad.getBannerId());
+  }
+
+  private static boolean canBeReloaded(@NonNull CachedMwmNativeAd ad)
+  {
+    return SystemClock.elapsedRealtime() - ad.getLoadedTime() >= REQUEST_INTERVAL_MS;
   }
 
   private void loadAdInternally(@NonNull Context context, @NonNull String bannerId)

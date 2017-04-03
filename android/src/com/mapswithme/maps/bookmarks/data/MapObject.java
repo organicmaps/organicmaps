@@ -84,7 +84,6 @@ public class MapObject implements Parcelable
   private Banner[] readBanners(Parcel source)
   {
     Parcelable[] parcelables = source.readParcelableArray(Banner.class.getClassLoader());
-    Banner[] banners = null;
     if (parcelables != null)
       return Arrays.copyOf(parcelables, parcelables.length, Banner[].class);
     return null;

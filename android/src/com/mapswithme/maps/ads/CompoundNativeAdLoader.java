@@ -9,6 +9,7 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,8 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = CompoundNativeAdLoader.class.getSimpleName();
   private static final int TIMEOUT_MS = 5000;
+  @NonNull
+  private final List<NativeAdLoader> mLoaders = new ArrayList<>();
   @Nullable
   private final OnAdCacheModifiedListener mCacheListener;
   @Nullable
@@ -36,7 +39,6 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   private final Set<String> mFailedProviders = new HashSet<>();
   @Nullable
   private Runnable mDelayedNotification;
-  private int mBannerCount;
   /**
    * Indicates about whether the composite loading can be considered as completed or not.
    */
@@ -53,21 +55,22 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   public void loadAd(@NonNull Context context, @NonNull List<Banner> banners)
   {
     LOGGER.i(TAG, "Load ads for " + banners);
+    cancelLoaders();
     mLoadingCompleted = false;
-    mBannerCount = banners.size();
+    mFailedProviders.clear();
 
-    if (mBannerCount == 0)
+    if (banners.size() == 0)
       return;
 
     for (Banner banner : banners)
     {
-      NativeAdLoader loader = Factory.createLoaderForBanner(banner, mCacheListener, mAdTracker);
-      loader.setAdListener(this);
-
       if (TextUtils.isEmpty(banner.getId()))
         throw new AssertionError("A banner id mustn't be empty!");
 
+      NativeAdLoader loader = Factory.createLoaderForBanner(banner, mCacheListener, mAdTracker);
+      loader.setAdListener(this);
       loader.loadAd(context, banner.getId());
+      mLoaders.add(loader);
     }
   }
 
@@ -101,7 +104,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
       return;
 
     // If only one banner is requested and obtained, it will be posted immediately to the listener.
-    if (mBannerCount == 1)
+    if (mLoaders.size() == 1)
     {
       onAdLoadingCompleted(ad);
       return;
@@ -135,7 +138,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     mFailedProviders.add(ad.getProvider());
 
     // If all providers give nothing, the listener will be notified about the error.
-    if (mFailedProviders.size() == mBannerCount)
+    if (mFailedProviders.size() == mLoaders.size())
     {
       if (getAdListener() != null)
         getAdListener().onError(ad, error);
@@ -165,6 +168,13 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     if (getAdListener() != null)
       getAdListener().onAdLoaded(ad);
     mLoadingCompleted = true;
+  }
+
+  private void cancelLoaders()
+  {
+    for (NativeAdLoader adLoader : mLoaders)
+      adLoader.setAdListener(null);
+    mLoaders.clear();
   }
 
   private class DelayedNotification implements Runnable
