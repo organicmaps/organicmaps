@@ -52,8 +52,8 @@ UNIT_TEST(Uber_GetTimes)
 
     try
     {
-      my::FromJSONObject(item, "display_name", name);
-      my::FromJSONObject(item, "estimate", estimatedTime);
+      FromJSONObject(item, "display_name", name);
+      FromJSONObject(item, "estimate", estimatedTime);
     }
     catch (my::Json::Exception const & e)
     {
@@ -93,8 +93,8 @@ UNIT_TEST(Uber_GetPrices)
 
     try
     {
-      my::FromJSONObject(item, "product_id", productId);
-      my::FromJSONObject(item, "estimate", price);
+      FromJSONObject(item, "product_id", productId);
+      FromJSONObject(item, "estimate", price);
 
       auto const val = json_object_get(item, "currency_code");
       if (val != nullptr)

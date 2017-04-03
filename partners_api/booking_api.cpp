@@ -100,8 +100,8 @@ vector<HotelFacility> ParseFacilities(json_t const * facilitiesArray)
     ASSERT_EQUAL(json_array_size(itemArray), 2, ());
 
     HotelFacility facility;
-    my::FromJSON(json_array_get(itemArray, 0), facility.m_type);
-    my::FromJSON(json_array_get(itemArray, 1), facility.m_name);
+    FromJSON(json_array_get(itemArray, 0), facility.m_type);
+    FromJSON(json_array_get(itemArray, 1), facility.m_name);
 
     facilities.push_back(move(facility));
   }
@@ -121,7 +121,7 @@ vector<HotelPhotoUrls> ParsePhotos(json_t const * photosArray)
   for (size_t i = 0; i < sz; ++i)
   {
     auto item = json_array_get(photosArray, i);
-    my::FromJSON(item, photoId);
+    FromJSON(item, photoId);
 
     // First three digits of id are used as part of path to photo on the server.
     if (photoId.size() < 3)
@@ -151,7 +151,7 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
     auto item = json_array_get(reviewsArray, i);
     HotelReview review;
 
-    my::FromJSONObject(item, "date", date);
+    FromJSONObject(item, "date", date);
     istringstream ss(date);
     tm t = {};
     ss >> get_time(&t, "%Y-%m-%d %H:%M:%S");
@@ -163,12 +163,12 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
     review.m_date = system_clock::from_time_t(mktime(&t));
 
     double score;
-    my::FromJSONObject(item, "score", score);
+    FromJSONObject(item, "score", score);
     review.m_score = static_cast<float>(score);
 
-    my::FromJSONObject(item, "author", review.m_author);
-    my::FromJSONObject(item, "pros", review.m_pros);
-    my::FromJSONObject(item, "cons", review.m_cons);
+    FromJSONObject(item, "author", review.m_author);
+    FromJSONObject(item, "pros", review.m_pros);
+    FromJSONObject(item, "cons", review.m_cons);
 
     reviews.push_back(move(review));
   }
@@ -180,13 +180,13 @@ void FillHotelInfo(string const & src, HotelInfo & info)
 {
   my::Json root(src.c_str());
 
-  my::FromJSONObjectOptionalField(root.get(), "description", info.m_description);
+  FromJSONObjectOptionalField(root.get(), "description", info.m_description);
   double score;
-  my::FromJSONObjectOptionalField(root.get(), "score", score);
+  FromJSONObjectOptionalField(root.get(), "score", score);
   info.m_score = static_cast<float>(score);
 
   json_int_t scoreCount = 0;
-  my::FromJSONObjectOptionalField(root.get(), "score_count", scoreCount);
+  FromJSONObjectOptionalField(root.get(), "score_count", scoreCount);
   info.m_scoreCount = static_cast<uint32_t>(scoreCount);
 
   auto const facilitiesArray = json_object_get(root.get(), "facilities");
@@ -212,8 +212,8 @@ void FillPriceAndCurrency(string const & src, string const & currency, string & 
 
   // Read default hotel price and currency.
   auto obj = json_array_get(root.get(), 0);
-  my::FromJSONObject(obj, "min_price", minPrice);
-  my::FromJSONObject(obj, "currency_code", priceCurrency);
+  FromJSONObject(obj, "min_price", minPrice);
+  FromJSONObject(obj, "currency_code", priceCurrency);
 
   if (currency.empty() || priceCurrency == currency)
     return;
@@ -228,11 +228,11 @@ void FillPriceAndCurrency(string const & src, string const & currency, string & 
   for (size_t i = 0; i < sz; ++i)
   {
     auto el = json_array_get(arr, i);
-    my::FromJSONObject(el, "currency_code", code);
+    FromJSONObject(el, "currency_code", code);
     if (code == currency)
     {
       priceCurrency = code;
-      my::FromJSONObject(el, "min_price", minPrice);
+      FromJSONObject(el, "min_price", minPrice);
       break;
     }
   }
