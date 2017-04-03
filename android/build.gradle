@@ -31,11 +31,13 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  compile 'com.android.support:support-v4:24.2.0'
-  compile 'com.android.support:appcompat-v7:24.2.0'
-  compile 'com.android.support:recyclerview-v7:24.2.0'
-  compile 'com.android.support:design:24.2.0'
-  compile 'com.android.support:cardview-v7:24.2.0'
+  compile ('com.android.support:support-v4:23.2.1') {
+    force = true;
+  }
+  compile 'com.android.support:appcompat-v7:23.2.1'
+  compile 'com.android.support:recyclerview-v7:23.2.1'
+  compile 'com.android.support:design:23.2.1'
+  compile 'com.android.support:cardview-v7:23.2.1'
   // google play services
   compile 'com.google.android.gms:play-services-location:10.0.1'
   compile 'com.google.android.gms:play-services-analytics:10.0.1'
@@ -50,11 +52,14 @@ dependencies {
   compile 'com.facebook.android:facebook-android-sdk:4.8.0'
   compile('com.facebook.android:audience-network-sdk:4.20.0') {
     exclude group: 'com.google.android.gms'
+    exclude group: 'com.android.support'
   }
   compile 'com.google.code.gson:gson:2.6.1'
   compile 'com.pushwoosh:pushwoosh:4.10.7'
   compile 'com.my.tracker:mytracker-sdk:1.3.5'
-  compile 'com.my.target:mytarget-sdk:4.6.9'
+  compile ('com.my.target:mytarget-sdk:4.6.9') {
+    exclude group: 'com.android.support'
+  }
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
