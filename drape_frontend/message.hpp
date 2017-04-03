@@ -75,7 +75,8 @@ public:
     DrapeApiAddLines,
     DrapeApiRemove,
     DrapeApiFlush,
-    SetCustomSymbols,
+    AddCustomSymbols,
+    RemoveCustomSymbols,
     UpdateCustomSymbols,
   };
 

@@ -1151,19 +1151,36 @@ private:
   TProperties m_properties;
 };
 
-class SetCustomSymbolsMessage : public Message
+class AddCustomSymbolsMessage : public Message
 {
 public:
-  explicit SetCustomSymbolsMessage(CustomSymbols && symbols)
+  explicit AddCustomSymbolsMessage(CustomSymbols && symbols)
     : m_symbols(std::move(symbols))
   {}
 
-  Type GetType() const override { return Message::SetCustomSymbols; }
+  Type GetType() const override { return Message::AddCustomSymbols; }
 
   CustomSymbols && AcceptSymbols() { return std::move(m_symbols); }
 
 private:
   CustomSymbols m_symbols;
+};
+
+class RemoveCustomSymbolsMessage : public Message
+{
+public:
+  RemoveCustomSymbolsMessage() = default;
+  explicit RemoveCustomSymbolsMessage(MwmSet::MwmId const & mwmId)
+    : m_mwmId(mwmId), m_removeAll(false)
+  {}
+
+  Type GetType() const override { return Message::RemoveCustomSymbols; }
+  bool NeedRemoveAll() const { return m_removeAll; }
+  MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
+
+private:
+  MwmSet::MwmId m_mwmId;
+  bool m_removeAll = true;
 };
 
 class UpdateCustomSymbolsMessage : public Message

@@ -192,7 +192,9 @@ public:
                    ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
 
-  void SetCustomSymbols(CustomSymbols && symbols);
+  void AddCustomSymbols(CustomSymbols && symbols);
+  void RemoveCustomSymbols(MwmSet::MwmId const & mwmId);
+  void RemoveAllCustomSymbols();
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

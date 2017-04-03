@@ -114,9 +114,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         ScreenBase screen;
         bool have3dBuildings;
-        bool needRegenerateTraffic;
-        m_requestedTiles->GetParams(screen, have3dBuildings, needRegenerateTraffic);
-        m_readManager->UpdateCoverage(screen, have3dBuildings, needRegenerateTraffic, tiles, m_texMng);
+        bool forceRequest;
+        m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, tiles, m_texMng);
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -428,9 +428,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetCustomSymbols:
+  case Message::AddCustomSymbols:
     {
-      ref_ptr<SetCustomSymbolsMessage> msg = message;
+      ref_ptr<AddCustomSymbolsMessage> msg = message;
       CustomSymbols customSymbols = msg->AcceptSymbols();
       std::vector<FeatureID> features;
       for (auto const & symbol : customSymbols)
@@ -438,6 +438,20 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_readManager->UpdateCustomSymbols(std::move(customSymbols));
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<UpdateCustomSymbolsMessage>(std::move(features)),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::RemoveCustomSymbols:
+    {
+      ref_ptr<RemoveCustomSymbolsMessage> msg = message;
+      std::vector<FeatureID> leftoverIds;
+      if (msg->NeedRemoveAll())
+        m_readManager->RemoveAllCustomSymbols();
+      else
+        m_readManager->RemoveCustomSymbols(msg->GetMwmId(), leftoverIds);
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<UpdateCustomSymbolsMessage>(std::move(leftoverIds)),
                                 MessagePriority::Normal);
       break;
     }

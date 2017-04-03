@@ -32,7 +32,7 @@ public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
               bool allow3dBuildings, bool trafficEnabled);
 
-  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool needRegenerateTraffic,
+  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();
@@ -43,7 +43,9 @@ public:
 
   void SetTrafficEnabled(bool trafficEnabled);
 
-  void UpdateCustomSymbols(CustomSymbols && symbols);
+  void UpdateCustomSymbols(CustomSymbols const & symbols);
+  void RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds);
+  void RemoveAllCustomSymbols();
 
   static uint32_t ReadCount();
 
@@ -53,7 +55,6 @@ private:
 
   void PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng);
 
-private:
   ref_ptr<ThreadsCommutator> m_commutator;
 
   MapDataProvider & m_model;
@@ -87,13 +88,6 @@ private:
   TTilesCollection m_activeTiles;
 
   CustomSymbolsContextPtr m_customSymbolsContext;
-
-  // TODO (@y): unfortunately on Debian Jessie libstdc++ does not
-  // support atomic_exchange for shared pointers, so mutex is used
-  // instead.  Get rid of this as soon as new libstdc++ is released.
-#if defined(OMIM_OS_LINUX)
-  mutex m_customSymbolsContextMutex;
-#endif
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
