@@ -3,13 +3,13 @@ package com.mapswithme.maps.routing;
 import android.content.res.Resources;
 import android.util.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.location.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class ResultCodesHelper
 {
@@ -107,10 +107,20 @@ class ResultCodesHelper
 
   static boolean isDownloadable(int resultCode, int missingCount)
   {
-    return (resultCode == INCONSISTENT_MWM_ROUTE ||
-            resultCode == ROUTING_FILE_NOT_EXIST ||
-            resultCode == NEED_MORE_MAPS ||
-            (resultCode == ROUTE_NOT_FOUND && missingCount > 0));
+    if (missingCount <= 0)
+      return false;
+
+    switch (resultCode)
+    {
+      case INCONSISTENT_MWM_ROUTE:
+      case ROUTING_FILE_NOT_EXIST:
+      case NEED_MORE_MAPS:
+      case ROUTE_NOT_FOUND:
+      case FILE_TOO_OLD:
+        return true;
+    }
+
+    return false;
   }
 
   static boolean isMoreMapsNeeded(int resultCode)
