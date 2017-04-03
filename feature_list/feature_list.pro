@@ -6,6 +6,8 @@ DEPENDENCIES = map traffic search_tests_support search search_quality storage in
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
+
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
