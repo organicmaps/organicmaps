@@ -1,4 +1,5 @@
 import Crashlytics
+import MyTrackerSDK
 
 @objc (MWMBannersCache)
 final class BannersCache: NSObject {
@@ -35,6 +36,8 @@ final class BannersCache: NSObject {
       assert(false)
       return
     }
+    Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.type.statisticsDescription)
+    MRMyTracker.trackEvent(withName: kStatPlacePageBannerShow)
     completion(banner, isAsync)
     banner.isBannerOnScreen = true
     self.completion = nil
@@ -60,14 +63,17 @@ final class BannersCache: NSObject {
     let banner = bannerType.banner!
     requests[bannerType] = banner
     banner.reload(success: { [unowned self] banner in
-      Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.type.statisticsDescription)
       self.setLoaded(banner: banner)
     }, failure: { [unowned self] bannerType, event, errorDetails, error in
       var statParams = errorDetails
       statParams[kStatErrorMessage] = (error as NSError).userInfo.reduce("") { $0 + "\($1.key) : \($1.value)\n" }
       Statistics.logEvent(event, withParameters: statParams)
       Crashlytics.sharedInstance().recordError(error)
+      MRMyTracker.trackEvent(withName: event)
       self.setError(bannerType: bannerType)
+    }, click: { bannerType in
+      Statistics.logEvent(kStatPlacePageBannerClick, withParameters: bannerType.statisticsDescription)
+      MRMyTracker.trackEvent(withName: kStatPlacePageBannerClick)
     })
   }
 

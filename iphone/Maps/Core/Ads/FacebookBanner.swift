@@ -4,10 +4,12 @@ import FBAudienceNetwork
 final class FacebookBanner: FBNativeAd, Banner {
   fileprivate var success: Banner.Success!
   fileprivate var failure: Banner.Failure!
+  fileprivate var click: Banner.Click!
 
-  func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure) {
+  func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure, click: @escaping Click) {
     self.success = success
     self.failure = failure
+    self.click = click
 
     load()
     requestDate = Date()
@@ -109,10 +111,12 @@ final class FacebookBanner: FBNativeAd, Banner {
 extension FacebookBanner: FBNativeAdDelegate {
 
   func nativeAdDidLoad(_ nativeAd: FBNativeAd) {
+    guard nativeAd === self else { return }
     success(self)
   }
 
   func nativeAd(_ nativeAd: FBNativeAd, didFailWithError error: Error) {
+    guard nativeAd === self else { return }
 
     // https://developers.facebook.com/docs/audience-network/testing
     var params: [String: Any] = [kStatBanner : nativeAd.placementID, kStatProvider : kStatFacebook]
@@ -127,6 +131,11 @@ extension FacebookBanner: FBNativeAdDelegate {
     }
     
     failure(self.type, event, params, e)
+  }
+
+  func nativeAdDidClick(_ nativeAd: FBNativeAd) {
+    guard nativeAd === self else { return }
+    click(self.type)
   }
 }
 

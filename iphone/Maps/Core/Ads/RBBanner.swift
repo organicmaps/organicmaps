@@ -10,6 +10,7 @@ final class RBBanner: MTRGNativeAd, Banner {
 
   fileprivate var success: Banner.Success!
   fileprivate var failure: Banner.Failure!
+  fileprivate var click: Banner.Click!
   fileprivate var requestDate: Date?
   private var showDate: Date?
   private var remainingTime = Limits.minTimeOnScreen
@@ -76,9 +77,10 @@ final class RBBanner: MTRGNativeAd, Banner {
   }
 
   //MARK: - Banner
-  func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure) {
+  func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure, click: @escaping Click) {
     self.success = success
     self.failure = failure
+    self.click = click
 
     load()
     requestDate = Date()
@@ -123,9 +125,16 @@ extension RBBanner: MTRGNativeAdDelegate {
 
   func onNoAd(withReason reason: String!, nativeAd: MTRGNativeAd!) {
     guard nativeAd === self else { return }
-    let params: [String: Any] = [kStatBanner : bannerID, kStatProvider : kStatRB]
+    let params: [String: Any] = [kStatBanner : bannerID,
+                                 kStatProvider : kStatRB,
+                                 kStatReason : reason]
     let event = kStatPlacePageBannerError
     let error = NSError(domain: kMapsmeErrorDomain, code: 1001, userInfo: params)
     failure(self.type, event, params, error)
+  }
+
+  func onAdClick(with nativeAd: MTRGNativeAd!) {
+    guard nativeAd === self else { return }
+    click(self.type)
   }
 }

@@ -3,6 +3,7 @@
 //
 
 #import <MyTargetSDK/MyTargetSDK.h>
+#import <MyTrackerSDK/MRMyTracker.h>
 #import <UIKit/UIKit.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
