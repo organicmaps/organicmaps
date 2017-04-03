@@ -241,7 +241,7 @@ IRouter::ResultCode FindSingleOsrmRoute(FeatureGraphNode const & source,
 }
 
 template <typename ToDo>
-void ForEachCountryInfo(Index & index, ToDo && toDo)
+bool ForEachCountryInfo(Index & index, ToDo && toDo)
 {
   vector<shared_ptr<MwmInfo>> infos;
   index.GetMwmsInfo(infos);
@@ -249,8 +249,13 @@ void ForEachCountryInfo(Index & index, ToDo && toDo)
   for (auto const & info : infos)
   {
     if (info->GetType() == MwmInfo::COUNTRY)
-      toDo(*info);
+    {
+      if (!toDo(*info))
+        return false;
+    }
   }
+
+  return true;
 }
 }  //  namespace
 
@@ -600,43 +605,37 @@ bool CarRouter::DoesEdgeIndexExist(Index::MwmId const & mwmId)
 
 bool CarRouter::AllMwmsHaveRoutingIndex() const
 {
-  bool result = true;
-
-  ForEachCountryInfo(m_index, [&](MwmInfo const & info) {
-    if (!version::MwmTraits(info.m_version).HasRoutingIndex())
-      result = false;
+  return ForEachCountryInfo(m_index, [&](MwmInfo const & info) {
+    return version::MwmTraits(info.m_version).HasRoutingIndex();
   });
-
-  return result;
 }
 
 bool CarRouter::ThereIsCrossMwmMix(Route & route) const
 {
-  bool oldMwmExists = false;
-  bool newMwmExists = false;
+  bool osrmMwmExists = false;
+  bool crossMwmExists = false;
   vector<string> oldMwms;
 
   ForEachCountryInfo(m_index, [&](MwmInfo const & info) {
     if (version::MwmTraits(info.m_version).HasCrossMwmSection())
     {
-      newMwmExists = true;
+      crossMwmExists = true;
     }
     else
     {
-      oldMwmExists = true;
+      osrmMwmExists = true;
       oldMwms.push_back(info.GetCountryName());
     }
+    return true;
   });
 
-  if (oldMwmExists && newMwmExists)
-  {
-    for (auto const & oldMwm : oldMwms)
-      route.AddAbsentCountry(oldMwm);
+  if (!osrmMwmExists || !crossMwmExists)
+    return false;
 
-    return true;
-  }
+  for (auto const & oldMwm : oldMwms)
+    route.AddAbsentCountry(oldMwm);
 
-  return false;
+  return true;
 }
 
 IRouter::ResultCode CarRouter::FindSingleRouteDispatcher(FeatureGraphNode const & source,
