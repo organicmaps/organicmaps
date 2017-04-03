@@ -174,14 +174,15 @@ final class BannerController
 
     mOpened = true;
     setFrameHeight(WRAP_CONTENT);
+    mMessage.setMaxLines(MAX_MESSAGE_LINES);
+    mTitle.setMaxLines(MAX_TITLE_LINES);
+    updateVisibility();
     if (mCurrentAd != null)
     {
       loadIcon(mCurrentAd);
       Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
+      mCurrentAd.registerView(mFrame);
     }
-    mMessage.setMaxLines(MAX_MESSAGE_LINES);
-    mTitle.setMaxLines(MAX_TITLE_LINES);
-    updateVisibility();
 
   }
 
@@ -196,7 +197,8 @@ final class BannerController
     mMessage.setMaxLines(MIN_MESSAGE_LINES);
     mTitle.setMaxLines(MIN_TITLE_LINES);
     updateVisibility();
-
+    if (mCurrentAd != null)
+      mCurrentAd.registerView(mFrame);
     return true;
   }
 

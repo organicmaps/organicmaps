@@ -5,10 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.facebook.ads.NativeAd;
-import com.mapswithme.maps.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class FacebookNativeAd extends CachedMwmNativeAd
 {
@@ -62,12 +58,9 @@ class FacebookNativeAd extends CachedMwmNativeAd
   }
 
   @Override
-  public void registerView(@NonNull View bannerView)
+  void registerViewForInteraction(@NonNull View view)
   {
-    List<View> clickableViews = new ArrayList<>();
-    clickableViews.add(bannerView.findViewById(R.id.tv__action_small));
-    clickableViews.add(bannerView.findViewById(R.id.tv__action_large));
-    mAd.registerViewForInteraction(bannerView, clickableViews);
+    mAd.registerViewForInteraction(view);
   }
 
   @NonNull
