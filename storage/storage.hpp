@@ -373,6 +373,9 @@ public:
   /// and World.mwm and WorldCoasts.mwm.
   bool IsNodeDownloaded(TCountryId const & countryId) const;
 
+  /// \brief Returns true if the last version of countryId has been downloaded.
+  bool HasLatestVersion(TCountryId const & countryId) const;
+
   /// \brief Gets all the attributes for a node by its |countryId|.
   /// \param |nodeAttrs| is filled with attributes in this method.
   void GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const;

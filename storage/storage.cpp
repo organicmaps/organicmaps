@@ -1252,6 +1252,11 @@ bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
   return false;
 }
 
+bool Storage::HasLatestVersion(TCountryId const & countryId) const
+{
+  return CountryStatusEx(countryId) == Status::EOnDisk;
+}
+
 void Storage::DownloadNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());

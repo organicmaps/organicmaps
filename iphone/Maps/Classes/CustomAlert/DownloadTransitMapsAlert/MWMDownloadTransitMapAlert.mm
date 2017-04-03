@@ -118,7 +118,7 @@ CGFloat const kAnimationDuration = .05;
   auto const & s = GetFramework().GetStorage();
   m_countries.erase(
       remove_if(m_countries.begin(), m_countries.end(),
-                [&s](TCountryId const & countryId) { return s.IsNodeDownloaded(countryId); }),
+                [&s](TCountryId const & countryId) { return s.HasLatestVersion(countryId); }),
       m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   TMwmSize totalSize = 0;
