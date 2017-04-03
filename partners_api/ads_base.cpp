@@ -61,14 +61,27 @@ void Container::AppendExcludedTypes(std::vector<std::vector<std::string>> const 
   }
 }
 
-bool Container::HasBanner(feature::TypesHolder const & types) const
+void Container::AppendSupportedCountries(std::vector<storage::TCountryId> const & countries)
 {
+  m_supportedCountries.insert(countries.begin(), countries.end());
+}
+
+bool Container::HasBanner(feature::TypesHolder const & types,
+                          storage::TCountryId const & countryId) const
+{
+  if (!m_supportedCountries.empty() &&
+      m_supportedCountries.find(countryId) == m_supportedCountries.end())
+  {
+    return false;
+  }
+
   return FindType(types, m_excludedTypes) == m_excludedTypes.cend();
 }
 
-std::string Container::GetBannerId(feature::TypesHolder const & types) const
+std::string Container::GetBannerId(feature::TypesHolder const & types,
+                                   storage::TCountryId const & countryId) const
 {
-  if (!HasBanner(types))
+  if (!HasBanner(types, countryId))
     return {};
 
   auto const it = FindType(types, m_typesToBanners);

@@ -7,6 +7,11 @@
 #include <string>
 #include <vector>
 
+namespace feature
+{
+class TypesHolder;
+}
+
 namespace ads
 {
 class Engine
@@ -14,8 +19,9 @@ class Engine
 public:
   Engine();
 
-  bool HasBanner(feature::TypesHolder const & types) const;
-  std::vector<Banner> GetBanners(feature::TypesHolder const & types) const;
+  bool HasBanner(feature::TypesHolder const & types, storage::TCountryId const & countryId) const;
+  std::vector<Banner> GetBanners(feature::TypesHolder const & types,
+                                 storage::TCountryId const & countryId) const;
 
 private:
   using ContainerPtr = std::unique_ptr<ContainerBase>;
