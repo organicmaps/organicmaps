@@ -317,6 +317,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     UpdateUserViewportChanged();
 
   m_currentModelView = screen;
+  m_isViewportInitialized = true;
 
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
@@ -1290,7 +1291,6 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
       GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
   };
   SetCurrentPositionIfPossible(p);
-
   return Search(p);
 }
 
@@ -1490,14 +1490,10 @@ bool Framework::Search(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
 
-  m2::RectD const viewport = GetCurrentViewport();
-
-  if (QueryMayBeSkipped(intent, rParams, viewport))
+  if (QueryMayBeSkipped(intent, rParams, GetCurrentViewport()))
     return false;
 
   intent.m_params = rParams;
-  intent.m_viewport = viewport;
-
   // Cancels previous search request (if any) and initiates new search request.
   CancelQuery(intent.m_handle);
 
@@ -1509,9 +1505,24 @@ bool Framework::Search(search::SearchParams const & params)
     intent.m_params.m_minDistanceOnMapBetweenResults = eps;
   }
 
-  intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
+  Search(intent);
 
   return true;
+}
+
+void Framework::Search(SearchIntent & intent) const
+{
+  if (!m_isViewportInitialized)
+  {
+    Platform().RunOnGuiThread([this, &intent]
+    {
+      this->Search(intent);
+    });
+    return;
+  }
+
+  intent.m_viewport = GetCurrentViewport();
+  intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
 }
 
 void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)
@@ -2072,6 +2083,11 @@ Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
   return Framework::ParsedRoutingData(m_ParsedMapApi.GetRoutePoints(),
                                       routing::FromString(m_ParsedMapApi.GetRoutingType()));
+}
+
+url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
+{
+  return m_ParsedMapApi.GetSearchRequest();
 }
 
 unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
