@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "เชื่อมต่ออินเทอร์เน็ตเพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับสถานที่";
 
 "failed_load_information" = "ไม่สามารถโหลดข้อมูลได้";
+
+"booking_search" = "Booking.com";

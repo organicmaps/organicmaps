@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "Yhdistä internetiin saadaksesi lisätietoa paikasta.";
 
 "failed_load_information" = "Tietojen lataaminen epäonnistui.";
+
+"booking_search" = "Booking.com";

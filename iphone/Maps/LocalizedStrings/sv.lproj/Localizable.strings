@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "Anslut till internet för att hämta mer information om platsen.";
 
 "failed_load_information" = "Det gick inte att ladda informationen.";
+
+"booking_search" = "Booking.com";

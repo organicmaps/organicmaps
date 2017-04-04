@@ -1072,4 +1072,5 @@
 	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
 	<string name="offline_place_page_more_information">Yerle ilgili daha fazla bilgi almak için internete bağlanın.</string>
 	<string name="failed_load_information">Bilgiler yüklenemedi.</string>
+	<string name="booking_search">Booking.com</string>
 </resources>

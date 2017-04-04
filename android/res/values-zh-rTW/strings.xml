@@ -1078,4 +1078,5 @@
 	<string name="reviews_on_bookingcom">Booking.com 上的更多評價</string>
 	<string name="offline_place_page_more_information">連上網路以取得關於地點的更多資訊。</string>
 	<string name="failed_load_information">無法載入資訊。</string>
+	<string name="booking_search">Booking.com</string>
 </resources>

@@ -832,4 +832,5 @@
 	<string name="reviews_on_bookingcom">Περισσότερες κριτικές στο Booking.com</string>
 	<string name="offline_place_page_more_information">Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.</string>
 	<string name="failed_load_information">Η φόρτωση πληροφοριών απέτυχε.</string>
+	<string name="booking_search">Booking.com</string>
 </resources>

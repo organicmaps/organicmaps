@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.";
 
 "failed_load_information" = "Nem sikerült betölteni az adatokat.";
+
+"booking_search" = "Booking.com";

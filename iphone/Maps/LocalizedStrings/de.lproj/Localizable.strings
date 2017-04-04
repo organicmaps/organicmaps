@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "Stellen Sie eine Verbindung zum Internet her, um weitere Informationen über den Ort zu erhalten.";
 
 "failed_load_information" = "Informationen konnten nicht geladen werden.";
+
+"booking_search" = "Booking.com";

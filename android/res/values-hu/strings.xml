@@ -1066,4 +1066,5 @@
 	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
 	<string name="offline_place_page_more_information">A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.</string>
 	<string name="failed_load_information">Nem sikerült betölteni az adatokat.</string>
+	<string name="booking_search">Booking.com</string>
 </resources>

@@ -1844,3 +1844,5 @@
 "offline_place_page_more_information" = "Подключитесь к интернету, чтобы получить больше информации о месте.";
 
 "failed_load_information" = "Не удалось загрузить информацию.";
+
+"booking_search" = "Booking.com";

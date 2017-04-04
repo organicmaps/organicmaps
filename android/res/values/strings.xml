@@ -1092,4 +1092,5 @@
 	<string name="reviews_on_bookingcom">More reviews on Booking.com</string>
 	<string name="offline_place_page_more_information">Connect to the internet to get more information about the place.</string>
 	<string name="failed_load_information">Failed to load information.</string>
+	<string name="booking_search">Booking.com</string>
 </resources>
