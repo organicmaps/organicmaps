@@ -2,6 +2,7 @@
 
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
+#include "generator/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
@@ -209,7 +210,7 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 }
 
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
-                             map<uint32_t, uint64_t> const & featureIdToOsmId,
+                             map<uint32_t, osm::Id> const & featureIdToOsmId,
                              vector<CrossMwmConnectorSerializer::Transition> & transitions,
                              CrossMwmConnectorPerVehicleType & connectors)
 {
@@ -232,7 +233,7 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
 
     auto osmIt = featureIdToOsmId.find(featureId);
     CHECK(osmIt != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
-    uint64_t const osmId = osmIt->second;
+    uint64_t const osmId = osmIt->second.OsmId();
 
     bool prevPointIn = RegionsContain(borders, f.GetPoint(0));
 
@@ -380,7 +381,7 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
 {
   LOG(LINFO, ("Building cross mwm section for", country));
 
-  map<uint32_t, uint64_t> featureIdToOsmId;
+  map<uint32_t, osm::Id> featureIdToOsmId;
   if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId))
     return false;
 

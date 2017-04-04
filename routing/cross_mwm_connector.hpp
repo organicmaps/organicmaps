@@ -28,7 +28,7 @@ public:
   bool IsTransition(Segment const & segment, bool isOutgoing) const;
   uint64_t GetOsmId(Segment const & segment) const { return GetTransition(segment).m_osmId; }
   // returns nullptr if there is no transition for such osm id.
-  Segment const * GetTransition(uint64_t osmId, bool isOutgoing) const;
+  Segment const * GetTransition(uint64_t osmId, uint32_t segmentIdx, bool isOutgoing) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
   void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) const;
@@ -151,7 +151,7 @@ private:
   std::vector<Segment> m_enters;
   std::vector<Segment> m_exits;
   std::unordered_map<Key, Transition, HashKey> m_transitions;
-  std::unordered_map<uint64_t, Key> m_osmIdToKey;
+  std::unordered_map<uint64_t, uint32_t> m_osmIdToFeatureId;
   WeightsLoadState m_weightsLoadState = WeightsLoadState::Unknown;
   uint64_t m_weightsOffset = 0;
   Weight m_granularity = 0;

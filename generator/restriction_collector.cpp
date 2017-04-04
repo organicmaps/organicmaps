@@ -17,14 +17,14 @@ char const kNo[] = "No";
 char const kOnly[] = "Only";
 char const kDelim[] = ", \t\r\n";
 
-bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numbers)
+bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, vector<osm::Id> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
   {
     if (!strings::to_uint64(*iter, number))
       return false;
-    numbers.push_back(number);
+    numbers.push_back(osm::Id::Way(number));
   }
   return true;
 }
@@ -88,8 +88,8 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
     }
 
     ++iter;
-    vector<uint64_t> osmIds;
-    if (!ParseLineOfNumbers(iter, osmIds))
+    vector<osm::Id> osmIds;
+    if (!ParseLineOfWayIds(iter, osmIds))
     {
       LOG(LWARNING, ("Cannot parse osm ids from", path));
       return false;
@@ -100,7 +100,7 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
   return true;
 }
 
-bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds)
+bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<osm::Id> const & osmIds)
 {
   vector<uint32_t> featureIds(osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
@@ -121,9 +121,9 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
   return true;
 }
 
-void RestrictionCollector::AddFeatureId(uint32_t featureId, uint64_t osmId)
+void RestrictionCollector::AddFeatureId(uint32_t featureId, osm::Id osmId)
 {
-  ::routing::AddFeatureId(m_osmIdToFeatureId, featureId, osmId);
+  ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureId);
 }
 
 bool FromString(string str, Restriction::Type & type)

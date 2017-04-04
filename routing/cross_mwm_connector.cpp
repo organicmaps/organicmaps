@@ -44,6 +44,7 @@ void CrossMwmConnector::AddTransition(uint64_t osmId, uint32_t featureId, uint32
   }
 
   m_transitions[Key(featureId, segmentIdx)] = transition;
+  m_osmIdToFeatureId.emplace(osmId, featureId);
 }
 
 bool CrossMwmConnector::IsTransition(Segment const & segment, bool isOutgoing) const
@@ -65,20 +66,22 @@ bool CrossMwmConnector::IsTransition(Segment const & segment, bool isOutgoing) c
   return isEnter != isOutgoing;
 }
 
-Segment const * CrossMwmConnector::GetTransition(uint64_t osmId, bool isEnter) const
+Segment const * CrossMwmConnector::GetTransition(uint64_t osmId, uint32_t segmentIdx,
+                                                 bool isEnter) const
 {
-  auto it = m_osmIdToKey.find(osmId);
-  if (it == m_osmIdToKey.cend())
+  auto fIt = m_osmIdToFeatureId.find(osmId);
+  if (fIt == m_osmIdToFeatureId.cend())
     return nullptr;
 
-  Key const & key = it->second;
-  auto it2 = m_transitions.find(key);
-  CHECK(it2 != m_transitions.cend(), ("Can't find transition by key, osmId:", osmId, ", feature:",
-                                      key.m_featureId, ", segment:", key.m_segmentIdx));
+  uint32_t const featureId = fIt->second;
 
-  Transition const & transition = it2->second;
+  auto tIt = m_transitions.find(Key(featureId, segmentIdx));
+  if (tIt == m_transitions.cend())
+    return nullptr;
+
+  Transition const & transition = tIt->second;
   CHECK_EQUAL(transition.m_osmId, osmId,
-              ("feature:", key.m_featureId, ", segment:", key.m_segmentIdx, ", point:",
+              ("feature:", featureId, ", segment:", segmentIdx, ", point:",
                MercatorBounds::ToLatLon(transition.m_frontPoint)));
   bool const isForward = transition.m_forwardIsEnter == isEnter;
   if (transition.m_oneWay && !isForward)

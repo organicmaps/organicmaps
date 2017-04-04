@@ -30,7 +30,7 @@ bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 
   osmIdsToFeatureIds.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
     if (p.first.IsWay())
-      toDo(p.second /* feature id */, p.first.OsmId());
+      toDo(p.second /* feature id */, p.first /* osm id */);
   });
 
   return true;
@@ -39,7 +39,7 @@ bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 
 namespace routing
 {
-void AddFeatureId(map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t featureId, uint64_t osmId)
+void AddFeatureId(osm::Id osmId, uint32_t featureId, map<osm::Id, uint32_t> &osmIdToFeatureId)
 {
   auto const result = osmIdToFeatureId.insert(make_pair(osmId, featureId));
   if (!result.second)
@@ -50,29 +50,31 @@ void AddFeatureId(map<uint64_t, uint32_t> & osmIdToFeatureId, uint32_t featureId
 }
 
 bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<uint64_t, uint32_t> & osmIdToFeatureId)
+                                  map<osm::Id, uint32_t> & osmIdToFeatureId)
 {
-  return ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, uint64_t osmId) {
-    AddFeatureId(osmIdToFeatureId, featureId, osmId);
+  return ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id osmId) {
+    AddFeatureId(osmId, featureId, osmIdToFeatureId);
   });
 }
 
 bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<uint32_t, uint64_t> & featureIdToOsmId)
+                                  map<uint32_t, osm::Id> & featureIdToOsmId)
 {
-  bool result = true;
+  featureIdToOsmId.clear();
+  bool idsAreOk = true;
 
-  result &= ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, uint64_t osmId) {
-    auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
-    if (emplaced.second)
-      return;
+  bool const readSuccess =
+      ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id osmId) {
+        auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
+        if (emplaced.second)
+          return;
 
-    result = false;
-    LOG(LERROR,
-        ("Feature id", featureId, "is included in two osm ids:", emplaced.first->second, osmId));
-  });
+        idsAreOk = false;
+        LOG(LERROR, ("Feature id", featureId, "is included in two osm ids:", emplaced.first->second,
+                     osmId));
+      });
 
-  if (result)
+  if (readSuccess && idsAreOk)
     return true;
 
   LOG(LERROR, ("Can't load osm id mapping from", osmIdsToFeatureIdPath));

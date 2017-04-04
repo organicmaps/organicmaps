@@ -33,16 +33,16 @@ UNIT_TEST(RestrictionTest_ValidCase)
   RestrictionCollector restrictionCollector("" /* restrictionPath */,
                                             "" /* osmIdsToFeatureIdsPath */);
   // Adding feature ids.
-  restrictionCollector.AddFeatureId(30 /* featureId */, 3 /* osmId */);
-  restrictionCollector.AddFeatureId(10 /* featureId */, 1 /* osmId */);
-  restrictionCollector.AddFeatureId(50 /* featureId */, 5 /* osmId */);
-  restrictionCollector.AddFeatureId(70 /* featureId */, 7 /* osmId */);
-  restrictionCollector.AddFeatureId(20 /* featureId */, 2 /* osmId */);
+  restrictionCollector.AddFeatureId(30 /* featureId */, osm::Id::Way(3));
+  restrictionCollector.AddFeatureId(10 /* featureId */, osm::Id::Way(1));
+  restrictionCollector.AddFeatureId(50 /* featureId */, osm::Id::Way(5));
+  restrictionCollector.AddFeatureId(70 /* featureId */, osm::Id::Way(7));
+  restrictionCollector.AddFeatureId(20 /* featureId */, osm::Id::Way(2));
 
   // Adding restrictions.
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {1, 2} /* osmIds */), ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {2, 3} /* osmIds */), ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only, {5, 7} /* osmIds */), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(1), osm::Id::Way(2)}), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(2), osm::Id::Way(3)}), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only, {osm::Id::Way(5), osm::Id::Way(7)}), ());
   my::SortUnique(restrictionCollector.m_restrictions);
 
   // Checking the result.
@@ -58,10 +58,10 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 {
   RestrictionCollector restrictionCollector("" /* restrictionPath */,
                                             "" /* osmIdsToFeatureIdsPath */);
-  restrictionCollector.AddFeatureId(0 /* featureId */, 0 /* osmId */);
-  restrictionCollector.AddFeatureId(20 /* featureId */, 2 /* osmId */);
+  restrictionCollector.AddFeatureId(0 /* featureId */, osm::Id::Way(0));
+  restrictionCollector.AddFeatureId(20 /* featureId */, osm::Id::Way(2));
 
-  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No, {0, 1} /* osmIds */), ());
+  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(0), osm::Id::Way(1)}), ());
 
   TEST(!restrictionCollector.HasRestrictions(), ());
   TEST(restrictionCollector.IsValid(), ());

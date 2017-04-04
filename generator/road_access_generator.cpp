@@ -1,6 +1,7 @@
 #include "generator/road_access_generator.hpp"
 
 #include "generator/osm_element.hpp"
+#include "generator/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
@@ -35,7 +36,7 @@ char constexpr kBarrierGate[] = "barrier=gate";
 char constexpr kDelim[] = " \t\r\n";
 
 bool ParseRoadAccess(string const & roadAccessPath,
-                     map<uint64_t, uint32_t> const & osmIdToFeatureId,
+                     map<osm::Id, uint32_t> const & osmIdToFeatureId,
                      routing::RoadAccess & roadAccess)
 {
   ifstream stream(roadAccessPath);
@@ -71,7 +72,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
       return false;
     }
 
-    auto const it = osmIdToFeatureId.find(osmId);
+    auto const it = osmIdToFeatureId.find(osm::Id::Way(osmId));
     if (it == osmIdToFeatureId.cend())
     {
       LOG(LWARNING, ("Error when parsing road access: unknown osm id", osmId, "at line", lineNo));
@@ -133,7 +134,7 @@ bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open();
 RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
-  map<uint64_t, uint32_t> osmIdToFeatureId;
+  map<osm::Id, uint32_t> osmIdToFeatureId;
   if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",

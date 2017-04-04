@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generator/osm_id.hpp"
+
 #include "routing/restrictions_serialization.hpp"
 
 #include "std/functional.hpp"
@@ -45,7 +47,7 @@ private:
   bool ParseRestrictions(string const & path);
 
   /// \brief Adds feature id and corresponding |osmId| to |m_osmIdToFeatureId|.
-  void AddFeatureId(uint32_t featureId, uint64_t osmId);
+  void AddFeatureId(uint32_t featureId, osm::Id osmId);
 
   /// \brief Adds a restriction (vector of osm id).
   /// \param type is a type of restriction
@@ -53,10 +55,10 @@ private:
   /// \note This method should be called to add a restriction when feature ids of the restriction
   /// are unknown. The feature ids should be set later with a call of |SetFeatureId(...)| method.
   /// \returns true if restriction is add and false otherwise.
-  bool AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds);
+  bool AddRestriction(Restriction::Type type, vector<osm::Id> const & osmIds);
 
   RestrictionVec m_restrictions;
-  map<uint64_t, uint32_t> m_osmIdToFeatureId;
+  map<osm::Id, uint32_t> m_osmIdToFeatureId;
 };
 
 bool FromString(string str, Restriction::Type & type);
