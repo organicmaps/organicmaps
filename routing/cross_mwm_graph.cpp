@@ -24,7 +24,9 @@ struct ClosestSegment
 {
   ClosestSegment() = default;
   ClosestSegment(double minDistM, Segment const & bestSeg, bool exactMatchFound)
-    : m_bestDistM(minDistM), m_bestSeg(bestSeg), m_exactMatchFound(exactMatchFound) {}
+    : m_bestDistM(minDistM), m_bestSeg(bestSeg), m_exactMatchFound(exactMatchFound)
+  {
+  }
 
   double m_bestDistM = kInvalidDistance;
   Segment m_bestSeg;
@@ -57,9 +59,11 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
 
 void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment> & twins)
 {
-  CHECK(IsTransition(s, isOutgoing), ("The segment", s, "is not a transition segment for isOutgoing ==", isOutgoing));
+  CHECK(IsTransition(s, isOutgoing),
+        ("The segment", s, "is not a transition segment for isOutgoing ==", isOutgoing));
   // Note. There's an extremely rare case when a segment is ingoing and outgoing at the same time.
-  // |twins| is not filled for such cases. For details please see a note in CrossMwmGraph::GetEdgeList().
+  // |twins| is not filled for such cases. For details please see a note in
+  // CrossMwmGraph::GetEdgeList().
   if (IsTransition(s, !isOutgoing))
     return;
 
@@ -76,15 +80,15 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
     // Node. The map below is necessary because twin segments could belong to several mwm.
     // It happens when a segment crosses more than one feature.
     map<NumMwmId, ClosestSegment> minDistSegs;
-    auto const findBestTwins = [&](FeatureType & ft){
+    auto const findBestTwins = [&](FeatureType & ft) {
       if (ft.GetID().m_mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
         return;
 
       if (!ft.GetID().IsValid())
         return;
 
-      NumMwmId const numMwmId = m_numMwmIds->GetId(ft.GetID().m_mwmId.
-                                                   GetInfo()->GetLocalFile().GetCountryFile());
+      NumMwmId const numMwmId =
+          m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
       if (numMwmId == s.GetMwmId())
         return;
 
@@ -105,9 +109,8 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
             twins.push_back(tc);
             minDistSegs[numMwmId].m_exactMatchFound = true;
           }
-          if (!minDistSegs[numMwmId].m_exactMatchFound
-              && distM <= kTransitionEqualityDistM
-              && distM < minDistSegs[numMwmId].m_bestDistM)
+          if (!minDistSegs[numMwmId].m_exactMatchFound && distM <= kTransitionEqualityDistM &&
+              distM < minDistSegs[numMwmId].m_bestDistM)
           {
             minDistSegs[numMwmId].m_bestDistM = distM;
             minDistSegs[numMwmId].m_bestSeg = tc;
@@ -116,9 +119,9 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
       }
     };
 
-    m_index.ForEachInRect(findBestTwins,
-                          MercatorBounds::RectByCenterXYAndSizeInMeters(p, kTransitionEqualityDistM),
-                          scales::GetUpperScale());
+    m_index.ForEachInRect(
+        findBestTwins, MercatorBounds::RectByCenterXYAndSizeInMeters(p, kTransitionEqualityDistM),
+        scales::GetUpperScale());
 
     for (auto const & kv : minDistSegs)
     {
@@ -138,15 +141,17 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
 
 void CrossMwmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<SegmentEdge> & edges)
 {
-  CHECK(IsTransition(s, !isOutgoing), ("The segment is not a transition segment. IsTransition(",
-                                       s, "," , !isOutgoing, ") returns false."));
+  CHECK(IsTransition(s, !isOutgoing), ("The segment is not a transition segment. IsTransition(", s,
+                                       ",", !isOutgoing, ") returns false."));
   edges.clear();
 
   // Osrm based cross-mwm information.
 
-  // Note. According to cross-mwm OSRM sections there is a node id that could be ingoing and outgoing
+  // Note. According to cross-mwm OSRM sections there is a node id that could be ingoing and
+  // outgoing
   // at the same time. For example in Berlin mwm on Nordlicher Berliner Ring (A10) near crossing
-  // with A11 there's such node id. It's an extremely rare case. There're probably several such node id
+  // with A11 there's such node id. It's an extremely rare case. There're probably several such node
+  // id
   // for the whole Europe. Such cases are not processed in WorldGraph::GetEdgeList() for the time
   // being.
   // To prevent filling |edges| with twins instead of leap edges and vice versa in
@@ -188,10 +193,13 @@ bool CrossMwmGraph::CrossMwmSectionExists(NumMwmId numMwmId)
   return value->m_cont.IsExist(CROSS_MWM_FILE_TAG);
 }
 
-void CrossMwmGraph::GetTwinCandidates(FeatureType const & ft, bool isOutgoing, vector<Segment> & twinCandidates)
+void CrossMwmGraph::GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
+                                      vector<Segment> & twinCandidates)
 {
-  NumMwmId const numMwmId = m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-  bool const isOneWay = m_vehicleModelFactory->GetVehicleModelForCountry(ft.GetID().GetMwmName())->IsOneWay(ft);
+  NumMwmId const numMwmId =
+      m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  bool const isOneWay =
+      m_vehicleModelFactory->GetVehicleModelForCountry(ft.GetID().GetMwmName())->IsOneWay(ft);
 
   for (uint32_t segIdx = 0; segIdx + 1 < ft.GetPointsCount(); ++segIdx)
   {

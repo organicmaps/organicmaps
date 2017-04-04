@@ -48,7 +48,8 @@ bool GetFirstValidSegment(OsrmFtSegMapping const & segMapping, NumMwmId numMwmId
   {
     OsrmMappingTypes::FtSeg seg;
     // The meaning of node id in osrm is an edge between two joints.
-    // So, it's possible to consider the first valid segment from the range which returns by GetSegmentsRange().
+    // So, it's possible to consider the first valid segment from the range which returns by
+    // GetSegmentsRange().
     segMapping.GetSegmentByIndex(segmentIndex, seg);
 
     if (!seg.IsValid())
@@ -96,7 +97,8 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
   // ids (edges).
   // This factor makes index graph (used in AStar) edge weight smaller than node ids weight.
   //
-  // As a result large cross mwm routes with connectors works as Dijkstra, but short and medium routes
+  // As a result large cross mwm routes with connectors works as Dijkstra, but short and medium
+  // routes
   // without connectors works as AStar.
   // Most of routes don't use leaps, therefore it is important to keep AStar performance.
   double constexpr kAstarHeuristicFactor = 100000;
@@ -107,14 +109,14 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
 
 namespace routing
 {
-CrossMwmOsrmGraph::CrossMwmOsrmGraph(shared_ptr<NumMwmIds> numMwmIds, RoutingIndexManager & indexManager)
+CrossMwmOsrmGraph::CrossMwmOsrmGraph(shared_ptr<NumMwmIds> numMwmIds,
+                                     RoutingIndexManager & indexManager)
   : m_numMwmIds(numMwmIds), m_indexManager(indexManager)
 {
   Clear();
 }
 
 CrossMwmOsrmGraph::~CrossMwmOsrmGraph() {}
-
 bool CrossMwmOsrmGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
   TransitionSegments const & t = GetSegmentMaps(s.GetMwmId());
@@ -124,8 +126,7 @@ bool CrossMwmOsrmGraph::IsTransition(Segment const & s, bool isOutgoing)
   return t.m_ingoing.count(s) != 0;
 }
 
-void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing,
-                                    vector<SegmentEdge> & edges)
+void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<SegmentEdge> & edges)
 {
   auto const fillEdgeList = [&](TRoutingMappingPtr const & mapping) {
     vector<BorderCross> borderCrosses;
@@ -159,8 +160,8 @@ void CrossMwmOsrmGraph::Clear()
 
 TransitionPoints CrossMwmOsrmGraph::GetTransitionPoints(Segment const & s, bool isOutgoing)
 {
-  vector<ms::LatLon> const & latLons = isOutgoing ? GetOutgoingTransitionPoints(s)
-                                                  : GetIngoingTransitionPoints(s);
+  vector<ms::LatLon> const & latLons =
+      isOutgoing ? GetOutgoingTransitionPoints(s) : GetIngoingTransitionPoints(s);
   TransitionPoints points;
   points.reserve(latLons.size());
   for (auto const & latLon : latLons)
@@ -170,22 +171,19 @@ TransitionPoints CrossMwmOsrmGraph::GetTransitionPoints(Segment const & s, bool 
 
 CrossMwmOsrmGraph::TransitionSegments const & CrossMwmOsrmGraph::LoadSegmentMaps(NumMwmId numMwmId)
 {
-  //map<NumMwmId, TransitionSegments>::iterator
   auto it = m_transitionCache.find(numMwmId);
   if (it != m_transitionCache.cend())
     return it->second;
 
   auto const fillAllTransitionSegments = [&](TRoutingMappingPtr const & mapping) {
     TransitionSegments transitionSegments;
-    mapping->m_crossContext.ForEachOutgoingNode([&](OutgoingCrossNode const & node)
-    {
-      FillTransitionSegments(mapping->m_segMapping, node.m_nodeId, numMwmId,
-                             node.m_point, transitionSegments.m_outgoing);
+    mapping->m_crossContext.ForEachOutgoingNode([&](OutgoingCrossNode const & node) {
+      FillTransitionSegments(mapping->m_segMapping, node.m_nodeId, numMwmId, node.m_point,
+                             transitionSegments.m_outgoing);
     });
-    mapping->m_crossContext.ForEachIngoingNode([&](IngoingCrossNode const & node)
-    {
-      FillTransitionSegments(mapping->m_segMapping, node.m_nodeId, numMwmId,
-                             node.m_point, transitionSegments.m_ingoing);
+    mapping->m_crossContext.ForEachIngoingNode([&](IngoingCrossNode const & node) {
+      FillTransitionSegments(mapping->m_segMapping, node.m_nodeId, numMwmId, node.m_point,
+                             transitionSegments.m_ingoing);
     });
     auto const p = m_transitionCache.emplace(numMwmId, move(transitionSegments));
     UNUSED_VALUE(p);

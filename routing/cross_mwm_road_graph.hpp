@@ -36,7 +36,13 @@ struct CrossNode final
   {
   }
 
-  CrossNode() : node(INVALID_NODE_ID), reverseNode(INVALID_NODE_ID), point(ms::LatLon::Zero()), isVirtual(false) {}
+  CrossNode()
+    : node(INVALID_NODE_ID)
+    , reverseNode(INVALID_NODE_ID)
+    , point(ms::LatLon::Zero())
+    , isVirtual(false)
+  {
+  }
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 

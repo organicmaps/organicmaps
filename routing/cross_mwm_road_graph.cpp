@@ -124,8 +124,8 @@ bool FindCrossNode(CrossRoutingContextReader const & currentContext, CrossNode c
 template <class Fn>
 vector<BorderCross> const & ConstructBorderCrossImpl(
     TWrittenNodeId nodeId, TRoutingMappingPtr const & currentMapping,
-    unordered_map<CrossMwmRoadGraph::TCachingKey, vector<BorderCross>, CrossMwmRoadGraph::Hash> const &
-        cachedNextNodes,
+    unordered_map<CrossMwmRoadGraph::TCachingKey, vector<BorderCross>,
+                  CrossMwmRoadGraph::Hash> const & cachedNextNodes,
     Fn && borderCrossConstructor)
 {
   auto const key = make_pair(nodeId, currentMapping->GetMwmId());
@@ -260,9 +260,9 @@ IRouter::ResultCode CrossMwmRoadGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-bool CrossMwmRoadGraph::ConstructBorderCrossByOutgoingImpl(OutgoingCrossNode const & startNode,
-                                                           TRoutingMappingPtr const & currentMapping,
-                                                           vector<BorderCross> & crosses) const
+bool CrossMwmRoadGraph::ConstructBorderCrossByOutgoingImpl(
+    OutgoingCrossNode const & startNode, TRoutingMappingPtr const & currentMapping,
+    vector<BorderCross> & crosses) const
 {
   auto const fromCross = CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), startNode.m_point);
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);

@@ -63,7 +63,7 @@ private:
     CHECK(mapping, ("No routing mapping file for countryFile:", countryFile));
 
     if (!mapping->IsValid())
-      return false; // mwm was not loaded.
+      return false;  // mwm was not loaded.
 
     auto const it = m_mappingGuards.find(numMwmId);
     if (it == m_mappingGuards.cend())
@@ -80,7 +80,8 @@ private:
 
   // OSRM based cross-mwm information.
   RoutingIndexManager & m_indexManager;
-  /// \note According to the constructor CrossMwmRoadGraph is initialized with RoutingIndexManager &.
+  /// \note According to the constructor CrossMwmRoadGraph is initialized with RoutingIndexManager
+  /// &.
   /// But then it is copied by value to CrossMwmRoadGraph::RoutingIndexManager m_indexManager.
   /// It means that there're two copies of RoutingIndexManager in CrossMwmGraph.
   std::unique_ptr<CrossMwmRoadGraph> m_crossMwmGraph;

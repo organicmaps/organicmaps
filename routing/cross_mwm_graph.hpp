@@ -23,7 +23,8 @@ class CrossMwmGraph final
 {
 public:
   CrossMwmGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds,
-                std::shared_ptr<VehicleModelFactory> vehicleModelFactory, RoutingIndexManager & indexManager);
+                std::shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                RoutingIndexManager & indexManager);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finsh of such segment have to lie in different mwms. If a segment is
@@ -58,8 +59,10 @@ public:
   /// the mehtod fills |twins| with appropriate enter transition segments.
   /// If |isOutgoing| == false |s| should be an enter transition segment and
   /// the method fills |twins| with appropriate exit transition segments.
-  /// \note GetTwins(s, isOutgoing, ...) shall be called only if IsTransition(s, isOutgoing) returns true.
-  /// \note GetTwins(s, isOutgoing, twins) fills |twins| only if mwm contained |twins| has been downloaded.
+  /// \note GetTwins(s, isOutgoing, ...) shall be called only if IsTransition(s, isOutgoing) returns
+  /// true.
+  /// \note GetTwins(s, isOutgoing, twins) fills |twins| only if mwm contained |twins| has been
+  /// downloaded.
   /// If not, |twins| could be emply after a GetTwins(...) call.
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
 
@@ -77,17 +80,20 @@ public:
   void Clear();
 
 private:
-  /// \returns points of |s|. |s| should be a transition segment of mwm with an OSRM cross-mwm sections or
+  /// \returns points of |s|. |s| should be a transition segment of mwm with an OSRM cross-mwm
+  /// sections or
   /// with an index graph cross-mwm section.
   /// \param s is a transition segment of type |isOutgoing|.
-  /// \note the result of the method is returned by value because the size of the vector is usually one
+  /// \note the result of the method is returned by value because the size of the vector is usually
+  /// one
   /// or very small in rare cases in OSRM.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
   bool CrossMwmSectionExists(NumMwmId numMwmId);
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
-  void GetTwinCandidates(FeatureType const & ft, bool isOutgoing, std::vector<Segment> & twinCandidates);
+  void GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
+                         std::vector<Segment> & twinCandidates);
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
