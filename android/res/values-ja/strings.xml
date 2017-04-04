@@ -1065,5 +1065,4 @@
 	<string name="reviews_on_bookingcom">Booking.com の詳細レビュー</string>
 	<string name="offline_place_page_more_information">この場所に関する詳細情報を取得するには、インターネットに接続してください。</string>
 	<string name="failed_load_information">情報の読み込みに失敗しました。</string>
-	<string name="booking_search">Booking.com</string>
 </resources>

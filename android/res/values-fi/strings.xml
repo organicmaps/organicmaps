@@ -1066,5 +1066,4 @@
 	<string name="reviews_on_bookingcom">Lisää arvosteluja osoitteessa Booking.com</string>
 	<string name="offline_place_page_more_information">Yhdistä internetiin saadaksesi lisätietoa paikasta.</string>
 	<string name="failed_load_information">Tietojen lataaminen epäonnistui.</string>
-	<string name="booking_search">Booking.com</string>
 </resources>

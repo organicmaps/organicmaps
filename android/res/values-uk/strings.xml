@@ -1070,5 +1070,4 @@
 	<string name="reviews_on_bookingcom">Більше відгуків на Booking.com</string>
 	<string name="offline_place_page_more_information">Підключіться до мережі Інтернет, щоб отримати більше інформації про місце.</string>
 	<string name="failed_load_information">Не вдалося завантажити інформацію.</string>
-	<string name="booking_search">Booking.com</string>
 </resources>
