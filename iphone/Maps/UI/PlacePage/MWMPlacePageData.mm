@@ -52,10 +52,7 @@ using namespace place_page;
 {
   self = [super init];
   if (self)
-  {
     m_info = info;
-    [self fillSections];
-  }
 
   return self;
 }

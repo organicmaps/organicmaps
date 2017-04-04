@@ -67,6 +67,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [MWMFrameworkListener addObserver:self];
 
   self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
+  [self.data fillSections];
 
   if (!self.layout)
   {

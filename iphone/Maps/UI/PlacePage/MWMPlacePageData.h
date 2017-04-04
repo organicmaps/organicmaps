@@ -109,6 +109,8 @@ using BannerIsReady = void (^)();
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
 
+- (void)fillSections;
+
 - (void)updateBookmarkStatus:(BOOL)isBookmark;
 
 /// Country id for changing place page's fields which depend on application state.
