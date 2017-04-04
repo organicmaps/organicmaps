@@ -403,6 +403,11 @@ public class PlacePageView extends RelativeLayout
             color = Color.WHITE;
             break;
 
+          case BOOKING_SEARCH:
+            frame.setBackgroundResource(R.drawable.button_booking);
+            color = Color.WHITE;
+            break;
+
           case OPENTABLE:
             frame.setBackgroundResource(R.drawable.button_opentable);
             color = Color.WHITE;
@@ -499,6 +504,11 @@ public class PlacePageView extends RelativeLayout
         case BOOKING:
         case OPENTABLE:
           onSponsoredClick(true /* book */, false);
+          break;
+
+        case BOOKING_SEARCH:
+          if (mMapObject != null)
+            followUrl(mMapObject.getBookingSearchUrl());
           break;
 
         case CALL:
@@ -1335,6 +1345,9 @@ public class PlacePageView extends RelativeLayout
           break;
       }
     }
+
+    if (!TextUtils.isEmpty(mapObject.getBookingSearchUrl()))
+      buttons.add(PlacePageButtons.Item.BOOKING_SEARCH);
 
     if (mapObject.hasPhoneNumber())
       buttons.add(PlacePageButtons.Item.CALL);

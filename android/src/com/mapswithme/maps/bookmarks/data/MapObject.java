@@ -40,18 +40,20 @@ public class MapObject implements Parcelable
   @Nullable
   private Banner[] mBanners;
   private boolean mReachableByTaxi;
+  @Nullable
+  private String mBookingSearchUrl;
 
   public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
                    double lat, double lon, String apiId, @Nullable Banner[] banners,
-                   boolean reachableByTaxi)
+                   boolean reachableByTaxi, @Nullable String bookingSearchUrl)
   {
     this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         reachableByTaxi);
+         reachableByTaxi, bookingSearchUrl);
   }
 
   public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
                    double lat, double lon, Metadata metadata, String apiId, @Nullable Banner[] banners,
-                   boolean reachableByTaxi)
+                   boolean reachableByTaxi, @Nullable String bookingSearchUrl)
   {
     mMapObjectType = mapObjectType;
     mTitle = title;
@@ -63,6 +65,7 @@ public class MapObject implements Parcelable
     mApiId = apiId;
     mBanners = banners;
     mReachableByTaxi = reachableByTaxi;
+    mBookingSearchUrl = bookingSearchUrl;
   }
 
   protected MapObject(Parcel source)
@@ -77,7 +80,8 @@ public class MapObject implements Parcelable
          (Metadata) source.readParcelable(Metadata.class.getClassLoader()),
          source.readString(), // ApiId;
          null, // mBanners
-         source.readByte() != 0); // ReachableByTaxi
+         source.readByte() != 0, // ReachableByTaxi
+         source.readString()); // BookingSearchUrl
     mBanners = readBanners(source);
   }
 
@@ -203,6 +207,12 @@ public class MapObject implements Parcelable
     return object != null && object.getMapObjectType() == type;
   }
 
+  @Nullable
+  public String getBookingSearchUrl()
+  {
+    return mBookingSearchUrl;
+  }
+
   protected static MapObject readFromParcel(Parcel source)
   {
     @MapObjectType int type = source.readInt();
@@ -232,6 +242,7 @@ public class MapObject implements Parcelable
     dest.writeString(mApiId);
     dest.writeTypedArray(mBanners, 0);
     dest.writeByte((byte) (mReachableByTaxi ? 1 : 0));
+    dest.writeString(mBookingSearchUrl);
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()

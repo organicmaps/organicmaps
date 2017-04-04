@@ -219,7 +219,7 @@ public enum LocationHelper
 
     if (mMyPosition == null)
       mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mSavedLocation.getLatitude(),
-          mSavedLocation.getLongitude(), "", null, false);
+          mSavedLocation.getLongitude(), "", null, false, "");
 
     return mMyPosition;
   }

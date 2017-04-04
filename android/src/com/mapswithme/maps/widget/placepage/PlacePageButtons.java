@@ -48,6 +48,21 @@ final class PlacePageButtons
       }
     },
 
+    BOOKING_SEARCH
+        {
+          @Override
+          int getTitle()
+          {
+            return R.string.book_button;
+          }
+
+          @Override
+          int getIcon()
+          {
+            return R.drawable.ic_menu_search;
+          }
+        },
+
     OPENTABLE
     {
       @Override
@@ -203,6 +218,7 @@ final class PlacePageButtons
 
       preserveRoutingButtons(res, Item.CALL);
       preserveRoutingButtons(res, Item.BOOKING);
+      preserveRoutingButtons(res, Item.BOOKING_SEARCH);
     }
 
     return res;
