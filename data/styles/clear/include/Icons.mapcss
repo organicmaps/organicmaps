@@ -2259,7 +2259,9 @@ node|z17[shop=copyshop],
 area|z17[shop=copyshop]
 {icon-image: copyshop-l.svg;icon-min-distance: 24;}
 node|z17[shop=photo],
-area|z17[shop=photo]
+area|z17[shop=photo],
+node|z17[craft=photographer],
+area|z17[craft=photographer]
 {icon-image: photo-shop-l.svg;icon-min-distance: 24;}
 node|z17[shop=pet],
 area|z17[shop=pet]
@@ -2395,7 +2397,9 @@ node|z18-[shop=copyshop],
 area|z18-[shop=copyshop]
 {icon-image: copyshop-l.svg;}
 node|z18-[shop=photo],
-area|z18-[shop=photo]
+area|z18-[shop=photo],
+node|z18-[craft=photographer],
+area|z18-[craft=photographer]
 {icon-image: photo-shop-l.svg;}
 node|z18-[shop=pet],
 area|z18-[shop=pet]
