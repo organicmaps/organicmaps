@@ -85,13 +85,13 @@ omim_link_libraries(
   openlr
   stb_image
   sdf_image
-  ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
 
+link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 
 if (PLATFORM_MAC)
@@ -110,9 +110,6 @@ if (PLATFORM_MAC)
     MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
   )
 endif()
-
-link_opengl(${PROJECT_NAME})
-link_qt5_core(${PROJECT_NAME})
 
 function(copy_resources)
   set(files "")

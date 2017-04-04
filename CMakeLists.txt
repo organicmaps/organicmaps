@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
+# Options
 option(USE_ASAN "Enable Address Sanitizer" OFF)
+option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 
 if (USE_ASAN)
   message("Address Sanitizer is enabled")
@@ -11,7 +13,6 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Set environment variables
-
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -35,6 +36,10 @@ endif()
 
 if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
+endif()
+
+if (NOT PYTHON_VERSION)
+  set(PYTHON_VERSION 2.7)
 endif()
 
 # End of setting environment variables
@@ -92,14 +97,16 @@ if (PLATFORM_MAC)
   set(Boost_USE_STATIC_RUNTIME ON)
 endif()
 
-if (PYBINDINGS)
-  find_package(Boost 1.54 REQUIRED COMPONENTS python)
-else()
-  find_package(Boost 1.54)
-endif()
+find_package(Boost 1.54)
 
 if (PYBINDINGS)
-  find_package(PythonLibs 2.7 REQUIRED)
+  if (PYTHON_VERSION VERSION_GREATER 3.0)
+    set(_Boost_PYTHON3_HEADERS "boost/python.hpp")
+    find_package(Boost 1.54 REQUIRED COMPONENTS python3)
+  else()
+    find_package(Boost 1.54 REQUIRED COMPONENTS python)
+  endif()
+  find_package(PythonLibs ${PYTHON_VERSION} REQUIRED)
   include_directories(${PYTHON_INCLUDE_DIRS})
 endif()
 
@@ -235,6 +242,8 @@ endfunction()
 
 # End of functions for subdirectories
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Include subdirectories
 add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
@@ -290,6 +299,7 @@ add_subdirectory(search)
 add_subdirectory(tracking)
 add_subdirectory(traffic)
 add_subdirectory(partners_api)
+add_subdirectory(local_ads)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(openlr)

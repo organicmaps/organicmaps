@@ -1,0 +1,18 @@
+project(pylocal_ads)
+
+set(
+  SRC
+  bindings.cpp
+)
+
+add_library(${PROJECT_NAME} MODULE ${SRC})
+
+omim_link_libraries(
+  ${PROJECT_NAME}
+  ${PYTHON_LIBRARIES}
+  ${Boost_LIBRARIES}
+  base
+  local_ads
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
