@@ -21,6 +21,7 @@
 #import "SwiftBridge.h"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/point2d.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -175,11 +176,17 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info
 {
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
+  auto lastLocation = [MWMLocationManager lastLocation];
+  auto data = self.data;
+  if (!lastLocation || !data)
     return;
 
-  CGFloat const angle = ang::AngleTo(lastLocation.mercator, self.data.mercator) + info.m_bearing;
+  auto const locationMercator = lastLocation.mercator;
+  auto const dataMercator = data.mercator;
+  if (my::AlmostEqualAbs(locationMercator, dataMercator, 1e-10))
+    return;
+
+  auto const angle = ang::AngleTo(locationMercator, dataMercator) + info.m_bearing;
   [self.layout rotateDirectionArrowToAngle:angle];
 }
 
