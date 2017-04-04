@@ -48,11 +48,14 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
                             "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;[Lcom/mapswithme/maps/ads/Banner;ZLjava/lang/String;)V");
 
-  jobject mapObject =
-      env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jni::ToJavaString(env, title),
-                     jni::ToJavaString(env, subtitle), jni::ToJavaString(env, address), lat, lon,
-                     jni::ToJavaString(env, apiId), jbanners, isReachableByTaxi,
-                     jni::ToJavaString(env, bookingSearchUrl));
+  jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, title));
+  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, subtitle));
+  jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, address));
+  jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
+  jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
+  jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jTitle.get(),
+                                     jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
+                                     jbanners, isReachableByTaxi, jBookingSearchUrl.get());
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
