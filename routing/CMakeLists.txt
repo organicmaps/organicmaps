@@ -115,6 +115,7 @@ set(
   speed_camera.cpp
   speed_camera.hpp
   traffic_stash.hpp
+  transition_points.hpp
   turn_candidate.hpp
   turns.cpp
   turns.hpp

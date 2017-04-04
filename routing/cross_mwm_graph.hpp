@@ -1,4 +1,5 @@
 #pragma once
+
 #include "routing/cross_mwm_index_graph.hpp"
 #include "routing/cross_mwm_osrm_graph.hpp"
 #include "routing/num_mwm_id.hpp"

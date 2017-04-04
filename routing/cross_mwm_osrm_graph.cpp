@@ -143,7 +143,9 @@ void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing,
         AddSegmentEdge(*m_numMwmIds, mapping->m_segMapping, edge, isOutgoing, s.GetMwmId(), edges);
     }
   };
-  LoadWith(s.GetMwmId(), fillEdgeList);
+  bool const isLoaded = LoadWith(s.GetMwmId(), fillEdgeList);
+  UNUSED_VALUE(isLoaded);
+  CHECK(isLoaded, ("Mmw", m_numMwmIds->GetFile(s.GetMwmId()), "was not loaded."));
 
   my::SortUnique(edges);
 }

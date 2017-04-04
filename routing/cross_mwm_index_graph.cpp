@@ -36,4 +36,12 @@ CrossMwmConnector const & CrossMwmIndexGraph::GetCrossMwmConnectorWithWeights(Nu
   return Deserialize(numMwmId,
                      CrossMwmConnectorSerializer::DeserializeWeights<ReaderSource<FilesContainerR::TReader>>);
 }
+
+TransitionPoints CrossMwmIndexGraph::GetTransitionPoints(Segment const & s, bool isOutgoing)
+{
+  CrossMwmConnector const & connector = GetCrossMwmConnectorWithTransitions(s.GetMwmId());
+  // In case of transition segments of index graph cross-mwm section the front point of segment
+  // is used as a point which corresponds to the segment.
+  return TransitionPoints({connector.GetPoint(s, true /* front */)});
+}
 }  // namespace routing

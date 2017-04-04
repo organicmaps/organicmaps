@@ -127,6 +127,7 @@ HEADERS += \
     segment.hpp \
     speed_camera.hpp \
     traffic_stash.hpp \
+    transition_points.hpp \
     turn_candidate.hpp \
     turns.hpp \
     turns_generator.hpp \

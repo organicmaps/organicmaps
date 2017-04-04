@@ -1,13 +1,13 @@
 #pragma once
+
 #include "routing/num_mwm_id.hpp"
 #include "routing/routing_mapping.hpp"
 #include "routing/segment.hpp"
+#include "routing/transition_points.hpp"
 
 #include "geometry/latlon.hpp"
 
 #include "platform/country_file.hpp"
-
-#include "base/buffer_vector.hpp"
 
 #include <map>
 #include <memory>

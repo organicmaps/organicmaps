@@ -1,7 +1,9 @@
 #pragma once
+
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
+#include "routing/transition_points.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing_common/vehicle_model.hpp"
@@ -27,16 +29,19 @@ public:
   void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
   void Clear() { m_connectors.clear(); }
 
-  CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
+  TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
   bool HasCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
 
 private:
+  CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
   CrossMwmConnector const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId);
 
   template <typename Fn>
   CrossMwmConnector const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
-    MwmValue * value = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId)).GetValue<MwmValue>();
+    MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+    CHECK(handle.IsAlive(), ());
+    MwmValue * value = handle.GetValue<MwmValue>();
     CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
 
     auto const reader = make_unique<FilesContainerR::TReader>(value->m_cont.GetReader(CROSS_MWM_FILE_TAG));
