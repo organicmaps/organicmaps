@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C5FEC731DDE1A140017688C /* routing_section.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C5FEC721DDE1A140017688C /* routing_section.hpp */; };
 		340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */; };
-		3454E05D1DF00D2D00F40F46 /* banners.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3454E05B1DF00D2D00F40F46 /* banners.hpp */; };
 		34583BC71C88552100F94664 /* cuisines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC11C88552100F94664 /* cuisines.cpp */; };
 		34583BC81C88552100F94664 /* cuisines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC21C88552100F94664 /* cuisines.hpp */; };
 		34583BC91C88552100F94664 /* editable_map_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC31C88552100F94664 /* editable_map_object.cpp */; };
@@ -226,9 +224,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0C5FEC721DDE1A140017688C /* routing_section.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_section.hpp; sourceTree = "<group>"; };
 		340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor.cpp; sourceTree = "<group>"; };
-		3454E05B1DF00D2D00F40F46 /* banners.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = banners.hpp; sourceTree = "<group>"; };
 		34583BC11C88552100F94664 /* cuisines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisines.cpp; sourceTree = "<group>"; };
 		34583BC21C88552100F94664 /* cuisines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisines.hpp; sourceTree = "<group>"; };
 		34583BC31C88552100F94664 /* editable_map_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editable_map_object.cpp; sourceTree = "<group>"; };
@@ -641,7 +637,6 @@
 		6753409C1A3F53CB00A0A8C3 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
-				3454E05B1DF00D2D00F40F46 /* banners.hpp */,
 				3D928F651D50F9FE001670E0 /* index_helpers.cpp */,
 				3D928F661D50F9FE001670E0 /* index_helpers.hpp */,
 				34664CEE1D49FEC1003D7096 /* altitude_loader.cpp */,
@@ -671,7 +666,6 @@
 				56C74C151C749E4700B71B9F /* displacement_manager.hpp */,
 				56C74C161C749E4700B71B9F /* edits_migration.cpp */,
 				56C74C171C749E4700B71B9F /* edits_migration.hpp */,
-				0C5FEC721DDE1A140017688C /* routing_section.hpp */,
 				56C74C181C749E4700B71B9F /* search_delimiters.cpp */,
 				56C74C191C749E4700B71B9F /* search_delimiters.hpp */,
 				56C74C1A1C749E4700B71B9F /* search_string_utils.cpp */,
@@ -837,13 +831,11 @@
 				670C615C1AB0691900C38A8C /* features_offsets_table.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
 				675341061A3F540F00A0A8C3 /* coding_params.hpp in Headers */,
-				3454E05D1DF00D2D00F40F46 /* banners.hpp in Headers */,
 				56C74C211C749E4700B71B9F /* edits_migration.hpp in Headers */,
 				6753412F1A3F540F00A0A8C3 /* index_builder.hpp in Headers */,
 				675341411A3F540F00A0A8C3 /* scales.hpp in Headers */,
 				675341321A3F540F00A0A8C3 /* interval_index_builder.hpp in Headers */,
 				347F337C1C454242009758CC /* rank_table.hpp in Headers */,
-				0C5FEC731DDE1A140017688C /* routing_section.hpp in Headers */,
 				6753414B1A3F540F00A0A8C3 /* tesselator_decl.hpp in Headers */,
 				F61F83071E4B187500B37B7A /* road_shields_parser.hpp in Headers */,
 				347F33801C454242009758CC /* trie_reader.hpp in Headers */,
