@@ -53,7 +53,7 @@ final class PlacePageButtons
           @Override
           int getTitle()
           {
-            return R.string.book_button;
+            return R.string.booking_search;
           }
 
           @Override
