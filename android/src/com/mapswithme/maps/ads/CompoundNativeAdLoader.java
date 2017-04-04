@@ -68,9 +68,9 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
         throw new AssertionError("A banner id mustn't be empty!");
 
       NativeAdLoader loader = Factory.createLoaderForBanner(banner, mCacheListener, mAdTracker);
+      mLoaders.add(loader);
       loader.setAdListener(this);
       loader.loadAd(context, banner.getId());
-      mLoaders.add(loader);
     }
   }
 
