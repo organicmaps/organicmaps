@@ -23148,30 +23148,3 @@
 
   [booking_search]
     en = Booking.com
-    ru = Booking.com
-    ar = Booking.com
-    cs = Booking.com
-    da = Booking.com
-    nl = Booking.com
-    fi = Booking.com
-    fr = Booking.com
-    de = Booking.com
-    hu = Booking.com
-    id = Booking.com
-    it = Booking.com
-    ja = Booking.com
-    ko = Booking.com
-    nb = Booking.com
-    pl = Booking.com
-    pt = Booking.com
-    ro = Booking.com
-    es = Booking.com
-    sv = Booking.com
-    th = Booking.com
-    tr = Booking.com
-    uk = Booking.com
-    vi = Booking.com
-    zh-Hans = Booking.com
-    zh-Hant = Booking.com
-    el = Booking.com
-    sk = Booking.com
