@@ -10316,9 +10316,17 @@ cont {
 cont {
   name: "craft-photographer"
   element {
+    scale: 17
+    symbol {
+      name: "photo-shop-l"
+      priority: 16000
+      min_distance: 24
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "photo-shop-l"
       priority: 16625
     }
     caption {
@@ -10333,7 +10341,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "photo-shop-l"
       priority: 16625
     }
     caption {
