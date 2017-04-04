@@ -65,8 +65,8 @@ m2::PointD FindCenter(FeatureType const & f)
 
 size_t const kLangCount = StringUtf8Multilang::GetSupportedLanguages().size();
 
-set<string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",
-                               "craft",    "place",   "man_made", "emergency",
+set<string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "sport",
+                               "craft",    "place",   "man_made", "emergency", "office",
                                "historic", "railway", "highway",  "aeroway"};
 
 string GetReadableType(FeatureType const & f)
