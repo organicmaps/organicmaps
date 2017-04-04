@@ -71,9 +71,9 @@ public:
   SearchRequest const & GetSearchRequest() const { return m_request; }
 private:
   ParsingResult Parse(Uri const & uri);
-  bool AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
-  bool RouteKeyValue(string key, string const & value, vector<string> & pattern);
-  bool SearchKeyValue(string key, string const & value, SearchRequest & request);
+  bool AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points);
+  bool RouteKeyValue(string const & key, string const & value, vector<string> & pattern);
+  bool SearchKeyValue(string const & key, string const & value, SearchRequest & request) const;
 
   BookmarkManager * m_bmManager = nullptr;
   vector<RoutePoint> m_routePoints;

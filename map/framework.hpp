@@ -489,6 +489,7 @@ private:
     search::SearchParams m_params;
     weak_ptr<search::ProcessorHandle> m_handle;
     m2::RectD m_viewport;
+    bool m_isDelayed = false;
   };
 
   void InitCountryInfoGetter();

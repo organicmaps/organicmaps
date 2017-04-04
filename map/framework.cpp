@@ -317,7 +317,16 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     UpdateUserViewportChanged();
 
   m_currentModelView = screen;
-  m_isViewportInitialized = true;
+  if (!m_isViewportInitialized)
+  {
+    m_isViewportInitialized = true;
+    for (size_t i = 0; i < static_cast<size_t>(search::Mode::Count); i++)
+    {
+      auto & intent = m_searchIntents[i];
+      if (intent.m_isDelayed)
+        Search(intent);
+    }
+  }
 
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_localAdsManager.UpdateViewport(m_currentModelView);
@@ -1514,15 +1523,13 @@ void Framework::Search(SearchIntent & intent) const
 {
   if (!m_isViewportInitialized)
   {
-    Platform().RunOnGuiThread([this, &intent]
-    {
-      this->Search(intent);
-    });
+    intent.m_isDelayed = true;
     return;
   }
 
   intent.m_viewport = GetCurrentViewport();
   intent.m_handle = m_searchEngine->Search(intent.m_params, intent.m_viewport);
+  intent.m_isDelayed = false;
 }
 
 void Framework::SetCurrentPositionIfPossible(search::SearchParams & params)

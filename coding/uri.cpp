@@ -2,7 +2,7 @@
 #include "coding/url_encode.hpp"
 
 #include "base/assert.hpp"
-
+#include "base/string_utils.hpp"
 
 namespace url_scheme
 {
@@ -53,7 +53,7 @@ bool Uri::ForEachKeyValue(TCallback const & callback) const
   size_t const count = m_url.size();
   size_t const queryStart = m_queryStart;
 
-  // Just a URL without parametrs.
+  // Just a URL without parameters.
   if (queryStart == count)
     return false;
 
@@ -77,6 +77,7 @@ bool Uri::ForEachKeyValue(TCallback const & callback) const
       else
         key = UrlDecode(m_url.substr(start, end - start));
 
+      strings::AsciiToLower(key);
       if (!callback(key, value))
         return false;
     }

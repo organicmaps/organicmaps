@@ -16,6 +16,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
+#include <array>
 
 namespace url_scheme
 {
@@ -51,10 +52,11 @@ enum class ApiURLType
   Search
 };
 
-ApiURLType URLTypeFrom(Uri const & uri)
+std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
+
+ApiURLType URLType(Uri const & uri)
 {
-  auto const scheme = uri.GetScheme();
-  if (scheme != "mapswithme" && scheme != "mwm" && scheme != "mapsme")
+  if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), uri.GetScheme()) == kAvailableSchemes.end())
     return ApiURLType::Incorrect;
 
   auto const path = uri.GetPath();
@@ -116,7 +118,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
 
 ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 {
-  switch (URLTypeFrom(uri))
+  switch (URLType(uri))
   {
     case ApiURLType::Incorrect:
       return ParsingResult::Incorrect;
@@ -166,11 +168,11 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         return ParsingResult::Incorrect;
       
       m_request = request;
-      return ParsingResult::Search;
+      return request.m_query.empty() ? ParsingResult::Incorrect : ParsingResult::Search;
   }
 }
 
-bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string> & pattern)
+bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vector<string> & pattern)
 {
   if (pattern.empty() || key != pattern.front())
     return false;
@@ -208,10 +210,8 @@ bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string
   return true;
 }
 
-bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint> & points)
+bool ParsedMapApi::AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points)
 {
-  strings::AsciiToLower(key);
-
   if (key == kLatLon)
   {
     double lat = 0.0;
@@ -287,7 +287,7 @@ bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
   return true;
 }
 
-bool ParsedMapApi::SearchKeyValue(string key, string const & value, SearchRequest & request)
+bool ParsedMapApi::SearchKeyValue(string const & key, string const & value, SearchRequest & request) const
 {
   if (key == kQuery)
   {
@@ -315,7 +315,7 @@ bool ParsedMapApi::SearchKeyValue(string key, string const & value, SearchReques
     request.m_isSearchOnMap = true;
   }
 
-  return !request.m_query.empty();
+  return true;
 }
 
 void ParsedMapApi::Reset()

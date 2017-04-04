@@ -148,10 +148,11 @@ UNIT_TEST(SearchApiSmoke)
 UNIT_TEST(SearchApiInvalidUrl)
 {
   Framework f;
-  TEST(!IsValid(f, "mapsme://search?"), ("The url must have at least search query parametr"));
+  TEST(!IsValid(f, "mapsme://search?"), ("The search query parameter is necessary"));
   TEST(!IsValid(f, "mapsme://search?query"), ("Search query can't be empty"));
   TEST(IsValid(f, "mapsme://search?query=aaa&cll=1,1,1"), ("If it's wrong lat lon format then just ignore it"));
-  TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsopported parameters."));
+  TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsupported parameters"));
+  TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa"), ("Query parameter position doesn't matter"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)
