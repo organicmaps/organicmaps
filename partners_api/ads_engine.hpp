@@ -19,9 +19,9 @@ class Engine
 public:
   Engine();
 
-  bool HasBanner(feature::TypesHolder const & types, storage::TCountryId const & countryId) const;
+  bool HasBanner(feature::TypesHolder const & types, storage::TCountriesVec const & countryIds) const;
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
-                                 storage::TCountryId const & countryId) const;
+                                 storage::TCountriesVec const & countryIds) const;
 
 private:
   using ContainerPtr = std::unique_ptr<ContainerBase>;

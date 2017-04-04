@@ -18,23 +18,32 @@ Engine::Engine()
 }
 
 bool Engine::HasBanner(feature::TypesHolder const & types,
-                       storage::TCountryId const & countryId) const
+                       storage::TCountriesVec const & countryIds) const
 {
-  return std::any_of(m_containers.cbegin(), m_containers.cend(),
-                     [&types, &countryId](ContainerItem const & item) {
-                       return item.m_container->HasBanner(types, countryId);
-                     });
+  for (auto const & countryId : countryIds)
+  {
+    for (auto const & item : m_containers)
+    {
+      if (item.m_container->HasBanner(types, countryId))
+        return true;
+    }
+  }
+
+  return false;
 }
 
 std::vector<Banner> Engine::GetBanners(feature::TypesHolder const & types,
-                                       storage::TCountryId const & countryId) const
+                                       storage::TCountriesVec const & countryIds) const
 {
   std::vector<Banner> banners;
-  for (auto const & item : m_containers)
+  for (auto const & countryId : countryIds)
   {
-    auto const bannerId = item.m_container->GetBannerId(types, countryId);
-    if (!bannerId.empty())
-      banners.emplace_back(item.m_type, bannerId);
+    for (auto const & item : m_containers)
+    {
+      auto const bannerId = item.m_container->GetBannerId(types, countryId);
+      if (!bannerId.empty())
+        banners.emplace_back(item.m_type, bannerId);
+    }
   }
 
   return banners;

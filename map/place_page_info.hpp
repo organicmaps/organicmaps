@@ -124,9 +124,14 @@ public:
   string m_sponsoredDescriptionUrl;
   string m_sponsoredReviewUrl;
 
-  /// Which country this MapObject is in.
-  /// For a country point it will be set to topmost node for country.
+  /// Which mwm this MapObject is in.
+  /// Exception: for a country-name point it will be set to the topmost node for the mwm.
+  /// TODO(@a): use m_topmostCountryIds in exceptional case.
   storage::TCountryId m_countryId = storage::kInvalidCountryId;
+  /// The topmost downloader nodes this MapObject is in, i.e.
+  /// the country name for an object whose mwm represents only
+  /// one part of the country (or several countries for disputed territories).
+  storage::TCountriesVec m_topmostCountryIds;
 
   bool m_isMyPosition = false;
   /// True if editing of a selected point is allowed by basic logic.

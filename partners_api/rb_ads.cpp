@@ -17,13 +17,13 @@ auto const kBannerIdForOtherTypes = "14";
 
 std::vector<storage::TCountryId> const kSupportedCountries =
 {
-  "Azerbaijan",
+  "Azerbaijan Region",
   "Armenia",
   "Belarus",
   "Kazakhstan",
   "Kyrgyzstan",
   "Moldova",
-  "Russia",
+  "Russian Federation",
   "Tajikistan",
   "Turkmenistan",
   "Uzbekistan",

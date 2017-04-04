@@ -2241,6 +2241,7 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
 
   df::SelectionShape::ESelectedObject const obj = OnTapEventImpl(*m_lastTapEvent, info);
   info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+  GetStorage().GetTopmostNodesFor(info.m_countryId, info.m_topmostCountryIds);
   if (obj != df::SelectionShape::OBJECT_EMPTY)
     ActivateMapSelection(false, obj, info);
 }
@@ -2295,6 +2296,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
 
     if (info.m_countryId.empty())
       info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+    GetStorage().GetTopmostNodesFor(info.m_countryId, info.m_topmostCountryIds);
 
     ActivateMapSelection(true, selection, info);
   }

@@ -181,7 +181,7 @@ bool Info::HasBanner() const
   if (IsMyPosition())
     return false;
 
-  return m_adsEngine->HasBanner(m_types, m_countryId);
+  return m_adsEngine->HasBanner(m_types, m_topmostCountryIds);
 }
 
 vector<ads::Banner> Info::GetBanners() const
@@ -189,7 +189,7 @@ vector<ads::Banner> Info::GetBanners() const
   if (!m_adsEngine)
     return {};
 
-  return m_adsEngine->GetBanners(m_types, m_countryId);
+  return m_adsEngine->GetBanners(m_types, m_topmostCountryIds);
 }
 
 bool Info::IsReachableByTaxi() const
