@@ -3,6 +3,7 @@
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/segment.hpp"
+#include "routing/routing_exceptions.hpp"
 #include "routing/transition_points.hpp"
 #include "routing/vehicle_mask.hpp"
 
@@ -22,6 +23,8 @@ namespace routing
 class CrossMwmIndexGraph final
 {
 public:
+  using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
+
   CrossMwmIndexGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds)
     : m_index(index), m_numMwmIds(numMwmIds)
   {
@@ -31,25 +34,36 @@ public:
   void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
   void Clear() { m_connectors.clear(); }
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
-  bool HasCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
+  bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
+
 private:
   CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
   CrossMwmConnector const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId);
 
+  /// \brief Deserializes connectors for an mwm with |numMwmId|.
+  /// \param fn is a function implementing deserialization.
+  /// \note Each CrossMwmConnector contained in |m_connectors| may be deserizalize in two stages.
+  /// The first one is transition deserialization and the second is weight deserialization.
+  /// Transition deserialization is much faster and used more often.
   template <typename Fn>
   CrossMwmConnector const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
     MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
-    CHECK(handle.IsAlive(), ());
+    if (!handle.IsAlive())
+      MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
+
     MwmValue * value = handle.GetValue<MwmValue>();
     CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
 
-    auto const reader =
-        make_unique<FilesContainerR::TReader>(value->m_cont.GetReader(CROSS_MWM_FILE_TAG));
-    ReaderSource<FilesContainerR::TReader> src(*reader);
-    auto const p = m_connectors.emplace(numMwmId, CrossMwmConnector(numMwmId));
-    fn(VehicleType::Car, p.first->second, src);
-    return p.first->second;
+    FilesContainerR::TReader const reader =
+        FilesContainerR::TReader(value->m_cont.GetReader(CROSS_MWM_FILE_TAG));
+    ReaderSourceFile src(reader);
+    auto it = m_connectors.find(numMwmId);
+    if (it == m_connectors.end())
+      it = m_connectors.emplace(numMwmId, CrossMwmConnector(numMwmId)).first;
+
+    fn(VehicleType::Car, it->second, src);
+    return it->second;
   }
 
   Index & m_index;

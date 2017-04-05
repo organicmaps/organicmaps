@@ -26,7 +26,7 @@ CrossMwmConnector const & CrossMwmIndexGraph::GetCrossMwmConnectorWithTransition
 
   return Deserialize(
       numMwmId,
-      CrossMwmConnectorSerializer::DeserializeTransitions<ReaderSource<FilesContainerR::TReader>>);
+      CrossMwmConnectorSerializer::DeserializeTransitions<ReaderSourceFile>);
 }
 
 CrossMwmConnector const & CrossMwmIndexGraph::GetCrossMwmConnectorWithWeights(NumMwmId numMwmId)
@@ -37,7 +37,7 @@ CrossMwmConnector const & CrossMwmIndexGraph::GetCrossMwmConnectorWithWeights(Nu
 
   return Deserialize(
       numMwmId,
-      CrossMwmConnectorSerializer::DeserializeWeights<ReaderSource<FilesContainerR::TReader>>);
+      CrossMwmConnectorSerializer::DeserializeWeights<ReaderSourceFile>);
 }
 
 TransitionPoints CrossMwmIndexGraph::GetTransitionPoints(Segment const & s, bool isOutgoing)

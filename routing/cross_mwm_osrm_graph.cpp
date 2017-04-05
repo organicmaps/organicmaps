@@ -52,12 +52,12 @@ bool GetFirstValidSegment(OsrmFtSegMapping const & segMapping, NumMwmId numMwmId
     // GetSegmentsRange().
     segMapping.GetSegmentByIndex(segmentIndex, seg);
 
-    if (!seg.IsValid())
-      continue;
-
-    CHECK_NOT_EQUAL(seg.m_pointStart, seg.m_pointEnd, ());
-    segment = Segment(numMwmId, seg.m_fid, min(seg.m_pointStart, seg.m_pointEnd), seg.IsForward());
-    return true;
+    if (seg.IsValid())
+    {
+      CHECK_NOT_EQUAL(seg.m_pointStart, seg.m_pointEnd, ());
+      segment = Segment(numMwmId, seg.m_fid, min(seg.m_pointStart, seg.m_pointEnd), seg.IsForward());
+      return true;
+    }
   }
   LOG(LDEBUG, ("No valid segments in the range returned by OsrmFtSegMapping::GetSegmentsRange(",
                nodeId, "). Num mwm id:", numMwmId));
@@ -117,6 +117,7 @@ CrossMwmOsrmGraph::CrossMwmOsrmGraph(shared_ptr<NumMwmIds> numMwmIds,
 }
 
 CrossMwmOsrmGraph::~CrossMwmOsrmGraph() {}
+
 bool CrossMwmOsrmGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
   TransitionSegments const & t = GetSegmentMaps(s.GetMwmId());
@@ -128,6 +129,20 @@ bool CrossMwmOsrmGraph::IsTransition(Segment const & s, bool isOutgoing)
 
 void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<SegmentEdge> & edges)
 {
+  // Note. According to cross-mwm OSRM sections there is a node id that could be ingoing and
+  // outgoing
+  // at the same time. For example in Berlin mwm on Nordlicher Berliner Ring (A10) near crossing
+  // with A11 there's such node id. It's an extremely rare case. There're probably several such node
+  // id
+  // for the whole Europe. Such cases are not processed in WorldGraph::GetEdgeList() for the time
+  // being.
+  // To prevent filling |edges| with twins instead of leap edges and vice versa in
+  // WorldGraph::GetEdgeList()
+  // CrossMwmGraph::GetEdgeList() does not fill |edges| if |s| is a transition segment which
+  // corresponces node id described above.
+  if (IsTransition(s, isOutgoing))
+    return;
+
   auto const fillEdgeList = [&](TRoutingMappingPtr const & mapping) {
     vector<BorderCross> borderCrosses;
     GetBorderCross(mapping, s, isOutgoing, borderCrosses);
@@ -144,10 +159,8 @@ void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<S
         AddSegmentEdge(*m_numMwmIds, mapping->m_segMapping, edge, isOutgoing, s.GetMwmId(), edges);
     }
   };
-  bool const isLoaded = LoadWith(s.GetMwmId(), fillEdgeList);
-  UNUSED_VALUE(isLoaded);
-  CHECK(isLoaded, ("Mmw", m_numMwmIds->GetFile(s.GetMwmId()), "was not loaded."));
 
+  LoadWith(s.GetMwmId(), fillEdgeList);
   my::SortUnique(edges);
 }
 
@@ -192,8 +205,7 @@ CrossMwmOsrmGraph::TransitionSegments const & CrossMwmOsrmGraph::LoadSegmentMaps
     it = p.first;
   };
 
-  if (!LoadWith(numMwmId, fillAllTransitionSegments))
-    it = m_transitionCache.emplace(numMwmId, TransitionSegments()).first;
+  LoadWith(numMwmId, fillAllTransitionSegments);
   return it->second;
 }
 
@@ -230,8 +242,6 @@ CrossMwmOsrmGraph::TransitionSegments const & CrossMwmOsrmGraph::GetSegmentMaps(
   auto it = m_transitionCache.find(numMwmId);
   if (it == m_transitionCache.cend())
     return LoadSegmentMaps(numMwmId);
-
-  CHECK(it != m_transitionCache.cend(), ("Mwm ", numMwmId, "has not been downloaded."));
   return it->second;
 }
 

@@ -1,9 +1,11 @@
 #include "routing/cross_mwm_graph.hpp"
+#include "routing/routing_exceptions.hpp"
 
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "defines.hpp"
@@ -19,23 +21,28 @@ namespace
 {
 double constexpr kTransitionEqualityDistM = 20.0;
 double constexpr kInvalidDistance = numeric_limits<double>::max();
-
-struct ClosestSegment
-{
-  ClosestSegment() = default;
-  ClosestSegment(double minDistM, Segment const & bestSeg, bool exactMatchFound)
-    : m_bestDistM(minDistM), m_bestSeg(bestSeg), m_exactMatchFound(exactMatchFound)
-  {
-  }
-
-  double m_bestDistM = kInvalidDistance;
-  Segment m_bestSeg;
-  bool m_exactMatchFound = false;
-};
 }  // namespace
 
 namespace routing
 {
+// ClosestSegment ---------------------------------------------------------------------------------
+CrossMwmGraph::ClosestSegment::ClosestSegment() : m_bestDistM(kInvalidDistance), m_exactMatchFound(false) {}
+
+CrossMwmGraph::ClosestSegment::ClosestSegment(double minDistM, Segment const & bestSeg, bool exactMatchFound)
+  : m_bestDistM(minDistM), m_bestSeg(bestSeg), m_exactMatchFound(exactMatchFound)
+{
+}
+
+void CrossMwmGraph::ClosestSegment::Update(double distM, Segment const & bestSeg)
+{
+  if (!m_exactMatchFound && distM <= kTransitionEqualityDistM && distM < m_bestDistM)
+  {
+    m_bestDistM = distM;
+    m_bestSeg = bestSeg;
+  }
+}
+
+// CrossMwmGraph ----------------------------------------------------------------------------------
 CrossMwmGraph::CrossMwmGraph(Index & index, shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<VehicleModelFactory> vehicleModelFactory,
                              RoutingIndexManager & indexManager)
@@ -51,10 +58,47 @@ CrossMwmGraph::CrossMwmGraph(Index & index, shared_ptr<NumMwmIds> numMwmIds,
 
 bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
-  // Index graph based cross-mwm information.
-  if (CrossMwmSectionExists(s.GetMwmId()))
-    return m_crossMwmIndexGraph.IsTransition(s, isOutgoing);
-  return m_crossMwmOsrmGraph.IsTransition(s, isOutgoing);
+  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.IsTransition(s, isOutgoing)
+                                             : m_crossMwmOsrmGraph.IsTransition(s, isOutgoing);
+}
+
+void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
+                                  map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins)
+{
+  if (!ft.GetID().IsValid())
+    return;
+
+  if (ft.GetID().m_mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
+    return;
+
+  NumMwmId const numMwmId =
+      m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  if (numMwmId == sMwmId)
+    return;
+
+  if (!m_vehicleModelFactory->GetVehicleModelForCountry(ft.GetID().GetMwmName())->IsRoad(ft))
+    return;
+
+  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  vector<Segment> twinCandidates;
+  GetTwinCandidates(ft, !isOutgoing, twinCandidates);
+  for (Segment const & tc : twinCandidates)
+  {
+    TransitionPoints const twinPoints = GetTransitionPoints(tc, !isOutgoing);
+    for (m2::PointD const & tp : twinPoints)
+    {
+      double const distM = MercatorBounds::DistanceOnEarth(point, tp);
+      ClosestSegment & closestSegment = minDistSegs[numMwmId];
+      double constexpr kEpsMeters = 2.0;
+      if (my::AlmostEqualAbs(distM, 0.0, kEpsMeters))
+      {
+        twins.push_back(tc);
+        closestSegment.m_exactMatchFound = true;
+        continue;
+      }
+      closestSegment.Update(distM, tc);
+    }
+  }
 }
 
 void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment> & twins)
@@ -80,43 +124,8 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
     // Node. The map below is necessary because twin segments could belong to several mwm.
     // It happens when a segment crosses more than one feature.
     map<NumMwmId, ClosestSegment> minDistSegs;
-    auto const findBestTwins = [&](FeatureType & ft) {
-      if (ft.GetID().m_mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
-        return;
-
-      if (!ft.GetID().IsValid())
-        return;
-
-      NumMwmId const numMwmId =
-          m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-      if (numMwmId == s.GetMwmId())
-        return;
-
-      if (!m_vehicleModelFactory->GetVehicleModelForCountry(ft.GetID().GetMwmName())->IsRoad(ft))
-        return;
-
-      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-      vector<Segment> twinCandidates;
-      GetTwinCandidates(ft, !isOutgoing, twinCandidates);
-      for (Segment const & tc : twinCandidates)
-      {
-        TransitionPoints const twinPoints = GetTransitionPoints(tc, !isOutgoing);
-        for (m2::PointD const & tp : twinPoints)
-        {
-          double const distM = MercatorBounds::DistanceOnEarth(p, tp);
-          if (distM == 0.0)
-          {
-            twins.push_back(tc);
-            minDistSegs[numMwmId].m_exactMatchFound = true;
-          }
-          if (!minDistSegs[numMwmId].m_exactMatchFound && distM <= kTransitionEqualityDistM &&
-              distM < minDistSegs[numMwmId].m_bestDistM)
-          {
-            minDistSegs[numMwmId].m_bestDistM = distM;
-            minDistSegs[numMwmId].m_bestSeg = tc;
-          }
-        }
-      }
+    auto const findBestTwins = [&](FeatureType const & ft) {
+      FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
     };
 
     m_index.ForEachInRect(
@@ -145,27 +154,8 @@ void CrossMwmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<Segme
                                        ",", !isOutgoing, ") returns false."));
   edges.clear();
 
-  // Osrm based cross-mwm information.
-
-  // Note. According to cross-mwm OSRM sections there is a node id that could be ingoing and
-  // outgoing
-  // at the same time. For example in Berlin mwm on Nordlicher Berliner Ring (A10) near crossing
-  // with A11 there's such node id. It's an extremely rare case. There're probably several such node
-  // id
-  // for the whole Europe. Such cases are not processed in WorldGraph::GetEdgeList() for the time
-  // being.
-  // To prevent filling |edges| with twins instead of leap edges and vice versa in
-  // WorldGraph::GetEdgeList()
-  // CrossMwmGraph::GetEdgeList() does not fill |edges| if |s| is a transition segment which
-  // corresponces node id described above.
-  if (IsTransition(s, isOutgoing))
-    return;
-
-  // Index graph based cross-mwm information.
-  if (CrossMwmSectionExists(s.GetMwmId()))
-    m_crossMwmIndexGraph.GetEdgeList(s, isOutgoing, edges);
-  else
-    m_crossMwmOsrmGraph.GetEdgeList(s, isOutgoing, edges);
+  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.GetEdgeList(s, isOutgoing, edges)
+                                             : m_crossMwmOsrmGraph.GetEdgeList(s, isOutgoing, edges);
 }
 
 void CrossMwmGraph::Clear()
@@ -176,18 +166,19 @@ void CrossMwmGraph::Clear()
 
 TransitionPoints CrossMwmGraph::GetTransitionPoints(Segment const & s, bool isOutgoing)
 {
-  if (CrossMwmSectionExists(s.GetMwmId()))
-    return m_crossMwmIndexGraph.GetTransitionPoints(s, isOutgoing);
-  return m_crossMwmOsrmGraph.GetTransitionPoints(s, isOutgoing);
+  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.GetTransitionPoints(s, isOutgoing)
+                                             : m_crossMwmOsrmGraph.GetTransitionPoints(s, isOutgoing);
 }
 
 bool CrossMwmGraph::CrossMwmSectionExists(NumMwmId numMwmId)
 {
-  if (m_crossMwmIndexGraph.HasCache(numMwmId))
+  if (m_crossMwmIndexGraph.InCache(numMwmId))
     return true;
 
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
-  CHECK(handle.IsAlive(), ());
+  if (!handle.IsAlive())
+    MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
+
   MwmValue * value = handle.GetValue<MwmValue>();
   CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
   return value->m_cont.IsExist(CROSS_MWM_FILE_TAG);

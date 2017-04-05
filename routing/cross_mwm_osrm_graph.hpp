@@ -56,14 +56,12 @@ private:
   std::vector<ms::LatLon> const & GetOutgoingTransitionPoints(Segment const & s);
 
   template <typename Fn>
-  bool LoadWith(NumMwmId numMwmId, Fn && fn)
+  void LoadWith(NumMwmId numMwmId, Fn && fn)
   {
     platform::CountryFile const & countryFile = m_numMwmIds->GetFile(numMwmId);
     TRoutingMappingPtr mapping = m_indexManager.GetMappingByName(countryFile.GetName());
     CHECK(mapping, ("No routing mapping file for countryFile:", countryFile));
-
-    if (!mapping->IsValid())
-      return false;  // mwm was not loaded.
+    CHECK(mapping->IsValid(), ("Mwm:", countryFile, "was not loaded."));
 
     auto const it = m_mappingGuards.find(numMwmId);
     if (it == m_mappingGuards.cend())
@@ -73,7 +71,6 @@ private:
     }
 
     fn(mapping);
-    return true;
   }
 
   std::shared_ptr<NumMwmIds> m_numMwmIds;

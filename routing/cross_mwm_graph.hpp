@@ -27,7 +27,7 @@ public:
                 RoutingIndexManager & indexManager);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
-  /// start and finsh of such segment have to lie in different mwms. If a segment is
+  /// start and finish of such segment have to lie in different mwms. If a segment is
   /// crossed by mwm border but its start and finish lie in the same mwm it's not
   /// a transition segment.
   /// For most cases there is only one transition segment for a transition feature.
@@ -56,7 +56,7 @@ public:
   /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
   /// For most cases there is only one twin for |s|.
   /// If |isOutgoing| == true |s| should be an exit transition segment and
-  /// the mehtod fills |twins| with appropriate enter transition segments.
+  /// the method fills |twins| with appropriate enter transition segments.
   /// If |isOutgoing| == false |s| should be an enter transition segment and
   /// the method fills |twins| with appropriate exit transition segments.
   /// \note GetTwins(s, isOutgoing, ...) shall be called only if IsTransition(s, isOutgoing) returns
@@ -80,13 +80,22 @@ public:
   void Clear();
 
 private:
-  /// \returns points of |s|. |s| should be a transition segment of mwm with an OSRM cross-mwm
-  /// sections or
+  struct ClosestSegment
+  {
+    ClosestSegment();
+    ClosestSegment(double minDistM, Segment const & bestSeg, bool exactMatchFound);
+    void Update(double distM, Segment const & bestSeg);
+
+    double m_bestDistM;
+    Segment m_bestSeg;
+    bool m_exactMatchFound;
+  };
+
+  /// \returns points of |s|. |s| should be a transition segment of mwm with an OSRM cross-mwm sections or
   /// with an index graph cross-mwm section.
   /// \param s is a transition segment of type |isOutgoing|.
   /// \note the result of the method is returned by value because the size of the vector is usually
-  /// one
-  /// or very small in rare cases in OSRM.
+  /// one or very small in rare cases in OSRM.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
   bool CrossMwmSectionExists(NumMwmId numMwmId);
@@ -94,6 +103,19 @@ private:
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
   void GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
                          std::vector<Segment> & twinCandidates);
+
+  /// \brief Fills structure |twins| or for feature |ft| if |ft| contains transition segment(s).
+  /// \param sMwmId mwm id of a segment which twins are looked for
+  /// \param ft feature which could contain twin segments
+  /// \param point point of a segment which twins are looked for
+  /// \param minDistSegs is used to keep the best twin candidate
+  /// \param twins is filled with twins if there're twins (one or more) that have a point which is
+  ///        very near or equal to |point|.
+  /// \note If the method finds twin segment with a point which is very close to |point| the twin segment is
+  /// added to |twins| anyway. If there's no such segment in mwm it tries find the closet one and adds it
+  /// to |minDistSegs|.
+  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
+                     map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins);
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;

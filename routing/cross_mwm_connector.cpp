@@ -57,7 +57,7 @@ bool CrossMwmConnector::IsTransition(Segment const & segment, bool isOutgoing) c
   // Note. If |isOutgoing| == true |segment| should be an exit transition segment
   // (|isEnter| == false) to a transition segment.
   // Otherwise |segment| should be an enter transition segment (|isEnter| == true)
-  // to be a trasition segment. If not, |segment| is not a transition segment.
+  // to be a transition segment. If not, |segment| is not a transition segment.
   // Please see documentation on CrossMwmGraph::IsTransition() method for details.
   bool const isEnter = (segment.IsForward() == transition.m_forwardIsEnter);
   return isEnter != isOutgoing;
