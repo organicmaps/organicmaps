@@ -190,7 +190,7 @@ string GetStreet(search::ReverseGeocoder const & coder, FeatureType const & ft)
     return streetName;
   }
   search::ReverseGeocoder::Address address;
-  coder.GetNearbyAddress(ft.GetCenter(), address);
+  coder.GetNearbyAddress(feature::GetCenter(ft), address);
   return address.GetStreetName();
 }
 
@@ -203,7 +203,7 @@ string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi
   ft.GetReadableName(false /* allowTranslit */, hotelName);
 
   auto const lang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  string city = cityFinder.GetCityName(ft.GetCenter(), lang);
+  string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
 
   return bookingApi.GetSearchUrl(city, GetStreet(coder, ft), hotelName, localizedType);
 }
