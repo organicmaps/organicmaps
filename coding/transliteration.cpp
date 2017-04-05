@@ -3,6 +3,8 @@
 
 #include "base/logging.hpp"
 
+#include <cstring>
+
 #include "3party/icu/common/unicode/uclean.h"
 #include "3party/icu/common/unicode/unistr.h"
 #include "3party/icu/common/unicode/utypes.h"
