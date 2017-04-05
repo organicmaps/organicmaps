@@ -508,7 +508,7 @@ public class PlacePageView extends RelativeLayout
         case BOOKING_SEARCH:
           if (mMapObject != null)
           {
-            Statistics.INSTANCE.trackSearchBookingEvent(mMapObject);
+            Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
             followUrl(mMapObject.getBookingSearchUrl());
           }
           break;
