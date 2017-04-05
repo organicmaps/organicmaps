@@ -267,6 +267,7 @@ bool IsColoredRoadShield(ftypes::RoadShield const & shield)
 {
   return shield.m_type == ftypes::RoadShieldType::Default ||
          shield.m_type == ftypes::RoadShieldType::UK_Highway ||
+         shield.m_type == ftypes::RoadShieldType::Generic_White ||
          shield.m_type == ftypes::RoadShieldType::Generic_Blue ||
          shield.m_type == ftypes::RoadShieldType::Generic_Green ||
          shield.m_type == ftypes::RoadShieldType::Generic_Red ||
@@ -931,7 +932,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   }
 }
 
-void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
+void ApplyLineFeature::Finish(std::set<ftypes::RoadShield> && roadShields)
 {
 #ifdef CALC_FILTERED_POINTS
   LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
@@ -944,9 +945,9 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
   double const mainScale = df::VisualParams::Instance().GetVisualScale();
 
   m2::PointD shieldOffset(0.0, 0.0);
-  for (size_t shieldIndex = 0; shieldIndex < roadShields.size(); shieldIndex++)
+  uint32_t shieldIndex = 0;
+  for (ftypes::RoadShield const & shield : roadShields)
   {
-    ftypes::RoadShield const & shield = roadShields[shieldIndex];
     TextViewParams textParams;
     ColoredSymbolViewParams symbolParams;
     PoiSymbolViewParams poiParams(m_id);
@@ -957,7 +958,7 @@ void ApplyLineFeature::Finish(std::vector<ftypes::RoadShield> && roadShields)
     if (minDistanceInPixels == 0)
       minDistanceInPixels = static_cast<uint32_t>(mainScale * kDefaultMinDistance);
 
-    uint32_t textIndex = kShieldBaseTextIndex * (static_cast<uint32_t>(shieldIndex) + 1);
+    uint32_t textIndex = kShieldBaseTextIndex * (++shieldIndex);
     for (auto const & spline : m_clippedSplines)
     {
       double const pathPixelLength = spline->GetLength() * m_currentScaleGtoP;

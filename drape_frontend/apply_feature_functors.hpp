@@ -147,7 +147,7 @@ public:
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish(std::vector<ftypes::RoadShield> && roadShields);
+  void Finish(std::set<ftypes::RoadShield> && roadShields);
 
   m2::PolylineD GetPolyline() const;
 

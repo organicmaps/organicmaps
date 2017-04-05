@@ -96,12 +96,13 @@ public:
 
   bool IsValid() const { return !(nodes.empty() && ways.empty()); }
 
-  string GetType() const
+  string GetTagValue(string const & key) const
   {
-    auto it = tags.find("type");
+    auto it = tags.find(key);
     return ((it != tags.end()) ? it->second : string());
   }
 
+  string GetType() const { return GetTagValue("type"); }
   bool FindWay(uint64_t id, string & role) const { return FindRoleImpl(ways, id, role); }
   bool FindNode(uint64_t id, string & role) const { return FindRoleImpl(nodes, id, role); }
 
