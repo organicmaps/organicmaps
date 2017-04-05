@@ -57,6 +57,7 @@ omim_link_libraries(
   geometry
   base
   fribidi
+  icu
   expat
   stats_client
   freetype

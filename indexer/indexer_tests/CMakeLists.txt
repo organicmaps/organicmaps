@@ -58,6 +58,7 @@ omim_link_libraries(
   geometry
   base
   stats_client
+  icu
   jansson
   tess2
   protobuf

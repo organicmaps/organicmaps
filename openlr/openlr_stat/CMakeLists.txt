@@ -19,6 +19,7 @@ omim_link_libraries(${PROJECT_NAME}
   coding
   base
   gflags
+  icu
   jansson
   oauthcpp
   opening_hours

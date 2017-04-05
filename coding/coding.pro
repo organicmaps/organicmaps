@@ -2,6 +2,9 @@
 TARGET = coding
 TEMPLATE = lib
 CONFIG += staticlib warn_on
+INCLUDEPATH += ../3party/icu/common ../3party/icu/i18n
+
+DEFINES *= U_DISABLE_RENAMING
 
 ROOT_DIR = ..
 
@@ -24,6 +27,7 @@ SOURCES += \
     reader_writer_ops.cpp \
     simple_dense_coding.cpp \
     traffic.cpp \
+    transliteration.cpp \
     uri.cpp \
 #    varint_vector.cpp \
     zip_creator.cpp \
@@ -76,6 +80,7 @@ HEADERS += \
     streams_sink.hpp \
     succinct_mapper.hpp \
     traffic.hpp \
+    transliteration.hpp \
     uri.hpp \
     url_encode.hpp \
     value_opt_string.hpp \

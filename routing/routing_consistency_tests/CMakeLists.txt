@@ -38,6 +38,7 @@ omim_link_libraries(
   generator
   gflags
   pugixml
+  icu
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )

@@ -5,7 +5,7 @@ TEMPLATE = app
 DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat stats_client stb_image sdf_image
+DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat stats_client stb_image sdf_image icu
 
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)

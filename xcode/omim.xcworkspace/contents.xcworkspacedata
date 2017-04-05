@@ -190,6 +190,9 @@
       location = "container:"
       name = "3party">
       <FileRef
+         location = "group:icu/icu.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:agg/agg.xcodeproj">
       </FileRef>
       <FileRef

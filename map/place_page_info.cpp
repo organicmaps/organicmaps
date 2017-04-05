@@ -64,7 +64,7 @@ string Info::GetTitle() const
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
   if (mwmInfo)
-    feature::GetReadableName(mwmInfo->GetRegionData(), m_name, deviceLang, name);
+    feature::GetReadableName(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, name);
 
   return name;
 }

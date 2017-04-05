@@ -73,6 +73,7 @@ omim_link_libraries(
   freetype
   expat
   fribidi
+  icu
   jansson
   protobuf
   osrm
@@ -148,6 +149,7 @@ copy_resources(
   World.mwm
   WorldCoasts.mwm
   WorldCoasts_obsolete.mwm
+  icudt57l.dat
 
   01_dejavusans.ttf
   02_droidsans-fallback.ttf

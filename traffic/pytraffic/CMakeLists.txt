@@ -39,6 +39,7 @@ omim_link_libraries(
   protobuf
   pugixml
   opening_hours
+  icu
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}

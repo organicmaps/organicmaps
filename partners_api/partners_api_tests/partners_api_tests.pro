@@ -7,7 +7,7 @@ ROOT_DIR = ../..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
 
-DEPENDENCIES = partners_api indexer platform coding geometry base jansson stats_client protobuf
+DEPENDENCIES = partners_api indexer platform coding geometry base jansson stats_client protobuf icu
 
 include($$ROOT_DIR/common.pri)
 

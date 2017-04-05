@@ -124,6 +124,8 @@
 		67E8DB751BBC17490053C5BA /* writer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB2B1BBC16C70053C5BA /* writer_test.cpp */; };
 		67E8DB761BBC17490053C5BA /* zip_creator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB2C1BBC16C70053C5BA /* zip_creator_test.cpp */; };
 		67E8DB771BBC17490053C5BA /* zip_reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E8DB2D1BBC16C70053C5BA /* zip_reader_test.cpp */; };
+		BB537C5F1E8490120074D9D3 /* transliteration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB537C5D1E8490120074D9D3 /* transliteration.cpp */; };
+		BB537C601E8490120074D9D3 /* transliteration.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB537C5E1E8490120074D9D3 /* transliteration.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -262,6 +264,8 @@
 		67E8DB2B1BBC16C70053C5BA /* writer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = writer_test.cpp; sourceTree = "<group>"; };
 		67E8DB2C1BBC16C70053C5BA /* zip_creator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zip_creator_test.cpp; sourceTree = "<group>"; };
 		67E8DB2D1BBC16C70053C5BA /* zip_reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zip_reader_test.cpp; sourceTree = "<group>"; };
+		BB537C5D1E8490120074D9D3 /* transliteration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transliteration.cpp; sourceTree = "<group>"; };
+		BB537C5E1E8490120074D9D3 /* transliteration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transliteration.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +384,8 @@
 		6753421D1A3F586300A0A8C3 /* coding */ = {
 			isa = PBXGroup;
 			children = (
+				BB537C5D1E8490120074D9D3 /* transliteration.cpp */,
+				BB537C5E1E8490120074D9D3 /* transliteration.hpp */,
 				34A129D11DF99E43001B4531 /* zlib.cpp */,
 				34A129D21DF99E43001B4531 /* zlib.hpp */,
 				675E889A1DB7B0D000F8EBDA /* traffic.cpp */,
@@ -479,6 +485,7 @@
 				675342CD1A3F588C00A0A8C3 /* varint_vector.hpp in Headers */,
 				675342B51A3F588C00A0A8C3 /* reader_cache.hpp in Headers */,
 				675342CE1A3F588C00A0A8C3 /* varint.hpp in Headers */,
+				BB537C601E8490120074D9D3 /* transliteration.hpp in Headers */,
 				675342D01A3F588C00A0A8C3 /* writer.hpp in Headers */,
 				675342CA1A3F588C00A0A8C3 /* var_serial_vector.hpp in Headers */,
 				347F33391C4540F0009758CC /* fixed_bits_ddvector.hpp in Headers */,
@@ -660,6 +667,7 @@
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,
 				34A129D31DF99E43001B4531 /* zlib.cpp in Sources */,
 				676818201DC3ABD80094C0AC /* traffic_test.cpp in Sources */,
+				BB537C5F1E8490120074D9D3 /* transliteration.cpp in Sources */,
 				675342C51A3F588C00A0A8C3 /* uri.cpp in Sources */,
 				675342BB1A3F588C00A0A8C3 /* reader.cpp in Sources */,
 				670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */,
@@ -700,6 +708,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A431DBE4989003D1F5F /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					U_DISABLE_RENAMING,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/icu/common",
+					"$(OMIM_ROOT)/3party/icu/i18n",
+				);
 			};
 			name = Debug;
 		};
@@ -707,6 +726,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A441DBE4989003D1F5F /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					U_DISABLE_RENAMING,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/icu/common",
+					"$(OMIM_ROOT)/3party/icu/i18n",
+				);
 			};
 			name = Release;
 		};

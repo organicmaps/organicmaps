@@ -4,7 +4,7 @@ ROOT_DIR = ..
 DEPENDENCIES = qt_common map drape_frontend openlr routing search storage tracking traffic routing_common \
                indexer drape partners_api platform editor geometry \
                coding base freetype expat fribidi jansson protobuf osrm stats_client \
-               minizip succinct pugixml oauthcpp stb_image sdf_image
+               minizip succinct pugixml oauthcpp stb_image sdf_image icu
 
 DEPENDENCIES += opening_hours \
 
@@ -88,10 +88,13 @@ OTHER_RES.files += ../data/fonts_blacklist.txt \
                    ../data/fonts_whitelist.txt \
                    ../data/unicode_blocks.txt
 
+ICU_RES.path = $$DATADIR
+ICU_RES.files = ../data/icudt57l.dat
+
 MWM_RES.path = $$DATADIR
 MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES ICU_RES
 #ALL_RESOURCES += DEFAULT_SKIN_RES
 
 linux* {

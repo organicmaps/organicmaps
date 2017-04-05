@@ -10,7 +10,7 @@ DEPENDENCIES = \
     generator search routing routing_common indexer geometry \
     editor platform coding base jansson \
     pugixml stats_client opening_hours gflags \
-    oauthcpp expat protobuf \
+    oauthcpp expat protobuf icu \
 
 include($$ROOT_DIR/common.pri)
 

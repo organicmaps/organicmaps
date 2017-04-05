@@ -106,7 +106,7 @@ bool GetPopulation(FeatureType const & ft, uint64_t & population)
 // Feature tag value evaluator for tag 'name'
 bool GetName(FeatureType const & ft, string & name)
 {
-  ft.GetReadableName(name);
+  ft.GetReadableName(false /* allowTranslit */, name);
   return true;
 }
 

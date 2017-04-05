@@ -71,9 +71,10 @@
 #include "platform/socket.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/zip_reader.hpp"
-#include "coding/url_encode.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/transliteration.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -129,6 +130,10 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
+
+#if defined(OMIM_OS_ANDROID)
+char const kICUDataFile[] = "icudt57l.dat";
+#endif
 
 double const kDistEqualQueryMeters = 100.0;
 double const kLargeFontsScaleFactor = 1.6;
@@ -192,7 +197,7 @@ string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi
 {
   search::ReverseGeocoder const coder(index);
   string hotelName;
-  ft.GetReadableName(hotelName);
+  ft.GetReadableName(false /* allowTranslit */, hotelName);
 
   auto const lang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   string city = cityFinder.GetCityName(ft.GetCenter(), lang);
@@ -501,6 +506,9 @@ Framework::Framework()
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 
   m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
+
+  InitTransliteration();
+  LOG(LDEBUG, ("Transliterators initialized"));
 }
 
 Framework::~Framework()
@@ -1426,6 +1434,25 @@ void Framework::InitSearchEngine()
   {
     LOG(LCRITICAL, ("Can't load needed resources for search::Engine:", e.Msg()));
   }
+}
+
+void Framework::InitTransliteration()
+{
+#if defined(OMIM_OS_ANDROID)
+  try
+  {
+    ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
+                             std::string("assets/") + kICUDataFile,
+                             GetPlatform().WritableDir() + kICUDataFile);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.what()));
+  }
+  Transliteration::GetInstance().Init(GetPlatform().WritableDir());
+#else
+  Transliteration::Instance().Init(GetPlatform().ResourcesDir());
+#endif
 }
 
 storage::TCountryId Framework::GetCountryIndex(m2::PointD const & pt) const
@@ -2972,7 +2999,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       }
 
       string name;
-      ft.GetReadableName(name);
+      ft.GetReadableName(false /* allowTranslit */, name);
       feature::TypesHolder const types(ft);
       search::Result::Metadata smd;
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(ft), name, edit.second,
@@ -3003,7 +3030,7 @@ WARN_UNUSED_RESULT bool LocalizeStreet(Index const & index, FeatureID const & fi
     return false;
 
   ft.GetName(StringUtf8Multilang::kDefaultCode, result.m_defaultName);
-  ft.GetReadableName(result.m_localizedName);
+  ft.GetReadableName(false /* allowTranslit */, result.m_localizedName);
   if (result.m_localizedName == result.m_defaultName)
     result.m_localizedName.clear();
   return true;

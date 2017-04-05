@@ -249,6 +249,7 @@ add_subdirectory(3party/jansson)
 add_subdirectory(3party/minizip)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/fribidi)
+add_subdirectory(3party/icu)
 add_subdirectory(3party/expat)
 add_subdirectory(map)
 

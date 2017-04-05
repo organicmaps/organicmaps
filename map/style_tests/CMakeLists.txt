@@ -29,6 +29,7 @@ omim_link_libraries(
   coding
   base
   protobuf
+  icu
   stats_client
   ${LIBZ}
 )
