@@ -710,7 +710,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					U_DISABLE_RENAMING,
+					"U_DISABLE_RENAMING=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -728,7 +728,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					U_DISABLE_RENAMING,
+					"U_DISABLE_RENAMING=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
