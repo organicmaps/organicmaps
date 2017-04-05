@@ -8,6 +8,7 @@ import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
 import com.mapswithme.maps.api.ParsedRoutingData;
+import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -143,6 +144,7 @@ public class Framework
   @ParsedUrlMwmRequest.ParsingResult
   public static native int nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
+  public static native ParsedSearchRequest nativeGetParsedSearchRequest();
 
   public static native void nativeDeactivatePopup();
 

@@ -11,12 +11,13 @@ import java.lang.annotation.RetentionPolicy;
 public class ParsedUrlMwmRequest
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({RESULT_INCORRECT, RESULT_MAP, RESULT_ROUTE})
+  @IntDef({RESULT_INCORRECT, RESULT_MAP, RESULT_ROUTE, RESULT_SEARCH})
   public @interface ParsingResult {}
 
   public static final int RESULT_INCORRECT = 0;
   public static final int RESULT_MAP = 1;
   public static final int RESULT_ROUTE = 2;
+  public static final int RESULT_SEARCH = 3;
 
   public final RoutePoint[] mRoutePoints;
   public final String mGlobalUrl;
