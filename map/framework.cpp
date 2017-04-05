@@ -1461,7 +1461,7 @@ void Framework::InitTransliteration()
   {
     LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.what()));
   }
-  Transliteration::GetInstance().Init(GetPlatform().WritableDir());
+  Transliteration::Instance().Init(GetPlatform().WritableDir());
 #else
   Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 #endif
