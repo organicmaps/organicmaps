@@ -21,6 +21,7 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.PushwooshHelper;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -131,6 +132,7 @@ public class SplashActivity extends AppCompatActivity
     sFirstStart = FirstStartFragment.showOn(this, this);
     if (sFirstStart)
     {
+      PushwooshHelper.nativeProcessFirstLaunch();
       UiUtils.hide(mIvLogo);
       return;
     }
