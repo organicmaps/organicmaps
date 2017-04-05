@@ -37,6 +37,7 @@ void ResultsView::Update(Edits::Update const & update)
   switch (update.m_type)
   {
   case Edits::Update::Type::SingleRelevance:
+    CHECK_LESS(update.m_index, m_results.size(), ());
     m_results[update.m_index]->Update();
     break;
   case Edits::Update::Type::AllRelevances:

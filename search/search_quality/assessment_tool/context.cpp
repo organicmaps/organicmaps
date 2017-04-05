@@ -5,6 +5,8 @@
 
 #include "base/assert.hpp"
 
+#include <utility>
+
 using namespace std;
 
 // Context -----------------------------------------------------------------------------------------
@@ -17,15 +19,15 @@ void Context::Clear()
 
 search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 {
-  search::Sample sample = m_sample;
+  search::Sample outSample = m_sample;
 
   if (!m_initialized)
-    return sample;
+    return outSample;
 
   auto const & relevances = m_edits.GetRelevances();
 
-  auto & results = sample.m_results;
-  results.clear();
+  auto & outResults = outSample.m_results;
+  outResults.clear();
 
   CHECK_EQUAL(m_goldenMatching.size(), m_sample.m_results.size(), ());
   CHECK_EQUAL(m_actualMatching.size(), relevances.size(), ());
@@ -41,7 +43,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     // assessor. But we want to keep them.
     if (j == search::Matcher::kInvalidId)
     {
-      results.push_back(m_sample.m_results[i]);
+      outResults.push_back(m_sample.m_results[i]);
       continue;
     }
 
@@ -51,7 +53,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     auto result = m_sample.m_results[i];
     result.m_relevance = relevances[j];
-    results.push_back(result);
+    outResults.push_back(move(result));
   }
 
   // Iterates over results retrieved during assessment.
@@ -75,10 +77,10 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     FeatureType ft;
     CHECK(loader.Load(result.GetFeatureID(), ft), ());
-    results.push_back(search::Sample::Result::Build(ft, relevances[i]));
+    outResults.push_back(search::Sample::Result::Build(ft, relevances[i]));
   }
 
-  return sample;
+  return outSample;
 }
 
 void Context::ApplyEdits()

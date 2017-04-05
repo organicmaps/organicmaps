@@ -38,7 +38,8 @@ private:
 
   void OnResults(uint64_t timestamp, size_t index, search::Results const & results,
                  std::vector<search::Sample::Result::Relevance> const & relevances,
-                 std::vector<size_t> goldenMatching, std::vector<size_t> actualMatching);
+                 std::vector<size_t> const & goldenMatching,
+                 std::vector<size_t> const & actualMatching);
 
   void ResetSearch();
 

@@ -74,10 +74,10 @@ private:
   template <typename Fn>
   typename std::result_of<Fn()>::type WithObserver(Update const & update, Fn && fn)
   {
-    MY_SCOPE_GUARD(cleanup, [&]() {
-      if (m_onUpdate)
-        m_onUpdate(update);
-    });
+    MY_SCOPE_GUARD(cleanup, ([this, &update]() {
+                     if (m_onUpdate)
+                       m_onUpdate(update);
+                   }));
     return fn();
   }
 

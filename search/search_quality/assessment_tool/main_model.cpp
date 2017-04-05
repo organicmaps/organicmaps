@@ -150,8 +150,12 @@ void MainModel::OnSampleSelected(int index)
         relevances.assign(actual.size(), Relevance::Irrelevant);
         for (size_t i = 0; i < goldenMatching.size(); ++i)
         {
-          if (goldenMatching[i] != search::Matcher::kInvalidId)
-            relevances[goldenMatching[i]] = sample.m_results[i].m_relevance;
+          auto const j = goldenMatching[i];
+          if (j != search::Matcher::kInvalidId)
+          {
+            CHECK_LESS(j, relevances.size(), ());
+            relevances[j] = sample.m_results[i].m_relevance;
+          }
         }
       }
 
@@ -174,8 +178,9 @@ void MainModel::OnUpdate(size_t index, Edits::Update const & update)
 }
 
 void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results const & results,
-                          vector<Relevance> const & relevances, vector<size_t> goldenMatching,
-                          vector<size_t> actualMatching)
+                          vector<Relevance> const & relevances,
+                          vector<size_t> const & goldenMatching,
+                          vector<size_t> const & actualMatching)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
 

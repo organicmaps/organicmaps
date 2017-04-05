@@ -4,7 +4,6 @@
 #include "search/projection_on_street.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/point2d.hpp"

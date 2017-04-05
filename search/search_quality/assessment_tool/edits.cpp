@@ -70,5 +70,6 @@ bool Edits::HasChanges() const { return m_numEdits != 0; }
 bool Edits::HasChanges(size_t index) const
 {
   CHECK_LESS(index, m_currRelevances.size(), ());
+  CHECK_LESS(index, m_origRelevances.size(), ());
   return m_currRelevances[index] != m_origRelevances[index];
 }
