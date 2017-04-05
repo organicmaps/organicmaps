@@ -30,7 +30,10 @@ int main(int argc, char ** argv)
   Q_INIT_RESOURCE(resources_common);
   QApplication app(argc, argv);
 
-  Framework framework;
+  FrameworkParams params;
+  params.m_disableLocalAds = true;
+
+  Framework framework(params);
   MainView view(framework);
   MainModel model(framework);
 

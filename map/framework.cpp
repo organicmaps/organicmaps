@@ -394,7 +394,7 @@ void Framework::Migrate(bool keepDownloaded)
   InvalidateRect(MercatorBounds::FullRect());
 }
 
-Framework::Framework()
+Framework::Framework(FrameworkParams const & params)
   : m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
@@ -411,6 +411,9 @@ Framework::Framework()
   })
   , m_lastReportedCountry(kInvalidCountryId)
 {
+  if (!params.m_disableLocalAds)
+    m_localAdsManager.Startup();
+
   m_startBackgroundTime = my::Timer::LocalTime();
 
   // Restore map style before classificator loading

@@ -33,6 +33,7 @@ public:
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
   ~LocalAdsManager();
 
+  void Startup();
   void Teardown();
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void UpdateViewport(ScreenBase const & screen);
@@ -72,7 +73,7 @@ private:
   df::CustomSymbols m_symbolsCache;
   std::mutex m_symbolsCacheMutex;
 
-  bool m_isRunning = true;
+  bool m_isRunning = false;
   std::condition_variable m_condition;
   std::vector<Request> m_requestedCampaigns;
   std::mutex m_mutex;
