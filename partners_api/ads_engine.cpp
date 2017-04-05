@@ -36,13 +36,18 @@ std::vector<Banner> Engine::GetBanners(feature::TypesHolder const & types,
                                        storage::TCountriesVec const & countryIds) const
 {
   std::vector<Banner> banners;
-  for (auto const & countryId : countryIds)
+
+  for (auto const & item : m_containers)
   {
-    for (auto const & item : m_containers)
+    for (auto const & countryId : countryIds)
     {
       auto const bannerId = item.m_container->GetBannerId(types, countryId);
+      // We need to add banner for every banner system just once.
       if (!bannerId.empty())
+      {
         banners.emplace_back(item.m_type, bannerId);
+        break;
+      }
     }
   }
 
