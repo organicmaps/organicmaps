@@ -52,6 +52,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 
 public enum Statistics
 {
@@ -265,6 +266,7 @@ public enum Statistics
   public static class ParamValue
   {
     public static final String BOOKING_COM = "Booking.Com";
+    public static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     public static final String OPENTABLE = "OpenTable";
   }
 
@@ -541,6 +543,17 @@ public enum Statistics
            .add(PROVIDER, ad.getProvider())
            .add(BANNER_STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
+  }
+
+  public void trackSearchBookingEvent(@NonNull MapObject mapObject)
+  {
+    trackEvent(PP_SPONSORED_BOOK, LocationHelper.INSTANCE.getLastKnownLocation(),
+               Statistics.params()
+                         .add(PROVIDER, SEARCH_BOOKING_COM)
+                         .add(HOTEL, "")
+                         .add(HOTEL_LAT, mapObject.getLat())
+                         .add(HOTEL_LON, mapObject.getLon())
+                         .get());
   }
 
   public static ParameterBuilder params()

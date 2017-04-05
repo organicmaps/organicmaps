@@ -14,9 +14,9 @@
 		346E889A1E9D087400D4CE9B /* banner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 346E88931E9D087400D4CE9B /* banner.hpp */; };
 		346E889B1E9D087400D4CE9B /* rb_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E88941E9D087400D4CE9B /* rb_ads.cpp */; };
 		346E889C1E9D087400D4CE9B /* rb_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 346E88951E9D087400D4CE9B /* rb_ads.hpp */; };
-		346E889F1E9D088200D4CE9B /* ads_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */; };
-		346E88A01E9D088200D4CE9B /* rb_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889E1E9D088200D4CE9B /* rb_tests.cpp */; };
-		3DBC1C511E4B14810016897F /* facebook_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C501E4B14810016897F /* facebook_tests.cpp */; };
+		3488B0371E9D11860068AFD8 /* ads_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */; };
+		3488B0381E9D11890068AFD8 /* rb_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889E1E9D088200D4CE9B /* rb_tests.cpp */; };
+		3488B0391E9D118D0068AFD8 /* facebook_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C501E4B14810016897F /* facebook_tests.cpp */; };
 		3DBC1C541E4B14920016897F /* facebook_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C521E4B14920016897F /* facebook_ads.cpp */; };
 		3DBC1C551E4B14920016897F /* facebook_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBC1C531E4B14920016897F /* facebook_ads.hpp */; };
 		F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F67E75231DB8F06F00D6741F /* opentable_api.cpp */; };
@@ -25,11 +25,8 @@
 		F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B5363D1DA520E40067EEA5 /* booking_api.hpp */; };
 		F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B5363E1DA520E40067EEA5 /* uber_api.cpp */; };
 		F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B5363F1DA520E40067EEA5 /* uber_api.hpp */; };
-		F6B536471DA5213D0067EEA5 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536451DA5213D0067EEA5 /* booking_tests.cpp */; };
-		F6B536481DA5213D0067EEA5 /* uber_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536461DA5213D0067EEA5 /* uber_tests.cpp */; };
 		F6B536671DA522D90067EEA5 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536451DA5213D0067EEA5 /* booking_tests.cpp */; };
 		F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536461DA5213D0067EEA5 /* uber_tests.cpp */; };
-		F6B5366A1DA523060067EEA5 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536691DA523060067EEA5 /* testingmain.cpp */; };
 		F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536691DA523060067EEA5 /* testingmain.cpp */; };
 		F6B5366C1DA523430067EEA5 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536341DA5209F0067EEA5 /* libpartners_api.a */; };
 		F6B5366F1DA523A70067EEA5 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6B5366D1DA523A70067EEA5 /* MAPSME.plist */; };
@@ -295,19 +292,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				346E88A01E9D088200D4CE9B /* rb_tests.cpp in Sources */,
-				346E889F1E9D088200D4CE9B /* ads_engine_tests.cpp in Sources */,
 				346E88961E9D087400D4CE9B /* ads_base.cpp in Sources */,
-				3DBC1C511E4B14810016897F /* facebook_tests.cpp in Sources */,
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				346E889B1E9D087400D4CE9B /* rb_ads.cpp in Sources */,
 				3DBC1C541E4B14920016897F /* facebook_ads.cpp in Sources */,
 				346E88981E9D087400D4CE9B /* ads_engine.cpp in Sources */,
-				F6B536471DA5213D0067EEA5 /* booking_tests.cpp in Sources */,
-				F6B5366A1DA523060067EEA5 /* testingmain.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
 				F6B536401DA520E40067EEA5 /* booking_api.cpp in Sources */,
-				F6B536481DA5213D0067EEA5 /* uber_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,8 +306,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3488B0371E9D11860068AFD8 /* ads_engine_tests.cpp in Sources */,
 				F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */,
 				F6B536671DA522D90067EEA5 /* booking_tests.cpp in Sources */,
+				3488B0391E9D118D0068AFD8 /* facebook_tests.cpp in Sources */,
+				3488B0381E9D11890068AFD8 /* rb_tests.cpp in Sources */,
 				F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -46,7 +46,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.Factory;
-import com.mapswithme.maps.ads.NativeAdLoader;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -508,7 +507,10 @@ public class PlacePageView extends RelativeLayout
 
         case BOOKING_SEARCH:
           if (mMapObject != null)
+          {
+            Statistics.INSTANCE.trackSearchBookingEvent(mMapObject);
             followUrl(mMapObject.getBookingSearchUrl());
+          }
           break;
 
         case CALL:
