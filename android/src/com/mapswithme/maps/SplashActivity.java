@@ -58,6 +58,7 @@ public class SplashActivity extends AppCompatActivity
     public void run()
     {
       init();
+//    Run delayed task because resumeDialogs() must be called after onPause()
       UiThread.runLater(mFinalTask);
     }
   };
