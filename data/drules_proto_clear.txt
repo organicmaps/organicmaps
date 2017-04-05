@@ -10316,17 +10316,9 @@ cont {
 cont {
   name: "craft-photographer"
   element {
-    scale: 17
-    symbol {
-      name: "photo-shop-l"
-      priority: 16000
-      min_distance: 24
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "photo-shop-l"
+      name: "hand-l"
       priority: 16625
     }
     caption {
@@ -10341,7 +10333,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "photo-shop-l"
+      name: "hand-l"
       priority: 16625
     }
     caption {
@@ -30242,7 +30234,7 @@ cont {
     scale: 15
     symbol {
       name: "monument-m"
-      priority: 16854
+      priority: 16750
       min_distance: 24
     }
     caption {
@@ -30251,14 +30243,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 16
     symbol {
       name: "monument-m"
-      priority: 16854
+      priority: 16750
       min_distance: 12
     }
     caption {
@@ -30267,14 +30259,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 17
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30282,14 +30274,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 18
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30297,14 +30289,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 19
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30312,7 +30304,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
 }
@@ -30322,7 +30314,7 @@ cont {
     scale: 13
     symbol {
       name: "monument-s"
-      priority: 16854
+      priority: 16750
       min_distance: 12
     }
     caption {
@@ -30331,14 +30323,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 14
     symbol {
       name: "monument-s"
-      priority: 16854
+      priority: 16750
       min_distance: 12
     }
     caption {
@@ -30347,14 +30339,14 @@ cont {
         color: 4473924
         offset_y: 6
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 15
     symbol {
       name: "monument-m"
-      priority: 16854
+      priority: 16750
       min_distance: 24
     }
     caption {
@@ -30363,14 +30355,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 16
     symbol {
       name: "monument-m"
-      priority: 16854
+      priority: 16750
       min_distance: 12
     }
     caption {
@@ -30379,14 +30371,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 17
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30394,14 +30386,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 18
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30409,14 +30401,14 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
   element {
     scale: 19
     symbol {
       name: "monument-l"
-      priority: 16854
+      priority: 16750
     }
     caption {
       primary {
@@ -30424,7 +30416,7 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15854
+      priority: 15750
     }
   }
 }
@@ -46784,12 +46776,6 @@ cont {
       primary {
         height: 10
         color: 8355711
-      }
-      secondary {
-        height: 9
-        color: 8355711
-        offset_y: 20
-        text: "int_name"
       }
       priority: 15000
     }
