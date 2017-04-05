@@ -80,6 +80,7 @@
 #include "geometry/any_rect2d.hpp"
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
 #include "partners_api/opentable_api.hpp"
@@ -203,6 +204,19 @@ string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi
   string city = cityFinder.GetCityName(ft.GetCenter(), lang);
 
   return bookingApi.GetSearchUrl(city, GetStreet(coder, ft), hotelName, localizedType);
+}
+
+unique_ptr<m4::Tree<NumMwmId>> MakeNumMwmTree(NumMwmIds const & numMwmIds,
+                                              CountryInfoGetter const & countryInfoGetter)
+{
+  auto tree = make_unique<m4::Tree<NumMwmId>>();
+
+  numMwmIds.ForEachId([&](NumMwmId numMwmId) {
+    auto const & countryName = numMwmIds.GetFile(numMwmId).GetName();
+    tree->Add(numMwmId, countryInfoGetter.GetLimitRectForLeaf(countryName));
+  });
+
+  return tree;
 }
 }  // namespace
 
@@ -2612,6 +2626,9 @@ void Framework::SetRouterImpl(RouterType type)
     auto numMwmIds = make_shared<routing::NumMwmIds>();
     m_storage.ForEachCountryFile(
         [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
+
+    //    TODO: pass numMwmTree to router.
+    //    auto numMwmTree = MakeNumMwmTree(*numMwmIds, *m_infoGetter);
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
