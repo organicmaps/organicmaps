@@ -13,7 +13,7 @@
 
 + (void)showResult:(search::Result const &)result;
 
-+ (search::Result &)resultAtIndex:(NSUInteger)index;
++ (search::Result const &)resultAtIndex:(NSUInteger)index;
 + (void)update;
 + (void)clear;
 

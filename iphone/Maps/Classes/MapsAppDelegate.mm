@@ -195,6 +195,7 @@ using namespace osm_auth_ios;
     });
     return;
   }
+
   Framework & f = GetFramework();
   if (m_geoURL)
   {
@@ -223,6 +224,7 @@ using namespace osm_auth_ios;
       auto const points = parsedData.m_points;
       auto const & p1 = points[0];
       auto const & p2 = points[1];
+
       [[MWMRouter router] buildFromPoint:routePoint(p1.m_org, @(p1.m_name.c_str()))
                                  toPoint:routePoint(p2.m_org, @(p2.m_name.c_str()))
                               bestRouter:NO];
@@ -237,6 +239,21 @@ using namespace osm_auth_ios;
         [self.mapViewController showAPIBar];
       }
       break;
+    case ParsedMapApi::ParsingResult::Search:
+    {
+      auto const & request = f.GetParsedSearchRequest();
+      auto manager = [MWMMapViewControlsManager manager];
+
+      auto query = [@((request.m_query + " ").c_str()) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      auto locale = @(request.m_locale.c_str());
+
+      if (request.m_isSearchOnMap)
+        [manager searchTextOnMap:query forInputLocale:locale];
+      else
+        [manager searchText:query forInputLocale:locale];
+
+      break;
+    }
     }
   }
   else if (m_fileURL)

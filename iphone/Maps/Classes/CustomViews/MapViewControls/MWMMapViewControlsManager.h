@@ -59,7 +59,8 @@
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state;
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
 - (void)searchFrameUpdated:(CGRect)frame;
-- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+- (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+- (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale;
 
 #pragma mark - MWMFeatureHolder
 

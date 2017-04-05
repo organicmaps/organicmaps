@@ -236,12 +236,22 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.topBound = s.height;
 }
 
-- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale
+- (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale
+{
+  if (![self searchText:text forInputLocale:locale])
+    return;
+  
+  self.searchManager.state = MWMSearchManagerStateMapSearch;
+}
+
+- (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale
 {
   if (text.length == 0)
-    return;
+    return NO;
+  
   self.searchManager.state = MWMSearchManagerStateTableSearch;
   [self.searchManager searchText:text forInputLocale:locale];
+  return YES;
 }
 
 #pragma mark - MWMBottomMenuControllerProtocol
