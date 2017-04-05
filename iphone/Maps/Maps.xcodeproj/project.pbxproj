@@ -310,6 +310,9 @@
 		3488B0341E9D0CE70068AFD8 /* FacebookBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0211E9D0CA10068AFD8 /* FacebookBanner.swift */; };
 		3488B0351E9D0CF10068AFD8 /* RBBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0241E9D0CA10068AFD8 /* RBBanner.swift */; };
 		3488B0361E9D0CF20068AFD8 /* RBBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0241E9D0CA10068AFD8 /* RBBanner.swift */; };
+		3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3488B03C1E9D14060068AFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3488B03D1E9D14070068AFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3490D2DE1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */; };
 		3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */; };
 		3490D2E01CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DC1CE9DD2500D0B838 /* MWMSideButtonsView.mm */; };
@@ -1685,6 +1688,7 @@
 		3488B0221E9D0CA10068AFD8 /* MWMBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBanner.h; sourceTree = "<group>"; };
 		3488B0231E9D0CA10068AFD8 /* MWMBannerHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBannerHelpers.h; sourceTree = "<group>"; };
 		3488B0241E9D0CA10068AFD8 /* RBBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBBanner.swift; sourceTree = "<group>"; };
+		3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3490D2D91CE9DD2500D0B838 /* MWMSideButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideButtons.h; sourceTree = "<group>"; };
 		3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSideButtons.mm; sourceTree = "<group>"; };
@@ -2342,6 +2346,7 @@
 				34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
+				3488B03C1E9D14060068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */,
 				34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */,
@@ -2360,6 +2365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */,
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
@@ -2434,6 +2440,7 @@
 				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
+				3488B03D1E9D14070068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
 				849CF7861DE842290024A8A5 /* libz.dylib in Frameworks */,
 				34D8087F1E79361B002F0584 /* AlamofireImage.framework in Frameworks */,
@@ -2594,9 +2601,8 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
-				34D808851E793F91002F0584 /* Pushwoosh.framework */,
-				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
 				34D8087A1E793606002F0584 /* Alamofire.framework */,
+				34D8087C1E79360D002F0584 /* AlamofireImage.framework */,
 				3432E1771E49B3A2008477E9 /* Bolts.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
@@ -2607,6 +2613,7 @@
 				340474E11E08199D00C92850 /* Flurry */,
 				340474E91E08199D00C92850 /* MyTarget */,
 				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
+				34D808851E793F91002F0584 /* Pushwoosh.framework */,
 			);
 			path = 3party;
 			sourceTree = "<group>";
@@ -2890,14 +2897,15 @@
 			isa = PBXGroup;
 			children = (
 				67B78B541E42333C0018E590 /* AdSupport.framework */,
-				67B78B461E422E0A0018E590 /* MobileCoreServices.framework */,
-				67B78B441E422C970018E590 /* iAd.framework */,
-				67B78B421E422C620018E590 /* MessageUI.framework */,
+				67B78B3C1E422BF60018E590 /* CoreData.framework */,
 				67B78B401E422C360018E590 /* CoreSpotlight.framework */,
+				67B78B441E422C970018E590 /* iAd.framework */,
+				34570A3A1B13222600E6D4FD /* libz.dylib */,
+				67B78B421E422C620018E590 /* MessageUI.framework */,
+				67B78B461E422E0A0018E590 /* MobileCoreServices.framework */,
 				67B78B3E1E422C110018E590 /* SafariServices.framework */,
 				344D63161E795A2D006F17CB /* SystemConfiguration.framework */,
-				67B78B3C1E422BF60018E590 /* CoreData.framework */,
-				34570A3A1B13222600E6D4FD /* libz.dylib */,
+				3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */,
 			);
 			name = SDK;
 			sourceTree = "<group>";

@@ -350,8 +350,10 @@ using namespace osm_auth_ios;
     else
       [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
+
+    //For first launch setup is called by FirstLaunchController
+    [MWMPushNotifications setup:launchOptions];
   }
-  [MWMPushNotifications setup:launchOptions];
   [self enableTTSForTheFirstTime];
 
   return returnValue;

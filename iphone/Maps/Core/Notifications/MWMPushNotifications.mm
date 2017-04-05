@@ -1,5 +1,7 @@
 #import "MWMPushNotifications.h"
+#import "MWMCommon.h"
 #import <Pushwoosh/PushNotificationManager.h>
+#import <UserNotifications/UserNotifications.h>
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -20,6 +22,9 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 + (void)setup:(NSDictionary *)launchOptions
 {
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
+
+  if (!isIOSVersionLessThan(10))
+    [UNUserNotificationCenter currentNotificationCenter].delegate = pushManager.notificationCenterDelegate;
 
   [pushManager handlePushReceived:launchOptions];
 
