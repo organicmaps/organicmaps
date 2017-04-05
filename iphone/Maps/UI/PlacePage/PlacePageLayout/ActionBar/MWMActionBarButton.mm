@@ -14,6 +14,8 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   case EButton::Booking:
   case EButton::Opentable:
     return L(@"book_button");
+  case EButton::BookingSearch:
+    return L(@"booking_search");
   case EButton::Call:
     return L(@"placepage_call_button");
   case EButton::Bookmark:
@@ -83,6 +85,11 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     self.label.textColor = [UIColor whiteColor];
     self.backgroundColor = [UIColor bookingBackground];
     break;
+  case EButton::BookingSearch:
+      [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
+      self.label.textColor = [UIColor whiteColor];
+      self.backgroundColor = [UIColor bookingBackground];
+      break;
   case EButton::Opentable:
     [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
     self.label.textColor = [UIColor whiteColor];

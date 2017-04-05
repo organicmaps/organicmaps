@@ -349,6 +349,12 @@ using namespace place_page;
              : nil;
 }
 
+- (NSURL *)bookingSearchURL
+{
+  auto const & url = m_info.GetBookingSearchUrl();
+  return url.empty() ? nil : [NSURL URLWithString:@(url.c_str())];
+}
+
 - (NSString *)sponsoredId
 {
   return m_info.IsSponsored()
@@ -511,6 +517,7 @@ using namespace place_page;
 - (BOOL)isApi { return m_info.HasApiUrl(); }
 - (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
 - (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
+- (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.m_bookmarkDescription); }
 

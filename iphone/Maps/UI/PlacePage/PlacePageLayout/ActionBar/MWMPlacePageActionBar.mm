@@ -56,13 +56,18 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isPhoneNotEmpty = phone.length > 0;
   BOOL const isBooking = data.isBooking;
   BOOL const isOpentable = data.isOpentable;
-  BOOL const isSponsored = isBooking || isOpentable;
+  BOOL const isBookingSearch = data.isBookingSearch;
+  BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
   BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
   BOOL const isApi = data.isApi;
   BOOL const isP2P = self.isPrepareRouteMode;
   BOOL const isMyPosition = data.isMyPosition;
 
-  EButton const sponsoredButton = isBooking ? EButton::Booking : EButton::Opentable;
+  EButton sponsoredButton = EButton::BookingSearch;
+  if (isBooking)
+    sponsoredButton = EButton::Booking;
+  else if (isOpentable)
+    sponsoredButton = EButton::Opentable;
 
   if (self.isAreaNotDownloaded)
   {
@@ -219,6 +224,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   case EButton::Download: [delegate downloadSelectedArea]; break;
   case EButton::Opentable:
   case EButton::Booking: [delegate book:NO]; break;
+  case EButton::BookingSearch: [delegate searchBookingHotels]; break;
   case EButton::Call: [delegate call]; break;
   case EButton::Bookmark:
     if (self.isBookmark)

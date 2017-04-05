@@ -129,6 +129,7 @@ using BannerIsReady = void (^)();
 - (NSString *)bookingApproximatePricing;
 - (NSURL *)sponsoredURL;
 - (NSURL *)sponsoredDescriptionURL;
+- (NSURL *)bookingSearchURL;
 - (NSString *)sponsoredId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 - (NSString *)hotelDescription;
@@ -170,6 +171,7 @@ using BannerIsReady = void (^)();
 - (BOOL)isApi;
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
+- (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
 

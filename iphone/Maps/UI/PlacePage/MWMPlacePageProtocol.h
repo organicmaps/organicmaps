@@ -17,6 +17,7 @@
 
 - (void)call;
 - (void)book:(BOOL)isDecription;
+- (void)searchBookingHotels;
 
 - (void)apiBack;
 - (void)downloadSelectedArea;

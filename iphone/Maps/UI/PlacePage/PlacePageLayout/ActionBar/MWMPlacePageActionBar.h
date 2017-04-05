@@ -7,6 +7,7 @@
 - (BOOL)isBookmark;
 - (BOOL)isOpentable;
 - (BOOL)isBooking;
+- (BOOL)isBookingSearch;
 - (BOOL)isApi;
 - (BOOL)isMyPosition;
 - (NSString *)title;
