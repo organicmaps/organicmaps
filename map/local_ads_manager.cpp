@@ -56,7 +56,6 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
                        GetMwmIdByName const & getMwmIdByName)
   : m_getMwmsByRectFn(getMwmsByRectFn)
   , m_getMwmIdByNameFn(getMwmIdByName)
-  , m_thread(&LocalAdsManager::ThreadRoutine, this)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
@@ -70,6 +69,17 @@ LocalAdsManager::~LocalAdsManager()
     ASSERT(!m_isRunning, ());
   }
 #endif
+}
+
+void LocalAdsManager::Startup()
+{
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if (m_isRunning)
+      return;
+    m_isRunning = true;
+  }
+  m_thread = threads::SimpleThread(&LocalAdsManager::ThreadRoutine, this);
 }
 
 void LocalAdsManager::Teardown()

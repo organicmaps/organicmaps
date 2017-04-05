@@ -102,6 +102,11 @@ class NetworkPolicy;
 /// build version for screenshots.
 //#define FIXED_LOCATION
 
+struct FrameworkParams
+{
+  bool m_disableLocalAds = false;
+};
+
 class Framework : public search::ViewportSearchCallback::Delegate,
                   public search::DownloaderSearchCallback::Delegate
 {
@@ -199,7 +204,7 @@ protected:
   void CallDrapeFunction(TDrapeFunction const & fn) const;
 
 public:
-  Framework();
+  Framework(FrameworkParams const & params = {});
   virtual ~Framework();
 
   /// Get access to booking api helpers
