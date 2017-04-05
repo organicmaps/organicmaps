@@ -299,6 +299,10 @@ area[building=train_station],
 node[railway=subway_entrance],
 node[railway=tram_stop],
 area[railway=tram_stop],
+node[historic=monument],
+area[historic=monument],
+node[historic=memorial],
+area[historic=memorial]
 {z-index: 2800;}
 
 node[tourism=motel],
@@ -342,10 +346,6 @@ area[tourism=attraction]
 {z-index: 2842;}
 node[tourism=gallery]
 {z-index: 2844;}
-node[historic=monument],
-area[historic=monument],
-node[historic=memorial],
-area[historic=memorial]
 node[tourism=museum],
 area[tourism=museum],
 {z-index: 2846;}
@@ -368,6 +368,8 @@ node[railway=station][transport=subway],
 node[amenity=hospital],
 node[building=hospital],
 area[building=hospital],
+node[building=university],
+area[building=university],
 area[amenity=hospital],
 node[amenity=pharmacy],
 area[amenity=pharmacy]
@@ -2259,9 +2261,7 @@ node|z17[shop=copyshop],
 area|z17[shop=copyshop]
 {icon-image: copyshop-l.svg;icon-min-distance: 24;}
 node|z17[shop=photo],
-area|z17[shop=photo],
-node|z17[craft=photographer],
-area|z17[craft=photographer]
+area|z17[shop=photo]
 {icon-image: photo-shop-l.svg;icon-min-distance: 24;}
 node|z17[shop=pet],
 area|z17[shop=pet]
@@ -2397,9 +2397,7 @@ node|z18-[shop=copyshop],
 area|z18-[shop=copyshop]
 {icon-image: copyshop-l.svg;}
 node|z18-[shop=photo],
-area|z18-[shop=photo],
-node|z18-[craft=photographer],
-area|z18-[craft=photographer]
+area|z18-[shop=photo]
 {icon-image: photo-shop-l.svg;}
 node|z18-[shop=pet],
 area|z18-[shop=pet]
