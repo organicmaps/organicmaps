@@ -121,7 +121,7 @@
 
 @unversity: #F8E4BA;
 @hospital: #F8D9D9;/*FADCDB*/
-@industrial: #DED8E0;/*#D5D5DE; #E4E2EB;*/
+@industrial: #E1DCE3;/*#D5D5DE; #E4E2EB;*/
 @sport: #C8DBAD;
 @parking: #F2F2CE;
 @parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
