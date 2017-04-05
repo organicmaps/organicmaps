@@ -53,7 +53,11 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
   if (str.empty())
     return false;
 
-  auto const transliteratorId = StringUtf8Multilang::GetTransliteratorIdByCode(langCode);
+  std::string const transliteratorId(StringUtf8Multilang::GetTransliteratorIdByCode(langCode));
+
+  if (transliteratorId.empty())
+    return false;
+
   auto const & it = m_transliterators.find(transliteratorId);
   if (it == m_transliterators.end())
   {
