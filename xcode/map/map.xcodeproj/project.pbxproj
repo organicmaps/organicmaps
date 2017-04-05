@@ -94,6 +94,7 @@
 		67F183831BD5049500AB1840 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F1837F1BD5049500AB1840 /* libminizip.a */; };
 		67F183841BD5049500AB1840 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183801BD5049500AB1840 /* libtess2.a */; };
 		BB421D6C1E8C0031005BFA4D /* transliteration_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */; };
+		F627BFC41E8E89B600B1CBF4 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F627BFC31E8E89B600B1CBF4 /* librouting_common.a */; };
 		F63421F81DF9BF9100A96868 /* reachable_by_taxi_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F63421F61DF9BF9100A96868 /* reachable_by_taxi_checker.cpp */; };
 		F63421F91DF9BF9100A96868 /* reachable_by_taxi_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F63421F71DF9BF9100A96868 /* reachable_by_taxi_checker.hpp */; };
 		F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B282FB1C1B03320081957A /* gps_track_collection.cpp */; };
@@ -216,6 +217,7 @@
 		67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsystem_configuration.tbd; path = usr/lib/system/libsystem_configuration.tbd; sourceTree = SDKROOT; };
 		67F183871BD5050900AB1840 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transliteration_test.cpp; sourceTree = "<group>"; };
+		F627BFC31E8E89B600B1CBF4 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "/Users/v.mikhaylenko/mapsme/omim/xcode/routing_common/../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
 		F63421F61DF9BF9100A96868 /* reachable_by_taxi_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reachable_by_taxi_checker.cpp; sourceTree = "<group>"; };
 		F63421F71DF9BF9100A96868 /* reachable_by_taxi_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reachable_by_taxi_checker.hpp; sourceTree = "<group>"; };
 		F6B282FB1C1B03320081957A /* gps_track_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_collection.cpp; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F627BFC41E8E89B600B1CBF4 /* librouting_common.a in Frameworks */,
 				674231CB1DF984F600913FEB /* libtraffic.a in Frameworks */,
 				34DDA1811DBE5DF40088A609 /* libpartners_api.a in Frameworks */,
 				34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */,
@@ -291,6 +294,7 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F627BFC31E8E89B600B1CBF4 /* librouting_common.a */,
 				674231CA1DF984F600913FEB /* libtraffic.a */,
 				34DDA17F1DBE5DF40088A609 /* libpartners_api.a */,
 				34DDA1801DBE5DF40088A609 /* libtracking.a */,

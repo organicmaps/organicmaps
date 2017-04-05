@@ -2,7 +2,7 @@
 #include "coding/url_encode.hpp"
 
 #include "base/assert.hpp"
-
+#include "base/string_utils.hpp"
 
 namespace url_scheme
 {
@@ -51,7 +51,13 @@ bool Uri::ForEachKeyValue(TCallback const & callback) const
 {
   // parse query for keys and values
   size_t const count = m_url.size();
-  for (size_t start = m_queryStart; start < count; )
+  size_t const queryStart = m_queryStart;
+
+  // Just a URL without parameters.
+  if (queryStart == count)
+    return false;
+
+  for (size_t start = queryStart; start < count; )
   {
     size_t end = m_url.find('&', start);
     if (end == string::npos)
@@ -71,6 +77,7 @@ bool Uri::ForEachKeyValue(TCallback const & callback) const
       else
         key = UrlDecode(m_url.substr(start, end - start));
 
+      strings::AsciiToLower(key);
       if (!callback(key, value))
         return false;
     }

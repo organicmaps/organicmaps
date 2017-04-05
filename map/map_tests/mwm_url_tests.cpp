@@ -46,6 +46,7 @@ namespace
     bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
     int GetPointCount() const { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
     vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
+    url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
     string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
     int GetApiVersion() const { return m_api.GetApiVersion(); }
     bool TestLatLon(int index, double lat, double lon) const
@@ -126,6 +127,32 @@ UNIT_TEST(RouteApiSmoke)
   TEST(test.TestRoutePoint(0, 1, 1, "name0"), ());
   TEST(test.TestRoutePoint(1, 2, 2, "name1"), ());
   TEST(test.TestRouteType("vehicle"), ());
+}
+
+UNIT_TEST(SearchApiSmoke)
+{
+  string const uriString = "mapsme://search?query=fff&cll=1,1&locale=ru&map";
+  TEST(Uri(uriString).IsValid(), ());
+
+  ApiTest test(uriString);
+  TEST(test.IsValid(), ());
+
+  auto const & request = test.GetSearchRequest();
+  TEST_EQUAL(request.m_query, "fff", ());
+  TEST_EQUAL(request.m_centerLat, 1, ());
+  TEST_EQUAL(request.m_centerLon, 1, ());
+  TEST_EQUAL(request.m_locale, "ru", ());
+  TEST(request.m_isSearchOnMap, ());
+}
+
+UNIT_TEST(SearchApiInvalidUrl)
+{
+  Framework f;
+  TEST(!IsValid(f, "mapsme://search?"), ("The search query parameter is necessary"));
+  TEST(!IsValid(f, "mapsme://search?query"), ("Search query can't be empty"));
+  TEST(IsValid(f, "mapsme://search?query=aaa&cll=1,1,1"), ("If it's wrong lat lon format then just ignore it"));
+  TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsupported parameters"));
+  TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa"), ("Query parameter position doesn't matter"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)

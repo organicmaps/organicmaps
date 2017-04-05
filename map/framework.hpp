@@ -399,6 +399,7 @@ private:
   };
 
   unique_ptr<TapEvent> m_lastTapEvent;
+  bool m_isViewportInitialized = false;
 
   void OnTapEvent(TapEvent const & tapEvent);
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
@@ -493,6 +494,7 @@ private:
     search::SearchParams m_params;
     weak_ptr<search::ProcessorHandle> m_handle;
     m2::RectD m_viewport;
+    bool m_isDelayed = false;
   };
 
   void InitCountryInfoGetter();
@@ -501,8 +503,6 @@ private:
   DisplacementModeManager m_displacementModeManager;
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
-
-  void Search(SearchIntent const & intent);
 
   void SetCurrentPositionIfPossible(search::SearchParams & params);
 
@@ -521,6 +521,7 @@ private:
   SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
 
   bool Search(search::SearchParams const & params);
+  void Search(SearchIntent & intent) const;
 
   // Returns true when |params| and |viewport| are almost the same as
   // the latest search query's params and viewport in the |intent|.
@@ -629,6 +630,7 @@ public:
   };
 
   ParsedRoutingData GetParsedRoutingData() const;
+  url_scheme::SearchRequest GetParsedSearchRequest() const;
 
 private:
   // TODO(vng): Uncomment when needed.

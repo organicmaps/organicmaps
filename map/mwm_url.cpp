@@ -16,12 +16,17 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
+#include <array>
 
 namespace url_scheme
 {
 namespace
 {
 string const kLatLon = "ll";
+string const kQuery = "query";
+string const kCenterLatLon = "cll";
+string const kLocale = "locale";
+string const kSearchOnMap = "map";
 string const kSourceLatLon = "sll";
 string const kDestLatLon = "dll";
 string const kZoomLevel = "z";
@@ -38,6 +43,32 @@ string const kRouteType = "type";
 string const kRouteTypeVehicle = "vehicle";
 string const kRouteTypePedestrian = "pedestrian";
 string const kRouteTypeBicycle = "bicycle";
+
+enum class ApiURLType
+{
+  Incorrect,
+  Map,
+  Route,
+  Search
+};
+
+std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
+
+ApiURLType URLType(Uri const & uri)
+{
+  if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), uri.GetScheme()) == kAvailableSchemes.end())
+    return ApiURLType::Incorrect;
+
+  auto const path = uri.GetPath();
+  if (path == "map")
+    return ApiURLType::Map;
+  if (path == "route")
+    return ApiURLType::Route;
+  if (path == "search")
+    return ApiURLType::Search;
+
+  return ApiURLType::Incorrect;
+}
 
 bool ParseLatLon(string const & key, string const & value, double & lat, double & lon)
 {
@@ -69,6 +100,7 @@ void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
 {
   m_bmManager = manager;
 }
+
 ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
 {
   Reset();
@@ -86,56 +118,61 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
 
 ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 {
-  string const & scheme = uri.GetScheme();
-  string const & path = uri.GetPath();
-  bool const isRoutePath = path == "route";
-  if ((scheme != "mapswithme" && scheme != "mwm" && scheme != "mapsme") ||
-      (path != "map" && !isRoutePath))
+  switch (URLType(uri))
   {
-    return ParsingResult::Incorrect;
-  }
-
-  if (isRoutePath)
-  {
-    m_routePoints.clear();
-    vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-    if (!uri.ForEachKeyValue(bind(&ParsedMapApi::RouteKeyValue, this, _1, _2, ref(pattern))))
+    case ApiURLType::Incorrect:
       return ParsingResult::Incorrect;
-
-    if (pattern.size() != 0)
-      return ParsingResult::Incorrect;
-
-    if (m_routePoints.size() != 2)
+    case ApiURLType::Map:
     {
-      ASSERT(false, ());
-      return ParsingResult::Incorrect;
+      vector<ApiPoint> points;
+      if (!uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points))))
+        return ParsingResult::Incorrect;
+
+      if (points.empty())
+        return ParsingResult::Incorrect;
+
+      ASSERT(m_bmManager != nullptr, ());
+      UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
+      for (auto const & p : points)
+      {
+        m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+        ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
+        mark->SetName(p.m_name);
+        mark->SetID(p.m_id);
+        mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
+      }
+
+      return ParsingResult::Map;
     }
+    case ApiURLType::Route:
+    {
+      m_routePoints.clear();
+      vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+      if (!uri.ForEachKeyValue(bind(&ParsedMapApi::RouteKeyValue, this, _1, _2, ref(pattern))))
+        return ParsingResult::Incorrect;
 
-    return ParsingResult::Route;
+      if (pattern.size() != 0)
+        return ParsingResult::Incorrect;
+
+      if (m_routePoints.size() != 2)
+      {
+        ASSERT(false, ());
+        return ParsingResult::Incorrect;
+      }
+
+      return ParsingResult::Route;
+    }
+    case ApiURLType::Search:
+      SearchRequest request;
+      if (!uri.ForEachKeyValue(bind(&ParsedMapApi::SearchKeyValue, this, _1, _2, ref(request))))
+        return ParsingResult::Incorrect;
+      
+      m_request = request;
+      return request.m_query.empty() ? ParsingResult::Incorrect : ParsingResult::Search;
   }
-
-  vector<ApiPoint> points;
-  if (!uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points))))
-    return ParsingResult::Incorrect;
-
-  if (points.empty())
-    return ParsingResult::Incorrect;
-
-  ASSERT(m_bmManager != nullptr, ());
-  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
-  for (auto const & p : points)
-  {
-    m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
-    ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
-    mark->SetName(p.m_name);
-    mark->SetID(p.m_id);
-    mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
-  }
-
-  return ParsingResult::Map;
 }
 
-bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string> & pattern)
+bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vector<string> & pattern)
 {
   if (pattern.empty() || key != pattern.front())
     return false;
@@ -173,10 +210,8 @@ bool ParsedMapApi::RouteKeyValue(string key, string const & value, vector<string
   return true;
 }
 
-bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint> & points)
+bool ParsedMapApi::AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points)
 {
-  strings::AsciiToLower(key);
-
   if (key == kLatLon)
   {
     double lat = 0.0;
@@ -249,6 +284,37 @@ bool ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint
   {
     m_goBackOnBalloonClick = true;
   }
+  return true;
+}
+
+bool ParsedMapApi::SearchKeyValue(string const & key, string const & value, SearchRequest & request) const
+{
+  if (key == kQuery)
+  {
+    if (value.empty())
+      return false;
+
+    request.m_query = value;
+  }
+  else if (key == kCenterLatLon)
+  {
+    double lat = 0.0;
+    double lon = 0.0;
+    if (ParseLatLon(key, value, lat, lon))
+    {
+      request.m_centerLat = lat;
+      request.m_centerLon = lon;
+    }
+  }
+  else if (key == kLocale)
+  {
+    request.m_locale = value;
+  }
+  else if (key == kSearchOnMap)
+  {
+    request.m_isSearchOnMap = true;
+  }
+
   return true;
 }
 
