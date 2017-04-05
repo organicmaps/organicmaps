@@ -950,6 +950,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       });
     }
 
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.restoreRoutingPanelState(savedInstanceState);
+    }
+
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
 

@@ -27,8 +27,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
-  @Nullable
-  private Bundle mSavedState;
   private boolean mInitializationComplete = false;
 
   @Override
@@ -54,7 +52,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
-    mSavedState = savedInstanceState;
     if (!MwmApplication.get().isPlatformInitialized()
         || !Utils.checkPermissions(this, SplashActivity.PERMISSIONS))
     {
@@ -260,11 +257,5 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       type = getClass();
     SplashActivity.start(this, type);
     finish();
-  }
-
-  @Nullable
-  public Bundle getSavedInstanceState()
-  {
-    return mSavedState;
   }
 }

@@ -158,12 +158,6 @@ public enum LocationHelper
     }
   };
 
-
-  public void init()
-  {
-    mLogger.d(LocationHelper.class.getSimpleName(), "ctor()");
-  }
-
   @UiThread
   public void initialize()
   {

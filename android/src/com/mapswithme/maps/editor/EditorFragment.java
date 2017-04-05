@@ -115,8 +115,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private EditorHostFragment mParent;
 
-  private boolean mIsViewCreated = false;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -128,8 +126,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    mIsViewCreated = true;
-
     mParent = (EditorHostFragment) getParentFragment();
 
     initViews(view);
@@ -210,8 +206,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    if (mIsViewCreated)
-      setEdits();
+    setEdits();
   }
 
   boolean setEdits()

@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ class AndroidNativeProvider extends BaseLocationProvider
   private final static String TAG = AndroidNativeProvider.class.getSimpleName();
   private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
                                                       LocationManager.GPS_PROVIDER };
+  private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
+
   @NonNull
   private final LocationManager mLocationManager;
   @NonNull
@@ -51,15 +55,18 @@ class AndroidNativeProvider extends BaseLocationProvider
       long interval = LocationHelper.INSTANCE.getInterval();
       LOGGER.d(TAG, "Request Android native provider '" + provider
                     + "' to get locations at this interval = " + interval + " ms");
+      mListeners.add(listener);
       try
       {
         mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
       }
       catch (SecurityException e)
       {
-        e.printStackTrace();
+        LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
+                 e);
+        setActive(false);
+        return;
       }
-      mListeners.add(listener);
     }
 
     LocationHelper.INSTANCE.startSensors();
@@ -131,7 +138,8 @@ class AndroidNativeProvider extends BaseLocationProvider
     }
     catch (SecurityException e)
     {
-      e.printStackTrace();
+      LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
+               e);
     }
     return res;
   }

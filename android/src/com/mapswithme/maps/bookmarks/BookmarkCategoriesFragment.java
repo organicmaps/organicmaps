@@ -46,7 +46,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   protected BookmarkCategoriesAdapter getAdapter()
   {
     RecyclerView.Adapter adapter = super.getAdapter();
-    return adapter != null ? (BookmarkCategoriesAdapter)adapter : null;
+    return adapter != null ? (BookmarkCategoriesAdapter) adapter : null;
   }
 
   @CallSuper

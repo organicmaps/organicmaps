@@ -28,10 +28,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController = new RoutingPlanController(res, getActivity());
     updatePoints();
 
-    Bundle activityState = getMwmActivity().getSavedInstanceState();
-    if (activityState != null)
-      restoreRoutingPanelState(activityState);
-
     return res;
   }
 

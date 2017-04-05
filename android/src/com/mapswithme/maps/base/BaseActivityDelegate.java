@@ -2,6 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
@@ -10,14 +11,14 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 import com.my.tracker.MyTracker;
 
-public class BaseActivityDelegate
+class BaseActivityDelegate
 {
   @NonNull
   private final BaseActivity mActivity;
   @Nullable
   private String mThemeName;
 
-  public BaseActivityDelegate(@NonNull BaseActivity activity)
+  BaseActivityDelegate(@NonNull BaseActivity activity)
   {
     mActivity = activity;
   }
@@ -25,27 +26,27 @@ public class BaseActivityDelegate
   public void onCreate()
   {
     mThemeName = Config.getCurrentUiTheme();
-    if (mThemeName != null)
+    if (!TextUtils.isEmpty(mThemeName))
       mActivity.get().setTheme(mActivity.getThemeResourceId(mThemeName));
   }
 
-  public void onDestroy()
+  void onDestroy()
   {
     ViewServer.get(mActivity.get()).removeWindow(mActivity.get());
   }
 
-  public void onPostCreate()
+  void onPostCreate()
   {
     ViewServer.get(mActivity.get()).addWindow(mActivity.get());
   }
 
-  public void onStart()
+  void onStart()
   {
     Statistics.INSTANCE.startActivity(mActivity.get());
     MyTracker.onStartActivity(mActivity.get());
   }
 
-  public void onStop()
+  void onStop()
   {
     Statistics.INSTANCE.stopActivity(mActivity.get());
     MyTracker.onStopActivity(mActivity.get());
@@ -63,9 +64,9 @@ public class BaseActivityDelegate
     org.alohalytics.Statistics.logEvent("$onPause", mActivity.getClass().getSimpleName());
   }
 
-  public void onPostResume()
+  void onPostResume()
   {
-    if (mThemeName != null && mThemeName.equals(Config.getCurrentUiTheme()))
+    if (!TextUtils.isEmpty(mThemeName) && mThemeName.equals(Config.getCurrentUiTheme()))
       return;
 
     // Workaround described in https://code.google.com/p/android/issues/detail?id=93731

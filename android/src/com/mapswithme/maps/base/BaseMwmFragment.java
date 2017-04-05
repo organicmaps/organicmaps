@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.Utils;
 
 public class BaseMwmFragment extends Fragment
 {
@@ -13,13 +14,7 @@ public class BaseMwmFragment extends Fragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    if (context instanceof AppCompatActivity && !MwmApplication.get().isPlatformInitialized())
-    {
-      ((AppCompatActivity)context).getSupportFragmentManager()
-                                  .beginTransaction()
-                                  .detach(this)
-                                  .commit();
-    }
+    Utils.detachFragmentIfInitializing(context, this);
   }
 
   @Override

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.location.LocationManager;
 import android.text.TextUtils;
 
 import java.util.concurrent.CountDownLatch;
@@ -15,6 +14,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -124,22 +124,12 @@ public class WorkerService extends IntentService
   @android.support.annotation.UiThread
   private static boolean processLocation()
   {
-    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
-    Location l = null;
-    try
-    {
-      l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-    }
-    catch (SecurityException e)
-    {
-      e.printStackTrace();
-    }
-
-    if (l == null || LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
-      return false;
-
     MwmApplication.get().initNativePlatform();
     MwmApplication.get().initNativeCore();
+
+    Location l = LocationHelper.INSTANCE.getLastKnownLocation();
+    if (l == null)
+      return false;
 
     String country = MapManager.nativeFindCountry(l.getLatitude(), l.getLongitude());
     if (TextUtils.isEmpty(country))

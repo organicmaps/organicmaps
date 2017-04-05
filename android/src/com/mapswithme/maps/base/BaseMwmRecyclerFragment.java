@@ -45,13 +45,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    if (context instanceof AppCompatActivity && !MwmApplication.get().isPlatformInitialized())
-    {
-      ((AppCompatActivity)context).getSupportFragmentManager()
-                                  .beginTransaction()
-                                  .detach(this)
-                                  .commit();
-    }
+    Utils.detachFragmentIfInitializing(context, this);
   }
 
   @Override

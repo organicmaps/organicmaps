@@ -177,18 +177,19 @@ public class SplashActivity extends AppCompatActivity
     if (grantResults.length == 0)
       return;
 
-    boolean isWriteGranted = false;
     for (int i = 0; i < permissions.length; i++)
     {
       int result = grantResults[i];
       String permission = permissions[i];
       if (permission.equals(WRITE_EXTERNAL_STORAGE) && result == PERMISSION_GRANTED)
-        isWriteGranted = true;
+      {
+        mPermissionsGranted = true;
+        break;
+      }
     }
 
-    if (isWriteGranted)
+    if (mPermissionsGranted)
     {
-      mPermissionsGranted = true;
       init();
       resumeDialogs();
     }
@@ -215,7 +216,6 @@ public class SplashActivity extends AppCompatActivity
   {
     MwmApplication.get().initNativePlatform();
     MwmApplication.get().initNativeCore();
-    LocationHelper.INSTANCE.init();
   }
 
   @SuppressWarnings("unchecked")
