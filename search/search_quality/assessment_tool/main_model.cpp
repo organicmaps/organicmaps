@@ -72,7 +72,7 @@ void MainModel::Open(string const & path)
   m_path = path;
 
   m_view->SetSamples(ContextList::SamplesSlice(m_contexts));
-  m_selectedSample = -1;
+  m_selectedSample = kInvalidIndex;
 }
 
 void MainModel::Save()

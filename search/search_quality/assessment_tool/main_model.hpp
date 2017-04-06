@@ -35,6 +35,8 @@ public:
   bool HasChanges() override;
 
 private:
+  static int constexpr kInvalidIndex = -1;
+
   void OnUpdate(size_t index, Edits::Update const & update);
 
   void OnResults(uint64_t timestamp, size_t index, search::Results const & results,
@@ -54,7 +56,7 @@ private:
 
   std::weak_ptr<search::ProcessorHandle> m_queryHandle;
   uint64_t m_queryTimestamp = 0;
-  int m_selectedSample = -1;
+  int m_selectedSample = kInvalidIndex;
   size_t m_numShownResults = 0;
 
   ThreadChecker m_threadChecker;

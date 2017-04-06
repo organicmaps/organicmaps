@@ -128,7 +128,7 @@ void MainView::closeEvent(QCloseEvent * event)
 void MainView::OnSampleSelected(QItemSelection const & current)
 {
   CHECK(m_model, ());
-  auto indexes = current.indexes();
+  auto const indexes = current.indexes();
   for (auto const & index : indexes)
     m_model->OnSampleSelected(index.row());
 }
@@ -136,7 +136,7 @@ void MainView::OnSampleSelected(QItemSelection const & current)
 void MainView::OnResultSelected(QItemSelection const & current)
 {
   CHECK(m_model, ());
-  auto indexes = current.indexes();
+  auto const indexes = current.indexes();
   for (auto const & index : indexes)
     m_model->OnResultSelected(index.row());
 }
