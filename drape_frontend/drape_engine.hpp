@@ -54,7 +54,8 @@ public:
            bool blockTapEvents,
            bool showChoosePositionMark,
            vector<m2::TriangleD> && boundAreaTriangles,
-           bool firstLaunch,
+           bool isFirstLaunch,
+           bool isLaunchByDeepLink,
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
@@ -73,7 +74,8 @@ public:
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(move(boundAreaTriangles))
-      , m_isFirstLaunch(firstLaunch)
+      , m_isFirstLaunch(isFirstLaunch)
+      , m_isLaunchByDeepLink(isLaunchByDeepLink)
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
@@ -95,6 +97,7 @@ public:
     bool m_showChoosePositionMark;
     vector<m2::TriangleD> m_boundAreaTriangles;
     bool m_isFirstLaunch;
+    bool m_isLaunchByDeepLink;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;

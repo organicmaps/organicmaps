@@ -1,6 +1,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/my_position_controller.hpp"
 
 #include "drape_frontend/gui/drape_gui.hpp"
 
@@ -43,25 +44,40 @@ DrapeEngine::DrapeEngine(Params && params)
   if (settings::Get("LastEnterBackground", lastEnterBackground))
     timeInBackground = my::Timer::LocalTime() - lastEnterBackground;
 
-  FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
-                                    make_ref(m_textureManager), m_viewport,
+  MyPositionController::Params mpParams(mode,
+                                        timeInBackground,
+                                        params.m_isFirstLaunch,
+                                        params.m_isLaunchByDeepLink,
+                                        params.m_isRoutingActive,
+                                        params.m_isAutozoomEnabled,
+                                        bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
+
+  FrontendRenderer::Params frParams(make_ref(m_threadCommutator),
+                                    params.m_factory,
+                                    make_ref(m_textureManager),
+                                    move(mpParams),
+                                    m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
-                                    bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2),
-                                    mode, make_ref(m_requestedTiles),
-                                    move(params.m_overlaysShowStatsCallback), timeInBackground,
-                                    params.m_allow3dBuildings, params.m_trafficEnabled,
-                                    params.m_blockTapEvents, params.m_isFirstLaunch,
-                                    params.m_isRoutingActive, params.m_isAutozoomEnabled);
+                                    make_ref(m_requestedTiles),
+                                    move(params.m_overlaysShowStatsCallback),
+                                    params.m_allow3dBuildings,
+                                    params.m_trafficEnabled,
+                                    params.m_blockTapEvents);
 
   m_frontend = make_unique_dp<FrontendRenderer>(move(frParams));
 
-  BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model,
+  BackendRenderer::Params brParams(frParams.m_commutator,
+                                   frParams.m_oglContextFactory,
+                                   frParams.m_texMng,
+                                   params.m_model,
                                    params.m_model.UpdateCurrentCountryFn(),
-                                   make_ref(m_requestedTiles), params.m_allow3dBuildings,
-                                   params.m_trafficEnabled, params.m_simplifiedTrafficColors);
+                                   make_ref(m_requestedTiles),
+                                   params.m_allow3dBuildings,
+                                   params.m_trafficEnabled,
+                                   params.m_simplifiedTrafficColors);
+
   m_backend = make_unique_dp<BackendRenderer>(move(brParams));
 
   m_widgetsInfo = move(params.m_info);

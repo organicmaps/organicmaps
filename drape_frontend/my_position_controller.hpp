@@ -40,9 +40,34 @@ public:
                                  TAnimationCreator const & parallelAnimCreator) = 0;
   };
 
-  MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
-                       location::TMyPositionModeChanged const & fn);
+  struct Params
+  {
+    Params(location::EMyPositionMode initMode,
+           double timeInBackground,
+           bool isFirstLaunch,
+           bool isLaunchByDeepLink,
+           bool isRoutingActive,
+           bool isAutozoomEnabled,
+           location::TMyPositionModeChanged && fn)
+      : m_initMode(initMode)
+      , m_timeInBackground(timeInBackground)
+      , m_isFirstLaunch(isFirstLaunch)
+      , m_isLaunchByDeepLink(isLaunchByDeepLink)
+      , m_isRoutingActive(isRoutingActive)
+      , m_isAutozoomEnabled(isAutozoomEnabled)
+      , m_myPositionModeCallback(move(fn))
+    {}
+
+    location::EMyPositionMode m_initMode;
+    double m_timeInBackground;
+    bool m_isFirstLaunch;
+    bool m_isLaunchByDeepLink;
+    bool m_isRoutingActive;
+    bool m_isAutozoomEnabled;
+    location::TMyPositionModeChanged m_myPositionModeCallback;
+  };
+
+  MyPositionController(Params && params);
   ~MyPositionController();
 
   void UpdatePosition();

@@ -1812,7 +1812,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
-                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
+                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
+                            params.m_hints.m_isFirstLaunch, params.m_hints.m_isLaunchByDeepLink,
                             m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled,
                             simplifiedTrafficColors, move(overlaysShowStatsFn));
 

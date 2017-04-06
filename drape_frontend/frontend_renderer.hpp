@@ -73,39 +73,30 @@ public:
     Params(ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng,
+           MyPositionController::Params && myPositionParams,
            Viewport viewport,
            TModelViewChanged const & modelViewChangedFn,
            TTapEventInfoFn const & tapEventFn,
            TUserPositionChangedFn const & positionChangedFn,
-           location::TMyPositionModeChanged myPositionModeCallback,
-           location::EMyPositionMode initMode,
            ref_ptr<RequestedTiles> requestedTiles,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
-           double timeInBackground,
            bool allow3dBuildings,
            bool trafficEnabled,
-           bool blockTapEvents,
-           bool firstLaunch,
-           bool isRoutingActive,
-           bool isAutozoomEnabled)
+           bool blockTapEvents)
       : BaseRenderer::Params(commutator, factory, texMng)
+      , m_myPositionParams(move(myPositionParams))
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
       , m_tapEventFn(tapEventFn)
       , m_positionChangedFn(positionChangedFn)
-      , m_myPositionModeCallback(myPositionModeCallback)
-      , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
       , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
-      , m_timeInBackground(timeInBackground)
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
-      , m_firstLaunch(firstLaunch)
-      , m_isRoutingActive(isRoutingActive)
-      , m_isAutozoomEnabled(isAutozoomEnabled)
     {}
 
+    MyPositionController::Params m_myPositionParams;
     Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
     TTapEventInfoFn m_tapEventFn;
@@ -119,6 +110,7 @@ public:
     bool m_trafficEnabled;
     bool m_blockTapEvents;
     bool m_firstLaunch;
+    bool m_isLaunchByDeepLink;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
   };
