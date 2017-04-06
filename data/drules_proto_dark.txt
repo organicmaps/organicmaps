@@ -40981,7 +40981,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -40991,7 +40991,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41001,7 +41001,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41011,7 +41011,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41021,7 +41021,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41031,7 +41031,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 2236962
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41044,7 +41044,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41054,7 +41054,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41064,7 +41064,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41074,7 +41074,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41084,7 +41084,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41094,7 +41094,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 731131
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41107,7 +41107,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41117,7 +41117,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41127,7 +41127,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41137,7 +41137,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41147,7 +41147,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41157,7 +41157,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41170,7 +41170,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41180,7 +41180,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41190,7 +41190,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41200,7 +41200,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41210,7 +41210,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41220,7 +41220,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 3355443
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41233,7 +41233,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41243,7 +41243,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41253,7 +41253,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41263,7 +41263,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41273,7 +41273,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41283,7 +41283,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 16518683
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41296,7 +41296,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41306,7 +41306,7 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -41316,7 +41316,7 @@ cont {
     scale: 16
     lines {
       width: 1.1
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41326,7 +41326,7 @@ cont {
     scale: 17
     lines {
       width: 1.5
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41336,7 +41336,7 @@ cont {
     scale: 18
     lines {
       width: 1.5
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -41346,7 +41346,7 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 6438271
+      color: 6286126
       priority: 1250
       join: ROUNDJOIN
       cap: ROUNDCAP
