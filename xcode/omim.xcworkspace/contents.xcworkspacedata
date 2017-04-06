@@ -140,9 +140,6 @@
          location = "group:../std/string.hpp">
       </FileRef>
       <FileRef
-         location = "group:../std/systime.hpp">
-      </FileRef>
-      <FileRef
          location = "group:../std/target_os.hpp">
       </FileRef>
       <FileRef

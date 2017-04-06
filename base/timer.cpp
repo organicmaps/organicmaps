@@ -3,7 +3,6 @@
 #include "base/timegm.hpp"
 #include "base/timer.hpp"
 
-#include "std/systime.hpp"
 #include "std/target_os.hpp"
 
 #include <algorithm>
@@ -11,6 +10,8 @@
 #include <cstdio>
 #include <iomanip>
 #include <sstream>
+
+#include <sys/time.h>
 
 #ifndef OMIM_OS_LINUX
 using std::get_time;

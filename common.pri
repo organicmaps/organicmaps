@@ -266,7 +266,6 @@ HEADERS += \
   $$ROOT_DIR/std/sstream.hpp \
   $$ROOT_DIR/std/stack.hpp \
   $$ROOT_DIR/std/string.hpp \
-  $$ROOT_DIR/std/systime.hpp \
   $$ROOT_DIR/std/target_os.hpp \
   $$ROOT_DIR/std/thread.hpp \
   $$ROOT_DIR/std/transform_iterator.hpp \

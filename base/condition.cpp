@@ -2,13 +2,14 @@
 #include "base/mutex.hpp"
 
 #include "std/target_os.hpp"
-#include "std/systime.hpp"
 
 #include <pthread.h>
 
 #include <cerrno>
 #include <cstdint>
 #include <limits>
+
+#include <sys/time.h>
 
 namespace threads
 {

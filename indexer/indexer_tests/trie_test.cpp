@@ -46,7 +46,7 @@ class SingleValueSerializer
 {
 public:
 #if !defined(OMIM_OS_LINUX)
-  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
 #endif
 
   template <typename TWriter>
@@ -64,7 +64,7 @@ public:
   using TSerializer = SingleValueSerializer<TValue>;
 
 #if !defined(OMIM_OS_LINUX)
-  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
 #endif
 
   ValueList() = default;

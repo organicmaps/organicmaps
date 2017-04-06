@@ -93,7 +93,7 @@ namespace rw
     /// This assert fails on std::pair<int, int> and OsmID class.
     /// @todo Review this logic in future with new compiler abilities.
     /// https://trello.com/c/hzCc9bzN/1254-is-trivial-copy-read-write-utils-hpp
-    //static_assert(is_trivially_copyable<ValueT>::value, "");
+    //static_assert(std::is_trivially_copyable<ValueT>::value, "");
 
     uint32_t const count = ReadVarUint<uint32_t>(src);
     if (count > 0)
@@ -110,7 +110,7 @@ namespace rw
     /// This assert fails on std::pair<int, int> and OsmID class.
     /// @todo Review this logic in future with new compiler abilities.
     /// https://trello.com/c/hzCc9bzN/1254-is-trivial-copy-read-write-utils-hpp
-    //static_assert(is_trivially_copyable<ValueT>::value, "");
+    //static_assert(std::is_trivially_copyable<ValueT>::value, "");
 
     uint32_t const count = static_cast<uint32_t>(v.size());
     WriteVarUint(sink, count);

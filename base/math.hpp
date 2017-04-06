@@ -11,10 +11,18 @@
 
 #include <boost/integer.hpp>
 
+namespace math
+{
+  double constexpr pi = 3.14159265358979323846;
+  double constexpr pi2 = pi / 2.;
+  double constexpr pi4 = pi / 4.;
+  double constexpr twicePi = 2. * pi;
+
+  template <class T> T sqr(T t) { return (t*t); }
+}
 
 namespace my
 {
-
 template <typename T> inline T Abs(T x)
 {
   return (x < 0 ? -x : x);
