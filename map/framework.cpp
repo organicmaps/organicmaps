@@ -1862,6 +1862,7 @@ void Framework::OnRecoverGLContext(int width, int height)
   }
 
   m_trafficManager.OnRecoverGLContext();
+  m_localAdsManager.Invalidate();
 }
 
 void Framework::OnDestroyGLContext()

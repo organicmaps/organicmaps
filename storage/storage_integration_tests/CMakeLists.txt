@@ -30,6 +30,7 @@ omim_link_libraries(
   indexer
   drape
   partners_api
+  local_ads
   platform_tests_support
   platform
   editor

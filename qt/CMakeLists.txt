@@ -66,8 +66,10 @@ omim_link_libraries(
   indexer
   drape
   partners_api
+  local_ads
   platform
-  editor geometry
+  editor
+  geometry
   coding
   base
   freetype

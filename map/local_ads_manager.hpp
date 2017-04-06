@@ -28,6 +28,7 @@ class LocalAdsManager final
 public:
   using GetMwmsByRectFn = function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
   using GetMwmIdByName = function<MwmSet::MwmId(std::string const &)>;
+  using Timestamp = std::chrono::steady_clock::time_point;
 
   LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn, GetMwmIdByName const & getMwmIdByName);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
@@ -40,6 +41,8 @@ public:
 
   void OnDownloadCountry(std::string const & countryName);
   void OnDeleteCountry(std::string const & countryName);
+
+  void Invalidate();
 
 private:
   enum class RequestType
@@ -54,13 +57,13 @@ private:
 
   std::string MakeRemoteURL(MwmSet::MwmId const & mwmId) const;
   std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId) const;
-  df::CustomSymbols DeserializeCampaign(std::vector<uint8_t> && rawData,
-                                        std::chrono::steady_clock::time_point timestamp);
+  df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData,
+                                  MwmSet::MwmId const & mwmId, Timestamp timestamp);
   void SendSymbolsToRendering(df::CustomSymbols && symbols);
   void DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId);
 
-  void ReadExpirationFile(std::string const & expirationFile);
   void ReadCampaignFile(std::string const & campaignFile);
+  void WriteCampaignFile(std::string const & campaignFile);
 
   GetMwmsByRectFn m_getMwmsByRectFn;
   GetMwmIdByName m_getMwmIdByNameFn;
@@ -68,7 +71,12 @@ private:
   ref_ptr<df::DrapeEngine> m_drapeEngine;
 
   std::map<std::string, bool> m_campaigns;
-  std::map<std::string, std::chrono::steady_clock::time_point> m_expiration;
+  struct CampaignInfo
+  {
+    Timestamp m_creationTimestamp;
+    std::vector<uint8_t> m_data;
+  };
+  std::map<std::string, CampaignInfo> m_info;
 
   df::CustomSymbols m_symbolsCache;
   std::mutex m_symbolsCacheMutex;

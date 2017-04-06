@@ -68,57 +68,73 @@ private:
 #endif
 };
 
-FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
-  : base_type(fileName), m_pFileData(new FileReaderData(fileName, logPageSize, logPageCount)),
-  m_Offset(0), m_Size(m_pFileData->Size())
-{
-}
+FileReader::FileReader(string const & fileName, bool withExceptions,
+                       uint32_t logPageSize, uint32_t logPageCount)
+  : BaseType(fileName)
+  , m_fileData(new FileReaderData(fileName, logPageSize, logPageCount))
+  , m_offset(0)
+  , m_size(m_fileData->Size())
+  , m_withExceptions(withExceptions)
+{}
 
 FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size)
-  : base_type(reader.GetName()), m_pFileData(reader.m_pFileData), m_Offset(offset), m_Size(size)
-{
-}
+  : BaseType(reader.GetName())
+  , m_fileData(reader.m_fileData)
+  , m_offset(offset)
+  , m_size(size)
+  , m_withExceptions(reader.m_withExceptions)
+{}
 
 uint64_t FileReader::Size() const
 {
-  return m_Size;
+  return m_size;
 }
 
 void FileReader::Read(uint64_t pos, void * p, size_t size) const
 {
-  ASSERT ( AssertPosAndSize(pos, size), () );
-  m_pFileData->Read(m_Offset + pos, p, size);
+  CheckPosAndSize(pos, size);
+  m_fileData->Read(m_offset + pos, p, size);
 }
 
 FileReader FileReader::SubReader(uint64_t pos, uint64_t size) const
 {
-  ASSERT ( AssertPosAndSize(pos, size), () );
-  return FileReader(*this, m_Offset + pos, size);
+  CheckPosAndSize(pos, size);
+  return FileReader(*this, m_offset + pos, size);
 }
 
 unique_ptr<Reader> FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
-  ASSERT ( AssertPosAndSize(pos, size), () );
+  CheckPosAndSize(pos, size);
   // Can't use make_unique with private constructor.
-  return unique_ptr<Reader>(new FileReader(*this, m_Offset + pos, size));
+  return unique_ptr<Reader>(new FileReader(*this, m_offset + pos, size));
 }
 
 bool FileReader::AssertPosAndSize(uint64_t pos, uint64_t size) const
 {
   uint64_t const allSize1 = Size();
   bool const ret1 = (pos + size <= allSize1);
-  ASSERT ( ret1, (pos, size, allSize1) );
+  if (!m_withExceptions)
+    ASSERT(ret1, (pos, size, allSize1));
 
-  uint64_t const allSize2 = m_pFileData->Size();
-  bool const ret2 = (m_Offset + pos + size <= allSize2);
-  ASSERT ( ret2, (m_Offset, pos, size, allSize2) );
+  uint64_t const allSize2 = m_fileData->Size();
+  bool const ret2 = (m_offset + pos + size <= allSize2);
+  if (!m_withExceptions)
+    ASSERT(ret2, (m_offset, pos, size, allSize2));
 
   return (ret1 && ret2);
 }
 
+void FileReader::CheckPosAndSize(uint64_t pos, uint64_t size) const
+{
+  if (m_withExceptions && !AssertPosAndSize(pos, size))
+    MYTHROW(Reader::SizeException, (pos, size));
+  else
+    ASSERT(AssertPosAndSize(pos, size), ());
+}
+
 void FileReader::SetOffsetAndSize(uint64_t offset, uint64_t size)
 {
-  ASSERT ( AssertPosAndSize(offset, size), () );
-  m_Offset = offset;
-  m_Size = size;
+  CheckPosAndSize(offset, size);
+  m_offset = offset;
+  m_size = size;
 }
