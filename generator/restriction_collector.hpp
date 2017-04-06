@@ -18,6 +18,7 @@ namespace routing
 class RestrictionCollector
 {
 public:
+  RestrictionCollector() = default;
   /// \param restrictionPath full path to file with road restrictions in osm id terms.
   /// \param osmIdsToFeatureIdsPath full path to file with mapping from osm ids to feature ids.
   RestrictionCollector(string const & restrictionPath, string const & osmIdsToFeatureIdsPath);

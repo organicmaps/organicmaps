@@ -30,8 +30,7 @@ string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */,
-                                            "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector;
   // Adding feature ids.
   restrictionCollector.AddFeatureId(30 /* featureId */, osm::Id::Way(3));
   restrictionCollector.AddFeatureId(10 /* featureId */, osm::Id::Way(1));
@@ -56,8 +55,7 @@ UNIT_TEST(RestrictionTest_ValidCase)
 
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
-  RestrictionCollector restrictionCollector("" /* restrictionPath */,
-                                            "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector;
   restrictionCollector.AddFeatureId(0 /* featureId */, osm::Id::Way(0));
   restrictionCollector.AddFeatureId(20 /* featureId */, osm::Id::Way(2));
 
@@ -80,8 +78,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   ScopedDir const scopedDir(kRestrictionTestDir);
   ScopedFile const scopedFile(kRestrictionPath, kRestrictionContent);
 
-  RestrictionCollector restrictionCollector("" /* restrictionPath */,
-                                            "" /* osmIdsToFeatureIdsPath */);
+  RestrictionCollector restrictionCollector;
 
   Platform const & platform = Platform();
 
