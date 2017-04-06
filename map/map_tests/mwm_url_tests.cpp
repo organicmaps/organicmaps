@@ -153,6 +153,7 @@ UNIT_TEST(SearchApiInvalidUrl)
   TEST(IsValid(f, "mapsme://search?query=aaa&cll=1,1,1"), ("If it's wrong lat lon format then just ignore it"));
   TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsupported parameters"));
   TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa"), ("Query parameter position doesn't matter"));
+  TEST(!IsValid(f, "mapsme://search?Query=fff"), ("The parser is case sensitive"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)
@@ -164,6 +165,7 @@ UNIT_TEST(MapApiInvalidUrl)
   TEST(!IsValid(fm, "mapswithme://map?"), ("No longtitude"));
   TEST(!IsValid(fm, "mapswithme://map?ll=1,2,3"), ("Too many values for ll"));
   TEST(!IsValid(fm, "mapswithme://fffff://map?ll=1,2"), ());
+  TEST(!IsValid(fm, "mapsme://map?LL=1,1"), ("The parser is case sensitive"));
 }
 
 UNIT_TEST(RouteApiInvalidUrl)
@@ -204,15 +206,23 @@ UNIT_TEST(MapApiPointNameBeforeLatLon)
 
 UNIT_TEST(MapApiPointNameOverwritten)
 {
-  ApiTest api("mapswithme://map?ll=1,2&n=A&N=B");
-  TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPointCount(), 1, ());
-  TEST(api.TestName(0, "B"), ());
+  {
+    ApiTest api("mapswithme://map?ll=1,2&n=A&N=B");
+    TEST(api.IsValid(), ());
+    TEST_EQUAL(api.GetPointCount(), 1, ());
+    TEST(api.TestName(0, "A"), ());
+  }
+
+  {
+    ApiTest api("mapswithme://map?ll=1,2&n=A&n=B");
+    TEST(api.IsValid(), ());
+    TEST(api.TestName(0, "B"), ());
+  }
 }
 
 UNIT_TEST(MapApiMultiplePoints)
 {
-  ApiTest api("mwm://map?ll=1.1,1.2&n=A&LL=2.1,2.2&ll=-3.1,-3.2&n=C");
+  ApiTest api("mwm://map?ll=1.1,1.2&n=A&ll=2.1,2.2&ll=-3.1,-3.2&n=C");
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPointCount(), 3, ());
   TEST(api.TestLatLon(2, 1.1, 1.2), ());
@@ -258,7 +268,7 @@ UNIT_TEST(GlobalBackUrl)
     TEST_EQUAL(api.GetGlobalBackUrl(), "http://mapswithme.com", ());
   }
   {
-    ApiTest api("mwm://map?ll=1,2&n=PointName&backUrl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B");
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B");
     TEST_EQUAL(api.GetGlobalBackUrl(), "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 \xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b", ());
   }
   {
@@ -299,6 +309,10 @@ UNIT_TEST(VersionTest)
   }
   {
     ApiTest api("mwm://map?V=666&ll=1,2&n=PointName");
+    TEST_EQUAL(api.GetApiVersion(), 0, ());
+  }
+  {
+    ApiTest api("mwm://map?v=666&ll=1,2&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 666, ());
   }
 }
@@ -310,7 +324,7 @@ UNIT_TEST(AppNameTest)
     TEST_EQUAL(api.GetAppTitle(), "Google", ());
   }
   {
-    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&AppName=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81");
+    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&appname=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81");
     TEST_EQUAL(api.GetAppTitle(), "Яндекс", ());
   }
   {
@@ -396,15 +410,15 @@ UNIT_TEST(MWMApiBalloonActionDefaultTest)
     TEST(!api.GoBackOnBalloonClick(), (""));
   }
   {
-    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=false");
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonaction=false");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
   {
-    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=true");
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonaction=true");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
   {
-    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=");
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonaction=");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
 }
