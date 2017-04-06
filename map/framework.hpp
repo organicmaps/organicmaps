@@ -440,12 +440,6 @@ private:
   //@}
 
 public:
-  struct DrapeHints
-  {
-    bool m_isFirstLaunch = false;
-    bool m_isLaunchByDeepLink = false;
-  };
-
   struct DrapeCreationParams
   {
     float m_visualScale = 1.0f;
@@ -457,7 +451,7 @@ public:
     location::EMyPositionMode m_initialMyPositionState = location::PendingPosition;
 
     bool m_isChoosePositionMode = false;
-    DrapeHints m_hints;
+    df::Hints m_hints;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);

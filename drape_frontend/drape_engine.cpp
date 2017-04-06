@@ -46,8 +46,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   MyPositionController::Params mpParams(mode,
                                         timeInBackground,
-                                        params.m_isFirstLaunch,
-                                        params.m_isLaunchByDeepLink,
+                                        params.m_hints,
                                         params.m_isRoutingActive,
                                         params.m_isAutozoomEnabled,
                                         bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
