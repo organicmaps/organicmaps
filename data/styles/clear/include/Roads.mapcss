@@ -1272,22 +1272,22 @@ line|z14-[aerialway=rope_tow]::dash,
 
 /* 10.3 Piste & Route 14-22 ZOOM */
 
-line|z14-[piste:type=downhill][piste:difficulty=novice]
-{color: @piste_novice;opacity: 1;}
-line|z14-[piste:type=downhill][piste:difficulty=easy]
-{color: @piste_easy;opacity: 1;}
-line|z14-[piste:type=downhill][piste:difficulty=intermediate]
-{color: @piste_intermadiate;opacity: 1;}
-line|z14-[piste:type=downhill][piste:difficulty=advanced]
-{color: @piste_advanced;opacity: 1;}
-line|z14-[piste:type=downhill][piste:difficulty=expert],
-line|z14-[piste:type=downhill][piste:difficulty=freeride]
-{color: @piste_expert;opacity: 1;}
-
 line|z14-[piste:type=downhill],
 line|z14-[piste:type=nordic],
 line|z14-[piste:type=sled]
 {color: @piste;opacity: 1;}
+
+line|z14-[piste:type=downhill][piste:difficulty=novice]
+{color: @piste_novice;}
+line|z14-[piste:type=downhill][piste:difficulty=easy]
+{color: @piste_easy;}
+line|z14-[piste:type=downhill][piste:difficulty=intermediate]
+{color: @piste_intermadiate;}
+line|z14-[piste:type=downhill][piste:difficulty=advanced]
+{color: @piste_advanced;}
+line|z14-[piste:type=downhill][piste:difficulty=expert],
+line|z14-[piste:type=downhill][piste:difficulty=freeride]
+{color: @piste_expert;}
 
 line|z14[piste:type=downhill],
 line|z14[piste:type=nordic],
