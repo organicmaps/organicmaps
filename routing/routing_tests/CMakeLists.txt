@@ -4,6 +4,7 @@ include_directories(${OMIM_ROOT}/3party/osrm/osrm-backend/include)
 
 set(
   SRC
+  applying_traffic_test.cpp
   astar_algorithm_test.cpp
   astar_progress_test.cpp
   astar_router_test.cpp
@@ -13,13 +14,14 @@ set(
   cross_routing_tests.cpp
   cumulative_restriction_test.cpp
   followed_polyline_test.cpp
+  index_graph_test.cpp
   index_graph_tools.cpp
   index_graph_tools.hpp
   nearest_edge_finder_tests.cpp
   online_cross_fetcher_test.cpp
   osrm_router_test.cpp
-  road_access_test.cpp
   restriction_test.cpp
+  road_access_test.cpp
   road_graph_builder.cpp
   road_graph_builder.hpp
   road_graph_nearest_edges_test.cpp

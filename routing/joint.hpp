@@ -6,6 +6,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/limits.hpp"
+#include "std/string.hpp"
 
 namespace routing
 {
@@ -26,4 +27,6 @@ public:
 private:
   buffer_vector<RoadPoint, 2> m_points;
 };
+
+string DebugPrint(Joint const & joint);
 }  // namespace routing

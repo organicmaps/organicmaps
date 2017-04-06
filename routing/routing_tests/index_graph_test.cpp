@@ -17,8 +17,10 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstdint.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
@@ -117,7 +119,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  IndexGraph graph(move(loader), CreateEstimatorForCar(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -176,7 +178,7 @@ UNIT_TEST(FindPathCross)
       RoadGeometry::Points({{0.0, -2.0}, {0.0, -1.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph =
       BuildWorldGraph(move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
@@ -241,7 +243,7 @@ UNIT_TEST(FindPathManhattan)
   }
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -325,7 +327,7 @@ UNIT_TEST(RoadSpeed)
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}, {6.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
@@ -361,7 +363,7 @@ UNIT_TEST(OneSegmentWay)
                   RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
 
   IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
@@ -486,7 +488,7 @@ unique_ptr<WorldGraph> BuildLoopGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -502,5 +504,28 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
 
   double constexpr kExpectedRouteTimeSec = 3.48;
   TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
+}
+
+UNIT_TEST(IndexGraph_OnlyTopology)
+{
+  double const kEpsilon = 1e-6;
+
+  uint32_t const numVertices = 5;
+  TestIndexGraphTopology graph(numVertices);
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(0, 2, 2.0);
+  graph.AddDirectedEdge(1, 3, 1.0);
+  graph.AddDirectedEdge(2, 3, 2.0);
+
+  double pathWeight = 0.0;
+  vector<pair<uint32_t, uint32_t>> pathEdges;
+  TEST(graph.FindPath(0, 3, pathWeight, pathEdges), ());
+  double const expectedWeight = 2.0;
+  TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
+       (pathWeight, expectedWeight, pathEdges));
+  vector<pair<uint32_t, uint32_t>> const expectedEdges = {{0, 1}, {1, 3}};
+  TEST_EQUAL(pathEdges, expectedEdges, ());
+
+  TEST(!graph.FindPath(0, 4, pathWeight, pathEdges), (pathWeight, pathEdges));
 }
 }  // namespace routing_test

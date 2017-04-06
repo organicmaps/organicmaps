@@ -100,7 +100,7 @@ public:
     classificator::Load();
     auto numMwmIds = make_shared<NumMwmIds>();
     m_trafficStash = make_shared<TrafficStash>(m_trafficCache, numMwmIds);
-    m_estimator = CreateEstimator(m_trafficStash);
+    m_estimator = CreateEstimatorForCar(m_trafficStash);
   }
 
   void SetTrafficColoring(shared_ptr<TrafficInfo::Coloring> coloring)

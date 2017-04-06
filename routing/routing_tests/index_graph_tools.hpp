@@ -18,9 +18,12 @@
 #include "geometry/point2d.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstdint.hpp"
+#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace routing_test
@@ -76,14 +79,63 @@ private:
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
+// A simple class to test graph algorithms for the index graph
+// that do not depend on road geometry (but may depend on the
+// lengths of roads).
+class TestIndexGraphTopology
+{
+public:
+  struct EdgeRequest
+  {
+    uint32_t m_src = 0;
+    uint32_t m_dst = 0;
+    double m_weight = 0.0;
+
+    EdgeRequest(uint32_t src, uint32_t dst, double weight)
+      : m_src(src), m_dst(dst), m_weight(weight)
+    {
+    }
+  };
+
+  // Creates an empty graph on |numVertices| vertices.
+  TestIndexGraphTopology(uint32_t numVertices);
+
+  // Adds a weighted directed edge to the graph. Multi-edges are not supported.
+  // *NOTE* The edges are added lazily, i.e. edge requests are only stored here
+  // and the graph itself is built only after a call to FindPath.
+  void AddDirectedEdge(uint32_t vertexId1, uint32_t vertexId2, double weight);
+
+  // Finds a path between the start and finish vertices. Returns true iff a path exists.
+  bool FindPath(uint32_t start, uint32_t finish, double & pathWeight,
+                vector<pair<uint32_t, uint32_t>> & pathEdges);
+
+private:
+  unique_ptr<WorldGraph> PrepareIndexGraph();
+  void ClearGraphInternal();
+  void BuildJoints();
+  void BuildGraphFromRequests();
+  void BuildSegmentFromEdge(uint32_t edgeId, uint32_t vertexId1, uint32_t vertexId2, double weight);
+
+  uint32_t m_numVertices;
+  map<pair<uint32_t, uint32_t>, double> m_edgeWeights;
+  map<Segment, double> m_segmentWeights;
+  map<Segment, pair<uint32_t, uint32_t>> m_segmentToEdge;
+  map<uint32_t, vector<Segment>> m_outgoingSegments;
+  map<uint32_t, vector<Segment>> m_incomingSegments;
+  vector<Joint> m_joints;
+
+  vector<EdgeRequest> m_edgeRequests;
+};
+
 unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
                                        shared_ptr<EdgeEstimator> estimator,
                                        vector<Joint> const & joints);
 
 routing::Joint MakeJoint(vector<routing::RoadPoint> const & points);
 
-shared_ptr<routing::EdgeEstimator> CreateEstimator(traffic::TrafficCache const & trafficCache);
-shared_ptr<routing::EdgeEstimator> CreateEstimator(shared_ptr<TrafficStash> trafficStash);
+shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(
+    traffic::TrafficCache const & trafficCache);
+shared_ptr<routing::EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash);
 
 routing::AStarAlgorithm<routing::IndexGraphStarter>::Result CalculateRoute(
     routing::IndexGraphStarter & starter, vector<routing::Segment> & roadPoints, double & timeSec);

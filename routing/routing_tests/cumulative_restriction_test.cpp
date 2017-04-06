@@ -62,7 +62,7 @@ unique_ptr<WorldGraph> BuildXYGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -217,7 +217,7 @@ unique_ptr<WorldGraph> BuildXXGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 

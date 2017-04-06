@@ -2,6 +2,7 @@
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
+#include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -13,7 +14,7 @@
 using namespace routing;
 using namespace std;
 
-namespace
+namespace routing_test
 {
 UNIT_TEST(RoadAccess_Serialization)
 {

@@ -2,9 +2,13 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "base/macros.hpp"
+
 #include <algorithm>
+#include <limits>
 #include <unordered_map>
 
+using namespace std;
 using namespace traffic;
 
 namespace
@@ -106,6 +110,42 @@ double CarEdgeEstimator::GetUTurnPenalty() const
 }
 
 bool CarEdgeEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash->Has(mwmId); }
+
+class WeightedDirectedGraphEdgeEstimator : public EdgeEstimator
+{
+public:
+  WeightedDirectedGraphEdgeEstimator(map<Segment, double> const & segmentWeights)
+    : m_segmentWeights(segmentWeights)
+  {
+  }
+
+  // EdgeEstimator overrides:
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
+  double CalcHeuristic(m2::PointD const & /* from */, m2::PointD const & /* to */) const override;
+  double GetUTurnPenalty() const override;
+  bool LeapIsAllowed(NumMwmId /* mwmId */) const override;
+
+private:
+  map<Segment, double> m_segmentWeights;
+};
+
+double WeightedDirectedGraphEdgeEstimator::CalcSegmentWeight(Segment const & segment,
+                                                             RoadGeometry const & /* road */) const
+{
+  auto const it = m_segmentWeights.find(segment);
+  CHECK(it != m_segmentWeights.cend(), ());
+  return it->second;
+}
+
+double WeightedDirectedGraphEdgeEstimator::CalcHeuristic(m2::PointD const & /* from */,
+                                                         m2::PointD const & /* to */) const
+{
+  return 0.0;
+}
+
+double WeightedDirectedGraphEdgeEstimator::GetUTurnPenalty() const { return 0.0; }
+
+bool WeightedDirectedGraphEdgeEstimator::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
 }  // namespace
 
 namespace routing
@@ -115,5 +155,12 @@ shared_ptr<EdgeEstimator> EdgeEstimator::CreateForCar(shared_ptr<TrafficStash> t
                                                       double maxSpeedKMpH)
 {
   return make_shared<CarEdgeEstimator>(trafficStash, maxSpeedKMpH);
+}
+
+// static
+shared_ptr<EdgeEstimator> EdgeEstimator::CreateForWeightedDirectedGraph(
+    map<Segment, double> const & segmentWeights)
+{
+  return make_shared<WeightedDirectedGraphEdgeEstimator>(segmentWeights);
 }
 }  // namespace routing
