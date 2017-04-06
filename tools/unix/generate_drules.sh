@@ -11,7 +11,7 @@ function BuildDrawingRules() {
   styleType=$1
   styleName=$2
   suffix=${3-}
-  echo "Building drawing rules for style $styleName"
+  echo "Building drawing rules for style $styleType/$styleName"
   # Cleanup
   rm "$DATA_PATH"/drules_proto$suffix.{bin,txt} || true
   # Run script to build style
