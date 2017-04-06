@@ -88,6 +88,7 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_add.hpp"
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
@@ -209,7 +210,7 @@ string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi
 unique_ptr<m4::Tree<NumMwmId>> MakeNumMwmTree(NumMwmIds const & numMwmIds,
                                               CountryInfoGetter const & countryInfoGetter)
 {
-  auto tree = make_unique<m4::Tree<NumMwmId>>();
+  auto tree = my::make_unique<m4::Tree<NumMwmId>>();
 
   numMwmIds.ForEachId([&](NumMwmId numMwmId) {
     auto const & countryName = numMwmIds.GetFile(numMwmId).GetName();
