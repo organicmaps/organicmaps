@@ -22,12 +22,12 @@ final class BannersCache: NSObject {
   private func onCompletion(isAsync: Bool) {
     guard let completion = completion else { return }
     var bannerType: BannerType?
-    for loadState in loadStates {
+    statesLoop: for loadState in loadStates {
       switch loadState {
       case .notLoaded(_): return
       case .loaded(let type):
         bannerType = type
-        break
+        break statesLoop
       case .error: continue
       }
     }
