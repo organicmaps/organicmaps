@@ -32,6 +32,7 @@ import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
+import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -1390,6 +1391,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                       from.mLat, from.mLon, "", Banner.EMPTY, false),
                                         new MapObject(MapObject.API_POINT, to.mName, "", "",
                                                       to.mLat, to.mLon, "", Banner.EMPTY, false));
+        return true;
+      case ParsedUrlMwmRequest.RESULT_SEARCH:
+        final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
         return true;
       }
 

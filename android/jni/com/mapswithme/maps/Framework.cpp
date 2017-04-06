@@ -629,6 +629,17 @@ Java_com_mapswithme_maps_Framework_nativeGetParsedRoutingData(JNIEnv * env, jcla
   return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type);
 }
 
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
+{
+  using namespace url_scheme;
+  static jclass const cl = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/ParsedSearchRequest");
+  // Java signature : ParsedSearchRequest(String query, String locale, double lat, double lon, boolean isSearchOnMap)
+  static jmethodID const ctor = jni::GetConstructorID(env, cl, "(Ljava/lang/String;Ljava/lang/String;DDZ)V");
+  auto const & r = frm()->GetParsedSearchRequest();
+  return env->NewObject(cl, ctor, jni::ToJavaString(env, r.m_query), jni::ToJavaString(env, r.m_locale), r.m_centerLat, r.m_centerLon, r.m_isSearchOnMap);
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
 {
