@@ -31,6 +31,7 @@ public:
   void SaveAs(std::string const & path) override;
 
   void OnSampleSelected(int index) override;
+  void OnResultSelected(int index) override;
   bool HasChanges() override;
 
 private:
@@ -53,6 +54,7 @@ private:
 
   std::weak_ptr<search::ProcessorHandle> m_queryHandle;
   uint64_t m_queryTimestamp = 0;
+  int m_selectedSample = -1;
   size_t m_numShownResults = 0;
 
   ThreadChecker m_threadChecker;

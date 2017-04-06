@@ -31,6 +31,8 @@ public:
   void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) override;
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
 
+  void MoveViewportToResult(search::Result const & result) override;
+
   void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) override;
   void EnableSampleEditing(size_t index, Edits & edits) override;
   void OnSamplesChanged(bool hasEdits) override;
@@ -45,6 +47,7 @@ protected:
 
 private Q_SLOTS:
   void OnSampleSelected(QItemSelection const & current);
+  void OnResultSelected(QItemSelection const & current);
 
 private:
   enum class SaveResult

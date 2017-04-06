@@ -27,6 +27,8 @@ public:
   void Update(Edits::Update const & update);
   void Clear();
 
+  ResultsView & GetResultsView() { return *m_results; }
+
 private:
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;

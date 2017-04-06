@@ -53,7 +53,7 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
     layout->addWidget(new QLabel(tr("Found results")));
 
     m_results = new ResultsView(*box /* parent */);
-    layout->addWidget(m_results->GetWidget());
+    layout->addWidget(m_results);
 
     mainLayout->addWidget(box);
   }

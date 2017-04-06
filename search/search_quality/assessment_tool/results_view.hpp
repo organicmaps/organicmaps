@@ -15,7 +15,7 @@ namespace search
 class Result;
 }
 
-class ResultsView : private QListWidget
+class ResultsView : public QListWidget
 {
 public:
   explicit ResultsView(QWidget & parent);
@@ -29,8 +29,6 @@ public:
   size_t Size() const { return m_results.size(); }
 
   void Clear();
-
-  QWidget * GetWidget() { return this; }
 
 private:
   std::vector<ResultView *> m_results;

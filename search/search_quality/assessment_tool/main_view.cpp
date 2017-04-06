@@ -2,6 +2,7 @@
 
 #include "search/search_quality/assessment_tool/helpers.hpp"
 #include "search/search_quality/assessment_tool/model.hpp"
+#include "search/search_quality/assessment_tool/results_view.hpp"
 #include "search/search_quality/assessment_tool/sample_view.hpp"
 #include "search/search_quality/assessment_tool/samples_view.hpp"
 
@@ -72,6 +73,11 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
   m_sampleView->ShowResults(begin, end);
 }
 
+void MainView::MoveViewportToResult(search::Result const & result)
+{
+  m_framework.ShowSearchResult(result);
+}
+
 void MainView::OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits)
 {
   m_samplesView->OnUpdate(index);
@@ -125,6 +131,14 @@ void MainView::OnSampleSelected(QItemSelection const & current)
   auto indexes = current.indexes();
   for (auto const & index : indexes)
     m_model->OnSampleSelected(index.row());
+}
+
+void MainView::OnResultSelected(QItemSelection const & current)
+{
+  CHECK(m_model, ());
+  auto indexes = current.indexes();
+  for (auto const & index : indexes)
+    m_model->OnResultSelected(index.row());
 }
 
 void MainView::InitMenuBar()
@@ -217,6 +231,13 @@ void MainView::InitDocks()
   SetSamplesDockTitle(false /* hasEdits */);
 
   m_sampleView = new SampleView(this /* parent */);
+
+  {
+    auto * model = m_sampleView->GetResultsView().selectionModel();
+    connect(model, SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)), this,
+            SLOT(OnResultSelected(QItemSelection const &)));
+  }
+
   m_sampleDock = CreateDock(*m_sampleView);
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
   SetSampleDockTitle(false /* hasEdits */);

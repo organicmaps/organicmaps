@@ -72,6 +72,7 @@ void MainModel::Open(string const & path)
   m_path = path;
 
   m_view->SetSamples(ContextList::SamplesSlice(m_contexts));
+  m_selectedSample = -1;
 }
 
 void MainModel::Save()
@@ -111,6 +112,8 @@ void MainModel::OnSampleSelected(int index)
   CHECK_GREATER_OR_EQUAL(index, 0, ());
   CHECK_LESS(index, m_contexts.Size(), ());
   CHECK(m_view, ());
+
+  m_selectedSample = index;
 
   auto & context = m_contexts[index];
   auto const & sample = context.m_sample;
@@ -169,6 +172,18 @@ void MainModel::OnSampleSelected(int index)
   }
 }
 
+void MainModel::OnResultSelected(int index)
+{
+  CHECK_GREATER_OR_EQUAL(m_selectedSample, 0, ());
+  CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
+  auto const & context = m_contexts[m_selectedSample];
+  auto const & results = context.m_results;
+
+  CHECK_GREATER_OR_EQUAL(index, 0, ());
+  CHECK_LESS(index, results.GetCount(), ());
+  m_view->MoveViewportToResult(results.GetResult(index));
+}
+
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
 
 void MainModel::OnUpdate(size_t index, Edits::Update const & update)
@@ -193,13 +208,14 @@ void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results cons
   m_view->ShowResults(results.begin() + m_numShownResults, results.end());
   m_numShownResults = results.GetCount();
 
+  auto & context = m_contexts[index];
+  context.m_results = results;
+
   if (!results.IsEndedNormal())
     return;
 
-  auto & context = m_contexts[index];
   if (!context.m_initialized)
   {
-    context.m_results = results;
     context.m_edits.ResetRelevances(relevances);
     context.m_goldenMatching = goldenMatching;
     context.m_actualMatching = actualMatching;

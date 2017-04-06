@@ -16,6 +16,7 @@ public:
   virtual void SaveAs(std::string const & path) = 0;
 
   virtual void OnSampleSelected(int index) = 0;
+  virtual void OnResultSelected(int index) = 0;
   virtual bool HasChanges() = 0;
 
 protected:
