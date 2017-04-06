@@ -188,7 +188,7 @@ public:
   }
 
   template <class Source>
-  static void DeserializeWeights(VehicleType /* requiredVehicle */, CrossMwmConnector & connector,
+  static void DeserializeWeights(VehicleType /* vehicle */, CrossMwmConnector & connector,
                                  Source & src)
   {
     CHECK(connector.m_weightsLoadState == WeightsLoadState::ReadyToLoad, ());

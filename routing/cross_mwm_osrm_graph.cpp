@@ -133,11 +133,9 @@ void CrossMwmOsrmGraph::GetEdgeList(Segment const & s, bool isOutgoing, vector<S
   // outgoing
   // at the same time. For example in Berlin mwm on Nordlicher Berliner Ring (A10) near crossing
   // with A11 there's such node id. It's an extremely rare case. There're probably several such node
-  // id
-  // for the whole Europe. Such cases are not processed in WorldGraph::GetEdgeList() for the time
-  // being.
-  // To prevent filling |edges| with twins instead of leap edges and vice versa in
-  // WorldGraph::GetEdgeList()
+  // id for the whole Europe. Such cases are not processed in WorldGraph::GetEdgeList() for the time
+  // being. To prevent filling |edges| with twins instead of leap edges and vice versa in
+  // WorldGraph::GetEdgeList().
   // CrossMwmGraph::GetEdgeList() does not fill |edges| if |s| is a transition segment which
   // corresponces node id described above.
   if (IsTransition(s, isOutgoing))
