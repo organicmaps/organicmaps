@@ -28,6 +28,8 @@ public:
 
   virtual void ShowError(std::string const & msg) = 0;
 
+  virtual void Clear() = 0;
+
 protected:
   Model * m_model = nullptr;
 };

@@ -60,6 +60,8 @@ void MainModel::Open(string const & path)
 
   ResetSearch();
 
+  m_view->Clear();
+
   m_contexts.Resize(samples.size());
   for (size_t i = 0; i < samples.size(); ++i)
   {

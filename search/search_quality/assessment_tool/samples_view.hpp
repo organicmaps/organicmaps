@@ -18,6 +18,7 @@ public:
   void SetSamples(ContextList::SamplesSlice const & samples) { m_model->SetSamples(samples); }
   bool IsSelected(size_t index) const;
   void OnUpdate(size_t index) { m_model->OnUpdate(index); }
+  void Clear() { m_model->SetSamples(ContextList::SamplesSlice{}); }
 
 private:
   class Model : public QStandardItemModel

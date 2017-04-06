@@ -37,10 +37,24 @@ public:
 
   void ShowError(std::string const & msg) override;
 
+  void Clear() override;
+
+protected:
+  // QMainWindow overrides:
+  void closeEvent(QCloseEvent * event) override;
+
 private Q_SLOTS:
   void OnSampleSelected(QItemSelection const & current);
 
 private:
+  enum class SaveResult
+  {
+    NoEdits,
+    Saved,
+    Discarded,
+    Cancelled
+  };
+
   void InitMapWidget();
   void InitDocks();
   void InitMenuBar();
@@ -49,7 +63,11 @@ private:
   void Save();
   void SaveAs();
 
-  QDockWidget * CreateDock(std::string const & title, QWidget & widget);
+  void SetSamplesDockTitle(bool hasEdits);
+  void SetSampleDockTitle(bool hasEdits);
+  SaveResult TryToSaveEdits(QString const & msg);
+
+  QDockWidget * CreateDock(QWidget & widget);
 
   Framework & m_framework;
 

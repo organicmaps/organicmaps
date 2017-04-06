@@ -14,6 +14,7 @@
 #include "base/string_utils.hpp"
 
 #include <QtCore/Qt>
+#include <QtGui/QCloseEvent>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDockWidget>
@@ -76,19 +77,13 @@ void MainView::OnSampleChanged(size_t index, Edits::Update const & update, bool 
   m_samplesView->OnUpdate(index);
   if (!m_samplesView->IsSelected(index))
     return;
-  if (hasEdits)
-    m_sampleDock->setWindowTitle(tr("Sample *"));
-  else
-    m_sampleDock->setWindowTitle(tr("Sample"));
+  SetSampleDockTitle(hasEdits);
   m_sampleView->Update(update);
 }
 
 void MainView::OnSamplesChanged(bool hasEdits)
 {
-  if (hasEdits)
-    m_samplesDock->setWindowTitle("Samples *");
-  else
-    m_samplesDock->setWindowTitle("Samples");
+  SetSamplesDockTitle(hasEdits);
   m_save->setEnabled(hasEdits);
   m_saveAs->setEnabled(hasEdits);
 }
@@ -105,6 +100,23 @@ void MainView::ShowError(std::string const & msg)
                   QString::fromStdString(msg) /* text */, QMessageBox::Ok /* buttons */,
                   this /* parent */);
   box.exec();
+}
+
+void MainView::Clear()
+{
+  m_samplesView->Clear();
+  SetSamplesDockTitle(false /* hasEdits */);
+
+  m_sampleView->Clear();
+  SetSampleDockTitle(false /* hasEdits */);
+}
+
+void MainView::closeEvent(QCloseEvent * event)
+{
+  if (TryToSaveEdits(tr("Save changes before closing?")) == SaveResult::Cancelled)
+    event->ignore();
+  else
+    event->accept();
 }
 
 void MainView::OnSampleSelected(QItemSelection const & current)
@@ -200,17 +212,22 @@ void MainView::InitDocks()
             SLOT(OnSampleSelected(QItemSelection const &)));
   }
 
-  m_samplesDock = CreateDock("Samples", *m_samplesView);
+  m_samplesDock = CreateDock(*m_samplesView);
   addDockWidget(Qt::RightDockWidgetArea, m_samplesDock);
+  SetSamplesDockTitle(false /* hasEdits */);
 
   m_sampleView = new SampleView(this /* parent */);
-  m_sampleDock = CreateDock("Sample", *m_sampleView);
+  m_sampleDock = CreateDock(*m_sampleView);
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
+  SetSampleDockTitle(false /* hasEdits */);
 }
 
 void MainView::Open()
 {
   CHECK(m_model, ());
+
+  if (TryToSaveEdits(tr("Save changes before opening samples?")) == SaveResult::Cancelled)
+    return;
 
   auto const name = QFileDialog::getOpenFileName(this /* parent */, tr("Open samples..."),
                                                  QString() /* dir */, tr(kJSON));
@@ -232,9 +249,49 @@ void MainView::SaveAs()
     m_model->SaveAs(file);
 }
 
-QDockWidget * MainView::CreateDock(std::string const & title, QWidget & widget)
+void MainView::SetSamplesDockTitle(bool hasEdits)
 {
-  auto * dock = new QDockWidget(ToQString(title), this /* parent */, Qt::Widget);
+  CHECK(m_samplesDock, ());
+  if (hasEdits)
+    m_samplesDock->setWindowTitle(tr("Samples *"));
+  else
+    m_samplesDock->setWindowTitle(tr("Samples"));
+}
+
+void MainView::SetSampleDockTitle(bool hasEdits)
+{
+  CHECK(m_sampleDock, ());
+  if (hasEdits)
+    m_sampleDock->setWindowTitle(tr("Sample *"));
+  else
+    m_sampleDock->setWindowTitle(tr("Sample"));
+}
+
+MainView::SaveResult MainView::TryToSaveEdits(QString const & msg)
+{
+  CHECK(m_model, ());
+
+  if (!m_model->HasChanges())
+    return SaveResult::NoEdits;
+
+  QMessageBox box(QMessageBox::Question /* icon */, tr("Save edits?") /* title */, msg /* text */,
+                  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel /* buttons */,
+                  this /* parent */);
+  auto const button = box.exec();
+  switch (button)
+  {
+  case QMessageBox::Save: Save(); return SaveResult::Saved;
+  case QMessageBox::Discard: return SaveResult::Discarded;
+  case QMessageBox::Cancel: return SaveResult::Cancelled;
+  }
+
+  CHECK(false, ());
+  return SaveResult::Cancelled;
+}
+
+QDockWidget * MainView::CreateDock(QWidget & widget)
+{
+  auto * dock = new QDockWidget(QString(), this /* parent */, Qt::Widget);
   dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
   dock->setWidget(&widget);
   return dock;
