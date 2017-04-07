@@ -13,13 +13,20 @@ namespace df
 struct OverlayShowEvent
 {
   FeatureID m_feature;
-  int m_zoomLevel;
-  std::chrono::system_clock::time_point m_timestamp;
-  OverlayShowEvent(FeatureID const & feature, int zoomLevel,
-                   std::chrono::system_clock::time_point const & timestamp)
+  uint8_t m_zoomLevel;
+  std::chrono::steady_clock::time_point m_timestamp;
+  bool m_hasMyPosition;
+  m2::PointD m_myPosition;
+  double m_gpsAccuracy;
+  OverlayShowEvent(FeatureID const & feature, uint8_t zoomLevel,
+                   std::chrono::steady_clock::time_point const & timestamp,
+                   bool hasMyPosition, m2::PointD const & myPosition, double gpsAccuracy)
     : m_feature(feature)
     , m_zoomLevel(zoomLevel)
     , m_timestamp(timestamp)
+    , m_hasMyPosition(hasMyPosition)
+    , m_myPosition(myPosition)
+    , m_gpsAccuracy(gpsAccuracy)
   {}
 };
 
@@ -34,7 +41,8 @@ public:
 
   void SetTrackedOverlaysFeatures(std::vector<FeatureID> && ids);
 
-  bool StartTracking(int zoomLevel);
+  bool StartTracking(int zoomLevel, bool hasMyPosition,
+                     m2::PointD const & myPosition, double gpsAccuracy);
   void Track(FeatureID const & fid);
   void FinishTracking();
 
@@ -60,6 +68,9 @@ private:
   std::map<FeatureID, OverlayInfo> m_data;
   std::list<OverlayShowEvent> m_events;
   int m_zoomLevel = -1;
+  bool m_hasMyPosition = false;
+  m2::PointD m_myPosition = m2::PointD::Zero();
+  double m_gpsAccuracy = 0.0;
 };
 
 }  // namespace df

@@ -1,7 +1,7 @@
 #include "map/local_ads_manager.hpp"
 
 #include "local_ads/campaign_serialization.hpp"
-#include "local_ads/local_ads_helpers.hpp"
+#include "local_ads/file_helpers.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -70,6 +70,8 @@ void LocalAdsManager::Startup()
     m_isRunning = true;
   }
   m_thread = threads::SimpleThread(&LocalAdsManager::ThreadRoutine, this);
+
+  m_statistics.Startup();
 }
 
 void LocalAdsManager::Teardown()
@@ -82,6 +84,8 @@ void LocalAdsManager::Teardown()
   }
   m_condition.notify_one();
   m_thread.join();
+
+  m_statistics.Teardown();
 }
 
 void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)

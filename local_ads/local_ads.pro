@@ -8,10 +8,14 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     campaign_serialization.cpp \
-    local_ads_helpers.cpp \
+    event.cpp \
+    file_helpers.cpp \
+    statistics.cpp \
 
 
 HEADERS += \
     campaign.hpp \
     campaign_serialization.hpp \
-    local_ads_helpers.hpp \
+    event.hpp \
+    file_helpers.hpp \
+    statistics.hpp \

@@ -1080,7 +1080,10 @@ void FrontendRenderer::EndUpdateOverlayTree()
     m_overlayTree->EndOverlayPlacing();
 
     // Track overlays.
-    if (m_overlaysTracker->StartTracking(m_currentZoomLevel))
+    if (m_overlaysTracker->StartTracking(m_currentZoomLevel,
+                                         m_myPositionController->IsModeHasPosition(),
+                                         m_myPositionController->GetDrawablePosition(),
+                                         m_myPositionController->GetHorizontalAccuracy()))
     {
       for (auto const & handle : m_overlayTree->GetHandlesCache())
       {

@@ -437,7 +437,10 @@ Framework::Framework(FrameworkParams const & params)
   , m_lastReportedCountry(kInvalidCountryId)
 {
   if (!params.m_disableLocalAds)
+  {
     m_localAdsManager.Startup();
+    m_localAdsManager.GetStatistics().SetUserId(GetPlatform().UniqueClientId());
+  }
 
   m_startBackgroundTime = my::Timer::LocalTime();
 
@@ -1783,11 +1786,26 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     });
   };
 
-  auto overlaysShowStatsFn = [](std::list<df::OverlayShowEvent> && events)
+  auto overlaysShowStatsFn = [this](std::list<df::OverlayShowEvent> && events)
   {
-    // TODO: implement sending events. This callback is called on a render thread,
-    // so placing here not lightweight code is strictly prohibited! The best option is
-    // redirection events to another thread.
+    if (events.empty())
+      return;
+
+    std::list<local_ads::Event> statEvents;
+    for (auto const & event : events)
+    {
+      auto const & mwmInfo = event.m_feature.m_mwmId.GetInfo();
+      if (!mwmInfo)
+        continue;
+
+      statEvents.emplace_back(local_ads::EventType::ShowPoint,
+                              mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
+                              event.m_feature.m_index, event.m_zoomLevel, event.m_timestamp,
+                              MercatorBounds::YToLat(event.m_myPosition.y),
+                              MercatorBounds::XToLon(event.m_myPosition.x),
+                              static_cast<uint16_t>(event.m_gpsAccuracy));
+    }
+    m_localAdsManager.GetStatistics().RegisterEvents(std::move(statEvents));
   };
 
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);

@@ -18,6 +18,8 @@ public:
   QtOGLContextFactory(QOpenGLContext * rootContext);
   ~QtOGLContextFactory() override;
 
+  void PrepareToShutdown();
+
   bool LockFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
@@ -37,6 +39,7 @@ private:
   std::unique_ptr<QOffscreenSurface> m_drawSurface;
   std::unique_ptr<QtUploadOGLContext> m_uploadContext;
   std::unique_ptr<QOffscreenSurface> m_uploadSurface;
+  bool m_preparedToShutdown = false;
 };
 }  // namespace common
 }  // namespace qt

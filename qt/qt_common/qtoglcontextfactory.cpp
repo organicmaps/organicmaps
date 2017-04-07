@@ -22,9 +22,14 @@ QtOGLContextFactory::~QtOGLContextFactory()
   m_uploadSurface->destroy();
 }
 
+void QtOGLContextFactory::PrepareToShutdown()
+{
+  m_preparedToShutdown = true;
+}
+
 bool QtOGLContextFactory::LockFrame()
 {
-  if (!m_drawContext)
+  if (m_preparedToShutdown || !m_drawContext)
     return false;
 
   m_drawContext->lockFrame();

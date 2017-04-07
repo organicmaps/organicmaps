@@ -56,7 +56,10 @@ MapWidget::MapWidget(Framework & framework, QWidget * parent)
 MapWidget::~MapWidget()
 {
   m_framework.EnterBackground();
+  m_framework.SetRenderingDisabled(true);
+  m_contextFactory->PrepareToShutdown();
   m_framework.DestroyDrapeEngine();
+  m_contextFactory.reset();
 }
 
 void MapWidget::BindHotkeys(QWidget & parent)

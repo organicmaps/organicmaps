@@ -1,5 +1,7 @@
 #pragma once
 
+#include "local_ads/statistics.hpp"
+
 #include "drape_frontend/custom_symbol.hpp"
 
 #include "drape/pointers.hpp"
@@ -28,7 +30,7 @@ class LocalAdsManager final
 public:
   using GetMwmsByRectFn = function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
   using GetMwmIdByName = function<MwmSet::MwmId(std::string const &)>;
-  using Timestamp = std::chrono::steady_clock::time_point;
+  using Timestamp = local_ads::Timestamp;
 
   LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn, GetMwmIdByName const & getMwmIdByName);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
@@ -44,6 +46,8 @@ public:
 
   void Invalidate();
 
+  local_ads::Statistics & GetStatistics() { return m_statistics; }
+  local_ads::Statistics const & GetStatistics() const { return m_statistics; }
 private:
   enum class RequestType
   {
@@ -86,4 +90,6 @@ private:
   std::vector<Request> m_requestedCampaigns;
   std::mutex m_mutex;
   threads::SimpleThread m_thread;
+
+  local_ads::Statistics m_statistics;
 };
