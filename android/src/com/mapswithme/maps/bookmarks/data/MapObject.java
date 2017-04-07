@@ -11,6 +11,7 @@ import com.mapswithme.maps.ads.Banner;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,8 @@ public class MapObject implements Parcelable
   public static final int MY_POSITION = 3;
   public static final int SEARCH = 4;
 
-  @MapObjectType protected final int mMapObjectType;
+  @MapObjectType
+  private final int mMapObjectType;
 
   protected String mTitle;
   private String mSubtitle;
@@ -38,7 +40,7 @@ public class MapObject implements Parcelable
   private Metadata mMetadata;
   private String mApiId;
   @Nullable
-  private Banner[] mBanners;
+  private List<Banner> mBanners;
   private boolean mReachableByTaxi;
   @Nullable
   private String mBookingSearchUrl;
@@ -63,9 +65,10 @@ public class MapObject implements Parcelable
     mLon = lon;
     mMetadata = metadata;
     mApiId = apiId;
-    mBanners = banners;
     mReachableByTaxi = reachableByTaxi;
     mBookingSearchUrl = bookingSearchUrl;
+    if (banners != null)
+      mBanners = new ArrayList<>(Arrays.asList(banners));
   }
 
   protected MapObject(Parcel source)
@@ -85,12 +88,12 @@ public class MapObject implements Parcelable
     mBanners = readBanners(source);
   }
 
-  private Banner[] readBanners(Parcel source)
+  @Nullable
+  private List<Banner> readBanners(Parcel source)
   {
-    Parcelable[] parcelables = source.readParcelableArray(Banner.class.getClassLoader());
-    if (parcelables != null)
-      return Arrays.copyOf(parcelables, parcelables.length, Banner[].class);
-    return null;
+    List<Banner> banners = new ArrayList<>();
+    source.readTypedList(banners, Banner.CREATOR);
+    return banners.isEmpty() ? null : banners;
   }
 
   /**
@@ -158,7 +161,7 @@ public class MapObject implements Parcelable
   @Nullable
   public List<Banner> getBanners()
   {
-    return mBanners != null ? Arrays.asList(mBanners) : null;
+    return mBanners;
   }
 
   public boolean isReachableByTaxi()
@@ -186,7 +189,7 @@ public class MapObject implements Parcelable
     mMetadata.addMetadata(type.toInt(), value);
   }
 
-  public void addMetadata(int type, String value)
+  private void addMetadata(int type, String value)
   {
     mMetadata.addMetadata(type, value);
   }
@@ -213,7 +216,7 @@ public class MapObject implements Parcelable
     return mBookingSearchUrl;
   }
 
-  protected static MapObject readFromParcel(Parcel source)
+  private  static MapObject readFromParcel(Parcel source)
   {
     @MapObjectType int type = source.readInt();
     if (type == BOOKMARK)
@@ -240,9 +243,9 @@ public class MapObject implements Parcelable
     dest.writeDouble(mLon);
     dest.writeParcelable(mMetadata, 0);
     dest.writeString(mApiId);
-    dest.writeTypedArray(mBanners, 0);
     dest.writeByte((byte) (mReachableByTaxi ? 1 : 0));
     dest.writeString(mBookingSearchUrl);
+    dest.writeTypedList(mBanners);
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()
