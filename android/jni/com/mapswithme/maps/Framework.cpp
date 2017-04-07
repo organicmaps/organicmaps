@@ -146,7 +146,9 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
   p.m_isChoosePositionMode = m_isChoosePositionMode;
-  p.m_isFirstLaunch = firstLaunch;
+  p.m_hints.m_isFirstLaunch = firstLaunch;
+  // TODO: Add initialization.
+  // p.m_hints.m_isLaunchByDeepLink = ...;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 

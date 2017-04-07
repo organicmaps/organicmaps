@@ -150,9 +150,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode, params.m_timeInBackground,
-                                                        params.m_firstLaunch, params.m_isRoutingActive,
-                                                        params.m_isAutozoomEnabled, params.m_myPositionModeCallback));
+  m_myPositionController.reset(new MyPositionController(move(params.m_myPositionParams)));
   StartThread();
 }
 

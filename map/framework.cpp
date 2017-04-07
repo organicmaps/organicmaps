@@ -1809,10 +1809,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
-                            params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
+                            params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, params.m_isChoosePositionMode,
-                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(), params.m_isFirstLaunch,
+                            params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
                             m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled,
                             simplifiedTrafficColors, move(overlaysShowStatsFn));
 

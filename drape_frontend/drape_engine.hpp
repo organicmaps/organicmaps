@@ -3,6 +3,7 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_symbol.hpp"
+#include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
@@ -44,6 +45,7 @@ public:
            ref_ptr<StringsBundle> stringBundle,
            Viewport const & viewport,
            MapDataProvider const & model,
+           Hints const & hints,
            double vs,
            double fontsScaleFactor,
            gui::TWidgetsInitInfo && info,
@@ -54,7 +56,6 @@ public:
            bool blockTapEvents,
            bool showChoosePositionMark,
            vector<m2::TriangleD> && boundAreaTriangles,
-           bool firstLaunch,
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
@@ -63,6 +64,7 @@ public:
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
+      , m_hints(hints)
       , m_vs(vs)
       , m_fontsScaleFactor(fontsScaleFactor)
       , m_info(move(info))
@@ -73,7 +75,6 @@ public:
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(move(boundAreaTriangles))
-      , m_isFirstLaunch(firstLaunch)
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
@@ -84,6 +85,7 @@ public:
     ref_ptr<StringsBundle> m_stringsBundle;
     Viewport m_viewport;
     MapDataProvider m_model;
+    Hints m_hints;
     double m_vs;
     double m_fontsScaleFactor;
     gui::TWidgetsInitInfo m_info;
@@ -94,7 +96,6 @@ public:
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
     vector<m2::TriangleD> m_boundAreaTriangles;
-    bool m_isFirstLaunch;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;

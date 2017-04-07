@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
 #include "drape/gpu_program_manager.hpp"
@@ -40,9 +41,31 @@ public:
                                  TAnimationCreator const & parallelAnimCreator) = 0;
   };
 
-  MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
-                       location::TMyPositionModeChanged const & fn);
+  struct Params
+  {
+    Params(location::EMyPositionMode initMode,
+           double timeInBackground,
+           Hints const & hints,
+           bool isRoutingActive,
+           bool isAutozoomEnabled,
+           location::TMyPositionModeChanged && fn)
+      : m_initMode(initMode)
+      , m_timeInBackground(timeInBackground)
+      , m_hints(hints)
+      , m_isRoutingActive(isRoutingActive)
+      , m_isAutozoomEnabled(isAutozoomEnabled)
+      , m_myPositionModeCallback(move(fn))
+    {}
+
+    location::EMyPositionMode m_initMode;
+    double m_timeInBackground;
+    Hints m_hints;
+    bool m_isRoutingActive;
+    bool m_isAutozoomEnabled;
+    location::TMyPositionModeChanged m_myPositionModeCallback;
+  };
+
+  MyPositionController(Params && params);
   ~MyPositionController();
 
   void UpdatePosition();
@@ -133,7 +156,7 @@ private:
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
-  bool m_isFirstLaunch;
+  Hints m_hints;
 
   bool m_isInRouting;
 

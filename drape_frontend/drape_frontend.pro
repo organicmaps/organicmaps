@@ -152,6 +152,7 @@ HEADERS += \
     drape_api_builder.hpp \
     drape_api_renderer.hpp \
     drape_engine.hpp \
+    drape_hints.hpp \
     drape_measurer.hpp \
     engine_context.hpp \
     framebuffer.hpp \

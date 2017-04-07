@@ -123,14 +123,12 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
 } // namespace
 
-MyPositionController::MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                                           bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
-                                           location::TMyPositionModeChanged const & fn)
+MyPositionController::MyPositionController(Params && params)
   : m_mode(location::PendingPosition)
-  , m_desiredInitMode(initMode)
-  , m_modeChangeCallback(fn)
-  , m_isFirstLaunch(isFirstLaunch)
-  , m_isInRouting(isRoutingActive)
+  , m_desiredInitMode(params.m_initMode)
+  , m_modeChangeCallback(move(params.m_myPositionModeCallback))
+  , m_hints(params.m_hints)
+  , m_isInRouting(params.m_isRoutingActive)
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
@@ -139,7 +137,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_oldPosition(m2::PointD::Zero())
   , m_oldDrawDirection(0.0)
   , m_enablePerspectiveInRouting(false)
-  , m_enableAutoZoomInRouting(isAutozoomEnabled)
+  , m_enableAutoZoomInRouting(params.m_isAutozoomEnabled)
   , m_autoScale2d(GetScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearing(false)
@@ -156,12 +154,16 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode, d
   , m_needBlockAutoZoom(false)
   , m_notFollowAfterPending(false)
 {
-  if (m_isFirstLaunch)
+  if (m_hints.m_isFirstLaunch)
   {
     m_mode = location::NotFollowNoPosition;
     m_desiredInitMode = location::NotFollowNoPosition;
   }
-  else if (timeInBackground >= kMaxTimeInBackgroundSec)
+  else if (m_hints.m_isLaunchByDeepLink)
+  {
+    m_desiredInitMode = location::NotFollow;
+  }
+  else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
     m_desiredInitMode = location::Follow;
   }
@@ -412,8 +414,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   }
   else if (!m_isPositionAssigned)
   {
-    ChangeMode(m_isFirstLaunch ? location::Follow : m_desiredInitMode);
-    if (!m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
+    ChangeMode(m_hints.m_isFirstLaunch ? location::Follow : m_desiredInitMode);
+    if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
     {
       if (m_mode == location::Follow)
         ChangeModelView(m_position, kDoNotChangeZoom);
@@ -432,7 +434,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     else
     {
       ChangeMode(location::Follow);
-      if (!m_isFirstLaunch)
+      if (!m_hints.m_isFirstLaunch)
       {
         if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
         {

@@ -451,8 +451,7 @@ public:
     location::EMyPositionMode m_initialMyPositionState = location::PendingPosition;
 
     bool m_isChoosePositionMode = false;
-
-    bool m_isFirstLaunch = false;
+    df::Hints m_hints;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
