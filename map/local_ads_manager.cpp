@@ -1,5 +1,8 @@
 #include "map/local_ads_manager.hpp"
 
+#include "local_ads/campaign_serialization.hpp"
+#include "local_ads/local_ads_helpers.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -8,47 +11,38 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
-
-#include "base/bits.hpp"
 
 namespace
 {
 std::string const kCampaignFile = "local_ads_campaigns.dat";
-std::string const kExpirationFile = "local_ads_expiration.dat";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
 
-std::vector<uint8_t> SerializeTimestamp(std::chrono::steady_clock::time_point ts)
+void SerializeCampaign(FileWriter & writer, std::string const & countryName,
+                       LocalAdsManager::Timestamp const & ts,
+                       std::vector<uint8_t> const & rawData)
 {
-  auto hours = std::chrono::duration_cast<std::chrono::hours>(ts.time_since_epoch()).count();
-  uint64_t const encodedHours = bits::ZigZagEncode(static_cast<int64_t>(hours));
-
-  std::vector<uint8_t> result;
-  MemWriter<decltype(result)> writer(result);
-  writer.Write(&encodedHours, sizeof(encodedHours));
-
-  return result;
+  local_ads::WriteCountryName(writer, countryName);
+  local_ads::WriteTimestamp<std::chrono::hours>(writer, ts);
+  local_ads::WriteRawData(writer, rawData);
 }
 
-std::chrono::steady_clock::time_point DeserializeTimestamp(ModelReaderPtr const & reader)
+void DeserializeCampaign(ReaderSource<FileReader> & src, std::string & countryName,
+                         LocalAdsManager::Timestamp & ts, std::vector<uint8_t> & rawData)
 {
-  ASSERT_EQUAL(reader.Size(), sizeof(long), ());
-
-  std::vector<uint8_t> bytes(reader.Size());
-  reader.Read(0, bytes.data(), bytes.size());
-
-  MemReaderWithExceptions memReader(bytes.data(), bytes.size());
-  ReaderSource<decltype(memReader)> src(memReader);
-  uint64_t hours = ReadPrimitiveFromSource<uint64_t>(src);
-  int64_t const decodedHours = bits::ZigZagDecode(hours);
-
-  return std::chrono::steady_clock::time_point(std::chrono::hours(decodedHours));
+  countryName = local_ads::ReadCountryName(src);
+  ts = local_ads::ReadTimestamp<std::chrono::hours>(src);
+  rawData = local_ads::ReadRawData(src);
 }
 
 std::string GetPath(std::string const & fileName)
 {
   return my::JoinFoldersToPath(GetPlatform().WritableDir(), fileName);
+}
+
+std::chrono::steady_clock::time_point Now()
+{
+  return std::chrono::steady_clock::now();
 }
 }  // namespace
 
@@ -63,12 +57,8 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
 
 LocalAdsManager::~LocalAdsManager()
 {
-#ifdef DEBUG
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    ASSERT(!m_isRunning, ());
-  }
-#endif
+  std::lock_guard<std::mutex> lock(m_mutex);
+  ASSERT(!m_isRunning, ());
 }
 
 void LocalAdsManager::Startup()
@@ -138,15 +128,12 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
       // If a campaign has not been requested from server this session.
       if (!campaignIt->second)
       {
-        auto const it = m_expiration.find(mwmName);
+        auto const it = m_info.find(mwmName);
         bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
-        if (!needUpdateByTimeout && it != m_expiration.end())
-        {
-          auto const currentTime = std::chrono::steady_clock::now();
-          needUpdateByTimeout = currentTime > (it->second + kWWanUpdateTimeout);
-        }
+        if (!needUpdateByTimeout && it != m_info.end())
+          needUpdateByTimeout = Now() > (it->second.m_created + kWWanUpdateTimeout);
 
-        if (needUpdateByTimeout || it == m_expiration.end())
+        if (needUpdateByTimeout || it == m_info.end())
           requestedCampaigns.push_back(mwmName);
       }
     }
@@ -164,66 +151,62 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 void LocalAdsManager::ThreadRoutine()
 {
   std::string const campaignFile = GetPath(kCampaignFile);
-  std::string const expirationFile = GetPath(kExpirationFile);
 
-  // Read persistence data (expiration file must be read first).
-  ReadExpirationFile(expirationFile);
+  // Read persistence data.
   ReadCampaignFile(campaignFile);
+  Invalidate();
 
   std::vector<Request> campaignMwms;
   while (WaitForRequest(campaignMwms))
   {
-    try
+    for (auto const & mwm : campaignMwms)
     {
-      FilesContainerW campaignsContainer(campaignFile, FileWriter::OP_WRITE_EXISTING);
-      FilesContainerW expirationContainer(expirationFile, FileWriter::OP_WRITE_EXISTING);
-      for (auto const & mwm : campaignMwms)
+      if (!mwm.first.IsAlive())
+        continue;
+
+      std::string const countryName = mwm.first.GetInfo()->GetCountryName();
+      if (mwm.second == RequestType::Download)
       {
-        if (!mwm.first.IsAlive())
+        // Download campaign data from server.
+        CampaignInfo info;
+        info.m_data = DownloadCampaign(mwm.first);
+        if (info.m_data.empty())
           continue;
+        info.m_created = Now();
 
-        std::string const countryName = mwm.first.GetInfo()->GetCountryName();
-        if (mwm.second == RequestType::Download)
+        // Parse data and send symbols to rendering.
+        auto symbols = ParseCampaign(std::move(info.m_data), mwm.first, info.m_created);
+        if (symbols.empty())
         {
-          // Download campaign data from server.
-          std::vector<uint8_t> rawData = DownloadCampaign(mwm.first);
-          if (rawData.empty())
-            continue;
-
-          // Save data persistently.
-          campaignsContainer.Write(rawData, countryName);
-          auto ts = std::chrono::steady_clock::now();
-          expirationContainer.Write(SerializeTimestamp(ts), countryName);
-
-          // Update run-time data.
-          {
-            std::lock_guard<std::mutex> lock(m_mutex);
-            m_campaigns[countryName] = true;
-            m_expiration[countryName] = ts;
-          }
-
-          // Deserialize and send data to rendering.
-          auto symbols = DeserializeCampaign(std::move(rawData), ts);
-          if (symbols.empty())
-            DeleteSymbolsFromRendering(mwm.first);
-          else
-            SendSymbolsToRendering(std::move(symbols));
-        }
-        else if (mwm.second == RequestType::Delete)
-        {
-          campaignsContainer.DeleteSection(countryName);
-          expirationContainer.DeleteSection(countryName);
+          std::lock_guard<std::mutex> lock(m_mutex);
+          m_campaigns.erase(countryName);
+          m_info.erase(countryName);
           DeleteSymbolsFromRendering(mwm.first);
         }
+        else
+        {
+          SendSymbolsToRendering(std::move(symbols));
+        }
+
+        // Update run-time data.
+        {
+          std::lock_guard<std::mutex> lock(m_mutex);
+          m_campaigns[countryName] = true;
+          m_info[countryName] = info;
+        }
       }
-      campaignsContainer.Finish();
-      expirationContainer.Finish();
-    }
-    catch (RootException const & ex)
-    {
-      LOG(LWARNING, (ex.Msg()));
+      else if (mwm.second == RequestType::Delete)
+      {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_campaigns.erase(countryName);
+        m_info.erase(countryName);
+        DeleteSymbolsFromRendering(mwm.first);
+      }
     }
     campaignMwms.clear();
+
+    // Save data persistently.
+    WriteCampaignFile(campaignFile);
   }
 }
 
@@ -246,19 +229,17 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_campaigns.erase(countryName);
-  m_expiration.erase(countryName);
+  m_info.erase(countryName);
 }
 
 void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  m_campaigns.erase(countryName);
-  m_expiration.erase(countryName);
   m_requestedCampaigns.push_back(std::make_pair(m_getMwmIdByNameFn(countryName), RequestType::Delete));
   m_condition.notify_one();
 }
 
-string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const &mwmId) const
+string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const & mwmId) const
 {
   // TODO: build correct URL after server completion.
 
@@ -274,75 +255,64 @@ std::vector<uint8_t> LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwm
   return std::vector<uint8_t>(response.cbegin(), response.cend());
 }
 
-df::CustomSymbols LocalAdsManager::DeserializeCampaign(std::vector<uint8_t> && rawData,
-                                                  std::chrono::steady_clock::time_point timestamp)
+df::CustomSymbols LocalAdsManager::ParseCampaign(std::vector<uint8_t> const & rawData,
+                                                 MwmSet::MwmId const & mwmId,
+                                                 Timestamp timestamp)
 {
   df::CustomSymbols symbols;
-  // TODO: Deserialize campaign.
-  // TODO: Filter by timestamp.
 
-  // TEMP!
-  //auto mwmId = m_getMwmIdByNameFn("Russia_Moscow");
-  //symbols.insert(std::make_pair(FeatureID(mwmId, 371323), df::CustomSymbol("test-m", true)));
-  //symbols.insert(std::make_pair(FeatureID(mwmId, 371363), df::CustomSymbol("test-m", true)));
-  //symbols.insert(std::make_pair(FeatureID(mwmId, 373911), df::CustomSymbol("test-m", true)));
+  auto campaigns = local_ads::Deserialize(rawData);
+  for (local_ads::Campaign const & campaign : campaigns)
+  {
+    if (Now() > timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired))
+      continue;
+    symbols.insert(std::make_pair(FeatureID(mwmId, campaign.m_featureId),
+                                  df::CustomSymbol(campaign.GetIconName(), campaign.m_priorityBit)));
+  }
 
   return symbols;
-}
-
-void LocalAdsManager::ReadExpirationFile(std::string const & expirationFile)
-{
-  if (!GetPlatform().IsFileExistsByFullPath(expirationFile))
-  {
-    FilesContainerW f(expirationFile);
-    return;
-  }
-
-  try
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    FilesContainerR expirationContainer(expirationFile);
-    expirationContainer.ForEachTag([this, &expirationContainer](FilesContainerR::Tag const & tag)
-    {
-      m_expiration[tag] = DeserializeTimestamp(expirationContainer.GetReader(tag));
-    });
-  }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LWARNING, ("Error reading file:", expirationFile, ex.Msg()));
-  }
 }
 
 void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
 {
   if (!GetPlatform().IsFileExistsByFullPath(campaignFile))
-  {
-    FilesContainerW f(campaignFile);
     return;
-  }
 
+  std::lock_guard<std::mutex> lock(m_mutex);
   try
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    df::CustomSymbols allSymbols;
-    FilesContainerR campaignContainer(campaignFile);
-    campaignContainer.ForEachTag([this, &campaignContainer, &allSymbols](FilesContainerR::Tag const & tag)
+    FileReader reader(campaignFile, true /* withExceptions */);
+    ReaderSource<FileReader> src(reader);
+    while (src.Size() > 0)
     {
-      auto const & reader = campaignContainer.GetReader(tag);
-      std::vector<uint8_t> rawData(reader.Size());
-      reader.Read(0, rawData.data(), rawData.size());
-      m_campaigns[tag] = false;
-
-      ASSERT(m_expiration.find(tag) != m_expiration.end(), ());
-      auto ts = m_expiration[tag];
-      auto const symbols = DeserializeCampaign(std::move(rawData), ts);
-      allSymbols.insert(symbols.begin(), symbols.end());
-    });
-    SendSymbolsToRendering(std::move(allSymbols));
+      std::string countryName;
+      CampaignInfo info;
+      DeserializeCampaign(src, countryName, info.m_created, info.m_data);
+      m_info[countryName] = info;
+      m_campaigns[countryName] = false;
+    }
   }
   catch (Reader::Exception const & ex)
   {
     LOG(LWARNING, ("Error reading file:", campaignFile, ex.Msg()));
+    FileWriter::DeleteFileX(campaignFile);
+    m_info.clear();
+    m_campaigns.clear();
+  }
+}
+
+void LocalAdsManager::WriteCampaignFile(std::string const & campaignFile)
+{
+  try
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    FileWriter writer(campaignFile);
+    for (auto const & info : m_info)
+      SerializeCampaign(writer, info.first, info.second.m_created, info.second.m_data);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Error writing file:", campaignFile, ex.Msg()));
   }
 }
 
@@ -364,4 +334,22 @@ void LocalAdsManager::DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RemoveCustomSymbols(mwmId);
+}
+
+void LocalAdsManager::Invalidate()
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllCustomSymbols();
+
+  df::CustomSymbols symbols;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    for (auto const & info : m_info)
+    {
+      auto campaignSymbols = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
+                                           info.second.m_created);
+      symbols.insert(campaignSymbols.begin(), campaignSymbols.end());
+    }
+  }
+  SendSymbolsToRendering(std::move(symbols));
 }

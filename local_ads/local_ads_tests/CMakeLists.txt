@@ -3,6 +3,7 @@ project(local_ads_tests)
 set(
   SRC
   campaign_serialization_test.cpp
+  local_ads_helpers_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
@@ -12,6 +13,7 @@ omim_link_libraries(
   local_ads
   coding
   platform
+  platform_tests_support
   base
   stats_client
   ${LIBZ}

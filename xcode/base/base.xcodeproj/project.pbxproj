@@ -637,8 +637,6 @@
 		39FD271C1CC65A7100AFF551 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_TESTABILITY = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
@@ -652,7 +650,6 @@
 		39FD271D1CC65A7100AFF551 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",

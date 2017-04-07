@@ -8,10 +8,11 @@
 // because of caching and assumption that Size() is constant.
 class FileReader : public ModelReader
 {
-  typedef ModelReader base_type;
+  using BaseType = ModelReader;
 
 public:
   explicit FileReader(string const & fileName,
+                      bool withExceptions = false,
                       uint32_t logPageSize = 10,
                       uint32_t logPageCount = 4);
 
@@ -22,9 +23,11 @@ public:
   FileReader SubReader(uint64_t pos, uint64_t size) const;
   unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override;
 
-  inline uint64_t GetOffset() const { return m_Offset; }
+  inline uint64_t GetOffset() const { return m_offset; }
 
 protected:
+  void CheckPosAndSize(uint64_t pos, uint64_t size) const;
+
   /// Make assertion that pos + size in FileReader bounds.
   bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
   /// Used in special derived readers.
@@ -33,7 +36,8 @@ protected:
 private:
   FileReader(FileReader const & reader, uint64_t offset, uint64_t size);
 
-  shared_ptr<FileReaderData> m_pFileData;
-  uint64_t m_Offset;
-  uint64_t m_Size;
+  shared_ptr<FileReaderData> m_fileData;
+  uint64_t m_offset;
+  uint64_t m_size;
+  bool m_withExceptions;
 };

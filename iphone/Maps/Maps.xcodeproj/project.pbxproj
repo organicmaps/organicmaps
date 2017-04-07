@@ -491,6 +491,7 @@
 		4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
+		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
 		4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
@@ -1841,6 +1842,7 @@
 		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
 		4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_dark.bin; path = ../../data/drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
+		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; };
@@ -2336,6 +2338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
 				34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */,
@@ -2513,6 +2516,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45FFD65C1E965EBE00DB854E /* liblocal_ads.a */,
 				340474DB1E08199D00C92850 /* 3party */,
 				3462FD8A1DC1DF3A00906FD7 /* SDK */,
 				3446C6761DDCA9A200146687 /* libtraffic.a */,
@@ -6255,6 +6259,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = Simulator;
@@ -6353,6 +6358,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = Debug;
@@ -6454,6 +6460,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = AdHoc;
@@ -6555,6 +6562,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = "Production Full";
@@ -6656,6 +6664,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = Release;
@@ -6758,6 +6767,7 @@
 					"-lstb_image",
 					"-lsdf_image",
 					"-licu",
+					"-llocal_ads",
 				);
 			};
 			name = "Simulator Release";

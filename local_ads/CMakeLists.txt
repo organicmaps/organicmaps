@@ -5,6 +5,8 @@ set(
   campaign.hpp
   campaign_serialization.cpp
   campaign_serialization.hpp
+  local_ads_helpers.cpp
+  local_ads_helpers.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

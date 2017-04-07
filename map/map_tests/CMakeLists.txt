@@ -34,6 +34,7 @@ omim_link_libraries(
   drape
   indexer
   partners_api
+  local_ads
   platform
   editor
   geometry
