@@ -4,13 +4,15 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = local_ads platform_tests_support stats_client coding platform base
+DEPENDENCIES = local_ads platform_tests_support platform coding base stats_client
 
 include($$ROOT_DIR/common.pri)
 
 macx-* {
   LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 }
+
+QT *= core
 
 HEADERS += \
 
