@@ -73,6 +73,9 @@ DEFINE_bool(make_routing, false, "Make routing info based on osrm file.");
 DEFINE_bool(make_cross_section, false, "Make cross section in routing file for cross mwm routing (for OSRM routing).");
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false, "Make section for cross mwm routing (for dynamic indexed routing).");
+DEFINE_uint64(
+    cross_mwm_progress_peroid, 10,
+    "The smaller the period, the more often progress logs are printed. Set 0 to disable logs.");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
@@ -265,7 +268,8 @@ int main(int argc, char ** argv)
 
     if (FLAGS_make_cross_mwm)
     {
-      if (!routing::BuildCrossMwmSection(path, datFile, country, osmToFeatureFilename))
+      if (!routing::BuildCrossMwmSection(path, datFile, country, osmToFeatureFilename,
+                                         FLAGS_cross_mwm_progress_peroid))
         LOG(LCRITICAL, ("Error generating cross mwm section."));
     }
 
