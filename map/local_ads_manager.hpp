@@ -73,7 +73,7 @@ private:
   std::map<std::string, bool> m_campaigns;
   struct CampaignInfo
   {
-    Timestamp m_creationTimestamp;
+    Timestamp m_created;
     std::vector<uint8_t> m_data;
   };
   std::map<std::string, CampaignInfo> m_info;

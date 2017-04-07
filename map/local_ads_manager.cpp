@@ -131,7 +131,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
         auto const it = m_info.find(mwmName);
         bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
         if (!needUpdateByTimeout && it != m_info.end())
-          needUpdateByTimeout = Now() > (it->second.m_creationTimestamp + kWWanUpdateTimeout);
+          needUpdateByTimeout = Now() > (it->second.m_created + kWWanUpdateTimeout);
 
         if (needUpdateByTimeout || it == m_info.end())
           requestedCampaigns.push_back(mwmName);
@@ -172,11 +172,10 @@ void LocalAdsManager::ThreadRoutine()
         info.m_data = DownloadCampaign(mwm.first);
         if (info.m_data.empty())
           continue;
-        info.m_creationTimestamp = Now();
+        info.m_created = Now();
 
         // Parse data and send symbols to rendering.
-        auto symbols = ParseCampaign(std::move(info.m_data), mwm.first,
-                                     info.m_creationTimestamp);
+        auto symbols = ParseCampaign(std::move(info.m_data), mwm.first, info.m_created);
         if (symbols.empty())
         {
           std::lock_guard<std::mutex> lock(m_mutex);
@@ -288,7 +287,7 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
     {
       std::string countryName;
       CampaignInfo info;
-      DeserializeCampaign(src, countryName, info.m_creationTimestamp, info.m_data);
+      DeserializeCampaign(src, countryName, info.m_created, info.m_data);
       m_info[countryName] = info;
       m_campaigns[countryName] = false;
     }
@@ -309,7 +308,7 @@ void LocalAdsManager::WriteCampaignFile(std::string const & campaignFile)
     std::lock_guard<std::mutex> lock(m_mutex);
     FileWriter writer(campaignFile);
     for (auto const & info : m_info)
-      SerializeCampaign(writer, info.first, info.second.m_creationTimestamp, info.second.m_data);
+      SerializeCampaign(writer, info.first, info.second.m_created, info.second.m_data);
   }
   catch (RootException const & ex)
   {
@@ -348,7 +347,7 @@ void LocalAdsManager::Invalidate()
     for (auto const & info : m_info)
     {
       auto campaignSymbols = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
-                                           info.second.m_creationTimestamp);
+                                           info.second.m_created);
       symbols.insert(campaignSymbols.begin(), campaignSymbols.end());
     }
   }
