@@ -2,13 +2,13 @@
 
 #include "base/logging.hpp"
 
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <utility>
+#include <vector>
 
 
 namespace
 {
-  void TestLogMessage(my::LogLevel, my::SrcPoint const &, string const &)
+  void TestLogMessage(my::LogLevel, my::SrcPoint const &, std::string const &)
   {
   }
 

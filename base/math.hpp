@@ -1,9 +1,8 @@
 #pragma once
 #include "base/assert.hpp"
 
-#include "std/cmath.hpp"
-
 #include <algorithm>
+#include <climits>
 #include <cmath>
 #include <functional>
 #include <limits>

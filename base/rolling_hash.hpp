@@ -4,7 +4,7 @@
 #include "base/bits.hpp"
 #include "base/math.hpp"
 #ifdef DEBUG
-#include "std/queue.hpp"
+#include <queue>
 #endif
 
 
@@ -56,7 +56,7 @@ private:
   hash_type m_RemoveMultiplier;
   uint64_t m_WindowSize;
 #ifdef DEBUG
-  queue<value_type> m_Queue;
+  std::queue<value_type> m_Queue;
 #endif
 };
 

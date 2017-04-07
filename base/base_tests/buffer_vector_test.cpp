@@ -1,10 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/numeric.hpp"
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <numeric>
 
 namespace
 {
@@ -276,7 +277,7 @@ namespace
 
 struct CopyCtorChecker
 {
-  string m_s;
+  std::string m_s;
 
   CopyCtorChecker() = default;
   CopyCtorChecker(char const * s) : m_s(s) {}
@@ -354,10 +355,10 @@ UNIT_TEST(BufferVector_EraseIf)
 
 UNIT_TEST(BufferVector_OnlyMoveableItems)
 {
-  buffer_vector<unique_ptr<size_t>, 4> v;
+  buffer_vector<std::unique_ptr<size_t>, 4> v;
 
   for (size_t i = 0; i < 10; ++i)
-    v.emplace_back(make_unique<size_t>(i));
+    v.emplace_back(my::make_unique<size_t>(i));
 
   TEST_EQUAL(v.size(), 10, ());
   for (size_t i = 0; i < 10; ++i)

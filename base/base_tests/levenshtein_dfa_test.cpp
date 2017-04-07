@@ -3,7 +3,7 @@
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 using namespace strings;
 
@@ -16,7 +16,7 @@ enum class Status
   Intermediate
 };
 
-Status GetStatus(LevenshteinDFA const & dfa, string const & s)
+Status GetStatus(LevenshteinDFA const & dfa, std::string const & s)
 {
   auto it = dfa.Begin();
   DFAMove(it, s);
@@ -27,17 +27,17 @@ Status GetStatus(LevenshteinDFA const & dfa, string const & s)
   return Status::Intermediate;
 }
 
-bool Accepts(LevenshteinDFA const & dfa, string const & s)
+bool Accepts(LevenshteinDFA const & dfa, std::string const & s)
 {
   return GetStatus(dfa, s) == Status::Accepts;
 }
 
-bool Rejects(LevenshteinDFA const & dfa, string const & s)
+bool Rejects(LevenshteinDFA const & dfa, std::string const & s)
 {
   return GetStatus(dfa, s) == Status::Rejects;
 }
 
-bool Intermediate(LevenshteinDFA const & dfa, string const & s)
+bool Intermediate(LevenshteinDFA const & dfa, std::string const & s)
 {
   return GetStatus(dfa, s) == Status::Intermediate;
 }
