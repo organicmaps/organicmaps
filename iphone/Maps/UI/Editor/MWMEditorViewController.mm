@@ -1089,13 +1089,13 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   if ([ud boolForKey:kUDEditorPersonalInfoWarninWasShown])
     return NO;
 
-  [ud setBool:YES forKey:kUDEditorPersonalInfoWarninWasShown];
-  [ud synchronize];
-
   [self.alertController presentPersonalInfoWarningAlertWithBlock:^
   {
+    [ud setBool:YES forKey:kUDEditorPersonalInfoWarninWasShown];
+    [ud synchronize];
     [self onSave];
   }];
+  
   return YES;
 }
 
