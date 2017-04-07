@@ -276,7 +276,7 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
 }
 
 void FillWeights(string const & path, string const & mwmFile, string const & country,
-                 uint64_t crossMwmProgressPeroid, CrossMwmConnector & connector)
+                 bool disableCrossMwmProgress, CrossMwmConnector & connector)
 {
   my::Timer timer;
 
@@ -295,7 +295,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   size_t notFoundCount = 0;
   for (size_t i = 0; i < numEnters; ++i)
   {
-    if (crossMwmProgressPeroid != 0 && (i % crossMwmProgressPeroid == 0) && (i != 0))
+    if (!disableCrossMwmProgress && (i % 10 == 0) && (i != 0))
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
 
     Segment const & enter = connector.GetEnter(i);
@@ -378,7 +378,7 @@ bool BuildRoutingIndex(string const & filename, string const & country)
 }
 
 bool BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country,
-                          string const & osmToFeatureFile, uint64_t crossMwmProgressPeroid)
+                          string const & osmToFeatureFile, bool disableCrossMwmProgress)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
 
@@ -399,7 +399,7 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
                 connector.GetExits().size()));
   }
 
-  FillWeights(path, mwmFile, country, crossMwmProgressPeroid,
+  FillWeights(path, mwmFile, country, disableCrossMwmProgress,
               connectors[static_cast<size_t>(VehicleType::Car)]);
 
   serial::CodingParams const codingParams = LoadCodingParams(mwmFile);
