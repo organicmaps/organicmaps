@@ -14,7 +14,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -42,8 +41,6 @@ import java.lang.ref.WeakReference;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class Utils
 {
@@ -415,34 +412,8 @@ public class Utils
     }
   }
 
-  public static boolean checkPermissions(@NonNull Activity activity, @NonNull String[] permissions)
-  {
-    if (Build.VERSION.SDK_INT >= 23)
-    {
-      boolean isGranted = false;
-      for (String permission: permissions)
-      {
-        isGranted = activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
-        if (!isGranted)
-          break;
-      }
-      return isGranted;
-    }
-
-    //permission is automatically granted on sdk<23 upon installation
-    return true;
-  }
-
-  public static boolean isWriteExternalGranted(@NonNull Activity activity)
-  {
-    if (Build.VERSION.SDK_INT >= 23)
-      return activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-
-    return true;
-  }
-
-  public static void detachFragmentIfInitializing(@NonNull Context context,
-                                                  @NonNull Fragment fragment)
+  public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,
+                                                        @NonNull Fragment fragment)
   {
     if (context instanceof AppCompatActivity && !MwmApplication.get().isPlatformInitialized())
     {

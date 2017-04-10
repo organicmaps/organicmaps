@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
@@ -61,7 +62,8 @@ public class SettingsActivity extends BaseToolbarActivity
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)
-      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() isn't implemented or returns wrong resourceId.");
+      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() " +
+                                      "isn't implemented or returns wrong resourceId.");
 
     String name = fragmentClass.getName();
     final Fragment fragment = Fragment.instantiate(this, name, args);
@@ -71,10 +73,14 @@ public class SettingsActivity extends BaseToolbarActivity
                                .commitAllowingStateLoss();
     getSupportFragmentManager().executePendingTransactions();
 
-    if(title != null)
+    if (title != null)
     {
-      mLastTitle = getToolbar().getTitle().toString();
-      getToolbar().setTitle(title);
+      Toolbar toolbar = getToolbar();
+      if (toolbar != null && toolbar.getTitle() != null)
+      {
+        mLastTitle = toolbar.getTitle().toString();
+        toolbar.setTitle(title);
+      }
     }
   }
 

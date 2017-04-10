@@ -123,24 +123,19 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     LocationHelper.INSTANCE.start();
   }
 
+  @SuppressWarnings("MissingPermission")
+  // A permission is checked externally
   private void requestLocationUpdates()
   {
     if (!mGoogleApiClient.isConnected())
       return;
 
-    try
-    {
-      LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
-      LocationHelper.INSTANCE.startSensors();
-      Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-      if (last != null)
-        mListener.onLocationChanged(last);
-      }
-    catch (SecurityException e)
-    {
-      e.printStackTrace();
-      stop();
-    }
+
+    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, mListener);
+    LocationHelper.INSTANCE.startSensors();
+    Location last = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    if (last != null)
+      mListener.onLocationChanged(last);
   }
 
   @Override

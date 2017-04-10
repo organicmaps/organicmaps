@@ -18,6 +18,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -53,7 +54,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     if (!MwmApplication.get().isPlatformInitialized()
-        || !Utils.checkPermissions(this, SplashActivity.PERMISSIONS))
+        || !PermissionsUtils.isExternalStorageGranted())
     {
       super.onCreate(savedInstanceState);
       goToSplashScreen();
@@ -162,7 +163,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
-    if (!Utils.checkPermissions(this, SplashActivity.PERMISSIONS))
+    if (!PermissionsUtils.isExternalStorageGranted())
     {
       goToSplashScreen();
       return;

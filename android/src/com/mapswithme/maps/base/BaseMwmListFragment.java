@@ -2,13 +2,10 @@ package com.mapswithme.maps.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -22,7 +19,7 @@ public abstract class BaseMwmListFragment extends ListFragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfInitializing(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override

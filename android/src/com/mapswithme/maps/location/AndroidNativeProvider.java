@@ -9,8 +9,6 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,6 @@ class AndroidNativeProvider extends BaseLocationProvider
   private final static String TAG = AndroidNativeProvider.class.getSimpleName();
   private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
                                                       LocationManager.GPS_PROVIDER };
-  private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
 
   @NonNull
   private final LocationManager mLocationManager;
@@ -34,6 +31,8 @@ class AndroidNativeProvider extends BaseLocationProvider
     mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
 
+  @SuppressWarnings("MissingPermission")
+  // A permission is checked externally
   @Override
   protected void start()
   {
@@ -55,18 +54,8 @@ class AndroidNativeProvider extends BaseLocationProvider
       long interval = LocationHelper.INSTANCE.getInterval();
       LOGGER.d(TAG, "Request Android native provider '" + provider
                     + "' to get locations at this interval = " + interval + " ms");
+      mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
       mListeners.add(listener);
-      try
-      {
-        mLocationManager.requestLocationUpdates(provider, interval, 0, listener);
-      }
-      catch (SecurityException e)
-      {
-        LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
-                 e);
-        setActive(false);
-        return;
-      }
     }
 
     LocationHelper.INSTANCE.startSensors();
@@ -120,26 +109,20 @@ class AndroidNativeProvider extends BaseLocationProvider
                                       expirationMillis);
   }
 
+  @SuppressWarnings("MissingPermission")
+  // A permission is checked externally
   @Nullable
   private static Location findBestNotExpiredLocation(LocationManager manager, List<String> providers, long expirationMillis)
   {
     Location res = null;
-    try
+    for (final String pr : providers)
     {
-      for (final String pr : providers)
-      {
-        final Location last = manager.getLastKnownLocation(pr);
-        if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
-          continue;
+      final Location last = manager.getLastKnownLocation(pr);
+      if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
+        continue;
 
-        if (res == null || res.getAccuracy() > last.getAccuracy())
-          res = last;
-      }
-    }
-    catch (SecurityException e)
-    {
-      LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
-               e);
+      if (res == null || res.getAccuracy() > last.getAccuracy())
+        res = last;
     }
     return res;
   }

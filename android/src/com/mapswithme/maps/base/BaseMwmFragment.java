@@ -2,9 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.Utils;
 
 public class BaseMwmFragment extends Fragment
@@ -14,7 +12,7 @@ public class BaseMwmFragment extends Fragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfInitializing(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override

@@ -7,38 +7,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.editor.ViralFragment;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.PushwooshHelper;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.GET_ACCOUNTS;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener
 {
-  public static final String[] PERMISSIONS = new String[]
-      {
-          WRITE_EXTERNAL_STORAGE,
-          ACCESS_COARSE_LOCATION,
-          ACCESS_FINE_LOCATION,
-          GET_ACCOUNTS
-      };
   public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   private static final int REQUEST_PERMISSIONS = 1;
@@ -59,7 +44,9 @@ public class SplashActivity extends AppCompatActivity
     public void run()
     {
       init();
-//    Run delayed task because resumeDialogs() must be called after onPause()
+//    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
+//    since onPause() callback can be blocked because of UI thread is busy with framework
+//    initialization.
       UiThread.runLater(mFinalTask);
     }
   };
@@ -103,11 +90,11 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onResume();
     mCanceled = false;
-    mPermissionsGranted = Utils.checkPermissions(this, PERMISSIONS);
+    mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
     if (!mPermissionsGranted)
     {
 //    TODO requestPermissions after Permissions dialog
-      ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSIONS);
+      PermissionsUtils.requestPermissions(this, REQUEST_PERMISSIONS);
       return;
     }
 
@@ -180,16 +167,8 @@ public class SplashActivity extends AppCompatActivity
     if (grantResults.length == 0)
       return;
 
-    for (int i = 0; i < permissions.length; i++)
-    {
-      int result = grantResults[i];
-      String permission = permissions[i];
-      if (permission.equals(WRITE_EXTERNAL_STORAGE) && result == PERMISSION_GRANTED)
-      {
-        mPermissionsGranted = true;
-        break;
-      }
-    }
+    mPermissionsGranted = PermissionsUtils.computePermissionsResult(permissions, grantResults)
+                                          .isExternalStorageGranted();
 
     if (mPermissionsGranted)
     {

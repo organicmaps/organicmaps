@@ -7,7 +7,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.util.UiUtils;
@@ -45,7 +43,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfInitializing(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override
