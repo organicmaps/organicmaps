@@ -2,50 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(omim C CXX)
 
-# Options
-option(USE_ASAN "Enable Address Sanitizer" OFF)
-option(PYBINDINGS "Create makefiles for building python bindings" OFF)
-
-if (USE_ASAN)
-  message("Address Sanitizer is enabled")
-endif()
-
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-# Set environment variables
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-
-if ($ENV{QT_PATH})
-  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{QT_PATH})
-else()
-  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/opt/qt5")
-endif()
-
-if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
-
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  add_definitions(-DDEBUG)
-endif()
-
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-  add_definitions(-DRELEASE)
-endif()
-
-if (NOT SKIP_TESTS)
-  set(SKIP_TESTS FALSE)
-endif()
-
-if (NOT PYTHON_VERSION)
-  set(PYTHON_VERSION 2.7)
-endif()
-
-# End of setting environment variables
-
 # Set target platform:
-
 function(omim_set_platform_var PLATFORM_VAR pattern)
   set(${PLATFORM_VAR} FALSE PARENT_SCOPE)
 
@@ -83,8 +40,57 @@ if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
 else()
   set(PLATFORM_DESKTOP FALSE)
 endif()
-
 # End of setting the target platform
+
+# Options
+option(USE_ASAN "Enable Address Sanitizer" OFF)
+option(PYBINDINGS "Create makefiles for building python bindings" OFF)
+if (PLATFORM_LINUX)
+  option(USE_PPROF "Enable Google Profiler" OFF)
+endif()
+
+if (USE_ASAN)
+  message("Address Sanitizer is enabled")
+endif()
+
+if (USE_PPROF)
+  message("Google Profiler is enabled")
+  add_definitions(-DUSE_PPROF)
+endif()
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# Set environment variables
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+
+if ($ENV{QT_PATH})
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} $ENV{QT_PATH})
+else()
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/opt/qt5")
+endif()
+
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  add_definitions(-DDEBUG)
+endif()
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  add_definitions(-DRELEASE)
+endif()
+
+if (NOT SKIP_TESTS)
+  set(SKIP_TESTS FALSE)
+endif()
+
+if (NOT PYTHON_VERSION)
+  set(PYTHON_VERSION 2.7)
+endif()
+
+# End of setting environment variables
 
 # Find installed packages
 
@@ -151,6 +157,9 @@ function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
   if (USE_ASAN)
     target_link_libraries(${executable} "-fsanitize=address" "-fno-omit-frame-pointer")
+  endif()
+  if (USE_PPROF)
+    target_link_libraries(${executable} "-lprofiler")
   endif()
 endfunction()
 

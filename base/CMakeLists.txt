@@ -35,6 +35,8 @@ set(
   newtype.hpp
   normalize_unicode.cpp
   observer_list.hpp
+  pprof.cpp
+  pprof.hpp
   random.cpp
   random.hpp
   range_iterator.hpp

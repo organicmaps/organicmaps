@@ -34,6 +34,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/pprof.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
@@ -42,7 +43,6 @@
 #include "std/bind.hpp"
 #include "std/iterator.hpp"
 #include "std/sstream.hpp"
-#include "std/target_os.hpp"
 #include "std/transform_iterator.hpp"
 #include "std/unique_ptr.hpp"
 
@@ -50,10 +50,6 @@
 
 #if defined(DEBUG)
 #include "base/timer.hpp"
-#endif
-
-#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
-#include <gperftools/profiler.h>
 #endif
 
 using namespace strings;
@@ -393,10 +389,6 @@ void Geocoder::GoEverywhere()
                    LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
                  });
 #endif
-#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
-  ProfilerStart("/tmp/geocoder.prof");
-  MY_SCOPE_GUARD(stopProfiler, &ProfilerStop);
-#endif
 
   if (m_params.GetNumTokens() == 0)
     return;
@@ -425,10 +417,7 @@ void Geocoder::GoInViewport()
 
 void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
-#if defined(USE_GOOGLE_PROFILER) && defined(OMIM_OS_LINUX)
-  ProfilerStart("/tmp/geocoder.prof");
-  MY_SCOPE_GUARD(profilerStop, []() { ProfilerStop(); });
-#endif
+  // base::PProf pprof("/tmp/geocoder.prof");
 
   try
   {

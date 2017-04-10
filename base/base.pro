@@ -18,6 +18,7 @@ SOURCES += \
     logging.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
+    pprof.cpp \
     random.cpp \
     shared_buffer_manager.cpp \
     src_point.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     mutex.hpp \
     newtype.hpp \
     observer_list.hpp \
+    pprof.hpp \
     random.hpp \
     range_iterator.hpp \
     ref_counted.hpp \
