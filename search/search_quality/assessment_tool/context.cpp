@@ -99,6 +99,8 @@ void ContextList::Resize(size_t size)
 
   for (size_t i = size; i < oldSize; ++i)
     m_contexts[i].Clear();
+  if (size < m_contexts.size())
+    m_contexts.erase(m_contexts.begin() + size, m_contexts.end());
 
   m_hasChanges.resize(size);
   for (size_t i = oldSize; i < size; ++i)

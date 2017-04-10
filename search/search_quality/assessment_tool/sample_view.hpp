@@ -8,6 +8,7 @@
 
 class LanguagesList;
 class QLineEdit;
+class QPushButton;
 class ResultsView;
 
 class SampleView : public QWidget
@@ -29,9 +30,15 @@ public:
 
   ResultsView & GetResultsView() { return *m_results; }
 
+signals:
+  void OnShowViewportClicked();
+  void OnShowPositionClicked();
+
 private:
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;
+  QPushButton * m_showViewport = nullptr;
+  QPushButton * m_showPosition = nullptr;
   ResultsView * m_results = nullptr;
 
   Edits * m_edits = nullptr;

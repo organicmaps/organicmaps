@@ -32,6 +32,8 @@ public:
 
   void OnSampleSelected(int index) override;
   void OnResultSelected(int index) override;
+  void OnShowViewportClicked() override;
+  void OnShowPositionClicked() override;
   bool HasChanges() override;
 
 private:

@@ -17,6 +17,8 @@ public:
 
   virtual void OnSampleSelected(int index) = 0;
   virtual void OnResultSelected(int index) = 0;
+  virtual void OnShowViewportClicked() = 0;
+  virtual void OnShowPositionClicked() = 0;
   virtual bool HasChanges() = 0;
 
 protected:

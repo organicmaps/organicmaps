@@ -60,7 +60,7 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
 
 void MainView::ShowSample(size_t index, search::Sample const & sample, bool hasEdits)
 {
-  m_framework.ShowRect(sample.m_viewport, -1 /* maxScale */, false /* animation */);
+  MoveViewportToRect(sample.m_viewport);
 
   m_sampleView->SetContents(sample);
   m_sampleView->show();
@@ -75,7 +75,12 @@ void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter en
 
 void MainView::MoveViewportToResult(search::Result const & result)
 {
-  m_framework.ShowSearchResult(result);
+  m_framework.ShowSearchResult(result, false /* animation */);
+}
+
+void MainView::MoveViewportToRect(m2::RectD const & rect)
+{
+  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */);
 }
 
 void MainView::OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits)
@@ -222,8 +227,7 @@ void MainView::InitDocks()
 
   {
     auto * model = m_samplesView->selectionModel();
-    connect(model, SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)), this,
-            SLOT(OnSampleSelected(QItemSelection const &)));
+    connect(model, &QItemSelectionModel::selectionChanged, this, &MainView::OnSampleSelected);
   }
 
   m_samplesDock = CreateDock(*m_samplesView);
@@ -232,10 +236,14 @@ void MainView::InitDocks()
 
   m_sampleView = new SampleView(this /* parent */);
 
+  connect(m_sampleView, &SampleView::OnShowViewportClicked,
+          [this]() { m_model->OnShowViewportClicked(); });
+  connect(m_sampleView, &SampleView::OnShowPositionClicked,
+          [this]() { m_model->OnShowPositionClicked(); });
+
   {
     auto * model = m_sampleView->GetResultsView().selectionModel();
-    connect(model, SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)), this,
-            SLOT(OnResultSelected(QItemSelection const &)));
+    connect(model, &QItemSelectionModel::selectionChanged, this, &MainView::OnResultSelected);
   }
 
   m_sampleDock = CreateDock(*m_sampleView);

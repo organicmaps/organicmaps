@@ -4,6 +4,8 @@
 #include "search/search_quality/assessment_tool/context.hpp"
 #include "search/search_quality/assessment_tool/edits.hpp"
 
+#include "geometry/rect2d.hpp"
+
 #include <cstddef>
 #include <string>
 #include <vector>
@@ -23,6 +25,7 @@ public:
   virtual void ShowResults(search::Results::Iter begin, search::Results::Iter end) = 0;
 
   virtual void MoveViewportToResult(search::Result const & result) = 0;
+  virtual void MoveViewportToRect(m2::RectD const & rect) = 0;
 
   virtual void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) = 0;
   virtual void EnableSampleEditing(size_t index, Edits & edits) = 0;

@@ -32,6 +32,7 @@ public:
   void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
 
   void MoveViewportToResult(search::Result const & result) override;
+  void MoveViewportToRect(m2::RectD const & rect) override;
 
   void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) override;
   void EnableSampleEditing(size_t index, Edits & edits) override;
@@ -45,7 +46,7 @@ protected:
   // QMainWindow overrides:
   void closeEvent(QCloseEvent * event) override;
 
-private Q_SLOTS:
+private slots:
   void OnSampleSelected(QItemSelection const & current);
   void OnResultSelected(QItemSelection const & current);
 

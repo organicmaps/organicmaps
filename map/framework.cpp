@@ -1590,7 +1590,7 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchPar
   return true;
 }
 
-void Framework::ShowSearchResult(search::Result const & res)
+void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
   CancelAllSearches();
   StopLocationFollow();
@@ -1619,7 +1619,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   m2::PointD const center = info.GetMercator();
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, true));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, animation));
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);

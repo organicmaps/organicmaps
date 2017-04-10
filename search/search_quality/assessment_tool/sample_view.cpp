@@ -15,16 +15,28 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+
+namespace
+{
+template <typename Layout>
+Layout * BuildSubLayout(QLayout & mainLayout, QWidget & parent)
+{
+  auto * box = new QWidget(&parent);
+  auto * subLayout = BuildLayoutWithoutMargins<Layout>(box /* parent */);
+  box->setLayout(subLayout);
+  mainLayout.addWidget(box);
+  return subLayout;
+}
+}  // namespace
 
 SampleView::SampleView(QWidget * parent) : QWidget(parent)
 {
   auto * mainLayout = BuildLayoutWithoutMargins<QVBoxLayout>(this /* parent */);
 
   {
-    auto * box = new QWidget(this /* parent */);
-    auto * layout = BuildLayoutWithoutMargins<QHBoxLayout>(box /* parent */);
-    box->setLayout(layout);
+    auto * layout = BuildSubLayout<QHBoxLayout>(*mainLayout, *this /* parent */);
 
     m_query = new QLineEdit(this /* parent */);
     m_query->setToolTip(tr("Query text"));
@@ -41,21 +53,27 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
     // will be ready.
     m_langs->setEnabled(false);
     layout->addWidget(m_langs);
-
-    mainLayout->addWidget(box);
   }
 
   {
-    auto * box = new QWidget(this /* parent */);
-    auto * layout = BuildLayoutWithoutMargins<QVBoxLayout>(box /* parent */);
-    box->setLayout(layout);
+    auto * layout = BuildSubLayout<QHBoxLayout>(*mainLayout, *this /* parent */);
+
+    m_showViewport = new QPushButton(tr("Show viewport"), this /* parent */);
+    connect(m_showViewport, &QPushButton::clicked, [this]() { emit OnShowViewportClicked(); });
+    layout->addWidget(m_showViewport);
+
+    m_showPosition = new QPushButton(tr("Show position"), this /* parent */);
+    connect(m_showPosition, &QPushButton::clicked, [this]() { emit OnShowPositionClicked(); });
+    layout->addWidget(m_showPosition);
+  }
+
+  {
+    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */);
 
     layout->addWidget(new QLabel(tr("Found results")));
 
-    m_results = new ResultsView(*box /* parent */);
+    m_results = new ResultsView(*this /* parent */);
     layout->addWidget(m_results);
-
-    mainLayout->addWidget(box);
   }
 
   setLayout(mainLayout);
@@ -69,6 +87,8 @@ void SampleView::SetContents(search::Sample const & sample)
   m_query->home(false /* mark */);
 
   m_langs->Select(sample.m_locale);
+  m_showViewport->setEnabled(true);
+  m_showPosition->setEnabled(true);
 
   m_results->Clear();
 }
@@ -95,6 +115,8 @@ void SampleView::Clear()
 {
   m_query->setText(QString());
   m_langs->Select("default");
+  m_showViewport->setEnabled(false);
+  m_showPosition->setEnabled(false);
   m_results->Clear();
   m_edits = nullptr;
 }

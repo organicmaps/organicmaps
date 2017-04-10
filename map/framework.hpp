@@ -549,7 +549,7 @@ public:
 
   bool GetCurrentPosition(double & lat, double & lon) const;
 
-  void ShowSearchResult(search::Result const & res);
+  void ShowSearchResult(search::Result const & res, bool animation = true);
   size_t ShowSearchResults(search::Results const & results);
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }

@@ -184,6 +184,29 @@ void MainModel::OnResultSelected(int index)
   m_view->MoveViewportToResult(results.GetResult(index));
 }
 
+void MainModel::OnShowViewportClicked()
+{
+  CHECK(m_selectedSample != kInvalidIndex, ());
+  CHECK(m_selectedSample < m_contexts.Size(), ());
+
+  auto const & context = m_contexts[m_selectedSample];
+  m_view->MoveViewportToRect(context.m_sample.m_viewport);
+}
+
+void MainModel::OnShowPositionClicked()
+{
+  CHECK(m_selectedSample != kInvalidIndex, ());
+  CHECK(m_selectedSample < m_contexts.Size(), ());
+
+  static int constexpr kViewportAroundPositionSizeM = 100;
+
+  auto const & context = m_contexts[m_selectedSample];
+  auto const & position = context.m_sample.m_pos;
+  auto const rect =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(position, kViewportAroundPositionSizeM);
+  m_view->MoveViewportToRect(rect);
+}
+
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
 
 void MainModel::OnUpdate(size_t index, Edits::Update const & update)
