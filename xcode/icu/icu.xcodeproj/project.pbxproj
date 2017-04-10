@@ -2524,6 +2524,7 @@
 					"U_CHARSET_IS_UTF8=1",
 					"U_DISABLE_RENAMING=1",
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -2547,6 +2548,7 @@
 					"U_CHARSET_IS_UTF8=1",
 					"U_DISABLE_RENAMING=1",
 				);
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
