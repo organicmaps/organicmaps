@@ -91,14 +91,14 @@ OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
 OsmOAuth OsmOAuth::IZServerAuth() noexcept
 {
   constexpr char const * kIZTestServer = "http://test.osmz.ru";
-  constexpr char const * kIZConsumerKey = "QqwiALkYZ4Jd19lo1dtoPhcwGQUqMCMeVGIQ8Ahb";
-  constexpr char const * kIZConsumerSecret = "wi9HZKFoNYS06Yad5s4J0bfFo2hClMlH7pXaXWS3";
+  constexpr char const * kIZConsumerKey = "F0rURWssXDYxtm61279rHdyu3iSLYSP3LdF6DL3Y";
+  constexpr char const * kIZConsumerSecret = "IoR5TAedXxcybtd5tIBZqAK07rDRAuFMsQ4nhAP6";
   return OsmOAuth(kIZConsumerKey, kIZConsumerSecret, kIZTestServer, kIZTestServer);
 }
 // static
 OsmOAuth OsmOAuth::DevServerAuth() noexcept
 {
-  constexpr char const * kOsmDevServer = "http://master.apis.dev.openstreetmap.org";
+  constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
   constexpr char const * kOsmDevConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
   constexpr char const * kOsmDevConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
   return OsmOAuth(kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer);
