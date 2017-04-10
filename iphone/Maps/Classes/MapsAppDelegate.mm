@@ -461,9 +461,30 @@ using namespace osm_auth_ios;
   });
 }
 
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+#ifdef OMIM_PRODUCTION
+  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                        code:1
+                                    userInfo:@{
+                                      @"Description" : @"applicationDidReceiveMemoryWarning"
+                                    }];
+  [[Crashlytics sharedInstance] recordError:err];
+#endif
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   [self.mapViewController onTerminate];
+
+#ifdef OMIM_PRODUCTION
+  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                        code:2
+                                    userInfo:@{
+                                      @"Description" : @"applicationWillTerminate"
+                                    }];
+  [[Crashlytics sharedInstance] recordError:err];
+#endif
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
