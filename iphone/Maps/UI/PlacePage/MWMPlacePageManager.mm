@@ -102,7 +102,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)downloadSelectedArea
 {
-  auto const & countryId = self.data.countryId;
+  auto data = self.data;
+  if (!data)
+    return;
+  auto const & countryId = data.countryId;
   NodeAttrs nodeAttrs;
   GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
   switch (nodeAttrs.m_status)
@@ -121,11 +124,12 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 - (NSString *)distanceToObject
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
+  auto data = self.data;
+  if (!lastLocation || !data)
     return @"";
   string distance;
   CLLocationCoordinate2D const & coord = lastLocation.coordinate;
-  ms::LatLon const & target = self.data.latLon;
+  ms::LatLon const & target = data.latLon;
   measurement_utils::FormatDistance(
       ms::DistanceOnEarth(coord.latitude, coord.longitude, target.lat, target.lon), distance);
   return @(distance.c_str());
@@ -141,7 +145,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
   }
 
-  if (self.data.countryId != countryId)
+  auto data = self.data;
+  if (!data || data.countryId != countryId)
     return;
 
   NodeStatuses statuses;
@@ -158,7 +163,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 - (void)processCountry:(TCountryId const &)countryId
               progress:(MapFilesDownloader::TProgress const &)progress
 {
-  if (countryId == kInvalidCountryId || self.data.countryId != countryId)
+  auto data = self.data;
+  if (!data || countryId == kInvalidCountryId || data.countryId != countryId)
     return;
 
   [self.layout
@@ -218,8 +224,11 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)taxiTo
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatPlacePageTaxiClick
-        withParameters:@{kStatProvider : kStatUber, kStatTags : self.data.statisticsTags}];
+        withParameters:@{kStatProvider : kStatUber, kStatTags : data.statisticsTags}];
   auto router = [MWMRouter router];
   router.type = MWMRouterTypeTaxi;
   [router buildToPoint:self.target bestRouter:NO];
@@ -228,28 +237,33 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (MWMRoutePoint *)target
 {
+  auto data = self.data;
+  if (!data)
+    return zeroRoutePoint();
   NSString * name = nil;
-  auto d = self.data;
-  if (d.title.length > 0)
-    name = d.title;
-  else if (d.address.length > 0)
-    name = d.address;
-  else if (d.subtitle.length > 0)
-    name = d.subtitle;
-  else if (d.isBookmark)
-    name = d.externalTitle;
+  if (data.title.length > 0)
+    name = data.title;
+  else if (data.address.length > 0)
+    name = data.address;
+  else if (data.subtitle.length > 0)
+    name = data.subtitle;
+  else if (data.isBookmark)
+    name = data.externalTitle;
   else
     name = L(@"placepage_unknown_place");
 
-  m2::PointD const & org = self.data.mercator;
-  return self.data.isMyPosition ? routePoint(org) : routePoint(org, name);
+  m2::PointD const & org = data.mercator;
+  return data.isMyPosition ? routePoint(org) : routePoint(org, name);
 }
 
 - (void)share
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatShare)];
   MWMActivityViewController * shareVC = [MWMActivityViewController
-      shareControllerForPlacePageObject:static_cast<id<MWMPlacePageObject>>(self.data)];
+      shareControllerForPlacePageObject:static_cast<id<MWMPlacePageObject>>(data)];
   [shareVC presentInParentViewController:self.ownerViewController
                               anchorView:self.layout.shareAnchor];
 }
@@ -269,30 +283,47 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)addPlace
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatEditorAddClick
         withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
-  [[MWMMapViewControlsManager manager] addPlace:NO hasPoint:YES point:self.data.mercator];
+  [[MWMMapViewControlsManager manager] addPlace:NO hasPoint:YES point:data.mercator];
 }
 
 - (void)addBookmark
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatBookmarkCreated];
-  [self.data updateBookmarkStatus:YES];
+  [data updateBookmarkStatus:YES];
   [self.layout reloadBookmarkSection:YES];
 }
 
 - (void)removeBookmark
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
         withParameters:@{kStatValue : kStatRemove}];
-  [self.data updateBookmarkStatus:NO];
+  [data updateBookmarkStatus:NO];
   [self.layout reloadBookmarkSection:NO];
 }
 
-- (void)editBookmark { [self.ownerViewController openBookmarkEditorWithData:self.data]; }
+- (void)editBookmark
+{
+  auto data = self.data;
+  if (data)
+    [self.ownerViewController openBookmarkEditorWithData:data];
+}
+
 - (void)book:(BOOL)isDescription
 {
-  MWMPlacePageData * data = self.data;
+  auto data = self.data;
+  if (!data)
+    return;
   NSString * eventName = nil;
   if (data.isBooking)
   {
@@ -315,7 +346,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)searchBookingHotels
 {
-  MWMPlacePageData * data = self.data;
+  auto data = self.data;
+  if (!data)
+    return;
   logSponsoredEvent(data, kStatPlacePageHotelSearch);
   NSURL * url = data.bookingSearchURL;
   NSAssert(url, @"Search url can't be nil!");
@@ -324,8 +357,11 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)call
 {
-  NSAssert(self.data.phoneNumber, @"Phone number can't be nil!");
-  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:self.data.phoneNumber]
+  auto data = self.data;
+  if (!data)
+    return;
+  NSAssert(data.phoneNumber, @"Phone number can't be nil!");
+  NSString * phoneNumber = [[@"telprompt:" stringByAppendingString:data.phoneNumber]
       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   NSURL * url = [NSURL URLWithString:phoneNumber];
   [[UIApplication sharedApplication] openURL:url];
@@ -333,22 +369,31 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)apiBack
 {
+  auto data = self.data;
+  if (!data)
+    return;
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
-  NSURL * url = [NSURL URLWithString:self.data.apiURL];
+  NSURL * url = [NSURL URLWithString:data.apiURL];
   [[UIApplication sharedApplication] openURL:url];
   [self.ownerViewController.apiBar back];
 }
 
 - (void)showAllReviews
 {
-  logSponsoredEvent(self.data, kStatPlacePageHotelReviews);
-  [self.ownerViewController openUrl:self.data.URLToAllReviews];
+  auto data = self.data;
+  if (!data)
+    return;
+  logSponsoredEvent(data, kStatPlacePageHotelReviews);
+  [self.ownerViewController openUrl:data.URLToAllReviews];
 }
 
 - (void)showPhotoAtIndex:(NSInteger)index
            referenceView:(UIView *)referenceView
            referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler
 {
+  auto data = self.data;
+  if (!data)
+    return;
   logSponsoredEvent(self.data, kStatPlacePageHotelGallery);
   auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
   auto initialPhoto = galleryModel.items[index];
@@ -364,6 +409,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showGalery
 {
+  auto data = self.data;
+  if (!data)
+    return;
   logSponsoredEvent(self.data, kStatPlacePageHotelGallery);
   auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
   auto galleryVc = [MWMGalleryViewController instanceWithModel:galleryModel];
@@ -372,7 +420,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)showAllFacilities
 {
-  logSponsoredEvent(self.data, kStatPlacePageHotelFacilities);
+  auto data = self.data;
+  if (!data)
+    return;
+  logSponsoredEvent(data, kStatPlacePageHotelFacilities);
   [self.ownerViewController openHotelFacilities];
 }
 
@@ -423,8 +474,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.layout updateLeftBound];
 }
 
-- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller
-{
-}
+- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller {}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {}
 @end
