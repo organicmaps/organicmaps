@@ -656,8 +656,7 @@ void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
   for (auto const & kv : fullColoring)
   {
     ASSERT_NOT_EQUAL(kv.second, SpeedGroup::Unknown, ());
-    if (kv.second != SpeedGroup::G5)
-      coloring.insert(kv);
+    coloring.insert(kv);
   }
 
   {
