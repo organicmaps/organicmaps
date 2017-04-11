@@ -22,6 +22,7 @@ SOURCES += \
     internal/file_data.cpp \
     mmap_reader.cpp \
     multilang_utf8_string.cpp \
+    point_to_integer.cpp \
     reader.cpp \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     mmap_reader.hpp \
     multilang_utf8_string.hpp \
     parse_xml.hpp \
+    point_to_integer.hpp \
     polymorph_reader.hpp \
     read_write_utils.hpp \
     reader.hpp \

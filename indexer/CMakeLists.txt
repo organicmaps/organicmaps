@@ -101,8 +101,6 @@ set(
   old/interval_index_101.hpp
   osm_editor.cpp
   osm_editor.hpp
-  point_to_int64.cpp
-  point_to_int64.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   postcodes_matcher.hpp    # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp

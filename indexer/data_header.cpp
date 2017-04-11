@@ -1,13 +1,13 @@
 #include "indexer/data_header.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/write_to_sink.hpp"
+#include "coding/point_to_integer.hpp"
 #include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "defines.hpp"
 

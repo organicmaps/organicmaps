@@ -1,5 +1,6 @@
 #include "indexer/coding_params.hpp"
-#include "indexer/point_to_int64.hpp"
+
+#include "coding/point_to_integer.hpp"
 
 #include "geometry/pointu_to_uint64.hpp"
 

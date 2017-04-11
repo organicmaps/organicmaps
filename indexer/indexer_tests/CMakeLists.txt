@@ -22,7 +22,7 @@ set(
   mwm_set_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
-  point_to_int64_test.cpp
+  polyline_point_to_int64_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp
   scales_test.cpp

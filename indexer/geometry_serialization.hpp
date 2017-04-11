@@ -2,14 +2,14 @@
 
 #include "indexer/geometry_coding.hpp"
 #include "indexer/tesselator_decl.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "indexer/coding_params.hpp"
 
 #include "geometry/point2d.hpp"
 
+#include "coding/point_to_integer.hpp"
 #include "coding/reader.hpp"
-#include "coding/writer.hpp"
 #include "coding/varint.hpp"
+#include "coding/writer.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"

@@ -21,10 +21,10 @@
 #include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/point_to_int64.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/point_to_integer.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
