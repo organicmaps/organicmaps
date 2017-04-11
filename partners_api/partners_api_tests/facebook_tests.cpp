@@ -16,24 +16,24 @@ UNIT_TEST(Facebook_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(facebook.GetBannerId(holder, "Brazil"), "185237551520383_1384652351578891", ());
+    TEST_EQUAL(facebook.GetBannerId(holder, "Brazil"), facebook.GetBannerIdForOtherTypes(), ());
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST_EQUAL(facebook.GetBannerId(holder, "Cuba"), "185237551520383_1384652351578891", ());
+    TEST_EQUAL(facebook.GetBannerId(holder, "Cuba"), facebook.GetBannerIdForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Add(c.GetTypeByPath({"amenity", "restaurant"}));
-    TEST_EQUAL(facebook.GetBannerId(holder, "Any country"), "185237551520383_1384650164912443", ());
+    TEST_EQUAL(facebook.GetBannerId(holder, "Any country"), facebook.GetBannerIdForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"tourism", "information", "map"}));
-    TEST_EQUAL(facebook.GetBannerId(holder, "Russia"), "185237551520383_1384651734912286", ());
+    TEST_EQUAL(facebook.GetBannerId(holder, "Russia"), facebook.GetBannerIdForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"shop", "ticket"}));
-    TEST_EQUAL(facebook.GetBannerId(holder, "USA"), "185237551520383_1384650804912379", ());
+    TEST_EQUAL(facebook.GetBannerId(holder, "USA"), facebook.GetBannerIdForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;

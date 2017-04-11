@@ -86,7 +86,10 @@ Rb::Rb()
                {"amenity", "veterinary"}},
               kHealthPlacementId);
 
-  AppendEntry({{"amenity", "bank"}, {"amenity", "atm"}}, kFinancialPlacementId);
+  AppendEntry({{"amenity", "bank"},
+               {"amenity", "atm"},
+               {"amenity", "bureau_de_change"}},
+              kFinancialPlacementId);
 
   AppendEntry({{"amenity", "cinema"},
                {"amenity", "brothel"},

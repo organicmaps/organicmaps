@@ -47,6 +47,11 @@ UNIT_TEST(Rb_GetBanner)
   }
   {
     feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"amenity", "bureau_de_change"}));
+    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation"), "8", ());
+  }
+  {
+    feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "atm"}));
     TEST_EQUAL(rb.GetBannerId(holder, "Brazil"), "", ());
   }
