@@ -645,12 +645,6 @@ void RoutingSession::OnTrafficInfoClear()
 
 void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 {
-  ASSERT_EQUAL(kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGroup::G5)], 100, ());
-  ASSERT_EQUAL(kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGroup::Unknown)], 100, ());
-
-  // The code below is memory optimization. Edges with traffic SpeedGroup::G5 and
-  // SpeedGroup::Unknown constitute a large part of all edges but they are not used in routing now.
-  // So we don't need to keep the information in TrafficCache.
   TrafficInfo::Coloring const & fullColoring = info.GetColoring();
   TrafficInfo::Coloring coloring;
   for (auto const & kv : fullColoring)
