@@ -1,7 +1,8 @@
 #pragma once
 
 #include "indexer/coding_params.hpp"
-#include "indexer/point_to_int64.hpp"
+
+#include "coding/point_to_integer.hpp"
 
 namespace search
 {

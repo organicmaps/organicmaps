@@ -1,7 +1,7 @@
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 
-#include "indexer/point_to_int64.hpp"
+#include "coding/point_to_integer.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
 

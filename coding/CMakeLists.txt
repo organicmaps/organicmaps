@@ -53,6 +53,8 @@ set(
   multilang_utf8_string.cpp
   multilang_utf8_string.hpp
   parse_xml.hpp
+  point_to_integer.cpp
+  point_to_integer.hpp
   polymorph_reader.hpp
   read_write_utils.hpp
   reader.cpp

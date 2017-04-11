@@ -53,7 +53,6 @@ SOURCES += \
     new_feature_categories.cpp \  # it's in indexer because of CategoriesHolder dependency.
     old/feature_loader_101.cpp \
     osm_editor.cpp \
-    point_to_int64.cpp \
     postcodes_matcher.cpp \  # it's in indexer due to editor wich is in indexer and depends on postcodes_marcher
     rank_table.cpp \
     road_shields_parser.cpp \
@@ -116,7 +115,6 @@ HEADERS += \
     old/feature_loader_101.hpp \
     old/interval_index_101.hpp \
     osm_editor.hpp \
-    point_to_int64.hpp \
     postcodes_matcher.hpp \   # it's in indexer due to editor wich is in indexer and depends on postcodes_marcher
     rank_table.hpp \
     road_shields_parser.hpp \

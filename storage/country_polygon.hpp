@@ -2,9 +2,9 @@
 
 #include "storage/country_decl.hpp"
 
-#include "indexer/point_to_int64.hpp"
 #include "indexer/coding_params.hpp"
 
+#include "coding/point_to_integer.hpp"
 #include "coding/read_write_utils.hpp"
 
 

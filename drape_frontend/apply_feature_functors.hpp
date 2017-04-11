@@ -8,7 +8,8 @@
 #include "drape/pointers.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/point_to_int64.hpp"
+
+#include "coding/point_to_integer.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"

@@ -1,6 +1,6 @@
 #include "routing/cross_routing_context.hpp"
 
-#include "indexer/point_to_int64.hpp"
+#include "coding/point_to_integer.hpp"
 
 namespace
 {

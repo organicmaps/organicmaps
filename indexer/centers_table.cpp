@@ -2,11 +2,11 @@
 
 #include "indexer/feature_processor.hpp"
 #include "indexer/geometry_coding.hpp"
-#include "indexer/point_to_int64.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/file_container.hpp"
 #include "coding/memory_region.hpp"
+#include "coding/point_to_integer.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"

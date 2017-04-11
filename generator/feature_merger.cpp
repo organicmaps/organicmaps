@@ -2,9 +2,9 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "indexer/classificator.hpp"
 
+#include "coding/point_to_integer.hpp"
 
 MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb), m_isRound(false)

@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "indexer/geometry_coding.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "geometry/mercator.hpp"
 #include "indexer/coding_params.hpp"
 
@@ -12,6 +11,7 @@
 #include "geometry/simplification.hpp"
 
 #include "coding/byte_stream.hpp"
+#include "coding/point_to_integer.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 

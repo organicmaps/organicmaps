@@ -1,7 +1,8 @@
 #include "indexer/geometry_serialization.hpp"
 #include "geometry/mercator.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "indexer/geometry_coding.hpp"
+
+#include "coding/point_to_integer.hpp"
 
 #include "geometry/pointu_to_uint64.hpp"
 

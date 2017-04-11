@@ -1,5 +1,6 @@
 #pragma once
 
+#include "coding/point_to_integer.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
@@ -79,10 +80,6 @@ public:
   }
 
 private:
-  static uint32_t DoubleToUint32(double x, double min, double max);
-
-  static double Uint32ToDouble(uint32_t x, double min, double max);
-
   template <typename Writer, typename Collection>
   static size_t SerializeDataPointsV0(Writer & writer, Collection const & points)
   {
@@ -91,10 +88,10 @@ private:
     if (!points.empty())
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
-      uint32_t const firstLat =
-          DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
-      uint32_t const firstLon =
-          DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat,
+                                               ms::LatLon::kMaxLat, kCoordBits);
+      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon,
+                                               ms::LatLon::kMaxLon, kCoordBits);
       WriteVarUint(writer, firstTimestamp);
       WriteVarUint(writer, firstLat);
       WriteVarUint(writer, firstLon);
@@ -106,9 +103,9 @@ private:
 
       uint64_t const deltaTimestamp = points[i].m_timestamp - points[i - 1].m_timestamp;
       uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.lat - points[i - 1].m_latLon.lat,
-                                         kMinDeltaLat, kMaxDeltaLat);
+                                         kMinDeltaLat, kMaxDeltaLat, kCoordBits);
       uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.lon - points[i - 1].m_latLon.lon,
-                                         kMinDeltaLon, kMaxDeltaLon);
+                                         kMinDeltaLon, kMaxDeltaLon, kCoordBits);
 
       WriteVarUint(writer, deltaTimestamp);
       WriteVarUint(writer, deltaLat);
@@ -128,10 +125,10 @@ private:
     if (!points.empty())
     {
       uint64_t const firstTimestamp = points[0].m_timestamp;
-      uint32_t const firstLat =
-          DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
-      uint32_t const firstLon =
-          DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+      uint32_t const firstLat = DoubleToUint32(points[0].m_latLon.lat, ms::LatLon::kMinLat,
+                                               ms::LatLon::kMaxLat, kCoordBits);
+      uint32_t const firstLon = DoubleToUint32(points[0].m_latLon.lon, ms::LatLon::kMinLon,
+                                               ms::LatLon::kMaxLon, kCoordBits);
       uint32_t const traffic = points[0].m_traffic;
       WriteVarUint(writer, firstTimestamp);
       WriteVarUint(writer, firstLat);
@@ -145,9 +142,9 @@ private:
 
       uint64_t const deltaTimestamp = points[i].m_timestamp - points[i - 1].m_timestamp;
       uint32_t deltaLat = DoubleToUint32(points[i].m_latLon.lat - points[i - 1].m_latLon.lat,
-                                         kMinDeltaLat, kMaxDeltaLat);
+                                         kMinDeltaLat, kMaxDeltaLat, kCoordBits);
       uint32_t deltaLon = DoubleToUint32(points[i].m_latLon.lon - points[i - 1].m_latLon.lon,
-                                         kMinDeltaLon, kMaxDeltaLon);
+                                         kMinDeltaLon, kMaxDeltaLon, kCoordBits);
 
       uint32_t const traffic = points[i - 1].m_traffic;
       WriteVarUint(writer, deltaTimestamp);
@@ -175,18 +172,20 @@ private:
       if (first)
       {
         lastTimestamp = ReadVarUint<uint64_t>(src);
-        lastLat =
-            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
-        lastLon =
-            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+        lastLat = Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat,
+                                 ms::LatLon::kMaxLat, kCoordBits);
+        lastLon = Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon,
+                                 ms::LatLon::kMaxLon, kCoordBits);
         result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
         first = false;
       }
       else
       {
         lastTimestamp += ReadVarUint<uint64_t>(src);
-        lastLat += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat);
-        lastLon += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon);
+        lastLat +=
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat, kCoordBits);
+        lastLon +=
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon, kCoordBits);
         result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
       }
     }
@@ -206,10 +205,10 @@ private:
       if (first)
       {
         lastTimestamp = ReadVarUint<uint64_t>(src);
-        lastLat =
-            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat);
-        lastLon =
-            Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon);
+        lastLat = Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLat,
+                                 ms::LatLon::kMaxLat, kCoordBits);
+        lastLon = Uint32ToDouble(ReadVarUint<uint32_t>(src), ms::LatLon::kMinLon,
+                                 ms::LatLon::kMaxLon, kCoordBits);
         traffic = base::asserted_cast<uint8_t>(ReadVarUint<uint32_t>(src));
         result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
         first = false;
@@ -217,8 +216,10 @@ private:
       else
       {
         lastTimestamp += ReadVarUint<uint64_t>(src);
-        lastLat += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat);
-        lastLon += Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon);
+        lastLat +=
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLat, kMaxDeltaLat, kCoordBits);
+        lastLon +=
+            Uint32ToDouble(ReadVarUint<uint32_t>(src), kMinDeltaLon, kMaxDeltaLon, kCoordBits);
         traffic = base::asserted_cast<uint8_t>(ReadVarUint<uint32_t>(src));
         result.emplace_back(lastTimestamp, ms::LatLon(lastLat, lastLon), traffic);
       }
