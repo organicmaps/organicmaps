@@ -52,9 +52,7 @@ struct HotelFacility;
 - (void)show:(place_page::Info const &)info;
 - (void)close;
 - (void)mwm_refreshUI;
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 
 @end

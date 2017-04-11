@@ -1497,6 +1497,26 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return info.m_name;
 }
 
+Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
+{
+  if (platform::migrate::NeedMigrate())
+    return DoAfterUpdate::Migrate;
+
+  if (Platform::ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
+    return DoAfterUpdate::Nothing;
+
+  auto const & s = GetStorage();
+  auto const & rootId = s.GetRootId();
+  if (!IsEnoughSpaceForUpdate(rootId, s))
+    return DoAfterUpdate::Nothing;
+
+  TMwmSize constexpr maxSize = 100 * 1024 * 1024;
+  TMwmSize const countrySizeInBytes = s.CountrySizeInBytes(rootId, MapOptions::Map).first;
+
+  return countrySizeInBytes > maxSize ? DoAfterUpdate::AskForUpdateMaps
+                                      : DoAfterUpdate::AutoupdateMaps;
+}
+
 bool Framework::Search(search::SearchParams const & params)
 {
   if (ParseDrapeDebugCommand(params.m_query))
