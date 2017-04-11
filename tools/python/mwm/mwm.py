@@ -92,7 +92,7 @@ class MWM:
         result = {}
         coord_bits = self.read_varuint()
         self.coord_size = (1 << coord_bits) - 1
-        self.base_point = self.mwm_bitwise_split(self.read_varuint())
+        self.base_point = mwm_bitwise_split(self.read_varuint())
         result['basePoint'] = self.to_4326(self.base_point)
         result['bounds'] = self.read_bounds()
         result['scales'] = self.read_uint_array()
@@ -333,31 +333,13 @@ class MWM:
     def read_varint(self):
         return read_varint(self.f)
 
-    def mwm_unshuffle(self, x):
-        x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
-        x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3)
-        x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F)
-        x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF)
-        return x
-
-    def mwm_bitwise_split(self, v):
-        hi = self.mwm_unshuffle(v >> 32)
-        lo = self.mwm_unshuffle(v & 0xFFFFFFFF)
-        x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF)
-        y =     (hi & 0xFFFF0000) | (lo >> 16)
-        return (x, y)
-
-    def mwm_decode_delta(self, v, ref):
-        x, y = self.mwm_bitwise_split(v)
-        return ref[0] + zigzag_decode(x), ref[1] + zigzag_decode(y)
-
     def read_point(self, ref, packed=True):
         """Reads an unsigned point, returns (x, y)."""
         if packed:
             u = self.read_varuint()
         else:
             u = self.read_uint(8)
-        return self.mwm_decode_delta(u, ref)
+        return mwm_decode_delta(u, ref)
 
     def to_4326(self, point):
         """Convert a point in maps.me-mercator CS to WGS-84 (EPSG:4326)."""
@@ -376,8 +358,8 @@ class MWM:
 
     def read_bounds(self):
         """Reads mercator bounds, returns (min_lon, min_lat, max_lon, max_lat)."""
-        rmin = self.mwm_bitwise_split(self.read_varint())
-        rmax = self.mwm_bitwise_split(self.read_varint())
+        rmin = mwm_bitwise_split(self.read_varint())
+        rmax = mwm_bitwise_split(self.read_varint())
         pmin = self.to_4326(rmin)
         pmax = self.to_4326(rmax)
         return (pmin[0], pmin[1], pmax[0], pmax[1])
@@ -443,6 +425,27 @@ class MWM:
         return langs
 
 
+def mwm_unshuffle(x):
+    x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
+    x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3)
+    x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F)
+    x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF)
+    return x
+
+
+def mwm_bitwise_split(v):
+    hi = mwm_unshuffle(v >> 32)
+    lo = mwm_unshuffle(v & 0xFFFFFFFF)
+    x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF)
+    y =     (hi & 0xFFFF0000) | (lo >> 16)
+    return (x, y)
+
+
+def mwm_decode_delta(v, ref):
+    x, y = mwm_bitwise_split(v)
+    return ref[0] + zigzag_decode(x), ref[1] + zigzag_decode(y)
+
+
 def read_uint(f, bytelen=1):
     if bytelen == 1:
         fmt = 'B'
@@ -500,15 +503,19 @@ def unpack_osmid(num):
         typ = 'r'
     else:
         return None
-    return (typ, num & RESET)
+    return typ, num & RESET
 
 
-def read_osm2ft(f, ft2osm=False):
-    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm way id."""
+# TODO(zverik, mgsergio): Move this to a separate module, cause it has nothing
+# to do with mwm.
+def read_osm2ft(f, ft2osm=False, tuples=True):
+    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm id."""
     count = read_varuint(f)
     result = {}
     for i in range(count):
-        osmid = unpack_osmid(read_uint(f, 8))
+        osmid = read_uint(f, 8)
+        if tuples:
+            osmid = unpack_osmid(osmid)
         fid = read_uint(f, 4)
         read_uint(f, 4)  # filler
         if osmid is not None:
