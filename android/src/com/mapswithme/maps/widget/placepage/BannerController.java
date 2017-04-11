@@ -143,7 +143,7 @@ final class BannerController
     if (mBanners != null && !mBanners.equals(banners))
     {
       onChangedVisibility(false);
-      mCurrentAd = null;
+      unregisterCurrentAd();
     }
 
     UiUtils.hide(mFrame);
@@ -160,6 +160,16 @@ final class BannerController
 
     mAdsLoader.loadAd(mFrame.getContext(), mBanners);
     updateVisibility();
+  }
+
+  private void unregisterCurrentAd()
+  {
+    if (mCurrentAd != null)
+    {
+      LOGGER.d(TAG, "Unregister view for the ad: " + mCurrentAd.getTitle());
+      mCurrentAd.unregisterView();
+      mCurrentAd = null;
+    }
   }
 
   boolean isBannerVisible()
@@ -301,6 +311,8 @@ final class BannerController
       LOGGER.d(TAG, "onAdLoaded, title = " + ad.getTitle() + " provider = " + ad.getProvider());
       if (mBanners == null)
         return;
+
+      unregisterCurrentAd();
 
       mCurrentAd = ad;
 

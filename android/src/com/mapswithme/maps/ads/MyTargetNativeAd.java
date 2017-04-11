@@ -65,6 +65,12 @@ class MyTargetNativeAd extends CachedMwmNativeAd
   }
 
   @Override
+  public void unregisterView()
+  {
+    mAd.unregisterView();
+  }
+
+  @Override
   void registerViewForInteraction(@NonNull View view)
   {
     mAd.registerView(view);
