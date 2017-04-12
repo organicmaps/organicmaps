@@ -12,4 +12,10 @@ typedef NS_ENUM(NSUInteger, MWMRouterType) {
   MWMRouterTypeTaxi
 };
 
-typedef NS_ENUM(NSUInteger, MWMTheme) { MWMThemeDay, MWMThemeNight, MWMThemeAuto };
+typedef NS_ENUM(NSUInteger, MWMTheme) {
+  MWMThemeDay,
+  MWMThemeNight,
+  MWMThemeVehicleDay,
+  MWMThemeVehicleNight,
+  MWMThemeAuto
+};

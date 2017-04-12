@@ -10,19 +10,28 @@ final class ThemeManager: NSObject {
 
   private func update(theme: MWMTheme) {
     let actualTheme: MWMTheme = { theme in
-      guard theme == .auto else { return theme }
-      guard MWMRouter.isRoutingActive() else { return .day }
-      switch MWMFrameworkHelper.daytime() {
-      case .day: return .day
-      case .night: return .night
+      let isRoutingActive = MWMRouter.isRoutingActive()
+      switch theme {
+      case .day: fallthrough
+      case .vehicleDay: return isRoutingActive ? .vehicleDay : .day
+      case .night: fallthrough
+      case .vehicleNight: return isRoutingActive ? .vehicleNight : .night
+      case .auto:
+        guard isRoutingActive else { return .day }
+        switch MWMFrameworkHelper.daytime() {
+        case .day: return .vehicleDay
+        case .night: return .vehicleNight
+        }
       }
     }(theme)
 
     let nightMode = UIColor.isNightMode()
     let newNightMode: Bool = { theme in
       switch theme {
-      case .day: return false
-      case .night: return true
+      case .day: fallthrough
+      case .vehicleDay: return false
+      case .night: fallthrough
+      case .vehicleNight: return true
       case .auto: assert(false); return false
       }
     }(actualTheme)

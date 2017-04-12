@@ -144,7 +144,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   NSString * nightMode = nil;
   switch ([MWMSettings theme])
   {
+  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
   case MWMThemeDay: nightMode = L(@"pref_map_style_default"); break;
+  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
   case MWMThemeNight: nightMode = L(@"pref_map_style_night"); break;
   case MWMThemeAuto: nightMode = L(@"pref_map_style_auto"); break;
   }

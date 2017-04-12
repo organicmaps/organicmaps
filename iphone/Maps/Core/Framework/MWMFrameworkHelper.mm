@@ -38,7 +38,9 @@
     switch (theme)
     {
     case MWMThemeDay: return MapStyleClear;
+    case MWMThemeVehicleDay: return MapStyleVehicleClear;
     case MWMThemeNight: return MapStyleDark;
+    case MWMThemeVehicleNight: return MapStyleVehicleDark;
     case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleClear;
     }
   }(theme);
@@ -51,10 +53,7 @@
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
-  {
-    NSAssert(false, @"Last location is not available");
     return MWMDayTimeDay;
-  }
   auto const coord = lastLocation.coordinate;
   auto const timeUtc = static_cast<time_t>(NSDate.date.timeIntervalSince1970);
   auto const dayTime = GetDayTime(timeUtc, coord.latitude, coord.longitude);
