@@ -476,7 +476,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)update
 {
-  [self.placePageView.tableView refresh];
+  if (self.data)
+    [self.placePageView.tableView refresh];
 }
 
 #pragma mark - MWMPlacePageViewUpdateProtocol
@@ -491,6 +492,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 - (void)updatePlacePageHeight
 {
   [self.layoutImpl onUpdatePlacePageWithHeight:self.placePageView.tableView.contentSize.height];
+}
+
+#pragma mark - Properties
+
+- (void)setData:(MWMPlacePageData *)data
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  _data = data;
 }
 
 @end
