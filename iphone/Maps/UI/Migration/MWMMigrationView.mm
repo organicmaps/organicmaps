@@ -85,19 +85,6 @@
   self.spinner.progress = progress;
 }
 
-#pragma mark - iOS 7 support methods
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
-{
-  UIView * superview = self.superview ?: UIApplication.sharedApplication.keyWindow;
-  BOOL const isLandscape = UIInterfaceOrientationIsLandscape(orientation);
-  CGFloat const minDim = MIN(superview.width, superview.height);
-  CGFloat const maxDim = MAX(superview.width, superview.height);
-  CGFloat const height = isLandscape ? minDim : maxDim;
-  CGFloat const width = isLandscape ? maxDim : minDim;
-  self.bounds = {{}, {width, height}};
-}
-
 #pragma mark - Properties
 
 - (void)setState:(MWMMigrationViewState)state

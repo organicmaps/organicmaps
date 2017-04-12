@@ -473,8 +473,4 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   _leftBound = leftBound;
   [self.layout updateLeftBound];
 }
-
-- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller {}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {}
 @end
