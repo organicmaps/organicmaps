@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = local_ads platform_tests_support platform coding base stats_client
+DEPENDENCIES = local_ads platform_tests_support platform coding geometry base stats_client
 
 include($$ROOT_DIR/common.pri)
 
@@ -19,4 +19,5 @@ HEADERS += \
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
     campaign_serialization_test.cpp \
-    local_ads_helpers_tests.cpp \
+    file_helpers_tests.cpp \
+    statistics_tests.cpp \

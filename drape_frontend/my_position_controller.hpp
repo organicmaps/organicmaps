@@ -76,6 +76,7 @@ public:
 
   m2::PointD const & Position() const;
   double GetErrorRadius() const;
+  double GetHorizontalAccuracy() const;
 
   bool IsModeHasPosition() const;
 
@@ -167,6 +168,7 @@ private:
   ref_ptr<Listener> m_listener;
 
   double m_errorRadius;  // error radius in mercator
+  double m_horizontalAccuracy;
   m2::PointD m_position; // position in mercator
   double m_drawDirection;
   m2::PointD m_oldPosition; // position in mercator

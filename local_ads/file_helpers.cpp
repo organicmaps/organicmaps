@@ -1,4 +1,4 @@
-#include "local_ads/local_ads_helpers.hpp"
+#include "local_ads/file_helpers.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
@@ -14,10 +14,10 @@ void WriteCountryName(FileWriter & writer, std::string const & countryName)
   utils::WriteString(writer, countryName);
 }
 
-void WriteDuration(FileWriter & writer, int64_t duration)
+void WriteZigZag(FileWriter & writer, int64_t duration)
 {
-  uint64_t const encodedDuration = bits::ZigZagEncode(duration);
-  WriteToSink(writer, encodedDuration);
+  uint64_t const encoded = bits::ZigZagEncode(duration);
+  WriteToSink(writer, encoded);
 }
 
 void WriteRawData(FileWriter & writer, std::vector<uint8_t> const & rawData)
@@ -34,10 +34,10 @@ std::string ReadCountryName(ReaderSource<FileReader> & src)
   return countryName;
 }
 
-int64_t ReadDuration(ReaderSource<FileReader> & src)
+int64_t ReadZigZag(ReaderSource<FileReader> & src)
 {
-  uint64_t const duration = ReadPrimitiveFromSource<uint64_t>(src);
-  return bits::ZigZagDecode(duration);
+  uint64_t const value = ReadPrimitiveFromSource<uint64_t>(src);
+  return bits::ZigZagDecode(value);
 }
 
 std::vector<uint8_t> ReadRawData(ReaderSource<FileReader> & src)

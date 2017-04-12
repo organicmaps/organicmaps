@@ -1,5 +1,7 @@
 #pragma once
 
+#include "local_ads/event.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
@@ -11,26 +13,26 @@ namespace local_ads
 {
 void WriteCountryName(FileWriter & writer, std::string const & countryName);
 
-void WriteDuration(FileWriter & writer, int64_t duration);
+void WriteZigZag(FileWriter & writer, int64_t duration);
 
 template <typename Duration>
-void WriteTimestamp(FileWriter & writer, std::chrono::steady_clock::time_point ts)
+void WriteTimestamp(FileWriter & writer, Timestamp ts)
 {
   int64_t const d = std::chrono::duration_cast<Duration>(ts.time_since_epoch()).count();
-  WriteDuration(writer, d);
+  WriteZigZag(writer, d);
 }
 
 void WriteRawData(FileWriter & writer, std::vector<uint8_t> const & rawData);
 
 std::string ReadCountryName(ReaderSource<FileReader> & src);
 
-int64_t ReadDuration(ReaderSource<FileReader> & src);
+int64_t ReadZigZag(ReaderSource<FileReader> & src);
 
 template <typename Duration>
-std::chrono::steady_clock::time_point ReadTimestamp(ReaderSource<FileReader> & src)
+Timestamp ReadTimestamp(ReaderSource<FileReader> & src)
 {
-  int64_t const d = ReadDuration(src);
-  return std::chrono::steady_clock::time_point(Duration(d));
+  int64_t const d = ReadZigZag(src);
+  return Timestamp(Duration(d));
 }
 
 std::vector<uint8_t> ReadRawData(ReaderSource<FileReader> & src);

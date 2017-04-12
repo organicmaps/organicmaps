@@ -17,6 +17,7 @@ data/*.mwm.routing
 data/*.mwmmeta
 data/[!W]*.mwm
 data/local_ads*.dat
+data/local_ads_*/*.*
 
 # Compiled Python
 *.pyc

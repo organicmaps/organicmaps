@@ -132,6 +132,7 @@ MyPositionController::MyPositionController(Params && params)
   , m_needBlockAnimation(false)
   , m_wasRotationInScaling(false)
   , m_errorRadius(0.0)
+  , m_horizontalAccuracy(0.0)
   , m_position(m2::PointD::Zero())
   , m_drawDirection(0.0)
   , m_oldPosition(m2::PointD::Zero())
@@ -207,6 +208,11 @@ m2::PointD const & MyPositionController::Position() const
 double MyPositionController::GetErrorRadius() const
 {
   return m_errorRadius;
+}
+
+double MyPositionController::GetHorizontalAccuracy() const
+{
+  return m_horizontalAccuracy;
 }
 
 bool MyPositionController::IsModeChangeViewport() const
@@ -376,6 +382,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   // there is significant difference between the real location and the estimated one.
   m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
+  m_horizontalAccuracy = info.m_horizontalAccuracy;
 
   if (info.m_speed > 0.0)
   {
