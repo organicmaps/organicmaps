@@ -751,6 +751,19 @@ Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env
   return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountries(JNIEnv * env, jclass)
+{
+  vector<Country const *> countries;
+  vector<string> ids;
+  class Storage const & storage = g_framework->GetStorage();
+  storage.GetOutdatedCountries(countries);
+  for (auto country: countries)
+    ids.push_back(country->Name());
+
+  return jni::ToJavaStringArray(env, ids);
+}
+
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass)
 {

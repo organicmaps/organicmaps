@@ -46,6 +46,7 @@ import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
+import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.AuthDialogFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
@@ -1031,9 +1032,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!NewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
+        {
           new ViralFragment().show(getSupportFragmentManager(), "");
+        }
         else
+        {
+          if (UpdaterDialogFragment.showOn(this))
+            return;
+
           LikesManager.INSTANCE.showDialogs(this);
+        }
       }
     }
 

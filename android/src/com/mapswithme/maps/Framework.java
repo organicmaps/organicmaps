@@ -139,6 +139,9 @@ public class Framework
   @UiThread
   public static native String nativeGetOutdatedCountriesString();
 
+  @UiThread
+  public static native String[] nativeGetOutdatedCountries();
+
   public static native boolean nativeIsDataVersionChanged();
 
   public static native void nativeUpdateSavedDataVersion();
