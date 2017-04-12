@@ -4,6 +4,7 @@
 #include "search/search_quality/assessment_tool/context.hpp"
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/assessment_tool/model.hpp"
+#include "search/search_quality/assessment_tool/view.hpp"
 #include "search/search_quality/sample.hpp"
 
 #include "base/thread_checker.hpp"
@@ -32,6 +33,7 @@ public:
 
   void OnSampleSelected(int index) override;
   void OnResultSelected(int index) override;
+  void OnNonFoundResultSelected(int index) override;
   void OnShowViewportClicked() override;
   void OnShowPositionClicked() override;
   bool HasChanges() override;
@@ -39,9 +41,9 @@ public:
 private:
   static int constexpr kInvalidIndex = -1;
 
-  void OnUpdate(size_t index, Edits::Update const & update);
+  void OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update);
 
-  void OnResults(uint64_t timestamp, size_t index, search::Results const & results,
+  void OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
                  std::vector<search::Sample::Result::Relevance> const & relevances,
                  std::vector<size_t> const & goldenMatching,
                  std::vector<size_t> const & actualMatching);

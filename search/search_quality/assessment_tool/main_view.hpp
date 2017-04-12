@@ -28,14 +28,18 @@ public:
 
   // View overrides:
   void SetSamples(ContextList::SamplesSlice const & samples) override;
-  void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) override;
-  void ShowResults(search::Results::Iter begin, search::Results::Iter end) override;
+  void ShowSample(size_t sampleIndex, search::Sample const & sample, bool hasEdits) override;
+  void ShowFoundResults(search::Results::Iter begin, search::Results::Iter end) override;
+  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) override;
 
   void MoveViewportToResult(search::Result const & result) override;
+  void MoveViewportToResult(search::Sample::Result const & result) override;
   void MoveViewportToRect(m2::RectD const & rect) override;
 
-  void OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits) override;
-  void EnableSampleEditing(size_t index, Edits & edits) override;
+  void OnResultChanged(size_t sampleIndex, ResultType type, Edits::Update const & update) override;
+  void EnableSampleEditing(size_t sampleIndex, Edits & foundResultsEdits,
+                           Edits & nonFoundResultsEdits) override;
+  void OnSampleChanged(size_t sampleIndex, bool hasEdits) override;
   void OnSamplesChanged(bool hasEdits) override;
 
   void ShowError(std::string const & msg) override;
@@ -49,6 +53,7 @@ protected:
 private slots:
   void OnSampleSelected(QItemSelection const & current);
   void OnResultSelected(QItemSelection const & current);
+  void OnNonFoundResultSelected(QItemSelection const & current);
 
 private:
   enum class SaveResult
