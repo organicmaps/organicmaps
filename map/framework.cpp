@@ -1510,11 +1510,13 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (!IsEnoughSpaceForUpdate(rootId, s))
     return DoAfterUpdate::Nothing;
 
-  TMwmSize constexpr maxSize = 100 * 1024 * 1024;
-  TMwmSize const countrySizeInBytes = s.CountrySizeInBytes(rootId, MapOptions::Map).first;
+  TMwmSize constexpr maxSizeInBytes = 100 * 1024 * 1024;
+  NodeAttrs attrs;
+  s.GetNodeAttrs(rootId, attrs);
+  TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
 
-  return countrySizeInBytes > maxSize ? DoAfterUpdate::AskForUpdateMaps
-                                      : DoAfterUpdate::AutoupdateMaps;
+  return countrySizeInBytes > maxSizeInBytes ? DoAfterUpdate::AskForUpdateMaps
+                                             : DoAfterUpdate::AutoupdateMaps;
 }
 
 bool Framework::Search(search::SearchParams const & params)
