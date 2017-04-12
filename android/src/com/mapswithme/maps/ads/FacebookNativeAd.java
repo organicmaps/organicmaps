@@ -58,6 +58,12 @@ class FacebookNativeAd extends CachedMwmNativeAd
   }
 
   @Override
+  public void unregisterView()
+  {
+    mAd.unregisterView();
+  }
+
+  @Override
   void registerViewForInteraction(@NonNull View view)
   {
     mAd.registerViewForInteraction(view);
