@@ -201,9 +201,12 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress
 {
-  using namespace storage;
+  auto data = self.data;
+  if (!data)
+    return;
 
-  auto const & sections = self.data.sections;
+  using namespace storage;
+  auto const & sections = data.sections;
   switch (status)
   {
   case NodeStatus::OnDiskOutOfDate:
@@ -301,6 +304,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   using namespace place_page;
 
   auto data = self.data;
+  if (!data)
+    return 0;
   switch (data.sections[section])
   {
   case Sections::Bookmark: return 1;
@@ -320,6 +325,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   using namespace place_page;
 
   auto data = self.data;
+  if (!data)
+    return [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   id<MWMPlacePageButtonsProtocol> delegate = self.delegate;
   switch (data.sections[indexPath.section])
   {
