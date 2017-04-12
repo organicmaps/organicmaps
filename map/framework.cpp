@@ -2660,6 +2660,11 @@ void Framework::SetRouterImpl(RouterType type)
     return m_infoGetter->GetRegionCountryId(p);
   };
 
+  auto getMwmRectByName = [this](string const & countryId) -> m2::RectD
+  {
+    return m_infoGetter->GetLimitRectForLeaf(countryId);
+  };
+
   if (type == RouterType::Pedestrian)
   {
     router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
@@ -2681,12 +2686,14 @@ void Framework::SetRouterImpl(RouterType type)
     m_storage.ForEachCountryFile(
         [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
 
-    //    TODO: pass numMwmTree to router.
-    //    auto numMwmTree = MakeNumMwmTree(*numMwmIds, *m_infoGetter);
-
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      IndexRouter::CreateCarRouter(countryFileGetter, numMwmIds, m_routingSession, m_model.GetIndex())));
+                      IndexRouter::CreateCarRouter(countryFileGetter,
+                                                   getMwmRectByName,
+                                                   numMwmIds,
+                                                   MakeNumMwmTree(*numMwmIds, *m_infoGetter),
+                                                   m_routingSession,
+                                                   m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

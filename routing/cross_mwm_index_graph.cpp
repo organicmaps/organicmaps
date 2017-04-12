@@ -11,6 +11,26 @@ bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
   return c.IsTransition(s, isOutgoing);
 }
 
+void CrossMwmIndexGraph::GetTwinsByOsmId(Segment const & s, bool isOutgoing,
+                                         vector<NumMwmId> const & neighbors, vector<Segment> & twins)
+{
+  uint64_t const osmId = GetCrossMwmConnectorWithTransitions(s.GetMwmId()).GetOsmId(s);
+
+  for (NumMwmId const neighbor : neighbors)
+  {
+    auto const it = m_connectors.find(neighbor);
+    if (it == m_connectors.cend())
+      continue;
+
+    CrossMwmConnector const & connector = it->second;
+    Segment const * twinSeg = connector.GetTransition(osmId, s.GetSegmentIdx(), !isOutgoing);
+    if (twinSeg == nullptr)
+      continue;
+
+    twins.push_back(*twinSeg);
+  }
+}
+
 void CrossMwmIndexGraph::GetEdgeList(Segment const & s, bool isOutgoing,
                                      vector<SegmentEdge> & edges)
 {

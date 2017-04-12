@@ -4,7 +4,8 @@ namespace routing
 {
 using namespace std;
 
-WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<IndexGraphLoader> loader,
+WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
+                       unique_ptr<IndexGraphLoader> loader,
                        shared_ptr<EdgeEstimator> estimator)
   : m_crossMwmGraph(move(crossMwmGraph)), m_loader(move(loader)), m_estimator(estimator)
 {

@@ -3,12 +3,13 @@
 #include "routing/cross_mwm_index_graph.hpp"
 #include "routing/cross_mwm_osrm_graph.hpp"
 #include "routing/num_mwm_id.hpp"
-
 #include "routing/segment.hpp"
 
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/index.hpp"
+
+#include "geometry/tree4d.hpp"
 
 #include "base/math.hpp"
 
@@ -22,8 +23,11 @@ namespace routing
 class CrossMwmGraph final
 {
 public:
-  CrossMwmGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds,
+  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
+                m4::Tree<NumMwmId> const & numMwmTree,
                 std::shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                CourntryRectFn const & countryRectFn,
+                Index & index,
                 RoutingIndexManager & indexManager);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
@@ -80,6 +84,13 @@ public:
   void Clear();
 
 private:
+  enum class MwmStatus
+  {
+    NotLoaded,
+    CrossMwmSectionExists,
+    NoCrossMwmSection,
+  };
+
   struct ClosestSegment
   {
     ClosestSegment();
@@ -98,6 +109,7 @@ private:
   /// one or very small in rare cases in OSRM.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
+  MwmStatus GetMwmStatus(NumMwmId numMwmId);
   bool CrossMwmSectionExists(NumMwmId numMwmId);
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
@@ -117,9 +129,15 @@ private:
   void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
                      map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins);
 
+  /// \brief Fills |neighbors| with number mwm id of all neighbors of |numMwmId| and returns true
+  /// if all the neighbors have cross_mwm section.
+  bool AreAllNeighborsWithCrossMwmSection(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
+
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
+  m4::Tree<NumMwmId> const & m_numMwmTree;
   std::shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
+  CourntryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph m_crossMwmIndexGraph;
   CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };

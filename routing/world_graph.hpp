@@ -23,8 +23,9 @@ public:
     WorldWithoutLeaps,
   };
 
-  WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,
-             std::shared_ptr<EdgeEstimator> estimator);
+  WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
+               std::unique_ptr<IndexGraphLoader> loader,
+               std::shared_ptr<EdgeEstimator> estimator);
 
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
                    std::vector<SegmentEdge> & edges);

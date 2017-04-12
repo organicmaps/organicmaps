@@ -14,6 +14,8 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "geometry/tree4d.hpp"
+
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
@@ -26,10 +28,15 @@ class IndexGraphStarter;
 class IndexRouter : public IRouter
 {
 public:
-  IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
-              shared_ptr<NumMwmIds> numMwmIds, shared_ptr<TrafficStash> trafficStash,
+  IndexRouter(string const & name,
+              TCountryFileFn const & countryFileFn,
+              CourntryRectFn const & countryRectFn,
+              shared_ptr<NumMwmIds> numMwmIds,
+              unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+              shared_ptr<TrafficStash> trafficStash,
               shared_ptr<VehicleModelFactory> vehicleModelFactory,
-              shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine,
+              shared_ptr<EdgeEstimator> estimator,
+              unique_ptr<IDirectionsEngine> directionsEngine,
               Index & index);
 
   // IRouter overrides:
@@ -48,7 +55,9 @@ public:
 
   /// \note |numMwmIds| should not be null.
   static unique_ptr<IndexRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
+                                                 CourntryRectFn const & coutryRectFn,
                                                  shared_ptr<NumMwmIds> numMwmIds,
+                                                 unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                                                  traffic::TrafficCache const & trafficCache,
                                                  Index & index);
 
@@ -75,7 +84,9 @@ private:
   string const m_name;
   Index & m_index;
   TCountryFileFn const m_countryFileFn;
+  CourntryRectFn const m_countryRectFn;
   shared_ptr<NumMwmIds> m_numMwmIds;
+  unique_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   shared_ptr<TrafficStash> m_trafficStash;
   RoutingIndexManager m_indexManager;
   FeaturesRoadGraph m_roadGraph;

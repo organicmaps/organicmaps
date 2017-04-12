@@ -7,6 +7,8 @@
 #include "routing/router.hpp"
 #include "routing/routing_mapping.hpp"
 
+#include "geometry/tree4d.hpp"
+
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 

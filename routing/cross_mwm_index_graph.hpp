@@ -31,6 +31,12 @@ public:
   }
 
   bool IsTransition(Segment const & s, bool isOutgoing);
+  /// \brief Fills |twins| based on transitions defined in cross_mwm section.
+  /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
+  /// \note This method fills |twins| with all available twins iff all neighboring of mwm of |s|
+  //        have cross_mwm section.
+  void GetTwinsByOsmId(Segment const & s, bool isOutgoing, std::vector<NumMwmId> const & neighbors,
+                       std::vector<Segment> & twins);
   void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
   void Clear() { m_connectors.clear(); }
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);

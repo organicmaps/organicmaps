@@ -3,6 +3,7 @@
 #include "routing/router_delegate.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
 
@@ -13,6 +14,7 @@ namespace routing
 {
 
 using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
+using CourntryRectFn = std::function<m2::RectD(std::string const & countryId)>;
 
 class Route;
 
