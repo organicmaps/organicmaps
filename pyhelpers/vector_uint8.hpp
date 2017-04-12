@@ -16,16 +16,21 @@ namespace
 {
 using namespace boost::python;
 
-// Converts a vector<uint8_t> to/from Python str.
+// Converts a vector<uint8_t> to Python2 str or Python3 bytes.
 struct vector_uint8t_to_str
 {
   static PyObject * convert(std::vector<uint8_t> const & v)
   {
-    str s(reinterpret_cast<char const *>(v.data()), v.size());
-    return incref(s.ptr());
+    auto bytes = PyBytes_FromStringAndSize(
+        reinterpret_cast<char const *>(v.data()),
+        v.size());
+    Py_INCREF(bytes);
+
+    return bytes;
   }
 };
 
+// Converts a vector<uint8_t> from Python2 str or Python3 bytes.
 struct vector_uint8t_from_python_str
 {
   vector_uint8t_from_python_str()
