@@ -39,16 +39,13 @@ uint32_t constexpr kDrawPointsPeriod = 10;
 
 namespace routing
 {
-IndexRouter::IndexRouter(string const & name,
-                         TCountryFileFn const & countryFileFn,
-                         CourntryRectFn const & countryRectFn,
-                         shared_ptr<NumMwmIds> numMwmIds,
+IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
+                         CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
                          unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          shared_ptr<TrafficStash> trafficStash,
                          shared_ptr<VehicleModelFactory> vehicleModelFactory,
                          shared_ptr<EdgeEstimator> estimator,
-                         unique_ptr<IDirectionsEngine> directionsEngine,
-                         Index & index)
+                         unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
   : m_name(name)
   , m_index(index)
   , m_countryFileFn(countryFileFn)
@@ -136,10 +133,11 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
                                              finishEdge.GetSegId(), finalPoint);
 
   TrafficStash::Guard guard(*m_trafficStash);
-  WorldGraph graph(make_unique<CrossMwmGraph>(m_numMwmIds, *m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
-                                              m_index, m_indexManager),
-                   IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
-                   m_estimator);
+  WorldGraph graph(
+      make_unique<CrossMwmGraph>(m_numMwmIds, *m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
+                                 m_index, m_indexManager),
+      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      m_estimator);
   graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : WorldGraph::Mode::WorldWithLeaps);
 
   IndexGraphStarter starter(start, finish, graph);
@@ -346,9 +344,9 @@ unique_ptr<IndexRouter> IndexRouter::CreateCarRouter(TCountryFileFn const & coun
   auto trafficStash = make_shared<TrafficStash>(trafficCache, numMwmIds);
 
   auto estimator = EdgeEstimator::CreateForCar(trafficStash, maxSpeed);
-  auto router =
-      make_unique<IndexRouter>("astar-bidirectional-car", countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
-                               trafficStash, vehicleModelFactory, estimator, move(directionsEngine), index);
+  auto router = make_unique<IndexRouter>(
+      "astar-bidirectional-car", countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
+      trafficStash, vehicleModelFactory, estimator, move(directionsEngine), index);
   return router;
 }
 }  // namespace routing

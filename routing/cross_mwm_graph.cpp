@@ -43,11 +43,9 @@ void CrossMwmGraph::ClosestSegment::Update(double distM, Segment const & bestSeg
 }
 
 // CrossMwmGraph ----------------------------------------------------------------------------------
-CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
-                             m4::Tree<NumMwmId> const & numMwmTree,
+CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds, m4::Tree<NumMwmId> const & numMwmTree,
                              shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                             CourntryRectFn const & countryRectFn,
-                             Index & index,
+                             CourntryRectFn const & countryRectFn, Index & index,
                              RoutingIndexManager & indexManager)
   : m_index(index)
   , m_numMwmIds(numMwmIds)
@@ -106,11 +104,12 @@ void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType 
   }
 }
 
-bool CrossMwmGraph::AreAllNeighborsWithCrossMwmSection(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors)
+bool CrossMwmGraph::AreAllNeighborsWithCrossMwmSection(NumMwmId numMwmId,
+                                                       std::vector<NumMwmId> & neighbors)
 {
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
   bool allNeighborsWithCrossMwmSection = true;
-  m_numMwmTree.ForEachInRect(rect, [&](NumMwmId id){
+  m_numMwmTree.ForEachInRect(rect, [&](NumMwmId id) {
     if (allNeighborsWithCrossMwmSection && GetMwmStatus(id) == MwmStatus::NoCrossMwmSection)
       allNeighborsWithCrossMwmSection = false;
     neighbors.push_back(id);
@@ -206,13 +205,14 @@ CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId)
 
   MwmValue * value = handle.GetValue<MwmValue>();
   CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
-  return value->m_cont.IsExist(CROSS_MWM_FILE_TAG) ? MwmStatus::CrossMwmSectionExists : MwmStatus::NoCrossMwmSection;
+  return value->m_cont.IsExist(CROSS_MWM_FILE_TAG) ? MwmStatus::CrossMwmSectionExists
+                                                   : MwmStatus::NoCrossMwmSection;
 }
 
 bool CrossMwmGraph::CrossMwmSectionExists(NumMwmId numMwmId)
 {
   CrossMwmGraph::MwmStatus const status = GetMwmStatus(numMwmId);
-  if (status ==  MwmStatus::NotLoaded)
+  if (status == MwmStatus::NotLoaded)
     MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
 
   return status == MwmStatus::CrossMwmSectionExists;

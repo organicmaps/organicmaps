@@ -86,8 +86,7 @@ namespace integration
       return infoGetter.GetRegionCountryId(pt);
     };
 
-    auto const getMwmRectByName = [&infoGetter](string const & countryId) -> m2::RectD
-    {
+    auto const getMwmRectByName = [&infoGetter](string const & countryId) -> m2::RectD {
       return infoGetter.GetLimitRectForLeaf(countryId);
     };
 
@@ -95,13 +94,10 @@ namespace integration
     for (LocalCountryFile const & f : localFiles)
       numMwmIds->RegisterFile(f.GetCountryFile());
 
-    auto carRouter = make_unique<CarRouter>(index, countryFileGetter,
-                                            IndexRouter::CreateCarRouter(countryFileGetter,
-                                                                         getMwmRectByName,
-                                                                         numMwmIds,
-                                                                         unique_ptr<m4::Tree<NumMwmId>>(),
-                                                                         trafficCache,
-                                                                         index));
+    auto carRouter = make_unique<CarRouter>(
+        index, countryFileGetter,
+        IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
+                                     unique_ptr<m4::Tree<NumMwmId>>(), trafficCache, index));
     return carRouter;
   }
 

@@ -23,11 +23,9 @@ namespace routing
 class CrossMwmGraph final
 {
 public:
-  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
-                m4::Tree<NumMwmId> const & numMwmTree,
+  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, m4::Tree<NumMwmId> const & numMwmTree,
                 std::shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                CourntryRectFn const & countryRectFn,
-                Index & index,
+                CourntryRectFn const & countryRectFn, Index & index,
                 RoutingIndexManager & indexManager);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means

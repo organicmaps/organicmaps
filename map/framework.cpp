@@ -2660,8 +2660,7 @@ void Framework::SetRouterImpl(RouterType type)
     return m_infoGetter->GetRegionCountryId(p);
   };
 
-  auto getMwmRectByName = [this](string const & countryId) -> m2::RectD
-  {
+  auto getMwmRectByName = [this](string const & countryId) -> m2::RectD {
     return m_infoGetter->GetLimitRectForLeaf(countryId);
   };
 
@@ -2688,12 +2687,9 @@ void Framework::SetRouterImpl(RouterType type)
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      IndexRouter::CreateCarRouter(countryFileGetter,
-                                                   getMwmRectByName,
-                                                   numMwmIds,
+                      IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
                                                    MakeNumMwmTree(*numMwmIds, *m_infoGetter),
-                                                   m_routingSession,
-                                                   m_model.GetIndex())));
+                                                   m_routingSession, m_model.GetIndex())));
     fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }

@@ -12,7 +12,8 @@ bool CrossMwmIndexGraph::IsTransition(Segment const & s, bool isOutgoing)
 }
 
 void CrossMwmIndexGraph::GetTwinsByOsmId(Segment const & s, bool isOutgoing,
-                                         vector<NumMwmId> const & neighbors, vector<Segment> & twins)
+                                         vector<NumMwmId> const & neighbors,
+                                         vector<Segment> & twins)
 {
   uint64_t const osmId = GetCrossMwmConnectorWithTransitions(s.GetMwmId()).GetOsmId(s);
 

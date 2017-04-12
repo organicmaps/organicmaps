@@ -28,15 +28,11 @@ class IndexGraphStarter;
 class IndexRouter : public IRouter
 {
 public:
-  IndexRouter(string const & name,
-              TCountryFileFn const & countryFileFn,
-              CourntryRectFn const & countryRectFn,
-              shared_ptr<NumMwmIds> numMwmIds,
-              unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              shared_ptr<TrafficStash> trafficStash,
+  IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
+              CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
+              unique_ptr<m4::Tree<NumMwmId>> numMwmTree, shared_ptr<TrafficStash> trafficStash,
               shared_ptr<VehicleModelFactory> vehicleModelFactory,
-              shared_ptr<EdgeEstimator> estimator,
-              unique_ptr<IDirectionsEngine> directionsEngine,
+              shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine,
               Index & index);
 
   // IRouter overrides:
