@@ -66,6 +66,13 @@ private:
   unordered_map<uint32_t, routing::RoadGeometry> m_roads;
 };
 
+class ZeroGeometryLoader final : public routing::GeometryLoader
+{
+public:
+  // GeometryLoader overrides:
+  void Load(uint32_t featureId, routing::RoadGeometry & road) const override;
+};
+
 class TestIndexGraphLoader final : public IndexGraphLoader
 {
 public:
@@ -79,23 +86,36 @@ private:
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
+// An estimator that uses the information from the supported |segmentWeights| map
+// and completely ignores road geometry. The underlying graph is assumed
+// to be directed, i.e. it is not guaranteed that each segment has its reverse
+// in the map.
+class WeightedEdgeEstimator final : public EdgeEstimator
+{
+public:
+  WeightedEdgeEstimator(map<Segment, double> const & segmentWeights)
+    : m_segmentWeights(segmentWeights)
+  {
+  }
+
+  // EdgeEstimator overrides:
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
+  double CalcHeuristic(m2::PointD const & /* from */, m2::PointD const & /* to */) const override;
+  double GetUTurnPenalty() const override;
+  bool LeapIsAllowed(NumMwmId /* mwmId */) const override;
+
+private:
+  map<Segment, double> m_segmentWeights;
+};
+
 // A simple class to test graph algorithms for the index graph
 // that do not depend on road geometry (but may depend on the
 // lengths of roads).
-class TestIndexGraphTopology
+class TestIndexGraphTopology final
 {
 public:
-  struct EdgeRequest
-  {
-    uint32_t m_src = 0;
-    uint32_t m_dst = 0;
-    double m_weight = 0.0;
-
-    EdgeRequest(uint32_t src, uint32_t dst, double weight)
-      : m_src(src), m_dst(dst), m_weight(weight)
-    {
-    }
-  };
+  using Vertex = uint32_t;
+  using Edge = pair<Vertex, Vertex>;
 
   // Creates an empty graph on |numVertices| vertices.
   TestIndexGraphTopology(uint32_t numVertices);
@@ -103,31 +123,51 @@ public:
   // Adds a weighted directed edge to the graph. Multi-edges are not supported.
   // *NOTE* The edges are added lazily, i.e. edge requests are only stored here
   // and the graph itself is built only after a call to FindPath.
-  void AddDirectedEdge(uint32_t vertexId1, uint32_t vertexId2, double weight);
+  void AddDirectedEdge(Vertex from, Vertex to, double weight);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
-  bool FindPath(uint32_t start, uint32_t finish, double & pathWeight,
-                vector<pair<uint32_t, uint32_t>> & pathEdges);
+  bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges);
 
 private:
-  unique_ptr<WorldGraph> PrepareIndexGraph();
-  void ClearGraphInternal();
-  void BuildJoints();
-  void BuildGraphFromRequests();
-  void BuildSegmentFromEdge(uint32_t edgeId, uint32_t vertexId1, uint32_t vertexId2, double weight);
+  struct EdgeRequest
+  {
+    uint32_t m_id = 0;
+    Vertex m_from = 0;
+    Vertex m_to = 0;
+    double m_weight = 0.0;
 
-  uint32_t m_numVertices;
-  map<pair<uint32_t, uint32_t>, double> m_edgeWeights;
-  map<Segment, double> m_segmentWeights;
-  map<Segment, pair<uint32_t, uint32_t>> m_segmentToEdge;
-  map<uint32_t, vector<Segment>> m_outgoingSegments;
-  map<uint32_t, vector<Segment>> m_incomingSegments;
-  vector<Joint> m_joints;
+    EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
+      : m_id(id), m_from(from), m_to(to), m_weight(weight)
+    {
+    }
+  };
 
+  // Builder builds a graph from edge requests.
+  struct Builder
+  {
+    Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
+    unique_ptr<WorldGraph> PrepareIndexGraph();
+    void BuildJoints();
+    void BuildGraphFromRequests(vector<EdgeRequest> const & requests);
+    void BuildSegmentFromEdge(EdgeRequest const & request);
+
+    uint32_t const m_numVertices;
+    map<Edge, double> m_edgeWeights;
+    map<Segment, double> m_segmentWeights;
+    map<Segment, Edge> m_segmentToEdge;
+    map<Vertex, vector<Segment>> m_outgoingSegments;
+    map<Vertex, vector<Segment>> m_incomingSegments;
+    vector<Joint> m_joints;
+  };
+
+  uint32_t const m_numVertices;
   vector<EdgeRequest> m_edgeRequests;
 };
 
 unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> loader,
+                                       shared_ptr<EdgeEstimator> estimator,
+                                       vector<Joint> const & joints);
+unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> loader,
                                        shared_ptr<EdgeEstimator> estimator,
                                        vector<Joint> const & joints);
 

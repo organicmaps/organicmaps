@@ -29,6 +29,14 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
   m_roads[featureId] = RoadGeometry(oneWay, speed, points);
 }
 
+// ZeroGeometryLoader ------------------------------------------------------------------------------
+void ZeroGeometryLoader::Load(uint32_t featureId, routing::RoadGeometry & road) const
+{
+  // Any valid road will do.
+  auto const points = routing::RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}});
+  road = RoadGeometry(true /* oneWay */, 1.0 /* speed */, points);
+}
+
 // TestIndexGraphLoader ----------------------------------------------------------------------------
 IndexGraph & TestIndexGraphLoader::GetIndexGraph(NumMwmId mwmId)
 {
@@ -46,46 +54,67 @@ void TestIndexGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph
   m_graphs[mwmId] = move(graph);
 }
 
+// WeightedEdgeEstimator --------------------------------------------------------------
+double WeightedEdgeEstimator::CalcSegmentWeight(Segment const & segment,
+                                                RoadGeometry const & /* road */) const
+{
+  auto const it = m_segmentWeights.find(segment);
+  CHECK(it != m_segmentWeights.cend(), ());
+  return it->second;
+}
+
+double WeightedEdgeEstimator::CalcHeuristic(m2::PointD const & /* from */,
+                                            m2::PointD const & /* to */) const
+{
+  return 0.0;
+}
+
+double WeightedEdgeEstimator::GetUTurnPenalty() const { return 0.0; }
+
+bool WeightedEdgeEstimator::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
+
 // TestIndexGraphTopology --------------------------------------------------------------------------
 TestIndexGraphTopology::TestIndexGraphTopology(uint32_t numVertices) : m_numVertices(numVertices) {}
 
-void TestIndexGraphTopology::AddDirectedEdge(uint32_t vertexId1, uint32_t vertexId2, double weight)
+void TestIndexGraphTopology::AddDirectedEdge(Vertex from, Vertex to, double weight)
 {
-  m_edgeRequests.emplace_back(vertexId1, vertexId2, weight);
+  uint32_t const id = static_cast<uint32_t>(m_edgeRequests.size());
+  m_edgeRequests.emplace_back(id, from, to, weight);
 }
 
-bool TestIndexGraphTopology::FindPath(uint32_t start, uint32_t finish, double & pathWeight,
-                                      vector<pair<uint32_t, uint32_t>> & pathEdges)
+bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
+                                      vector<Edge> & pathEdges)
 {
+  CHECK_LESS(start, m_numVertices, ());
+  CHECK_LESS(finish, m_numVertices, ());
+
+  if (start == finish)
+  {
+    pathWeight = 0.0;
+    pathEdges.clear();
+    return true;
+  }
+
   // Edges of the index graph are segments, so we need a loop at finish
   // for the end of our path and another loop at start for the bidirectional search.
+  auto const startFeatureId = static_cast<uint32_t>(m_edgeRequests.size());
   AddDirectedEdge(start, start, 0.0);
+  auto const finishFeatureId = static_cast<uint32_t>(m_edgeRequests.size());
   AddDirectedEdge(finish, finish, 0.0);
   MY_SCOPE_GUARD(cleanup, [&]() {
     m_edgeRequests.pop_back();
     m_edgeRequests.pop_back();
   });
 
-  BuildGraphFromRequests();
-  auto const worldGraph = PrepareIndexGraph();
+  Builder builder(m_numVertices);
+  builder.BuildGraphFromRequests(m_edgeRequests);
+  auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
-  if (m_joints[start].GetSize() == 0 || m_joints[finish].GetSize() == 0)
-  {
-    pathWeight = 0;
-    pathEdges.clear();
-    return false;
-  }
-
-  auto const startRoadPoint = m_joints[start].GetEntry(0);
-  auto const finishRoadPoint = m_joints[finish].GetEntry(0);
-
-  auto const fakeStart =
-      IndexGraphStarter::FakeVertex(kTestNumMwmId, startRoadPoint.GetFeatureId(),
-                                    startRoadPoint.GetPointId(), m2::PointD::Zero());
-  auto const fakeFinish =
-      IndexGraphStarter::FakeVertex(kTestNumMwmId, finishRoadPoint.GetFeatureId(),
-                                    finishRoadPoint.GetPointId(), m2::PointD::Zero());
+  auto const fakeStart = IndexGraphStarter::FakeVertex(kTestNumMwmId, startFeatureId,
+                                                       0 /* pointId */, m2::PointD::Zero());
+  auto const fakeFinish = IndexGraphStarter::FakeVertex(kTestNumMwmId, finishFeatureId,
+                                                        0 /* pointId */, m2::PointD::Zero());
 
   IndexGraphStarter starter(fakeStart, fakeFinish, *worldGraph);
 
@@ -100,58 +129,45 @@ bool TestIndexGraphTopology::FindPath(uint32_t start, uint32_t finish, double & 
   CHECK_GREATER_OR_EQUAL(routeSegs.size(), 2, ());
   CHECK_EQUAL(routeSegs.front(), starter.GetStart(), ());
   CHECK_EQUAL(routeSegs.back(), starter.GetFinish(), ());
-  // We are not interested in fake start and finish.
+
+  // We are not interested in the fake start and finish.
   pathEdges.resize(routeSegs.size() - 2);
-  pathWeight = 0;
+  pathWeight = 0.0;
   for (size_t i = 1; i + 1 < routeSegs.size(); ++i)
   {
     auto const & seg = routeSegs[i];
-    auto const it = m_segmentToEdge.find(seg);
-    CHECK(it != m_segmentToEdge.cend(), ());
+    auto const it = builder.m_segmentToEdge.find(seg);
+    CHECK(it != builder.m_segmentToEdge.cend(), ());
     auto const & edge = it->second;
     pathEdges[i - 1] = edge;
-    pathWeight += m_segmentWeights[seg];
+    pathWeight += builder.m_segmentWeights[seg];
   }
 
-  CHECK(!pathEdges.empty(), ());
-  // The loop from finish to finish.
+  // The loops from start to start and from finish to finish.
+  CHECK_GREATER_OR_EQUAL(pathEdges.size(), 2, ());
+  CHECK_EQUAL(pathEdges.front().first, pathEdges.front().second, ());
+  CHECK_EQUAL(pathEdges.back().first, pathEdges.back().second, ());
+  pathEdges.erase(pathEdges.begin());
   pathEdges.pop_back();
 
   return true;
 }
 
-unique_ptr<WorldGraph> TestIndexGraphTopology::PrepareIndexGraph()
+// TestIndexGraphTopology::Builder -----------------------------------------------------------------
+unique_ptr<WorldGraph> TestIndexGraphTopology::Builder::PrepareIndexGraph()
 {
-  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
-
-  for (auto const & p : m_segmentWeights)
-  {
-    double const weight = p.second;
-    loader->AddRoad(p.first.GetFeatureId(), true /* oneWay */, 1.0 /* speed */,
-                    RoadGeometry::Points({{0.0, 0.0}, {weight, 0.0}}));
-  }
+  auto loader = make_unique<ZeroGeometryLoader>();
+  auto estimator = make_shared<WeightedEdgeEstimator>(m_segmentWeights);
 
   BuildJoints();
 
-  shared_ptr<EdgeEstimator> estimator =
-      EdgeEstimator::CreateForWeightedDirectedGraph(m_segmentWeights);
   return BuildWorldGraph(move(loader), estimator, m_joints);
 }
 
-void TestIndexGraphTopology::ClearGraphInternal()
-{
-  m_edgeWeights.clear();
-  m_segmentWeights.clear();
-  m_segmentToEdge.clear();
-  m_outgoingSegments.clear();
-  m_incomingSegments.clear();
-  m_joints.clear();
-}
-
-void TestIndexGraphTopology::BuildJoints()
+void TestIndexGraphTopology::Builder::BuildJoints()
 {
   m_joints.resize(m_numVertices);
-  for (uint32_t i = 0; i < m_numVertices; ++i)
+  for (uint32_t i = 0; i < m_joints.size(); ++i)
   {
     auto & joint = m_joints[i];
 
@@ -163,34 +179,40 @@ void TestIndexGraphTopology::BuildJoints()
   }
 }
 
-void TestIndexGraphTopology::BuildGraphFromRequests()
+void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  ClearGraphInternal();
-  for (size_t i = 0; i < m_edgeRequests.size(); ++i)
-  {
-    auto const & req = m_edgeRequests[i];
-    BuildSegmentFromEdge(static_cast<uint32_t>(i), req.m_src, req.m_dst, req.m_weight);
-  }
+  for (auto const & request : requests)
+    BuildSegmentFromEdge(request);
 }
 
-void TestIndexGraphTopology::BuildSegmentFromEdge(uint32_t edgeId, uint32_t vertexId1,
-                                                  uint32_t vertexId2, double weight)
+void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & request)
 {
-  auto const edge = make_pair(vertexId1, vertexId2);
-  auto p = m_edgeWeights.emplace(edge, weight);
+  auto const edge = make_pair(request.m_from, request.m_to);
+  auto p = m_edgeWeights.emplace(edge, request.m_weight);
   CHECK(p.second, ("Multi-edges are not allowed"));
 
-  uint32_t const featureId = edgeId;
-  Segment segment(kTestNumMwmId, featureId, 0 /* segmentIdx */, true /* forward */);
+  uint32_t const featureId = request.m_id;
+  Segment const segment(kTestNumMwmId, featureId, 0 /* segmentIdx */, true /* forward */);
 
-  m_segmentWeights[segment] = weight;
+  m_segmentWeights[segment] = request.m_weight;
   m_segmentToEdge[segment] = edge;
-  m_outgoingSegments[vertexId1].push_back(segment);
-  m_incomingSegments[vertexId2].push_back(segment);
+  m_outgoingSegments[request.m_from].push_back(segment);
+  m_incomingSegments[request.m_to].push_back(segment);
 }
 
 // Functions ---------------------------------------------------------------------------------------
 unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
+                                       shared_ptr<EdgeEstimator> estimator,
+                                       vector<Joint> const & joints)
+{
+  auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  graph->Import(joints);
+  auto indexLoader = make_unique<TestIndexGraphLoader>();
+  indexLoader->AddGraph(kTestNumMwmId, move(graph));
+  return make_unique<WorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader), estimator);
+}
+
+unique_ptr<WorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoader> geometryLoader,
                                        shared_ptr<EdgeEstimator> estimator,
                                        vector<Joint> const & joints)
 {

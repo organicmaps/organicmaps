@@ -509,23 +509,60 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
 UNIT_TEST(IndexGraph_OnlyTopology)
 {
   double const kEpsilon = 1e-6;
+  using Vertex = TestIndexGraphTopology::Vertex;
+  using Edge = TestIndexGraphTopology::Edge;
+  // Add edges to the graph in the following format: (from, to, weight).
 
-  uint32_t const numVertices = 5;
-  TestIndexGraphTopology graph(numVertices);
-  graph.AddDirectedEdge(0, 1, 1.0);
-  graph.AddDirectedEdge(0, 2, 2.0);
-  graph.AddDirectedEdge(1, 3, 1.0);
-  graph.AddDirectedEdge(2, 3, 2.0);
+  auto const testGraph = [&](TestIndexGraphTopology & graph, Vertex from, Vertex to,
+                             bool expectedPathFound, double const expectedWeight,
+                             vector<Edge> const & expectedEdges) {
+    double pathWeight = 0.0;
+    vector<Edge> pathEdges;
+    bool const pathFound = graph.FindPath(from, to, pathWeight, pathEdges);
+    TEST_EQUAL(pathFound, expectedPathFound, ());
+    if (!pathFound)
+      return;
 
-  double pathWeight = 0.0;
-  vector<pair<uint32_t, uint32_t>> pathEdges;
-  TEST(graph.FindPath(0, 3, pathWeight, pathEdges), ());
-  double const expectedWeight = 2.0;
-  TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
-       (pathWeight, expectedWeight, pathEdges));
-  vector<pair<uint32_t, uint32_t>> const expectedEdges = {{0, 1}, {1, 3}};
-  TEST_EQUAL(pathEdges, expectedEdges, ());
+    TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
+         (pathWeight, expectedWeight, pathEdges));
+    TEST_EQUAL(pathEdges, expectedEdges, ());
+  };
 
-  TEST(!graph.FindPath(0, 4, pathWeight, pathEdges), (pathWeight, pathEdges));
+  {
+    uint32_t const numVertices = 5;
+    TestIndexGraphTopology graph(numVertices);
+    graph.AddDirectedEdge(0, 1, 1.0);
+    graph.AddDirectedEdge(0, 2, 2.0);
+    graph.AddDirectedEdge(1, 3, 1.0);
+    graph.AddDirectedEdge(2, 3, 2.0);
+
+    double const expectedWeight = 2.0;
+    vector<Edge> const expectedEdges = {{0, 1}, {1, 3}};
+
+    testGraph(graph, 0, 3, true /* pathFound */, expectedWeight, expectedEdges);
+    testGraph(graph, 0, 4, false /* pathFound */, 0.0, {});
+  }
+
+  {
+    uint32_t const numVertices = 1;
+    TestIndexGraphTopology graph(numVertices);
+    graph.AddDirectedEdge(0, 0, 100.0);
+
+    double const expectedWeight = 0.0;
+    vector<Edge> const expectedEdges = {};
+
+    testGraph(graph, 0, 0, true /* pathFound */, expectedWeight, expectedEdges);
+  }
+
+  {
+    uint32_t const numVertices = 2;
+    TestIndexGraphTopology graph(numVertices);
+    graph.AddDirectedEdge(0, 1, 1.0);
+    graph.AddDirectedEdge(1, 0, 1.0);
+    double const expectedWeight = 1.0;
+    vector<Edge> const expectedEdges = {{0, 1}};
+
+    testGraph(graph, 0, 1, true /* pathFound */, expectedWeight, expectedEdges);
+  }
 }
 }  // namespace routing_test

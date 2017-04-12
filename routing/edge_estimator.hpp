@@ -13,7 +13,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 
 namespace routing
@@ -34,10 +33,5 @@ public:
   // The estimator used in car routing.
   static shared_ptr<EdgeEstimator> CreateForCar(shared_ptr<TrafficStash> trafficStash,
                                                 double maxSpeedKMpH);
-
-  // An estimator that uses the information from the supported |segmentWeight| map
-  // and completely ignores road geometry.
-  static shared_ptr<EdgeEstimator> CreateForWeightedDirectedGraph(
-      map<Segment, double> const & segmentWeights);
 };
 }  // namespace routing

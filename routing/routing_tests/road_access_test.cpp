@@ -12,9 +12,10 @@
 #include <vector>
 
 using namespace routing;
+using namespace routing_test;
 using namespace std;
 
-namespace routing_test
+namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
 {
