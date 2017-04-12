@@ -20,14 +20,14 @@ void CrossMwmIndexGraph::GetTwinsByOsmId(Segment const & s, bool isOutgoing,
   for (NumMwmId const neighbor : neighbors)
   {
     auto const it = m_connectors.find(neighbor);
-    if (it == m_connectors.cend())
-      continue;
+    CHECK(it != m_connectors.cend(), ("Connector for", m_numMwmIds->GetFile(neighbor), "was not deserialized."));
 
     CrossMwmConnector const & connector = it->second;
     Segment const * twinSeg = connector.GetTransition(osmId, s.GetSegmentIdx(), !isOutgoing);
     if (twinSeg == nullptr)
       continue;
 
+    CHECK_NOT_EQUAL(twinSeg->GetMwmId(), s.GetMwmId(), ());
     twins.push_back(*twinSeg);
   }
 }

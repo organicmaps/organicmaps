@@ -41,9 +41,9 @@ public:
   void Clear() { m_connectors.clear(); }
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
+  CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
 
 private:
-  CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
   CrossMwmConnector const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId);
 
   /// \brief Deserializes connectors for an mwm with |numMwmId|.

@@ -104,18 +104,28 @@ void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType 
   }
 }
 
-bool CrossMwmGraph::AreAllNeighborsWithCrossMwmSection(NumMwmId numMwmId,
-                                                       std::vector<NumMwmId> & neighbors)
+bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & neighbors)
 {
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
   bool allNeighborsWithCrossMwmSection = true;
   m_numMwmTree.ForEachInRect(rect, [&](NumMwmId id) {
-    if (allNeighborsWithCrossMwmSection && GetMwmStatus(id) == MwmStatus::NoCrossMwmSection)
+    MwmStatus const status = GetMwmStatus(id);
+    if (status == MwmStatus::NotLoaded)
+      return;
+    if (status == MwmStatus::CrossMwmSectionExists)
       allNeighborsWithCrossMwmSection = false;
-    neighbors.push_back(id);
+
+    if (id != numMwmId)
+      neighbors.push_back(id);
   });
 
   return allNeighborsWithCrossMwmSection;
+}
+
+void CrossMwmGraph::DeserializeTransitions(vector<NumMwmId> const & mwmIds)
+{
+  for (auto mwmId : mwmIds)
+    m_crossMwmIndexGraph.GetCrossMwmConnectorWithTransitions(mwmId);
 }
 
 void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment> & twins)
@@ -131,42 +141,45 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   twins.clear();
 
   vector<NumMwmId> neighbors;
-  if (AreAllNeighborsWithCrossMwmSection(s.GetMwmId(), neighbors))
+  if (GetAllLoadedNeighbors(s.GetMwmId(), neighbors))
   {
+    DeserializeTransitions(neighbors);
     m_crossMwmIndexGraph.GetTwinsByOsmId(s, isOutgoing, neighbors, twins);
-    return;
   }
-
-  // Note. The code below looks for twins based on geometry index. This code works for
-  // any combination mwms with different cross mwm sections.
-  // It's possible to implement a faster version for two special cases:
-  // * all neighboring mwms have cross_mwm section
-  // * all neighboring mwms have osrm cross mwm sections
-  TransitionPoints const points = GetTransitionPoints(s, isOutgoing);
-  for (m2::PointD const & p : points)
+  else
   {
-    // Node. The map below is necessary because twin segments could belong to several mwm.
-    // It happens when a segment crosses more than one feature.
-    map<NumMwmId, ClosestSegment> minDistSegs;
-    auto const findBestTwins = [&](FeatureType const & ft) {
-      FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
-    };
+    // Note. The code below looks for twins based on geometry index. This code works for
+    // any combination mwms with different cross mwm sections.
+    // It's possible to implement a faster version for two special cases:
+    // * all neighboring mwms have cross_mwm section
+    // * all neighboring mwms have osrm cross mwm sections
+    TransitionPoints const points = GetTransitionPoints(s, isOutgoing);
+    for (m2::PointD const & p : points)
+    {
+      // Node. The map below is necessary because twin segments could belong to several mwm.
+      // It happens when a segment crosses more than one feature.
+      map<NumMwmId, ClosestSegment> minDistSegs;
+      auto const findBestTwins = [&](FeatureType const & ft)
+      {
+        FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
+      };
 
-    m_index.ForEachInRect(
+      m_index.ForEachInRect(
         findBestTwins, MercatorBounds::RectByCenterXYAndSizeInMeters(p, kTransitionEqualityDistM),
         scales::GetUpperScale());
 
-    for (auto const & kv : minDistSegs)
-    {
-      if (kv.second.m_exactMatchFound)
-        continue;
-      if (kv.second.m_bestDistM == kInvalidDistance)
-        continue;
-      twins.push_back(kv.second.m_bestSeg);
+      for (auto const & kv : minDistSegs)
+      {
+        if (kv.second.m_exactMatchFound)
+          continue;
+        if (kv.second.m_bestDistM == kInvalidDistance)
+          continue;
+        twins.push_back(kv.second.m_bestSeg);
+      }
     }
-  }
 
-  my::SortUnique(twins);
+    my::SortUnique(twins);
+  }
 
   for (Segment const & t : twins)
     CHECK_NOT_EQUAL(s.GetMwmId(), t.GetMwmId(), ());

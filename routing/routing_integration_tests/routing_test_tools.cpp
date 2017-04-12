@@ -5,6 +5,7 @@
 #include "testing/testing.hpp"
 
 #include "map/feature_vec_model.hpp"
+#include "map/mwm_tree.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
@@ -97,7 +98,7 @@ namespace integration
     auto carRouter = make_unique<CarRouter>(
         index, countryFileGetter,
         IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
-                                     unique_ptr<m4::Tree<NumMwmId>>(), trafficCache, index));
+                                     MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index));
     return carRouter;
   }
 

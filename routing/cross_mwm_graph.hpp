@@ -127,9 +127,11 @@ private:
   void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
                      map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins);
 
-  /// \brief Fills |neighbors| with number mwm id of all neighbors of |numMwmId| and returns true
+  /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and returns true
   /// if all the neighbors have cross_mwm section.
-  bool AreAllNeighborsWithCrossMwmSection(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
+  bool GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
+  /// \brief Deserizlize transitions for mwm with |ids|.
+  void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
