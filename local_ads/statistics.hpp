@@ -5,6 +5,7 @@
 #include "base/thread.hpp"
 
 #include <chrono>
+#include <condition_variable>
 #include <list>
 #include <map>
 #include <mutex>
