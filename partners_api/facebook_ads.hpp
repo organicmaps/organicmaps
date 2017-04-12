@@ -8,8 +8,6 @@ namespace ads
 class Facebook : public Container
 {
 public:
-  Facebook();
-
   // ContainerBase overrides:
   std::string GetBannerIdForOtherTypes() const override;
 };

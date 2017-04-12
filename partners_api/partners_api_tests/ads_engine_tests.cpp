@@ -31,19 +31,20 @@ UNIT_TEST(AdsEngine_Smoke)
   classificator::Load();
   Classificator const & c = classif();
   ads::Engine engine;
+  ads::Facebook facebook;
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
     TEST(engine.HasBanner(holder, {"Ukraine"}), ());
     auto result = engine.GetBanners(holder, {"Ukraine"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"7", "185237551520383_1384652351578891"});
+    CheckIds(result, {"7", facebook.GetBannerIdForOtherTypes()});
 
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
     TEST(engine.HasBanner(holder, {"Ukraine"}), ());
     result = engine.GetBanners(holder, {"Ukraine"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"7", "185237551520383_1384652351578891"});
+    CheckIds(result, {"7", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
@@ -51,7 +52,7 @@ UNIT_TEST(AdsEngine_Smoke)
     TEST(engine.HasBanner(holder, {"Moldova"}), ());
     auto result = engine.GetBanners(holder, {"Moldova"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"5", "185237551520383_1384651734912286"});
+    CheckIds(result, {"5", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
@@ -59,7 +60,7 @@ UNIT_TEST(AdsEngine_Smoke)
     TEST(engine.HasBanner(holder, {"Russian Federation"}), ());
     auto result = engine.GetBanners(holder, {"Russian Federation"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"2", "185237551520383_1384650804912379"});
+    CheckIds(result, {"2", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
@@ -67,7 +68,7 @@ UNIT_TEST(AdsEngine_Smoke)
     TEST(engine.HasBanner(holder, {"Belarus"}), ());
     auto result = engine.GetBanners(holder, {"Belarus"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"8", "185237551520383_1384652658245527"});
+    CheckIds(result, {"8", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
@@ -75,7 +76,7 @@ UNIT_TEST(AdsEngine_Smoke)
     TEST(engine.HasBanner(holder, {"Spain", "Ukraine"}), ());
     auto result = engine.GetBanners(holder, {"Spain", "Ukraine"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"1", "185237551520383_1384650164912443"});
+    CheckIds(result, {"1", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
@@ -83,18 +84,17 @@ UNIT_TEST(AdsEngine_Smoke)
     TEST(engine.HasBanner(holder, {"Ukraine", "Spain"}), ());
     auto result = engine.GetBanners(holder, {"Ukraine", "Spain"});
     CheckCountAndTypes(result);
-    CheckIds(result, {"1", "185237551520383_1384650164912443"});
+    CheckIds(result, {"1", facebook.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "pub"}));
     TEST(engine.HasBanner(holder, {"Spain"}), ());
     auto result = engine.GetBanners(holder, {"Spain"});
-    CheckIds(result, {"185237551520383_1384650164912443"});
+    CheckIds(result, {facebook.GetBannerIdForOtherTypes()});
     TEST_EQUAL(result[0].m_type, ads::Banner::Type::Facebook, ());
   }
   ads::Rb rb;
-  ads::Facebook facebook;
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
