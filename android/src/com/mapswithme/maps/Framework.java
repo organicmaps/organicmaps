@@ -44,6 +44,16 @@ public class Framework
   public static final int ROUTER_TYPE_BICYCLE = 2;
   public static final int ROUTER_TYPE_TAXI = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({DO_AFTER_UPDATE_NOTHING, DO_AFTER_UPDATE_AUTO_UPDATE, DO_AFTER_UPDATE_ASK_FOR_UPDATE,
+           DO_AFTER_UPDATE_MIGRATE})
+  public @interface DoAfterUpdate {}
+
+  public static final int DO_AFTER_UPDATE_NOTHING = 0;
+  public static final int DO_AFTER_UPDATE_AUTO_UPDATE = 1;
+  public static final int DO_AFTER_UPDATE_ASK_FOR_UPDATE = 2;
+  public static final int DO_AFTER_UPDATE_MIGRATE = 3;
+
   @SuppressWarnings("unused")
   public interface MapObjectListener
   {
@@ -140,7 +150,11 @@ public class Framework
   public static native String nativeGetOutdatedCountriesString();
 
   @UiThread
+  @NonNull
   public static native String[] nativeGetOutdatedCountries();
+
+  @DoAfterUpdate
+  public static native int nativeToDoAfterUpdate();
 
   public static native boolean nativeIsDataVersionChanged();
 

@@ -554,7 +554,7 @@ uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::Lat
   return uber::Api::GetRideRequestLinks(productId, from, to);
 }
 
-
+int Framework::ToDoAfterUpdate() const { return (int)m_work.ToDoAfterUpdate(); }
 }  // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -762,6 +762,12 @@ Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountries(JNIEnv * env, jcla
     ids.push_back(country->Name());
 
   return jni::ToJavaStringArray(env, ids);
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeToDoAfterUpdate(JNIEnv * env, jclass)
+{
+  return g_framework->ToDoAfterUpdate();
 }
 
 JNIEXPORT jboolean JNICALL

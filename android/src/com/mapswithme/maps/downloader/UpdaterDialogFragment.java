@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -40,7 +40,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private static final String ARG_TOTAL_SIZE = "arg_total_size";
   private static final String ARG_TOTAL_SIZE_MB = "arg_total_size_mb";
   private static final String ARG_OUTDATED_MAPS = "arg_outdated_maps";
-  private static final int AUTO_UPDATE_THRESHOLD = 100;
 
   private TextView mTitle;
   private TextView mUpdateBtn;
@@ -149,17 +148,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     }
   };
 
-  @SuppressWarnings("TryWithIdenticalCatches")
   public static boolean showOn(@NonNull FragmentActivity activity)
   {
-    if (!ConnectionState.isWifiConnected() || MapManager.nativeIsLegacyMode())
-      return false;
-
-    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
-    if (info == null || info.filesCount == 0)
-      return false;
-
-    FragmentManager fm = activity.getSupportFragmentManager();
+    final FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
       return false;
 
@@ -167,21 +158,27 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (f != null)
       return false;
 
-    Bundle args = new Bundle();
-    long size = info.totalSize / Constants.MB;
-    args.putBoolean(ARG_UPDATE_IMMEDIATELY, size < AUTO_UPDATE_THRESHOLD);
+    @Framework.DoAfterUpdate
+    final int result = Framework.nativeToDoAfterUpdate();
+    if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
+      return false;
+
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    if (info == null)
+      return false;
+
+    final Bundle args = new Bundle();
+    final long size = info.totalSize / Constants.MB;
+    args.putBoolean(ARG_UPDATE_IMMEDIATELY, result == Framework.DO_AFTER_UPDATE_AUTO_UPDATE);
     args.putString(ARG_TOTAL_SIZE, StringUtils.getFileSizeString(info.totalSize));
     args.putLong(ARG_TOTAL_SIZE_MB, size);
     args.putStringArray(ARG_OUTDATED_MAPS, Framework.nativeGetOutdatedCountries());
-    try
-    {
-      final UpdaterDialogFragment fragment = UpdaterDialogFragment.class.newInstance();
-      fragment.setArguments(args);
-      fragment.show(activity.getSupportFragmentManager(), UpdaterDialogFragment.class.getName());
-    } catch (java.lang.InstantiationException ignored)
-    {}
-    catch (IllegalAccessException ignored)
-    {}
+
+    final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
+    fragment.setArguments(args);
+    FragmentTransaction transaction = fm.beginTransaction()
+        .addToBackStack(null);
+    fragment.show(transaction, UpdaterDialogFragment.class.getName());
 
     Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
 
