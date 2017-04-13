@@ -758,7 +758,7 @@ Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountries(JNIEnv * env, jcla
   vector<string> ids;
   class Storage const & storage = g_framework->GetStorage();
   storage.GetOutdatedCountries(countries);
-  for (auto country: countries)
+  for (auto country : countries)
     ids.push_back(country->Name());
 
   return jni::ToJavaStringArray(env, ids);

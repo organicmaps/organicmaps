@@ -56,6 +56,7 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
@@ -1025,23 +1026,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!RoutingController.get().isNavigating())
     {
-      mFirstStart = FirstStartFragment.showOn(this);
+      mFirstStart = FirstStartFragment.showOn(this, null);
       if (mFirstStart)
         return;
 
-      if (!NewsFragment.showOn(this))
+      BaseNewsFragment.NewsDialogListener listener = new BaseNewsFragment.NewsDialogListener()
+      {
+        @Override
+        public void onDialogDone()
+        {
+          UpdaterDialogFragment.showOn(MwmActivity.this);
+        }
+      };
+      if (!NewsFragment.showOn(this, listener))
       {
         if (ViralFragment.shouldDisplay())
-        {
           new ViralFragment().show(getSupportFragmentManager(), "");
-        }
         else
-        {
-          if (UpdaterDialogFragment.showOn(this))
-            return;
-
           LikesManager.INSTANCE.showDialogs(this);
-        }
       }
     }
 

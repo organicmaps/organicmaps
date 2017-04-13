@@ -3,6 +3,7 @@ package com.mapswithme.maps.news;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -73,7 +74,8 @@ public class FirstStartFragment extends BaseNewsFragment
     LocationHelper.INSTANCE.onExitFromFirstRun();
   }
 
-  public static boolean showOn(FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity,
+                               @Nullable NewsDialogListener listener)
   {
     if (Config.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
@@ -86,7 +88,7 @@ public class FirstStartFragment extends BaseNewsFragment
         !recreate(activity, FirstStartFragment.class))
       return false;
 
-    create(activity, FirstStartFragment.class);
+    create(activity, FirstStartFragment.class, listener);
 
     Config.setFirstStartDialogSeen();
     return true;
