@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://d1zg4cyg8u4pko.cloudfront.net/v2/styles.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".dial").knob({
+                    draw : function () {
+                        $(this.i).css('font-size', '9pt');
+                        $(this.i).val(Math.floor(this.cv));
+                    }
+                });
+            });
+        </script>
+        <script>
+            function setCounterValue(v) {
+                $(".dial").val(v).trigger('change');
+            }
+        </script>
+        <script>
+            function setMaxCounterValue(m) {
+                $(".dial").trigger('configure', { "max": m });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="mpPlayable">
+            <div id="dialContainer">
+                <input type="text" class="dial" data-readOnly="true" data-min="0" data-step="0.05" data-rotation="acw" data-width="90px" data-height="90px" data-thickness=".15" data-fgColor="rgba(255,255,255,1)" data-bgColor="rgba(255,255,255,0.5)">
+            </div>
+        </div>
+    </body>
+</html>

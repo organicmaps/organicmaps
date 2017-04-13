@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3430643C1E9FBCF500DC7665 /* mopub_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3430643A1E9FBCF500DC7665 /* mopub_ads.cpp */; };
+		3430643D1E9FBCF500DC7665 /* mopub_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3430643B1E9FBCF500DC7665 /* mopub_ads.hpp */; };
 		346E88961E9D087400D4CE9B /* ads_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E888F1E9D087400D4CE9B /* ads_base.cpp */; };
 		346E88971E9D087400D4CE9B /* ads_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 346E88901E9D087400D4CE9B /* ads_base.hpp */; };
 		346E88981E9D087400D4CE9B /* ads_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E88911E9D087400D4CE9B /* ads_engine.cpp */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3430643A1E9FBCF500DC7665 /* mopub_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_ads.cpp; sourceTree = "<group>"; };
+		3430643B1E9FBCF500DC7665 /* mopub_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mopub_ads.hpp; sourceTree = "<group>"; };
 		346E888F1E9D087400D4CE9B /* ads_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_base.cpp; sourceTree = "<group>"; };
 		346E88901E9D087400D4CE9B /* ads_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ads_base.hpp; sourceTree = "<group>"; };
 		346E88911E9D087400D4CE9B /* ads_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_engine.cpp; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3430643A1E9FBCF500DC7665 /* mopub_ads.cpp */,
+				3430643B1E9FBCF500DC7665 /* mopub_ads.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
 				346E88901E9D087400D4CE9B /* ads_base.hpp */,
 				346E88911E9D087400D4CE9B /* ads_engine.cpp */,
@@ -193,6 +199,7 @@
 				346E88971E9D087400D4CE9B /* ads_base.hpp in Headers */,
 				F67E75261DB8F06F00D6741F /* opentable_api.hpp in Headers */,
 				F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */,
+				3430643D1E9FBCF500DC7665 /* mopub_ads.hpp in Headers */,
 				346E889C1E9D087400D4CE9B /* rb_ads.hpp in Headers */,
 				346E889A1E9D087400D4CE9B /* banner.hpp in Headers */,
 				346E88991E9D087400D4CE9B /* ads_engine.hpp in Headers */,
@@ -292,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3430643C1E9FBCF500DC7665 /* mopub_ads.cpp in Sources */,
 				346E88961E9D087400D4CE9B /* ads_base.cpp in Sources */,
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				346E889B1E9D087400D4CE9B /* rb_ads.cpp in Sources */,

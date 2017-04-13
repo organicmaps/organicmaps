@@ -36,7 +36,7 @@ final class BannersCache: NSObject {
       assert(false)
       return
     }
-    Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.type.statisticsDescription)
+    Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.statisticsDescription)
     MRMyTracker.trackEvent(withName: kStatPlacePageBannerShow)
     completion(banner, isAsync)
     banner.isBannerOnScreen = true
@@ -71,8 +71,8 @@ final class BannersCache: NSObject {
       Crashlytics.sharedInstance().recordError(error)
       MRMyTracker.trackEvent(withName: event)
       self.setError(bannerType: bannerType)
-    }, click: { bannerType in
-      Statistics.logEvent(kStatPlacePageBannerClick, withParameters: bannerType.statisticsDescription)
+    }, click: { banner in
+      Statistics.logEvent(kStatPlacePageBannerClick, withParameters: banner.statisticsDescription)
       MRMyTracker.trackEvent(withName: kStatPlacePageBannerClick)
     })
   }

@@ -1,3 +1,4 @@
+import AlamofireImage
 import FBAudienceNetwork
 
 @objc(MWMAdBannerState)
@@ -38,6 +39,12 @@ final class AdBanner: UITableViewCell {
     }
   }
 
+  weak var mpNativeAd: MPNativeAd?
+
+  override func prepareForReuse() {
+    adIconImageView.af_cancelImageRequest()
+  }
+
   private var nativeAd: MWMBanner?
 
   func config(ad: MWMBanner) {
@@ -49,6 +56,8 @@ final class AdBanner: UITableViewCell {
       configFBBanner(ad: ad as! FBNativeAd)
     case .rb:
       configRBBanner(ad: ad as! MTRGNativeAd)
+    case .mopub:
+      configMopubBanner(ad: ad as! MopubBanner)
     }
   }
 
@@ -122,6 +131,29 @@ final class AdBanner: UITableViewCell {
     refreshBannerIfNeeded()
   }
 
+  private func configMopubBanner(ad: MopubBanner) {
+    mpNativeAd = ad.nativeAd
+    mpNativeAd?.setAdView(self)
+
+    let adCallToActionButtons = [adCallToActionButtonCompact!, adCallToActionButtonDetailed!]
+    mpNativeAd?.setActionButtons(adCallToActionButtons)
+
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.firstLineHeadIndent = 24
+    paragraphStyle.lineBreakMode = .byTruncatingTail
+    let adTitle = NSAttributedString(string: ad.title,
+                                     attributes: [NSParagraphStyleAttributeName: paragraphStyle,
+                                                  NSFontAttributeName: UIFont.bold12(),
+                                                  NSForegroundColorAttributeName: UIColor.blackSecondaryText()])
+    adTitleLabel.attributedText = adTitle
+    adBodyLabel.text = ad.text
+    if let url = URL(string: ad.iconURL) {
+      adIconImageView.af_setImage(withURL: url)
+    }
+
+    adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
+  }
+
   private func refreshBannerIfNeeded() {
     if let ad = nativeAd as? MTRGNativeAd {
       let clickableView: UIView
@@ -131,5 +163,10 @@ final class AdBanner: UITableViewCell {
       }
       ad.register(clickableView, with: UIViewController.topViewController())
     }
+  }
+
+  override func willMove(toSuperview newSuperview: UIView?) {
+    super.willMove(toSuperview: newSuperview)
+    mpNativeAd?.nativeViewWillMove(toSuperview: newSuperview)
   }
 }

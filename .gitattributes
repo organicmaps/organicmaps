@@ -43,6 +43,3 @@
 *.ttf     binary
 *.slf     binary
 *.borders binary
-
-# Files for git lfs
-FBAudienceNetwork filter=lfs diff=lfs merge=lfs -text

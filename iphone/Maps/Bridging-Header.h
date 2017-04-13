@@ -7,6 +7,9 @@
 #import <UIKit/UIKit.h>
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "MoPub-Bridging-Header.h"
+#import "MPNativeAd.h"
+#import "MPNativeAd+MWM.h"
 
 #import "private.h"
 

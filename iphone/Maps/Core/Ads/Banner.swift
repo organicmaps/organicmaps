@@ -3,11 +3,12 @@ protocol Banner: MWMBanner {
   typealias ErrorDetails = [String : Any]
   typealias Success = (Banner) -> Void
   typealias Failure = (BannerType, EventName, ErrorDetails, NSError) -> Void
-  typealias Click = (BannerType) -> Void
+  typealias Click = (Banner) -> Void
   func reload(success: @escaping Success, failure: @escaping Failure, click: @escaping Click)
 
   var isBannerOnScreen: Bool { get set }
   var isNeedToRetain: Bool { get }
   var isPossibleToReload: Bool { get }
   var type: BannerType { get }
+  var statisticsDescription: [String: String] { get }
 }
