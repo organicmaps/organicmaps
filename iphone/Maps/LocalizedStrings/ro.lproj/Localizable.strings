@@ -410,10 +410,10 @@
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Chia sẻ bằng tin nhắn";
+"share_by_message" = "Partajare ca mesaj";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Chia sẻ";
+"share" = "Partajare";
 
 /* iOS share by Message button text (including SMS) */
 "message" = "Tin nhắn";
@@ -1846,3 +1846,9 @@
 "failed_load_information" = "Încărcarea informațiilor a eșuat.";
 
 "booking_search" = "Booking.com";
+
+"updating_maps" = "Updating maps";
+
+"update_maps_ask" = "Update your downloaded maps";
+
+"update_maps_notice" = "Update maps supports information about objects in the current state";

@@ -1083,4 +1083,7 @@
 	<string name="reviews_on_bookingcom">Больше отзывов на Booking.com</string>
 	<string name="offline_place_page_more_information">Подключитесь к интернету, чтобы получить больше информации о месте.</string>
 	<string name="failed_load_information">Не удалось загрузить информацию.</string>
+	<string name="updating_maps">Обновляем карты</string>
+	<string name="update_maps_ask">Обновите ваши загруженные карты</string>
+	<string name="update_maps_notice">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
 </resources>

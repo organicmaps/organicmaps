@@ -1846,3 +1846,9 @@
 "failed_load_information" = "Informationen konnten nicht geladen werden.";
 
 "booking_search" = "Booking.com";
+
+"updating_maps" = "Updating maps";
+
+"update_maps_ask" = "Update your downloaded maps";
+
+"update_maps_notice" = "Update maps supports information about objects in the current state";
