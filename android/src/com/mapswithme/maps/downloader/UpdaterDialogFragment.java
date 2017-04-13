@@ -111,8 +111,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       for (CountryItem item : mOutdatedMaps.values())
         progress += item.progress / mOutdatedMaps.size();
 
-//    TODO string resources
-      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%", "Updating maps", (int) progress));
+      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
+                                   getString(R.string.updating_maps), (int) progress));
     }
   };
 
@@ -139,8 +139,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       MapManager.nativeUpdate(CountryItem.getRootId());
       UiUtils.show(mProgressBar);
       UiUtils.hide(mUpdateBtn);
-//    TODO string resources
-      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%", "Updating maps", 0));
+      mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
+                                   getString(R.string.updating_maps), 0));
       mCancelBtn.setText(R.string.cancel);
 
       Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
@@ -279,8 +279,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mUpdateBtn.setOnClickListener(mUpdateClickListener);
     mCancelBtn.setText(mAutoUpdate ? R.string.cancel : R.string.later);
     mCancelBtn.setOnClickListener(mCancelClickListener);
-//  TODO string resources
-    mTitle.setText(mAutoUpdate ? String.format(Locale.getDefault(), "%s %d%%", "Updating maps", 0)
-                               : "Update your downloaded maps");
+    mTitle.setText(mAutoUpdate ? String.format(Locale.getDefault(), "%s %d%%",
+                                               getString(R.string.updating_maps), 0)
+                               : getString(R.string.update_maps_ask));
   }
 }

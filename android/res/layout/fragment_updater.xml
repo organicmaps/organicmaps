@@ -41,7 +41,7 @@
       android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       android:layout_gravity="center_horizontal"
       android:gravity="center_horizontal"
-      android:text="Update maps supports information about objects in the current state"/>
+      android:text="@string/update_maps_notice"/>
 
     <FrameLayout
       android:layout_width="match_parent"
