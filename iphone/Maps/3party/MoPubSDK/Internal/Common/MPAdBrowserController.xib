@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPAdBrowserController">
+            <connections>
+                <outlet property="backButton" destination="8" id="17"/>
+                <outlet property="doneButton" destination="6" id="18"/>
+                <outlet property="forwardButton" destination="9" id="19"/>
+                <outlet property="refreshButton" destination="11" id="20"/>
+                <outlet property="safariButton" destination="13" id="31"/>
+                <outlet property="spinnerItem" destination="15" id="21"/>
+                <outlet property="view" destination="1" id="3"/>
+                <outlet property="webView" destination="UGP-YN-zIO" id="Vc0-UI-9RP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" id="5">
+                    <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="B" style="plain" id="8">
+                            <connections>
+                                <action selector="back" destination="-1" id="24"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="10"/>
+                        <barButtonItem title="F" style="plain" id="9">
+                            <connections>
+                                <action selector="forward" destination="-1" id="25"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="12"/>
+                        <barButtonItem style="plain" systemItem="refresh" id="11">
+                            <connections>
+                                <action selector="refresh" destination="-1" id="26"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="14"/>
+                        <barButtonItem style="plain" systemItem="action" id="13">
+                            <connections>
+                                <action selector="safari" destination="-1" id="28"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="16"/>
+                        <barButtonItem title="S" style="plain" id="15"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="7"/>
+                        <barButtonItem style="done" systemItem="done" id="6">
+                            <connections>
+                                <action selector="done" destination="-1" id="29"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+                <view contentMode="scaleToFill" id="UGP-YN-zIO" customClass="MPWebView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

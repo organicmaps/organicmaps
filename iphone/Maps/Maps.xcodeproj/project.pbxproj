@@ -156,9 +156,6 @@
 		3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
 		3432E1791E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
 		3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E1771E49B3A2008477E9 /* Bolts.framework */; };
-		3432E17C1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
-		3432E17D1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
-		3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */; };
 		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
@@ -488,6 +485,9 @@
 		34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
+		34F4098B1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */; };
+		34F4098C1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */; };
+		34F4098D1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */; };
 		34F5E0D31E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
 		34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
 		34F5E0D51E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
@@ -1597,7 +1597,6 @@
 		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
 		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
 		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
@@ -1796,6 +1795,7 @@
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
 		34ED29891E3BB9B40054D003 /* RoutePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePoint.swift; sourceTree = "<group>"; };
+		34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = MoPubSDK/AdNetworkSupport/Facebook/SDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Hierarchy.swift"; sourceTree = "<group>"; };
 		34F5E0D61E3F334700B1C415 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutePoint.h; sourceTree = "<group>"; };
@@ -2342,7 +2342,6 @@
 				34D808801E79361E002F0584 /* Alamofire.framework in Frameworks */,
 				340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B491E422E2E0018E590 /* iAd.framework in Frameworks */,
-				3432E17C1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
@@ -2354,6 +2353,7 @@
 				67B78B4A1E422E2E0018E590 /* MessageUI.framework in Frameworks */,
 				3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B481E422E2E0018E590 /* MobileCoreServices.framework in Frameworks */,
+				34F4098B1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				67B78B561E4233480018E590 /* AdSupport.framework in Frameworks */,
 				3432E1781E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F31E08199D00C92850 /* Fabric.framework in Frameworks */,
@@ -2371,6 +2371,7 @@
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
 				34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */,
 				34D8087B1E793606002F0584 /* Alamofire.framework in Frameworks */,
+				34F4098C1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */,
 				67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */,
 				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
@@ -2408,7 +2409,6 @@
 				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
-				3432E17D1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
@@ -2436,7 +2436,6 @@
 				340474FB1E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
 				344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
-				3432E17E1E49B484008477E9 /* FBAudienceNetwork.framework in Frameworks */,
 				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
 				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
@@ -2448,6 +2447,7 @@
 				67B78B501E422E300018E590 /* MessageUI.framework in Frameworks */,
 				340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				67B78B4E1E422E300018E590 /* MobileCoreServices.framework in Frameworks */,
+				34F4098D1E9E221700E57AC0 /* FBAudienceNetwork.framework in Frameworks */,
 				67B78B571E42334A0018E590 /* AdSupport.framework in Frameworks */,
 				3432E17A1E49B3A2008477E9 /* Bolts.framework in Frameworks */,
 				340474F51E08199D00C92850 /* Fabric.framework in Frameworks */,
@@ -2606,7 +2606,7 @@
 				3432E1771E49B3A2008477E9 /* Bolts.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
-				3432E17B1E49B484008477E9 /* FBAudienceNetwork.framework */,
+				34F4098A1E9E221700E57AC0 /* FBAudienceNetwork.framework */,
 				340474DE1E08199D00C92850 /* FBSDKCoreKit.framework */,
 				340474DF1E08199D00C92850 /* FBSDKLoginKit.framework */,
 				340474E01E08199D00C92850 /* FBSDKShareKit.framework */,
@@ -5889,6 +5889,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
 			};
@@ -5899,6 +5903,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
 			};
@@ -5909,6 +5917,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc dbg";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
@@ -5920,6 +5932,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc beta";
 			};
@@ -5930,6 +5946,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc rel";
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
@@ -5941,6 +5961,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "xc pf";
 			};
@@ -5950,6 +5974,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5996,6 +6024,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6042,6 +6074,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6088,6 +6124,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6134,6 +6174,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6180,6 +6224,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6281,6 +6329,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6380,6 +6432,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6482,6 +6538,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6584,6 +6644,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6686,6 +6750,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6789,6 +6857,10 @@
 			buildSettings = {
 				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

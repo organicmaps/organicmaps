@@ -405,11 +405,11 @@ FBSDK_EXTERN NSString *const FBSDKAppEventParameterValueNo;
  */
 
 /**
-  Sets a device token to register the current application installation for push notifications.
+  Sets and sends device token to register the current application for push notifications.
 
 
 
- Sets a device token from `NSData` representation that you get from `UIApplicationDelegate.-application:didRegisterForRemoteNotificationsWithDeviceToken:`.
+ Sets and sends a device token from `NSData` representation that you get from `UIApplicationDelegate.-application:didRegisterForRemoteNotificationsWithDeviceToken:`.
 
  - Parameter deviceToken: Device token data.
  */
