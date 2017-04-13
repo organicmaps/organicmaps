@@ -23148,3 +23148,15 @@
 
   [booking_search]
     en = Booking.com
+
+  [updating_maps]
+    en = Updating maps
+    ru = Обновляем карты
+
+  [update_maps_ask]
+    en = Update your downloaded maps
+    ru = Обновите ваши загруженные карты
+
+  [update_maps_notice]
+    en = Update maps supports information about objects in the current state
+    ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
