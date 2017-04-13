@@ -153,6 +153,7 @@ public class Framework
   @NonNull
   public static native String[] nativeGetOutdatedCountries();
 
+  @UiThread
   @DoAfterUpdate
   public static native int nativeToDoAfterUpdate();
 
