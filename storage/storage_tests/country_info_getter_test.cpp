@@ -56,19 +56,43 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Inside mwm.
   m2::PointD const halfSize = m2::PointD(0.1, 0.1);
-  auto countries = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize));
-  TEST_EQUAL(countries, vector<storage::TCountryId> { "Belarus" }, ());
+  auto const countries =
+      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), false /* rough */);
+  TEST_EQUAL(countries, vector<storage::TCountryId>{"Belarus"}, ());
 
   // Several countries.
   m2::PointD const halfSize2 = m2::PointD(5.0, 5.0);
-  auto countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2));
-  auto expected = vector<storage::TCountryId> { "Belarus", "Latvia", "Lithuania", "Poland",
-                                                "Russia_Central", "Russia_Northwestern", "Ukraine" };
+  auto const countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2),
+                                                            false /* rough */);
+  auto const expected = vector<storage::TCountryId>{
+      "Belarus", "Latvia", "Lithuania", "Poland", "Russia_Central", "Russia_Northwestern",
+      "Ukraine"};
   TEST_EQUAL(countries2, expected, ());
 
   // No one found.
-  auto countries3 = getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize));
+  auto const countries3 =
+      getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize), false /* rough */);
   TEST_EQUAL(countries3, vector<storage::TCountryId>{}, ());
+
+  // Inside mwm (rough).
+  auto const countries4 =
+      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
+  TEST_EQUAL(countries, vector<storage::TCountryId>{"Belarus"}, ());
+
+  // Several countries (rough).
+  auto const countries5 =
+      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
+  auto const expected2 = vector<storage::TCountryId>{"Belarus",
+                                                     "Latvia",
+                                                     "Lithuania",
+                                                     "Poland",
+                                                     "Russia_Central",
+                                                     "Russia_Far Eastern",
+                                                     "Russia_Northwestern",
+                                                     "Sweden",
+                                                     "Ukraine",
+                                                     "USA_Alaska"};
+  TEST_EQUAL(countries5, expected2, ());
 }
 
 UNIT_TEST(CountryInfoGetter_ValidName_Smoke)

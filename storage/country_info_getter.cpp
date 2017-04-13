@@ -59,7 +59,7 @@ TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
   return id != kInvalidId ? m_countries[id].m_countryId : kInvalidCountryId;
 }
 
-vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect) const
+vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
 {
   size_t constexpr kAverageSize = 10;
 
@@ -67,10 +67,14 @@ vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const 
   result.reserve(kAverageSize);
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
-    if (rect.IsRectInside(m_countries[id].m_rect) ||
-        (rect.IsIntersect(m_countries[id].m_rect) && IsIntersectedByRegionImpl(id, rect)))
+    if (rect.IsRectInside(m_countries[id].m_rect))
     {
       result.push_back(m_countries[id].m_countryId);
+    }
+    else if (rect.IsIntersect(m_countries[id].m_rect))
+    {
+      if (rough || IsIntersectedByRegionImpl(id, rect))
+        result.push_back(m_countries[id].m_countryId);
     }
   }
   return result;

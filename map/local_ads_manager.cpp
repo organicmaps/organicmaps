@@ -117,6 +117,8 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
   // Request local ads campaigns.
   {
     std::lock_guard<std::mutex> lock(m_mutex);
+    if (!m_isRunning)
+      return;
 
     for (auto const & mwm : mwms)
     {
@@ -146,9 +148,8 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 
     if (!requestedCampaigns.empty())
     {
-      m_requestedCampaigns.reserve(m_requestedCampaigns.size() + requestedCampaigns.size());
       for (auto const & campaign : requestedCampaigns)
-        m_requestedCampaigns.push_back(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
+        m_requestedCampaigns.insert(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
       m_condition.notify_one();
     }
   }
@@ -165,7 +166,7 @@ void LocalAdsManager::ThreadRoutine()
   ReadCampaignFile(campaignFile);
   Invalidate();
 
-  std::vector<Request> campaignMwms;
+  std::set<Request> campaignMwms;
   while (WaitForRequest(campaignMwms))
   {
     for (auto const & mwm : campaignMwms)
@@ -219,18 +220,16 @@ void LocalAdsManager::ThreadRoutine()
   }
 }
 
-bool LocalAdsManager::WaitForRequest(std::vector<Request> & campaignMwms)
+bool LocalAdsManager::WaitForRequest(std::set<Request> & campaignMwms)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
 
   m_condition.wait(lock, [this] {return !m_isRunning || !m_requestedCampaigns.empty();});
-
   if (!m_isRunning)
     return false;
 
-  if (!m_requestedCampaigns.empty())
-    campaignMwms.swap(m_requestedCampaigns);
-
+  campaignMwms = std::move(m_requestedCampaigns);
+  m_requestedCampaigns.clear();
   return true;
 }
 
@@ -244,7 +243,7 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  m_requestedCampaigns.push_back(std::make_pair(m_getMwmIdByNameFn(countryName), RequestType::Delete));
+  m_requestedCampaigns.insert(std::make_pair(m_getMwmIdByNameFn(countryName), RequestType::Delete));
   m_condition.notify_one();
 }
 

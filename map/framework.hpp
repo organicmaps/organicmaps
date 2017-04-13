@@ -394,7 +394,7 @@ public:
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
-  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect) const;
+  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
   MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
 private:

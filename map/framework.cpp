@@ -427,10 +427,12 @@ Framework::Framework(FrameworkParams const & params)
   , m_isRenderingEnabled(true)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1), kMaxTrafficCacheSizeBytes,
+  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
+                     kMaxTrafficCacheSizeBytes,
                      // Note. |m_routingSession| should be declared before |m_trafficManager|.
                      m_routingSession)
-  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1), bind(&Framework::GetMwmIdByName, this, _1))
+  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
+                      bind(&Framework::GetMwmIdByName, this, _1))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -3563,13 +3565,13 @@ void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
   }, kScale);
 }
 
-vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect) const
+vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool rough) const
 {
   vector<MwmSet::MwmId> result;
   if (!m_infoGetter)
     return result;
 
-  auto countryIds = m_infoGetter->GetRegionsCountryIdByRect(rect);
+  auto countryIds = m_infoGetter->GetRegionsCountryIdByRect(rect, rough);
   for (auto const & countryId : countryIds)
     result.push_back(GetMwmIdByName(countryId));
 
