@@ -22,7 +22,7 @@ final class FacebookBanner: FBNativeAd, Banner {
     return true
   }
 
-  var isNeedToRetain: Bool = true
+  private(set) var isNeedToRetain: Bool = true
   var type: BannerType { return .facebook(bannerID) }
   var mwmType: MWMBannerType { return type.mwmType }
   var bannerID: String! { return placementID }
@@ -34,6 +34,10 @@ final class FacebookBanner: FBNativeAd, Banner {
         stopCountTimeOnScreen()
       }
     }
+  }
+
+  var statisticsDescription: [String: String] {
+    return [kStatBanner: bannerID, kStatProvider: kStatFacebook]
   }
 
   // MARK: Helpers
@@ -135,7 +139,7 @@ extension FacebookBanner: FBNativeAdDelegate {
 
   func nativeAdDidClick(_ nativeAd: FBNativeAd) {
     guard nativeAd === self else { return }
-    click(self.type)
+    click(self)
   }
 }
 

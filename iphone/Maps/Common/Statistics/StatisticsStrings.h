@@ -130,6 +130,7 @@ static NSString * const kStatMenu = @"Menu";
 static NSString * const kStatMigrationBig2SmallMWM = @"Big mwms to small mwms migration counter";
 static NSString * const kStatMiles = @"Miles";
 static NSString * const kStatMobileInternet = @"Mobile Internet";
+static NSString * const kStatMopub = @"Mopub";
 static NSString * const kStatMoreApps = @"More apps";
 static NSString * const kStatMyPosition = @"My position";
 static NSString * const kStatMyTargetAppsClicked = @"MyTargetAppsClicked";

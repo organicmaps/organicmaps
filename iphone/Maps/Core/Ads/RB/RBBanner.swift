@@ -96,7 +96,7 @@ final class RBBanner: MTRGNativeAd, Banner {
     }
   }
 
-  var isNeedToRetain = false
+  private(set) var isNeedToRetain = false
 
   var isPossibleToReload: Bool {
     if let date = requestDate {
@@ -114,6 +114,10 @@ final class RBBanner: MTRGNativeAd, Banner {
     set {
       customParams.setCustomParam(newValue, forKey: Settings.placementIDKey)
     }
+  }
+
+  var statisticsDescription: [String: String] {
+    return [kStatBanner: bannerID, kStatProvider: kStatRB]
   }
 }
 
@@ -135,6 +139,6 @@ extension RBBanner: MTRGNativeAdDelegate {
 
   func onAdClick(with nativeAd: MTRGNativeAd!) {
     guard nativeAd === self else { return }
-    click(self.type)
+    click(self)
   }
 }
