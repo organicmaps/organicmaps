@@ -12,7 +12,7 @@ UNIT_TEST(Facebook_GetBanner)
 {
   classificator::Load();
   Classificator const & c = classif();
-  ads::Facebook const facebook;
+  ads::Facebook facebook;
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
