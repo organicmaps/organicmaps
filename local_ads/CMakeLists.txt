@@ -9,6 +9,8 @@ set(
   event.hpp
   file_helpers.cpp
   file_helpers.hpp
+  icons_info.cpp
+  icons_info.hpp
   statistics.cpp
   statistics.hpp
 )

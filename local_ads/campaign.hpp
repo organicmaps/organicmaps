@@ -1,5 +1,7 @@
 #pragma once
 
+#include "local_ads/icons_info.hpp"
+
 #include <cstdint>
 #include <string>
 
@@ -18,9 +20,7 @@ struct Campaign
   {
   }
 
-  // TODO(mgsergio): Provide a working imlpementation.
-  std::string GetIconName() const { return "test-l"; }
-
+  std::string GetIconName() const { return IconsInfo::Instance().GetIcon(m_iconId); }
   uint32_t m_featureId;
   uint16_t m_iconId;
   uint8_t m_daysBeforeExpired;

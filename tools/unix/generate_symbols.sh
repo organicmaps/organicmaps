@@ -1,9 +1,13 @@
 #!/bin/bash
 set -e -u
 
+# Prevent python from generating compiled *.pyc files
+export PYTHONDONTWRITEBYTECODE=1
+
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 SKIN_GENERATOR="$OMIM_PATH/out/release/skin_generator"
 DATA_PATH="$OMIM_PATH/data"
+LOCAL_ADS_SYMBOLS_GENERATOR="$OMIM_PATH/tools/python/generate_local_ads_symbols.py"
 
 # If skin_generator does not exist then build it
 if [ ! -f $SKIN_GENERATOR ];
@@ -103,3 +107,6 @@ BuildSkin clear  clear hdpi   27 false _clear symbols-ad -ad
 BuildSkin clear  clear xhdpi  36 false _clear symbols-ad -ad
 BuildSkin clear  clear xxhdpi 54 false _clear symbols-ad -ad
 BuildSkin clear  clear 6plus  54 false _clear symbols-ad -ad
+
+echo "Generate local ads symbols"
+python "$LOCAL_ADS_SYMBOLS_GENERATOR" "$DATA_PATH/styles" "$DATA_PATH"

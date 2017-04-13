@@ -152,6 +152,7 @@ copy_resources(
   WorldCoasts.mwm
   WorldCoasts_obsolete.mwm
   icudt57l.dat
+  local_ads_symbols.txt
 
   01_dejavusans.ttf
   02_droidsans-fallback.ttf

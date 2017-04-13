@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = local_ads platform_tests_support platform coding geometry base stats_client
+DEPENDENCIES = platform_tests_support local_ads platform coding geometry base stats_client
 
 include($$ROOT_DIR/common.pri)
 
