@@ -516,6 +516,7 @@
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34F742331E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
+		450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
@@ -1888,6 +1889,7 @@
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
+		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_vehicle_clear.bin; path = ../../data/drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
@@ -4142,6 +4144,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
 				BB7626B41E8559980031D71C /* icudt57l.dat */,
 				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
 				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
@@ -4402,6 +4405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */,
 				4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				4554B6EB1E55F02B0084017F /* drules_proto_vehicle_dark.bin in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,

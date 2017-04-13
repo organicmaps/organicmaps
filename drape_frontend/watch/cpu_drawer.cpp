@@ -202,12 +202,12 @@ void CPUDrawer::Flush()
 
 void CPUDrawer::DrawMyPosition(m2::PointD const & myPxPotision)
 {
-  m_renderer->DrawSymbol(myPxPotision, dp::Center, IconInfo("watch-my-position"));
+  m_renderer->DrawSymbol(myPxPotision, dp::Center, IconInfo("current-position"));
 }
 
 void CPUDrawer::DrawSearchResult(m2::PointD const & pxPosition)
 {
-  m_renderer->DrawSymbol(pxPosition, dp::Top, IconInfo("watch-search-result"));
+  m_renderer->DrawSymbol(pxPosition, dp::Top, IconInfo("search-result"));
 }
 
 void CPUDrawer::DrawSearchArrow(double azimut)

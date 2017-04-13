@@ -10,6 +10,7 @@ SOURCES += \
     campaign_serialization.cpp \
     event.cpp \
     file_helpers.cpp \
+    icons_info.cpp \
     statistics.cpp \
 
 
@@ -18,4 +19,5 @@ HEADERS += \
     campaign_serialization.hpp \
     event.hpp \
     file_helpers.hpp \
+    icons_info.hpp \
     statistics.hpp \

@@ -254,7 +254,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
     SUBDIRS *= partners_api_tests
 
     local_ads_tests.subdir = local_ads/local_ads_tests
-    local_ads_tests.depends = base coding platform local_ads
+    local_ads_tests.depends = base local_ads platform_tests_support platform coding
     SUBDIRS *= local_ads_tests
 
     tracking_tests.subdir = tracking/tracking_tests

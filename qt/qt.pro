@@ -63,6 +63,7 @@ OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html 
                   ../data/languages.txt ../data/categories.txt \
                   ../data/packed_polygons.bin res/logo.png \
                   ../data/editor.config \
+                  ../data/local_ads_symbols.txt \
 
 CLASSIFICATOR_RES.path = $$DATADIR
 CLASSIFICATOR_RES.files = ../data/classificator.txt \

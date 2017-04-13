@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		450703041E9E6C3400E8C029 /* icons_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 450703021E9E6C3400E8C029 /* icons_info.cpp */; };
+		450703051E9E6C3400E8C029 /* icons_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 450703031E9E6C3400E8C029 /* icons_info.hpp */; };
 		455C5DA51E97EBAC00DBFE48 /* file_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C5DA11E97EBA200DBFE48 /* file_helpers_tests.cpp */; };
 		455C5DA61E97EBAF00DBFE48 /* statistics_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C5DA21E97EBA200DBFE48 /* statistics_tests.cpp */; };
 		455C5DAD1E97EBC300DBFE48 /* event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C5DA71E97EBC300DBFE48 /* event.cpp */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		450703021E9E6C3400E8C029 /* icons_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = icons_info.cpp; sourceTree = "<group>"; };
+		450703031E9E6C3400E8C029 /* icons_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = icons_info.hpp; sourceTree = "<group>"; };
 		455C5DA11E97EBA200DBFE48 /* file_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_helpers_tests.cpp; sourceTree = "<group>"; };
 		455C5DA21E97EBA200DBFE48 /* statistics_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = statistics_tests.cpp; sourceTree = "<group>"; };
 		455C5DA71E97EBC300DBFE48 /* event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = event.cpp; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				455C5DA81E97EBC300DBFE48 /* event.hpp */,
 				455C5DA91E97EBC300DBFE48 /* file_helpers.cpp */,
 				455C5DAA1E97EBC300DBFE48 /* file_helpers.hpp */,
+				450703021E9E6C3400E8C029 /* icons_info.cpp */,
+				450703031E9E6C3400E8C029 /* icons_info.hpp */,
 				455C5DAB1E97EBC300DBFE48 /* statistics.cpp */,
 				455C5DAC1E97EBC300DBFE48 /* statistics.hpp */,
 			);
@@ -155,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				455C5DB01E97EBC300DBFE48 /* file_helpers.hpp in Headers */,
+				450703051E9E6C3400E8C029 /* icons_info.hpp in Headers */,
 				45FFD6591E965E0600DB854E /* campaign.hpp in Headers */,
 				455C5DAE1E97EBC300DBFE48 /* event.hpp in Headers */,
 				45FFD6581E965E0600DB854E /* campaign_serialization.hpp in Headers */,
@@ -254,6 +261,7 @@
 			files = (
 				455C5DAD1E97EBC300DBFE48 /* event.cpp in Sources */,
 				45FFD6571E965E0600DB854E /* campaign_serialization.cpp in Sources */,
+				450703041E9E6C3400E8C029 /* icons_info.cpp in Sources */,
 				455C5DB11E97EBC300DBFE48 /* statistics.cpp in Sources */,
 				455C5DAF1E97EBC300DBFE48 /* file_helpers.cpp in Sources */,
 			);

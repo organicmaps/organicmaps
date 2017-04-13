@@ -25,6 +25,7 @@
 		34FFD30E1E9CEF010010AD12 /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FFD30C1E9CEF010010AD12 /* liblocal_ads.a */; };
 		34FFD30F1E9CEF490010AD12 /* map_widget.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2F21E9CEEA20010AD12 /* map_widget.hpp */; };
 		34FFD3101E9CEF490010AD12 /* resources_common.qrc in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2FD1E9CEEA20010AD12 /* resources_common.qrc */; };
+		450703071E9E6C7100E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703061E9E6C7100E8C029 /* local_ads_symbols.txt */; };
 		45B5B58A1CA4216B00D93E36 /* create_feature_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */; };
 		45B5B58B1CA4216B00D93E36 /* place_page_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */; };
 		45B5B58C1CA4219C00D93E36 /* create_feature_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */; };
@@ -235,6 +236,7 @@
 		34FFD2FF1E9CEEA20010AD12 /* scale_slider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scale_slider.hpp; sourceTree = "<group>"; };
 		34FFD30B1E9CEF010010AD12 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "/Users/igrechuhin/Repo/omim/xcode/icu/../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<absolute>"; };
 		34FFD30C1E9CEF010010AD12 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/igrechuhin/Repo/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
+		450703061E9E6C7100E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local_ads_symbols.txt; sourceTree = "<group>"; };
 		45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = create_feature_dialog.cpp; sourceTree = "<group>"; };
 		45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = create_feature_dialog.hpp; sourceTree = "<group>"; };
 		45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = place_page_dialog.cpp; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				6714E6001BD14016008AB603 /* resources-mdpi_clear */,
 				6714E6011BD14016008AB603 /* resources-mdpi_dark */,
 				6729A5BB1A693013007D5872 /* countries.txt */,
+				450703061E9E6C7100E8C029 /* local_ads_symbols.txt */,
 			);
 			name = Resources;
 			path = ../../data;
@@ -694,6 +697,7 @@
 				45B5B59B1CA422C800D93E36 /* resources-xhdpi_clear in Resources */,
 				671182DC1C7F0D8C00CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				45B5B5981CA422C800D93E36 /* resources-6plus_clear in Resources */,
+				450703071E9E6C7100E8C029 /* local_ads_symbols.txt in Resources */,
 				671182DB1C7F0D8C00CB8177 /* countries_obsolete.txt in Resources */,
 				67F4D3F51CC5400900C5D9BB /* cuisine-strings in Resources */,
 			);

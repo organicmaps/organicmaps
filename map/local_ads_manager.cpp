@@ -2,6 +2,7 @@
 
 #include "local_ads/campaign_serialization.hpp"
 #include "local_ads/file_helpers.hpp"
+#include "local_ads/icons_info.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -16,6 +17,7 @@
 namespace
 {
 std::string const kCampaignFile = "local_ads_campaigns.dat";
+std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
@@ -154,6 +156,9 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 
 void LocalAdsManager::ThreadRoutine()
 {
+  local_ads::IconsInfo::Instance().SetSourceFile(
+    my::JoinFoldersToPath(GetPlatform().ResourcesDir(), kLocalAdsSymbolsFile));
+
   std::string const campaignFile = GetPath(kCampaignFile);
 
   // Read persistence data.
