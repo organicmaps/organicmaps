@@ -13,6 +13,8 @@ set(
   booking_api.hpp
   facebook_ads.cpp
   facebook_ads.hpp
+  mopub_ads.cpp
+  mopub_ads.hpp
   opentable_api.cpp
   opentable_api.hpp
   rb_ads.cpp
