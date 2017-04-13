@@ -1,5 +1,5 @@
 #include "partners_api/ads_engine.hpp"
-#include "partners_api/facebook_ads.hpp"
+#include "partners_api/mopub_ads.hpp"
 #include "partners_api/rb_ads.hpp"
 
 #include "indexer/feature_data.hpp"
@@ -14,7 +14,7 @@ Engine::Engine()
 {
   // The banner systems are placed by priority. First has a top priority.
   m_containers.emplace_back(Banner::Type::RB, my::make_unique<Rb>());
-  m_containers.emplace_back(Banner::Type::Facebook, my::make_unique<Facebook>());
+  m_containers.emplace_back(Banner::Type::Mopub, my::make_unique<Mopub>());
 }
 
 bool Engine::HasBanner(feature::TypesHolder const & types,

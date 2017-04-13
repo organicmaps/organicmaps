@@ -29,5 +29,6 @@ SOURCES += \
     ads_engine_tests.cpp \
     booking_tests.cpp \
     facebook_tests.cpp \
+    mopub_tests.cpp
     rb_tests.cpp \
     uber_tests.cpp \
