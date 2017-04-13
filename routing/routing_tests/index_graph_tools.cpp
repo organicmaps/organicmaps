@@ -5,7 +5,6 @@
 #include "routing_common/car_model.hpp"
 
 #include "base/assert.hpp"
-#include "base/scope_guard.hpp"
 
 namespace routing_test
 {
@@ -78,12 +77,11 @@ TestIndexGraphTopology::TestIndexGraphTopology(uint32_t numVertices) : m_numVert
 
 void TestIndexGraphTopology::AddDirectedEdge(Vertex from, Vertex to, double weight)
 {
-  uint32_t const id = static_cast<uint32_t>(m_edgeRequests.size());
-  m_edgeRequests.emplace_back(id, from, to, weight);
+  AddDirectedEdge(m_edgeRequests, from, to, weight);
 }
 
 bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & pathWeight,
-                                      vector<Edge> & pathEdges)
+                                      vector<Edge> & pathEdges) const
 {
   CHECK_LESS(start, m_numVertices, ());
   CHECK_LESS(finish, m_numVertices, ());
@@ -95,19 +93,16 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
     return true;
   }
 
+  auto edgeRequests = m_edgeRequests;
   // Edges of the index graph are segments, so we need a loop at finish
   // for the end of our path and another loop at start for the bidirectional search.
-  auto const startFeatureId = static_cast<uint32_t>(m_edgeRequests.size());
-  AddDirectedEdge(start, start, 0.0);
-  auto const finishFeatureId = static_cast<uint32_t>(m_edgeRequests.size());
-  AddDirectedEdge(finish, finish, 0.0);
-  MY_SCOPE_GUARD(cleanup, [&]() {
-    m_edgeRequests.pop_back();
-    m_edgeRequests.pop_back();
-  });
+  auto const startFeatureId = static_cast<uint32_t>(edgeRequests.size());
+  AddDirectedEdge(edgeRequests, start, start, 0.0);
+  auto const finishFeatureId = static_cast<uint32_t>(edgeRequests.size());
+  AddDirectedEdge(edgeRequests, finish, finish, 0.0);
 
   Builder builder(m_numVertices);
-  builder.BuildGraphFromRequests(m_edgeRequests);
+  builder.BuildGraphFromRequests(edgeRequests);
   auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
@@ -153,6 +148,13 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   return true;
 }
 
+void TestIndexGraphTopology::AddDirectedEdge(vector<EdgeRequest> & edgeRequests, Vertex from,
+                                             Vertex to, double weight) const
+{
+  uint32_t const id = static_cast<uint32_t>(edgeRequests.size());
+  edgeRequests.emplace_back(id, from, to, weight);
+}
+
 // TestIndexGraphTopology::Builder -----------------------------------------------------------------
 unique_ptr<WorldGraph> TestIndexGraphTopology::Builder::PrepareIndexGraph()
 {
@@ -174,7 +176,7 @@ void TestIndexGraphTopology::Builder::BuildJoints()
     for (auto const & segment : m_outgoingSegments[i])
       joint.AddPoint(RoadPoint(segment.GetFeatureId(), segment.GetPointId(false /* front */)));
 
-    for (auto const & segment : m_incomingSegments[i])
+    for (auto const & segment : m_ingoingSegments[i])
       joint.AddPoint(RoadPoint(segment.GetFeatureId(), segment.GetPointId(true /* front */)));
   }
 }
@@ -197,7 +199,7 @@ void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & r
   m_segmentWeights[segment] = request.m_weight;
   m_segmentToEdge[segment] = edge;
   m_outgoingSegments[request.m_from].push_back(segment);
-  m_incomingSegments[request.m_to].push_back(segment);
+  m_ingoingSegments[request.m_to].push_back(segment);
 }
 
 // Functions ---------------------------------------------------------------------------------------

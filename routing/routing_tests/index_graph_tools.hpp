@@ -126,7 +126,7 @@ public:
   void AddDirectedEdge(Vertex from, Vertex to, double weight);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
-  bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges);
+  bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges) const;
 
 private:
   struct EdgeRequest
@@ -156,9 +156,12 @@ private:
     map<Segment, double> m_segmentWeights;
     map<Segment, Edge> m_segmentToEdge;
     map<Vertex, vector<Segment>> m_outgoingSegments;
-    map<Vertex, vector<Segment>> m_incomingSegments;
+    map<Vertex, vector<Segment>> m_ingoingSegments;
     vector<Joint> m_joints;
   };
+
+  void AddDirectedEdge(vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
+                       double weight) const;
 
   uint32_t const m_numVertices;
   vector<EdgeRequest> m_edgeRequests;
