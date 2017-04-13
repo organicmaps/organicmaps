@@ -3,11 +3,15 @@ import FBAudienceNetwork
 
 @objc(MWMAdBannerState)
 enum AdBannerState: Int {
+  case unset
   case compact
   case detailed
 
   func config() -> (priority: UILayoutPriority, numberOfTitleLines: Int, numberOfBodyLines: Int) {
     switch self {
+    case .unset:
+      assert(false)
+      return (priority: 0, numberOfTitleLines: 0, numberOfBodyLines: 0)
     case .compact:
       return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
                          iPad: (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
@@ -27,7 +31,7 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   static let detailedBannerExcessHeight: Float = 36
 
-  var state = alternative(iPhone: AdBannerState.compact, iPad: AdBannerState.detailed) {
+  var state = AdBannerState.unset {
     didSet {
       let config = state.config()
       adTitleLabel.numberOfLines = config.numberOfTitleLines
@@ -48,6 +52,7 @@ final class AdBanner: UITableViewCell {
   private var nativeAd: MWMBanner?
 
   func config(ad: MWMBanner) {
+    state = alternative(iPhone: AdBannerState.compact, iPad: AdBannerState.detailed)
     nativeAd = ad
     switch ad.mwmType {
     case .none:
@@ -158,6 +163,9 @@ final class AdBanner: UITableViewCell {
     if let ad = nativeAd as? MTRGNativeAd {
       let clickableView: UIView
       switch state {
+      case .unset:
+        assert(false)
+        clickableView = adCallToActionButtonCompact
       case .compact: clickableView = adCallToActionButtonCompact
       case .detailed: clickableView = adCallToActionButtonDetailed
       }
