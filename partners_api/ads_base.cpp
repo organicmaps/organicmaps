@@ -91,17 +91,17 @@ std::string Container::GetBannerId(feature::TypesHolder const & types,
   return GetBannerIdForOtherTypes();
 }
 
+std::string Container::GetBannerIdForOtherTypes() const
+{
+  return {};
+}
+
 bool Container::HasSearchBanner() const
 {
   return false;
 }
 
 std::string Container::GetSearchBannerId() const
-{
-  return "";
-}
-
-std::string Container::GetBannerIdForOtherTypes() const
 {
   return {};
 }

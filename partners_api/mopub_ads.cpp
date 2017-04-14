@@ -73,6 +73,11 @@ Mopub::Mopub()
               kNonTourismPlacementId);
 }
 
+std::string Mopub::GetBannerIdForOtherTypes() const
+{
+  return kNonTourismPlacementId;
+}
+
 bool Mopub::HasSearchBanner() const
 {
   return true;
@@ -81,10 +86,5 @@ bool Mopub::HasSearchBanner() const
 std::string Mopub::GetSearchBannerId() const
 {
   return kSearchBannerId;
-}
-
-std::string Mopub::GetBannerIdForOtherTypes() const
-{
-  return kNonTourismPlacementId;
 }
 }  // namespace ads

@@ -25,9 +25,9 @@ public:
                          storage::TCountryId const & countryId) const = 0;
   virtual std::string GetBannerId(feature::TypesHolder const & types,
                                   storage::TCountryId const & countryId) const = 0;
+  virtual std::string GetBannerIdForOtherTypes() const = 0;
   virtual bool HasSearchBanner() const = 0;
   virtual std::string GetSearchBannerId() const = 0;
-  virtual std::string GetBannerIdForOtherTypes() const = 0;
 };
 
 // Class which matches feature types and banner ids.
@@ -41,9 +41,9 @@ public:
                  storage::TCountryId const & countryId) const override;
   std::string GetBannerId(feature::TypesHolder const & types,
                           storage::TCountryId const & countryId) const override;
+  std::string GetBannerIdForOtherTypes() const override;
   bool HasSearchBanner() const override;
   std::string GetSearchBannerId() const override;
-  std::string GetBannerIdForOtherTypes() const override;
 
 protected:
   void AppendEntry(std::vector<std::vector<std::string>> const & types, std::string const & id);
