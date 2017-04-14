@@ -35,8 +35,9 @@ public interface MwmNativeAd
 
   /**
    * Unregisters the view attached to the current ad.
+   * @param bannerView A view which holds all native ad information.
    */
-  void unregisterView();
+  void unregisterView(@NonNull View bannerView);
 
   /**
    * Returns a provider name for this ad.

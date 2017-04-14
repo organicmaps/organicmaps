@@ -101,11 +101,11 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
   @NonNull
   abstract String getProvider();
 
-  void onError(@NonNull String bannerId, @NonNull MwmNativeAd ad, @NonNull NativeAdError error)
+  void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error)
   {
     PENDING_REQUESTS.remove(new BannerKey(getProvider(), bannerId));
     if (getAdListener() != null)
-      getAdListener().onError(ad, error);
+      getAdListener().onError(bannerId, provider, error);
   }
 
   void onAdLoaded(@NonNull String bannerId, @NonNull CachedMwmNativeAd ad)

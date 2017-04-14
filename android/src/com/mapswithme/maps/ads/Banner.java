@@ -2,13 +2,23 @@ package com.mapswithme.maps.ads;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public final class Banner implements Parcelable
 {
   private static final int TYPE_NONE = 0;
   private static final int TYPE_FACEBOOK = 1;
   private static final int TYPE_RB = 2;
+  private static final int TYPE_MOPUB = 3;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ TYPE_NONE, TYPE_FACEBOOK, TYPE_RB, TYPE_MOPUB })
+
+  public @interface BannerType {}
 
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
@@ -56,6 +66,8 @@ public final class Banner implements Parcelable
         return Providers.FACEBOOK;
       case TYPE_RB:
         return Providers.MY_TARGET;
+      case TYPE_MOPUB:
+        return Providers.MOPUB;
       default:
         throw new AssertionError("Unsupported banner type: " + mType);
     }
