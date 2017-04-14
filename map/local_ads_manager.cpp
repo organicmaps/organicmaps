@@ -16,6 +16,8 @@
 
 namespace
 {
+std::string const kServerUrl = "";//"http://172.27.15.68";
+
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
@@ -103,7 +105,7 @@ void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
   auto connectionStatus = GetPlatform().ConnectionStatus();
-  if (connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
+  if (kServerUrl.empty() || connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
       df::GetZoomLevel(screen.GetScale()) <= scales::GetUpperWorldScale())
   {
     return;
@@ -156,8 +158,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 
 void LocalAdsManager::ThreadRoutine()
 {
-  local_ads::IconsInfo::Instance().SetSourceFile(
-    my::JoinFoldersToPath(GetPlatform().ResourcesDir(), kLocalAdsSymbolsFile));
+  local_ads::IconsInfo::Instance().SetSourceFile(kLocalAdsSymbolsFile);
 
   std::string const campaignFile = GetPath(kCampaignFile);
 
@@ -248,18 +249,22 @@ void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
   m_condition.notify_one();
 }
 
-string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const & mwmId) const
+std::string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const & mwmId) const
 {
   // TODO: build correct URL after server completion.
-
-  return "http://172.27.15.68/campaigns.data";
+  return {};//kServerUrl + "/campaigns.data";
 }
 
 std::vector<uint8_t> LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId) const
 {
-  platform::HttpClient request(MakeRemoteURL(mwmId));
+  std::string const url = MakeRemoteURL(mwmId);
+  if (url.empty())
+    return {};
+
+  platform::HttpClient request(url);
   if (!request.RunHttpRequest() || request.ErrorCode() != 200)
-    return std::vector<uint8_t>();
+    return {};
+
   string const & response = request.ServerResponse();
   return std::vector<uint8_t>(response.cbegin(), response.cend());
 }
