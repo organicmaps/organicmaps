@@ -244,7 +244,9 @@ bool SquareHandle::IsBound() const { return m_isBound; }
 string SquareHandle::GetOverlayDebugInfo()
 {
   ostringstream out;
-  out << "POI Priority(" << GetPriority() << ") " << GetOverlayID().m_featureId.m_index << " " << m_debugStr;
+  out << "POI Priority(" << GetPriority() << ") "
+      << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
+      << m_debugStr;
   return out.str();
 }
 #endif

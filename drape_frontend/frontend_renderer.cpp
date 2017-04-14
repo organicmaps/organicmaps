@@ -236,6 +236,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           AddToRenderGroup(overlayRenderData.m_state, move(overlayRenderData.m_bucket), overlayRenderData.m_tileKey);
         }
       }
+      UpdateCanBeDeletedStatus();
       break;
     }
 
