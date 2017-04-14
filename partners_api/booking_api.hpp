@@ -61,8 +61,7 @@ public:
   string GetBookHotelUrl(string const & baseUrl) const;
   string GetDescriptionUrl(string const & baseUrl) const;
   string GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) const;
-  string GetSearchUrl(string const & city, string const & street, string const & hotelName,
-                      string const & type) const;
+  string GetSearchUrl(string const & city, string const & name) const;
   // Real-time information methods (used for retriving rapidly changing information).
   // These methods send requests directly to Booking.
   void GetMinPrice(string const & hotelId, string const & currency, GetMinPriceCallback const & fn);
