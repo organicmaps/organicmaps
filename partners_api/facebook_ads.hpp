@@ -9,6 +9,7 @@ class Facebook : public Container
 {
 public:
   Facebook() = default;
+
   // ContainerBase overrides:
   std::string GetBannerIdForOtherTypes() const override;
 };

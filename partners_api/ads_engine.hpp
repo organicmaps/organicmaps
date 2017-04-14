@@ -22,6 +22,8 @@ public:
   bool HasBanner(feature::TypesHolder const & types, storage::TCountriesVec const & countryIds) const;
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
                                  storage::TCountriesVec const & countryIds) const;
+  bool HasSearchBanner() const;
+  std::vector<Banner> GetSearchBanners() const;
 
 private:
   using ContainerPtr = std::unique_ptr<ContainerBase>;
@@ -37,6 +39,7 @@ private:
     ContainerPtr m_container;
   };
 
-  std::vector<ContainerItem> m_containers;
+  std::vector<ContainerItem> m_banners;
+  std::vector<ContainerItem> m_searchBanners;
 };
 }  // namespace ads

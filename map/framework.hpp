@@ -343,6 +343,8 @@ public:
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);
 
+  ads::Engine const & GetAdsEngine() const;
+
 protected:
   // search::ViewportSearchCallback::Delegate overrides:
   void RunUITask(function<void()> fn) override { GetPlatform().RunOnGuiThread(move(fn)); }

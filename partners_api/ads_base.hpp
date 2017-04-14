@@ -25,6 +25,8 @@ public:
                          storage::TCountryId const & countryId) const = 0;
   virtual std::string GetBannerId(feature::TypesHolder const & types,
                                   storage::TCountryId const & countryId) const = 0;
+  virtual bool HasSearchBanner() const = 0;
+  virtual std::string GetSearchBannerId() const = 0;
   virtual std::string GetBannerIdForOtherTypes() const = 0;
 };
 
@@ -39,6 +41,8 @@ public:
                  storage::TCountryId const & countryId) const override;
   std::string GetBannerId(feature::TypesHolder const & types,
                           storage::TCountryId const & countryId) const override;
+  bool HasSearchBanner() const override;
+  std::string GetSearchBannerId() const override;
   std::string GetBannerIdForOtherTypes() const override;
 
 protected:

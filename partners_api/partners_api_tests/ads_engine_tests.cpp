@@ -126,5 +126,12 @@ UNIT_TEST(AdsEngine_Smoke)
     auto result = engine.GetBanners(holder, {"Russian Federation"});
     TEST(result.empty(), ());
   }
+  {
+    TEST(engine.HasSearchBanner(), ());
+    auto result = engine.GetSearchBanners();
+    TEST_EQUAL(result.size(), 1, ());
+    TEST_EQUAL(result[0].m_type, ads::Banner::Type::Mopub, ());
+    TEST_EQUAL(result[0].m_bannerId, mopub.GetSearchBannerId(), ());
+  }
 }
 }

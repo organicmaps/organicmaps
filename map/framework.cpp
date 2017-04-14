@@ -3565,6 +3565,12 @@ void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
   }, kScale);
 }
 
+ads::Engine const & Framework::GetAdsEngine() const
+{
+  ASSERT(m_adsEngine, ());
+  return *m_adsEngine;
+}
+
 vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool rough) const
 {
   vector<MwmSet::MwmId> result;

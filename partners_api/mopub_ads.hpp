@@ -11,6 +11,8 @@ public:
   Mopub();
 
   // ContainerBase overrides:
+  bool HasSearchBanner() const override;
+  std::string GetSearchBannerId() const override;
   std::string GetBannerIdForOtherTypes() const override;
 };
 }  // namespace ads
