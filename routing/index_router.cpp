@@ -134,7 +134,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph(
-      make_unique<CrossMwmGraph>(m_numMwmIds, *m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
+      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
                                  m_index, m_indexManager),
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);

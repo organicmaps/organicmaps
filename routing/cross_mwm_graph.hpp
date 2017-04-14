@@ -23,7 +23,7 @@ namespace routing
 class CrossMwmGraph final
 {
 public:
-  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, m4::Tree<NumMwmId> const & numMwmTree,
+  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactory> vehicleModelFactory,
                 CourntryRectFn const & countryRectFn, Index & index,
                 RoutingIndexManager & indexManager);
@@ -107,7 +107,7 @@ private:
   /// one or very small in rare cases in OSRM.
   TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
 
-  MwmStatus GetMwmStatus(NumMwmId numMwmId);
+  MwmStatus GetMwmStatus(NumMwmId numMwmId) const;
   bool CrossMwmSectionExists(NumMwmId numMwmId);
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
@@ -127,15 +127,18 @@ private:
   void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
                      map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins);
 
-  /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and returns true
-  /// if all the neighbors have cross_mwm section.
-  bool GetAllLoadedNeighbors(NumMwmId numMwmId, std::vector<NumMwmId> & neighbors);
+  /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
+  /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section
+  /// and to false otherwise.
+  void GetAllLoadedNeighbors(NumMwmId numMwmId,
+                             std::vector<NumMwmId> & neighbors,
+                             bool & allNeighborsHaveCrossMwmSection);
   /// \brief Deserizlize transitions for mwm with |ids|.
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
 
   Index & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  m4::Tree<NumMwmId> const & m_numMwmTree;
+  std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   CourntryRectFn const & m_countryRectFn;
   CrossMwmIndexGraph m_crossMwmIndexGraph;

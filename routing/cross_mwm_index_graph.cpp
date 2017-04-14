@@ -23,7 +23,12 @@ void CrossMwmIndexGraph::GetTwinsByOsmId(Segment const & s, bool isOutgoing,
     CHECK(it != m_connectors.cend(), ("Connector for", m_numMwmIds->GetFile(neighbor), "was not deserialized."));
 
     CrossMwmConnector const & connector = it->second;
-    Segment const * twinSeg = connector.GetTransition(osmId, s.GetSegmentIdx(), !isOutgoing);
+    // Note. Last parameter in the method below (isEnter) should be set to |isOutgoing|.
+    // If |isOutgoing| == true |s| should be an exit transition segment and the method below searches enters
+    // and the last parameter (|isEnter|) should be set to true.
+    // If |isOutgoing| == false |s| should be an enter transition segment and the method below searches exits
+    // and the last parameter (|isEnter|) should be set to false.
+    Segment const * twinSeg = connector.GetTransition(osmId, s.GetSegmentIdx(), isOutgoing);
     if (twinSeg == nullptr)
       continue;
 

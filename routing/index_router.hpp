@@ -82,7 +82,7 @@ private:
   TCountryFileFn const m_countryFileFn;
   CourntryRectFn const m_countryRectFn;
   shared_ptr<NumMwmIds> m_numMwmIds;
-  unique_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
+  shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   shared_ptr<TrafficStash> m_trafficStash;
   RoutingIndexManager m_indexManager;
   FeaturesRoadGraph m_roadGraph;

@@ -43,7 +43,7 @@ void CrossMwmGraph::ClosestSegment::Update(double distM, Segment const & bestSeg
 }
 
 // CrossMwmGraph ----------------------------------------------------------------------------------
-CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds, m4::Tree<NumMwmId> const & numMwmTree,
+CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactory> vehicleModelFactory,
                              CourntryRectFn const & countryRectFn, Index & index,
                              RoutingIndexManager & indexManager)
@@ -104,22 +104,24 @@ void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType 
   }
 }
 
-bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & neighbors)
+void CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId,
+                                          vector<NumMwmId> & neighbors,
+                                          bool & allNeighborsHaveCrossMwmSection)
 {
+  CHECK(m_numMwmTree, ());
   m2::RectD const rect = m_countryRectFn(m_numMwmIds->GetFile(numMwmId).GetName());
-  bool allNeighborsWithCrossMwmSection = true;
-  m_numMwmTree.ForEachInRect(rect, [&](NumMwmId id) {
+  allNeighborsHaveCrossMwmSection = true;
+  m_numMwmTree->ForEachInRect(rect, [&](NumMwmId id) {
+    if (id == numMwmId)
+      return;
     MwmStatus const status = GetMwmStatus(id);
     if (status == MwmStatus::NotLoaded)
       return;
-    if (status == MwmStatus::CrossMwmSectionExists)
-      allNeighborsWithCrossMwmSection = false;
+    if (status == MwmStatus::NoCrossMwmSection)
+      allNeighborsHaveCrossMwmSection = false;
 
-    if (id != numMwmId)
-      neighbors.push_back(id);
+    neighbors.push_back(id);
   });
-
-  return allNeighborsWithCrossMwmSection;
 }
 
 void CrossMwmGraph::DeserializeTransitions(vector<NumMwmId> const & mwmIds)
@@ -141,7 +143,9 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   twins.clear();
 
   vector<NumMwmId> neighbors;
-  if (GetAllLoadedNeighbors(s.GetMwmId(), neighbors))
+  bool allNeighborsHaveCrossMwmSection = false;
+  GetAllLoadedNeighbors(s.GetMwmId(), neighbors, allNeighborsHaveCrossMwmSection);
+  if (allNeighborsHaveCrossMwmSection)
   {
     DeserializeTransitions(neighbors);
     m_crossMwmIndexGraph.GetTwinsByOsmId(s, isOutgoing, neighbors, twins);
@@ -207,7 +211,7 @@ TransitionPoints CrossMwmGraph::GetTransitionPoints(Segment const & s, bool isOu
                                              : m_crossMwmOsrmGraph.GetTransitionPoints(s, isOutgoing);
 }
 
-CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId)
+CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId) const
 {
   if (m_crossMwmIndexGraph.InCache(numMwmId))
     return MwmStatus::CrossMwmSectionExists;

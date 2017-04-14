@@ -2641,15 +2641,11 @@ void Framework::SetRouterImpl(RouterType type)
   unique_ptr<IRouter> router;
   unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
 
-  auto countryFileGetter = [this](m2::PointD const & p) -> string
+  auto const countryFileGetter = [this](m2::PointD const & p) -> string
   {
     // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
     // instances instead of plain strings.
     return m_infoGetter->GetRegionCountryId(p);
-  };
-
-  auto getMwmRectByName = [this](string const & countryId) -> m2::RectD {
-    return m_infoGetter->GetLimitRectForLeaf(countryId);
   };
 
   if (type == RouterType::Pedestrian)
@@ -2672,6 +2668,10 @@ void Framework::SetRouterImpl(RouterType type)
     auto numMwmIds = make_shared<routing::NumMwmIds>();
     m_storage.ForEachCountryFile(
         [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
+
+    auto const getMwmRectByName = [this](string const & countryId) -> m2::RectD {
+      return m_infoGetter->GetLimitRectForLeaf(countryId);
+    };
 
     router.reset(
         new CarRouter(m_model.GetIndex(), countryFileGetter,

@@ -28,7 +28,7 @@ public:
   bool IsTransition(Segment const & segment, bool isOutgoing) const;
   uint64_t GetOsmId(Segment const & segment) const { return GetTransition(segment).m_osmId; }
   // returns nullptr if there is no transition for such osm id.
-  Segment const * GetTransition(uint64_t osmId, uint32_t segmentIdx, bool isOutgoing) const;
+  Segment const * GetTransition(uint64_t osmId, uint32_t segmentIdx, bool isEnter) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
   void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) const;
