@@ -110,6 +110,8 @@ private:
     BidirectionalStepContext(bool forward, TVertexType const & startVertex,
                              TVertexType const & finalVertex, TGraphType & graph)
         : forward(forward), startVertex(startVertex), finalVertex(finalVertex), graph(graph)
+        , m_piRT(graph.HeuristicCostEstimate(finalVertex, startVertex))
+        , m_piFS(graph.HeuristicCostEstimate(startVertex, finalVertex))
     {
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
@@ -128,19 +130,17 @@ private:
     {
       double const piF = graph.HeuristicCostEstimate(v, finalVertex);
       double const piR = graph.HeuristicCostEstimate(v, startVertex);
-      double const piRT = graph.HeuristicCostEstimate(finalVertex, startVertex);
-      double const piFS = graph.HeuristicCostEstimate(startVertex, finalVertex);
       if (forward)
       {
         /// @todo careful: with this "return" here and below in the Backward case
         /// the heuristic becomes inconsistent but still seems to work.
         /// return HeuristicCostEstimate(v, finalVertex);
-        return 0.5 * (piF - piR + piRT);
+        return 0.5 * (piF - piR + m_piRT);
       }
       else
       {
         // return HeuristicCostEstimate(v, startVertex);
-        return 0.5 * (piR - piF + piFS);
+        return 0.5 * (piR - piF + m_piFS);
       }
     }
 
@@ -156,6 +156,8 @@ private:
     TVertexType const & startVertex;
     TVertexType const & finalVertex;
     TGraph & graph;
+    double const m_piRT;
+    double const m_piFS;
 
     priority_queue<State, vector<State>, greater<State>> queue;
     map<TVertexType, double> bestDistance;
