@@ -151,6 +151,8 @@
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
 		34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */; };
 		34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34201E0B1DC0E33100D24118 /* libtracking.a */; };
+		342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
+		342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		342CC5F11C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
@@ -4661,6 +4663,7 @@
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
+				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
@@ -4829,6 +4832,7 @@
 				F6E2FDF01E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
+				342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */,
 				F6E2FE771E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE021E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
