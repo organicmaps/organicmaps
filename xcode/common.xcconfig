@@ -2,7 +2,6 @@ CURRENT_PROJECT_VERSION = 7.2.4
 
 // Paths
 OMIM_ROOT = $(PROJECT_DIR)/../..
-BUILD_DIR = $(OMIM_ROOT)/../omim-build/xcode
 QT_PATH = /usr/local/opt/qt5
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 

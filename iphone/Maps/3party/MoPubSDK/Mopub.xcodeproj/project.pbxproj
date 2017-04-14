@@ -1357,11 +1357,92 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		341EF4731EA0C459001FC0AA /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+			};
+			name = AdHoc;
+		};
+		341EF4741EA0C459001FC0AA /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = AdHoc;
+		};
+		341EF4751EA0C482001FC0AA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+			};
+			name = "Production Full";
+		};
+		341EF4761EA0C482001FC0AA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		341EF4771EA0C49B001FC0AA /* Simulator Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				MACH_O_TYPE = staticlib;
+			};
+			name = "Simulator Release";
+		};
+		341EF4781EA0C49B001FC0AA /* Simulator Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Simulator Release";
+		};
+		341EF4791EA0C4A3001FC0AA /* Simulator */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F4098E1E9E27DB00E57AC0 /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				MACH_O_TYPE = staticlib;
+			};
+			name = Simulator;
+		};
+		341EF47A1EA0C4A3001FC0AA /* Simulator */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Simulator;
+		};
 		34F407531E9E1D3500E57AC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098E1E9E27DB00E57AC0 /* common-debug.xcconfig */;
 			buildSettings = {
-				BUILD_DIR = "$(OMIM_ROOT)/../../../omim-build/xcode";
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 			};
@@ -1371,7 +1452,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
 			buildSettings = {
-				BUILD_DIR = "$(OMIM_ROOT)/../../../omim-build/xcode";
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 			};
@@ -1406,19 +1486,27 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34F407531E9E1D3500E57AC0 /* Debug */,
+				341EF4791EA0C4A3001FC0AA /* Simulator */,
 				34F407541E9E1D3500E57AC0 /* Release */,
+				341EF4771EA0C49B001FC0AA /* Simulator Release */,
+				341EF4751EA0C482001FC0AA /* Production Full */,
+				341EF4731EA0C459001FC0AA /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = AdHoc;
 		};
 		34F407551E9E1D3500E57AC0 /* Build configuration list for PBXNativeTarget "Mopub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34F407561E9E1D3500E57AC0 /* Debug */,
+				341EF47A1EA0C4A3001FC0AA /* Simulator */,
 				34F407571E9E1D3500E57AC0 /* Release */,
+				341EF4781EA0C49B001FC0AA /* Simulator Release */,
+				341EF4761EA0C482001FC0AA /* Production Full */,
+				341EF4741EA0C459001FC0AA /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = AdHoc;
 		};
 /* End XCConfigurationList section */
 	};

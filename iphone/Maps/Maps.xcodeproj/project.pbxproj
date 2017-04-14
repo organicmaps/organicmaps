@@ -4296,7 +4296,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3T6FSDE8C7;
+						DevelopmentTeam = L2QFT5NA2Q;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -6065,7 +6065,6 @@
 		849CF79D1DE842290024A8A5 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6115,7 +6114,6 @@
 		849CF79E1DE842290024A8A5 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6165,7 +6163,6 @@
 		849CF79F1DE842290024A8A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6215,7 +6212,6 @@
 		849CF7A01DE842290024A8A5 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6265,7 +6261,6 @@
 		849CF7A11DE842290024A8A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6315,7 +6310,6 @@
 		849CF7A21DE842290024A8A5 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -6409,7 +6403,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "i386 x86_64";
@@ -6420,7 +6414,6 @@
 		FAAB411A149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6524,7 +6517,6 @@
 		FAAB411C149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6631,7 +6623,6 @@
 		FAAB411E149BA85500C245B1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6738,7 +6729,6 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6845,7 +6835,6 @@
 		FABB561F149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6953,7 +6942,6 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_DIR = "$(BUILD_ROOT)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
