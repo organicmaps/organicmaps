@@ -37,7 +37,8 @@ public:
   TCountryId GetRegionCountryId(m2::PointD const & pt) const;
 
   // Returns vector of countries file names without an extension for
-  // countries belong to |rect|.
+  // countries belong to |rect|. |rough| provides fast rough result
+  // or a slower but more precise one.
   vector<TCountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
 
   // Returns a list of country ids by a |pt| in mercator.
