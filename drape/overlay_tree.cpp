@@ -9,7 +9,7 @@ namespace dp
 {
 
 int const kFrameUpdatePeriod = 10;
-int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
+size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 int const kInvalidFrame = -1;
 
 namespace

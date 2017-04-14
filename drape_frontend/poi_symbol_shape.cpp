@@ -121,6 +121,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          true /* isBound */,
                                                                          m_params.m_symbolName,
                                                                          true /* isBillboard */);
+  handle->SetDisplacementMode(m_displacementMode);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
