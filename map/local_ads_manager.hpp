@@ -17,6 +17,7 @@
 #include <chrono>
 #include <map>
 #include <mutex>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -57,7 +58,7 @@ private:
   using Request = std::pair<MwmSet::MwmId, RequestType>;
 
   void ThreadRoutine();
-  bool WaitForRequest(std::vector<Request> & campaignMwms);
+  bool WaitForRequest(std::set<Request> & campaignMwms);
 
   std::string MakeRemoteURL(MwmSet::MwmId const & mwmId) const;
   std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId) const;
@@ -87,7 +88,7 @@ private:
 
   bool m_isRunning = false;
   std::condition_variable m_condition;
-  std::vector<Request> m_requestedCampaigns;
+  std::set<Request> m_requestedCampaigns;
   std::mutex m_mutex;
   threads::SimpleThread m_thread;
 
