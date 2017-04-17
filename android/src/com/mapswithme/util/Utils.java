@@ -202,6 +202,11 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP)));
   }
 
+  public static void openUrl(@NonNull Context activity, @NonNull String url)
+  {
+    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+  }
+
   public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)
   {
     LoggerFactory.INSTANCE.zipLogs(new OnZipCompletedCallback(activity, subject));
