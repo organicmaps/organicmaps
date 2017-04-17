@@ -447,9 +447,14 @@ using namespace place_page;
 
 - (NSString *)externalTitle
 {
-  return m_info.IsBookmark() && m_info.m_bookmarkTitle != m_info.GetTitle()
-             ? @(m_info.m_bookmarkTitle.c_str())
-             : nil;
+  if (m_info.IsBookmark() && m_info.m_bookmarkTitle != m_info.GetTitle())
+    return @(m_info.m_bookmarkTitle.c_str());
+
+  auto const secondaryTitle = m_info.GetSecondaryTitle();
+  if (!secondaryTitle.empty())
+    return @(secondaryTitle.c_str());
+
+  return nil;
 }
 
 - (NSString *)bookmarkColor
