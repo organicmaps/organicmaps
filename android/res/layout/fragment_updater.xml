@@ -17,7 +17,7 @@
       android:layout_marginBottom="@dimen/margin_base"
       android:layout_gravity="center_horizontal"
       android:tag="@string/tag_height_limited"
-      android:src="@drawable/img_migration"/>
+      android:src="@drawable/wn_autoupdate"/>
 
     <TextView
       android:id="@+id/title"
@@ -30,7 +30,8 @@
       android:layout_gravity="center_horizontal"
       android:gravity="center_horizontal"
       android:fontFamily="@string/robotoMedium"
-      tools:text="Update your downloaded maps"/>
+      tools:text="Update your downloaded maps"
+      tools:targetApi="jelly_bean"/>
 
     <TextView
       android:layout_width="wrap_content"
