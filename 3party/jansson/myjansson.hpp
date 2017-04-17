@@ -59,6 +59,7 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, json_
 
 void ToJSONObject(json_t & root, std::string const & field, double value);
 void ToJSONObject(json_t & root, std::string const & field, int value);
+void ToJSONObject(json_t & root, std::string const & field, json_int_t value);
 
 void FromJSON(json_t * root, std::string & result);
 inline my::JSONPtr ToJSON(std::string const & s) { return my::NewJSONString(s); }
@@ -105,6 +106,11 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::
   for (size_t i = 0; i < sz; ++i)
     FromJSON(json_array_get(arr, i), result[i]);
 }
+
+struct JSONFreeDeleter
+{
+  void operator()(char * buffer) const { free(buffer); }
+};
 
 namespace strings
 {

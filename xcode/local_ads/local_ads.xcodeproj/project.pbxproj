@@ -17,6 +17,7 @@
 		455C5DB01E97EBC300DBFE48 /* file_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 455C5DAA1E97EBC300DBFE48 /* file_helpers.hpp */; };
 		455C5DB11E97EBC300DBFE48 /* statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 455C5DAB1E97EBC300DBFE48 /* statistics.cpp */; };
 		455C5DB21E97EBC300DBFE48 /* statistics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 455C5DAC1E97EBC300DBFE48 /* statistics.hpp */; };
+		456FAB731EA5E9F0000E4CDC /* config.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456FAB721EA5E9F0000E4CDC /* config.hpp */; };
 		4580DAC61E9D2C3D00E8BCDE /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4580DAC51E9D2C3D00E8BCDE /* libgeometry.a */; };
 		45812AB51E9781D500D7D3B3 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45812AB41E9781D500D7D3B3 /* libplatform_tests_support.a */; };
 		45FFD6571E965E0600DB854E /* campaign_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45FFD6541E965E0600DB854E /* campaign_serialization.cpp */; };
@@ -43,6 +44,7 @@
 		455C5DAA1E97EBC300DBFE48 /* file_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_helpers.hpp; sourceTree = "<group>"; };
 		455C5DAB1E97EBC300DBFE48 /* statistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = statistics.cpp; sourceTree = "<group>"; };
 		455C5DAC1E97EBC300DBFE48 /* statistics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = statistics.hpp; sourceTree = "<group>"; };
+		456FAB721EA5E9F0000E4CDC /* config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = config.hpp; sourceTree = "<group>"; };
 		4580DAC51E9D2C3D00E8BCDE /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libgeometry.a"; sourceTree = "<group>"; };
 		45812AB41E9781D500D7D3B3 /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libplatform_tests_support.a"; sourceTree = "<group>"; };
 		45FFD6461E965DBB00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblocal_ads.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 		45FFD6481E965DBB00DB854E /* local_ads */ = {
 			isa = PBXGroup;
 			children = (
+				456FAB721EA5E9F0000E4CDC /* config.hpp */,
 				45FFD6541E965E0600DB854E /* campaign_serialization.cpp */,
 				45FFD6551E965E0600DB854E /* campaign_serialization.hpp */,
 				45FFD6561E965E0600DB854E /* campaign.hpp */,
@@ -166,6 +169,7 @@
 				455C5DAE1E97EBC300DBFE48 /* event.hpp in Headers */,
 				45FFD6581E965E0600DB854E /* campaign_serialization.hpp in Headers */,
 				455C5DB21E97EBC300DBFE48 /* statistics.hpp in Headers */,
+				456FAB731EA5E9F0000E4CDC /* config.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

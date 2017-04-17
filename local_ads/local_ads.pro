@@ -17,6 +17,7 @@ SOURCES += \
 HEADERS += \
     campaign.hpp \
     campaign_serialization.hpp \
+    config.hpp \
     event.hpp \
     file_helpers.hpp \
     icons_info.hpp \

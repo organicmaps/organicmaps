@@ -416,10 +416,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_lastReportedCountry(kInvalidCountryId)
 {
   if (!params.m_disableLocalAds)
-  {
     m_localAdsManager.Startup();
-    m_localAdsManager.GetStatistics().SetUserId(GetPlatform().UniqueClientId());
-  }
 
   m_startBackgroundTime = my::Timer::LocalTime();
 

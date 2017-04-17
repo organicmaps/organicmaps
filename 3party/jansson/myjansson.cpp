@@ -98,6 +98,11 @@ void ToJSONObject(json_t & root, string const & field, int value)
   json_object_set_new(&root, field.c_str(), json_integer(value));
 }
 
+void ToJSONObject(json_t & root, std::string const & field, json_int_t value)
+{
+  json_object_set_new(&root, field.c_str(), json_integer(value));
+}
+
 void FromJSON(json_t * root, string & result)
 {
   if (!json_is_string(root))

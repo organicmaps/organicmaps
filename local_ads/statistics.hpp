@@ -6,6 +6,7 @@
 
 #include <chrono>
 #include <condition_variable>
+#include <functional>
 #include <list>
 #include <map>
 #include <mutex>
@@ -14,6 +15,10 @@
 
 namespace local_ads
 {
+using ServerSerializer =
+    std::function<std::vector<uint8_t>(std::list<Event> const & events, std::string const & userId,
+                                       std::string & contentType, std::string & contentEncoding)>;
+
 class Statistics final
 {
 public:
@@ -34,6 +39,8 @@ public:
   void Teardown();
 
   void SetUserId(std::string const & userId);
+
+  void SetCustomServerSerializer(ServerSerializer && serializer);
 
   void RegisterEvent(Event && event);
   void RegisterEvents(std::list<Event> && events);
@@ -73,8 +80,10 @@ private:
   };
   std::map<MetadataKey, Metadata> m_metadataCache;
   Timestamp m_lastSending;
+  bool m_isFirstSending = true;
 
   std::string m_userId;
+  ServerSerializer m_serverSerializer;
 
   bool m_isRunning = false;
   std::list<Event> m_events;

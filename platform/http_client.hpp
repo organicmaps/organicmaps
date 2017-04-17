@@ -59,13 +59,14 @@ public:
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, string const & content_type,
                            string const & http_method  = "POST",
-                           string const & content_encoding = "")
+                           string const & content_encoding = {})
   {
     m_bodyData = forward<StringT>(body_data);
     m_inputFile.clear();
     m_headers.emplace("Content-Type", content_type);
     m_httpMethod = http_method;
-    m_headers.emplace("Content-Encoding", content_encoding);
+    if (!content_encoding.empty())
+      m_headers.emplace("Content-Encoding", content_encoding);
     return *this;
   }
   // HTTP Basic Auth.

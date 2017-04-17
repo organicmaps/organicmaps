@@ -46,11 +46,6 @@ bool Equal(std::vector<T> lhs, std::vector<T> rhs)
   sort(rhs.begin(), rhs.end());
   return lhs == rhs;
 }
-
-struct FreeDeletor
-{
-  void operator()(char * buffer) const { free(buffer); }
-};
 }  // namespace
 
 namespace search
@@ -159,7 +154,7 @@ void Sample::SerializeToJSON(std::vector<Sample> const & samples, std::string & 
   auto array = my::NewJSONArray();
   for (auto const & sample : samples)
     json_array_append_new(array.get(), sample.SerializeToJSON().release());
-  std::unique_ptr<char, FreeDeletor> buffer(
+  std::unique_ptr<char, JSONFreeDeleter> buffer(
       json_dumps(array.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   jsonStr.assign(buffer.get());
 }

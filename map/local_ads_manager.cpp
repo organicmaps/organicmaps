@@ -1,6 +1,7 @@
 #include "map/local_ads_manager.hpp"
 
 #include "local_ads/campaign_serialization.hpp"
+#include "local_ads/config.hpp"
 #include "local_ads/file_helpers.hpp"
 #include "local_ads/icons_info.hpp"
 
@@ -13,10 +14,23 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/zlib.hpp"
+
+#include "3party/jansson/myjansson.hpp"
+
+#include "private.h"
+
+#include <cstring>
+#include <sstream>
+
+// First implementation of local ads statistics serialization
+// is deflated JSON.
+#define TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
 
 namespace
 {
-std::string const kServerUrl = "";//"http://172.27.15.68";
+std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
@@ -48,11 +62,17 @@ std::chrono::steady_clock::time_point Now()
 {
   return std::chrono::steady_clock::now();
 }
-    
+
 std::string MakeRemoteURL(MwmSet::MwmId const & mwmId)
 {
-  // TODO: build correct URL after server completion.
-  return {};  // kServerUrl + "/campaigns.data";
+  if (kServerUrl.empty() || !mwmId.IsAlive())
+    return {};
+
+  std::ostringstream ss;
+  ss << kServerUrl << "/";
+  ss << mwmId.GetInfo()->GetVersion() << "/";
+  ss << UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
+  return ss.str();
 }
 
 std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId)
@@ -86,6 +106,41 @@ df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::Mw
 
   return symbols;
 }
+
+#ifdef TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
+std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const & events,
+                                             std::string const & userId, std::string & contentType,
+                                             std::string & contentEncoding)
+{
+  using namespace std::chrono;
+  ASSERT(!events.empty(), ());
+  auto root = my::NewJSONObject();
+  ToJSONObject(*root, "userId", userId);
+  ToJSONObject(*root, "countryId", events.front().m_countryId);
+  ToJSONObject(*root, "mwmVersion", events.front().m_mwmVersion);
+  auto eventsNode = my::NewJSONArray();
+  for (auto const & event : events)
+  {
+    auto eventNode = my::NewJSONObject();
+    auto s = duration_cast<seconds>(event.m_timestamp.time_since_epoch()).count();
+    ToJSONObject(*eventNode, "type", static_cast<uint8_t>(event.m_type));
+    ToJSONObject(*eventNode, "timestamp", static_cast<json_int_t>(s));
+    ToJSONObject(*eventNode, "featureId", static_cast<json_int_t>(event.m_featureId));
+    ToJSONObject(*eventNode, "zoomLevel", event.m_zoomLevel);
+    ToJSONObject(*eventNode, "latitude", event.m_latitude);
+    ToJSONObject(*eventNode, "longitude", event.m_longitude);
+    ToJSONObject(*eventNode, "accuracyInMeters", event.m_accuracyInMeters);
+    json_array_append_new(eventsNode.get(), eventNode.release());
+  }
+  json_object_set_new(root.get(), "events", eventsNode.release());
+  std::unique_ptr<char, JSONFreeDeleter> buffer(
+      json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  std::vector<uint8_t> result;
+  coding::ZLib::Deflate(buffer.get(), strlen(buffer.get()), coding::ZLib::Level::BestCompression,
+                        std::back_inserter(result));
+  return result;
+}
+#endif
 }  // namespace
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
@@ -95,6 +150,13 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
+
+  m_statistics.SetUserId(GetPlatform().UniqueClientId());
+
+#ifdef TEMPORARY_LOCAL_ADS_JSON_SERIALIZATION
+  using namespace std::placeholders;
+  m_statistics.SetCustomServerSerializer(std::bind(&SerializeLocalAdsToJSON, _1, _2, _3, _4));
+#endif
 }
 
 LocalAdsManager::~LocalAdsManager()

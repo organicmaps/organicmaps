@@ -23,6 +23,8 @@ set(
   emitter.hpp
   engine.cpp
   engine.hpp
+  everywhere_search_callback.cpp
+  everywhere_search_callback.hpp
   everywhere_search_params.hpp
   feature_loader.cpp
   feature_loader.hpp

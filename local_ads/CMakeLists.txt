@@ -5,6 +5,7 @@ set(
   campaign.hpp
   campaign_serialization.cpp
   campaign_serialization.hpp
+  config.hpp
   event.cpp
   event.hpp
   file_helpers.cpp

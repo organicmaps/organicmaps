@@ -1,4 +1,5 @@
 #include "local_ads/statistics.hpp"
+#include "local_ads/config.hpp"
 #include "local_ads/file_helpers.hpp"
 
 #include "platform/http_client.hpp"
@@ -19,6 +20,8 @@
 #include <functional>
 #include <sstream>
 
+#include "private.h"
+
 namespace
 {
 std::string const kStatisticsFolderName = "local_ads_stats";
@@ -31,8 +34,7 @@ auto constexpr kSendingTimeout = std::chrono::hours(1);
 int64_t constexpr kEventMaxLifetimeInSeconds = 24 * 183 * 3600;  // About half of year.
 auto constexpr kDeletionPeriod = std::chrono::hours(24);
 
-// TODO: set correct address
-std::string const kStatisticsServer = "";
+std::string const kStatisticsServer = LOCAL_ADS_STATISTICS_SERVER_URL;
 
 void WriteMetadata(FileWriter & writer, std::string const & countryId, int64_t mwmVersion,
                    local_ads::Timestamp const & ts)
@@ -198,7 +200,8 @@ bool Statistics::RequestEvents(std::list<Event> & events, bool & needToSend)
     return false;
 
   using namespace std::chrono;
-  needToSend = isTimeout || (steady_clock::now() > (m_lastSending + kSendingTimeout));
+  needToSend = m_isFirstSending || isTimeout ||
+    (steady_clock::now() > (m_lastSending + kSendingTimeout));
 
   events = std::move(m_events);
   m_events.clear();
@@ -381,21 +384,41 @@ void Statistics::ProcessEvents(std::list<Event> & events)
 
 void Statistics::SendToServer()
 {
+  std::string userId;
+  ServerSerializer serializer;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    userId = m_userId;
+    serializer = m_serverSerializer;
+  }
+
   for (auto it = m_metadataCache.begin(); it != m_metadataCache.end();)
   {
     std::string const url = MakeRemoteURL(m_userId, it->first.first, it->first.second);
     if (url.empty())
       return;
 
-    std::vector<uint8_t> bytes = SerializeForServer(ReadEvents(it->second.m_fileName));
-    if (bytes.empty())
+    std::list<Event> events = ReadEvents(it->second.m_fileName);
+    if (events.empty())
     {
       ++it;
       continue;
     }
 
+    std::string contentType = "application/octet-stream";
+    std::string contentEncoding = "";
+    std::vector<uint8_t> bytes = serializer != nullptr
+                                     ? serializer(events, userId, contentType, contentEncoding)
+                                     : SerializeForServer(events);
+    ASSERT(!bytes.empty(), ());
+
     platform::HttpClient request(url);
-    request.SetBodyData(std::string(bytes.begin(), bytes.end()), "application/octet-stream");
+#ifdef DEV_LOCAL_ADS_SERVER
+    request.LoadHeaders(true);
+    request.SetRawHeader("Host", "localads-statistics.maps.me");
+#endif
+    request.SetBodyData(std::string(bytes.begin(), bytes.end()), contentType, "POST",
+                        contentEncoding);
     if (request.RunHttpRequest() && request.ErrorCode() == 200)
     {
       FileWriter::DeleteFileX(it->second.m_fileName);
@@ -403,16 +426,18 @@ void Statistics::SendToServer()
     }
     else
     {
+      LOG(LWARNING,
+          ("Sending statistics failed:", request.ErrorCode(), it->first.first, it->first.second));
       ++it;
     }
   }
   m_lastSending = std::chrono::steady_clock::now();
+  m_isFirstSending = false;
 }
 
 std::vector<uint8_t> Statistics::SerializeForServer(std::list<Event> const & events) const
 {
-  if (events.empty())
-    return {};
+  ASSERT(!events.empty(), ());
 
   // TODO: implement serialization
   return std::vector<uint8_t>{1, 2, 3, 4, 5};
@@ -528,5 +553,11 @@ void Statistics::CleanupAfterTesting()
   std::string const statsFolder = StatisticsFolder();
   if (GetPlatform().IsFileExistsByFullPath(statsFolder))
     GetPlatform().RmDirRecursively(statsFolder);
+}
+
+void Statistics::SetCustomServerSerializer(ServerSerializer && serializer)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_serverSerializer = std::move(serializer);
 }
 }  // namespace local_ads
