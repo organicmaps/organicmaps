@@ -183,26 +183,13 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, CityFinder & cityFi
                             FeatureType const & ft)
 {
   string name;
-  int8_t lang = StringUtf8Multilang::kUnsupportedLanguageCode;
-
   auto const & info = ft.GetID().m_mwmId.GetInfo();
   ASSERT(info, ());
-  vector<int8_t> mwmLangs;
-  info->GetRegionData().GetLanguages(mwmLangs);
-  for (auto mwmLang : mwmLangs)
-  {
-    if (ft.GetName(mwmLang, name))
-    {
-      lang = mwmLang;
-      break;
-    }
-  }
 
-  if (name.empty() && ft.GetName(StringUtf8Multilang::kEnglishCode, name))
-    lang = StringUtf8Multilang::kEnglishCode;
+  int8_t lang = feature::GetNameForSearchOnBooking(info->GetRegionData(), ft.GetNames(), name);
 
-  if (name.empty() && ft.GetName(StringUtf8Multilang::kDefaultCode, name))
-    lang = StringUtf8Multilang::kDefaultCode;
+  if (lang == StringUtf8Multilang::kUnsupportedLanguageCode)
+    return {};
 
   string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
 
@@ -950,6 +937,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
     info.m_bookingSearchUrl = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
+    LOG(LINFO, (info.m_bookingSearchUrl));
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();

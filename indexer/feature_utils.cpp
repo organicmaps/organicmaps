@@ -286,4 +286,26 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
 
   GetMwmLangName(regionData, src, out);
 }
+
+int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src,
+                                 string & name)
+{
+  if (src.GetString(StringUtf8Multilang::kDefaultCode, name))
+    return StringUtf8Multilang::kDefaultCode;
+
+  vector<int8_t> mwmLangs;
+  regionData.GetLanguages(mwmLangs);
+
+  for (auto mwmLang : mwmLangs)
+  {
+    if (src.GetString(mwmLang, name))
+      return mwmLang;
+  }
+
+  if (src.GetString(StringUtf8Multilang::kEnglishCode, name))
+    return StringUtf8Multilang::kEnglishCode;
+
+  name.clear();
+  return StringUtf8Multilang::kUnsupportedLanguageCode;
+}
 } // namespace feature
