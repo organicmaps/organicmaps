@@ -15,8 +15,8 @@
 
 + (void)showResult:(search::Result const &)result;
 
-+ (MWMSearchItemType)resultTypeWithIndex:(NSUInteger)index;
-+ (NSUInteger)containerIndexWithIndex:(NSUInteger)index;
++ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row;
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
 

@@ -227,16 +227,16 @@ using TObservers = NSHashTable<__kindof TObserver>;
   return [[MWMSearch manager].banners bannerAtIndex:index];
 }
 
-+ (MWMSearchItemType)resultTypeWithIndex:(NSUInteger)index
++ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row
 {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
-  return [itemsIndex resultTypeWithIndex:index];
+  return [itemsIndex resultTypeWithRow:row];
 }
 
-+ (NSUInteger)containerIndexWithIndex:(NSUInteger)index
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row
 {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
-  return [itemsIndex resultContainerIndexWithIndex:index];
+  return [itemsIndex resultContainerIndexWithRow:row];
 }
 
 + (void)update { [[MWMSearch manager] update]; }
@@ -300,9 +300,9 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)updateItemsIndex
 {
-  auto resultsCount = self->m_everywhereResults.GetCount();
-  auto itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
-                                                        resultsCount:resultsCount];
+  auto const resultsCount = self->m_everywhereResults.GetCount();
+  auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
+                                                              resultsCount:resultsCount];
   auto bannersCache = [MWMBannersCache cache];
   if (resultsCount > 0)
   {

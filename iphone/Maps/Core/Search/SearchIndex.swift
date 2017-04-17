@@ -20,14 +20,16 @@ final class SearchIndex: NSObject {
   init(suggestionsCount: Int, resultsCount: Int) {
     for index in 0..<resultsCount {
       let type: MWMSearchItemType = index < suggestionsCount ? .suggestion : .regular
-      positionItems.append(PositionItem(item: Item(type: type, containerIndex: index), position: index))
+      let item = Item(type: type, containerIndex: index)
+      positionItems.append(PositionItem(item: item, position: index))
     }
     super.init()
   }
 
   func addItem(type: MWMSearchItemType, prefferedPosition: Int, containerIndex: Int) {
     assert(type != .suggestion && type != .regular)
-    positionItems.append(PositionItem(item: Item(type: type, containerIndex: containerIndex), position: prefferedPosition))
+    let item = Item(type: type, containerIndex: containerIndex)
+    positionItems.append(PositionItem(item: item, position: prefferedPosition))
   }
 
   func build() {
@@ -51,12 +53,12 @@ final class SearchIndex: NSObject {
     }
   }
 
-  func resultType(index: Int) -> MWMSearchItemType {
-    return items[index].type
+  func resultType(row: Int) -> MWMSearchItemType {
+    return items[row].type
   }
 
-  func resultContainerIndex(index: Int) -> Int {
-    return items[index].containerIndex
+  func resultContainerIndex(row: Int) -> Int {
+    return items[row].containerIndex
   }
 }
 

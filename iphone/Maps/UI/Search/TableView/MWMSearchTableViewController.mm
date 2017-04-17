@@ -75,15 +75,15 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const row = indexPath.row;
-  auto const containerIndex = [MWMSearch containerIndexWithIndex:row];
-  switch ([MWMSearch resultTypeWithIndex:row])
+  auto const containerIndex = [MWMSearch containerIndexWithRow:row];
+  switch ([MWMSearch resultTypeWithRow:row])
   {
   case MWMSearchItemTypeRegular:
   {
     auto cell = static_cast<MWMSearchSuggestionCell *>([tableView
         dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
                                indexPath:indexPath]);
-    auto result = [MWMSearch resultWithContainerIndex:containerIndex];
+    auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
     [cell config:result];
     return cell;
   }
@@ -100,7 +100,7 @@
     auto cell = static_cast<MWMSearchSuggestionCell *>([tableView
         dequeueReusableCellWithCellClass:[MWMSearchSuggestionCell class]
                                indexPath:indexPath]);
-    auto suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
+    auto const & suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
     [cell config:suggestion];
     cell.isLastCell = row == [MWMSearch suggestionsCount] - 1;
     return cell;
@@ -114,21 +114,21 @@
 {
   id<MWMSearchTableViewProtocol> delegate = self.delegate;
   auto const row = indexPath.row;
-  auto const containerIndex = [MWMSearch containerIndexWithIndex:row];
-  switch ([MWMSearch resultTypeWithIndex:row])
+  auto const containerIndex = [MWMSearch containerIndexWithRow:row];
+  switch ([MWMSearch resultTypeWithRow:row])
   {
   case MWMSearchItemTypeRegular:
   {
     MWMSearchTextField * textField = delegate.searchTextField;
     [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
-    auto result = [MWMSearch resultWithContainerIndex:containerIndex];
+    auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
     [delegate processSearchWithResult:result];
     break;
   }
   case MWMSearchItemTypeMopub: break;
   case MWMSearchItemTypeSuggestion:
   {
-    auto suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
+    auto const & suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
     NSString * suggestionString = @(suggestion.GetSuggestionString());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
           withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
