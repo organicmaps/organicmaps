@@ -185,9 +185,11 @@ using namespace osm_auth_ios;
   return ((EAGLView *)self.mapViewController.view).drapeEngineCreated;
 }
 
-- (BOOL)hasApiURL { return m_geoURL || m_mwmURL || m_fileURL; }
+- (BOOL)hasApiURL { return m_geoURL || m_mwmURL; }
 - (void)handleURLs
 {
+  static_cast<EAGLView *>(self.mapViewController.view).isLaunchByDeepLink = self.hasApiURL;
+
   if (!self.isDrapeEngineCreated)
   {
     dispatch_async(dispatch_get_main_queue(), ^{

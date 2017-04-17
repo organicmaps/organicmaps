@@ -20,11 +20,12 @@ namespace dp
   CGRect lastViewSize;
 }
 
-@property (nonatomic) MWMMapWidgets * widgetsManager;
+@property(nonatomic) MWMMapWidgets * widgetsManager;
 
-@property (nonatomic, readonly) BOOL drapeEngineCreated;
+@property(nonatomic, readonly) BOOL drapeEngineCreated;
+@property(nonatomic) BOOL isLaunchByDeepLink;
 
-@property (nonatomic, readonly) m2::PointU pixelSize;
+@property(nonatomic, readonly) m2::PointU pixelSize;
 
 - (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;

@@ -85,9 +85,8 @@ double getExactDPI(double contentScaleFactor)
   p.m_surfaceHeight = height;
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
   p.m_hints.m_isFirstLaunch = [Alohalytics isFirstSession];
-  // TODO: Add initialization.
-  // p.m_hints.m_isLaunchByDeepLink = ...;
-  
+  p.m_hints.m_isLaunchByDeepLink = self.isLaunchByDeepLink;
+
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));
 
