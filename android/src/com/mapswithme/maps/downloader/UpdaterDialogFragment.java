@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -179,7 +180,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
     fragment.setArguments(args);
-    fragment.show(fm, UpdaterDialogFragment.class.getName());
+    FragmentTransaction transaction = fm.beginTransaction()
+      .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+    fragment.show(transaction, UpdaterDialogFragment.class.getName());
 
     Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
 

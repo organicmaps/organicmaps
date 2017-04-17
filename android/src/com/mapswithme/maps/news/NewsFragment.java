@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.util.Config;
@@ -12,8 +13,8 @@ import com.mapswithme.util.concurrency.UiThread;
 
 public class NewsFragment extends BaseNewsFragment
 {
-
-  private static final long DONE_DELAY = 300;
+  private static final long DONE_DELAY = MwmApplication.get().getResources()
+                                                .getInteger(android.R.integer.config_longAnimTime);
 
   @NonNull
   private final Runnable mDoneTask = new Runnable()
