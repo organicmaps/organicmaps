@@ -1520,6 +1520,9 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   s.GetNodeAttrs(rootId, attrs);
   TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
 
+  if (countrySizeInBytes == 0 || attrs.m_status != NodeStatus::OnDiskOutOfDate)
+    return DoAfterUpdate::Nothing;
+
   return countrySizeInBytes > maxSizeInBytes ? DoAfterUpdate::AskForUpdateMaps
                                              : DoAfterUpdate::AutoupdateMaps;
 }

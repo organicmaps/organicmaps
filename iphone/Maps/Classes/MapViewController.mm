@@ -7,6 +7,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
+#import "MWMAutoupdateController.h"
 #import "MWMCommon.h"
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
@@ -292,6 +293,23 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   if ([pageController isEqual:self.welcomePageController])
     self.welcomePageController = nil;
+
+  auto const todo = GetFramework().ToDoAfterUpdate();
+  
+  switch (todo)
+  {
+  case Framework::DoAfterUpdate::Nothing:
+    break;
+    
+  case Framework::DoAfterUpdate::Migrate:
+    [self openMigration];
+    break;
+
+  case Framework::DoAfterUpdate::AutoupdateMaps:
+  case Framework::DoAfterUpdate::AskForUpdateMaps:
+    [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
+    break;
+  }
 }
 
 - (void)showViralAlertIfNeeded

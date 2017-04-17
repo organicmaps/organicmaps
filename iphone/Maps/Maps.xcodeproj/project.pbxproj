@@ -931,6 +931,12 @@
 		F68FCB8B1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
 		F68FCB8C1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
 		F68FCB8D1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */; };
+		F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
+		F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
+		F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
+		F69018BE1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */; };
+		F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
+		F692F3841EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */; };
 		F69CE8D51E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
 		F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
 		F69CE8D71E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */; };
@@ -2037,6 +2043,9 @@
 		F68FCB871DA7BD20007CC7D7 /* MWMTaxiPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiPreviewCell.h; sourceTree = "<group>"; };
 		F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTaxiPreviewCell.mm; sourceTree = "<group>"; };
 		F68FCB891DA7BD20007CC7D7 /* MWMTaxiPreviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMTaxiPreviewCell.xib; sourceTree = "<group>"; };
+		F69018B61E9E601400B3C10B /* MWMAutoupdateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAutoupdateController.h; sourceTree = "<group>"; };
+		F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAutoupdateController.mm; sourceTree = "<group>"; };
+		F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAutoupdateController.xib; sourceTree = "<group>"; };
 		F69CE8D41E5C49B4002B5881 /* PPHotelCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPHotelCarouselCell.swift; sourceTree = "<group>"; };
 		F69CE8D81E5C5088002B5881 /* PPHotelCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPHotelCarouselCell.xib; sourceTree = "<group>"; };
 		F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselElement.xib; sourceTree = "<group>"; };
@@ -3538,6 +3547,16 @@
 			path = BookingCells;
 			sourceTree = "<group>";
 		};
+		F69018B51E9E5FEB00B3C10B /* Autoupdate */ = {
+			isa = PBXGroup;
+			children = (
+				F69018B61E9E601400B3C10B /* MWMAutoupdateController.h */,
+				F69018B71E9E601400B3C10B /* MWMAutoupdateController.mm */,
+				F69018BB1E9F7CB600B3C10B /* MWMAutoupdateController.xib */,
+			);
+			path = Autoupdate;
+			sourceTree = "<group>";
+		};
 		F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3573,6 +3592,7 @@
 			children = (
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
+				F69018B51E9E5FEB00B3C10B /* Autoupdate */,
 				349D1AC21E2E325B004A2006 /* BottomMenu */,
 				F6E2FBFC1E097B9F0083EBEC /* Downloader */,
 				F6E2FC291E097B9F0083EBEC /* EditBookmark */,
@@ -4559,6 +4579,7 @@
 				F682249E1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF71E2F614400CE49BF /* Settings.storyboard in Resources */,
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
+				F69018BC1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
@@ -4728,6 +4749,7 @@
 				F682249F1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
+				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
@@ -4897,6 +4919,7 @@
 				340E1EF61E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
 				340E1EF91E2F614400CE49BF /* Settings.storyboard in Resources */,
 				849CF5EA1DE842290024A8A5 /* sound-strings in Resources */,
+				F69018BE1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				849CF64C1DE842290024A8A5 /* synonyms.txt in Resources */,
 				849CF6111DE842290024A8A5 /* tts-how-to-set-up-voice-img in Resources */,
 				849CF6281DE842290024A8A5 /* tts-how-to-set-up-voice.html in Resources */,
@@ -5067,6 +5090,7 @@
 				3404754F1E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				34ABA6281C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */,
 				34F4073D1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
+				F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */,
 				560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */,
 				F6E2FECF1E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */,
@@ -5443,6 +5467,7 @@
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
+				F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
 				34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */,
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
 				F6E2FD771E097BA00083EBEC /* MWMMapDownloaderDataSource.mm in Sources */,
@@ -5732,6 +5757,7 @@
 				F6E2FD721E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE501E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				349D1CE51E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
+				F692F3841EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
 				34574A681E3B85F80061E839 /* ThemeManager.swift in Sources */,
 				849CF6DC1DE842290024A8A5 /* MWMRoutePreview.mm in Sources */,
 				F6E2FD781E097BA00083EBEC /* MWMMapDownloaderDataSource.mm in Sources */,
