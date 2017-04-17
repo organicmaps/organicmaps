@@ -531,16 +531,16 @@ public enum Statistics
                                     .add(BANNER_STATE, String.valueOf(state)));
   }
 
-  public void trackPPBannerError(@NonNull MwmNativeAd ad,
+  public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
                                  @Nullable NativeAdError error, int state)
   {
     boolean isAdBlank = error != null && error.getCode() == AdError.NO_FILL_ERROR_CODE;
     String eventName = isAdBlank ? PP_BANNER_BLANK : PP_BANNER_ERROR;
     Statistics.ParameterBuilder builder = Statistics.params();
-    builder.add(BANNER, !TextUtils.isEmpty(ad.getBannerId()) ? ad.getBannerId() : "N/A")
+    builder.add(BANNER, !TextUtils.isEmpty(bannerId) ? bannerId : "N/A")
            .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
            .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
-           .add(PROVIDER, ad.getProvider())
+           .add(PROVIDER, provider)
            .add(BANNER_STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
   }

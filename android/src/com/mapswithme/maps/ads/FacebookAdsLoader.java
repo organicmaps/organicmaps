@@ -33,7 +33,7 @@ class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
     LOGGER.w(TAG, "A error '" + adError.getErrorMessage() + "' is occurred while loading " +
                   "an ad for banner id '" + ad.getPlacementId() + "'");
 
-    onError(ad.getPlacementId(), new FacebookNativeAd((NativeAd)ad), new FacebookAdError(adError));
+    onError(ad.getPlacementId(), getProvider(), new FacebookAdError(adError));
   }
 
   @Override

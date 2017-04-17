@@ -133,19 +133,18 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   }
 
   @Override
-  public void onError(@NonNull MwmNativeAd ad, @NonNull NativeAdError error)
+  public void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error)
   {
-    mFailedProviders.add(ad.getProvider());
+    mFailedProviders.add(provider);
 
     // If all providers give nothing, the listener will be notified about the error.
     if (mFailedProviders.size() == mLoaders.size())
     {
       if (getAdListener() != null)
-        getAdListener().onError(ad, error);
+        getAdListener().onError(bannerId, provider, error);
       return;
     }
 
-    String provider = ad.getProvider();
     // If the high priority ad is just failed, the timer should be forced if it's started.
     if (Providers.MY_TARGET.equals(provider) && mDelayedNotification != null)
     {

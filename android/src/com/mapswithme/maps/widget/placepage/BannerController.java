@@ -167,7 +167,7 @@ final class BannerController
     if (mCurrentAd != null)
     {
       LOGGER.d(TAG, "Unregister view for the ad: " + mCurrentAd.getTitle());
-      mCurrentAd.unregisterView();
+      mCurrentAd.unregisterView(mFrame);
       mCurrentAd = null;
     }
   }
@@ -335,7 +335,7 @@ final class BannerController
     }
 
     @Override
-    public void onError(@NonNull MwmNativeAd ad, @NonNull NativeAdError error)
+    public void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error)
     {
       if (mBanners == null)
         return;
@@ -347,7 +347,7 @@ final class BannerController
       if (mListener != null && isNotCached)
         mListener.onSizeChanged();
 
-      Statistics.INSTANCE.trackPPBannerError(ad, error, mOpened ? 1 : 0);
+      Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
     }
 
     @Override

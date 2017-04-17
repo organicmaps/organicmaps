@@ -9,11 +9,12 @@ public interface NativeAdListener
   void onAdLoaded(@NonNull MwmNativeAd ad);
 
   /**
-   * Notifies about a error occurred while loading the ad.
+   * Notifies about a error occurred while loading the ad for the specified banner id from the
+   * specified ads provider.
    *
    */
   @UiThread
-  void onError(@NonNull MwmNativeAd ad, @NonNull NativeAdError error);
+  void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error);
 
   @UiThread
   void onClick(@NonNull MwmNativeAd ad);

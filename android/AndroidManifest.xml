@@ -320,6 +320,8 @@
         android:name="ru.mail.android.mytarget.ads.MyTargetActivity"
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
+    <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
     <receiver
         android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
         android:enabled="true"

@@ -60,6 +60,9 @@ dependencies {
   compile ('com.my.target:mytarget-sdk:4.6.9') {
     exclude group: 'com.android.support'
   }
+  compile('com.mopub:mopub-sdk-native-static:4.11.0@aar') {
+    transitive = true
+  }
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
