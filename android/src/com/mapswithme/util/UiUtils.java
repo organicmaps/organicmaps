@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -467,6 +468,25 @@ public final class UiUtils
   public static void setBackgroundDrawable(View view, @AttrRes int res)
   {
     view.setBackgroundResource(getStyledResourceId(view.getContext(), res));
+  }
+
+  public static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
+  {
+    final View parent = (View) view.getParent();
+    parent.post(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        Rect rect = new Rect();
+        view.getHitRect(rect);
+        rect.top -= extraArea;
+        rect.left -= extraArea;
+        rect.right += extraArea;
+        rect.bottom += extraArea;
+        parent.setTouchDelegate(new TouchDelegate(rect, view));
+      }
+    });
   }
 
   // utility class

@@ -101,10 +101,11 @@ final class BannerController
       @Override
       public void onClick(View v)
       {
-        if (mCurrentAd != null && !TextUtils.isEmpty(mCurrentAd.getPrivacyInfoUrl()))
-          Utils.openUrl(mFrame.getContext(), mCurrentAd.getPrivacyInfoUrl());
+        handlePrivacyInfoUrl();
       }
     });
+    Resources res = mFrame.getResources();
+    UiUtils.expandTouchAreaForView(mAds, (int) res.getDimension(R.dimen.margin_quarter_plus));
     loader.setAdListener(new MyNativeAdsListener());
     mAdsLoader = loader;
     mAdTracker = tracker;
@@ -116,6 +117,18 @@ final class BannerController
         animateActionButton();
       }
     });
+  }
+
+  private void handlePrivacyInfoUrl()
+  {
+    if (mCurrentAd == null)
+      return;
+
+    String privacyUrl = mCurrentAd.getPrivacyInfoUrl();
+    if (TextUtils.isEmpty(privacyUrl))
+      return;
+
+    Utils.openUrl(mFrame.getContext(), privacyUrl);
   }
 
   private void setErrorStatus(boolean value)
