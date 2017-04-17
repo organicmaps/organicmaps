@@ -65,6 +65,8 @@ public:
 
   /// Convenient wrapper for feature's name and custom name.
   string GetTitle() const;
+  /// Convenient wrapper for secondary feature name.
+  string GetSecondaryTitle() const;
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
   string GetSubtitle() const;
   /// @returns empty string or GetStars() count of ★ symbol.

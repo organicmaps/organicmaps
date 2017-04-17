@@ -59,15 +59,30 @@ string Info::GetTitle() const
   if (!m_customName.empty())
     return m_customName;
 
-  string name;
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
+  string primaryName;
   if (mwmInfo)
-    feature::GetReadableName(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, name);
+  {
+    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+    string secondaryName;
+    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, primaryName, secondaryName);
+  }
+  return primaryName;
+}
 
-  return name;
+string Info::GetSecondaryTitle() const
+{
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+
+  string secondaryName;
+  if (mwmInfo)
+  {
+    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+    string primaryName;
+    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, primaryName, secondaryName);
+  }
+  return secondaryName;
 }
 
 string Info::GetSubtitle() const
