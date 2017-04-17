@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -22,10 +21,8 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_DOWNLOAD;
@@ -46,13 +43,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private ProgressBar mProgressBar;
   private TextView mCancelBtn;
 
-  private int mListenerSlot;
+  private int mListenerSlot = 0;
   @Nullable
   private String mTotalSize;
   private long mTotalSizeMb;
   private boolean mAutoUpdate;
-  @NonNull
-  private final Map<String, CountryItem> mOutdatedMaps = new HashMap<>();
+  @Nullable
+  private String[] mOutdatedMaps;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -61,6 +58,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
+      if (mOutdatedMaps == null)
+        return;
+
       for (MapManager.StorageCallbackData item : data)
       {
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
@@ -84,17 +84,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           dismiss();
           return;
         }
-
-        CountryItem country = mOutdatedMaps.get(item.countryId);
-        if (country != null)
-          country.update();
       }
 
-      for (CountryItem country : mOutdatedMaps.values())
-      {
-        if (country.status != CountryItem.STATUS_DONE)
-          return;
-      }
+      if (!isAllUpdated())
+        return;
 
       dismiss();
     }
@@ -102,17 +95,12 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
-      CountryItem country = mOutdatedMaps.get(countryId);
-      if (country == null)
+      if (mOutdatedMaps == null)
         return;
 
-      country.update();
-      float progress = 0;
-      for (CountryItem item : mOutdatedMaps.values())
-        progress += item.progress / mOutdatedMaps.size();
-
+      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                   getString(R.string.updating_maps), (int) progress));
+                                   getString(R.string.updating_maps), progress));
     }
   };
 
@@ -126,6 +114,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                                                      ? DOWNLOADER_DIALOG_LATER
                                                      : DOWNLOADER_DIALOG_CANCEL,
                                                      mTotalSizeMb);
+
+      if (MapManager.nativeIsDownloading())
+        MapManager.nativeCancel(CountryItem.getRootId());
+
       dismiss();
     }
   };
@@ -176,9 +168,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
     fragment.setArguments(args);
-    FragmentTransaction transaction = fm.beginTransaction()
-        .addToBackStack(null);
-    fragment.show(transaction, UpdaterDialogFragment.class.getName());
+    fragment.show(fm, UpdaterDialogFragment.class.getName());
 
     Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
 
@@ -197,7 +187,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     super.onCreate(savedInstanceState);
 
     readArguments();
-    mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
   }
 
   @NonNull
@@ -217,30 +206,48 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     initViews();
 
-    if (mAutoUpdate)
+    return res;
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+
+    if (isAllUpdated())
+    {
+      dismiss();
+      return;
+    }
+
+    mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
+
+    if (mAutoUpdate && !MapManager.nativeIsDownloading())
     {
       MapManager.nativeUpdate(CountryItem.getRootId());
       Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
                                                      mTotalSizeMb);
     }
-
-    return res;
   }
 
   @Override
-  public void onDestroy()
+  public void onPause()
   {
-    MapManager.nativeUnsubscribe(mListenerSlot);
-    super.onDestroy();
+    if (mListenerSlot != 0)
+    {
+      MapManager.nativeUnsubscribe(mListenerSlot);
+      mListenerSlot = 0;
+    }
+    super.onPause();
   }
 
   @Override
-  public void onDismiss(DialogInterface dialog)
+  public void onCancel(DialogInterface dialog)
   {
     if (MapManager.nativeIsDownloading())
       MapManager.nativeCancel(CountryItem.getRootId());
 
-    super.onDismiss(dialog);
+    super.onCancel(dialog);
   }
 
   private void readArguments()
@@ -255,18 +262,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     mTotalSize = args.getString(ARG_TOTAL_SIZE);
     mTotalSizeMb = args.getLong(ARG_TOTAL_SIZE_MB, 0L);
-
-    mOutdatedMaps.clear();
-    String[] ids = args.getStringArray(ARG_OUTDATED_MAPS);
-    if (ids != null)
-    {
-      for (String id : ids)
-      {
-        CountryItem item = new CountryItem(id);
-        item.update();
-        mOutdatedMaps.put(id, item);
-      }
-    }
+    mOutdatedMaps = args.getStringArray(ARG_OUTDATED_MAPS);
   }
 
   private void initViews()
@@ -280,7 +276,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mCancelBtn.setText(mAutoUpdate ? R.string.cancel : R.string.later);
     mCancelBtn.setOnClickListener(mCancelClickListener);
     mTitle.setText(mAutoUpdate ? String.format(Locale.getDefault(), "%s %d%%",
-                                               getString(R.string.updating_maps), 0)
+                                               getString(R.string.updating_maps),
+                                               MapManager.nativeGetOverallProgress(mOutdatedMaps))
                                : getString(R.string.update_maps_ask));
+  }
+
+  private boolean isAllUpdated()
+  {
+    return MapManager.nativeGetOverallProgress(mOutdatedMaps) >= 100;
   }
 }

@@ -38,7 +38,6 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
@@ -46,7 +45,6 @@ import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
-import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.AuthDialogFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
@@ -56,7 +54,6 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
@@ -1026,19 +1023,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!RoutingController.get().isNavigating())
     {
-      mFirstStart = FirstStartFragment.showOn(this, null);
+      mFirstStart = FirstStartFragment.showOn(this);
       if (mFirstStart)
         return;
 
-      BaseNewsFragment.NewsDialogListener listener = new BaseNewsFragment.NewsDialogListener()
-      {
-        @Override
-        public void onDialogDone()
-        {
-          UpdaterDialogFragment.showOn(MwmActivity.this);
-        }
-      };
-      if (!NewsFragment.showOn(this, listener))
+      if (!NewsFragment.showOn(this))
       {
         if (ViralFragment.shouldDisplay())
           new ViralFragment().show(getSupportFragmentManager(), "");
