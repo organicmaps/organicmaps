@@ -18,6 +18,7 @@ final class BannersCache: NSObject {
   private var requests: [BannerType : Banner] = [:]
   private var completion: Completion?
   private var loadStates: [LoadState]!
+  private var cacheOnly = false
 
   private func onCompletion(isAsync: Bool) {
     guard let completion = completion else { return }
@@ -43,8 +44,9 @@ final class BannersCache: NSObject {
     self.completion = nil
   }
 
-  func get(coreBanners: [CoreBanner], completion: @escaping Completion) {
+  func get(coreBanners: [CoreBanner], completion: @escaping Completion, cacheOnly: Bool) {
     self.completion = completion
+    self.cacheOnly = cacheOnly
     loadStates = coreBanners.map { coreBanner in
       let bannerType = BannerType(type: coreBanner.mwmType, id: coreBanner.bannerID)
       if let banner = cache[bannerType], (!banner.isPossibleToReload || banner.isNeedToRetain) {
@@ -93,7 +95,9 @@ final class BannersCache: NSObject {
     }
     cache[bannerType] = banner
     requests[bannerType] = nil
-    onCompletion(isAsync: true)
+    if !cacheOnly {
+      onCompletion(isAsync: true)
+    }
   }
 
   private func setError(bannerType: BannerType) {

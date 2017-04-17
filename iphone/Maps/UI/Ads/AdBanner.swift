@@ -6,6 +6,7 @@ enum AdBannerState: Int {
   case unset
   case compact
   case detailed
+  case search
 
   func config() -> (priority: UILayoutPriority, numberOfTitleLines: Int, numberOfBodyLines: Int) {
     switch self {
@@ -15,15 +16,24 @@ enum AdBannerState: Int {
     case .compact:
       return alternative(iPhone: (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
                          iPad: (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
+    case .search:
+      return (priority: UILayoutPriorityDefaultLow, numberOfTitleLines: 2, numberOfBodyLines: 0)
     case .detailed:
       return (priority: UILayoutPriorityDefaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0)
     }
   }
 }
 
+@objc(MWMAdBannerContainerType)
+enum AdBannerContainerType: Int {
+  case placePage
+  case search
+}
+
 @objc(MWMAdBanner)
 final class AdBanner: UITableViewCell {
   @IBOutlet private var detailedModeConstraints: [NSLayoutConstraint]!
+  @IBOutlet private weak var adCallToActionButtonCompactLeading: NSLayoutConstraint!
   @IBOutlet private weak var adIconImageView: UIImageView!
   @IBOutlet private weak var adTitleLabel: UILabel!
   @IBOutlet private weak var adBodyLabel: UILabel!
@@ -37,6 +47,9 @@ final class AdBanner: UITableViewCell {
       adTitleLabel.numberOfLines = config.numberOfTitleLines
       adBodyLabel.numberOfLines = config.numberOfBodyLines
       detailedModeConstraints.forEach { $0.priority = config.priority }
+      if state == .search {
+        adCallToActionButtonCompactLeading.priority = UILayoutPriorityDefaultHigh
+      }
       setNeedsLayout()
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
       refreshBannerIfNeeded()
@@ -51,8 +64,14 @@ final class AdBanner: UITableViewCell {
 
   private var nativeAd: MWMBanner?
 
-  func config(ad: MWMBanner) {
-    state = alternative(iPhone: AdBannerState.compact, iPad: AdBannerState.detailed)
+  func config(ad: MWMBanner, containerType: AdBannerContainerType) {
+    switch containerType {
+    case .placePage:
+      state = alternative(iPhone: .compact, iPad: .detailed)
+    case .search:
+      state = .search
+    }
+
     nativeAd = ad
     switch ad.mwmType {
     case .none:
@@ -90,7 +109,12 @@ final class AdBanner: UITableViewCell {
 
   private func configFBBanner(ad: FBNativeAd) {
     ad.unregisterView()
-    let adCallToActionButtons = [adCallToActionButtonCompact!, adCallToActionButtonDetailed!]
+    let adCallToActionButtons: [UIView]
+    if (state == .search) {
+      adCallToActionButtons = [self]
+    } else {
+      adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
+    }
     ad.registerView(forInteraction: self, with: nil, withClickableViews: adCallToActionButtons)
 
     ad.icon?.loadAsync { [weak self] image in
@@ -109,7 +133,7 @@ final class AdBanner: UITableViewCell {
     let config = state.config()
     adTitleLabel.numberOfLines = config.numberOfTitleLines
     adBodyLabel.numberOfLines = config.numberOfBodyLines
-    adCallToActionButtons.forEach { $0.setTitle(ad.callToAction, for: .normal) }
+    [adCallToActionButtonCompact, adCallToActionButtonDetailed].forEach { $0.setTitle(ad.callToAction, for: .normal) }
   }
 
   private func configRBBanner(ad: MTRGNativeAd) {
@@ -168,6 +192,7 @@ final class AdBanner: UITableViewCell {
         clickableView = adCallToActionButtonCompact
       case .compact: clickableView = adCallToActionButtonCompact
       case .detailed: clickableView = adCallToActionButtonDetailed
+      case .search: clickableView = self
       }
       ad.register(clickableView, with: UIViewController.topViewController())
     }

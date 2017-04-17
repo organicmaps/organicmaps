@@ -142,6 +142,7 @@
             <connections>
                 <outlet property="adBodyLabel" destination="Ev3-yY-ql1" id="xw6-9k-OYn"/>
                 <outlet property="adCallToActionButtonCompact" destination="9qA-JC-fkn" id="2AF-5i-Wey"/>
+                <outlet property="adCallToActionButtonCompactLeading" destination="5CH-Fo-S70" id="Vdl-uS-6Gd"/>
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>

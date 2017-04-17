@@ -113,7 +113,8 @@ using namespace place_page;
                   self->m_previewRows.push_back(PreviewRows::Banner);
                   if (isAsync)
                     self.bannerIsReadyCallback();
-                }];
+                }
+                 cacheOnly:NO];
   }
 }
 

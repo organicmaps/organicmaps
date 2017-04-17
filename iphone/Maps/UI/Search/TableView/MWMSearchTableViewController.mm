@@ -48,19 +48,7 @@
   tableView.rowHeight = UITableViewAutomaticDimension;
   [tableView registerWithCellClass:[MWMSearchSuggestionCell class]];
   [tableView registerWithCellClass:[MWMSearchCommonCell class]];
-}
-
-- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath
-{
-  size_t const numSuggests = [MWMSearch suggestionsCount];
-  if (numSuggests > 0 && indexPath.row < numSuggests)
-    return [MWMSearchSuggestionCell class];
-  return [MWMSearchCommonCell class];
-}
-
-- (search::Result const &)searchResultForIndexPath:(NSIndexPath *)indexPath
-{
-  return [MWMSearch resultAtIndex:indexPath.row];
+  [tableView registerWithCellClass:[MWMAdBanner class]];
 }
 
 - (void)reloadData { [self.tableView reloadData]; }
@@ -86,41 +74,66 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class cls = [self cellClassForIndexPath:indexPath];
-  auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-  if (cls == [MWMSearchSuggestionCell class])
+  auto const row = indexPath.row;
+  auto const containerIndex = [MWMSearch containerIndexWithIndex:row];
+  switch ([MWMSearch resultTypeWithIndex:row])
   {
-    auto tCell = static_cast<MWMSearchSuggestionCell *>(cell);
-    [tCell config:[self searchResultForIndexPath:indexPath]];
-    tCell.isLastCell = indexPath.row == [MWMSearch suggestionsCount] - 1;
-  }
-  else if (cls == [MWMSearchCommonCell class])
+  case MWMSearchItemTypeRegular:
   {
-    auto tCell = static_cast<MWMSearchCommonCell *>(cell);
-    [tCell config:[self searchResultForIndexPath:indexPath]];
+    auto cell = static_cast<MWMSearchSuggestionCell *>([tableView
+        dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
+                               indexPath:indexPath]);
+    auto result = [MWMSearch resultWithContainerIndex:containerIndex];
+    [cell config:result];
+    return cell;
   }
-  return cell;
+  case MWMSearchItemTypeMopub:
+  {
+    auto cell = static_cast<MWMAdBanner *>(
+        [tableView dequeueReusableCellWithCellClass:[MWMAdBanner class] indexPath:indexPath]);
+    auto ad = [MWMSearch adWithContainerIndex:containerIndex];
+    [cell configWithAd:ad containerType:MWMAdBannerContainerTypeSearch];
+    return cell;
+  }
+  case MWMSearchItemTypeSuggestion:
+  {
+    auto cell = static_cast<MWMSearchSuggestionCell *>([tableView
+        dequeueReusableCellWithCellClass:[MWMSearchSuggestionCell class]
+                               indexPath:indexPath]);
+    auto suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
+    [cell config:suggestion];
+    cell.isLastCell = row == [MWMSearch suggestionsCount] - 1;
+    return cell;
+  }
+  }
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class cls = [self cellClassForIndexPath:indexPath];
   id<MWMSearchTableViewProtocol> delegate = self.delegate;
-  search::Result const & result = [self searchResultForIndexPath:indexPath];
-  if (cls == [MWMSearchSuggestionCell class])
+  auto const row = indexPath.row;
+  auto const containerIndex = [MWMSearch containerIndexWithIndex:row];
+  switch ([MWMSearch resultTypeWithIndex:row])
   {
-    NSString * suggestionString = @(result.GetSuggestionString());
+  case MWMSearchItemTypeRegular:
+  {
+    MWMSearchTextField * textField = delegate.searchTextField;
+    [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
+    auto result = [MWMSearch resultWithContainerIndex:containerIndex];
+    [delegate processSearchWithResult:result];
+    break;
+  }
+  case MWMSearchItemTypeMopub: break;
+  case MWMSearchItemTypeSuggestion:
+  {
+    auto suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
+    NSString * suggestionString = @(suggestion.GetSuggestionString());
     [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
           withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
     [delegate searchText:suggestionString forInputLocale:nil];
   }
-  else if (cls == [MWMSearchCommonCell class])
-  {
-    MWMSearchTextField * textField = delegate.searchTextField;
-    [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
-    [delegate processSearchWithResult:result];
   }
 }
 

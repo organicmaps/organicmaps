@@ -1,11 +1,15 @@
 #import "MWMSearch.h"
 #import <Crashlytics/Crashlytics.h>
-#import "MWMCommon.h"
 #import "MWMAlertViewController.h"
+#import "MWMBannerHelpers.h"
+#import "MWMCommon.h"
 #import "MWMLocationManager.h"
 #import "MWMSearchHotelsFilterViewController.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
+
+#include "partners_api/ads_engine.hpp"
 
 #include "search/everywhere_search_params.hpp"
 #include "search/hotels_classifier.hpp"
@@ -36,6 +40,10 @@ using TObservers = NSHashTable<__kindof TObserver>;
 @property(nonatomic) BOOL viewportSearchCompleted;
 
 @property(nonatomic) BOOL viewportResultsEmpty;
+
+@property(nonatomic) MWMSearchIndex * itemsIndex;
+
+@property(nonatomic) MWMSearchBanners * banners;
 
 @end
 
@@ -97,6 +105,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
       {
         self->m_everywhereResults = results;
         self.suggestionsCount = results.GetSuggestsCount();
+        [self updateItemsIndex];
         [self onSearchResultsUpdated];
       }
     };
@@ -208,30 +217,48 @@ using TObservers = NSHashTable<__kindof TObserver>;
 }
 
 + (void)showResult:(search::Result const &)result { GetFramework().ShowSearchResult(result); }
-
-+ (search::Result const &)resultAtIndex:(NSUInteger)index
++ (search::Result const &)resultWithContainerIndex:(NSUInteger)index
 {
   return [MWMSearch manager]->m_everywhereResults.GetResult(index);
+}
+
++ (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index
+{
+  return [[MWMSearch manager].banners bannerAtIndex:index];
+}
+
++ (MWMSearchItemType)resultTypeWithIndex:(NSUInteger)index
+{
+  auto itemsIndex = [MWMSearch manager].itemsIndex;
+  return [itemsIndex resultTypeWithIndex:index];
+}
+
++ (NSUInteger)containerIndexWithIndex:(NSUInteger)index
+{
+  auto itemsIndex = [MWMSearch manager].itemsIndex;
+  return [itemsIndex resultContainerIndexWithIndex:index];
 }
 
 + (void)update { [[MWMSearch manager] update]; }
 
 + (void)reset
 {
-  MWMSearch * manager = [MWMSearch manager];
+  auto manager = [MWMSearch manager];
   manager.lastSearchStamp++;
   GetFramework().CancelAllSearches();
   manager.everywhereSearchCompleted = NO;
   manager.viewportSearchCompleted = NO;
   if (manager->m_filterQuery != manager->m_everywhereParams.m_query)
     manager.isHotelResults = NO;
-  manager.suggestionsCount = 0;
   [manager onSearchResultsUpdated];
 }
 
 + (void)clear
 {
-  [MWMSearch manager]->m_everywhereResults.Clear();
+  auto manager = [MWMSearch manager];
+  manager->m_everywhereResults.Clear();
+  manager.suggestionsCount = 0;
+  [manager updateItemsIndex];
   [self reset];
 }
 
@@ -248,9 +275,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 }
 
 + (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
-
-+ (NSUInteger)resultsCount { return [MWMSearch manager]->m_everywhereResults.GetCount(); }
-
++ (NSUInteger)resultsCount { return [MWMSearch manager].itemsIndex.count; }
 + (BOOL)isHotelResults { return [MWMSearch manager].isHotelResults; }
 
 #pragma mark - Filters
@@ -270,6 +295,40 @@ using TObservers = NSHashTable<__kindof TObserver>;
   MWMSearch * manager = [MWMSearch manager];
   manager.filter = nil;
   [manager update];
+  [manager onSearchCompleted];
+}
+
+- (void)updateItemsIndex
+{
+  auto resultsCount = self->m_everywhereResults.GetCount();
+  auto itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
+                                                        resultsCount:resultsCount];
+  auto bannersCache = [MWMBannersCache cache];
+  if (resultsCount > 0)
+  {
+    auto const & adsEngine = GetFramework().GetAdsEngine();
+    if (adsEngine.HasSearchBanner())
+    {
+      self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
+      __weak auto weakSelf = self;
+      [bannersCache
+          getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners())
+                  completion:^(id<MWMBanner> ad, BOOL isAsync) {
+                    __strong auto self = weakSelf;
+                    if (!self)
+                      return;
+                    NSAssert(isAsync == NO, @"Banner is not from cache!");
+                    [self.banners add:ad];
+                  }
+                   cacheOnly:YES];
+    }
+  }
+  else
+  {
+    self.banners = nil;
+  }
+  [itemsIndex build];
+  self.itemsIndex = itemsIndex;
 }
 
 #pragma mark - Notifications

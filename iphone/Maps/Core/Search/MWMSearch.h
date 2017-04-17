@@ -1,4 +1,6 @@
+#import "MWMBanner.h"
 #import "MWMSearchFilterViewController.h"
+#import "MWMSearchItemType.h"
 #import "MWMSearchObserver.h"
 
 #include "search/result.hpp"
@@ -13,7 +15,11 @@
 
 + (void)showResult:(search::Result const &)result;
 
-+ (search::Result const &)resultAtIndex:(NSUInteger)index;
++ (MWMSearchItemType)resultTypeWithIndex:(NSUInteger)index;
++ (NSUInteger)containerIndexWithIndex:(NSUInteger)index;
++ (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
++ (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
+
 + (void)update;
 + (void)clear;
 

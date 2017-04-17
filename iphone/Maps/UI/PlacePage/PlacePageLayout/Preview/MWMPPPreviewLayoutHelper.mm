@@ -235,7 +235,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     return c;
   case PreviewRows::Banner:
     auto bannerCell = static_cast<MWMAdBanner *>(c);
-    [bannerCell configWithAd:data.nativeAd];
+    [bannerCell configWithAd:data.nativeAd containerType:MWMAdBannerContainerTypePlacePage];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }

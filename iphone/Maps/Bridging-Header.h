@@ -26,6 +26,7 @@
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPushNotifications.h"
 #import "MWMRouter.h"
+#import "MWMSearchItemType.h"
 #import "MWMSearchNoResults.h"
 #import "MWMSettings.h"
 #import "MWMTableViewCell.h"
