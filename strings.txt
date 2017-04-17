@@ -21288,35 +21288,7 @@
     sk = Objednanie taxíka je dočasne nedostupné.
 
   [advertisement]
-    en = Advertisement
-    en-GB = Advertisement
-    ru = Реклама
-    ar = إعلان
-    cs = Inzerce
-    da = Annonce
-    nl = Reclame
-    fi = Mainos
-    fr = Publicité
-    de = Werbung
-    hu = Hirdetés
-    id = Iklan
-    it = Annuncio
-    ja = 広告
-    ko = 광고
-    nb = Reklame
-    pl = Reklama
-    pt = Anúncio
-    ro = Reclamă
-    es = Anuncio
-    sv = Annons
-    th = โฆษณา
-    tr = Reklam
-    uk = Реклама
-    vi = Quảng cáo
-    zh-Hans = 广告
-    zh-Hant = 廣告
-    el = Διαφήμιση
-    sk = Reklama
+    en = AD
 
   [mobile_data_dialog]
     en = Use mobile internet to show detailed information?
