@@ -19,6 +19,7 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
@@ -80,8 +81,18 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
               text = String.valueOf(item.errorCode);
           }
           Statistics.INSTANCE.trackDownloaderDialogError(mTotalSizeMb, text);
-          MapManager.showError(getActivity(), item, null);
-          dismiss();
+          MapManager.showError(getActivity(), item, new Utils.Proc<Boolean>()
+          {
+            @Override
+            public void invoke(@NonNull Boolean param)
+            {
+              if (param)
+                MapManager.nativeUpdate(CountryItem.getRootId());
+              else
+                dismiss();
+            }
+          });
+
           return;
         }
       }
