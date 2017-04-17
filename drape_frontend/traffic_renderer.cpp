@@ -76,8 +76,8 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 {
   double const zoomLevel = GetZoomLevel(screen.GetScale());
   double zoom = trunc(zoomLevel);
-  int const index = zoom - 1.0;
-  float const lerpCoef = zoomLevel - zoom;
+  int const index = static_cast<int>(zoom - 1.0);
+  float const lerpCoef = static_cast<float>(zoomLevel - zoom);
 
   float const * widthScalar = nullptr;
   if (roadClass == RoadClass::Class1)
@@ -100,7 +100,7 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
       radius *= widthScalar[scales::UPPER_STYLE_SCALE];
   }
 
-  return radius * VisualParams::Instance().GetVisualScale();
+  return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
 }
 } //  namespace
 
@@ -174,20 +174,17 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
     else
     {
       // Filter by road class.
-      float leftPixelHalfWidth = 0.0f;
-      float invLeftPixelLength = 0.0f;
-      float rightPixelHalfWidth = 0.0f;
       int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
       float outline = 0.0f;
 
       int visibleZoomLevel = kRoadClass0ZoomLevel;
       if (renderData.m_roadClass == RoadClass::Class0)
       {
-        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
+        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0f : 0.0f);
       }
       else if (renderData.m_roadClass == RoadClass::Class1)
       {
-        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0 : 0.0);
+        outline = (zoomLevel <= kOutlineMinZoomLevel ? 1.0f : 0.0f);
         visibleZoomLevel = kRoadClass1ZoomLevel;
       }
       else if (renderData.m_roadClass == RoadClass::Class2)
@@ -198,9 +195,11 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       if (zoomLevel < visibleZoomLevel)
         continue;
 
-      leftPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, true /* left */);
-      invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
-      rightPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, false /* left */);
+      float const leftPixelHalfWidth =
+          CalculateHalfWidth(screen, renderData.m_roadClass, true /* left */);
+      float const invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
+      float const rightPixelHalfWidth =
+          CalculateHalfWidth(screen, renderData.m_roadClass, false /* left */);
       float const kEps = 1e-5;
       if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
         continue;
@@ -218,10 +217,11 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
                              lightArrowColor.GetGreenF(), lightArrowColor.GetBlueF());
       uniforms.SetFloatValue("u_darkArrowColor", darkArrowColor.GetRedF(),
                              darkArrowColor.GetGreenF(), darkArrowColor.GetBlueF());
-      uniforms.SetFloatValue("u_outlineColor", outlineColor.GetRedF(),
-                             outlineColor.GetGreenF(), outlineColor.GetBlueF());
+      uniforms.SetFloatValue("u_outlineColor", outlineColor.GetRedF(), outlineColor.GetGreenF(),
+                             outlineColor.GetBlueF());
       uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
-                             invLeftPixelLength, zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
+                             invLeftPixelLength,
+                             zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
       dp::ApplyUniforms(uniforms, program);
 
       renderData.m_bucket->Render(false /* draw as line */);
@@ -236,12 +236,10 @@ void TrafficRenderer::ClearGLDependentResources()
 
 void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 {
-  auto removePredicate = [&mwmId](TrafficRenderData const & data)
-  {
-    return data.m_mwmId == mwmId;
-  };
+  auto removePredicate = [&mwmId](TrafficRenderData const & data) { return data.m_mwmId == mwmId; };
 
-  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
+  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate),
+                     m_renderData.end());
 }
 
 // static
@@ -257,7 +255,9 @@ float TrafficRenderer::GetTwoWayOffset(RoadClass const & roadClass, int zoomLeve
   ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
   int const index = zoomLevel - 1;
   float const halfWidth = 0.5f * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
-  return halfWidth + kTwoWayOffsetInPixel[index] * VisualParams::Instance().GetVisualScale();
+  return kTwoWayOffsetInPixel[index] *
+             static_cast<float>(VisualParams::Instance().GetVisualScale()) +
+         halfWidth;
 }
 
 // static
@@ -283,7 +283,7 @@ float TrafficRenderer::GetPixelWidthInternal(RoadClass const & roadClass, int zo
 
   int const index = zoomLevel - 1;
   float const baseWidth = (kLeftWidthInPixel[index] + kRightWidthInPixel[index]) *
-                           df::VisualParams::Instance().GetVisualScale();
+                          static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   return (widthScalar != nullptr) ? (baseWidth * widthScalar[index]) : baseWidth;
 }
 
