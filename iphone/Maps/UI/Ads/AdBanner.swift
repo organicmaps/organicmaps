@@ -39,6 +39,7 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adBodyLabel: UILabel!
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
+  @IBOutlet private weak var adPrivacyButton: UIButton!
   static let detailedBannerExcessHeight: Float = 36
 
   var state = AdBannerState.unset {
@@ -64,7 +65,20 @@ final class AdBanner: UITableViewCell {
 
   private var nativeAd: MWMBanner?
 
+  @IBAction
+  private func privacyAction() {
+    if let ad = nativeAd as? MopubBanner, let urlStr = ad.privacyInfoURL, let url = URL(string: urlStr) {
+      UIViewController.topViewController().open(url)
+    }
+  }
+
+  func reset() {
+    state = .unset
+    adPrivacyButton.isHidden = true
+  }
+
   func config(ad: MWMBanner, containerType: AdBannerContainerType) {
+    reset()
     switch containerType {
     case .placePage:
       state = alternative(iPhone: .compact, iPad: .detailed)
@@ -181,6 +195,7 @@ final class AdBanner: UITableViewCell {
     }
 
     adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
+    adPrivacyButton.isHidden = ad.privacyInfoURL == nil
   }
 
   private func refreshBannerIfNeeded() {

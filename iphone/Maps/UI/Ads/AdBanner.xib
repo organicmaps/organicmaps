@@ -107,6 +107,13 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
+                        <rect key="frame" x="14" y="8" width="24" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="privacyAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="ma2-uV-7hH"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -124,15 +131,19 @@
                     <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ZVP-Gs-m00"/>
                     <constraint firstAttribute="trailing" secondItem="NKM-3R-3g1" secondAttribute="trailing" id="ZiW-Tk-SOB"/>
                     <constraint firstItem="kIR-cO-v6L" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="ajZ-XY-N1h"/>
+                    <constraint firstItem="So8-wM-Cgz" firstAttribute="bottom" secondItem="zWu-Gh-Vf7" secondAttribute="bottom" constant="2" id="akC-Fs-8Iv"/>
                     <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="trailing" priority="500" constant="16" id="dww-N9-1tY"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" id="eM3-Nv-zVj"/>
+                    <constraint firstItem="So8-wM-Cgz" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" constant="-2" id="fNs-FC-pga"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="16" id="gJI-DA-6rn"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="hn7-T4-7Zo"/>
                     <constraint firstAttribute="bottom" secondItem="NKM-3R-3g1" secondAttribute="bottom" priority="250" id="hzn-4Y-A0H"/>
+                    <constraint firstItem="So8-wM-Cgz" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="-2" id="sAg-zL-vMW"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                     <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="16" id="vlX-zx-nfP"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
+                    <constraint firstItem="So8-wM-Cgz" firstAttribute="trailing" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" constant="2" id="zGz-Sf-G1b"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerBackground"/>
@@ -145,6 +156,7 @@
                 <outlet property="adCallToActionButtonCompactLeading" destination="5CH-Fo-S70" id="Vdl-uS-6Gd"/>
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
+                <outlet property="adPrivacyButton" destination="So8-wM-Cgz" id="tY6-tl-gGx"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>
                 <outletCollection property="detailedModeConstraints" destination="w5K-BT-1ED" collectionClass="NSMutableArray" id="Lv4-E4-dYV"/>
                 <outletCollection property="detailedModeConstraints" destination="POq-M6-rLU" collectionClass="NSMutableArray" id="rqF-JD-SZe"/>

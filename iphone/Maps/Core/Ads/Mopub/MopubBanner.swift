@@ -127,6 +127,10 @@ final class MopubBanner: NSObject, Banner {
     return nativeAd?.properties[kAdCTATextKey] as? String ?? ""
   }
 
+  var privacyInfoURL: String? {
+    return nativeAd?.properties[kDAAIconTapDestinationURL] as? String
+  }
+
   //MARK: - Helpers
   private var request: MPNativeAdRequest!
 
