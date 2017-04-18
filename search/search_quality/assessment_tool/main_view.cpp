@@ -87,7 +87,8 @@ void MainView::MoveViewportToResult(search::Result const & result)
   m_framework.ShowSearchResult(result, false /* animation */);
 }
 
-void MainView::MoveViewportToResult(search::Sample::Result const & result) {
+void MainView::MoveViewportToResult(search::Sample::Result const & result)
+{
   int constexpr kViewportAroundResultSizeM = 100;
   auto const rect =
       MercatorBounds::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
@@ -280,13 +281,13 @@ void MainView::InitDocks()
   {
     auto const & view = m_sampleView->GetFoundResultsView();
     connect(&view, &ResultsView::OnResultSelected,
-            [&](int index) { m_model->OnResultSelected(index); });
+            [this](int index) { m_model->OnResultSelected(index); });
   }
 
   {
     auto const & view = m_sampleView->GetNonFoundResultsView();
     connect(&view, &ResultsView::OnResultSelected,
-            [&](int index) { m_model->OnNonFoundResultSelected(index); });
+            [this](int index) { m_model->OnNonFoundResultSelected(index); });
   }
 
   m_sampleDock = CreateDock(*m_sampleView);
