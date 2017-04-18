@@ -1460,6 +1460,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		347040371EA6628300038379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 34F4074B1E9E1D3500E57AC0;
+			remoteInfo = Mopub;
+		};
+		3470403A1EA6628700038379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 34F4074B1E9E1D3500E57AC0;
+			remoteInfo = Mopub;
+		};
+		3470403C1EA6628B00038379 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 34F4074B1E9E1D3500E57AC0;
+			remoteInfo = Mopub;
+		};
 		34F4075C1E9E1D7A00E57AC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
@@ -4269,6 +4290,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				347040381EA6628300038379 /* PBXTargetDependency */,
 			);
 			name = MAPS.ME;
 			productName = Maps;
@@ -4290,6 +4312,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3470403B1EA6628700038379 /* PBXTargetDependency */,
 			);
 			name = xcMAPS.ME;
 			productName = Maps;
@@ -4312,6 +4335,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3470403D1EA6628B00038379 /* PBXTargetDependency */,
 			);
 			name = cmMAPS.ME;
 			productName = Maps;
@@ -5943,6 +5967,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		347040381EA6628300038379 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Mopub;
+			targetProxy = 347040371EA6628300038379 /* PBXContainerItemProxy */;
+		};
+		3470403B1EA6628700038379 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Mopub;
+			targetProxy = 3470403A1EA6628700038379 /* PBXContainerItemProxy */;
+		};
+		3470403D1EA6628B00038379 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Mopub;
+			targetProxy = 3470403C1EA6628B00038379 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */ = {
