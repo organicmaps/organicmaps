@@ -17,6 +17,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -615,6 +616,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
     View container = findViewById(R.id.map_fragment_container);
     container.setOnTouchListener(this);
     mRootView = (ViewGroup) container.getParent();
+  }
+
+  public void detachMap(FragmentTransaction transaction)
+  {
+    if (mMapFragment == null)
+      return;
+
+    transaction
+        .remove(mMapFragment);
+
+    mMapFragment = null;
+  }
+
+  public void attachMap()
+  {
+    if (mMapFragment != null)
+      return;
+
+    mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
+        .commit();
   }
 
   private void initNavigationButtons()

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Constants;
@@ -88,9 +89,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
             public void invoke(@NonNull Boolean param)
             {
               if (param)
+              {
                 MapManager.nativeUpdate(CountryItem.getRootId());
+              }
               else
+              {
+                attachMap();
                 dismiss();
+              }
             }
           });
 
@@ -101,6 +107,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (!isAllUpdated())
         return;
 
+      attachMap();
       dismiss();
     }
 
@@ -130,6 +137,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (MapManager.nativeIsDownloading())
         MapManager.nativeCancel(CountryItem.getRootId());
 
+      attachMap();
       dismiss();
     }
   };
@@ -182,6 +190,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     fragment.setArguments(args);
     FragmentTransaction transaction = fm.beginTransaction()
       .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+    if (activity instanceof MwmActivity)
+      ((MwmActivity) activity).detachMap(transaction);
     fragment.show(transaction, UpdaterDialogFragment.class.getName());
 
     Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
@@ -261,7 +271,16 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (MapManager.nativeIsDownloading())
       MapManager.nativeCancel(CountryItem.getRootId());
 
+    attachMap();
     super.onCancel(dialog);
+  }
+
+  private void attachMap()
+  {
+    if (!(getActivity() instanceof MwmActivity))
+      return;
+
+    ((MwmActivity)getActivity()).attachMap();
   }
 
   private void readArguments()
