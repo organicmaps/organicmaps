@@ -12,10 +12,10 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   local_ads
+  platform_tests_support
+  platform
   coding
   geometry
-  platform
-  platform_tests_support
   base
   stats_client
   ${LIBZ}
