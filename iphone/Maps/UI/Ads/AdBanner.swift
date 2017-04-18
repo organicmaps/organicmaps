@@ -39,11 +39,13 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adBodyLabel: UILabel!
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
+  @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
   @IBOutlet private weak var adPrivacyButton: UIButton!
   static let detailedBannerExcessHeight: Float = 36
 
   var state = AdBannerState.unset {
     didSet {
+      guard state != .unset else { return }
       let config = state.config()
       adTitleLabel.numberOfLines = config.numberOfTitleLines
       adBodyLabel.numberOfLines = config.numberOfBodyLines
@@ -75,6 +77,7 @@ final class AdBanner: UITableViewCell {
   func reset() {
     state = .unset
     adPrivacyButton.isHidden = true
+    adCallToActionButtonCustom.isHidden = true
   }
 
   func config(ad: MWMBanner, containerType: AdBannerContainerType) {
@@ -176,10 +179,16 @@ final class AdBanner: UITableViewCell {
 
   private func configMopubBanner(ad: MopubBanner) {
     mpNativeAd = ad.nativeAd
-    mpNativeAd?.setAdView(self)
 
-    let adCallToActionButtons = [adCallToActionButtonCompact!, adCallToActionButtonDetailed!]
-    mpNativeAd?.setActionButtons(adCallToActionButtons)
+    let adCallToActionButtons: [UIButton]
+    if state == .search {
+      adCallToActionButtonCustom.isHidden = false
+      adCallToActionButtons = [adCallToActionButtonCustom]
+    } else {
+      adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
+      adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
+    }
+    mpNativeAd?.setAdView(self, actionButtons: adCallToActionButtons)
 
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.firstLineHeadIndent = 24
@@ -193,8 +202,6 @@ final class AdBanner: UITableViewCell {
     if let url = URL(string: ad.iconURL) {
       adIconImageView.af_setImage(withURL: url)
     }
-
-    adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
     adPrivacyButton.isHidden = ad.privacyInfoURL == nil
   }
 

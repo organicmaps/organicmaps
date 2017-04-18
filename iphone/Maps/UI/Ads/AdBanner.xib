@@ -107,6 +107,10 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54O-iN-1Gg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </button>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
                         <rect key="frame" x="14" y="8" width="24" height="16"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -122,11 +126,13 @@
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EuF-Rm-DHQ" secondAttribute="bottom" constant="8" id="Fjs-IQ-LQv"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="250" constant="8" id="HHb-Vh-rIl"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="trailing" secondItem="f76-qn-ne4" secondAttribute="leading" priority="500" id="HLI-Zw-ETh"/>
+                    <constraint firstItem="54O-iN-1Gg" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" id="JWc-kJ-RaK"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="KEp-1t-yK0"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" id="Ls8-rz-N1Q"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="700" constant="4" id="NmE-r2-ZNA"/>
                     <constraint firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" priority="250" constant="16" id="POq-M6-rLU"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="top" constant="2" id="Q0s-7L-aih"/>
+                    <constraint firstAttribute="trailing" secondItem="54O-iN-1Gg" secondAttribute="trailing" id="S6I-ea-HJN"/>
                     <constraint firstItem="9qA-JC-fkn" firstAttribute="leading" secondItem="Ev3-yY-ql1" secondAttribute="trailing" priority="500" constant="4" id="YNA-Lu-LXQ"/>
                     <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ZVP-Gs-m00"/>
                     <constraint firstAttribute="trailing" secondItem="NKM-3R-3g1" secondAttribute="trailing" id="ZiW-Tk-SOB"/>
@@ -136,9 +142,11 @@
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" id="eM3-Nv-zVj"/>
                     <constraint firstItem="So8-wM-Cgz" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" constant="-2" id="fNs-FC-pga"/>
                     <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="16" id="gJI-DA-6rn"/>
+                    <constraint firstItem="54O-iN-1Gg" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" id="ge7-AI-110"/>
                     <constraint firstItem="NKM-3R-3g1" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="hn7-T4-7Zo"/>
                     <constraint firstAttribute="bottom" secondItem="NKM-3R-3g1" secondAttribute="bottom" priority="250" id="hzn-4Y-A0H"/>
                     <constraint firstItem="So8-wM-Cgz" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="-2" id="sAg-zL-vMW"/>
+                    <constraint firstAttribute="bottom" secondItem="54O-iN-1Gg" secondAttribute="bottom" id="tOj-8H-AsH"/>
                     <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                     <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
                     <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="16" id="vlX-zx-nfP"/>
@@ -154,6 +162,7 @@
                 <outlet property="adBodyLabel" destination="Ev3-yY-ql1" id="xw6-9k-OYn"/>
                 <outlet property="adCallToActionButtonCompact" destination="9qA-JC-fkn" id="2AF-5i-Wey"/>
                 <outlet property="adCallToActionButtonCompactLeading" destination="5CH-Fo-S70" id="Vdl-uS-6Gd"/>
+                <outlet property="adCallToActionButtonCustom" destination="54O-iN-1Gg" id="vvO-p7-eBA"/>
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
                 <outlet property="adPrivacyButton" destination="So8-wM-Cgz" id="tY6-tl-gGx"/>
