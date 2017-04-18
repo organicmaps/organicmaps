@@ -41,8 +41,8 @@ struct Sample
   bool DeserializeFromJSON(std::string const & jsonStr);
   my::JSONPtr SerializeToJSON() const;
 
-  static bool DeserializeFromJSON(std::string const & jsonStr, std::vector<Sample> & samples);
-  static void SerializeToJSON(std::vector<Sample> const & samples, std::string & jsonStr);
+  static bool DeserializeFromJSONLines(std::string const & lines, std::vector<Sample> & samples);
+  static void SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines);
 
   bool operator<(Sample const & rhs) const;
 

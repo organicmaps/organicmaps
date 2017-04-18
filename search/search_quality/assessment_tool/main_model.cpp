@@ -58,7 +58,7 @@ void MainModel::Open(string const & path)
   }
 
   vector<search::Sample> samples;
-  if (!search::Sample::DeserializeFromJSON(contents, samples))
+  if (!search::Sample::DeserializeFromJSONLines(contents, samples))
   {
     m_view->ShowError("Can't parse samples: " + path);
     return;
@@ -95,7 +95,7 @@ void MainModel::SaveAs(string const & path)
   search::FeatureLoader loader(m_index);
 
   string contents;
-  search::Sample::SerializeToJSON(m_contexts.MakeSamples(loader), contents);
+  search::Sample::SerializeToJSONLines(m_contexts.MakeSamples(loader), contents);
 
   {
     ofstream ofs(path);

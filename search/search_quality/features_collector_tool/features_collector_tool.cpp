@@ -127,10 +127,10 @@ int main(int argc, char * argv[])
   auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
 
-  string jsonStr;
+  string lines;
   if (FLAGS_json_in.empty())
   {
-    GetContents(cin, jsonStr);
+    GetContents(cin, lines);
   }
   else
   {
@@ -140,11 +140,11 @@ int main(int argc, char * argv[])
       cerr << "Can't open input json file." << endl;
       return -1;
     }
-    GetContents(ifs, jsonStr);
+    GetContents(ifs, lines);
   }
 
   vector<Sample> samples;
-  if (!Sample::DeserializeFromJSON(jsonStr, samples))
+  if (!Sample::DeserializeFromJSONLines(lines, samples))
   {
     cerr << "Can't parse input json file." << endl;
     return -1;
