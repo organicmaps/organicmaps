@@ -65125,7 +65125,7 @@ colors {
   }
   value {
     name: "TrafficG3"
-    color: 9203730
+    color: 4287393810
     x: 0
     y: 0
   }
@@ -65209,7 +65209,7 @@ colors {
   }
   value {
     name: "RouteTrafficG3"
-    color: 10387990
+    color: 4288578070
     x: 0
     y: 0
   }
