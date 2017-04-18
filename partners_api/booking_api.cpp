@@ -289,17 +289,13 @@ string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) c
   return os.str();
 }
 
-string Api::GetSearchUrl(string const & city, string const & street, string const & hotelName,
-                         string const & type) const
+string Api::GetSearchUrl(string const & city, string const & name) const
 {
-  if (city.empty() || type.empty())
+  if (city.empty() || name.empty())
     return "";
 
   ostringstream paramStream;
-  if (!street.empty())
-    paramStream << city << " " << street << " " << type;
-  else if (!hotelName.empty())
-    paramStream << city << " " << hotelName << " " << type;
+  paramStream << city << " " << name;
 
   auto const urlEncodedParams = UrlEncode(paramStream.str());
 

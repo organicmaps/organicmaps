@@ -180,33 +180,21 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
   handle.reset();
 }
 
-string GetStreet(search::ReverseGeocoder const & coder, FeatureType const & ft)
+string MakeSearchBookingUrl(booking::Api const & bookingApi, CityFinder & cityFinder,
+                            FeatureType const & ft)
 {
-  auto const & editor = osm::Editor::Instance();
-  string streetName;
+  string name;
+  auto const & info = ft.GetID().m_mwmId.GetInfo();
+  ASSERT(info, ());
 
-  if (editor.GetFeatureStatus(ft.GetID()) == osm::Editor::FeatureStatus::Created)
-  {
-    VERIFY(editor.GetEditedFeatureStreet(ft.GetID(), streetName), ("Feature is in editor."));
-    return streetName;
-  }
-  search::ReverseGeocoder::Address address;
-  coder.GetNearbyAddress(feature::GetCenter(ft), address);
-  return address.GetStreetName();
-}
+  int8_t lang = feature::GetNameForSearchOnBooking(info->GetRegionData(), ft.GetNames(), name);
 
-string MakeSearchBookingUrl(Index const & index, booking::Api const & bookingApi,
-                            CityFinder & cityFinder, FeatureType const & ft,
-                            string const & localizedType)
-{
-  search::ReverseGeocoder const coder(index);
-  string hotelName;
-  ft.GetReadableName(false /* allowTranslit */, hotelName);
+  if (lang == StringUtf8Multilang::kUnsupportedLanguageCode)
+    return {};
 
-  auto const lang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
 
-  return bookingApi.GetSearchUrl(city, GetStreet(coder, ft), hotelName, localizedType);
+  return bookingApi.GetSearchUrl(city, name);
 }
 }  // namespace
 
@@ -936,8 +924,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
-    info.m_bookingSearchUrl = MakeSearchBookingUrl(m_model.GetIndex(), *m_bookingApi, *m_cityFinder,
-                                                   ft, info.GetLocalizedType());
+    info.m_bookingSearchUrl = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
+    LOG(LINFO, (info.m_bookingSearchUrl));
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();

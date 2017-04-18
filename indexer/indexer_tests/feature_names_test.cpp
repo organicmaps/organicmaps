@@ -313,4 +313,71 @@ UNIT_TEST(GetReadableName)
     TEST_EQUAL(name, "ko name", ());
   }
 }
+
+UNIT_TEST(GetNameForSearchOnBooking)
+{
+  {
+    StrUtf8 src;
+    feature::RegionData regionData;
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::kUnsupportedLanguageCode, ());
+    TEST(result.empty(), ());
+  }
+  {
+    StrUtf8 src;
+    src.AddString("default", "default name");
+    feature::RegionData regionData;
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::kDefaultCode, ());
+    TEST_EQUAL(result, "default name", ());
+  }
+  {
+    StrUtf8 src;
+    src.AddString("default", "default name");
+    src.AddString("ko", "ko name");
+    src.AddString("en", "en name");
+    feature::RegionData regionData;
+    regionData.SetLanguages({"ko", "en"});
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::kDefaultCode, ());
+    TEST_EQUAL(result, "default name", ());
+  }
+  {
+    StrUtf8 src;
+    src.AddString("en", "en name");
+    src.AddString("ko", "ko name");
+    feature::RegionData regionData;
+    regionData.SetLanguages({"ko"});
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::GetLangIndex("ko"), ());
+    TEST_EQUAL(result, "ko name", ());
+  }
+  {
+    StrUtf8 src;
+    src.AddString("en", "en name");
+    src.AddString("ko", "ko name");
+    src.AddString("de", "de name");
+    feature::RegionData regionData;
+    regionData.SetLanguages({"de", "ko"});
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::GetLangIndex("de"), ());
+    TEST_EQUAL(result, "de name", ());
+  }
+  {
+    StrUtf8 src;
+    src.AddString("en", "en name");
+    src.AddString("ko", "ko name");
+    feature::RegionData regionData;
+    regionData.SetLanguages({"de", "fr"});
+    string result;
+    auto lang = feature::GetNameForSearchOnBooking(regionData, src, result);
+    TEST_EQUAL(lang, StrUtf8::GetLangIndex("en"), ());
+    TEST_EQUAL(result, "en name", ());
+  }
+}
 }  // namespace

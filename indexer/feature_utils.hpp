@@ -46,4 +46,12 @@ namespace feature
   /// - country language name.
   void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & src,
                        int8_t const deviceLang, bool allowTranslit, string & out);
+
+  /// Returns language id as return result and name for search on booking in the @name parameter,
+  ///  the priority is the following:
+  /// - default name;
+  /// - country language name;
+  /// - english name.
+  int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src,
+                                   string & name);
 }  // namespace feature
