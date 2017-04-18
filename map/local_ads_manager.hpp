@@ -9,6 +9,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "indexer/ftypes_mapping.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -24,7 +25,12 @@
 namespace df
 {
 class DrapeEngine;
-}  // namespace df
+}
+
+namespace feature
+{
+class TypesHolder;
+}
 
 class LocalAdsManager final
 {
@@ -51,6 +57,7 @@ public:
   local_ads::Statistics const & GetStatistics() const { return m_statistics; }
     
   bool Contains(FeatureID const & featureId) const;
+  bool IsSupportedType(feature::TypesHolder const & types) const;
 
 private:
   enum class RequestType
@@ -97,4 +104,6 @@ private:
 
   std::set<FeatureID> m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
+
+  ftypes::HashSet<uint32_t> m_excludeTypes;
 };

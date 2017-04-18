@@ -1,12 +1,13 @@
 #pragma once
 
+#include "indexer/ftypes_mapping.hpp"
+
 #include "storage/index.hpp"
 
 #include "base/macros.hpp"
 
 #include <cstdint>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -51,8 +52,8 @@ protected:
   void AppendSupportedCountries(std::vector<storage::TCountryId> const & countries);
 
 private:
-  std::unordered_map<uint32_t, std::string> m_typesToBanners;
-  std::unordered_set<uint32_t> m_excludedTypes;
+  ftypes::HashMap<uint32_t, std::string> m_typesToBanners;
+  ftypes::HashSet<uint32_t> m_excludedTypes;
   // All countries are supported when empty.
   std::unordered_set<storage::TCountryId> m_supportedCountries;
 

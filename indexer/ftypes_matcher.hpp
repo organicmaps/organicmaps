@@ -15,7 +15,6 @@ class FeatureType;
 
 namespace ftypes
 {
-
 class BaseChecker
 {
   size_t const m_level;

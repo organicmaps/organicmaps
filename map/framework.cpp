@@ -415,9 +415,6 @@ Framework::Framework(FrameworkParams const & params)
   })
   , m_lastReportedCountry(kInvalidCountryId)
 {
-  if (!params.m_disableLocalAds)
-    m_localAdsManager.Startup();
-
   m_startBackgroundTime = my::Timer::LocalTime();
 
   // Restore map style before classificator loading
@@ -450,6 +447,9 @@ Framework::Framework(FrameworkParams const & params)
   m_model.InitClassificator();
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
+
+  if (!params.m_disableLocalAds)
+    m_localAdsManager.Startup();
 
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
@@ -932,6 +932,17 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
   info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
+
+  if (m_localAdsManager.IsSupportedType(info.GetTypes()))
+  {
+    info.m_localAdsStatus = m_localAdsManager.Contains(ft.GetID())
+                                ? place_page::LocalAdsStatus::Customer
+                                : place_page::LocalAdsStatus::Candidate;
+  }
+  else
+  {
+    info.m_localAdsStatus = place_page::LocalAdsStatus::Unavailable;
+  }
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const

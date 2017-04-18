@@ -8,6 +8,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/feature_data.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/http_client.hpp"
@@ -141,6 +142,11 @@ std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const &
   return result;
 }
 #endif
+
+void FillExcludeTypes(ftypes::HashSet<uint32_t> & excludeTypes)
+{
+  excludeTypes.Append({{"amenity", "bench"}});
+}
 }  // namespace
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
@@ -176,6 +182,7 @@ void LocalAdsManager::Startup()
   m_thread = threads::SimpleThread(&LocalAdsManager::ThreadRoutine, this);
 
   m_statistics.Startup();
+  FillExcludeTypes(m_excludeTypes);
 }
 
 void LocalAdsManager::Teardown()
@@ -448,4 +455,9 @@ bool LocalAdsManager::Contains(FeatureID const & featureId) const
 {
   std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
   return m_featuresCache.find(featureId) != m_featuresCache.cend();
+}
+
+bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
+{
+  return !m_excludeTypes.Contains(types);
 }
