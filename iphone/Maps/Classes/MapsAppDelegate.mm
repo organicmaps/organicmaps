@@ -491,7 +491,7 @@ using namespace osm_auth_ios;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  LOG(LINFO, ("applicationDidEnterBackground"));
+  LOG(LINFO, ("applicationDidEnterBackground - begin"));
   GetFramework().EnterBackground();
   if (m_activeDownloadsCounter)
   {
@@ -522,11 +522,12 @@ using namespace osm_auth_ios;
     }
                                     with:AuthorizationGetCredentials()];
   }
+  LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-  LOG(LINFO, ("applicationWillResignActive"));
+  LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
   [MWMRouterSavedState store];
   // On some devices we have to free all belong-to-graphics memory
@@ -541,11 +542,12 @@ using namespace osm_auth_ios;
     GetFramework().SetRenderingDisabled(false);
   }
   [MWMLocationManager applicationWillResignActive];
+  LOG(LINFO, ("applicationWillResignActive - end"));
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  LOG(LINFO, ("applicationWillEnterForeground"));
+  LOG(LINFO, ("applicationWillEnterForeground - begin"));
   GetFramework().EnterForeground();
   if (!GpsTracker::Instance().IsEnabled())
     return;
@@ -565,11 +567,12 @@ using namespace osm_auth_ios;
 
   [ud setBool:YES forKey:kUDTrackWarningAlertWasShown];
   [ud synchronize];
+  LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  LOG(LINFO, ("applicationDidBecomeActive"));
+  LOG(LINFO, ("applicationDidBecomeActive - begin"));
   LOG(LINFO, ("Pushwoosh: ", [MWMPushNotifications pushToken].UTF8String));
   [self.mapViewController onGetFocus:YES];
   [self handleURLs];
@@ -586,6 +589,7 @@ using namespace osm_auth_ios;
   [MWMRouterSavedState restore];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
+  LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 
 - (BOOL)application:(UIApplication *)application
