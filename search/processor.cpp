@@ -103,7 +103,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
   size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
   string resultString = strings::to_string(numResultsToSend);
   for (size_t i = 0; i < numResultsToSend; ++i)
-    resultString.append("\t" + res.GetResult(i).ToStringForStats());
+    resultString.append("\t" + res[i].ToStringForStats());
 
   string posX, posY;
   if (params.IsValidPosition())

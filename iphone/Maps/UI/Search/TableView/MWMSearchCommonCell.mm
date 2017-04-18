@@ -68,6 +68,8 @@
       }
       self.distanceLabel.text = @(distanceStr.c_str());
   }
+
+  self.backgroundColor = result.IsLocalAdsCustomer() ? [UIColor bannerBackground] : [UIColor white];
 }
 
 - (void)setInfoText:(NSString *)infoText

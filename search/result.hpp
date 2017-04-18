@@ -42,6 +42,8 @@ public:
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
 
     bool m_isInitialized = false;
+
+    bool m_isLocalAdsCustomer = false;
   };
 
   /// For RESULT_FEATURE.
@@ -114,6 +116,9 @@ public:
   // the quality of our search engine.
   string ToStringForStats() const;
 
+  void SetLocalAdsCustomer(bool customer) { m_metadata.m_isLocalAdsCustomer = customer; }
+  bool IsLocalAdsCustomer() const { return m_metadata.m_isLocalAdsCustomer; }
+
 private:
   FeatureID m_id;
   m2::PointD m_center;
@@ -135,7 +140,8 @@ public:
 class Results
 {
 public:
-  using Iter = vector<Result>::const_iterator;
+  using Iter = vector<Result>::iterator;
+  using ConstIter = vector<Result>::const_iterator;
 
   Results();
 
@@ -152,22 +158,25 @@ public:
 
   // Fast version of AddResult() that doesn't do any duplicates checks.
   void AddResultNoChecks(Result && result);
+  void AddResultsNoChecks(ConstIter first, ConstIter last);
 
   void Clear();
 
-  inline Iter begin() const { return m_results.begin(); }
-  inline Iter end() const { return m_results.end(); }
+  inline Iter begin() { return m_results.begin(); }
+  inline Iter end() { return m_results.end(); }
+  inline ConstIter begin() const { return m_results.cbegin(); }
+  inline ConstIter end() const { return m_results.cend(); }
 
   inline size_t GetCount() const { return m_results.size(); }
   size_t GetSuggestsCount() const;
 
-  inline Result & GetResult(size_t i)
+  inline Result & operator[](size_t i)
   {
     ASSERT_LESS(i, m_results.size(), ());
     return m_results[i];
   }
 
-  inline Result const & GetResult(size_t i) const
+  inline Result const & operator[](size_t i) const
   {
     ASSERT_LESS(i, m_results.size(), ());
     return m_results[i];

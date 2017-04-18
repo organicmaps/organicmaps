@@ -22,6 +22,7 @@ HEADERS += \
     editor_delegate.hpp \
     emitter.hpp \
     engine.hpp \
+    everywhere_search_callback.hpp \
     everywhere_search_params.hpp \
     feature_loader.hpp \
     feature_offset_match.hpp \
@@ -80,7 +81,7 @@ HEADERS += \
     types_skipper.hpp \
     utils.hpp \
     viewport_search_callback.hpp \
-    viewport_search_params.hpp
+    viewport_search_params.hpp \
 
 SOURCES += \
     approximate_string_match.cpp \
@@ -91,6 +92,7 @@ SOURCES += \
     dummy_rank_table.cpp \
     editor_delegate.cpp \
     engine.cpp \
+    everywhere_search_callback.cpp \
     feature_loader.cpp \
     features_filter.cpp \
     features_layer.cpp \
@@ -138,4 +140,4 @@ SOURCES += \
     token_slice.cpp \
     types_skipper.cpp \
     utils.cpp \
-    viewport_search_callback.cpp
+    viewport_search_callback.cpp \

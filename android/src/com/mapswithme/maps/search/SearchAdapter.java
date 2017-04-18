@@ -25,6 +25,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 {
   private static final int TYPE_SUGGEST = 0;
   private static final int TYPE_RESULT = 1;
+  private static final int TYPE_LOCAL_ADS_CUSTOMER = 2;
 
   private final SearchFragment mSearchFragment;
   private SearchResult[] mResults;
@@ -223,6 +224,19 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
   }
 
+  private class LocalAdsCustomerViewHolder extends ResultViewHolder
+  {
+    LocalAdsCustomerViewHolder(View view)
+    {
+      super(view);
+
+      int resId = ThemeUtils.isNightTheme() ? R.drawable.search_la_customer_result_night
+                                            : R.drawable.search_la_customer_result;
+
+      view.setBackgroundDrawable(mSearchFragment.getResources().getDrawable(resId));
+    }
+  }
+
   SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
@@ -242,6 +256,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
     case TYPE_RESULT:
       return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
+
+    case TYPE_LOCAL_ADS_CUSTOMER:
+      return new LocalAdsCustomerViewHolder(inflater.inflate(R.layout.item_search_result, parent,
+                                                             false));
 
     default:
       throw new IllegalArgumentException("Unhandled view type given");
@@ -264,6 +282,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
     case SearchResult.TYPE_RESULT:
       return TYPE_RESULT;
+
+    case SearchResult.TYPE_LOCAL_ADS_CUSTOMER:
+      return TYPE_LOCAL_ADS_CUSTOMER;
 
     default:
       throw new IllegalArgumentException("Unhandled SearchResult type");

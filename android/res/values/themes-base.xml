@@ -98,6 +98,8 @@
     <item name="activeIconBackground">@drawable/bg_active_icon</item>
 
     <item name="warmGray">@color/warm_gray</item>
+
+    <item name="localAdSearchResBackground">@color/search_local_ads_customer_result</item>
   </style>
 
   <!-- Night theme -->
@@ -199,5 +201,7 @@
     <item name="activeIconBackground">@drawable/bg_active_icon_night</item>
 
     <item name="warmGray">@color/warm_gray_night</item>
+
+    <item name="localAdSearchResBackground">@color/search_local_ads_customer_result_night</item>
   </style>
 </resources>

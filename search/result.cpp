@@ -188,6 +188,15 @@ void Results::AddResultNoChecks(Result && result)
   InsertResult(m_results.end(), move(result));
 }
 
+void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
+{
+  while (first != last)
+  {
+    auto resultCopy = *first++;
+    AddResultNoChecks(move(resultCopy));
+  }
+}
+
 void Results::Clear()
 {
   m_results.clear();

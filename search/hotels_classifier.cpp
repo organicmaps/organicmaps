@@ -12,7 +12,7 @@ bool HotelsClassifier::IsHotelResults(Results const & results)
   return classifier.IsHotelResults();
 }
 
-void HotelsClassifier::Add(Results::Iter begin, Results::Iter end)
+void HotelsClassifier::Add(Results::ConstIter begin, Results::ConstIter end)
 {
   for (; begin != end; ++begin)
   {

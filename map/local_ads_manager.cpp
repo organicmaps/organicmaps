@@ -48,6 +48,44 @@ std::chrono::steady_clock::time_point Now()
 {
   return std::chrono::steady_clock::now();
 }
+    
+std::string MakeRemoteURL(MwmSet::MwmId const & mwmId)
+{
+  // TODO: build correct URL after server completion.
+  return {};  // kServerUrl + "/campaigns.data";
+}
+
+std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId)
+{
+  std::string const url = MakeRemoteURL(mwmId);
+  if (url.empty())
+    return {};
+
+  platform::HttpClient request(url);
+  if (!request.RunHttpRequest() || request.ErrorCode() != 200)
+    return {};
+
+  string const & response = request.ServerResponse();
+  return std::vector<uint8_t>(response.cbegin(), response.cend());
+}
+
+df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
+                                LocalAdsManager::Timestamp timestamp)
+{
+  df::CustomSymbols symbols;
+
+  auto campaigns = local_ads::Deserialize(rawData);
+  for (local_ads::Campaign const & campaign : campaigns)
+  {
+    if (Now() > timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired))
+      continue;
+    symbols.insert(
+        std::make_pair(FeatureID(mwmId, campaign.m_featureId),
+                       df::CustomSymbol(campaign.GetIconName(), campaign.m_priorityBit)));
+  }
+
+  return symbols;
+}
 }  // namespace
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
@@ -97,8 +135,11 @@ void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine = engine;
   {
     std::lock_guard<std::mutex> lock(m_symbolsCacheMutex);
-    if (!m_symbolsCache.empty())
-      m_drapeEngine->AddCustomSymbols(std::move(m_symbolsCache));
+    if (m_symbolsCache.empty())
+      return;
+
+    m_drapeEngine->AddCustomSymbols(std::move(m_symbolsCache));
+    m_symbolsCache.clear();
   }
 }
 
@@ -196,6 +237,7 @@ void LocalAdsManager::ThreadRoutine()
         }
         else
         {
+          UpdateFeaturesCache(symbols);
           SendSymbolsToRendering(std::move(symbols));
         }
 
@@ -246,44 +288,6 @@ void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
   std::lock_guard<std::mutex> lock(m_mutex);
   m_requestedCampaigns.insert(std::make_pair(m_getMwmIdByNameFn(countryName), RequestType::Delete));
   m_condition.notify_one();
-}
-
-std::string LocalAdsManager::MakeRemoteURL(MwmSet::MwmId const & mwmId) const
-{
-  // TODO: build correct URL after server completion.
-  return {};//kServerUrl + "/campaigns.data";
-}
-
-std::vector<uint8_t> LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId) const
-{
-  std::string const url = MakeRemoteURL(mwmId);
-  if (url.empty())
-    return {};
-
-  platform::HttpClient request(url);
-  if (!request.RunHttpRequest() || request.ErrorCode() != 200)
-    return {};
-
-  string const & response = request.ServerResponse();
-  return std::vector<uint8_t>(response.cbegin(), response.cend());
-}
-
-df::CustomSymbols LocalAdsManager::ParseCampaign(std::vector<uint8_t> const & rawData,
-                                                 MwmSet::MwmId const & mwmId,
-                                                 Timestamp timestamp)
-{
-  df::CustomSymbols symbols;
-
-  auto campaigns = local_ads::Deserialize(rawData);
-  for (local_ads::Campaign const & campaign : campaigns)
-  {
-    if (Now() > timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired))
-      continue;
-    symbols.insert(std::make_pair(FeatureID(mwmId, campaign.m_featureId),
-                                  df::CustomSymbol(campaign.GetIconName(), campaign.m_priorityBit)));
-  }
-
-  return symbols;
 }
 
 void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
@@ -364,5 +368,22 @@ void LocalAdsManager::Invalidate()
       symbols.insert(campaignSymbols.begin(), campaignSymbols.end());
     }
   }
+  UpdateFeaturesCache(symbols);
   SendSymbolsToRendering(std::move(symbols));
+}
+
+void LocalAdsManager::UpdateFeaturesCache(df::CustomSymbols const & symbols)
+{
+  if (symbols.empty())
+    return;
+
+  std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+  for (auto const & symbolPair : symbols)
+    m_featuresCache.insert(symbolPair.first);
+}
+
+bool LocalAdsManager::Contains(FeatureID const & featureId) const
+{
+  std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+  return m_featuresCache.find(featureId) != m_featuresCache.cend();
 }
