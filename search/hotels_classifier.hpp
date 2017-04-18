@@ -13,7 +13,7 @@ class HotelsClassifier
 public:
   static bool IsHotelResults(Results const & results);
 
-  void Add(Results::Iter begin, Results::Iter end);
+  void Add(Results::ConstIter begin, Results::ConstIter end);
   bool IsHotelResults() const;
 
 private:

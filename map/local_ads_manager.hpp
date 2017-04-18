@@ -49,6 +49,9 @@ public:
 
   local_ads::Statistics & GetStatistics() { return m_statistics; }
   local_ads::Statistics const & GetStatistics() const { return m_statistics; }
+    
+  bool Contains(FeatureID const & featureId) const;
+
 private:
   enum class RequestType
   {
@@ -60,15 +63,13 @@ private:
   void ThreadRoutine();
   bool WaitForRequest(std::set<Request> & campaignMwms);
 
-  std::string MakeRemoteURL(MwmSet::MwmId const & mwmId) const;
-  std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId) const;
-  df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData,
-                                  MwmSet::MwmId const & mwmId, Timestamp timestamp);
   void SendSymbolsToRendering(df::CustomSymbols && symbols);
   void DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId);
 
   void ReadCampaignFile(std::string const & campaignFile);
   void WriteCampaignFile(std::string const & campaignFile);
+
+  void UpdateFeaturesCache(df::CustomSymbols const & symbols);
 
   GetMwmsByRectFn m_getMwmsByRectFn;
   GetMwmIdByName m_getMwmIdByNameFn;
@@ -93,4 +94,7 @@ private:
   threads::SimpleThread m_thread;
 
   local_ads::Statistics m_statistics;
+
+  std::set<FeatureID> m_featuresCache;
+  mutable std::mutex m_featuresCacheMutex;
 };

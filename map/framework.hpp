@@ -30,6 +30,7 @@
 #include "search/displayed_categories.hpp"
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
+#include "search/everywhere_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
 #include "search/viewport_search_callback.hpp"
@@ -113,7 +114,8 @@ struct FrameworkParams
 };
 
 class Framework : public search::ViewportSearchCallback::Delegate,
-                  public search::DownloaderSearchCallback::Delegate
+                  public search::DownloaderSearchCallback::Delegate,
+                  public search::EverywhereSearchCallback::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -342,6 +344,8 @@ public:
 
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);
+
+  void MarkLocalAdsCustomer(search::Result & result) const override;
 
   ads::Engine const & GetAdsEngine() const;
 

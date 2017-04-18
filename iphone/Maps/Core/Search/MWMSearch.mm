@@ -219,7 +219,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 + (void)showResult:(search::Result const &)result { GetFramework().ShowSearchResult(result); }
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index
 {
-  return [MWMSearch manager]->m_everywhereResults.GetResult(index);
+  return [MWMSearch manager]->m_everywhereResults[index];
 }
 
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index

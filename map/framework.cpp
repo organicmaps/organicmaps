@@ -1297,10 +1297,12 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_suggestsEnabled = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
 
-  p.m_onResults = [params](search::Results const & results) {
-    if (params.m_onResults)
-      GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
-  };
+  p.m_onResults = search::EverywhereSearchCallback(
+      static_cast<search::EverywhereSearchCallback::Delegate &>(*this),
+      [this, params](search::Results const & results) {
+        if (params.m_onResults)
+          GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
+      });
   SetCurrentPositionIfPossible(p);
   return Search(p);
 }
@@ -1644,7 +1646,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
   {
   case 1:
     {
-      Result const & r = results.GetResult(0);
+      Result const & r = results[0];
       if (!r.IsSuggest())
         ShowSearchResult(r);
       else
@@ -1665,7 +1667,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
   int minInd = -1;
   for (size_t i = 0; i < count; ++i)
   {
-    Result const & r = results.GetResult(i);
+    Result const & r = results[i];
     if (r.HasPoint())
     {
       double const dist = center.SquareLength(r.GetFeatureCenter());
@@ -1679,7 +1681,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
 
   if (minInd != -1)
   {
-    m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+    m2::PointD const pt = results[minInd].GetFeatureCenter();
 
     if (m_currentModelView.isPerspective())
     {
@@ -1710,7 +1712,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)
   {
-    search::Result const & r = results.GetResult(i);
+    search::Result const & r = results[i];
     if (r.HasPoint())
     {
       SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
@@ -3545,6 +3547,12 @@ void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
       }
     }
   }, kScale);
+}
+
+void Framework::MarkLocalAdsCustomer(search::Result & result) const
+{
+  if (m_localAdsManager.Contains(result.GetFeatureID()))
+    result.SetLocalAdsCustomer(true);
 }
 
 ads::Engine const & Framework::GetAdsEngine() const

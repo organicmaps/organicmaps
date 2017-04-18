@@ -80,7 +80,7 @@
   {
   case MWMSearchItemTypeRegular:
   {
-    auto cell = static_cast<MWMSearchSuggestionCell *>([tableView
+    auto cell = static_cast<MWMSearchCommonCell *>([tableView
         dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
                                indexPath:indexPath]);
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];

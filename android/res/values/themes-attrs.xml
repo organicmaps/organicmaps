@@ -82,6 +82,8 @@
     <attr name="activeIconBackground" format="reference"/>
 
     <attr name="warmGray" format="color"/>
+
+    <attr name="localAdSearchResBackground" format="color"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

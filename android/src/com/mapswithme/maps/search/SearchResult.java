@@ -8,6 +8,7 @@ public class SearchResult
 {
   public static final int TYPE_SUGGEST = 0;
   public static final int TYPE_RESULT = 1;
+  public static final int TYPE_LOCAL_ADS_CUSTOMER = 2;
 
   // Values should match osm::YesNoUnknown enum.
   public static final int OPEN_NOW_UNKNOWN = 0;
@@ -59,20 +60,21 @@ public class SearchResult
     this.lat = lat;
     this.lon = lon;
     this.isHotel = false;
-    description = null;
-    type = TYPE_SUGGEST;
+    this.description = null;
+    this.type = TYPE_SUGGEST;
 
     this.highlightRanges = highlightRanges;
   }
 
-  public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges, boolean isHotel)
+  public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
+                      boolean isHotel, boolean isLocalAdsCustomer)
   {
+    this.type = isLocalAdsCustomer ? TYPE_LOCAL_ADS_CUSTOMER : TYPE_RESULT;
     this.name = name;
     this.isHotel = isHotel;
-    suggestion = null;
+    this.suggestion = null;
     this.lat = lat;
     this.lon = lon;
-    type = TYPE_RESULT;
     this.description = description;
     this.highlightRanges = highlightRanges;
   }
