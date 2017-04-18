@@ -39,9 +39,11 @@
     {
       [self willAttachToView:self.associatedView];
       for (UIButton * button in buttons)
+      {
         [button addTarget:self
-                   action:@selector(adViewTapped)
-         forControlEvents:UIControlEventTouchUpInside];
+                      action:@selector(adViewTapped)
+            forControlEvents:UIControlEventTouchUpInside];
+      }
     }
     self.hasAttachedToView = YES;
   }

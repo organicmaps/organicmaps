@@ -94,19 +94,6 @@
                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXe-5n-maZ" userLabel="Info">
                         <rect key="frame" x="42" y="36" width="120" height="14"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUT-ew-nNT" userLabel="Dot">
-                                <rect key="frame" x="2" y="0.0" width="4" height="14"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="4" id="bMy-k8-Iqu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjT-oU-iIA">
                                 <rect key="frame" x="10" y="0.0" width="110" height="14"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
@@ -184,6 +171,19 @@
                                     <constraint firstItem="RuV-jO-kmE" firstAttribute="leading" secondItem="E8B-4H-1PX" secondAttribute="trailing" constant="4" id="xJk-34-X2s"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUT-ew-nNT" userLabel="Dot">
+                                <rect key="frame" x="2" y="0.0" width="4" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="4" id="bMy-k8-Iqu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="vjT-oU-iIA" firstAttribute="top" secondItem="AXe-5n-maZ" secondAttribute="top" id="2uX-zd-E6n"/>
@@ -199,9 +199,6 @@
                             <constraint firstItem="aNp-Yw-io2" firstAttribute="leading" secondItem="tUT-ew-nNT" secondAttribute="trailing" constant="4" id="jed-QI-J5C"/>
                             <constraint firstAttribute="width" constant="120" id="w0I-4z-Bix"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70N-Lq-mj9">
                         <rect key="frame" x="16" y="54" width="49" height="20.5"/>
