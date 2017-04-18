@@ -53,6 +53,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private boolean mAutoUpdate;
   @Nullable
   private String[] mOutdatedMaps;
+  private boolean mFromInstanceState;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -86,14 +87,15 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           MapManager.showError(getActivity(), item, new Utils.Proc<Boolean>()
           {
             @Override
-            public void invoke(@NonNull Boolean param)
+            public void invoke(@NonNull Boolean result)
             {
-              if (param)
+              if (result)
               {
                 MapManager.nativeUpdate(CountryItem.getRootId());
               }
               else
               {
+//              TODO remove attachMap() when dialog migrated to SplashActivity
                 attachMap();
                 dismiss();
               }
@@ -107,6 +109,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (!isAllUpdated())
         return;
 
+//    TODO remove attachMap() when dialog migrated to SplashActivity
       attachMap();
       dismiss();
     }
@@ -137,6 +140,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (MapManager.nativeIsDownloading())
         MapManager.nativeCancel(CountryItem.getRootId());
 
+//    TODO remove attachMap() when dialog migrated to SplashActivity
       attachMap();
       dismiss();
     }
@@ -190,6 +194,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     fragment.setArguments(args);
     FragmentTransaction transaction = fm.beginTransaction()
       .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+//  TODO remove detachMap() when dialog migrated to SplashActivity
     if (activity instanceof MwmActivity)
       ((MwmActivity) activity).detachMap(transaction);
     fragment.show(transaction, UpdaterDialogFragment.class.getName());
@@ -210,6 +215,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     super.onCreate(savedInstanceState);
 
+    mFromInstanceState = savedInstanceState != null;
     readArguments();
   }
 
@@ -240,8 +246,19 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     if (isAllUpdated())
     {
+//    TODO remove attachMap() when dialog migrated to SplashActivity
+      attachMap();
       dismiss();
       return;
+    }
+
+//  TODO remove detachMap() when dialog migrated to SplashActivity
+    if (getActivity() instanceof MwmActivity && mFromInstanceState)
+    {
+      FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                                                     .beginTransaction();
+      ((MwmActivity) getActivity()).detachMap(transaction);
+      transaction.commit();
     }
 
     mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
@@ -271,10 +288,12 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (MapManager.nativeIsDownloading())
       MapManager.nativeCancel(CountryItem.getRootId());
 
+//  TODO remove attachMap() when dialog migrated to SplashActivity
     attachMap();
     super.onCancel(dialog);
   }
 
+//TODO remove attachMap() when dialog migrated to SplashActivity
   private void attachMap()
   {
     if (!(getActivity() instanceof MwmActivity))

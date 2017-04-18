@@ -137,6 +137,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
 
+  @Nullable
   private MapFragment mMapFragment;
   private PlacePageView mPlacePage;
 
@@ -618,14 +619,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mRootView = (ViewGroup) container.getParent();
   }
 
-  public void detachMap(FragmentTransaction transaction)
+  public void detachMap(@NonNull FragmentTransaction transaction)
   {
     if (mMapFragment == null)
       return;
 
-    transaction
-        .remove(mMapFragment);
-
+    transaction.remove(mMapFragment);
     mMapFragment = null;
   }
 
@@ -1036,7 +1035,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void recreate()
   {
     // Explicitly destroy context before activity recreation.
-    mMapFragment.destroyContext();
+    if (mMapFragment != null)
+      mMapFragment.destroyContext();
     super.recreate();
   }
 
@@ -1372,7 +1372,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean onTouch(View view, MotionEvent event)
   {
     return mPlacePage.hideOnTouch() ||
-           mMapFragment.onTouch(view, event);
+           (mMapFragment != null && mMapFragment.onTouch(view, event));
   }
 
   @Override
