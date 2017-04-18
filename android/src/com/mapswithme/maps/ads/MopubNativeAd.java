@@ -1,6 +1,7 @@
 package com.mapswithme.maps.ads;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -73,5 +74,12 @@ class MopubNativeAd extends CachedMwmNativeAd
   void register(@NonNull View view)
   {
     mNativeAd.prepare(view);
+  }
+
+  @Nullable
+  @Override
+  public String getPrivacyInfoUrl()
+  {
+    return mAd.getPrivacyInformationIconClickThroughUrl();
   }
 }

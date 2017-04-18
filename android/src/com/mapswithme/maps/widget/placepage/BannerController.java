@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.mapswithme.maps.ads.NativeAdListener;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -94,6 +96,16 @@ final class BannerController
     mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
     mAds = bannerView.findViewById(R.id.tv__ads);
+    mAds.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        handlePrivacyInfoUrl();
+      }
+    });
+    Resources res = mFrame.getResources();
+    UiUtils.expandTouchAreaForView(mAds, (int) res.getDimension(R.dimen.margin_quarter_plus));
     loader.setAdListener(new MyNativeAdsListener());
     mAdsLoader = loader;
     mAdTracker = tracker;
@@ -105,6 +117,18 @@ final class BannerController
         animateActionButton();
       }
     });
+  }
+
+  private void handlePrivacyInfoUrl()
+  {
+    if (mCurrentAd == null)
+      return;
+
+    String privacyUrl = mCurrentAd.getPrivacyInfoUrl();
+    if (TextUtils.isEmpty(privacyUrl))
+      return;
+
+    Utils.openUrl(mFrame.getContext(), privacyUrl);
   }
 
   private void setErrorStatus(boolean value)
