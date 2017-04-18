@@ -5,13 +5,15 @@
 
 #include "base/stl_add.hpp"
 
-#include <string>
 #include <utility>
+#include <vector>
 
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QVBoxLayout>
+
+using namespace std;
 
 namespace
 {
@@ -23,7 +25,7 @@ QLabel * CreateLabel(QWidget & parent)
   return label;
 }
 
-void SetText(QLabel & label, std::string const & text) {
+void SetText(QLabel & label, string const & text) {
   if (text.empty())
   {
     label.hide();
@@ -33,14 +35,32 @@ void SetText(QLabel & label, std::string const & text) {
   label.setText(ToQString(text));
   label.show();
 }
+
+string GetResultType(search::Sample::Result const & result)
+{
+  return strings::JoinStrings(result.m_types, ", ");
+}
 }  // namespace
 
-ResultView::ResultView(search::Result const & result, QWidget & parent) : QWidget(&parent)
+ResultView::ResultView(string const & name, string const & type, string const & address,
+                       QWidget & parent)
+  : QWidget(&parent)
 {
   Init();
-  SetContents(result);
+  SetContents(name, type, address);
   setEnabled(false);
   setObjectName("result");
+}
+
+ResultView::ResultView(search::Result const & result, QWidget & parent)
+  : ResultView(result.GetString(), result.GetFeatureType(), result.GetAddress(), parent)
+{
+}
+
+ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
+  : ResultView(strings::ToUtf8(result.m_name), GetResultType(result), string() /* address */,
+               parent)
+{
 }
 
 void ResultView::EnableEditing(Edits::RelevanceEditor && editor)
@@ -75,8 +95,8 @@ void ResultView::Init()
   layout->setSizeConstraint(QLayout::SetMinimumSize);
   setLayout(layout);
 
-  m_string = CreateLabel(*this /* parent */);
-  layout->addWidget(m_string);
+  m_name = CreateLabel(*this /* parent */);
+  layout->addWidget(m_name);
 
   m_type = CreateLabel(*this /* parent */);
   m_type->setStyleSheet("QLabel { font-size : 8pt }");
@@ -99,11 +119,11 @@ void ResultView::Init()
   }
 }
 
-void ResultView::SetContents(search::Result const & result)
+void ResultView::SetContents(string const & name, string const & type, string const & address)
 {
-  SetText(*m_string, result.GetString());
-  SetText(*m_type, result.GetFeatureType());
-  SetText(*m_address, result.GetAddress());
+  SetText(*m_name, name);
+  SetText(*m_type, type);
+  SetText(*m_address, address);
 
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);

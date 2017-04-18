@@ -72,10 +72,18 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
 
     layout->addWidget(new QLabel(tr("Found results")));
 
-    m_results = new ResultsView(*this /* parent */);
-    layout->addWidget(m_results);
+    m_foundResults = new ResultsView(*this /* parent */);
+    layout->addWidget(m_foundResults);
   }
 
+  {
+    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */);
+
+    layout->addWidget(new QLabel(tr("Non found results")));
+
+    m_nonFoundResults = new ResultsView(*this /* parent */);
+    layout->addWidget(m_nonFoundResults);
+  }
   setLayout(mainLayout);
 
   Clear();
@@ -90,26 +98,27 @@ void SampleView::SetContents(search::Sample const & sample)
   m_showViewport->setEnabled(true);
   m_showPosition->setEnabled(true);
 
-  m_results->Clear();
+  m_foundResults->Clear();
+  m_nonFoundResults->Clear();
 }
 
-void SampleView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
+void SampleView::ShowFoundResults(search::Results::Iter begin, search::Results::Iter end)
 {
   for (auto it = begin; it != end; ++it)
-    m_results->Add(*it /* result */);
+    m_foundResults->Add(*it /* result */);
 }
 
-void SampleView::EnableEditing(Edits & edits)
+void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results)
 {
-  m_edits = &edits;
-
-  size_t const numRelevances = m_edits->GetRelevances().size();
-  CHECK_EQUAL(m_results->Size(), numRelevances, ());
-  for (size_t i = 0; i < numRelevances; ++i)
-    m_results->Get(i).EnableEditing(Edits::RelevanceEditor(*m_edits, i));
+  for (auto const & result : results)
+    m_nonFoundResults->Add(result);
 }
 
-void SampleView::Update(Edits::Update const & update) { m_results->Update(update); }
+void SampleView::EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits)
+{
+  EnableEditing(*m_foundResults, resultsEdits);
+  EnableEditing(*m_nonFoundResults, nonFoundResultsEdits);
+}
 
 void SampleView::Clear()
 {
@@ -117,6 +126,14 @@ void SampleView::Clear()
   m_langs->Select("default");
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
-  m_results->Clear();
-  m_edits = nullptr;
+  m_foundResults->Clear();
+  m_nonFoundResults->Clear();
+}
+
+void SampleView::EnableEditing(ResultsView & results, Edits & edits)
+{
+  size_t const numRelevances = edits.GetRelevances().size();
+  CHECK_EQUAL(results.Size(), numRelevances, ());
+  for (size_t i = 0; i < numRelevances; ++i)
+    results.Get(i).EnableEditing(Edits::RelevanceEditor(edits, i));
 }

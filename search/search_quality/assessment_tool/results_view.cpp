@@ -6,18 +6,27 @@
 
 #include <QtWidgets/QListWidgetItem>
 
-ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent) { setAlternatingRowColors(true); }
+ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent) { setAlternatingRowColors(true);
+  connect(selectionModel(), &QItemSelectionModel::selectionChanged,
+          [&](QItemSelection const & current) {
+            auto const indexes = current.indexes();
+            for (auto const & index : indexes)
+              emit OnResultSelected(index.row());
+          });
+  connect(this, &ResultsView::itemClicked, [&](QListWidgetItem * item) {
+      auto const index = indexFromItem(item);
+      emit OnResultSelected(index.row());
+    });
+}
 
 void ResultsView::Add(search::Result const & result)
 {
-  auto * item = new QListWidgetItem(this /* parent */);
-  addItem(item);
+  AddImpl(result);
+}
 
-  auto * view = new ResultView(result, *this /* parent */);
-  item->setSizeHint(view->minimumSizeHint());
-  setItemWidget(item, view);
-
-  m_results.push_back(view);
+void ResultsView::Add(search::Sample::Result const & result)
+{
+  AddImpl(result);
 }
 
 ResultView & ResultsView::Get(size_t i)
@@ -51,4 +60,17 @@ void ResultsView::Clear()
 {
   m_results.clear();
   clear();
+}
+
+template <typename Result>
+void ResultsView::AddImpl(Result const & result)
+{
+  auto * item = new QListWidgetItem(this /* parent */);
+  addItem(item);
+
+  auto * view = new ResultView(result, *this /* parent */);
+  item->setSizeHint(view->minimumSizeHint());
+  setItemWidget(item, view);
+
+  m_results.push_back(view);
 }

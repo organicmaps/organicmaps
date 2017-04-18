@@ -4,6 +4,7 @@
 #include "search/search_quality/sample.hpp"
 
 #include <memory>
+#include <string>
 
 #include <QtWidgets/QWidget>
 
@@ -21,19 +22,24 @@ public:
   using Relevance = search::Sample::Result::Relevance;
 
   ResultView(search::Result const & result, QWidget & parent);
+  ResultView(search::Sample::Result const & result, QWidget & parent);
 
   void EnableEditing(Edits::RelevanceEditor && editor);
 
   void Update();
 
 private:
+  ResultView(std::string const & name, std::string const & type, std::string const & address,
+             QWidget & parent);
+
   void Init();
-  void SetContents(search::Result const & result);
+  void SetContents(std::string const & name, std::string const & type,
+                   std::string const & address);
 
   QRadioButton * CreateRatioButton(string const & label, QLayout & layout);
   void OnRelevanceChanged();
 
-  QLabel * m_string = nullptr;
+  QLabel * m_name = nullptr;
   QLabel * m_type = nullptr;
   QLabel * m_address = nullptr;
 

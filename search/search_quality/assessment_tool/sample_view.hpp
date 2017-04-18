@@ -21,25 +21,27 @@ public:
   explicit SampleView(QWidget * parent);
 
   void SetContents(search::Sample const & sample);
-  void ShowResults(search::Results::Iter begin, search::Results::Iter end);
+  void ShowFoundResults(search::Results::Iter begin, search::Results::Iter end);
+  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results);
 
-  void EnableEditing(Edits & edits);
+  void EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits);
 
-  void Update(Edits::Update const & update);
   void Clear();
 
-  ResultsView & GetResultsView() { return *m_results; }
+  ResultsView & GetFoundResultsView() { return *m_foundResults; }
+  ResultsView & GetNonFoundResultsView() { return *m_nonFoundResults; }
 
 signals:
   void OnShowViewportClicked();
   void OnShowPositionClicked();
 
 private:
+  void EnableEditing(ResultsView & results, Edits & edits);
+
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;
   QPushButton * m_showViewport = nullptr;
   QPushButton * m_showPosition = nullptr;
-  ResultsView * m_results = nullptr;
-
-  Edits * m_edits = nullptr;
+  ResultsView * m_foundResults = nullptr;
+  ResultsView * m_nonFoundResults = nullptr;
 };

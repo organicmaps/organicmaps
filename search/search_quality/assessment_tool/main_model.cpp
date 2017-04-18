@@ -31,7 +31,13 @@ using namespace std;
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)
   , m_index(m_framework.GetIndex())
-  , m_contexts([this](size_t index, Edits::Update const & update) { OnUpdate(index, update); })
+  , m_contexts(
+        [this](size_t sampleIndex, Edits::Update const & update) {
+          OnUpdate(View::ResultType::Found, sampleIndex, update);
+        },
+        [this](size_t sampleIndex, Edits::Update const & update) {
+          OnUpdate(View::ResultType::NonFound, sampleIndex, update);
+        })
 {
 }
 
@@ -125,7 +131,7 @@ void MainModel::OnSampleSelected(int index)
 
   if (context.m_initialized)
   {
-    OnResults(timestamp, index, context.m_results, context.m_edits.GetRelevances(),
+    OnResults(timestamp, index, context.m_foundResults, context.m_foundResultsEdits.GetRelevances(),
               context.m_goldenMatching, context.m_actualMatching);
     return;
   }
@@ -177,11 +183,23 @@ void MainModel::OnResultSelected(int index)
   CHECK_GREATER_OR_EQUAL(m_selectedSample, 0, ());
   CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
   auto const & context = m_contexts[m_selectedSample];
-  auto const & results = context.m_results;
+  auto const & foundResults = context.m_foundResults;
 
   CHECK_GREATER_OR_EQUAL(index, 0, ());
-  CHECK_LESS(index, results.GetCount(), ());
-  m_view->MoveViewportToResult(results.GetResult(index));
+  CHECK_LESS(index, foundResults.GetCount(), ());
+  m_view->MoveViewportToResult(foundResults.GetResult(index));
+}
+
+void MainModel::OnNonFoundResultSelected(int index)
+{
+  CHECK_GREATER_OR_EQUAL(m_selectedSample, 0, ());
+  CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
+  auto const & context = m_contexts[m_selectedSample];
+  auto const & results = context.m_nonFoundResults;
+
+  CHECK_GREATER_OR_EQUAL(index, 0, ());
+  CHECK_LESS(index, results.size(), ());
+  m_view->MoveViewportToResult(results[index]);
 }
 
 void MainModel::OnShowViewportClicked()
@@ -209,15 +227,17 @@ void MainModel::OnShowPositionClicked()
 
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
 
-void MainModel::OnUpdate(size_t index, Edits::Update const & update)
+void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update)
 {
-  CHECK_LESS(index, m_contexts.Size(), ());
-  auto & context = m_contexts[index];
-  m_view->OnSampleChanged(index, update, context.HasChanges());
+  CHECK_LESS(sampleIndex, m_contexts.Size(), ());
+  auto & context = m_contexts[sampleIndex];
+
+  m_view->OnResultChanged(sampleIndex, type, update);
+  m_view->OnSampleChanged(sampleIndex, context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 }
 
-void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results const & results,
+void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
                           vector<Relevance> const & relevances,
                           vector<size_t> const & goldenMatching,
                           vector<size_t> const & actualMatching)
@@ -228,24 +248,48 @@ void MainModel::OnResults(uint64_t timestamp, size_t index, search::Results cons
     return;
 
   CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
-  m_view->ShowResults(results.begin() + m_numShownResults, results.end());
+  m_view->ShowFoundResults(results.begin() + m_numShownResults, results.end());
   m_numShownResults = results.GetCount();
 
-  auto & context = m_contexts[index];
-  context.m_results = results;
+  auto & context = m_contexts[sampleIndex];
+  context.m_foundResults = results;
 
   if (!results.IsEndedNormal())
     return;
 
   if (!context.m_initialized)
   {
-    context.m_edits.ResetRelevances(relevances);
+    context.m_foundResultsEdits.ResetRelevances(relevances);
     context.m_goldenMatching = goldenMatching;
     context.m_actualMatching = actualMatching;
+
+    {
+      vector<Relevance> relevances;
+
+      auto & nonFound = context.m_nonFoundResults;
+      CHECK(nonFound.empty(), ());
+      for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
+      {
+        auto const j = context.m_goldenMatching[i];
+        if (j != search::Matcher::kInvalidId)
+          continue;
+        nonFound.push_back(context.m_sample.m_results[i]);
+        relevances.push_back(nonFound.back().m_relevance);
+      }
+      context.m_nonFoundResultsEdits.ResetRelevances(relevances);
+    }
+
     context.m_initialized = true;
   }
-  m_view->OnSampleChanged(index, Edits::Update::AllRelevancesUpdate(), context.HasChanges());
-  m_view->EnableSampleEditing(index, context.m_edits);
+
+  m_view->ShowNonFoundResults(context.m_nonFoundResults);
+  m_view->OnResultChanged(sampleIndex, View::ResultType::Found,
+                          Edits::Update::AllRelevancesUpdate());
+  m_view->OnResultChanged(sampleIndex, View::ResultType::NonFound,
+                          Edits::Update::AllRelevancesUpdate());
+  m_view->OnSampleChanged(sampleIndex, context.HasChanges());
+  m_view->EnableSampleEditing(sampleIndex, context.m_foundResultsEdits,
+                              context.m_nonFoundResultsEdits);
 }
 
 void MainModel::ResetSearch()

@@ -11,6 +11,8 @@
 
 #include "map/framework.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
@@ -58,19 +60,26 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
   m_sampleView->Clear();
 }
 
-void MainView::ShowSample(size_t index, search::Sample const & sample, bool hasEdits)
+void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool hasEdits)
 {
   MoveViewportToRect(sample.m_viewport);
 
   m_sampleView->SetContents(sample);
   m_sampleView->show();
 
-  OnSampleChanged(index, Edits::Update::AllRelevancesUpdate(), hasEdits);
+  OnResultChanged(sampleIndex, ResultType::Found, Edits::Update::AllRelevancesUpdate());
+  OnResultChanged(sampleIndex, ResultType::NonFound, Edits::Update::AllRelevancesUpdate());
+  OnSampleChanged(sampleIndex, hasEdits);
 }
 
-void MainView::ShowResults(search::Results::Iter begin, search::Results::Iter end)
+void MainView::ShowFoundResults(search::Results::Iter begin, search::Results::Iter end)
 {
-  m_sampleView->ShowResults(begin, end);
+  m_sampleView->ShowFoundResults(begin, end);
+}
+
+void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results)
+{
+  m_sampleView->ShowNonFoundResults(results);
 }
 
 void MainView::MoveViewportToResult(search::Result const & result)
@@ -78,18 +87,37 @@ void MainView::MoveViewportToResult(search::Result const & result)
   m_framework.ShowSearchResult(result, false /* animation */);
 }
 
+void MainView::MoveViewportToResult(search::Sample::Result const & result)
+{
+  int constexpr kViewportAroundResultSizeM = 100;
+  auto const rect =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
+  MoveViewportToRect(rect);
+}
+
 void MainView::MoveViewportToRect(m2::RectD const & rect)
 {
   m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */);
 }
 
-void MainView::OnSampleChanged(size_t index, Edits::Update const & update, bool hasEdits)
+void MainView::OnResultChanged(size_t sampleIndex, ResultType type, Edits::Update const & update)
 {
-  m_samplesView->OnUpdate(index);
-  if (!m_samplesView->IsSelected(index))
+  m_samplesView->OnUpdate(sampleIndex);
+
+  if (!m_samplesView->IsSelected(sampleIndex))
+    return;
+  switch (type)
+  {
+  case ResultType::Found: m_sampleView->GetFoundResultsView().Update(update); break;
+  case ResultType::NonFound: m_sampleView->GetNonFoundResultsView().Update(update); break;
+  }
+}
+
+void MainView::OnSampleChanged(size_t sampleIndex, bool hasEdits)
+{
+  if (!m_samplesView->IsSelected(sampleIndex))
     return;
   SetSampleDockTitle(hasEdits);
-  m_sampleView->Update(update);
 }
 
 void MainView::OnSamplesChanged(bool hasEdits)
@@ -99,10 +127,11 @@ void MainView::OnSamplesChanged(bool hasEdits)
   m_saveAs->setEnabled(hasEdits);
 }
 
-void MainView::EnableSampleEditing(size_t index, Edits & edits)
+void MainView::EnableSampleEditing(size_t sampleIndex, Edits & foundResultsEdits,
+                                   Edits & nonFoundResultsEdits)
 {
-  CHECK(m_samplesView->IsSelected(index), ());
-  m_sampleView->EnableEditing(edits);
+  CHECK(m_samplesView->IsSelected(sampleIndex), ());
+  m_sampleView->EnableEditing(foundResultsEdits, nonFoundResultsEdits);
 }
 
 void MainView::ShowError(std::string const & msg)
@@ -144,6 +173,14 @@ void MainView::OnResultSelected(QItemSelection const & current)
   auto const indexes = current.indexes();
   for (auto const & index : indexes)
     m_model->OnResultSelected(index.row());
+}
+
+void MainView::OnNonFoundResultSelected(QItemSelection const & current)
+{
+  CHECK(m_model, ());
+  auto const indexes = current.indexes();
+  for (auto const & index : indexes)
+    m_model->OnNonFoundResultSelected(index.row());
 }
 
 void MainView::InitMenuBar()
@@ -242,8 +279,15 @@ void MainView::InitDocks()
           [this]() { m_model->OnShowPositionClicked(); });
 
   {
-    auto * model = m_sampleView->GetResultsView().selectionModel();
-    connect(model, &QItemSelectionModel::selectionChanged, this, &MainView::OnResultSelected);
+    auto const & view = m_sampleView->GetFoundResultsView();
+    connect(&view, &ResultsView::OnResultSelected,
+            [this](int index) { m_model->OnResultSelected(index); });
+  }
+
+  {
+    auto const & view = m_sampleView->GetNonFoundResultsView();
+    connect(&view, &ResultsView::OnResultSelected,
+            [this](int index) { m_model->OnNonFoundResultSelected(index); });
   }
 
   m_sampleDock = CreateDock(*m_sampleView);

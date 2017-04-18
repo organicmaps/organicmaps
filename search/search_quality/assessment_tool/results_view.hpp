@@ -17,10 +17,13 @@ class Result;
 
 class ResultsView : public QListWidget
 {
+  Q_OBJECT
+
 public:
   explicit ResultsView(QWidget & parent);
 
   void Add(search::Result const & result);
+  void Add(search::Sample::Result const & result);
 
   ResultView & Get(size_t i);
   ResultView const & Get(size_t i) const;
@@ -30,6 +33,12 @@ public:
 
   void Clear();
 
+signals:
+  void OnResultSelected(int index);
+
 private:
+  template <typename Result>
+  void AddImpl(Result const & result);
+
   std::vector<ResultView *> m_results;
 };
