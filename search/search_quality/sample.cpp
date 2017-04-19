@@ -57,7 +57,7 @@ Sample::Result Sample::Result::Build(FeatureType & ft, Relevance relevance)
   r.m_pos = feature::GetCenter(ft);
   {
     string name;
-    ft.GetReadableName(false /* allowTranslit */, name);
+    ft.GetReadableName(name);
     r.m_name = strings::MakeUniString(name);
   }
   r.m_houseNumber = ft.GetHouseNumber();

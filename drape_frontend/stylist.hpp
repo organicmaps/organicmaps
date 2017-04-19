@@ -40,6 +40,7 @@ public:
 struct CaptionDescription
 {
   void Init(FeatureType const & f,
+            int8_t deviceLang,
             int const zoomLevel,
             feature::EGeomType const type,
             drule::text_type_t const mainTextType,
@@ -82,10 +83,11 @@ public:
   bool IsEmpty() const;
 
 private:
-  friend bool InitStylist(FeatureType const &,
-                          int const,
+  friend bool InitStylist(FeatureType const & f,
+                          int8_t deviceLang,
+                          int const zoomLevel,
                           bool buildings3d,
-                          Stylist &);
+                          Stylist & s);
 
   void RaiseCoastlineFlag();
   void RaiseAreaStyleFlag();
@@ -103,6 +105,7 @@ private:
 };
 
 bool InitStylist(FeatureType const & f,
+                 int8_t deviceLang,
                  int const zoomLevel,
                  bool buildings3d,
                  Stylist & s);

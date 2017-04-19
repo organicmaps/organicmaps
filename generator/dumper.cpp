@@ -70,7 +70,7 @@ namespace feature
     {
       ++m_totalCount;
       string s1, s2;
-      f.GetPreferredNames(false /* allowTranslit */, s1, s2);
+      f.GetPreferredNames(s1, s2);
       if (!s1.empty())
         ++m_namesCount;
 

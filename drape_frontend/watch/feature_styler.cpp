@@ -75,7 +75,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
   m_geometryType = type.first;
   m_isCoastline = type.second;
 
-  f.GetPreferredNames(false /* allowTranslit */, m_primaryText, m_secondaryText);
+  f.GetPreferredNames(m_primaryText, m_secondaryText);
 
   // Draw only one text for features on the World zoom level in user's native language.
   if (zoom <= scales::GetUpperWorldScale() && !m_secondaryText.empty())
@@ -215,7 +215,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
   // User's language name is better if we don't have secondary text draw rule.
   if (!hasSecondaryText && !m_secondaryText.empty() && (m_geometryType != feature::GEOM_LINE))
   {
-    f.GetReadableName(false /* allowTranslit */, m_primaryText);
+    f.GetReadableName(m_primaryText);
     if (m_primaryText == m_secondaryText)
       m_secondaryText.clear();
   }

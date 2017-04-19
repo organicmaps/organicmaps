@@ -285,9 +285,11 @@ public:
   /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
   //@{
   /// Just get feature names.
-  void GetPreferredNames(bool allowTranslit, string & defaultName, string & intName) const;
+  void GetPreferredNames(string & defaultName, string & intName) const;
+  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & defaultName, string & intName) const;
   /// Get one most suitable name for user.
-  void GetReadableName(bool allowTranslit, string & name) const;
+  void GetReadableName(string & name) const;
+  void GetReadableName(bool allowTranslit, int8_t deviceLang, string & name) const;
 
   static int8_t const DEFAULT_LANG = StringUtf8Multilang::kDefaultCode;
   bool GetName(int8_t lang, string & name) const;

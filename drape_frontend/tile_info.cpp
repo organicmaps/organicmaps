@@ -7,6 +7,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "base/scope_guard.hpp"
 #include "base/logging.hpp"
 
@@ -72,7 +74,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
   if (!m_featureInfo.empty())
   {
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1, _2),
+    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
                       bind(&TileInfo::IsCancelled, this),
                       model.m_isCountryLoadedByName,
                       make_ref(m_context), m_customSymbolsContext.lock(),
@@ -94,10 +97,10 @@ bool TileInfo::IsCancelled() const
   return m_isCanceled;
 }
 
-void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
+void TileInfo::InitStylist(int8_t deviceLang, FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  df::InitStylist(f, m_context->GetTileKey().m_zoomLevel, m_is3dBuildings, s);
+  df::InitStylist(f, deviceLang, m_context->GetTileKey().m_zoomLevel, m_is3dBuildings, s);
 }
 
 bool TileInfo::DoNeedReadIndex() const

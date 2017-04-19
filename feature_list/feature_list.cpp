@@ -192,7 +192,7 @@ public:
 
     string const & mwmName = f.GetID().GetMwmName();
     string name, secondary;
-    f.GetPreferredNames(false /* allowTranslit */, name, secondary);
+    f.GetPreferredNames(name, secondary);
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
