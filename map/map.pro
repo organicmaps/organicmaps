@@ -56,6 +56,7 @@ SOURCES += \
     gps_track_storage.cpp \
     gps_tracker.cpp \
     local_ads_manager.cpp \
+    local_ads_supported_types.cpp \
     mwm_tree.cpp \
     mwm_url.cpp \
     place_page_info.cpp \

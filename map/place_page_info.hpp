@@ -34,7 +34,7 @@ enum class SponsoredType
 
 enum class LocalAdsStatus
 {
-  Unavailable,
+  NotAvailable,
   Candidate,
   Customer
 };
@@ -160,7 +160,7 @@ public:
   /// Ads source.
   ads::Engine * m_adsEngine = nullptr;
 
-  LocalAdsStatus m_localAdsStatus = LocalAdsStatus::Unavailable;
+  LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
   string m_localAdsUrl;
 };
 }  // namespace place_page

@@ -9,18 +9,20 @@ namespace ads
 {
 Container::Container() { AppendExcludedTypes({{"sponsored", "booking"}}); }
 
-void Container::AppendEntry(std::vector<std::vector<std::string>> const & types,
+void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
                             std::string const & id)
 {
-  m_typesToBanners.Append(types, id);
+  m_typesToBanners.Append(std::move(types), id);
 }
 
-void Container::AppendExcludedTypes(std::vector<std::vector<std::string>> const & types)
+void Container::AppendExcludedTypes(
+    std::initializer_list<std::initializer_list<char const *>> && types)
 {
-  m_excludedTypes.Append(types);
+  m_excludedTypes.Append(std::move(types));
 }
 
-void Container::AppendSupportedCountries(std::vector<storage::TCountryId> const & countries)
+void Container::AppendSupportedCountries(
+    std::initializer_list<storage::TCountryId> const & countries)
 {
   m_supportedCountries.insert(countries.begin(), countries.end());
 }
@@ -33,7 +35,6 @@ bool Container::HasBanner(feature::TypesHolder const & types,
   {
     return false;
   }
-
   return !m_excludedTypes.Contains(types);
 }
 

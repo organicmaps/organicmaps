@@ -15,8 +15,9 @@ template <typename Container>
 class Matcher
 {
 public:
-  typename Container::const_iterator
-  Find(feature::TypesHolder const & types) const
+  using ConstIterator = typename Container::const_iterator;
+
+  ConstIterator Find(feature::TypesHolder const & types) const
   {
     for (auto const t : types)
     {
@@ -34,7 +35,7 @@ public:
     return m_mapping.cend();
   }
 
-  bool IsValid(typename Container::const_iterator it) const
+  bool IsValid(ConstIterator it) const
   {
     return it != m_mapping.cend();
   }
@@ -44,8 +45,8 @@ public:
     return IsValid(Find(types));
   }
 
-  template<typename ... Args>
-  void Append(std::vector<std::vector<std::string>> const & types, Args ... args)
+  template<typename TypesPaths, typename ... Args>
+  void Append(TypesPaths const & types, Args const & ... args)
   {
     for (auto const & type : types)
     {
@@ -54,7 +55,7 @@ public:
       holder.Assign(classif().GetTypeByPath(type));
       ASSERT(Find(holder) == m_mapping.cend(), ("This type already exists", type));
 #endif
-      m_mapping.emplace(classif().GetTypeByPath(type), std::forward<Args>(args)...);
+      m_mapping.emplace(classif().GetTypeByPath(type), args...);
     }
   }
 
@@ -63,8 +64,8 @@ private:
 };
 
 template <typename Key, typename Value>
-using HashMap = Matcher<std::unordered_map<Key, Value>>;
+using HashMapMatcher = Matcher<std::unordered_map<Key, Value>>;
 
 template <typename Key>
-using HashSet = Matcher<std::unordered_set<Key>>;
+using HashSetMatcher = Matcher<std::unordered_set<Key>>;
 }  // namespace ftypes

@@ -59,6 +59,9 @@ public:
   bool Contains(FeatureID const & featureId) const;
   bool IsSupportedType(feature::TypesHolder const & types) const;
 
+  std::string const & GetStartCompanyUrl() const;
+  std::string const & GetShowStatisticUrl() const;
+
 private:
   enum class RequestType
   {
@@ -77,6 +80,8 @@ private:
   void WriteCampaignFile(std::string const & campaignFile);
 
   void UpdateFeaturesCache(df::CustomSymbols const & symbols);
+
+  void FillSupportedTypes();
 
   GetMwmsByRectFn m_getMwmsByRectFn;
   GetMwmIdByName m_getMwmIdByNameFn;
@@ -105,5 +110,5 @@ private:
   std::set<FeatureID> m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
 
-  ftypes::HashSet<uint32_t> m_excludeTypes;
+  ftypes::HashSetMatcher<uint32_t> m_supportedTypes;
 };

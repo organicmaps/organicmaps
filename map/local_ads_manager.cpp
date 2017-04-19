@@ -36,6 +36,10 @@ std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
+// Dummy
+std::string const kStartCompanyUrl = "https://maps.me";
+// Dummy
+std::string const kShowStatisticUrl = "https://github.com/mapsme/omim/graphs/commit-activity";
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
@@ -142,11 +146,6 @@ std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const &
   return result;
 }
 #endif
-
-void FillExcludeTypes(ftypes::HashSet<uint32_t> & excludeTypes)
-{
-  excludeTypes.Append({{"amenity", "bench"}});
-}
 }  // namespace
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
@@ -179,10 +178,11 @@ void LocalAdsManager::Startup()
       return;
     m_isRunning = true;
   }
+  FillSupportedTypes();
+
   m_thread = threads::SimpleThread(&LocalAdsManager::ThreadRoutine, this);
 
   m_statistics.Startup();
-  FillExcludeTypes(m_excludeTypes);
 }
 
 void LocalAdsManager::Teardown()
@@ -459,5 +459,15 @@ bool LocalAdsManager::Contains(FeatureID const & featureId) const
 
 bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
 {
-  return !m_excludeTypes.Contains(types);
+  return m_supportedTypes.Contains(types);
+}
+
+std::string const & LocalAdsManager::GetStartCompanyUrl() const
+{
+  return kStartCompanyUrl;
+}
+
+std::string const & LocalAdsManager::GetShowStatisticUrl() const
+{
+  return kShowStatisticUrl;
 }

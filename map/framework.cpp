@@ -935,13 +935,20 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   if (m_localAdsManager.IsSupportedType(info.GetTypes()))
   {
-    info.m_localAdsStatus = m_localAdsManager.Contains(ft.GetID())
-                                ? place_page::LocalAdsStatus::Customer
-                                : place_page::LocalAdsStatus::Candidate;
+    if (m_localAdsManager.Contains(ft.GetID()))
+    {
+      info.m_localAdsStatus = place_page::LocalAdsStatus::Customer;
+      info.m_localAdsUrl = m_localAdsManager.GetShowStatisticUrl();
+    }
+    else
+    {
+      info.m_localAdsStatus = place_page::LocalAdsStatus::Candidate;
+      info.m_localAdsUrl = m_localAdsManager.GetStartCompanyUrl();
+    }
   }
   else
   {
-    info.m_localAdsStatus = place_page::LocalAdsStatus::Unavailable;
+    info.m_localAdsStatus = place_page::LocalAdsStatus::NotAvailable;
   }
 }
 
