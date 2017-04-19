@@ -1361,6 +1361,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = L2QFT5NA2Q;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1383,6 +1384,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1405,6 +1407,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
@@ -1426,6 +1429,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098E1E9E27DB00E57AC0 /* common-debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
@@ -1447,6 +1451,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098E1E9E27DB00E57AC0 /* common-debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
@@ -1457,6 +1462,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F4098F1E9E27DB00E57AC0 /* common-release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
