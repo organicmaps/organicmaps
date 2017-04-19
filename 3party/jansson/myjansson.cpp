@@ -7,9 +7,10 @@ using namespace std;
 namespace
 {
 template <typename T>
-typename enable_if<is_integral<T>::value, void>::type ReadIntegral(json_t * root,
-                                                                   string const & field, T & result)
+void ReadIntegral(json_t * root, string const & field, T & result)
 {
+  static_assert(is_integral<T>::value, "T must be an integral type");
+
   auto * val = my::GetJSONObligatoryField(root, field);
   if (!json_is_number(val))
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
@@ -17,10 +18,10 @@ typename enable_if<is_integral<T>::value, void>::type ReadIntegral(json_t * root
 }
 
 template <typename T>
-typename enable_if<is_integral<T>::value, void>::type ReadIntegralOptional(json_t * root,
-                                                                           string const & field,
-                                                                           T & result)
+void ReadIntegralOptional(json_t * root, string const & field, T & result)
 {
+  static_assert(is_integral<T>::value, "T must be an integral type");
+
   auto * val = my::GetJSONOptionalField(root, field);
   if (!val)
   {

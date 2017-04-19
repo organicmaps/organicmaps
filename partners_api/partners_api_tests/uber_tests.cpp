@@ -47,7 +47,7 @@ UNIT_TEST(Uber_GetTimes)
   for (size_t i = 0; i < timeSize; ++i)
   {
     string name;
-    json_int_t estimatedTime = 0;
+    int64_t estimatedTime = 0;
     auto const item = json_array_get(timesArray, i);
 
     try
