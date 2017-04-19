@@ -3,15 +3,21 @@ package com.mapswithme.maps.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.TwoStatePreference;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -30,6 +36,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.ThemeSwitcher;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -43,6 +50,10 @@ import java.util.Map;
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 {
   private static final int REQUEST_INSTALL_DATA = 1;
+  private static final String TTS_SCREEN_KEY = MwmApplication.get()
+                                                             .getString(R.string.pref_tts_screen);
+  private static final String TTS_INFO_LINK = MwmApplication.get()
+                                                            .getString(R.string.tts_info_link);
 
   @NonNull
   private final StoragePathManager mPathManager = new StoragePathManager();
@@ -55,6 +66,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private ListPreference mPrefLanguages;
   @Nullable
   private Preference mLangInfo;
+  @Nullable
+  private Preference mLangInfoLink;
+  private PreferenceScreen mPreferenceScreen;
 
   @NonNull
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
@@ -97,6 +111,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           mPrefLanguages.setEnabled(false);
         if (mLangInfo != null)
           mLangInfo.setSummary(R.string.prefs_languages_information_off);
+        if (mLangInfoLink != null && isOnTtsScreen())
+          getPreferenceScreen().addPreference(mLangInfoLink);
 
         if (root != null)
           root.setSummary(R.string.off);
@@ -112,6 +128,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         root.setSummary(R.string.on);
       if (mPrefEnabled != null)
         mPrefEnabled.setTitle(R.string.on);
+      if (mLangInfoLink != null)
+        getPreferenceScreen().removePreference(mLangInfoLink);
 
       if (mCurrentLanguage != null && mCurrentLanguage.downloaded)
       {
@@ -166,7 +184,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void updateTts()
   {
-    if (mPrefEnabled == null || mPrefLanguages == null || mLangInfo == null)
+    if (mPrefEnabled == null || mPrefLanguages == null || mLangInfo == null || mLangInfoLink == null)
       return;
 
     enableListeners(false);
@@ -186,6 +204,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       mPrefLanguages.setEnabled(false);
       mPrefLanguages.setSummary(null);
       mLangInfo.setSummary(R.string.prefs_languages_information_off);
+      if (isOnTtsScreen())
+        getPreferenceScreen().addPreference(mLangInfoLink);
       if (root != null)
         root.setSummary(R.string.off);
 
@@ -199,6 +219,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mPrefEnabled.setTitle(enabled ? R.string.on : R.string.off);
     mLangInfo.setSummary(enabled ? R.string.prefs_languages_information
                                  : R.string.prefs_languages_information_off);
+    if (enabled)
+      getPreferenceScreen().removePreference(mLangInfoLink);
+    else if (isOnTtsScreen())
+      getPreferenceScreen().addPreference(mLangInfoLink);
 
     if (root != null)
       root.setSummary(enabled ? R.string.on : R.string.off);
@@ -227,6 +251,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     enableListeners(true);
   }
 
+  private boolean isOnTtsScreen()
+  {
+    return mPreferenceScreen.getKey() != null && mPreferenceScreen.getKey().equals(TTS_SCREEN_KEY);
+  }
+
   @Override
   public Fragment getCallbackFragment()
   {
@@ -244,10 +273,32 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onCreate(savedInstanceState);
 
+    mPreferenceScreen = getPreferenceScreen();
     mStoragePref = findPreference(getString(R.string.pref_storage));
     mPrefEnabled = (TwoStatePreference) findPreference(getString(R.string.pref_tts_enabled));
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
     mLangInfo = findPreference(getString(R.string.pref_tts_info));
+    mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
+    if (mLangInfoLink != null)
+    {
+      Spannable link = new SpannableString(getString(R.string.prefs_languages_information_off_link));
+      link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                       UiUtils.getStyledResourceId(getContext(), R.attr.colorAccent))),
+                   0, link.length(), 0);
+      mLangInfoLink.setSummary(link);
+      mLangInfoLink.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+      {
+        @Override
+        public boolean onPreferenceClick(Preference preference)
+        {
+          final Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.setData(Uri.parse(TTS_INFO_LINK));
+          getContext().startActivity(intent);
+          return false;
+        }
+      });
+      mPreferenceScreen.removePreference(mLangInfoLink);
+    }
     updateStoragePrefs();
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
