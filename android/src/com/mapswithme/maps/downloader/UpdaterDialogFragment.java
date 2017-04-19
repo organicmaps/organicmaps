@@ -122,7 +122,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                   getString(R.string.updating_maps), progress));
+                                   getString(R.string.whats_new_auto_update_updating_maps), progress));
     }
   };
 
@@ -156,7 +156,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       UiUtils.show(mProgressBar);
       UiUtils.hide(mUpdateBtn);
       mTitle.setText(String.format(Locale.getDefault(), "%s %d%%",
-                                   getString(R.string.updating_maps), 0));
+                                   getString(R.string.whats_new_auto_update_updating_maps), 0));
       mCancelBtn.setText(R.string.cancel);
 
       Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
@@ -322,15 +322,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     UiUtils.showIf(mAutoUpdate, mProgressBar);
     UiUtils.showIf(!mAutoUpdate, mUpdateBtn);
 
-    mUpdateBtn.setText(String.format(Locale.US, "%s (%s)", getString(R.string.downloader_update_all_button),
-                                     mTotalSize));
+    mUpdateBtn.setText(getString(R.string.whats_new_auto_update_button_size, mTotalSize));
     mUpdateBtn.setOnClickListener(mUpdateClickListener);
-    mCancelBtn.setText(mAutoUpdate ? R.string.cancel : R.string.later);
+    mCancelBtn.setText(mAutoUpdate ? R.string.cancel : R.string.whats_new_auto_update_button_later);
     mCancelBtn.setOnClickListener(mCancelClickListener);
     mTitle.setText(mAutoUpdate ? String.format(Locale.getDefault(), "%s %d%%",
-                                               getString(R.string.updating_maps),
+                                               getString(R.string.whats_new_auto_update_updating_maps),
                                                MapManager.nativeGetOverallProgress(mOutdatedMaps))
-                               : getString(R.string.update_maps_ask));
+                               : getString(R.string.whats_new_auto_update_title));
   }
 
   private boolean isAllUpdated()

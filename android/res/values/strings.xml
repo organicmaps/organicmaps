@@ -1093,7 +1093,9 @@
 	<string name="offline_place_page_more_information">Connect to the internet to get more information about the place.</string>
 	<string name="failed_load_information">Failed to load information.</string>
 	<string name="booking_search">Booking.com</string>
-	<string name="updating_maps">Updating maps</string>
-	<string name="update_maps_ask">Update your downloaded maps</string>
-	<string name="update_maps_notice">Update maps supports information about objects in the current state</string>
+	<string name="whats_new_auto_update_updating_maps">Updating maps</string>
+	<string name="whats_new_auto_update_title">Update your downloaded maps</string>
+	<string name="whats_new_auto_update_message">Update maps supports information about objects in the current state</string>
+	<string name="whats_new_auto_update_button_size">Update (%s)</string>
+	<string name="whats_new_auto_update_button_later">Manually update later</string>
 </resources>

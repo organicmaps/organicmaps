@@ -23166,5 +23166,5 @@
     ru = Обновить (%s)
 
   [whats_new_auto_update_button_later]
-    en = Manualy update later 
+    en = Manually update later 
     ru = Обновить вручную позже
