@@ -36,10 +36,6 @@ std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
-// Dummy
-std::string const kStartCompanyUrl = "https://maps.me";
-// Dummy
-std::string const kShowStatisticUrl = "https://github.com/mapsme/omim/graphs/commit-activity";
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
@@ -464,10 +460,10 @@ bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
 
 std::string const & LocalAdsManager::GetStartCompanyUrl() const
 {
-  return kStartCompanyUrl;
+  return LOCAL_ADS_START_COMPANY_PAGE_HOST;
 }
 
 std::string const & LocalAdsManager::GetShowStatisticUrl() const
 {
-  return kShowStatisticUrl;
+  return LOCAL_ADS_STATISTICS_PAGE_HOST;
 }
