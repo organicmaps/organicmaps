@@ -1377,6 +1377,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = AdHoc;
 		};
@@ -1400,6 +1401,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = "Production Full";
 		};
@@ -1422,6 +1424,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = "Simulator Release";
 		};
@@ -1444,6 +1447,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Simulator;
 		};
@@ -1477,6 +1481,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1488,6 +1493,7 @@
 					"$(PROJECT_DIR)/AdNetworkSupport/Facebook/SDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
