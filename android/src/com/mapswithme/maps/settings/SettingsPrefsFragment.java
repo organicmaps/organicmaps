@@ -279,26 +279,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
     mLangInfo = findPreference(getString(R.string.pref_tts_info));
     mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
-    if (mLangInfoLink != null)
-    {
-      Spannable link = new SpannableString(getString(R.string.prefs_languages_information_off_link));
-      link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-                       UiUtils.getStyledResourceId(getContext(), R.attr.colorAccent))),
-                   0, link.length(), 0);
-      mLangInfoLink.setSummary(link);
-      mLangInfoLink.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-      {
-        @Override
-        public boolean onPreferenceClick(Preference preference)
-        {
-          final Intent intent = new Intent(Intent.ACTION_VIEW);
-          intent.setData(Uri.parse(TTS_INFO_LINK));
-          getContext().startActivity(intent);
-          return false;
-        }
-      });
-      mPreferenceScreen.removePreference(mLangInfoLink);
-    }
+    initLangInfoLink();
     updateStoragePrefs();
     initStoragePrefCallbacks();
     initMeasureUnitsPrefsCallbacks();
@@ -367,6 +348,30 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
+  }
+
+  private void initLangInfoLink()
+  {
+    if (mLangInfoLink != null)
+    {
+      Spannable link = new SpannableString(getString(R.string.prefs_languages_information_off_link));
+      link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                                                                  UiUtils.getStyledResourceId(getContext(), R.attr.colorAccent))),
+                   0, link.length(), 0);
+      mLangInfoLink.setSummary(link);
+      mLangInfoLink.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+      {
+        @Override
+        public boolean onPreferenceClick(Preference preference)
+        {
+          final Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.setData(Uri.parse(TTS_INFO_LINK));
+          getContext().startActivity(intent);
+          return false;
+        }
+      });
+      mPreferenceScreen.removePreference(mLangInfoLink);
+    }
   }
 
   private void initSimplifiedTrafficColorsPrefsCallbacks()
