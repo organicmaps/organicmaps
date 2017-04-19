@@ -2,7 +2,8 @@ TARGET = drape_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
-DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS
+INCLUDEPATH += ../../3party/icu/common ../../3party/icu/i18n
+DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS U_DISABLE_RENAMING
 
 ROOT_DIR = ../..
 DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat stats_client stb_image sdf_image icu

@@ -94,8 +94,6 @@ public:
   GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 
   double getTextLength(double fontSize, string const & text);
-
-  static strings::UniString log2vis(strings::UniString const & str);
 };
 
 }

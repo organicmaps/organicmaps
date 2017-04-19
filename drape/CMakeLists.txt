@@ -9,9 +9,13 @@ execute_process(
   shader_def
 )
 
+add_definitions(-DU_DISABLE_RENAMING)
+
 include_directories(
   ${OMIM_ROOT}/3party/freetype/include
   ${OMIM_ROOT}/3party/glm
+  ${OMIM_ROOT}/3party/icu/common
+  ${OMIM_ROOT}/3party/icu/i18n
 )
 
 set(

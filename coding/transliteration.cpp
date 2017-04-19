@@ -2,6 +2,7 @@
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "3party/icu/common/unicode/uclean.h"
 #include "3party/icu/common/unicode/unistr.h"
@@ -60,7 +61,7 @@ void Transliteration::Init(std::string const & icuDataDir)
 
 bool Transliteration::Transliterate(std::string const & str, int8_t langCode, std::string & out) const
 {
-  if (str.empty())
+  if (str.empty() || strings::IsASCIIString(str))
     return false;
 
   std::string transliteratorId(StringUtf8Multilang::GetTransliteratorIdByCode(langCode));

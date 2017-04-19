@@ -27,12 +27,11 @@ void CorrectFont(dp::FontDecl & font)
 
 strings::UniString PreProcessText(string const & text)
 {
-  strings::UniString logText = strings::MakeUniString(text);
-  strings::UniString visText = df::watch::GlyphCache::log2vis(logText);
+  // Warning! This code processes text as left-to-right text
+  // and doesn't reorder right-to-left text. To support right-to-left text
+  // bidi algorithm should be applied.
+  strings::UniString visText = strings::MakeUniString(text);
   char const * delims = " \n\t";
-
-  if (logText != visText)
-    return visText;
 
   size_t count = visText.size();
   if (count > 15)
@@ -637,7 +636,10 @@ void CPUDrawer::CallTextRendererFn(TextShape const * shape, TRoadNumberRendererC
 {
   string const & text = GetInfo(shape->m_geomID, m_roadNames);
 
-  fn(shape->m_position, shape->m_anchor, m_roadNumberFont, GlyphCache::log2vis(strings::MakeUniString(text)));
+  // Warning! This code processes text as left-to-right text
+  // and doesn't reorder right-to-left text. To support right-to-left text
+  // bidi algorithm should be applied.
+  fn(shape->m_position, shape->m_anchor, m_roadNumberFont, strings::MakeUniString(text));
 }
 
 void CPUDrawer::CallTextRendererFn(ComplexShape const * shape, TPathTextRendererCall const & fn)

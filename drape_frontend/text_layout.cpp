@@ -337,7 +337,7 @@ strings::UniString const & TextLayout::GetText() const
 StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
                                        ref_ptr<dp::TextureManager> textures, dp::Anchor anchor)
 {
-  strings::UniString visibleText = fribidi::log2vis(text);
+  strings::UniString visibleText = bidi::log2vis(text);
   buffer_vector<size_t, 2> delimIndexes;
   if (visibleText == text)
     SplitText(visibleText, delimIndexes);
@@ -393,7 +393,7 @@ PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, strings::UniString
                                float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures)
   : m_tileCenter(tileCenter)
 {
-  Init(fribidi::log2vis(text), fontSize, isSdf, textures);
+  Init(bidi::log2vis(text), fontSize, isSdf, textures);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
