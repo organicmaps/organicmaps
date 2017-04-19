@@ -102,7 +102,7 @@ void SampleView::SetContents(search::Sample const & sample)
   m_nonFoundResults->Clear();
 }
 
-void SampleView::ShowFoundResults(search::Results::Iter begin, search::Results::Iter end)
+void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
   for (auto it = begin; it != end; ++it)
     m_foundResults->Add(*it /* result */);

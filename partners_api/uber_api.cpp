@@ -59,7 +59,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
   for (size_t i = 0; i < timeSize; ++i)
   {
     uber::Product product;
-    json_int_t estimatedTime = 0;
+    int64_t estimatedTime = 0;
     auto const item = json_array_get(time, i);
     FromJSONObject(item, "display_name", product.m_name);
     FromJSONObject(item, "estimate", estimatedTime);

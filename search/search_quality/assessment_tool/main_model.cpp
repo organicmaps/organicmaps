@@ -187,7 +187,7 @@ void MainModel::OnResultSelected(int index)
 
   CHECK_GREATER_OR_EQUAL(index, 0, ());
   CHECK_LESS(index, foundResults.GetCount(), ());
-  m_view->MoveViewportToResult(foundResults.GetResult(index));
+  m_view->MoveViewportToResult(foundResults[index]);
 }
 
 void MainModel::OnNonFoundResultSelected(int index)

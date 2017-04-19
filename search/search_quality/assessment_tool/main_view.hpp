@@ -29,7 +29,7 @@ public:
   // View overrides:
   void SetSamples(ContextList::SamplesSlice const & samples) override;
   void ShowSample(size_t sampleIndex, search::Sample const & sample, bool hasEdits) override;
-  void ShowFoundResults(search::Results::Iter begin, search::Results::Iter end) override;
+  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) override;
 
   void MoveViewportToResult(search::Result const & result) override;

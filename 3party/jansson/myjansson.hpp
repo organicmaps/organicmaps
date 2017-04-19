@@ -5,6 +5,7 @@
 #include "base/exception.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
@@ -49,9 +50,11 @@ json_t * GetJSONOptionalField(json_t * root, std::string const & field);
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 
 void FromJSONObject(json_t * root, std::string const & field, double & result);
-void FromJSONObject(json_t * root, std::string const & field, json_int_t & result);
+void FromJSONObject(json_t * root, std::string const & field, int & result);
+void FromJSONObject(json_t * root, std::string const & field, int64_t & result);
 
-void FromJSONObjectOptionalField(json_t * root, std::string const & field, json_int_t & result);
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, int & result);
+void FromJSONObjectOptionalField(json_t * root, std::string const & field, int64_t & result);
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, double & result);
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, bool & result,
                                  bool def = false);
@@ -59,7 +62,7 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, json_
 
 void ToJSONObject(json_t & root, std::string const & field, double value);
 void ToJSONObject(json_t & root, std::string const & field, int value);
-void ToJSONObject(json_t & root, std::string const & field, json_int_t value);
+void ToJSONObject(json_t & root, std::string const & field, int64_t value);
 
 void FromJSON(json_t * root, std::string & result);
 inline my::JSONPtr ToJSON(std::string const & s) { return my::NewJSONString(s); }

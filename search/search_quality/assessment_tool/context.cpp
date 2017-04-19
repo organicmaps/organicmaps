@@ -86,7 +86,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     if (foundRelevances[i] == search::Sample::Result::Relevance::Irrelevant)
       continue;
 
-    auto const & result = m_foundResults.GetResult(i);
+    auto const & result = m_foundResults[i];
     // No need in non-feature results.
     if (result.GetResultType() != search::Result::RESULT_FEATURE)
       continue;

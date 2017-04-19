@@ -21,7 +21,7 @@ public:
   explicit SampleView(QWidget * parent);
 
   void SetContents(search::Sample const & sample);
-  void ShowFoundResults(search::Results::Iter begin, search::Results::Iter end);
+  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results);
 
   void EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits);

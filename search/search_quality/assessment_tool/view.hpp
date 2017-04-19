@@ -29,7 +29,8 @@ public:
 
   virtual void SetSamples(ContextList::SamplesSlice const & samples) = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) = 0;
-  virtual void ShowFoundResults(search::Results::Iter begin, search::Results::Iter end) = 0;
+  virtual void ShowFoundResults(search::Results::ConstIter begin,
+                                search::Results::ConstIter end) = 0;
   virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) = 0;
 
   virtual void MoveViewportToResult(search::Result const & result) = 0;

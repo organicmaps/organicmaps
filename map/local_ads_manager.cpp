@@ -124,8 +124,8 @@ std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const &
     auto eventNode = my::NewJSONObject();
     auto s = duration_cast<seconds>(event.m_timestamp.time_since_epoch()).count();
     ToJSONObject(*eventNode, "type", static_cast<uint8_t>(event.m_type));
-    ToJSONObject(*eventNode, "timestamp", static_cast<json_int_t>(s));
-    ToJSONObject(*eventNode, "featureId", static_cast<json_int_t>(event.m_featureId));
+    ToJSONObject(*eventNode, "timestamp", static_cast<int64_t>(s));
+    ToJSONObject(*eventNode, "featureId", static_cast<int32_t>(event.m_featureId));
     ToJSONObject(*eventNode, "zoomLevel", event.m_zoomLevel);
     ToJSONObject(*eventNode, "latitude", event.m_latitude);
     ToJSONObject(*eventNode, "longitude", event.m_longitude);

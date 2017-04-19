@@ -185,7 +185,7 @@ void FillHotelInfo(string const & src, HotelInfo & info)
   FromJSONObjectOptionalField(root.get(), "score", score);
   info.m_score = static_cast<float>(score);
 
-  json_int_t scoreCount = 0;
+  int64_t scoreCount = 0;
   FromJSONObjectOptionalField(root.get(), "score_count", scoreCount);
   info.m_scoreCount = static_cast<uint32_t>(scoreCount);
 

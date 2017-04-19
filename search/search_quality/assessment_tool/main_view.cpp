@@ -72,7 +72,7 @@ void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, boo
   OnSampleChanged(sampleIndex, hasEdits);
 }
 
-void MainView::ShowFoundResults(search::Results::Iter begin, search::Results::Iter end)
+void MainView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
   m_sampleView->ShowFoundResults(begin, end);
 }

@@ -1,6 +1,37 @@
 #include "3party/jansson/myjansson.hpp"
 
+#include <type_traits>
+
 using namespace std;
+
+namespace
+{
+template <typename T>
+typename enable_if<is_integral<T>::value, void>::type ReadIntegral(json_t * root,
+                                                                   string const & field, T & result)
+{
+  auto * val = my::GetJSONObligatoryField(root, field);
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = static_cast<T>(json_integer_value(val));
+}
+
+template <typename T>
+typename enable_if<is_integral<T>::value, void>::type ReadIntegralOptional(json_t * root,
+                                                                           string const & field,
+                                                                           T & result)
+{
+  auto * val = my::GetJSONOptionalField(root, field);
+  if (!val)
+  {
+    result = 0;
+    return;
+  }
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = static_cast<T>(json_integer_value(val));
+}
+}  // namespace
 
 namespace my
 {
@@ -28,25 +59,24 @@ void FromJSONObject(json_t * root, string const & field, double & result)
   result = json_number_value(val);
 }
 
-void FromJSONObject(json_t * root, string const & field, json_int_t & result)
+void FromJSONObject(json_t * root, string const & field, int & result)
 {
-  auto * val = my::GetJSONObligatoryField(root, field);
-  if (!json_is_number(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
-  result = json_integer_value(val);
+  ReadIntegral(root, field, result);
 }
 
-void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result)
+void FromJSONObject(json_t * root, string const & field, int64_t & result)
 {
-  auto * val = my::GetJSONOptionalField(root, field);
-  if (!val)
-  {
-    result = 0;
-    return;
-  }
-  if (!json_is_number(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
-  result = json_integer_value(val);
+  ReadIntegral(root, field, result);
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, int & result)
+{
+  ReadIntegralOptional(root, field, result);
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, int64_t & result)
+{
+  ReadIntegralOptional(root, field, result);
 }
 
 void FromJSONObjectOptionalField(json_t * root, string const & field, double & result)
@@ -95,10 +125,10 @@ void ToJSONObject(json_t & root, string const & field, double value)
 
 void ToJSONObject(json_t & root, string const & field, int value)
 {
-  json_object_set_new(&root, field.c_str(), json_integer(value));
+  ToJSONObject(root, field, static_cast<int64_t>(value));
 }
 
-void ToJSONObject(json_t & root, std::string const & field, json_int_t value)
+void ToJSONObject(json_t & root, std::string const & field, int64_t value)
 {
   json_object_set_new(&root, field.c_str(), json_integer(value));
 }
