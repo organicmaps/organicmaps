@@ -15,6 +15,7 @@
 #include <string>
 
 using namespace my;
+using namespace std;
 
 namespace
 {
@@ -128,35 +129,37 @@ bool Sample::operator==(Sample const & rhs) const
 }
 
 // static
-bool Sample::DeserializeFromJSON(string const & jsonStr, std::vector<Sample> & samples)
+bool Sample::DeserializeFromJSONLines(string const & lines, std::vector<Sample> & samples)
 {
-  try
+  istringstream is(lines);
+  string line;
+  vector<Sample> result;
+
+  while (getline(is, line))
   {
-    my::Json root(jsonStr.c_str());
-    if (!json_is_array(root.get()))
-      MYTHROW(my::Json::Exception, ("The field", "samples", "must contain a json array."));
-    size_t numSamples = json_array_size(root.get());
-    samples.resize(numSamples);
-    for (size_t i = 0; i < numSamples; ++i)
-      samples[i].DeserializeFromJSONImpl(json_array_get(root.get(), i));
-    return true;
+    if (line.empty())
+      continue;
+
+    Sample sample;
+    if (!sample.DeserializeFromJSON(line))
+      return false;
+    result.emplace_back(move(sample));
   }
-  catch (my::Json::Exception const & e)
-  {
-    LOG(LERROR, ("Can't parse samples:", e.Msg(), jsonStr));
-  }
-  return false;
+
+  samples.insert(samples.end(), result.begin(), result.end());
+  return true;
 }
 
 // static
-void Sample::SerializeToJSON(std::vector<Sample> const & samples, std::string & jsonStr)
+void Sample::SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines)
 {
-  auto array = my::NewJSONArray();
   for (auto const & sample : samples)
-    json_array_append_new(array.get(), sample.SerializeToJSON().release());
-  std::unique_ptr<char, JSONFreeDeleter> buffer(
-      json_dumps(array.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
-  jsonStr.assign(buffer.get());
+  {
+    unique_ptr<char, JSONFreeDeleter> buffer(
+        json_dumps(sample.SerializeToJSON().get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+    lines.append(buffer.get());
+    lines.push_back('\n');
+  }
 }
 
 void Sample::DeserializeFromJSONImpl(json_t * root)

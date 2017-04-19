@@ -127,81 +127,13 @@ UNIT_CLASS_TEST(SampleTest, BadViewport)
 
 UNIT_CLASS_TEST(SampleTest, Arrays)
 {
-  auto const jsonStr = R"EOF(
-  [
-    {
-      "query": "cuba",
-      "locale": "en",
-      "position": {
-        "x": 37.618706,
-        "y": 99.53730574302003
-      },
-      "viewport": {
-        "minx": 37.1336,
-        "miny": 67.1349,
-        "maxx": 38.0314,
-        "maxy": 67.7348
-      },
-      "results": [
-        {
-          "name": "Cuba",
-          "relevancy": "relevant",
-          "types": [
-            "place-country"
-          ],
-          "position": {
-            "x": -80.832886,
-            "y": 15.521132748163712
-          },
-          "houseNumber": ""
-        }
-      ]
-    },
-    {
-      "query": "riga",
-      "locale": "en",
-      "position": {
-        "x": 37.65376,
-        "y": 98.51110651930014
-      },
-      "viewport": {
-        "minx": 37.5064,
-        "miny": 67.0476,
-        "maxx": 37.7799,
-        "maxy": 67.304
-      },
-      "results": [
-        {
-          "name": "R\u012bga",
-          "relevancy": "vital",
-          "types": [
-            "place-city-capital-2"
-          ],
-          "position": {
-            "x": 24.105186,
-            "y": 107.7819569220319
-          },
-          "houseNumber": ""
-        },
-        {
-          "name": "R\u012bga",
-          "relevancy": "vital",
-          "types": [
-            "place-city-capital-2"
-          ],
-          "position": {
-            "x": 24.105186,
-            "y": 107.7819569220319
-          },
-          "houseNumber": ""
-        }
-      ]
-    }
-  ]
+  auto const lines = R"EOF(
+    {"query": "cuba", "locale": "en", "position": {"x": 37.618706, "y": 99.53730574302003}, "viewport": {"minx": 37.1336, "miny": 67.1349, "maxx": 38.0314, "maxy": 67.7348}, "results": [{"name": "Cuba", "relevancy": "relevant", "types": ["place-country"], "position": {"x": -80.832886, "y": 15.521132748163712}, "houseNumber": ""}]}
+    {"query": "riga", "locale": "en", "position": {"x": 37.65376, "y": 98.51110651930014}, "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}, "results": [{"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}, {"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}]}
   )EOF";
 
   vector<Sample> samples;
-  TEST(Sample::DeserializeFromJSON(jsonStr, samples), ());
+  TEST(Sample::DeserializeFromJSONLines(lines, samples), ());
 
   vector<Sample> expected = {m_cuba, m_riga};
 
@@ -215,11 +147,11 @@ UNIT_CLASS_TEST(SampleTest, SerDes)
 {
   vector<Sample> expected = {m_cuba, m_riga};
 
-  std::string buffer;
-  Sample::SerializeToJSON(expected, buffer);
+  std::string lines;
+  Sample::SerializeToJSONLines(expected, lines);
 
   vector<Sample> actual;
-  TEST(Sample::DeserializeFromJSON(buffer, actual), ());
+  TEST(Sample::DeserializeFromJSONLines(lines, actual), ());
 
   sort(expected.begin(), expected.end());
   sort(actual.begin(), actual.end());
