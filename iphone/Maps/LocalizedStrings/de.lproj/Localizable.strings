@@ -479,6 +479,8 @@
 /* Settings languages off information in voice instructions screen */
 "prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
 
+"prefs_languages_information_off_link" = "For more information please check the guide.";
+
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Karte";
 
