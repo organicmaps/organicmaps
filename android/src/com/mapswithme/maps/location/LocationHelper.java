@@ -132,12 +132,6 @@ public enum LocationHelper
     @Override
     public void onMyPositionModeChanged(int newMode)
     {
-      if (!PermissionsUtils.isLocationGranted())
-      {
-        notifyMyPositionModeChanged(LocationState.NOT_FOLLOW_NO_POSITION);
-        return;
-      }
-
       notifyMyPositionModeChanged(newMode);
       mLogger.d(TAG, "onMyPositionModeChanged mode = " + LocationState.nameOf(newMode));
 
