@@ -15,6 +15,7 @@
 #include <string>
 
 using namespace my;
+using namespace std;
 
 namespace
 {
