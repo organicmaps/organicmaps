@@ -23149,14 +23149,22 @@
   [booking_search]
     en = Booking.com
 
-  [updating_maps]
+  [whats_new_auto_update_updating_maps]
     en = Updating maps
     ru = Обновляем карты
 
-  [update_maps_ask]
+  [whats_new_auto_update_title]
     en = Update your downloaded maps
     ru = Обновите ваши загруженные карты
 
-  [update_maps_notice]
+  [whats_new_auto_update_message]
     en = Update maps supports information about objects in the current state
     ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
+
+  [whats_new_auto_update_button_size]
+    en = Update (%s)
+    ru = Обновить (%s)
+
+  [whats_new_auto_update_button_later]
+    en = Manualy update later 
+    ru = Обновить вручную позже
