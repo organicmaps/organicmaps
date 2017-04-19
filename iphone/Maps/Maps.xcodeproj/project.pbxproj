@@ -6227,6 +6227,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm dbg";
 			};
@@ -6275,6 +6277,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm rel";
 			};
@@ -6323,6 +6327,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm dbg";
 			};
@@ -6371,6 +6377,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm beta";
 			};
@@ -6419,6 +6427,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm rel";
 			};
@@ -6467,6 +6477,8 @@
 					"-ltraffic",
 					"-lstb_image",
 					"-lsdf_image",
+					"-licu",
+					"-llocal_ads",
 				);
 				PRODUCT_NAME = "cm pf";
 			};
