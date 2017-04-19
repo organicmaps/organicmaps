@@ -23,13 +23,13 @@ set(
   SRC
   attribute_provides_tests.cpp
   batcher_tests.cpp
+  bidi_tests.cpp
   bingind_info_tests.cpp
   buffer_tests.cpp
   compile_shaders_test.cpp
   dummy_texture.hpp
   failure_reporter.cpp
   font_texture_tests.cpp
-  fribidi_tests.cpp
   glfunctions.cpp
   glmock_functions.cpp
   glmock_functions.hpp
@@ -56,7 +56,6 @@ omim_link_libraries(
   coding
   geometry
   base
-  fribidi
   icu
   expat
   stats_client

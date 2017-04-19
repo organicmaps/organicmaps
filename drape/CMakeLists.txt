@@ -28,6 +28,8 @@ set(
   ${DRAPE_ROOT}/batcher.hpp
   ${DRAPE_ROOT}/batcher_helpers.cpp
   ${DRAPE_ROOT}/batcher_helpers.hpp
+  ${DRAPE_ROOT}/bidi.cpp
+  ${DRAPE_ROOT}/bidi.hpp
   ${DRAPE_ROOT}/binding_info.cpp
   ${DRAPE_ROOT}/binding_info.hpp
   ${DRAPE_ROOT}/buffer_base.cpp
@@ -47,8 +49,6 @@ set(
   ${DRAPE_ROOT}/dynamic_texture.hpp
   ${DRAPE_ROOT}/font_texture.cpp
   ${DRAPE_ROOT}/font_texture.hpp
-  ${DRAPE_ROOT}/fribidi.cpp
-  ${DRAPE_ROOT}/fribidi.hpp
   ${DRAPE_ROOT}/glconstants.cpp
   ${DRAPE_ROOT}/glconstants.hpp
   ${DRAPE_ROOT}/glextensions_list.cpp

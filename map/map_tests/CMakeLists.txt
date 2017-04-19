@@ -41,7 +41,6 @@ omim_link_libraries(
   coding
   base
   freetype
-  fribidi
   icu
   expat
   protobuf

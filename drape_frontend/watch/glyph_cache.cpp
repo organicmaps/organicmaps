@@ -1,8 +1,6 @@
 #include "drape_frontend/watch/glyph_cache.hpp"
 #include "drape_frontend/watch/glyph_cache_impl.hpp"
 
-#include "3party/fribidi/lib/fribidi.h"
-
 namespace df
 {
 namespace watch

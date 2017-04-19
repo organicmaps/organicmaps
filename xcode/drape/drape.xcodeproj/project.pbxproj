@@ -14,8 +14,8 @@
 		34C624CA1DABDB2000510300 /* static_texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C81DABDB2000510300 /* static_texture.hpp */; };
 		45201E951CE605B1008A4842 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45201E941CE605B1008A4842 /* constants.hpp */; };
 		670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */; };
-		670947251BDF9A4F005014C0 /* fribidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* fribidi.cpp */; };
-		670947261BDF9A4F005014C0 /* fribidi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947181BDF9A4F005014C0 /* fribidi.hpp */; };
+		670947251BDF9A4F005014C0 /* bidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* bidi.cpp */; };
+		670947261BDF9A4F005014C0 /* bidi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947181BDF9A4F005014C0 /* bidi.hpp */; };
 		670947271BDF9A4F005014C0 /* glyph_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947191BDF9A4F005014C0 /* glyph_manager.cpp */; };
 		670947281BDF9A4F005014C0 /* glyph_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709471A1BDF9A4F005014C0 /* glyph_manager.hpp */; };
 		670947291BDF9A4F005014C0 /* hw_texture_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709471B1BDF9A4F005014C0 /* hw_texture_ios.hpp */; };
@@ -180,8 +180,8 @@
 		34C624C81DABDB2000510300 /* static_texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = static_texture.hpp; sourceTree = "<group>"; };
 		45201E941CE605B1008A4842 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
 		670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_buffer_impl.hpp; sourceTree = "<group>"; };
-		670947171BDF9A4F005014C0 /* fribidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fribidi.cpp; sourceTree = "<group>"; };
-		670947181BDF9A4F005014C0 /* fribidi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fribidi.hpp; sourceTree = "<group>"; };
+		670947171BDF9A4F005014C0 /* bidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bidi.cpp; sourceTree = "<group>"; };
+		670947181BDF9A4F005014C0 /* bidi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bidi.hpp; sourceTree = "<group>"; };
 		670947191BDF9A4F005014C0 /* glyph_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glyph_manager.cpp; sourceTree = "<group>"; };
 		6709471A1BDF9A4F005014C0 /* glyph_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glyph_manager.hpp; sourceTree = "<group>"; };
 		6709471B1BDF9A4F005014C0 /* hw_texture_ios.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hw_texture_ios.hpp; sourceTree = "<group>"; };
@@ -363,8 +363,8 @@
 				6729A55C1A69213A007D5872 /* utils */,
 				45201E941CE605B1008A4842 /* constants.hpp */,
 				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
-				670947171BDF9A4F005014C0 /* fribidi.cpp */,
-				670947181BDF9A4F005014C0 /* fribidi.hpp */,
+				670947171BDF9A4F005014C0 /* bidi.cpp */,
+				670947181BDF9A4F005014C0 /* bidi.hpp */,
 				670947191BDF9A4F005014C0 /* glyph_manager.cpp */,
 				6709471A1BDF9A4F005014C0 /* glyph_manager.hpp */,
 				6709471B1BDF9A4F005014C0 /* hw_texture_ios.hpp */,
@@ -568,7 +568,7 @@
 				6729A5A71A69213A007D5872 /* texture_manager.hpp in Headers */,
 				34C624CA1DABDB2000510300 /* static_texture.hpp in Headers */,
 				6729A5901A69213A007D5872 /* object_pool.hpp in Headers */,
-				670947261BDF9A4F005014C0 /* fribidi.hpp in Headers */,
+				670947261BDF9A4F005014C0 /* bidi.hpp in Headers */,
 				6729A5A11A69213A007D5872 /* shader.hpp in Headers */,
 				6729A5641A69213A007D5872 /* attribute_buffer_mutator.hpp in Headers */,
 				6729A5811A69213A007D5872 /* glsl_types.hpp in Headers */,
@@ -713,7 +713,7 @@
 				6709472F1BDF9A4F005014C0 /* shader_def.cpp in Sources */,
 				6729A5A21A69213A007D5872 /* stipple_pen_resource.cpp in Sources */,
 				6729A5691A69213A007D5872 /* batcher.cpp in Sources */,
-				670947251BDF9A4F005014C0 /* fribidi.cpp in Sources */,
+				670947251BDF9A4F005014C0 /* bidi.cpp in Sources */,
 				6729A58C1A69213A007D5872 /* index_buffer_mutator.cpp in Sources */,
 				6729A57D1A69213A007D5872 /* glfunctions.cpp in Sources */,
 				6729A5731A69213A007D5872 /* data_buffer.cpp in Sources */,
@@ -750,6 +750,8 @@
 					"$(OMIM_ROOT)/3party/glm/",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
+					"$(OMIM_ROOT)/3party/icu/common",
+					"$(OMIM_ROOT)/3party/icu/i18n",
 				);
 			};
 			name = Debug;
@@ -763,6 +765,8 @@
 					"$(OMIM_ROOT)/3party/glm/",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
+					"$(OMIM_ROOT)/3party/icu/common",
+					"$(OMIM_ROOT)/3party/icu/i18n",
 				);
 			};
 			name = Release;

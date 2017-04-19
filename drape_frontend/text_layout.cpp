@@ -2,7 +2,7 @@
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/fribidi.hpp"
+#include "drape/bidi.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/overlay_handle.hpp"
 

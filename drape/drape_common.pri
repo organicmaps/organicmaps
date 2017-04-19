@@ -8,6 +8,7 @@ SOURCES += \
     $$DRAPE_DIR/attribute_provider.cpp \
     $$DRAPE_DIR/batcher.cpp \
     $$DRAPE_DIR/batcher_helpers.cpp \
+    $$DRAPE_DIR/bidi.cpp \
     $$DRAPE_DIR/binding_info.cpp \
     $$DRAPE_DIR/buffer_base.cpp \
     $$DRAPE_DIR/color.cpp \
@@ -15,7 +16,6 @@ SOURCES += \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/debug_rect_renderer.cpp \
     $$DRAPE_DIR/font_texture.cpp \
-    $$DRAPE_DIR/fribidi.cpp \
     $$DRAPE_DIR/glconstants.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
     $$DRAPE_DIR/glstate.cpp \
@@ -54,6 +54,7 @@ HEADERS += \
     $$DRAPE_DIR/attribute_provider.hpp \
     $$DRAPE_DIR/batcher.hpp \
     $$DRAPE_DIR/batcher_helpers.hpp \
+    $$DRAPE_DIR/bidi.hpp \
     $$DRAPE_DIR/binding_info.hpp \
     $$DRAPE_DIR/buffer_base.hpp \
     $$DRAPE_DIR/color.hpp \
@@ -66,7 +67,6 @@ HEADERS += \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/font_texture.hpp \
-    $$DRAPE_DIR/fribidi.hpp \
     $$DRAPE_DIR/glconstants.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/glfunctions.hpp \

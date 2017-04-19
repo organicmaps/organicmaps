@@ -5,7 +5,7 @@
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
 
-#include "drape/fribidi.hpp"
+#include "drape/bidi.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 

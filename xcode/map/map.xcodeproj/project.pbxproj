@@ -37,7 +37,6 @@
 		674A2A111B26FE62001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F51B26FE62001A525C /* libcoding.a */; };
 		674A2A131B26FE62001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F71B26FE62001A525C /* libexpat.a */; };
 		674A2A141B26FE62001A525C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F81B26FE62001A525C /* libfreetype.a */; };
-		674A2A151B26FE62001A525C /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F91B26FE62001A525C /* libfribidi.a */; };
 		674A2A161B26FE62001A525C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29FA1B26FE62001A525C /* libgenerator.a */; };
 		674A2A171B26FE62001A525C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29FB1B26FE62001A525C /* libgeometry.a */; };
 		674A2A1B1B26FE62001A525C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29FF1B26FE62001A525C /* libindexer.a */; };
@@ -164,7 +163,6 @@
 		674A29F61B26FE62001A525C /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A29F71B26FE62001A525C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		674A29F81B26FE62001A525C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		674A29F91B26FE62001A525C /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
 		674A29FA1B26FE62001A525C /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-xcode-build/Debug/libgenerator.a"; sourceTree = "<group>"; };
 		674A29FB1B26FE62001A525C /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		674A29FC1B26FE62001A525C /* libgflags.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgflags.a; path = "../../../omim-xcode-build/Debug/libgflags.a"; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 				674A2A111B26FE62001A525C /* libcoding.a in Frameworks */,
 				674A2A131B26FE62001A525C /* libexpat.a in Frameworks */,
 				674A2A141B26FE62001A525C /* libfreetype.a in Frameworks */,
-				674A2A151B26FE62001A525C /* libfribidi.a in Frameworks */,
 				674A2A161B26FE62001A525C /* libgenerator.a in Frameworks */,
 				674A2A171B26FE62001A525C /* libgeometry.a in Frameworks */,
 				674A2A1B1B26FE62001A525C /* libindexer.a in Frameworks */,
@@ -372,7 +369,6 @@
 				674A29F61B26FE62001A525C /* libdrape.a */,
 				674A29F71B26FE62001A525C /* libexpat.a */,
 				674A29F81B26FE62001A525C /* libfreetype.a */,
-				674A29F91B26FE62001A525C /* libfribidi.a */,
 				674A29FA1B26FE62001A525C /* libgenerator.a */,
 				674A29FB1B26FE62001A525C /* libgeometry.a */,
 				674A29FC1B26FE62001A525C /* libgflags.a */,

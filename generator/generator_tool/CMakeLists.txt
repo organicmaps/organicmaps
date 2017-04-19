@@ -23,7 +23,6 @@ omim_link_libraries(
   opening_hours
   freetype
   expat
-  fribidi
   icu
   jansson
   protobuf

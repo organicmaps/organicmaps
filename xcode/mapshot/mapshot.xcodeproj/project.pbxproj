@@ -21,7 +21,6 @@
 		675D21581BFB779A00717E4F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21471BFB779A00717E4F /* libdrape.a */; };
 		675D21591BFB779A00717E4F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21481BFB779A00717E4F /* libexpat.a */; };
 		675D215A1BFB779A00717E4F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21491BFB779A00717E4F /* libfreetype.a */; };
-		675D215B1BFB779A00717E4F /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214A1BFB779A00717E4F /* libfribidi.a */; };
 		675D215C1BFB779A00717E4F /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214B1BFB779A00717E4F /* libindexer.a */; };
 		675D215D1BFB779A00717E4F /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214C1BFB779A00717E4F /* libjansson.a */; };
 		675D215E1BFB779A00717E4F /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214D1BFB779A00717E4F /* libosrm.a */; };
@@ -76,7 +75,6 @@
 		675D21471BFB779A00717E4F /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		675D21481BFB779A00717E4F /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		675D21491BFB779A00717E4F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		675D214A1BFB779A00717E4F /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
 		675D214B1BFB779A00717E4F /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		675D214C1BFB779A00717E4F /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		675D214D1BFB779A00717E4F /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				675D21581BFB779A00717E4F /* libdrape.a in Frameworks */,
 				675D21591BFB779A00717E4F /* libexpat.a in Frameworks */,
 				675D215A1BFB779A00717E4F /* libfreetype.a in Frameworks */,
-				675D215B1BFB779A00717E4F /* libfribidi.a in Frameworks */,
 				675D215C1BFB779A00717E4F /* libindexer.a in Frameworks */,
 				675D215D1BFB779A00717E4F /* libjansson.a in Frameworks */,
 				675D215E1BFB779A00717E4F /* libosrm.a in Frameworks */,
@@ -211,7 +208,6 @@
 				675D21471BFB779A00717E4F /* libdrape.a */,
 				675D21481BFB779A00717E4F /* libexpat.a */,
 				675D21491BFB779A00717E4F /* libfreetype.a */,
-				675D214A1BFB779A00717E4F /* libfribidi.a */,
 				675D214B1BFB779A00717E4F /* libindexer.a */,
 				675D214C1BFB779A00717E4F /* libjansson.a */,
 				675D214D1BFB779A00717E4F /* libosrm.a */,

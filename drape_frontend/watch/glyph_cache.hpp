@@ -3,7 +3,6 @@
 #include "drape/drape_global.hpp"
 
 #include "base/string_utils.hpp"
-#include "base/mutex.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
@@ -60,8 +59,6 @@ class GlyphCache
 private:
 
   shared_ptr<GlyphCacheImpl> m_impl;
-
-  static threads::Mutex s_fribidiMutex;
 
 public:
 

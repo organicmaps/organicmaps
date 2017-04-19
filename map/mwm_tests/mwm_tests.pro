@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map traffic search storage indexer platform editor geometry coding base \
-               freetype fribidi expat protobuf jansson succinct pugixml stats_client icu
+               freetype expat protobuf jansson succinct pugixml stats_client icu
 
 include($$ROOT_DIR/common.pri)
 

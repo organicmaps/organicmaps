@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "drape/fribidi.hpp"
+#include "drape/bidi.hpp"
 
 
-UNIT_TEST(FribidiDirection)
+UNIT_TEST(BidiDirection)
 {
   string base = "\u0686\u0631\u0645\u0647\u064A\u0646";
   strings::UniString in = strings::MakeUniString(base);

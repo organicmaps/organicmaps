@@ -110,7 +110,6 @@
 		679624C11D11775300AE4E3C /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B71D11775300AE4E3C /* libdrape_frontend.a */; };
 		679624C21D11775300AE4E3C /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B81D11775300AE4E3C /* libdrape.a */; };
 		679624C31D11775300AE4E3C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B91D11775300AE4E3C /* libfreetype.a */; };
-		679624C41D11775300AE4E3C /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BA1D11775300AE4E3C /* libfribidi.a */; };
 		679624C61D11775300AE4E3C /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BC1D11775300AE4E3C /* libminizip.a */; };
 		679624C71D11775300AE4E3C /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BD1D11775300AE4E3C /* libplatform_tests_support.a */; };
 		679624C81D11775300AE4E3C /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BE1D11775300AE4E3C /* libsdf_image.a */; };
@@ -133,7 +132,6 @@
 		67BC92BD1D17FD5800A4A378 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B71D11775300AE4E3C /* libdrape_frontend.a */; };
 		67BC92BE1D17FD5800A4A378 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B81D11775300AE4E3C /* libdrape.a */; };
 		67BC92BF1D17FD5800A4A378 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B91D11775300AE4E3C /* libfreetype.a */; };
-		67BC92C01D17FD5800A4A378 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BA1D11775300AE4E3C /* libfribidi.a */; };
 		67BC92C21D17FD5800A4A378 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AB92C61B73D03500AB5194 /* libmap.a */; };
 		67BC92C31D17FD5800A4A378 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BC1D11775300AE4E3C /* libminizip.a */; };
 		67BC92C41D17FD5800A4A378 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BE1D11775300AE4E3C /* libsdf_image.a */; };
@@ -247,7 +245,6 @@
 		679624B71D11775300AE4E3C /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		679624B81D11775300AE4E3C /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		679624B91D11775300AE4E3C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		679624BA1D11775300AE4E3C /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "../../../omim-xcode-build/Debug/libfribidi.a"; sourceTree = "<group>"; };
 		679624BC1D11775300AE4E3C /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		679624BD1D11775300AE4E3C /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
 		679624BE1D11775300AE4E3C /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
@@ -336,7 +333,6 @@
 				67BC92BD1D17FD5800A4A378 /* libdrape_frontend.a in Frameworks */,
 				67BC92BE1D17FD5800A4A378 /* libdrape.a in Frameworks */,
 				67BC92BF1D17FD5800A4A378 /* libfreetype.a in Frameworks */,
-				67BC92C01D17FD5800A4A378 /* libfribidi.a in Frameworks */,
 				67BC92C21D17FD5800A4A378 /* libmap.a in Frameworks */,
 				67BC92C31D17FD5800A4A378 /* libminizip.a in Frameworks */,
 				67BC92C41D17FD5800A4A378 /* libsdf_image.a in Frameworks */,
@@ -376,7 +372,6 @@
 				679624C11D11775300AE4E3C /* libdrape_frontend.a in Frameworks */,
 				679624C21D11775300AE4E3C /* libdrape.a in Frameworks */,
 				679624C31D11775300AE4E3C /* libfreetype.a in Frameworks */,
-				679624C41D11775300AE4E3C /* libfribidi.a in Frameworks */,
 				679624C61D11775300AE4E3C /* libminizip.a in Frameworks */,
 				679624C71D11775300AE4E3C /* libplatform_tests_support.a in Frameworks */,
 				679624C81D11775300AE4E3C /* libsdf_image.a in Frameworks */,
@@ -503,7 +498,6 @@
 				679624B71D11775300AE4E3C /* libdrape_frontend.a */,
 				679624B81D11775300AE4E3C /* libdrape.a */,
 				679624B91D11775300AE4E3C /* libfreetype.a */,
-				679624BA1D11775300AE4E3C /* libfribidi.a */,
 				679624BC1D11775300AE4E3C /* libminizip.a */,
 				679624BD1D11775300AE4E3C /* libplatform_tests_support.a */,
 				679624BE1D11775300AE4E3C /* libsdf_image.a */,

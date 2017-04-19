@@ -202,9 +202,6 @@
          location = "container:freetype/freetype.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:fribidi/fribidi.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:osrm/osrm.xcodeproj">
       </FileRef>
       <FileRef

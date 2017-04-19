@@ -57,7 +57,6 @@ omim_link_libraries(
   base
   expat
   freetype
-  fribidi
   icu
   gflags
   jansson

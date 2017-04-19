@@ -6,7 +6,7 @@ INCLUDEPATH += ../../3party/icu/common ../../3party/icu/i18n
 DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS U_DISABLE_RENAMING
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype fribidi expat stats_client stb_image sdf_image icu
+DEPENDENCIES = qt_tstfrm indexer platform coding geometry base gmock freetype expat stats_client stb_image sdf_image icu
 
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)
@@ -29,12 +29,12 @@ win32*|linux* {
 SOURCES += \
     attribute_provides_tests.cpp \
     batcher_tests.cpp \
+    bidi_tests.cpp \
     bingind_info_tests.cpp \
     buffer_tests.cpp \
     compile_shaders_test.cpp \
     failure_reporter.cpp \
     font_texture_tests.cpp \
-    fribidi_tests.cpp \
     glfunctions.cpp \
     glmock_functions.cpp \
     glyph_mng_tests.cpp \
