@@ -8,4 +8,6 @@
 
 - (shared_ptr<search::hotels_filter::Rule>)rules;
 
+- (void)reset;
+
 @end

@@ -1,8 +1,43 @@
 #import "MWMSearchHotelsFilterViewController.h"
 #import "MWMSearchFilterViewController_Protected.h"
+#import "SwiftBridge.h"
+
+#include "base/stl_helpers.hpp"
+
+#include <array>
+#include <vector>
 
 namespace
 {
+
+std::array<ftypes::IsHotelChecker::Type, static_cast<size_t>(ftypes::IsHotelChecker::Type::Count)> const kTypes = {{
+  ftypes::IsHotelChecker::Type::Hotel,
+  ftypes::IsHotelChecker::Type::Apartment,
+  ftypes::IsHotelChecker::Type::CampSite,
+  ftypes::IsHotelChecker::Type::Chalet,
+  ftypes::IsHotelChecker::Type::GuestHouse,
+  ftypes::IsHotelChecker::Type::Hostel,
+  ftypes::IsHotelChecker::Type::Motel,
+  ftypes::IsHotelChecker::Type::Resort
+}};
+
+unsigned makeMask(std::vector<ftypes::IsHotelChecker::Type> const & items)
+{
+  unsigned mask = 0;
+  for (auto const i : items)
+    mask = mask | 1U << static_cast<unsigned>(i);
+
+  return mask;
+}
+
+enum class Section
+{
+  Rating,
+  PriceCategory,
+  Type,
+  Count
+};
+
 NSAttributedString * makeString(NSString * primaryText, NSDictionary * primaryAttrs,
                                 NSString * secondaryText, NSDictionary * secondaryAttrs)
 {
@@ -56,18 +91,14 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 }
 }  // namespace
 
-@interface MWMSearchHotelsFilterViewController ()
+@interface MWMSearchHotelsFilterViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+{
+  std::vector<ftypes::IsHotelChecker::Type> m_selectedTypes;
+}
 
-@property(nonatomic) IBOutletCollection(UIButton) NSArray * ratings;
-
-@property(weak, nonatomic) IBOutlet UIButton * ratingAny;
-@property(weak, nonatomic) IBOutlet UIButton * rating7;
-@property(weak, nonatomic) IBOutlet UIButton * rating8;
-@property(weak, nonatomic) IBOutlet UIButton * rating9;
-
-@property(weak, nonatomic) IBOutlet UIButton * price1;
-@property(weak, nonatomic) IBOutlet UIButton * price2;
-@property(weak, nonatomic) IBOutlet UIButton * price3;
+@property(nonatomic) MWMFilterRatingCell * rating;
+@property(nonatomic) MWMFilterPriceCategoryCell * price;
+@property(nonatomic) MWMFilterCollectionHolderCell * type;
 
 @end
 
@@ -83,67 +114,186 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  configButton(self.ratingAny, L(@"booking_filters_rating_any"), nil);
-  configButton(self.rating7, L(@"7.0+"), L(@"booking_filters_ragting_good"));
-  configButton(self.rating8, L(@"8.0+"), L(@"booking_filters_rating_very_good"));
-  configButton(self.rating9, L(@"9.0+"), L(@"booking_filters_rating_excellent"));
+  self.tableView.estimatedRowHeight = 48;
+  self.tableView.rowHeight = UITableViewAutomaticDimension;
+}
 
-  configButton(self.price1, L(@"$"), nil);
-  configButton(self.price2, L(@"$$"), nil);
-  configButton(self.price3, L(@"$$$"), nil);
+- (void)initialRatingConfig
+{
+  MWMFilterRatingCell * rating = self.rating;
+  configButton(rating.any, L(@"booking_filters_rating_any"), nil);
+  configButton(rating.good, L(@"7.0+"), L(@"booking_filters_ragting_good"));
+  configButton(rating.veryGood, L(@"8.0+"), L(@"booking_filters_rating_very_good"));
+  configButton(rating.excellent, L(@"9.0+"), L(@"booking_filters_rating_excellent"));
+  rating.any.selected = YES;
+  [self resetRating];
+}
 
-  [self changeRating:self.ratingAny];
+- (void)initialPriceCategoryConfig
+{
+  MWMFilterPriceCategoryCell * price = self.price;
+  configButton(price.one, L(@"$"), nil);
+  configButton(price.two, L(@"$$"), nil);
+  configButton(price.three, L(@"$$$"), nil);
+  price.one.selected = NO;
+  price.two.selected = NO;
+  price.three.selected = NO;
+  [self resetPriceCategory];
+}
 
-  self.price1.selected = NO;
-  self.price2.selected = NO;
-  self.price3.selected = NO;
+- (void)initialTypeConfig
+{
+  [self.type config];
+  [self resetTypes];
+}
+
+- (void)reset
+{
+  [self resetRating];
+  [self resetPriceCategory];
+  [self resetTypes];
+}
+
+- (void)resetRating
+{
+  MWMFilterRatingCell * rating = self.rating;  
+  rating.any.selected = YES;
+  rating.good.selected = NO;
+  rating.veryGood.selected = NO;
+  rating.excellent.selected = NO;
+}
+
+- (void)resetPriceCategory
+{
+  MWMFilterPriceCategoryCell * price = self.price;
+  price.one.selected = NO;
+  price.two.selected = NO;
+  price.three.selected = NO;
+}
+
+- (void)resetTypes
+{
+  m_selectedTypes.clear();
+  [self.type.collectionView reloadData];
 }
 
 - (shared_ptr<search::hotels_filter::Rule>)rules
 {
   using namespace search::hotels_filter;
+  MWMFilterRatingCell * rating = self.rating;
   shared_ptr<Rule> ratingRule;
-  if (self.rating7.selected)
+  if (rating.good.selected)
     ratingRule = Ge<Rating>(7.0);
-  else if (self.rating8.selected)
+  else if (rating.veryGood.selected)
     ratingRule = Ge<Rating>(8.0);
-  else if (self.rating9.selected)
+  else if (rating.excellent.selected)
     ratingRule = Ge<Rating>(9.0);
 
+  MWMFilterPriceCategoryCell * price = self.price;
   shared_ptr<Rule> priceRule;
-  if (self.price1.selected)
+  if (price.one.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(1));
-  if (self.price2.selected)
+  if (price.two.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(2));
-  if (self.price3.selected)
+  if (price.three.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(3));
 
-  if (!ratingRule && !priceRule)
+  shared_ptr<Rule> typeRule;
+  if (!m_selectedTypes.empty())
+    typeRule = OneOf(makeMask(m_selectedTypes));
+
+  if (!ratingRule && !priceRule && !typeRule)
     return nullptr;
 
-  return And(ratingRule, priceRule);
+  return And(And(ratingRule, priceRule), typeRule);
 }
 
-#pragma mark - Actions
-
-- (IBAction)changeRating:(UIButton *)sender
-{
-  for (UIButton * button in self.ratings)
-    button.selected = NO;
-  sender.selected = YES;
-}
-
-- (IBAction)priceChange:(UIButton *)sender { sender.selected = !sender.selected; }
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return my::Key(Section::Count);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell * cell = nil;
+  switch (static_cast<Section>(indexPath.section))
+  {
+  case Section::Rating:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterRatingCell className] forIndexPath:indexPath];
+    if (!self.rating)
+    {
+      self.rating = static_cast<MWMFilterRatingCell *>(cell);
+      [self initialRatingConfig];
+    }
+    break;
+  case Section::PriceCategory:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterPriceCategoryCell className] forIndexPath:indexPath];
+    if (!self.price)
+    {
+      self.price = static_cast<MWMFilterPriceCategoryCell *>(cell);
+      [self initialPriceCategoryConfig];
+    }
+    break;
+  case Section::Type:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterCollectionHolderCell className] forIndexPath:indexPath];
+    if (!self.type)
+    {
+      self.type = static_cast<MWMFilterCollectionHolderCell *>(cell);
+      [self initialTypeConfig];
+    }
+    break;
+  case Section::Count:
+    NSAssert(false, @"Incorrect section!");
+    break;
+  }
+  return cell;
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  switch (section)
+  switch (static_cast<Section>(section))
   {
-  case 0: return L(@"booking_filters_rating");
-  case 1: return L(@"booking_filters_price_category");
+  case Section::Rating: return L(@"booking_filters_rating");
+  case Section::PriceCategory: return L(@"booking_filters_price_category");
+  case Section::Type: return L(@"type");
   default: return nil;
   }
+}
+
+#pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  MWMFilterTypeCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMFilterTypeCell className]
+                                                                       forIndexPath:indexPath];
+  auto const type = kTypes[indexPath.row];
+  cell.tagName.text = @(ftypes::IsHotelChecker::GetHotelTypeTag(type));
+  cell.selected = find(m_selectedTypes.begin(), m_selectedTypes.end(), type) != m_selectedTypes.end();
+  return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+  return kTypes.size();
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const type = kTypes[indexPath.row];
+  m_selectedTypes.emplace_back(type);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const type = kTypes[indexPath.row];
+  m_selectedTypes.erase(remove(m_selectedTypes.begin(), m_selectedTypes.end(), type));
 }
 
 @end

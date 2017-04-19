@@ -146,15 +146,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)updateFilters
 {
-  shared_ptr<search::hotels_filter::Rule> hotelsRules;
-
-  if (self.filter)
-  {
-    hotelsRules = [self.filter rules];
-    if (!hotelsRules)
-      self.filter = nil;
-  }
-
+  shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
 }
@@ -293,7 +285,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 + (void)clearFilter
 {
   MWMSearch * manager = [MWMSearch manager];
-  manager.filter = nil;
+  [manager.filter reset];
   [manager update];
   [manager onSearchCompleted];
 }

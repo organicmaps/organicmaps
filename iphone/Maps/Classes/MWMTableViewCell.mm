@@ -46,6 +46,13 @@
     view.hidden = [[[view class] className] isEqualToString:@"_UITableViewCellSeparatorView"];
 }
 
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (self.isSeparatorHidden)
+    [self hideSeparators];
+}
+
 @end
 
 @implementation MWMTableViewSubtitleCell
