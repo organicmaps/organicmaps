@@ -1366,6 +1366,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = AdHoc;
 		};
@@ -1390,6 +1391,7 @@
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = "Production Full";
 		};
@@ -1413,6 +1415,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = "Simulator Release";
 		};
@@ -1436,6 +1439,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Simulator;
 		};
@@ -1459,6 +1463,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Debug;
 		};
@@ -1470,6 +1475,7 @@
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				MACH_O_TYPE = staticlib;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 			};
 			name = Release;
 		};
