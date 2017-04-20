@@ -223,15 +223,16 @@ IsHatchingTerritoryChecker const & IsHatchingTerritoryChecker::Instance()
 
 
 void CaptionDescription::Init(FeatureType const & f,
+                              int8_t deviceLang,
                               int const zoomLevel,
                               feature::EGeomType const type,
                               drule::text_type_t const mainTextType,
                               bool const auxCaptionExists)
 {
   if (auxCaptionExists || type == feature::GEOM_LINE)
-    f.GetPreferredNames(true /* allowTranslit */, m_mainText, m_auxText);
+    f.GetPreferredNames(true /* allowTranslit */, deviceLang, m_mainText, m_auxText);
   else
-    f.GetReadableName(true /* allowTranslit */, m_mainText);
+    f.GetReadableName(true /* allowTranslit */, deviceLang, m_mainText);
 
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
@@ -366,7 +367,7 @@ CaptionDescription & Stylist::GetCaptionDescriptionImpl()
   return m_captionDescriptor;
 }
 
-bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, Stylist & s)
+bool InitStylist(FeatureType const & f, int8_t deviceLang, int const zoomLevel, bool buildings3d, Stylist & s)
 {
   feature::TypesHolder const types(f);
 
@@ -409,7 +410,7 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
   aggregator.AggregateKeys(keys);
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
-  descr.Init(f, zoomLevel, mainGeomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
+  descr.Init(f, deviceLang, zoomLevel, mainGeomType, aggregator.m_mainTextType, aggregator.m_auxCaptionFound);
 
   aggregator.AggregateStyleFlags(keys, descr.IsNameExists());
 
