@@ -1449,15 +1449,18 @@ void Framework::InitSearchEngine()
 void Framework::InitTransliteration()
 {
 #if defined(OMIM_OS_ANDROID)
-  try
+  if (!GetPlatform().IsFileExistsByFullPath(GetPlatform().WritableDir() + kICUDataFile))
   {
-    ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
-                             std::string("assets/") + kICUDataFile,
-                             GetPlatform().WritableDir() + kICUDataFile);
-  }
-  catch (Reader::OpenException const & e)
-  {
-    LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.what()));
+    try
+    {
+      ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
+                               std::string("assets/") + kICUDataFile,
+                               GetPlatform().WritableDir() + kICUDataFile);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.Msg()));
+    }
   }
   Transliteration::Instance().Init(GetPlatform().WritableDir());
 #else
