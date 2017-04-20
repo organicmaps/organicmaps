@@ -36,11 +36,30 @@
     tools:text="Title"/>
 
   <TextView
+    android:id="@+id/tv__secondary_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/tv__title"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_alignLeft="@id/tv__title"
+    android:layout_alignStart="@id/tv__title"
+    android:ellipsize="end"
+    android:fontFamily="@string/robotoMedium"
+    android:maxLines="@integer/pp_title_lines"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:background="#C0800000"
+    tools:ignore="UnusedAttribute"
+    tools:text="Secondary Title"/>
+
+  <TextView
     android:id="@+id/tv__subtitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__title"
+    android:layout_below="@id/tv__secondary_title"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_toEndOf="@id/downloader_status_frame"
     android:layout_toLeftOf="@+id/direction_frame"
@@ -59,7 +78,7 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__title"
+    android:layout_below="@id/tv__secondary_title"
     android:background="?selectableItemBackground"
     android:gravity="center_vertical"
     android:minHeight="@dimen/direction_frame_min_height"

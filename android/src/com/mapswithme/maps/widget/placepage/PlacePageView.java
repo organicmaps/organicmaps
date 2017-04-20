@@ -125,6 +125,7 @@ public class PlacePageView extends RelativeLayout
   private ViewGroup mPreview;
   private Toolbar mToolbar;
   private TextView mTvTitle;
+  private TextView mTvSecondaryTitle;
   private TextView mTvSubtitle;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
@@ -302,6 +303,7 @@ public class PlacePageView extends RelativeLayout
 
     mPreview = (ViewGroup) findViewById(R.id.pp__preview);
     mTvTitle = (TextView) mPreview.findViewById(R.id.tv__title);
+    mTvSecondaryTitle = (TextView) mPreview.findViewById(R.id.tv__secondary_title);
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
     mTvSubtitle = (TextView) mPreview.findViewById(R.id.tv__subtitle);
 
@@ -1151,6 +1153,7 @@ public class PlacePageView extends RelativeLayout
   private void refreshPreview(@NonNull MapObject mapObject)
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mapObject.getTitle());
+    UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mapObject.getSecondaryTitle());
     if (mToolbar != null)
       mToolbar.setTitle(mapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mapObject.getSubtitle());

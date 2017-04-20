@@ -33,6 +33,8 @@ public class MapObject implements Parcelable
   private final int mMapObjectType;
 
   protected String mTitle;
+  @Nullable
+  private String mSecondaryTitle;
   private String mSubtitle;
   private double mLat;
   private double mLon;
@@ -45,20 +47,23 @@ public class MapObject implements Parcelable
   @Nullable
   private String mBookingSearchUrl;
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
-                   double lat, double lon, String apiId, @Nullable Banner[] banners,
-                   boolean reachableByTaxi, @Nullable String bookingSearchUrl)
+  public MapObject(@MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
+                   String subtitle, String address, double lat, double lon, String apiId,
+                   @Nullable Banner[] banners, boolean reachableByTaxi,
+                   @Nullable String bookingSearchUrl)
   {
-    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         reachableByTaxi, bookingSearchUrl);
+    this(mapObjectType, title, secondaryTitle, subtitle, address, lat, lon, new Metadata(),
+         apiId, banners, reachableByTaxi, bookingSearchUrl);
   }
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address,
-                   double lat, double lon, Metadata metadata, String apiId, @Nullable Banner[] banners,
-                   boolean reachableByTaxi, @Nullable String bookingSearchUrl)
+  public MapObject(@MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
+                   String subtitle, String address, double lat, double lon, Metadata metadata,
+                   String apiId, @Nullable Banner[] banners, boolean reachableByTaxi,
+                   @Nullable String bookingSearchUrl)
   {
     mMapObjectType = mapObjectType;
     mTitle = title;
+    mSecondaryTitle = secondaryTitle;
     mSubtitle = subtitle;
     mAddress = address;
     mLat = lat;
@@ -76,6 +81,7 @@ public class MapObject implements Parcelable
     //noinspection ResourceType
     this(source.readInt(),    // MapObjectType
          source.readString(), // Title
+         source.readString(), // SecondaryTitle
          source.readString(), // Subtitle
          source.readString(), // Address
          source.readDouble(), // Lat
@@ -131,6 +137,9 @@ public class MapObject implements Parcelable
   public double getScale() { return 0; }
 
   public String getTitle() { return mTitle; }
+
+  @Nullable
+  public String getSecondaryTitle() { return mSecondaryTitle; }
 
   public String getSubtitle() { return mSubtitle; }
 
@@ -237,6 +246,7 @@ public class MapObject implements Parcelable
     dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
     dest.writeString(mTitle);
+    dest.writeString(mSecondaryTitle);
     dest.writeString(mSubtitle);
     dest.writeString(mAddress);
     dest.writeDouble(mLat);

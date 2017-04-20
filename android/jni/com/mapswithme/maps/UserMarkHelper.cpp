@@ -36,26 +36,29 @@ jobject CreateBanner(JNIEnv * env, string const & id, jint type)
 }
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
-                        string const & subtitle, double lat, double lon, string const & address,
-                        Metadata const & metadata, string const & apiId, jobjectArray jbanners,
-                        bool isReachableByTaxi, string const & bookingSearchUrl)
+                        string const & secondaryTitle, string const & subtitle, double lat,
+                        double lon, string const & address, Metadata const & metadata,
+                        string const & apiId, jobjectArray jbanners, bool isReachableByTaxi,
+                        string const & bookingSearchUrl)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat,
   // double lon, String address, String apiId, @NonNull Banner banner, boolean reachableByTaxi,
   // @Nullable String bookingSearchUrl)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
-                            "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
+                            "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;[Lcom/mapswithme/maps/ads/Banner;ZLjava/lang/String;)V");
 
   jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, title));
+  jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, secondaryTitle));
   jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, subtitle));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, address));
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
   jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
   jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId, mapObjectType, jTitle.get(),
-                                     jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
-                                     jbanners, isReachableByTaxi, jBookingSearchUrl.get());
+                                     jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat,
+                                     lon, jApiId.get(), jbanners, isReachableByTaxi,
+                                     jBookingSearchUrl.get());
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -73,8 +76,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
-                              "(IILjava/lang/String;Ljava/lang/String;[Lcom/mapswithme/maps/ads/"
-                              "Banner;ZLjava/lang/String;)V");
+                              "(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+                              "[Lcom/mapswithme/maps/ads/Banner;ZLjava/lang/String;)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
@@ -83,11 +86,12 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
+    jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
     jobject mapObject =
         env->NewObject(g_bookmarkClazz, ctorId, static_cast<jint>(info.m_bac.m_categoryIndex),
                        static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
-                       jbanners, info.IsReachableByTaxi(), jBookingSearchUrl.get());
+                       jSecondaryTitle.get(), jbanners, info.IsReachableByTaxi(), jBookingSearchUrl.get());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
@@ -100,17 +104,17 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), {}, "", jbanners, info.IsReachableByTaxi(),
-                           info.GetBookingSearchUrl());
+    return CreateMapObject(env, kMyPosition, info.GetTitle(), info.GetSecondaryTitle(),
+                           info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), {}, "",
+                           jbanners, info.IsReachableByTaxi(), info.GetBookingSearchUrl());
 
   if (info.HasApiUrl())
-    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners,
-                           info.IsReachableByTaxi(), info.GetBookingSearchUrl());
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(),
+                           ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata(),
+                           info.GetApiUrl(), jbanners, info.IsReachableByTaxi(), info.GetBookingSearchUrl());
 
-  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                         address.FormatAddress(),
+  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(),
+                         ll.lat, ll.lon, address.FormatAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners,
                          info.IsReachableByTaxi(), info.GetBookingSearchUrl());
 }
