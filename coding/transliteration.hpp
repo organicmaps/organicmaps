@@ -4,11 +4,6 @@
 #include <memory>
 #include <string>
 
-namespace icu
-{
-class Transliterator;
-}
-
 class Transliteration
 {
 public:
@@ -23,5 +18,6 @@ public:
 private:
   Transliteration() = default;
 
-  std::map<std::string, std::unique_ptr<icu::Transliterator>> m_transliterators;
+  struct TransliteratorInfo;
+  std::map<std::string, std::unique_ptr<TransliteratorInfo>> m_transliterators;
 };
