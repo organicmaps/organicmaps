@@ -28,9 +28,10 @@
   self.associatedView = static_cast<MPNativeView *>(view);
   static_cast<MWMAdBanner *>(view).mpNativeAd = self;
   if (!self.hasAttachedToView) {
-    if ([self.adAdapter isKindOfClass:[FacebookNativeAdAdapter class]])
+    auto adapter = self.adAdapter;
+    if ([adapter isKindOfClass:[FacebookNativeAdAdapter class]])
     {
-      auto fbAdapter = static_cast<FacebookNativeAdAdapter *>(self.adAdapter);
+      auto fbAdapter = static_cast<FacebookNativeAdAdapter *>(adapter);
       [fbAdapter.fbNativeAd registerViewForInteraction:self.associatedView
                                     withViewController:[self viewControllerForPresentingModalView]
                                     withClickableViews:buttons];
@@ -46,6 +47,20 @@
       }
     }
     self.hasAttachedToView = YES;
+  }
+}
+
+- (void)unregister
+{
+  auto adapter = self.adAdapter;
+  self.delegate = nil;
+  [self nativeViewWillMoveToSuperview:nil];
+  self.associatedView = nil;
+  self.hasAttachedToView = NO;
+  if ([adapter isKindOfClass:[FacebookNativeAdAdapter class]])
+  {
+    auto fbAdapter = static_cast<FacebookNativeAdAdapter *>(adapter);
+    [fbAdapter.fbNativeAd unregisterView];
   }
 }
 

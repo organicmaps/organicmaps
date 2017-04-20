@@ -5,6 +5,7 @@ protocol Banner: MWMBanner {
   typealias Failure = (BannerType, EventName, ErrorDetails, NSError) -> Void
   typealias Click = (Banner) -> Void
   func reload(success: @escaping Success, failure: @escaping Failure, click: @escaping Click)
+  func unregister()
 
   var isBannerOnScreen: Bool { get set }
   var isNeedToRetain: Bool { get }
