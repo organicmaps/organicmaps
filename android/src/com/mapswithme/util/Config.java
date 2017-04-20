@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -312,6 +313,7 @@ public final class Config
     setBool(KEY_MISC_FIRST_START_DIALOG_SEEN);
   }
 
+  @NonNull
   public static String getCurrentUiTheme()
   {
     String res = getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
@@ -321,15 +323,15 @@ public final class Config
     return ThemeUtils.THEME_DEFAULT;
   }
 
-  public static void setCurrentUiTheme(String theme)
+  static void setCurrentUiTheme(@NonNull String theme)
   {
     if (getCurrentUiTheme().equals(theme))
       return;
 
     setString(KEY_MISC_UI_THEME, theme);
-    ThemeSwitcher.changeMapStyle(theme);
   }
 
+  @NonNull
   public static String getUiThemeSettings()
   {
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_AUTO);

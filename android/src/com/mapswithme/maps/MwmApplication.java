@@ -188,7 +188,7 @@ public class MwmApplication extends Application
     initNativeStrings();
     BookmarkManager.nativeLoadBookmarks();
     TtsPlayer.INSTANCE.init(this);
-    ThemeSwitcher.restart();
+    ThemeSwitcher.restart(false);
     LocationHelper.INSTANCE.initialize();
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();

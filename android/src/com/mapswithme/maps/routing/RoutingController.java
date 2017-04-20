@@ -29,7 +29,6 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -73,6 +72,7 @@ public class RoutingController
     void onUberInfoReceived(@NonNull UberInfo info);
     void onUberError(@NonNull Uber.ErrorCode code);
     void onNavigationCancelled();
+    void onNavigationStarted();
 
     /**
      * @param progress progress to be displayed.
@@ -410,10 +410,12 @@ public class RoutingController
     AlohaHelper.logClick(AlohaHelper.ROUTING_START);
     setState(State.NAVIGATION);
 
-    mContainer.showRoutePlan(false, null);
-    mContainer.showNavigation(true);
-
-    ThemeSwitcher.restart();
+    if (mContainer != null)
+    {
+      mContainer.showRoutePlan(false, null);
+      mContainer.showNavigation(true);
+      mContainer.onNavigationStarted();
+    }
 
     Framework.nativeFollowRoute();
     LocationHelper.INSTANCE.restart();
@@ -477,7 +479,6 @@ public class RoutingController
     setBuildState(BuildState.NONE);
     setState(State.NONE);
 
-    ThemeSwitcher.restart();
     Framework.nativeCloseRouting();
   }
 
@@ -535,6 +536,11 @@ public class RoutingController
   public boolean isNavigating()
   {
     return mState == State.NAVIGATION;
+  }
+
+  public boolean isVehicleNavigation()
+  {
+    return isNavigating() && isVehicleRouterType();
   }
 
   public boolean isBuilding()

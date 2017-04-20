@@ -1060,6 +1060,12 @@ Java_com_mapswithme_maps_Framework_nativeSetMapStyle(JNIEnv * env, jclass, jint 
     g_framework->SetMapStyle(val);
 }
 
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetMapStyle(JNIEnv * env, jclass, jint mapStyle)
+{
+  return g_framework->GetMapStyle();
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass, jint mapStyle)
 {
