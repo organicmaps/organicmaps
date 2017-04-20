@@ -45,7 +45,14 @@ final class AdBanner: UITableViewCell {
 
   var state = AdBannerState.unset {
     didSet {
-      guard state != .unset else { return }
+      guard state != .unset else {
+        adPrivacyButton.isHidden = true
+        adCallToActionButtonCustom.isHidden = true
+        mpNativeAd = nil
+        nativeAd = nil
+        return
+      }
+      guard state != oldValue else { return }
       let config = state.config()
       adTitleLabel.numberOfLines = config.numberOfTitleLines
       adBodyLabel.numberOfLines = config.numberOfBodyLines
@@ -65,7 +72,11 @@ final class AdBanner: UITableViewCell {
     adIconImageView.af_cancelImageRequest()
   }
 
-  private var nativeAd: MWMBanner?
+  private var nativeAd: Banner? {
+    willSet {
+      nativeAd?.unregister()
+    }
+  }
 
   @IBAction
   private func privacyAction() {
@@ -76,8 +87,6 @@ final class AdBanner: UITableViewCell {
 
   func reset() {
     state = .unset
-    adPrivacyButton.isHidden = true
-    adCallToActionButtonCustom.isHidden = true
   }
 
   func config(ad: MWMBanner, containerType: AdBannerContainerType) {
@@ -89,7 +98,7 @@ final class AdBanner: UITableViewCell {
       state = .search
     }
 
-    nativeAd = ad
+    nativeAd = ad as? Banner
     switch ad.mwmType {
     case .none:
       assert(false)
@@ -125,7 +134,6 @@ final class AdBanner: UITableViewCell {
   }
 
   private func configFBBanner(ad: FBNativeAd) {
-    ad.unregisterView()
     let adCallToActionButtons: [UIView]
     if (state == .search) {
       adCallToActionButtons = [self]
@@ -154,8 +162,6 @@ final class AdBanner: UITableViewCell {
   }
 
   private func configRBBanner(ad: MTRGNativeAd) {
-    ad.unregisterView()
-
     guard let banner = ad.banner else { return }
 
     ad.loadIcon(to: adIconImageView)

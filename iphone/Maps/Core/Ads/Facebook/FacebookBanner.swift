@@ -15,6 +15,10 @@ final class FacebookBanner: FBNativeAd, Banner {
     requestDate = Date()
   }
 
+  func unregister() {
+    unregisterView()
+  }
+
   var isPossibleToReload: Bool {
     if let date = requestDate {
       return Date().timeIntervalSince(date) > Limits.minTimeSinceLastRequest

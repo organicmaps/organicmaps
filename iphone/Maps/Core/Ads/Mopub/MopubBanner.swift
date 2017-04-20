@@ -22,6 +22,10 @@ final class MopubBanner: NSObject, Banner {
     requestDate = Date()
   }
 
+  func unregister() {
+    nativeAd?.unregister()
+  }
+
   var isBannerOnScreen = false {
     didSet {
       if isBannerOnScreen {

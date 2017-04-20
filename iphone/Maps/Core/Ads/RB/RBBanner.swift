@@ -86,6 +86,10 @@ final class RBBanner: MTRGNativeAd, Banner {
     requestDate = Date()
   }
 
+  func unregister() {
+    unregisterView()
+  }
+
   var isBannerOnScreen = false {
     didSet {
       if isBannerOnScreen {
