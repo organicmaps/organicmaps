@@ -32,6 +32,13 @@ enum class SponsoredType
   Geochat
 };
 
+enum class LocalAdsStatus
+{
+  NotAvailable,
+  Candidate,
+  Customer
+};
+
 class Info : public osm::MapObject
 {
 public:
@@ -100,6 +107,10 @@ public:
 
   string const & GetBookingSearchUrl() const;
 
+  LocalAdsStatus GetLocalAdsStatus() const;
+
+  string const & GetLocalAdsUrl() const;
+
   /// Comes from API, shared links etc.
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
@@ -148,5 +159,8 @@ public:
   string m_bookingSearchUrl;
   /// Ads source.
   ads::Engine * m_adsEngine = nullptr;
+
+  LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
+  string m_localAdsUrl;
 };
 }  // namespace place_page

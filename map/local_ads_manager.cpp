@@ -8,6 +8,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/feature_data.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/http_client.hpp"
@@ -173,6 +174,8 @@ void LocalAdsManager::Startup()
       return;
     m_isRunning = true;
   }
+  FillSupportedTypes();
+
   m_thread = threads::SimpleThread(&LocalAdsManager::ThreadRoutine, this);
 
   m_statistics.Startup();
@@ -448,4 +451,19 @@ bool LocalAdsManager::Contains(FeatureID const & featureId) const
 {
   std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
   return m_featuresCache.find(featureId) != m_featuresCache.cend();
+}
+
+bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
+{
+  return m_supportedTypes.Contains(types);
+}
+
+std::string const & LocalAdsManager::GetStartCompanyUrl() const
+{
+  return LOCAL_ADS_START_COMPANY_PAGE_HOST;
+}
+
+std::string const & LocalAdsManager::GetShowStatisticUrl() const
+{
+  return LOCAL_ADS_STATISTICS_PAGE_HOST;
 }

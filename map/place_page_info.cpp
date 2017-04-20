@@ -215,4 +215,6 @@ bool Info::IsReachableByTaxi() const
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
 vector<string> Info::GetRawTypes() const { return m_types.ToObjectNames(); }
 string const & Info::GetBookingSearchUrl() const { return m_bookingSearchUrl; }
+LocalAdsStatus Info::GetLocalAdsStatus() const { return m_localAdsStatus; }
+string const & Info::GetLocalAdsUrl() const { return m_localAdsUrl; }
 }  // namespace place_page

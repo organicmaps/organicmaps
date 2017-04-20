@@ -1,14 +1,15 @@
 #pragma once
 
+#include "indexer/ftypes_mapping.hpp"
+
 #include "storage/index.hpp"
 
 #include "base/macros.hpp"
 
 #include <cstdint>
+#include <initializer_list>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
-#include <vector>
 
 namespace feature
 {
@@ -46,13 +47,14 @@ public:
   std::string GetSearchBannerId() const override;
 
 protected:
-  void AppendEntry(std::vector<std::vector<std::string>> const & types, std::string const & id);
-  void AppendExcludedTypes(std::vector<std::vector<std::string>> const & types);
-  void AppendSupportedCountries(std::vector<storage::TCountryId> const & countries);
+  void AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
+                   std::string const & id);
+  void AppendExcludedTypes(std::initializer_list<std::initializer_list<char const *>> && types);
+  void AppendSupportedCountries(std::initializer_list<storage::TCountryId> const & countries);
 
 private:
-  std::unordered_map<uint32_t, std::string> m_typesToBanners;
-  std::unordered_set<uint32_t> m_excludedTypes;
+  ftypes::HashMapMatcher<uint32_t, std::string> m_typesToBanners;
+  ftypes::HashSetMatcher<uint32_t> m_excludedTypes;
   // All countries are supported when empty.
   std::unordered_set<storage::TCountryId> m_supportedCountries;
 
