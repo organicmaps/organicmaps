@@ -49,6 +49,7 @@ HEADERS += \
     deferred_task.hpp \
     dfa_helpers.hpp \
     exception.hpp \
+    get_time.hpp \
     gmtime.hpp \
     internal/message.hpp \
     levenshtein_dfa.hpp \

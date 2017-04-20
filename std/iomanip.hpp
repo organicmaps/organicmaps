@@ -1,5 +1,7 @@
 #pragma once
 
+#include "std/target_os.hpp"
+
 #ifdef new
 #undef new
 #endif
@@ -11,8 +13,6 @@ using std::left;
 using std::setfill;
 using std::setprecision;
 using std::setw;
-using std::get_time;
-using std::put_time;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

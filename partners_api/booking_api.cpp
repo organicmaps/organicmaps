@@ -5,6 +5,7 @@
 
 #include "coding/url_encode.hpp"
 
+#include "base/get_time.hpp"
 #include "base/gmtime.hpp"
 #include "base/logging.hpp"
 #include "base/thread.hpp"
@@ -154,7 +155,7 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
     FromJSONObject(item, "date", date);
     istringstream ss(date);
     tm t = {};
-    ss >> get_time(&t, "%Y-%m-%d %H:%M:%S");
+    ss >> base::get_time(&t, "%Y-%m-%d %H:%M:%S");
     if (ss.fail())
     {
       LOG(LWARNING, ("Incorrect review date =", date));

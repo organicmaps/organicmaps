@@ -19,6 +19,7 @@ set(
   dfa_helpers.hpp
   exception.cpp
   exception.hpp
+  get_time.hpp
   gmtime.cpp
   gmtime.hpp
   levenshtein_dfa.cpp
