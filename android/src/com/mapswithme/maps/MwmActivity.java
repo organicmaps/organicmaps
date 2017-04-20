@@ -90,6 +90,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -960,7 +961,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mTasks.add(mapTask);
       intent.removeExtra(EXTRA_TASK);
 
-      if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
+      if (isMapRendererActive())
         runTasks();
 
       // mark intent as consumed
@@ -968,10 +969,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private boolean isMapRendererActive()
+  {
+    return mMapFragment != null && MapFragment.nativeIsEngineCreated()
+           && mMapFragment.isContextCreated();
+  }
+
   private void addTask(MapTask task)
   {
     mTasks.add(task);
-    if (MapFragment.nativeIsEngineCreated() && mMapFragment.isContextCreated())
+    if (isMapRendererActive())
       runTasks();
   }
 
@@ -1740,6 +1747,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavigationController != null)
       mNavigationController.stop(this);
     updateSearchBar();
+    ThemeSwitcher.restart(isMapRendererActive());
+  }
+
+  @Override
+  public void onNavigationStarted()
+  {
+    ThemeSwitcher.restart(isMapRendererActive());
   }
 
   private void updateSearchBar()

@@ -24,6 +24,11 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class Framework
 {
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({MAP_STYLE_CLEAR, MAP_STYLE_DARK, MAP_STYLE_VEHICLE_CLEAR, MAP_STYLE_VEHICLE_DARK})
+
+  public @interface MapStyle {}
+
   public static final int MAP_STYLE_CLEAR = 0;
   public static final int MAP_STYLE_DARK = 1;
   public static final int MAP_STYLE_VEHICLE_CLEAR = 3;
@@ -199,6 +204,9 @@ public class Framework
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
   public static native void nativeSetMapStyle(int mapStyle);
+
+  @MapStyle
+  public static native int nativeGetMapStyle();
 
   /**
    * This method allows to set new map style without immediate applying. It can be used before

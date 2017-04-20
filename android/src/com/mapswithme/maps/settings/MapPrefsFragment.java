@@ -118,7 +118,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
         if (!Config.setUiThemeSettings(themeName))
           return true;
 
-        ThemeSwitcher.restart();
+        ThemeSwitcher.restart(false);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
                                        Statistics.params().add(Statistics.EventParam.NAME, themeName));
 
