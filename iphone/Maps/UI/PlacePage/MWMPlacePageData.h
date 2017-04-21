@@ -82,6 +82,8 @@ enum class ButtonsRows
   BookingShowMoreFacilities,
   BookingShowMoreOnSite,
   BookingShowMoreReviews,
+  LocalAdsCandidate,
+  LocalAdsCustomer
 };
 
 enum class OpeningHours
@@ -151,6 +153,9 @@ using BannerIsReady = void (^)();
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
 - (BookmarkAndCategory)bac;
+
+// Local Ads
+- (NSString *)localAdsURL;
 
 // Table view's data
 - (vector<place_page::Sections> const &)sections;

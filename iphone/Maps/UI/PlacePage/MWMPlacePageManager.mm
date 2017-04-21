@@ -427,6 +427,16 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.ownerViewController openHotelFacilities];
 }
 
+- (void)openLocalAdsURL
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  auto url = [NSURL URLWithString:data.localAdsURL];
+  if (url)
+    [self.ownerViewController openUrl:url];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

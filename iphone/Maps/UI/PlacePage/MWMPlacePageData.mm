@@ -174,6 +174,17 @@ using namespace place_page;
 
   if (m_info.ShouldShowAddBusiness())
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
+
+  switch (m_info.GetLocalAdsStatus())
+  {
+  case place_page::LocalAdsStatus::NotAvailable: break;
+  case place_page::LocalAdsStatus::Candidate:
+    m_buttonsRows.push_back(ButtonsRows::LocalAdsCandidate);
+    break;
+  case place_page::LocalAdsStatus::Customer:
+    m_buttonsRows.push_back(ButtonsRows::LocalAdsCustomer);
+    break;
+  }
 }
 
 - (void)fillOnlineBookingSections
@@ -480,6 +491,8 @@ using namespace place_page;
   return m_info.IsBookmark() ? m_info.m_bac : BookmarkAndCategory();
 }
 
+#pragma mark - Local Ads
+- (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
 #pragma mark - Getters
 
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }

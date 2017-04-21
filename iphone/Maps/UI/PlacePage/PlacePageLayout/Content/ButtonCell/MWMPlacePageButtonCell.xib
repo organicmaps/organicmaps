@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,10 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmU-dJ-aRH">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmU-dJ-aRH" customClass="MWMBorderedButton">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="999" constant="44" id="gfO-mi-8yS"/>
@@ -41,15 +41,17 @@
                     <constraint firstAttribute="bottom" secondItem="jmU-dJ-aRH" secondAttribute="bottom" id="sc3-KG-vSR"/>
                     <constraint firstItem="jmU-dJ-aRH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yES-81-JAM"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="buttonBottom" destination="sc3-KG-vSR" id="jFy-8o-BFc"/>
+                <outlet property="buttonHeight" destination="gfO-mi-8yS" id="DSe-Nx-JNh"/>
+                <outlet property="buttonLeading" destination="yES-81-JAM" id="0fE-sF-ByK"/>
+                <outlet property="buttonTop" destination="NxH-y9-BLI" id="IrC-52-6q5"/>
+                <outlet property="buttonTrailing" destination="bcE-yn-K3v" id="sC9-CJ-8Zz"/>
                 <outlet property="titleButton" destination="jmU-dJ-aRH" id="IXC-pf-YHH"/>
             </connections>
         </tableViewCell>
