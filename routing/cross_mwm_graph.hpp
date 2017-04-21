@@ -15,6 +15,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace routing
@@ -23,6 +24,13 @@ namespace routing
 class CrossMwmGraph final
 {
 public:
+  enum class MwmStatus
+  {
+    NotLoaded,
+    CrossMwmSectionExists,
+    NoCrossMwmSection,
+  };
+
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactory> vehicleModelFactory,
                 CourntryRectFn const & countryRectFn, Index & index,
@@ -82,13 +90,6 @@ public:
   void Clear();
 
 private:
-  enum class MwmStatus
-  {
-    NotLoaded,
-    CrossMwmSectionExists,
-    NoCrossMwmSection,
-  };
-
   struct ClosestSegment
   {
     ClosestSegment();
@@ -144,4 +145,6 @@ private:
   CrossMwmIndexGraph m_crossMwmIndexGraph;
   CrossMwmOsrmGraph m_crossMwmOsrmGraph;
 };
+
+string DebugPrint(CrossMwmGraph::MwmStatus status);
 }  // routing
