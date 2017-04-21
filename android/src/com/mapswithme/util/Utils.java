@@ -204,7 +204,11 @@ public class Utils
 
   public static void openUrl(@NonNull Context activity, @NonNull String url)
   {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (!url.startsWith("http://") && !url.startsWith("https://"))
+      url = "http://" + url;
+    intent.setData(Uri.parse(url));
+    activity.startActivity(intent);
   }
 
   public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)

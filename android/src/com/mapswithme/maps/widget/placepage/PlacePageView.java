@@ -2,12 +2,10 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -46,6 +44,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.Factory;
+import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -157,6 +156,8 @@ public class PlacePageView extends RelativeLayout
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
+  private View mLocalAd;
+  private TextView mTvLocalAd;
   // Bookmark
   private View mBookmarkFrame;
   private WebView mWvBookmarkNote;
@@ -354,6 +355,9 @@ public class PlacePageView extends RelativeLayout
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = mDetails.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
+    mLocalAd = mDetails.findViewById(R.id.ll__local_ad);
+    mLocalAd.setOnClickListener(this);
+    mTvLocalAd = (TextView) mLocalAd.findViewById(R.id.tv__local_ad);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -508,10 +512,10 @@ public class PlacePageView extends RelativeLayout
           break;
 
         case BOOKING_SEARCH:
-          if (mMapObject != null)
+          if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
           {
             Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
-            followUrl(mMapObject.getBookingSearchUrl());
+            Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
           }
           break;
 
@@ -843,7 +847,7 @@ public class PlacePageView extends RelativeLayout
 
             try
             {
-              followUrl(book ? info.getUrl() : info.getDescriptionUrl());
+              Utils.openUrl(getContext(), book ? info.getUrl() : info.getDescriptionUrl());
             }
             catch (ActivityNotFoundException e)
             {
@@ -1226,13 +1230,30 @@ public class PlacePageView extends RelativeLayout
 
     if (inRouting || MapManager.nativeIsLegacyMode())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd);
     }
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      refreshLocalAdInfo(mapObject);
+    }
+  }
+
+  private void refreshLocalAdInfo(@NonNull MapObject mapObject)
+  {
+    LocalAdInfo localAdInfo = mapObject.getLocalAdInfo();
+    boolean isLocalAdAvailable = localAdInfo != null && localAdInfo.isAvailable();
+    if (isLocalAdAvailable && !TextUtils.isEmpty(localAdInfo.getUrl()))
+    {
+      mTvLocalAd.setText(localAdInfo.isCustomer() ? R.string.view_campaign_button
+                                                  : R.string.create_campaign_button);
+      UiUtils.show(mLocalAd);
+    }
+    else
+    {
+      UiUtils.hide(mLocalAd);
     }
   }
 
@@ -1505,6 +1526,17 @@ public class PlacePageView extends RelativeLayout
       case R.id.ll__place_add:
         addPlace();
         break;
+      case R.id.ll__local_ad:
+        if (mMapObject != null)
+        {
+          LocalAdInfo localAdInfo = mMapObject.getLocalAdInfo();
+          if (localAdInfo == null)
+            throw new AssertionError("A local ad must be non-null if button is shown!");
+
+          if (!TextUtils.isEmpty(localAdInfo.getUrl()))
+            Utils.openUrl(getContext(), localAdInfo.getUrl());
+        }
+        break;
       case R.id.ll__more:
         onSponsoredClick(false /* book */, true /* isMoreDetails */);
         break;
@@ -1525,7 +1557,7 @@ public class PlacePageView extends RelativeLayout
         Utils.callPhone(getContext(), mTvPhone.getText().toString());
         break;
       case R.id.ll__place_website:
-        followUrl(mTvWebsite.getText().toString());
+        Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
       case R.id.ll__place_wiki:
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
@@ -1534,7 +1566,7 @@ public class PlacePageView extends RelativeLayout
           LOGGER.e(TAG, "Cannot follow url, mMapObject is null!", new Throwable());
           break;
         }
-        followUrl(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
+        Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
       case R.id.direction_frame:
         Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
@@ -1572,7 +1604,7 @@ public class PlacePageView extends RelativeLayout
         {
           //null checking is done in 'isSponsored' method
           //noinspection ConstantConditions
-          followUrl(mSponsored.getReviewUrl());
+          Utils.openUrl(getContext(), mSponsored.getReviewUrl());
           if (mMapObject != null)
             Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_REVIEWS_LAND, mSponsored, mMapObject);
         }
@@ -1584,15 +1616,6 @@ public class PlacePageView extends RelativeLayout
         Framework.nativeDeactivatePopup();
         break;
     }
-  }
-
-  private void followUrl(String url)
-  {
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (!url.startsWith("http://") && !url.startsWith("https://"))
-      url = "http://" + url;
-    intent.setData(Uri.parse(url));
-    getContext().startActivity(intent);
   }
 
   private void toggleIsBookmark(@NonNull MapObject mapObject)
