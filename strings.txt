@@ -23362,10 +23362,6 @@
   [view_campaign_button]
     en = View ad campagain
 
-  [on]
-    en = On
-    ru = Вкл.
-
-  [off]
-    en = Off
-    ru = Выкл.
+  [booking_filters_type]
+    en = Type
+    ru = Тип

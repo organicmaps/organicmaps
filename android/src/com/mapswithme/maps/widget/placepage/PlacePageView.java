@@ -605,7 +605,7 @@ public class PlacePageView extends RelativeLayout
     mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
                                                              LinearLayoutManager.HORIZONTAL, false));
     mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
-                                                                                          R.drawable.divider_transparent)));
+                                                                                          R.drawable.divider_transparent_quarter)));
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
   }

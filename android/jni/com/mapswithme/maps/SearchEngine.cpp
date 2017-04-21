@@ -34,7 +34,8 @@ public:
   {
     TYPE_AND = 0,
     TYPE_OR = 1,
-    TYPE_OP = 2
+    TYPE_OP = 2,
+    TYPE_ONE_OF = 3
   };
 
   // *NOTE* keep this in sync with Java counterpart.
@@ -83,6 +84,17 @@ public:
     }
 
     {
+      auto const oneOfClass = env->FindClass("com/mapswithme/maps/search/HotelsFilter$OneOf");
+      auto const hotelTypeClass =
+          env->FindClass("com/mapswithme/maps/search/HotelsFilter$HotelType");
+      m_hotelType = env->GetFieldID(oneOfClass, "mType",
+                                    "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;");
+      m_typeRhs =
+          env->GetFieldID(oneOfClass, "mRhs", "Lcom/mapswithme/maps/search/HotelsFilter$OneOf;");
+      m_hotelId = env->GetFieldID(hotelTypeClass, "mType", "I");
+    }
+
+    {
       auto const ratingFilterClass =
           env->FindClass("com/mapswithme/maps/search/HotelsFilter$RatingFilter");
       m_rating = env->GetFieldID(ratingFilterClass, "mValue", "F");
@@ -112,6 +124,7 @@ public:
     case TYPE_AND: return BuildAnd(env, filter);
     case TYPE_OR: return BuildOr(env, filter);
     case TYPE_OP: return BuildOp(env, filter);
+    case TYPE_ONE_OF: return BuildOneOf(env, filter);
     }
 
     LOG(LERROR, ("Unknown type:", type));
@@ -146,6 +159,28 @@ private:
 
     LOG(LERROR, ("Unknown field:", field));
     return {};
+  }
+
+  Rule BuildOneOf(JNIEnv * env, jobject filter)
+  {
+    auto const hotelType = env->GetObjectField(filter, m_hotelType);
+    auto type = static_cast<unsigned>(env->GetIntField(hotelType, m_hotelId));
+    auto const rhs = env->GetObjectField(filter, m_typeRhs);
+    unsigned value = 1U << type;
+    return BuildOneOf(env, rhs, value);
+  }
+
+  Rule BuildOneOf(JNIEnv * env, jobject filter, unsigned value)
+  {
+    if (filter == NULL)
+      return search::hotels_filter::OneOf(value);
+
+    auto const hotelType = env->GetObjectField(filter, m_hotelType);
+    auto type = static_cast<unsigned>(env->GetIntField(hotelType, m_hotelId));
+    auto const rhs = env->GetObjectField(filter, m_typeRhs);
+    value = value | (1U << type);
+
+    return BuildOneOf(env, rhs, value);
   }
 
   Rule BuildRatingOp(JNIEnv * env, int op, jobject filter)
@@ -196,6 +231,10 @@ private:
 
   jfieldID m_field;
   jfieldID m_op;
+
+  jfieldID m_hotelType;
+  jfieldID m_hotelId;
+  jfieldID m_typeRhs;
 
   jfieldID m_rating;
   jfieldID m_priceRate;
@@ -457,6 +496,26 @@ extern "C"
     GetPlatform().RunOnGuiThread([]()
     {
       g_framework->NativeFramework()->CancelSearch(search::Mode::Viewport);
+    });
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeGetHotelTypes(JNIEnv * env, jclass clazz)
+  {
+    using Type = ftypes::IsHotelChecker::Type;
+    static const jclass hotelTypeClass =
+        env->FindClass("com/mapswithme/maps/search/HotelsFilter$HotelType");
+    static jmethodID const hotelTypeCtorId =
+        jni::GetConstructorID(env, hotelTypeClass, "(ILjava/lang/String;)V");
+
+    vector<Type> types;
+    for (size_t i = 0; i < static_cast<size_t>(Type::Count); i++)
+      types.push_back(static_cast<Type>(i));
+
+    return jni::ToJavaArray(env, hotelTypeClass, types, [](JNIEnv * env, Type const & item) {
+      auto const tag = ftypes::IsHotelChecker::GetHotelTypeTag(item);
+      return env->NewObject(hotelTypeClass, hotelTypeCtorId, static_cast<jint>(item),
+                            jni::ToJavaString(env, tag));
     });
   }
 } // extern "C"

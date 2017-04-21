@@ -302,15 +302,6 @@
 	<string name="length">Length</string>
 	<string name="share_my_location">Share My Location</string>
 	<string name="menu_search">Search</string>
-	<!-- Settings general group in settings screen -->
-	<string name="prefs_group_general">General settings</string>
-	<!-- Settings information group in settings screen -->
-	<string name="prefs_group_information">Information</string>
-	<!-- Settings languages information in voice instructions screen -->
-	<string name="prefs_languages_information">Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).</string>
-	<!-- Settings languages off information in voice instructions screen -->
-	<string name="prefs_languages_information_off">For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device\&#39;s settings –&gt; Language and input –&gt; Speech –&gt; Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
-	<string name="prefs_languages_information_off_link">For more information please check the guide.</string>
 	<!-- Settings screen: "Map" category title -->
 	<string name="prefs_group_map">Map</string>
 	<!-- Settings screen: "Miscellaneous" category title -->
@@ -1116,6 +1107,5 @@
 	<string name="search_hotel_filter_motel">Motel</string>
 	<string name="create_campaign_button">Create ad campaign</string>
 	<string name="view_campaign_button">View ad campaign</string>
-	<string name="on">On</string>
-	<string name="off">Off</string>
+	<string name="booking_filters_type">Type</string>
 </resources>

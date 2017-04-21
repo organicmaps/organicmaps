@@ -60,7 +60,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/header"/>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
       android:id="@+id/scroll"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -110,8 +110,26 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
         <include layout="@layout/divider_horizontal"/>
+
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:textColor="?colorAccent"
+          android:fontFamily="@string/robotoMedium"
+          android:text="@string/booking_filters_type"
+          tools:targetApi="jelly_bean"/>
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/type"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:listitem="@layout/item_tag"/>
       </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
     <RelativeLayout
       android:id="@+id/buttons_frame"
       android:layout_width="match_parent"
