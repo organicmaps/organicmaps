@@ -145,7 +145,9 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   vector<NumMwmId> neighbors;
   bool allNeighborsHaveCrossMwmSection = false;
   GetAllLoadedNeighbors(s.GetMwmId(), neighbors, allNeighborsHaveCrossMwmSection);
-  if (allNeighborsHaveCrossMwmSection)
+  MwmStatus const currentMwmStatus = GetMwmStatus(s.GetMwmId());
+  CHECK(currentMwmStatus != MwmStatus::NotLoaded, ("Current mwm is not loaded. Mwm:", m_numMwmIds->GetFile(s.GetMwmId())));
+  if (allNeighborsHaveCrossMwmSection && currentMwmStatus == MwmStatus::CrossMwmSectionExists)
   {
     DeserializeTransitions(neighbors);
     m_crossMwmIndexGraph.GetTwinsByOsmId(s, isOutgoing, neighbors, twins);
