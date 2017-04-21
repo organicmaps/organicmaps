@@ -1,4 +1,5 @@
 #import "MWMTableViewCell.h"
+#import "UIKitCategories.h"
 
 @implementation MWMTableViewCell
 
@@ -23,6 +24,26 @@
   self.detailTextLabel.textColor = [UIColor blackSecondaryText];
   self.selectedBackgroundView = [[UIView alloc] init];
   self.selectedBackgroundView.backgroundColor = [UIColor pressBackground];
+}
+
+- (void)addSubview:(UIView *)view
+{
+  [super addSubview:view];
+  if (self.isSeparatorHidden)
+    [self hideSeparators];
+}
+
+- (void)setIsSeparatorHidden:(BOOL)isSeparatorHidden
+{
+  _isSeparatorHidden = isSeparatorHidden;
+  if (isSeparatorHidden)
+    [self hideSeparators];
+}
+
+- (void)hideSeparators
+{
+  for (UIView * view in self.subviews)
+    view.hidden = [[[view class] className] isEqualToString:@"_UITableViewCellSeparatorView"];
 }
 
 @end

@@ -15,4 +15,6 @@ typedef UIView * (^MWMPlacePageButtonsDismissBlock)(NSInteger);
            referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
 - (void)showGalery;
 
+- (void)openLocalAdsURL;
+
 @end
