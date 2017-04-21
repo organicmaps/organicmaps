@@ -70,7 +70,6 @@ set(
   features_offsets_table.hpp
   features_vector.cpp
   features_vector.hpp
-  ftypes_mapping.cpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
   geometry_coding.cpp
