@@ -19,7 +19,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = CachingNativeAdLoader.class.getSimpleName();
-  private static final long REQUEST_INTERVAL_MS = 30 * 1000;
+  private static final long REQUEST_INTERVAL_MS = 5 * 1000;
   private static final Map<BannerKey, CachedMwmNativeAd> CACHE = new HashMap<>();
   private static final Set<BannerKey> PENDING_REQUESTS = new HashSet<>();
 
