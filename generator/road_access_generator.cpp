@@ -1,13 +1,14 @@
 #include "generator/road_access_generator.hpp"
 
-#include "generator/osm_element.hpp"
 #include "generator/osm_id.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
+#include "routing/router.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "coding/file_container.hpp"
@@ -21,23 +22,36 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <map>
-#include <ostream>
 #include <string>
 #include <vector>
 
+using namespace routing;
 using namespace std;
 
 namespace
 {
-char constexpr kAccessPrivate[] = "access=private";
-char constexpr kBarrierGate[] = "barrier=gate";
 char constexpr kDelim[] = " \t\r\n";
 
-bool ParseRoadAccess(string const & roadAccessPath,
-                     map<osm::Id, uint32_t> const & osmIdToFeatureId,
-                     routing::RoadAccess & roadAccess)
+using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
+
+TagMapping const kCarTagMapping = {
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
+};
+
+TagMapping const kPedestrianTagMapping = {
+    {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
+};
+
+TagMapping const kBicycleTagMapping = {
+    {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
+};
+
+bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
+                     RoadAccess & roadAccess, FeaturesVector const & featuresVector)
 {
   ifstream stream(roadAccessPath);
   if (!stream)
@@ -47,6 +61,16 @@ bool ParseRoadAccess(string const & roadAccessPath,
   }
 
   vector<uint32_t> privateRoads;
+
+  map<Segment, RoadAccess::Type> segmentType[static_cast<size_t>(RouterType::Count)];
+
+  auto addSegment = [&](Segment const & segment, RouterType routerType,
+                        RoadAccess::Type roadAccessType, uint64_t osmId) {
+    auto & m = segmentType[static_cast<size_t>(routerType)];
+    auto const emplaceRes = m.emplace(segment, roadAccessType);
+    if (!emplaceRes.second)
+      LOG(LWARNING, ("duplicate road access info for", osmId));
+  };
 
   string line;
   for (uint32_t lineNo = 1;; ++lineNo)
@@ -58,32 +82,56 @@ bool ParseRoadAccess(string const & roadAccessPath,
 
     if (!iter)
     {
-      LOG(LWARNING, ("Error when parsing road access: empty line", lineNo));
+      LOG(LERROR, ("Error when parsing road access: empty line", lineNo));
       return false;
     }
+    RouterType const routerType = FromString(*iter);
+    ++iter;
 
-    string const s = *iter;
+    if (!iter)
+    {
+      LOG(LERROR, ("Error when parsing road access: no road access type", lineNo));
+      return false;
+    }
+    RoadAccess::Type roadAccessType;
+    FromString(*iter, roadAccessType);
     ++iter;
 
     uint64_t osmId;
     if (!iter || !strings::to_uint64(*iter, osmId))
     {
-      LOG(LWARNING, ("Error when parsing road access: bad osm id at line", lineNo));
+      LOG(LERROR, ("Error when parsing road access: bad osm id at line", lineNo));
       return false;
     }
+    ++iter;
 
     auto const it = osmIdToFeatureId.find(osm::Id::Way(osmId));
+    // Even though this osm element has a tag that is interesting for us,
+    // we have not created a feature from it. Possible reasons:
+    // no primary tag, unsupported type, etc.
     if (it == osmIdToFeatureId.cend())
-    {
-      LOG(LWARNING, ("Error when parsing road access: unknown osm id", osmId, "at line", lineNo));
-      return false;
-    }
+      continue;
 
     uint32_t const featureId = it->second;
-    privateRoads.emplace_back(featureId);
+    FeatureType ft;
+    featuresVector.GetByIndex(featureId, ft);
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+    CHECK_GREATER(ft.GetPointsCount(), 1, ());
+    uint32_t const numSegments = static_cast<uint32_t>(ft.GetPointsCount() - 1);
+
+    // Set this road access type for the entire feature.
+    for (uint32_t segmentId = 0; segmentId < numSegments; ++segmentId)
+    {
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentId, true /* isForward */), routerType,
+                 roadAccessType, osmId);
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentId, false /* isForward */), routerType,
+                 roadAccessType, osmId);
+    }
   }
 
-  roadAccess.SetPrivateRoads(move(privateRoads));
+  for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
+    roadAccess.SetTypes(routerType, segmentType[static_cast<size_t>(routerType)]);
 
   return true;
 }
@@ -91,7 +139,42 @@ bool ParseRoadAccess(string const & roadAccessPath,
 
 namespace routing
 {
+// RoadAccessTagProcessor --------------------------------------------------------------------------
+RoadAccessTagProcessor::RoadAccessTagProcessor(RouterType routerType)
+  : m_routerType(routerType), m_tagMapping(nullptr)
+{
+  switch (routerType)
+  {
+  case RouterType::Vehicle: m_tagMapping = &kCarTagMapping; break;
+  case RouterType::Pedestrian: m_tagMapping = &kPedestrianTagMapping; break;
+  case RouterType::Bicycle: m_tagMapping = &kBicycleTagMapping; break;
+  case RouterType::Taxi: CHECK(false, ("Road access info is not supported for taxi")); break;
+  case RouterType::Count: CHECK(false, ("Bad router type")); break;
+  }
+}
+
+void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss) const
+{
+  // todo(@m) Add support for non-way elements, such as barrier=gate.
+  if (elem.type != OsmElement::EntityType::Way)
+    return;
+
+  for (auto const & tag : elem.m_tags)
+  {
+    auto const it = m_tagMapping->find(tag);
+    if (it == m_tagMapping->cend())
+      continue;
+    oss << ToString(m_routerType) << " " << ToString(it->second) << " " << elem.id << endl;
+  }
+}
+
 // RoadAccessWriter ------------------------------------------------------------
+RoadAccessWriter::RoadAccessWriter()
+{
+  for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
+    m_tagProcessors.emplace_back(routerType);
+}
+
 void RoadAccessWriter::Open(string const & filePath)
 {
   LOG(LINFO,
@@ -102,7 +185,7 @@ void RoadAccessWriter::Open(string const & filePath)
     LOG(LINFO, ("Cannot open file", filePath));
 }
 
-void RoadAccessWriter::Process(OsmElement const & elem, FeatureParams const & params)
+void RoadAccessWriter::Process(OsmElement const & elem)
 {
   if (!IsOpened())
   {
@@ -110,29 +193,16 @@ void RoadAccessWriter::Process(OsmElement const & elem, FeatureParams const & pa
     return;
   }
 
-  auto const & c = classif();
-
-  StringIL const forbiddenRoadTypes[] = {
-    {"hwtag", "private"}
-  };
-
-  for (auto const & f : forbiddenRoadTypes)
-  {
-    auto const t = c.GetTypeByPath(f);
-    if (params.IsTypeExist(t) && elem.type == OsmElement::EntityType::Way)
-      m_stream << kAccessPrivate << " " << elem.id << endl;
-  }
-
-  auto t = c.GetTypeByPath({"barrier", "gate"});
-  if (params.IsTypeExist(t))
-    m_stream << kBarrierGate << " " << elem.id << endl;
+  for (auto const & p : m_tagProcessors)
+    p.Process(elem, m_stream);
 }
 
 bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open(); }
 
 // RoadAccessCollector ----------------------------------------------------------
-RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
+RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
+  : m_featuresVector(dataFilePath)
 {
   map<osm::Id, uint32_t> osmIdToFeatureId;
   if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
@@ -144,7 +214,7 @@ RoadAccessCollector::RoadAccessCollector(string const & roadAccessPath,
   }
 
   RoadAccess roadAccess;
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccess))
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccess, m_featuresVector.GetVector()))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;
@@ -161,7 +231,7 @@ void BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
 {
   LOG(LINFO, ("Generating road access info for", dataFilePath));
 
-  RoadAccessCollector collector(roadAccessPath, osmIdsToFeatureIdsPath);
+  RoadAccessCollector collector(dataFilePath, roadAccessPath, osmIdsToFeatureIdsPath);
 
   if (!collector.IsValid())
   {

@@ -7,20 +7,28 @@
 #include "generator/road_access_generator.hpp"
 
 #include "routing/road_access_serialization.hpp"
+#include "routing/segment.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "indexer/classificator_loader.hpp"
+
+#include "geometry/point2d.hpp"
+
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <string>
+#include <vector>
 
 using namespace feature;
+using namespace generator::tests_support;
 using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
@@ -34,9 +42,20 @@ string const kTestMwm = "test";
 string const kRoadAccessFilename = "road_access_in_osm_ids.csv";
 string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
-void BuildEmptyMwm(LocalCountryFile & country)
+void BuildTestMwmWithRoads(LocalCountryFile & country)
 {
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
+
+  for (size_t i = 0; i < 10; ++i)
+  {
+    string const name = "road " + strings::to_string(i);
+    string const lang = "en";
+    vector<m2::PointD> points;
+    for (size_t j = 0; j < 10; ++j)
+      points.emplace_back(static_cast<double>(i), static_cast<double>(j));
+
+    builder.Add(TestRoad(points, name, lang));
+  }
 }
 
 void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
@@ -58,8 +77,10 @@ void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
 }
 
 // todo(@m) This helper function is almost identical to the one in restriction_test.cpp.
-void TestRoadAccess(string const & roadAccessContent, string const & mappingContent)
+RoadAccess SaveAndLoadRoadAccess(string const & roadAccessContent, string const & mappingContent)
 {
+  classificator::Load();
+
   Platform & platform = GetPlatform();
   string const writableDir = platform.WritableDir();
 
@@ -69,7 +90,7 @@ void TestRoadAccess(string const & roadAccessContent, string const & mappingCont
   ScopedDir const scopedDir(kTestDir);
   string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath);
-  BuildEmptyMwm(country);
+  BuildTestMwmWithRoads(country);
 
   // Creating a file with road access.
   string const roadAccessRelativePath = my::JoinPath(kTestDir, kRoadAccessFilename);
@@ -89,35 +110,48 @@ void TestRoadAccess(string const & roadAccessContent, string const & mappingCont
   // Reading from mwm section and testing road access.
   RoadAccess roadAccessFromMwm;
   LoadRoadAccess(mwmFullPath, roadAccessFromMwm);
-  RoadAccessCollector const collector(roadAccessFullPath, mappingFullPath);
+  RoadAccessCollector const collector(mwmFullPath, roadAccessFullPath, mappingFullPath);
   TEST(collector.IsValid(), ());
   TEST_EQUAL(roadAccessFromMwm, collector.GetRoadAccess(), ());
+  return roadAccessFromMwm;
 }
 
 UNIT_TEST(RoadAccess_Smoke)
 {
   string const roadAccessContent = "";
   string const osmIdsToFeatureIdsContent = "";
-  TestRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
 }
 
 UNIT_TEST(RoadAccess_AccessPrivate)
 {
-  string const roadAccessContent = R"(access=private 0)";
+  string const roadAccessContent = R"(vehicle Private 0)";
   string const osmIdsToFeatureIdsContent = R"(0, 0,)";
-  TestRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 0, 0, false)),
+             RoadAccess::Type::Private, ());
 }
 
-UNIT_TEST(RoadAccess_Access_And_Barriers)
+UNIT_TEST(RoadAccess_Access_Multiple_Router_Types)
 {
-  string const roadAccessContent = R"(access=private 10
-                                     access=private 20
-                                     barrier=gate 30
-                                     barrier=gate 40)";
+  string const roadAccessContent = R"(vehicle Private 10
+                                     vehicle Private 20
+                                     bicycle No 30
+                                     vehicle Destination 40)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
                                              20, 2,
                                              30, 3,
                                              40, 4,)";
-  TestRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 1, 0, false)),
+             RoadAccess::Type::Private, ());
+  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 2, 2, true)),
+             RoadAccess::Type::Private, ());
+  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 3, 1, true)), RoadAccess::Type::Yes,
+             ());
+  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 4, 3, false)),
+             RoadAccess::Type::Destination, ());
+  TEST_EQUAL(roadAccess.GetType(RouterType::Bicycle, Segment(0, 3, 0, false)), RoadAccess::Type::No,
+             ());
 }
 }  // namespace

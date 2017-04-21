@@ -22,14 +22,16 @@ class Route;
 enum class RouterType
 {
   // @TODO It's necessary to rename Vehicle value to Car.
-  Vehicle = 0,  /// For Car routing (OSRM or AStar)
-  Pedestrian,   /// For A star pedestrian routing
-  Bicycle,      /// For A star bicycle routing
+  Vehicle = 0,  /// For Car routing (OSRM or AStar).
+  Pedestrian,   /// For A star pedestrian routing.
+  Bicycle,      /// For A star bicycle routing.
   Taxi,         /// For taxi route calculation Vehicle routing is used.
+  Count         /// Number of router types.
 };
 
 std::string ToString(RouterType type);
 RouterType FromString(std::string const & str);
+std::string DebugPrint(RouterType type);
 
 class IRouter
 {

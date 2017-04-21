@@ -41,12 +41,9 @@ namespace routing
 {
 void AddFeatureId(osm::Id osmId, uint32_t featureId, map<osm::Id, uint32_t> &osmIdToFeatureId)
 {
-  auto const result = osmIdToFeatureId.insert(make_pair(osmId, featureId));
-  if (!result.second)
-  {
-    LOG(LERROR, ("Osm id", osmId, "is included in two feature ids:", featureId,
-                 osmIdToFeatureId.find(osmId)->second));
-  }
+  // Failing to insert here usually means that two features were created
+  // from one osm id, for example an area and its boundary.
+  osmIdToFeatureId.insert(make_pair(osmId, featureId));
 }
 
 bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,

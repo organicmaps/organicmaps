@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <map>
 #include <vector>
 
 using namespace routing;
@@ -19,9 +20,19 @@ namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
 {
-  vector<uint32_t> privateRoads = {1, 2, 3, 100};
+  map<Segment, RoadAccess::Type> const m0 = {
+      {Segment(kFakeNumMwmId, 1, 0, false), RoadAccess::Type::No},
+      {Segment(kFakeNumMwmId, 2, 2, false), RoadAccess::Type::Private},
+  };
+
+  map<Segment, RoadAccess::Type> const m1 = {
+      {Segment(kFakeNumMwmId, 1, 1, false), RoadAccess::Type::Private},
+      {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
+  };
+
   RoadAccess roadAccess;
-  roadAccess.SetPrivateRoads(move(privateRoads));
+  roadAccess.SetTypes(static_cast<RouterType>(0), m0);
+  roadAccess.SetTypes(static_cast<RouterType>(1), m1);
 
   vector<uint8_t> buf;
   {
@@ -34,13 +45,9 @@ UNIT_TEST(RoadAccess_Serialization)
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
     RoadAccessSerializer::Deserialize(src, deserializedRoadAccess);
+    TEST_EQUAL(src.Size(), 0, ());
   }
 
   TEST_EQUAL(roadAccess, deserializedRoadAccess, ());
-
-  {
-    auto const & b = deserializedRoadAccess.GetPrivateRoads();
-    TEST(is_sorted(b.begin(), b.end()), ());
-  }
 }
 }  // namespace
