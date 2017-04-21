@@ -117,7 +117,6 @@
 - (void)resetAction
 {
   [self clearFilter];
-  [self.ownerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate
