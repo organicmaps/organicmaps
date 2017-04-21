@@ -1314,7 +1314,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 
   p.m_onResults = search::EverywhereSearchCallback(
       static_cast<search::EverywhereSearchCallback::Delegate &>(*this),
-      [this, params](search::Results const & results, vector<bool> const & isLocalAdsCustomer) {
+      [params](search::Results const & results, vector<bool> const & isLocalAdsCustomer) {
         if (params.m_onResults)
           GetPlatform().RunOnGuiThread([params, results, isLocalAdsCustomer]() {
             params.m_onResults(results, isLocalAdsCustomer);
