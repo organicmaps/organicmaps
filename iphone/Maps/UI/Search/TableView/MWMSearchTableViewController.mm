@@ -84,7 +84,8 @@
         dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
                                indexPath:indexPath]);
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
-    [cell config:result];
+    auto const isLocalAds = [MWMSearch isLocalAdsWithContainerIndex:containerIndex];
+    [cell config:result isLocalAds:isLocalAds];
     return cell;
   }
   case MWMSearchItemTypeMopub:

@@ -1,11 +1,14 @@
 #pragma once
 
+#include "search/everywhere_search_params.hpp"
 #include "search/result.hpp"
-#include "search/search_params.hpp"
+
+#include <vector>
 
 namespace search
 {
-// An on-results-callback that should be used for interactive search.
+// An on-results-callback that should be used for search over all
+// maps.
 //
 // *NOTE* the class is NOT thread safe.
 class EverywhereSearchCallback
@@ -16,10 +19,10 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual void MarkLocalAdsCustomer(Result & result) const = 0;
+    virtual bool IsLocalAdsCustomer(Result const & result) const = 0;
   };
 
-  using OnResults = SearchParams::TOnResults;
+  using OnResults = EverywhereSearchParams::OnResults;
 
   EverywhereSearchCallback(Delegate & delegate, OnResults onResults);
 
@@ -28,6 +31,6 @@ public:
 private:
   Delegate & m_delegate;
   OnResults m_onResults;
-  Results m_results;
+  std::vector<bool> m_isLocalAdsCustomer;
 };
 }  // namespace search

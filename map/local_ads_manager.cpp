@@ -458,12 +458,9 @@ bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
   return m_supportedTypes.Contains(types);
 }
 
-std::string const & LocalAdsManager::GetStartCompanyUrl() const
+std::string LocalAdsManager::GetStartCompanyUrl() const
 {
   return LOCAL_ADS_START_COMPANY_PAGE_HOST;
 }
 
-std::string const & LocalAdsManager::GetShowStatisticUrl() const
-{
-  return LOCAL_ADS_STATISTICS_PAGE_HOST;
-}
+std::string LocalAdsManager::GetShowStatisticUrl() const { return LOCAL_ADS_STATISTICS_PAGE_HOST; }

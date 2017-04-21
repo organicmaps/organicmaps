@@ -345,8 +345,6 @@ public:
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);
 
-  void MarkLocalAdsCustomer(search::Result & result) const override;
-
   ads::Engine const & GetAdsEngine() const;
 
 protected:
@@ -369,6 +367,9 @@ protected:
   }
 
   void ClearViewportSearchResults() override { ClearSearchResultsMarks(); }
+
+  // EverywhereSearchCallback::Delegate overrides:
+  bool IsLocalAdsCustomer(search::Result const & result) const override;
 
 private:
   void ActivateMapSelection(bool needAnimation,

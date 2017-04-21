@@ -4,6 +4,6 @@
 
 @interface MWMSearchCommonCell : MWMSearchCell
 
-- (void)config:(search::Result const &)result;
+- (void)config:(search::Result const &)result isLocalAds:(BOOL)isLocalAds;
 
 @end

@@ -12,22 +12,13 @@ EverywhereSearchCallback::EverywhereSearchCallback(Delegate & delegate, OnResult
 
 void EverywhereSearchCallback::operator()(Results const & results)
 {
-  auto const prevSize = m_results.GetCount();
+  auto const prevSize = m_isLocalAdsCustomer.size();
   ASSERT_LESS_OR_EQUAL(prevSize, results.GetCount(), ());
 
-  m_results.AddResultsNoChecks(results.begin() + prevSize, results.end());
+  for (size_t i = prevSize; i < results.GetCount(); ++i)
+    m_isLocalAdsCustomer.push_back(m_delegate.IsLocalAdsCustomer(results[i]));
 
-  for (size_t i = prevSize; i < m_results.GetCount(); ++i)
-  {
-    if (m_results[i].IsSuggest() ||
-        m_results[i].GetResultType() != search::Result::ResultType::RESULT_FEATURE)
-    {
-      continue;
-    }
-
-    m_delegate.MarkLocalAdsCustomer(m_results[i]);
-  }
-
-  m_onResults(m_results);
+  ASSERT_EQUAL(m_isLocalAdsCustomer.size(), results.GetCount(), ());
+  m_onResults(results, m_isLocalAdsCustomer);
 }
 }  // namespace search

@@ -42,8 +42,6 @@ public:
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
 
     bool m_isInitialized = false;
-
-    bool m_isLocalAdsCustomer = false;
   };
 
   /// For RESULT_FEATURE.
@@ -115,9 +113,6 @@ public:
   // sent to the statistics servers and later used to measure
   // the quality of our search engine.
   string ToStringForStats() const;
-
-  void SetLocalAdsCustomer(bool customer) { m_metadata.m_isLocalAdsCustomer = customer; }
-  bool IsLocalAdsCustomer() const { return m_metadata.m_isLocalAdsCustomer; }
 
 private:
   FeatureID m_id;
