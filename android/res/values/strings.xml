@@ -1105,4 +1105,6 @@
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Resort</string>
 	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Create ad campaign</string>
+	<string name="view_campaign_button">View ad campaign</string>
 </resources>
