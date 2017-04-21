@@ -34,4 +34,6 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, s
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners);
+
+jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
 }  // namespace usermark_helper
