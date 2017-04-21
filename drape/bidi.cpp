@@ -1,5 +1,7 @@
 #include "drape/bidi.hpp"
 
+#include "base/logging.hpp"
+
 #include "3party/icu/common/unicode/ubidi.h"
 #include "3party/icu/common/unicode/unistr.h"
 #include "3party/icu/common/unicode/ushape.h"
@@ -31,7 +33,10 @@ strings::UniString log2vis(strings::UniString const & str)
   u_shapeArabic(ustr.getTerminatedBuffer(), ustr.length(), buff.data(), static_cast<uint32_t>(buff.size()),
                 U_SHAPE_LETTERS_SHAPE_TASHKEEL_ISOLATED, &errorCode);
   if (errorCode != U_ZERO_ERROR)
+  {
+    LOG(LWARNING, ("Shape arabic failed, icu error:", errorCode));
     return str;
+  }
 
   UnicodeString shaped(buff.data());
 
