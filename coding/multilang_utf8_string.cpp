@@ -25,7 +25,7 @@ StringUtf8Multilang::Languages const g_languages = {
      {"be", "Беларуская", "Belarusian-Latin/BGN"},
      {"ka", "ქართული", "Georgian-Latin"},
      {"ko", "한국어", "Hangul-Latin/BGN"},
-     {"he", "עברית", "Hebrew-Latin/BGN"},
+     {"he", "עברית", "Hebrew-Latin"},
      {"nl", "Nederlands", ""},
      {"ga", "Gaeilge", ""},
      {"ja_rm", "Japanese (Romanized)", "Any-Latin"},
@@ -33,7 +33,7 @@ StringUtf8Multilang::Languages const g_languages = {
      {"it", "Italiano", ""},
      {"es", "Español", ""},
      {"zh_pinyin", "Chinese (Pinyin)", "Any-Latin"},
-     {"th", "ไทย", "Thai-Latin"},
+     {"th", "ไทย", ""},  // Thai-Latin
      {"cy", "Cymraeg", ""},
      {"sr", "Српски", "Serbian-Latin/BGN"},
      {"uk", "Українська", "Ukrainian-Latin/BGN"},

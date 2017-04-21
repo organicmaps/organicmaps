@@ -63,7 +63,7 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
   if (str.empty())
     return false;
 
-  std::string const transliteratorId(StringUtf8Multilang::GetTransliteratorIdByCode(langCode));
+  std::string transliteratorId(StringUtf8Multilang::GetTransliteratorIdByCode(langCode));
 
   if (transliteratorId.empty())
     return false;
@@ -81,12 +81,16 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
     if (!it->second->m_initialized)
     {
       UErrorCode status = U_ZERO_ERROR;
-      UnicodeString translitId(it->first.c_str());
+
+      std::string const removeDiacriticRule = ";NFD;[\u02B9-\u02D3\u0301-\u0358]Remove;NFC";
+      transliteratorId.append(removeDiacriticRule);
+
+      UnicodeString translitId(transliteratorId.c_str());
 
       it->second->m_transliterator.reset(Transliterator::createInstance(translitId, UTRANS_FORWARD, status));
 
       if (it->second->m_transliterator == nullptr)
-        LOG(LWARNING, ("Cannot create transliterator \"", it->first, "\", icu error =", status));
+        LOG(LWARNING, ("Cannot create transliterator \"", transliteratorId, "\", icu error =", status));
 
       it->second->m_initialized = true;
     }
