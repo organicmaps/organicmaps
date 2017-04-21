@@ -1,5 +1,7 @@
 #include "search/search_quality/assessment_tool/sample_view.hpp"
 
+#include "map/framework.hpp"
+
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 #include "search/search_quality/assessment_tool/languages_list.hpp"
@@ -31,7 +33,8 @@ Layout * BuildSubLayout(QLayout & mainLayout, QWidget & parent)
 }
 }  // namespace
 
-SampleView::SampleView(QWidget * parent) : QWidget(parent)
+SampleView::SampleView(QWidget * parent, Framework & framework)
+  : QWidget(parent), m_framework(framework)
 {
   auto * mainLayout = BuildLayoutWithoutMargins<QVBoxLayout>(this /* parent */);
 
@@ -98,20 +101,27 @@ void SampleView::SetContents(search::Sample const & sample)
   m_showViewport->setEnabled(true);
   m_showPosition->setEnabled(true);
 
-  m_foundResults->Clear();
-  m_nonFoundResults->Clear();
+  ClearAllResults();
 }
 
 void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
   for (auto it = begin; it != end; ++it)
     m_foundResults->Add(*it /* result */);
+  m_framework.FillSearchResultsMarks(begin, end);
 }
 
 void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results)
 {
   for (auto const & result : results)
     m_nonFoundResults->Add(result);
+}
+
+void SampleView::ClearAllResults()
+{
+  m_foundResults->Clear();
+  m_nonFoundResults->Clear();
+  m_framework.ClearSearchResultsMarks();
 }
 
 void SampleView::EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits)
@@ -126,8 +136,7 @@ void SampleView::Clear()
   m_langs->Select("default");
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
-  m_foundResults->Clear();
-  m_nonFoundResults->Clear();
+  ClearAllResults();
 }
 
 void SampleView::EnableEditing(ResultsView & results, Edits & edits)

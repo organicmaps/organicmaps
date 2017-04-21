@@ -27,7 +27,6 @@
 #include "search/intermediate_result.hpp"
 #include "search/locality_finder.hpp"
 #include "search/processor_factory.hpp"
-#include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/viewport_search_params.hpp"
 
@@ -1619,32 +1618,25 @@ bool Framework::QueryMayBeSkipped(SearchIntent const & intent, search::SearchPar
   return true;
 }
 
-void Framework::ShowSearchResult(search::Result const & res, bool animation)
+void Framework::SelectSearchResult(search::Result const & result, bool animation)
 {
-  CancelAllSearches();
-  StopLocationFollow();
-
-  alohalytics::LogEvent("searchShowResult", {{"pos", strings::to_string(res.GetPositionInResults())},
-                                             {"result", res.ToStringForStats()}});
   place_page::Info info;
   using namespace search;
   int scale;
-  switch (res.GetResultType())
+  switch (result.GetResultType())
   {
-    case Result::RESULT_FEATURE:
-      FillFeatureInfo(res.GetFeatureID(), info);
-      scale = GetFeatureViewportScale(info.GetTypes());
-      break;
+  case Result::RESULT_FEATURE:
+    FillFeatureInfo(result.GetFeatureID(), info);
+    scale = GetFeatureViewportScale(info.GetTypes());
+    break;
 
-    case Result::RESULT_LATLON:
-      FillPointInfo(res.GetFeatureCenter(), res.GetString(), info);
-      scale = scales::GetUpperComfortScale();
-      break;
+  case Result::RESULT_LATLON:
+    FillPointInfo(result.GetFeatureCenter(), result.GetString(), info);
+    scale = scales::GetUpperComfortScale();
+    break;
 
-    case Result::RESULT_SUGGEST_PURE:
-    case Result::RESULT_SUGGEST_FROM_FEATURE:
-      ASSERT(false, ("Suggests should not be here."));
-      return;
+  case Result::RESULT_SUGGEST_PURE:
+  case Result::RESULT_SUGGEST_FROM_FEATURE: ASSERT(false, ("Suggests should not be here.")); return;
   }
 
   m2::PointD const center = info.GetMercator();
@@ -1653,6 +1645,16 @@ void Framework::ShowSearchResult(search::Result const & res, bool animation)
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
+}
+
+void Framework::ShowSearchResult(search::Result const & res, bool animation)
+{
+  CancelAllSearches();
+  StopLocationFollow();
+
+  alohalytics::LogEvent("searchShowResult", {{"pos", strings::to_string(res.GetPositionInResults())},
+                                             {"result", res.ToStringForStats()}});
+  SelectSearchResult(res, animation);
 }
 
 size_t Framework::ShowSearchResults(search::Results const & results)
@@ -1723,25 +1725,31 @@ size_t Framework::ShowSearchResults(search::Results const & results)
 
 void Framework::FillSearchResultsMarks(search::Results const & results)
 {
+  FillSearchResultsMarks(results.begin(), results.end());
+}
+
+void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
+                                       search::Results::ConstIter end)
+{
   UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
 
-  size_t const count = results.GetCount();
-  for (size_t i = 0; i < count; ++i)
+  for (auto it = begin; it != end; ++it)
   {
-    search::Result const & r = results[i];
-    if (r.HasPoint())
-    {
-      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
-      ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
-      if (r.GetResultType() == search::Result::RESULT_FEATURE)
-        mark->SetFoundFeature(r.GetFeatureID());
-      mark->SetMatchedName(r.GetString());
+    auto const & r = *it;
+    if (!r.HasPoint())
+      continue;
 
-      if (r.m_metadata.m_isSponsoredHotel)
-        mark->SetCustomSymbol("search-booking");
-    }
+    SearchMarkPoint * mark =
+        static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
+    ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
+    if (r.GetResultType() == search::Result::RESULT_FEATURE)
+      mark->SetFoundFeature(r.GetFeatureID());
+    mark->SetMatchedName(r.GetString());
+
+    if (r.m_metadata.m_isSponsoredHotel)
+      mark->SetCustomSymbol("search-booking");
   }
 }
 
