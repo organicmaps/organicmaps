@@ -231,6 +231,11 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
   if (src.IsEmpty())
     return;
 
+  // When the language of the user is equal to one of the languages of the MWM
+  // only single name scheme is used.
+  if (regionData.HasLanguage(deviceLang))
+    return GetReadableName(regionData, src, deviceLang, allowTranslit, primary);
+
   vector<int8_t> const primaryCodes = {deviceLang,
                                        StrUtf8::kInternationalCode,
                                        StrUtf8::kEnglishCode};

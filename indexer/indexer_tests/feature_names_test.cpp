@@ -169,6 +169,27 @@ UNIT_TEST(GetPrefferedNames)
   }
 }
 
+UNIT_TEST(GetPrefferedNamesLocal)
+{
+  feature::RegionData regionData;
+  regionData.SetLanguages({"kk", "ru"});
+
+  int8_t deviceLang = StrUtf8::GetLangIndex("ru");
+  string primary, secondary;
+  bool const allowTranslit = true;
+
+  {
+    StrUtf8 src;
+    src.AddString("default", "default name");
+    src.AddString("en", "en name");
+
+    feature::GetPreferredNames(regionData, src, deviceLang, allowTranslit, primary, secondary);
+
+    TEST_EQUAL(primary, "default name", ());
+    TEST_EQUAL(secondary, "", ());
+  }
+}
+
 UNIT_TEST(GetReadableName)
 {
   feature::RegionData regionData;
