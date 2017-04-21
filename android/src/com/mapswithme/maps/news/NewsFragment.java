@@ -1,14 +1,31 @@
 package com.mapswithme.maps.news;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.concurrency.UiThread;
 
 public class NewsFragment extends BaseNewsFragment
 {
+  private static final long DONE_DELAY = MwmApplication.get().getResources()
+                                                .getInteger(android.R.integer.config_longAnimTime);
+
+  @NonNull
+  private final Runnable mDoneTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      NewsFragment.super.onDoneClick();
+    }
+  };
+
   private class Adapter extends BaseNewsFragment.Adapter
   {
     @Override
@@ -54,11 +71,27 @@ public class NewsFragment extends BaseNewsFragment
     return new Adapter();
   }
 
+  @Override
+  protected void onDoneClick()
+  {
+    if (!UpdaterDialogFragment.showOn(getActivity()))
+      super.onDoneClick();
+    else
+      UiThread.runLater(mDoneTask, DONE_DELAY);
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    UiThread.cancelDelayedTasks(mDoneTask);
+    super.onDestroy();
+  }
+
   /**
    * Displays "What's new" dialog on given {@code activity}. Or not.
    * @return whether "What's new" dialog should be shown.
    */
-  public static boolean showOn(FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity)
   {
     if (Config.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
       return false;

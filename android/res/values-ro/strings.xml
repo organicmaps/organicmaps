@@ -257,9 +257,9 @@
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
-	<string name="share_by_message">Chia sẻ bằng tin nhắn</string>
+	<string name="share_by_message">Partajare ca mesaj</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-	<string name="share">Chia sẻ</string>
+	<string name="share">Partajare</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text, also used in editor. -->

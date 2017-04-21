@@ -20,7 +20,6 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -35,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
@@ -45,10 +45,12 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
@@ -72,6 +74,12 @@ public enum Statistics
     public static final String DOWNLOADER_ERROR = "Downloader_Map_error";
     public static final String DOWNLOADER_ACTION = "Downloader_Map_action";
     public static final String DOWNLOADER_CANCEL = "Downloader_Cancel_downloading";
+    public static final String DOWNLOADER_DIALOG_SHOW = "Downloader_OnStartScreen_show";
+    public static final String DOWNLOADER_DIALOG_MANUAL_DOWNLOAD = "Downloader_OnStartScreen_manual_download";
+    public static final String DOWNLOADER_DIALOG_DOWNLOAD = "Downloader_OnStartScreen_auto_download";
+    public static final String DOWNLOADER_DIALOG_LATER = "Downloader_OnStartScreen_select_later";
+    public static final String DOWNLOADER_DIALOG_CANCEL = "Downloader_OnStartScreen_cancel_download";
+    static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
     public static final String BMK_DESCRIPTION_CHANGED = "Bookmark. Description changed";
@@ -260,6 +268,7 @@ public enum Statistics
     static final String BANNER_STATE = "state";
     static final String ERROR_CODE = "error_code";
     static final String ERROR_MESSAGE = "error_message";
+    static final String MAP_DATA_SIZE = "map_data_size:";
     private EventParam() {}
   }
 
@@ -554,6 +563,19 @@ public enum Statistics
                          .add(HOTEL_LAT, mapObject.getLat())
                          .add(HOTEL_LON, mapObject.getLon())
                          .get());
+  }
+
+  public void trackDownloaderDialogEvent(@NonNull String eventName, long size)
+  {
+    trackEvent(eventName, Statistics.params()
+                                    .add(MAP_DATA_SIZE, size));
+  }
+
+  public void trackDownloaderDialogError(long size, @NonNull String error)
+  {
+    trackEvent(DOWNLOADER_DIALOG_ERROR, Statistics.params()
+                                                  .add(MAP_DATA_SIZE, size)
+                                                  .add(TYPE, error));
   }
 
   public static ParameterBuilder params()

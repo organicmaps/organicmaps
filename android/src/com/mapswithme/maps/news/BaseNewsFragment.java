@@ -29,7 +29,7 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
-abstract class BaseNewsFragment extends BaseMwmDialogFragment
+public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 {
   private ViewPager mPager;
   private View mPrevButton;
@@ -291,12 +291,16 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
   }
 
   @SuppressWarnings("TryWithIdenticalCatches")
-  static void create(FragmentActivity activity, Class<? extends BaseNewsFragment> clazz)
+  static void create(@NonNull FragmentActivity activity,
+                     @NonNull Class<? extends BaseNewsFragment> clazz)
   {
     try
     {
       final BaseNewsFragment fragment = clazz.newInstance();
-      fragment.show(activity.getSupportFragmentManager(), clazz.getName());
+      activity.getSupportFragmentManager()
+              .beginTransaction()
+              .add(fragment, clazz.getName())
+              .commitAllowingStateLoss();
     } catch (java.lang.InstantiationException ignored)
     {}
     catch (IllegalAccessException ignored)

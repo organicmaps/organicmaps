@@ -1846,3 +1846,13 @@
 "failed_load_information" = "無法載入資訊。";
 
 "booking_search" = "Booking.com";
+
+"whats_new_auto_update_updating_maps" = "Updating maps";
+
+"whats_new_auto_update_title" = "Update your downloaded maps";
+
+"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+
+"whats_new_auto_update_button_size" = "Update (%s)";
+
+"whats_new_auto_update_button_later" = "Manually update later";

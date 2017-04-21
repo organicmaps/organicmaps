@@ -73,7 +73,7 @@ public class FirstStartFragment extends BaseNewsFragment
     LocationHelper.INSTANCE.onExitFromFirstRun();
   }
 
-  public static boolean showOn(FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity)
   {
     if (Config.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;

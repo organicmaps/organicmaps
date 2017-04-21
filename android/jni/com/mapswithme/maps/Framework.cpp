@@ -554,6 +554,10 @@ uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::Lat
   return uber::Api::GetRideRequestLinks(productId, from, to);
 }
 
+int Framework::ToDoAfterUpdate() const
+{
+  return (int) m_work.ToDoAfterUpdate();
+}
 
 }  // namespace android
 
@@ -749,6 +753,26 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountries(JNIEnv * env, jclass)
+{
+  vector<Country const *> countries;
+  Storage const & storage = g_framework->GetStorage();
+  storage.GetOutdatedCountries(countries);
+
+  vector<string> ids;
+  for (auto country : countries)
+    ids.push_back(country->Name());
+
+  return jni::ToJavaStringArray(env, ids);
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeToDoAfterUpdate(JNIEnv * env, jclass)
+{
+  return g_framework->ToDoAfterUpdate();
 }
 
 JNIEXPORT jboolean JNICALL

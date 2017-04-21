@@ -17,6 +17,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -38,7 +39,6 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
@@ -137,6 +137,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
 
+  @Nullable
   private MapFragment mMapFragment;
   private PlacePageView mPlacePage;
 
@@ -618,6 +619,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mRootView = (ViewGroup) container.getParent();
   }
 
+  public void detachMap(@NonNull FragmentTransaction transaction)
+  {
+    if (mMapFragment == null)
+      return;
+
+    transaction.remove(mMapFragment);
+    mMapFragment = null;
+  }
+
+  public void attachMap()
+  {
+    if (mMapFragment != null)
+      return;
+
+    mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
+        .commit();
+  }
+
   private void initNavigationButtons()
   {
     View frame = findViewById(R.id.navigation_buttons);
@@ -1013,7 +1035,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void recreate()
   {
     // Explicitly destroy context before activity recreation.
-    mMapFragment.destroyContext();
+    if (mMapFragment != null)
+      mMapFragment.destroyContext();
     super.recreate();
   }
 
@@ -1349,7 +1372,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean onTouch(View view, MotionEvent event)
   {
     return mPlacePage.hideOnTouch() ||
-           mMapFragment.onTouch(view, event);
+           (mMapFragment != null && mMapFragment.onTouch(view, event));
   }
 
   @Override
