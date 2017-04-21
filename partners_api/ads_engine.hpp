@@ -19,9 +19,12 @@ class Engine
 public:
   Engine();
 
-  bool HasBanner(feature::TypesHolder const & types, storage::TCountriesVec const & countryIds) const;
+  bool HasBanner(feature::TypesHolder const & types,
+                 storage::TCountriesVec const & countryIds,
+                 std::string const & userLanguage) const;
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
-                                 storage::TCountriesVec const & countryIds) const;
+                                 storage::TCountriesVec const & countryIds,
+                                 std::string const & userLanguage) const;
   bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;
 
