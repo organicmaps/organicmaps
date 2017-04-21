@@ -1070,4 +1070,10 @@
 	<string name="reviews_on_bookingcom">Більше відгуків на Booking.com</string>
 	<string name="offline_place_page_more_information">Підключіться до мережі Інтернет, щоб отримати більше інформації про місце.</string>
 	<string name="failed_load_information">Не вдалося завантажити інформацію.</string>
+	<string name="search_hotel_filter_apartment">Апартаменти</string>
+	<string name="search_hotel_filter_camp_site">Кемпінг</string>
+	<string name="search_hotel_filter_chalet">Шале</string>
+	<string name="search_hotel_filter_guest_house">Гостинний дім</string>
+	<string name="search_hotel_filter_hostel">Хостел</string>
+	<string name="search_hotel_filter_resort">Будинок відпочинку</string>
 </resources>

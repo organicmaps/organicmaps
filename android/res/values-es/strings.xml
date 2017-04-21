@@ -1059,4 +1059,10 @@
 	<string name="reviews_on_bookingcom">Más valoraciones en Booking.com</string>
 	<string name="offline_place_page_more_information">Conéctese a internet para obtener más información sobre este lugar.</string>
 	<string name="failed_load_information">No se ha podido cargar la información.</string>
+	<string name="search_hotel_filter_apartment">Apartamentos</string>
+	<string name="search_hotel_filter_camp_site">Campamento</string>
+	<string name="search_hotel_filter_chalet">Chalé</string>
+	<string name="search_hotel_filter_guest_house">Casa de huéspedes</string>
+	<string name="search_hotel_filter_hostel">Albergue juvenil</string>
+	<string name="search_hotel_filter_resort">Resort</string>
 </resources>

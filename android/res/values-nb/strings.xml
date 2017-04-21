@@ -1064,4 +1064,10 @@
 	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
 	<string name="offline_place_page_more_information">Koble til internett for å få mer informasjon om stedet.</string>
 	<string name="failed_load_information">Kunne ikke laste inn informasjon.</string>
+	<string name="search_hotel_filter_apartment">Leiligheter</string>
+	<string name="search_hotel_filter_camp_site">Overnatting i bobiler</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Gjestehus</string>
+	<string name="search_hotel_filter_hostel">Vandrerhjem</string>
+	<string name="search_hotel_filter_resort">Ferieresort</string>
 </resources>

@@ -1856,3 +1856,17 @@
 "whats_new_auto_update_button_size" = "Update (%s)";
 
 "whats_new_auto_update_button_later" = "Manually update later";
+
+"search_hotel_filter_apartment" = "Appartements";
+
+"search_hotel_filter_camp_site" = "Zeltplatz";
+
+"search_hotel_filter_chalet" = "Hütte";
+
+"search_hotel_filter_guest_house" = "Gästehaus";
+
+"search_hotel_filter_hostel" = "Herberge";
+
+"search_hotel_filter_resort" = "Resort";
+
+"search_hotel_filter_motel" = "Motel";

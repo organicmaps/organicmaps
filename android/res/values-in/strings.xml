@@ -1065,4 +1065,10 @@
 	<string name="reviews_on_bookingcom">Ulasan lain di Booking.com</string>
 	<string name="offline_place_page_more_information">Sambungkan ke internet untuk mendapatkan informasi selengkapnya tentang tempat ini.</string>
 	<string name="failed_load_information">Gagal memuat informasi.</string>
+	<string name="search_hotel_filter_apartment">Apartemen</string>
+	<string name="search_hotel_filter_camp_site">Perkemahan</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Wisma tamu</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Sanggraloka</string>
 </resources>

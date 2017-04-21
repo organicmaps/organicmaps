@@ -1856,3 +1856,17 @@
 "whats_new_auto_update_button_size" = "Update (%s)";
 
 "whats_new_auto_update_button_later" = "Manually update later";
+
+"search_hotel_filter_apartment" = "شُقَق";
+
+"search_hotel_filter_camp_site" = "تخييم";
+
+"search_hotel_filter_chalet" = "شاليه";
+
+"search_hotel_filter_guest_house" = "دار الضيافة";
+
+"search_hotel_filter_hostel" = "نزُل";
+
+"search_hotel_filter_resort" = "منتج";
+
+"search_hotel_filter_motel" = "Motel";

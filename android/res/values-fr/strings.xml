@@ -1081,4 +1081,10 @@
 	<string name="reviews_on_bookingcom">Plus d\&#39;avis sur Booking.com</string>
 	<string name="offline_place_page_more_information">Connectez-vous à Internet pour obtenir plus d’informations sur ce lieu.</string>
 	<string name="failed_load_information">Impossible de charger les informations.</string>
+	<string name="search_hotel_filter_apartment">Appart\&#39;hôtel</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Maison d\&#39;hôtes</string>
+	<string name="search_hotel_filter_hostel">Auberge de jeunesse</string>
+	<string name="search_hotel_filter_resort">Complexe touristique</string>
 </resources>

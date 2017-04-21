@@ -1856,3 +1856,17 @@
 "whats_new_auto_update_button_size" = "Update (%s)";
 
 "whats_new_auto_update_button_later" = "Manually update later";
+
+"search_hotel_filter_apartment" = "Loma-asunnot";
+
+"search_hotel_filter_camp_site" = "Retkeily";
+
+"search_hotel_filter_chalet" = "Alppimaja";
+
+"search_hotel_filter_guest_house" = "Majatalo";
+
+"search_hotel_filter_hostel" = "Hostelli";
+
+"search_hotel_filter_resort" = "Lomakohteet";
+
+"search_hotel_filter_motel" = "Motel";

@@ -1065,4 +1065,10 @@
 	<string name="reviews_on_bookingcom">Booking.com の詳細レビュー</string>
 	<string name="offline_place_page_more_information">この場所に関する詳細情報を取得するには、インターネットに接続してください。</string>
 	<string name="failed_load_information">情報の読み込みに失敗しました。</string>
+	<string name="search_hotel_filter_apartment">アパート</string>
+	<string name="search_hotel_filter_camp_site">^キャンプ場</string>
+	<string name="search_hotel_filter_chalet">シャレー|山小屋</string>
+	<string name="search_hotel_filter_guest_house">ゲストハウス</string>
+	<string name="search_hotel_filter_hostel">ホステル</string>
+	<string name="search_hotel_filter_resort">リゾート</string>
 </resources>

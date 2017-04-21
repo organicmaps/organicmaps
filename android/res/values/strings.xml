@@ -1098,4 +1098,11 @@
 	<string name="whats_new_auto_update_message">Update maps supports information about objects in the current state</string>
 	<string name="whats_new_auto_update_button_size">Update (%s)</string>
 	<string name="whats_new_auto_update_button_later">Manually update later</string>
+	<string name="search_hotel_filter_apartment">Apartments</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Guest House</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Resort</string>
+	<string name="search_hotel_filter_motel">Motel</string>
 </resources>

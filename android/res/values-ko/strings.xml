@@ -1062,4 +1062,10 @@
 	<string name="reviews_on_bookingcom">Booking.com의 추가 리뷰</string>
 	<string name="offline_place_page_more_information">인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.</string>
 	<string name="failed_load_information">정보를 로드하지 못했습니다.</string>
+	<string name="search_hotel_filter_apartment">아파트</string>
+	<string name="search_hotel_filter_camp_site">^캠핑</string>
+	<string name="search_hotel_filter_chalet">별장</string>
+	<string name="search_hotel_filter_guest_house">영빈관|호스텔</string>
+	<string name="search_hotel_filter_hostel">호스텔</string>
+	<string name="search_hotel_filter_resort">리조트</string>
 </resources>

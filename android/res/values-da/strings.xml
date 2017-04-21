@@ -1070,4 +1070,10 @@
 	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
 	<string name="offline_place_page_more_information">Opret forbindelse til internettet for at få flere oplysninger om stedet.</string>
 	<string name="failed_load_information">Kunne ikke indlæse oplysningerne.</string>
+	<string name="search_hotel_filter_apartment">Lejligheder</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Hytte</string>
+	<string name="search_hotel_filter_guest_house">Gæstehus</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Resort</string>
 </resources>

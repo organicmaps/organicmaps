@@ -1066,4 +1066,10 @@
 	<string name="reviews_on_bookingcom">Lisää arvosteluja osoitteessa Booking.com</string>
 	<string name="offline_place_page_more_information">Yhdistä internetiin saadaksesi lisätietoa paikasta.</string>
 	<string name="failed_load_information">Tietojen lataaminen epäonnistui.</string>
+	<string name="search_hotel_filter_apartment">Loma-asunnot</string>
+	<string name="search_hotel_filter_camp_site">Retkeily</string>
+	<string name="search_hotel_filter_chalet">Alppimaja</string>
+	<string name="search_hotel_filter_guest_house">Majatalo</string>
+	<string name="search_hotel_filter_hostel">Hostelli</string>
+	<string name="search_hotel_filter_resort">Lomakohteet</string>
 </resources>

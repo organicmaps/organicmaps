@@ -1072,4 +1072,10 @@
 	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
 	<string name="offline_place_page_more_information">Yerle ilgili daha fazla bilgi almak için internete bağlanın.</string>
 	<string name="failed_load_information">Bilgiler yüklenemedi.</string>
+	<string name="search_hotel_filter_apartment">Apart otel</string>
+	<string name="search_hotel_filter_camp_site">Kamp alanı</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Misafir evi</string>
+	<string name="search_hotel_filter_hostel">Pansiyon</string>
+	<string name="search_hotel_filter_resort">Tatil köyü</string>
 </resources>

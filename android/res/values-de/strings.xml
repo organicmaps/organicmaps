@@ -1082,4 +1082,10 @@
 	<string name="reviews_on_bookingcom">Weitere Bewertungen bei Booking.com</string>
 	<string name="offline_place_page_more_information">Stellen Sie eine Verbindung zum Internet her, um weitere Informationen über den Ort zu erhalten.</string>
 	<string name="failed_load_information">Informationen konnten nicht geladen werden.</string>
+	<string name="search_hotel_filter_apartment">Appartements</string>
+	<string name="search_hotel_filter_camp_site">Zeltplatz</string>
+	<string name="search_hotel_filter_chalet">Hütte</string>
+	<string name="search_hotel_filter_guest_house">Gästehaus</string>
+	<string name="search_hotel_filter_hostel">Herberge</string>
+	<string name="search_hotel_filter_resort">Resort</string>
 </resources>

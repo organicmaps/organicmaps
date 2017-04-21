@@ -1078,4 +1078,10 @@
 	<string name="reviews_on_bookingcom">Booking.com 上的更多評價</string>
 	<string name="offline_place_page_more_information">連上網路以取得關於地點的更多資訊。</string>
 	<string name="failed_load_information">無法載入資訊。</string>
+	<string name="search_hotel_filter_apartment">公寓</string>
+	<string name="search_hotel_filter_camp_site">露營</string>
+	<string name="search_hotel_filter_chalet">木屋</string>
+	<string name="search_hotel_filter_guest_house">賓館</string>
+	<string name="search_hotel_filter_hostel">旅舍</string>
+	<string name="search_hotel_filter_resort">度假酒店</string>
 </resources>
