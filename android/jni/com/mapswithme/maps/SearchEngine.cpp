@@ -6,16 +6,20 @@
 #include "search/result.hpp"
 #include "search/viewport_search_params.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
-
-#include "std/cstdint.hpp"
 
 #include "../core/jni_helper.hpp"
 #include "../platform/Language.hpp"
 #include "../platform/Platform.hpp"
 
-using search::Results;
+#include <cstdint>
+#include <memory>
+#include <vector>
+
+using namespace std;
 using search::Result;
+using search::Results;
 
 namespace
 {
@@ -222,7 +226,8 @@ jmethodID g_mapResultsMethod;
 jclass g_mapResultClass;
 jmethodID g_mapResultCtor;
 
-jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
+jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, bool hasPosition, double lat,
+                     double lon)
 {
   JNIEnv * env = jni::GetEnv();
   ::Framework * fr = g_framework->NativeFramework();
@@ -273,13 +278,14 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
   jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.lat,
-                               ll.lon, ranges.get(), result.IsHotel(), result.IsLocalAdsCustomer());
+                               ll.lon, ranges.get(), result.IsHotel(), isLocalAdsCustomer);
   ASSERT(ret, ());
 
   return ret;
 }
 
-jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double lat, double lon)
+jobjectArray BuildJavaResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
+                              bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -287,16 +293,19 @@ jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double 
 
   int const count = g_results.GetCount();
   jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
+
+  ASSERT_EQUAL(results.GetCount(), isLocalAdsCustomer.size(), ());
   for (int i = 0; i < count; i++)
   {
-    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results[i], hasPosition, lat, lon));
+    jni::TScopedLocalRef jRes(
+        env, ToJavaResult(g_results[i], isLocalAdsCustomer[i], hasPosition, lat, lon));
     env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
 }
 
-void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
-               bool hasPosition, double lat, double lon)
+void OnResults(Results const & results, vector<bool> const & isLocalAdsCustomer,
+               long long timestamp, bool isMapAndTable, bool hasPosition, double lat, double lon)
 {
   // Ignore results from obsolete searches.
   if (g_queryTimestamp > timestamp)
@@ -306,7 +315,8 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
 
   if (!results.IsEndMarker() || results.IsEndedNormal())
   {
-    jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaResults(results, hasPosition, lat, lon));
+    jni::TScopedLocalObjectArrayRef jResults(
+        env, BuildJavaResults(results, isLocalAdsCustomer, hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
                         static_cast<jlong>(timestamp),
                         search::HotelsClassifier::IsHotelResults(results));
@@ -381,7 +391,7 @@ extern "C"
     search::EverywhereSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.m_inputLocale = ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang));
-    params.m_onResults = bind(&OnResults, _1, timestamp, false, hasPosition, lat, lon);
+    params.m_onResults = bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon);
     params.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
 
     bool const searchStarted = g_framework->NativeFramework()->SearchEverywhere(params);
@@ -408,8 +418,8 @@ extern "C"
       search::EverywhereSearchParams eparams;
       eparams.m_query = vparams.m_query;
       eparams.m_inputLocale = vparams.m_inputLocale;
-      eparams.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */,
-                                 0.0 /* lat */, 0.0 /* lon */);
+      eparams.m_onResults = bind(&OnResults, _1, _2, timestamp, isMapAndTable,
+                                 false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */);
       eparams.m_hotelsFilter = vparams.m_hotelsFilter;
       if (g_framework->NativeFramework()->SearchEverywhere(eparams))
         g_queryTimestamp = timestamp;

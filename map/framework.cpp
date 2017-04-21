@@ -1314,9 +1314,11 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 
   p.m_onResults = search::EverywhereSearchCallback(
       static_cast<search::EverywhereSearchCallback::Delegate &>(*this),
-      [this, params](search::Results const & results) {
+      [params](search::Results const & results, vector<bool> const & isLocalAdsCustomer) {
         if (params.m_onResults)
-          GetPlatform().RunOnGuiThread([params, results]() { params.m_onResults(results); });
+          GetPlatform().RunOnGuiThread([params, results, isLocalAdsCustomer]() {
+            params.m_onResults(results, isLocalAdsCustomer);
+          });
       });
   SetCurrentPositionIfPossible(p);
   return Search(p);
@@ -3567,16 +3569,19 @@ void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
   }, kScale);
 }
 
-void Framework::MarkLocalAdsCustomer(search::Result & result) const
-{
-  if (m_localAdsManager.Contains(result.GetFeatureID()))
-    result.SetLocalAdsCustomer(true);
-}
-
 ads::Engine const & Framework::GetAdsEngine() const
 {
   ASSERT(m_adsEngine, ());
   return *m_adsEngine;
+}
+
+bool Framework::IsLocalAdsCustomer(search::Result const & result) const
+{
+  if (result.IsSuggest())
+    return false;
+  if (result.GetResultType() != search::Result::ResultType::RESULT_FEATURE)
+    return false;
+  return m_localAdsManager.Contains(result.GetFeatureID());
 }
 
 vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool rough) const

@@ -27,7 +27,7 @@
 
 @implementation MWMSearchCommonCell
 
-- (void)config:(search::Result const &)result
+- (void)config:(search::Result const &)result isLocalAds:(BOOL)isLocalAds
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
@@ -69,7 +69,7 @@
       self.distanceLabel.text = @(distanceStr.c_str());
   }
 
-  self.backgroundColor = result.IsLocalAdsCustomer() ? [UIColor bannerBackground] : [UIColor white];
+  self.backgroundColor = isLocalAds ? [UIColor bannerBackground] : [UIColor white];
 }
 
 - (void)setInfoText:(NSString *)infoText

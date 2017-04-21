@@ -18,6 +18,7 @@
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
++ (BOOL)isLocalAdsWithContainerIndex:(NSUInteger)index;
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
 
 + (void)update;
