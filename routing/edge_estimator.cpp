@@ -46,6 +46,7 @@ public:
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const override;
+  double CalcLeapEdgeTime(m2::PointD const & from, m2::PointD const & to) const override;
   double GetUTurnPenalty() const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
 
@@ -98,6 +99,14 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
 double CarEdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
 {
   return TimeBetweenSec(from, to, m_maxSpeedMPS);
+}
+
+double CarEdgeEstimator::CalcLeapEdgeTime(m2::PointD const & from, m2::PointD const & to) const
+{
+  // Let us assume for the time being that
+  // leap edges will be added with a half of max speed.
+  // @TODO(bykoianko) It's necessary to gather statistics to calculate better factor(s) instead of one below.
+  return TimeBetweenSec(from, to, m_maxSpeedMPS / 2.0);
 }
 
 double CarEdgeEstimator::GetUTurnPenalty() const

@@ -101,6 +101,7 @@ public:
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
   double CalcHeuristic(m2::PointD const & /* from */, m2::PointD const & /* to */) const override;
+  double CalcLeapEdgeTime(m2::PointD const & /* from */, m2::PointD const & /* to */) const override;
   double GetUTurnPenalty() const override;
   bool LeapIsAllowed(NumMwmId /* mwmId */) const override;
 

@@ -24,6 +24,10 @@ public:
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const = 0;
+  // Returns time in seconds is taken for going from point |from| to point |to| along a leap (fake) edge |from|-|to|.
+  // Note 1. The result of the method should be used if it's necessary to add a leap (fake) edge (|form|, |to|) in road graph.
+  // Note 2. The result of the method should be less or equal to CalcHeuristic(|form|, |to|).
+  virtual double CalcLeapEdgeTime(m2::PointD const & from, m2::PointD const & to) const = 0;
   virtual double GetUTurnPenalty() const = 0;
   // The leap is the shortcut edge from mwm border enter to exit.
   // Router can't use leaps on some mwms: e.g. mwm with loaded traffic data.

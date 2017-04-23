@@ -138,7 +138,13 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
                                  m_index, m_indexManager),
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
-  graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : WorldGraph::Mode::WorldWithLeaps);
+
+  auto const getRoutingMode = [&](){
+    return AreMwmsNear(start.GetMwmId(), finish.GetMwmId()) ? WorldGraph::Mode::LeapsIfPossible
+                                                            : WorldGraph::Mode::LeapsOnly;
+  };
+  graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : getRoutingMode());
+  LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   IndexGraphStarter starter(start, finish, graph);
 
@@ -230,27 +236,30 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   output.reserve(input.size());
 
   WorldGraph & worldGraph = starter.GetGraph();
+  WorldGraph::Mode const worldRouteMode = worldGraph.GetMode();
   worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
     Segment const & current = input[i];
-    if (!starter.IsLeap(current.GetMwmId()))
+    if (worldRouteMode == WorldGraph::Mode::LeapsIfPossible && !starter.IsLeap(current.GetMwmId()))
     {
       output.push_back(current);
       continue;
     }
 
+    Segment const & convertedCurrent = starter.ConvertSegment(input[i]);
     ++i;
     CHECK_LESS(i, input.size(), ());
-    Segment const & next = input[i];
-
+    Segment const & convertedNext = starter.ConvertSegment(input[i]);
     CHECK_EQUAL(
-        current.GetMwmId(), next.GetMwmId(),
+        convertedCurrent.GetMwmId(), convertedNext.GetMwmId(),
         ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
 
-    IndexGraphStarter::FakeVertex const start(current, starter.GetPoint(current, true /* front */));
-    IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */));
+    IndexGraphStarter::FakeVertex const start(convertedCurrent,
+                                              starter.GetPoint(convertedCurrent, true /* front */));
+    IndexGraphStarter::FakeVertex const finish(convertedNext,
+                                               starter.GetPoint(convertedNext, true /* front */));
     IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
 
     // Clear previous loaded graphs.
@@ -293,7 +302,7 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
   if (!forSingleMwm)
-    starter.GetGraph().SetMode(WorldGraph::Mode::WorldWithoutLeaps);
+    starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
 
   CHECK(m_directionsEngine, ());
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
@@ -317,6 +326,17 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
   route.SetSectionTimes(move(times));
 
   return true;
+}
+
+bool IndexRouter::AreMwmsNear(NumMwmId startId, NumMwmId finishId) const
+{
+  m2::RectD const startMwmRect = m_countryRectFn(m_numMwmIds->GetFile(startId).GetName());
+  bool areMwmsNear = false;
+  m_numMwmTree->ForEachInRect(startMwmRect, [&](NumMwmId id) {
+    if (id == finishId)
+      areMwmsNear = true;
+  });
+  return areMwmsNear;
 }
 
 // static

@@ -16,6 +16,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -89,6 +90,15 @@ public:
 
   void Clear();
 
+  template <typename Fn>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  {
+    if (CrossMwmSectionExists(numMwmId))
+      m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
+    else
+      m_crossMwmOsrmGraph.ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
+  }
+
 private:
   struct ClosestSegment
   {
@@ -126,7 +136,7 @@ private:
   /// added to |twins| anyway. If there's no such segment in mwm it tries find the closet one and adds it
   /// to |minDistSegs|.
   void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
-                     map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins);
+                     std::map<NumMwmId, ClosestSegment> & minDistSegs, std::vector<Segment> & twins);
 
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section

@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -19,15 +20,15 @@ public:
   enum class Mode
   {
     SingleMwm,
-    WorldWithLeaps,
-    WorldWithoutLeaps,
+    LeapsOnly,
+    LeapsIfPossible,
+    NoLeaps,
   };
 
   WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,
              std::shared_ptr<EdgeEstimator> estimator);
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
-                   std::vector<SegmentEdge> & edges);
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, std::vector<SegmentEdge> & edges);
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
@@ -38,6 +39,15 @@ public:
   // Clear memory used by loaded index graphs.
   void ClearIndexGraphs() { m_loader->Clear(); }
   void SetMode(Mode mode) { m_mode = mode; }
+  Mode GetMode() const { return m_mode; }
+
+  template <typename Fn>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  {
+    m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
+  }
+
+  bool IsTransition(Segment const & s, bool isOutgoing) { return m_crossMwmGraph->IsTransition(s, isOutgoing);}
 
 private:  
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
@@ -48,4 +58,6 @@ private:
   std::vector<Segment> m_twins;
   Mode m_mode = Mode::SingleMwm;
 };
+
+std::string DebugPrint(WorldGraph::Mode mode);
 }  // namespace routing

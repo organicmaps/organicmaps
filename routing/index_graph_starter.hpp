@@ -24,33 +24,28 @@ public:
   {
   public:
     FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_point(point)
+      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
     {
     }
 
     FakeVertex(Segment const & segment, m2::PointD const & point)
-      : m_featureId(segment.GetFeatureId())
-      , m_segmentIdx(segment.GetSegmentIdx())
-      , m_mwmId(segment.GetMwmId())
-      , m_point(point)
+      : m_segment(segment), m_point(point)
     {
     }
 
-    NumMwmId GetMwmId() const { return m_mwmId; }
-    uint32_t GetFeatureId() const { return m_featureId; }
-    uint32_t GetSegmentIdx() const { return m_segmentIdx; }
+    NumMwmId GetMwmId() const { return m_segment.GetMwmId(); }
+    uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
+    uint32_t GetSegmentIdx() const { return m_segment.GetSegmentIdx(); }
+    Segment const & GetSegment() const { return m_segment; }
     m2::PointD const & GetPoint() const { return m_point; }
-
     bool Fits(Segment const & segment) const
     {
-      return segment.GetFeatureId() == m_featureId && segment.GetSegmentIdx() == m_segmentIdx &&
-             segment.GetMwmId() == m_mwmId;
+      return segment.GetMwmId() == GetMwmId() && segment.GetFeatureId() == GetFeatureId() &&
+             segment.GetSegmentIdx() == GetSegmentIdx();
     }
 
   private:
-    uint32_t const m_featureId;
-    uint32_t const m_segmentIdx;
-    NumMwmId const m_mwmId;
+    Segment m_segment;
     m2::PointD const m_point;
   };
 
@@ -99,6 +94,8 @@ public:
     return segment.GetFeatureId() == kFakeFeatureId;
   }
 
+  Segment const & ConvertSegment(Segment const & segment);
+
 private:
   static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
   static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
@@ -107,12 +104,19 @@ private:
   static Segment constexpr kFinishFakeSegment =
       Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, true);
 
-  void GetFakeToNormalEdges(FakeVertex const & fakeVertex, vector<SegmentEdge> & edges);
+  void GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
+                            vector<SegmentEdge> & edges);
   void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
                            vector<SegmentEdge> & edges);
   void GetNormalToFakeEdge(Segment const & segment, FakeVertex const & fakeVertex,
                            Segment const & fakeSegment, bool isOutgoing,
                            vector<SegmentEdge> & edges);
+  /// \brief If |toExits| == true fills |edges| with SegmentEdge(s) which connects
+  /// |segment| with all exits of mwm.
+  /// \brief If |toExits| == false fills |edges| with SegmentEdge(s) which connects
+  /// all enters to mwm with |segment|.
+  void ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
+                                vector<SegmentEdge> & edges);
 
   WorldGraph & m_graph;
   FakeVertex const m_start;

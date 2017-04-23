@@ -43,6 +43,23 @@ public:
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
   CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
 
+  template <typename Fn>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  {
+    if (isEnter)
+    {
+      std::vector<Segment> const & enters = GetCrossMwmConnectorWithTransitions(numMwmId).GetEnters();
+      for (Segment const & enter : enters)
+        fn(enter);
+    }
+    else
+    {
+      std::vector<Segment> const & exits = GetCrossMwmConnectorWithTransitions(numMwmId).GetExits();
+      for (Segment const & exit : exits)
+        fn(exit);
+    }
+  }
+
 private:
   CrossMwmConnector const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId);
 

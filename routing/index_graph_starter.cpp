@@ -54,13 +54,13 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
 
   if (segment == kStartFakeSegment)
   {
-    GetFakeToNormalEdges(m_start, edges);
+    GetFakeToNormalEdges(m_start, isOutgoing, edges);
     return;
   }
 
   if (segment == kFinishFakeSegment)
   {
-    GetFakeToNormalEdges(m_finish, edges);
+    GetFakeToNormalEdges(m_finish, isOutgoing, edges);
     return;
   }
 
@@ -70,8 +70,15 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
 }
 
 void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex,
+                                             bool isOutgoing,
                                              vector<SegmentEdge> & edges)
 {
+  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  {
+    ConnectLeapToTransitions(fakeVertex, isOutgoing, edges);
+    return;
+  }
+
   GetFakeToNormalEdge(fakeVertex, true /* forward */, edges);
 
   if (!m_graph.GetRoadGeometry(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId()).IsOneWay())
@@ -84,7 +91,7 @@ void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool 
   Segment const segment(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId(),
                         fakeVertex.GetSegmentIdx(), forward);
   m2::PointD const & pointTo = GetPoint(segment, true /* front */);
-  double const weight = m_graph.GetEstimator().CalcHeuristic(fakeVertex.GetPoint(), pointTo);
+  double const weight = m_graph.GetEstimator().CalcLeapEdgeTime(fakeVertex.GetPoint(), pointTo);
   edges.emplace_back(segment, weight);
 }
 
@@ -92,11 +99,46 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
                                             Segment const & fakeSegment, bool isOutgoing,
                                             vector<SegmentEdge> & edges)
 {
+  m2::PointD const & pointFrom = GetPoint(segment, isOutgoing);
+  if (segment.GetMwmId() == fakeVertex.GetMwmId() && m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  {
+    // It's assumed here that GetEstimator().CalcLeapEdgeTime(p1, p2) == GetEstimator().CalcLeapEdgeTime(p2, p1).
+    if (m_graph.IsTransition(segment, isOutgoing))
+      edges.emplace_back(fakeSegment, m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
+    return;
+  }
+
   if (!fakeVertex.Fits(segment))
     return;
 
-  m2::PointD const & pointFrom = GetPoint(segment, isOutgoing);
-  double const weight = m_graph.GetEstimator().CalcHeuristic(pointFrom, fakeVertex.GetPoint());
-  edges.emplace_back(fakeSegment, weight);
+  edges.emplace_back(fakeSegment, m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
+}
+
+void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
+                                                 vector<SegmentEdge> & edges)
+{
+  edges.clear();
+  m2::PointD const & segmentPoint = fakeVertex.GetPoint();
+
+  // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
+  // exits of its mwm.
+  // So |isEnter| below should be set to false. If |isOutgoing| == false all enters of the
+  // finish mwm should be connected with the finish point. So |isEnter| below should be set to true.
+  m_graph.ForEachTransition(
+      fakeVertex.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
+        // It's assumed here that GetEstimator().CalcLeapEdgeTime(p1, p2) ==
+        // GetEstimator().CalcLeapEdgeTime(p2, p1).
+        edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapEdgeTime(
+          segmentPoint, GetPoint(transition, isOutgoing)));
+      });
+}
+
+Segment const & IndexGraphStarter::ConvertSegment(Segment const & segment)
+{
+  if (segment == kStartFakeSegment)
+    return m_start.GetSegment();
+  if (segment == kFinishFakeSegment)
+    return m_finish.GetSegment();
+  return segment;
 }
 }  // namespace routing
