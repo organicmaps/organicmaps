@@ -126,8 +126,7 @@ bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
 // Feature tag value evaluator for tag 'rating'
 bool GetRating(FeatureType const & ft, double & rating)
 {
-  ftypes::IsHotelChecker hotelChecker;
-  if (!hotelChecker(ft))
+  if (!ftypes::IsHotelChecker::Instance()(ft))
     return false;
 
   double constexpr kDefaultRating = 0.0;
