@@ -309,11 +309,20 @@ node[historic=memorial],
 area[historic=memorial]
 {z-index: 2800;}
 
+
+/* OSM Hotel */
+
 node[tourism=motel],
 area[tourism=motel],
-node[tourism=apartment],
-area[tourism=apartment]
+node[tourism=hostel],
+area[tourism=hostel]
 {z-index: 2812;}
+
+node[tourism=apartment],
+area[tourism=apartment],
+node[tourism=guest_house],
+area[tourism=guest_house]
+{z-index: 2814;}
 
 node[tourism=alpine_hut],
 area[tourism=alpine_hut],
@@ -321,46 +330,147 @@ node[tourism=chalet],
 area[tourism=chalet],
 node[tourism=resort],
 area[tourism=resort]
-{z-index: 2814;}
-
-node[tourism=guest_house],
-area[tourism=guest_house]
 {z-index: 2816;}
-
-node[tourism=hostel],
-area[tourism=hostel]
-{z-index: 2818;}
 
 node[tourism=hotel],
 area[tourism=hotel],
-{z-index: 2820;}
+{z-index: 2818;}
+
+
+/* Booking Hotel Rating >=5 */
+
+node[tourism=motel][sponsored=booking][rating>=5],
+area[tourism=motel][sponsored=booking][rating>=5],
+node[tourism=hostel][sponsored=booking][rating>=5],
+area[tourism=hostel][sponsored=booking][rating>=5]
+{z-index: 2822;}
+
+node[tourism=apartment][sponsored=booking][rating>=5],
+area[tourism=apartment][sponsored=booking][rating>=5],
+node[tourism=guest_house][sponsored=booking][rating>=5],
+area[tourism=guest_house][sponsored=booking][rating>=5]
+{z-index: 2824;}
+
+node[tourism=alpine_hut][sponsored=booking][rating>=5],
+area[tourism=alpine_hut][sponsored=booking][rating>=5],
+node[tourism=chalet][sponsored=booking][rating>=5],
+area[tourism=chalet][sponsored=booking][rating>=5],
+node[tourism=resort][sponsored=booking][rating>=5],
+area[tourism=resort][sponsored=booking][rating>=5]
+{z-index: 2826;}
+
+node[tourism=hotel][sponsored=booking][rating>=5],
+area[tourism=hotel][sponsored=booking][rating>=5],
+{z-index: 2828;}
+
+
+/* Booking Hotel Rating >=6 */
+
+node[tourism=motel][sponsored=booking][rating>=6],
+area[tourism=motel][sponsored=booking][rating>=6],
+node[tourism=hostel][sponsored=booking][rating>=6],
+area[tourism=hostel][sponsored=booking][rating>=6]
+{z-index: 2832;}
+
+node[tourism=apartment][sponsored=booking][rating>=6],
+area[tourism=apartment][sponsored=booking][rating>=6],
+node[tourism=guest_house][sponsored=booking][rating>=6],
+area[tourism=guest_house][sponsored=booking][rating>=6]
+{z-index: 2834;}
+
+node[tourism=alpine_hut][sponsored=booking][rating>=6],
+area[tourism=alpine_hut][sponsored=booking][rating>=6],
+node[tourism=chalet][sponsored=booking][rating>=6],
+area[tourism=chalet][sponsored=booking][rating>=6],
+node[tourism=resort][sponsored=booking][rating>=6],
+area[tourism=resort][sponsored=booking][rating>=6]
+{z-index: 2836;}
+
+node[tourism=hotel][sponsored=booking][rating>=6],
+area[tourism=hotel][sponsored=booking][rating>=6],
+{z-index: 2838;}
+
+/* Booking Hotel Rating >=7 */
+
+node[tourism=motel][sponsored=booking][rating>=7],
+area[tourism=motel][sponsored=booking][rating>=7],
+node[tourism=hostel][sponsored=booking][rating>=7],
+area[tourism=hostel][sponsored=booking][rating>=7]
+{z-index: 2842;}
+
+node[tourism=apartment][sponsored=booking][rating>=7],
+area[tourism=apartment][sponsored=booking][rating>=7],
+node[tourism=guest_house][sponsored=booking][rating>=7],
+area[tourism=guest_house][sponsored=booking][rating>=7]
+{z-index: 2844;}
+
+node[tourism=alpine_hut][sponsored=booking][rating>=7],
+area[tourism=alpine_hut][sponsored=booking][rating>=7],
+node[tourism=chalet][sponsored=booking][rating>=7],
+area[tourism=chalet][sponsored=booking][rating>=7],
+node[tourism=resort][sponsored=booking][rating>=7],
+area[tourism=resort][sponsored=booking][rating>=7]
+{z-index: 2846;}
+
+node[tourism=hotel][sponsored=booking][rating>=7],
+area[tourism=hotel][sponsored=booking][rating>=7],
+{z-index: 2848;}
+
+
+/* Booking Hotel Rating >=8 */
+
+node[tourism=motel][sponsored=booking][rating>=8],
+area[tourism=motel][sponsored=booking][rating>=8],
+node[tourism=hostel][sponsored=booking][rating>=8],
+area[tourism=hostel][sponsored=booking][rating>=8]
+{z-index: 2852;}
+
+node[tourism=apartment][sponsored=booking][rating>=8],
+area[tourism=apartment][sponsored=booking][rating>=8],
+node[tourism=guest_house][sponsored=booking][rating>=8],
+area[tourism=guest_house][sponsored=booking][rating>=8]
+{z-index: 2854;}
+
+node[tourism=alpine_hut][sponsored=booking][rating>=8],
+area[tourism=alpine_hut][sponsored=booking][rating>=8],
+node[tourism=chalet][sponsored=booking][rating>=8],
+area[tourism=chalet][sponsored=booking][rating>=8],
+node[tourism=resort][sponsored=booking][rating>=8],
+area[tourism=resort][sponsored=booking][rating>=8]
+{z-index: 2856;}
+
+node[tourism=hotel][sponsored=booking][rating>=8],
+area[tourism=hotel][sponsored=booking][rating>=8],
+{z-index: 2858;}
+
+
 
 node[amenity=place_of_worship],
 area[amenity=place_of_worship]
-{z-index: 2832;}
+{z-index: 2872;}
 
 node[tourism=attraction],
 area[tourism=attraction],
 node[amenity=community_centre],
 area[amenity=community_centre],
 node[tourism=artwork]
-{z-index: 2840;}
+{z-index: 2870;}
 node[tourism=attraction],
 area[tourism=attraction]
-{z-index: 2842;}
+{z-index: 2872;}
 node[tourism=gallery]
-{z-index: 2844;}
+{z-index: 2874;}
 node[tourism=museum],
 area[tourism=museum],
-{z-index: 2846;}
+{z-index: 2876;}
 node[leisure=stadium],
 area[leisure=stadium]
-{z-index: 2848;}
+{z-index: 2878;}
 node[tourism=viewpoint]
-{z-index: 2850;}
+{z-index: 2880;}
 node[tourism=zoo],
 area[tourism=zoo]
-{z-index: 2860;}
+{z-index: 2882;}
 
 node[historic=fort],
 area[historic=fort],
@@ -1246,44 +1356,44 @@ node|z16-[tourism=caravan_site],
 area|z16-[tourism=caravan_site],
 {text: name;text-color: @poi_label;text-offset: 10;font-size: 10;}
 
-node|z14[tourism=hotel]
+node|z14[tourism=hotel][sponsored=booking][rating>=7]
 {icon-image: hotel-s.svg;text-offset: 6;icon-min-distance: 24;}
-node|z14[tourism=hostel]
+node|z14[tourism=hostel][sponsored=booking][rating>=7]
 {icon-image: hotel-s.svg;text-offset: 6;icon-min-distance: 24;}
-node|z14[tourism=guest_house],
-area|z14[tourism=guest_house]
+node|z14[tourism=guest_house][sponsored=booking][rating>=7],
+area|z14[tourism=guest_house][sponsored=booking][rating>=7]
 {icon-image: motel-s.svg;text-offset: 6;icon-min-distance: 24;}
-node|z14[tourism=alpine_hut],
-area|z14[tourism=alpine_hut],
-node|z14[tourism=chalet],
-area|z14[tourism=chalet],
-node|z14[tourism=resort],
-area|z14[tourism=resort]
+node|z14[tourism=alpine_hut][sponsored=booking][rating>=7],
+area|z14[tourism=alpine_hut][sponsored=booking][rating>=7],
+node|z14[tourism=chalet][sponsored=booking][rating>=7],
+area|z14[tourism=chalet][sponsored=booking][rating>=7],
+node|z14[tourism=resort][sponsored=booking][rating>=7],
+area|z14[tourism=resort][sponsored=booking][rating>=7]
 {icon-image: alpine_hut-s.svg;text-offset: 6;icon-min-distance: 24;}
-node|z14[tourism=motel],
-area|z14[tourism=motel],
-node|z14[tourism=apartment],
-area|z14[tourism=apartment]
+node|z14[tourism=motel][sponsored=booking][rating>=7],
+area|z14[tourism=motel][sponsored=booking][rating>=7],
+node|z14[tourism=apartment][sponsored=booking][rating>=7],
+area|z14[tourism=apartment][sponsored=booking][rating>=7]
 {icon-image: motel-s.svg;text-offset: 6;icon-min-distance: 24;}
 
-node|z15[tourism=hotel]
+node|z15[tourism=hotel][sponsored=booking][rating>=6]
 {icon-image: hotel-m.svg;icon-min-distance: 32;}
-node|z15[tourism=hostel]
+node|z15[tourism=hostel][sponsored=booking][rating>=6]
 {icon-image: hotel-m.svg;icon-min-distance: 32;}
-node|z15[tourism=guest_house],
-area|z15[tourism=guest_house]
+node|z15[tourism=guest_house][sponsored=booking][rating>=6],
+area|z15[tourism=guest_house][sponsored=booking][rating>=6]
 {icon-image: motel-m.svg;icon-min-distance: 32;}
-node|z15[tourism=alpine_hut],
-area|z15[tourism=alpine_hut],
-node|z15[tourism=chalet],
-area|z15[tourism=chalet],
-node|z15[tourism=resort],
-area|z15[tourism=resort]
+node|z15[tourism=alpine_hut][sponsored=booking][rating>=6],
+area|z15[tourism=alpine_hut][sponsored=booking][rating>=6],
+node|z15[tourism=chalet][sponsored=booking][rating>=6],
+area|z15[tourism=chalet][sponsored=booking][rating>=6],
+node|z15[tourism=resort][sponsored=booking][rating>=6],
+area|z15[tourism=resort][sponsored=booking][rating>=6]
 {icon-image: alpine_hut-m.svg;icon-min-distance: 32;}
-node|z15[tourism=motel],
-area|z15[tourism=motel],
-node|z15[tourism=apartment],
-area|z15[tourism=apartment]
+node|z15[tourism=motel][sponsored=booking][rating>=6],
+area|z15[tourism=motel][sponsored=booking][rating>=6],
+node|z15[tourism=apartment][sponsored=booking][rating>=6],
+area|z15[tourism=apartment][sponsored=booking][rating>=6]
 {icon-image: motel-m.svg;icon-min-distance: 32;}
 
 node|z16[tourism=hotel]
