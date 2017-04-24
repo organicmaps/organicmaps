@@ -6,13 +6,9 @@
   style="@style/PlacePageItemFrame"
   tools:visibility="visible">
 
-  <ImageView
-    style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_add_place"
-    android:tint="?colorAccent"/>
-
   <TextView
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText.Button"
-    android:text="@string/placepage_add_place_button"/>
+    android:text="@string/placepage_add_place_button"
+    android:gravity="center"/>
 </LinearLayout>

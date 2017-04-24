@@ -71,17 +71,23 @@
 
       <include layout="@layout/place_page_taxi"/>
 
-      <include layout="@layout/divider_horizontal"/>
-
       <include layout="@layout/place_page_more"/>
 
-      <include layout="@layout/divider_horizontal"/>
+      <include layout="@layout/divider_horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/margin_half"/>
 
       <include layout="@layout/place_page_editor"/>
 
       <include layout="@layout/place_page_add_business"/>
 
       <include layout="@layout/place_page_add"/>
+
+      <include layout="@layout/place_page_local_ad"/>
+
+      <include layout="@layout/divider_horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/margin_half"/>
 
     </LinearLayout>
 

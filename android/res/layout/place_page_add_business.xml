@@ -7,14 +7,10 @@
   android:visibility="visible"
   tools:visibility="visible">
 
-  <ImageView
-    style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_add_place"
-    android:tint="?colorAccent"/>
-
   <TextView
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText.Button"
+    android:gravity="center"
     android:text="@string/placepage_add_business_button"/>
 
 </LinearLayout>
