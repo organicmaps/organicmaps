@@ -11,7 +11,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <iomanip>
+#include <ios>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -126,12 +126,7 @@ bool Sample::operator<(Sample const & rhs) const
   return Less(m_results, rhs.m_results);
 }
 
-bool Sample::operator==(Sample const & rhs) const
-{
-  return m_query == rhs.m_query && m_locale == rhs.m_locale && m_pos == rhs.m_pos &&
-         m_posAvailable == rhs.m_posAvailable && m_viewport == rhs.m_viewport &&
-         Equal(m_results, rhs.m_results);
-}
+bool Sample::operator==(Sample const & rhs) const { return !(*this < rhs) && !(rhs < *this); }
 
 // static
 bool Sample::DeserializeFromJSONLines(string const & lines, std::vector<Sample> & samples)

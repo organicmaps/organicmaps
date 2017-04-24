@@ -86,9 +86,9 @@ void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & r
 // The function tries to parse array of values from a value
 // corresponding to |field| in a json object corresponding to |root|.
 // Returns true when the value is non-null and array is successfully
-// parsed.  Returns false when there are no such |field| in a |root|
-// or value is null.  Also, the method may throw exception in case of
-// json parsing errors.
+// parsed.  Returns false when there is no such |field| in the |root|
+// or the value is null.  Also, the method may throw an exception in
+// case of json parsing errors.
 template <typename T>
 bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vector<T> & result)
 {

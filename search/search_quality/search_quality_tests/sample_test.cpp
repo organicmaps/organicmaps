@@ -2,7 +2,7 @@
 
 #include "search/search_quality/sample.hpp"
 
-#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <vector>
