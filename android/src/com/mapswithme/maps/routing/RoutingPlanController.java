@@ -591,8 +591,11 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
           if (mUberProduct != null)
           {
             UberLinks links = RoutingController.get().getUberLink(mUberProduct.getProductId());
-            Utils.launchUber(mActivity, links);
-            trackUberStatistics(isUberInstalled);
+            if (links != null)
+            {
+              Utils.launchUber(mActivity, links);
+              trackUberStatistics(isUberInstalled);
+            }
           }
         }
       });
