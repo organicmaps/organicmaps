@@ -1003,6 +1003,10 @@
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"U_DISABLE_RENAMING=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
@@ -1018,6 +1022,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"U_DISABLE_RENAMING=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
