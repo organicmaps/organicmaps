@@ -1071,4 +1071,10 @@
 	<string name="reviews_on_bookingcom">Więcej opinii na Booking.com</string>
 	<string name="offline_place_page_more_information">Połącz się z Internetem, aby uzyskać więcej informacji na temat miejsca.</string>
 	<string name="failed_load_information">Nie można załadować informacji.</string>
+	<string name="search_hotel_filter_apartment">Apartamenty</string>
+	<string name="search_hotel_filter_camp_site">Kamping</string>
+	<string name="search_hotel_filter_chalet">Domek letniskowy</string>
+	<string name="search_hotel_filter_guest_house">Pensjonat</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Dom wczasowy</string>
 </resources>

@@ -1066,4 +1066,10 @@
 	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
 	<string name="offline_place_page_more_information">A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.</string>
 	<string name="failed_load_information">Nem sikerült betölteni az adatokat.</string>
+	<string name="search_hotel_filter_apartment">Apartmanok</string>
+	<string name="search_hotel_filter_camp_site">Kemping</string>
+	<string name="search_hotel_filter_chalet">Turistaház</string>
+	<string name="search_hotel_filter_guest_house">Vendégház</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Resort hotel</string>
 </resources>

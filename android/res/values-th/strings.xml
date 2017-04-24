@@ -1072,4 +1072,10 @@
 	<string name="reviews_on_bookingcom">รีวิวเพิ่มเติมบน Booking.com</string>
 	<string name="offline_place_page_more_information">เชื่อมต่ออินเทอร์เน็ตเพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับสถานที่</string>
 	<string name="failed_load_information">ไม่สามารถโหลดข้อมูลได้</string>
+	<string name="search_hotel_filter_apartment">อพาร์ตเมนต์</string>
+	<string name="search_hotel_filter_camp_site">การตั้งแคมป์</string>
+	<string name="search_hotel_filter_chalet">ชาเลต์</string>
+	<string name="search_hotel_filter_guest_house">เกสท์เฮ้าส์</string>
+	<string name="search_hotel_filter_hostel">หอพัก</string>
+	<string name="search_hotel_filter_resort">รีสอร์ต</string>
 </resources>

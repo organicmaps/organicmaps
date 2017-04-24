@@ -1066,4 +1066,10 @@
 	<string name="reviews_on_bookingcom">Xem thêm đánh giá trên Booking.com</string>
 	<string name="offline_place_page_more_information">Kết nối đến Internet để xem thêm thông tin về địa điểm này.</string>
 	<string name="failed_load_information">Không thể tải thông tin.</string>
+	<string name="search_hotel_filter_apartment">Căn hộ</string>
+	<string name="search_hotel_filter_camp_site">Cắm trại</string>
+	<string name="search_hotel_filter_chalet">Nhà vệ sinh công cộng</string>
+	<string name="search_hotel_filter_guest_house">Nhà khách</string>
+	<string name="search_hotel_filter_hostel">Nhà trọ</string>
+	<string name="search_hotel_filter_resort">Khu nghỉ dưỡng</string>
 </resources>

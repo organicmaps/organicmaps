@@ -1088,4 +1088,11 @@
 	<string name="whats_new_auto_update_message">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
 	<string name="whats_new_auto_update_button_size">Обновить (%s)</string>
 	<string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
+	<string name="search_hotel_filter_apartment">Апартаменты</string>
+	<string name="search_hotel_filter_camp_site">Кемпинг</string>
+	<string name="search_hotel_filter_chalet">Шале</string>
+	<string name="search_hotel_filter_guest_house">Гостевой дом</string>
+	<string name="search_hotel_filter_hostel">Хостел</string>
+	<string name="search_hotel_filter_resort">Дом отдыха</string>
+	<string name="search_hotel_filter_motel">Мотель</string>
 </resources>

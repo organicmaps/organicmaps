@@ -1066,4 +1066,10 @@
 	<string name="reviews_on_bookingcom">Meer beoordelingen op Booking.com</string>
 	<string name="offline_place_page_more_information">Maak verbinding met het internet om meer informatie over de plaats te krijgen.</string>
 	<string name="failed_load_information">Informatie laden mislukt.</string>
+	<string name="search_hotel_filter_apartment">Appartementen</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Chalet</string>
+	<string name="search_hotel_filter_guest_house">Gasthuis</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Complex</string>
 </resources>

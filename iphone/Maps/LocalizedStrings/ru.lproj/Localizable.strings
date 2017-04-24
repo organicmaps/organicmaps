@@ -1856,3 +1856,17 @@
 "whats_new_auto_update_button_size" = "Обновить (%s)";
 
 "whats_new_auto_update_button_later" = "Обновить вручную позже";
+
+"search_hotel_filter_apartment" = "Апартаменты";
+
+"search_hotel_filter_camp_site" = "Кемпинг";
+
+"search_hotel_filter_chalet" = "Шале";
+
+"search_hotel_filter_guest_house" = "Гостевой дом";
+
+"search_hotel_filter_hostel" = "Хостел";
+
+"search_hotel_filter_resort" = "Дом отдыха";
+
+"search_hotel_filter_motel" = "Мотель";

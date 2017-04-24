@@ -1069,4 +1069,10 @@
 	<string name="reviews_on_bookingcom">Viac recenzií na Booking.com</string>
 	<string name="offline_place_page_more_information">Viac informácií o mieste získate po pripojení na internet.</string>
 	<string name="failed_load_information">Nepodarilo sa načítať informácie.</string>
+	<string name="search_hotel_filter_apartment">Apartmány</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Chata</string>
+	<string name="search_hotel_filter_guest_house">Penzión</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Rezort</string>
 </resources>

@@ -1062,4 +1062,10 @@
 	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
 	<string name="offline_place_page_more_information">Conectați-vă la internet pentru a primi mai multe informații despre locație.</string>
 	<string name="failed_load_information">Încărcarea informațiilor a eșuat.</string>
+	<string name="search_hotel_filter_apartment">Apartamente</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Cabană</string>
+	<string name="search_hotel_filter_guest_house">Pensiune</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Stațiuni</string>
 </resources>

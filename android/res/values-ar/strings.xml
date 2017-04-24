@@ -1072,4 +1072,10 @@
 	<string name="reviews_on_bookingcom">المزيد من المراجعات عن Booking.com</string>
 	<string name="offline_place_page_more_information">اتصل بالإنترنت للحصول على مزيد من التفاصيل حول المكان.</string>
 	<string name="failed_load_information">فشل تحميل المعلومات.</string>
+	<string name="search_hotel_filter_apartment">شُقَق</string>
+	<string name="search_hotel_filter_camp_site">تخييم</string>
+	<string name="search_hotel_filter_chalet">شاليه</string>
+	<string name="search_hotel_filter_guest_house">دار الضيافة</string>
+	<string name="search_hotel_filter_hostel">نزُل</string>
+	<string name="search_hotel_filter_resort">منتج</string>
 </resources>

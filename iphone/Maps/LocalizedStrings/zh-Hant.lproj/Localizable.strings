@@ -1856,3 +1856,17 @@
 "whats_new_auto_update_button_size" = "Update (%s)";
 
 "whats_new_auto_update_button_later" = "Manually update later";
+
+"search_hotel_filter_apartment" = "公寓";
+
+"search_hotel_filter_camp_site" = "露營";
+
+"search_hotel_filter_chalet" = "木屋";
+
+"search_hotel_filter_guest_house" = "賓館";
+
+"search_hotel_filter_hostel" = "旅舍";
+
+"search_hotel_filter_resort" = "度假酒店";
+
+"search_hotel_filter_motel" = "Motel";
