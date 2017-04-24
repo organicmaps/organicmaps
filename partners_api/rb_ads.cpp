@@ -29,6 +29,8 @@ std::initializer_list<storage::TCountryId> const kSupportedCountries =
   "Uzbekistan",
   "Ukraine"
 };
+
+std::initializer_list<std::string> const kSupportedLanguages = {"be", "hy", "kk", "ru", "uk"};
 }  // namespace
 
 namespace ads
@@ -103,6 +105,7 @@ Rb::Rb()
   AppendEntry({{"building"}}, kBuildingPlacementId);
 
   AppendSupportedCountries(kSupportedCountries);
+  AppendSupportedUserLanguages(kSupportedLanguages);
 }
 
 std::string Rb::GetBannerIdForOtherTypes() const

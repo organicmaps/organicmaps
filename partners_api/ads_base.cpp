@@ -3,6 +3,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include <algorithm>
 
 namespace ads
@@ -27,21 +29,36 @@ void Container::AppendSupportedCountries(
   m_supportedCountries.insert(countries.begin(), countries.end());
 }
 
+void Container::AppendSupportedUserLanguages(std::initializer_list<std::string> const & languages)
+{
+  for (auto const & language : languages)
+  {
+    int8_t const langIndex = StringUtf8Multilang::GetLangIndex(language);
+    if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
+      continue;
+    m_supportedUserLanguages.insert(langIndex);
+  }
+}
+
 bool Container::HasBanner(feature::TypesHolder const & types,
-                          storage::TCountryId const & countryId) const
+                          storage::TCountryId const & countryId,
+                          std::string const & userLanguage) const
 {
   if (!m_supportedCountries.empty() &&
       m_supportedCountries.find(countryId) == m_supportedCountries.end())
   {
-    return false;
+    auto const userLangCode = StringUtf8Multilang::GetLangIndex(userLanguage);
+    if (m_supportedUserLanguages.find(userLangCode) == m_supportedUserLanguages.end())
+      return false;
   }
   return !m_excludedTypes.Contains(types);
 }
 
 std::string Container::GetBannerId(feature::TypesHolder const & types,
-                                   storage::TCountryId const & countryId) const
+                                   storage::TCountryId const & countryId,
+                                   std::string const & userLanguage) const
 {
-  if (!HasBanner(types, countryId))
+  if (!HasBanner(types, countryId, userLanguage))
     return {};
 
   auto const it = m_typesToBanners.Find(types);

@@ -35,62 +35,62 @@ UNIT_TEST(AdsEngine_Smoke)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST(engine.HasBanner(holder, {"Ukraine"}), ());
-    auto result = engine.GetBanners(holder, {"Ukraine"});
+    TEST(engine.HasBanner(holder, {"Ukraine"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Ukraine"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"7", mopub.GetBannerIdForOtherTypes()});
 
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST(engine.HasBanner(holder, {"Ukraine"}), ());
-    result = engine.GetBanners(holder, {"Ukraine"});
+    TEST(engine.HasBanner(holder, {"Ukraine"}, "ru"), ());
+    result = engine.GetBanners(holder, {"Ukraine"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"7", mopub.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"tourism", "information", "map"}));
-    TEST(engine.HasBanner(holder, {"Moldova"}), ());
-    auto result = engine.GetBanners(holder, {"Moldova"});
+    TEST(engine.HasBanner(holder, {"Moldova"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Moldova"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"5", "d298f205fb8a47aaafb514d2b5b8cf55"});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"shop", "ticket"}));
-    TEST(engine.HasBanner(holder, {"Russian Federation"}), ());
-    auto result = engine.GetBanners(holder, {"Russian Federation"});
+    TEST(engine.HasBanner(holder, {"Russian Federation"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Russian Federation"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"2", "d298f205fb8a47aaafb514d2b5b8cf55"});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "bank"}));
-    TEST(engine.HasBanner(holder, {"Belarus"}), ());
-    auto result = engine.GetBanners(holder, {"Belarus"});
+    TEST(engine.HasBanner(holder, {"Belarus"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Belarus"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"8", mopub.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "pub"}));
-    TEST(engine.HasBanner(holder, {"Spain", "Ukraine"}), ());
-    auto result = engine.GetBanners(holder, {"Spain", "Ukraine"});
+    TEST(engine.HasBanner(holder, {"Spain", "Ukraine"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Spain", "Ukraine"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"1", "d298f205fb8a47aaafb514d2b5b8cf55"});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "pub"}));
-    TEST(engine.HasBanner(holder, {"Ukraine", "Spain"}), ());
-    auto result = engine.GetBanners(holder, {"Ukraine", "Spain"});
+    TEST(engine.HasBanner(holder, {"Ukraine", "Spain"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Ukraine", "Spain"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {"1", "d298f205fb8a47aaafb514d2b5b8cf55"});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "pub"}));
-    TEST(engine.HasBanner(holder, {"Spain"}), ());
-    auto result = engine.GetBanners(holder, {"Spain"});
+    TEST(engine.HasBanner(holder, {"Spain"}, "en"), ());
+    auto result = engine.GetBanners(holder, {"Spain"}, "en");
     CheckIds(result, {"d298f205fb8a47aaafb514d2b5b8cf55"});
     TEST_EQUAL(result[0].m_type, ads::Banner::Type::Mopub, ());
   }
@@ -98,32 +98,40 @@ UNIT_TEST(AdsEngine_Smoke)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    TEST(engine.HasBanner(holder, {"Armenia"}), ());
-    auto result = engine.GetBanners(holder, {"Armenia"});
+    TEST(engine.HasBanner(holder, {"Armenia"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Armenia"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {rb.GetBannerIdForOtherTypes(), mopub.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    TEST(engine.HasBanner(holder, {"Armenia", "Azerbaijan Region"}), ());
-    auto result = engine.GetBanners(holder, {"Armenia", "Azerbaijan Region"});
+    TEST(engine.HasBanner(holder, {"Armenia", "Azerbaijan Region"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Armenia", "Azerbaijan Region"}, "ru");
     CheckCountAndTypes(result);
     CheckIds(result, {rb.GetBannerIdForOtherTypes(), mopub.GetBannerIdForOtherTypes()});
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    TEST(engine.HasBanner(holder, {"Brazil"}), ());
-    auto result = engine.GetBanners(holder, {"Brazil"});
+    TEST(engine.HasBanner(holder, {"Brazil"}, "en"), ());
+    auto result = engine.GetBanners(holder, {"Brazil"}, "en");
     CheckIds(result, {mopub.GetBannerIdForOtherTypes()});
     TEST_EQUAL(result[0].m_type, ads::Banner::Type::Mopub, ());
   }
   {
     feature::TypesHolder holder;
+    holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
+    TEST(engine.HasBanner(holder, {"Brazil"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Brazil"}, "ru");
+    CheckCountAndTypes(result);
+    CheckIds(result, {rb.GetBannerIdForOtherTypes(), mopub.GetBannerIdForOtherTypes()});
+  }
+  {
+    feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
-    TEST(!engine.HasBanner(holder, {"Russian Federation"}), ());
-    auto result = engine.GetBanners(holder, {"Russian Federation"});
+    TEST(!engine.HasBanner(holder, {"Russian Federation"}, "ru"), ());
+    auto result = engine.GetBanners(holder, {"Russian Federation"}, "ru");
     TEST(result.empty(), ());
   }
   {
