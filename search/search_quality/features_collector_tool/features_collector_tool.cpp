@@ -176,14 +176,8 @@ int main(int argc, char * argv[])
 
     engine.SetLocale(sample.m_locale);
 
-    auto latLon = MercatorBounds::ToLatLon(sample.m_pos);
-
     search::SearchParams params;
-    params.m_query = strings::ToUtf8(sample.m_query);
-    params.m_inputLocale = sample.m_locale;
-    params.m_mode = Mode::Everywhere;
-    params.SetPosition(latLon.lat, latLon.lon);
-    params.m_suggestsEnabled = false;
+    sample.FillSearchParams(params);
     TestSearchRequest request(engine, params, sample.m_viewport);
     request.Run();
 

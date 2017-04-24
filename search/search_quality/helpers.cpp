@@ -6,6 +6,15 @@
 
 using namespace std;
 
+namespace
+{
+void ParsePoint(json_t * root, m2::PointD & point)
+{
+  FromJSONObject(root, "x", point.x);
+  FromJSONObject(root, "y", point.y);
+}
+}  // namespace
+
 namespace search
 {
 void ChangeMaxNumberOfOpenFiles(size_t n)
@@ -48,8 +57,17 @@ void ToJSONObject(json_t & root, string const & field, RectD const & rect)
 void FromJSONObject(json_t * root, string const & field, PointD & point)
 {
   json_t * p = my::GetJSONObligatoryField(root, field);
-  FromJSONObject(p, "x", point.x);
-  FromJSONObject(p, "y", point.y);
+  ParsePoint(p, point);
+}
+
+bool FromJSONObjectOptional(json_t * root, std::string const & field, PointD & point)
+{
+  json_t * p = my::GetJSONOptionalField(root, field);
+  if (!p || my::JSONIsNull(p))
+    return false;
+
+  ParsePoint(p, point);
+  return true;
 }
 
 void ToJSONObject(json_t & root, string const & field, PointD const & point)

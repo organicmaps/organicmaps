@@ -9,6 +9,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   search_quality
+  search
   indexer
   editor
   platform

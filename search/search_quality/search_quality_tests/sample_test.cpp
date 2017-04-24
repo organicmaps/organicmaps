@@ -22,6 +22,7 @@ protected:
 
   Sample m_cuba;
   Sample m_riga;
+  Sample m_tula;
 };
 
 void SampleTest::Init()
@@ -29,6 +30,7 @@ void SampleTest::Init()
   m_cuba.m_query = strings::MakeUniString("cuba");
   m_cuba.m_locale = "en";
   m_cuba.m_pos = {37.618706, 99.53730574302003};
+  m_cuba.m_posAvailable = true;
   m_cuba.m_viewport = {37.1336, 67.1349, 38.0314, 67.7348};
   search::Sample::Result cubaRes;
   cubaRes.m_name = strings::MakeUniString("Cuba");
@@ -41,6 +43,7 @@ void SampleTest::Init()
   m_riga.m_query = strings::MakeUniString("riga");
   m_riga.m_locale = "en";
   m_riga.m_pos = {37.65376, 98.51110651930014};
+  m_riga.m_posAvailable = true;
   m_riga.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
   search::Sample::Result rigaRes;
   rigaRes.m_name = strings::MakeUniString("Rīga");
@@ -49,6 +52,12 @@ void SampleTest::Init()
   rigaRes.m_pos = {24.105186, 107.7819569220319};
   rigaRes.m_houseNumber = "";
   m_riga.m_results = {rigaRes, rigaRes};
+
+  m_tula.m_query = strings::MakeUniString("tula");
+  m_tula.m_locale = "en";
+  m_tula.m_pos = {0.0, 0.0};
+  m_tula.m_posAvailable = false;
+  m_tula.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
 }
 }  // namespace
 
@@ -136,10 +145,14 @@ UNIT_CLASS_TEST(SampleTest, Arrays)
       R"({"query": "riga", "locale": "en", "position": {"x": 37.65376, "y": 98.51110651930014}, "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}, "results": [{"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}, {"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}]})");
   lines.append("\n");
 
+  lines.append(
+      R"({"query": "tula", "locale": "en", "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}})");
+  lines.append("\n");
+
   vector<Sample> samples;
   TEST(Sample::DeserializeFromJSONLines(lines, samples), ());
 
-  vector<Sample> expected = {m_cuba, m_riga};
+  vector<Sample> expected = {m_cuba, m_riga, m_tula};
 
   sort(samples.begin(), samples.end());
   sort(expected.begin(), expected.end());

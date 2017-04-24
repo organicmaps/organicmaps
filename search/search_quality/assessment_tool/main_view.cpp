@@ -60,11 +60,12 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
   m_sampleView->Clear();
 }
 
-void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool hasEdits)
+void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
+                          bool hasEdits)
 {
   MoveViewportToRect(sample.m_viewport);
 
-  m_sampleView->SetContents(sample);
+  m_sampleView->SetContents(sample, positionAvailable);
   m_sampleView->show();
 
   OnResultChanged(sampleIndex, ResultType::Found, Edits::Update::AllRelevancesUpdate());

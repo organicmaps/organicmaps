@@ -123,7 +123,7 @@ void MainModel::OnSampleSelected(int index)
 
   auto & context = m_contexts[index];
   auto const & sample = context.m_sample;
-  m_view->ShowSample(index, sample, context.HasChanges());
+  m_view->ShowSample(index, sample, sample.m_posAvailable, context.HasChanges());
 
   ResetSearch();
   auto const timestamp = m_queryTimestamp;
@@ -138,14 +138,8 @@ void MainModel::OnSampleSelected(int index)
 
   auto & engine = m_framework.GetSearchEngine();
   {
-    auto latLon = MercatorBounds::ToLatLon(sample.m_pos);
-
     search::SearchParams params;
-    params.m_query = strings::ToUtf8(sample.m_query);
-    params.m_inputLocale = sample.m_locale;
-    params.m_suggestsEnabled = false;
-    params.SetPosition(latLon.lat, latLon.lon);
-
+    sample.FillSearchParams(params);
     params.m_onResults = [this, index, sample, timestamp](search::Results const & results) {
       vector<Relevance> relevances;
       vector<size_t> goldenMatching;
@@ -219,6 +213,8 @@ void MainModel::OnShowPositionClicked()
   static int constexpr kViewportAroundPositionSizeM = 100;
 
   auto const & context = m_contexts[m_selectedSample];
+  CHECK(context.m_sample.m_posAvailable, ());
+
   auto const & position = context.m_sample.m_pos;
   auto const rect =
       MercatorBounds::RectByCenterXYAndSizeInMeters(position, kViewportAroundPositionSizeM);

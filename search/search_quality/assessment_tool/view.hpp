@@ -28,7 +28,8 @@ public:
   void SetModel(Model & model) { m_model = &model; }
 
   virtual void SetSamples(ContextList::SamplesSlice const & samples) = 0;
-  virtual void ShowSample(size_t index, search::Sample const & sample, bool hasEdits) = 0;
+  virtual void ShowSample(size_t index, search::Sample const & sample, bool positionAvailable,
+                          bool hasEdits) = 0;
   virtual void ShowFoundResults(search::Results::ConstIter begin,
                                 search::Results::ConstIter end) = 0;
   virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) = 0;
