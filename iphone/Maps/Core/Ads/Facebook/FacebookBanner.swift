@@ -2,6 +2,11 @@ import FBAudienceNetwork
 
 // MARK: FacebookBanner
 final class FacebookBanner: FBNativeAd, Banner {
+  private enum Limits {
+    static let minTimeOnScreen: TimeInterval = 3
+    static let minTimeSinceLastRequest: TimeInterval = 5
+  }
+
   fileprivate var success: Banner.Success!
   fileprivate var failure: Banner.Failure!
   fileprivate var click: Banner.Click!
@@ -48,11 +53,6 @@ final class FacebookBanner: FBNativeAd, Banner {
   private var requestDate: Date?
   private var remainingTime = Limits.minTimeOnScreen
   private var loadBannerDate: Date?
-
-  private enum Limits {
-    static let minTimeOnScreen: TimeInterval = 3
-    static let minTimeSinceLastRequest: TimeInterval = 30
-  }
 
   private func startCountTimeOnScreen() {
     if loadBannerDate == nil {
