@@ -198,7 +198,7 @@ bool HandleJavaException(JNIEnv * env)
      const jthrowable e = env->ExceptionOccurred();
      env->ExceptionDescribe();
      env->ExceptionClear();
-     LOG(LWARNING, (ToNativeString(env, e)));
+     LOG(LERROR, (ToNativeString(env, e)));
      return true;
    }
    return false;

@@ -32,7 +32,7 @@ public class LocalAdInfo implements Parcelable
 
   public boolean isAvailable()
   {
-    return mStatus == STATUS_CUSTOMER || mStatus == STATUS_CANDIDATE;
+    return mStatus != STATUS_NOT_AVAILABLE;
   }
 
   public boolean isCustomer()
