@@ -1,7 +1,7 @@
 final class MopubBanner: NSObject, Banner {
   private enum Limits {
     static let minTimeOnScreen: TimeInterval = 3
-    static let minTimeSinceLastRequest: TimeInterval = 30
+    static let minTimeSinceLastRequest: TimeInterval = 5
   }
 
   fileprivate var success: Banner.Success!
