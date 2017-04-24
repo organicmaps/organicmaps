@@ -50,6 +50,8 @@ json_t * GetJSONOptionalField(json_t * root, std::string const & field)
     MYTHROW(my::Json::Exception, ("Bad json object while parsing", field));
   return json_object_get(root, field.c_str());
 }
+
+bool JSONIsNull(json_t * root) { return json_is_null(root); }
 }  // namespace my
 
 void FromJSONObject(json_t * root, string const & field, double & result)
@@ -157,7 +159,7 @@ void ToJSONObject(json_t & root, string const & field, string const & value)
 void FromJSONObjectOptionalField(json_t * root, string const & field, string & result)
 {
   auto * val = my::GetJSONOptionalField(root, field);
-  if (!val)
+  if (!val || my::JSONIsNull(val))
   {
     result.clear();
     return;

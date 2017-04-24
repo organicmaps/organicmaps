@@ -21,5 +21,7 @@ void FromJSONObject(json_t * root, std::string const & field, RectD & rect);
 void ToJSONObject(json_t & root, std::string const & field, RectD const & rect);
 
 void FromJSONObject(json_t * root, std::string const & field, PointD & point);
+bool FromJSONObjectOptional(json_t * root, std::string const & field, PointD & point);
+
 void ToJSONObject(json_t & root, std::string const & field, PointD const & point);
 }  // namespace m2

@@ -89,14 +89,14 @@ SampleView::SampleView(QWidget * parent) : QWidget(parent)
   Clear();
 }
 
-void SampleView::SetContents(search::Sample const & sample)
+void SampleView::SetContents(search::Sample const & sample, bool positionAvailable)
 {
   m_query->setText(ToQString(sample.m_query));
   m_query->home(false /* mark */);
 
   m_langs->Select(sample.m_locale);
   m_showViewport->setEnabled(true);
-  m_showPosition->setEnabled(true);
+  m_showPosition->setEnabled(positionAvailable);
 
   m_foundResults->Clear();
   m_nonFoundResults->Clear();

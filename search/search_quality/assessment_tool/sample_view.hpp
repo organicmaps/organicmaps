@@ -20,7 +20,7 @@ public:
 
   explicit SampleView(QWidget * parent);
 
-  void SetContents(search::Sample const & sample);
+  void SetContents(search::Sample const & sample, bool positionAvailable);
   void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results);
 

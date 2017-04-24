@@ -45,6 +45,7 @@ public:
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t * GetJSONOptionalField(json_t * root, std::string const & field);
+bool JSONIsNull(json_t * root);
 }  // namespace my
 
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
@@ -80,6 +81,30 @@ void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & r
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
     FromJSON(json_array_get(arr, i), result[i]);
+}
+
+// The function tries to parse array of values from a value
+// corresponding to |field| in a json object corresponding to |root|.
+// Returns true when the value is non-null and array is successfully
+// parsed.  Returns false when there is no such |field| in the |root|
+// or the value is null.  Also, the method may throw an exception in
+// case of json parsing errors.
+template <typename T>
+bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vector<T> & result)
+{
+  auto * arr = my::GetJSONOptionalField(root, field);
+  if (!arr || my::JSONIsNull(arr))
+  {
+    result.clear();
+    return false;
+  }
+  if (!json_is_array(arr))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+  size_t const sz = json_array_size(arr);
+  result.resize(sz);
+  for (size_t i = 0; i < sz; ++i)
+    FromJSON(json_array_get(arr, i), result[i]);
+  return true;
 }
 
 template <typename T>

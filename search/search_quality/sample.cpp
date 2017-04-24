@@ -1,5 +1,6 @@
 #include "search/search_quality/sample.hpp"
 
+#include "search/search_params.hpp"
 #include "search/search_quality/helpers.hpp"
 
 #include "indexer/feature.hpp"
@@ -10,6 +11,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <ios>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -117,16 +119,14 @@ bool Sample::operator<(Sample const & rhs) const
     return m_locale < rhs.m_locale;
   if (m_pos != rhs.m_pos)
     return m_pos < rhs.m_pos;
+  if (m_posAvailable != rhs.m_posAvailable)
+    return m_posAvailable < rhs.m_posAvailable;
   if (m_viewport != rhs.m_viewport)
     return LessRect(m_viewport, rhs.m_viewport);
   return Less(m_results, rhs.m_results);
 }
 
-bool Sample::operator==(Sample const & rhs) const
-{
-  return m_query == rhs.m_query && m_locale == rhs.m_locale && m_pos == rhs.m_pos &&
-         m_viewport == rhs.m_viewport && Equal(m_results, rhs.m_results);
-}
+bool Sample::operator==(Sample const & rhs) const { return !(*this < rhs) && !(rhs < *this); }
 
 // static
 bool Sample::DeserializeFromJSONLines(string const & lines, std::vector<Sample> & samples)
@@ -166,9 +166,11 @@ void Sample::DeserializeFromJSONImpl(json_t * root)
 {
   FromJSONObject(root, "query", m_query);
   FromJSONObject(root, "locale", m_locale);
-  FromJSONObject(root, "position", m_pos);
+
+  m_posAvailable = FromJSONObjectOptional(root, "position", m_pos);
+
   FromJSONObject(root, "viewport", m_viewport);
-  FromJSONObject(root, "results", m_results);
+  FromJSONObjectOptional(root, "results", m_results);
 }
 
 void Sample::SerializeToJSONImpl(json_t & root) const
@@ -178,6 +180,20 @@ void Sample::SerializeToJSONImpl(json_t & root) const
   ToJSONObject(root, "position", m_pos);
   ToJSONObject(root, "viewport", m_viewport);
   ToJSONObject(root, "results", m_results);
+}
+
+void Sample::FillSearchParams(search::SearchParams & params) const
+{
+  params.m_query = strings::ToUtf8(m_query);
+  params.m_inputLocale = m_locale;
+  params.m_mode = Mode::Everywhere;
+  if (m_posAvailable)
+  {
+    auto const latLon = MercatorBounds::ToLatLon(m_pos);
+    params.SetPosition(latLon.lat, latLon.lon);
+  }
+
+  params.m_suggestsEnabled = false;
 }
 
 void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)
@@ -262,15 +278,16 @@ string DebugPrint(Sample const & s)
 {
   ostringstream oss;
   oss << "[";
-  oss << "query: " << DebugPrint(s.m_query) << " ";
-  oss << "locale: " << s.m_locale << " ";
-  oss << "pos: " << DebugPrint(s.m_pos) << " ";
-  oss << "viewport: " << DebugPrint(s.m_viewport) << " ";
+  oss << "query: " << DebugPrint(s.m_query) << ", ";
+  oss << "locale: " << s.m_locale << ", ";
+  oss << "pos: " << DebugPrint(s.m_pos) << ", ";
+  oss << "posAvailable: " << boolalpha << s.m_posAvailable << ", ";
+  oss << "viewport: " << DebugPrint(s.m_viewport) << ", ";
   oss << "results: [";
   for (size_t i = 0; i < s.m_results.size(); ++i)
   {
     if (i > 0)
-      oss << " ";
+      oss << ", ";
     oss << DebugPrint(s.m_results[i]);
   }
   oss << "]";
