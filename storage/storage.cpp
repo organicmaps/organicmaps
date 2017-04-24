@@ -1196,7 +1196,9 @@ void Storage::GetChildrenInGroups(TCountryId const & parent, TCountriesVec & dow
   TCountriesVec allDisputedTerritories;
   parentNode->ForEachChild([&](TCountryTreeNode const & childNode) {
     vector<pair<TCountryId, NodeStatus>> disputedTerritoriesAndStatus;
-    StatusAndError const childStatus = GetNodeStatusInfo(childNode, disputedTerritoriesAndStatus);
+    StatusAndError const childStatus = GetNodeStatusInfo(childNode,
+                                                         disputedTerritoriesAndStatus,
+                                                         true /* isDisputedTerritoriesCounted */);
 
     TCountryId const & childValue = childNode.Value().Name();
     ASSERT_NOT_EQUAL(childStatus.status, NodeStatus::Undefined, ());
@@ -1298,7 +1300,7 @@ void Storage::DeleteNode(TCountryId const & countryId)
 StatusAndError Storage::GetNodeStatus(TCountryTreeNode const & node) const
 {
   vector<pair<TCountryId, NodeStatus>> disputedTerritories;
-  return GetNodeStatusInfo(node, disputedTerritories);
+  return GetNodeStatusInfo(node, disputedTerritories, false /* isDisputedTerritoriesCounted */);
 }
 
 bool Storage::IsDisputed(TCountryTreeNode const & node) const
@@ -1309,7 +1311,8 @@ bool Storage::IsDisputed(TCountryTreeNode const & node) const
 }
 
 StatusAndError Storage::GetNodeStatusInfo(
-    TCountryTreeNode const & node, vector<pair<TCountryId, NodeStatus>> & disputedTerritories) const
+    TCountryTreeNode const & node, vector<pair<TCountryId, NodeStatus>> & disputedTerritories,
+                                          bool isDisputedTerritoriesCounted) const
 {
   // Leaf node status.
   if (node.ChildrenCount() == 0)
@@ -1327,7 +1330,8 @@ StatusAndError Storage::GetNodeStatusInfo(
   auto groupStatusCalculator = [&](TCountryTreeNode const & nodeInSubtree) {
     StatusAndError const statusAndError =
         ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
-    if (IsDisputed(nodeInSubtree))
+
+    if (IsDisputed(nodeInSubtree) && isDisputedTerritoriesCounted)
     {
       disputedTerritories.push_back(make_pair(nodeInSubtree.Value().Name(), statusAndError.status));
       return;

@@ -152,6 +152,22 @@
 		67F90BFF1C6A2B3100CD458E /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C84031C63884300DC9603 /* types.txt */; };
 		67F90C001C6A2B3100CD458E /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84041C63884300DC9603 /* World.mwm */; };
 		67F90C021C6A2B3100CD458E /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84061C63884300DC9603 /* WorldCoasts.mwm */; };
+		F66D56981EAE36280081E883 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56971EAE36280081E883 /* libicu.a */; };
+		F66D569A1EAE36510081E883 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56991EAE36510081E883 /* librouting_common.a */; };
+		F66D569D1EAE37160081E883 /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */; };
+		F66D569E1EAE37160081E883 /* drules_proto_vehicle_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */; };
+		F66D56A11EAE374B0081E883 /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */; };
+		F66D56A21EAE374B0081E883 /* drules_proto_vehicle_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */; };
+		F66D56A41EAE37B90081E883 /* countries_meta.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A31EAE37B90081E883 /* countries_meta.txt */; };
+		F66D56A61EAE37EE0081E883 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A51EAE37EE0081E883 /* libicu.a */; };
+		F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A71EAE37F90081E883 /* librouting_common.a */; };
+		F66D56AA1EAE38030081E883 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A91EAE38030081E883 /* libtraffic.a */; };
+		F66D56AC1EAE38150081E883 /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56AB1EAE38150081E883 /* liblocal_ads.a */; };
+		F66D56AD1EAE383E0081E883 /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */; };
+		F66D56AE1EAE383E0081E883 /* drules_proto_vehicle_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */; };
+		F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */; };
+		F66D56B01EAE383E0081E883 /* drules_proto_vehicle_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */; };
+		F66D56B21EAE385B0081E883 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,7 +257,6 @@
 		676C83FC1C63884300DC9603 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
 		676C83FD1C63884300DC9603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		676C83FE1C63884300DC9603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
-		676C83FF1C63884300DC9603 /* drules_proto_legacy.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_legacy.bin; sourceTree = "<group>"; };
 		676C84001C63884300DC9603 /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
 		676C84011C63884300DC9603 /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
 		676C84021C63884300DC9603 /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
@@ -259,6 +274,19 @@
 		67BE1DC41CD2180D00572709 /* downloading_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloading_policy.hpp; sourceTree = "<group>"; };
 		67F90B581C6A275B00CD458E /* storage_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F90BB61C6A29F700CD458E /* storage_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = storage_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F66D56951EAE35CB0081E883 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = ../icu/build/Debug/libicu.a; sourceTree = "<group>"; };
+		F66D56971EAE36280081E883 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = ../icu/build/Debug/libicu.a; sourceTree = "<group>"; };
+		F66D56991EAE36510081E883 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = ../routing_common/build/Debug/librouting_common.a; sourceTree = "<group>"; };
+		F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_vehicle_clear.bin; sourceTree = "<group>"; };
+		F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_vehicle_clear.txt; sourceTree = "<group>"; };
+		F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
+		F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_vehicle_dark.txt; sourceTree = "<group>"; };
+		F66D56A31EAE37B90081E883 /* countries_meta.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = countries_meta.txt; sourceTree = "<group>"; };
+		F66D56A51EAE37EE0081E883 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
+		F66D56A71EAE37F90081E883 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/librouting_common.a"; sourceTree = "<group>"; };
+		F66D56A91EAE38030081E883 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = ../traffic/build/Debug/libtraffic.a; sourceTree = "<group>"; };
+		F66D56AB1EAE38150081E883 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = ../local_ads/build/Debug/liblocal_ads.a; sourceTree = "<group>"; };
+		F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = local_ads_symbols.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +301,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66D569A1EAE36510081E883 /* librouting_common.a in Frameworks */,
+				F66D56981EAE36280081E883 /* libicu.a in Frameworks */,
 				3462FDB31DC1E68C00906FD7 /* libtess2.a in Frameworks */,
 				3462FDB11DC1E65B00906FD7 /* libgenerator.a in Frameworks */,
 				3462FDAF1DC1E62F00906FD7 /* libgenerator_tests_support.a in Frameworks */,
@@ -312,6 +342,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66D56AC1EAE38150081E883 /* liblocal_ads.a in Frameworks */,
+				F66D56AA1EAE38030081E883 /* libtraffic.a in Frameworks */,
+				F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */,
+				F66D56A61EAE37EE0081E883 /* libicu.a in Frameworks */,
 				349756251DC1E6EE0058742A /* libtracking.a in Frameworks */,
 				349756231DC1E6DD0058742A /* libpartners_api.a in Frameworks */,
 				67F90BF21C6A2AAB00CD458E /* libstorage.a in Frameworks */,
@@ -352,6 +386,13 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F66D56AB1EAE38150081E883 /* liblocal_ads.a */,
+				F66D56A91EAE38030081E883 /* libtraffic.a */,
+				F66D56A71EAE37F90081E883 /* librouting_common.a */,
+				F66D56A51EAE37EE0081E883 /* libicu.a */,
+				F66D56991EAE36510081E883 /* librouting_common.a */,
+				F66D56971EAE36280081E883 /* libicu.a */,
+				F66D56951EAE35CB0081E883 /* libicu.a */,
 				349756241DC1E6EE0058742A /* libtracking.a */,
 				349756221DC1E6DD0058742A /* libpartners_api.a */,
 				3462FDB21DC1E68C00906FD7 /* libtess2.a */,
@@ -498,7 +539,9 @@
 			children = (
 				678CB37F1CA5881B00E9118D /* editor.config */,
 				676109C81C99A941007C4E67 /* countries-strings */,
+				F66D56A31EAE37B90081E883 /* countries_meta.txt */,
 				671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */,
+				F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */,
 				671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */,
 				671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */,
 				676C84151C63888200DC9603 /* packed_polygons.bin */,
@@ -507,9 +550,12 @@
 				676C83FC1C63884300DC9603 /* countries.txt */,
 				676C83FD1C63884300DC9603 /* drules_proto_clear.bin */,
 				676C83FE1C63884300DC9603 /* drules_proto_dark.bin */,
-				676C83FF1C63884300DC9603 /* drules_proto_legacy.bin */,
 				676C84001C63884300DC9603 /* drules_proto-bw.bin */,
 				676C84011C63884300DC9603 /* drules_proto.bin */,
+				F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */,
+				F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */,
+				F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */,
+				F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */,
 				676C84021C63884300DC9603 /* patterns.txt */,
 				676C84031C63884300DC9603 /* types.txt */,
 				676C84041C63884300DC9603 /* World.mwm */,
@@ -647,6 +693,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66D56A41EAE37B90081E883 /* countries_meta.txt in Resources */,
+				F66D56A11EAE374B0081E883 /* drules_proto_vehicle_dark.bin in Resources */,
+				F66D56A21EAE374B0081E883 /* drules_proto_vehicle_dark.txt in Resources */,
+				F66D569D1EAE37160081E883 /* drules_proto_vehicle_clear.bin in Resources */,
+				F66D569E1EAE37160081E883 /* drules_proto_vehicle_clear.txt in Resources */,
 				678338D81C72460700FD6263 /* packed_polygons.bin in Resources */,
 				676109CA1C99A9D0007C4E67 /* countries-strings in Resources */,
 				678338E31C72460700FD6263 /* types.txt in Resources */,
@@ -670,6 +721,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66D56B21EAE385B0081E883 /* local_ads_symbols.txt in Resources */,
+				F66D56AD1EAE383E0081E883 /* drules_proto_vehicle_dark.bin in Resources */,
+				F66D56AE1EAE383E0081E883 /* drules_proto_vehicle_dark.txt in Resources */,
+				F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */,
+				F66D56B01EAE383E0081E883 /* drules_proto_vehicle_clear.txt in Resources */,
 				678CB3801CA5884800E9118D /* editor.config in Resources */,
 				676109C91C99A94E007C4E67 /* countries-strings in Resources */,
 				67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */,

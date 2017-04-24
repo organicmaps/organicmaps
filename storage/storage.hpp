@@ -607,7 +607,8 @@ private:
   /// Returns status for a node (group node or not).
   /// Fills |disputedTeritories| with all disputed teritories in subtree with the root == |node|.
   StatusAndError GetNodeStatusInfo(TCountryTreeNode const & node,
-                                   vector<pair<TCountryId, NodeStatus>> & disputedTeritories) const;
+                                   vector<pair<TCountryId, NodeStatus>> & disputedTeritories,
+                                   bool isDisputedTerritoriesCounted) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
