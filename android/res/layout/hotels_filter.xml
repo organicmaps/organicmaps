@@ -121,7 +121,7 @@
           android:textAppearance="@style/MwmTextAppearance.Body3"
           android:textColor="?colorAccent"
           android:fontFamily="@string/robotoMedium"
-          android:text="@string/booking_filters_type"
+          android:text="@string/search_hotel_filters_type"
           tools:targetApi="jelly_bean"/>
         <android.support.v7.widget.RecyclerView
           android:id="@+id/type"
