@@ -142,7 +142,7 @@ public class HotelsFilterView extends FrameLayout
         mHotelTypes.clear();
         if (mListener != null)
           mListener.onDone(null);
-        close();
+        updateViews();
       }
     });
   }
