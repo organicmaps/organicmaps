@@ -85,7 +85,7 @@ void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & r
 
 void MainView::MoveViewportToResult(search::Result const & result)
 {
-  m_framework.ShowSearchResult(result, false /* animation */);
+  m_framework.SelectSearchResult(result, false /* animation */);
 }
 
 void MainView::MoveViewportToResult(search::Sample::Result const & result)
@@ -272,7 +272,7 @@ void MainView::InitDocks()
   addDockWidget(Qt::RightDockWidgetArea, m_samplesDock);
   SetSamplesDockTitle(false /* hasEdits */);
 
-  m_sampleView = new SampleView(this /* parent */);
+  m_sampleView = new SampleView(this /* parent */, m_framework);
 
   connect(m_sampleView, &SampleView::OnShowViewportClicked,
           [this]() { m_model->OnShowViewportClicked(); });

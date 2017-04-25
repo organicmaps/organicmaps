@@ -33,6 +33,7 @@
 #include "search/everywhere_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/query_saver.hpp"
+#include "search/result.hpp"
 #include "search/viewport_search_callback.hpp"
 
 #include "storage/downloading_policy.hpp"
@@ -71,9 +72,6 @@ class EditableMapObject;
 
 namespace search
 {
-class Result;
-class Results;
-struct AddressInfo;
 struct EverywhereSearchParams;
 struct ViewportSearchParams;
 }
@@ -527,10 +525,6 @@ private:
 
   void SetCurrentPositionIfPossible(search::SearchParams & params);
 
-  void FillSearchResultsMarks(search::Results const & results);
-
-  void ClearSearchResultsMarks();
-
   void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
   storage::TCountryId m_lastReportedCountry;
@@ -571,8 +565,18 @@ public:
 
   bool GetCurrentPosition(double & lat, double & lon) const;
 
+  // Moves viewport to the search result and taps on it.
+  void SelectSearchResult(search::Result const & res, bool animation);
+
+  // Cancels all searches, stops location follow and then selects
+  // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);
+
   size_t ShowSearchResults(search::Results const & results);
+
+  void FillSearchResultsMarks(search::Results const & results);
+  void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void ClearSearchResultsMarks();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }

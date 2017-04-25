@@ -6,6 +6,7 @@
 
 #include <QtWidgets/QWidget>
 
+class Framework;
 class LanguagesList;
 class QLineEdit;
 class QPushButton;
@@ -18,7 +19,7 @@ class SampleView : public QWidget
 public:
   using Relevance = search::Sample::Result::Relevance;
 
-  explicit SampleView(QWidget * parent);
+  SampleView(QWidget * parent, Framework & framework);
 
   void SetContents(search::Sample const & sample, bool positionAvailable);
   void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
@@ -36,7 +37,10 @@ signals:
   void OnShowPositionClicked();
 
 private:
+  void ClearAllResults();
   void EnableEditing(ResultsView & results, Edits & edits);
+
+  Framework & m_framework;
 
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;
