@@ -40,6 +40,7 @@
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle;
 - (void)setDistanceToObject:(NSString *)distance;
+- (void)setSpeedAndAltitude:(NSString *)speedAndAltitude;
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress;
 

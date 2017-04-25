@@ -156,6 +156,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [self.previewLayoutHelper setDistanceToObject:distance];
 }
 
+- (void)setSpeedAndAltitude:(NSString *)speedAndAltitude
+{
+  [self.previewLayoutHelper setSpeedAndAltitude:speedAndAltitude];
+}
+
 - (MWMPlacePageActionBar *)actionBar
 {
   if (!_actionBar)

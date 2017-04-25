@@ -8,6 +8,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
@@ -82,7 +83,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   }
 
   [MWMLocationManager addObserver:self];
-  [self.layout setDistanceToObject:self.distanceToObject];
+  [self setupSpeedAndDistance];
 
   [self.layout showWithData:self.data];
   
@@ -200,9 +201,16 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.layout rotateDirectionArrowToAngle:angle];
 }
 
-- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+- (void)setupSpeedAndDistance
 {
   [self.layout setDistanceToObject:self.distanceToObject];
+  if (self.data.isMyPosition)
+    [self.layout setSpeedAndAltitude:location_helpers::formattedSpeedAndAltitude(MWMLocationManager.lastLocation)];
+}
+
+- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+{
+  [self setupSpeedAndDistance];
 }
 
 - (void)mwm_refreshUI { [self.layout mwm_refreshUI]; }

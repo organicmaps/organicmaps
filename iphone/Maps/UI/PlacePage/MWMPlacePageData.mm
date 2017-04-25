@@ -92,7 +92,7 @@ using namespace place_page;
 {
   if (self.title.length) m_previewRows.push_back(PreviewRows::Title);
   if (self.externalTitle.length) m_previewRows.push_back(PreviewRows::ExternalTitle);
-  if (self.subtitle.length) m_previewRows.push_back(PreviewRows::Subtitle);
+  if (self.subtitle.length || self.isMyPosition) m_previewRows.push_back(PreviewRows::Subtitle);
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
   if (self.isBooking) m_previewRows.push_back(PreviewRows::Booking);
   if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
