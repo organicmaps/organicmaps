@@ -23362,6 +23362,6 @@
   [view_campaign_button]
     en = View ad campagain
 
-  [booking_filters_type]
+  [search_hotel_filters_type]
     en = Type
     ru = Тип
