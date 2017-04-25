@@ -59,4 +59,4 @@ if __name__ == '__main__':
     check_symbols(symbols)
     with open(output_name, "w") as text_file:
         for symbol in symbols:
-            text_file.write(symbol)
+            text_file.write(symbol + '\n')
