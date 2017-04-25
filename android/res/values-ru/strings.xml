@@ -980,7 +980,7 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фильтр</string>
 	<string name="booking_filters_reset">Сбросить</string>
-	<string name="booking_filters_rating">Рейтинг</string>
+	<string name="booking_filters_rating">Рейтинг с</string>
 	<string name="booking_filters_rating_any">Любой</string>
 	<string name="booking_filters_ragting_good">Хорошо</string>
 	<string name="booking_filters_rating_very_good">Очень хорошо</string>

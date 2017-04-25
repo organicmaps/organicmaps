@@ -984,7 +984,7 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
 	<string name="booking_filters_reset">Reset</string>
-	<string name="booking_filters_rating">Rating</string>
+	<string name="booking_filters_rating">Rating from</string>
 	<string name="booking_filters_rating_any">Any</string>
 	<string name="booking_filters_ragting_good">Good</string>
 	<string name="booking_filters_rating_very_good">Very Good</string>
