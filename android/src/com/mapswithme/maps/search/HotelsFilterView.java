@@ -100,6 +100,9 @@ public class HotelsFilterView extends FrameLayout
   protected void onFinishInflate()
   {
     super.onFinishInflate();
+    if (isInEditMode())
+      return;
+
     mFrame = findViewById(R.id.frame);
     mFrame.setTranslationY(mFrame.getResources().getDisplayMetrics().heightPixels);
     mFade = findViewById(R.id.fade);
@@ -151,6 +154,9 @@ public class HotelsFilterView extends FrameLayout
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    if (isInEditMode())
+      return;
 
     mContent.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     mElevation.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
