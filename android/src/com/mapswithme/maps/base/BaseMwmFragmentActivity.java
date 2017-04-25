@@ -1,9 +1,9 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,9 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.SplashActivity;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -25,8 +28,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
-  @Nullable
-  private Bundle mSavedInstanceState;
+  private boolean mInitializationComplete = false;
 
   @Override
   public Activity get()
@@ -47,22 +49,37 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
+  @CallSuper
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected void onCreate(@Nullable Bundle savedInstanceState)
   {
-    mBaseDelegate.onCreate();
+    if (!MwmApplication.get().isPlatformInitialized()
+        || !PermissionsUtils.isExternalStorageGranted())
+    {
+      super.onCreate(savedInstanceState);
+      goToSplashScreen();
+      return;
+    }
+    mInitializationComplete = true;
 
+    mBaseDelegate.onCreate();
     super.onCreate(savedInstanceState);
+
+    safeOnCreate(savedInstanceState);
+  }
+
+  @CallSuper
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  {
+    setVolumeControlStream(AudioManager.STREAM_MUSIC);
+    final int layoutId = getContentLayoutResId();
+    if (layoutId != 0)
+      setContentView(layoutId);
 
     if (useTransparentStatusBar())
       UiUtils.setupStatusBar(this);
     if (useColorStatusBar())
       UiUtils.setupColorStatusBar(this, getStatusBarColor());
-
-    setVolumeControlStream(AudioManager.STREAM_MUSIC);
-    final int layoutId = getContentLayoutResId();
-    if (layoutId != 0)
-      setContentView(layoutId);
 
     // Use full-screen on Kindle Fire only
     if (Utils.isAmazonDevice())
@@ -71,10 +88,12 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
 
-    MwmApplication.get().initNativeCore();
-    MwmApplication.get().initCounters();
-
     attachDefaultFragment();
+  }
+
+  protected boolean isInitializationComplete()
+  {
+    return mInitializationComplete;
   }
 
   @ColorRes
@@ -129,19 +148,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   }
 
   @Override
-  protected void onRestoreInstanceState(Bundle savedInstanceState)
-  {
-    super.onRestoreInstanceState(savedInstanceState);
-    mSavedInstanceState = savedInstanceState;
-  }
-
-  @Nullable
-  public Bundle getSavedInstanceState()
-  {
-    return mSavedInstanceState;
-  }
-
-  @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
     if (item.getItemId() == android.R.id.home)
@@ -152,15 +158,23 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     return super.onOptionsItemSelected(item);
   }
 
+  @CallSuper
   @Override
   protected void onResume()
   {
     super.onResume();
+    if (!PermissionsUtils.isExternalStorageGranted())
+    {
+      goToSplashScreen();
+      return;
+    }
+
     mBaseDelegate.onResume();
   }
 
   @Override
-  protected void onPostResume() {
+  protected void onPostResume()
+  {
     super.onPostResume();
     mBaseDelegate.onPostResume();
   }
@@ -235,5 +249,14 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   protected int getFragmentContentResId()
   {
     return android.R.id.content;
+  }
+
+  private void goToSplashScreen()
+  {
+    Class<? extends Activity> type = null;
+    if (!(this instanceof MwmActivity))
+      type = getClass();
+    SplashActivity.start(this, type);
+    finish();
   }
 }

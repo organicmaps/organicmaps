@@ -78,10 +78,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   }
 
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
-
     final Bundle args = getArguments();
     mCategoryId = args.getInt(EXTRA_CATEGORY_ID);
     int bookmarkId = args.getInt(EXTRA_BOOKMARK_ID);

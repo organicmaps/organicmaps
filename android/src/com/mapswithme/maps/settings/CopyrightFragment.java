@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.widget.BaseShadowController;
-import com.mapswithme.maps.widget.ObservableWebView;
-import com.mapswithme.maps.widget.WebViewShadowController;
 import com.mapswithme.util.Constants;
 
 public class CopyrightFragment extends BaseSettingsFragment
@@ -23,14 +20,6 @@ public class CopyrightFragment extends BaseSettingsFragment
   protected int getLayoutRes()
   {
     return R.layout.fragment_prefs_copyright;
-  }
-
-  @Override
-  protected BaseShadowController createShadowController()
-  {
-    clearPaddings();
-    adjustMargins(mDelegate.getWebView());
-    return new WebViewShadowController((ObservableWebView)mDelegate.getWebView());
   }
 
   @Override
@@ -54,7 +43,8 @@ public class CopyrightFragment extends BaseSettingsFragment
   public boolean onBackPressed()
   {
     if (!mDelegate.onBackPressed())
-      getSettingsActivity().switchToFragment(AboutFragment.class, R.string.about_menu_title);
+      getSettingsActivity().replaceFragment(AboutFragment.class,
+                                            getString(R.string.about_menu_title), null);
 
     return true;
   }

@@ -2,7 +2,10 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
@@ -36,13 +38,14 @@ public class BookmarksListFragment extends BaseMwmListFragment
   private BookmarkCategory mCategory;
   private int mCategoryIndex;
   private int mSelectedPosition;
+  @Nullable
   private BookmarkListAdapter mAdapter;
 
+  @CallSuper
   @Override
-  public void onCreate(Bundle savedInstanceState)
+  public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
     mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, -1);
     mCategory = BookmarkManager.INSTANCE.getCategory(mCategoryIndex);
   }
@@ -53,19 +56,24 @@ public class BookmarksListFragment extends BaseMwmListFragment
     return inflater.inflate(R.layout.simple_list, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     initList();
     setHasOptionsMenu(true);
-    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mCategory.getName());
+    ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    if (bar != null)
+      bar.setTitle(mCategory.getName());
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
+    if (mAdapter == null)
+      return;
 
     mAdapter.startLocationUpdate();
     mAdapter.notifyDataSetChanged();
@@ -76,7 +84,8 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     super.onPause();
 
-    mAdapter.stopLocationUpdate();
+    if (mAdapter != null)
+      mAdapter.stopLocationUpdate();
   }
 
   private void initList()
@@ -92,20 +101,23 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     final Intent i = new Intent(getActivity(), MwmActivity.class);
 
-    switch (mAdapter.getItemViewType(position))
+    if (mAdapter != null)
     {
-    case BookmarkListAdapter.TYPE_SECTION:
-      return;
-    case BookmarkListAdapter.TYPE_BOOKMARK:
-      final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
-      i.putExtra(MwmActivity.EXTRA_TASK,
-                 new MwmActivity.ShowBookmarkTask(mCategoryIndex, bookmark.getBookmarkId()));
-      break;
-    case BookmarkListAdapter.TYPE_TRACK:
-      final Track track = (Track) mAdapter.getItem(position);
-      i.putExtra(MwmActivity.EXTRA_TASK,
-                 new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
-      break;
+      switch (mAdapter.getItemViewType(position))
+      {
+        case BookmarkListAdapter.TYPE_SECTION:
+          return;
+        case BookmarkListAdapter.TYPE_BOOKMARK:
+          final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
+          i.putExtra(MwmActivity.EXTRA_TASK,
+                     new MwmActivity.ShowBookmarkTask(mCategoryIndex, bookmark.getBookmarkId()));
+          break;
+        case BookmarkListAdapter.TYPE_TRACK:
+          final Track track = (Track) mAdapter.getItem(position);
+          i.putExtra(MwmActivity.EXTRA_TASK,
+                     new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+          break;
+      }
     }
 
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -115,6 +127,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
   {
+    if (mAdapter == null)
+      return false;
+
     mSelectedPosition = position;
     final Object item = mAdapter.getItem(mSelectedPosition);
     int type = mAdapter.getItemViewType(mSelectedPosition);
@@ -160,6 +175,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
+    if (mAdapter == null)
+      return false;
+
     Bookmark item = (Bookmark) mAdapter.getItem(mSelectedPosition);
 
     switch (menuItem.getItemId())

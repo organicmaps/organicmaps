@@ -82,7 +82,8 @@ class BottomPanel
       @Override
       public void onClick(View v)
       {
-        mFragment.getAdapter().setAvailableMapsMode();
+        if (mFragment.getAdapter() != null )
+          mFragment.getAdapter().setAvailableMapsMode();
         update();
       }
     });
@@ -114,15 +115,15 @@ class BottomPanel
   public void update()
   {
     DownloaderAdapter adapter = mFragment.getAdapter();
-    boolean search = adapter.isSearchResultsMode();
+    boolean search = adapter != null && adapter.isSearchResultsMode();
 
     boolean show = !search;
-    UiUtils.showIf(show && adapter.isMyMapsMode(), mFab);
+    UiUtils.showIf(show && adapter != null && adapter.isMyMapsMode(), mFab);
 
     if (show)
     {
-      String root = adapter.getCurrentRootId();
-      if (adapter.isMyMapsMode())
+      String root = adapter != null ? adapter.getCurrentRootId() : "";
+      if (adapter != null && adapter.isMyMapsMode())
       {
         int status = MapManager.nativeGetStatus(root);
         switch (status)

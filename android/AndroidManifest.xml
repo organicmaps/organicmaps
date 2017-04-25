@@ -82,9 +82,8 @@
         android:value="ERROR" /-->
 
     <activity
-        android:name="com.mapswithme.maps.DownloadResourcesActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/app_name">
+      android:name="com.mapswithme.maps.SplashActivity"
+      android:label="@string/app_name">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -117,8 +116,8 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data
-            android:host="ge0.me"
-            android:scheme="http"/>
+          android:host="ge0.me"
+          android:scheme="http"/>
       </intent-filter>
 
       <intent-filter>
@@ -128,11 +127,11 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data
-            android:host="maps.google.com"
-            android:scheme="https"/>
+          android:host="maps.google.com"
+          android:scheme="https"/>
         <data
-            android:host="maps.google.com"
-            android:scheme="http"/>
+          android:host="maps.google.com"
+          android:scheme="http"/>
       </intent-filter>
 
       <!-- API CALL -->
@@ -145,39 +144,43 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data
-            android:host="*"
-            android:mimeType="application/vnd.google-earth.kmz"/>
+          android:host="*"
+          android:mimeType="application/vnd.google-earth.kmz"/>
       </intent-filter>
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data
-            android:host="*"
-            android:mimeType="application/vnd.google-earth.kml+xml"/>
+          android:host="*"
+          android:mimeType="application/vnd.google-earth.kml+xml"/>
       </intent-filter>
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data
-            android:host="*"
-            android:mimeType="*/*"
-            android:pathPattern=".*\\.kmz"
-            android:scheme="file"/>
+          android:host="*"
+          android:mimeType="*/*"
+          android:pathPattern=".*\\.kmz"
+          android:scheme="file"/>
       </intent-filter>
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data
-            android:host="*"
-            android:mimeType="*/*"
-            android:pathPattern=".*\\.kml"
-            android:scheme="file"/>
+          android:host="*"
+          android:mimeType="*/*"
+          android:pathPattern=".*\\.kml"
+          android:scheme="file"/>
       </intent-filter>
-
     </activity>
+
+    <activity
+        android:name="com.mapswithme.maps.DownloadResourcesActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:label="@string/app_name"/>
 
     <activity
         android:name="com.mapswithme.maps.MwmActivity"

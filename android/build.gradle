@@ -31,13 +31,15 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  compile ('com.android.support:support-v4:23.2.1') {
+  compile ('com.android.support:support-v4:23.4.0') {
     force = true;
   }
-  compile 'com.android.support:appcompat-v7:23.2.1'
-  compile 'com.android.support:recyclerview-v7:23.2.1'
-  compile 'com.android.support:design:23.2.1'
-  compile 'com.android.support:cardview-v7:23.2.1'
+  compile 'com.android.support:appcompat-v7:23.4.0'
+  compile 'com.android.support:recyclerview-v7:23.4.0'
+  compile 'com.android.support:design:23.4.0'
+  compile 'com.android.support:cardview-v7:23.4.0'
+  compile 'com.android.support:preference-v7:23.4.0'
+  compile 'com.android.support:preference-v14:23.4.0'
   // google play services
   compile 'com.google.android.gms:play-services-location:10.0.1'
   compile 'com.google.android.gms:play-services-analytics:10.0.1'
@@ -250,7 +252,7 @@ android {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
-        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.DownloadResourcesActivity"
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
       }
 
       variant.outputs.each { output ->

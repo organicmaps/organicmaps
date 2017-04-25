@@ -1,8 +1,11 @@
 package com.mapswithme.maps.base;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +22,7 @@ import com.mapswithme.util.Utils;
 public abstract class BaseMwmRecyclerFragment extends Fragment
 {
   private Toolbar mToolbar;
+  @Nullable
   private RecyclerView mRecycler;
   private PlaceholderView mPlaceholder;
 
@@ -29,9 +33,17 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     return R.layout.fragment_recycler;
   }
 
+  @Nullable
   protected RecyclerView.Adapter getAdapter()
   {
-    return mRecycler.getAdapter();
+    return mRecycler != null ? mRecycler.getAdapter() : null;
+  }
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override
@@ -40,6 +52,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     return inflater.inflate(getLayoutRes(), container, false);
   }
 
+  @CallSuper
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {

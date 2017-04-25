@@ -100,6 +100,7 @@
     <item name="warmGray">@color/warm_gray</item>
 
     <item name="localAdSearchResBackground">@color/search_local_ads_customer_result</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
   </style>
 
   <!-- Night theme -->
@@ -203,5 +204,6 @@
     <item name="warmGray">@color/warm_gray_night</item>
 
     <item name="localAdSearchResBackground">@color/search_local_ads_customer_result_night</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
   </style>
 </resources>

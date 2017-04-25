@@ -2,8 +2,10 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,39 +41,47 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     return new BookmarkCategoriesAdapter(getActivity());
   }
 
+  @Nullable
   @Override
   protected BookmarkCategoriesAdapter getAdapter()
   {
-    return (BookmarkCategoriesAdapter)super.getAdapter();
+    RecyclerView.Adapter adapter = super.getAdapter();
+    return adapter != null ? (BookmarkCategoriesAdapter) adapter : null;
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
-    getAdapter().setOnClickListener(this);
-    getAdapter().setOnLongClickListener(this);
-    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+    if (getAdapter() != null)
     {
-      @Override
-      public void onChanged()
+      getAdapter().setOnClickListener(this);
+      getAdapter().setOnLongClickListener(this);
+      getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
-        updateResultsPlaceholder();
-      }
-    });
+        @Override
+        public void onChanged()
+        {
+          updateResultsPlaceholder();
+        }
+      });
+    }
   }
 
   private void updateResultsPlaceholder()
   {
-    showPlaceholder(getAdapter().getItemCount() == 0);
+    if (getAdapter() != null)
+      showPlaceholder(getAdapter().getItemCount() == 0);
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-    getAdapter().notifyDataSetChanged();
+    if (getAdapter() != null)
+      getAdapter().notifyDataSetChanged();
   }
 
   @Override
@@ -86,7 +96,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     final BookmarkCategory category = BookmarkManager.INSTANCE.getCategory(mSelectedPosition);
     category.setName(text);
-    getAdapter().notifyDataSetChanged();
+    if (getAdapter() != null)
+      getAdapter().notifyDataSetChanged();
   }
 
   @Override
@@ -96,7 +107,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     {
     case R.id.set_show:
       BookmarkManager.INSTANCE.toggleCategoryVisibility(mSelectedPosition);
-      getAdapter().notifyDataSetChanged();
+      if (getAdapter() != null)
+        getAdapter().notifyDataSetChanged();
       break;
 
     case R.id.set_share:
@@ -105,7 +117,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
     case R.id.set_delete:
       BookmarkManager.INSTANCE.nativeDeleteCategory(mSelectedPosition);
-      getAdapter().notifyDataSetChanged();
+      if (getAdapter() != null)
+        getAdapter().notifyDataSetChanged();
       break;
 
     case R.id.set_edit:

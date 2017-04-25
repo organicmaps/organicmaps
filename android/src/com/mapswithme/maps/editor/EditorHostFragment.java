@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -118,10 +119,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     return inflater.inflate(R.layout.fragment_editor_host, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
@@ -153,7 +156,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       @Override
       protected void onTextChanged(String query)
       {
-        ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).setFilter(query);
+        Fragment fragment = getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName());
+        if (fragment != null)
+          ((CuisineFragment) fragment).setFilter(query);
       }
     };
   }

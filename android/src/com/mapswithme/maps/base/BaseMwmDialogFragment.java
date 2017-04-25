@@ -52,9 +52,4 @@ public class BaseMwmDialogFragment extends DialogFragment
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
   }
-
-  public BaseMwmFragmentActivity getMwmActivity()
-  {
-    return (BaseMwmFragmentActivity) getActivity();
-  }
 }

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,13 @@ import com.mapswithme.util.Utils;
 public abstract class BaseMwmListFragment extends ListFragment
 {
   private Toolbar mToolbar;
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
+  }
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)

@@ -40,18 +40,27 @@
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
   <string name="pref_map_style" translatable="false">MapStyle</string>
+  <string name="pref_tts_screen" translatable="false">TtsScreen</string>
   <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
   <string name="pref_tts_language" translatable="false">TtsLanguage</string>
+  <string name="pref_tts_info" translatable="false">TtsInfo</string>
+  <string name="pref_tts_info_link" translatable="false">TtsInfoLink</string>
+  <string name="tts_info_link" translatable="false">https://support.maps.me/hc/en-us/articles/208628985-How-can-I-check-TTS-settings-on-my-Android-device-</string>
   <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
+  <string name="pref_track_screen" translatable="false">TrackScreen</string>
   <string name="pref_track_record" translatable="false">TrackRecord</string>
+  <string name="pref_track_record_time" translatable="false">TrackRecordTime</string>
   <string name="pref_showcase_switched_on" translatable="false">DisplayShowcase</string>
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
   <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="pref_traffic_simplified_colors" translatable="false">TrafficSimplifiedColors</string>
+  <string name="pref_settings_general" translatable="false">GeneralSettings</string>
+  <string name="pref_navigation" translatable="false">Navigation</string>
+  <string name="pref_information" translatable="false">Information</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>

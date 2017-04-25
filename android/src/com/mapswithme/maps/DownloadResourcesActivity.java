@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
@@ -210,8 +212,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
   };
 
+  @CallSuper
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_download_resources);
@@ -246,11 +249,11 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
   }
 
+  @CallSuper
   @Override
   protected void onResume()
   {
     super.onResume();
-
     if (!isFinishing())
       LocationHelper.INSTANCE.addListener(mLocationListener, true);
   }
@@ -486,8 +489,12 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
+    final Intent extra = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
+    if (extra == null)
+      return false;
+
     for (final IntentProcessor ip : mIntentProcessors)
-      if (ip.isSupported(intent) && ip.process(intent))
+      if (ip.isSupported(extra) && ip.process(extra))
         return true;
 
     return false;

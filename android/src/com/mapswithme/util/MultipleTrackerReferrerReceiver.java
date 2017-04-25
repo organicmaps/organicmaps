@@ -16,7 +16,7 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    MwmApplication.get().initCounters();
+    Counters.initCounters(context);
     // parse & send referrer to Aloha
     try
     {

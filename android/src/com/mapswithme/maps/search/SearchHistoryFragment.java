@@ -1,7 +1,9 @@
 package com.mapswithme.maps.search;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +20,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
 
   private void updatePlaceholder()
   {
-    UiUtils.showIf(getAdapter().getItemCount() == 0, mPlaceHolder);
+    UiUtils.showIf(getAdapter() != null && getAdapter().getItemCount() == 0, mPlaceHolder);
   }
 
   @Override
@@ -34,7 +36,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     getRecyclerView().setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -42,17 +44,21 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
     mPlaceHolder.setContent(R.drawable.img_search_empty_history_light,
                             R.string.search_history_title, R.string.search_history_text);
 
-    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+    if (getAdapter() != null)
     {
-      @Override
-      public void onChanged()
+      getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
-        updatePlaceholder();
-      }
-    });
+        @Override
+        public void onChanged()
+        {
+          updatePlaceholder();
+        }
+      });
+    }
     updatePlaceholder();
   }
 
+  @CallSuper
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState)
   {
