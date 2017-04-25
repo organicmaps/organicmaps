@@ -32,6 +32,7 @@
 namespace
 {
 std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
+std::string const kCampaignPageUrl = LOCAL_ADS_COMPANY_PAGE_URL;
 
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
@@ -64,21 +65,20 @@ std::chrono::steady_clock::time_point Now()
   return std::chrono::steady_clock::now();
 }
 
-std::string MakeRemoteURL(MwmSet::MwmId const & mwmId)
+std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
 {
   if (kServerUrl.empty() || !mwmId.IsAlive())
     return {};
 
   std::ostringstream ss;
-  ss << kServerUrl << "/";
-  ss << mwmId.GetInfo()->GetVersion() << "/";
-  ss << UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
+  ss << kServerUrl << "/" << mwmId.GetInfo()->GetVersion() << "/"
+     << UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
   return ss.str();
 }
 
 std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId)
 {
-  std::string const url = MakeRemoteURL(mwmId);
+  std::string const url = MakeCampaignDownloadingURL(mwmId);
   if (url.empty())
     return {};
 
@@ -98,11 +98,12 @@ df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::Mw
   auto campaigns = local_ads::Deserialize(rawData);
   for (local_ads::Campaign const & campaign : campaigns)
   {
-    if (Now() > timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired))
+    std::string const iconName = campaign.GetIconName();
+    auto const expiration = timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired);
+    if (iconName.empty() || Now() > expiration)
       continue;
-    symbols.insert(
-        std::make_pair(FeatureID(mwmId, campaign.m_featureId),
-                       df::CustomSymbol(campaign.GetIconName(), campaign.m_priorityBit)));
+    symbols.insert(std::make_pair(FeatureID(mwmId, campaign.m_featureId),
+                                  df::CustomSymbol(iconName, campaign.m_priorityBit)));
   }
 
   return symbols;
@@ -142,12 +143,22 @@ std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const &
   return result;
 }
 #endif
+
+std::string MakeCampaignPageURL(FeatureID const & featureId)
+{
+  if (kCampaignPageUrl.empty() || !featureId.m_mwmId.IsAlive())
+    return {};
+
+  std::ostringstream ss;
+  ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
+     << UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
+  return ss.str();
+}
 }  // namespace
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn const & getMwmsByRectFn,
-                       GetMwmIdByName const & getMwmIdByName)
-  : m_getMwmsByRectFn(getMwmsByRectFn)
-  , m_getMwmIdByNameFn(getMwmIdByName)
+                                 GetMwmIdByName const & getMwmIdByName)
+  : m_getMwmsByRectFn(getMwmsByRectFn), m_getMwmIdByNameFn(getMwmIdByName)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
@@ -458,9 +469,7 @@ bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
   return m_supportedTypes.Contains(types);
 }
 
-std::string LocalAdsManager::GetStartCompanyUrl() const
+std::string LocalAdsManager::GetCompanyUrl(FeatureID const & featureId) const
 {
-  return LOCAL_ADS_START_COMPANY_PAGE_HOST;
+  return MakeCampaignPageURL(featureId);
 }
-
-std::string LocalAdsManager::GetShowStatisticUrl() const { return LOCAL_ADS_STATISTICS_PAGE_HOST; }

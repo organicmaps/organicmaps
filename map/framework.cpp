@@ -934,16 +934,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   if (m_localAdsManager.IsSupportedType(info.GetTypes()))
   {
-    if (m_localAdsManager.Contains(ft.GetID()))
-    {
-      info.m_localAdsStatus = place_page::LocalAdsStatus::Customer;
-      info.m_localAdsUrl = m_localAdsManager.GetShowStatisticUrl();
-    }
-    else
-    {
-      info.m_localAdsStatus = place_page::LocalAdsStatus::Candidate;
-      info.m_localAdsUrl = m_localAdsManager.GetStartCompanyUrl();
-    }
+    info.m_localAdsUrl = m_localAdsManager.GetCompanyUrl(ft.GetID());
+    info.m_localAdsStatus = m_localAdsManager.Contains(ft.GetID())
+                                ? place_page::LocalAdsStatus::Customer
+                                : place_page::LocalAdsStatus::Candidate;
   }
   else
   {
