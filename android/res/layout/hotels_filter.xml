@@ -79,7 +79,7 @@
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorAccent"
+          android:textColor="?android:textColorSecondary"
           android:fontFamily="@string/robotoMedium"
           android:text="@string/booking_filters_rating"
           tools:targetApi="jelly_bean"/>
@@ -99,7 +99,7 @@
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorAccent"
+          android:textColor="?android:textColorSecondary"
           android:fontFamily="@string/robotoMedium"
           android:text="@string/booking_filters_price_category"
           tools:targetApi="jelly_bean"/>
@@ -119,7 +119,7 @@
           android:layout_marginTop="@dimen/margin_base"
           android:layout_marginBottom="@dimen/margin_half"
           android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorAccent"
+          android:textColor="?android:textColorSecondary"
           android:fontFamily="@string/robotoMedium"
           android:text="@string/search_hotel_filters_type"
           tools:targetApi="jelly_bean"/>
