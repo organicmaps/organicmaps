@@ -59,8 +59,7 @@ public:
   bool Contains(FeatureID const & featureId) const;
   bool IsSupportedType(feature::TypesHolder const & types) const;
 
-  std::string GetStartCompanyUrl() const;
-  std::string GetShowStatisticUrl() const;
+  std::string GetCompanyUrl(FeatureID const & featureId) const;
 
 private:
   enum class RequestType
