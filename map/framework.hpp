@@ -564,8 +564,13 @@ public:
 
   bool GetCurrentPosition(double & lat, double & lon) const;
 
+  // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
+
+  // Cancels all searches, stops location follow and then selects
+  // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);
+
   size_t ShowSearchResults(search::Results const & results);
 
   void FillSearchResultsMarks(search::Results const & results);
