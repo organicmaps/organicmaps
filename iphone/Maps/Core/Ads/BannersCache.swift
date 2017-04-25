@@ -22,29 +22,28 @@ final class BannersCache: NSObject {
 
   private func onCompletion(isAsync: Bool) {
     guard let completion = completion else { return }
-    var bannerType: BannerType?
+    var banner: Banner?
     statesLoop: for loadState in loadStates {
       switch loadState {
-      case .notLoaded(_): return
+      case .notLoaded(let type):
+        banner = cache[type]
+        break statesLoop
       case .loaded(let type):
-        bannerType = type
+        banner = cache[type]
         break statesLoop
       case .error: continue
       }
     }
-    guard bannerType != nil else { return }
-    guard let banner = cache[bannerType!] else {
-      assert(false)
-      return
+    if let banner = banner {
+      Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.statisticsDescription)
+      MRMyTracker.trackEvent(withName: kStatPlacePageBannerShow)
+      completion(banner, isAsync)
+      banner.isBannerOnScreen = true
+      self.completion = nil
     }
-    Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.statisticsDescription)
-    MRMyTracker.trackEvent(withName: kStatPlacePageBannerShow)
-    completion(banner, isAsync)
-    banner.isBannerOnScreen = true
-    self.completion = nil
   }
 
-  func get(coreBanners: [CoreBanner], completion: @escaping Completion, cacheOnly: Bool) {
+  func get(coreBanners: [CoreBanner], cacheOnly: Bool, loadNew: Bool = true, completion: @escaping Completion) {
     self.completion = completion
     self.cacheOnly = cacheOnly
     loadStates = coreBanners.map { coreBanner in
@@ -52,10 +51,13 @@ final class BannersCache: NSObject {
       if let banner = cache[bannerType], (!banner.isPossibleToReload || banner.isNeedToRetain) {
         return .loaded(bannerType)
       } else {
-        get(bannerType: bannerType)
+        if loadNew {
+          get(bannerType: bannerType)
+        }
         return .notLoaded(bannerType)
       }
     }
+
     onCompletion(isAsync: false)
   }
 

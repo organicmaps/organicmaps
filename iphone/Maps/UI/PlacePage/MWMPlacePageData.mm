@@ -104,6 +104,8 @@ using namespace place_page;
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
         getWithCoreBanners:banner_helpers::MatchPriorityBanners(m_info.GetBanners())
+                 cacheOnly:NO
+                   loadNew:YES
                 completion:^(id<MWMBanner> ad, BOOL isAsync) {
                   __strong auto self = wSelf;
                   if (!self)
@@ -113,8 +115,7 @@ using namespace place_page;
                   self->m_previewRows.push_back(PreviewRows::Banner);
                   if (isAsync)
                     self.bannerIsReadyCallback();
-                }
-                 cacheOnly:NO];
+                }];
   }
 }
 
