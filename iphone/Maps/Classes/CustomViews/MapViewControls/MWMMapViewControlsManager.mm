@@ -129,10 +129,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  // Workaround needs for setting correct left bound while landscape place page is open.
-  self.navigationManager.leftBound = 0;
   [self.placePageManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [coordinator animateAlongsideTransition:^(
+                   id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+    self.navigationManager.leftBound = self.leftBound;
+  }
+                               completion:nil];
 }
 
 #pragma mark - MWMPlacePageViewManager
