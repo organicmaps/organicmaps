@@ -503,7 +503,7 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchEngine_nativeGetHotelTypes(JNIEnv * env, jclass clazz)
   {
     using Type = ftypes::IsHotelChecker::Type;
-    static const jclass hotelTypeClass =
+    static jclass const hotelTypeClass =
         env->FindClass("com/mapswithme/maps/search/HotelsFilter$HotelType");
     static jmethodID const hotelTypeCtorId =
         jni::GetConstructorID(env, hotelTypeClass, "(ILjava/lang/String;)V");
