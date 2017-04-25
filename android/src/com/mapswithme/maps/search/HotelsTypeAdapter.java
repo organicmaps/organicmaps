@@ -92,14 +92,29 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
       mItems = items;
       mListener = listener;
       mTitle = (TextView) itemView.findViewById(R.id.tv__tag);
+      mFrame.setOnClickListener(this);
     }
 
     void bind(@NonNull Item item)
     {
-      mFrame.setOnClickListener(this);
       mTitle.setText(getStringResourceByTag(item.mType.getTag()));
       mFrame.setSelected(item.mSelected);
       updateTitleColor();
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = getAdapterPosition();
+      if(position == RecyclerView.NO_POSITION)
+        return;
+
+      mFrame.setSelected(!mFrame.isSelected());
+      updateTitleColor();
+      Item item = mItems.get(position);
+      item.mSelected = mFrame.isSelected();
+      if (mListener != null)
+        mListener.onTypeSelected(item.mSelected, item.mType);
     }
 
     @NonNull
@@ -119,21 +134,6 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
       }
 
       return tag;
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-      int pos = getAdapterPosition();
-      if (pos == RecyclerView.NO_POSITION)
-        return;
-
-      mFrame.setSelected(!mFrame.isSelected());
-      updateTitleColor();
-      Item item = mItems.get(pos);
-      item.mSelected = mFrame.isSelected();
-      if (mListener != null)
-        mListener.onTypeSelected(item.mSelected, item.mType);
     }
 
     private void updateTitleColor()

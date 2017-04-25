@@ -109,7 +109,6 @@ public class HotelsFilterView extends FrameLayout
     mElevation = mFrame.findViewById(R.id.elevation);
     RecyclerView type = (RecyclerView) mContent.findViewById(R.id.type);
     type.setLayoutManager(new TagLayoutManager());
-    type.getLayoutManager().setAutoMeasureEnabled(true);
     type.setNestedScrollingEnabled(false);
     type.addItemDecoration(new TagItemDecoration(mTagsDecorator));
     mTypeAdapter = new HotelsTypeAdapter(this);
@@ -272,9 +271,15 @@ public class HotelsFilterView extends FrameLayout
 
     mOpened = true;
     mFilter = filter;
-    updateViews();
     Animations.fadeInView(mFade, null);
-    Animations.appearSliding(mFrame, Animations.BOTTOM, null);
+    Animations.appearSliding(mFrame, Animations.BOTTOM, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        updateViews();
+      }
+    });
     InputUtils.hideKeyboard(this);
   }
 

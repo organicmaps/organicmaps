@@ -9,6 +9,10 @@ import android.view.View;
  */
 public class TagLayoutManager extends RecyclerView.LayoutManager
 {
+  public TagLayoutManager()
+  {
+    setAutoMeasureEnabled(true);
+  }
 
   @Override
   public RecyclerView.LayoutParams generateDefaultLayoutParams()
