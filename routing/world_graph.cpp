@@ -12,7 +12,8 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<Index
   CHECK(m_estimator, ());
 }
 
-void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap, std::vector<SegmentEdge> & edges)
+void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
+                             std::vector<SegmentEdge> & edges)
 {
   if (m_mode != Mode::NoLeaps && (isLeap || m_mode == Mode::LeapsOnly))
   {
@@ -63,10 +64,10 @@ string DebugPrint(WorldGraph::Mode mode)
 {
   switch (mode)
   {
-    case WorldGraph::Mode::SingleMwm: return "SingleMwm";
-    case WorldGraph::Mode::LeapsOnly: return "LeapsOnly";
-    case WorldGraph::Mode::LeapsIfPossible: return "LeapsIfPossible";
-    case WorldGraph::Mode::NoLeaps: return "NoLeaps";
+  case WorldGraph::Mode::SingleMwm: return "SingleMwm";
+  case WorldGraph::Mode::LeapsOnly: return "LeapsOnly";
+  case WorldGraph::Mode::LeapsIfPossible: return "LeapsIfPossible";
+  case WorldGraph::Mode::NoLeaps: return "NoLeaps";
   }
   return "Unknown mode";
 }

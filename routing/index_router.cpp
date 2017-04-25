@@ -139,7 +139,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
 
-  auto const getRoutingMode = [&](){
+  auto const getRoutingMode = [&]() {
     return AreMwmsNear(start.GetMwmId(), finish.GetMwmId()) ? WorldGraph::Mode::LeapsIfPossible
                                                             : WorldGraph::Mode::LeapsOnly;
   };

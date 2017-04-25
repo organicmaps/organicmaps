@@ -69,8 +69,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   GetNormalToFakeEdge(segment, m_finish, kFinishFakeSegment, isOutgoing, edges);
 }
 
-void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex,
-                                             bool isOutgoing,
+void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
                                              vector<SegmentEdge> & edges)
 {
   if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
@@ -100,18 +99,22 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
                                             vector<SegmentEdge> & edges)
 {
   m2::PointD const & pointFrom = GetPoint(segment, isOutgoing);
-  if (segment.GetMwmId() == fakeVertex.GetMwmId() && m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  if (segment.GetMwmId() == fakeVertex.GetMwmId() &&
+      m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
   {
-    // It's assumed here that GetEstimator().CalcLeapEdgeTime(p1, p2) == GetEstimator().CalcLeapEdgeTime(p2, p1).
+    // It's assumed here that GetEstimator().CalcLeapEdgeTime(p1, p2) ==
+    // GetEstimator().CalcLeapEdgeTime(p2, p1).
     if (m_graph.IsTransition(segment, isOutgoing))
-      edges.emplace_back(fakeSegment, m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
+      edges.emplace_back(fakeSegment,
+                         m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
     return;
   }
 
   if (!fakeVertex.Fits(segment))
     return;
 
-  edges.emplace_back(fakeSegment, m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
+  edges.emplace_back(fakeSegment,
+                     m_graph.GetEstimator().CalcLeapEdgeTime(pointFrom, fakeVertex.GetPoint()));
 }
 
 void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
@@ -129,7 +132,7 @@ void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, 
         // It's assumed here that GetEstimator().CalcLeapEdgeTime(p1, p2) ==
         // GetEstimator().CalcLeapEdgeTime(p2, p1).
         edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapEdgeTime(
-          segmentPoint, GetPoint(transition, isOutgoing)));
+                                           segmentPoint, GetPoint(transition, isOutgoing)));
       });
 }
 

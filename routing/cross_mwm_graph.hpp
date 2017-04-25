@@ -135,8 +135,9 @@ private:
   /// \note If the method finds twin segment with a point which is very close to |point| the twin segment is
   /// added to |twins| anyway. If there's no such segment in mwm it tries find the closet one and adds it
   /// to |minDistSegs|.
-  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
-                     std::map<NumMwmId, ClosestSegment> & minDistSegs, std::vector<Segment> & twins);
+  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft,
+                     m2::PointD const & point, std::map<NumMwmId, ClosestSegment> & minDistSegs,
+                     std::vector<Segment> & twins);
 
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section

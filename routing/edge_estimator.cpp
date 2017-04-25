@@ -105,7 +105,8 @@ double CarEdgeEstimator::CalcLeapEdgeTime(m2::PointD const & from, m2::PointD co
 {
   // Let us assume for the time being that
   // leap edges will be added with a half of max speed.
-  // @TODO(bykoianko) It's necessary to gather statistics to calculate better factor(s) instead of one below.
+  // @TODO(bykoianko) It's necessary to gather statistics to calculate better factor(s) instead of
+  // one below.
   return TimeBetweenSec(from, to, m_maxSpeedMPS / 2.0);
 }
 
