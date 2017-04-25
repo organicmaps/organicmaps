@@ -16,7 +16,7 @@ namespace feature
   int GetFeatureViewportScale(TypesHolder const & types);
 
   /// Primary name using priority:
-  /// - device language name;
+  /// - device language name (or extended device languages if provided);
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed).
@@ -30,15 +30,17 @@ namespace feature
   void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const & src,
                          int8_t const deviceLang, bool allowTranslit, string & primary, string & secondary);
 
-  /// When MWM contains user's language, the priority is the following:
-  /// - device language name;
+  /// When MWM contains user's language (or extended device languages if provided),
+  /// the priority is the following:
+  /// - device language name (or extended device languages if provided);
   /// - default name;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);
   /// - country language name.
-  /// When MWM does not contain user's language, the priority is the following:
-  /// - device language name;
+  /// When MWM does not contain user's language (or extended device languages),
+  /// the priority is the following:
+  /// - device language name (or extended device languages if provided);
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);
