@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
@@ -27,7 +28,8 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
   private static final String TAG = HotelsTypeAdapter.class.getName();
 
   @NonNull
-  private static final String SEARCH_HOTEL_FILTER = "search_hotel_filter_%s";
+  private static final String SEARCH_HOTEL_FILTER = MwmApplication
+      .get().getString(R.string.search_hotel_filter);
   @NonNull
   private static final HotelsFilter.HotelType[] TYPES = SearchEngine.nativeGetHotelTypes();
 

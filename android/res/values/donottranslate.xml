@@ -76,4 +76,6 @@
   <!-- Tags -->
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
+
+  <string name="search_hotel_filter" translatable="false">search_hotel_filter_%s</string>
 </resources>
