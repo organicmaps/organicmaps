@@ -36,19 +36,14 @@ public class TagItemDecoration extends RecyclerView.ItemDecoration
 
     int parentRight = parent.getWidth() - parent.getPaddingRight();
     int parentLeft = parent.getPaddingLeft();
-    int lastHeight = 0;
+    int lastHeight = Integer.MIN_VALUE;
 
     int childCount = parent.getChildCount();
     for (int i = 0; i < childCount; i++)
     {
       View child = parent.getChildAt(i);
-      if (lastHeight == 0)
-        lastHeight = child.getTop();
-      boolean isLineChanged = child.getTop() > lastHeight;
-      boolean isNewLine = isLineChanged || i == 0;
-      lastHeight = child.getTop();
 
-      if (!isNewLine)
+      if (child.getTop() <= lastHeight)
       {
         mDivider.setBounds(child.getLeft() - mDivider.getIntrinsicWidth(),
                            child.getTop(),
@@ -63,6 +58,7 @@ public class TagItemDecoration extends RecyclerView.ItemDecoration
                            child.getTop());
       }
       mDivider.draw(canvas);
+      lastHeight = child.getTop();
     }
   }
 

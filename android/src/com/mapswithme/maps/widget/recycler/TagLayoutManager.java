@@ -28,7 +28,7 @@ public class TagLayoutManager extends RecyclerView.LayoutManager
 
     int widthUsed = 0;
     int heightUsed = 0;
-    int maxHeight = 0;
+    int lineHeight = 0;
     int itemsCountOneLine = 0;
     for (int i = 0; i < getItemCount(); i++)
     {
@@ -37,20 +37,20 @@ public class TagLayoutManager extends RecyclerView.LayoutManager
       measureChildWithMargins(child, widthUsed, heightUsed);
       int width = getDecoratedMeasuredWidth(child);
       int height = getDecoratedMeasuredHeight(child);
-      maxHeight = Math.max(maxHeight, height);
+      lineHeight = Math.max(lineHeight, height);
       if (widthUsed + width >= getWidth())
       {
         widthUsed = 0;
         if (itemsCountOneLine > 0)
         {
           itemsCountOneLine = -1;
-          heightUsed += maxHeight;
+          heightUsed += lineHeight;
           child.forceLayout();
           measureChildWithMargins(child, widthUsed, heightUsed);
           width = getDecoratedMeasuredWidth(child);
           height = getDecoratedMeasuredHeight(child);
         }
-        maxHeight = 0;
+        lineHeight = 0;
       }
       layoutDecorated(child, widthUsed, heightUsed, widthUsed + width, heightUsed + height);
       widthUsed += width;

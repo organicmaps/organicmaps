@@ -87,11 +87,11 @@ public:
       auto const oneOfClass = env->FindClass("com/mapswithme/maps/search/HotelsFilter$OneOf");
       auto const hotelTypeClass =
           env->FindClass("com/mapswithme/maps/search/HotelsFilter$HotelType");
-      m_hotelType = env->GetFieldID(oneOfClass, "mType",
+      m_oneOfType = env->GetFieldID(oneOfClass, "mType",
                                     "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;");
-      m_typeRhs =
-          env->GetFieldID(oneOfClass, "mRhs", "Lcom/mapswithme/maps/search/HotelsFilter$OneOf;");
-      m_hotelId = env->GetFieldID(hotelTypeClass, "mType", "I");
+      m_oneOfTile =
+          env->GetFieldID(oneOfClass, "mTile", "Lcom/mapswithme/maps/search/HotelsFilter$OneOf;");
+      m_hotelType = env->GetFieldID(hotelTypeClass, "mType", "I");
     }
 
     {
@@ -163,11 +163,11 @@ private:
 
   Rule BuildOneOf(JNIEnv * env, jobject filter)
   {
-    auto const hotelType = env->GetObjectField(filter, m_hotelType);
-    auto type = static_cast<unsigned>(env->GetIntField(hotelType, m_hotelId));
-    auto const rhs = env->GetObjectField(filter, m_typeRhs);
-    unsigned value = 1U << type;
-    return BuildOneOf(env, rhs, value);
+    auto const oneOfType = env->GetObjectField(filter, m_oneOfType);
+    auto hotelType = static_cast<unsigned>(env->GetIntField(oneOfType, m_hotelType));
+    auto const tile = env->GetObjectField(filter, m_oneOfTile);
+    unsigned value = 1U << hotelType;
+    return BuildOneOf(env, tile, value);
   }
 
   Rule BuildOneOf(JNIEnv * env, jobject filter, unsigned value)
@@ -175,12 +175,12 @@ private:
     if (filter == nullptr)
       return search::hotels_filter::OneOf(value);
 
-    auto const hotelType = env->GetObjectField(filter, m_hotelType);
-    auto type = static_cast<unsigned>(env->GetIntField(hotelType, m_hotelId));
-    auto const rhs = env->GetObjectField(filter, m_typeRhs);
-    value = value | (1U << type);
+    auto const oneOfType = env->GetObjectField(filter, m_oneOfType);
+    auto hotelType = static_cast<unsigned>(env->GetIntField(oneOfType, m_hotelType));
+    auto const tile = env->GetObjectField(filter, m_oneOfTile);
+    value = value | (1U << hotelType);
 
-    return BuildOneOf(env, rhs, value);
+    return BuildOneOf(env, tile, value);
   }
 
   Rule BuildRatingOp(JNIEnv * env, int op, jobject filter)
@@ -232,9 +232,9 @@ private:
   jfieldID m_field;
   jfieldID m_op;
 
+  jfieldID m_oneOfType;
+  jfieldID m_oneOfTile;
   jfieldID m_hotelType;
-  jfieldID m_hotelId;
-  jfieldID m_typeRhs;
 
   jfieldID m_rating;
   jfieldID m_priceRate;

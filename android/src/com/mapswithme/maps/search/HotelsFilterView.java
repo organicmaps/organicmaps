@@ -202,7 +202,7 @@ public class HotelsFilterView extends FrameLayout
   private HotelsFilter combineFilters(@NonNull HotelsFilter... filters)
   {
     HotelsFilter result = null;
-    for (HotelsFilter filter: filters)
+    for (HotelsFilter filter : filters)
     {
       if (result == null)
       {
@@ -362,8 +362,8 @@ public class HotelsFilterView extends FrameLayout
                                   @NonNull HotelsFilter.OneOf types)
   {
     hotelTypes.add(types.mType);
-    if (types.mRhs != null)
-      populateHotelTypes(hotelTypes, types.mRhs);
+    if (types.mTile != null)
+      populateHotelTypes(hotelTypes, types.mTile);
   }
 
   public void setListener(@Nullable HotelsFilterListener listener)

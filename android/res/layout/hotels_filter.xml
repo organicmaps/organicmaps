@@ -59,7 +59,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/header"/>
-
     <android.support.v4.widget.NestedScrollView
       android:id="@+id/scroll"
       android:layout_width="match_parent"
@@ -83,14 +82,12 @@
           android:fontFamily="@string/robotoMedium"
           android:text="@string/booking_filters_rating"
           tools:targetApi="jelly_bean"/>
-
         <include layout="@layout/divider_horizontal"/>
         <com.mapswithme.maps.search.RatingFilterView
           android:id="@+id/rating"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
         <include layout="@layout/divider_horizontal"/>
-
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -103,14 +100,12 @@
           android:fontFamily="@string/robotoMedium"
           android:text="@string/booking_filters_price_category"
           tools:targetApi="jelly_bean"/>
-
         <include layout="@layout/divider_horizontal"/>
         <com.mapswithme.maps.search.PriceFilterView
           android:id="@+id/price"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
         <include layout="@layout/divider_horizontal"/>
-
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

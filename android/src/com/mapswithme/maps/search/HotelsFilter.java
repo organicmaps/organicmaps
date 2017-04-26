@@ -119,20 +119,20 @@ public class HotelsFilter implements Parcelable
     @NonNull
     public final HotelType mType;
     @Nullable
-    public final OneOf mRhs;
+    public final OneOf mTile;
 
-    public OneOf(@NonNull HotelType type, @Nullable OneOf rhs)
+    public OneOf(@NonNull HotelType type, @Nullable OneOf tile)
     {
       super(TYPE_ONE_OF);
       mType = type;
-      mRhs = rhs;
+      mTile = tile;
     }
 
     public OneOf(Parcel source)
     {
       super(TYPE_ONE_OF);
       mType = source.readParcelable(HotelType.class.getClassLoader());
-      mRhs = source.readParcelable(HotelsFilter.class.getClassLoader());
+      mTile = source.readParcelable(HotelsFilter.class.getClassLoader());
     }
 
     @Override
@@ -140,7 +140,7 @@ public class HotelsFilter implements Parcelable
     {
       super.writeToParcel(dest, flags);
       dest.writeParcelable(mType, flags);
-      dest.writeParcelable(mRhs, flags);
+      dest.writeParcelable(mTile, flags);
     }
   }
 
