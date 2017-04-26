@@ -5,8 +5,6 @@
 
 #include "routing/road_access.hpp"
 
-#include "indexer/features_vector.hpp"
-
 #include <cstdint>
 #include <fstream>
 #include <ostream>
@@ -62,7 +60,6 @@ public:
   bool IsValid() const { return m_valid; }
 
 private:
-  FeaturesVectorTest m_featuresVector;
   RoadAccess m_roadAccess;
   bool m_valid = true;
 };

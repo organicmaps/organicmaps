@@ -61,8 +61,11 @@ private:
     for (auto const & kv : m)
       segmentsByRoadAccessType[static_cast<size_t>(kv.second)].push_back(kv.first);
 
-    for (auto const & segs : segmentsByRoadAccessType)
+    for (auto & segs : segmentsByRoadAccessType)
+    {
+      std::sort(segs.begin(), segs.end());
       SerializeSegments(sink, segs);
+    }
   }
 
   template <typename Source>
@@ -104,6 +107,7 @@ private:
       uint32_t prevFid = 0;
       for (auto const & fid : featureIds)
       {
+        CHECK_GREATER_OR_EQUAL(fid, prevFid, ());
         uint64_t const fidDiff = static_cast<uint64_t>(fid - prevFid);
         bool ok = coding::GammaCoder::Encode(bitWriter, fidDiff + 1);
         ASSERT(ok, ());

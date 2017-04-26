@@ -10,6 +10,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/features_vector.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
@@ -43,15 +44,17 @@ TagMapping const kCarTagMapping = {
 };
 
 TagMapping const kPedestrianTagMapping = {
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
 };
 
 TagMapping const kBicycleTagMapping = {
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
 };
 
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
-                     RoadAccess & roadAccess, FeaturesVector const & featuresVector)
+                     FeaturesVector const & featuresVector, RoadAccess & roadAccess)
 {
   ifstream stream(roadAccessPath);
   if (!stream)
@@ -202,7 +205,6 @@ bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open();
 // RoadAccessCollector ----------------------------------------------------------
 RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
-  : m_featuresVector(dataFilePath)
 {
   map<osm::Id, uint32_t> osmIdToFeatureId;
   if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
@@ -213,8 +215,10 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
     return;
   }
 
+  FeaturesVectorTest featuresVector(dataFilePath);
+
   RoadAccess roadAccess;
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccess, m_featuresVector.GetVector()))
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, featuresVector.GetVector(), roadAccess))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;

@@ -18,12 +18,25 @@ namespace routing
 class RoadAccess final
 {
 public:
+  // The road access types are selected by analyzing the most
+  // popular tags used when mapping roads in OSM.
   enum class Type : uint8_t
   {
+    // Moving through the road is prohibited.
     No,
+
+    // Moving through the road requires a special permission.
     Private,
+
+    // No transit through the road is allowed; however, it can
+    // be used if it is close enough to the destination point
+    // of the route.
     Destination,
-    Yes,  // No restrictions, as in access=yes.
+
+    // No restrictions, as in "access=yes".
+    Yes,
+
+    // The number of different road types.
     Count
   };
 

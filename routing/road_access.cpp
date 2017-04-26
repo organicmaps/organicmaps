@@ -79,13 +79,13 @@ string ToString(RoadAccess::Type type)
 {
   if (type <= RoadAccess::Type::Count)
     return kNames[static_cast<size_t>(type)];
-  ASSERT(false, ());
+  ASSERT(false, ("Bad road access type"));
   return {};
 }
 
-void FromString(std::string const & s, RoadAccess::Type & result)
+void FromString(string const & s, RoadAccess::Type & result)
 {
-  for (size_t i = 0; i < static_cast<size_t>(RoadAccess::Type::Count); ++i)
+  for (size_t i = 0; i <= static_cast<size_t>(RoadAccess::Type::Count); ++i)
   {
     if (s == kNames[i])
     {
@@ -93,7 +93,7 @@ void FromString(std::string const & s, RoadAccess::Type & result)
       return;
     }
   }
-  ASSERT(false, ());
+  ASSERT(false, ("Could not read RoadAccess from the string", s));
 }
 
 string DebugPrint(RoadAccess::Type type) { return ToString(type); }

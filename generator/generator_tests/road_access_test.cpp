@@ -33,7 +33,7 @@ using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using std::string;
+using namespace std;
 
 namespace
 {
