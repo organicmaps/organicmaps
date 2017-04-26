@@ -181,58 +181,11 @@ public class HotelsFilterView extends FrameLayout
   private void populateFilter()
   {
     mPrice.updateFilter();
-    HotelsFilter.RatingFilter rating = mRating.getFilter();
-    HotelsFilter price = mPrice.getFilter();
-    if (rating == null && price == null && mHotelTypes.isEmpty())
-    {
-      mFilter = null;
-      return;
-    }
-
+    final HotelsFilter.RatingFilter rating = mRating.getFilter();
+    final HotelsFilter price = mPrice.getFilter();
     final HotelsFilter.OneOf oneOf = makeOneOf(mHotelTypes.iterator());
 
-    if (rating == null)
-    {
-      if (oneOf != null && price != null)
-      {
-        mFilter = new HotelsFilter.And(price, oneOf);
-        return;
-      }
-      else if (price == null && oneOf != null)
-      {
-        mFilter = oneOf;
-        return;
-      }
-      else if (price != null)
-      {
-        mFilter = price;
-        return;
-      }
-      else
-      {
-        mFilter = null;
-        return;
-      }
-    }
-
-    if (price == null)
-    {
-      if (oneOf != null)
-      {
-        mFilter = new HotelsFilter.And(rating, oneOf);
-        return;
-      }
-      mFilter = rating;
-      return;
-    }
-
-    if (oneOf != null)
-    {
-      mFilter = new HotelsFilter.And(rating, new HotelsFilter.And(price, oneOf));
-      return;
-    }
-
-    mFilter = new HotelsFilter.And(rating, price);
+    mFilter = combineFilters(rating, price, oneOf);
   }
 
   @Nullable
@@ -243,6 +196,25 @@ public class HotelsFilterView extends FrameLayout
 
     HotelsFilter.HotelType type = iterator.next();
     return new HotelsFilter.OneOf(type, makeOneOf(iterator));
+  }
+
+  @Nullable
+  private HotelsFilter combineFilters(@NonNull HotelsFilter... filters)
+  {
+    HotelsFilter result = null;
+    for (HotelsFilter filter: filters)
+    {
+      if (result == null)
+      {
+        result = filter;
+        continue;
+      }
+
+      if (filter != null)
+        result = new HotelsFilter.And(filter, result);
+    }
+
+    return result;
   }
 
   @Override
@@ -289,22 +261,6 @@ public class HotelsFilterView extends FrameLayout
     InputUtils.hideKeyboard(this);
   }
 
-  /**
-   * Update views state according with current {@link #mFilter}
-   *
-   * mFilter may be null or {@link HotelsFilter.RatingFilter} or {@link HotelsFilter.PriceRateFilter}
-   * or {@link HotelsFilter.And} or {@link HotelsFilter.Or} or {@link HotelsFilter.OneOf}.
-   *
-   * if mHotelTypes is not empty then mFilter must be {@link HotelsFilter.OneOf} or
-   * {@link HotelsFilter.And} with mLhs - ({@link HotelsFilter.PriceRateFilter} or
-   * {@link HotelsFilter.Or} or {@link HotelsFilter.RatingFilter}) and (mRhs - {@link HotelsFilter.OneOf})
-   *
-   * if mFilter is {@link HotelsFilter.And} and mHotelTypes is empty then mLhs must be
-   * {@link HotelsFilter.RatingFilter} and mRhs must be {@link HotelsFilter.PriceRateFilter} or
-   * {@link HotelsFilter.Or} with mLhs and mRhs - {@link HotelsFilter.PriceRateFilter}
-   *
-   * if mFilter is {@link HotelsFilter.Or} then mLhs and mRhs must be {@link HotelsFilter.PriceRateFilter}
-   */
   private void updateViews()
   {
     if (mFilter == null)
@@ -316,76 +272,81 @@ public class HotelsFilterView extends FrameLayout
     }
     else
     {
-      HotelsFilter.RatingFilter rating = null;
-      HotelsFilter price = null;
-      HotelsFilter.OneOf types = null;
-      if (mFilter instanceof HotelsFilter.RatingFilter)
-      {
-        rating = (HotelsFilter.RatingFilter) mFilter;
-      }
-      else if (mFilter instanceof HotelsFilter.PriceRateFilter)
-      {
-        price = mFilter;
-      }
-      else if (mFilter instanceof  HotelsFilter.OneOf)
-      {
-        types = (HotelsFilter.OneOf) mFilter;
-      }
-      else if (mFilter instanceof HotelsFilter.And)
-      {
-        HotelsFilter.And and = (HotelsFilter.And) mFilter;
-        if (!(and.mLhs instanceof HotelsFilter.RatingFilter)
-            && !(and.mLhs instanceof HotelsFilter.PriceRateFilter)
-            && !(and.mLhs instanceof HotelsFilter.Or))
-        {
-          throw new AssertionError("And.mLhs must be RatingFilter or PriceRateFilter or Or");
-        }
-
-        if (and.mLhs instanceof HotelsFilter.RatingFilter)
-        {
-          rating = (HotelsFilter.RatingFilter) and.mLhs;
-
-          if (!(and.mRhs instanceof HotelsFilter.And)
-              && !(and.mRhs instanceof HotelsFilter.PriceRateFilter)
-              && !(and.mRhs instanceof HotelsFilter.Or))
-          {
-            throw new AssertionError("And.mRhs must be And or PriceRateFilter or Or");
-          }
-
-          if (and.mRhs instanceof HotelsFilter.And)
-          {
-            HotelsFilter.And rand = (HotelsFilter.And) and.mRhs;
-            if (!(rand.mLhs instanceof HotelsFilter.PriceRateFilter)
-                && !(rand.mLhs instanceof HotelsFilter.Or))
-            {
-              throw new AssertionError("And.mLhs must be PriceRateFilter or Or");
-            }
-            price = rand.mLhs;
-
-            if (!(rand.mRhs instanceof HotelsFilter.OneOf))
-              throw new AssertionError("And.mRhs must be OneOf");
-
-            types = (HotelsFilter.OneOf) rand.mRhs;
-          }
-        }
-        else
-        {
-          price = and.mLhs;
-          if (!(and.mRhs instanceof HotelsFilter.OneOf))
-            throw new AssertionError("And.mRhs must be OneOf");
-
-          types = (HotelsFilter.OneOf) and.mRhs;
-        }
-      }
-      else if (mFilter instanceof HotelsFilter.Or)
-      {
-        price = mFilter;
-      }
-      mRating.update(rating);
-      mPrice.update(price);
+      mRating.update(findRatingFilter(mFilter));
+      mPrice.update(findPriceFilter(mFilter));
       if (mTypeAdapter != null)
-        updateTypeAdapter(mTypeAdapter, types);
+        updateTypeAdapter(mTypeAdapter, findTypeFilter(mFilter));
     }
+  }
+
+  @Nullable
+  private HotelsFilter.RatingFilter findRatingFilter(@NonNull HotelsFilter filter)
+  {
+    if (filter instanceof HotelsFilter.RatingFilter)
+      return (HotelsFilter.RatingFilter) filter;
+
+    HotelsFilter.RatingFilter result;
+    if (filter instanceof HotelsFilter.And)
+    {
+      HotelsFilter.And and = (HotelsFilter.And) filter;
+      result = findRatingFilter(and.mLhs);
+      if (result == null)
+        result = findRatingFilter(and.mRhs);
+
+      return result;
+    }
+
+    return null;
+  }
+
+  @Nullable
+  private HotelsFilter findPriceFilter(@NonNull HotelsFilter filter)
+  {
+    if (filter instanceof HotelsFilter.PriceRateFilter)
+      return filter;
+
+    if (filter instanceof HotelsFilter.Or)
+    {
+      HotelsFilter.Or or = (HotelsFilter.Or) filter;
+      if (or.mLhs instanceof HotelsFilter.PriceRateFilter
+          && or.mRhs instanceof HotelsFilter.PriceRateFilter )
+      {
+        return filter;
+      }
+    }
+
+    HotelsFilter result;
+    if (filter instanceof HotelsFilter.And)
+    {
+      HotelsFilter.And and = (HotelsFilter.And) filter;
+      result = findPriceFilter(and.mLhs);
+      if (result == null)
+        result = findPriceFilter(and.mRhs);
+
+      return result;
+    }
+
+    return null;
+  }
+
+  @Nullable
+  private HotelsFilter.OneOf findTypeFilter(@NonNull HotelsFilter filter)
+  {
+    if (filter instanceof HotelsFilter.OneOf)
+      return (HotelsFilter.OneOf) filter;
+
+    HotelsFilter.OneOf result;
+    if (filter instanceof HotelsFilter.And)
+    {
+      HotelsFilter.And and = (HotelsFilter.And) filter;
+      result = findTypeFilter(and.mLhs);
+      if (result == null)
+        result = findTypeFilter(and.mRhs);
+
+      return result;
+    }
+
+    return null;
   }
 
   private void updateTypeAdapter(@NonNull HotelsTypeAdapter typeAdapter,
