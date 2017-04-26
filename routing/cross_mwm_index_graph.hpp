@@ -48,9 +48,9 @@ public:
   {
     if (isEnter)
     {
-      std::vector<Segment> const & enters =
+      auto const & enters =
           GetCrossMwmConnectorWithTransitions(numMwmId).GetEnters();
-      for (Segment const & enter : enters)
+      for (auto const & enter : enters)
         fn(enter);
     }
     else

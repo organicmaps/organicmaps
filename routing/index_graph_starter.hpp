@@ -49,11 +49,20 @@ public:
     m2::PointD const m_point;
   };
 
+  static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
+  static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
+  static Segment constexpr kStartFakeSegment =
+    Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, false);
+  static Segment constexpr kFinishFakeSegment =
+    Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, true);
+
   IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph);
 
   WorldGraph & GetGraph() { return m_graph; }
   Segment const & GetStart() const { return kStartFakeSegment; }
   Segment const & GetFinish() const { return kFinishFakeSegment; }
+  FakeVertex const & GetStartVertex() const { return m_start; }
+  FakeVertex const & GetFinishVertex() const { return m_finish; }
   m2::PointD const & GetPoint(Segment const & segment, bool front);
 
   static size_t GetRouteNumPoints(vector<Segment> const & route);
@@ -94,16 +103,7 @@ public:
     return segment.GetFeatureId() == kFakeFeatureId;
   }
 
-  Segment const & ConvertSegment(Segment const & segment);
-
 private:
-  static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
-  static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
-  static Segment constexpr kStartFakeSegment =
-      Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, false);
-  static Segment constexpr kFinishFakeSegment =
-      Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, true);
-
   void GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
                             vector<SegmentEdge> & edges);
   void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,

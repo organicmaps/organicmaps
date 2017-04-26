@@ -19,10 +19,14 @@ class WorldGraph final
 public:
   enum class Mode
   {
-    SingleMwm,
-    LeapsOnly,
-    LeapsIfPossible,
-    NoLeaps,
+    SingleMwm,  // Mode for building a route within single mwm.
+    LeapsOnly,  // Mode for building a cross mwm route contains of only leaps. In case of start and
+                // finish they (start and finish) will be connected with all transition segments of
+                // their mwm with leap (fake) edges.
+    LeapsIfPossible,  // Mode for build cross mwm and single mwm routes. In case of cross mwm route
+                      // if they are neighboring mwms the route will be made without leaps.
+                      // If not the route is made with leaps for intermediate mwms.
+    NoLeaps,  // Mode for building route and getting outgoing/ingoing edges without leaps anyway.
   };
 
   WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,

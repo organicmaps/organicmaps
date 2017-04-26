@@ -134,16 +134,20 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
-                                 m_index, m_indexManager),
-      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
-      m_estimator);
+    make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
+                               m_index, m_indexManager),
+    IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+    m_estimator);
 
-  auto const getRoutingMode = [&]() {
-    return AreMwmsNear(start.GetMwmId(), finish.GetMwmId()) ? WorldGraph::Mode::LeapsIfPossible
-                                                            : WorldGraph::Mode::LeapsOnly;
-  };
-  graph.SetMode(forSingleMwm ? WorldGraph::Mode::SingleMwm : getRoutingMode());
+  WorldGraph::Mode mode = WorldGraph::Mode::SingleMwm;
+  if (forSingleMwm)
+    mode = WorldGraph::Mode::SingleMwm;
+  else if (AreMwmsNear(start.GetMwmId(), finish.GetMwmId()))
+    mode = WorldGraph::Mode::LeapsIfPossible;
+  else
+    mode = WorldGraph::Mode::LeapsOnly;
+  graph.SetMode(mode);
+
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   IndexGraphStarter starter(start, finish, graph);
@@ -248,18 +252,29 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       continue;
     }
 
-    Segment const & convertedCurrent = starter.ConvertSegment(input[i]);
     ++i;
     CHECK_LESS(i, input.size(), ());
-    Segment const & convertedNext = starter.ConvertSegment(input[i]);
-    CHECK_EQUAL(
-        convertedCurrent.GetMwmId(), convertedNext.GetMwmId(),
-        ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+    Segment const & next = input[i];
 
-    IndexGraphStarter::FakeVertex const start(convertedCurrent,
-                                              starter.GetPoint(convertedCurrent, true /* front */));
-    IndexGraphStarter::FakeVertex const finish(convertedNext,
-                                               starter.GetPoint(convertedNext, true /* front */));
+    CHECK_NOT_EQUAL(current, IndexGraphStarter::kFinishFakeSegment, ());
+    CHECK_NOT_EQUAL(next, IndexGraphStarter::kStartFakeSegment, ());
+    if (current != IndexGraphStarter::kStartFakeSegment &&
+        next != IndexGraphStarter::kFinishFakeSegment)
+    {
+      CHECK_EQUAL(
+          current.GetMwmId(), next.GetMwmId(),
+          ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+    }
+
+    IndexGraphStarter::FakeVertex const start =
+        (current == IndexGraphStarter::kStartFakeSegment)
+            ? starter.GetStartVertex()
+            : IndexGraphStarter::FakeVertex(current, starter.GetPoint(current, true /* front */));
+    IndexGraphStarter::FakeVertex const finish =
+        (next == IndexGraphStarter::kFinishFakeSegment)
+            ? starter.GetFinishVertex()
+            : IndexGraphStarter::FakeVertex(next, starter.GetPoint(next, true /* front */));
+
     IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
 
     // Clear previous loaded graphs.
