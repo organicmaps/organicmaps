@@ -65,9 +65,24 @@
 
     <include layout="@layout/place_page_editor"/>
 
+    <include layout="@layout/divider_horizontal"
+             android:id="@+id/editor_divider"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"/>
+
     <include layout="@layout/place_page_add_business"/>
 
+    <include layout="@layout/divider_horizontal"
+             android:id="@+id/add_business_divider"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"/>
+
     <include layout="@layout/place_page_add"/>
+
+    <include layout="@layout/divider_horizontal"
+             android:id="@+id/add_divider"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"/>
 
     <include layout="@layout/place_page_local_ad"/>
 
