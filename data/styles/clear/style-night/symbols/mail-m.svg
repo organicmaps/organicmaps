@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>mail-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="mail-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#252522" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M6,7 C5.1875,7 5.40625,7.3382 5.8125,7.6719 L11.5,12 L17.1875,7.6719 C17.60585,7.3535 17.8125,7 17,7 L6,7 Z M5,8.5 L5,15 C5,15.5 5.5,16 6,16 L17,16 C17.5,16 18,15.5 18,15 L18,8.5 L11.5,13.5 L5,8.5 Z" id="path7085-23-copy" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".4"/>
+    <circle cx="12" cy="12" r="11" fill="#3D3C36"/>
+    <path fill="#FFF" d="M17.9943635,8.89181151 C17.9980893,8.92643012 18,8.96153652 18,8.99703014 L18,15.0029699 C18,15.5536144 17.544239,16 16.9975267,16 L7.00247329,16 C6.44882258,16 6,15.5469637 6,15.0029699 L6,8.99703014 C6,8.96148569 6.00189906,8.92637567 6.00559905,8.8917921 L6,8.88888889 L6,10 L12,13.1111111 L12,12 L6.00559905,8.8917921 C6.05921828,8.39061666 6.49105157,8 7.00247329,8 L16.9975267,8 C17.5150537,8 17.9409857,8.39584699 17.9943635,8.89181151 L18,8.88888889 L18,10 L12,13.1111111 L12,12 L17.9943635,8.89181151 Z" opacity=".6"/>
+  </g>
 </svg>

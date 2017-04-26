@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>nparkF-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-174.000000, -65.000000)">
-            <g id="nparkF-m" transform="translate(174.000000, 65.000000)">
-                <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#507F34" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <polygon id="rect4152-3-3-5" fill="#FFFFFF" points="11.5 5 7.5 9 10 9 7 12 9.5 12 7 15 11 15 11 18 12 18 12 15 16 15 13.5 12 16 12 13 9 15.5 9"></polygon>
-            </g>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".6"/>
+    <circle cx="12" cy="12" r="11" fill="#507F34"/>
+    <polygon fill="#FFF" points="12 5 7.556 9.308 10.333 9.308 7 12.538 9.778 12.538 7 15.769 11.444 15.769 11.444 19 12.556 19 12.556 15.769 17 15.769 14.222 12.538 17 12.538 13.667 9.308 16.444 9.308"/>
+  </g>
 </svg>

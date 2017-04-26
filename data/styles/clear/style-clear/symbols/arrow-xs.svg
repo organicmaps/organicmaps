@@ -1,14 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="9px" height="3px" viewBox="0 0 9 3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>arrow-xs</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.6">
-        <g id="Artboard-1" transform="translate(-1298.000000, -629.000000)" fill="#333333">
-            <g id="arrow-s" transform="translate(1302.500000, 630.500000) scale(-1, 1) translate(-1302.500000, -630.500000) translate(1298.000000, 629.000000)">
-                <path d="M2.5,1 L9,1 L9,2 L2.5,2 L2.5,1 Z M0,1.5 L2.5,-1.77635684e-15 L2.5,3 L0,1.5 Z" id="Rectangle-315"></path>
-            </g>
-        </g>
-    </g>
+<svg width="9" height="3" viewBox="0 0 9 3">
+  <path fill="#717065" fill-rule="evenodd" d="M2.5,1 L9,1 L9,2 L2.5,2 L2.5,1 Z M0,1.5 L2.5,-1.77635684e-15 L2.5,3 L0,1.5 Z" transform="matrix(-1 0 0 1 9 0)"/>
 </svg>

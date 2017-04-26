@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>monument-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="monument-s">
-            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#8C4D16" cx="8.5" cy="8.5" r="7.5"></circle>
-            <path d="M8.5,4 C8.5,4 7,5.5 7,6 L7,10 L6.5,10 C6.22299,10 6.03629,10.2254 6,10.5 L6,12 L5.5,12 C5.223,12 5,12.223 5,12.5 L5,13 L12,13 L12,12.5 C12,12.223 11.77699,12 11.5,12 L11,12 L11,10.5 C11,10.223 10.777,10 10.5,10 L10,10 L10,6 C10,5.5 8.5,4 8.5,4 L8.5,4 Z" id="path11719-7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#7F5933"/>
+    <path fill="#FFF" d="M8,4 C8,4 6.71428571,5.33333333 6.71428571,5.77777778 L6.71428571,9.33333333 L6.28571429,9.33333333 C6.04827714,9.33333333 5.88824857,9.53368889 5.85714286,9.77777778 L5.85714286,11.1111111 L5.42857143,11.1111111 C5.19114286,11.1111111 5,11.3093333 5,11.5555556 L5,12 L11,12 L11,11.5555556 C11,11.3093333 10.8088486,11.1111111 10.5714286,11.1111111 L10.1428571,11.1111111 L10.1428571,9.77777778 C10.1428571,9.53155556 9.95171429,9.33333333 9.71428571,9.33333333 L9.28571429,9.33333333 L9.28571429,5.77777778 C9.28571429,5.33333333 8,4 8,4 L8,4 Z"/>
+  </g>
 </svg>

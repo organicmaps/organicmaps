@@ -1,12 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>vending-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="vending-s" fill="#717065">
-            <path d="M11.461,4 L5.539,4 C5.241,4 5,4.236 5,4.529 L5,12.47 C5,12.763 5.241,12.999 5.539,12.999 L11.461,12.999 C11.759,12.999 12,12.763 12,12.47 L12,4.529 C12,4.236 11.759,4 11.461,4 L11.461,4 Z M10,12 L6,12 L6,11 L10,11 L10,12 L10,12 Z M10,10 L6,10 L6,5 L10,5 L10,10 L10,10 Z" id="Shape"></path>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".2"/>
+    <path fill="#717065" d="M10.538,4 L5.462,4 C5.20657143,4 5,4.20980109 5,4.47027447 L5,11.5297255 C5,11.7901989 5.20657143,12 5.462,12 L10.538,12 C10.7934286,12 11,11.7901989 11,11.5297255 L11,4.47027447 C11,4.20980109 10.7934286,4 10.538,4 L10.538,4 Z M9.28571429,11.1119013 L5.85714286,11.1119013 L5.85714286,10.2229137 L9.28571429,10.2229137 L9.28571429,11.1119013 L9.28571429,11.1119013 Z M9.28571429,9.33392599 L5.85714286,9.33392599 L5.85714286,4.88898767 L9.28571429,4.88898767 L9.28571429,9.33392599 L9.28571429,9.33392599 Z"/>
+  </g>
 </svg>

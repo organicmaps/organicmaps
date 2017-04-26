@@ -1,19 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>basketball-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M6,4.3622 L4,6.3622 L4,10.8622 C4,11.1122 4.25,11.3622 4.5,11.3622 L6,11.3622 L7,12.3622 L8,13.3622 L9,13.3622 L10,12.3622 L11,11.3622 L12.5,11.3622 C12.75,11.3622 13,11.1122 13,10.8622 L13,6.3622 L11,4.3622 L6,4.3622 L6,4.3622 Z M6,6.3622 L11,6.3622 L11,9.3622 L6,9.3622 L6,6.3622 L6,6.3622 Z M6.6875,7.0497 L6.6875,8.6747 L10.3125,8.6747 L10.3125,7.0497 L6.6875,7.0497 L6.6875,7.0497 Z M7,10.3622 L8,10.3622 L8,11.3622 L9,11.3622 L9,10.3622 L10,10.3622 L10,11.3622 L9,12.3622 L8,12.3622 L7,11.3622 L7,10.3622 L7,10.3622 Z" id="path-1"></path>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="basketball-s">
-            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#717065" cx="8.5" cy="8.5" r="7.5"></circle>
-            <g id="rect5769-7-3-copy" fill="#FFFFFF">
-                <use xlink:href="#path-1"></use>
-                <use xlink:href="#path-1"></use>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#717065"/>
+    <path fill="#FFF" d="M6,4 L4,6 L4,9.5 C4,9.72222222 4.22222222,10 4.44444444,10 L5.77777778,10 L6.66666667,11.1111111 L7.55555556,12 L8.44444444,12 L9.33333333,11.1111111 L10.2222222,10 L11.5555556,10 C11.7777778,10 12,9.72222222 12,9.5 L12,6 L10,4 L6,4 Z M10.503418,6 L10.503418,8.54748535 L5.49627686,8.54748535 L5.49627686,6 L10.503418,6 Z M6.5,7.5 L9.5,7.5 L9.5,7 L6.5,7 L6.5,7.5 Z M7.55555556,9.33333333 L7.55555556,10.2222222 L8.44444444,10.2222222 L8.44444444,9.33333333 L9.33333333,9.33333333 L9.33333333,10.2222222 L8.44444444,11.1111111 L7.55555556,11.1111111 L6.66666667,10.2222222 L6.66666667,9.33333333 L7.55555556,9.33333333 Z"/>
+  </g>
 </svg>

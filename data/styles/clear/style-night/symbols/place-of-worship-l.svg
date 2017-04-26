@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>place-of-worship-l</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-317.000000, -915.000000)">
-            <g id="place-of-worship-l" transform="translate(317.000000, 915.000000)">
-                <circle id="Oval-1-Copy-39" fill-opacity="0.1" fill="#FFFFFF" cx="13.5" cy="13.5" r="13.5"></circle>
-                <circle id="Oval-1-Copy-38" fill="#26160D" cx="13.5" cy="13.5" r="12.5"></circle>
-                <path d="M13.5,5 C13.5,5 11,6 11,7 L11,9 C11,10 9,10 9,11 L9,20 L18,20 L18,11 C18,10 16,10 16,8.8125 L16,7 C16,6 13.5,5 13.5,5 L13.5,5 Z M5,13 L5,20 L7,20 L7,13 C7,12 6,12 6,12 C6,12 5,12 5,13 L5,13 Z M20,13 L20,20 L22,20 L22,13 C22,12 21,12 21,12 C21,12 20,12 20,13 L20,13 Z" id="path8846-copy" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
+<svg width="28" height="28" viewBox="0 0 28 28">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="14" cy="14" r="14" fill="#FFF" opacity=".4"/>
+    <circle cx="14" cy="14" r="13" fill="#4C351E"/>
+    <path fill="#FFF" d="M14,6 C14,6 11.6470588,6.93333333 11.6470588,7.86666667 L11.6470588,9.73333333 C11.6470588,10.6666667 9.76470588,10.6666667 9.76470588,11.6 L9.76470588,20 L18.2352941,20 L18.2352941,11.6 C18.2352941,10.6666667 16.3529412,10.6666667 16.3529412,9.55833333 L16.3529412,7.86666667 C16.3529412,6.93333333 14,6 14,6 L14,6 Z M6,13.4666667 L6,20 L7.88235294,20 L7.88235294,13.4666667 C7.88235294,12.5333333 6.94117647,12.5333333 6.94117647,12.5333333 C6.94117647,12.5333333 6,12.5333333 6,13.4666667 L6,13.4666667 Z M20.1176471,13.4666667 L20.1176471,20 L22,20 L22,13.4666667 C22,12.5333333 21.0588235,12.5333333 21.0588235,12.5333333 C21.0588235,12.5333333 20.1176471,12.5333333 20.1176471,13.4666667 L20.1176471,13.4666667 Z" opacity=".6"/>
+  </g>
 </svg>

@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>drinking-water-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-387.000000, -1421.000000)">
-            <g id="drinking-water-s" transform="translate(387.000000, 1421.000000)">
-                <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                <circle id="Oval-1-Copy-42" cx="8.5" cy="8.5" r="7.5"></circle>
-                <path d="M8.5,13 C6.88563,13 5,12.1 5,9.85 C5,8.275 7.75,4.9 8.5,4 C9.25,4.9 12,8.275 12,9.85 C12,12.1 10.11437,13 8.5,13 L8.5,13 Z" id="path4133-5-copy" fill="#2E89B0"></path>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#14A0C2" opacity="0"/>
+    <path fill="#14A0C2" d="M8.5,13 C6.88563,13 5,12.1 5,9.85 C5,8.275 7.75,4.9 8.5,4 C9.25,4.9 12,8.275 12,9.85 C12,12.1 10.11437,13 8.5,13 L8.5,13 Z"/>
+  </g>
 </svg>

@@ -1,17 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>muslim-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-387.000000, -994.000000)">
-            <g id="muslim-s" transform="translate(387.000000, 994.000000)">
-                <circle id="Oval-1-Copy-43" fill-opacity="0.1" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                <circle id="Oval-1-Copy-42" fill="#26160D" cx="8.5" cy="8.5" r="7.5"></circle>
-                <rect id="Rectangle-341" fill-opacity="0.7" fill="#FFFFFF" transform="translate(12.000000, 8.000000) rotate(-315.000000) translate(-12.000000, -8.000000) " x="11" y="7" width="2" height="2"></rect>
-                <path d="M11.9159774,11.4294749 C11.0906808,12.3909375 9.86646746,13 8.5,13 C6.01471863,13 4,10.9852814 4,8.5 C4,6.01471863 6.01471863,4 8.5,4 C9.86646746,4 11.0906808,4.6090625 11.9159774,5.57052506 C11.3655367,5.20978526 10.7072674,5 10,5 C8.06700338,5 6.5,6.56700338 6.5,8.5 C6.5,10.4329966 8.06700338,12 10,12 C10.7072674,12 11.3655367,11.7902147 11.9159774,11.4294749 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".4"/>
+    <circle cx="8" cy="8" r="7" fill="#4C351E"/>
+    <path fill="#FFF" d="M10.7268306,5.39602227 C10.2590777,5.07536468 9.69969425,4.88888889 9.09867337,4.88888889 C7.45605364,4.88888889 6.12444724,6.28178078 6.12444724,8 C6.12444724,9.71821922 7.45605364,11.1111111 9.09867337,11.1111111 C9.69969425,11.1111111 10.2590777,10.9246353 10.7268306,10.6039777 C10.0255109,11.4586111 8.98520024,12 7.82400503,12 C5.71206537,12 4,10.209139 4,8 C4,5.790861 5.71206537,4 7.82400503,4 C8.98520024,4 10.0255109,4.54138889 10.7268306,5.39602227 Z M10.8258861,6.32613178 L12.0276549,7.52790061 L10.7705762,8.78497934 L9.56880738,7.5832105 L10.8258861,6.32613178 Z" opacity=".6"/>
+  </g>
 </svg>

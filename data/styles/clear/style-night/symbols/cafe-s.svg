@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>cafe-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-208.000000, -550.000000)">
-            <g id="cafe-s" transform="translate(208.500000, 550.000000)">
-                <circle id="Oval-1" fill-opacity="0.1" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                <circle id="Oval-1" fill="#332714" cx="8.5" cy="8.5" r="7.5"></circle>
-                <path d="M11,5.5 L11,5 L5,5 L5,8.19935069 C5,9.49127197 5.60968015,9.99907255 6.5,9.99907255 L9.5,9.99907255 C10.0395508,9.99907255 11,9.6383667 11,9 L12,9 C12.5522847,9 13,8.54243612 13,8.00640249 L13,6.49359751 C13,5.94484876 12.5561352,5.5 12,5.5 L11,5.5 Z M11,8.25 L11,6.25 L12.25,6.25 L12.25,8.25 L11,8.25 Z M5,12 L11,12 L12,11 L4,11 L5,12 Z" id="Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".4"/>
+    <circle cx="8" cy="8" r="7" fill="#6E5626"/>
+    <path fill="#FFF" fill-rule="nonzero" d="M7.6,3 C7.6,3.51111112 7.5125,3.5125 7.3125,3.7125 C7.1125,3.9125 6.8,4.31111112 6.8,5 L7.6,5 C7.6,4.48888888 7.6875,4.4875 7.8875,4.2875 C8.0875,4.0875 8.4,3.68888888 8.4,3 L7.6,3 Z M9.075,3.4 C9.075,4.36 8.4,4.36 8.4,5 L9.2,5 C9.2,4.4 9.875,4.48 9.875,3.4 L9.075,3.4 Z M5.2,5.4 L5.2,7.8 C5.2,8.68 5.92,9.4 6.8,9.4 L9.2,9.4 C9.96032,9.4 10.5897432,8.8637696 10.75,8.15 C11.4655028,7.9904768 12,7.3637084 12,6.6 L12,6.2 C12,5.99111112 11.9258124,5.7758122 11.775,5.625 C11.6241876,5.4741878 11.4088888,5.4 11.2,5.4 L10.8,5.4 L8,5.4 L5.2,5.4 Z M10.8,6.2 L11.2,6.2 L11.2,6.6 C11.2,6.9240432 11.0459728,7.1711044 10.8,7.3 L10.8,6.2 Z M4,9.8 C4,10.48 4.52,11 5.2,11 L10.8,11 C11.48,11 12,10.48 12,9.8 L4,9.8 Z" opacity=".6"/>
+  </g>
 </svg>

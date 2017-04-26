@@ -1,19 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>golf-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M9,5.3823 L9,14.6581 C7.47058,14.7051 7,15.7353 7,16.5 C7,16.8823 7.5,17 7.5,17 L15.5,17 C15.5,17 16,16.8823 16,16.5 C16,14.5882 15.14706,13 14,13 C12.79763,13 12.48469,15.3025 11.29411,15.4706 C10.77204,15.5446 10.26758,15.2065 9.7647,14.9449 L9.7647,9.5882 L15.11765,7.2941 L10.1483,5.1644 C9.86043,5.041 9.57362,5 9.38235,5 C9.12122,5 9,5 9,5.3823 Z" id="path-1"></path>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="golf-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#717065" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <g id="rect8138-7-4-copy" fill="#FFFFFF">
-                <use xlink:href="#path-1"></use>
-                <use xlink:href="#path-1"></use>
-            </g>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".6"/>
+    <circle cx="12" cy="12" r="11" fill="#717065"/>
+    <path fill="#FFF" d="M9.22222222,6.3823 L9.22222222,15.6581 C7.52286667,15.7051 7,16.7353 7,17.5 C7,17.8823 7.55555556,18 7.55555556,18 L16.4444444,18 C16.4444444,18 17,17.8823 17,17.5 C17,15.5882 16.0522889,14 14.7777778,14 C13.4418111,14 13.0941,16.3025 11.7712333,16.4706 C11.1911556,16.5446 10.6306444,16.2065 10.0718889,15.9449 L10.0718889,10.5882 L16.0196111,8.2941 L10.4981111,6.1644 C10.1782556,6.041 9.85957778,6 9.64705556,6 C9.35691111,6 9.22222222,6 9.22222222,6.3823 Z"/>
+  </g>
 </svg>

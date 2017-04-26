@@ -1,21 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>wayside_shrine-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M11.545,4 L4.979,10.565 L6.111,11.696 L11.546,6.262 L16.98,11.696 L18.112,10.565 L11.545,4 L11.545,4 Z M16,12.735 L16,19 L14,19 L14,15.5 C14,14.119 12.881,13 11.5,13 C10.119,13 9,14.119 9,15.5 L9,19 L7,19 L7,12.807 L11.537,8.371 L16,12.735 L16,12.735 Z" id="path-1"></path>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-354.000000, -1250.000000)">
-            <g id="wayside_shrine-m" transform="translate(354.000000, 1250.000000)">
-                <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill-opacity="0.6" fill="#FFFFFF"></path>
-                <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#7F5933"></path>
-                <g id="Shape" fill="#FFFFFF">
-                    <use xlink:href="#path-1"></use>
-                    <use xlink:href="#path-1"></use>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".6"/>
+    <circle cx="12" cy="12" r="11" fill="#7F5933"/>
+    <path fill="#FFF" d="M11.9995431,4 L6,10.1273333 L7.03434097,11.1829333 L12.0004569,6.1112 L16.965659,11.1829333 L18,10.1273333 L11.9995431,4 L11.9995431,4 Z M16.0702048,12.1526667 L16.0702048,18 L14.2427473,18 L14.2427473,14.7333333 C14.2427473,13.4444 13.2202848,12.4 11.9584253,12.4 C10.6965659,12.4 9.6741034,13.4444 9.6741034,14.7333333 L9.6741034,18 L7.84664585,18 L7.84664585,12.2198667 L11.9922333,8.0796 L16.0702048,12.1526667 L16.0702048,12.1526667 Z"/>
+  </g>
 </svg>
