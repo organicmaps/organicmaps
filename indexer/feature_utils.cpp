@@ -25,7 +25,7 @@ int8_t GetIndex(string const & lang)
   return StrUtf8::GetLangIndex(lang);
 }
 
-unordered_map<int8_t, vector<int8_t>> const kExtendedDevicelang =
+unordered_map<int8_t, vector<int8_t>> const kExtendedDeviceLang =
 {
   {GetIndex("be"), {GetIndex("be"), GetIndex("ru")}},
   {GetIndex("ru"), {GetIndex("ru"), GetIndex("be")}}
@@ -98,8 +98,8 @@ vector<int8_t> GetExtendedDeviceLanguages(int8_t deviceLang)
 {
   vector<int8_t> result;
 
-  auto const it = kExtendedDevicelang.find(deviceLang);
-  if (it != kExtendedDevicelang.cend())
+  auto const it = kExtendedDeviceLang.find(deviceLang);
+  if (it != kExtendedDeviceLang.cend())
     result = it->second;
   else
     result.push_back(deviceLang);
@@ -114,10 +114,14 @@ void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multi
   ASSERT(!deviceLangs.empty(), ());
 
   if (preferDefault)
+  {
     deviceLangs.insert(deviceLangs.cend(), {StrUtf8::kDefaultCode, StrUtf8::kInternationalCode,
                                             StrUtf8::kEnglishCode});
+  }
   else
+  {
     deviceLangs.insert(deviceLangs.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
+  }
 
   if (GetBestName(src, deviceLangs, out))
     return;
