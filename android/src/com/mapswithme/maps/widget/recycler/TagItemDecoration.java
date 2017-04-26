@@ -54,7 +54,6 @@ public class TagItemDecoration extends RecyclerView.ItemDecoration
                            child.getTop(),
                            child.getLeft(),
                            child.getBottom());
-        mDivider.draw(canvas);
       }
       else
       {
@@ -62,8 +61,8 @@ public class TagItemDecoration extends RecyclerView.ItemDecoration
                            child.getTop() - mDivider.getIntrinsicHeight(),
                            parentRight,
                            child.getTop());
-        mDivider.draw(canvas);
       }
+      mDivider.draw(canvas);
     }
   }
 

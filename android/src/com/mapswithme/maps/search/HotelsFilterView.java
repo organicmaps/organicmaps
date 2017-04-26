@@ -236,7 +236,7 @@ public class HotelsFilterView extends FrameLayout
   }
 
   @Nullable
-  private HotelsFilter.OneOf makeOneOf(Iterator<HotelsFilter.HotelType> iterator)
+  private HotelsFilter.OneOf makeOneOf(@NonNull Iterator<HotelsFilter.HotelType> iterator)
   {
     if (!iterator.hasNext())
       return null;

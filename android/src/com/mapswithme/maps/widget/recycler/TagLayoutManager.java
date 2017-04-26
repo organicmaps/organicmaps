@@ -30,7 +30,7 @@ public class TagLayoutManager extends RecyclerView.LayoutManager
     int heightUsed = 0;
     int maxHeight = 0;
     int itemsCountOneLine = 0;
-    for (int i=0; i < getItemCount(); i++)
+    for (int i = 0; i < getItemCount(); i++)
     {
       View child = recycler.getViewForPosition(i);
       addView(child);

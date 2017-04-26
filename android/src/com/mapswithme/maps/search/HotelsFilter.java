@@ -243,13 +243,13 @@ public class HotelsFilter implements Parcelable
     }
   };
 
-  public static class HotelType implements Parcelable
+  static class HotelType implements Parcelable
   {
     final int mType;
     @NonNull
     final String mTag;
 
-    public HotelType(int type, @NonNull String tag)
+    HotelType(int type, @NonNull String tag)
     {
       mType = type;
       mTag = tag;
