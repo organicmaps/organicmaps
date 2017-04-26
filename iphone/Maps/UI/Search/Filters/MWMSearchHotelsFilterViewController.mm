@@ -143,7 +143,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (void)initialTypeConfig
 {
-  [self.type config];
+  [self.type configWithTableView:self.tableView];
   [self resetTypes];
 }
 
