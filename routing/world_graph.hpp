@@ -20,10 +20,10 @@ public:
   enum class Mode
   {
     SingleMwm,  // Mode for building a route within single mwm.
-    LeapsOnly,  // Mode for building a cross mwm route contains of only leaps. In case of start and
+    LeapsOnly,  // Mode for building a cross mwm route containing only leaps. In case of start and
                 // finish they (start and finish) will be connected with all transition segments of
                 // their mwm with leap (fake) edges.
-    LeapsIfPossible,  // Mode for build cross mwm and single mwm routes. In case of cross mwm route
+    LeapsIfPossible,  // Mode for building cross mwm and single mwm routes. In case of cross mwm route
                       // if they are neighboring mwms the route will be made without leaps.
                       // If not the route is made with leaps for intermediate mwms.
     NoLeaps,  // Mode for building route and getting outgoing/ingoing edges without leaps anyway.
@@ -45,6 +45,7 @@ public:
   void ClearIndexGraphs() { m_loader->Clear(); }
   void SetMode(Mode mode) { m_mode = mode; }
   Mode GetMode() const { return m_mode; }
+  
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {

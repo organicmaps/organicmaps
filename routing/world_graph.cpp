@@ -69,6 +69,7 @@ string DebugPrint(WorldGraph::Mode mode)
   case WorldGraph::Mode::LeapsIfPossible: return "LeapsIfPossible";
   case WorldGraph::Mode::NoLeaps: return "NoLeaps";
   }
+  ASSERT(false, ("Unknown mode:", static_cast<size_t>(mode)));
   return "Unknown mode";
 }
 }  // namespace routing

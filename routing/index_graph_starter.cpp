@@ -102,8 +102,6 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
   if (segment.GetMwmId() == fakeVertex.GetMwmId() &&
       m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
   {
-    // It's assumed here that GetEstimator().CalcLeapWeight(p1, p2) ==
-    // GetEstimator().CalcLeapWeight(p2, p1).
     if (m_graph.IsTransition(segment, isOutgoing))
     {
       edges.emplace_back(fakeSegment,
@@ -131,8 +129,6 @@ void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, 
   // finish mwm should be connected with the finish point. So |isEnter| below should be set to true.
   m_graph.ForEachTransition(
       fakeVertex.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-        // It's assumed here that GetEstimator().CalcLeapWeight(p1, p2) ==
-        // GetEstimator().CalcLeapWeight(p2, p1).
         edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapWeight(
           segmentPoint, GetPoint(transition, isOutgoing)));
       });
