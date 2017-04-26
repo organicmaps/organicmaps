@@ -51997,7 +51997,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52019,7 +52019,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52041,7 +52041,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52761,7 +52761,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52783,7 +52783,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52805,7 +52805,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -52827,7 +52827,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -53926,7 +53926,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -53948,7 +53948,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }
@@ -53970,7 +53970,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16918
     }

@@ -30134,7 +30134,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "railway-crossing_l"
+      name: "railway-crossing-l"
       apply_for_type: 1
       priority: 16868
     }
@@ -30142,7 +30142,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "railway-crossing_l"
+      name: "railway-crossing-l"
       apply_for_type: 1
       priority: 16868
     }
@@ -30150,7 +30150,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "railway-crossing_xl"
+      name: "railway-crossing-xl"
       apply_for_type: 1
       priority: 16868
     }
@@ -30158,7 +30158,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "railway-crossing_xl"
+      name: "railway-crossing-xl"
       apply_for_type: 1
       priority: 16868
     }
@@ -30166,7 +30166,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "railway-crossing_xl"
+      name: "railway-crossing-xl"
       apply_for_type: 1
       priority: 16868
     }
@@ -34027,7 +34027,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34049,7 +34049,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34071,7 +34071,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34862,7 +34862,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34884,7 +34884,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34906,7 +34906,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -34928,7 +34928,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -36114,7 +36114,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -36136,7 +36136,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
@@ -36158,7 +36158,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "none"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16894
     }
