@@ -222,7 +222,7 @@ namespace ftype
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
                  HASPARTS, NOCAR, YESCAR, WLAN, RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES,
-                 BARRIER_GATE
+                 BARRIER_GATE, TOLL
                };
 
     CachedTypes()
@@ -239,7 +239,7 @@ namespace ftype
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
         {"building", "has_parts"}, {"hwtag", "nocar"}, {"hwtag", "yescar"},
         {"internet_access", "wlan"}, {"railway", "station"}, {"railway", "station", "subway"},
-        {"wheelchair", "yes"}, {"barrier", "gate"}
+        {"wheelchair", "yes"}, {"barrier", "gate"}, {"hwtag", "toll"}
       };
 
       for (auto const & e : arr)
@@ -588,6 +588,7 @@ namespace ftype
           { "barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::BARRIER_GATE)); }},
 
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
+          { "toll", "~", [&params] { params.AddType(types.Get(CachedTypes::TOLL)); }},
 
           { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
           { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
