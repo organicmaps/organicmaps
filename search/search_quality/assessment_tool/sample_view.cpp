@@ -1,6 +1,8 @@
 #include "search/search_quality/assessment_tool/sample_view.hpp"
 
+#include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
+#include "map/user_mark.hpp"
 
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
@@ -113,8 +115,19 @@ void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Resu
 
 void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results)
 {
+  auto & bookmarkManager = m_framework.GetBookmarkManager();
+  UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
+  guard.m_controller.SetIsVisible(true);
+  guard.m_controller.SetIsDrawable(true);
+
   for (auto const & result : results)
+  {
     m_nonFoundResults->Add(result);
+
+    SearchMarkPoint * mark =
+        static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(result.m_pos));
+    mark->SetCustomSymbol("non-found-search-result");
+  }
 }
 
 void SampleView::ClearAllResults()
