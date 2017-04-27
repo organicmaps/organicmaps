@@ -80,6 +80,7 @@ SOURCES += \
     scenario_manager.cpp \
     screen_animations.cpp \
     screen_operations.cpp \
+    screen_quad_renderer.cpp \
     selection_shape.cpp \
     stylist.cpp \
     text_handle.cpp \
@@ -91,7 +92,6 @@ SOURCES += \
     tile_utils.cpp \
     traffic_generator.cpp \
     traffic_renderer.cpp \
-    transparent_layer.cpp \
     user_event_stream.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
@@ -189,6 +189,7 @@ HEADERS += \
     scenario_manager.hpp \
     screen_animations.hpp \
     screen_operations.hpp \
+    screen_quad_renderer.hpp \
     selection_shape.hpp \
     shape_view_params.hpp \
     stylist.hpp \
@@ -201,7 +202,6 @@ HEADERS += \
     tile_utils.hpp \
     traffic_generator.hpp \
     traffic_renderer.hpp \
-    transparent_layer.hpp \
     user_event_stream.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \

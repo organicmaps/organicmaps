@@ -78,6 +78,12 @@ float Texture::GetT(uint32_t y) const
   return m_hwTexture->GetT(y);
 }
 
+int32_t Texture::GetID() const
+{
+  ASSERT(m_hwTexture != nullptr, ());
+  return m_hwTexture->GetID();
+}
+
 void Texture::Bind() const
 {
   ASSERT(m_hwTexture != nullptr, ());

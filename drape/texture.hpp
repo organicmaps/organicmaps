@@ -65,6 +65,7 @@ public:
   uint32_t GetHeight() const;
   float GetS(uint32_t x) const;
   float GetT(uint32_t y) const;
+  int32_t GetID() const;
 
   void Bind() const;
 

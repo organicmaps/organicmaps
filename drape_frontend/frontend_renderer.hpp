@@ -44,12 +44,11 @@ namespace dp
 
 namespace df
 {
-
-class SelectionShape;
 class Framebuffer;
-class TransparentLayer;
-class SelectObjectMessage;
 class ScenarioManager;
+class ScreenQuadRenderer;
+class SelectionShape;
+class SelectObjectMessage;
 
 struct TapInfo
 {
@@ -269,7 +268,7 @@ private:
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;
   drape_ptr<Framebuffer> m_framebuffer;
-  drape_ptr<TransparentLayer> m_transparentLayer;
+  drape_ptr<ScreenQuadRenderer> m_screenQuadRenderer;
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
   drape_ptr<DrapeApiRenderer> m_drapeApiRenderer;
 
