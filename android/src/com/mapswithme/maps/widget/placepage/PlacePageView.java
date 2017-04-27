@@ -301,6 +301,18 @@ public class PlacePageView extends RelativeLayout
       mBannerController.onChangedVisibility(false);
   }
 
+  public void onActivityStopped()
+  {
+    if (mBannerController != null)
+      mBannerController.detach();
+  }
+
+  public void onActivityStarted()
+  {
+    if (mBannerController != null)
+      mBannerController.attach();
+  }
+
   private void initViews()
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);

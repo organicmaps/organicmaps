@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.AdTracker;
 import com.mapswithme.maps.ads.Banner;
@@ -81,6 +82,8 @@ final class BannerController
   private CompoundNativeAdLoader mAdsLoader;
   @Nullable
   private AdTracker mAdTracker;
+  @NonNull
+  private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
 
   BannerController(@NonNull View bannerView, @Nullable BannerListener listener,
                    @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker)
@@ -106,7 +109,6 @@ final class BannerController
     });
     Resources res = mFrame.getResources();
     UiUtils.expandTouchAreaForView(mAds, (int) res.getDimension(R.dimen.margin_quarter_plus));
-    loader.setAdListener(new MyNativeAdsListener());
     mAdsLoader = loader;
     mAdTracker = tracker;
     mFrame.setOnClickListener(new View.OnClickListener()
@@ -181,8 +183,7 @@ final class BannerController
     }
 
     UiUtils.show(mFrame);
-
-    mAdsLoader.loadAd(mFrame.getContext(), mBanners);
+    mAdsLoader.loadAd(MwmApplication.get(), mBanners);
     updateVisibility();
   }
 
@@ -260,9 +261,26 @@ final class BannerController
       return;
 
     if (isVisible)
+    {
       mAdTracker.onViewShown(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.registerView(mFrame);
+    }
     else
+    {
       mAdTracker.onViewHidden(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.unregisterView(mFrame);
+    }
+  }
+
+  void detach()
+  {
+    mAdsLoader.detach();
+    mAdsLoader.setAdListener(null);
+  }
+
+  void attach()
+  {
+    mAdsLoader.setAdListener(mAdsListener);
   }
 
   private void fillViews(@NonNull MwmNativeAd data)

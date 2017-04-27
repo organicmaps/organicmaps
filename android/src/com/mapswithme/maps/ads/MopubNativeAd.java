@@ -82,4 +82,16 @@ class MopubNativeAd extends CachedMwmNativeAd
   {
     return mAd.getPrivacyInformationIconClickThroughUrl();
   }
+
+  @Override
+  void detachAdListener()
+  {
+    // No op.
+  }
+
+  @Override
+  void attachAdListener(@NonNull Object listener)
+  {
+    // No op.
+  }
 }

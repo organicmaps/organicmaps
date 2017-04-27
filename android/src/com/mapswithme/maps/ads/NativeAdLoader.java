@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public interface NativeAdLoader
+interface NativeAdLoader
 {
   /**
    * Loads an ad for the specified banner id. A caller will be notified about loading through
@@ -35,4 +35,15 @@ public interface NativeAdLoader
    *
    */
   void cancel();
+
+  /**
+   * Detaches this loader from UI context. Must be called every time when current UI context is going
+   * to be destroyed. Otherwise, memory leaks are possible.
+   */
+  void detach();
+
+  /**
+   * Attaches this loader to UI context.
+   */
+  void attach();
 }

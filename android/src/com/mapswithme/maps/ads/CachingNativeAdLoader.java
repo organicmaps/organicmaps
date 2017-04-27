@@ -179,4 +179,23 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
   {
     return getAdByIdFromCache(key) == null;
   }
+
+  @CallSuper
+  @Override
+  public void detach()
+  {
+    for (CachedMwmNativeAd ad : CACHE.values())
+      ad.detachAdListener();
+  }
+
+  @CallSuper
+  @Override
+  public void attach()
+  {
+    for (CachedMwmNativeAd ad : CACHE.values())
+    {
+      if (ad.getProvider().equals(getProvider()))
+        ad.attachAdListener(this);
+    }
+  }
 }
