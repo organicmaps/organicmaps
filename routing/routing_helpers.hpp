@@ -34,6 +34,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       my::Cancellable const & cancellable, bool hasAltitude,
                       vector<Junction> & path, Route & route);
 
+
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the

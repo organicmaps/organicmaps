@@ -81,9 +81,13 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
   for (auto const & candidate : candidates)
   {
     auto const & edge = candidate.first;
-    auto const getVertexByEdgeFn = [](Edge const & edge) { return edge.GetEndJunction(); };
-    auto const getOutgoingEdgesFn = [](IRoadGraph const & graph, Junction const & u,
-                                       vector<Edge> & edges) { graph.GetOutgoingEdges(u, edges); };
+
+    auto const getVertexByEdgeFn = [](Edge const & edge) {
+      return edge.GetEndJunction();
+    };
+    auto const getOutgoingEdgesFn = [](IRoadGraph const & graph, Junction const & u, vector<Edge> & edges){
+      graph.GetOutgoingEdges(u, edges);
+    };
 
     if (CheckGraphConnectivity(edge.GetEndJunction(), kTestConnectivityVisitJunctionsLimit,
                                graph, getVertexByEdgeFn, getOutgoingEdgesFn))

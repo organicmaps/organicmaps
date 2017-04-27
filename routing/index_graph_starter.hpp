@@ -23,13 +23,12 @@ public:
   class FakeVertex final
   {
   public:
-    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
-    {
-    }
-
     FakeVertex(Segment const & segment, m2::PointD const & point)
       : m_segment(segment), m_point(point)
+    {
+    }
+    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
+      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
     {
     }
 
