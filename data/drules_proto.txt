@@ -47707,6 +47707,152 @@ cont {
   }
 }
 cont {
+  name: "psurface-unpaved_bad"
+  element {
+    scale: 14
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "psurface-unpaved_good"
+  element {
+    scale: 14
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.4
+      color: 16579836
+      dashdot {
+        dd: 2.0
+        dd: 1.35
+      }
+      priority: 1000
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "public_transport-platform"
   element {
     scale: 16
