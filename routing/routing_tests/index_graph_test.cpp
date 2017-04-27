@@ -218,19 +218,19 @@ UNIT_TEST(FindPathCross)
       uint32_t expectedLength = 0;
       if (start.GetFeatureId() == finish.GetFeatureId())
       {
-        expectedLength = AbsDelta(start.GetSegmentIdx(), finish.GetSegmentIdx()) + 1;
+        expectedLength = AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting()) + 1;
       }
       else
       {
-        if (start.GetSegmentIdx() < 2)
-          expectedLength += 2 - start.GetSegmentIdx();
+        if (start.GetSegmentIdxForTesting() < 2)
+          expectedLength += 2 - start.GetSegmentIdxForTesting();
         else
-          expectedLength += start.GetSegmentIdx() - 1;
+          expectedLength += start.GetSegmentIdxForTesting() - 1;
 
-        if (finish.GetSegmentIdx() < 2)
-          expectedLength += 2 - finish.GetSegmentIdx();
+        if (finish.GetSegmentIdxForTesting() < 2)
+          expectedLength += 2 - finish.GetSegmentIdxForTesting();
         else
-          expectedLength += finish.GetSegmentIdx() - 1;
+          expectedLength += finish.GetSegmentIdxForTesting() - 1;
       }
       TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
     }
@@ -303,7 +303,7 @@ UNIT_TEST(FindPathManhattan)
 
       if (start.GetFeatureId() < kCitySize == finish.GetFeatureId() < kCitySize)
       {
-        uint32_t segDelta = AbsDelta(start.GetSegmentIdx(), finish.GetSegmentIdx());
+        uint32_t segDelta = AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting());
         if (segDelta == 0 && start.GetFeatureId() != finish.GetFeatureId())
           segDelta = 1;
         expectedLength += segDelta;
@@ -311,15 +311,15 @@ UNIT_TEST(FindPathManhattan)
       }
       else
       {
-        if (start.GetSegmentIdx() < finishFeatureOffset)
-          expectedLength += finishFeatureOffset - start.GetSegmentIdx();
+        if (start.GetSegmentIdxForTesting() < finishFeatureOffset)
+          expectedLength += finishFeatureOffset - start.GetSegmentIdxForTesting();
         else
-          expectedLength += start.GetSegmentIdx() - finishFeatureOffset + 1;
+          expectedLength += start.GetSegmentIdxForTesting() - finishFeatureOffset + 1;
 
-        if (finish.GetSegmentIdx() < startFeatureOffset)
-          expectedLength += startFeatureOffset - finish.GetSegmentIdx();
+        if (finish.GetSegmentIdxForTesting() < startFeatureOffset)
+          expectedLength += startFeatureOffset - finish.GetSegmentIdxForTesting();
         else
-          expectedLength += finish.GetSegmentIdx() - startFeatureOffset + 1;
+          expectedLength += finish.GetSegmentIdxForTesting() - startFeatureOffset + 1;
       }
 
       TestRoute(start, finish, expectedLength, nullptr, *worldGraph);

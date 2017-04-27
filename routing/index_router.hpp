@@ -8,6 +8,7 @@
 #include "routing/num_mwm_id.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_mapping.hpp"
+#include "routing/world_graph.hpp"
 
 #include "routing_common/vehicle_model.hpp"
 
@@ -68,7 +69,14 @@ private:
                                        m2::PointD const & startDirection,
                                        m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
-  bool FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
+
+  /// \brief Finds closest edges which may be considered as start of finish of the route.
+  /// \param fromPoint == true is |point| is considered as the start of the route.
+  /// fromPoint == false is |point| is considered as the finish of the route.
+  bool FindClosestEdge(WorldGraph & worldGraph,
+                       platform::CountryFile const & file,
+                       m2::PointD const & point,
+                       bool fromPoint,
                        Edge & closestEdge) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.

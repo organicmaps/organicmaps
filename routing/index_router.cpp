@@ -35,6 +35,24 @@ namespace
 size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
+
+bool IsDeadEnd(Segment const & segment, bool fromPoint, WorldGraph & worldGraph)
+{
+  size_t constexpr kDeadEndTestLimit = 50;
+
+  auto const getVertexByEdgeFn = [](SegmentEdge const & edge){
+    return edge.GetTarget();
+  };
+
+  // Note. If |fromPoint| == true outgoing edges are looked for.
+  // If |fromPoint| == false it's the finish. So ingoing edges are looked for.
+  auto const getOutgoingEdgesFn = [fromPoint](WorldGraph & graph, Segment const & u, vector<SegmentEdge> & edges){
+    graph.GetEdgeList(u, fromPoint, false /* isLeap */, edges);
+  };
+
+  return !CheckGraphConnectivity<SegmentEdge>(worldGraph, segment, kDeadEndTestLimit,
+                                              getVertexByEdgeFn, getOutgoingEdgesFn);
+}
 }  // namespace
 
 namespace routing
@@ -117,27 +135,27 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   auto const startFile = platform::CountryFile(startCountry);
   auto const finishFile = platform::CountryFile(finishCountry);
 
-  Edge startEdge;
-  if (!FindClosestEdge(startFile, startPoint, startEdge))
-    return IRouter::StartPointNotFound;
-
-  Edge finishEdge;
-  if (!FindClosestEdge(finishFile, finalPoint, finishEdge))
-    return IRouter::EndPointNotFound;
-
-  IndexGraphStarter::FakeVertex const start(m_numMwmIds->GetId(startFile),
-                                            startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
-                                            startPoint);
-  IndexGraphStarter::FakeVertex const finish(m_numMwmIds->GetId(finishFile),
-                                             finishEdge.GetFeatureId().m_index,
-                                             finishEdge.GetSegId(), finalPoint);
-
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph(
     make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
                                m_index, m_indexManager),
     IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
     m_estimator);
+
+  Edge startEdge;
+  if (!FindClosestEdge(graph, startFile, startPoint, true /* fromPoint */, startEdge))
+    return IRouter::StartPointNotFound;
+
+  Edge finishEdge;
+  if (!FindClosestEdge(graph, finishFile, finalPoint, false /* fromPoint */, finishEdge))
+    return IRouter::EndPointNotFound;
+
+  IndexGraphStarter::FakeVertex const start(Segment(m_numMwmIds->GetId(startFile),
+                                            startEdge.GetFeatureId().m_index, startEdge.GetSegId(), true /* forward */),
+                                            startPoint);
+  IndexGraphStarter::FakeVertex const finish(Segment(m_numMwmIds->GetId(finishFile),
+                                             finishEdge.GetFeatureId().m_index,
+                                             finishEdge.GetSegId(), true /* forward */), finalPoint);
 
   WorldGraph::Mode mode = WorldGraph::Mode::SingleMwm;
   if (forSingleMwm)
@@ -195,7 +213,10 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   }
 }
 
-bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
+bool IndexRouter::FindClosestEdge(WorldGraph & worldGraph,
+                                  platform::CountryFile const & file,
+                                  m2::PointD const & point,
+                                  bool fromPoint,
                                   Edge & closestEdge) const
 {
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
@@ -203,6 +224,7 @@ bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
+  NumMwmId const numMwmId = m_numMwmIds->GetId(file);
 
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
@@ -213,7 +235,8 @@ bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD
   for (size_t i = 0; i < candidates.size(); ++i)
   {
     Edge const & edge = candidates[i].first;
-    if (edge.GetFeatureId().m_mwmId != mwmId)
+    Segment const segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+    if (edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(segment, fromPoint, worldGraph))
       continue;
 
     m2::DistanceToLineSquare<m2::PointD> squaredDistance;
