@@ -95,9 +95,12 @@ CGFloat const kMinOffset = 1;
     self.actionBar.minY = self.ownerView.height;
     [self.scrollView setContentOffset:{} animated:YES];
   },^{
+    id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
+    // Workaround for preventing a situation when the scroll view destroyed before an animation finished.
+    [delegate onPlacePageTopBoundChanged:0];
     self.actionBar = nil;
     self.scrollView = nil;
-    [self.delegate shouldDestroyLayout];
+    [delegate shouldDestroyLayout];
   });
 }
 
