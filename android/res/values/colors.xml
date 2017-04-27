@@ -101,7 +101,7 @@
   <color name="button_accent_normal">@color/base_accent</color>
   <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">#FF1C85D6</color>
-  <color name="button_accent_pressed_night">#FFCCB870</color>
+  <color name="button_accent_pressed_night">#FF3C9BBE</color>
   <color name="button_accent_disabled">#FFEFEFEF</color>
   <color name="button_accent_disabled_night">#FF505050</color>
   <color name="button_accent_text">#FFFFFFFF</color>
