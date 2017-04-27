@@ -1,7 +1,5 @@
 #include "qt/qt_common/spinner.hpp"
 
-#include <string>
-
 #include <QtCore/QString>
 #include <QtCore/QTimer>
 #include <QtCore/Qt>
@@ -17,8 +15,8 @@ Spinner::Spinner()
 {
   for (int i = kMinSpinnerPixmap; i <= kMaxSpinnerPixmap; ++i)
   {
-    auto const path = ":common/spinner" + std::to_string(i) + ".png";
-    m_pixmaps.emplace_back(QString::fromStdString(path));
+    auto const path = ":common/spinner" + QString::number(i) + ".png";
+    m_pixmaps.emplace_back(path);
   }
 
   setEnabled(false);
