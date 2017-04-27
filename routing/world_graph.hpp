@@ -26,7 +26,7 @@ public:
     LeapsIfPossible,  // Mode for building cross mwm and single mwm routes. In case of cross mwm route
                       // if they are neighboring mwms the route will be made without leaps.
                       // If not the route is made with leaps for intermediate mwms.
-    NoLeaps,  // Mode for building route and getting outgoing/ingoing edges without leaps anyway.
+    NoLeaps,  // Mode for building route and getting outgoing/ingoing edges without leaps at all.
   };
 
   WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,

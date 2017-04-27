@@ -46,19 +46,9 @@ public:
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {
-    if (isEnter)
-    {
-      auto const & enters =
-          GetCrossMwmConnectorWithTransitions(numMwmId).GetEnters();
-      for (auto const & enter : enters)
-        fn(enter);
-    }
-    else
-    {
-      std::vector<Segment> const & exits = GetCrossMwmConnectorWithTransitions(numMwmId).GetExits();
-      for (Segment const & exit : exits)
-        fn(exit);
-    }
+    auto const & connectors = GetCrossMwmConnectorWithTransitions(numMwmId);
+    for (Segment const & t : (isEnter ? connectors.GetEnters() : connectors.GetExits()))
+      fn(t);
   }
 
 private:

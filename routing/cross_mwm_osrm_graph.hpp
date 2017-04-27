@@ -34,16 +34,9 @@ public:
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {
-    if (isEnter)
-    {
-      for (auto const & kv : GetSegmentMaps(numMwmId).m_ingoing)
-        fn(kv.first);
-    }
-    else
-    {
-      for (auto const & kv : GetSegmentMaps(numMwmId).m_outgoing)
-        fn(kv.first);
-    }
+    auto const & ts = GetSegmentMaps(numMwmId);
+    for (auto const & kv : isEnter ? ts.m_ingoing : ts.m_outgoing)
+      fn(kv.first);
   }
 
 private:

@@ -124,9 +124,9 @@ void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, 
   m2::PointD const & segmentPoint = fakeVertex.GetPoint();
 
   // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
-  // exits of its mwm.
-  // So |isEnter| below should be set to false. If |isOutgoing| == false all enters of the
-  // finish mwm should be connected with the finish point. So |isEnter| below should be set to true.
+  // exits of its mwm. So |isEnter| below should be set to false.
+  // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish point.
+  // So |isEnter| below should be set to true.
   m_graph.ForEachTransition(
       fakeVertex.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
         edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapWeight(

@@ -111,10 +111,10 @@ private:
   void GetNormalToFakeEdge(Segment const & segment, FakeVertex const & fakeVertex,
                            Segment const & fakeSegment, bool isOutgoing,
                            vector<SegmentEdge> & edges);
-  /// \brief If |toExits| == true fills |edges| with SegmentEdge(s) which connects
-  /// |segment| with all exits of mwm.
-  /// \brief If |toExits| == false fills |edges| with SegmentEdge(s) which connects
-  /// all enters to mwm with |segment|.
+  /// \brief If |isOutgoing| == true fills |edges| with SegmentEdge(s) which connects
+  /// |fakeVertex| with all exits of mwm.
+  /// \brief If |isOutgoing| == false fills |edges| with SegmentEdge(s) which connects
+  /// all enters to mwm with |fakeVertex|.
   void ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
                                 vector<SegmentEdge> & edges);
 
