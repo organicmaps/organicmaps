@@ -2,6 +2,7 @@ package com.mapswithme.maps.ads;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -71,10 +72,12 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
     }
   }
 
+  @CallSuper
   @Override
-  public void cancel(@NonNull String bannerId)
+  public void cancel()
   {
-    PENDING_REQUESTS.remove(new BannerKey(getProvider(), bannerId));
+    super.cancel();
+    PENDING_REQUESTS.clear();
   }
 
   private boolean isImpressionGood(@NonNull CachedMwmNativeAd ad)

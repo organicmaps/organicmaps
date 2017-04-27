@@ -1,5 +1,6 @@
 package com.mapswithme.maps.ads;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,10 +10,9 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -31,7 +31,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   private static final String TAG = CompoundNativeAdLoader.class.getSimpleName();
   private static final int TIMEOUT_MS = 5000;
   @NonNull
-  private final Map<String, NativeAdLoader> mLoaders = new HashMap<>();
+  private final List<NativeAdLoader> mLoaders = new ArrayList<>();
   @Nullable
   private final OnAdCacheModifiedListener mCacheListener;
   @Nullable
@@ -56,7 +56,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   public void loadAd(@NonNull Context context, @NonNull List<Banner> banners)
   {
     LOGGER.i(TAG, "Load ads for " + banners);
-    cancelLoaders(banners);
+    cancel();
     mLoadingCompleted = false;
     mFailedProviders.clear();
 
@@ -69,7 +69,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
         throw new AssertionError("A banner id mustn't be empty!");
 
       NativeAdLoader loader = Factory.createLoaderForBanner(banner, mCacheListener, mAdTracker);
-      mLoaders.put(banner.getProvider(), loader);
+      mLoaders.add(loader);
       loader.setAdListener(this);
       loader.loadAd(context, banner.getId());
     }
@@ -87,10 +87,15 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     throw new UnsupportedOperationException("A compound loader doesn't support this operation!");
   }
 
+  @SuppressLint("MissingSuperCall")
+  // Don't need to call super here, because we don't need to null the mAdListener from the
+  // CompoundNativeAdLoader
   @Override
-  public void cancel(@NonNull String bannerId)
+  public void cancel()
   {
-    throw new UnsupportedOperationException("A compound loader doesn't support this operation!");
+    for (NativeAdLoader loader : mLoaders)
+      loader.cancel();
+    mLoaders.clear();
   }
 
   public boolean isAdLoading()
@@ -174,19 +179,6 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     if (getAdListener() != null)
       getAdListener().onAdLoaded(ad);
     mLoadingCompleted = true;
-  }
-
-  private void cancelLoaders(@NonNull List<Banner> banners)
-  {
-    for (Banner banner : banners)
-    {
-      NativeAdLoader loader = mLoaders.get(banner.getProvider());
-      if (loader != null)
-        loader.cancel(banner.getId());
-    }
-    for (NativeAdLoader adLoader : mLoaders.values())
-      adLoader.setAdListener(null);
-    mLoaders.clear();
   }
 
   private class DelayedNotification implements Runnable
