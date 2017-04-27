@@ -16,6 +16,8 @@ set(
   qtoglcontextfactory.hpp
   scale_slider.cpp
   scale_slider.hpp
+  spinner.cpp
+  spinner.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})

@@ -60,6 +60,10 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
   m_sampleView->Clear();
 }
 
+void MainView::OnSearchStarted() { m_sampleView->OnSearchStarted(); }
+
+void MainView::OnSearchCompleted() { m_sampleView->OnSearchCompleted(); }
+
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
                           bool hasEdits)
 {
@@ -269,7 +273,7 @@ void MainView::InitDocks()
   }
 
   m_samplesDock = CreateDock(*m_samplesView);
-  addDockWidget(Qt::RightDockWidgetArea, m_samplesDock);
+  addDockWidget(Qt::LeftDockWidgetArea, m_samplesDock);
   SetSamplesDockTitle(false /* hasEdits */);
 
   m_sampleView = new SampleView(this /* parent */, m_framework);

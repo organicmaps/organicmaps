@@ -169,6 +169,7 @@ void MainModel::OnSampleSelected(int index)
     };
 
     m_queryHandle = engine.Search(params, sample.m_viewport);
+    m_view->OnSearchStarted();
   }
 }
 
@@ -286,6 +287,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
   m_view->OnSampleChanged(sampleIndex, context.HasChanges());
   m_view->EnableSampleEditing(sampleIndex, context.m_foundResultsEdits,
                               context.m_nonFoundResultsEdits);
+  m_view->OnSearchCompleted();
 }
 
 void MainModel::ResetSearch()

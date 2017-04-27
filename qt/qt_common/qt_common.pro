@@ -17,6 +17,7 @@ SOURCES += \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \
     scale_slider.cpp \
+    spinner.cpp \
 
 HEADERS += \
     helpers.hpp \
@@ -25,5 +26,6 @@ HEADERS += \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
     scale_slider.hpp \
+    spinner.hpp \
 
 RESOURCES += res/resources_common.qrc

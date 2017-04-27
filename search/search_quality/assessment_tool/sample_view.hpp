@@ -11,6 +11,7 @@ class LanguagesList;
 class QLineEdit;
 class QPushButton;
 class ResultsView;
+class Spinner;
 
 class SampleView : public QWidget
 {
@@ -22,6 +23,8 @@ public:
   SampleView(QWidget * parent, Framework & framework);
 
   void SetContents(search::Sample const & sample, bool positionAvailable);
+  void OnSearchStarted();
+  void OnSearchCompleted();
   void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results);
 
@@ -41,6 +44,8 @@ private:
   void EnableEditing(ResultsView & results, Edits & edits);
 
   Framework & m_framework;
+
+  Spinner * m_spinner = nullptr;
 
   QLineEdit * m_query = nullptr;
   LanguagesList * m_langs = nullptr;

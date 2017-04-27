@@ -1,5 +1,7 @@
 #include "search/search_quality/assessment_tool/sample_view.hpp"
 
+#include "qt/qt_common/spinner.hpp"
+
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 #include "map/user_mark.hpp"
@@ -75,7 +77,13 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   {
     auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */);
 
-    layout->addWidget(new QLabel(tr("Found results")));
+    {
+      auto * subLayout = BuildSubLayout<QHBoxLayout>(*layout, *this /* parent */);
+      subLayout->addWidget(new QLabel(tr("Found results")));
+
+      m_spinner = new Spinner();
+      subLayout->addWidget(&m_spinner->AsWidget());
+    }
 
     m_foundResults = new ResultsView(*this /* parent */);
     layout->addWidget(m_foundResults);
@@ -105,6 +113,10 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
 
   ClearAllResults();
 }
+
+void SampleView::OnSearchStarted() { m_spinner->Show(); }
+
+void SampleView::OnSearchCompleted() { m_spinner->Hide(); }
 
 void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
@@ -150,6 +162,7 @@ void SampleView::Clear()
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
   ClearAllResults();
+  OnSearchCompleted();
 }
 
 void SampleView::EnableEditing(ResultsView & results, Edits & edits)
