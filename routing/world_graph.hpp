@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -18,9 +19,14 @@ class WorldGraph final
 public:
   enum class Mode
   {
-    SingleMwm,
-    WorldWithLeaps,
-    WorldWithoutLeaps,
+    SingleMwm,  // Mode for building a route within single mwm.
+    LeapsOnly,  // Mode for building a cross mwm route containing only leaps. In case of start and
+                // finish they (start and finish) will be connected with all transition segments of
+                // their mwm with leap (fake) edges.
+    LeapsIfPossible,  // Mode for building cross mwm and single mwm routes. In case of cross mwm route
+                      // if they are neighboring mwms the route will be made without leaps.
+                      // If not the route is made with leaps for intermediate mwms.
+    NoLeaps,  // Mode for building route and getting outgoing/ingoing edges without leaps at all.
   };
 
   WorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,
@@ -38,6 +44,18 @@ public:
   // Clear memory used by loaded index graphs.
   void ClearIndexGraphs() { m_loader->Clear(); }
   void SetMode(Mode mode) { m_mode = mode; }
+  Mode GetMode() const { return m_mode; }
+  
+  template <typename Fn>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  {
+    m_crossMwmGraph->ForEachTransition(numMwmId, isEnter, std::forward<Fn>(fn));
+  }
+
+  bool IsTransition(Segment const & s, bool isOutgoing)
+  {
+    return m_crossMwmGraph->IsTransition(s, isOutgoing);
+  }
 
 private:  
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
@@ -48,4 +66,6 @@ private:
   std::vector<Segment> m_twins;
   Mode m_mode = Mode::SingleMwm;
 };
+
+std::string DebugPrint(WorldGraph::Mode mode);
 }  // namespace routing

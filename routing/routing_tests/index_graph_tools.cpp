@@ -68,6 +68,12 @@ double WeightedEdgeEstimator::CalcHeuristic(m2::PointD const & /* from */,
   return 0.0;
 }
 
+double WeightedEdgeEstimator::CalcLeapWeight(m2::PointD const & /* from */,
+                                             m2::PointD const & /* to */) const
+{
+  return 0.0;
+}
+
 double WeightedEdgeEstimator::GetUTurnPenalty() const { return 0.0; }
 
 bool WeightedEdgeEstimator::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }

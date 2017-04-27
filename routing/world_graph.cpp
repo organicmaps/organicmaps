@@ -13,9 +13,9 @@ WorldGraph::WorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph, unique_ptr<Index
 }
 
 void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLeap,
-                             vector<SegmentEdge> & edges)
+                             std::vector<SegmentEdge> & edges)
 {
-  if (isLeap && m_mode == Mode::WorldWithLeaps)
+  if (m_mode != Mode::NoLeaps && (isLeap || m_mode == Mode::LeapsOnly))
   {
     CHECK(m_crossMwmGraph, ());
     if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
@@ -58,5 +58,18 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
     double const weight = m_estimator->CalcHeuristic(from, to);
     edges.emplace_back(twin, weight);
   }
+}
+
+string DebugPrint(WorldGraph::Mode mode)
+{
+  switch (mode)
+  {
+  case WorldGraph::Mode::SingleMwm: return "SingleMwm";
+  case WorldGraph::Mode::LeapsOnly: return "LeapsOnly";
+  case WorldGraph::Mode::LeapsIfPossible: return "LeapsIfPossible";
+  case WorldGraph::Mode::NoLeaps: return "NoLeaps";
+  }
+  ASSERT(false, ("Unknown mode:", static_cast<size_t>(mode)));
+  return "Unknown mode";
 }
 }  // namespace routing

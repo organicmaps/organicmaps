@@ -77,6 +77,8 @@ private:
   bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
                     bool forSingleMwm, IndexGraphStarter & starter, Route & route) const;
 
+  bool AreMwmsNear(NumMwmId startId, NumMwmId finishId) const;
+
   string const m_name;
   Index & m_index;
   TCountryFileFn const m_countryFileFn;

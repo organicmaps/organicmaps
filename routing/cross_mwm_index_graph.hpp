@@ -43,6 +43,14 @@ public:
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
   CrossMwmConnector const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId);
 
+  template <typename Fn>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
+  {
+    auto const & connectors = GetCrossMwmConnectorWithTransitions(numMwmId);
+    for (Segment const & t : (isEnter ? connectors.GetEnters() : connectors.GetExits()))
+      fn(t);
+  }
+
 private:
   CrossMwmConnector const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId);
 

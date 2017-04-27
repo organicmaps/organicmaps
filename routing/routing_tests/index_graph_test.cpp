@@ -462,20 +462,20 @@ UNIT_TEST(SerializeSimpleGraph)
 //           F2
 //           |
 //           |
-// 0.0003    *---------*
+// 0.0003   6*---------*5
 //           |         |
 //           |         |
 //           |         |
 //           |         |
 //           |         |
-// 0.0002    *         *
+// 0.0002   7*         *4
 //           |         |
 //           |         |
-// 0.00015   *    F0   *
+// 0.00015  8*    F0   *3
 //            \       /
-//              \   /
-// 0.0001         *---F0-*----*
-//                            ^
+//              \   /    1    0
+// 0.0001        9*---F0-*----*
+//                2           ^
 //                            |
 //                            F1
 //                            |
@@ -524,7 +524,7 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
              routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 2, 0 /* seg id */,
                                                     m2::PointD(0.00005, 0.0004)) /* finish */);
 
-  double constexpr kExpectedRouteTimeSec = 3.48;
+  double constexpr kExpectedRouteTimeSec = 3.92527;
   TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
 }
 
