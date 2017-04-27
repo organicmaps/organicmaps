@@ -7,14 +7,10 @@ using namespace std;
 
 namespace
 {
-string const kNo = "No";
-string const kPrivate = "Private";
-string const kDestination = "Destination";
-string const kYes = "Yes";
-string const kCount = "Count";
-string const kNames[] = {kNo, kPrivate, kDestination, kYes, kCount};
+string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
 
 // *NOTE* Order may be important for users (such as serializers).
+// Add new types to the end of the list.
 vector<routing::RouterType> const kSupportedRouterTypes = {
   routing::RouterType::Vehicle,
   routing::RouterType::Pedestrian,
@@ -79,8 +75,8 @@ string ToString(RoadAccess::Type type)
 {
   if (type <= RoadAccess::Type::Count)
     return kNames[static_cast<size_t>(type)];
-  ASSERT(false, ("Bad road access type"));
-  return {};
+  ASSERT(false, ("Bad road access type", static_cast<size_t>(type)));
+  return "Bad RoadAccess::Type";
 }
 
 void FromString(string const & s, RoadAccess::Type & result)
@@ -93,6 +89,7 @@ void FromString(string const & s, RoadAccess::Type & result)
       return;
     }
   }
+  result = RoadAccess::Type::Count;
   ASSERT(false, ("Could not read RoadAccess from the string", s));
 }
 

@@ -24,7 +24,7 @@ class RoadAccessTagProcessor
 public:
   using TagMapping = map<OsmElement::Tag, RoadAccess::Type>;
 
-  RoadAccessTagProcessor(RouterType routerType);
+  explicit RoadAccessTagProcessor(RouterType routerType);
 
   void Process(OsmElement const & elem, std::ofstream & oss) const;
 

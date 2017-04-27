@@ -21,7 +21,8 @@ namespace
 UNIT_TEST(RoadAccess_Serialization)
 {
   map<Segment, RoadAccess::Type> const m0 = {
-      {Segment(kFakeNumMwmId, 1, 0, false), RoadAccess::Type::No},
+      {Segment(kFakeNumMwmId, 1 /* feature id */, 0 /* segment idx */, false /* forward */),
+       RoadAccess::Type::No},
       {Segment(kFakeNumMwmId, 2, 2, false), RoadAccess::Type::Private},
   };
 
@@ -31,8 +32,8 @@ UNIT_TEST(RoadAccess_Serialization)
   };
 
   RoadAccess roadAccess;
-  roadAccess.SetTypes(static_cast<RouterType>(0), m0);
-  roadAccess.SetTypes(static_cast<RouterType>(1), m1);
+  roadAccess.SetTypes(RouterType::Vehicle, m0);
+  roadAccess.SetTypes(RouterType::Pedestrian, m1);
 
   vector<uint8_t> buf;
   {

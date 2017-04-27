@@ -124,11 +124,11 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     uint32_t const numSegments = static_cast<uint32_t>(ft.GetPointsCount() - 1);
 
     // Set this road access type for the entire feature.
-    for (uint32_t segmentId = 0; segmentId < numSegments; ++segmentId)
+    for (uint32_t segmentIdx = 0; segmentIdx < numSegments; ++segmentIdx)
     {
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentId, true /* isForward */), routerType,
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, true /* isForward */), routerType,
                  roadAccessType, osmId);
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentId, false /* isForward */), routerType,
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, false /* isForward */), routerType,
                  roadAccessType, osmId);
     }
   }

@@ -1,17 +1,16 @@
 #pragma once
 
+#include "routing/coding.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/road_access.hpp"
 #include "routing/segment.hpp"
 
 #include "coding/bit_streams.hpp"
-#include "coding/elias_coder.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <array>
@@ -83,11 +82,11 @@ private:
 
   // todo(@m) This code borrows heavily from traffic/traffic_info.hpp:SerializeTrafficKeys.
   template <typename Sink>
-  static void SerializeSegments(Sink & sink, vector<Segment> const & segments)
+  static void SerializeSegments(Sink & sink, std::vector<Segment> const & segments)
   {
-    vector<uint32_t> featureIds(segments.size());
-    vector<uint32_t> segmentIndices(segments.size());
-    vector<bool> isForward(segments.size());
+    std::vector<uint32_t> featureIds(segments.size());
+    std::vector<uint32_t> segmentIndices(segments.size());
+    std::vector<bool> isForward(segments.size());
 
     for (size_t i = 0; i < segments.size(); ++i)
     {
@@ -105,48 +104,42 @@ private:
       BitWriter<Sink> bitWriter(sink);
 
       uint32_t prevFid = 0;
-      for (auto const & fid : featureIds)
+      for (auto const fid : featureIds)
       {
         CHECK_GREATER_OR_EQUAL(fid, prevFid, ());
         uint64_t const fidDiff = static_cast<uint64_t>(fid - prevFid);
-        bool ok = coding::GammaCoder::Encode(bitWriter, fidDiff + 1);
-        ASSERT(ok, ());
-        UNUSED_VALUE(ok);
+        WriteGamma(bitWriter, fidDiff + 1);
         prevFid = fid;
       }
 
-      for (auto const & s : segmentIndices)
-      {
-        bool ok = coding::GammaCoder::Encode(bitWriter, s + 1);
-        ASSERT(ok, ());
-        UNUSED_VALUE(ok);
-      }
+      for (auto const idx : segmentIndices)
+        WriteGamma(bitWriter, idx + 1);
 
-      for (auto const & val : isForward)
+      for (auto const val : isForward)
         bitWriter.Write(val ? 1 : 0, 1 /* numBits */);
     }
   }
 
   template <typename Source>
-  static void DeserializeSegments(Source & src, vector<Segment> & segments)
+  static void DeserializeSegments(Source & src, std::vector<Segment> & segments)
   {
     auto const n = static_cast<size_t>(ReadVarUint<uint64_t>(src));
 
-    vector<uint32_t> featureIds(n);
-    vector<size_t> segmentIndices(n);
-    vector<bool> isForward(n);
+    std::vector<uint32_t> featureIds(n);
+    std::vector<uint32_t> segmentIndices(n);
+    std::vector<bool> isForward(n);
 
     {
-      BitReader<decltype(src)> bitReader(src);
+      BitReader<Source> bitReader(src);
       uint32_t prevFid = 0;
       for (size_t i = 0; i < n; ++i)
       {
-        prevFid += coding::GammaCoder::Decode(bitReader) - 1;
+        prevFid += ReadGamma<uint64_t>(bitReader) - 1;
         featureIds[i] = prevFid;
       }
 
       for (size_t i = 0; i < n; ++i)
-        segmentIndices[i] = coding::GammaCoder::Decode(bitReader) - 1;
+        segmentIndices[i] = ReadGamma<uint32_t>(bitReader) - 1;
 
       for (size_t i = 0; i < n; ++i)
         isForward[i] = bitReader.Read(1) > 0;
