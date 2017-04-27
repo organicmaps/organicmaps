@@ -71,6 +71,12 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
     }
   }
 
+  @Override
+  public void cancel(@NonNull String bannerId)
+  {
+    PENDING_REQUESTS.remove(new BannerKey(getProvider(), bannerId));
+  }
+
   private boolean isImpressionGood(@NonNull CachedMwmNativeAd ad)
   {
     return mTracker != null && mTracker.isImpressionGood(ad.getProvider(), ad.getBannerId());

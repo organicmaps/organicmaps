@@ -9,9 +9,10 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -30,7 +31,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   private static final String TAG = CompoundNativeAdLoader.class.getSimpleName();
   private static final int TIMEOUT_MS = 5000;
   @NonNull
-  private final List<NativeAdLoader> mLoaders = new ArrayList<>();
+  private final Map<String, NativeAdLoader> mLoaders = new HashMap<>();
   @Nullable
   private final OnAdCacheModifiedListener mCacheListener;
   @Nullable
@@ -55,7 +56,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
   public void loadAd(@NonNull Context context, @NonNull List<Banner> banners)
   {
     LOGGER.i(TAG, "Load ads for " + banners);
-    cancelLoaders();
+    cancelLoaders(banners);
     mLoadingCompleted = false;
     mFailedProviders.clear();
 
@@ -68,7 +69,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
         throw new AssertionError("A banner id mustn't be empty!");
 
       NativeAdLoader loader = Factory.createLoaderForBanner(banner, mCacheListener, mAdTracker);
-      mLoaders.add(loader);
+      mLoaders.put(banner.getProvider(), loader);
       loader.setAdListener(this);
       loader.loadAd(context, banner.getId());
     }
@@ -82,6 +83,12 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
 
   @Override
   public boolean isAdLoading(@NonNull String bannerId)
+  {
+    throw new UnsupportedOperationException("A compound loader doesn't support this operation!");
+  }
+
+  @Override
+  public void cancel(@NonNull String bannerId)
   {
     throw new UnsupportedOperationException("A compound loader doesn't support this operation!");
   }
@@ -169,9 +176,15 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     mLoadingCompleted = true;
   }
 
-  private void cancelLoaders()
+  private void cancelLoaders(@NonNull List<Banner> banners)
   {
-    for (NativeAdLoader adLoader : mLoaders)
+    for (Banner banner : banners)
+    {
+      NativeAdLoader loader = mLoaders.get(banner.getProvider());
+      if (loader != null)
+        loader.cancel(banner.getId());
+    }
+    for (NativeAdLoader adLoader : mLoaders.values())
       adLoader.setAdListener(null);
     mLoaders.clear();
   }
