@@ -125,33 +125,28 @@ UNIT_TEST(RoadAccess_Smoke)
 
 UNIT_TEST(RoadAccess_AccessPrivate)
 {
-  string const roadAccessContent = R"(vehicle Private 0)";
+  string const roadAccessContent = R"(Car Private 0)";
   string const osmIdsToFeatureIdsContent = R"(0, 0,)";
   auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 0, 0, false)),
-             RoadAccess::Type::Private, ());
+  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 0, 0, false)), RoadAccess::Type::Private, ());
 }
 
-UNIT_TEST(RoadAccess_Access_Multiple_Router_Types)
+UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Masks)
 {
-  string const roadAccessContent = R"(vehicle Private 10
-                                     vehicle Private 20
-                                     bicycle No 30
-                                     vehicle Destination 40)";
+  string const roadAccessContent = R"(Car Private 10
+                                     Car Private 20
+                                     Bicycle No 30
+                                     Car Destination 40)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
                                              20, 2,
                                              30, 3,
                                              40, 4,)";
   auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 1, 0, false)),
-             RoadAccess::Type::Private, ());
-  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 2, 2, true)),
-             RoadAccess::Type::Private, ());
-  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 3, 1, true)), RoadAccess::Type::Yes,
+  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 1, 0, false)), RoadAccess::Type::Private, ());
+  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 2, 2, true)), RoadAccess::Type::Private, ());
+  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 3, 1, true)), RoadAccess::Type::Yes, ());
+  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 4, 3, false)), RoadAccess::Type::Destination,
              ());
-  TEST_EQUAL(roadAccess.GetType(RouterType::Vehicle, Segment(0, 4, 3, false)),
-             RoadAccess::Type::Destination, ());
-  TEST_EQUAL(roadAccess.GetType(RouterType::Bicycle, Segment(0, 3, 0, false)), RoadAccess::Type::No,
-             ());
+  TEST_EQUAL(roadAccess.GetType(kBicycleMask, Segment(0, 3, 0, false)), RoadAccess::Type::No, ());
 }
 }  // namespace

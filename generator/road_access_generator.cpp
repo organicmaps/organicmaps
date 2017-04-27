@@ -5,7 +5,6 @@
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
-#include "routing/router.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
@@ -33,6 +32,9 @@ using namespace std;
 namespace
 {
 char constexpr kDelim[] = " \t\r\n";
+string const kCar = "Car";
+string const kPedestrian = "Pedestrian";
+string const kBicycle = "Bicycle";
 
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
@@ -53,6 +55,30 @@ TagMapping const kBicycleTagMapping = {
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
 };
 
+VehicleMask ReadVehicleMaskFromString(string const & s)
+{
+  if (s == kCar)
+    return kCarMask;
+  if (s == kPedestrian)
+    return kPedestrianMask;
+  if (s == kBicycle)
+    return kBicycleMask;
+  LOG(LERROR, ("Could not read vehicle mask from the string", s));
+  return kAllVehiclesMask;
+}
+
+string WriteVehicleMaskToString(VehicleMask vehicleMask)
+{
+  if (vehicleMask == kCarMask)
+    return kCar;
+  if (vehicleMask == kPedestrianMask)
+    return kPedestrian;
+  if (vehicleMask == kBicycleMask)
+    return kBicycle;
+  LOG(LERROR, ("Unsupported vehicle mask", vehicleMask));
+  return "Unsupported VehicleMask";
+}
+
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
                      FeaturesVector const & featuresVector, RoadAccess & roadAccess)
 {
@@ -65,11 +91,11 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
 
   vector<uint32_t> privateRoads;
 
-  map<Segment, RoadAccess::Type> segmentType[static_cast<size_t>(RouterType::Count)];
+  map<VehicleMask, map<Segment, RoadAccess::Type>> segmentType;
 
-  auto addSegment = [&](Segment const & segment, RouterType routerType,
+  auto addSegment = [&](Segment const & segment, VehicleMask vehicleMask,
                         RoadAccess::Type roadAccessType, uint64_t osmId) {
-    auto & m = segmentType[static_cast<size_t>(routerType)];
+    auto & m = segmentType[vehicleMask];
     auto const emplaceRes = m.emplace(segment, roadAccessType);
     if (!emplaceRes.second)
       LOG(LWARNING, ("duplicate road access info for", osmId));
@@ -88,7 +114,7 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
       LOG(LERROR, ("Error when parsing road access: empty line", lineNo));
       return false;
     }
-    RouterType const routerType = FromString(*iter);
+    VehicleMask const vehicleMask = ReadVehicleMaskFromString(*iter);
     ++iter;
 
     if (!iter)
@@ -126,15 +152,15 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     // Set this road access type for the entire feature.
     for (uint32_t segmentIdx = 0; segmentIdx < numSegments; ++segmentIdx)
     {
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, true /* isForward */), routerType,
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, true /* isForward */), vehicleMask,
                  roadAccessType, osmId);
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, false /* isForward */), routerType,
+      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, false /* isForward */), vehicleMask,
                  roadAccessType, osmId);
     }
   }
 
-  for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
-    roadAccess.SetTypes(routerType, segmentType[static_cast<size_t>(routerType)]);
+  for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+    roadAccess.SetTypes(vehicleMask, segmentType[vehicleMask]);
 
   return true;
 }
@@ -143,17 +169,17 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
 namespace routing
 {
 // RoadAccessTagProcessor --------------------------------------------------------------------------
-RoadAccessTagProcessor::RoadAccessTagProcessor(RouterType routerType)
-  : m_routerType(routerType), m_tagMapping(nullptr)
+RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleMask vehicleMask)
+  : m_vehicleMask(vehicleMask), m_tagMapping(nullptr)
 {
-  switch (routerType)
-  {
-  case RouterType::Vehicle: m_tagMapping = &kCarTagMapping; break;
-  case RouterType::Pedestrian: m_tagMapping = &kPedestrianTagMapping; break;
-  case RouterType::Bicycle: m_tagMapping = &kBicycleTagMapping; break;
-  case RouterType::Taxi: CHECK(false, ("Road access info is not supported for taxi")); break;
-  case RouterType::Count: CHECK(false, ("Bad router type")); break;
-  }
+  if (vehicleMask == kCarMask)
+    m_tagMapping = &kCarTagMapping;
+  else if (vehicleMask == kPedestrianMask)
+    m_tagMapping = &kPedestrianTagMapping;
+  else if (vehicleMask == kBicycleMask)
+    m_tagMapping = &kBicycleTagMapping;
+  else
+    CHECK(false, ("Road access info is not supported for this vehicle mask", vehicleMask));
 }
 
 void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss) const
@@ -167,15 +193,16 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss) co
     auto const it = m_tagMapping->find(tag);
     if (it == m_tagMapping->cend())
       continue;
-    oss << ToString(m_routerType) << " " << ToString(it->second) << " " << elem.id << endl;
+    oss << WriteVehicleMaskToString(m_vehicleMask) << " " << ToString(it->second) << " " << elem.id
+        << endl;
   }
 }
 
 // RoadAccessWriter ------------------------------------------------------------
 RoadAccessWriter::RoadAccessWriter()
 {
-  for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
-    m_tagProcessors.emplace_back(routerType);
+  for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+    m_tagProcessors.emplace_back(vehicleMask);
 }
 
 void RoadAccessWriter::Open(string const & filePath)

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "routing/router.hpp"
 #include "routing/segment.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "base/assert.hpp"
 
@@ -40,18 +40,20 @@ public:
     Count
   };
 
-  static std::vector<routing::RouterType> const & GetSupportedRouterTypes();
-  static bool IsSupportedRouterType(RouterType r);
+  RoadAccess();
 
-  Type const GetType(RouterType routerType, Segment const & segment) const;
+  static std::vector<VehicleMask> const & GetSupportedVehicleMasks();
+  static bool IsSupportedVehicleMask(VehicleMask vehicleMask);
 
-  std::map<Segment, Type> const & GetTypes(RouterType routerType) const;
+  Type const GetType(VehicleMask vehicleMask, Segment const & segment) const;
+
+  std::map<Segment, Type> const & GetTypes(VehicleMask vehicleMask) const;
 
   template <typename V>
-  void SetTypes(RouterType routerType, V && v)
+  void SetTypes(VehicleMask vehicleMask, V && v)
   {
-    CHECK(IsSupportedRouterType(routerType), ());
-    m_types[static_cast<size_t>(routerType)] = std::forward<V>(v);
+    CHECK(IsSupportedVehicleMask(vehicleMask), ());
+    m_types[vehicleMask] = std::forward<V>(v);
   }
 
   void Clear();
@@ -63,7 +65,7 @@ public:
 private:
   // todo(@m) Segment's NumMwmId is not used here. Decouple it from
   // segment and use only (fid, idx, forward) in the map.
-  std::map<Segment, RoadAccess::Type> m_types[static_cast<size_t>(RouterType::Count)];
+  std::map<VehicleMask, std::map<Segment, RoadAccess::Type>> m_types;
 };
 
 std::string ToString(RoadAccess::Type type);

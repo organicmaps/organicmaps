@@ -4,6 +4,7 @@
 #include "generator/osm_element.hpp"
 
 #include "routing/road_access.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include <cstdint>
 #include <fstream>
@@ -24,12 +25,12 @@ class RoadAccessTagProcessor
 public:
   using TagMapping = map<OsmElement::Tag, RoadAccess::Type>;
 
-  explicit RoadAccessTagProcessor(RouterType routerType);
+  explicit RoadAccessTagProcessor(VehicleMask vehicleMask);
 
   void Process(OsmElement const & elem, std::ofstream & oss) const;
 
 private:
-  RouterType m_routerType;
+  VehicleMask m_vehicleMask;
   TagMapping const * m_tagMapping;
 };
 

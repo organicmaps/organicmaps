@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <sstream>
 #include <string>
 
 namespace routing
@@ -36,5 +37,26 @@ inline std::string DebugPrint(VehicleType vehicleType)
   case VehicleType::Car: return "Car";
   case VehicleType::Count: return "Count";
   }
+}
+
+inline std::string DebugPrint(VehicleMask vehicleMask)
+{
+  std::ostringstream oss;
+  oss << "VehicleMask [";
+  bool first = true;
+  for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
+  {
+    auto const vt = static_cast<VehicleType>(i);
+    if ((vehicleMask & GetVehicleMask(vt)) == 0)
+      continue;
+
+    if (!first)
+      oss << ", ";
+    first = false;
+
+    oss << DebugPrint(vt);
+  }
+  oss << "]";
+  return oss.str();
 }
 }  // namespace routing

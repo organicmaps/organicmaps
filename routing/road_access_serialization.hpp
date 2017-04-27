@@ -33,8 +33,8 @@ public:
     uint32_t const header = kLatestVersion;
     WriteToSink(sink, header);
 
-    for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
-      SerializeOneRouterType(sink, roadAccess.GetTypes(routerType));
+    for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+      SerializeOneVehicleMask(sink, roadAccess.GetTypes(vehicleMask));
   }
 
   template <class Source>
@@ -43,17 +43,17 @@ public:
     uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
     CHECK_EQUAL(header, kLatestVersion, ());
 
-    for (auto const routerType : RoadAccess::GetSupportedRouterTypes())
+    for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
     {
       RoadAccessTypesMap m;
-      DeserializeOneRouterType(src, m);
-      roadAccess.SetTypes(routerType, std::move(m));
+      DeserializeOneVehicleMask(src, m);
+      roadAccess.SetTypes(vehicleMask, std::move(m));
     }
   }
 
 private:
   template <typename Sink>
-  static void SerializeOneRouterType(Sink & sink, RoadAccessTypesMap const & m)
+  static void SerializeOneVehicleMask(Sink & sink, RoadAccessTypesMap const & m)
   {
     std::array<std::vector<Segment>, static_cast<size_t>(RoadAccess::Type::Count)>
         segmentsByRoadAccessType;
@@ -68,7 +68,7 @@ private:
   }
 
   template <typename Source>
-  static void DeserializeOneRouterType(Source & src, RoadAccessTypesMap & m)
+  static void DeserializeOneVehicleMask(Source & src, RoadAccessTypesMap & m)
   {
     m.clear();
     for (size_t i = 0; i < static_cast<size_t>(RoadAccess::Type::Count); ++i)

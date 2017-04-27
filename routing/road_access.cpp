@@ -11,29 +11,37 @@ string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
 
 // *NOTE* Order may be important for users (such as serializers).
 // Add new types to the end of the list.
-vector<routing::RouterType> const kSupportedRouterTypes = {
-  routing::RouterType::Vehicle,
-  routing::RouterType::Pedestrian,
-  routing::RouterType::Bicycle,
-};
+vector<routing::VehicleMask> const kSupportedVehicleMasks = {
+  routing::kPedestrianMask,
+  routing::kBicycleMask,
+  routing::kCarMask,
+};  
 }  // namespace
 
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-// static
-vector<RouterType> const & RoadAccess::GetSupportedRouterTypes() { return kSupportedRouterTypes; }
-
-// static
-bool RoadAccess::IsSupportedRouterType(RouterType r)
+RoadAccess::RoadAccess()
 {
-  return find(kSupportedRouterTypes.begin(), kSupportedRouterTypes.end(), r) !=
-         kSupportedRouterTypes.end();
+  for (auto const vehicleMask : kSupportedVehicleMasks)
+    m_types.emplace(vehicleMask, map<Segment, RoadAccess::Type>());
+}
+// static
+vector<VehicleMask> const & RoadAccess::GetSupportedVehicleMasks()
+{
+  return kSupportedVehicleMasks;
 }
 
-RoadAccess::Type const RoadAccess::GetType(RouterType routerType, Segment const & segment) const
+// static
+bool RoadAccess::IsSupportedVehicleMask(VehicleMask vehicleMask)
 {
-  auto const & types = GetTypes(routerType);
+  return find(kSupportedVehicleMasks.begin(), kSupportedVehicleMasks.end(), vehicleMask) !=
+         kSupportedVehicleMasks.end();
+}
+
+RoadAccess::Type const RoadAccess::GetType(VehicleMask vehicleMask, Segment const & segment) const
+{
+  auto const & types = GetTypes(vehicleMask);
   Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
   auto const it = types.find(key);
   if (it != types.end())
@@ -42,32 +50,28 @@ RoadAccess::Type const RoadAccess::GetType(RouterType routerType, Segment const 
   return RoadAccess::Type::Yes;
 }
 
-map<Segment, RoadAccess::Type> const & RoadAccess::GetTypes(RouterType routerType) const
+map<Segment, RoadAccess::Type> const & RoadAccess::GetTypes(VehicleMask vehicleMask) const
 {
-  ASSERT(IsSupportedRouterType(routerType), ());
-  return m_types[static_cast<size_t>(routerType)];
+  ASSERT(IsSupportedVehicleMask(vehicleMask), ());
+  auto it = m_types.find(vehicleMask);
+  CHECK(it != m_types.end(), ());
+  return it->second;
 }
 
 void RoadAccess::Clear()
 {
-  for (size_t i = 0; i < static_cast<size_t>(RouterType::Count); ++i)
-    m_types[i].clear();
+  for (auto & kv : m_types)
+    kv.second.clear();
 }
 
 void RoadAccess::Swap(RoadAccess & rhs)
 {
-  for (size_t i = 0; i < static_cast<size_t>(RouterType::Count); ++i)
-    m_types[i].swap(rhs.m_types[i]);
+  m_types.swap(rhs.m_types);
 }
 
 bool RoadAccess::operator==(RoadAccess const & rhs) const
 {
-  for (size_t i = 0; i < static_cast<size_t>(RouterType::Count); ++i)
-  {
-    if (m_types[i] != rhs.m_types[i])
-      return false;
-  }
-  return true;
+  return m_types == rhs.m_types;
 }
 
 // Functions ---------------------------------------------------------------------------------------
@@ -100,14 +104,16 @@ string DebugPrint(RoadAccess const & r)
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
   oss << "RoadAccess [";
-  for (size_t i = 0; i < static_cast<size_t>(RouterType::Count); ++i)
+  bool firstMask = true;
+  for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
   {
-    if (i > 0)
+    if (!firstMask)
       oss << ", ";
-    auto const routerType = static_cast<RouterType>(i);
-    oss << DebugPrint(routerType) << " [";
+    firstMask = false;
+    auto const & types = r.GetTypes(vehicleMask);
+    oss << DebugPrint(vehicleMask) << " [";
     size_t id = 0;
-    for (auto const & kv : r.GetTypes(routerType))
+    for (auto const & kv : types)
     {
       if (id > 0)
         oss << ", ";
@@ -116,7 +122,7 @@ string DebugPrint(RoadAccess const & r)
       if (id == kMaxIdsToShow)
         break;
     }
-    if (r.GetTypes(routerType).size() > kMaxIdsToShow)
+    if (types.size() > kMaxIdsToShow)
       oss << "...";
     oss << "]";
   }

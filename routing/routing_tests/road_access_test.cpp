@@ -32,8 +32,8 @@ UNIT_TEST(RoadAccess_Serialization)
   };
 
   RoadAccess roadAccess;
-  roadAccess.SetTypes(RouterType::Vehicle, m0);
-  roadAccess.SetTypes(RouterType::Pedestrian, m1);
+  roadAccess.SetTypes(kCarMask, m0);
+  roadAccess.SetTypes(kPedestrianMask, m1);
 
   vector<uint8_t> buf;
   {
