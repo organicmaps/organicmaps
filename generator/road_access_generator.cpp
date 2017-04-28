@@ -6,10 +6,6 @@
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 
-#include "routing_common/bicycle_model.hpp"
-#include "routing_common/car_model.hpp"
-#include "routing_common/pedestrian_model.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
@@ -55,18 +51,6 @@ TagMapping const kBicycleTagMapping = {
     {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
 };
-
-bool IsOneWay(VehicleType vehicleType, FeatureType const & ft)
-{
-  switch (vehicleType)
-  {
-  case VehicleType::Car: return CarModel().AllLimitsInstance().IsOneWay(ft);
-  case VehicleType::Pedestrian: return PedestrianModel().AllLimitsInstance().IsOneWay(ft);
-  case VehicleType::Bicycle: return BicycleModel().AllLimitsInstance().IsOneWay(ft);
-  case VehicleType::Count: return false;
-  }
-  return false;
-}
 
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
                      FeaturesVector const & featuresVector,
@@ -133,28 +117,10 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
       continue;
 
     uint32_t const featureId = it->second;
-    FeatureType ft;
-    featuresVector.GetByIndex(featureId, ft);
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    // An area created from a way.
-    if (ft.GetPointsCount() == 0)
-      continue;
-
-    uint32_t const numSegments = static_cast<uint32_t>(ft.GetPointsCount() - 1);
-
-    // Set this road access type for the entire feature.
-    for (uint32_t segmentIdx = 0; segmentIdx < numSegments; ++segmentIdx)
-    {
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, true /* isForward */), vehicleType,
-                 roadAccessType, osmId);
-
-      if (IsOneWay(vehicleType, ft))
-        continue;
-
-      addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, false /* isForward */), vehicleType,
-                 roadAccessType, osmId);
-    }
+    addSegment(Segment(kFakeNumMwmId, featureId, 0 /* wildcard segment idx */,
+                       true /* wildcard isForward */),
+               vehicleType, roadAccessType, osmId);
   }
 
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)

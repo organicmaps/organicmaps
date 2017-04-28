@@ -59,6 +59,10 @@ public:
 private:
   // todo(@m) Segment's NumMwmId is not used here. Decouple it from
   // segment and use only (fid, idx, forward) in the map.
+  //
+  // If segmentIdx of a key in this map is 0, it means the
+  // entire feature has the corresponding access type.
+  // Otherwise, the information is about the segment with number (segmentIdx-1).
   std::map<Segment, RoadAccess::Type> m_segmentTypes;
 };
 

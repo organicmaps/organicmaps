@@ -19,10 +19,22 @@ RoadAccess::Type const RoadAccess::GetSegmentType(Segment const & segment) const
 {
   // todo(@m) This may or may not be too slow. Consider profiling this and using
   // a Bloom filter or anything else that is faster than std::map.
-  Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
-  auto const it = m_segmentTypes.find(key);
-  if (it != m_segmentTypes.end())
-    return it->second;
+
+  {
+    Segment key(kFakeNumMwmId, segment.GetFeatureId(), 0 /* wildcard segment idx */,
+                true /* wildcard isForward */);
+    auto const it = m_segmentTypes.find(key);
+    if (it != m_segmentTypes.end())
+      return it->second;
+  }
+
+  {
+    Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx() + 1,
+                segment.IsForward());
+    auto const it = m_segmentTypes.find(key);
+    if (it != m_segmentTypes.end())
+      return it->second;
+  }
 
   return RoadAccess::Type::Yes;
 }
