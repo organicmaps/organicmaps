@@ -362,6 +362,18 @@ IsBookingChecker const & IsBookingChecker::Instance()
   return inst;
 }
 
+IsTinkoffChecker::IsTinkoffChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"sponsored", "tinkoff"}));
+}
+
+IsTinkoffChecker const & IsTinkoffChecker::Instance()
+{
+  static IsTinkoffChecker const inst;
+  return inst;
+}
+
 IsHotelChecker::IsHotelChecker()
 {
   Classificator const & c = classif();

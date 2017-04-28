@@ -51,6 +51,8 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   else
     meta.m_stars = 0;
 
+  meta.m_isSponsoredBank = ftypes::IsTinkoffChecker::Instance()(ft);
+
   bool const isSponsoredHotel = ftypes::IsBookingChecker::Instance()(ft);
   meta.m_isSponsoredHotel = isSponsoredHotel;
   meta.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);

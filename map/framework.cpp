@@ -146,7 +146,9 @@ size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 vector<string> kSearchMarks =
 {
   "search-result",
-  "search-booking"
+  "search-booking",
+  "search-tinkoff",
+  "search-adv",
 };
 
 // TODO!
@@ -1550,10 +1552,12 @@ bool Framework::Search(search::SearchParams const & params)
   CancelQuery(intent.m_handle);
 
   {
-    m2::PointD const defaultMarkSize = GetSearchMarkSize(SearchMarkType::DefaultSearchMark);
-    m2::PointD const bookingMarkSize = GetSearchMarkSize(SearchMarkType::BookingSearchMark);
-    double const eps =
-        max(max(defaultMarkSize.x, defaultMarkSize.y), max(bookingMarkSize.x, bookingMarkSize.y));
+    double eps = 0.0;
+    for (size_t i = 0; i < SearchMarkType::SearchMarkTypesCount; i++)
+    {
+      m2::PointD const markSize = GetSearchMarkSize(static_cast<SearchMarkType>(i));
+      eps = max(eps, max(markSize.x, markSize.y));
+    }
     intent.m_params.m_minDistanceOnMapBetweenResults = eps;
   }
 
@@ -1747,6 +1751,10 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetCustomSymbol("search-booking");
+    else if (r.m_metadata.m_isSponsoredBank)
+      mark->SetCustomSymbol("search-tinkoff");
+    else if (m_localAdsManager.Contains(r.GetFeatureID()))
+      mark->SetCustomSymbol("search-adv");
   }
 }
 
