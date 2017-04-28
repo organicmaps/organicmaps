@@ -296,6 +296,8 @@ void MainView::InitDocks()
   }
 
   m_sampleDock = CreateDock(*m_sampleView);
+  connect(m_sampleDock, &QDockWidget::dockLocationChanged,
+          [this](Qt::DockWidgetArea area) { m_sampleView->OnLocationChanged(area); });
   addDockWidget(Qt::RightDockWidgetArea, m_sampleDock);
   SetSampleDockTitle(false /* hasEdits */);
 }

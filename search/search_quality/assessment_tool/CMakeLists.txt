@@ -15,8 +15,6 @@ set(
   edits.hpp
   helpers.cpp
   helpers.hpp
-  languages_list.cpp
-  languages_list.hpp
   main_model.cpp
   main_model.hpp
   main_view.cpp
