@@ -32,9 +32,6 @@ using namespace std;
 namespace
 {
 char constexpr kDelim[] = " \t\r\n";
-string const kCar = "Car";
-string const kPedestrian = "Pedestrian";
-string const kBicycle = "Bicycle";
 
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
@@ -143,6 +140,7 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
   {
     auto const vehicleType = static_cast<VehicleType>(i);
+    roadAccessByVehicleType[i].SetVehicleType(vehicleType);
     roadAccessByVehicleType[i].SetTypes(segmentType[vehicleType]);
   }
 
@@ -158,10 +156,10 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
 {
   switch (vehicleType)
   {
-  case VehicleType::Car: m_tagMapping = &kCarTagMapping;
-  case VehicleType::Pedestrian: m_tagMapping = &kPedestrianTagMapping;
-  case VehicleType::Bicycle: m_tagMapping = &kBicycleTagMapping;
-  case VehicleType::Count: CHECK(false, ("Bad vehicle type"));
+  case VehicleType::Car: m_tagMapping = &kCarTagMapping; break;
+  case VehicleType::Pedestrian: m_tagMapping = &kPedestrianTagMapping; break;
+  case VehicleType::Bicycle: m_tagMapping = &kBicycleTagMapping; break;
+  case VehicleType::Count: CHECK(false, ("Bad vehicle type")); break;
   }
 }
 

@@ -75,7 +75,7 @@ string DebugPrint(RoadAccess const & r)
       break;
   }
   if (r.GetSegmentTypes().size() > kMaxIdsToShow)
-    oss << "...";
+    oss << ", ...";
 
   oss << "]";
   return oss.str();

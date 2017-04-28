@@ -36,8 +36,23 @@ public:
     uint32_t const header = kLatestVersion;
     WriteToSink(sink, header);
 
+    auto const sectionSizesPos = sink.Pos();
+    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
+    for (size_t i = 0; i < sectionSizes.size(); ++i)
+      WriteToSink(sink, sectionSizes[i]);
+
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
+    {
+      auto const pos = sink.Pos();
       SerializeOneVehicleType(sink, roadAccessByType[i].GetSegmentTypes());
+      sectionSizes[i] = base::checked_cast<uint32_t>(sink.Pos() - pos);
+    }
+
+    auto const endPos = sink.Pos();
+    sink.Seek(sectionSizesPos);
+    for (size_t i = 0; i < sectionSizes.size(); ++i)
+      WriteToSink(sink, sectionSizes[i]);
+    sink.Seek(endPos);
   }
 
   template <class Source>
@@ -46,13 +61,23 @@ public:
     uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
     CHECK_EQUAL(header, kLatestVersion, ());
 
-    roadAccess.SetVehicleType(vehicleType);
+    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
+    for (size_t i = 0; i < sectionSizes.size(); ++i)
+      sectionSizes[i] = ReadPrimitiveFromSource<uint32_t>(src);
+
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
+      if (vehicleType != static_cast<VehicleType>(i))
+      {
+        src.Skip(sectionSizes[i]);
+        continue;
+      }
+
       RoadAccessTypesMap m;
       DeserializeOneVehicleType(src, m);
-      if (vehicleType == static_cast<VehicleType>(i))
-        roadAccess.SetTypes(std::move(m));
+
+      roadAccess.SetVehicleType(vehicleType);
+      roadAccess.SetTypes(std::move(m));
     }
   }
 
