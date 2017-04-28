@@ -358,6 +358,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPanelAnimator.show(fragmentClass, args, completionListener);
   }
 
+  public boolean containsFragment(@NonNull Class<? extends Fragment> fragmentClass)
+  {
+    return mIsFragmentContainer && getFragment(fragmentClass) != null;
+  }
+
   private void showBookmarks()
   {
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
@@ -623,6 +628,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       container.setOnTouchListener(this);
       mRootView = (ViewGroup) container.getParent();
     }
+  }
+
+  public boolean isMapAttached()
+  {
+    return mMapFragment != null;
   }
 
   private void initNavigationButtons()
@@ -1051,6 +1061,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().restore();
     if (mPlacePage != null)
       mPlacePage.restore();
+
+    LikesManager.INSTANCE.showDialogs(this);
   }
 
 

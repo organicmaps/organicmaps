@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
@@ -149,7 +148,6 @@ public class SplashActivity extends AppCompatActivity
       }
       else
       {
-        LikesManager.INSTANCE.showDialogs(this);
         processNavigation();
       }
     }

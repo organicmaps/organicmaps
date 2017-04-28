@@ -1,16 +1,26 @@
 package com.mapswithme.maps.ads;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.SparseArray;
 
-import java.lang.ref.WeakReference;
-
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.downloader.DownloaderFragment;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.MigrationFragment;
+import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.concurrency.UiThread;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum LikesManager
 {
@@ -49,17 +59,16 @@ public enum LikesManager
   private static final SparseArray<LikeType> sOldUsersMapping = new SparseArray<>();
   private static final SparseArray<LikeType> sNewUsersMapping = new SparseArray<>();
 
+  private static final List<Class<? extends Fragment>> sFragments = new ArrayList<>();
+
   static
   {
-    sOldUsersMapping.put(4, LikeType.GPLAY_OLD_USERS);
-//    sOldUsersMapping.put(4, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(6, LikeType.FACEBOOK_INVITES_OLD_USERS);
-    sOldUsersMapping.put(10, LikeType.GPLAY_OLD_USERS);
-    sOldUsersMapping.put(21, LikeType.GPLAY_OLD_USERS);
     sOldUsersMapping.put(24, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(30, LikeType.FACEBOOK_INVITES_OLD_USERS);
     sOldUsersMapping.put(44, LikeType.GPLUS_OLD_USERS);
     sOldUsersMapping.put(50, LikeType.FACEBOOK_INVITES_OLD_USERS);
+    sOldUsersMapping.put(90, LikeType.GPLAY_OLD_USERS);
 
     sNewUsersMapping.put(3, LikeType.GPLAY_NEW_USERS);
     sNewUsersMapping.put(9, LikeType.FACEBOOK_INVITE_NEW_USERS);
@@ -70,11 +79,21 @@ public enum LikesManager
     sNewUsersMapping.put(35, LikeType.FACEBOOK_INVITE_NEW_USERS);
     sNewUsersMapping.put(50, LikeType.GPLUS_NEW_USERS);
     sNewUsersMapping.put(55, LikeType.FACEBOOK_INVITE_NEW_USERS);
+
+    sFragments.add(SearchFragment.class);
+    sFragments.add(EditorHostFragment.class);
+    sFragments.add(DownloaderFragment.class);
+    sFragments.add(MigrationFragment.class);
   }
 
   private final boolean mIsNewUser = (Counters.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
+
+  public boolean isNewUser()
+  {
+    return mIsNewUser;
+  }
 
   public void showDialogs(FragmentActivity activity)
   {
@@ -88,9 +107,29 @@ public enum LikesManager
       displayLikeDialog(type.clazz, type.delay);
   }
 
+  public void showRateDialogForOldUser(FragmentActivity activity)
+  {
+    if (mIsNewUser)
+      return;
+
+    mActivityRef = new WeakReference<>(activity);
+    displayLikeDialog(LikeType.GPLAY_OLD_USERS.clazz, LikeType.GPLAY_OLD_USERS.delay);
+  }
+
   public void cancelDialogs()
   {
     UiThread.cancelDelayedTasks(mLikeRunnable);
+  }
+
+  private boolean containsFragments(@NonNull MwmActivity activity)
+  {
+    for (Class<? extends Fragment> fragmentClass: sFragments)
+    {
+      if (activity.containsFragment(fragmentClass))
+        return true;
+    }
+
+    return false;
   }
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass, final int delayMillis)
@@ -108,7 +147,16 @@ public enum LikesManager
       public void run()
       {
         final FragmentActivity activity = mActivityRef.get();
-        if (activity == null || RoutingController.get().isNavigating())
+        if (activity == null || activity.isFinishing() || RoutingController.get().isNavigating()
+            || RoutingController.get().isPlanning() || MapManager.nativeIsDownloading())
+        {
+          return;
+        }
+        if (!(activity instanceof MwmActivity))
+          return;
+        MwmActivity mwmActivity = (MwmActivity) activity;
+
+        if (!mwmActivity.isMapAttached() || containsFragments(mwmActivity))
           return;
 
         final DialogFragment fragment;
