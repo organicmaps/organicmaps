@@ -31,11 +31,11 @@ UNIT_TEST(RoadAccess_Serialization)
       {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
   };
 
-  RoadAccess roadAccessCar(VehicleType::Car);
-  roadAccessCar.SetTypes(m0);
+  RoadAccess roadAccessCar;
+  roadAccessCar.SetSegmentTypes(m0);
 
-  RoadAccess roadAccessPedestrian(VehicleType::Pedestrian);
-  roadAccessPedestrian.SetTypes(m1);
+  RoadAccess roadAccessPedestrian;
+  roadAccessPedestrian.SetSegmentTypes(m1);
 
   RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
   roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;

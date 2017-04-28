@@ -39,7 +39,10 @@ public:
     auto const sectionSizesPos = sink.Pos();
     std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
     for (size_t i = 0; i < sectionSizes.size(); ++i)
+    {
+      sectionSizes[i] = 0;
       WriteToSink(sink, sectionSizes[i]);
+    }
 
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
@@ -76,8 +79,7 @@ public:
       RoadAccessTypesMap m;
       DeserializeOneVehicleType(src, m);
 
-      roadAccess.SetVehicleType(vehicleType);
-      roadAccess.SetTypes(std::move(m));
+      roadAccess.SetSegmentTypes(std::move(m));
     }
   }
 
@@ -159,28 +161,25 @@ private:
     std::vector<uint32_t> segmentIndices(n);
     std::vector<bool> isForward(n);
 
+    BitReader<Source> bitReader(src);
+    uint32_t prevFid = 0;
+    for (size_t i = 0; i < n; ++i)
     {
-      BitReader<Source> bitReader(src);
-      uint32_t prevFid = 0;
-      for (size_t i = 0; i < n; ++i)
-      {
-        prevFid += ReadGamma<uint64_t>(bitReader) - 1;
-        featureIds[i] = prevFid;
-      }
+      prevFid += ReadGamma<uint64_t>(bitReader) - 1;
+      featureIds[i] = prevFid;
+    }
 
-      for (size_t i = 0; i < n; ++i)
-        segmentIndices[i] = ReadGamma<uint32_t>(bitReader) - 1;
+    for (size_t i = 0; i < n; ++i)
+      segmentIndices[i] = ReadGamma<uint32_t>(bitReader) - 1;
+    for (size_t i = 0; i < n; ++i)
+      isForward[i] = bitReader.Read(1) > 0;
 
-      for (size_t i = 0; i < n; ++i)
-        isForward[i] = bitReader.Read(1) > 0;
-
-      // Read the padding bits.
-      auto bitsRead = bitReader.BitsRead();
-      while (bitsRead % CHAR_BIT != 0)
-      {
-        bitReader.Read(1);
-        ++bitsRead;
-      }
+    // Read the padding bits.
+    auto bitsRead = bitReader.BitsRead();
+    while (bitsRead % CHAR_BIT != 0)
+    {
+      bitReader.Read(1);
+      ++bitsRead;
     }
 
     segments.clear();

@@ -6,6 +6,10 @@
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 
+#include "routing_common/bicycle_model.hpp"
+#include "routing_common/car_model.hpp"
+#include "routing_common/pedestrian_model.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
@@ -52,6 +56,18 @@ TagMapping const kBicycleTagMapping = {
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
 };
 
+bool IsOneWay(VehicleType vehicleType, FeatureType const & ft)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Car: return CarModel().AllLimitsInstance().IsOneWay(ft);
+  case VehicleType::Pedestrian: return PedestrianModel().AllLimitsInstance().IsOneWay(ft);
+  case VehicleType::Bicycle: return BicycleModel().AllLimitsInstance().IsOneWay(ft);
+  case VehicleType::Count: return false;
+  }
+  return false;
+}
+
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
                      FeaturesVector const & featuresVector,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
@@ -65,14 +81,14 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
 
   vector<uint32_t> privateRoads;
 
-  map<VehicleType, map<Segment, RoadAccess::Type>> segmentType;
+  map<Segment, RoadAccess::Type> segmentType[static_cast<size_t>(VehicleType::Count)];
 
   auto addSegment = [&](Segment const & segment, VehicleType vehicleType,
                         RoadAccess::Type roadAccessType, uint64_t osmId) {
-    auto & m = segmentType[vehicleType];
+    auto & m = segmentType[static_cast<size_t>(vehicleType)];
     auto const emplaceRes = m.emplace(segment, roadAccessType);
     if (!emplaceRes.second)
-      LOG(LWARNING, ("duplicate road access info for", osmId));
+      LOG(LERROR, ("Duplicate road access info for", osmId));
   };
 
   string line;
@@ -132,17 +148,17 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     {
       addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, true /* isForward */), vehicleType,
                  roadAccessType, osmId);
+
+      if (IsOneWay(vehicleType, ft))
+        continue;
+
       addSegment(Segment(kFakeNumMwmId, featureId, segmentIdx, false /* isForward */), vehicleType,
                  roadAccessType, osmId);
     }
   }
 
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
-  {
-    auto const vehicleType = static_cast<VehicleType>(i);
-    roadAccessByVehicleType[i].SetVehicleType(vehicleType);
-    roadAccessByVehicleType[i].SetTypes(segmentType[vehicleType]);
-  }
+    roadAccessByVehicleType[i].SetSegmentTypes(move(segmentType[i]));
 
   return true;
 }

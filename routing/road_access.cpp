@@ -15,12 +15,10 @@ string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::RoadAccess() : m_vehicleType(VehicleType::Count) {}
-
-RoadAccess::RoadAccess(VehicleType vehicleType) : m_vehicleType(vehicleType) {}
-
 RoadAccess::Type const RoadAccess::GetSegmentType(Segment const & segment) const
 {
+  // todo(@m) This may or may not be too slow. Consider profiling this and using
+  // a Bloom filter or anything else that is faster than std::map.
   Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
   auto const it = m_segmentTypes.find(key);
   if (it != m_segmentTypes.end())
@@ -63,7 +61,7 @@ string DebugPrint(RoadAccess const & r)
 {
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
-  oss << "RoadAccess " << DebugPrint(r.GetVehicleType()) << " [";
+  oss << "RoadAccess [";
   size_t id = 0;
   for (auto const & kv : r.GetSegmentTypes())
   {

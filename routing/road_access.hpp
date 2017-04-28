@@ -40,17 +40,12 @@ public:
     Count
   };
 
-  RoadAccess();
-
-  RoadAccess(VehicleType vehicleType);
-
-  VehicleType const GetVehicleType() const { return m_vehicleType; }
-  void SetVehicleType(VehicleType vehicleType) { m_vehicleType = vehicleType; }
   std::map<Segment, RoadAccess::Type> const & GetSegmentTypes() const { return m_segmentTypes; }
+
   Type const GetSegmentType(Segment const & segment) const;
 
   template <typename V>
-  void SetTypes(V && v)
+  void SetSegmentTypes(V && v)
   {
     m_segmentTypes = std::forward<V>(v);
   }
@@ -62,8 +57,6 @@ public:
   bool operator==(RoadAccess const & rhs) const;
 
 private:
-  VehicleType m_vehicleType;
-
   // todo(@m) Segment's NumMwmId is not used here. Decouple it from
   // segment and use only (fid, idx, forward) in the map.
   std::map<Segment, RoadAccess::Type> m_segmentTypes;
