@@ -40,6 +40,7 @@ using namespace place_page;
   vector<Sections> m_sections;
   vector<PreviewRows> m_previewRows;
   vector<MetainfoRows> m_metainfoRows;
+  vector<AdRows> m_adRows;
   vector<ButtonsRows> m_buttonsRows;
   vector<HotelPhotosRow> m_hotelPhotosRows;
   vector<HotelDescriptionRow> m_hotelDescriptionRows;
@@ -63,6 +64,7 @@ using namespace place_page;
   m_sections.clear();
   m_previewRows.clear();
   m_metainfoRows.clear();
+  m_adRows.clear();
   m_buttonsRows.clear();
   m_hotelPhotosRows.clear();
   m_hotelDescriptionRows.clear();
@@ -79,6 +81,12 @@ using namespace place_page;
   // There is always at least coordinate meta field.
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
+
+  if (m_info.IsReachableByTaxi())
+  {
+    m_sections.push_back(Sections::Ad);
+    m_adRows.push_back(AdRows::Taxi);
+  }
 
   // There is at least one of these buttons.
   if (m_info.ShouldShowAddPlace() || m_info.ShouldShowEditPlace() ||
@@ -155,8 +163,18 @@ using namespace place_page;
     m_metainfoRows.push_back(MetainfoRows::Address);
 
   m_metainfoRows.push_back(MetainfoRows::Coordinate);
-  if (m_info.IsReachableByTaxi())
-    m_metainfoRows.push_back(MetainfoRows::Taxi);
+
+  switch (m_info.GetLocalAdsStatus())
+  {
+  case place_page::LocalAdsStatus::NotAvailable: break;
+  case place_page::LocalAdsStatus::Candidate:
+    m_metainfoRows.push_back(MetainfoRows::LocalAdsCandidate);
+    break;
+  case place_page::LocalAdsStatus::Customer:
+    m_metainfoRows.push_back(MetainfoRows::LocalAdsCustomer);
+    [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
+    break;
+  }
 }
 
 - (void)fillButtonsSection
@@ -176,18 +194,6 @@ using namespace place_page;
 
   if (m_info.ShouldShowAddBusiness())
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
-
-  switch (m_info.GetLocalAdsStatus())
-  {
-  case place_page::LocalAdsStatus::NotAvailable: break;
-  case place_page::LocalAdsStatus::Candidate:
-    m_buttonsRows.push_back(ButtonsRows::LocalAdsCandidate);
-    break;
-  case place_page::LocalAdsStatus::Customer:
-    m_buttonsRows.push_back(ButtonsRows::LocalAdsCustomer);
-    [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
-    break;
-  }
 }
 
 - (void)fillOnlineBookingSections
@@ -521,6 +527,7 @@ using namespace place_page;
 - (vector<PreviewRows> const &)previewRows { return m_previewRows; }
 - (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
+- (vector<AdRows> const &)adRows { return m_adRows; }
 - (vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
 - (vector<HotelPhotosRow> const &)photosRows { return m_hotelPhotosRows; }
 - (vector<HotelDescriptionRow> const &)descriptionRows { return m_hotelDescriptionRows; }
@@ -530,7 +537,7 @@ using namespace place_page;
 {
   switch (row)
   {
-  case MetainfoRows::Taxi:
+  
   case MetainfoRows::ExtendedOpeningHours: return nil;
   case MetainfoRows::OpeningHours: return @(m_info.GetOpeningHours().c_str());
   case MetainfoRows::Phone: return @(m_info.GetPhone().c_str());
@@ -541,6 +548,8 @@ using namespace place_page;
     return @(strings::JoinStrings(m_info.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
   case MetainfoRows::Operator: return @(m_info.GetOperator().c_str());
   case MetainfoRows::Internet: return L(@"WiFi_available");
+  case MetainfoRows::LocalAdsCandidate: return L(@"create_campaign_button");
+  case MetainfoRows::LocalAdsCustomer: return L(@"view_campaign_button");
   case MetainfoRows::Coordinate:
     return @(m_info
                  .GetFormattedCoordinate(

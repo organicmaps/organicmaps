@@ -7,8 +7,8 @@
 
 @property(weak, nonatomic) IBOutlet MWMBorderedButton * titleButton;
 
-@property(weak, nonatomic) id<MWMPlacePageButtonsProtocol> delegate;
 @property(nonatomic) place_page::ButtonsRows rowType;
+@property(copy, nonatomic) MWMVoidBlock action;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * buttonTop;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * buttonTrailing;
@@ -31,13 +31,24 @@
 
 - (void)setEnabled:(BOOL)enabled { self.titleButton.enabled = enabled; }
 - (BOOL)isEnabled { return self.titleButton.isEnabled; }
+
+- (void)configWithTitle:(NSString *)title
+                 action:(MWMVoidBlock)action
+          isInsetButton:(BOOL)isInsetButton
+{
+  self.rowType = place_page::ButtonsRows::Other;
+  self.action = action;
+  self.isInsetButton = isInsetButton;
+  [self.titleButton setTitle:title forState:UIControlStateNormal];
+}
+
 - (void)configForRow:(place_page::ButtonsRows)row
-        withDelegate:(id<MWMPlacePageButtonsProtocol>)delegate
+        withAction:(MWMVoidBlock)action
 {
   using place_page::ButtonsRows;
 
-  self.delegate = delegate;
   self.rowType = row;
+  self.action = action;
   NSString * title = nil;
   BOOL isInsetButton = NO;
   switch (row)
@@ -56,23 +67,9 @@
     break;
   case ButtonsRows::HotelDescription:
     title = L(@"details_on_bookingcom");
-    break;
-  case ButtonsRows::BookingShowMoreFacilities:
-    title = L(@"booking_show_more");
-    break;
-  case ButtonsRows::BookingShowMoreReviews:
-    title = L(@"reviews_on_bookingcom");
-    break;
-  case ButtonsRows::BookingShowMoreOnSite:
-    title = L(@"more_on_bookingcom");
-    break;
-  case ButtonsRows::LocalAdsCandidate:
-    title = L(@"create_campaign_button");
     isInsetButton = YES;
     break;
-  case ButtonsRows::LocalAdsCustomer:
-    title = L(@"view_campaign_button");
-    isInsetButton = YES;
+  case ButtonsRows::Other:
     break;
   }
 
@@ -82,21 +79,8 @@
 
 - (IBAction)buttonTap
 {
-  using place_page::ButtonsRows;
-  
-  auto d = self.delegate;
-  switch (self.rowType)
-  {
-  case ButtonsRows::AddPlace: [d addPlace]; break;
-  case ButtonsRows::EditPlace: [d editPlace]; break;
-  case ButtonsRows::AddBusiness: [d addBusiness]; break;
-  case ButtonsRows::BookingShowMoreOnSite:
-  case ButtonsRows::HotelDescription: [d book:YES]; break;
-  case ButtonsRows::BookingShowMoreFacilities: [d showAllFacilities]; break;
-  case ButtonsRows::BookingShowMoreReviews: [d showAllReviews]; break;
-  case ButtonsRows::LocalAdsCandidate:
-  case ButtonsRows::LocalAdsCustomer: [d openLocalAdsURL]; break;
-  }
+  if (self.action)
+    self.action();
 }
 
 #pragma mark - Properties

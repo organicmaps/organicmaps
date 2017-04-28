@@ -31,8 +31,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {MetainfoRows::Cuisine, [MWMPlacePageInfoCell class]},
     {MetainfoRows::Operator, [MWMPlacePageInfoCell class]},
     {MetainfoRows::Coordinate, [MWMPlacePageInfoCell class]},
-    {MetainfoRows::Internet, [MWMPlacePageInfoCell class]},
-    {MetainfoRows::Taxi, [MWMPlacePageTaxiCell class]}};
+    {MetainfoRows::Internet, [MWMPlacePageInfoCell class]}};
 }  // namespace
 
 @interface MWMPlacePageLayout () <UITableViewDataSource,
@@ -102,6 +101,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
+  [tv registerWithCellClass:[MWMPlacePageTaxiCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -316,6 +316,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::Bookmark: return 1;
   case Sections::Preview: return data.previewRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
+  case Sections::Ad: return data.adRows.size();
   case Sections::Buttons: return data.buttonsRows.size();
   case Sections::HotelPhotos: return data.photosRows.size();
   case Sections::HotelDescription: return data.descriptionRows.size();
@@ -373,15 +374,24 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       [c configWithRow:row data:data];
       return c;
     }
-    case MetainfoRows::Taxi:
+    case MetainfoRows::LocalAdsCustomer:
+    case MetainfoRows::LocalAdsCandidate:
     {
-      Class cls = kMetaInfoCells.at(row);
-      auto c = static_cast<MWMPlacePageTaxiCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      c.delegate = delegate;
+      Class cls = [MWMPlacePageButtonCell class];
+      auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                               indexPath:indexPath]);
+      [c configWithTitle:[data stringForRow:row] action:^{ [delegate openLocalAdsURL]; } isInsetButton:NO];
       return c;
     }
     }
+  }
+  case Sections::Ad:
+  {
+    Class cls = [MWMPlacePageTaxiCell class];
+    auto c = static_cast<MWMPlacePageTaxiCell *>(
+                                                 [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    c.delegate = delegate;
+    return c;
   }
   case Sections::Buttons:
   {
@@ -389,8 +399,18 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto c = static_cast<MWMPlacePageButtonCell *>(
         [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     auto const row = data.buttonsRows[indexPath.row];
-    [c configForRow:row withDelegate:delegate];
 
+    [c configForRow:row withAction:^{
+      switch (row)
+      {
+        case ButtonsRows::AddPlace: [delegate addPlace]; break;
+        case ButtonsRows::EditPlace: [delegate editPlace]; break;
+        case ButtonsRows::AddBusiness: [delegate addBusiness]; break;
+        case ButtonsRows::HotelDescription: [delegate book:YES]; break;
+        case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
+      }
+    }];
+    
     if (row != ButtonsRows::HotelDescription)
       [c setEnabled:self.isPlacePageButtonsEnabled];
     else
@@ -420,7 +440,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case HotelFacilitiesRow::ShowMore:
       Class cls = [MWMPlacePageButtonCell class];
       auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configForRow:ButtonsRows::BookingShowMoreFacilities withDelegate:delegate];
+      [c configWithTitle:L(@"booking_show_more") action:^{ [delegate showAllFacilities]; } isInsetButton:NO];
       return c;
     }
   }
@@ -447,7 +467,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       Class cls = [MWMPlacePageButtonCell class];
       auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configForRow:ButtonsRows::BookingShowMoreReviews withDelegate:delegate];
+
+      [c configWithTitle:L(@"reviews_on_bookingcom") action:^{ [delegate showAllReviews]; } isInsetButton:NO];
       return c;
     }
     }
@@ -469,7 +490,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       Class cls = [MWMPlacePageButtonCell class];
       auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configForRow:ButtonsRows::BookingShowMoreOnSite withDelegate:delegate];
+      [c configWithTitle:L(@"more_on_bookingcom") action:^{ [delegate book:YES];; } isInsetButton:NO];
       return c;
     }
     }
