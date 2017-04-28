@@ -11,6 +11,7 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <array>
@@ -28,26 +29,36 @@ public:
   RoadAccessSerializer() = delete;
 
   template <class Sink>
-  static void Serialize(Sink & sink, RoadAccess const & roadAccess)
+  static void Serialize(Sink & sink, std::map<VehicleMask, RoadAccess> const & roadAccessByMask)
   {
     uint32_t const header = kLatestVersion;
     WriteToSink(sink, header);
 
-    for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
-      SerializeOneVehicleMask(sink, roadAccess.GetTypes(vehicleMask));
+    uint32_t const numMasks = static_cast<uint32_t>(roadAccessByMask.size());
+    WriteToSink(sink, numMasks);
+
+    for (auto const & kv : roadAccessByMask)
+    {
+      uint32_t const mask = static_cast<uint32_t>(kv.first);
+      WriteToSink(sink, mask);
+      SerializeOneVehicleMask(sink, kv.second.GetTypes());
+    }
   }
 
   template <class Source>
-  static void Deserialize(Source & src, RoadAccess & roadAccess)
+  static void Deserialize(Source & src, VehicleMask vehicleMask, RoadAccess & roadAccess)
   {
     uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
     CHECK_EQUAL(header, kLatestVersion, ());
 
-    for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+    uint32_t const numMasks = ReadPrimitiveFromSource<uint32_t>(src);
+    for (uint32_t i = 0; i < numMasks; ++i)
     {
+      uint32_t const vm = base::checked_cast<VehicleMask>(ReadPrimitiveFromSource<uint32_t>(src));
       RoadAccessTypesMap m;
       DeserializeOneVehicleMask(src, m);
-      roadAccess.SetTypes(vehicleMask, std::move(m));
+      if (vehicleMask == vm)
+        roadAccess.SetTypes(std::move(m));
     }
   }
 

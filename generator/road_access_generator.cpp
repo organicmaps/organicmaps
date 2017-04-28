@@ -80,7 +80,8 @@ string WriteVehicleMaskToString(VehicleMask vehicleMask)
 }
 
 bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
-                     FeaturesVector const & featuresVector, RoadAccess & roadAccess)
+                     FeaturesVector const & featuresVector,
+                     map<VehicleMask, RoadAccess> & roadAccessByMask)
 {
   ifstream stream(roadAccessPath);
   if (!stream)
@@ -146,7 +147,10 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     featuresVector.GetByIndex(featureId, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    CHECK_GREATER(ft.GetPointsCount(), 1, ());
+    // An area created from a way.
+    if (ft.GetPointsCount() == 0)
+      continue;
+
     uint32_t const numSegments = static_cast<uint32_t>(ft.GetPointsCount() - 1);
 
     // Set this road access type for the entire feature.
@@ -159,8 +163,13 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     }
   }
 
+  roadAccessByMask.clear();
   for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
-    roadAccess.SetTypes(vehicleMask, segmentType[vehicleMask]);
+  {
+    RoadAccess roadAccess;
+    roadAccess.SetTypes(segmentType[vehicleMask]);
+    roadAccessByMask.emplace(vehicleMask, roadAccess);
+  }
 
   return true;
 }
@@ -244,8 +253,9 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
 
   FeaturesVectorTest featuresVector(dataFilePath);
 
-  RoadAccess roadAccess;
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, featuresVector.GetVector(), roadAccess))
+  map<VehicleMask, RoadAccess> roadAccessByMask;
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, featuresVector.GetVector(),
+                       roadAccessByMask))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;
@@ -253,7 +263,7 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
   }
 
   m_valid = true;
-  m_roadAccess.Swap(roadAccess);
+  m_roadAccessByMask.swap(roadAccessByMask);
 }
 
 // Functions ------------------------------------------------------------------
@@ -273,6 +283,6 @@ void BuildRoadAccessInfo(string const & dataFilePath, string const & roadAccessP
   FilesContainerW cont(dataFilePath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(ROAD_ACCESS_FILE_TAG);
 
-  RoadAccessSerializer::Serialize(writer, collector.GetRoadAccess());
+  RoadAccessSerializer::Serialize(writer, collector.GetRoadAccessByMask());
 }
 }  // namespace routing

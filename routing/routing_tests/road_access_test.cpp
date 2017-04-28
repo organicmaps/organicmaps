@@ -31,24 +31,43 @@ UNIT_TEST(RoadAccess_Serialization)
       {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
   };
 
-  RoadAccess roadAccess;
-  roadAccess.SetTypes(kCarMask, m0);
-  roadAccess.SetTypes(kPedestrianMask, m1);
+  RoadAccess roadAccessCar(kCarMask);
+  roadAccessCar.SetTypes(m0);
+
+  RoadAccess roadAccessPedestrian(kPedestrianMask);
+  roadAccessPedestrian.SetTypes(m1);
+
+  map<VehicleMask, RoadAccess> const ms = {
+      {kCarMask, roadAccessCar},
+      {kPedestrianMask, roadAccessPedestrian},
+  };
 
   vector<uint8_t> buf;
   {
     MemWriter<decltype(buf)> writer(buf);
-    RoadAccessSerializer::Serialize(writer, roadAccess);
+    RoadAccessSerializer::Serialize(writer, ms);
   }
 
-  RoadAccess deserializedRoadAccess;
   {
+    RoadAccess deserializedRoadAccess;
+
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, deserializedRoadAccess);
+    RoadAccessSerializer::Deserialize(src, kCarMask, deserializedRoadAccess);
     TEST_EQUAL(src.Size(), 0, ());
+
+    TEST_EQUAL(roadAccessCar, deserializedRoadAccess, ());
   }
 
-  TEST_EQUAL(roadAccess, deserializedRoadAccess, ());
+  {
+    RoadAccess deserializedRoadAccess;
+
+    MemReader memReader(buf.data(), buf.size());
+    ReaderSource<MemReader> src(memReader);
+    RoadAccessSerializer::Deserialize(src, kPedestrianMask, deserializedRoadAccess);
+    TEST_EQUAL(src.Size(), 0, ());
+
+    TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());
+  }
 }
 }  // namespace

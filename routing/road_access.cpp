@@ -1,5 +1,7 @@
 #include "routing/road_access.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <sstream>
 
@@ -21,11 +23,13 @@ vector<routing::VehicleMask> const kSupportedVehicleMasks = {
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::RoadAccess()
+RoadAccess::RoadAccess() : m_vehicleMask(kAllVehiclesMask) {}
+
+RoadAccess::RoadAccess(VehicleMask vehicleMask) : m_vehicleMask(vehicleMask)
 {
-  for (auto const vehicleMask : kSupportedVehicleMasks)
-    m_types.emplace(vehicleMask, map<Segment, RoadAccess::Type>());
+  CHECK(IsSupportedVehicleMask(vehicleMask), ());
 }
+
 // static
 vector<VehicleMask> const & RoadAccess::GetSupportedVehicleMasks()
 {
@@ -39,29 +43,19 @@ bool RoadAccess::IsSupportedVehicleMask(VehicleMask vehicleMask)
          kSupportedVehicleMasks.end();
 }
 
-RoadAccess::Type const RoadAccess::GetType(VehicleMask vehicleMask, Segment const & segment) const
+RoadAccess::Type const RoadAccess::GetType(Segment const & segment) const
 {
-  auto const & types = GetTypes(vehicleMask);
   Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
-  auto const it = types.find(key);
-  if (it != types.end())
+  auto const it = m_types.find(key);
+  if (it != m_types.end())
     return it->second;
 
   return RoadAccess::Type::Yes;
 }
 
-map<Segment, RoadAccess::Type> const & RoadAccess::GetTypes(VehicleMask vehicleMask) const
-{
-  ASSERT(IsSupportedVehicleMask(vehicleMask), ());
-  auto it = m_types.find(vehicleMask);
-  CHECK(it != m_types.end(), ());
-  return it->second;
-}
-
 void RoadAccess::Clear()
 {
-  for (auto & kv : m_types)
-    kv.second.clear();
+  m_types.clear();
 }
 
 void RoadAccess::Swap(RoadAccess & rhs)
@@ -103,29 +97,20 @@ string DebugPrint(RoadAccess const & r)
 {
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
-  oss << "RoadAccess [";
-  bool firstMask = true;
-  for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+  oss << "RoadAccess " << DebugPrint(r.GetVehicleMask()) << "[ ";
+  size_t id = 0;
+  for (auto const & kv : r.GetTypes())
   {
-    if (!firstMask)
+    if (id > 0)
       oss << ", ";
-    firstMask = false;
-    auto const & types = r.GetTypes(vehicleMask);
-    oss << DebugPrint(vehicleMask) << " [";
-    size_t id = 0;
-    for (auto const & kv : types)
-    {
-      if (id > 0)
-        oss << ", ";
-      oss << DebugPrint(kv.first) << " " << DebugPrint(kv.second);
-      ++id;
-      if (id == kMaxIdsToShow)
-        break;
-    }
-    if (types.size() > kMaxIdsToShow)
-      oss << "...";
-    oss << "]";
+    oss << DebugPrint(kv.first) << " " << DebugPrint(kv.second);
+    ++id;
+    if (id == kMaxIdsToShow)
+      break;
   }
+  if (r.GetTypes().size() > kMaxIdsToShow)
+    oss << "...";
+
   oss << "]";
   return oss.str();
 }

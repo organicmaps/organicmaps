@@ -24,6 +24,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -58,7 +59,7 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
   }
 }
 
-void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
+void LoadRoadAccess(string const & mwmFilePath, VehicleMask vehicleMask, RoadAccess & roadAccess)
 {
   FilesContainerR const cont(mwmFilePath);
   TEST(cont.IsExist(ROAD_ACCESS_FILE_TAG), ());
@@ -68,7 +69,7 @@ void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
     FilesContainerR::TReader const reader = cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
-    RoadAccessSerializer::Deserialize(src, roadAccess);
+    RoadAccessSerializer::Deserialize(src, vehicleMask, roadAccess);
   }
   catch (Reader::OpenException const & e)
   {
@@ -77,7 +78,8 @@ void LoadRoadAccess(string const & mwmFilePath, RoadAccess & roadAccess)
 }
 
 // todo(@m) This helper function is almost identical to the one in restriction_test.cpp.
-RoadAccess SaveAndLoadRoadAccess(string const & roadAccessContent, string const & mappingContent)
+map<VehicleMask, RoadAccess> SaveAndLoadRoadAccess(string const & roadAccessContent,
+                                                   string const & mappingContent)
 {
   classificator::Load();
 
@@ -108,12 +110,17 @@ RoadAccess SaveAndLoadRoadAccess(string const & roadAccessContent, string const 
   BuildRoadAccessInfo(mwmFullPath, roadAccessFullPath, mappingFullPath);
 
   // Reading from mwm section and testing road access.
-  RoadAccess roadAccessFromMwm;
-  LoadRoadAccess(mwmFullPath, roadAccessFromMwm);
+  map<VehicleMask, RoadAccess> roadAccessByMaskFromMwm;
+  for (auto const vehicleMask : RoadAccess::GetSupportedVehicleMasks())
+  {
+    RoadAccess roadAccess;
+    LoadRoadAccess(mwmFullPath, vehicleMask, roadAccess);
+    roadAccessByMaskFromMwm.emplace(vehicleMask, roadAccess);
+  }
   RoadAccessCollector const collector(mwmFullPath, roadAccessFullPath, mappingFullPath);
   TEST(collector.IsValid(), ());
-  TEST_EQUAL(roadAccessFromMwm, collector.GetRoadAccess(), ());
-  return roadAccessFromMwm;
+  TEST_EQUAL(roadAccessByMaskFromMwm, collector.GetRoadAccessByMask(), ());
+  return roadAccessByMaskFromMwm;
 }
 
 UNIT_TEST(RoadAccess_Smoke)
@@ -127,8 +134,11 @@ UNIT_TEST(RoadAccess_AccessPrivate)
 {
   string const roadAccessContent = R"(Car Private 0)";
   string const osmIdsToFeatureIdsContent = R"(0, 0,)";
-  auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 0, 0, false)), RoadAccess::Type::Private, ());
+  auto const roadAccessByMask = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  auto const carIt = roadAccessByMask.find(kCarMask);
+  TEST(carIt != roadAccessByMask.end(), ());
+  auto const carRoadAccess = carIt->second;
+  TEST_EQUAL(carRoadAccess.GetType(Segment(0, 0, 0, false)), RoadAccess::Type::Private, ());
 }
 
 UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Masks)
@@ -141,12 +151,17 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Masks)
                                              20, 2,
                                              30, 3,
                                              40, 4,)";
-  auto const roadAccess = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
-  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 1, 0, false)), RoadAccess::Type::Private, ());
-  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 2, 2, true)), RoadAccess::Type::Private, ());
-  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 3, 1, true)), RoadAccess::Type::Yes, ());
-  TEST_EQUAL(roadAccess.GetType(kCarMask, Segment(0, 4, 3, false)), RoadAccess::Type::Destination,
-             ());
-  TEST_EQUAL(roadAccess.GetType(kBicycleMask, Segment(0, 3, 0, false)), RoadAccess::Type::No, ());
+  auto const roadAccessByMask = SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
+  auto const carIt = roadAccessByMask.find(kCarMask);
+  TEST(carIt != roadAccessByMask.end(), ());
+  auto const carRoadAccess = carIt->second;
+  auto const bicycleIt = roadAccessByMask.find(kBicycleMask);
+  TEST(bicycleIt != roadAccessByMask.end(), ());
+  auto const bicycleRoadAccess = bicycleIt->second;
+  TEST_EQUAL(carRoadAccess.GetType(Segment(0, 1, 0, false)), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetType(Segment(0, 2, 2, true)), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetType(Segment(0, 3, 1, true)), RoadAccess::Type::Yes, ());
+  TEST_EQUAL(carRoadAccess.GetType(Segment(0, 4, 3, false)), RoadAccess::Type::Destination, ());
+  TEST_EQUAL(bicycleRoadAccess.GetType(Segment(0, 3, 0, false)), RoadAccess::Type::No, ());
 }
 }  // namespace

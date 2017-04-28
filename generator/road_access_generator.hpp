@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <fstream>
+#include <map>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -56,12 +57,15 @@ public:
   RoadAccessCollector(std::string const & dataFilePath, std::string const & roadAccessPath,
                       std::string const & osmIdsToFeatureIdsPath);
 
-  RoadAccess const & GetRoadAccess() const { return m_roadAccess; }
+  std::map<VehicleMask, RoadAccess> const & GetRoadAccessByMask() const
+  {
+    return m_roadAccessByMask;
+  }
 
   bool IsValid() const { return m_valid; }
 
 private:
-  RoadAccess m_roadAccess;
+  std::map<VehicleMask, RoadAccess> m_roadAccessByMask;
   bool m_valid = true;
 };
 

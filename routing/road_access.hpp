@@ -13,8 +13,8 @@
 namespace routing
 {
 // This class provides information about road access classes.
-// For now, only restrictive types (such as barrier=gate and access=private)
-// and only car routing are supported.
+// One instance of RoadAccess holds information about one
+// mwm and one router type (also known as VehicleMask).
 class RoadAccess final
 {
 public:
@@ -42,18 +42,19 @@ public:
 
   RoadAccess();
 
+  RoadAccess(VehicleMask vehicleMask);
+
   static std::vector<VehicleMask> const & GetSupportedVehicleMasks();
   static bool IsSupportedVehicleMask(VehicleMask vehicleMask);
 
-  Type const GetType(VehicleMask vehicleMask, Segment const & segment) const;
-
-  std::map<Segment, Type> const & GetTypes(VehicleMask vehicleMask) const;
+  VehicleMask const GetVehicleMask() const { return m_vehicleMask; }
+  std::map<Segment, RoadAccess::Type> const & GetTypes() const { return m_types; }
+  Type const GetType(Segment const & segment) const;
 
   template <typename V>
-  void SetTypes(VehicleMask vehicleMask, V && v)
+  void SetTypes(V && v)
   {
-    CHECK(IsSupportedVehicleMask(vehicleMask), ());
-    m_types[vehicleMask] = std::forward<V>(v);
+    m_types = std::forward<V>(v);
   }
 
   void Clear();
@@ -63,9 +64,11 @@ public:
   bool operator==(RoadAccess const & rhs) const;
 
 private:
+  VehicleMask m_vehicleMask;
+
   // todo(@m) Segment's NumMwmId is not used here. Decouple it from
   // segment and use only (fid, idx, forward) in the map.
-  std::map<VehicleMask, std::map<Segment, RoadAccess::Type>> m_types;
+  std::map<Segment, RoadAccess::Type> m_types;
 };
 
 std::string ToString(RoadAccess::Type type);
