@@ -77,14 +77,4 @@ std::string Mopub::GetBannerIdForOtherTypes() const
 {
   return kNonTourismPlacementId;
 }
-
-bool Mopub::HasSearchBanner() const
-{
-  return true;
-}
-
-std::string Mopub::GetSearchBannerId() const
-{
-  return kSearchBannerId;
-}
 }  // namespace ads
