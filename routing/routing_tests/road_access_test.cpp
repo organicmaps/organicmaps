@@ -20,9 +20,9 @@ namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
 {
+  // Segment is (numMwmId, featureId, segmentIdx, isForward).
   map<Segment, RoadAccess::Type> const m0 = {
-      {Segment(kFakeNumMwmId, 1 /* feature id */, 0 /* segment idx */, false /* forward */),
-       RoadAccess::Type::No},
+      {Segment(kFakeNumMwmId, 1, 0, false), RoadAccess::Type::No},
       {Segment(kFakeNumMwmId, 2, 2, false), RoadAccess::Type::Private},
   };
 
@@ -31,21 +31,20 @@ UNIT_TEST(RoadAccess_Serialization)
       {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
   };
 
-  RoadAccess roadAccessCar(kCarMask);
+  RoadAccess roadAccessCar(VehicleType::Car);
   roadAccessCar.SetTypes(m0);
 
-  RoadAccess roadAccessPedestrian(kPedestrianMask);
+  RoadAccess roadAccessPedestrian(VehicleType::Pedestrian);
   roadAccessPedestrian.SetTypes(m1);
 
-  map<VehicleMask, RoadAccess> const ms = {
-      {kCarMask, roadAccessCar},
-      {kPedestrianMask, roadAccessPedestrian},
-  };
+  RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Pedestrian)] = roadAccessPedestrian;
 
   vector<uint8_t> buf;
   {
     MemWriter<decltype(buf)> writer(buf);
-    RoadAccessSerializer::Serialize(writer, ms);
+    RoadAccessSerializer::Serialize(writer, roadAccessAllTypes);
   }
 
   {
@@ -53,7 +52,7 @@ UNIT_TEST(RoadAccess_Serialization)
 
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, kCarMask, deserializedRoadAccess);
+    RoadAccessSerializer::Deserialize(src, VehicleType::Car, deserializedRoadAccess);
     TEST_EQUAL(src.Size(), 0, ());
 
     TEST_EQUAL(roadAccessCar, deserializedRoadAccess, ());
@@ -64,7 +63,7 @@ UNIT_TEST(RoadAccess_Serialization)
 
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, kPedestrianMask, deserializedRoadAccess);
+    RoadAccessSerializer::Deserialize(src, VehicleType::Pedestrian, deserializedRoadAccess);
     TEST_EQUAL(src.Size(), 0, ());
 
     TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());

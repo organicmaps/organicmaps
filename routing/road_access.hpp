@@ -14,7 +14,7 @@ namespace routing
 {
 // This class provides information about road access classes.
 // One instance of RoadAccess holds information about one
-// mwm and one router type (also known as VehicleMask).
+// mwm and one router type (also known as VehicleType).
 class RoadAccess final
 {
 public:
@@ -42,19 +42,17 @@ public:
 
   RoadAccess();
 
-  RoadAccess(VehicleMask vehicleMask);
+  RoadAccess(VehicleType vehicleType);
 
-  static std::vector<VehicleMask> const & GetSupportedVehicleMasks();
-  static bool IsSupportedVehicleMask(VehicleMask vehicleMask);
-
-  VehicleMask const GetVehicleMask() const { return m_vehicleMask; }
-  std::map<Segment, RoadAccess::Type> const & GetTypes() const { return m_types; }
-  Type const GetType(Segment const & segment) const;
+  VehicleType const GetVehicleType() const { return m_vehicleType; }
+  void SetVehicleType(VehicleType vehicleType) { m_vehicleType = vehicleType; }
+  std::map<Segment, RoadAccess::Type> const & GetSegmentTypes() const { return m_segmentTypes; }
+  Type const GetSegmentType(Segment const & segment) const;
 
   template <typename V>
   void SetTypes(V && v)
   {
-    m_types = std::forward<V>(v);
+    m_segmentTypes = std::forward<V>(v);
   }
 
   void Clear();
@@ -64,11 +62,11 @@ public:
   bool operator==(RoadAccess const & rhs) const;
 
 private:
-  VehicleMask m_vehicleMask;
+  VehicleType m_vehicleType;
 
   // todo(@m) Segment's NumMwmId is not used here. Decouple it from
   // segment and use only (fid, idx, forward) in the map.
-  std::map<Segment, RoadAccess::Type> m_types;
+  std::map<Segment, RoadAccess::Type> m_segmentTypes;
 };
 
 std::string ToString(RoadAccess::Type type);

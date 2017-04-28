@@ -6,6 +6,7 @@
 #include "routing/road_access.hpp"
 #include "routing/vehicle_mask.hpp"
 
+#include <array>
 #include <cstdint>
 #include <fstream>
 #include <map>
@@ -24,14 +25,14 @@ namespace routing
 class RoadAccessTagProcessor
 {
 public:
-  using TagMapping = map<OsmElement::Tag, RoadAccess::Type>;
+  using TagMapping = std::map<OsmElement::Tag, RoadAccess::Type>;
 
-  explicit RoadAccessTagProcessor(VehicleMask vehicleMask);
+  explicit RoadAccessTagProcessor(VehicleType vehicleType);
 
   void Process(OsmElement const & elem, std::ofstream & oss) const;
 
 private:
-  VehicleMask m_vehicleMask;
+  VehicleType m_vehicleType;
   TagMapping const * m_tagMapping;
 };
 
@@ -54,18 +55,20 @@ private:
 class RoadAccessCollector
 {
 public:
+  using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
+
   RoadAccessCollector(std::string const & dataFilePath, std::string const & roadAccessPath,
                       std::string const & osmIdsToFeatureIdsPath);
 
-  std::map<VehicleMask, RoadAccess> const & GetRoadAccessByMask() const
+  RoadAccessByVehicleType const & GetRoadAccessAllTypes() const
   {
-    return m_roadAccessByMask;
+    return m_roadAccessByVehicleType;
   }
 
   bool IsValid() const { return m_valid; }
 
 private:
-  std::map<VehicleMask, RoadAccess> m_roadAccessByMask;
+  RoadAccessByVehicleType m_roadAccessByVehicleType;
   bool m_valid = true;
 };
 

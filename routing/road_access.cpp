@@ -10,62 +10,28 @@ using namespace std;
 namespace
 {
 string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
-
-// *NOTE* Order may be important for users (such as serializers).
-// Add new types to the end of the list.
-vector<routing::VehicleMask> const kSupportedVehicleMasks = {
-  routing::kPedestrianMask,
-  routing::kBicycleMask,
-  routing::kCarMask,
-};  
 }  // namespace
 
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::RoadAccess() : m_vehicleMask(kAllVehiclesMask) {}
+RoadAccess::RoadAccess() : m_vehicleType(VehicleType::Count) {}
 
-RoadAccess::RoadAccess(VehicleMask vehicleMask) : m_vehicleMask(vehicleMask)
-{
-  CHECK(IsSupportedVehicleMask(vehicleMask), ());
-}
+RoadAccess::RoadAccess(VehicleType vehicleType) : m_vehicleType(vehicleType) {}
 
-// static
-vector<VehicleMask> const & RoadAccess::GetSupportedVehicleMasks()
-{
-  return kSupportedVehicleMasks;
-}
-
-// static
-bool RoadAccess::IsSupportedVehicleMask(VehicleMask vehicleMask)
-{
-  return find(kSupportedVehicleMasks.begin(), kSupportedVehicleMasks.end(), vehicleMask) !=
-         kSupportedVehicleMasks.end();
-}
-
-RoadAccess::Type const RoadAccess::GetType(Segment const & segment) const
+RoadAccess::Type const RoadAccess::GetSegmentType(Segment const & segment) const
 {
   Segment key(kFakeNumMwmId, segment.GetFeatureId(), segment.GetSegmentIdx(), segment.IsForward());
-  auto const it = m_types.find(key);
-  if (it != m_types.end())
+  auto const it = m_segmentTypes.find(key);
+  if (it != m_segmentTypes.end())
     return it->second;
 
   return RoadAccess::Type::Yes;
 }
 
-void RoadAccess::Clear()
-{
-  m_types.clear();
-}
-
-void RoadAccess::Swap(RoadAccess & rhs)
-{
-  m_types.swap(rhs.m_types);
-}
-
 bool RoadAccess::operator==(RoadAccess const & rhs) const
 {
-  return m_types == rhs.m_types;
+  return m_segmentTypes == rhs.m_segmentTypes;
 }
 
 // Functions ---------------------------------------------------------------------------------------
@@ -97,9 +63,9 @@ string DebugPrint(RoadAccess const & r)
 {
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
-  oss << "RoadAccess " << DebugPrint(r.GetVehicleMask()) << "[ ";
+  oss << "RoadAccess " << DebugPrint(r.GetVehicleType()) << " [";
   size_t id = 0;
-  for (auto const & kv : r.GetTypes())
+  for (auto const & kv : r.GetSegmentTypes())
   {
     if (id > 0)
       oss << ", ";
@@ -108,7 +74,7 @@ string DebugPrint(RoadAccess const & r)
     if (id == kMaxIdsToShow)
       break;
   }
-  if (r.GetTypes().size() > kMaxIdsToShow)
+  if (r.GetSegmentTypes().size() > kMaxIdsToShow)
     oss << "...";
 
   oss << "]";
