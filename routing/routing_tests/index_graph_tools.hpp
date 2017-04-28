@@ -6,6 +6,7 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/restrictions_serialization.hpp"
+#include "routing/road_access.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
 
@@ -127,6 +128,9 @@ public:
   // and the graph itself is built only after a call to FindPath.
   void AddDirectedEdge(Vertex from, Vertex to, double weight);
 
+  // Blocks a previously added edge without removing it from the graph.
+  void BlockEdge(Vertex from, Vertex to);
+
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
   bool FindPath(Vertex start, Vertex finish, double & pathWeight, vector<Edge> & pathEdges) const;
 
@@ -137,6 +141,7 @@ private:
     Vertex m_from = 0;
     Vertex m_to = 0;
     double m_weight = 0.0;
+    bool m_isBlocked = false;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
       : m_id(id), m_from(from), m_to(to), m_weight(weight)
@@ -160,6 +165,7 @@ private:
     map<Vertex, vector<Segment>> m_outgoingSegments;
     map<Vertex, vector<Segment>> m_ingoingSegments;
     vector<Joint> m_joints;
+    RoadAccess m_roadAccess;
   };
 
   void AddDirectedEdge(vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
@@ -202,4 +208,14 @@ void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       routing::IndexGraphStarter::FakeVertex const & start,
                       routing::IndexGraphStarter::FakeVertex const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
+
+// Tries to find a unique path from |from| to |to| in |graph|.
+// If |expectedPathFound| is true, |expectedWeight| and |expectedEdges| must
+// specify the weight and edges of the unique shortest path.
+// If |expectedPathFound| is false, |expectedWeight| and |expectedEdges| may
+// take arbitrary values.
+void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,
+                       TestIndexGraphTopology::Vertex to, bool expectedPathFound,
+                       double const expectedWeight,
+                       vector<TestIndexGraphTopology::Edge> const & expectedEdges);
 }  // namespace routing_test

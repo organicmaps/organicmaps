@@ -5,6 +5,7 @@
 #include "routing/joint.hpp"
 #include "routing/joint_index.hpp"
 #include "routing/restrictions_serialization.hpp"
+#include "routing/road_access.hpp"
 #include "routing/road_index.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
@@ -42,6 +43,7 @@ public:
   void Import(vector<Joint> const & joints);
 
   void SetRestrictions(RestrictionVec && restrictions);
+  void SetRoadAccess(RoadAccess && roadAccess);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -73,5 +75,6 @@ private:
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
   RestrictionVec m_restrictions;
+  RoadAccess m_roadAccess;
 };
 }  // namespace routing

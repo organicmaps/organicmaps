@@ -16,6 +16,8 @@ using namespace routing;
 using namespace routing_test;
 using namespace std;
 
+using Edge = TestIndexGraphTopology::Edge;
+
 namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
@@ -68,5 +70,53 @@ UNIT_TEST(RoadAccess_Serialization)
 
     TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());
   }
+}
+
+UNIT_TEST(RoadAccess_WayBlocked)
+{
+  // Add edges to the graph in the following format: (from, to, weight).
+  // Block edges in the following format: (from, to).
+
+  uint32_t const numVertices = 4;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 2, 1.0);
+  graph.AddDirectedEdge(2, 3, 1.0);
+
+  double const expectedWeight = 0.0;
+  vector<Edge> const expectedEdges = {};
+
+  graph.BlockEdge(1, 2);
+
+  TestTopologyGraph(graph, 0, 3, false /* pathFound */, expectedWeight, expectedEdges);
+}
+
+UNIT_TEST(RoadAccess_BarrierBypassing)
+{
+  uint32_t const numVertices = 6;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 2, 1.0);
+  graph.AddDirectedEdge(2, 5, 1.0);
+  graph.AddDirectedEdge(0, 3, 1.0);
+  graph.AddDirectedEdge(3, 4, 2.0);
+  graph.AddDirectedEdge(4, 5, 1.0);
+
+  double expectedWeight;
+  vector<Edge> expectedEdges;
+
+  expectedWeight = 3.0;
+  expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.BlockEdge(1, 2);
+  expectedWeight = 4.0;
+  expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
+  TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
+
+  graph.BlockEdge(3, 4);
+  TestTopologyGraph(graph, 0, 5, false /* pathFound */, expectedWeight, expectedEdges);
 }
 }  // namespace

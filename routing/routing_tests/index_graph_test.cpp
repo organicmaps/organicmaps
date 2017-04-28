@@ -89,24 +89,6 @@ void TestIngoingEdges(IndexGraph & graph, Segment const & segment,
 }
 
 uint32_t AbsDelta(uint32_t v0, uint32_t v1) { return v0 > v1 ? v0 - v1 : v1 - v0; }
-
-void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,
-                       TestIndexGraphTopology::Vertex to, bool expectedPathFound,
-                       double const expectedWeight, vector<Edge> const & expectedEdges)
-{
-  double const kEpsilon = 1e-6;
-
-  double pathWeight = 0.0;
-  vector<Edge> pathEdges;
-  bool const pathFound = graph.FindPath(from, to, pathWeight, pathEdges);
-  TEST_EQUAL(pathFound, expectedPathFound, ());
-  if (!pathFound)
-    return;
-
-  TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
-       (pathWeight, expectedWeight, pathEdges));
-  TEST_EQUAL(pathEdges, expectedEdges, ());
-}
 }  // namespace
 
 namespace routing_test

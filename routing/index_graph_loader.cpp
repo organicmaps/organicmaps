@@ -2,6 +2,7 @@
 
 #include "routing/index_graph_serialization.hpp"
 #include "routing/restriction_loader.hpp"
+#include "routing/road_access_serialization.hpp"
 #include "routing/routing_exceptions.hpp"
 
 #include "coding/file_container.hpp"
@@ -82,6 +83,23 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
 }
 
 void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
+
+bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, RoadAccess & roadAccess)
+{
+  try
+  {
+    FilesContainerR::TReader const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
+    ReaderSource<FilesContainerR::TReader> src(reader);
+
+    RoadAccessSerializer::Deserialize(src, VehicleType::Car, roadAccess);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LERROR, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
+    return false;
+  }
+  return true;
+}
 }  // namespace
 
 namespace routing
@@ -102,5 +120,9 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, IndexGraph & graph)
   RestrictionLoader restrictionLoader(mwmValue, graph);
   if (restrictionLoader.HasRestrictions())
     graph.SetRestrictions(restrictionLoader.StealRestrictions());
+
+  RoadAccess roadAccess;
+  if (ReadRoadAccessFromMwm(mwmValue, roadAccess))
+    graph.SetRoadAccess(move(roadAccess));
 }
 }  // namespace routing
