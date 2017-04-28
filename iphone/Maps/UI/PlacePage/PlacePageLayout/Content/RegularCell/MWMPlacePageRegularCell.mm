@@ -130,13 +130,16 @@
 - (IBAction)cellTap
 {
   using place_page::MetainfoRows;
+  auto data = self.data;
   switch (self.rowType)
   {
   case MetainfoRows::Phone:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
+    [data logLocalAdsEvent:local_ads::EventType::ClickedPhone];
     break;
   case MetainfoRows::Website:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
+    [data logLocalAdsEvent:local_ads::EventType::ClickedWebsite];
     break;
   case MetainfoRows::Email:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
@@ -144,7 +147,7 @@
   case MetainfoRows::Coordinate:
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
     [MWMPlacePageData toggleCoordinateSystem];
-    [self changeText:[self.data stringForRow:self.rowType]];
+    [self changeText:[data stringForRow:self.rowType]];
     break;
   case MetainfoRows::ExtendedOpeningHours:
   case MetainfoRows::Cuisine:

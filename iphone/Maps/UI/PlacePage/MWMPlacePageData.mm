@@ -1,6 +1,7 @@
 #import "MWMPlacePageData.h"
 #import "AppInfo.h"
 #import "MWMBannerHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
 #import "Statistics.h"
@@ -184,6 +185,7 @@ using namespace place_page;
     break;
   case place_page::LocalAdsStatus::Customer:
     m_buttonsRows.push_back(ButtonsRows::LocalAdsCustomer);
+    [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
     break;
   }
 }
@@ -494,6 +496,23 @@ using namespace place_page;
 
 #pragma mark - Local Ads
 - (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
+- (void)logLocalAdsEvent:(local_ads::EventType)type
+{
+  if (m_info.GetLocalAdsStatus() != place_page::LocalAdsStatus::Customer)
+    return;
+  auto const featureID = m_info.GetID();
+  auto const & mwmInfo = featureID.m_mwmId.GetInfo();
+  if (!mwmInfo)
+    return;
+  auto & f = GetFramework();
+  auto location = [MWMLocationManager lastLocation];
+  auto event = local_ads::Event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
+                                featureID.m_index, f.GetDrawScale(),
+                                std::chrono::steady_clock::now(), location.coordinate.latitude,
+                                location.coordinate.longitude, location.horizontalAccuracy);
+  f.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
+}
+
 #pragma mark - Getters
 
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }

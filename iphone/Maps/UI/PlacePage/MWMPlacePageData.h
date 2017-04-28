@@ -1,5 +1,7 @@
 #import "SwiftBridge.h"
 
+#include "local_ads/event.hpp"
+
 #include "map/place_page_info.hpp"
 
 #include "std/vector.hpp"
@@ -156,6 +158,7 @@ using BannerIsReady = void (^)();
 
 // Local Ads
 - (NSString *)localAdsURL;
+- (void)logLocalAdsEvent:(local_ads::EventType)type;
 
 // Table view's data
 - (vector<place_page::Sections> const &)sections;
