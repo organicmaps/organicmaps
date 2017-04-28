@@ -312,7 +312,7 @@ class OsmToFeatureTranslator
     if (!params.IsValid())
       return false;
 
-    m_routingTagsProcessor.m_roadAccessWriter.Process(*p, params);
+    m_routingTagsProcessor.m_roadAccessWriter.Process(*p);
     return true;
   }
 

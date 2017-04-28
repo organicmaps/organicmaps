@@ -1,12 +1,18 @@
 #pragma once
 
 #include "generator/intermediate_elements.hpp"
+#include "generator/osm_element.hpp"
 
 #include "routing/road_access.hpp"
+#include "routing/vehicle_mask.hpp"
 
+#include <array>
 #include <cstdint>
 #include <fstream>
+#include <map>
+#include <ostream>
 #include <string>
+#include <vector>
 
 struct OsmElement;
 class FeatureParams;
@@ -16,30 +22,53 @@ class FeatureParams;
 // See generator/restriction_generator.hpp for details.
 namespace routing
 {
+class RoadAccessTagProcessor
+{
+public:
+  using TagMapping = std::map<OsmElement::Tag, RoadAccess::Type>;
+
+  explicit RoadAccessTagProcessor(VehicleType vehicleType);
+
+  void Process(OsmElement const & elem, std::ofstream & oss) const;
+
+private:
+  VehicleType m_vehicleType;
+  TagMapping const * m_tagMapping;
+};
+
 class RoadAccessWriter
 {
 public:
+  RoadAccessWriter();
+
   void Open(std::string const & filePath);
 
-  void Process(OsmElement const & elem, FeatureParams const & params);
+  void Process(OsmElement const & elem);
 
 private:
   bool IsOpened() const;
 
   std::ofstream m_stream;
+  std::vector<RoadAccessTagProcessor> m_tagProcessors;
 };
 
 class RoadAccessCollector
 {
 public:
-  RoadAccessCollector(std::string const & roadAccessPath, std::string const & osmIdsToFeatureIdsPath);
+  using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
-  RoadAccess const & GetRoadAccess() const { return m_roadAccess; }
+  RoadAccessCollector(std::string const & dataFilePath, std::string const & roadAccessPath,
+                      std::string const & osmIdsToFeatureIdsPath);
+
+  RoadAccessByVehicleType const & GetRoadAccessAllTypes() const
+  {
+    return m_roadAccessByVehicleType;
+  }
 
   bool IsValid() const { return m_valid; }
 
 private:
-  RoadAccess m_roadAccess;
+  RoadAccessByVehicleType m_roadAccessByVehicleType;
   bool m_valid = true;
 };
 

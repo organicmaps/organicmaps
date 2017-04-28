@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <map>
 #include <vector>
 
 using namespace routing;
@@ -19,28 +20,53 @@ namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
 {
-  vector<uint32_t> privateRoads = {1, 2, 3, 100};
-  RoadAccess roadAccess;
-  roadAccess.SetPrivateRoads(move(privateRoads));
+  // Segment is (numMwmId, featureId, segmentIdx, isForward).
+  map<Segment, RoadAccess::Type> const m0 = {
+      {Segment(kFakeNumMwmId, 1, 0, false), RoadAccess::Type::No},
+      {Segment(kFakeNumMwmId, 2, 2, false), RoadAccess::Type::Private},
+  };
+
+  map<Segment, RoadAccess::Type> const m1 = {
+      {Segment(kFakeNumMwmId, 1, 1, false), RoadAccess::Type::Private},
+      {Segment(kFakeNumMwmId, 2, 0, true), RoadAccess::Type::Destination},
+  };
+
+  RoadAccess roadAccessCar;
+  roadAccessCar.SetSegmentTypes(m0);
+
+  RoadAccess roadAccessPedestrian;
+  roadAccessPedestrian.SetSegmentTypes(m1);
+
+  RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Pedestrian)] = roadAccessPedestrian;
 
   vector<uint8_t> buf;
   {
     MemWriter<decltype(buf)> writer(buf);
-    RoadAccessSerializer::Serialize(writer, roadAccess);
+    RoadAccessSerializer::Serialize(writer, roadAccessAllTypes);
   }
 
-  RoadAccess deserializedRoadAccess;
   {
+    RoadAccess deserializedRoadAccess;
+
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, deserializedRoadAccess);
+    RoadAccessSerializer::Deserialize(src, VehicleType::Car, deserializedRoadAccess);
+    TEST_EQUAL(src.Size(), 0, ());
+
+    TEST_EQUAL(roadAccessCar, deserializedRoadAccess, ());
   }
 
-  TEST_EQUAL(roadAccess, deserializedRoadAccess, ());
-
   {
-    auto const & b = deserializedRoadAccess.GetPrivateRoads();
-    TEST(is_sorted(b.begin(), b.end()), ());
+    RoadAccess deserializedRoadAccess;
+
+    MemReader memReader(buf.data(), buf.size());
+    ReaderSource<MemReader> src(memReader);
+    RoadAccessSerializer::Deserialize(src, VehicleType::Pedestrian, deserializedRoadAccess);
+    TEST_EQUAL(src.Size(), 0, ());
+
+    TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());
   }
 }
 }  // namespace

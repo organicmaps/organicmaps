@@ -150,6 +150,19 @@ private:
   vector<m2::PointD> m_boundary;
 };
 
+class TestRoad : public TestFeature
+{
+public:
+  TestRoad(vector<m2::PointD> const & points, string const & name, string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  string ToString() const override;
+
+private:
+  vector<m2::PointD> m_points;
+};
+
 string DebugPrint(TestFeature const & feature);
 }  // namespace tests_support
 }  // namespace generator

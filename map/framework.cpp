@@ -2585,6 +2585,8 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     case RouterType::Taxi:
       tag = isP2P ? marketing::kRoutingP2PTaxiDiscovered : marketing::kRoutingTaxiDiscovered;
       break;
+    case RouterType::Count:
+      CHECK(false, ("Bad router type", m_currentRouterType));
     }
     GetPlatform().GetMarketingService().SendPushWooshTag(tag);
   }
@@ -2862,9 +2864,11 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
       case RouterType::Bicycle:
         return lastUsedRouter;
       case RouterType::Taxi:
-        ASSERT(false, ("GetLastUsedRouter sould not to return RouterType::Taxi"));
+        ASSERT(false, ("GetLastUsedRouter should not return RouterType::Taxi"));
       case RouterType::Vehicle:
-        ; // fall through
+        break;
+      case RouterType::Count:
+        CHECK(false, ("Bad router type", lastUsedRouter));
     }
 
     // Return on a short distance the vehicle router flag only if we are already have routing files.

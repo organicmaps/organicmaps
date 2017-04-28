@@ -27,14 +27,8 @@ VehicleMask constexpr kPedestrianMask = GetVehicleMask(VehicleType::Pedestrian);
 VehicleMask constexpr kBicycleMask = GetVehicleMask(VehicleType::Bicycle);
 VehicleMask constexpr kCarMask = GetVehicleMask(VehicleType::Car);
 
-inline std::string DebugPrint(VehicleType vehicleType)
-{
-  switch (vehicleType)
-  {
-  case VehicleType::Pedestrian: return "Pedestrian";
-  case VehicleType::Bicycle: return "Bicycle";
-  case VehicleType::Car: return "Car";
-  case VehicleType::Count: return "Count";
-  }
-}
+std::string DebugPrint(VehicleType vehicleType);
+std::string ToString(VehicleType vehicleType);
+void FromString(std::string const & s, VehicleType & vehicleType);
+std::string DebugPrint(VehicleMask vehicleMask);
 }  // namespace routing

@@ -65,6 +65,7 @@ SOURCES += \
     turns_notification_manager.cpp \
     turns_sound_settings.cpp \
     turns_tts_text.cpp \
+    vehicle_mask.cpp \    
     world_graph.cpp \
 
 HEADERS += \

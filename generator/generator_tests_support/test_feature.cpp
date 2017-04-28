@@ -289,6 +289,32 @@ string TestPark::ToString() const
   return os.str();
 }
 
+// TestRoad ----------------------------------------------------------------------------------------
+TestRoad::TestRoad(vector<m2::PointD> const & points, string const & name, string const & lang)
+  : TestFeature(name, lang), m_points(points)
+{
+}
+
+void TestRoad::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+
+  auto const & classificator = classif();
+  fb.AddType(classificator.GetTypeByPath({"highway", "road"}));
+
+  for (auto const & point : m_points)
+    fb.AddPoint(point);
+  fb.SetLinear(false /* reverseGeometry */);
+}
+
+string TestRoad::ToString() const
+{
+  ostringstream os;
+  os << "TestRoad [" << m_name << ", " << m_lang << "]";
+  return os.str();
+}
+
+// Functions ---------------------------------------------------------------------------------------
 string DebugPrint(TestFeature const & feature) { return feature.ToString(); }
 }  // namespace tests_support
 }  // namespace generator
