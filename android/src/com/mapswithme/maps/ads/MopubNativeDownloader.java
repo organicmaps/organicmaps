@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,7 +22,8 @@ import com.mopub.nativeads.StaticNativeAd;
 
 import java.util.EnumSet;
 
-class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative.MoPubNativeNetworkListener
+class MopubNativeDownloader extends CachingNativeAdLoader
+    implements MoPubNative.MoPubNativeNetworkListener, BaseNativeAd.NativeEventListener
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private final static String TAG = MopubNativeDownloader.class.getSimpleName();
@@ -32,6 +34,13 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
   MopubNativeDownloader(@Nullable OnAdCacheModifiedListener listener, @Nullable AdTracker tracker)
   {
     super(tracker, listener);
+  }
+
+  @Override
+  public void loadAd(@NonNull Context context, @NonNull String bannerId)
+  {
+    mBannerId = bannerId;
+    super.loadAd(context, bannerId);
   }
 
   @Override
@@ -55,7 +64,6 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
     requestParameters.desiredAssets(assetsSet);
 
     nativeAd.makeRequest(requestParameters.build());
-    mBannerId = bannerId;
   }
 
   @NonNull
@@ -66,8 +74,9 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
   }
 
   @Override
-  public void onNativeLoad(NativeAd nativeAd)
+  public void onNativeLoad(final NativeAd nativeAd)
   {
+    nativeAd.getBaseNativeAd().setNativeEventListener(this);
     LOGGER.d(TAG, "onNativeLoad nativeAd = " + nativeAd);
     CachedMwmNativeAd ad = new MopubNativeAd(nativeAd, SystemClock.elapsedRealtime());
     onAdLoaded(nativeAd.getAdUnitId(), ad);
@@ -83,6 +92,19 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
     onError(mBannerId, getProvider(), new MopubAdError(errorCode.toString()));
   }
 
+  @Override
+  public void onAdImpressed()
+  {
+    // No op.
+  }
+
+  @Override
+  public void onAdClicked()
+  {
+    if (!TextUtils.isEmpty(mBannerId))
+      onAdClicked(mBannerId);
+  }
+
   private static class DummyRenderer implements MoPubAdRenderer<StaticNativeAd>
   {
 
@@ -90,7 +112,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
     @Override
     public View createAdView(@NonNull Context context, @Nullable ViewGroup parent)
     {
-      // This method is never called, don't worry about nullness warning
+      // This method is never called, don't worry about nullness warning.
       // noinspection ConstantConditions
       return null;
     }
@@ -98,7 +120,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader implements MoPubNative
     @Override
     public void renderAdView(@NonNull View view, @NonNull StaticNativeAd ad)
     {
-      // no op
+      // No op.
     }
 
     @Override

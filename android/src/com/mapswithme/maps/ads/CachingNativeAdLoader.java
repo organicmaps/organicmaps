@@ -46,6 +46,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
    *
    */
   @Override
+  @CallSuper
   public void loadAd(@NonNull Context context, @NonNull String bannerId)
   {
     LOGGER.d(TAG, "Load the ad for a banner id '" + bannerId + "'");
