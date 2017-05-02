@@ -173,7 +173,8 @@ void SampleView::Clear()
   OnSearchCompleted();
 }
 
-void SampleView::OnLocationChanged(Qt::DockWidgetArea area) {
+void SampleView::OnLocationChanged(Qt::DockWidgetArea area)
+{
   if (area == Qt::RightDockWidgetArea)
     layout()->setContentsMargins(m_rightAreaMargins);
   else
