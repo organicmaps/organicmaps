@@ -48,15 +48,17 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
 
   vector<m2::PointD> routeGeometry;
   JunctionsToPoints(junctions, routeGeometry);
-  feature::TAltitudes altitudes;
-  JunctionsToAltitudes(junctions, altitudes);
 
   route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
   route.SetSectionTimes(move(times));
   route.SetTurnInstructions(move(turnsDir));
   route.SetStreetNames(move(streetNames));
   if (hasAltitude)
+  {
+    feature::TAltitudes altitudes;
+    JunctionsToAltitudes(junctions, altitudes);
     route.SetAltitudes(move(altitudes));
+  }
 
   vector<traffic::SpeedGroup> traffic;
   if (trafficStash && !trafficSegs.empty())
