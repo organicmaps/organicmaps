@@ -1555,10 +1555,11 @@ public class PlacePageView extends RelativeLayout
           if (localAdInfo == null)
             throw new AssertionError("A local ad must be non-null if button is shown!");
 
-          Statistics.INSTANCE.trackPPOwnershipButtonClick(mMapObject);
-
           if (!TextUtils.isEmpty(localAdInfo.getUrl()))
+          {
+            Statistics.INSTANCE.trackPPOwnershipButtonClick(mMapObject);
             Utils.openUrl(getContext(), localAdInfo.getUrl());
+          }
         }
         break;
       case R.id.ll__more:
