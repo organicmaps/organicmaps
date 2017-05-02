@@ -214,8 +214,11 @@ void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest>
 
   map<Segment, RoadAccess::Type> segmentTypes;
   for (auto const fid : blockedFeatureIds)
+  {
     segmentTypes[Segment(kFakeNumMwmId, fid, 0 /* wildcard segmentIdx */, true)] =
         RoadAccess::Type::No;
+  }
+
   m_roadAccess.SetSegmentTypes(move(segmentTypes));
 }
 

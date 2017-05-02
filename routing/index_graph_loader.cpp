@@ -86,9 +86,12 @@ void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
 
 bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, RoadAccess & roadAccess)
 {
+  if (!mwmValue.m_cont.IsExist(ROAD_ACCESS_FILE_TAG))
+    return false;
+
   try
   {
-    FilesContainerR::TReader const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
+    auto const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
     RoadAccessSerializer::Deserialize(src, VehicleType::Car, roadAccess);
