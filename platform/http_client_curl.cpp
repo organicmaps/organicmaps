@@ -154,9 +154,14 @@ std::string Decompress(std::string const & compressed, std::string const & encod
   std::string decompressed;
 
   if (encoding == "deflate")
-    ZLib::Inflate(compressed, back_inserter(decompressed));
+  {
+    ZLib::Inflate inflate(ZLib::Inflate::Format::ZLib);
+    inflate(compressed, back_inserter(decompressed));
+  }
   else
+  {
     ASSERT(false, ("Unsupported Content-Encoding:", encoding));
+  }
 
   return decompressed;
 }
