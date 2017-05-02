@@ -77,7 +77,9 @@
     name = @"coordinate";
     break;
   case MetainfoRows::ExtendedOpeningHours:
-  case MetainfoRows::OpeningHours: break;
+  case MetainfoRows::OpeningHours:
+  case MetainfoRows::LocalAdsCandidate:
+  case MetainfoRows::LocalAdsCustomer: break;
   }
   [self configWithIconName:name data:[data stringForRow:row]];
 }
@@ -153,7 +155,9 @@
   case MetainfoRows::Operator:
   case MetainfoRows::OpeningHours:
   case MetainfoRows::Address:
-  case MetainfoRows::Internet: break;
+  case MetainfoRows::Internet:
+  case MetainfoRows::LocalAdsCustomer: 
+  case MetainfoRows::LocalAdsCandidate: break;
   }
 }
 
