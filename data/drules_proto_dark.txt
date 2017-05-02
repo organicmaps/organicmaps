@@ -45723,10 +45723,30 @@ cont {
 cont {
   name: "place-island"
   element {
+    scale: 10
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 11
+    caption {
+      primary {
+        height: 18
+        color: 5592405
+      }
+      priority: 15000
+    }
+  }
+  element {
     scale: 12
     caption {
       primary {
-        height: 9
+        height: 14
         color: 5592405
       }
       priority: 15000
@@ -45736,7 +45756,7 @@ cont {
     scale: 13
     caption {
       primary {
-        height: 9
+        height: 14
         color: 5592405
       }
       priority: 15000
@@ -45746,7 +45766,7 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 9
+        height: 10
         color: 5592405
       }
       priority: 15000
@@ -45756,7 +45776,7 @@ cont {
     scale: 15
     caption {
       primary {
-        height: 9
+        height: 10
         color: 5592405
       }
       priority: 15000
@@ -45766,7 +45786,7 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 9
+        height: 8
         color: 5592405
       }
       priority: 15000
@@ -45776,7 +45796,7 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 9
+        height: 8
         color: 5592405
       }
       priority: 15000
@@ -45786,7 +45806,7 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 9
+        height: 8
         color: 5592405
       }
       priority: 15000
@@ -45796,7 +45816,7 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 9
+        height: 8
         color: 5592405
       }
       priority: 15000
