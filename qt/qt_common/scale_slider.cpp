@@ -43,13 +43,13 @@ ScaleSlider::ScaleSlider(Qt::Orientation orient, QWidget * parent)
 // static
 void ScaleSlider::Embed(Qt::Orientation orient, QToolBar & toolBar, MapWidget & mapWidget)
 {
-  toolBar.addAction(QIcon(":/navig64/plus.png"), tr("Scale +"), &mapWidget, SLOT(ScalePlus()));
+  toolBar.addAction(QIcon(":/common/plus.png"), tr("Scale +"), &mapWidget, SLOT(ScalePlus()));
   {
     auto slider = my::make_unique<ScaleSlider>(orient, &toolBar);
     mapWidget.BindSlider(*slider);
     toolBar.addWidget(slider.release());
   }
-  toolBar.addAction(QIcon(":/navig64/minus.png"), tr("Scale -"), &mapWidget, SLOT(ScaleMinus()));
+  toolBar.addAction(QIcon(":/common/minus.png"), tr("Scale -"), &mapWidget, SLOT(ScaleMinus()));
 }
 
 double ScaleSlider::GetScaleFactor() const

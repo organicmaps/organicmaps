@@ -4,11 +4,11 @@
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
+#include <QtCore/QMargins>
 #include <QtWidgets/QWidget>
 
 class Framework;
-class LanguagesList;
-class QLineEdit;
+class QLabel;
 class QPushButton;
 class ResultsView;
 class Spinner;
@@ -35,6 +35,8 @@ public:
   ResultsView & GetFoundResultsView() { return *m_foundResults; }
   ResultsView & GetNonFoundResultsView() { return *m_nonFoundResults; }
 
+  void OnLocationChanged(Qt::DockWidgetArea area);
+
 signals:
   void OnShowViewportClicked();
   void OnShowPositionClicked();
@@ -47,10 +49,13 @@ private:
 
   Spinner * m_spinner = nullptr;
 
-  QLineEdit * m_query = nullptr;
-  LanguagesList * m_langs = nullptr;
+  QLabel * m_query = nullptr;
+  QLabel * m_langs = nullptr;
   QPushButton * m_showViewport = nullptr;
   QPushButton * m_showPosition = nullptr;
   ResultsView * m_foundResults = nullptr;
   ResultsView * m_nonFoundResults = nullptr;
+
+  QMargins m_rightAreaMargins;
+  QMargins m_defaultMargins;
 };

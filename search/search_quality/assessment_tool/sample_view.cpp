@@ -8,7 +8,6 @@
 
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
-#include "search/search_quality/assessment_tool/languages_list.hpp"
 #include "search/search_quality/assessment_tool/result_view.hpp"
 #include "search/search_quality/assessment_tool/results_view.hpp"
 #include "search/search_quality/sample.hpp"
@@ -40,26 +39,28 @@ Layout * BuildSubLayout(QLayout & mainLayout, QWidget & parent)
 SampleView::SampleView(QWidget * parent, Framework & framework)
   : QWidget(parent), m_framework(framework)
 {
-  auto * mainLayout = BuildLayoutWithoutMargins<QVBoxLayout>(this /* parent */);
+  auto * mainLayout = BuildLayout<QVBoxLayout>(this /* parent */);
+
+  // When the dock for SampleView is attached to the right side of the
+  // screen, we don't need left margin, because of zoom in/zoom out
+  // slider. In other cases, it's better to keep left margin as is.
+  m_defaultMargins = mainLayout->contentsMargins();
+  m_rightAreaMargins = m_defaultMargins;
+  m_rightAreaMargins.setLeft(0);
 
   {
-    auto * layout = BuildSubLayout<QHBoxLayout>(*mainLayout, *this /* parent */);
-
-    m_query = new QLineEdit(this /* parent */);
+    m_query = new QLabel(this /* parent */);
     m_query->setToolTip(tr("Query text"));
+    m_query->setWordWrap(true);
+    m_query->hide();
+    mainLayout->addWidget(m_query);
+  }
 
-    // TODO (@y): enable this as soon as editing of query will be
-    // ready.
-    m_query->setEnabled(false);
-    layout->addWidget(m_query);
-
-    m_langs = new LanguagesList(this /* parent */);
+  {
+    m_langs = new QLabel(this /* parent */);
     m_langs->setToolTip(tr("Query input language"));
-
-    // TODO (@y): enable this as soon as editing of input language
-    // will be ready.
-    m_langs->setEnabled(false);
-    layout->addWidget(m_langs);
+    m_langs->hide();
+    mainLayout->addWidget(m_langs);
   }
 
   {
@@ -104,10 +105,16 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
 
 void SampleView::SetContents(search::Sample const & sample, bool positionAvailable)
 {
-  m_query->setText(ToQString(sample.m_query));
-  m_query->home(false /* mark */);
-
-  m_langs->Select(sample.m_locale);
+  if (!sample.m_query.empty())
+  {
+    m_query->setText(ToQString(sample.m_query));
+    m_query->show();
+  }
+  if (!sample.m_locale.empty())
+  {
+    m_langs->setText(ToQString(sample.m_locale));
+    m_langs->show();
+  }
   m_showViewport->setEnabled(true);
   m_showPosition->setEnabled(positionAvailable);
 
@@ -157,12 +164,21 @@ void SampleView::EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdit
 
 void SampleView::Clear()
 {
-  m_query->setText(QString());
-  m_langs->Select("default");
+  m_query->hide();
+  m_langs->hide();
+
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
   ClearAllResults();
   OnSearchCompleted();
+}
+
+void SampleView::OnLocationChanged(Qt::DockWidgetArea area)
+{
+  if (area == Qt::RightDockWidgetArea)
+    layout()->setContentsMargins(m_rightAreaMargins);
+  else
+    layout()->setContentsMargins(m_defaultMargins);
 }
 
 void SampleView::EnableEditing(ResultsView & results, Edits & edits)
