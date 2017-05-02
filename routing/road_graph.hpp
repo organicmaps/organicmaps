@@ -123,7 +123,9 @@ public:
 class IRoadGraph : public RoadGraphBase
 {
 public:
-  typedef vector<Junction> TJunctionVector;
+  // CheckGraphConnectivity() types aliases:
+  using Vertex = Junction;
+  using Edge = routing::Edge;
 
   enum class Mode
   {
