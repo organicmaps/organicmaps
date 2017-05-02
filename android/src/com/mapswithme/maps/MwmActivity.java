@@ -1205,7 +1205,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onMapObjectActivated(MapObject object)
+  public void onMapObjectActivated(final MapObject object)
   {
     if (MapObject.isOfType(MapObject.API_POINT, object))
     {
@@ -1227,7 +1227,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void onSetMapObjectComplete()
         {
           if (!mPlacePageRestored)
+          {
             mPlacePage.setState(State.PREVIEW);
+            if (object != null)
+              Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
+          }
           mPlacePageRestored = false;
         }
       });
