@@ -9,7 +9,8 @@ using namespace traffic;
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
-                      my::Cancellable const & cancellable, vector<Junction> & path, Route & route)
+                      my::Cancellable const & cancellable, bool hasAltitude,
+                      vector<Junction> & path, Route & route)
 {
   if (path.empty())
   {
@@ -54,7 +55,8 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   route.SetSectionTimes(move(times));
   route.SetTurnInstructions(move(turnsDir));
   route.SetStreetNames(move(streetNames));
-  route.SetAltitudes(move(altitudes));
+  if (hasAltitude)
+    route.SetAltitudes(move(altitudes));
 
   vector<traffic::SpeedGroup> traffic;
   if (trafficStash && !trafficSegs.empty())

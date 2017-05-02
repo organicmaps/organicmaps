@@ -342,7 +342,8 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
     starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate,
+                   false /* hasAltitude */, junctions, route);
 
   if (!route.IsValid())
   {
