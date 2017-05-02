@@ -467,7 +467,7 @@ public class SearchFragment extends BaseMwmFragment
     if (mFromRoutePlan)
     {
       //noinspection ConstantConditions
-      final MapObject point = new MapObject(MapObject.SEARCH, result.name, "",
+      final MapObject point = new MapObject("", 0L, "", MapObject.SEARCH, result.name, "",
           result.description.featureType, "", result.lat, result.lon, "", null, false, "", null);
       RoutingController.get().onPoiSelected(point);
     }

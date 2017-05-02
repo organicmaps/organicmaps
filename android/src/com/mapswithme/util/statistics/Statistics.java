@@ -38,15 +38,19 @@ import java.util.Map;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
@@ -117,6 +121,7 @@ public enum Statistics
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
     public static final String PP_HOTEL_FACILITIES = "PlacePage_Hotel_Facilities_open";
+    static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
@@ -238,9 +243,9 @@ public enum Statistics
     public static final String IS_AUTHENTICATED = "is_authenticated";
     public static final String IS_ONLINE = "is_online";
     public static final String IS_SUCCESS = "is_success_message";
-    public static final String FEATURE_ID = "feature_id";
-    public static final String MWM_NAME = "mwm_name";
-    public static final String MWM_VERSION = "mwm_version";
+    static final String FEATURE_ID = "feature_id";
+    static final String MWM_NAME = "mwm_name";
+    static final String MWM_VERSION = "mwm_version";
     public static final String ERR_TYPE = "error_type"; // (1 - No space left)
     public static final String ERR_MSG = "error_message";
     public static final String ERR_DATA = "err_data";
@@ -579,6 +584,16 @@ public enum Statistics
                                                   .add(TYPE, error));
   }
 
+  public void trackPPOwnershipButtonClick(@NonNull MapObject mapObject)
+  {
+    trackEvent(PP_OWNERSHIP_BUTTON_CLICK, LocationHelper.INSTANCE.getLastKnownLocation(),
+               params()
+                   .add(MWM_NAME, mapObject.getMwmName())
+                   .add(MWM_VERSION, mapObject.getMwmVersion())
+                   .add(FEATURE_ID, mapObject.getFeatureId())
+                   .get());
+  }
+
   public static ParameterBuilder params()
   {
     return new ParameterBuilder();
@@ -586,8 +601,8 @@ public enum Statistics
 
   public static ParameterBuilder editorMwmParams()
   {
-    return params().add(EventParam.MWM_NAME, Editor.nativeGetMwmName())
-                   .add(EventParam.MWM_VERSION, Editor.nativeGetMwmVersion());
+    return params().add(MWM_NAME, Editor.nativeGetMwmName())
+                   .add(MWM_VERSION, Editor.nativeGetMwmVersion());
   }
 
   public static class ParameterBuilder
