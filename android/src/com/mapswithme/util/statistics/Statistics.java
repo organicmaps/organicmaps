@@ -58,7 +58,6 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 
 public enum Statistics
@@ -590,7 +589,7 @@ public enum Statistics
                params()
                    .add(MWM_NAME, mapObject.getMwmName())
                    .add(MWM_VERSION, mapObject.getMwmVersion())
-                   .add(FEATURE_ID, mapObject.getFeatureId())
+                   .add(FEATURE_ID, mapObject.getFeatureIndex())
                    .get());
   }
 

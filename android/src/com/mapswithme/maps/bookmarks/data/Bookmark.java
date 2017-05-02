@@ -24,12 +24,12 @@ public class Bookmark extends MapObject
   @Nullable
   private final String mObjectTitle;
 
-  Bookmark(@NonNull String mwmName, long mwmVersion, int featureId,
+  Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
            @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
            @Nullable String secondaryTitle, @Nullable String objectTitle, @Nullable Banner[] banners,
            boolean reachableByTaxi, @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
   {
-    super(mwmName, mwmVersion, featureId, BOOKMARK, title, secondaryTitle, "", "", 0, 0, "",
+    super(mwmName, mwmVersion, featureIndex, BOOKMARK, title, secondaryTitle, "", "", 0, 0, "",
           banners, reachableByTaxi, bookingSearchUrl, localAdInfo);
 
     mCategoryId = categoryId;

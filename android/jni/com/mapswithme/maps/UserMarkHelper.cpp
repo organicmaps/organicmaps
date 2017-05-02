@@ -36,13 +36,13 @@ jobject CreateBanner(JNIEnv * env, std::string const & id, jint type)
 }
 
 jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion,
-                        uint32_t featureId, int mapObjectType, string const & title,
+                        uint32_t featureIndex, int mapObjectType, string const & title,
                         string const & secondaryTitle, string const & subtitle, double lat,
                         double lon, string const & address, Metadata const & metadata,
                         string const & apiId, jobjectArray jbanners, bool isReachableByTaxi,
                         string const & bookingSearchUrl, jobject const & localAdInfo)
 {
-  // public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
+  // public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
   //                  @MapObjectType int mapObjectType, String title, String secondaryTitle,
   //                  String subtitle, double lat, double lon, String address, String apiId,
   //                  @NonNull Banner banner, boolean reachableByTaxi,
@@ -62,9 +62,9 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
   jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
   jobject mapObject = env->NewObject(
-      g_mapObjectClazz, ctorId, jMwmName.get(), (jlong)mwmVersion, (jint)featureId, mapObjectType,
-      jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
-      jbanners, isReachableByTaxi, jBookingSearchUrl.get(), localAdInfo);
+      g_mapObjectClazz, ctorId, jMwmName.get(), (jlong)mwmVersion, (jint)featureIndex,
+      mapObjectType, jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon,
+      jApiId.get(), jbanners, isReachableByTaxi, jBookingSearchUrl.get(), localAdInfo);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -80,7 +80,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   if (info.IsBookmark())
   {
-    // public Bookmark(@NonNull String mwmName, long mwmVersion, int featureId,
+    // public Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
     // @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
     // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId =

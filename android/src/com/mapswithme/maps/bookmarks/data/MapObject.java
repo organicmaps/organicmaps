@@ -33,7 +33,7 @@ public class MapObject implements Parcelable
   @NonNull
   private final String mMwmName;
   private final long mMwmVersion;
-  private final int mFeatureId;
+  private final int mFeatureIndex;
   @MapObjectType
   private final int mMapObjectType;
 
@@ -54,17 +54,17 @@ public class MapObject implements Parcelable
   @Nullable
   private LocalAdInfo mLocalAdInfo;
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
+  public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, String apiId,
                    @Nullable Banner[] banners, boolean reachableByTaxi,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
   {
-    this(mwmName, mwmVersion, featureId, mapObjectType, title, secondaryTitle, subtitle, address,
+    this(mwmName, mwmVersion, featureIndex, mapObjectType, title, secondaryTitle, subtitle, address,
          lat, lon, new Metadata(), apiId, banners, reachableByTaxi, bookingSearchUrl, localAdInfo);
   }
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
+  public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, boolean reachableByTaxi,
@@ -72,7 +72,7 @@ public class MapObject implements Parcelable
   {
     mMwmName = mwmName;
     mMwmVersion = mwmVersion;
-    mFeatureId = featureId;
+    mFeatureIndex = featureIndex;
     mMapObjectType = mapObjectType;
     mTitle = title;
     mSecondaryTitle = secondaryTitle;
@@ -259,9 +259,9 @@ public class MapObject implements Parcelable
     return mMwmVersion;
   }
 
-  public int getFeatureId()
+  public int getFeatureIndex()
   {
-    return mFeatureId;
+    return mFeatureIndex;
   }
 
   private  static MapObject readFromParcel(Parcel source)
@@ -284,7 +284,7 @@ public class MapObject implements Parcelable
   {
     dest.writeString(mMwmName);
     dest.writeLong(mMwmVersion);
-    dest.writeInt(mFeatureId);
+    dest.writeInt(mFeatureIndex);
     dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
     dest.writeString(mTitle);
