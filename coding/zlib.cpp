@@ -6,6 +6,9 @@ namespace coding
 {
 namespace
 {
+int constexpr kGzipBits = 16;
+int constexpr kBothBits = 32;
+
 int ToInt(ZLib::Deflate::Level level)
 {
   using Level = ZLib::Deflate::Level;
@@ -59,7 +62,7 @@ ZLib::DeflateProcessor::DeflateProcessor(Deflate::Format format, Deflate::Level 
   switch (format)
   {
   case Deflate::Format::ZLib: break;
-  case Deflate::Format::GZip: bits = bits | 16; break;
+  case Deflate::Format::GZip: bits = bits | kGzipBits; break;
   }
 
   int const ret =
@@ -89,8 +92,8 @@ ZLib::InflateProcessor::InflateProcessor(Inflate::Format format, void const * da
   switch (format)
   {
   case Inflate::Format::ZLib: break;
-  case Inflate::Format::GZip: bits = bits | 16; break;
-  case Inflate::Format::Both: bits = bits | 32; break;
+  case Inflate::Format::GZip: bits = bits | kGzipBits; break;
+  case Inflate::Format::Both: bits = bits | kBothBits; break;
   }
   int const ret = inflateInit2(&m_stream, bits);
   m_init = (ret == Z_OK);

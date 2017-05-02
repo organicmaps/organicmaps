@@ -49,10 +49,10 @@ UNIT_TEST(ZLib_Smoke)
 
   {
     string s;
-    TEST(!deflate(nullptr, 0, back_inserter(s)), ());
-    TEST(!deflate(nullptr, 4, back_inserter(s)), ());
-    TEST(!inflate(nullptr, 0, back_inserter(s)), ());
-    TEST(!inflate(nullptr, 4, back_inserter(s)), ());
+    TEST(!deflate(nullptr /* data */, 0 /* size */, back_inserter(s) /* out */), ());
+    TEST(!deflate(nullptr /* data */, 4 /* size */, back_inserter(s) /* out */), ());
+    TEST(!inflate(nullptr /* data */, 0 /* size */, back_inserter(s) /* out */), ());
+    TEST(!inflate(nullptr /* data */, 4 /* size */, back_inserter(s) /* out */), ());
   }
 
   TestDeflateInflate("");
