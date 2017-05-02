@@ -89,6 +89,7 @@
     return cell;
   }
   case MWMSearchItemTypeMopub:
+  case MWMSearchItemTypeFacebook:
   {
     auto cell = static_cast<MWMAdBanner *>(
         [tableView dequeueReusableCellWithCellClass:[MWMAdBanner class] indexPath:indexPath]);
@@ -126,7 +127,8 @@
     [delegate processSearchWithResult:result];
     break;
   }
-  case MWMSearchItemTypeMopub: break;
+  case MWMSearchItemTypeMopub: 
+  case MWMSearchItemTypeFacebook: break;
   case MWMSearchItemTypeSuggestion:
   {
     auto const & suggestion = [MWMSearch resultWithContainerIndex:containerIndex];

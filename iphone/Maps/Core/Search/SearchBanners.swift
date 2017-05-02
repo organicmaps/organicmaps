@@ -18,6 +18,9 @@ final class SearchBanners: NSObject {
     case .mopub:
       type = .mopub
       prefferedPosition = 2
+    case .facebook:
+      type = .facebook
+      prefferedPosition = 2
     default:
       assert(false, "Unsupported banner type")
       type = .regular
