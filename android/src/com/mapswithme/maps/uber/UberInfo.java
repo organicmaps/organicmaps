@@ -3,9 +3,10 @@ package com.mapswithme.maps.uber;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class UberInfo implements Parcelable
 {
@@ -25,20 +26,22 @@ public class UberInfo implements Parcelable
   };
 
   @NonNull
-  private final Product[] mProducts;
+  private final List<Product> mProducts;
 
   private UberInfo(@NonNull Product[] products)
   {
-    mProducts = products;
+    mProducts = new ArrayList<>(Arrays.asList(products));
   }
 
   private UberInfo(@NonNull Parcel parcel)
   {
-    mProducts = (Product[]) parcel.readParcelableArray(Product.class.getClassLoader());
+    List<Product> products = new ArrayList<>();
+    parcel.readTypedList(products, Product.CREATOR);
+    mProducts = products;
   }
 
   @NonNull
-  public Product[] getProducts()
+  public List<Product> getProducts()
   {
     return mProducts;
   }
@@ -47,7 +50,7 @@ public class UberInfo implements Parcelable
   public String toString()
   {
     return "UberInfo{" +
-           "mProducts=" + Arrays.toString(mProducts) +
+           "mProducts=" + mProducts +
            '}';
   }
 
@@ -60,7 +63,7 @@ public class UberInfo implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeParcelableArray(mProducts, 0);
+    dest.writeTypedList(mProducts);
   }
 
   public static class Product implements Parcelable

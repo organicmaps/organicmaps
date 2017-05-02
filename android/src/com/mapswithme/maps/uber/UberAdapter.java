@@ -11,14 +11,16 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 
+import java.util.List;
+
 public class UberAdapter extends PagerAdapter
 {
   @NonNull
   private final Context mContext;
   @NonNull
-  private final UberInfo.Product[] mProducts;
+  private final List<UberInfo.Product> mProducts;
 
-  public UberAdapter(@NonNull Context context, @NonNull UberInfo.Product[] products)
+  public UberAdapter(@NonNull Context context, @NonNull List<UberInfo.Product> products)
   {
     mContext = context;
     mProducts = products;
@@ -27,7 +29,7 @@ public class UberAdapter extends PagerAdapter
   @Override
   public int getCount()
   {
-    return mProducts.length;
+    return mProducts.size();
   }
 
   @Override
@@ -39,7 +41,7 @@ public class UberAdapter extends PagerAdapter
   @Override
   public Object instantiateItem(ViewGroup container, int position)
   {
-    UberInfo.Product product = mProducts[position];
+    UberInfo.Product product = mProducts.get(position);
 
     View v = LayoutInflater.from(mContext).inflate(R.layout.uber_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
