@@ -123,7 +123,9 @@ bool Sample::operator<(Sample const & rhs) const
     return m_posAvailable < rhs.m_posAvailable;
   if (m_viewport != rhs.m_viewport)
     return LessRect(m_viewport, rhs.m_viewport);
-  return Less(m_results, rhs.m_results);
+  if (!Equal(m_results, rhs.m_results))
+    return Less(m_results, rhs.m_results);
+  return Less(m_relatedQueries, rhs.m_relatedQueries);
 }
 
 bool Sample::operator==(Sample const & rhs) const { return !(*this < rhs) && !(rhs < *this); }
@@ -171,6 +173,7 @@ void Sample::DeserializeFromJSONImpl(json_t * root)
 
   FromJSONObject(root, "viewport", m_viewport);
   FromJSONObjectOptional(root, "results", m_results);
+  FromJSONObjectOptional(root, "related_queries", m_relatedQueries);
 }
 
 void Sample::SerializeToJSONImpl(json_t & root) const
@@ -180,6 +183,7 @@ void Sample::SerializeToJSONImpl(json_t & root) const
   ToJSONObject(root, "position", m_pos);
   ToJSONObject(root, "viewport", m_viewport);
   ToJSONObject(root, "results", m_results);
+  ToJSONObject(root, "related_queries", m_relatedQueries);
 }
 
 void Sample::FillSearchParams(search::SearchParams & params) const

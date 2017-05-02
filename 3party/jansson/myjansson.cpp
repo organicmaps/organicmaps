@@ -171,6 +171,15 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, string & r
 
 namespace strings
 {
+void FromJSON(json_t * root, UniString & result)
+{
+  string s;
+  FromJSON(root, s);
+  result = MakeUniString(s);
+}
+
+my::JSONPtr ToJSON(UniString const & s) { return ::ToJSON(ToUtf8(s)); }
+
 void FromJSONObject(json_t * root, string const & field, UniString & result)
 {
   string s;

@@ -9,6 +9,7 @@
 
 class Framework;
 class QLabel;
+class QListWidget;
 class QPushButton;
 class ResultsView;
 class Spinner;
@@ -51,10 +52,17 @@ private:
 
   QLabel * m_query = nullptr;
   QLabel * m_langs = nullptr;
+
+  QListWidget * m_relatedQueries = nullptr;
+  QWidget * m_relatedQueriesBox = nullptr;
+
   QPushButton * m_showViewport = nullptr;
   QPushButton * m_showPosition = nullptr;
   ResultsView * m_foundResults = nullptr;
+  QWidget * m_foundResultsBox = nullptr;
+
   ResultsView * m_nonFoundResults = nullptr;
+  QWidget * m_nonFoundResultsBox = nullptr;
 
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;
