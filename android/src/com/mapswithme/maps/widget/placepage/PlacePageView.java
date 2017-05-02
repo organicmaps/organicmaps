@@ -154,13 +154,11 @@ public class PlacePageView extends RelativeLayout
   private TextView mTvEntrance;
   private View mTaxi;
   private View mEditPlace;
-  private View mEditPlaceDivider;
   private View mAddOrganisation;
-  private View mAddOrganisationDivider;
   private View mAddPlace;
-  private View mAddPlaceDivider;
   private View mLocalAd;
   private TextView mTvLocalAd;
+  private View mEditTopSpace;
   // Bookmark
   private View mBookmarkFrame;
   private WebView mWvBookmarkNote;
@@ -366,16 +364,14 @@ public class PlacePageView extends RelativeLayout
     orderTaxi.setOnClickListener(this);
     mEditPlace = mDetails.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
-    mEditPlaceDivider = mDetails.findViewById(R.id.editor_divider);
     mAddOrganisation = mDetails.findViewById(R.id.ll__add_organisation);
     mAddOrganisation.setOnClickListener(this);
-    mAddOrganisationDivider = mDetails.findViewById(R.id.add_business_divider);
     mAddPlace = mDetails.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
-    mAddPlaceDivider = mDetails.findViewById(R.id.add_divider);
     mLocalAd = mDetails.findViewById(R.id.ll__local_ad);
     mLocalAd.setOnClickListener(this);
     mTvLocalAd = (TextView) mLocalAd.findViewById(R.id.tv__local_ad);
+    mEditTopSpace = mDetails.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -1253,14 +1249,16 @@ public class PlacePageView extends RelativeLayout
 
     if (inRouting || MapManager.nativeIsLegacyMode())
     {
-      UiUtils.hide(mEditPlace, mEditPlaceDivider, mAddOrganisation, mAddOrganisationDivider,
-                   mAddPlace, mAddPlaceDivider, mLocalAd);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd, mEditTopSpace);
     }
     else
     {
-      UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace, mEditPlaceDivider);
-      UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation, mAddOrganisationDivider);
-      UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace, mAddPlaceDivider);
+      UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
+      UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
+      UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      UiUtils.showIf(UiUtils.isVisible(mEditPlace)
+                     || UiUtils.isVisible(mAddOrganisation)
+                     || UiUtils.isVisible(mAddPlace), mEditTopSpace);
       refreshLocalAdInfo(mapObject);
     }
   }
