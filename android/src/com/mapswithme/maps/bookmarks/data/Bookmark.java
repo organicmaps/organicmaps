@@ -24,7 +24,7 @@ public class Bookmark extends MapObject
   @Nullable
   private final String mObjectTitle;
 
-  Bookmark(@NonNull String mwmName, long mwmVersion, @NonNull String featureId,
+  Bookmark(@NonNull String mwmName, long mwmVersion, int featureId,
            @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
            @Nullable String secondaryTitle, @Nullable String objectTitle, @Nullable Banner[] banners,
            boolean reachableByTaxi, @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)

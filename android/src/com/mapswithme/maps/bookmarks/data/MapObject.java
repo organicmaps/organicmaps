@@ -33,8 +33,7 @@ public class MapObject implements Parcelable
   @NonNull
   private final String mMwmName;
   private final long mMwmVersion;
-  @NonNull
-  private final String mFeatureId;
+  private final int mFeatureId;
   @MapObjectType
   private final int mMapObjectType;
 
@@ -55,7 +54,7 @@ public class MapObject implements Parcelable
   @Nullable
   private LocalAdInfo mLocalAdInfo;
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, @NonNull String featureId,
+  public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, String apiId,
                    @Nullable Banner[] banners, boolean reachableByTaxi,
@@ -65,7 +64,7 @@ public class MapObject implements Parcelable
          lat, lon, new Metadata(), apiId, banners, reachableByTaxi, bookingSearchUrl, localAdInfo);
   }
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, @NonNull String featureId,
+  public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, boolean reachableByTaxi,
@@ -95,7 +94,7 @@ public class MapObject implements Parcelable
     //noinspection ResourceType
     this(source.readString(), // MwmName
          source.readLong(),   // MwmVersion
-         source.readString(), // FeatureId
+         source.readInt(),    // FeatureId
          source.readInt(),    // MapObjectType
          source.readString(), // Title
          source.readString(), // SecondaryTitle
@@ -260,8 +259,7 @@ public class MapObject implements Parcelable
     return mMwmVersion;
   }
 
-  @NonNull
-  public String getFeatureId()
+  public int getFeatureId()
   {
     return mFeatureId;
   }
@@ -286,7 +284,7 @@ public class MapObject implements Parcelable
   {
     dest.writeString(mMwmName);
     dest.writeLong(mMwmVersion);
-    dest.writeString(mFeatureId);
+    dest.writeInt(mFeatureId);
     dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
     dest.writeString(mTitle);

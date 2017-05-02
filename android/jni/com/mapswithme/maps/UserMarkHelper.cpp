@@ -36,26 +36,25 @@ jobject CreateBanner(JNIEnv * env, std::string const & id, jint type)
 }
 
 jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion,
-                        string const & featureId, int mapObjectType, string const & title,
+                        uint32_t featureId, int mapObjectType, string const & title,
                         string const & secondaryTitle, string const & subtitle, double lat,
                         double lon, string const & address, Metadata const & metadata,
                         string const & apiId, jobjectArray jbanners, bool isReachableByTaxi,
                         string const & bookingSearchUrl, jobject const & localAdInfo)
 {
-  // public MapObject(@NonNull String mwmName, long mwmVersion, @NonNull String featureId,
+  // public MapObject(@NonNull String mwmName, long mwmVersion, int featureId,
   //                  @MapObjectType int mapObjectType, String title, String secondaryTitle,
   //                  String subtitle, double lat, double lon, String address, String apiId,
   //                  @NonNull Banner banner, boolean reachableByTaxi,
   //                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
   static jmethodID const ctorId =
       jni::GetConstructorID(env, g_mapObjectClazz,
-                            "(Ljava/lang/String;JLjava/lang/String;ILjava/lang/String;Ljava/lang/"
+                            "(Ljava/lang/String;JIILjava/lang/String;Ljava/lang/"
                             "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
                             "String;[Lcom/mapswithme/maps/ads/Banner;ZLjava/lang/String;"
                             "Lcom/mapswithme/maps/ads/LocalAdInfo;)V");
 
   jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, mwmName));
-  jni::TScopedLocalRef jFeatureId(env, jni::ToJavaString(env, featureId));
   jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, title));
   jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, secondaryTitle));
   jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, subtitle));
@@ -63,7 +62,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
   jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
   jobject mapObject = env->NewObject(
-      g_mapObjectClazz, ctorId, jMwmName.get(), (jlong)mwmVersion, jFeatureId.get(), mapObjectType,
+      g_mapObjectClazz, ctorId, jMwmName.get(), (jlong)mwmVersion, (jint)featureId, mapObjectType,
       jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
       jbanners, isReachableByTaxi, jBookingSearchUrl.get(), localAdInfo);
 
@@ -81,12 +80,12 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   if (info.IsBookmark())
   {
-    // public Bookmark(@NonNull String mwmName, long mwmVersion, @NonNull String featureId,
+    // public Bookmark(@NonNull String mwmName, long mwmVersion, int featureId,
     // @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
     // String name, @Nullable String objectTitle, @NonNull Banner banner, boolean reachableByTaxi)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
-                              "(Ljava/lang/String;JLjava/lang/String;IILjava/lang/String;Ljava/"
+                              "(Ljava/lang/String;JIIILjava/lang/String;Ljava/"
                               "lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;ZLjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;)V");
@@ -97,14 +96,13 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
 
     jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
-    jni::TScopedLocalRef jFeatureId(env, jni::ToJavaString(env, DebugPrint(info.GetID())));
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
     jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
     jobject mapObject =
         env->NewObject(g_bookmarkClazz, ctorId, jMwmName.get(), info.GetID().GetMwmVersion(),
-                       jFeatureId.get(), static_cast<jint>(info.m_bac.m_categoryIndex),
+                       info.GetID().m_index, static_cast<jint>(info.m_bac.m_categoryIndex),
                        static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
                        jSecondaryTitle.get(), jbanners.get(), info.IsReachableByTaxi(),
                        jBookingSearchUrl.get(), localAdInfo.get());
@@ -121,20 +119,20 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
     return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
-                           DebugPrint(info.GetID()), kMyPosition, info.GetTitle(),
+                           info.GetID().m_index, kMyPosition, info.GetTitle(),
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), {}, "", jbanners.get(),
                            info.IsReachableByTaxi(), info.GetBookingSearchUrl(), localAdInfo.get());
 
   if (info.HasApiUrl())
     return CreateMapObject(
-        env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), DebugPrint(info.GetID()),
+        env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index,
         kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
         address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(),
         info.IsReachableByTaxi(), info.GetBookingSearchUrl(), localAdInfo.get());
 
   return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
-                         DebugPrint(info.GetID()), kPoi, info.GetTitle(), info.GetSecondaryTitle(),
+                         info.GetID().m_index, kPoi, info.GetTitle(), info.GetSecondaryTitle(),
                          info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
                          info.IsReachableByTaxi(), info.GetBookingSearchUrl(), localAdInfo.get());

@@ -1440,10 +1440,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(new MapObject("", 0L, "", MapObject.API_POINT, from.mName,
+        RoutingController.get().prepare(new MapObject("", 0L, 0, MapObject.API_POINT, from.mName,
                                                       "", "", "", from.mLat, from.mLon, "", null,
                                                       false, "", null),
-                                        new MapObject("", 0L, "", MapObject.API_POINT, to.mName, "",
+                                        new MapObject("", 0L, 0, MapObject.API_POINT, to.mName, "",
                                                       "", "", to.mLat, to.mLon, "", null, false, "",
                                                       null));
         return true;
