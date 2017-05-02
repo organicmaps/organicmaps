@@ -200,7 +200,8 @@ UNIT_TEST(FindPathCross)
       uint32_t expectedLength = 0;
       if (start.GetFeatureId() == finish.GetFeatureId())
       {
-        expectedLength = AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting()) + 1;
+        expectedLength =
+            AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting()) + 1;
       }
       else
       {
@@ -285,7 +286,8 @@ UNIT_TEST(FindPathManhattan)
 
       if (start.GetFeatureId() < kCitySize == finish.GetFeatureId() < kCitySize)
       {
-        uint32_t segDelta = AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting());
+        uint32_t segDelta =
+            AbsDelta(start.GetSegmentIdxForTesting(), finish.GetSegmentIdxForTesting());
         if (segDelta == 0 && start.GetFeatureId() != finish.GetFeatureId())
           segDelta = 1;
         expectedLength += segDelta;
