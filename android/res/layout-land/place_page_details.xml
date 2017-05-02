@@ -107,11 +107,9 @@
 
       <include layout="@layout/place_page_add"/>
 
-      <include
-        layout="@layout/divider_horizontal"
+      <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_base"/>
+        android:layout_height="@dimen/margin_base"/>
 
     </LinearLayout>
 

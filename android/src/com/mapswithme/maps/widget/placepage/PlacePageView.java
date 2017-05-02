@@ -387,7 +387,7 @@ public class PlacePageView extends RelativeLayout
     mTvBookmarkNote = (TextView) mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
 
-    ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
+    ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons).findViewById(R.id.container);
 
     mHeightCompensationView = findViewById(R.id.pp__height_compensation);
 
