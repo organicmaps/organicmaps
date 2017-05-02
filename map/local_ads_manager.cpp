@@ -138,8 +138,10 @@ std::vector<uint8_t> SerializeLocalAdsToJSON(std::list<local_ads::Event> const &
   std::unique_ptr<char, JSONFreeDeleter> buffer(
       json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   std::vector<uint8_t> result;
-  coding::ZLib::Deflate(buffer.get(), strlen(buffer.get()), coding::ZLib::Level::BestCompression,
-                        std::back_inserter(result));
+
+  using Deflate = coding::ZLib::Deflate;
+  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
+  deflate(buffer.get(), strlen(buffer.get()), std::back_inserter(result));
   return result;
 }
 #endif
