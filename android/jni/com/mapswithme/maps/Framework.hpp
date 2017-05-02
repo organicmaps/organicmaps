@@ -12,6 +12,8 @@
 #include "drape/pointers.hpp"
 #include "drape/oglcontextfactory.hpp"
 
+#include "local_ads/event.hpp"
+
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
 
@@ -182,6 +184,8 @@ namespace android
     static uber::RideRequestLinks GetUberLinks(std::string const & productId, ms::LatLon const & from, ms::LatLon const & to);
 
     int ToDoAfterUpdate() const;
+
+    void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
   };
 }
 

@@ -54,6 +54,16 @@ public class Framework
   public static final int DO_AFTER_UPDATE_ASK_FOR_UPDATE = 2;
   public static final int DO_AFTER_UPDATE_MIGRATE = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({LOCAL_ADS_EVENT_SHOW_POINT, LOCAL_ADS_EVENT_OPEN_INFO, LOCAL_ADS_EVENT_CLICKED_PHONE,
+           LOCAL_ADS_EVENT_CLICKED_WEBSITE})
+  public @interface LocalAdsEventType {}
+
+  public static final int LOCAL_ADS_EVENT_SHOW_POINT = 0;
+  public static final int LOCAL_ADS_EVENT_OPEN_INFO = 1;
+  public static final int LOCAL_ADS_EVENT_CLICKED_PHONE = 2;
+  public static final int LOCAL_ADS_EVENT_CLICKED_WEBSITE = 3;
+
   @SuppressWarnings("unused")
   public interface MapObjectListener
   {
@@ -295,4 +305,7 @@ public class Framework
 
   // Navigation.
   public static native boolean nativeIsRouteFinished();
+
+  public static native void nativeLogLocalAdsEvent(@LocalAdsEventType int eventType,
+                                                   double lat, double lon, float accuracy);
 }
