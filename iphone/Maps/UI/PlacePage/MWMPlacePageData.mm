@@ -481,7 +481,6 @@ using namespace place_page;
 - (NSString *)bookmarkColor
 {
   return m_info.IsBookmark() ? @(m_info.m_bookmarkColorName.c_str()) : nil;
-  ;
 }
 
 - (NSString *)bookmarkDescription
@@ -492,7 +491,6 @@ using namespace place_page;
 - (NSString *)bookmarkCategory
 {
   return m_info.IsBookmark() ? @(m_info.m_bookmarkCategoryName.c_str()) : nil;
-  ;
 }
 
 - (BookmarkAndCategory)bac;
