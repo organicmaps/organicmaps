@@ -64,39 +64,6 @@ bool CheckMwmVersion(vector<pair<Edge, Junction>> const & vicinities, vector<str
   return !mwmNames.empty();
 }
 
-// Checks is edge connected with world graph.
-// Function does BFS while it finds some number of edges, if graph ends
-// before this number is reached then junction is assumed as not connected to the world graph.
-bool CheckGraphConnectivity(IRoadGraph const & graph, Junction const & junction, size_t limit)
-{
-  queue<Junction> q;
-  q.push(junction);
-
-  set<Junction> visited;
-  visited.insert(junction);
-
-  vector<Edge> edges;
-  while (!q.empty() && visited.size() < limit)
-  {
-    Junction const u = q.front();
-    q.pop();
-
-    edges.clear();
-    graph.GetOutgoingEdges(u, edges);
-    for (Edge const & edge : edges)
-    {
-      Junction const & v = edge.GetEndJunction();
-      if (visited.count(v) == 0)
-      {
-        q.push(v);
-        visited.insert(v);
-      }
-    }
-  }
-
-  return visited.size() >= limit;
-}
-
 // Find closest candidates in the world graph
 void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
                       vector<pair<Edge, Junction>> & vicinity)
@@ -114,7 +81,12 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
   for (auto const & candidate : candidates)
   {
     auto const & edge = candidate.first;
-    if (CheckGraphConnectivity(graph, edge.GetEndJunction(), kTestConnectivityVisitJunctionsLimit))
+    auto const getVertexByEdgeFn = [](Edge const & edge) { return edge.GetEndJunction(); };
+    auto const getOutgoingEdgesFn = [](IRoadGraph const & graph, Junction const & u,
+                                       vector<Edge> & edges) { graph.GetOutgoingEdges(u, edges); };
+
+    if (CheckGraphConnectivity(edge.GetEndJunction(), kTestConnectivityVisitJunctionsLimit,
+                               graph, getVertexByEdgeFn, getOutgoingEdgesFn))
     {
       vicinity.emplace_back(candidate);
 

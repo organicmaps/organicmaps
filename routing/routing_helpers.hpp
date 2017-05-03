@@ -13,6 +13,8 @@
 
 #include "base/cancellable.hpp"
 
+#include "std/queue.hpp"
+#include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -30,4 +32,40 @@ bool IsRoad(TTypes const & types)
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, vector<Junction> & path, Route & route);
+
+/// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
+/// of edges,
+/// if graph ends before this number is reached then junction is assumed as not connected to the
+/// world graph.
+template <typename Graph, typename GetVertexByEdgeFn, typename GetOutgoingEdgesFn>
+bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, Graph & graph,
+                            GetVertexByEdgeFn && getVertexByEdgeFn, GetOutgoingEdgesFn && getOutgoingEdgesFn)
+{
+  queue<typename Graph::Vertex> q;
+  q.push(start);
+
+  set<typename Graph::Vertex> marked;
+  marked.insert(start);
+
+  vector<typename Graph::Edge> edges;
+  while (!q.empty() && marked.size() < limit)
+  {
+    auto const u = q.front();
+    q.pop();
+
+    edges.clear();
+    getOutgoingEdgesFn(graph, u, edges);
+    for (auto const & edge : edges)
+    {
+      auto const & v = getVertexByEdgeFn(edge);
+      if (marked.count(v) == 0)
+      {
+        q.push(v);
+        marked.insert(v);
+      }
+    }
+  }
+
+  return marked.size() >= limit;
+}
 }  // namespace rouing

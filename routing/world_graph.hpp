@@ -17,6 +17,10 @@ namespace routing
 class WorldGraph final
 {
 public:
+  // CheckGraphConnectivity() types aliases:
+  using Vertex = Segment;
+  using Edge = SegmentEdge;
+
   enum class Mode
   {
     SingleMwm,  // Mode for building a route within single mwm.

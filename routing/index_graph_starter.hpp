@@ -17,8 +17,8 @@ class IndexGraphStarter final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = Segment;
-  using TEdgeType = SegmentEdge;
+  using TVertexType = WorldGraph::Vertex;
+  using TEdgeType = WorldGraph::Edge;
 
   class FakeVertex final
   {
@@ -35,14 +35,23 @@ public:
 
     NumMwmId GetMwmId() const { return m_segment.GetMwmId(); }
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
-    uint32_t GetSegmentIdx() const { return m_segment.GetSegmentIdx(); }
-    Segment const & GetSegment() const { return m_segment; }
     m2::PointD const & GetPoint() const { return m_point; }
+
+    Segment GetSegmentWithDirection(bool forward) const
+    {
+      return Segment(m_segment.GetMwmId(), m_segment.GetFeatureId(), m_segment.GetSegmentIdx(),
+                     forward);
+    }
+
     bool Fits(Segment const & segment) const
     {
-      return segment.GetMwmId() == GetMwmId() && segment.GetFeatureId() == GetFeatureId() &&
-             segment.GetSegmentIdx() == GetSegmentIdx();
+      // Note. Comparing |segment| and |m_segment| without field |Segment::m_forward|.
+      return segment.GetMwmId() == m_segment.GetMwmId() &&
+             segment.GetFeatureId() == m_segment.GetFeatureId() &&
+             segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
     }
+
+    uint32_t GetSegmentIdxForTesting() const { return m_segment.GetSegmentIdx(); }
 
   private:
     Segment m_segment;
