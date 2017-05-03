@@ -93,17 +93,6 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
 {
   string const startCountry = m_countryFileFn(startPoint);
   string const finishCountry = m_countryFileFn(finalPoint);
-  if (!m_index.IsLoaded(platform::CountryFile(startCountry)))
-  {
-    route.AddAbsentCountry(startCountry);
-    return IRouter::NeedMoreMaps;
-  }
-
-  if (!m_index.IsLoaded(platform::CountryFile(finishCountry)))
-  {
-    route.AddAbsentCountry(finishCountry);
-    return IRouter::NeedMoreMaps;
-  }
 
   return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
                         startDirection, finalPoint, delegate, route);
@@ -154,6 +143,15 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
                                  m_index, m_indexManager),
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
+
+  bool const isStartMwmLoaded = m_index.IsLoaded(startFile);
+  bool const isFinishMwmLoaded = m_index.IsLoaded(finishFile);
+  if (!isStartMwmLoaded)
+    route.AddAbsentCountry(startCountry);
+  if (!isFinishMwmLoaded)
+    route.AddAbsentCountry(finishCountry);
+  if (!isStartMwmLoaded || !isFinishMwmLoaded)
+    return IRouter::NeedMoreMaps;
 
   Edge startEdge;
   if (!FindClosestEdge(startFile, startPoint, true /* isOutgoing */, graph, startEdge))
