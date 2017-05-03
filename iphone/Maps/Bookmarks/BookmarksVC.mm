@@ -411,8 +411,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   NSError * err = nil;
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
   NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath options:NSDataReadingMappedAlways error:&err];
-  if (error)
-    return;
+  if (err) return;
 
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
