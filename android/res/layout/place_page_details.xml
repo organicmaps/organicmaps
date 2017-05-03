@@ -11,14 +11,20 @@
     android:background="?windowBackgroundForced"
     android:orientation="vertical">
 
+    <include
+      layout="@layout/divider_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="@dimen/margin_half"/>
+
+    <include
+      layout="@layout/divider_horizontal"/>
+
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="?ppBackground"
       android:orientation="vertical">
-
-      <include
-        layout="@layout/divider_horizontal"/>
 
       <include
         layout="@layout/place_page_bookmark_details"
@@ -61,12 +67,19 @@
 
       <include layout="@layout/divider_horizontal"/>
 
-      <include layout="@layout/place_page_taxi"/>
-
       <include layout="@layout/place_page_more"/>
 
       <include layout="@layout/place_page_local_ad"/>
     </LinearLayout>
+
+    <include
+      android:id="@+id/place_page_taxi_divider"
+      layout="@layout/divider_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="@dimen/margin_half"/>
+
+    <include layout="@layout/place_page_taxi"/>
 
     <FrameLayout
       android:layout_width="match_parent"

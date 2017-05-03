@@ -6,7 +6,8 @@
   style="@style/PlacePageItemFrame"
   android:paddingTop="@dimen/placepage_taxi_padding_vert"
   android:paddingBottom="@dimen/placepage_taxi_padding_vert"
-  android:clickable="false">
+  android:clickable="false"
+  android:background="?ppBackground">
 
   <ImageView
     android:id="@+id/iv__place_page_taxi"

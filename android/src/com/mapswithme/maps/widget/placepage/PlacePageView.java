@@ -152,6 +152,7 @@ public class PlacePageView extends RelativeLayout
   private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
+  private View mTaxiDivider;
   private View mTaxi;
   private View mEditPlace;
   private View mAddOrganisation;
@@ -359,6 +360,7 @@ public class PlacePageView extends RelativeLayout
     mWiki.setOnClickListener(this);
     mEntrance = mDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
+    mTaxiDivider = mDetails.findViewById(R.id.place_page_taxi_divider);
     mTaxi = mDetails.findViewById(R.id.ll__place_page_taxi);
     TextView orderTaxi = (TextView) mTaxi.findViewById(R.id.tv__place_page_order_taxi);
     orderTaxi.setOnClickListener(this);
@@ -1236,7 +1238,7 @@ public class PlacePageView extends RelativeLayout
                             LocationHelper.INSTANCE.getMyPosition() != null &&
                             ConnectionState.isConnected();
 
-    UiUtils.showIf(showTaxiOffer, mTaxi);
+    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiDivider);
 
     boolean inRouting = RoutingController.get().isNavigating() ||
                         RoutingController.get().isPlanning();
