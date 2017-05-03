@@ -30,7 +30,9 @@
 
 - (void)onSaveClicked
 {
-  [self onDone:self.cell.textField.text];
+  auto text = self.cell.textField.text;
+  auto data = [text dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+  [self onDone:[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]];
 }
 
 - (void)onDone:(NSString *)text
