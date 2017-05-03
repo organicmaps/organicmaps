@@ -1094,6 +1094,7 @@
 	<string name="search_hotel_filter_guest_house">Гостевой дом</string>
 	<string name="search_hotel_filter_hostel">Хостел</string>
 	<string name="search_hotel_filter_resort">Дом отдыха</string>
+	<string name="search_hotel_filter_hotel">Гостиница</string>
 	<string name="search_hotel_filter_motel">Мотель</string>
 	<string name="search_hotel_filters_type">Тип</string>
 </resources>

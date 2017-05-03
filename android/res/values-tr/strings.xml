@@ -1078,4 +1078,5 @@
 	<string name="search_hotel_filter_guest_house">Misafir evi</string>
 	<string name="search_hotel_filter_hostel">Pansiyon</string>
 	<string name="search_hotel_filter_resort">Tatil köyü</string>
+	<string name="search_hotel_filter_hotel">Otel</string>
 </resources>

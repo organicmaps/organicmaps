@@ -1087,4 +1087,5 @@
 	<string name="search_hotel_filter_guest_house">Maison d\&#39;hôtes</string>
 	<string name="search_hotel_filter_hostel">Auberge de jeunesse</string>
 	<string name="search_hotel_filter_resort">Complexe touristique</string>
+	<string name="search_hotel_filter_hotel">Hôtel</string>
 </resources>

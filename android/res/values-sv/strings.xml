@@ -1076,4 +1076,5 @@
 	<string name="search_hotel_filter_guest_house">Gästhus|vandrarhem</string>
 	<string name="search_hotel_filter_hostel">Vandrarhem</string>
 	<string name="search_hotel_filter_resort">Resorter</string>
+	<string name="search_hotel_filter_hotel">Hotell</string>
 </resources>

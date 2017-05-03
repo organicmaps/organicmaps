@@ -1873,6 +1873,8 @@
 
 "search_hotel_filter_resort" = "Khu nghỉ dưỡng";
 
+"search_hotel_filter_hotel" = "Khách sạn";
+
 "search_hotel_filter_motel" = "Motel";
 
 "create_campaign_button" = "Create ad campaign";

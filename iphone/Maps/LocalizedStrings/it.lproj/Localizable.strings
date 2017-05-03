@@ -1873,6 +1873,8 @@
 
 "search_hotel_filter_resort" = "Resort";
 
+"search_hotel_filter_hotel" = "Hôtel";
+
 "search_hotel_filter_motel" = "Motel";
 
 "create_campaign_button" = "Create ad campaign";

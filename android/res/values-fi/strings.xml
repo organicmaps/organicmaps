@@ -1072,4 +1072,5 @@
 	<string name="search_hotel_filter_guest_house">Majatalo</string>
 	<string name="search_hotel_filter_hostel">Hostelli</string>
 	<string name="search_hotel_filter_resort">Lomakohteet</string>
+	<string name="search_hotel_filter_hotel">Hotelli</string>
 </resources>

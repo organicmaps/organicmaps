@@ -1078,4 +1078,5 @@
 	<string name="search_hotel_filter_guest_house">เกสท์เฮ้าส์</string>
 	<string name="search_hotel_filter_hostel">หอพัก</string>
 	<string name="search_hotel_filter_resort">รีสอร์ต</string>
+	<string name="search_hotel_filter_hotel">โรงแรม</string>
 </resources>

@@ -838,4 +838,5 @@
 	<string name="search_hotel_filter_guest_house">Ξενώνας</string>
 	<string name="search_hotel_filter_hostel">Πανδοχείο</string>
 	<string name="search_hotel_filter_resort">Θέρετρο</string>
+	<string name="search_hotel_filter_hotel">Ξενοδοχείο</string>
 </resources>

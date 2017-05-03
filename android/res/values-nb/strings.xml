@@ -1070,4 +1070,5 @@
 	<string name="search_hotel_filter_guest_house">Gjestehus</string>
 	<string name="search_hotel_filter_hostel">Vandrerhjem</string>
 	<string name="search_hotel_filter_resort">Ferieresort</string>
+	<string name="search_hotel_filter_hotel">Hotell</string>
 </resources>

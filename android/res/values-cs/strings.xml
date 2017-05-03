@@ -1079,4 +1079,5 @@
 	<string name="search_hotel_filter_guest_house">Penzion</string>
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Letovisko</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
 </resources>

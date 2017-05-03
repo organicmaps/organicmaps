@@ -1088,4 +1088,5 @@
 	<string name="search_hotel_filter_guest_house">Gästehaus</string>
 	<string name="search_hotel_filter_hostel">Herberge</string>
 	<string name="search_hotel_filter_resort">Resort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
 </resources>

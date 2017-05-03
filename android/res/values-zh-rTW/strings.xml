@@ -1084,4 +1084,5 @@
 	<string name="search_hotel_filter_guest_house">賓館</string>
 	<string name="search_hotel_filter_hostel">旅舍</string>
 	<string name="search_hotel_filter_resort">度假酒店</string>
+	<string name="search_hotel_filter_hotel">飯店</string>
 </resources>

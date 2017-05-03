@@ -1068,4 +1068,5 @@
 	<string name="search_hotel_filter_guest_house">영빈관|호스텔</string>
 	<string name="search_hotel_filter_hostel">호스텔</string>
 	<string name="search_hotel_filter_resort">리조트</string>
+	<string name="search_hotel_filter_hotel">호텔</string>
 </resources>

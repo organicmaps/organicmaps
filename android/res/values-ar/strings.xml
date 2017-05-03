@@ -1078,4 +1078,5 @@
 	<string name="search_hotel_filter_guest_house">دار الضيافة</string>
 	<string name="search_hotel_filter_hostel">نزُل</string>
 	<string name="search_hotel_filter_resort">منتج</string>
+	<string name="search_hotel_filter_hotel">الفندق</string>
 </resources>

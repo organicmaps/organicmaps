@@ -1075,4 +1075,5 @@
 	<string name="search_hotel_filter_guest_house">Penzión</string>
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Rezort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
 </resources>
