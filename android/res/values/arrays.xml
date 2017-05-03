@@ -35,12 +35,12 @@
 
   <string-array name="news_titles">
     <item>@string/whatsnew_driving_style_title</item>
-    <item>@string/whatsnew_driving_style_title</item>
+    <item>@string/whatsnew_transliteration_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
     <item>@string/whatsnew_driving_style_message</item>
-    <item>@string/whatsnew_driving_style_message</item>
+    <item>@string/whatsnew_transliteration_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
