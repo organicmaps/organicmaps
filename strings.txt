@@ -22996,6 +22996,12 @@
     el = Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.
     sk = Režim navigácie v aute sa zjednodušil.
 
+  [whatsnew_transliteration_title]
+    en = Transliteration
+
+  [whatsnew_transliteration_message]
+    en = Transliteration message
+
   [more_on_bookingcom]
     en = More on Booking.com
     ru = Больше на Booking.com
