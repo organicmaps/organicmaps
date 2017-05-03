@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -291,10 +292,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
         // Save object edits
         if (!MwmApplication.prefs().contains(NOOB_ALERT_SHOWN))
+        {
           showNoobDialog();
+        }
         else
+        {
+          saveNote();
           saveMapObjectEdits();
-
+        }
         break;
       }
     }
@@ -328,6 +333,15 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     }
   }
 
+  private void saveNote()
+  {
+    String tag = EditorFragment.class.getName();
+    EditorFragment fragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(tag);
+    String note = fragment.getDescription();
+    if (!TextUtils.isEmpty(note))
+      Editor.nativeCreateNote(note);
+  }
+
   private void showMistakeDialog(@StringRes int resId)
   {
     new AlertDialog.Builder(getActivity())
@@ -350,11 +364,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           MwmApplication.prefs().edit()
                         .putBoolean(NOOB_ALERT_SHOWN, true)
                         .apply();
-          // Save note
-          final String note = ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).getDescription();
-          if (note.length() != 0)
-            Editor.nativeCreateNote(note);
-          // Save edits
+          saveNote();
           saveMapObjectEdits();
         }
       })
