@@ -23358,6 +23358,37 @@
     el = Θέρετρο
     sk = Rezort
 
+  [search_hotel_filter_hotel]
+    en = Hotel
+    ru = Гостиница
+    ar = الفندق
+    cs = Hotel
+    da = Hotel
+    nl = Hotel
+    fi = Hotelli
+    fr = Hôtel
+    de = Hotel
+    hu = Szálloda
+    id = Hotel
+    it = Hôtel
+    ja = ホテル
+    ko = 호텔
+    nb = Hotell
+    pl = Hotel
+    pt = Hotel
+    ro = Hotel
+    es = Hotel
+    sv = Hotell
+    th = โรงแรม
+    tr = Otel
+    uk = Готель
+    vi = Khách sạn
+    zh-Hans = 旅店
+    zh-Hant = 飯店
+    el = Ξενοδοχείο
+    he = מלון
+    sk = Hotel
+
   [search_hotel_filter_motel]
     en = Motel
     ru = Мотель
