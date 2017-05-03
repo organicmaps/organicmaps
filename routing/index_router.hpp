@@ -70,7 +70,7 @@ private:
                                        m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
 
-  /// \brief Finds closest edges which may be considered as start of finish of the route.
+  /// \brief Finds closest edges which may be considered as start or finish of the route.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
   bool FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
