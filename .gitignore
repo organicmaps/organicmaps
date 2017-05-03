@@ -18,6 +18,7 @@ data/*.mwmmeta
 data/[!W]*.mwm
 data/local_ads*.dat
 data/local_ads_*/*.*
+data/shaders_compiler/*
 
 # Compiled Python
 *.pyc
