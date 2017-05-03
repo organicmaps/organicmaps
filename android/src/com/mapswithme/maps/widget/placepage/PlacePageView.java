@@ -1212,13 +1212,7 @@ public class PlacePageView extends RelativeLayout
       final String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mapObject.getMetadata(Metadata.MetadataType.FMD_URL)
                                                        : website, mWebsite, mTvWebsite);
-      UiUtils.hide(mHotelDescription);
-      UiUtils.hide(mHotelFacilities);
-      UiUtils.hide(mHotelGallery);
-      UiUtils.hide(mHotelNearby);
-      UiUtils.hide(mHotelReview);
-//    TODO: remove this after booking_api.cpp will be done
-      UiUtils.hide(mHotelMore);
+      hideHotelViews();
     }
     else
     {
@@ -1226,7 +1220,7 @@ public class PlacePageView extends RelativeLayout
       UiUtils.show(mHotelMore);
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-        UiUtils.hide(mHotelMore);
+        hideHotelViews();
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
@@ -1261,6 +1255,12 @@ public class PlacePageView extends RelativeLayout
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
       refreshLocalAdInfo(mapObject);
     }
+  }
+
+  private void hideHotelViews()
+  {
+    UiUtils.hide(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
+                 mHotelReview, mHotelMore);
   }
 
   private void refreshLocalAdInfo(@NonNull MapObject mapObject)
