@@ -93,6 +93,18 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
 {
   string const startCountry = m_countryFileFn(startPoint);
   string const finishCountry = m_countryFileFn(finalPoint);
+  if (!m_index.IsLoaded(platform::CountryFile(startCountry)))
+  {
+    route.AddAbsentCountry(startCountry);
+    return IRouter::NeedMoreMaps;
+  }
+
+  if (!m_index.IsLoaded(platform::CountryFile(finishCountry)))
+  {
+    route.AddAbsentCountry(finishCountry);
+    return IRouter::NeedMoreMaps;
+  }
+
   return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
                         startDirection, finalPoint, delegate, route);
 }
