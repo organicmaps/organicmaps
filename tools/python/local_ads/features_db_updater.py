@@ -23,37 +23,6 @@ from itertools import islice
 from zlib import adler32
 
 
-def get_args():
-    parser = argparse.ArgumentParser()
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
-        '--mapping_names',
-        nargs='+',
-        help='osm2ft files to handle.'
-    )
-    group.add_argument(
-        '--mapping_path',
-        nargs=1,
-        action=AppendOsm2FidAction,
-        dest='mapping_names',
-        help='Path to folder with .osm2ft. Each file whould be handled.'
-    )
-
-    parser.add_argument(
-        '--version',
-        required=True,
-        type=int,
-        help='The version of mwm for which a mapping is generated.'
-    )
-    parser.add_argument(
-        '--head',
-        type=int,
-        help='Write that much lines of osmid <-> fid to stdout.'
-    )
-
-    return parser.parse_args();
-
-
 def get_mapping(mapping_name):
     with open(mapping_name, 'rb') as f:
         osm2ft = mwm.read_osm2ft(f, tuples=False)
@@ -66,29 +35,71 @@ def print_mapping(mapping, count):
     for osmid, fid in islice(mapping, count):
         print('{}\t{}'.format(osmid, fid))
 
+
 def generate_id_from_name_and_version(name, version):
     return ctypes.c_long((adler32(name) << 32) | version).value
 
 
-def generate_csvs(mapping, mapping_name, version):
+def generate_csvs(mapping, mapping_name, version, output_path):
     mwm_id = generate_id_from_name_and_version(
         mapping_name,
         version
     )
 
-    with open('mwm.csv', 'wb') as f:
+    with open(os.path.join(output_path, 'mwm.csv'), 'ab') as f:
         w = csv.writer(f)
-        w.writerow(['id', 'name', 'version'])
+        # TODO(mgsergio): Either remove or make so this is will write only one header.
+        # w.writerow(['id', 'name', 'version'])
         w.writerow([
             mwm_id,
             mapping_name,
             version,
         ])
-    with open('mapping.csv', 'wb') as f:
+
+    with open(os.path.join(output_path, 'mapping.csv'), 'ab') as f:
         w = csv.writer(f)
-        w.writerow(['osmid', 'fid', 'mwm_id'])
+        # TODO(mgsergio): Either remove or make so this is will write only one header.
+        # w.writerow(['osmid', 'fid', 'mwm_id', mwm_version])
         for row in mapping:
-            w.writerow(row + (mwm_id, ))
+            w.writerow(row + (mwm_id, version))
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    src = parser.add_mutually_exclusive_group(required=True)
+    dst = parser.add_mutually_exclusive_group(required=True)
+
+    src.add_argument(
+        '--mapping_names',
+        nargs='+',
+        help='osm2ft files to handle.'
+    )
+    src.add_argument(
+        '--mapping_path',
+        nargs=1,
+        action=AppendOsm2FidAction,
+        dest='mapping_names',
+        help='Path to folder with .osm2ft. Each file whould be handled.'
+    )
+
+    dst.add_argument(
+        '--output_path',
+        help='A path to an output folder.'
+    )
+    dst.add_argument(
+        '--head',
+        type=int,
+        help='Write that much lines of osmid <-> fid to stdout.'
+    )
+
+    parser.add_argument(
+        '--version',
+        required=True,
+        type=int,
+        help='The version of mwm for which a mapping is generated.'
+    )
+
+    return parser.parse_args();
 
 
 def main():
@@ -103,10 +114,12 @@ def main():
             os.path.basename(mapping_name)
             .split('.', 1)
         )[0]
+        logging.info('Writing mapping for {}'.format(mapping_name))
         generate_csvs(
             mapping,
             mwm_name,
-            args.version
+            args.version,
+            args.output_path
         )
 
 
@@ -130,4 +143,5 @@ class AppendOsm2FidAction(argparse.Action):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     main()
