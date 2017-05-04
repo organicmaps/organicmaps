@@ -12,6 +12,12 @@ SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shaders_lib.glsl $$PWD s
 CMDRES = $$system(python $$PWD/../../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
 !isEmpty($$CMDRES):message($$CMDRES)
 
+DEL_SHADERS_COMPILERS = $$system(rm -rf $$PWD/../../data/shaders_compiler)
+!isEmpty(DEL_SHADERS_COMPILERS):message(DEL_SHADERS_COMPILERS)
+
+COPY_SHADERS_COMPILERS = $$system(cp -r $$PWD/../../tools/shaders_compiler $$PWD/../../data)
+!isEmpty(COPY_SHADERS_COMPILERS):message(COPY_SHADERS_COMPILERS)
+
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 

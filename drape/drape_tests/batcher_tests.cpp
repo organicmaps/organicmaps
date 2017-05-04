@@ -12,7 +12,6 @@
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
-#include "std/bind.hpp"
 #include "std/cstring.hpp"
 #include "std/function.hpp"
 

@@ -13,6 +13,14 @@ execute_process(
   shader_def_for_tests
 )
 
+execute_process(
+  COMMAND rm -rf ${OMIM_ROOT}/data/shaders_compiler
+)
+
+execute_process(
+  COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler ${OMIM_ROOT}/data
+)
+
 set(
   SRC
   compile_shaders_test.cpp

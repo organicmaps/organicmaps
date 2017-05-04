@@ -10,8 +10,11 @@ HIGHP_DEFINE = "HIGH_P"
 HIGHP_SEARCH = "highp"
 MAX_PREC_DEFINE = "MAXPREC_P"
 MAX_PREC_SEARCH = "MAXPREC"
+SHADER_VERSION_DEFINE = "SHADER_VERSION"
 VERTEX_SHADER_EXT = ".vsh.glsl"
 FRAG_SHADER_EXT = ".fsh.glsl"
+GLES3_PREFIX = "GLES3_"
+GLES3_SHADER_PREFIX = "gles3_"
 
 SHADERS_LIB_COMMON_PATTERN = "// Common"
 SHADERS_LIB_VS_PATTERN = "// VS"
@@ -112,6 +115,7 @@ def definition_changed(new_header_content, def_file_path):
 def write_definition_file(program_index):
     result = ""
     result += "#pragma once\n\n"
+    result += "#include \"drape/drape_global.hpp\"\n"
     result += "#include \"drape/gpu_program_info.hpp\"\n\n"
     result += "#include \"std/target_os.hpp\"\n\n"
     result += "#include <map>\n"
@@ -124,11 +128,13 @@ def write_definition_file(program_index):
     result += "  #define %s \"\" \n" % (MEDIUMP_DEFINE)
     result += "  #define %s \"\" \n" % (HIGHP_DEFINE)
     result += "  #define %s \"\" \n" % (MAX_PREC_DEFINE)
+    result += "  #define %s \"#version 150 core \\n\"\n" % (SHADER_VERSION_DEFINE)
     result += "#else\n"
     result += "  #define %s \"%s\"\n" % (LOWP_DEFINE, LOWP_SEARCH)
     result += "  #define %s \"%s\"\n" % (MEDIUMP_DEFINE, MEDIUMP_SEARCH)
     result += "  #define %s \"%s\"\n" % (HIGHP_DEFINE, HIGHP_SEARCH)
     result += "  #define %s \"%s\"\n" % (MAX_PREC_DEFINE, MAX_PREC_SEARCH)
+    result += "  #define %s \"#version 300 es \\n\"\n" % (SHADER_VERSION_DEFINE)
     result += "#endif\n\n"
 
     for programName in program_index.keys():
@@ -139,32 +145,23 @@ def write_definition_file(program_index):
     result += "class ShaderMapper : public GpuProgramGetter\n"
     result += "{\n"
     result += "public:\n"
-    result += "  ShaderMapper();\n"
+    result += "  ShaderMapper(dp::ApiVersion apiVersion);\n"
     result += "  GpuProgramInfo const & GetProgramInfo(int program) const override;\n"
     result += "private:\n"
     result += "  std::map<int, gpu::GpuProgramInfo> m_mapping;\n"
     result += "};\n"
     result += "#endif\n\n"
     result += "#if defined(COMPILER_TESTS)\n"
-    result += "extern std::vector<std::pair<std::string, std::string>> const & GetVertexEnum();\n"
-    result += "extern std::vector<std::pair<std::string, std::string>> const & GetFragmentEnum();\n"
+    result += "using ShadersEnum = std::vector<std::pair<std::string, std::string>>;\n"
+    result += "extern ShadersEnum GetVertexShaders(dp::ApiVersion apiVersion);\n"
+    result += "extern ShadersEnum GetFragmentShaders(dp::ApiVersion apiVersion);\n"
     result += "#endif\n"
     result += "} // namespace gpu\n"
 
     return result
 
 
-def write_shader_line(output_file, line):
-    if line.lstrip().startswith("//") or line == '\n' or len(line) == 0:
-        return
-    output_line = line.rstrip().replace(LOWP_SEARCH, "\" " + LOWP_DEFINE + " \"")
-    output_line = output_line.replace(MEDIUMP_SEARCH, "\" " + MEDIUMP_DEFINE + " \"")
-    output_line = output_line.replace(HIGHP_SEARCH, "\" " + HIGHP_DEFINE + " \"")
-    output_file.write("  %s \\n\\\n" % output_line)
-
-
-def write_shader(output_file, shader_file, shader_dir, shaders_library):
-    output_file.write("static char const %s[] = \" \\\n" % (format_shader_source_name(shader_file)))
+def write_shader_gles_header(output_file):
     output_file.write("  #ifdef GL_ES \\n\\\n")
     output_file.write("    #ifdef GL_FRAGMENT_PRECISION_HIGH \\n\\\n")
     output_file.write("      #define MAXPREC \" HIGH_P \" \\n\\\n")
@@ -174,18 +171,60 @@ def write_shader(output_file, shader_file, shader_dir, shaders_library):
     output_file.write("    precision MAXPREC float; \\n\\\n")
     output_file.write("  #endif \\n\\\n")
 
+
+def get_shaders_lib_content(shader_file, shaders_library):
     lib_content = shaders_library[SHADERS_LIB_COMMON_INDEX]
     if shader_file.find(VERTEX_SHADER_EXT) >= 0:
         lib_content += shaders_library[SHADERS_LIB_VS_INDEX]
     elif shader_file.find(FRAG_SHADER_EXT) >= 0:
         lib_content += shaders_library[SHADERS_LIB_FS_INDEX]
+    return lib_content
 
+
+def write_shader_line(output_file, line, convert_to_gles3, is_fragment_shader):
+    if line.lstrip().startswith("//") or line == '\n' or len(line) == 0:
+        return
+    output_line = line.rstrip().replace(LOWP_SEARCH, "\" " + LOWP_DEFINE + " \"")
+    output_line = output_line.replace(MEDIUMP_SEARCH, "\" " + MEDIUMP_DEFINE + " \"")
+    output_line = output_line.replace(HIGHP_SEARCH, "\" " + HIGHP_DEFINE + " \"")
+    if convert_to_gles3:
+        output_line = output_line.replace("attribute", "in")
+        if is_fragment_shader:
+            output_line = output_line.replace("varying", "in")
+        else:
+            output_line = output_line.replace("varying", "out")
+        output_line = output_line.replace("texture2D", "texture")
+        output_line = output_line.replace("gl_FragColor", "v_FragColor")
+    output_file.write("  %s \\n\\\n" % output_line)
+
+
+def write_shader_body(output_file, shader_file, shader_dir, shaders_library, convert_to_gles3):
+    is_fragment_shader = shader_file.find(FRAG_SHADER_EXT) >= 0
+    lib_content = get_shaders_lib_content(shader_file, shaders_library)
     for line in open(os.path.join(shader_dir, shader_file)):
         if line.lstrip().startswith("void main"):
             for lib_line in lib_content.splitlines():
-                write_shader_line(output_file, lib_line)
-        write_shader_line(output_file, line)
+                write_shader_line(output_file, lib_line, convert_to_gles3, is_fragment_shader)
+            if convert_to_gles3 and is_fragment_shader:
+                output_file.write("  out vec4 v_FragColor; \\n\\\n")
+        write_shader_line(output_file, line, convert_to_gles3, is_fragment_shader)
     output_file.write("\";\n\n")
+
+
+def write_shader(output_file, shader_file, shader_dir, shaders_library):
+    output_file.write("static char const %s[] = \" \\\n" % (format_shader_source_name(shader_file)))
+    write_shader_gles_header(output_file)
+    write_shader_body(output_file, shader_file, shader_dir, shaders_library, False)
+
+
+def write_gles3_shader(output_file, shader_file, shader_dir, shaders_library):
+    output_file.write("static char const %s[] = \" \\\n" % (GLES3_PREFIX + format_shader_source_name(shader_file)))
+    output_file.write("  \" " + SHADER_VERSION_DEFINE + " \" \\n\\\n")
+    write_shader_gles_header(output_file)
+    if os.path.exists(os.path.join(shader_dir, GLES3_SHADER_PREFIX + shader_file)):
+        write_shader_body(output_file, GLES3_SHADER_PREFIX + shader_file, shader_dir, shaders_library, False)
+    else:
+        write_shader_body(output_file, shader_file, shader_dir, shaders_library, True)
 
 
 def calc_texture_slots(vertex_shader_file, fragment_shader_file, shader_dir):
@@ -206,6 +245,26 @@ def write_shaders_index(output_file, shader_index):
         output_file.write("#define %s %s\n" % (format_shader_index_name(shader), shader_index[shader]))
 
 
+def write_gpu_programs_map(file, programs_def, source_prefix):
+    for program in programs_def.keys():
+        vertex_shader = programs_def[program][0]
+        vertex_index_name = format_shader_index_name(vertex_shader)
+        vertex_source_name = source_prefix + format_shader_source_name(vertex_shader)
+
+        fragment_shader = programs_def[program][1]
+        fragment_index_name = format_shader_index_name(fragment_shader)
+        fragment_source_name = source_prefix + format_shader_source_name(fragment_shader)
+        texture_slots = calc_texture_slots(vertex_shader, fragment_shader, shader_dir)
+
+        file.write("    gpuIndex.insert(std::make_pair(%s, GpuProgramInfo(%s, %s, %s, %s, %d)));\n" % (
+            program, vertex_index_name, fragment_index_name, vertex_source_name, fragment_source_name, texture_slots))
+
+
+def write_shaders_enum(file, shader, enum_name, source_prefix):
+    source_name = source_prefix + format_shader_source_name(shader)
+    file.write("    %s.push_back(std::make_pair(\"%s\", std::string(%s)));\n" % (enum_name, source_name, source_name))
+
+
 def write_implementation_file(programs_def, shader_index, shader_dir, impl_file, def_file, generation_dir, shaders,
                               shaders_library):
     vertex_shaders = [s for s in shaders if s.endswith(VERTEX_SHADER_EXT)]
@@ -221,33 +280,31 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
 
     for shader in shader_index.keys():
         write_shader(file, shader, shader_dir, shaders_library)
+        write_gles3_shader(file, shader, shader_dir, shaders_library)
 
     write_shaders_index(file, shader_index)
     file.write("\n")
     for program in programs_def:
         file.write("int const %s = %s;\n" % (programs_def[program][2], program));
     file.write("\n")
+    file.write("#if !defined(COMPILER_TESTS)\n")
     file.write("namespace\n")
     file.write("{\n")
-    file.write("void InitGpuProgramsLib(std::map<int, GpuProgramInfo> & gpuIndex)\n")
+    file.write("void InitGpuProgramsLib(dp::ApiVersion apiVersion, std::map<int, GpuProgramInfo> & gpuIndex)\n")
     file.write("{\n")
-    for program in programs_def.keys():
-        vertex_shader = programs_def[program][0]
-        vertex_index_name = format_shader_index_name(vertex_shader)
-        vertex_source_name = format_shader_source_name(vertex_shader)
-
-        fragment_shader = programs_def[program][1]
-        fragment_index_name = format_shader_index_name(fragment_shader)
-        fragment_source_name = format_shader_source_name(fragment_shader)
-        texture_slots = calc_texture_slots(vertex_shader, fragment_shader, shader_dir)
-
-        file.write("  gpuIndex.insert(std::make_pair(%s, GpuProgramInfo(%s, %s, %s, %s, %d)));\n" % (
-            program, vertex_index_name, fragment_index_name, vertex_source_name, fragment_source_name, texture_slots))
+    file.write("  if (apiVersion == dp::ApiVersion::OpenGLES2)\n")
+    file.write("  {\n")
+    write_gpu_programs_map(file, programs_def, '')
+    file.write("  }\n")
+    file.write("  else if (apiVersion == dp::ApiVersion::OpenGLES3)\n")
+    file.write("  {\n")
+    write_gpu_programs_map(file, programs_def, GLES3_PREFIX)
+    file.write("  }\n")
     file.write("}\n")
     file.write("}  // namespace\n\n")
 
-    file.write("#if !defined(COMPILER_TESTS)\n")
-    file.write("ShaderMapper::ShaderMapper() { gpu::InitGpuProgramsLib(m_mapping); }\n")
+    file.write("ShaderMapper::ShaderMapper(dp::ApiVersion apiVersion)\n")
+    file.write("{ gpu::InitGpuProgramsLib(apiVersion, m_mapping); }\n")
     file.write("GpuProgramInfo const & ShaderMapper::GetProgramInfo(int program) const\n")
     file.write("{\n")
     file.write("  auto it = m_mapping.find(program);\n")
@@ -257,28 +314,34 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
     file.write("#endif\n\n")
 
     file.write("#if defined(COMPILER_TESTS)\n")
-    file.write("std::vector<std::pair<std::string, std::string>> const & GetVertexEnum()\n")
+    file.write("ShadersEnum GetVertexShaders(dp::ApiVersion apiVersion)\n")
     file.write("{\n")
-    file.write("  static std::vector<std::pair<std::string, std::string>> vertexEnum;\n")
-    file.write("  if (vertexEnum.empty())\n")
+    file.write("  ShadersEnum vertexEnum;\n")
+    file.write("  if (apiVersion == dp::ApiVersion::OpenGLES2)\n")
     file.write("  {\n")
     for s in vertex_shaders:
-        source_name = format_shader_source_name(s)
-        file.write("    vertexEnum.push_back(std::make_pair(\"%s\", std::string(%s)));\n" % (
-        source_name, format_shader_source_name(s)))
+        write_shaders_enum(file, s, 'vertexEnum', '')
+    file.write("  }\n")
+    file.write("  else if (apiVersion == dp::ApiVersion::OpenGLES3)\n")
+    file.write("  {\n")
+    for s in vertex_shaders:
+        write_shaders_enum(file, s, 'vertexEnum', GLES3_PREFIX)
     file.write("  }\n")
     file.write("  return vertexEnum;\n")
     file.write("}\n")
 
-    file.write("std::vector<std::pair<std::string, std::string>> const & GetFragmentEnum()\n")
+    file.write("ShadersEnum GetFragmentShaders(dp::ApiVersion apiVersion)\n")
     file.write("{\n")
-    file.write("  static std::vector<std::pair<std::string, std::string>> fragmentEnum;\n")
-    file.write("  if (fragmentEnum.empty())\n")
+    file.write("  ShadersEnum fragmentEnum;\n")
+    file.write("  if (apiVersion == dp::ApiVersion::OpenGLES2)\n")
     file.write("  {\n")
     for s in fragment_shaders:
-        source_name = format_shader_source_name(s)
-        file.write("    fragmentEnum.push_back(std::make_pair(\"%s\", std::string(%s)));\n" % (
-        source_name, format_shader_source_name(s)))
+        write_shaders_enum(file, s, 'fragmentEnum', '')
+    file.write("  }\n")
+    file.write("  else if (apiVersion == dp::ApiVersion::OpenGLES3)\n")
+    file.write("  {\n")
+    for s in fragment_shaders:
+        write_shaders_enum(file, s, 'fragmentEnum', GLES3_PREFIX)
     file.write("  }\n")
     file.write("  return fragmentEnum;\n")
     file.write("}\n")

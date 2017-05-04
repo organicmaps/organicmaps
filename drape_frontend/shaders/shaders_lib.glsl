@@ -17,7 +17,7 @@ vec4 applyPivotTransform(vec4 pivot, mat4 pivotTransform, float pivotRealZ)
   return transformedPivot;
 }
 
-// This function applies a 2D->3D transformation matrix for billboards.
+// This function applies a 2D->3D transformation matrix to billboards.
 vec4 applyBillboardPivotTransform(vec4 pivot, mat4 pivotTransform, float pivotRealZ, vec2 offset)
 {
   float logicZ = pivot.z / pivot.w;
@@ -36,7 +36,7 @@ vec2 calcLineTransformedAxisPos(vec2 originalAxisPos, vec2 shiftedPos, mat4 mode
 // FS (DO NOT modify this comment, it marks up block of fragment shader functions).
 
 // Because of a bug in OpenGL driver on Samsung Google Nexus this workaround is here.
-// Is must be used in shaders which do not have any sampler2D usage.
+// It must be used in shaders which do not have any sampler2D usage.
 vec4 samsungGoogleNexusWorkaround(vec4 color)
 {
 #ifdef SAMSUNG_GOOGLE_NEXUS

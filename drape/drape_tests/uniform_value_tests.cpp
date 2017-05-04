@@ -11,6 +11,7 @@
 #include <string>
 
 #include <gmock/gmock.h>
+#include <drape/drape_global.hpp>
 
 using ::testing::_;
 using ::testing::Return;
