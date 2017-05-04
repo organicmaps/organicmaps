@@ -34,28 +34,42 @@ void LoadIndexes(string const & pathToMWMFolder, vector<Index> & indexes)
 {
   Platform::FilesList files;
   Platform::GetFilesByRegExp(pathToMWMFolder, string(".*\\") + DATA_FILE_EXTENSION, files);
+
+  size_t const numIndexes = indexes.size();
+  vector<uint64_t> numCountries(numIndexes);
+
   for (auto const & fileName : files)
   {
-
     auto const fullFileName = my::JoinFoldersToPath({pathToMWMFolder}, fileName);
     ModelReaderPtr reader(GetPlatform().GetReader(fullFileName, "f"));
     platform::LocalCountryFile localFile(pathToMWMFolder,
                                          platform::CountryFile(my::FilenameWithoutExt(fileName)),
                                          version::ReadVersionDate(reader));
+
     LOG(LINFO, ("Found mwm:", fullFileName));
     try
     {
       localFile.SyncWithDisk();
-      for (auto & index : indexes)
+      for (size_t i = 0; i < numIndexes; ++i)
       {
-        CHECK_EQUAL(index.RegisterMap(localFile).second, MwmSet::RegResult::Success,
-                    ("Can't register mwm:", localFile));
+        auto const result = indexes[i].RegisterMap(localFile);
+        CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register mwm:", localFile));
+
+        auto const & info = result.first.GetInfo();
+        if (info && info->GetType() == MwmInfo::COUNTRY)
+          ++numCountries[i];
       }
     }
     catch (RootException const & ex)
     {
       CHECK(false, (ex.Msg(), "Bad mwm file:", localFile));
     }
+  }
+
+  for (size_t i = 0; i < numIndexes; ++i)
+  {
+    if (numCountries[i] == 0)
+      LOG(LWARNING, ("No countries for thread", i));
   }
 }
 

@@ -201,7 +201,10 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
         ++stats.m_total;
 
         if (stats.m_total % kProgressFrequency == 0)
-          LOG(LINFO, ("Thread", threadNum, "processed:", stats.m_total));
+        {
+          LOG(LINFO, ("Thread", threadNum, "processed:", stats.m_total, "failed:",
+                      stats.m_routeIsNotCalculated));
+        }
       }
     }
   };
