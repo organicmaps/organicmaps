@@ -368,6 +368,12 @@ area[sponsored=booking][rating>=8],
 {z-index: 2852;}
 
 
+/* Booking Hotel Rating >=9 */
+
+node[sponsored=booking][rating>=9],
+area[sponsored=booking][rating>=9],
+{z-index: 2854;}
+
 node[amenity=place_of_worship],
 area[amenity=place_of_worship]
 {z-index: 2872;}
