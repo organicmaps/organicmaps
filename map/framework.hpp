@@ -779,10 +779,10 @@ public:
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
+  /// Returns the most situable router engine type.
+  routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const;
   routing::RouterType GetLastUsedRouter() const;
   void SetLastUsedRouter(routing::RouterType type);
-  /// Returns the most situable router engine type. Bases on distance and the last used router.
-  routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint);
   // Sound notifications for turn instructions.
   inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
   inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }

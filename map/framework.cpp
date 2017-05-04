@@ -2862,49 +2862,28 @@ void Framework::OnRebuildRouteReady(Route const & route, IRouter::ResultCode cod
   CallRouteBuilded(code, storage::TCountriesVec());
 }
 
-RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint)
+RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
 {
-  if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
-  {
-    auto const lastUsedRouter = GetLastUsedRouter();
-    switch (lastUsedRouter)
-    {
-      case RouterType::Pedestrian:
-      case RouterType::Bicycle:
-        return lastUsedRouter;
-      case RouterType::Taxi:
-        ASSERT(false, ("GetLastUsedRouter should not return RouterType::Taxi"));
-      case RouterType::Vehicle:
-        break;
-      case RouterType::Count:
-        CHECK(false, ("Bad router type", lastUsedRouter));
-    }
-
-    // Return on a short distance the vehicle router flag only if we are already have routing files.
-    auto countryFileGetter = [this](m2::PointD const & pt)
-    {
-      return m_infoGetter->GetRegionCountryId(pt);
-    };
-    if (!CarRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
-                                        m_model.GetIndex()))
-    {
-      return RouterType::Pedestrian;
-    }
-  }
-  return RouterType::Vehicle;
+  // todo Implement something more sophisticated here (or delete the method).
+  return GetLastUsedRouter();
 }
 
 RouterType Framework::GetLastUsedRouter() const
 {
-  string routerType;
-  if (!settings::Get(kRouterTypeKey, routerType))
+  string routerTypeStr;
+  if (!settings::Get(kRouterTypeKey, routerTypeStr))
     return RouterType::Vehicle;
 
-  if (routerType == routing::ToString(RouterType::Pedestrian))
-    return  RouterType::Pedestrian;
-  if (routerType == routing::ToString(RouterType::Bicycle))
-    return RouterType::Bicycle;
-  return RouterType::Vehicle;
+  auto routerType = routing::FromString(routerTypeStr);
+
+  switch (routerType)
+  {
+  case RouterType::Pedestrian:
+  case RouterType::Bicycle:
+    return routerType;
+  default:
+    return RouterType::Vehicle;
+  }
 }
 
 void Framework::SetLastUsedRouter(RouterType type)
