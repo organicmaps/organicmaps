@@ -287,7 +287,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
-    UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
+    UiUtils.showIf(Editor.nativeIsBuilding() && !Editor.nativeIsPointType(), mBlockLevels);
 
     final int[] editableMeta = Editor.nativeGetEditableFields();
     if (editableMeta.length == 0)

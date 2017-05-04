@@ -410,7 +410,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   {
     m_sections.push_back(MWMEditorSectionAddress);
     m_cells[MWMEditorSectionAddress] = kSectionAddressCellTypes;
-    if (m_mapObject.IsBuilding())
+    if (m_mapObject.IsBuilding() && !m_mapObject.IsPointType())
       m_cells[MWMEditorSectionAddress].push_back(MWMPlacePageCellTypeBuildingLevels);
 
     registerCellsForTableView(kSectionAddressCellTypes, self.tableView);

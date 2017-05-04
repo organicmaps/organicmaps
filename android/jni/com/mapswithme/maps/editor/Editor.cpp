@@ -299,6 +299,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsPointType(JNIEnv * env, jclass clazz)
+{
+  return g_editableMapObject.IsPointType();
+}
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsBuilding();
