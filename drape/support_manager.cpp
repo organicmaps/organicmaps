@@ -15,7 +15,7 @@ void SupportManager::Init()
 {
   string const renderer = GLFunctions::glGetString(gl_const::GLRenderer);
   string const version = GLFunctions::glGetString(gl_const::GLVersion);
-  LOG(LINFO, ("Renderer =", renderer, "Version =", version));
+  LOG(LINFO, ("Renderer =", renderer, "Api =", GLFunctions::CurrentApiVersion, "Driver version =", version));
 
   // On Android the engine may be recreated. Here we guarantee that GPU info is sent once per session.
   static bool gpuInfoSent = false;

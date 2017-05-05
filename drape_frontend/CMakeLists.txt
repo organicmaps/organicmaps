@@ -84,8 +84,6 @@ set(
   drape_measurer.hpp
   engine_context.cpp
   engine_context.hpp
-  framebuffer.cpp
-  framebuffer.hpp
   frontend_renderer.cpp
   frontend_renderer.hpp
   gps_track_point.hpp
@@ -204,8 +202,6 @@ set(
   user_mark_shapes.hpp
   user_marks_provider.cpp
   user_marks_provider.hpp
-  viewport.cpp
-  viewport.hpp
   visual_params.cpp
   visual_params.hpp
   watch/area_info.hpp

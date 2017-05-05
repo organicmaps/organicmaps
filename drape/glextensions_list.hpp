@@ -1,33 +1,37 @@
 #pragma once
 
-#include "std/noncopyable.hpp"
+#include "drape/drape_global.hpp"
+
+#include "base/macros.hpp"
+
+#include <map>
+#include <string>
 
 namespace dp
 {
-
-class GLExtensionsList : private noncopyable
+class GLExtensionsList
 {
 public:
   enum ExtensionName
   {
     VertexArrayObject,
     TextureNPOT,
-    RequiredInternalFormat,
     MapBuffer,
     UintIndices,
     MapBufferRange
   };
 
   static GLExtensionsList & Instance();
-  bool IsSupported(ExtensionName const & extName) const;
+
+  bool IsSupported(ExtensionName extName) const;
 
 private:
-  GLExtensionsList();
-  ~GLExtensionsList();
+  GLExtensionsList(dp::ApiVersion apiVersion);
+  void CheckExtension(ExtensionName enumName, std::string const & extName);
+  void SetExtension(ExtensionName enumName, bool isSupported);
 
-private:
-  class Impl;
-  Impl * m_impl;
+  std::map<ExtensionName, bool> m_supportedMap;
+
+  DISALLOW_COPY_AND_MOVE(GLExtensionsList);
 };
-
-} // namespace dp
+}  // namespace dp

@@ -1,14 +1,10 @@
 #pragma once
 
-#include "stdint.h"
+#include <cstdint>
 
 namespace dp
 {
 class OGLContext;
-}
-
-namespace df
-{
 
 class Framebuffer
 {
@@ -24,7 +20,6 @@ public:
 
   uint32_t GetTextureId() const;
   bool IsSupported() const { return m_isSupported; }
-
 private:
   void Destroy();
 
@@ -39,5 +34,4 @@ private:
 
   bool m_isSupported = true;
 };
-
-}  // namespace df
+}  // namespace dp

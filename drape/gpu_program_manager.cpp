@@ -30,6 +30,9 @@ void GpuProgramManager::Init(drape_ptr<gpu::GpuProgramGetter> && programGetter)
 
   if (SupportManager::Instance().IsSamsungGoogleNexus())
     m_globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
+
+  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
+    m_globalDefines.append("#define GLES3\n");
 }
 
 ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)

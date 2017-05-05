@@ -62,6 +62,7 @@ extern const glConst GLAlpha8;
 extern const glConst GLLuminance8;
 extern const glConst GLAlphaLuminance8;
 extern const glConst GLAlphaLuminance4;
+extern const glConst GLRed;
 
 /// Pixel type for texture upload
 extern const glConst GL8BitOnChannel;

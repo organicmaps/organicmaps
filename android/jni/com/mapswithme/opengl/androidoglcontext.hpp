@@ -1,9 +1,7 @@
 #pragma once
 
+#include "drape/glIncludes.hpp"
 #include "drape/oglcontext.hpp"
-
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
 
 namespace android
 {
@@ -11,7 +9,8 @@ namespace android
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
-  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith);
+  AndroidOGLContext(bool supportedES3, EGLDisplay display, EGLSurface surface,
+                    EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 
   void makeCurrent() override;

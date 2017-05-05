@@ -92,6 +92,7 @@ void MapWidget::BindSlider(ScaleSlider & slider)
 void MapWidget::CreateEngine()
 {
   Framework::DrapeCreationParams p;
+  p.m_apiVersion = dp::ApiVersion::OpenGLES2;
   p.m_surfaceWidth = m_ratio * width();
   p.m_surfaceHeight = m_ratio * height();
   p.m_visualScale = m_ratio;

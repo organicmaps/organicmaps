@@ -3,7 +3,6 @@
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/batch_merge_helper.hpp"
 #include "drape_frontend/drape_measurer.hpp"
-#include "drape_frontend/framebuffer.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -15,8 +14,8 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
+#include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
-
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
@@ -39,12 +38,11 @@
 
 namespace df
 {
-
 namespace
 {
-constexpr float kIsometryAngle = math::pi * 76.0f / 180.0f;
-const double VSyncInterval = 0.06;
-//const double VSyncInterval = 0.014;
+float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
+double const kVSyncInterval = 0.06;
+//double const kVSyncInterval = 0.014;
 
 struct MergedGroupKey
 {
@@ -118,7 +116,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_routeRenderer(new RouteRenderer())
   , m_trafficRenderer(new TrafficRenderer())
-  , m_framebuffer(new Framebuffer())
+  , m_framebuffer(new dp::Framebuffer())
   , m_screenQuadRenderer(new ScreenQuadRenderer())
   , m_gpsTrackRenderer(
         new GpsTrackRenderer(bind(&FrontendRenderer::PrepareGpsTrackPoints, this, _1)))
@@ -1676,7 +1674,7 @@ void FrontendRenderer::OnContextCreate()
   dp::OGLContext * context = m_contextFactory->getDrawContext();
   context->makeCurrent();
 
-  GLFunctions::Init();
+  GLFunctions::Init(m_apiVersion);
   GLFunctions::AttachCache(this_thread::get_id());
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
@@ -1693,7 +1691,7 @@ void FrontendRenderer::OnContextCreate()
   dp::SupportManager::Instance().Init();
 
   m_gpuProgramManager = make_unique_dp<dp::GpuProgramManager>();
-  m_gpuProgramManager->Init(make_unique_dp<gpu::ShaderMapper>(dp::ApiVersion::OpenGLES2));
+  m_gpuProgramManager->Init(make_unique_dp<gpu::ShaderMapper>(m_apiVersion));
 
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
@@ -1703,7 +1701,7 @@ void FrontendRenderer::OnContextCreate()
 #endif
 
   // resources recovering
-  m_framebuffer.reset(new Framebuffer());
+  m_framebuffer.reset(new dp::Framebuffer());
   m_framebuffer->SetDefaultContext(context);
 
   m_screenQuadRenderer.reset(new ScreenQuadRenderer());
@@ -1776,14 +1774,14 @@ void FrontendRenderer::Routine::Do()
     }
     else
     {
-      double availableTime = VSyncInterval - timer.ElapsedSeconds();
+      double availableTime = kVSyncInterval - timer.ElapsedSeconds();
       do
       {
         if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
           break;
 
         activityTimer.Reset();
-        availableTime = VSyncInterval - timer.ElapsedSeconds();
+        availableTime = kVSyncInterval - timer.ElapsedSeconds();
       }
       while (availableTime > 0);
     }

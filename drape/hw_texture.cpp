@@ -1,7 +1,7 @@
 #include "hw_texture.hpp"
 
-#include "glfunctions.hpp"
 #include "glextensions_list.hpp"
+#include "glfunctions.hpp"
 
 #include "platform/platform.hpp"
 
@@ -15,21 +15,12 @@
 
 namespace dp
 {
-
 HWTexture::HWTexture()
-  : m_width(0)
-  , m_height(0)
-  , m_format(UNSPECIFIED)
-  , m_textureID(-1)
-  , m_filter(gl_const::GLLinear)
+  : m_width(0), m_height(0), m_format(UNSPECIFIED), m_textureID(-1), m_filter(gl_const::GLLinear)
 {
 }
 
-void HWTexture::Create(Params const & params)
-{
-  Create(params, nullptr);
-}
-
+void HWTexture::Create(Params const & params) { Create(params, nullptr); }
 void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
 {
   m_width = params.m_width;
@@ -47,7 +38,7 @@ void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
   if (pixelType == gl_const::GL4BitOnChannel)
     channelBitSize = 4;
 
-  if (layout == gl_const::GLAlpha)
+  if (layout == gl_const::GLAlpha || layout == gl_const::GLRed)
     channelCount = 1;
 
   uint32_t bitCount = channelBitSize * channelCount * m_width * m_height;
@@ -57,11 +48,7 @@ void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
 #endif
 }
 
-TextureFormat HWTexture::GetFormat() const
-{
-  return m_format;
-}
-
+TextureFormat HWTexture::GetFormat() const { return m_format; }
 uint32_t HWTexture::GetWidth() const
 {
   ASSERT_ID;
@@ -95,19 +82,20 @@ void HWTexture::UnpackFormat(TextureFormat format, glConst & layout, glConst & p
     pixelType = gl_const::GL8BitOnChannel;
     break;
   case ALPHA:
-    layout = gl_const::GLAlpha;
+    // On OpenGL ES3 GLAlpha is not supported, we use GLRed instead.
+    layout = GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLAlpha
+                                                                         : gl_const::GLRed;
     pixelType = gl_const::GL8BitOnChannel;
     break;
-  default:
-    ASSERT(false, ());
-    break;
+  default: ASSERT(false, ()); break;
   }
 }
 
 void HWTexture::Bind() const
 {
   ASSERT_ID;
-  GLFunctions::glBindTexture(GetID());
+  if (m_textureID != -1)
+    GLFunctions::glBindTexture(static_cast<uint32_t>(GetID()));
 }
 
 void HWTexture::SetFilter(glConst filter)
@@ -120,15 +108,11 @@ void HWTexture::SetFilter(glConst filter)
   }
 }
 
-int32_t HWTexture::GetID() const
-{
-  return m_textureID;
-}
-
+int32_t HWTexture::GetID() const { return m_textureID; }
 OpenGLHWTexture::~OpenGLHWTexture()
 {
   if (m_textureID != -1)
-    GLFunctions::glDeleteTexture(m_textureID);
+    GLFunctions::glDeleteTexture(static_cast<uint32_t>(m_textureID));
 }
 
 void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
@@ -158,7 +142,8 @@ void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
   GLFunctions::glBindTexture(0);
 }
 
-void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data)
+void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                                 ref_ptr<void> data)
 {
   ASSERT_ID;
   glConst layout;
@@ -175,9 +160,11 @@ drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()
 
 drape_ptr<HWTextureAllocator> CreateAllocator()
 {
-  if (!Platform::IsCustomTextureAllocatorSupported())
-    return make_unique_dp<OpenGLHWTextureAllocator>();;
-
+  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3 ||
+      !Platform::IsCustomTextureAllocatorSupported())
+  {
+    return make_unique_dp<OpenGLHWTextureAllocator>();
+  }
 #if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
   return make_unique_dp<HWTextureAllocatorApple>();
 #else
@@ -190,5 +177,4 @@ ref_ptr<HWTextureAllocator> GetDefaultAllocator()
   static OpenGLHWTextureAllocator s_allocator;
   return make_ref<HWTextureAllocator>(&s_allocator);
 }
-
-}
+}  // namespace dp

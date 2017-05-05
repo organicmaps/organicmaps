@@ -105,7 +105,7 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
     buffer = bucket->GetBuffer();
   };
 
-  auto copyVertecesFn = [](TBuffer::TBuffersMap::value_type const & vboNode,
+  auto copyVertecesFn = [](TBuffer::BuffersMap::value_type const & vboNode,
                            vector<uint8_t> & rawDataBuffer,
                            ref_ptr<TBuffer> newBuffer)
   {

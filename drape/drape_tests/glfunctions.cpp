@@ -7,6 +7,8 @@
 
 using namespace emul;
 
+dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::OpenGLES2;
+
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
 
 void GLFunctions::glFlush()
@@ -269,6 +271,8 @@ void GLFunctions::glDepthFunc(glConst depthFunc) {}
 void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) {}
 
 void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
+
+void * GLFunctions::glMapBufferRange(glConst, uint32_t, uint32_t, glConst) { return 0; }
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 

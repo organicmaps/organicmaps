@@ -18,7 +18,6 @@
 #include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
-#include "drape_frontend/viewport.hpp"
 
 #include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -28,6 +27,7 @@
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
+#include "drape/viewport.hpp"
 
 #include "platform/location.hpp"
 
