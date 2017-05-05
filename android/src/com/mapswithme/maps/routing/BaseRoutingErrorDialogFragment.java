@@ -164,7 +164,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
       countries.add(data);
 
       if (!legacy)
-        size += (item.totalSize - item.size);
+        size += item.totalSize;
     }
 
     Map<String, String> group = new HashMap<>();
