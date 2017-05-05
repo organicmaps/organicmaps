@@ -9,6 +9,7 @@
 
 #include "geometry/transformations.hpp"
 
+#include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
@@ -47,8 +48,8 @@ void BookmarkManager::SaveState() const
 
 void BookmarkManager::LoadState()
 {
-  settings::Get(BOOKMARK_CATEGORY, m_lastCategoryUrl);
-  settings::Get(BOOKMARK_TYPE, m_lastType);
+  UNUSED_VALUE(settings::Get(BOOKMARK_CATEGORY, m_lastCategoryUrl));
+  UNUSED_VALUE(settings::Get(BOOKMARK_TYPE, m_lastType));
 }
 
 void BookmarkManager::ClearItems()

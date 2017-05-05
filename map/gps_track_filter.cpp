@@ -6,6 +6,7 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 #include "base/math.hpp"
 
 namespace
@@ -56,7 +57,7 @@ GpsTrackFilter::GpsTrackFilter()
   , m_countLastInfo(0)
   , m_countAcceptedInfo(0)
 {
-  settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy);
+  UNUSED_VALUE(settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy));
 }
 
 void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
