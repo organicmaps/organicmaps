@@ -2874,7 +2874,7 @@ RouterType Framework::GetLastUsedRouter() const
   if (!settings::Get(kRouterTypeKey, routerTypeStr))
     return RouterType::Vehicle;
 
-  auto routerType = routing::FromString(routerTypeStr);
+  auto const routerType = routing::FromString(routerTypeStr);
 
   switch (routerType)
   {
