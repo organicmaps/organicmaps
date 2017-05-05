@@ -264,7 +264,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   {
   case Section::Rating: return L(@"booking_filters_rating");
   case Section::PriceCategory: return L(@"booking_filters_price_category");
-  case Section::Type: return L(@"type");
+  case Section::Type: return L(@"search_hotel_filters_type");
   default: return nil;
   }
 }
