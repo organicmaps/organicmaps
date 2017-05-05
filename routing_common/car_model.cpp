@@ -8,18 +8,18 @@
 
 namespace
 {
-double constexpr kSpeedMotorwayKMpH = 90.0;
+double constexpr kSpeedMotorwayKMpH = 115.37;
 double constexpr kSpeedMotorwayLinkKMpH = 75.0;
-double constexpr kSpeedTrunkKMpH = 85.0;
+double constexpr kSpeedTrunkKMpH = 93.89;
 double constexpr kSpeedTrunkLinkKMpH = 70.0;
-double constexpr kSpeedPrimaryKMpH = 65.0;
+double constexpr kSpeedPrimaryKMpH = 84.29;
 double constexpr kSpeedPrimaryLinkKMpH = 60.0;
-double constexpr kSpeedSecondaryKMpH = 55.0;
+double constexpr kSpeedSecondaryKMpH = 72.23;
 double constexpr kSpeedSecondaryLinkKMpH = 50.0;
-double constexpr kSpeedTertiaryKMpH = 40.0;
+double constexpr kSpeedTertiaryKMpH = 62.63;
 double constexpr kSpeedTertiaryLinkKMpH = 30.0;
 double constexpr kSpeedResidentialKMpH = 25.0;
-double constexpr kSpeedUnclassifiedKMpH = 25.0;
+double constexpr kSpeedUnclassifiedKMpH = 51.09;
 double constexpr kSpeedServiceKMpH = 15.0;
 double constexpr kSpeedLivingStreetKMpH = 10.0;
 double constexpr kSpeedRoadKMpH = 10.0;

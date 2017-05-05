@@ -74,8 +74,7 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
 
   double const speedMPS = road.GetSpeed() * kKMPH2MPS;
   double result = TimeBetweenSec(road.GetPoint(segment.GetPointId(false /* front */)),
-                                 road.GetPoint(segment.GetPointId(true /* front */)), speedMPS) *
-                  kTimePenalty;
+                                 road.GetPoint(segment.GetPointId(true /* front */)), speedMPS);
 
   if (m_trafficStash)
   {
@@ -89,7 +88,10 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
       SpeedGroup const speedGroup =
           (it == trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
       ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
-      result *= CalcTrafficFactor(speedGroup);
+      double const trafficFactor = CalcTrafficFactor(speedGroup);
+      result *= trafficFactor;
+      if (trafficFactor > 1.0)
+        result *= kTimePenalty;
     }
   }
 
