@@ -5983,7 +5983,7 @@ es:^Estacionamiento de bicis
 sv:^Cykelparkering
 th:^ที่จอดจักรยาน
 tr:^Parking à vélo
-uk:^Велозупинка
+uk:^Велостоянка
 vi:^Chỗ Đậu Xe Đạp
 zh-Hans:^自行车存放处
 zh-Hant:^腳踏車停放區
