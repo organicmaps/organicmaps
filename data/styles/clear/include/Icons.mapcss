@@ -189,6 +189,8 @@ node[tourism=picnic_site],
 area[tourism=picnic_site],
 node[amenity=shelter],
 area[amenity=shelter],
+node[highway=rest_area],
+area[highway=rest_area],
 node[highway=speed_camera],
 node[amenity=school],
 area[amenity=school],
@@ -1352,6 +1354,8 @@ node|z16-[tourism=picnic_site],
 area|z16-[tourism=picnic_site],
 node|z16-[amenity=shelter],
 area|z16-[amenity=shelter],
+node|z16-[highway=rest_area],
+area|z16-[highway=rest_area],
 node|z16-[tourism=caravan_site],
 area|z16-[tourism=caravan_site],
 {text: name;text-color: @poi_label;text-offset: 10;font-size: 10;}
@@ -1462,17 +1466,20 @@ area|z15-16[tourism=camp_site]
 node|z17-[tourism=camp_site],
 area|z17-[tourism=camp_site]
 {icon-image: campsite-l.svg;}
+
 node|z16-[tourism=picnic_site],
-area|z16-[tourism=picnic_site]
+area|z16-[tourism=picnic_site],
+node|z16-[amenity=shelter],
+area|z16-[amenity=shelter],
+node|z16-[highway=rest_area],
+area|z16-[highway=rest_area]
 {icon-image: picnic-m.svg;icon-min-distance: 10;}
 node|z17-[tourism=picnic_site],
-area|z17-[tourism=picnic_site]
-{icon-image: picnic-l.svg;}
-node|z16-[amenity=shelter],
-area|z16-[amenity=shelter]
-{icon-image: picnic-m.svg;icon-min-distance: 10;}
+area|z17-[tourism=picnic_site],
 node|z17-[amenity=shelter],
-area|z17-[amenity=shelter]
+area|z17-[amenity=shelter],
+node|z17-[highway=rest_area],
+area|z17-[highway=rest_area]
 {icon-image: picnic-l.svg;}
 
 node|z16[tourism=caravan_site],
