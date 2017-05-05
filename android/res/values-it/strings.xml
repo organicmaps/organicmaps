@@ -962,7 +962,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtro</string>
 	<string name="booking_filters_reset">Reimposta</string>
-	<string name="booking_filters_rating">Voto</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Voto da</string>
 	<string name="booking_filters_rating_any">Qualsiasi</string>
 	<string name="booking_filters_ragting_good">Buono</string>
 	<string name="booking_filters_rating_very_good">Molto buono</string>
@@ -988,7 +989,6 @@
 	<string name="whatsnew_uber_message">Prenota un taxi Uber direttamente dalla app!</string>
 	<string name="dialog_taxi_offline">La chiamata taxi non è disponibile in modalità offline.</string>
 	<string name="dialog_taxi_error">La chiamata taxi è temporaneamente non disponibile.</string>
-	<string name="advertisement">Annuncio</string>
 	<string name="mobile_data_dialog">Usare l\&#39;Internet mobile per mostrare le informazioni dettagliate?</string>
 	<string name="mobile_data_option_always">Usa sempre</string>
 	<string name="mobile_data_option_today">Solo oggi</string>
@@ -1065,6 +1065,11 @@
 	<string name="reviews_on_bookingcom">Altre recensioni su Booking.com</string>
 	<string name="offline_place_page_more_information">Connettiti a Internet per ottenere maggiori informazioni sul luogo.</string>
 	<string name="failed_load_information">Impossibile caricare le informazioni.</string>
+	<string name="whats_new_auto_update_updating_maps">Aggiornamento mappe</string>
+	<string name="whats_new_auto_update_title">Aggiorna le mappe scaricate</string>
+	<string name="whats_new_auto_update_message">Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti</string>
+	<string name="whats_new_auto_update_button_size">Aggiorna (%s)</string>
+	<string name="whats_new_auto_update_button_later">Aggiorna manualmente più tardi</string>
 	<string name="search_hotel_filter_apartment">Residence</string>
 	<string name="search_hotel_filter_camp_site">Campeggio</string>
 	<string name="search_hotel_filter_chalet">Chalet</string>
@@ -1072,4 +1077,17 @@
 	<string name="search_hotel_filter_hostel">Ostello</string>
 	<string name="search_hotel_filter_resort">Resort</string>
 	<string name="search_hotel_filter_hotel">Hôtel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Rivendica questa attività</string>
+	<string name="view_campaign_button">Attività pubblicizzata</string>
+	<string name="search_hotel_filters_type">Tipo</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Feedback generale</string>
+	<string name="on">On</string>
+	<string name="off">Off</string>
+	<string name="prefs_languages_information">Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Per l\&#39;arabo, il greco e il rumeno, potrebbe essere necessario installare un servizio TTS aggiuntivo (poiché Google TTS non supporta ancora queste lingue) da Google Play, ad esempio Vocalizer TTS o SVOX Classics.\nPer gestire le impostazioni di sintesi vocale, dal tuo dispositivo apri Impostazioni –&gt; Lingua e input –&gt; Riconoscimento vocale –&gt; Output sintesi vocale. Qui puoi scaricare il language pack aggiuntivo o selezionare il tuo motore di sintesi vocale preferito.</string>
+	<string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
+	<string name="whatsnew_transliteration_title">Traslitterazione in latino</string>
+	<string name="whatsnew_transliteration_message">Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l\&#39;alfabeto latino.</string>
 </resources>

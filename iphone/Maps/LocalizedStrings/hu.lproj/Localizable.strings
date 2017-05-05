@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Visszajelzés";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Iratkozz fel hírlevelünkre";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Alaphelyzetbe állítás";
 
-"booking_filters_rating" = "Minősítés";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Besorolás innentől";
 
 "booking_filters_rating_any" = "Bármelyik";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";
 
-"advertisement" = "Hirdetés";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Az autós navigáció üzemmód használata egyszerűbb lett.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Továbbiak a Booking.com-on";
 
 "details_on_bookingcom" = "Részletek a Booking.com-on";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Térképek frissítése";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Frissítés (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Kézi frissítés később";
 
 "search_hotel_filter_apartment" = "Apartmanok";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Igényelje ezt az üzletet";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Hirdetett üzlet";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Típus";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Általános visszajelzés";
+
+"on" = "Be";
+
+"off" = "Ki";
+
+"prefs_languages_information" = "TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.";
+
+"prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
+
+"whatsnew_transliteration_title" = "Átírás latin nyelvre";
+
+"whatsnew_transliteration_message" = "Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.";

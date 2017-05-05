@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Phản hồi";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Đăng ký nhận tin tức của chúng tôi";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Đặt lại";
 
-"booking_filters_rating" = "Cho điểm";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Hạng từ";
 
 "booking_filters_rating_any" = "Bất kỳ";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Gọi taxi tạm thời không khả dụng.";
 
-"advertisement" = "Quảng cáo";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Chế độ điều hướng ô tô dễ sử dụng hơn.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Xem thêm trên Booking.com";
 
 "details_on_bookingcom" = "Chi tiết trên Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Đang cập nhật bản đồ";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Cập nhật các bản đồ đã tải về của bạn";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Cập nhật (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Cập nhật thủ công sau";
 
 "search_hotel_filter_apartment" = "Căn hộ";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Khách sạn";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Nhà nghỉ";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Tôi là chủ doanh nghiệp này";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Doanh nghiệp này được quảng cáo";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Loại";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Phản hồi chung";
+
+"on" = "Bật";
+
+"off" = "Tắt";
+
+"prefs_languages_information" = "Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Đối với tiếng Ả Rập, tiếng Hy Lạp và tiếng Rumani, bạn có thể cần cài đặt thêm TTS (bởi Google TTS chưa hỗ trợ các ngôn ngữ này) từ Google Play như Vocalizer TTS hoặc SVOX Classics.\nĐể quản lý các thiết lập tổng hợp giọng nói, trên thiết bị của bạn mở Cài đặt –> Ngôn ngữ và nhập liệu –> Giọng nói –> Đầu ra văn bản thành giọng nói. Ở đây bạn có thể tải về thêm các gói ngôn ngữ và lựa chọn công cụ chuyển văn bản thành giọng nói ưa thích.";
+
+"prefs_languages_information_off_link" = "Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.";
+
+"whatsnew_transliteration_title" = "Chuyển ngữ sang chữ Latinh";
+
+"whatsnew_transliteration_message" = "Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.";

@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Σχόλια";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Γενικάό σχόλιο";
-
 /* Text in menu */
 "subscribe_to_news" = "Εγγραφή στο ενημερωτικό μας δελτίο";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Μηδενισμός";
 
-"booking_filters_rating" = "Βαθμολογία";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Βαθμολογία από";
 
 "booking_filters_rating_any" = "Οποιοδήποτε";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.";
 
-"advertisement" = "Διαφήμιση";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Περισσότερα στο Booking.com";
 
 "details_on_bookingcom" = "Λεπτομέρειες στο Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Ενημέρωση χαρτών";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Ενημερώστε τους χάρτες που έχετε κατεβάσει";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Ενημέρωση (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Χειροκίνητη ενημέρωση αργότερα";
 
 "search_hotel_filter_apartment" = "Διαμερίσματα";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Ξενοδοχείο";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Μοτέλ";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Καταχωρήστε αυτήν την επιχείρηση";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Η επιχείριση διαφημίζεται";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Τύπος";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Γενικό σχόλιο";
+
+"on" = "Ενεργ.";
+
+"off" = "Απενεργ.";
+
+"prefs_languages_information" = "Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.";
+
+"prefs_languages_information_off_link" = "Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.";
+
+"whatsnew_transliteration_title" = "Μεταγραφή στα Λατινικά";
+
+"whatsnew_transliteration_message" = "Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.";

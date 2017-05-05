@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Comentários";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Subscreva as nossas notícias";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Redefinir";
 
-"booking_filters_rating" = "Classificação";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Com classificação desde";
 
 "booking_filters_rating_any" = "Qualquer";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "O serviço de táxi está temporariamente indisponível.";
 
-"advertisement" = "Anúncio";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Utilizar a internet móvel para mostrar informações detalhadas?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "O modo de navegação do carro ficou mais fácil de utilizar.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Mais em Booking.com";
 
 "details_on_bookingcom" = "Detalhes em Booking.com";
@@ -1851,19 +1846,19 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Atualização de mapas";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Atualize seus mapas transferidos";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Atualizar os mapas mantém atualizada a informação sobre objetos";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Atualização (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";
 
 "search_hotel_filter_apartment" = "Apartamentos";
 
-"search_hotel_filter_camp_site" = "Camping";
+"search_hotel_filter_camp_site" = "Acampamento";
 
 "search_hotel_filter_chalet" = "Chalé";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Reivindicar este negócio";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Negócio publicitado";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Tipo";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Opinão geral";
+
+"on" = "Lig.";
+
+"off" = "Deslig.";
+
+"prefs_languages_information" = "Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Para os idiomas árabe, grego e romeno: é possível que tenha de instalar TTS adicionais (uma vez que o Google TTS ainda não inclui estes idiomas) a partir do Google Play, como o Vocalizer TTS ou o SVOX Classics. Para gerir as configurações de síntese de fala, no seu dispositivo, vá a Configurações – > idioma e entrada – > voz – > saída de texto para voz. Aqui pode transferir um pacote de idioma adicional ou selecionar um motor de texto para voz.";
+
+"prefs_languages_information_off_link" = "Para obter mais informações, consulte este guia.";
+
+"whatsnew_transliteration_title" = "Transliteração para o latim";
+
+"whatsnew_transliteration_message" = "Se uma rua ou um objeto não tiver nome na sua língua, será utilizado o alfabeto latino.";

@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Geri Bildirim";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Haberlerimize abone ol";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Sıfırla";
 
-"booking_filters_rating" = "Oy Verin";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "En düşük derece";
 
 "booking_filters_rating_any" = "Herhangi biri";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";
 
-"advertisement" = "Reklam";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Araç navigasyon modunu kullanmak şimdi çok daha kolay.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Booking.com hakkında daha fazla";
 
 "details_on_bookingcom" = "Booking.com hakkında detaylar";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Haritalar güncelleniyor";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "İndirdiğiniz haritaları güncelleyin";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Güncelle (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Daha sonra manüel olarak güncelle";
 
 "search_hotel_filter_apartment" = "Apart otel";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Bu iş yerinin sahibiyim";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "İşletme reklamı verildi";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Tür";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Genel Geribildirim";
+
+"on" = "Aç";
+
+"off" = "Kapat";
+
+"prefs_languages_information" = "Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Arapça, Yunanca ve Rumence dilleri için Google Play'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.";
+
+"prefs_languages_information_off_link" = "Daha fazla bilgi için lütfen bu kılavuzu inceleyin.";
+
+"whatsnew_transliteration_title" = "Latince alfabesine çevirme";
+
+"whatsnew_transliteration_message" = "Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.";

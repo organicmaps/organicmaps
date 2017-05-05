@@ -963,7 +963,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Suodatin</string>
 	<string name="booking_filters_reset">Palauta</string>
-	<string name="booking_filters_rating">Arvio</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Arvio vähintään</string>
 	<string name="booking_filters_rating_any">Kaikki</string>
 	<string name="booking_filters_ragting_good">Hyvä</string>
 	<string name="booking_filters_rating_very_good">Todella hyvä</string>
@@ -989,7 +990,6 @@
 	<string name="whatsnew_uber_message">Tilaa Uber -taksi suoraan sovelluksesta!</string>
 	<string name="dialog_taxi_offline">Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.</string>
 	<string name="dialog_taxi_error">Taksin tilaaminen ei ole tällä hetkellä mahdollista.</string>
-	<string name="advertisement">Mainos</string>
 	<string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
 	<string name="mobile_data_option_always">Käytä aina</string>
 	<string name="mobile_data_option_today">Vain tänään</string>
@@ -1066,6 +1066,11 @@
 	<string name="reviews_on_bookingcom">Lisää arvosteluja osoitteessa Booking.com</string>
 	<string name="offline_place_page_more_information">Yhdistä internetiin saadaksesi lisätietoa paikasta.</string>
 	<string name="failed_load_information">Tietojen lataaminen epäonnistui.</string>
+	<string name="whats_new_auto_update_updating_maps">Päivitetään karttoja</string>
+	<string name="whats_new_auto_update_title">Päivitä ladatut kartat</string>
+	<string name="whats_new_auto_update_message">Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla</string>
+	<string name="whats_new_auto_update_button_size">Päivitä (%s)</string>
+	<string name="whats_new_auto_update_button_later">Päivitä manuaalisesti myöhemmin</string>
 	<string name="search_hotel_filter_apartment">Loma-asunnot</string>
 	<string name="search_hotel_filter_camp_site">Retkeily</string>
 	<string name="search_hotel_filter_chalet">Alppimaja</string>
@@ -1073,4 +1078,17 @@
 	<string name="search_hotel_filter_hostel">Hostelli</string>
 	<string name="search_hotel_filter_resort">Lomakohteet</string>
 	<string name="search_hotel_filter_hotel">Hotelli</string>
+	<string name="search_hotel_filter_motel">Motelli</string>
+	<string name="create_campaign_button">Ilmoittaudu yrityksen omistajaksi</string>
+	<string name="view_campaign_button">Yritystä mainostetaan</string>
+	<string name="search_hotel_filters_type">Tyyppi</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Yleinen palaute</string>
+	<string name="on">Käytössä</string>
+	<string name="off">Ei käytössä</string>
+	<string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Arabian, kreikan ja romanian kieliä varten sinun täytyy mahdollisesti asentaa ylimääräinen tekstistä puheeksi -järjestelmä Google Playstä (koska Googlen tekstistä puheeksi -sovellus ei vielä tue näitä kieliä), kuten Vocalizer TTS tai SVOX Classic. Voit hallita tekstistä puheeksi -ominaisuuden asetuksia laitteellasi kohdassa Asetukset –&gt; Kieli ja syöttötapa –&gt; Puhe –&gt; Tekstistä puheeksi -toisto. Täällä voit ladata uusia kielipaketteja tai valita haluamasi tekstistä puheeksi -ohjelman.</string>
+	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
+	<string name="whatsnew_transliteration_title">Translitterointi latinaksi</string>
+	<string name="whatsnew_transliteration_message">Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.</string>
 </resources>

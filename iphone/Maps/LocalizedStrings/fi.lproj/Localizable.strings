@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Palaute";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Tilaa uutiskirjeemme";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Palauta";
 
-"booking_filters_rating" = "Arvio";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Arvio vähintään";
 
 "booking_filters_rating_any" = "Kaikki";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Taksin tilaaminen ei ole tällä hetkellä mahdollista.";
 
-"advertisement" = "Mainos";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Näytetäänkö lisätiedot mobiili-internetillä?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Auton navigointitila on helppokäyttöisempi.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Lisää osoitteessa Booking.com";
 
 "details_on_bookingcom" = "Lisätietoa osoitteessa Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Päivitetään karttoja";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Päivitä ladatut kartat";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Päivitä (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Päivitä manuaalisesti myöhemmin";
 
 "search_hotel_filter_apartment" = "Loma-asunnot";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Hotelli";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Motelli";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Ilmoittaudu yrityksen omistajaksi";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Yritystä mainostetaan";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Tyyppi";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Yleinen palaute";
+
+"on" = "Käytössä";
+
+"off" = "Ei käytössä";
+
+"prefs_languages_information" = "Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Arabian, kreikan ja romanian kieliä varten sinun täytyy mahdollisesti asentaa ylimääräinen tekstistä puheeksi -järjestelmä Google Playstä (koska Googlen tekstistä puheeksi -sovellus ei vielä tue näitä kieliä), kuten Vocalizer TTS tai SVOX Classic. Voit hallita tekstistä puheeksi -ominaisuuden asetuksia laitteellasi kohdassa Asetukset –> Kieli ja syöttötapa –> Puhe –> Tekstistä puheeksi -toisto. Täällä voit ladata uusia kielipaketteja tai valita haluamasi tekstistä puheeksi -ohjelman.";
+
+"prefs_languages_information_off_link" = "Lisätietoja saat tästä oppaasta.";
+
+"whatsnew_transliteration_title" = "Translitterointi latinaksi";
+
+"whatsnew_transliteration_message" = "Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.";

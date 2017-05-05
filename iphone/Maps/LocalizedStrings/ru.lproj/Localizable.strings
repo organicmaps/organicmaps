@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Связаться с нами";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Отправить отзыв";
-
 /* Text in menu */
 "subscribe_to_news" = "Подписаться на новости";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Сбросить";
 
-"booking_filters_rating" = "Рейтинг с";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Рейтинг от";
 
 "booking_filters_rating_any" = "Любой";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Заказ такси временно недоступен.";
 
-"advertisement" = "Реклама";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Режим автомобильной навигации стал удобнее.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Больше на Booking.com";
 
 "details_on_bookingcom" = "Подробней на Booking.com";
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Мотель";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Я владелец компании";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Эта компания рекламируется";
 
 "search_hotel_filters_type" = "Тип";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Отправить отзыв";
+
+"on" = "Вкл.";
+
+"off" = "Выкл.";
+
+"prefs_languages_information" = "Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.";
+
+"prefs_languages_information_off_link" = "Более подробная информация — в этом руководстве.";
+
+"whatsnew_transliteration_title" = "Латинская транслитерация";
+
+"whatsnew_transliteration_message" = "Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.";

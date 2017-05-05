@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Opinia";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Ogólne opinie";
-
 /* Text in menu */
 "subscribe_to_news" = "Subskrybuj nasze wiadomości";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Resetuj";
 
-"booking_filters_rating" = "Ocena";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Ocena od";
 
 "booking_filters_rating_any" = "Wszelkie";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Zamawianie taksówek jest tymczasowo niedostępne.";
 
-"advertisement" = "Reklama";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Uproszczono tryb nawigacji pojazdu.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Więcej na Booking.com";
 
 "details_on_bookingcom" = "Szczegóły na Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Aktualizacja map";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Zaktualizuj pobrane mapy";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Zaktualizuj (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Zaktualizuj ręcznie później";
 
 "search_hotel_filter_apartment" = "Apartamenty";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Zweryfikuj jako moja firma";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Firma jest reklamowana";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Typ";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Ogólne uwagi";
+
+"on" = "Wł.";
+
+"off" = "Wył.";
+
+"prefs_languages_information" = "Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Do obsługi języka arabskiego, greckiego i rumuńskiego koniecznie może być zainstalowanie dodatkowych systemów TTS (Google TTS nie obsługuje obecnie tych języków) z Google Play, takich jak Vocalizer TTS lub SVOX Classics. Aby zarządzać ustawieniami dla syntezy mowy, na swoim urządzeniu otwórz Ustawienia –> Język i wprowadzanie – > Mowa – > Wyjście tekstu na mowę. Tutaj można pobrać dodatkowe pakiety językowe lub wybrać preferowane silniki konwersji tekstu na mowę.";
+
+"prefs_languages_information_off_link" = "Aby uzyskać więcej informacji, sprawdź ten poradnik.";
+
+"whatsnew_transliteration_title" = "Transkrypcja na alfabet łaciński";
+
+"whatsnew_transliteration_message" = "Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.";

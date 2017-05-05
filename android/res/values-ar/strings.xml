@@ -969,7 +969,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">عامل التصفية</string>
 	<string name="booking_filters_reset">إعادة تعيين</string>
-	<string name="booking_filters_rating">تصنيف</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">تصنيف من</string>
 	<string name="booking_filters_rating_any">أي</string>
 	<string name="booking_filters_ragting_good">جيد</string>
 	<string name="booking_filters_rating_very_good">جيد جداً</string>
@@ -995,7 +996,6 @@
 	<string name="whatsnew_uber_message">اطلب تاكسي Uber مباشرة من التطبيق!</string>
 	<string name="dialog_taxi_offline">طلب تاكسي غير متاح في وضع الطيران.</string>
 	<string name="dialog_taxi_error">طلب تاكسي غير متاح مؤقتا.</string>
-	<string name="advertisement">إعلان</string>
 	<string name="mobile_data_dialog">استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟</string>
 	<string name="mobile_data_option_always">استخدام دائمًا</string>
 	<string name="mobile_data_option_today">اليوم فقط</string>
@@ -1072,6 +1072,11 @@
 	<string name="reviews_on_bookingcom">المزيد من المراجعات عن Booking.com</string>
 	<string name="offline_place_page_more_information">اتصل بالإنترنت للحصول على مزيد من التفاصيل حول المكان.</string>
 	<string name="failed_load_information">فشل تحميل المعلومات.</string>
+	<string name="whats_new_auto_update_updating_maps">تحديث الخرائط</string>
+	<string name="whats_new_auto_update_title">تحديث الخرائط الخاصة بك التي تم تنزيلها</string>
+	<string name="whats_new_auto_update_message">تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة</string>
+	<string name="whats_new_auto_update_button_size">تحديث (%s)</string>
+	<string name="whats_new_auto_update_button_later">تحديث يدوياً في وقت لاحق</string>
 	<string name="search_hotel_filter_apartment">شُقَق</string>
 	<string name="search_hotel_filter_camp_site">تخييم</string>
 	<string name="search_hotel_filter_chalet">شاليه</string>
@@ -1079,4 +1084,17 @@
 	<string name="search_hotel_filter_hostel">نزُل</string>
 	<string name="search_hotel_filter_resort">منتج</string>
 	<string name="search_hotel_filter_hotel">الفندق</string>
+	<string name="search_hotel_filter_motel">موتيل</string>
+	<string name="create_campaign_button">مطالبة هذه الشركة</string>
+	<string name="view_campaign_button">تم عمل إعلان عن الشركة</string>
+	<string name="search_hotel_filters_type">النوع</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">تعقيب عام</string>
+	<string name="on">تشغيل</string>
+	<string name="off">إيقاف</string>
+	<string name="prefs_languages_information">نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –&gt; اللغة والإدخال –&gt; الكلام –&gt; إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
+	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
+	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
+	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>
 </resources>

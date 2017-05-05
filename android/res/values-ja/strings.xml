@@ -962,7 +962,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">フィルター</string>
 	<string name="booking_filters_reset">リセット</string>
-	<string name="booking_filters_rating">評価</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">指定評価以上</string>
 	<string name="booking_filters_rating_any">すべて</string>
 	<string name="booking_filters_ragting_good">良い</string>
 	<string name="booking_filters_rating_very_good">非常に良い</string>
@@ -988,7 +989,6 @@
 	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>
 	<string name="dialog_taxi_error">タクシーの予約が一時的に使用できません。</string>
-	<string name="advertisement">広告</string>
 	<string name="mobile_data_dialog">モバイルインターネットを使用して詳細な情報を表示しますか？</string>
 	<string name="mobile_data_option_always">常に使用</string>
 	<string name="mobile_data_option_today">今日だけ</string>
@@ -1065,6 +1065,11 @@
 	<string name="reviews_on_bookingcom">Booking.com の詳細レビュー</string>
 	<string name="offline_place_page_more_information">この場所に関する詳細情報を取得するには、インターネットに接続してください。</string>
 	<string name="failed_load_information">情報の読み込みに失敗しました。</string>
+	<string name="whats_new_auto_update_updating_maps">地図を更新中</string>
+	<string name="whats_new_auto_update_title">ダウンロード済みのマップを更新します</string>
+	<string name="whats_new_auto_update_message">地図を更新することで物件情報を最新の状態に保ちます</string>
+	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
+	<string name="whats_new_auto_update_button_later">あとで手動で更新</string>
 	<string name="search_hotel_filter_apartment">アパート</string>
 	<string name="search_hotel_filter_camp_site">^キャンプ場</string>
 	<string name="search_hotel_filter_chalet">シャレー|山小屋</string>
@@ -1072,4 +1077,17 @@
 	<string name="search_hotel_filter_hostel">ホステル</string>
 	<string name="search_hotel_filter_resort">リゾート</string>
 	<string name="search_hotel_filter_hotel">ホテル</string>
+	<string name="search_hotel_filter_motel">モーテル</string>
+	<string name="create_campaign_button">この企業の所有者であることを報告</string>
+	<string name="view_campaign_button">企業は宣伝中です</string>
+	<string name="search_hotel_filters_type">種類</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">一般的なフィードバック</string>
+	<string name="on">オン</string>
+	<string name="off">オフ</string>
+	<string name="prefs_languages_information">音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。</string>
+	<string name="prefs_languages_information_off">アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –&gt; [言語と入力] –&gt; [音声] –&gt; [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。</string>
+	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
+	<string name="whatsnew_transliteration_title">ラテン文字への字訳</string>
+	<string name="whatsnew_transliteration_message">通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。</string>
 </resources>

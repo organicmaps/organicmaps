@@ -970,7 +970,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtr</string>
 	<string name="booking_filters_reset">Reset</string>
-	<string name="booking_filters_rating">Hodnocení</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Hodnocení od</string>
 	<string name="booking_filters_rating_any">Jakékoli</string>
 	<string name="booking_filters_ragting_good">Dobré</string>
 	<string name="booking_filters_rating_very_good">Velmi dobré</string>
@@ -996,7 +997,6 @@
 	<string name="whatsnew_uber_message">Objednejte si taxi Uber přímo z aplikace!</string>
 	<string name="dialog_taxi_offline">Objednání taxi není v režimu offline k dispozici.</string>
 	<string name="dialog_taxi_error">Objednání taxi není dočasně k dispozici.</string>
-	<string name="advertisement">Inzerce</string>
 	<string name="mobile_data_dialog">Použít mobilní internet ke zobrazení podrobnějších informací?</string>
 	<string name="mobile_data_option_always">Vždy použít</string>
 	<string name="mobile_data_option_today">Jen dnes</string>
@@ -1073,6 +1073,11 @@
 	<string name="reviews_on_bookingcom">Více recenzí na Booking.com</string>
 	<string name="offline_place_page_more_information">Připojte se k Internetu a získejte více informací o tomto místě.</string>
 	<string name="failed_load_information">Nepodařilo se načíst informace.</string>
+	<string name="whats_new_auto_update_updating_maps">Aktualizuji mapy</string>
+	<string name="whats_new_auto_update_title">Aktualizujte své stažené mapy</string>
+	<string name="whats_new_auto_update_message">Aktualizace map zajišťuje aktuální informace o objektech</string>
+	<string name="whats_new_auto_update_button_size">Aktualizace (%s)</string>
+	<string name="whats_new_auto_update_button_later">Aktualizovat ručně později</string>
 	<string name="search_hotel_filter_apartment">Byty</string>
 	<string name="search_hotel_filter_camp_site">Kempování</string>
 	<string name="search_hotel_filter_chalet">Chalet|Horská chata</string>
@@ -1080,4 +1085,17 @@
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Letovisko</string>
 	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Zaregistruj si tento podnik</string>
+	<string name="view_campaign_button">Podnik je propagován</string>
+	<string name="search_hotel_filters_type">Typ</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Všeobecné připomínky</string>
+	<string name="on">Zapnout</string>
+	<string name="off">Vypnout</string>
+	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –&gt; Jazyk a vstupy –&gt; Mluvené slovo –&gt; Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.</string>
+	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
+	<string name="whatsnew_transliteration_title">Transliterace do latinky</string>
+	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
 </resources>

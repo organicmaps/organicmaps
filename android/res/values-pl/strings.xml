@@ -385,8 +385,6 @@
 	<string name="contact_us">Skontaktuj się z nami</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Opinia</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Ogólne opinie</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Subskrybuj nasze wiadomości</string>
 	<!-- Text in menu -->
@@ -968,7 +966,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtr</string>
 	<string name="booking_filters_reset">Resetuj</string>
-	<string name="booking_filters_rating">Ocena</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Ocena od</string>
 	<string name="booking_filters_rating_any">Wszelkie</string>
 	<string name="booking_filters_ragting_good">Dobrze</string>
 	<string name="booking_filters_rating_very_good">Bardzo dobrze</string>
@@ -994,7 +993,6 @@
 	<string name="whatsnew_uber_message">Zamów taksówkę Uber bezpośrednio z aplikacji!</string>
 	<string name="dialog_taxi_offline">Zamawianie taksówek nie jest dostępne w trybie offline.</string>
 	<string name="dialog_taxi_error">Zamawianie taksówek jest tymczasowo niedostępne.</string>
-	<string name="advertisement">Reklama</string>
 	<string name="mobile_data_dialog">Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?</string>
 	<string name="mobile_data_option_always">Stosuj zawsze</string>
 	<string name="mobile_data_option_today">Tylko dzisiaj</string>
@@ -1071,6 +1069,11 @@
 	<string name="reviews_on_bookingcom">Więcej opinii na Booking.com</string>
 	<string name="offline_place_page_more_information">Połącz się z Internetem, aby uzyskać więcej informacji na temat miejsca.</string>
 	<string name="failed_load_information">Nie można załadować informacji.</string>
+	<string name="whats_new_auto_update_updating_maps">Aktualizacja map</string>
+	<string name="whats_new_auto_update_title">Zaktualizuj pobrane mapy</string>
+	<string name="whats_new_auto_update_message">Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach</string>
+	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
+	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
 	<string name="search_hotel_filter_apartment">Apartamenty</string>
 	<string name="search_hotel_filter_camp_site">Kamping</string>
 	<string name="search_hotel_filter_chalet">Domek letniskowy</string>
@@ -1078,4 +1081,17 @@
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Dom wczasowy</string>
 	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Zweryfikuj jako moja firma</string>
+	<string name="view_campaign_button">Firma jest reklamowana</string>
+	<string name="search_hotel_filters_type">Typ</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Ogólne uwagi</string>
+	<string name="on">Wł.</string>
+	<string name="off">Wył.</string>
+	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Do obsługi języka arabskiego, greckiego i rumuńskiego koniecznie może być zainstalowanie dodatkowych systemów TTS (Google TTS nie obsługuje obecnie tych języków) z Google Play, takich jak Vocalizer TTS lub SVOX Classics. Aby zarządzać ustawieniami dla syntezy mowy, na swoim urządzeniu otwórz Ustawienia –&gt; Język i wprowadzanie – &gt; Mowa – &gt; Wyjście tekstu na mowę. Tutaj można pobrać dodatkowe pakiety językowe lub wybrać preferowane silniki konwersji tekstu na mowę.</string>
+	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
+	<string name="whatsnew_transliteration_title">Transkrypcja na alfabet łaciński</string>
+	<string name="whatsnew_transliteration_message">Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.</string>
 </resources>

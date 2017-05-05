@@ -962,7 +962,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
 	<string name="booking_filters_reset">Atur ulang</string>
-	<string name="booking_filters_rating">Peringkat</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Peringkat dari</string>
 	<string name="booking_filters_rating_any">Apa saja</string>
 	<string name="booking_filters_ragting_good">Bagus</string>
 	<string name="booking_filters_rating_very_good">Sangat Bagus</string>
@@ -988,7 +989,6 @@
 	<string name="whatsnew_uber_message">Pesan taksi Uber langsung dari aplikasi!</string>
 	<string name="dialog_taxi_offline">Memesan taksi tidak tersedia dalam modus offline.</string>
 	<string name="dialog_taxi_error">Memesan taksi untuk sementara tidak tersedia.</string>
-	<string name="advertisement">Iklan</string>
 	<string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
 	<string name="mobile_data_option_always">Selalu Gunakan</string>
 	<string name="mobile_data_option_today">Hanya Hari Ini</string>
@@ -1065,6 +1065,11 @@
 	<string name="reviews_on_bookingcom">Ulasan lain di Booking.com</string>
 	<string name="offline_place_page_more_information">Sambungkan ke internet untuk mendapatkan informasi selengkapnya tentang tempat ini.</string>
 	<string name="failed_load_information">Gagal memuat informasi.</string>
+	<string name="whats_new_auto_update_updating_maps">Memperbarui peta</string>
+	<string name="whats_new_auto_update_title">Perbarui peta yang sudah Anda unduh</string>
+	<string name="whats_new_auto_update_message">Memperbarui peta membuat informasi tentang objek tetap terkini</string>
+	<string name="whats_new_auto_update_button_size">Pembaruan (%s)</string>
+	<string name="whats_new_auto_update_button_later">Perbarui secara manual nanti</string>
 	<string name="search_hotel_filter_apartment">Apartemen</string>
 	<string name="search_hotel_filter_camp_site">Perkemahan</string>
 	<string name="search_hotel_filter_chalet">Chalet</string>
@@ -1072,4 +1077,17 @@
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Sanggraloka</string>
 	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Klaim bisnis ini</string>
+	<string name="view_campaign_button">Bisnis diiklankan</string>
+	<string name="search_hotel_filters_type">Jenis</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Umpan Balik Umum</string>
+	<string name="on">On</string>
+	<string name="off">Mati</string>
+	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Untuk bahasa Arab, Yunani, dan Romania, Anda mungkin perlu menginstal TTS tambahan (karena Google TTS belum mendukung bahasa-bahasa ini) dari Google Play, seperti Vocalizer TTS atau SVOX Classics.\nUntuk mengelola pengaturan untuk sintesis suara, pada perangkat Anda buka Settings (Pengaturan) –&gt; Language and input (Bahasa dan input) –&gt; Speech (Tuturan) –&gt; Text to speech output (Output teks ke tuturan). Di sini Anda dapat mengunduh paket bahasa tambahan atau memilih mesin teks ke tuturan yang diinginkan.</string>
+	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
+	<string name="whatsnew_transliteration_title">Transliterasi ke dalam bahasa Latin</string>
+	<string name="whatsnew_transliteration_message">Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.</string>
 </resources>

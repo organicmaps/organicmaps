@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Відгук";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Email-бюлетень";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Скинути";
 
-"booking_filters_rating" = "Рейтинг";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Рейтинг від";
 
 "booking_filters_rating_any" = "Будь-який";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Замовлення таксі тимчасово недоступне.";
 
-"advertisement" = "Реклама";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Використовувати мобільні дані для перегляду докладної інформації?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Режим навігації став ще простішим.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Більше на Booking.com";
 
 "details_on_bookingcom" = "Докладніше на Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Оновлення карт";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Оновлення завантажених карт";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Оновлення карт дозволяє підтримувати інформацію про об'єкти в актуальному стані";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Оновити (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Оновити вручну пізніше";
 
 "search_hotel_filter_apartment" = "Апартаменти";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Готель";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Мотель";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Я — власник";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Реклама";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Тип";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Загальний відгук";
+
+"on" = "Увімкн.";
+
+"off" = "Вимкн.";
+
+"prefs_languages_information" = "Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –> Мова та введення –> Мовлення –> Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.";
+
+"prefs_languages_information_off_link" = "Додаткову інформацію див. у цьому керівництві.";
+
+"whatsnew_transliteration_title" = "Транслітерація латинськими літерами";
+
+"whatsnew_transliteration_message" = "Якщо для вулиці чи об\\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.";

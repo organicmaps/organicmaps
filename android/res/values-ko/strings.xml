@@ -959,7 +959,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">필터</string>
 	<string name="booking_filters_reset">재설정</string>
-	<string name="booking_filters_rating">평가</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">등급</string>
 	<string name="booking_filters_rating_any">모두</string>
 	<string name="booking_filters_ragting_good">양호</string>
 	<string name="booking_filters_rating_very_good">매우 양호</string>
@@ -985,7 +986,6 @@
 	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>
 	<string name="dialog_taxi_error">일시적으로 택시를 예약할 수 없습니다.</string>
-	<string name="advertisement">광고</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
 	<string name="mobile_data_option_always">항상 사용</string>
 	<string name="mobile_data_option_today">오늘만</string>
@@ -1062,6 +1062,11 @@
 	<string name="reviews_on_bookingcom">Booking.com의 추가 리뷰</string>
 	<string name="offline_place_page_more_information">인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.</string>
 	<string name="failed_load_information">정보를 로드하지 못했습니다.</string>
+	<string name="whats_new_auto_update_updating_maps">지도 업데이트</string>
+	<string name="whats_new_auto_update_title">다운로드한 지도 업데이트</string>
+	<string name="whats_new_auto_update_message">지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.</string>
+	<string name="whats_new_auto_update_button_size">업데이트(%s)</string>
+	<string name="whats_new_auto_update_button_later">나중에 수동으로 업데이트</string>
 	<string name="search_hotel_filter_apartment">아파트</string>
 	<string name="search_hotel_filter_camp_site">^캠핑</string>
 	<string name="search_hotel_filter_chalet">별장</string>
@@ -1069,4 +1074,17 @@
 	<string name="search_hotel_filter_hostel">호스텔</string>
 	<string name="search_hotel_filter_resort">리조트</string>
 	<string name="search_hotel_filter_hotel">호텔</string>
+	<string name="search_hotel_filter_motel">모텔</string>
+	<string name="create_campaign_button">이 비즈니스 클레임</string>
+	<string name="view_campaign_button">비즈니스 광고를 하고 있습니다.</string>
+	<string name="search_hotel_filters_type">유형</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">일반 피드백</string>
+	<string name="on">켜기</string>
+	<string name="off">끄기</string>
+	<string name="prefs_languages_information">당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.</string>
+	<string name="prefs_languages_information_off">아랍어, 그리스어 및 루마니아어의 경우 Google Play에서 Vocalizer TTS 또는 SVOX Classic 같은 추가적인 TTS(Google TTS는 해당 언어를 아직 지원하지 않음)를 설치해야 할 수 있습니다.\n음성 합성에 대한 설정을 관리하려면 장치에서 설정 -&gt; 언어 및 입력 -&gt; 음성 -&gt; 음성으로 읽어주기 설정을 엽니다. 여기에서 추가적인 언어 팩을 다운로드하거나 기본 음성으로 읽어주기 엔진을 선택할 수 있습니다.</string>
+	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
+	<string name="whatsnew_transliteration_title">라틴어로 음역</string>
+	<string name="whatsnew_transliteration_message">거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.</string>
 </resources>

@@ -396,8 +396,6 @@
 	<string name="contact_us">Свяжитесь с нами</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Связаться с нами</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Отправить отзыв</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Подписаться на новости</string>
 	<!-- Text in menu -->
@@ -980,7 +978,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фильтр</string>
 	<string name="booking_filters_reset">Сбросить</string>
-	<string name="booking_filters_rating">Рейтинг с</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Рейтинг от</string>
 	<string name="booking_filters_rating_any">Любой</string>
 	<string name="booking_filters_ragting_good">Хорошо</string>
 	<string name="booking_filters_rating_very_good">Очень хорошо</string>
@@ -1006,7 +1005,6 @@
 	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>
 	<string name="dialog_taxi_error">Заказ такси временно недоступен.</string>
-	<string name="advertisement">Реклама</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
 	<string name="mobile_data_option_always">Всегда</string>
 	<string name="mobile_data_option_today">Только сегодня</string>
@@ -1096,5 +1094,16 @@
 	<string name="search_hotel_filter_resort">Дом отдыха</string>
 	<string name="search_hotel_filter_hotel">Гостиница</string>
 	<string name="search_hotel_filter_motel">Мотель</string>
+	<string name="create_campaign_button">Я владелец компании</string>
+	<string name="view_campaign_button">Эта компания рекламируется</string>
 	<string name="search_hotel_filters_type">Тип</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Отправить отзыв</string>
+	<string name="on">Вкл.</string>
+	<string name="off">Выкл.</string>
+	<string name="prefs_languages_information">Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -&gt; Язык и ввод -&gt; Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
+	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
+	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
 </resources>

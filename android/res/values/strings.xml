@@ -398,8 +398,6 @@
 	<string name="contact_us">Contact us</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">General Feedback</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Subscribe to our newsletter</string>
 	<!-- Text in menu -->
@@ -984,6 +982,7 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
 	<string name="booking_filters_reset">Reset</string>
+	<!-- Beginning from a particular value and -->
 	<string name="booking_filters_rating">Rating from</string>
 	<string name="booking_filters_rating_any">Any</string>
 	<string name="booking_filters_ragting_good">Good</string>
@@ -1010,7 +1009,8 @@
 	<string name="whatsnew_uber_message">Order a taxi directly from the app!</string>
 	<string name="dialog_taxi_offline">Taxi ordering is unavailable in offline mode.</string>
 	<string name="dialog_taxi_error">Taxi ordering is temporarily unavailable.</string>
-	<string name="advertisement">Advertisement</string>
+	<!-- Abbreviated for all languages. -->
+	<string name="advertisement">AD</string>
 	<string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
 	<string name="mobile_data_option_always">Use Always</string>
 	<string name="mobile_data_option_today">Only Today</string>
@@ -1087,8 +1087,6 @@
 	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
 	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
 	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
-	<string name="whatsnew_transliteration_title">Transliteration</string>
-	<string name="whatsnew_transliteration_message">Transliteration message</string>
 	<string name="more_on_bookingcom">More on Booking.com</string>
 	<string name="details_on_bookingcom">Details on Booking.com</string>
 	<string name="reviews_on_bookingcom">More reviews on Booking.com</string>
@@ -1097,7 +1095,7 @@
 	<string name="booking_search">Booking.com</string>
 	<string name="whats_new_auto_update_updating_maps">Updating maps</string>
 	<string name="whats_new_auto_update_title">Update your downloaded maps</string>
-	<string name="whats_new_auto_update_message">Update maps supports information about objects in the current state</string>
+	<string name="whats_new_auto_update_message">Updating maps keeps the information about objects up to date</string>
 	<string name="whats_new_auto_update_button_size">Update (%s)</string>
 	<string name="whats_new_auto_update_button_later">Manually update later</string>
 	<string name="search_hotel_filter_apartment">Apartments</string>
@@ -1108,7 +1106,16 @@
 	<string name="search_hotel_filter_resort">Resort</string>
 	<string name="search_hotel_filter_hotel">Hotel</string>
 	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Create ad campaign</string>
-	<string name="view_campaign_button">View ad campagain</string>
+	<string name="create_campaign_button">Claim this business</string>
+	<string name="view_campaign_button">Business is advertised</string>
 	<string name="search_hotel_filters_type">Type</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">General Feedback</string>
+	<string name="on">On</string>
+	<string name="off">Off</string>
+	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –&gt; Language and input –&gt; Speech –&gt; Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.</string>
+	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
+	<string name="whatsnew_transliteration_title">Transliteration into Latin</string>
+	<string name="whatsnew_transliteration_message">If a street or an object doesn\&#39;t have a name in your language, it will be spelt using the Latin alphabet.</string>
 </resources>

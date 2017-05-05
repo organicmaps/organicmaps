@@ -393,8 +393,6 @@
 	<string name="contact_us">Contactez-nous</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Avis général</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">S\&#39;abonner à nos informations</string>
 	<!-- Text in menu -->
@@ -978,7 +976,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrer</string>
 	<string name="booking_filters_reset">Réinitialiser</string>
-	<string name="booking_filters_rating">Note</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Note à partir de</string>
 	<string name="booking_filters_rating_any">N’importe quel</string>
 	<string name="booking_filters_ragting_good">Bon</string>
 	<string name="booking_filters_rating_very_good">Très bon</string>
@@ -1004,7 +1003,6 @@
 	<string name="whatsnew_uber_message">Commandez un taxi directement depuis l\&#39;appli !</string>
 	<string name="dialog_taxi_offline">La commande d\&#39;un taxi n\&#39;est pas disponible en mode hors ligne.</string>
 	<string name="dialog_taxi_error">La commande d\&#39;un taxi est temporairement indisponible.</string>
-	<string name="advertisement">Publicité</string>
 	<string name="mobile_data_dialog">Utiliser l\&#39;Internet mobile pour afficher les informations détaillées?</string>
 	<string name="mobile_data_option_always">Toujours utiliser</string>
 	<string name="mobile_data_option_today">Aujourd\&#39;hui seulement</string>
@@ -1081,6 +1079,11 @@
 	<string name="reviews_on_bookingcom">Plus d\&#39;avis sur Booking.com</string>
 	<string name="offline_place_page_more_information">Connectez-vous à Internet pour obtenir plus d’informations sur ce lieu.</string>
 	<string name="failed_load_information">Impossible de charger les informations.</string>
+	<string name="whats_new_auto_update_updating_maps">Mise à jour des cartes</string>
+	<string name="whats_new_auto_update_title">Mettez à jour vos cartes téléchargées</string>
+	<string name="whats_new_auto_update_message">Actualiser les cartes permet d\&#39;actualiser également les informations sur les objets</string>
+	<string name="whats_new_auto_update_button_size">Mettre à jour (%s)</string>
+	<string name="whats_new_auto_update_button_later">Mettre à jour manuellement plus tard</string>
 	<string name="search_hotel_filter_apartment">Appart\&#39;hôtel</string>
 	<string name="search_hotel_filter_camp_site">Camping</string>
 	<string name="search_hotel_filter_chalet">Chalet</string>
@@ -1088,4 +1091,17 @@
 	<string name="search_hotel_filter_hostel">Auberge de jeunesse</string>
 	<string name="search_hotel_filter_resort">Complexe touristique</string>
 	<string name="search_hotel_filter_hotel">Hôtel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Cette entreprise m\&#39;appartient</string>
+	<string name="view_campaign_button">L\&#39;entreprise est publiée</string>
+	<string name="search_hotel_filters_type">Type</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Feedback général</string>
+	<string name="on">On</string>
+	<string name="off">Off</string>
+	<string name="prefs_languages_information">Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Pour les langues arabe, grecque et roumaine, Il vous faudra peut-être installer un TTS supplémentaire (car Google TTS n\&#39;est pas encore compatible avec ces langues) depuis Google Play tel que Vocalizer TTS ou SVOX Classics. Pour gérer les paramètres de synthèse vocale, ouvrez sur votre appareil Paramètres –&gt; Langue et entrée – &gt; Parole – &gt; Texte en parole. Vous pouvez télécharger ici un package de langues supplémentaires ou sélectionner votre logiciel de synthèse vocale préféré.</string>
+	<string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
+	<string name="whatsnew_transliteration_title">Translittération en latin</string>
+	<string name="whatsnew_transliteration_message">Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l\&#39;écrire.</string>
 </resources>

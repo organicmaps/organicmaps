@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Subscribe to our newsletter";
 
@@ -1652,6 +1649,7 @@
 
 "booking_filters_reset" = "Reset";
 
+/* Beginning from a particular value and */
 "booking_filters_rating" = "Rating from";
 
 "booking_filters_rating_any" = "Any";
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Taxi ordering is temporarily unavailable.";
 
-"advertisement" = "Advertisement";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Car navigation mode got easier to use.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "More on Booking.com";
 
 "details_on_bookingcom" = "Details on Booking.com";
@@ -1855,7 +1850,7 @@
 
 "whats_new_auto_update_title" = "Update your downloaded maps";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Updating maps keeps the information about objects up to date";
 
 "whats_new_auto_update_button_size" = "Update (%s)";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Claim this business";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Business is advertised";
 
 "search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General Feedback";
+
+"on" = "On";
+
+"off" = "Off";
+
+"prefs_languages_information" = "We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.";
+
+"prefs_languages_information_off_link" = "For more information please check this guide.";
+
+"whatsnew_transliteration_title" = "Transliteration into Latin";
+
+"whatsnew_transliteration_message" = "If a street or an object doesn't have a name in your language, it will be spelt using the Latin alphabet.";

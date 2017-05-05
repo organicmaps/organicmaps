@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Tilbakemelding";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Abonner på nyheter fra oss";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Tilbakestille";
 
-"booking_filters_rating" = "Vurdering";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Rangering fra";
 
 "booking_filters_rating_any" = "Hvilken som helst";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Bestilling av taxi er ikke tilgjengelig for øyeblikket.";
 
-"advertisement" = "Reklame";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Bruke mobilt Internett til å vise detaljert informasjon?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Modusen for bilnavigering er blitt enklere å bruke.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Mer på Booking.com";
 
 "details_on_bookingcom" = "Mer informasjon om Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Oppdaterer kart";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Oppdater nedlastede kart";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Oppdater (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Oppdater manuelt senere";
 
 "search_hotel_filter_apartment" = "Leiligheter";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Hotell";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Motell";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Dette er min bedrift";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Virksomheten er annonsert";
 
 "search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Generell tilbakemelding";
+
+"on" = "På";
+
+"off" = "Av";
+
+"prefs_languages_information" = "Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Du må installere ekstra TTS for arabisk, gresk og rumensk (siden Google TTS ikke støtter språkene ennå) fra Google Play, som for eksempel Vocalizer TTS eller SVOX Classics.\nFor å behandle innstillinger for talesyntese, gå til Innstillinger -> Språk og inndata -> Tale-> Tekst til tale. Her kan du laste ned flere språkpakker eller velg foretrukket tekst til tale-motor.";
+
+"prefs_languages_information_off_link" = "Les denne veiledningen for mer informasjon.";
+
+"whatsnew_transliteration_title" = "Omskrivning til latin";
+
+"whatsnew_transliteration_message" = "Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.";

@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Prenumerera på våra nyheter";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Återställ";
 
-"booking_filters_rating" = "Betyg";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Betyg från";
 
 "booking_filters_rating_any" = "Vilket som helst";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Du kan inte beställa en taxi just nu.";
 
-"advertisement" = "Annons";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Använd mobilt nätverk för att visa detaljerad information?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Bilens navigeringsläge är lättare att använda.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Mer på Booking.com";
 
 "details_on_bookingcom" = "Information på Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Uppdaterar kartor";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Uppdatera dina nedladdade kartor";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Uppdatering av kartor håller information om objekt uppdaterade";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Uppdatera (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
 
 "search_hotel_filter_apartment" = "Lägenheter";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "Hotell";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "Motell";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Gör anspråk på det här företaget";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Företaget marknadsförs";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Typ";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Allmän feedback";
+
+"on" = "På";
+
+"off" = "Av";
+
+"prefs_languages_information" = "Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –> Språk och inmatning –> Tal –> Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.";
+
+"prefs_languages_information_off_link" = "Kolla in den här guiden för mer information.";
+
+"whatsnew_transliteration_title" = "Transkribering till latin";
+
+"whatsnew_transliteration_message" = "Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.";

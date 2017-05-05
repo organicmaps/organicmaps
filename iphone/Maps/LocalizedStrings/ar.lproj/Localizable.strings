@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "تعقيب";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "أشترك في نشرتنا الإخبارية";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "إعادة تعيين";
 
-"booking_filters_rating" = "تصنيف";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "تصنيف من";
 
 "booking_filters_rating_any" = "أي";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "طلب تاكسي غير متاح مؤقتا.";
 
-"advertisement" = "إعلان";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "وضع التنقل بالسيارة أصبح سهل الاستخدام.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "المزيد عن Booking.com";
 
 "details_on_bookingcom" = "تفاصيل حول Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "تحديث الخرائط";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "تحديث الخرائط الخاصة بك التي تم تنزيلها";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "تحديث (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
 
 "search_hotel_filter_apartment" = "شُقَق";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "الفندق";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "موتيل";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "مطالبة هذه الشركة";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "تم عمل إعلان عن الشركة";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "النوع";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "تعقيب عام";
+
+"on" = "تشغيل";
+
+"off" = "إيقاف";
+
+"prefs_languages_information" = "نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.";
+
+"prefs_languages_information_off_link" = "لمزيد من المعلومات الرجاء مراجعة هذا الدليل.";
+
+"whatsnew_transliteration_title" = "كتابة بالحروف اللاتينية";
+
+"whatsnew_transliteration_message" = "إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.";

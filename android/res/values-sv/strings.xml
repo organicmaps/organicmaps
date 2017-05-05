@@ -967,7 +967,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
 	<string name="booking_filters_reset">Återställ</string>
-	<string name="booking_filters_rating">Betyg</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Betyg från</string>
 	<string name="booking_filters_rating_any">Vilket som helst</string>
 	<string name="booking_filters_ragting_good">Bra</string>
 	<string name="booking_filters_rating_very_good">Väldigt bra</string>
@@ -993,7 +994,6 @@
 	<string name="whatsnew_uber_message">Beställ en Uber direkt från appen!</string>
 	<string name="dialog_taxi_offline">Du kan inte beställa en taxi i offlineläge.</string>
 	<string name="dialog_taxi_error">Du kan inte beställa en taxi just nu.</string>
-	<string name="advertisement">Annons</string>
 	<string name="mobile_data_dialog">Använd mobilt nätverk för att visa detaljerad information?</string>
 	<string name="mobile_data_option_always">Använd alltid</string>
 	<string name="mobile_data_option_today">Endast idag</string>
@@ -1070,6 +1070,11 @@
 	<string name="reviews_on_bookingcom">Fler omdömen på Booking.com\u0020</string>
 	<string name="offline_place_page_more_information">Anslut till internet för att hämta mer information om platsen.</string>
 	<string name="failed_load_information">Det gick inte att ladda informationen.</string>
+	<string name="whats_new_auto_update_updating_maps">Uppdaterar kartor</string>
+	<string name="whats_new_auto_update_title">Uppdatera dina nedladdade kartor</string>
+	<string name="whats_new_auto_update_message">Uppdatering av kartor håller information om objekt uppdaterade</string>
+	<string name="whats_new_auto_update_button_size">Uppdatera (%s)</string>
+	<string name="whats_new_auto_update_button_later">Uppdatera senare manuellt</string>
 	<string name="search_hotel_filter_apartment">Lägenheter</string>
 	<string name="search_hotel_filter_camp_site">Camping</string>
 	<string name="search_hotel_filter_chalet">Stuga</string>
@@ -1077,4 +1082,17 @@
 	<string name="search_hotel_filter_hostel">Vandrarhem</string>
 	<string name="search_hotel_filter_resort">Resorter</string>
 	<string name="search_hotel_filter_hotel">Hotell</string>
+	<string name="search_hotel_filter_motel">Motell</string>
+	<string name="create_campaign_button">Gör anspråk på det här företaget</string>
+	<string name="view_campaign_button">Företaget marknadsförs</string>
+	<string name="search_hotel_filters_type">Typ</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Allmän feedback</string>
+	<string name="on">På</string>
+	<string name="off">Av</string>
+	<string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –&gt; Språk och inmatning –&gt; Tal –&gt; Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.</string>
+	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
+	<string name="whatsnew_transliteration_title">Transkribering till latin</string>
+	<string name="whatsnew_transliteration_message">Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.</string>
 </resources>

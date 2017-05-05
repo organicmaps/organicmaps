@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "フィードバック";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "当社のニュースに登録";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "リセット";
 
-"booking_filters_rating" = "評価";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "指定評価以上";
 
 "booking_filters_rating_any" = "すべて";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
 
-"advertisement" = "広告";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "モバイルインターネットを使用して詳細な情報を表示しますか？";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "カーナビゲーションモードの使用がより簡単になりました。";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "さらに Booking.com で表示";
 
 "details_on_bookingcom" = "Booking.com で詳細表示";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "地図を更新中";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "ダウンロード済みのマップを更新します";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "地図を更新することで物件情報を最新の状態に保ちます";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "更新 (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "あとで手動で更新";
 
 "search_hotel_filter_apartment" = "アパート";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "ホテル";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "モーテル";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "この企業の所有者であることを報告";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "企業は宣伝中です";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "種類";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "一般的なフィードバック";
+
+"on" = "オン";
+
+"off" = "オフ";
+
+"prefs_languages_information" = "音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。";
+
+"prefs_languages_information_off" = "アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –> [言語と入力] –> [音声] –> [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。";
+
+"prefs_languages_information_off_link" = "詳細については、このガイドをご確認ください。";
+
+"whatsnew_transliteration_title" = "ラテン文字への字訳";
+
+"whatsnew_transliteration_message" = "通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。";

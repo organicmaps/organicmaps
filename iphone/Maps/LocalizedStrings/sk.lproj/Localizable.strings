@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Spätná väzba";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Prihlásiť sa k našim novinkám";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Obnoviť";
 
-"booking_filters_rating" = "Hodnotenie";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Hodnotenie nad";
 
 "booking_filters_rating_any" = "Akékoľvek";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Objednanie taxíka je dočasne nedostupné.";
 
-"advertisement" = "Reklama";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Použiť mobilný internet na zobrazenie podrobnejších informácií?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Režim navigácie v aute sa zjednodušil.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Viac na Booking.com";
 
 "details_on_bookingcom" = "Podrobnosti na Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Prebieha aktualizácia máp";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Aktualizujte svoje stiahnuté mapy";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Aktualizovať (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Manuálne aktualizovať neskôr";
 
 "search_hotel_filter_apartment" = "Apartmány";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Nárokovať záznam firmy";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Firma sa inzeruje";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "Typ";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Všeobecné pripomienky";
+
+"on" = "Zap.";
+
+"off" = "Vyp.";
+
+"prefs_languages_information" = "Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Pre arabčinu, gréčtinu a rumunčinu bude potrebné z obchodu Google Play nainštalovať dodatočné TTS (keďže Google tieto jazyky ešte nepodporuje) ako Vocalizer TTS alebo SVOX Classics. Ak chcete nastaviť nastavenia na syntézu reči, otvorte v zariadení Nastavenia -> Jazyk a vstup -> Reč -> Výstup textu na reč. Tam si môžete prevziať dodatočný jazykový balík alebo si vybrať preferovaný systém prevodu textu na reč.";
+
+"prefs_languages_information_off_link" = "Viac informácií nájdete v tomto návode.";
+
+"whatsnew_transliteration_title" = "Prepis do latinčiny";
+
+"whatsnew_transliteration_message" = "Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.";

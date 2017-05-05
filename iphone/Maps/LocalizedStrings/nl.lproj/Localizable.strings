@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "Aanmelden voor onze nieuwtjes";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "Resetten";
 
-"booking_filters_rating" = "Beoordeling";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Rating van";
 
 "booking_filters_rating_any" = "Alle";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "Het bestellen van een taxi is tijdelijk niet beschikbaar.";
 
-"advertisement" = "Reclame";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Mobiel internet gebruiken om gedetailleerde informatie weer te geven?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "Modus autonavigatie is eenvoudiger te gebruiken.";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "Meer op Booking.com";
 
 "details_on_bookingcom" = "Details op Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Kaarten bijwerken";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Werk uw gedownloade kaarten bij";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Kaarten bijwerken houdt de informatie over objecten actueel";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Bijwerken (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
 "search_hotel_filter_apartment" = "Appartementen";
 
@@ -1877,8 +1872,25 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "Dit bedrijf claimen";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "Bedrijf wordt geadverteerd";
 
 "search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Algemene Feedback";
+
+"on" = "Aan";
+
+"off" = "Uit";
+
+"prefs_languages_information" = "We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.";
+
+"prefs_languages_information_off_link" = "Gelieve deze handleiding te lezen voor meer informatie.";
+
+"whatsnew_transliteration_title" = "Transliteratie in het Latijn";
+
+"whatsnew_transliteration_message" = "Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.";

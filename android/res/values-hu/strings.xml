@@ -963,7 +963,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Szűrő</string>
 	<string name="booking_filters_reset">Alaphelyzetbe állítás</string>
-	<string name="booking_filters_rating">Minősítés</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Besorolás innentől</string>
 	<string name="booking_filters_rating_any">Bármelyik</string>
 	<string name="booking_filters_ragting_good">Jó</string>
 	<string name="booking_filters_rating_very_good">Nagyon jó</string>
@@ -989,7 +990,6 @@
 	<string name="whatsnew_uber_message">Hívj Uber-taxit közvetlenül az alkalmazásból!</string>
 	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>
 	<string name="dialog_taxi_error">A taxirendelés átmenetileg nem elérhető.</string>
-	<string name="advertisement">Hirdetés</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
 	<string name="mobile_data_option_always">Mindig használja</string>
 	<string name="mobile_data_option_today">Csak ma</string>
@@ -1066,6 +1066,11 @@
 	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
 	<string name="offline_place_page_more_information">A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.</string>
 	<string name="failed_load_information">Nem sikerült betölteni az adatokat.</string>
+	<string name="whats_new_auto_update_updating_maps">Térképek frissítése</string>
+	<string name="whats_new_auto_update_title">Frissítse a letöltött térképeit</string>
+	<string name="whats_new_auto_update_message">A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat</string>
+	<string name="whats_new_auto_update_button_size">Frissítés (%s)</string>
+	<string name="whats_new_auto_update_button_later">Kézi frissítés később</string>
 	<string name="search_hotel_filter_apartment">Apartmanok</string>
 	<string name="search_hotel_filter_camp_site">Kemping</string>
 	<string name="search_hotel_filter_chalet">Turistaház</string>
@@ -1073,4 +1078,17 @@
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Resort hotel</string>
 	<string name="search_hotel_filter_hotel">Szálloda</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Igényelje ezt az üzletet</string>
+	<string name="view_campaign_button">Hirdetett üzlet</string>
+	<string name="search_hotel_filters_type">Típus</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Általános visszajelzés</string>
+	<string name="on">Be</string>
+	<string name="off">Ki</string>
+	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–&gt; Nyelv és adatbevitel-–&gt;Beszéd –&gt; Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.</string>
+	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
+	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
+	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
 </resources>

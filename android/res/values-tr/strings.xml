@@ -969,7 +969,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtre</string>
 	<string name="booking_filters_reset">Sıfırla</string>
-	<string name="booking_filters_rating">Oy Verin</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">En düşük derece</string>
 	<string name="booking_filters_rating_any">Herhangi biri</string>
 	<string name="booking_filters_ragting_good">İyi</string>
 	<string name="booking_filters_rating_very_good">Çok iyi</string>
@@ -995,7 +996,6 @@
 	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>
 	<string name="dialog_taxi_error">Taksi çağırma geçici olarak kullanılamıyor.</string>
-	<string name="advertisement">Reklam</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
 	<string name="mobile_data_option_always">Her zaman kullan</string>
 	<string name="mobile_data_option_today">Sadece Bugün</string>
@@ -1072,6 +1072,11 @@
 	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
 	<string name="offline_place_page_more_information">Yerle ilgili daha fazla bilgi almak için internete bağlanın.</string>
 	<string name="failed_load_information">Bilgiler yüklenemedi.</string>
+	<string name="whats_new_auto_update_updating_maps">Haritalar güncelleniyor</string>
+	<string name="whats_new_auto_update_title">İndirdiğiniz haritaları güncelleyin</string>
+	<string name="whats_new_auto_update_message">Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar</string>
+	<string name="whats_new_auto_update_button_size">Güncelle (%s)</string>
+	<string name="whats_new_auto_update_button_later">Daha sonra manüel olarak güncelle</string>
 	<string name="search_hotel_filter_apartment">Apart otel</string>
 	<string name="search_hotel_filter_camp_site">Kamp alanı</string>
 	<string name="search_hotel_filter_chalet">Chalet</string>
@@ -1079,4 +1084,17 @@
 	<string name="search_hotel_filter_hostel">Pansiyon</string>
 	<string name="search_hotel_filter_resort">Tatil köyü</string>
 	<string name="search_hotel_filter_hotel">Otel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Bu iş yerinin sahibiyim</string>
+	<string name="view_campaign_button">İşletme reklamı verildi</string>
+	<string name="search_hotel_filters_type">Tür</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Genel Geribildirim</string>
+	<string name="on">Aç</string>
+	<string name="off">Kapat</string>
+	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\&#39;yi kullanıyor, Uygulamayı, Google Play\&#39;den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Arapça, Yunanca ve Rumence dilleri için Google Play\&#39;den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -&gt; Dil ve giriş -&gt; Konuşma -&gt; Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
+	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
+	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>
 </resources>

@@ -620,9 +620,6 @@
 /* Settings: Send feedback button and dialog title */
 "feedback" = "ข้อเสนอแนะ";
 
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
-
 /* Text in menu */
 "subscribe_to_news" = "สมัครรับข่าวของเรา";
 
@@ -1652,7 +1649,8 @@
 
 "booking_filters_reset" = "รีเซ็ต";
 
-"booking_filters_rating" = "อันดับ";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "คะแนนตั้งแต่";
 
 "booking_filters_rating_any" = "อะไรก็ได้";
 
@@ -1700,7 +1698,8 @@
 
 "dialog_taxi_error" = "ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว";
 
-"advertisement" = "โฆษณา";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?";
 
@@ -1835,10 +1834,6 @@
 
 "whatsnew_driving_style_message" = "โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น";
 
-"whatsnew_transliteration_title" = "Transliteration";
-
-"whatsnew_transliteration_message" = "Transliteration message";
-
 "more_on_bookingcom" = "เพิ่มเติมบน Booking.com";
 
 "details_on_bookingcom" = "รายละเอียดบน Booking.com";
@@ -1851,15 +1846,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "กำลังอัปเดตแผนที่";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "อัปเดตแผนที่ที่คุณดาวน์โหลดมา";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "อัปเดต (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
 
 "search_hotel_filter_apartment" = "อพาร์ตเมนต์";
 
@@ -1875,10 +1870,27 @@
 
 "search_hotel_filter_hotel" = "โรงแรม";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_motel" = "โมเต็ล";
 
-"create_campaign_button" = "Create ad campaign";
+"create_campaign_button" = "อ้างสิทธิ์ในธุรกิจนี้";
 
-"view_campaign_button" = "View ad campagain";
+"view_campaign_button" = "ธุรกิจได้รับการโฆษณาแล้ว";
 
-"search_hotel_filters_type" = "Type";
+"search_hotel_filters_type" = "ประเภท";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "ข้อเสนอแนะทั่วไป";
+
+"on" = "เปิด";
+
+"off" = "ปิด";
+
+"prefs_languages_information" = "เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "สำหรับภาษาอาหรับ กรีก และโรมาเนีย คุณอาจจำเป็นต้องติดตั้ง TTS (เนื่องจาก Google TTS ยังไม่ได้รองรับภาษาเหล่านี้) เพิ่มเติมจาก Google Play อย่างเช่น Vocalizer TTS หรือ SVOX Classics\nในการที่จะจัดการการตั้งค่าสำหรับการสังเคราะห์เสียงพูด เปิด การตั้งค่า –> ภาษาและอินพุต –> เสียงพูด –> เอาท์พุตการแปลงข้อความไปเป็นเสียงพูด บนเครื่องของคุณ ซึ่งคุณสามารถดาวน์โหลดชุดภาษาเพิ่มเติมหรือเลือกเอนจินการแปลงข้อความไปเป็นเสียงพูดที่ชอบได้";
+
+"prefs_languages_information_off_link" = "สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้";
+
+"whatsnew_transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
+
+"whatsnew_transliteration_message" = "หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน";
