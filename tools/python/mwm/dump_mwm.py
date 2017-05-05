@@ -15,7 +15,7 @@ tvv = sorted([(k, v[0], v[1]) for k, v in mwm.tags.items()], key=lambda x: x[1])
 for tv in tvv:
     print('  {0:<8}: offs {1:9} len {2:8}'.format(tv[0], tv[1], tv[2]))
 v = mwm.read_version()
-print('Format: {0}, version: {1}'.format(v['fmt'], v['version'].strftime('%Y-%m-%d %H:%M')))
+print('Format: {0}, version: {1}'.format(v['fmt'], v['date'].strftime('%Y-%m-%d %H:%M')))
 print('Header: {0}'.format(mwm.read_header()))
 print('Region Info: {0}'.format(mwm.read_region_info()))
 print('Metadata count: {0}'.format(len(mwm.read_metadata())))
