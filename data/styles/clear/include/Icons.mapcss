@@ -2318,6 +2318,142 @@ node|z17-[shop],
 area|z17-[shop]
 {icon-image: shop-l.svg;text-offset: 10;font-size: 10;icon-min-distance: 10}
 
+node|z16[shop=alcohol],
+area|z16[shop=alcohol]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=wine],
+area|z16[shop=wine]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=books],
+area|z16[shop=books]
+{icon-image: book-shop-m.svg;}
+node|z16[shop=bookmaker],
+area|z16[shop=bookmaker]
+{icon-image: bookmaker-m.svg;}
+node|z16[shop=bakery],
+area|z16[shop=bakery]
+{icon-image: bakery-m.svg;}
+node|z16[shop=beauty],
+area|z16[shop=beauty]
+{icon-image: beauty-m.svg;}
+node|z16[shop=cosmetics],
+area|z16[shop=cosmetics]
+{icon-image: beauty-m.svg;}
+node|z16[shop=beverages],
+area|z16[shop=beverages]
+{icon-image: alcohol-m.svg;}
+node|z16[shop=bicycle],
+area|z16[shop=bicycle]
+{icon-image: shop-bicycle-m.svg;}
+node|z16[shop=butcher],
+area|z16[shop=butcher]
+{icon-image: butcher-m.svg;}
+node|z16[shop=car],
+area|z16[shop=car]
+{icon-image: car_shop-m.svg;}
+node|z16[shop=motorcycle],
+area|z16[shop=motorcycle]
+{icon-image: motorcycle_shop-m.svg;}
+node|z16[shop=car_parts],
+area|z16[shop=car_parts]
+{icon-image: car-part-m.svg;}
+node|z16[shop=car_repair],
+area|z16[shop=car_repair]
+{icon-image: car-repair-m.svg;}
+node|z16[shop=tyres],
+area|z16[shop=tyres]
+{icon-image: car-repair-m.svg;}
+node|z16[shop=chemist],
+area|z16[shop=chemist]
+{icon-image: chemist-m.svg;}
+node|z16[shop=clothes],
+area|z16[shop=clothes]
+{icon-image: clothes-m.svg;}
+node|z16[shop=computer],
+area|z16[shop=computer]
+{icon-image: computer-m.svg;}
+node|z16[shop=confectionery],
+area|z16[shop=confectionery]
+{icon-image: sweets-m.svg;}
+node|z16[shop=convenience],
+area|z16[shop=convenience]
+{icon-image: grocery-m.svg;}
+node|z16[shop=copyshop],
+area|z16[shop=copyshop]
+{icon-image: copyshop-m.svg;}
+node|z16[shop=photo],
+area|z16[shop=photo]
+{icon-image: photo-shop-m.svg;}
+node|z16[shop=pet],
+area|z16[shop=pet]
+{icon-image: petshop-m.svg;}
+node|z16[shop=department_store],
+area|z16[shop=department_store]
+{icon-image: department_store-m.svg;}
+node|z16[shop=doityourself],
+area|z16[shop=doityourself]
+{icon-image: doityourself-m.svg;}
+node|z16[shop=electronics],
+area|z16[shop=electronics]
+{icon-image: electronics-m.svg;}
+node|z16[shop=florist],
+area|z16[shop=florist]
+{icon-image: florist-m.svg;}
+node|z16[shop=furniture],
+area|z16[shop=furniture]
+{icon-image: furniture-m.svg;}
+node|z16[shop=garden_centre],
+area|z16[shop=garden_centre]
+{icon-image: garden_center-m.svg;}
+node|z16[shop=gift],
+area|z16[shop=gift]
+{icon-image: gift-m.svg;}
+node|z16[shop=greengrocer],
+area|z16[shop=greengrocer]
+{icon-image: greengrocer-m.svg;}
+node|z16[shop=hairdresser],
+area|z16[shop=hairdresser]
+{icon-image: hairdresser-m.svg;}
+node|z16[shop=hardware],
+area|z16[shop=hardware]
+{icon-image: doityourself-m.svg;}
+node|z16[shop=jewelry],
+area|z16[shop=jewelry]
+{icon-image: jewelry-m.svg;}
+node|z16[shop=kiosk],
+area|z16[shop=kiosk]
+{icon-image: kiosk-m.svg;}
+node|z16[shop=laundry],
+area|z16[shop=laundry]
+{icon-image:laundry-m.svg;}
+node|z16[shop=dry_cleaning],
+area|z16[shop=dry_cleaning]
+{icon-image:laundry-m.svg;}
+node|z16[shop=mobile_phone],
+area|z16[shop=mobile_phone]
+{icon-image: mobile_phone-m.svg;}
+node|z16[shop=optician],
+area|z16[shop=optician]
+{icon-image: optician-m.svg;}
+node|z16[shop=outdoor],
+area|z16[shop=outdoor]
+{icon-image: outdoor-shop-m.svg;}
+node|z16[shop=seafood],
+area|z16[shop=seafood]
+{icon-image: seafood-shop-m.svg;}
+node|z16[shop=shoes],
+area|z16[shop=shoes]
+{icon-image: shoes-m.svg;}
+node|z16[shop=sports],
+area|z16[shop=sports]
+{icon-image: sports-m.svg;}
+node|z16[shop=ticket],
+area|z16[shop=ticket]
+{icon-image: ticket-shop-m.svg;}
+node|z16[shop=toys],
+area|z16[shop=toys]
+{icon-image: toys-m.svg;}
+
 node|z17[shop=alcohol],
 area|z17[shop=alcohol]
 {icon-image: alcohol-l.svg;icon-min-distance: 24;}
