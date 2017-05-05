@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/macros.hpp"
+
 #include "std/string.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
@@ -38,7 +40,7 @@ public:
 /// Retrieve setting
 /// @return false if setting is absent
 template <class ValueT>
-bool Get(string const & key, ValueT & outValue)
+WARN_UNUSED_RESULT bool Get(string const & key, ValueT & outValue)
 {
   string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
