@@ -90,7 +90,7 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
       ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
       double const trafficFactor = CalcTrafficFactor(speedGroup);
       result *= trafficFactor;
-      if (trafficFactor > 1.0)
+      if (speedGroup != SpeedGroup::Unknown && speedGroup != SpeedGroup::G5)
         result *= kTimePenalty;
     }
   }
