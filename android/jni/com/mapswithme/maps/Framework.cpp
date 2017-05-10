@@ -436,7 +436,7 @@ location::EMyPositionMode Framework::GetMyPositionMode()
 {
   if (!m_isCurrentModeInitialized)
   {
-    if(!settings::Get(settings::kLocationStateMode, m_currentMode))
+    if (!settings::Get(settings::kLocationStateMode, m_currentMode))
       m_currentMode = location::NotFollowNoPosition;
 
     m_isCurrentModeInitialized = true;

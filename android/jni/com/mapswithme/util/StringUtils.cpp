@@ -43,7 +43,7 @@ Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jcl
   static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
 
   measurement_utils::Units units;
-  if(!settings::Get(settings::kMeasurementUnits, units))
+  if (!settings::Get(settings::kMeasurementUnits, units))
     units = measurement_utils::Units::Metric;
   return env->NewObject(pairClass, pairCtor,
                         jni::ToJavaString(env, measurement_utils::FormatSpeed(metersPerSecond, units)),

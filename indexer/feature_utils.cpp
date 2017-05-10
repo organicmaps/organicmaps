@@ -49,7 +49,7 @@ bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
 
 bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
-  long const priorityListSize = static_cast<long>(priorityList.size());
+  auto const priorityListSize = static_cast<long>(priorityList.size());
   auto bestIndex = priorityListSize;
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
