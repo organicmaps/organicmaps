@@ -39,7 +39,7 @@ struct RoutingSettings
 
 inline RoutingSettings GetPedestrianRoutingSettings()
 {
-  return RoutingSettings({ false /* m_matchRoute */, false /* m_soundDirection */,
+  return RoutingSettings({ true /* m_matchRoute */, false /* m_soundDirection */,
                            20. /* m_matchingThresholdM */, true /* m_keepPedestrianInfo */,
                            false /* m_showTurnAfterNext */, false /* m_speedCameraWarning*/});
 }
