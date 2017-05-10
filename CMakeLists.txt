@@ -76,11 +76,13 @@ endif()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   add_definitions(-DDEBUG)
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  add_definitions(-DRELEASE)
+else()
+  message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
 
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-  add_definitions(-DRELEASE)
-endif()
+message("Build type: " ${CMAKE_BUILD_TYPE})
 
 if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
