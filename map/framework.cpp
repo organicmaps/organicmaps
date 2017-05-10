@@ -63,6 +63,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
@@ -2684,9 +2685,13 @@ void Framework::SetRouterImpl(RouterType type)
   }
   else
   {
-    auto localFileChecker = [this](string const & countryFile) -> bool
-    {
-      return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
+    auto localFileChecker = [this](string const & countryFile) -> bool {
+      MwmSet::MwmId const mwmId =
+          m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile));
+      if (!mwmId.IsAlive())
+        return false;
+
+      return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
     };
 
     auto numMwmIds = make_shared<routing::NumMwmIds>();
