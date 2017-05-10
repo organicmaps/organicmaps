@@ -86,9 +86,9 @@ using namespace storage;
                                      {
                                        NodeAttrs nodeAttrs;
                                        GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-                                       return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+                                       return size + nodeAttrs.m_mwmSize;
                                      });
-  if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
+  if (storage::IsEnoughSpaceForDownload(requiredSize))
   {
     [self checkConnectionAndPerformAction:[countryIds, onSuccess] {
       auto & s = GetFramework().GetStorage();

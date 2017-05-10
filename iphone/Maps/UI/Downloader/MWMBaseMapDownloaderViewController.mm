@@ -292,8 +292,7 @@ using namespace mwm;
         self.allMapsButton.hidden = NO;
         [self.allMapsButton
          setTitle:[NSString stringWithFormat:kAllMapsLabelFormat, kDownloadAllActionTitle,
-                   formattedSize(nodeAttrs.m_mwmSize -
-                                 nodeAttrs.m_localMwmSize)]
+                   formattedSize(nodeAttrs.m_mwmSize)]
          forState:UIControlStateNormal];
         self.allMapsCancelButton.hidden = YES;
       }
@@ -570,7 +569,7 @@ using namespace mwm;
     s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
     NSString * prefix = nodeAttrs.m_mwmCounter == 1 ? kDownloadActionTitle : kDownloadAllActionTitle;
     NSString * title = [NSString stringWithFormat:kAllMapsLabelFormat, prefix,
-                        formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
+                        formattedSize(nodeAttrs.m_mwmSize)];
     UIAlertAction * action = [UIAlertAction actionWithTitle:title
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * action)
