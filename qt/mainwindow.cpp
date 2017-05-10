@@ -540,10 +540,11 @@ void MainWindow::OnLoginMenuItem()
 void MainWindow::OnUploadEditsMenuItem()
 {
   string key, secret;
-  settings::Get(kTokenKeySetting, key);
-  settings::Get(kTokenSecretSetting, secret);
-  if (key.empty() || secret.empty())
+  if (!settings::Get(kTokenKeySetting, key) || key.empty() ||
+      !settings::Get(kTokenSecretSetting, secret) || secret.empty())
+  {
     OnLoginMenuItem();
+  }
   else
   {
     auto & editor = osm::Editor::Instance();

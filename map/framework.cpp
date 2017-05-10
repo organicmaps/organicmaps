@@ -2511,7 +2511,7 @@ string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string co
   int const len = MapsWithMe_GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0],
                                                 static_cast<int>(res.size()));
 
-  ASSERT_LESS_OR_EQUAL(len, res.size(), ());
+  ASSERT_LESS_OR_EQUAL(len, static_cast<int>(res.size()), ());
   res.resize(len);
 
   return res;

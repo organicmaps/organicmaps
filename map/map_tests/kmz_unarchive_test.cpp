@@ -21,7 +21,7 @@ UNIT_TEST(KMZ_UnzipTest)
 
   bool isKMLinZip = false;
 
-  for (int i = 0; i < files.size();++i)
+  for (size_t i = 0; i < files.size(); ++i)
   {
     if (files[i].first == "doc.kml")
     {

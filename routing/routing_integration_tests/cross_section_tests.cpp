@@ -116,7 +116,7 @@ UNIT_TEST(CheckOsrmToFeatureMapping)
     segMapping.Load(container, file);
     segMapping.Map(container);
 
-    for (size_t i = 0; i < dataFacade.GetNumberOfNodes(); ++i)
+    for (unsigned i = 0; i < dataFacade.GetNumberOfNodes(); ++i)
     {
       buffer_vector<OsrmMappingTypes::FtSeg, 8> buffer;
       segMapping.ForEachFtSeg(i, MakeBackInsertFunctor(buffer));

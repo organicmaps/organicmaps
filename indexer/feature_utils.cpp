@@ -49,10 +49,11 @@ bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
 
 bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
-  auto bestIndex = priorityList.size();
+  long const priorityListSize = static_cast<long>(priorityList.size());
+  auto bestIndex = priorityListSize;
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
-                               size_t & bestIndex, string & outName)
+                               long & bestIndex, string & outName)
   {
     auto const it = find(langs.begin(), langs.end(), code);
     if (it != langs.end() && bestIndex > distance(langs.begin(), it))
@@ -72,13 +73,13 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   });
 
   // There are many "junk" names in Arabian island.
-  if (bestIndex < priorityList.size() &&
+  if (bestIndex < priorityListSize &&
       priorityList[bestIndex] == StrUtf8::kInternationalCode)
   {
     out = out.substr(0, out.find_first_of(','));
   }
 
-  return bestIndex < priorityList.size();
+  return bestIndex < priorityListSize;
 }
 }  // namespace
 

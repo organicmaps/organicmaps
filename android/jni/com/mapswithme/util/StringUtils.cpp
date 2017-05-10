@@ -42,8 +42,9 @@ Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jcl
   static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
   static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
 
-  auto units = measurement_utils::Units::Metric;
-  settings::Get(settings::kMeasurementUnits, units);
+  measurement_utils::Units units;
+  if(!settings::Get(settings::kMeasurementUnits, units))
+    units = measurement_utils::Units::Metric;
   return env->NewObject(pairClass, pairCtor,
                         jni::ToJavaString(env, measurement_utils::FormatSpeed(metersPerSecond, units)),
                         jni::ToJavaString(env, measurement_utils::FormatSpeedUnits(units)));

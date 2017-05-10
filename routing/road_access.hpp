@@ -42,7 +42,7 @@ public:
 
   std::map<Segment, RoadAccess::Type> const & GetSegmentTypes() const { return m_segmentTypes; }
 
-  Type const GetSegmentType(Segment const & segment) const;
+  Type GetSegmentType(Segment const & segment) const;
 
   template <typename V>
   void SetSegmentTypes(V && v)
