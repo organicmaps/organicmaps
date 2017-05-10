@@ -307,13 +307,15 @@ namespace ftype
         current = path.back().get();
 
         // Next objects trying to find by value first.
-        ClassifObjectPtr pObj =
-            ForEachTagEx<ClassifObjectPtr>(p, skipRows, [&current](string const & k, string const & v)
-            {
-              if (!NeedMatchValue(k, v))
-                return ClassifObjectPtr();
-              return current->BinaryFind(v);
-            });
+        // Prevent merging different tags (e.g. shop=pet from shop=abandoned, was:shop=pet).
+       ClassifObjectPtr pObj =
+           path.size() == 1 ? ClassifObjectPtr()
+                            : ForEachTagEx<ClassifObjectPtr>(
+                                  p, skipRows, [&current](string const & k, string const & v) {
+                                    if (!NeedMatchValue(k, v))
+                                      return ClassifObjectPtr();
+                                    return current->BinaryFind(v);
+                                  });
 
         if (pObj)
         {
