@@ -35,6 +35,9 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
+
 
 final class BannerController
 {
@@ -303,7 +306,7 @@ final class BannerController
     else if (!mOpened)
     {
       close();
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, 0);
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
     }
     else
     {
@@ -400,7 +403,8 @@ final class BannerController
     @Override
     public void onClick(@NonNull MwmNativeAd ad)
     {
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad, mOpened ? 1 : 0);
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
+                                        mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
     }
   }
 }

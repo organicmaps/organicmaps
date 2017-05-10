@@ -6,6 +6,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -29,7 +30,10 @@ import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
+import com.my.tracker.MyTracker;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +42,7 @@ import java.util.Map;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
@@ -63,6 +68,13 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKIN
 public enum Statistics
 {
   INSTANCE;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
+  public @interface BannerState {}
+
+  public static final int PP_BANNER_STATE_PREVIEW = 0;
+  public static final int PP_BANNER_STATE_DETAILS = 1;
 
   // Statistics counters
   private int mBookmarksCreated;
@@ -537,12 +549,15 @@ public enum Statistics
     trackHotelEvent(PP_SPONSORED_BOOK, hotel, mapObject);
   }
 
-  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, int state)
+  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, @BannerState int state)
   {
     trackEvent(eventName, Statistics.params()
                                     .add(BANNER, ad.getBannerId())
                                     .add(PROVIDER, ad.getProvider())
                                     .add(BANNER_STATE, String.valueOf(state)));
+
+    if (!eventName.equals(PP_BANNER_SHOW) || state == PP_BANNER_STATE_PREVIEW)
+      MyTracker.trackEvent(eventName);
   }
 
   public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
@@ -557,6 +572,7 @@ public enum Statistics
            .add(PROVIDER, provider)
            .add(BANNER_STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
+    MyTracker.trackEvent(eventName);
   }
 
   public void trackBookingSearchEvent(@NonNull MapObject mapObject)
