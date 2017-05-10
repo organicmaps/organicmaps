@@ -341,7 +341,8 @@ void Framework::StopLocationFollow()
 
 bool Framework::IsEnoughSpaceForMigrate() const
 {
-  return GetPlatform().GetWritableStorageStatus(kMaxMwmSizeBytes) == Platform::TStorageStatus::STORAGE_OK;
+  return GetPlatform().GetWritableStorageStatus(GetStorage().GetMaxMwmSizeBytes()) ==
+         Platform::TStorageStatus::STORAGE_OK;
 }
 
 TCountryId Framework::PreMigrate(ms::LatLon const & position,

@@ -240,6 +240,8 @@ private:
   // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
   TMappingAffiliations m_affiliations;
 
+  TMwmSize m_maxMwmSizeBytes;
+
   ThreadChecker m_threadChecker;
 
   void DownloadNextCountryFromQueue();
@@ -532,6 +534,8 @@ public:
   /// Sets and gets locale, which is used to get localized counries names
   void SetLocale(string const & locale);
   string GetLocale() const;
+  
+  TMwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
 
   // for testing:
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
@@ -635,6 +639,8 @@ private:
   void ForEachAncestorExceptForTheRoot(vector<TCountryTreeNode const *> const & nodes, ToDo && toDo) const;
   /// Returns true if |node.Value().Name()| is a disputed territory and false otherwise.
   bool IsDisputed(TCountryTreeNode const & node) const;
+
+  void CalMaxMwmSizeBytes();
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);

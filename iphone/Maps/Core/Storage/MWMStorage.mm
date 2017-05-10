@@ -81,7 +81,8 @@ using namespace storage;
 }
 + (void)downloadNodes:(TCountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
-  TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
+  auto & s = GetFramework().GetStorage();
+  TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
                                      [](size_t const & size, TCountryId const & countryId)
                                      {
                                        NodeAttrs nodeAttrs;
@@ -90,8 +91,7 @@ using namespace storage;
                                      });
   if (storage::IsEnoughSpaceForDownload(requiredSize))
   {
-    [self checkConnectionAndPerformAction:[countryIds, onSuccess] {
-      auto & s = GetFramework().GetStorage();
+    [self checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {
       for (auto const & countryId : countryIds)
         s.DownloadNode(countryId);
       if (onSuccess)
