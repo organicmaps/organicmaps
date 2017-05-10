@@ -19,7 +19,8 @@ public:
   ~ScreenQuadRenderer();
 
   void SetTextureRect(m2::RectF const & rect, ref_ptr<dp::GpuProgramManager> mng);
-  bool IsValid() const { return m_bufferId != 0; }
+  bool IsInitialized() const { return m_bufferId != 0; }
+  m2::RectF const & GetTextureRect() const { return m_textureRect; }
   void RenderTexture(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng, float opacity);
 
 private:
