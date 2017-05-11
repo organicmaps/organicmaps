@@ -8,7 +8,7 @@ uniform float u_opacity;
 
 const float aaPixelsCount = 2.5;
 
-void main(void)
+void main()
 {
   vec4 color = texture2D(u_colorTex, v_colorTexCoord);
   vec4 mask = texture2D(u_maskTex, v_maskTexCoord);

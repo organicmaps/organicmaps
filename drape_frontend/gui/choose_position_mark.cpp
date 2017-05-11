@@ -1,7 +1,6 @@
-#include "choose_position_mark.hpp"
-#include "drape_gui.hpp"
-
-#include "drape/shader_def.hpp"
+#include "drape_frontend/gui/choose_position_mark.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/shader_def.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 

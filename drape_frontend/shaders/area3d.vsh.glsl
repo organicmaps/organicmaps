@@ -12,7 +12,7 @@ varying float v_intensity;
 
 const vec4 lightDir = vec4(1.0, 0.0, 3.0, 0.0);
 
-void main(void)
+void main()
 {
   vec4 pos = vec4(a_position, 1.0) * modelView;
   

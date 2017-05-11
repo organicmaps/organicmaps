@@ -1,13 +1,14 @@
 #include "testing/testing.hpp"
 
-#include "drape/gpu_program_manager.hpp"
 #include "drape/gpu_program.hpp"
-#include "drape/shader_def.hpp"
+#include "drape/gpu_program_info.hpp"
+#include "drape/gpu_program_manager.hpp"
 #include "drape/uniform_value.hpp"
 
 #include "drape/drape_tests/glmock_functions.hpp"
 
-#include "std/cstring.hpp"
+#include <cstring>
+#include <string>
 
 #include <gmock/gmock.h>
 
@@ -77,6 +78,28 @@ void mock_glGetActiveUniform(uint32_t programID,
     ASSERT(false, ("Undefined index:", index));
 }
 
+class TestShaderMapper : public gpu::GpuProgramGetter
+{
+public:
+  TestShaderMapper()
+  {
+    m_vertexShader = "void main() { gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
+    m_fragmentShader = "void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }";
+    m_info.m_vertexIndex = 0;
+    m_info.m_fragmentIndex = 1;
+    m_info.m_textureSlotsCount = 0;
+    m_info.m_vertexSource = m_vertexShader.c_str();
+    m_info.m_fragmentSource = m_fragmentShader.c_str();
+  }
+  gpu::GpuProgramInfo const & GetProgramInfo(int program) const override
+  {
+    return m_info;
+  }
+private:
+  gpu::GpuProgramInfo m_info;
+  std::string m_vertexShader;
+  std::string m_fragmentShader;
+};
 } // namespace
 
 UNIT_TEST(UniformValueTest)
@@ -101,13 +124,13 @@ UNIT_TEST(UniformValueTest)
 
   {
     InSequence seq;
+    EXPECTGL(glGetInteger(gl_const::GLMaxVertexTextures)).Times(1);
     // vertexShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLVertexShader)).WillOnce(Return(VertexShaderID));
     EXPECTGL(glShaderSource(VertexShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
     // fragmentShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
-    //EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
     EXPECTGL(glShaderSource(FragmentShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 
@@ -154,7 +177,8 @@ UNIT_TEST(UniformValueTest)
   }
 
   drape_ptr<GpuProgramManager> manager = make_unique_dp<GpuProgramManager>();
-  ref_ptr<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
+  manager->Init(make_unique_dp<TestShaderMapper>());
+  ref_ptr<GpuProgram> program = manager->GetProgram(0);
 
   program->Bind();
 

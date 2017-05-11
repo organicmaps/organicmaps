@@ -17,20 +17,17 @@ varying vec2 v_colorTexCoord;
 
 varying vec2 v_maskTexCoord;
 
-const float Zero = 0.0;
-const float One = 1.0;
-const float BaseDepthShift = -10.0;
+const float kBaseDepthShift = -10.0;
 
 void main()
 {
   float isOutline = step(0.5, u_isOutlinePass);
-  float notOutline = One - isOutline;
-  float depthShift = BaseDepthShift * isOutline;
+  float depthShift = kBaseDepthShift * isOutline;
   
-  vec4 pos = (vec4(a_position.xyz, 1.0) + vec4(Zero, Zero, depthShift, Zero)) * modelView;
-  vec4 shiftedPos = vec4(a_normal, Zero, Zero) + pos;
+  vec4 pos = (vec4(a_position.xyz, 1.0) + vec4(0.0, 0.0, depthShift, 0.0)) * modelView;
+  vec4 shiftedPos = vec4(a_normal, 0.0, 0.0) + pos;
   gl_Position = shiftedPos * projection;
-  vec2 colorTexCoord = a_colorTexCoord * notOutline + a_outlineColorTexCoord * isOutline;
+  vec2 colorTexCoord = mix(a_colorTexCoord, a_outlineColorTexCoord, isOutline);
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, colorTexCoord);
 #else

@@ -73,11 +73,6 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
   }
 
   CONFIG(desktop) {
-    drape_head.depends = $$SUBDIRS
-    SUBDIRS *= drape_head
-  }
-
-  CONFIG(desktop) {
     benchmark_tool.subdir = map/benchmark_tool
     benchmark_tool.depends = 3party base coding geometry platform indexer search map
     mapshot.depends = $$SUBDIRS

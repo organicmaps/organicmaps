@@ -1,10 +1,10 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/shader_def.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 namespace

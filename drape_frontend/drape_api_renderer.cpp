@@ -1,8 +1,8 @@
 #include "drape_frontend/drape_api_renderer.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape/shader_def.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/vertex_array_buffer.hpp"
 

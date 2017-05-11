@@ -1,11 +1,11 @@
-#include "compass.hpp"
-#include "drape_gui.hpp"
+#include "drape_frontend/gui/compass.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/shader_def.hpp"
 
-#include "drape/glsl_types.hpp"
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
+#include "drape/glsl_types.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 

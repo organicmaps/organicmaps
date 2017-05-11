@@ -18,7 +18,7 @@ const float kOutlineThreshold2 = 0.5;
 
 const float kMaskOpacity = 0.7;
 
-void main(void)
+void main()
 {
   vec4 color = texture2D(u_colorTex, v_colorTexCoord);
   float alphaCode = color.a;

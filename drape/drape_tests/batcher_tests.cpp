@@ -1,11 +1,10 @@
-#include "testing/testing.hpp"
 #include "drape/drape_tests/memory_comparer.hpp"
+#include "testing/testing.hpp"
 
-#include "drape/glconstants.hpp"
 #include "drape/batcher.hpp"
+#include "drape/glconstants.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/index_storage.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "drape/drape_tests/glmock_functions.hpp"
@@ -13,9 +12,9 @@
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
+#include "std/bind.hpp"
 #include "std/cstring.hpp"
 #include "std/function.hpp"
-#include "std/bind.hpp"
 
 #include <gmock/gmock.h>
 
@@ -51,7 +50,7 @@ public:
 
   template <typename TBatcherCall>
   void RunTest(float * vertexes, void * indexes,
-               uint32_t vertexCount, uint32_t vertexComponentCount,
+               uint32_t vertexCount, uint8_t vertexComponentCount,
                uint32_t indexCount, TBatcherCall const & fn)
   {
     int const vertexSize = vertexCount * vertexComponentCount;

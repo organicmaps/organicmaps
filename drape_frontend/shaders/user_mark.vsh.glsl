@@ -10,7 +10,7 @@ uniform float u_interpolationT;
 
 varying vec2 v_colorTexCoords;
 
-void main(void)
+void main()
 {
   vec2 normal = a_normal;
   if (a_animate > 0.0)
@@ -18,10 +18,6 @@ void main(void)
 
   vec4 p = vec4(a_position, 1) * modelView;
   vec4 pos = vec4(normal, 0, 0) + p;
-  pos = pos * projection;
-  float w = pos.w;
-  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
-  pos.z *= pos.w / w;
-  gl_Position = pos;
+  gl_Position = applyPivotTransform(pos * projection, pivotTransform, 0.0);
   v_colorTexCoords = a_colorTexCoords;
 }

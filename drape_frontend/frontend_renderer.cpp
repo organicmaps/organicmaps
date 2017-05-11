@@ -10,11 +10,11 @@
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/screen_quad_renderer.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -1693,13 +1693,13 @@ void FrontendRenderer::OnContextCreate()
   dp::SupportManager::Instance().Init();
 
   m_gpuProgramManager = make_unique_dp<dp::GpuProgramManager>();
-  m_gpuProgramManager->Init();
+  m_gpuProgramManager->Init(make_unique_dp<gpu::ShaderMapper>());
 
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
 #ifdef RENDER_DEBUG_RECTS
-  dp::DebugRectRenderer::Instance().Init(make_ref(m_gpuProgramManager));
+  dp::DebugRectRenderer::Instance().Init(make_ref(m_gpuProgramManager), gpu::DEBUG_RECT_PROGRAM);
 #endif
 
   // resources recovering

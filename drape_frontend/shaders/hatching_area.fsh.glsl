@@ -10,7 +10,7 @@ varying vec2 v_colorTexCoords;
 uniform sampler2D u_maskTex;
 varying vec2 v_maskTexCoords;
 
-void main(void)
+void main()
 {
 #ifdef ENABLE_VTF
   lowp vec4 color = v_color;

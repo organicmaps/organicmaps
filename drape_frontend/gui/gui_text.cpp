@@ -1,5 +1,6 @@
-#include "gui_text.hpp"
+#include "drape_frontend/gui/gui_text.hpp"
 
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "base/string_utils.hpp"
@@ -7,7 +8,6 @@
 
 #include "drape/bidi.hpp"
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/type_traits.hpp"

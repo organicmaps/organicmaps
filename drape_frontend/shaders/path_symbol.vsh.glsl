@@ -8,9 +8,7 @@ uniform mat4 pivotTransform;
 
 varying vec2 v_colorTexCoords;
 
-const float kShapeCoordScalar = 1000.0;
-
-void main(void)
+void main()
 {
   vec4 pos = vec4(a_position.xyz, 1) * modelView;
 
@@ -19,10 +17,6 @@ void main(void)
   vec4 norm = n * normalLen;
 
   vec4 shiftedPos = norm + pos;
-  shiftedPos = shiftedPos * projection;
-  float w = shiftedPos.w;
-  shiftedPos.xyw = (pivotTransform * vec4(shiftedPos.xy, 0.0, w)).xyw;
-  shiftedPos.z *= shiftedPos.w / w;
-  gl_Position = shiftedPos;
+  gl_Position = applyPivotTransform(shiftedPos * projection, pivotTransform, 0.0);
   v_colorTexCoords = a_colorTexCoords;
 }

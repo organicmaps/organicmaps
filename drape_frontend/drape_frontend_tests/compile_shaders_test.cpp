@@ -1,83 +1,45 @@
 #include "testing/testing.hpp"
 
-#include "drape/shader_def.hpp"
+#include "drape_frontend/drape_frontend_tests/shader_def_for_tests.hpp"
+
 #include "drape/shader.hpp"
 
-#include "drape/glconstants.hpp"
-
-#include "drape/drape_tests/glmock_functions.hpp"
-
-#include "base/scope_guard.hpp"
 #include "platform/platform.hpp"
 
-#include "std/sstream.hpp"
-#include "std/target_os.hpp"
-#include "std/vector.hpp"
-#include "std/string.hpp"
+#include <functional>
+#include <sstream>
+#include <string>
+#include <vector>
 
-#include <QtCore/QProcess>
-#include <QtCore/QDebug>
-#include <QtCore/QTextStream>
 #include <QTemporaryFile>
+#include <QtCore/QDebug>
+#include <QtCore/QProcess>
+#include <QtCore/QTextStream>
 
-#include <gmock/gmock.h>
-
-using testing::Return;
-using testing::AnyNumber;
 using namespace dp;
 
-#if defined (OMIM_OS_MAC)
-  #define SHADERS_COMPILER "GLSLESCompiler_Series5.mac"
-  #define MALI_SHADERS_COMPILER "mali_compiler/malisc"
-  #define MALI_DIR "mali_compiler/"
-#elif defined (OMIM_OS_LINUX)
-  #define SHADERS_COMPILER "GLSLESCompiler_Series5"
-  #define MALI_SHADERS_COMPILER "mali_compiler/malisc"
-  #define MALI_DIR "mali_compiler/"
-#elif defined (OMIM_OS_WINDOWS)
-  #define SHADERS_COMPILER "GLSLESCompiler_Series5.exe"
-#else
-  #error "Define shaders compiler for your platform"
-#endif
+#if defined(OMIM_OS_MAC)
 
+#define SHADERS_COMPILER "GLSLESCompiler_Series5.mac"
+#define MALI_SHADERS_COMPILER "mali_compiler/malisc"
+#define MALI_DIR "mali_compiler/"
 
-string DebugPrint(QString const & s)
-{
-  return s.toStdString();
-}
-
-struct ShaderEnumGuard
-{
-  ShaderEnumGuard()
-  {
-    gpu::InitEnumeration();
-  }
-
-  ~ShaderEnumGuard()
-  {
-    gpu::VertexEnum.clear();
-    gpu::FragmentEnum.clear();
-  }
-};
+std::string DebugPrint(QString const & s) { return s.toStdString(); }
 
 void WriteShaderToFile(QTemporaryFile & file, string shader)
 {
-  EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillRepeatedly(Return(8));
-  PreprocessShaderSource(shader);
   QTextStream out(&file);
   out << QString::fromStdString(shader);
 }
 
-typedef function<void (QProcess & p)> TPrepareProcessFn;
-typedef function<void (QStringList & args, QString const & fileName)> TPrepareArgumentsFn;
-typedef function<bool (QString const & output)> TSuccessComparator;
+using PrepareProcessFn = std::function<void(QProcess & p)>;
+using PrepareArgumentsFn = std::function<void(QStringList & args, QString const & fileName)>;
+using SuccessComparator = std::function<bool(QString const & output)>;
 
-void RunShaderTest(QString const & glslCompiler,
-                   QString const & fileName,
-                   TPrepareProcessFn const & procPrepare,
-                   TPrepareArgumentsFn const & argsPrepare,
-                   TSuccessComparator const & successComparator,
-                   QTextStream & errorLog)
+void RunShaderTest(std::string const & shaderName, QString const & glslCompiler,
+                   QString const & fileName, PrepareProcessFn const & procPrepare,
+                   PrepareArgumentsFn const & argsPrepare,
+                   SuccessComparator const & successComparator, QTextStream & errorLog)
 {
   QProcess p;
   procPrepare(p);
@@ -93,34 +55,32 @@ void RunShaderTest(QString const & glslCompiler,
   if (!successComparator(result))
   {
     errorLog << "\n" << QString("SHADER COMPILE ERROR\n");
-    errorLog << fileName << "\n";
+    errorLog << QString(shaderName.c_str()) << "\n";
     errorLog << result.trimmed() << "\n";
   }
 }
 
-void ForEachShader(string const & defines,
-                   vector<string> const & shaders,
-                   QString const & glslCompiler,
-                   TPrepareProcessFn const & procPrepare,
-                   TPrepareArgumentsFn const & argsPrepare,
-                   TSuccessComparator const & successComparator,
-                   QTextStream & errorLog)
+void ForEachShader(std::string const & defines,
+                   vector<std::pair<std::string, std::string>> const & shaders,
+                   QString const & glslCompiler, PrepareProcessFn const & procPrepare,
+                   PrepareArgumentsFn const & argsPrepare,
+                   SuccessComparator const & successComparator, QTextStream & errorLog)
 {
-  for (string src : shaders)
+  for (auto const & src : shaders)
   {
     QTemporaryFile srcFile;
-    TEST(srcFile.open(), ("Temporary File can't be created!"));
-    string fullSrc = defines + src;
+    TEST(srcFile.open(), ("Temporary file can't be created!"));
+    std::string fullSrc = defines + src.second;
     WriteShaderToFile(srcFile, fullSrc);
-    RunShaderTest(glslCompiler, srcFile.fileName(),
-                  procPrepare, argsPrepare, successComparator, errorLog);
+    RunShaderTest(src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare,
+                  successComparator, errorLog);
   }
 }
 
 UNIT_TEST(CompileShaders_Test)
 {
   Platform & platform = GetPlatform();
-  string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" SHADERS_COMPILER;
+  std::string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" SHADERS_COMPILER;
   if (!platform.IsFileExistsByFullPath(glslCompilerPath))
   {
     glslCompilerPath = platform.WritableDir() + "shaders_compiler/" SHADERS_COMPILER;
@@ -130,22 +90,18 @@ UNIT_TEST(CompileShaders_Test)
   QString errorLog;
   QTextStream ss(&errorLog);
 
-  ShaderEnumGuard guard;
   QString compilerPath = QString::fromStdString(glslCompilerPath);
   QString shaderType = "-v";
-  auto argsPrepareFn = [&shaderType] (QStringList & args, QString const & fileName)
-                       {
-                         args << fileName
-                              << fileName + ".bin"
-                              << shaderType;
-                       };
-  auto successComparator = [] (QString const & output) { return output.indexOf("Success") != -1; };
+  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName) {
+    args << fileName << fileName + ".bin" << shaderType;
+  };
+  auto successComparator = [](QString const & output) { return output.indexOf("Success") != -1; };
 
   string defines = "";
-  ForEachShader(defines, gpu::VertexEnum, compilerPath, [] (QProcess const &) {},
-                argsPrepareFn, successComparator, ss);
+  ForEachShader(defines, gpu::GetVertexEnum(), compilerPath, [](QProcess const &) {}, argsPrepareFn,
+                successComparator, ss);
   shaderType = "-f";
-  ForEachShader(defines, gpu::FragmentEnum, compilerPath,[] (QProcess const &) {},
+  ForEachShader(defines, gpu::GetFragmentEnum(), compilerPath, [](QProcess const &) {},
                 argsPrepareFn, successComparator, ss);
 
   TEST_EQUAL(errorLog.isEmpty(), true, ("PVR without defines :", errorLog));
@@ -153,10 +109,10 @@ UNIT_TEST(CompileShaders_Test)
   defines = "#define ENABLE_VTF\n";
   errorLog.clear();
   shaderType = "-v";
-  ForEachShader(defines, gpu::VertexEnum, compilerPath, [] (QProcess const &) {},
-                argsPrepareFn, successComparator, ss);
+  ForEachShader(defines, gpu::GetVertexEnum(), compilerPath, [](QProcess const &) {}, argsPrepareFn,
+                successComparator, ss);
   shaderType = "-f";
-  ForEachShader(defines, gpu::FragmentEnum, compilerPath,[] (QProcess const &) {},
+  ForEachShader(defines, gpu::GetFragmentEnum(), compilerPath, [](QProcess const &) {},
                 argsPrepareFn, successComparator, ss);
 
   TEST_EQUAL(errorLog.isEmpty(), true, ("PVR with defines : ", defines, "\n", errorLog));
@@ -164,55 +120,45 @@ UNIT_TEST(CompileShaders_Test)
   defines = "#define SAMSUNG_GOOGLE_NEXUS\n";
   errorLog.clear();
   shaderType = "-v";
-  ForEachShader(defines, gpu::VertexEnum, compilerPath, [] (QProcess const &) {},
-                argsPrepareFn, successComparator, ss);
+  ForEachShader(defines, gpu::GetVertexEnum(), compilerPath, [](QProcess const &) {}, argsPrepareFn,
+                successComparator, ss);
   shaderType = "-f";
-  ForEachShader(defines, gpu::FragmentEnum, compilerPath,[] (QProcess const &) {},
+  ForEachShader(defines, gpu::GetFragmentEnum(), compilerPath, [](QProcess const &) {},
                 argsPrepareFn, successComparator, ss);
 
   TEST_EQUAL(errorLog.isEmpty(), true, ("PVR with defines : ", defines, "\n", errorLog));
 }
 
-#ifdef OMIM_OS_MAC
-
-void TestMaliShaders(QString const & driver,
-                     QString const & hardware,
-                     QString const & release)
+void TestMaliShaders(QString const & driver, QString const & hardware, QString const & release)
 {
   Platform & platform = GetPlatform();
-  string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" MALI_SHADERS_COMPILER;
+  std::string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" MALI_SHADERS_COMPILER;
   TEST(platform.IsFileExistsByFullPath(glslCompilerPath), ("GLSL MALI compiler not found"));
 
   QString errorLog;
   QTextStream ss(&errorLog);
 
   QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-  env.insert("MALICM_LOCATION", QString::fromStdString(platform.ResourcesDir() + "shaders_compiler/" MALI_DIR));
-  auto procPrepare = [&env] (QProcess & p) { p.setProcessEnvironment(env); };
+  env.insert("MALICM_LOCATION",
+             QString::fromStdString(platform.ResourcesDir() + "shaders_compiler/" MALI_DIR));
+  auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
   QString shaderType = "-v";
-  auto argForming = [&] (QStringList & args, QString const & fileName)
-  {
-    args << shaderType
-         << "-V"
-         << "-r"
-         << release
-         << "-c"
-         << hardware
-         << "-d"
-         << driver
-         << fileName;
+  auto argForming = [&](QStringList & args, QString const & fileName) {
+    args << shaderType << "-V"
+         << "-r" << release << "-c" << hardware << "-d" << driver << fileName;
   };
 
-  auto succesComparator = [] (QString const & output)
-                            {
-                              return output.indexOf("Compilation succeeded.") != -1;
-                            };
+  auto succesComparator = [](QString const & output) {
+    return output.indexOf("Compilation succeeded.") != -1;
+  };
 
-  string defines = "";
+  std::string defines = "";
   QString const compilerPath = QString::fromStdString(glslCompilerPath);
-  ForEachShader(defines, gpu::VertexEnum, compilerPath, procPrepare, argForming, succesComparator, ss);
+  ForEachShader(defines, gpu::GetVertexEnum(), compilerPath, procPrepare, argForming,
+                succesComparator, ss);
   shaderType = "-f";
-  ForEachShader(defines, gpu::FragmentEnum, compilerPath, procPrepare, argForming, succesComparator, ss);
+  ForEachShader(defines, gpu::GetFragmentEnum(), compilerPath, procPrepare, argForming,
+                succesComparator, ss);
   TEST(errorLog.isEmpty(), (shaderType, release, hardware, driver, defines, errorLog));
 
   // MALI GPUs do not support ENABLE_VTF. Do not test it here.
@@ -269,13 +215,10 @@ UNIT_TEST(MALI_CompileShaders_Test)
   models[2].m_releases.push_back(make_pair("Mali-T760", "r0p3"));
   models[2].m_releases.push_back(make_pair("Mali-T760", "r1p0"));
 
-  ShaderEnumGuard guard;
-
-  for (DriverSet set : models)
+  for (auto const & set : models)
   {
-    for (TReleaseVersion version : set.m_releases)
+    for (auto const & version : set.m_releases)
       TestMaliShaders(set.m_driverName, version.first, version.second);
   }
 }
-
 #endif

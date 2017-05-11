@@ -13,7 +13,7 @@ varying lowp vec4 v_color;
 varying vec2 v_colorTexCoords;
 #endif
 
-void main(void)
+void main()
 {
   vec4 pos = vec4(a_position, 1.0) * modelView;
   pos.xyw = (pos * projection).xyw;

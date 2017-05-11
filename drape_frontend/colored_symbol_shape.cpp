@@ -1,4 +1,5 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
@@ -7,7 +8,6 @@
 #include "drape/glsl_types.hpp"
 #include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 

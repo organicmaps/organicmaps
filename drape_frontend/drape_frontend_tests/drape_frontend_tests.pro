@@ -4,7 +4,13 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
+DEFINES += COMPILER_TESTS
+
 DEPENDENCIES = drape_frontend drape platform indexer geometry coding base expat stats_client stb_image sdf_image icu
+
+SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shaders_lib.glsl $$PWD shader_def_for_tests
+CMDRES = $$system(python $$PWD/../../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
+!isEmpty($$CMDRES):message($$CMDRES)
 
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
@@ -21,7 +27,11 @@ win32*|linux* {
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  compile_shaders_test.cpp \
   navigator_test.cpp \
   object_pool_tests.cpp \
+  shader_def_for_tests.cpp \
   user_event_stream_tests.cpp \
 
+HEADERS += \
+  shader_def_for_tests.hpp \

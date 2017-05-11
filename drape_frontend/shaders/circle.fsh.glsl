@@ -10,7 +10,7 @@ varying vec3 v_radius;
 
 const float aaPixelsCount = 2.5;
 
-void main(void)
+void main()
 {
 #ifdef ENABLE_VTF
   lowp vec4 finalColor = v_color;

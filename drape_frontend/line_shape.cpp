@@ -1,13 +1,13 @@
 #include "drape_frontend/line_shape.hpp"
 
 #include "drape_frontend/line_shape_helper.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"

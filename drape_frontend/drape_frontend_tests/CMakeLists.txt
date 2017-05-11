@@ -1,9 +1,25 @@
 project(drape_frontend_tests)
 
+add_definitions(
+  -DCOMPILER_TESTS
+)
+
+execute_process(
+  COMMAND python ${OMIM_ROOT}/tools/autobuild/shader_preprocessor.py
+  ${OMIM_ROOT}/drape_frontend/shaders
+  shader_index.txt
+  shaders_lib.glsl
+  ${OMIM_ROOT}/drape_frontend/drape_frontend_tests
+  shader_def_for_tests
+)
+
 set(
   SRC
+  compile_shaders_test.cpp
   navigator_test.cpp
   object_pool_tests.cpp
+  shader_def_for_tests.cpp
+  shader_def_for_tests.hpp
   user_event_stream_tests.cpp
 )
 

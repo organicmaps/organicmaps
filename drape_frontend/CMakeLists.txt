@@ -1,5 +1,14 @@
 project(drape_frontend)
 
+execute_process(
+  COMMAND python ${OMIM_ROOT}/tools/autobuild/shader_preprocessor.py
+  ${OMIM_ROOT}/drape_frontend/shaders
+  shader_index.txt
+  shaders_lib.glsl
+  ${OMIM_ROOT}/drape_frontend
+  shader_def
+)
+
 include_directories(
   .
   watch
@@ -166,6 +175,8 @@ set(
   screen_quad_renderer.hpp
   selection_shape.cpp
   selection_shape.hpp
+  shader_def.cpp
+  shader_def.hpp
   shape_view_params.hpp
   stylist.cpp
   stylist.hpp
@@ -228,5 +239,67 @@ set(
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+
+set(
+  DRAPE_SHADERS_SRC
+  shaders/area.vsh.glsl
+  shaders/area3d.vsh.glsl
+  shaders/area3d_outline.vsh.glsl
+  shaders/arrow3d.fsh.glsl
+  shaders/arrow3d.vsh.glsl
+  shaders/arrow3d_outline.fsh.glsl
+  shaders/arrow3d_shadow.fsh.glsl
+  shaders/arrow3d_shadow.vsh.glsl
+  shaders/circle.fsh.glsl
+  shaders/circle.vsh.glsl
+  shaders/colored_symbol.fsh.glsl
+  shaders/colored_symbol.vsh.glsl
+  shaders/colored_symbol_billboard.vsh.glsl
+  shaders/dashed_line.fsh.glsl
+  shaders/dashed_line.vsh.glsl
+  shaders/debug_rect.fsh.glsl
+  shaders/debug_rect.vsh.glsl
+  shaders/discarded_texturing.fsh.glsl
+  shaders/hatching_area.fsh.glsl
+  shaders/hatching_area.vsh.glsl
+  shaders/line.fsh.glsl
+  shaders/line.vsh.glsl
+  shaders/masked_texturing.fsh.glsl
+  shaders/masked_texturing.vsh.glsl
+  shaders/masked_texturing_billboard.vsh.glsl
+  shaders/my_position.vsh.glsl
+  shaders/path_symbol.vsh.glsl
+  shaders/position_accuracy3d.vsh.glsl
+  shaders/route.fsh.glsl
+  shaders/route.vsh.glsl
+  shaders/route_arrow.vsh.glsl
+  shaders/route_dash.fsh.glsl
+  shaders/ruler.vsh.glsl
+  shaders/screen_quad.vsh.glsl
+  shaders/shader_index.txt
+  shaders/shaders_lib.glsl
+  shaders/solid_color.fsh.glsl
+  shaders/text.fsh.glsl
+  shaders/text.vsh.glsl
+  shaders/text_billboard.vsh.glsl
+  shaders/text_fixed.fsh.glsl
+  shaders/text_outlined.vsh.glsl
+  shaders/text_outlined_billboard.vsh.glsl
+  shaders/text_outlined_gui.vsh.glsl
+  shaders/texturing.fsh.glsl
+  shaders/texturing.vsh.glsl
+  shaders/texturing3d.fsh.glsl
+  shaders/texturing_billboard.vsh.glsl
+  shaders/texturing_gui.vsh.glsl
+  shaders/trackpoint.fsh.glsl
+  shaders/trackpoint.vsh.glsl
+  shaders/traffic.fsh.glsl
+  shaders/traffic.vsh.glsl
+  shaders/traffic_line.fsh.glsl
+  shaders/traffic_line.vsh.glsl
+  shaders/user_mark.vsh.glsl
+  shaders/user_mark_billboard.vsh.glsl
+)
+add_custom_target(shaders SOURCES ${DRAPE_SHADERS_SRC})
 
 omim_add_test_subdirectory(drape_frontend_tests)

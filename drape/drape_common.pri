@@ -1,6 +1,3 @@
-CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
-!isEmpty($$CMDRES):message($$CMDRES)
-
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
@@ -33,7 +30,6 @@ SOURCES += \
     $$DRAPE_DIR/pointers.cpp \
     $$DRAPE_DIR/render_bucket.cpp \
     $$DRAPE_DIR/shader.cpp \
-    $$DRAPE_DIR/shader_def.cpp \
     $$DRAPE_DIR/static_texture.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
     $$DRAPE_DIR/support_manager.cpp \
@@ -77,6 +73,7 @@ HEADERS += \
     $$DRAPE_DIR/glyph_manager.hpp \
     $$DRAPE_DIR/gpu_buffer.hpp \
     $$DRAPE_DIR/gpu_program.hpp \
+    $$DRAPE_DIR/gpu_program_info.hpp \
     $$DRAPE_DIR/gpu_program_manager.hpp \
     $$DRAPE_DIR/hw_texture.hpp \
     $$DRAPE_DIR/index_buffer.hpp \
@@ -90,7 +87,6 @@ HEADERS += \
     $$DRAPE_DIR/pointers.hpp \
     $$DRAPE_DIR/render_bucket.hpp \
     $$DRAPE_DIR/shader.hpp \
-    $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/static_texture.hpp \
     $$DRAPE_DIR/stipple_pen_resource.hpp \
     $$DRAPE_DIR/support_manager.hpp \

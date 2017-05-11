@@ -11,18 +11,15 @@ varying vec2 v_colorTexCoord;
 varying vec2 v_maskTexCoord;
 varying vec2 v_halfLength;
 
-const float kShapeCoordScalar = 1000.0;
-
-void main(void)
+void main()
 {
   vec2 normal = a_normal.xy;
   float halfWidth = length(normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
   if (halfWidth != 0.0)
   {
-    vec4 glbShiftPos = vec4(a_position.xy + normal, 0.0, 1.0);
-    vec2 shiftPos = (glbShiftPos * modelView).xy;
-    transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
+    transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + normal,
+                                                    modelView, halfWidth);
   }
 
   float uOffset = min(length(vec4(kShapeCoordScalar, 0, 0, 0) * modelView) * a_maskTexCoord.x, 1.0);
@@ -30,8 +27,6 @@ void main(void)
   v_maskTexCoord = vec2(a_maskTexCoord.y + uOffset * a_maskTexCoord.z, a_maskTexCoord.w);
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
-  float w = pos.w;
-  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
-  pos.z *= pos.w / w;
-  gl_Position = pos;
+
+  gl_Position = applyPivotTransform(pos, pivotTransform, 0.0);
 }

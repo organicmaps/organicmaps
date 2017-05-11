@@ -11,7 +11,7 @@ uniform sampler2D u_maskTex;
 uniform float u_opacity;
 uniform vec2 u_contrastGamma;
 
-void main (void)
+void main()
 {
 #ifdef ENABLE_VTF
   lowp vec4 glyphColor = v_color;

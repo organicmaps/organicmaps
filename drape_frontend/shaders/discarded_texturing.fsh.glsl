@@ -7,7 +7,7 @@ uniform float u_opacity;
 
 varying vec2 v_colorTexCoords;
 
-void main(void)
+void main()
 {
   vec4 finalColor = texture2D(u_colorTex, v_colorTexCoords);
   finalColor.a *= u_opacity;

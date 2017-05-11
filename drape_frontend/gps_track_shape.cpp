@@ -1,10 +1,10 @@
 #include "drape_frontend/gps_track_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/logging.hpp"

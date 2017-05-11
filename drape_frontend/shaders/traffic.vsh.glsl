@@ -12,10 +12,9 @@ varying vec2 v_colorTexCoord;
 varying vec2 v_maskTexCoord;
 varying float v_halfLength;
 
-const float kShapeCoordScalar = 1000.0;
 const float kArrowVSize = 0.25;
 
-void main(void)
+void main()
 {
   vec2 normal = a_normal.xy;
   float halfWidth = length(normal);
@@ -25,11 +24,8 @@ void main(void)
     vec2 norm = normal * u_trafficParams.x;
     if (a_normal.z < 0.0)
       norm = normal * u_trafficParams.y;
-    halfWidth = length(norm);
-
-    vec4 glbShiftPos = vec4(a_position.xy + norm, 0.0, 1.0);
-    vec2 shiftPos = (glbShiftPos * modelView).xy;
-    transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
+    transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + norm,
+                                                    modelView, length(norm));
   }
 
   float uOffset = length(vec4(kShapeCoordScalar, 0, 0, 0) * modelView) * a_normal.w;
@@ -39,8 +35,5 @@ void main(void)
   v_maskTexCoord.x *= step(a_colorTexCoord.w, v_maskTexCoord.x);
   v_halfLength = a_normal.z;
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
-  float w = pos.w;
-  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
-  pos.z *= pos.w / w;
-  gl_Position = pos;
+  gl_Position = applyPivotTransform(pos, pivotTransform, 0.0);
 }

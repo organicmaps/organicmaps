@@ -7,7 +7,7 @@ uniform sampler2D u_colorTex;
 varying vec2 v_colorTexCoords;
 #endif
 
-void main(void)
+void main()
 {
 #ifdef ENABLE_VTF
   lowp vec4 finalColor = v_color;

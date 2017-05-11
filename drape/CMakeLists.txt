@@ -2,13 +2,6 @@ project(drape)
 
 get_filename_component(DRAPE_ROOT ${PROJECT_SOURCE_DIR} ABSOLUTE)
 
-execute_process(
-  COMMAND python ${OMIM_ROOT}/tools/autobuild/shader_preprocessor.py
-  ${DRAPE_ROOT}/shaders
-  shader_index.txt
-  shader_def
-)
-
 add_definitions(-DU_DISABLE_RENAMING)
 
 include_directories(
@@ -65,6 +58,7 @@ set(
   ${DRAPE_ROOT}/gpu_buffer.hpp
   ${DRAPE_ROOT}/gpu_program.cpp
   ${DRAPE_ROOT}/gpu_program.hpp
+  ${DRAPE_ROOT}/gpu_program_info.hpp
   ${DRAPE_ROOT}/gpu_program_manager.cpp
   ${DRAPE_ROOT}/gpu_program_manager.hpp
   ${DRAPE_ROOT}/hw_texture.cpp
@@ -89,8 +83,6 @@ set(
   ${DRAPE_ROOT}/render_bucket.hpp
   ${DRAPE_ROOT}/shader.cpp
   ${DRAPE_ROOT}/shader.hpp
-  ${DRAPE_ROOT}/shader_def.cpp
-  ${DRAPE_ROOT}/shader_def.hpp
   ${DRAPE_ROOT}/static_texture.cpp
   ${DRAPE_ROOT}/static_texture.hpp
   ${DRAPE_ROOT}/stipple_pen_resource.cpp

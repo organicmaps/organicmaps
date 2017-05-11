@@ -14,14 +14,8 @@ const float kAntialiasingThreshold = 0.92;
 const float kOutlineThreshold1 = 0.81;
 const float kOutlineThreshold2 = 0.71;
 
-void main(void)
+void main()
 {
-#ifdef SAMSUNG_GOOGLE_NEXUS
-  // Because of a bug in OpenGL driver on Samsung Google Nexus this workaround is here.
-  const float kFakeColorScalar = 0.0;
-  lowp vec4 fakeColor = texture2D(u_colorTex, vec2(0.0, 0.0)) * kFakeColorScalar;
-#endif
-
   vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
   if (v_length.x >= v_length.z)
   {
@@ -30,10 +24,5 @@ void main(void)
     color = mix(color, u_outlineColor, smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(v_length.y)));
     color.a *= (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_length.y)));
   }
-
-#ifdef SAMSUNG_GOOGLE_NEXUS
-  gl_FragColor = color + fakeColor;
-#else
-  gl_FragColor = color;
-#endif
+  gl_FragColor = samsungGoogleNexusWorkaround(color);
 }

@@ -14,17 +14,11 @@ varying lowp vec4 v_color;
 varying vec2 v_colorTexCoords;
 #endif
 
-void main(void)
+void main()
 {
   vec4 pivot = vec4(a_position.xyz, 1.0) * modelView;
   vec4 offset = vec4(a_normal.xy + a_colorTexCoords.zw, 0.0, 0.0) * projection;
-
-  vec4 projectedPivot = pivot * projection;
-  float logicZ = projectedPivot.z / projectedPivot.w;
-  vec4 transformedPivot = pivotTransform * vec4(projectedPivot.xy, 0.0, projectedPivot.w);
-
-  vec4 scale = pivotTransform * vec4(1.0, -1.0, 0.0, 1.0);
-  gl_Position = vec4(transformedPivot.xy / transformedPivot.w, logicZ, 1.0) + vec4(offset.xy / scale.w * scale.x, 0.0, 0.0);
+  gl_Position = applyBillboardPivotTransform(pivot * projection, pivotTransform, 0.0, offset.xy);
 
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, a_colorTexCoords.xy);

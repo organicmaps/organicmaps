@@ -1,6 +1,7 @@
 #include "drape_frontend/arrow3d.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/glconstants.hpp"
@@ -10,7 +11,6 @@
 #include "drape/glsl_types.hpp"
 #include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 

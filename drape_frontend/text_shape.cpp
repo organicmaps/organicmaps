@@ -1,9 +1,9 @@
 #include "drape_frontend/text_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/glstate.hpp"

@@ -14,13 +14,10 @@ varying vec2 v_colorTexCoords;
 #endif
 varying vec2 v_maskTexCoords;
 
-void main(void)
+void main()
 {
   vec4 pos = vec4(a_position, 1) * modelView * projection;
-  float w = pos.w;
-  pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
-  pos.z *= pos.w / w;
-  gl_Position = pos;
+  gl_Position = applyPivotTransform(pos, pivotTransform, 0.0);
 #ifdef ENABLE_VTF
   v_color = texture2D(u_colorTex, a_colorTexCoords);
 #else

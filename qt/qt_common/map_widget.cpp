@@ -200,7 +200,7 @@ void MapWidget::paintGL()
       uniform mat4 u_projection; \
       varying vec2 v_texCoord; \
       \
-      void main(void) \
+      void main() \
       { \
         gl_Position = u_projection * vec4(a_position, 0.0, 1.0);\
         v_texCoord = a_texCoord; \
@@ -211,7 +211,7 @@ void MapWidget::paintGL()
       uniform sampler2D u_sampler; \
       varying vec2 v_texCoord; \
       \
-      void main(void) \
+      void main() \
       { \
         gl_FragColor = vec4(texture2D(u_sampler, v_texCoord).rgb, 1.0); \
       }";
