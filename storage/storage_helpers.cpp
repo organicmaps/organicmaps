@@ -33,6 +33,9 @@ bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & stor
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
+  // The type of nodeAttrs.m_mwmSize and nodeAttrs.m_localMwmSize is TMwmSize (uint64_t).
+  // The condition below is necessary to prevent passing a big positive number as the first
+  // parameter of IsEnoughSpaceForDownload().
   return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize > nodeAttrs.m_localMwmSize
                                       ? nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize
                                       : 0, storage.GetMaxMwmSizeBytes());
