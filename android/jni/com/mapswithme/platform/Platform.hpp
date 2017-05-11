@@ -21,16 +21,16 @@ namespace android
     void OnExternalStorageStatusChanged(bool isAvailable);
 
     /// get storage path without ending "/MapsWithMe/"
-    string GetStoragePathPrefix() const;
+    std::string GetStoragePathPrefix() const;
     /// assign storage path (should contain ending "/MapsWithMe/")
-    void SetWritableDir(string const & dir);
-    void SetSettingsDir(string const & dir);
+    void SetWritableDir(std::string const & dir);
+    void SetSettingsDir(std::string const & dir);
 
     bool HasAvailableSpaceForWriting(uint64_t size) const;
     void RunOnGuiThread(TFunctor const & fn);
 
-    void SendPushWooshTag(string const & tag, vector<string> const & values);
-    void SendMarketingEvent(string const & tag, map<string, string> const & params);
+    void SendPushWooshTag(std::string const & tag, vector<std::string> const & values);
+    void SendMarketingEvent(std::string const & tag, map<std::string, std::string> const & params);
 
     static Platform & Instance();
 

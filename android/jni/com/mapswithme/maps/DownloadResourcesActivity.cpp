@@ -16,13 +16,13 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/bind.hpp"
-#include "std/shared_ptr.hpp"
-
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace downloader;
+using namespace std::placeholders;
 
 /// Special error codes to notify GUI about free space
 //@{
@@ -37,19 +37,19 @@ using namespace downloader;
 
 struct FileToDownload
 {
-  vector<string> m_urls;
-  string m_fileName;
-  string m_pathOnSdcard;
+  std::vector<std::string> m_urls;
+  std::string m_fileName;
+  std::string m_pathOnSdcard;
   uint64_t m_fileSize;
 };
 
 namespace
 {
 
-static vector<FileToDownload> g_filesToDownload;
+static std::vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
-static shared_ptr<HttpRequest> g_currentRequest;
+static std::shared_ptr<HttpRequest> g_currentRequest;
 
 }  // namespace
 
@@ -57,7 +57,7 @@ extern "C"
 {
   using TCallback = HttpRequest::CallbackT;
 
-  static int HasSpaceForFiles(Platform & pl, string const & sdcardPath, size_t fileSize)
+  static int HasSpaceForFiles(Platform & pl, std::string const & sdcardPath, size_t fileSize)
   {
     switch (pl.GetWritableStorageStatus(fileSize))
     {
@@ -73,7 +73,7 @@ extern "C"
   }
 
   // Check if we need to download mandatory resource file.
-  static bool NeedToDownload(Platform & pl, string const & name, int size)
+  static bool NeedToDownload(Platform & pl, std::string const & name, int size)
   {
     try
     {
@@ -99,12 +99,12 @@ extern "C"
     g_totalDownloadedBytes = 0;
 
     Platform & pl = GetPlatform();
-    string const path = pl.WritableDir();
+    std::string const path = pl.WritableDir();
 
     ReaderStreamBuf buffer(pl.GetReader(EXTERNAL_RESOURCES_FILE));
     istream in(&buffer);
 
-    string name;
+    std::string name;
     int size;
     while (true)
     {
@@ -141,7 +141,7 @@ extern "C"
     return res;
   }
 
-  static void DownloadFileFinished(shared_ptr<jobject> obj, HttpRequest const & req)
+  static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const & req)
   {
     HttpRequest::StatusT const status = req.Status();
     ASSERT_NOT_EQUAL(status, HttpRequest::EInProgress, ());
@@ -169,7 +169,7 @@ extern "C"
     env->CallVoidMethod(*obj, methodID, errorCode);
   }
 
-  static void DownloadFileProgress(shared_ptr<jobject> listener, HttpRequest const & req)
+  static void DownloadFileProgress(std::shared_ptr<jobject> listener, HttpRequest const & req)
   {
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -206,11 +206,11 @@ extern "C"
 
     LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-    TCallback onFinish(bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
-    TCallback onProgress(bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
+    TCallback onFinish(std::bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
+    TCallback onProgress(std::bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
 
     g_currentRequest.reset(HttpRequest::PostJson(GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
-                                                 bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
+                                                 std::bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
     return ERR_FILE_IN_PROGRESS;
   }
 

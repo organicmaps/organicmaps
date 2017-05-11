@@ -5,7 +5,8 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "std/vector.hpp"
+
+#include <vector>
 
 static JavaVM * g_jvm = 0;
 extern JavaVM * GetJVM()
@@ -118,9 +119,9 @@ jclass GetGlobalClassRef(JNIEnv * env, char const * sig)
   return static_cast<jclass>(env->NewGlobalRef(klass));
 }
 
-string ToNativeString(JNIEnv * env, jstring str)
+std::string ToNativeString(JNIEnv * env, jstring str)
 {
-  string result;
+  std::string result;
   char const * utfBuffer = env->GetStringUTFChars(str, 0);
   if (utfBuffer)
   {
@@ -130,12 +131,12 @@ string ToNativeString(JNIEnv * env, jstring str)
   return result;
 }
 
-string ToNativeString(JNIEnv * env, jbyteArray const & bytes)
+std::string ToNativeString(JNIEnv * env, jbyteArray const & bytes)
 {
   int const len = env->GetArrayLength(bytes);
-  vector<char> buffer(len);
+  std::vector<char> buffer(len);
   env->GetByteArrayRegion(bytes, 0, len, reinterpret_cast<jbyte *>(buffer.data()));
-  return string(buffer.data(), len);
+  return std::string(buffer.data(), len);
 }
 
 jstring ToJavaString(JNIEnv * env, char const * s)
@@ -143,10 +144,10 @@ jstring ToJavaString(JNIEnv * env, char const * s)
   return env->NewStringUTF(s);
 }
 
-jobjectArray ToJavaStringArray(JNIEnv * env, vector<string> const & src)
+jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src)
 {
   return ToJavaArray(env, GetStringClass(env), src,
-                     [](JNIEnv * env, string const & item)
+                     [](JNIEnv * env, std::string const & item)
                      {
                        return ToJavaString(env, item.c_str());
                      });
@@ -171,14 +172,14 @@ struct global_ref_deleter
   }
 };
 
-shared_ptr<jobject> make_global_ref(jobject obj)
+std::shared_ptr<jobject> make_global_ref(jobject obj)
 {
   jobject * ref = new jobject;
   *ref = GetEnv()->NewGlobalRef(obj);
-  return shared_ptr<jobject>(ref, global_ref_deleter());
+  return std::shared_ptr<jobject>(ref, global_ref_deleter());
 }
 
-string ToNativeString(JNIEnv * env, const jthrowable & e)
+std::string ToNativeString(JNIEnv * env, const jthrowable & e)
 {
   jni::TScopedLocalClassRef logClassRef(env, env->FindClass("android/util/Log"));
   ASSERT(logClassRef.get(), ());
@@ -204,7 +205,7 @@ bool HandleJavaException(JNIEnv * env)
    return false;
 }
 
-string DescribeException()
+std::string DescribeException()
 {
   JNIEnv * env = GetEnv();
 

@@ -27,7 +27,7 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-jobject CreateBanner(JNIEnv * env, string const & id, jint type)
+jobject CreateBanner(JNIEnv * env, std::string const & id, jint type)
 {
   static jmethodID const bannerCtorId =
       jni::GetConstructorID(env, g_bannerClazz, "(Ljava/lang/String;I)V");
@@ -35,11 +35,11 @@ jobject CreateBanner(JNIEnv * env, string const & id, jint type)
   return env->NewObject(g_bannerClazz, bannerCtorId, jni::ToJavaString(env, id), type);
 }
 
-jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title,
-                        string const & secondaryTitle, string const & subtitle, double lat,
-                        double lon, string const & address, Metadata const & metadata,
-                        string const & apiId, jobjectArray jbanners, bool isReachableByTaxi,
-                        string const & bookingSearchUrl, jobject const & localAdInfo)
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, std::string const & title,
+                        std::string const & secondaryTitle, std::string const & subtitle, double lat,
+                        double lon, std::string const & address, Metadata const & metadata,
+                        std::string const & apiId, jobjectArray jbanners, bool isReachableByTaxi,
+                        std::string const & bookingSearchUrl, jobject const & localAdInfo)
 {
   // public MapObject(@MapObjectType int mapObjectType, String title, String secondaryTitle,
   //                  String subtitle, double lat, double lon, String address, String apiId,

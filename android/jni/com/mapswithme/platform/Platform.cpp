@@ -7,24 +7,24 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 
-string Platform::UniqueClientId() const
+std::string Platform::UniqueClientId() const
 {
   JNIEnv * env = jni::GetEnv();
   static jmethodID const getInstallationId = jni::GetStaticMethodID(env, g_utilsClazz, "getInstallationId",
                                                                     "()Ljava/lang/String;");
   static jstring const installationId = (jstring)env->CallStaticObjectMethod(g_utilsClazz, getInstallationId);
-  static string const result = jni::ToNativeString(env, installationId);
+  static std::string const result = jni::ToNativeString(env, installationId);
   return result;
 }
 
-string Platform::GetMemoryInfo() const
+std::string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();
   if (env == nullptr)
-    return string();
+    return std::string();
 
   static shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
   ASSERT(classMemLogging, ());
@@ -69,8 +69,8 @@ namespace android
     m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
     m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
 
-    string const flavor = jni::ToNativeString(env, flavorName);
-    string const build = jni::ToNativeString(env, buildType);
+    std::string const flavor = jni::ToNativeString(env, flavorName);
+    std::string const build = jni::ToNativeString(env, buildType);
     LOG(LINFO, ("Flavor name:", flavor));
     LOG(LINFO, ("Build type name:", build));
 
@@ -88,7 +88,7 @@ namespace android
     m_tmpDir = jni::ToNativeString(env, tmpPath);
     m_writableDir = jni::ToNativeString(env, storagePath);
 
-    string const obbPath = jni::ToNativeString(env, obbGooglePath);
+    std::string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;
     GetFilesByExt(obbPath, ".obb", files);
     m_extResFiles.clear();
@@ -116,7 +116,7 @@ namespace android
   {
   }
 
-  string Platform::GetStoragePathPrefix() const
+  std::string Platform::GetStoragePathPrefix() const
   {
     size_t const count = m_writableDir.size();
     ASSERT_GREATER ( count, 2, () );
@@ -127,14 +127,14 @@ namespace android
     return m_writableDir.substr(0, i);
   }
 
-  void Platform::SetWritableDir(string const & dir)
+  void Platform::SetWritableDir(std::string const & dir)
   {
     m_writableDir = dir;
     settings::Set("StoragePath", m_writableDir);
     LOG(LINFO, ("Writable path = ", m_writableDir));
   }
 
-  void Platform::SetSettingsDir(string const & dir)
+  void Platform::SetSettingsDir(std::string const & dir)
   {
     m_settingsDir = dir;
     LOG(LINFO, ("Settings path = ", m_settingsDir));
@@ -158,7 +158,7 @@ namespace android
     jni::GetEnv()->CallVoidMethod(m_functorProcessObject, m_functorProcessMethod, reinterpret_cast<jlong>(functor));
   }
 
-  void Platform::SendPushWooshTag(string const & tag, vector<string> const & values)
+  void Platform::SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values)
   {
     if (values.empty())
       return;
@@ -169,10 +169,10 @@ namespace android
                         jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
   }
 
-  void Platform::SendMarketingEvent(string const & tag, map<string, string> const & params)
+  void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params)
   {
     JNIEnv * env = jni::GetEnv();
-    string eventData = tag;
+    std::string eventData = tag;
     for (auto const & item : params)
       eventData.append("_" + item.first + "_" + item.second);
 

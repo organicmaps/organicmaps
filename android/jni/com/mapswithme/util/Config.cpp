@@ -76,7 +76,7 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_util_Config_nativeGetString(JNIEnv * env, jclass thiz, jstring name, jstring defaultValue)
   {
-    string value;
+    std::string value;
     if (settings::Get(jni::ToNativeString(env, name), value))
       return jni::ToJavaString(env, value);
 

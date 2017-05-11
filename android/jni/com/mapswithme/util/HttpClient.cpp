@@ -33,8 +33,8 @@ SOFTWARE.
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include "std/string.hpp"
-#include "std/unordered_map.hpp"
+#include <string>
+#include <unordered_map>
 
 DECLARE_EXCEPTION(JniException, RootException);
 
@@ -57,7 +57,7 @@ jfieldID GetHttpParamsFieldId(ScopedEnv & env, const char * name,
 }
 
 // Set string value to HttpClient.Params object, throws JniException and
-void SetString(ScopedEnv & env, jobject params, jfieldID const fieldId, string const & value)
+void SetString(ScopedEnv & env, jobject params, jfieldID const fieldId, std::string const & value)
 {
   if (value.empty())
     return;
@@ -76,7 +76,7 @@ void SetBoolean(ScopedEnv & env, jobject params, jfieldID const fieldId, bool co
 }
 
 // Get string value from HttpClient.Params object, throws JniException.
-void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, string & result)
+void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
   jni::ScopedLocalRef<jstring> const wrappedValue(
       env.get(), static_cast<jstring>(env->GetObjectField(params, fieldId)));
@@ -92,7 +92,7 @@ void GetInt(ScopedEnv & env, jobject const params, jfieldID const fieldId, int &
 }
 
 void SetHeaders(ScopedEnv & env, jobject const params,
-                unordered_map<string, string> const & headers)
+                std::unordered_map<std::string, std::string> const & headers)
 {
   if (headers.empty())
     return;
@@ -104,7 +104,7 @@ void SetHeaders(ScopedEnv & env, jobject const params,
 
   RethrowOnJniException(env);
 
-  using HeaderPair = unordered_map<string, string>::value_type;
+  using HeaderPair = std::unordered_map<std::string, std::string>::value_type;
   env->CallVoidMethod(
       params, setHeaders,
       jni::ToJavaArray(env.get(), g_httpHeaderClazz, headers, [](JNIEnv * env,
@@ -116,7 +116,7 @@ void SetHeaders(ScopedEnv & env, jobject const params,
   RethrowOnJniException(env);
 }
 
-void LoadHeaders(ScopedEnv & env, jobject const params, unordered_map<string, string> & headers)
+void LoadHeaders(ScopedEnv & env, jobject const params, std::unordered_map<std::string, std::string> & headers)
 {
   static jmethodID const getHeaders =
       env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");
@@ -162,7 +162,7 @@ public:
     {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")}};
   }
 
-  jfieldID GetId(string const & fieldName) const
+  jfieldID GetId(std::string const & fieldName) const
   {
     auto const it = m_fieldIds.find(fieldName);
     CHECK(it != m_fieldIds.end(), ("Incorrect field name:", fieldName));
@@ -170,7 +170,7 @@ public:
   }
 
 private:
-  unordered_map<string, jfieldID> m_fieldIds;
+  std::unordered_map<std::string, jfieldID> m_fieldIds;
 };
 }  // namespace
 

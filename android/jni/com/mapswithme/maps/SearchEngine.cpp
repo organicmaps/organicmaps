@@ -18,6 +18,7 @@
 #include <vector>
 
 using namespace std;
+using namespace std::placeholders;
 using search::Result;
 using search::Results;
 
@@ -243,7 +244,7 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, bool hasPosition,
   env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
 
   ms::LatLon ll = ms::LatLon::Zero();
-  string distance;
+  std::string distance;
   if (result.HasPoint())
   {
     ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());

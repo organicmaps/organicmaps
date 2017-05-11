@@ -91,7 +91,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSaveToKmzFile(
   BookmarkCategory * pCat = frm()->GetBmCategory(catID);
   if (pCat)
   {
-    string const name = pCat->GetName();
+    std::string const name = pCat->GetName();
     if (CreateZipFromPathDeflatedAndDefaultCompression(pCat->GetFileName(), ToNativeString(env, tmpPath) + name + ".kmz"))
       return ToJavaString(env, name);
   }
@@ -123,8 +123,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getLastEditedCategory(
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGenerateUniqueFileName(JNIEnv * env, jclass thiz, jstring jBaseName)
 {
-  string baseName = ToNativeString(env, jBaseName);
-  string bookmarkFileName = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
+  std::string baseName = ToNativeString(env, jBaseName);
+  std::string bookmarkFileName = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
   return ToJavaString(env, bookmarkFileName);
 }
 
