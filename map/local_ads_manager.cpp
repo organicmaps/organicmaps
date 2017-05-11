@@ -283,7 +283,7 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
 
   std::string const url = MakeCampaignDownloadingURL(mwmId);
   if (url.empty())
-    return true;
+    return true; // In this case empty result is valid.
 
   // Skip already downloaded campaigns. We do not lock whole method because RunHttpRequest
   // is a synchronous method and may take a lot of time. The case in which countryName will
@@ -309,8 +309,8 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
     }
     else
     {
-      // Here we increase timeout as power 2 function.
-      it->second.m_currentTimeout = std::chrono::seconds(it->second.m_currentTimeout.count() << 1);
+      // Here we increase timeout multiplying by 2.
+      it->second.m_currentTimeout = std::chrono::seconds(it->second.m_currentTimeout.count() * 2);
       it->second.m_attemptsCount++;
     }
     return false;
