@@ -557,8 +557,12 @@ size_t Router::FindPrefixLengthToConsume(It b, It const e, double lengthM)
   size_t n = 0;
   while (b != e && lengthM > 0.0)
   {
-    auto const & u = b->first;
-    auto const & v = b->second;
+    // Need p here to prolongate lifetime of (*b) if iterator
+    // dereferencing returns a temprorary object instead of a
+    // reference.
+    auto const & p = *b;
+    auto const & u = p.first;
+    auto const & v = p.second;
     double const len = MercatorBounds::DistanceOnEarth(u, v);
     if (2 * lengthM < len)
       break;
@@ -638,8 +642,12 @@ double Router::GetMatchingScore(m2::PointD const & u, m2::PointD const & v, It b
   double cov = 0;
   for (; b != e; ++b)
   {
-    auto const & s = b->first;
-    auto const & t = b->second;
+    // Need p here to prolongate lifetime of (*b) if iterator
+    // dereferencing returns a temprorary object instead of a
+    // reference.
+    auto const & p = *b;
+    auto const & s = p.first;
+    auto const & t = p.second;
     if (!m2::IsPointOnSegmentEps(s, u, v, kEps) || !m2::IsPointOnSegmentEps(t, u, v, kEps))
       break;
 
