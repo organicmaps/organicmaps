@@ -1,17 +1,17 @@
+#include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/animation/interpolation_holder.hpp"
-#include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/batch_merge_helper.hpp"
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/framebuffer.hpp"
-#include "drape_frontend/frontend_renderer.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
-#include "drape_frontend/transparent_layer.hpp"
-#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/screen_quad_renderer.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/shader_def.hpp"
@@ -119,8 +119,9 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_routeRenderer(new RouteRenderer())
   , m_trafficRenderer(new TrafficRenderer())
   , m_framebuffer(new Framebuffer())
-  , m_transparentLayer(new TransparentLayer())
-  , m_gpsTrackRenderer(new GpsTrackRenderer(bind(&FrontendRenderer::PrepareGpsTrackPoints, this, _1)))
+  , m_screenQuadRenderer(new ScreenQuadRenderer())
+  , m_gpsTrackRenderer(
+        new GpsTrackRenderer(bind(&FrontendRenderer::PrepareGpsTrackPoints, this, _1)))
   , m_drapeApiRenderer(new DrapeApiRenderer())
   , m_overlayTree(new dp::OverlayTree())
   , m_enablePerspectiveInNavigation(false)
@@ -1181,6 +1182,7 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFramebuffer)
 {
+  float const kOpacity = 0.7f;
   if (useFramebuffer)
   {
     ASSERT(m_framebuffer->IsSupported(), ());
@@ -1200,7 +1202,8 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   {
     m_framebuffer->Disable();
     GLFunctions::glDisable(gl_const::GLDepthTest);
-    m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+    m_screenQuadRenderer->RenderTexture(m_framebuffer->GetTextureId(),
+                                        make_ref(m_gpuProgramManager), kOpacity);
   }
 }
 
@@ -1646,7 +1649,7 @@ void FrontendRenderer::OnContextDestroy()
   m_guiRenderer.reset();
   m_selectionShape.reset();
   m_framebuffer.reset();
-  m_transparentLayer.reset();
+  m_screenQuadRenderer.reset();
 
   m_myPositionController->ResetRenderShape();
   m_routeRenderer->ClearGLDependentResources();
@@ -1703,7 +1706,7 @@ void FrontendRenderer::OnContextCreate()
   m_framebuffer.reset(new Framebuffer());
   m_framebuffer->SetDefaultContext(context);
 
-  m_transparentLayer.reset(new TransparentLayer());
+  m_screenQuadRenderer.reset(new ScreenQuadRenderer());
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
@@ -1828,7 +1831,7 @@ void FrontendRenderer::ReleaseResources()
   m_selectionShape.release();
   m_routeRenderer.reset();
   m_framebuffer.reset();
-  m_transparentLayer.reset();
+  m_screenQuadRenderer.reset();
   m_trafficRenderer.reset();
 
   m_gpuProgramManager.reset();

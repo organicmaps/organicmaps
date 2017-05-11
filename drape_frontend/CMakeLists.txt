@@ -162,6 +162,8 @@ set(
   screen_animations.hpp
   screen_operations.cpp
   screen_operations.hpp
+  screen_quad_renderer.cpp
+  screen_quad_renderer.hpp
   selection_shape.cpp
   selection_shape.hpp
   shape_view_params.hpp
@@ -185,8 +187,6 @@ set(
   traffic_generator.hpp
   traffic_renderer.cpp
   traffic_renderer.hpp
-  transparent_layer.cpp
-  transparent_layer.hpp
   user_event_stream.cpp
   user_event_stream.hpp
   user_mark_shapes.cpp

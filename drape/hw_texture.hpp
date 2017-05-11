@@ -51,9 +51,10 @@ public:
   float GetS(uint32_t x) const;
   float GetT(uint32_t y) const;
 
+  int32_t GetID() const;
+
 protected:
   void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
-  int32_t GetID() const;
 
   uint32_t m_width;
   uint32_t m_height;
