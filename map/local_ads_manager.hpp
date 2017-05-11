@@ -82,6 +82,8 @@ private:
 
   void FillSupportedTypes();
 
+  // Returned value means if downloading process finished correctly or was interrupted
+  // by some reason.
   bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
 
   GetMwmsByRectFn m_getMwmsByRectFn;
