@@ -22,10 +22,10 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
 
 bool IsDownloadFailed(Status status);
 
-bool IsEnoughSpaceForDownload(TMwmSize mwmSize, TMwmSize maxMwmSize);
+bool IsEnoughSpaceForDownload(TMwmSize mwmSize);
+bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize);
 bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage);
 bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage);
-
 
 /// \brief Calculates limit rect for |countryId| (expandable or not).
 /// \returns bounding box in mercator coordinates.

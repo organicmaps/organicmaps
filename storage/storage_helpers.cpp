@@ -20,25 +20,25 @@ bool IsDownloadFailed(Status status)
          status == Status::EUnknown;
 }
 
-bool IsEnoughSpaceForDownload(TMwmSize mwmSize, TMwmSize maxMwmSize)
+bool IsEnoughSpaceForDownload(TMwmSize mwmSize)
+{
+  return GetPlatform().GetWritableStorageStatus(mwmSize) ==
+         Platform::TStorageStatus::STORAGE_OK;
+}
+
+bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize)
 {
   // Mwm size is less than |maxMwmSize|. In case of map update at first we download updated map
   // and only after that we do delete the obsolete map. So in such a case we might need up to
-  // kMaxMwmSizeBytes of extra space.
-  return GetPlatform().GetWritableStorageStatus(mwmSize + maxMwmSize) ==
-         Platform::TStorageStatus::STORAGE_OK;
+  // |maxMwmSize| of extra space.
+  return IsEnoughSpaceForDownload(mwmSizeDiff + maxMwmSize);
 }
 
 bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage)
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
-  // The type of nodeAttrs.m_mwmSize and nodeAttrs.m_localMwmSize is TMwmSize (uint64_t).
-  // The condition below is necessary to prevent passing a big positive number as the first
-  // parameter of IsEnoughSpaceForDownload().
-  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize > nodeAttrs.m_localMwmSize
-                                      ? nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize
-                                      : 0, storage.GetMaxMwmSizeBytes());
+  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
 }
 
 bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage)
