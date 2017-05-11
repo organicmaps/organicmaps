@@ -44,7 +44,7 @@ namespace
 
     string const & GetAppTitle() const { return m_api.GetAppTitle(); }
     bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
-    int GetPointCount() const { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
+    size_t GetPointCount() const { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
     vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
     url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
     string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
@@ -76,7 +76,7 @@ namespace
     ApiMarkPoint const * GetMark(int index) const
     {
       UserMarkControllerGuard guard(*m_m, type);
-      TEST_LESS(index, guard.m_controller.GetUserMarkCount(), ());
+      TEST_LESS(index, static_cast<int>(guard.m_controller.GetUserMarkCount()), ());
       return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(index));
     }
 
@@ -344,7 +344,7 @@ string generatePartOfUrl(url_scheme::ApiPoint const & point)
   return stream.str();
 }
 
-string randomString(size_t size, size_t seed)
+string randomString(size_t size, uint32_t seed)
 {
   string result(size, '0');
   mt19937 rng(seed);
@@ -353,10 +353,10 @@ string randomString(size_t size, size_t seed)
   return result;
 }
 
-void generateRandomTest(size_t numberOfPoints, size_t stringLength)
+void generateRandomTest(uint32_t numberOfPoints, size_t stringLength)
 {
   vector <url_scheme::ApiPoint> vect(numberOfPoints);
-  for (size_t i = 0; i < numberOfPoints; ++i)
+  for (uint32_t i = 0; i < numberOfPoints; ++i)
   {
     url_scheme::ApiPoint point;
     mt19937 rng(i);
@@ -383,7 +383,7 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     double lat = vect[i].m_lat;
     double lon = vect[i].m_lon;
     ToMercatoToLatLon(lat, lon);
-    size_t const ix = vect.size() - i - 1;
+    int const ix = vect.size() - i - 1;
     TEST(api.TestLatLon(ix, lat, lon), ());
     TEST(api.TestName(ix, vect[i].m_name), ());
     TEST(api.TestID(ix, vect[i].m_id), ());

@@ -15,7 +15,7 @@ string const kNames[] = {"No", "Private", "Destination", "Yes", "Count"};
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::Type const RoadAccess::GetSegmentType(Segment const & segment) const
+RoadAccess::Type RoadAccess::GetSegmentType(Segment const & segment) const
 {
   // todo(@m) This may or may not be too slow. Consider profiling this and using
   // a Bloom filter or anything else that is faster than std::map.
