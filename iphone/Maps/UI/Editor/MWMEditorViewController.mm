@@ -282,7 +282,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     noteInfo[kStatProblem] = self.note;
     CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
     [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo atLocation:location];
-    f.CreateNote(latLon, featureID, osm::Editor::NoteProblemType::General, self.note.UTF8String);
+    f.CreateNote(m_mapObject, osm::Editor::NoteProblemType::General, self.note.UTF8String);
   }
 
   switch (f.SaveEditedMapObject(m_mapObject))
@@ -968,7 +968,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
               kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage)
             }
                 atLocation:location];
-      GetFramework().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist,
+      GetFramework().CreateNote(m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self backTap];
       [self showDropDown];

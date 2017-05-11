@@ -3441,7 +3441,8 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   if (shouldNotify)
   {
     // TODO @mgsergio fill with correct NoteProblemType
-    editor.CreateNote(issueLatLon, emo.GetID(), osm::Editor::NoteProblemType::General,
+    editor.CreateNote(emo.GetLatLon(), emo.GetID(), emo.GetTypes(), emo.GetDefaultName(),
+                      osm::Editor::NoteProblemType::General,
                       "The address on this POI is different from the building address."
                       " It is either a user's mistake, or an issue in the data. Please"
                       " check this and fix if needed. (This note was created automatically"
@@ -3482,10 +3483,11 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   return rolledBack;
 }
 
-void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+void Framework::CreateNote(osm::MapObject const & mapObject,
                            osm::Editor::NoteProblemType const type, string const & note)
 {
-  osm::Editor::Instance().CreateNote(latLon, fid, type, note);
+  osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
+                                     mapObject.GetDefaultName(), type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
     DeactivateMapSelection(true /* notifyUI */);
 }

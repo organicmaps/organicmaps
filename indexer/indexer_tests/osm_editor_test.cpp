@@ -655,7 +655,10 @@ void EditorTest::HaveMapEditsOrNotesToUploadTest()
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
     using NoteType = osm::Editor::NoteProblemType;
-    editor.CreateNote({1.0, 1.0}, ft.GetID(), NoteType::PlaceDoesNotExist, "exploded");
+    feature::TypesHolder typesHolder;
+    string defaultName;
+    editor.CreateNote({1.0, 1.0}, ft.GetID(), typesHolder, defaultName, NoteType::PlaceDoesNotExist,
+                      "exploded");
   });
 
   TEST(editor.HaveMapEditsOrNotesToUpload(), ());
@@ -828,13 +831,18 @@ void EditorTest::CreateNoteTest()
   {
     platform::tests_support::ScopedFile sf("test_notes.xml");
     editor.m_notes = Notes::MakeNotes(sf.GetFullPath(), true);
-    editor.CreateNote(pos, fId, noteType, "with comment");
+    feature::TypesHolder holder;
+    holder.Assign(classif().GetTypeByPath({"amenity", "restaurant"}));
+    string defaultName = "Test name";
+    editor.CreateNote(pos, fId, holder, defaultName, noteType, "with comment");
 
     auto notes = editor.m_notes->GetNotes();
     TEST_EQUAL(notes.size(), 1, ());
     TEST(notes.front().m_point.EqualDxDy(pos, 1e-10), ());
     TEST_NOT_EQUAL(notes.front().m_note.find("with comment"), string::npos, ());
     TEST_NOT_EQUAL(notes.front().m_note.find("OSM data version"), string::npos, ());
+    TEST_NOT_EQUAL(notes.front().m_note.find("restaurant"), string::npos, ());
+    TEST_NOT_EQUAL(notes.front().m_note.find("Test name"), string::npos, ());
   };
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor, &createAndCheckNote](FeatureType & ft)
