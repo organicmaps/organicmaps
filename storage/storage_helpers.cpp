@@ -22,7 +22,9 @@ bool IsDownloadFailed(Status status)
 
 bool IsEnoughSpaceForDownload(TMwmSize mwmSize)
 {
-  return GetPlatform().GetWritableStorageStatus(mwmSize) ==
+  // Additional size which is necessary to have on flash card to download file of mwmSize bytes.
+  TMwmSize constexpr kExtraSizeBytes = 10 * 1024 * 1024;
+  return GetPlatform().GetWritableStorageStatus(mwmSize + kExtraSizeBytes) ==
          Platform::TStorageStatus::STORAGE_OK;
 }
 
