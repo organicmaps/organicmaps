@@ -1,8 +1,3 @@
-static NSString * const BOOKMARK_CATEGORY_DELETED_NOTIFICATION =
-    @"BookmarkCategoryDeletedNotification";
-
-static NSString * const BOOKMARK_DELETED_NOTIFICATION = @"BookmarkDeletedNotification";
-
 static NSString * const kMapsmeErrorDomain = @"com.mapsme.error";
 
 static NSTimeInterval const kDefaultAnimationDuration = .2;

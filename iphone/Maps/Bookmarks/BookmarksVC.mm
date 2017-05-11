@@ -27,6 +27,7 @@
 #define EMPTY_SECTION -666
 
 extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotification";
+extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotification";
 
 @interface BookmarksVC() <MFMailComposeViewControllerDelegate, MWMLocationObserver>
 {
@@ -295,9 +296,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         }
         else
         {
-          BookmarkAndCategory bookmarkAndCategory{static_cast<size_t>(indexPath.row), m_categoryIndex};
-          NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
-          [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
+          auto bac = BookmarkAndCategory(static_cast<size_t>(indexPath.row), m_categoryIndex);
+          NSValue * value = [NSValue valueWithBytes:&bac objCType:@encode(BookmarkAndCategory)];
+          [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkDeletedNotification object:value];
           BookmarkCategory::Guard guard(*cat);
           guard.m_controller.DeleteUserMark(indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
