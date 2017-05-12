@@ -4,11 +4,11 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 #include <EGL/egl.h>
-#include <android/native_window_jni.h>
 #include <android/native_window.h>
+#include <android/native_window_jni.h>
 
 namespace android
 {
@@ -241,7 +241,7 @@ bool AndroidOGLContextFactory::createWindowSurface()
   }
   ASSERT(count > 0, ("Didn't find any configs."));
 
-  sort(&configs[0], &configs[count], ConfigComparator(m_display));
+  std::sort(&configs[0], &configs[count], ConfigComparator(m_display));
   for (int i = 0; i < count; ++i)
   {
     EGLConfig currentConfig = configs[i];

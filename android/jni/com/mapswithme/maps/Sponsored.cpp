@@ -5,8 +5,8 @@
 #include "map/place_page_info.hpp"
 #include "partners_api/booking_api.hpp"
 
-#include "std/bind.hpp"
-#include "std/chrono.hpp"
+#include <chrono>
+#include <functional>
 
 namespace
 {
@@ -26,7 +26,7 @@ jmethodID g_hotelInfoConstructor;
 jmethodID g_sponsoredClassConstructor;
 jmethodID g_priceCallback;
 jmethodID g_infoCallback;
-string g_lastRequestedHotelId;
+std::string g_lastRequestedHotelId;
 
 void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
 {
@@ -98,7 +98,7 @@ jobjectArray ToReviewsArray(JNIEnv * env, vector<HotelReview> const & reviews)
                           [](JNIEnv * env, HotelReview const & item) {
                             return env->NewObject(
                                 g_reviewClass, g_reviewConstructor,
-                                time_point_cast<milliseconds>(item.m_date).time_since_epoch().count(),
+                                std::chrono::time_point_cast<std::chrono::milliseconds>(item.m_date).time_since_epoch().count(),
                                 item.m_score, jni::ToJavaString(env, item.m_author),
                                 jni::ToJavaString(env, item.m_pros), jni::ToJavaString(env, item.m_cons));
                           });
@@ -132,13 +132,13 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 {
   PrepareClassRefs(env, clazz);
 
-  string const hotelId = jni::ToNativeString(env, id);
+  std::string const hotelId = jni::ToNativeString(env, id);
   g_lastRequestedHotelId = hotelId;
 
-  string const code = jni::ToNativeString(env, currencyCode);
+  std::string const code = jni::ToNativeString(env, currencyCode);
 
   g_framework->RequestBookingMinPrice(env, policy, hotelId, code,
-    [](string const & hotelId, string const & price, string const & currency) {
+    [](std::string const & hotelId, std::string const & price, std::string const & currency) {
       GetPlatform().RunOnGuiThread([hotelId, price, currency]() {
         if (g_lastRequestedHotelId != hotelId)
           return;
@@ -156,10 +156,10 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 {
   PrepareClassRefs(env, clazz);
 
-  string const hotelId = jni::ToNativeString(env, id);
+  std::string const hotelId = jni::ToNativeString(env, id);
   g_lastRequestedHotelId = hotelId;
 
-  string code = jni::ToNativeString(env, locale);
+  std::string code = jni::ToNativeString(env, locale);
 
   if (code.size() > 2)  // 2 - number of characters in country code
     code.resize(2);

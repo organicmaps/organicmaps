@@ -6,7 +6,7 @@
 
 extern "C"
 {
-static void TrafficStateChanged(TrafficManager::TrafficState state, shared_ptr<jobject> const & listener)
+static void TrafficStateChanged(TrafficManager::TrafficState state, std::shared_ptr<jobject> const & listener)
 {
   JNIEnv * env = jni::GetEnv();
   env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener, "onTrafficStateChanged", "(I)V"), static_cast<jint>(state));
@@ -16,7 +16,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_traffic_TrafficState_nativeSetListener(JNIEnv * env, jclass clazz, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
-  g_framework->SetTrafficStateListener(bind(&TrafficStateChanged, _1, jni::make_global_ref(listener)));
+  g_framework->SetTrafficStateListener(std::bind(&TrafficStateChanged, std::placeholders::_1, jni::make_global_ref(listener)));
 }
 
 JNIEXPORT void JNICALL

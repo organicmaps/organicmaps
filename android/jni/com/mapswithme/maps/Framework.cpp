@@ -37,6 +37,9 @@
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
 
+using namespace std;
+using namespace std::placeholders;
+
 android::Framework * g_framework = 0;
 
 namespace platform

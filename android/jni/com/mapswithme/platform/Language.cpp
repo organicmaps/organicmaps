@@ -6,9 +6,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
-string ReplaceDeprecatedLanguageCode(string const & lang)
+std::string ReplaceDeprecatedLanguageCode(std::string const & lang)
 {
   // in* -> id
   // iw* -> he
@@ -22,7 +22,7 @@ string ReplaceDeprecatedLanguageCode(string const & lang)
 }
 
 /// This function is called from native c++ code
-string GetAndroidSystemLanguage()
+std::string GetAndroidSystemLanguage()
 {
   static char const * DEFAULT_LANG = "en";
 
@@ -40,7 +40,7 @@ string GetAndroidSystemLanguage()
   jni::TScopedLocalRef localeInstance(env, env->CallStaticObjectMethod(localeClass, localeGetDefaultId));
   jni::TScopedLocalRef langString(env, env->CallObjectMethod(localeInstance.get(), localeToStringId));
 
-  string res = jni::ToNativeString(env, (jstring) langString.get());
+  std::string res = jni::ToNativeString(env, (jstring) langString.get());
   if (res.empty())
     res = DEFAULT_LANG;
 

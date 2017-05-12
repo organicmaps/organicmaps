@@ -28,7 +28,7 @@ static constexpr int kSearch = 4;
 // Fills mapobject's metadata.
 void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
-jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, string const & subtitle,
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, std::string const & title, std::string const & subtitle,
                         double lat, double lon, feature::Metadata const & metadata);
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);

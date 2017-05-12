@@ -20,7 +20,7 @@ namespace jni
 
 using namespace my;
 
-void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
+void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {
   android_LogPriority pr = ANDROID_LOG_SILENT;
 
@@ -37,20 +37,20 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
   static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env.get(), g_loggerFactoryClazz,
      "logCoreMessage", "(ILjava/lang/String;)V");
 
-  string const out = DebugPrint(src) + " " + s;
+  std::string const out = DebugPrint(src) + " " + s;
   jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
   if (g_crashlytics)
     g_crashlytics->log(g_crashlytics, out.c_str());
 }
 
-void AndroidLogMessage(LogLevel level, SrcPoint const & src, string const & s)
+void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(level, src, s);
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
-void AndroidAssertMessage(SrcPoint const & src, string const & s)
+void AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(LCRITICAL, src, s);
 #ifdef DEBUG

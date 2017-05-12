@@ -18,6 +18,7 @@
 #include <vector>
 
 using namespace std;
+using namespace std::placeholders;
 using search::Result;
 using search::Results;
 

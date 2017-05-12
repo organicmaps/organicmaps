@@ -21,11 +21,10 @@
 
 #include "indexer/map_style.hpp"
 
-#include "std/map.hpp"
-#include "std/mutex.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/cstdint.hpp"
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <mutex>
 
 namespace search
 {
@@ -43,11 +42,11 @@ namespace android
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
 
-    string m_searchQuery;
+    std::string m_searchQuery;
 
     bool m_isContextDestroyed;
 
-    map<gui::EWidget, gui::Position> m_guiPositions;
+    std::map<gui::EWidget, gui::Position> m_guiPositions;
 
     void TrafficStateChanged(TrafficManager::TrafficState state);
 
@@ -111,7 +110,7 @@ namespace android
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
     bool Search(search::EverywhereSearchParams const & params);
-    string GetLastSearchQuery() { return m_searchQuery; }
+    std::string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
     void AddLocalMaps();
@@ -119,7 +118,7 @@ namespace android
 
     m2::PointD GetViewportCenter() const;
 
-    void AddString(string const & name, string const & value);
+    void AddString(std::string const & name, std::string const & value);
 
     void Scale(::Framework::EScaleMode mode);
     void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
@@ -131,11 +130,11 @@ namespace android
 
     bool IsDownloadingActive();
 
-    bool ShowMapForURL(string const & url);
+    bool ShowMapForURL(std::string const & url);
 
     void DeactivatePopup();
 
-    string GetOutdatedCountriesString();
+    std::string GetOutdatedCountriesString();
 
     void ShowTrack(int category, int track);
 
@@ -162,10 +161,10 @@ namespace android
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
     void RequestBookingMinPrice(JNIEnv * env, jobject policy, 
-                                string const & hotelId, string const & currency,
+                                std::string const & hotelId, std::string const & currency,
                                 booking::GetMinPriceCallback const & callback);
     void RequestBookingInfo(JNIEnv * env, jobject policy, 
-                            string const & hotelId, string const & lang,
+                            std::string const & hotelId, std::string const & lang,
                             booking::GetHotelInfoCallback const & callback);
 
     bool HasSpaceForMigration();
@@ -180,7 +179,7 @@ namespace android
     uint64_t RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                  ms::LatLon const & to, uber::ProductsCallback const & callback,
                                  uber::ErrorCallback const & errorCallback);
-    static uber::RideRequestLinks GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to);
+    static uber::RideRequestLinks GetUberLinks(std::string const & productId, ms::LatLon const & from, ms::LatLon const & to);
 
     int ToDoAfterUpdate() const;
   };
