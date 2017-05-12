@@ -1081,26 +1081,8 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   ostringstream sstr;
   auto canCreate = true;
 
-  sstr << "User\'s comment: ";
-  if (note.empty())
-    sstr << "- ;" << endl;
-  else
-    sstr << note << ';' << endl;
-
-  sstr << "Poi name: ";
-  if (defaultName.empty())
-    sstr << "- ;" << endl;
-  else
-    sstr << defaultName << ';' << endl;
-
-  sstr << "Poi types: ";
-  for (auto const & type : holder.ToObjectNames())
-  {
-    sstr << type << ' ';
-  }
-  sstr << ';' << endl;
-
-  sstr << "OSM data version: " << stringVersion << ';' << endl;
+  if (!note.empty())
+    sstr << "\"" << note << "\"" << endl;
 
   switch (type)
   {
@@ -1120,6 +1102,20 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     }
     case NoteProblemType::General: break;
   }
+
+  if (defaultName.empty())
+    sstr << "POI has no name" << endl;
+  else
+    sstr << "POI name: " << defaultName << endl;
+
+  sstr << "POI types:";
+  for (auto const & type : holder.ToObjectNames())
+  {
+    sstr << ' ' << type;
+  }
+  sstr << endl;
+
+  sstr << "OSM data version: " << stringVersion << endl;
 
   if (canCreate)
     m_notes->CreateNote(latLon, sstr.str());
