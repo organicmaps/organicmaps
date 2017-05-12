@@ -305,6 +305,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
   WorldGraph & worldGraph = starter.GetGraph();
   WorldGraph::Mode const worldRouteMode = worldGraph.GetMode();
+  worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
