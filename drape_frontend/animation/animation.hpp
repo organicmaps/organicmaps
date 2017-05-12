@@ -119,6 +119,7 @@ public:
   bool CouldBeBlended() const { return m_couldBeBlended; }
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
+  bool HasSameObjects(Animation const & animation) const;
 
   void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
   bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
@@ -149,6 +150,10 @@ protected:
   // Animation could be rewinded in case of finishing.
   bool m_couldBeRewinded;
 };
+
+std::string DebugPrint(Animation::Type const & type);
+std::string DebugPrint(Animation::Object const & object);
+std::string DebugPrint(Animation::ObjectProperty const & property);
 
 } // namespace df
 
