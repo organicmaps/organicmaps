@@ -44,6 +44,8 @@ set(
   settings.cpp
   settings.hpp
   socket.hpp
+  string_storage_base.cpp
+  string_storage_base.hpp
 )
 
 if(${PLATFORM_IPHONE})

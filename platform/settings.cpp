@@ -17,111 +17,17 @@
 #include "std/iostream.hpp"
 #include "std/sstream.hpp"
 
-namespace
-{
-constexpr char kDelimChar = '=';
-}  // namespace
-
 namespace settings
 {
 char const * kLocationStateMode = "LastLocationStateMode";
 char const * kMeasurementUnits = "Units";
 
-StringStorage::StringStorage()
-{
-  try
-  {
-    string settingsPath = GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME);
-    LOG(LINFO, ("Settings path:", settingsPath));
-    ReaderStreamBuf buffer(make_unique<FileReader>(settingsPath));
-    istream stream(&buffer);
-
-    string line;
-    while (getline(stream, line))
-    {
-      if (line.empty())
-        continue;
-
-      size_t const delimPos = line.find(kDelimChar);
-      if (delimPos == string::npos)
-        continue;
-
-      string const key = line.substr(0, delimPos);
-      string const value = line.substr(delimPos + 1);
-      if (!key.empty() && !value.empty())
-        m_values[key] = value;
-    }
-  }
-  catch (RootException const & ex)
-  {
-    LOG(LWARNING, ("Loading settings:", ex.Msg()));
-  }
-}
-
-void StringStorage::Save() const
-{
-  try
-  {
-    FileWriter file(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
-    for (auto const & value : m_values)
-    {
-      string line(value.first);
-      line += kDelimChar;
-      line += value.second;
-      line += '\n';
-      file.Write(line.data(), line.size());
-    }
-  }
-  catch (RootException const & ex)
-  {
-    // Ignore all settings saving exceptions.
-    LOG(LWARNING, ("Saving settings:", ex.Msg()));
-  }
-}
+StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
 
 StringStorage & StringStorage::Instance()
 {
   static StringStorage inst;
   return inst;
-}
-
-void StringStorage::Clear()
-{
-  lock_guard<mutex> guard(m_mutex);
-  m_values.clear();
-  Save();
-}
-
-bool StringStorage::GetValue(string const & key, string & outValue) const
-{
-  lock_guard<mutex> guard(m_mutex);
-
-  auto const found = m_values.find(key);
-  if (found == m_values.end())
-    return false;
-
-  outValue = found->second;
-  return true;
-}
-
-void StringStorage::SetValue(string const & key, string && value)
-{
-  lock_guard<mutex> guard(m_mutex);
-
-  m_values[key] = move(value);
-  Save();
-}
-
-void StringStorage::DeleteKeyAndValue(string const & key)
-{
-  lock_guard<mutex> guard(m_mutex);
-
-  auto const found = m_values.find(key);
-  if (found != m_values.end())
-  {
-    m_values.erase(found);
-    Save();
-  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -434,3 +340,15 @@ bool IsFirstLaunchForDate(int date)
     return false;
 }
 }  // namespace settings
+
+namespace marketing
+{
+Settings::Settings() : platform::StringStorageBase(GetPlatform().SettingsPathForFile(MARKETING_SETTINGS_FILE_NAME)) {}
+
+// static
+Settings & Settings::Instance()
+{
+  static Settings instance;
+  return instance;
+}
+}  // namespace marketing

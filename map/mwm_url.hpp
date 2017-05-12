@@ -37,6 +37,12 @@ struct SearchRequest
   bool m_isSearchOnMap = false;
 };
 
+
+namespace lead
+{
+struct CampaignDescription;
+}
+
 class Uri;
 
 /// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
@@ -48,7 +54,8 @@ public:
     Incorrect,
     Map,
     Route,
-    Search
+    Search,
+    Lead
   };
 
   ParsedMapApi() = default;
@@ -74,6 +81,7 @@ private:
   bool AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points);
   bool RouteKeyValue(string const & key, string const & value, vector<string> & pattern);
   bool SearchKeyValue(string const & key, string const & value, SearchRequest & request) const;
+  bool LeadKeyValue(string const & key, string const & value, lead::CampaignDescription & description) const;
 
   BookmarkManager * m_bmManager = nullptr;
   vector<RoutePoint> m_routePoints;
