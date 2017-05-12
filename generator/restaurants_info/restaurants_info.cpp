@@ -9,13 +9,14 @@
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/fstream.hpp"
-#include "std/sstream.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <fstream>
+#include <memory>
+#include <sstream>
+#include <vector>
 
 #include "gflags/gflags.h"
 
@@ -27,7 +28,7 @@ namespace
 class Emitter : public EmitterBase
 {
 public:
-  Emitter(vector<FeatureBuilder1> & features)
+  Emitter(std::vector<FeatureBuilder1> & features)
     : m_features(features)
   {
     LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
@@ -51,7 +52,7 @@ public:
     m_features.emplace_back(fb);
   }
 
-  void GetNames(vector<string> & names) const override
+  void GetNames(std::vector<std::string> & names) const override
   {
     // We do not need to create any data file. See generator_tool.cpp and osm_source.cpp.
     names.clear();
@@ -67,7 +68,7 @@ public:
   }
 
 private:
-  vector<FeatureBuilder1> & m_features;
+  std::vector<FeatureBuilder1> & m_features;
 
   struct Stats
   {
@@ -94,15 +95,15 @@ feature::GenerateInfo GetGenerateInfo()
   return info;
 }
 
-void DumpRestaurants(vector<FeatureBuilder1> const & features, ostream & out)
+void DumpRestaurants(std::vector<FeatureBuilder1> const & features, ostream & out)
 {
   for (auto const & f : features)
   {
     auto const multilangName = f.GetParams().name;
 
-    string defaultName;
-    vector<string> translations;
-    multilangName.ForEach([&translations, &defaultName](uint8_t const langCode, string const & name)
+    std::string defaultName;
+    std::vector<std::string> translations;
+    multilangName.ForEach([&translations, &defaultName](uint8_t const langCode, std::string const & name)
     {
       if (langCode == StringUtf8Multilang::kDefaultCode)
       {
@@ -140,14 +141,14 @@ int main(int argc, char * argv[])
   auto info = GetGenerateInfo();
   GenerateIntermediateData(info);
 
-  vector<FeatureBuilder1> features;
+  std::vector<FeatureBuilder1> features;
   GenerateFeatures(info, [&features](feature::GenerateInfo const & /* info */)
   {
-    return make_unique<Emitter>(features);
+    return my::make_unique<Emitter>(features);
   });
 
   {
-    ofstream ost(FLAGS_out);
+    std::ofstream ost(FLAGS_out);
     CHECK(ost.is_open(), ("Can't open file", FLAGS_out, strerror(errno)));
     DumpRestaurants(features, ost);
   }

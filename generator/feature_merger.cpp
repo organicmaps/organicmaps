@@ -143,7 +143,7 @@ void FeatureMergeProcessor::operator() (MergedFeatureBuilder1 * p)
     ///@ todo Do it only for small round features!
     p->SetRound();
 
-    p->ForEachMiddlePoints(bind(&FeatureMergeProcessor::Insert, this, _1, p));
+    p->ForEachMiddlePoints(std::bind(&FeatureMergeProcessor::Insert, this, std::placeholders::_1, p));
   }
 }
 
@@ -175,7 +175,7 @@ void FeatureMergeProcessor::Remove(MergedFeatureBuilder1 const * p)
   {
     ASSERT ( p->IsRound(), () );
 
-    p->ForEachMiddlePoints(bind(&FeatureMergeProcessor::Remove1, this, _1, p));
+    p->ForEachMiddlePoints(std::bind(&FeatureMergeProcessor::Remove1, this, std::placeholders::_1, p));
   }
 }
 
@@ -275,7 +275,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
 
 uint32_t FeatureTypesProcessor::GetType(char const * arr[], size_t n)
 {
-  uint32_t const type = classif().GetTypeByPath(vector<string>(arr, arr + n));
+  uint32_t const type = classif().GetTypeByPath(std::vector<std::string>(arr, arr + n));
   CHECK_NOT_EQUAL(type, ftype::GetEmptyValue(), ());
   return type;
 }

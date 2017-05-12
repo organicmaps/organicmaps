@@ -25,7 +25,7 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 using namespace feature;
 using namespace generator;
@@ -45,9 +45,9 @@ namespace
 // @TODO(bykoianko) Add ability to add to the tests not road features without altitude information.
 
 // Directory name for creating test mwm and temporary files.
-string const kTestDir = "altitude_generation_test";
+std::string const kTestDir = "altitude_generation_test";
 // Temporary mwm name for testing.
-string const kTestMwm = "test";
+std::string const kTestMwm = "test";
 
 struct Point3D
 {
@@ -125,10 +125,10 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 
   for (TPoint3DList const & geom3D : roads)
-    builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), string(), string()));
+    builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), std::string(), std::string()));
 }
 
-void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
+void TestAltitudes(MwmValue const & mwmValue, std::string const & mwmPath,
                    bool hasAltitudeExpected, AltitudeGetter & expectedAltitudes)
 {
   AltitudeLoader loader(mwmValue);
@@ -163,7 +163,7 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
 {
   classificator::Load();
   Platform & platform = GetPlatform();
-  string const testDirFullPath = my::JoinFoldersToPath(platform.WritableDir(), kTestDir);
+  std::string const testDirFullPath = my::JoinFoldersToPath(platform.WritableDir(), kTestDir);
 
   // Building mwm without altitude section.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
@@ -172,7 +172,7 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   BuildMwmWithoutAltitudes(roads, country);
 
   // Adding altitude section to mwm.
-  string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
+  std::string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.

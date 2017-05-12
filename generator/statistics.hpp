@@ -2,7 +2,7 @@
 
 #include "indexer/feature.hpp"
 
-#include "std/map.hpp"
+#include <map>
 
 
 namespace stats
@@ -40,17 +40,17 @@ namespace stats
 
   struct MapInfo
   {
-    map<feature::EGeomType, GeneralInfo> m_byGeomType;
-    map<ClassifType, GeneralInfo> m_byClassifType;
-    map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
-    map<AreaType, GeneralInfo> m_byAreaSize;
+    std::map<feature::EGeomType, GeneralInfo> m_byGeomType;
+    std::map<ClassifType, GeneralInfo> m_byClassifType;
+    std::map<CountType, GeneralInfo> m_byPointsCount, m_byTrgCount;
+    std::map<AreaType, GeneralInfo> m_byAreaSize;
 
     GeneralInfo m_inner[3];
   };
 
-  void FileContainerStatistic(string const & fPath);
+  void FileContainerStatistic(std::string const & fPath);
 
-  void CalcStatistic(string const & fPath, MapInfo & info);
+  void CalcStatistic(std::string const & fPath, MapInfo & info);
   void PrintStatistic(MapInfo & info);
   void PrintTypeStatistic(MapInfo & info);
 }

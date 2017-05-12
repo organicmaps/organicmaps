@@ -56,7 +56,7 @@ uint8_t GetWarningRank(FeatureType const & ft)
   return 3;
 }
 
-bool LoadIndexes(string const & mwmFile, string const & osrmFile, osrm::NodeDataVectorT & nodeData, gen::OsmID2FeatureID & osm2ft)
+bool LoadIndexes(std::string const & mwmFile, std::string const & osrmFile, osrm::NodeDataVectorT & nodeData, gen::OsmID2FeatureID & osm2ft)
 {
   if (!osrm::LoadNodeDataFromFile(osrmFile + ".nodeData", nodeData))
   {
@@ -96,7 +96,7 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
 }
 
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft,
-                    borders::CountriesContainerT const & countries, string const & countryName,
+                    borders::CountriesContainerT const & countries, std::string const & countryName,
                     Index const & index, MwmSet::MwmId mwmId,
                     routing::CrossRoutingContextWriter & crossContext)
 {
@@ -154,7 +154,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
               crossContext.AddIngoingNode(nodeId, wgsIntersection);
             else if (outStart && !outEnd)
             {
-              string mwmName;
+              std::string mwmName;
               m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
               countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
               {
@@ -189,7 +189,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
   }
 }
 
-void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutingContextWriter & crossContext)
+void CalculateCrossAdjacency(std::string const & mwmRoutingPath, routing::CrossRoutingContextWriter & crossContext)
 {
   OsrmDataFacade<QueryEdge::EdgeData> facade;
   FilesMappingContainer routingCont(mwmRoutingPath);
@@ -223,7 +223,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
 }
 
-void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, string const & mwmRoutingPath)
+void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, std::string const & mwmRoutingPath)
 {
   LOG(LINFO, ("Collect all data into one file..."));
 
@@ -235,8 +235,8 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
   LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
 }
 
-void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
-                            string const & osrmFile)
+void BuildCrossRoutingIndex(std::string const & baseDir, std::string const & countryName,
+                            std::string const & osrmFile)
 {
   LOG(LINFO, ("Cross mwm routing section builder"));
   classificator::Load();
@@ -267,12 +267,12 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
   routing::CrossRoutingContextWriter crossContext;
   FindCrossNodes(nodeData, osm2ft, countries, countryName, index, p.first, crossContext);
 
-  string const mwmPath = localFile.GetPath(MapOptions::Map);
+  std::string const mwmPath = localFile.GetPath(MapOptions::Map);
   CalculateCrossAdjacency(mwmPath, crossContext);
   WriteCrossSection(crossContext, mwmPath);
 }
 
-void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+void BuildRoutingIndex(std::string const & baseDir, std::string const & countryName, std::string const & osrmFile)
 {
   classificator::Load();
 
@@ -451,8 +451,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   LOG(LINFO, ("Collect all data into one file..."));
 
-  string const mwmPath = localFile.GetPath(MapOptions::Map);
-  string const mwmWithoutRoutingPath = mwmPath + NOROUTING_FILE_EXTENSION;
+  std::string const mwmPath = localFile.GetPath(MapOptions::Map);
+  std::string const mwmWithoutRoutingPath = mwmPath + NOROUTING_FILE_EXTENSION;
 
   // Backup mwm file without routing.
   CHECK(my::CopyFileX(mwmPath, mwmWithoutRoutingPath), ("Can't copy", mwmPath, "to", mwmWithoutRoutingPath));
@@ -461,9 +461,9 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   mapping.Save(routingCont);
 
-  auto appendFile = [&] (string const & tag)
+  auto appendFile = [&] (std::string const & tag)
   {
-    string const fileName = osrmFile + "." + tag;
+    std::string const fileName = osrmFile + "." + tag;
     LOG(LINFO, ("Append file", fileName, "with tag", tag));
     routingCont.Write(fileName, tag);
   };

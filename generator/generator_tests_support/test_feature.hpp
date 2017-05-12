@@ -5,9 +5,9 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <utility>
+#include <vector>
 
 class FeatureBuilder1;
 class FeatureType;
@@ -27,43 +27,43 @@ public:
   virtual ~TestFeature() = default;
 
   bool Matches(FeatureType const & feature) const;
-  inline void SetPostcode(string const & postcode) { m_postcode = postcode; }
+  inline void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   inline uint64_t GetId() const { return m_id; }
-  inline string const & GetName() const { return m_name; }
+  inline std::string const & GetName() const { return m_name; }
 
   virtual void Serialize(FeatureBuilder1 & fb) const;
-  virtual string ToString() const = 0;
+  virtual std::string ToString() const = 0;
 
 protected:
-  TestFeature(string const & name, string const & lang);
-  TestFeature(m2::PointD const & center, string const & name, string const & lang);
+  TestFeature(std::string const & name, std::string const & lang);
+  TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
 
   uint64_t const m_id;
   m2::PointD const m_center;
   bool const m_hasCenter;
-  string const m_name;
-  string const m_lang;
-  string m_postcode;
+  std::string const m_name;
+  std::string const m_lang;
+  std::string m_postcode;
 };
 
 class TestCountry : public TestFeature
 {
 public:
-  TestCountry(m2::PointD const & center, string const & name, string const & lang);
+  TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 };
 
 class TestCity : public TestFeature
 {
 public:
-  TestCity(m2::PointD const & center, string const & name, string const & lang, uint8_t rank);
+  TestCity(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
   uint8_t const m_rank;
@@ -72,11 +72,11 @@ private:
 class TestVillage : public TestFeature
 {
 public:
-  TestVillage(m2::PointD const & center, string const & name, string const & lang, uint8_t rank);
+  TestVillage(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
   uint8_t const m_rank;
@@ -85,84 +85,84 @@ private:
 class TestStreet : public TestFeature
 {
 public:
-  TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang);
+  TestStreet(std::vector<m2::PointD> const & points, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
-  vector<m2::PointD> m_points;
+  std::vector<m2::PointD> m_points;
 };
 
 class TestPOI : public TestFeature
 {
 public:
-  TestPOI(m2::PointD const & center, string const & name, string const & lang);
+  TestPOI(m2::PointD const & center, std::string const & name, std::string const & lang);
 
-  static pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
-                                                string const & enName, m2::PointD const & pt);
+  static std::pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                                                std::string const & enName, m2::PointD const & pt);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
-  inline void SetHouseNumber(string const & houseNumber) { m_houseNumber = houseNumber; }
+  inline void SetHouseNumber(std::string const & houseNumber) { m_houseNumber = houseNumber; }
   inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
-  inline void SetTypes(vector<vector<string>> const & types) { m_types = types; }
+  inline void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
 
 private:
-  string m_houseNumber;
-  string m_streetName;
-  vector<vector<string>> m_types;
+  std::string m_houseNumber;
+  std::string m_streetName;
+  std::vector<std::vector<std::string>> m_types;
 };
 
 class TestBuilding : public TestFeature
 {
 public:
-  TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
-               string const & lang);
-  TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
-               TestStreet const & street, string const & lang);
-  TestBuilding(vector<m2::PointD> const & boundary, string const & name, string const & houseNumber,
-               TestStreet const & street, string const & lang);
+  TestBuilding(m2::PointD const & center, std::string const & name, std::string const & houseNumber,
+               std::string const & lang);
+  TestBuilding(m2::PointD const & center, std::string const & name, std::string const & houseNumber,
+               TestStreet const & street, std::string const & lang);
+  TestBuilding(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & houseNumber,
+               TestStreet const & street, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
-  vector<m2::PointD> const m_boundary;
-  string const m_houseNumber;
-  string const m_streetName;
+  std::vector<m2::PointD> const m_boundary;
+  std::string const m_houseNumber;
+  std::string const m_streetName;
 };
 
 class TestPark : public TestFeature
 {
 public:
-  TestPark(vector<m2::PointD> const & boundary, string const & name, string const & lang);
+  TestPark(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
-  vector<m2::PointD> m_boundary;
+  std::vector<m2::PointD> m_boundary;
 };
 
 class TestRoad : public TestFeature
 {
 public:
-  TestRoad(vector<m2::PointD> const & points, string const & name, string const & lang);
+  TestRoad(std::vector<m2::PointD> const & points, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  string ToString() const override;
+  std::string ToString() const override;
 
 private:
-  vector<m2::PointD> m_points;
+  std::vector<m2::PointD> m_points;
 };
 
-string DebugPrint(TestFeature const & feature);
+std::string DebugPrint(TestFeature const & feature);
 }  // namespace tests_support
 }  // namespace generator

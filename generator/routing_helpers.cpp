@@ -13,7 +13,7 @@ using std::string;
 namespace
 {
 template <class ToDo>
-bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
+bool ForEachRoadFromFile(std::string const & filename, ToDo && toDo)
 {
   gen::OsmID2FeatureID osmIdsToFeatureIds;
   try
@@ -46,7 +46,7 @@ void AddFeatureId(osm::Id osmId, uint32_t featureId, map<osm::Id, uint32_t> &osm
   osmIdToFeatureId.insert(make_pair(osmId, featureId));
 }
 
-bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
+bool ParseOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
                                   map<osm::Id, uint32_t> & osmIdToFeatureId)
 {
   return ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id osmId) {
@@ -54,7 +54,7 @@ bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
   });
 }
 
-bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
+bool ParseFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
                                   map<uint32_t, osm::Id> & featureIdToOsmId)
 {
   featureIdToOsmId.clear();

@@ -5,8 +5,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
+#include <fstream>
+#include <iostream>
 
 namespace generator
 {
@@ -48,12 +48,12 @@ void SponsoredDataset<SponsoredObject>::AddressMatcher::operator()(Object & obje
 
 // SponsoredDataset --------------------------------------------------------------------------------
 template <typename SponsoredObject>
-SponsoredDataset<SponsoredObject>::SponsoredDataset(string const & dataPath, string const & addressReferencePath)
+SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath, std::string const & addressReferencePath)
 {
   if (dataPath.empty())
     return;
 
-  ifstream dataSource(dataPath);
+  std::ifstream dataSource(dataPath);
   if (!dataSource.is_open())
   {
     LOG(LERROR, ("Error while opening", dataPath, ":", strerror(errno)));
@@ -64,7 +64,7 @@ SponsoredDataset<SponsoredObject>::SponsoredDataset(string const & dataPath, str
 }
 
 template <typename SponsoredObject>
-SponsoredDataset<SponsoredObject>::SponsoredDataset(istream & dataSource, string const & addressReferencePath)
+SponsoredDataset<SponsoredObject>::SponsoredDataset(std::istream & dataSource, std::string const & addressReferencePath)
 {
   LoadData(dataSource, addressReferencePath);
 }
@@ -126,12 +126,12 @@ SponsoredDataset<SponsoredObject>::GetNearestObjects(ms::LatLon const & latLon, 
 }
 
 template <typename SponsoredObject>
-void SponsoredDataset<SponsoredObject>::LoadData(istream & src, string const & addressReferencePath)
+void SponsoredDataset<SponsoredObject>::LoadData(std::istream & src, std::string const & addressReferencePath)
 {
   m_objects.clear();
   m_rtree.clear();
 
-  for (string line; getline(src, line);)
+  for (std::string line; std::getline(src, line);)
   {
     Object hotel(line);
     m_objects.emplace(hotel.m_id, hotel);
@@ -142,7 +142,7 @@ void SponsoredDataset<SponsoredObject>::LoadData(istream & src, string const & a
   {
     LOG(LINFO, ("Reference addresses for sponsored objects", addressReferencePath));
     Platform & platform = GetPlatform();
-    string const backupPath = platform.WritableDir();
+    std::string const backupPath = platform.WritableDir();
 
     // MWMs can be loaded only from a writebledir or from a resourcedir,
     // changig resourcedir can lead to probles with classificator, so

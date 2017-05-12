@@ -2,10 +2,9 @@
 #include "generator/feature_emitter_iface.hpp"
 #include "generator/feature_builder.hpp"
 
-#include "std/map.hpp"
-#include "std/set.hpp"
-#include "std/vector.hpp"
-
+#include <map>
+#include <set>
+#include <vector>
 
 /// Feature builder class that used while feature type processing and merging.
 class MergedFeatureBuilder1 : public FeatureBuilder1
@@ -61,8 +60,8 @@ class FeatureMergeProcessor
 
   MergedFeatureBuilder1 m_last;
 
-  typedef vector<MergedFeatureBuilder1 *> vector_t;
-  typedef map<key_t, vector_t> map_t;
+  typedef std::vector<MergedFeatureBuilder1 *> vector_t;
+  typedef std::map<key_t, vector_t> map_t;
   map_t m_map;
 
   void Insert(m2::PointD const & pt, MergedFeatureBuilder1 * p);
@@ -89,8 +88,8 @@ public:
 /// Feature types corrector.
 class FeatureTypesProcessor
 {
-  set<uint32_t> m_dontNormalize;
-  map<uint32_t, uint32_t> m_mapping;
+  std::set<uint32_t> m_dontNormalize;
+  std::map<uint32_t, uint32_t> m_mapping;
 
   static uint32_t GetType(char const * arr[], size_t n);
 

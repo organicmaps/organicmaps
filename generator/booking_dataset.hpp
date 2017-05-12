@@ -6,8 +6,8 @@
 
 #include "base/newtype.hpp"
 
-#include "std/limits.hpp"
-#include "std/string.hpp"
+#include <limits>
+#include <string>
 
 namespace generator
 {
@@ -35,10 +35,10 @@ struct BookingHotel
 
   static constexpr ObjectId InvalidObjectId()
   {
-    return ObjectId(numeric_limits<typename ObjectId::RepType>::max());
+    return ObjectId(std::numeric_limits<typename ObjectId::RepType>::max());
   }
 
-  explicit BookingHotel(string const & src);
+  explicit BookingHotel(std::string const & src);
 
   static constexpr size_t FieldIndex(Fields field) { return static_cast<size_t>(field); }
   static constexpr size_t FieldsCount() { return static_cast<size_t>(Fields::Counter); }
@@ -47,18 +47,18 @@ struct BookingHotel
 
   ObjectId m_id{InvalidObjectId()};
   ms::LatLon m_latLon = ms::LatLon::Zero();
-  string m_name;
-  string m_street;
-  string m_houseNumber;
+  std::string m_name;
+  std::string m_street;
+  std::string m_houseNumber;
 
-  string m_address;
+  std::string m_address;
   uint32_t m_stars = 0;
   uint32_t m_priceCategory = 0;
   double m_ratingBooking = 0.0;
   double m_ratingUser = 0.0;
-  string m_descUrl;
+  std::string m_descUrl;
   uint32_t m_type = 0;
-  string m_translations;
+  std::string m_translations;
 };
 
 ostream & operator<<(ostream & s, BookingHotel const & h);

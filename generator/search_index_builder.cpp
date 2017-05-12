@@ -35,12 +35,14 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/fstream.hpp"
-#include "std/initializer_list.hpp"
-#include "std/limits.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <fstream>
+#include <initializer_list>
+#include <limits>
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
 
 #define SYNONYMS_FILE "synonyms.txt"
 
@@ -61,7 +63,7 @@ public:
 
     while (stream.good())
     {
-      std::getline(stream, line);
+      getline(stream, line);
       if (line.empty())
         continue;
 

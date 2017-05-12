@@ -6,5 +6,5 @@
 
 namespace feature
 {
-bool ReadRegionData(string const & countryName, RegionData & data);
+bool ReadRegionData(std::string const & countryName, RegionData & data);
 }  // namespace feature

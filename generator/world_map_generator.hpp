@@ -44,7 +44,7 @@ public:
                 "borders skipped:", m_skippedBorders, "selected polygons:", m_selectedPolygons));
   }
 
-  void LoadWaterGeometry(string const & rawGeometryFileName)
+  void LoadWaterGeometry(std::string const & rawGeometryFileName)
   {
     LOG_SHORT(LINFO, ("Loading water geometry:", rawGeometryFileName));
     FileReader reader(rawGeometryFileName);

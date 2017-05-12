@@ -13,12 +13,13 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/functional.hpp"
-#include "std/iostream.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <map>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

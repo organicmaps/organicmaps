@@ -28,10 +28,10 @@
 
 #include "defines.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/type_traits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/mapper.hpp"
@@ -46,7 +46,7 @@ using namespace routing;
 class SrtmGetter : public AltitudeGetter
 {
 public:
-  SrtmGetter(string const & srtmDir) : m_srtmManager(srtmDir) {}
+  SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
 
   // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
@@ -73,7 +73,7 @@ public:
     Altitudes m_altitudes;
   };
 
-  using TFeatureAltitudes = vector<FeatureAltitude>;
+  using TFeatureAltitudes = std::vector<FeatureAltitude>;
 
   Processor(AltitudeGetter & altitudeGetter)
     : m_altitudeGetter(altitudeGetter), m_minAltitude(kInvalidAltitude)
@@ -123,25 +123,25 @@ public:
       if (minFeatureAltitude == kInvalidAltitude)
         minFeatureAltitude = a;
       else
-        minFeatureAltitude = min(minFeatureAltitude, a);
+        minFeatureAltitude = std::min(minFeatureAltitude, a);
 
       altitudes.push_back(a);
     }
 
     hasAltitude = true;
-    m_featureAltitudes.emplace_back(id, Altitudes(move(altitudes)));
+    m_featureAltitudes.emplace_back(id, Altitudes(std::move(altitudes)));
 
     if (m_minAltitude == kInvalidAltitude)
       m_minAltitude = minFeatureAltitude;
     else
-      m_minAltitude = min(minFeatureAltitude, m_minAltitude);
+      m_minAltitude = std::min(minFeatureAltitude, m_minAltitude);
   }
 
   bool HasAltitudeInfo() const { return !m_featureAltitudes.empty(); }
 
   bool IsFeatureAltitudesSorted()
   {
-    return is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),
+    return std::is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),
                      my::LessBy(&Processor::FeatureAltitude::m_featureId));
   }
 
@@ -155,7 +155,7 @@ private:
 
 namespace routing
 {
-void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
+void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGetter)
 {
   try
   {
@@ -187,11 +187,11 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     }
     header.m_featureTableOffset = base::checked_cast<uint32_t>(w.Pos() - startOffset);
 
-    vector<uint32_t> offsets;
-    vector<uint8_t> deltas;
+    std::vector<uint32_t> offsets;
+    std::vector<uint8_t> deltas;
     {
       // Altitude info serialization to memory.
-      MemWriter<vector<uint8_t>> writer(deltas);
+      MemWriter<std::vector<uint8_t>> writer(deltas);
       Processor::TFeatureAltitudes const & featureAltitudes = processor.GetFeatureAltitudes();
       for (auto const & a : featureAltitudes)
       {
@@ -201,7 +201,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
     }
     {
       // Altitude offsets serialization.
-      CHECK(is_sorted(offsets.begin(), offsets.end()), ());
+      CHECK(std::is_sorted(offsets.begin(), offsets.end()), ());
       CHECK(adjacent_find(offsets.begin(), offsets.end()) == offsets.end(), ());
 
       succinct::elias_fano::elias_fano_builder builder(offsets.back(), offsets.size());
@@ -234,7 +234,7 @@ void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter)
   }
 }
 
-void BuildRoadAltitudes(string const & mwmPath, string const & srtmDir)
+void BuildRoadAltitudes(std::string const & mwmPath, std::string const & srtmDir)
 {
   LOG(LINFO, ("mwmPath =", mwmPath, "srtmDir =", srtmDir));
   SrtmGetter srtmGetter(srtmDir);

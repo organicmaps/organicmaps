@@ -9,15 +9,15 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/utility.hpp"
+#include <utility>
 
 namespace generator
 {
-void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string const & outputFilePath)
+void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::string const & outputFilePath)
 {
   strings::SimpleTokenizer lineIter(mappingContent, "\n\r" /* line delimiters */);
 
-  gen::Accumulator<pair<osm::Id, uint32_t>> osmIdsToFeatureIds;
+  gen::Accumulator<std::pair<osm::Id, uint32_t>> osmIdsToFeatureIds;
   for (; lineIter; ++lineIter)
   {
     strings::SimpleTokenizer idIter(*lineIter, ", \t" /* id delimiters */);
@@ -30,7 +30,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(string const & mappingContent, string con
     uint32_t featureId = 0;
     TEST(idIter, ());
     TEST(strings::to_uint(*idIter, featureId), ("Cannot convert to uint:", *idIter));
-    osmIdsToFeatureIds.Add(make_pair(osm::Id::Way(osmId), featureId));
+    osmIdsToFeatureIds.Add(std::make_pair(osm::Id::Way(osmId), featureId));
     ++idIter;
     TEST(!idIter, ());
   }

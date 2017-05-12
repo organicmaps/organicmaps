@@ -8,16 +8,16 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/iomanip.hpp"
+#include <iomanip>
 
 #include "boost/algorithm/string/replace.hpp"
 
 namespace generator
 {
 // BookingHotel ------------------------------------------------------------------------------------
-BookingHotel::BookingHotel(string const & src)
+BookingHotel::BookingHotel(std::string const & src)
 {
-  vector<string> rec;
+  vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
@@ -44,7 +44,7 @@ BookingHotel::BookingHotel(string const & src)
 
 ostream & operator<<(ostream & s, BookingHotel const & h)
 {
-  s << fixed << setprecision(7);
+  s << std::fixed << std::setprecision(7);
   s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
     << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
   return s;
@@ -117,7 +117,7 @@ void BookingDataset::BuildObject(Object const & hotel,
   if (!hotel.m_translations.empty())
   {
     // TODO(mgsergio): Move parsing to the hotel costruction stage.
-    vector<string> parts;
+    vector<std::string> parts;
     strings::ParseCSVRow(hotel.m_translations, '|', parts);
     CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.m_translations));
     for (size_t i = 0; i < parts.size(); i += 3)

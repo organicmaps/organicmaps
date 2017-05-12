@@ -117,7 +117,7 @@ int main(int argc, char ** argv)
   if (!FLAGS_user_resource_path.empty())
     pl.SetResourceDir(FLAGS_user_resource_path);
 
-  string const path =
+  std::string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
 
   feature::GenerateInfo genInfo;
@@ -128,7 +128,7 @@ int main(int argc, char ** argv)
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
   if (!FLAGS_intermediate_data_path.empty())
   {
-    string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
+    std::string const tmpPath = genInfo.m_intermediateDir + "tmp" + my::GetNativeSeparator();
     if (pl.MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
@@ -203,8 +203,8 @@ int main(int argc, char ** argv)
   size_t const count = genInfo.m_bucketNames.size();
   for (size_t i = 0; i < count; ++i)
   {
-    string const & country = genInfo.m_bucketNames[i];
-    string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
+    std::string const & country = genInfo.m_bucketNames[i];
+    std::string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
 
     if (FLAGS_generate_geometry)
     {
@@ -252,13 +252,13 @@ int main(int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
 
-    string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
+    std::string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_make_routing_index)
     {
-      string const restrictionsFilename =
+      std::string const restrictionsFilename =
           genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
-      string const roadAccessFilename =
+      std::string const roadAccessFilename =
           genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "" /* extension */);
 
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
@@ -280,7 +280,7 @@ int main(int argc, char ** argv)
     }
   }
 
-  string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
+  std::string const datFile = my::JoinFoldersToPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
   if (FLAGS_calc_statistics)
   {

@@ -29,6 +29,8 @@
 
 #include "defines.hpp"
 
+using namespace std;
+
 SourceReader::SourceReader()
 : m_file(unique_ptr<istream, Deleter>(&cin, Deleter(false)))
 {
@@ -336,7 +338,7 @@ public:
           new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
     if (info.m_splitByPolygons || !info.m_fileName.empty())
-      m_countries = make_unique<TCountriesGenerator>(info);
+      m_countries = my::make_unique<TCountriesGenerator>(info);
 
     if (info.m_createWorld)
       m_world.reset(new TWorldGenerator(info));
@@ -527,7 +529,7 @@ private:
 unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
 {
   LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
-  return make_unique<MainFeaturesEmitter>(info);
+  return my::make_unique<MainFeaturesEmitter>(info);
 }
 
 template <typename TElement, typename TCache>

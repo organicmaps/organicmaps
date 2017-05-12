@@ -8,16 +8,16 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/iomanip.hpp"
+#include <iomanip>
 
 #include "boost/algorithm/string/replace.hpp"
 
 namespace generator
 {
 // OpentableRestaurant ------------------------------------------------------------------------------
-OpentableRestaurant::OpentableRestaurant(string const & src)
+OpentableRestaurant::OpentableRestaurant(std::string const & src)
 {
-  vector<string> rec;
+  vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing restaurants.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
@@ -33,7 +33,7 @@ OpentableRestaurant::OpentableRestaurant(string const & src)
 
 ostream & operator<<(ostream & s, OpentableRestaurant const & h)
 {
-  s << fixed << setprecision(7);
+  s << std::fixed << std::setprecision(7);
   return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
            << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
 }

@@ -12,6 +12,7 @@
 
 #include "base/logging.hpp"
 
+using namespace std;
 
 namespace
 {

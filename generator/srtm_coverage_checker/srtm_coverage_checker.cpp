@@ -13,7 +13,7 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -93,7 +93,7 @@ int main(int argc, char * argv[])
         // Get points in proper direction.
         auto const startIdx = segment.m_pointStart;
         auto const endIdx = segment.m_pointEnd;
-        for (auto idx = min(startIdx, endIdx); idx <= max(startIdx, endIdx); ++idx)
+        for (auto idx = std::min(startIdx, endIdx); idx <= std::max(startIdx, endIdx); ++idx)
           path.push_back(ft.GetPoint(idx));
 
         all += path.size();

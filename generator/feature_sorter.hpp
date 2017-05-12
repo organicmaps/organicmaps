@@ -7,7 +7,7 @@
 
 #include "indexer/scales.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 
 namespace feature
@@ -15,7 +15,7 @@ namespace feature
   /// Final generation of data from input feature-dat-file.
   /// @param path - path to folder with countries;
   /// @param name - name of generated country;
-  bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType);
+  bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const & name, int mapType);
 
   template <class PointT>
   inline bool are_points_equal(PointT const & p1, PointT const & p2)
@@ -50,7 +50,7 @@ namespace feature
           fabs(p.y - m_rect.minY()) <= m_eps || fabs(p.y - m_rect.maxY()) <= m_eps)
       {
         // points near rect should be in a result simplified vector
-        return numeric_limits<double>::max();
+        return std::numeric_limits<double>::max();
       }
 
       return m2::DistanceToLineSquare<m2::PointD>::operator()(p);

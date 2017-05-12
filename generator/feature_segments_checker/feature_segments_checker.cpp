@@ -19,15 +19,17 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#include "std/cmath.hpp"
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/map.hpp"
-#include "std/numeric.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <set>
+#include <string>
 
 #include "3party/gflags/src/gflags/gflags.h"
+
+using namespace std;
 
 DEFINE_string(srtm_dir_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_file_path, "", "Path to an mwm file.");

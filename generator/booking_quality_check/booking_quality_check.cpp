@@ -10,21 +10,24 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdlib.hpp"
-#include "std/cstring.hpp"
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/numeric.hpp"
-#include "std/random.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <numeric>
+#include <random>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
 #include "boost/range/adaptor/map.hpp"
 #include "boost/range/algorithm/copy.hpp"
 
+
+using namespace std;
 
 DEFINE_string(osm, "", "Input .o5m file");
 DEFINE_string(booking, "", "Path to booking data in .tsv format");
@@ -358,7 +361,7 @@ void RunImpl(feature::GenerateInfo & info)
   map<osm::Id, FeatureBuilder1> features;
   GenerateFeatures(info, [&dataset, &features](feature::GenerateInfo const & /* info */)
   {
-    return make_unique<Emitter<Dataset>>(dataset, features);
+    return my::make_unique<Emitter<Dataset>>(dataset, features);
   });
 
   if (FLAGS_generate)

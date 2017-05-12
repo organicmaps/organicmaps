@@ -2,7 +2,7 @@
 
 #include "indexer/data_header.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
 
 namespace feature
 {
@@ -35,7 +35,7 @@ public:
 private:
   platform::LocalCountryFile & m_file;
   feature::DataHeader::MapType m_type;
-  unique_ptr<feature::FeaturesCollector> m_collector;
+  std::unique_ptr<feature::FeaturesCollector> m_collector;
 };
 }  // namespace tests_support
 }  // namespace generator

@@ -8,8 +8,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/fstream.hpp"
+#include <algorithm>
+#include <fstream>
 
 namespace
 {
@@ -17,7 +17,7 @@ char const kNo[] = "No";
 char const kOnly[] = "Only";
 char const kDelim[] = ", \t\r\n";
 
-bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, vector<osm::Id> & numbers)
+bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<osm::Id> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
@@ -32,8 +32,8 @@ bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, vector<osm::Id> & number
 
 namespace routing
 {
-RestrictionCollector::RestrictionCollector(string const & restrictionPath,
-                                           string const & osmIdsToFeatureIdPath)
+RestrictionCollector::RestrictionCollector(std::string const & restrictionPath,
+                                           std::string const & osmIdsToFeatureIdPath)
 {
   MY_SCOPE_GUARD(clean, [this](){
     m_osmIdToFeatureId.clear();
@@ -63,18 +63,18 @@ RestrictionCollector::RestrictionCollector(string const & restrictionPath,
 
 bool RestrictionCollector::IsValid() const
 {
-  return find_if(begin(m_restrictions), end(m_restrictions),
+  return std::find_if(begin(m_restrictions), end(m_restrictions),
                  [](Restriction const & r) { return !r.IsValid(); }) == end(m_restrictions);
 }
 
-bool RestrictionCollector::ParseRestrictions(string const & path)
+bool RestrictionCollector::ParseRestrictions(std::string const & path)
 {
-  ifstream stream(path);
+  std::ifstream stream(path);
   if (stream.fail())
     return false;
 
-  string line;
-  while (getline(stream, line))
+  std::string line;
+  while (std::getline(stream, line))
   {
     strings::SimpleTokenizer iter(line, kDelim);
     if (!iter)  // the line is empty
@@ -88,7 +88,7 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
     }
 
     ++iter;
-    vector<osm::Id> osmIds;
+    std::vector<osm::Id> osmIds;
     if (!ParseLineOfWayIds(iter, osmIds))
     {
       LOG(LWARNING, ("Cannot parse osm ids from", path));
@@ -100,9 +100,9 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
   return true;
 }
 
-bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<osm::Id> const & osmIds)
+bool RestrictionCollector::AddRestriction(Restriction::Type type, std::vector<osm::Id> const & osmIds)
 {
-  vector<uint32_t> featureIds(osmIds.size());
+  std::vector<uint32_t> featureIds(osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
   {
     auto const result = m_osmIdToFeatureId.find(osmIds[i]);
@@ -126,7 +126,7 @@ void RestrictionCollector::AddFeatureId(uint32_t featureId, osm::Id osmId)
   ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureId);
 }
 
-bool FromString(string str, Restriction::Type & type)
+bool FromString(std::string str, Restriction::Type & type)
 {
   if (str == kNo)
   {

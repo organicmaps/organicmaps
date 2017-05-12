@@ -5,22 +5,22 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <vector>
 
 namespace
 {
-using WeightedBagOfWords = vector<pair<strings::UniString, double>>;
+using WeightedBagOfWords = std::vector<std::pair<strings::UniString, double>>;
 
-vector<strings::UniString> StringToWords(string const & str)
+std::vector<strings::UniString> StringToWords(std::string const & str)
 {
-  vector<strings::UniString> result;
+  std::vector<strings::UniString> result;
   search::NormalizeAndTokenizeString(str, result, search::Delimiters{});
-  sort(begin(result), end(result));
+  std::sort(std::begin(result), std::end(result));
   return result;
 }
 
-WeightedBagOfWords MakeWeightedBagOfWords(vector<strings::UniString> const & words)
+WeightedBagOfWords MakeWeightedBagOfWords(std::vector<strings::UniString> const & words)
 {
   // TODO(mgsergio): Calculate tf-idsf score for every word.
   auto constexpr kTfIdfScorePlaceholder = 1;
@@ -92,7 +92,7 @@ double GetLinearNormDistanceScore(double distance, double const maxDistance)
   return 1.0 - distance / maxDistance;
 }
 
-double GetNameSimilarityScore(string const & booking_name, string const & osm_name)
+double GetNameSimilarityScore(std::string const & booking_name, std::string const & osm_name)
 {
   auto const aws = MakeWeightedBagOfWords(StringToWords(booking_name));
   auto const bws = MakeWeightedBagOfWords(StringToWords(osm_name));
