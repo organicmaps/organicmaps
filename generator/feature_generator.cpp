@@ -14,9 +14,9 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
 #include "std/target_os.hpp"
-#include "std/unordered_map.hpp"
+#include <unordered_map>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeaturesCollector implementation
@@ -24,7 +24,7 @@
 namespace feature
 {
 
-FeaturesCollector::FeaturesCollector(string const & fName)
+FeaturesCollector::FeaturesCollector(std::string const & fName)
   : m_datFile(fName)
 {
   CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
@@ -90,7 +90,7 @@ void FeaturesCollector::Write(char const * src, size_t size)
   } while (size > 0);
 }
 
-uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder1 const & fb)
 {
   size_t const sz = bytes.size();
   CHECK(sz != 0, ("Empty feature not allowed here!"));
@@ -112,8 +112,8 @@ uint32_t FeaturesCollector::operator()(FeatureBuilder1 const & fb)
   return featureId;
 }
 
-FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(string const & featuresFileName,
-                                                                 string const & rawGeometryFileName)
+FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(std::string const & featuresFileName,
+                                                                 std::string const & rawGeometryFileName)
   : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName)
 {
   CHECK_EQUAL(GetFileSize(m_rawGeometryFileStream), 0, ());

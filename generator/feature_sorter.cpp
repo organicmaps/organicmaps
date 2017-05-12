@@ -95,7 +95,7 @@ namespace feature
     class TmpFile : public FileWriter
     {
     public:
-      explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
+      explicit TmpFile(std::string const & filePath) : FileWriter(filePath) {}
       ~TmpFile()
       {
         DeleteFileX(GetName());
@@ -118,14 +118,14 @@ namespace feature
     gen::OsmID2FeatureID m_osm2ft;
 
   public:
-    FeaturesCollector2(string const & fName, DataHeader const & header,
+    FeaturesCollector2(std::string const & fName, DataHeader const & header,
                        RegionData const & regionData, uint32_t versionDate)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName),
         m_header(header), m_regionData(regionData), m_versionDate(versionDate)
     {
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
-        string const postfix = strings::to_string(i);
+        std::string const postfix = strings::to_string(i);
         m_geoFile.push_back(make_unique<TmpFile>(fName + GEOMETRY_FILE_TAG + postfix));
         m_trgFile.push_back(make_unique<TmpFile>(fName + TRIANGLE_FILE_TAG + postfix));
       }
@@ -162,8 +162,8 @@ namespace feature
       m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
 
       // File Writer finalization function with appending to the main mwm file.
-      auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
-                                     string const & postfix = string())
+      auto const finalizeFn = [this](unique_ptr<TmpFile> w, std::string const & tag,
+                                     std::string const & postfix = std::string())
       {
         w->Flush();
         m_writer.Write(w->GetName(), tag + postfix);
@@ -171,7 +171,7 @@ namespace feature
 
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
-        string const postfix = strings::to_string(i);
+        std::string const postfix = strings::to_string(i);
         finalizeFn(move(m_geoFile[i]), GEOMETRY_FILE_TAG, postfix);
         finalizeFn(move(m_trgFile[i]), TRIANGLE_FILE_TAG, postfix);
       }
@@ -250,7 +250,7 @@ namespace feature
         tesselator::PointsInfo points;
         m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
         info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                           bind(D2U, _1, cp.GetCoordBits()), points);
+                           std::bind(D2U, std::placeholders::_1, cp.GetCoordBits()), points);
 
         // triangles processing (should be optimal)
         info.ProcessPortions(points, saver, true);
@@ -556,10 +556,10 @@ namespace feature
     return static_cast<FeatureBuilder2 &>(fb);
   }
 
-  bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & name, int mapType)
+  bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const & name, int mapType)
   {
-    string const srcFilePath = info.GetTmpFileName(name);
-    string const datFilePath = info.GetTargetFileName(name);
+    std::string const srcFilePath = info.GetTmpFileName(name);
+    std::string const datFilePath = info.GetTargetFileName(name);
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;

@@ -16,9 +16,9 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace generator;
 using namespace platform;
@@ -26,7 +26,7 @@ using namespace platform::tests_support;
 
 namespace routing
 {
-string const kRestrictionTestDir = "test-restrictions";
+std::string const kRestrictionTestDir = "test-restrictions";
 
 UNIT_TEST(RestrictionTest_ValidCase)
 {
@@ -67,9 +67,9 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 
 UNIT_TEST(RestrictionTest_ParseRestrictions)
 {
-  string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
-  string const kRestrictionContent = R"(No, 1, 1,
+  std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
+  std::string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
+  std::string const kRestrictionContent = R"(No, 1, 1,
                                         Only, 0, 2,
                                         Only, 2, 3,
                                         No, 38028428, 38028428
@@ -92,22 +92,22 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
 {
   ScopedDir scopedDir(kRestrictionTestDir);
 
-  string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
-  string const kRestrictionContent = R"(No, 10, 10,
+  std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
+  std::string const kRestrictionPath = my::JoinFoldersToPath(kRestrictionTestDir, kRestrictionName);
+  std::string const kRestrictionContent = R"(No, 10, 10,
                                         Only, 10, 20,
                                         Only, 30, 40,)";
   ScopedFile restrictionScopedFile(kRestrictionPath, kRestrictionContent);
 
-  string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
-  string const osmIdsToFeatureIdsPath =
+  std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
+  std::string const osmIdsToFeatureIdsPath =
       my::JoinFoldersToPath(kRestrictionTestDir, kOsmIdsToFeatureIdsName);
-  string const kOsmIdsToFeatureIdsContent = R"(10, 1,
+  std::string const kOsmIdsToFeatureIdsContent = R"(10, 1,
                                                20, 2,
                                                30, 3,
                                                40, 4)";
   Platform const & platform = Platform();
-  string const osmIdsToFeatureIdsFullPath =
+  std::string const osmIdsToFeatureIdsFullPath =
       my::JoinFoldersToPath(platform.WritableDir(), osmIdsToFeatureIdsPath);
   ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
   ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath);

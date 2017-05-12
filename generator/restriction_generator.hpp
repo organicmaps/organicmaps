@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace routing
 {
@@ -29,6 +29,6 @@ namespace routing
 /// \param osmIdsToFeatureIdsPath a binary file with mapping form osm ids to feature ids.
 /// One osm id is mapped to one feature id. The file should be saved with the help of
 /// OsmID2FeatureID class or using a similar way.
-bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
-                           string const & osmIdsToFeatureIdsPath);
+bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & restrictionPath,
+                           std::string const & osmIdsToFeatureIdsPath);
 }  // namespace routing

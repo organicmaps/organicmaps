@@ -32,10 +32,10 @@ namespace kml
 
   class KmlParser
   {
-    vector<string> m_tags;
+    vector<std::string> m_tags;
     /// buffer for text with points
-    string m_data;
-    string m_name;
+    std::string m_data;
+    std::string m_name;
 
     PolygonsContainerT & m_country;
     int m_level;
@@ -43,10 +43,10 @@ namespace kml
   public:
     KmlParser(PolygonsContainerT & country, int level);
 
-    bool Push(string const & element);
-    void Pop(string const & element);
-    void AddAttr(string const &, string const &) {}
-    void CharData(string const & data);
+    bool Push(std::string const & element);
+    void Pop(std::string const & element);
+    void AddAttr(std::string const &, std::string const &) {}
+    void CharData(std::string const & data);
   };
 
   KmlParser::KmlParser(PolygonsContainerT & country, int level)
@@ -54,7 +54,7 @@ namespace kml
   {
   }
 
-  bool KmlParser::Push(string const & element)
+  bool KmlParser::Push(std::string const & element)
   {
     m_tags.push_back(element);
 
@@ -71,16 +71,16 @@ namespace kml
     {
     }
 
-    void operator()(string const & latLon)
+    void operator()(std::string const & latLon)
     {
       size_t const firstCommaPos = latLon.find(',');
-      CHECK(firstCommaPos != string::npos, ("invalid latlon", latLon));
-      string const lonStr = latLon.substr(0, firstCommaPos);
+      CHECK(firstCommaPos != std::string::npos, ("invalid latlon", latLon));
+      std::string const lonStr = latLon.substr(0, firstCommaPos);
       double lon;
       CHECK(utils::to_double(lonStr, lon), ("invalid lon", lonStr));
       size_t const secondCommaPos = latLon.find(',', firstCommaPos + 1);
-      string latStr;
-      if (secondCommaPos == string::npos)
+      std::string latStr;
+      if (secondCommaPos == std::string::npos)
         latStr = latLon.substr(firstCommaPos + 1);
       else
         latStr = latLon.substr(firstCommaPos + 1, secondCommaPos - firstCommaPos - 1);
@@ -117,7 +117,7 @@ namespace kml
         m_Triangles.push_back(triangles[i]);
     }
   };
-  void KmlParser::Pop(string const & element)
+  void KmlParser::Pop(std::string const & element)
   {
     if (element == "Placemark")
     {
@@ -198,7 +198,7 @@ namespace kml
     m_tags.pop_back();
   }
 
-  void KmlParser::CharData(string const & data)
+  void KmlParser::CharData(std::string const & data)
   {
     size_t const size = m_tags.size();
 
@@ -214,7 +214,7 @@ namespace kml
     }
   }
 
-  bool LoadPolygons(string const & kmlFile, PolygonsContainerT & country, int level)
+  bool LoadPolygons(std::string const & kmlFile, PolygonsContainerT & country, int level)
   {
     KmlParser parser(country, level);
     try

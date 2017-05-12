@@ -2,11 +2,14 @@
 
 #include <algorithm>
 #include <functional>
+#include <initializer_list>
 #include <iterator>
 #include <memory>
 
 namespace my
 {
+using StringIL = std::initializer_list<char const *>;
+
 /// @todo(y): replace this hand-written helper function by
 /// std::make_unique when it will be available in C++14
 template <typename T, typename... Args>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 class FilesContainerR;
 class Writer;
@@ -11,7 +11,7 @@ namespace indexer
 // An attempt to rewrite the search index of an old mwm may result in a future crash
 // when using search because this function does not update mwm's version. This results
 // in version mismatch when trying to read the index.
-bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild = false);
+bool BuildSearchIndexFromDataFile(std::string const & filename, bool forceRebuild = false);
 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 }  // namespace indexer

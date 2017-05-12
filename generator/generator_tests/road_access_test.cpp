@@ -28,6 +28,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 using namespace feature;
 using namespace generator::tests_support;
 using namespace generator;

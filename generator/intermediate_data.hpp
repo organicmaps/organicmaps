@@ -9,15 +9,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/deque.hpp"
-#include "std/exception.hpp"
-#include "std/limits.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
-#include "std/fstream.hpp"
+#include <algorithm>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <limits>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "defines.hpp"
 
@@ -35,8 +34,8 @@ class IndexFile
 {
   using TKey = uint64_t;
   static_assert(is_integral<TKey>::value, "TKey is not integral type");
-  using TElement = pair<TKey, TValue>;
-  using TContainer = vector<TElement>;
+  using TElement = std::pair<TKey, TValue>;
+  using TContainer = std::vector<TElement>;
 
   TContainer m_elements;
   TFile m_file;
@@ -55,14 +54,14 @@ class IndexFile
 
   static size_t CheckedCast(uint64_t v)
   {
-    ASSERT_LESS(v, numeric_limits<size_t>::max(), ("Value too long for memory address : ", v));
+    ASSERT_LESS(v, std::numeric_limits<size_t>::max(), ("Value too long for memory address : ", v));
     return static_cast<size_t>(v);
   }
 
 public:
-  explicit IndexFile(string const & name) : m_file(name.c_str()) {}
+  explicit IndexFile(std::string const & name) : m_file(name.c_str()) {}
 
-  string GetFileName() const { return m_file.GetName(); }
+  std::string GetFileName() const { return m_file.GetName(); }
 
   void WriteAll()
   {
@@ -87,14 +86,14 @@ public:
     {
       m_elements.resize(CheckedCast(fileSize / sizeof(TElement)));
     }
-    catch (exception const &)  // bad_alloc
+    catch (std::exception const &)  // bad_alloc
     {
       LOG(LCRITICAL, ("Insufficient memory for required offset map"));
     }
 
     m_file.Read(0, &m_elements[0], CheckedCast(fileSize));
 
-    sort(m_elements.begin(), m_elements.end(), ElementComparator());
+    std::sort(m_elements.begin(), m_elements.end(), ElementComparator());
 
     LOG_SHORT(LINFO, ("Offsets reading is finished"));
   }
@@ -104,12 +103,12 @@ public:
     if (m_elements.size() > kFlushCount)
       WriteAll();
 
-    m_elements.push_back(make_pair(k, v));
+    m_elements.push_back(std::make_pair(k, v));
   }
 
   bool GetValueByKey(TKey key, TValue & value) const
   {
-    auto it = lower_bound(m_elements.begin(), m_elements.end(), key, ElementComparator());
+    auto it = std::lower_bound(m_elements.begin(), m_elements.end(), key, ElementComparator());
     if ((it != m_elements.end()) && ((*it).first == key))
     {
       value = (*it).second;
@@ -121,7 +120,7 @@ public:
   template <class ToDo>
   void ForEachByKey(TKey k, ToDo && toDo) const
   {
-    auto range = equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
+    auto range = std::equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
     for (; range.first != range.second; ++range.first)
     {
       if (toDo((*range.first).second))
@@ -140,15 +139,15 @@ public:
   using TOffsetFile = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
 
 protected:
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
   TStorage m_storage;
   detail::IndexFile<TOffsetFile, uint64_t> m_offsets;
-  string m_name;
+  std::string m_name;
   TBuffer m_data;
   bool m_preload = false;
 
 public:
-  OSMElementCache(string const & name, bool preload = false)
+  OSMElementCache(std::string const & name, bool preload = false)
   : m_storage(name)
   , m_offsets(name + OFFSET_EXT)
   , m_name(name)
@@ -180,7 +179,7 @@ public:
     value.Write(w);
 
     // write buffer
-    ASSERT_LESS(m_data.size(), numeric_limits<uint32_t>::max(), ());
+    ASSERT_LESS(m_data.size(), std::numeric_limits<uint32_t>::max(), ());
     uint32_t sz = static_cast<uint32_t>(m_data.size());
     m_storage.Write(&sz, sizeof(sz));
     m_storage.Write(m_data.data(), sz * sizeof(TBuffer::value_type));
@@ -258,7 +257,7 @@ class RawFilePointStorage : public PointStorage
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  explicit RawFilePointStorage(string const & name) : m_file(name) {}
+  explicit RawFilePointStorage(std::string const & name) : m_file(name) {}
 
   template <EMode T = TMode>
   typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
@@ -304,10 +303,10 @@ class RawMemPointStorage : public PointStorage
 
   constexpr static double const kValueOrder = 1E+7;
 
-  vector<LatLon> m_data;
+  std::vector<LatLon> m_data;
 
 public:
-  explicit RawMemPointStorage(string const & name) : m_file(name), m_data(static_cast<size_t>(1) << 33)
+  explicit RawMemPointStorage(std::string const & name) : m_file(name), m_data(static_cast<size_t>(1) << 33)
   {
     InitStorage<TMode>();
   }
@@ -369,12 +368,12 @@ template <EMode TMode>
 class MapFilePointStorage : public PointStorage
 {
   typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type m_file;
-  unordered_map<uint64_t, pair<int32_t, int32_t>> m_map;
+  std::unordered_map<uint64_t, std::pair<int32_t, int32_t>> m_map;
 
   constexpr static double const kValueOrder = 1E+7;
 
 public:
-  explicit MapFilePointStorage(string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
+  explicit MapFilePointStorage(std::string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
 
   template <EMode T>
   typename enable_if<T == EMode::Write, void>::type InitStorage() {}
@@ -392,7 +391,7 @@ public:
       LatLonPos ll;
       m_file.Read(pos, &ll, sizeof(ll));
 
-      m_map.emplace(make_pair(ll.pos, make_pair(ll.lat, ll.lon)));
+      m_map.emplace(std::make_pair(ll.pos, std::make_pair(ll.lat, ll.lon)));
 
       pos += sizeof(ll);
     }

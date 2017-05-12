@@ -17,7 +17,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/initializer_list.hpp"
+#include <initializer_list>
 
 #include "defines.hpp"
 

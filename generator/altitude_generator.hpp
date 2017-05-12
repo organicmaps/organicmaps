@@ -4,7 +4,7 @@
 
 #include "indexer/feature_altitude.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace routing
 {
@@ -24,6 +24,6 @@ public:
 /// 16                  altitude availability feat. table offset - 16
 /// feat. table offset  feature table         alt. info offset - feat. table offset
 /// alt. info offset    altitude info         end of section - alt. info offset
-void BuildRoadAltitudes(string const & mwmPath, AltitudeGetter & altitudeGetter);
-void BuildRoadAltitudes(string const & mwmPath, string const & srtmDir);
+void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGetter);
+void BuildRoadAltitudes(std::string const & mwmPath, std::string const & srtmDir);
 }  // namespace routing

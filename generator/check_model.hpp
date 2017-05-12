@@ -1,7 +1,7 @@
 #pragma once
-#include "std/string.hpp"
+#include <string>
 
 namespace check_model
 {
-  void ReadFeatures(string const & fName);
+  void ReadFeatures(std::string const & fName);
 }

@@ -19,7 +19,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/string.hpp"
+#include <string>
+
+using namespace std;
 
 using namespace feature;
 using namespace generator;

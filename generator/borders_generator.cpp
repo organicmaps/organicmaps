@@ -4,25 +4,26 @@
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/sstream.hpp"
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 namespace osm
 {
-  bool ReadPolygon(istream & stream, m2::RegionD & region, string const & filename)
+  bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const & filename)
   {
-    string line, name;
+    std::string line, name;
     double lon, lat;
 
     // read ring id, fail if it's empty
-    getline(stream, name);
+    std::getline(stream, name);
     if (name.empty() || name == "END")
       return false;
 
     while (stream.good())
     {
-      getline(stream, line);
+      std::getline(stream, line);
       strings::Trim(line);
 
       if (line.empty())
@@ -31,7 +32,7 @@ namespace osm
       if (line == "END")
         break;
 
-      istringstream iss(line);
+      std::istringstream iss(line);
       iss >> lon >> lat;
       CHECK(!iss.fail(), ("Incorrect data in", filename));
 
@@ -42,11 +43,11 @@ namespace osm
     return name[0] != '!';
   }
 
-  bool LoadBorders(string const & borderFile, vector<m2::RegionD> & outBorders)
+  bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outBorders)
   {
-    ifstream stream(borderFile);
-    string line;
-    if (!getline(stream, line).good()) // skip title
+    std::ifstream stream(borderFile);
+    std::string line;
+    if (!std::getline(stream, line).good()) // skip title
     {
       LOG(LERROR, ("Polygon file is empty:", borderFile));
       return false;

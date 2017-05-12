@@ -66,7 +66,7 @@ public:
     if (m_restrictDepth != size_t(-1))
       m_restrictDepth = static_cast<size_t>(-1);
     else
-      m_dispatcher.Pop(string(pszName));
+      m_dispatcher.Pop(std::string(pszName));
   }
 
   void OnCharacterData(XML_Char const * pszData, int nLength)
@@ -89,7 +89,7 @@ private:
   size_t m_restrictDepth;
   DispatcherT & m_dispatcher;
 
-  string m_charData;
+  std::string m_charData;
   bool m_enableCharHandler;
 
   void CheckCharData()

@@ -6,16 +6,16 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <utility>
+#include <vector>
 
 namespace gen
 {
 template <class T> class Accumulator
 {
 protected:
-  vector<T> m_data;
+  std::vector<T> m_data;
 
 public:
   typedef T ValueT;
@@ -33,7 +33,7 @@ public:
   }
 };
 
-class OsmID2FeatureID : public Accumulator<pair<osm::Id, uint32_t /* feature id */>>
+class OsmID2FeatureID : public Accumulator<std::pair<osm::Id, uint32_t /* feature id */>>
 {
   typedef Accumulator<ValueT> BaseT;
 
@@ -47,7 +47,7 @@ class OsmID2FeatureID : public Accumulator<pair<osm::Id, uint32_t /* feature id 
 public:
   template <class TSink> void Flush(TSink & sink)
   {
-    sort(m_data.begin(), m_data.end());
+    std::sort(m_data.begin(), m_data.end());
     BaseT::Flush(sink);
   }
 
@@ -55,7 +55,7 @@ public:
   uint32_t GetRoadFeatureID(uint64_t wayId) const
   {
     osm::Id id = osm::Id::Way(wayId);
-    auto const it = lower_bound(m_data.begin(), m_data.end(), id, LessID());
+    auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
     if (it != m_data.end() && it->first == id)
       return it->second;
     return 0;

@@ -6,5 +6,5 @@ class PolygonsContainerT;
 
 namespace kml
 {
-  bool LoadPolygons(string const & kmlFile, PolygonsContainerT & country, int level);
+  bool LoadPolygons(std::string const & kmlFile, PolygonsContainerT & country, int level);
 }

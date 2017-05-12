@@ -17,8 +17,10 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/atomic.hpp"
-#include "std/sstream.hpp"
+#include <atomic>
+#include <sstream>
+
+using namespace std;
 
 namespace generator
 {

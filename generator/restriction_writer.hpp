@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/fstream.hpp"
-#include "std/string.hpp"
+#include <fstream>
+#include <string>
 
 class RelationElement;
 
@@ -10,7 +10,7 @@ namespace routing
 class RestrictionWriter
 {
 public:
-  void Open(string const & fullPath);
+  void Open(std::string const & fullPath);
 
   /// \brief Writes |relationElement| to |m_stream| if |relationElement| is a supported restriction.
   /// See restriction_generator.hpp for the description of the format.
@@ -22,6 +22,6 @@ public:
 private:
   bool IsOpened() const;
 
-  ofstream m_stream;
+  std::ofstream m_stream;
 };
 }  // namespace routing

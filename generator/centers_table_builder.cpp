@@ -17,7 +17,7 @@
 
 namespace indexer
 {
-bool BuildCentersTableFromDataFile(string const & filename, bool forceRebuild)
+bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebuild)
 {
   try
   {

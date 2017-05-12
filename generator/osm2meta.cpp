@@ -7,11 +7,13 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cctype.hpp"
-#include "std/cmath.hpp"
-#include "std/cstdlib.hpp"
-#include "std/unordered_set.hpp"
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdlib>
+#include <unordered_set>
+
+using namespace std;
 
 namespace
 {
@@ -29,7 +31,7 @@ void RemoveDuplicatesAndKeepOrder(vector<T> & vec)
     seen.insert(value);
     return false;
   };
-  vec.erase(std::remove_if(vec.begin(), vec.end(), predicate), vec.end());
+  vec.erase(remove_if(vec.begin(), vec.end(), predicate), vec.end());
 }
 
 // Also filters out duplicates.

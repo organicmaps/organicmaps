@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 class FilesContainerR;
 class Writer;
@@ -9,5 +9,5 @@ namespace indexer
 {
 // Builds the latest version of the centers table section and writes
 // it to the mwm file.
-bool BuildCentersTableFromDataFile(string const & filename, bool forceRebuild = false);
+bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebuild = false);
 }  // namespace indexer

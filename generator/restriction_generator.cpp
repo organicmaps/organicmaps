@@ -11,12 +11,12 @@
 
 #include "defines.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 namespace routing
 {
-bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPath,
-                           string const & osmIdsTofeatureIdsPath)
+bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & restrictionPath,
+                           std::string const & osmIdsTofeatureIdsPath)
 {
   LOG(LINFO, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
               osmIdsTofeatureIdsPath, ");"));
@@ -31,11 +31,12 @@ bool BuildRoadRestrictions(string const & mwmPath, string const & restrictionPat
   RestrictionVec const & restrictions = restrictionCollector.GetRestrictions();
 
   auto const firstOnlyIt =
-      lower_bound(restrictions.cbegin(), restrictions.cend(),
-                  Restriction(Restriction::Type::Only, {} /* links */), my::LessBy(&Restriction::m_type));
+      std::lower_bound(restrictions.cbegin(), restrictions.cend(),
+                       Restriction(Restriction::Type::Only, {} /* links */),
+                       my::LessBy(&Restriction::m_type));
 
   RestrictionHeader header;
-  header.m_noRestrictionCount = base::checked_cast<uint32_t>(distance(restrictions.cbegin(), firstOnlyIt));
+  header.m_noRestrictionCount = base::checked_cast<uint32_t>(std::distance(restrictions.cbegin(), firstOnlyIt));
   header.m_onlyRestrictionCount = base::checked_cast<uint32_t>(restrictions.size() - header.m_noRestrictionCount);
 
   LOG(LINFO, ("Header info. There are", header.m_noRestrictionCount, "restrictions of type No and",

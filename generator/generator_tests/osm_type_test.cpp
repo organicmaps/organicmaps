@@ -14,7 +14,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
-#include "std/iostream.hpp"
+#include <iostream>
 
 using namespace tests;
 
@@ -42,11 +42,11 @@ UNIT_TEST(OsmType_SkipDummy)
 
 namespace
 {
-  void DumpTypes(vector<uint32_t> const & v)
+  void DumpTypes(std::vector<uint32_t> const & v)
   {
     Classificator const & c = classif();
     for (size_t i = 0; i < v.size(); ++i)
-      cout << c.GetFullObjectName(v[i]) << endl;
+      std::cout << c.GetFullObjectName(v[i]) << std::endl;
   }
 
   void DumpParsedTypes(char const * arr[][2], size_t count)
@@ -60,7 +60,8 @@ namespace
     DumpTypes(params.m_Types);
   }
 
-  void TestSurfaceTypes(string const & surface, string const & smoothness, string const & grade, char const * value)
+  void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
+                        std::string const & grade, char const * value)
   {
     OsmElement e;
     e.AddTag("highway", "unclassified");
@@ -73,10 +74,10 @@ namespace
 
     TEST_EQUAL(params.m_Types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
-    string psurface;
+    std::string psurface;
     for (auto type : params.m_Types)
     {
-      string const rtype = classif().GetReadableObjectName(type);
+      std::string const rtype = classif().GetReadableObjectName(type);
       if (rtype.substr(0, 9) == "psurface-")
         psurface = rtype.substr(9);
     }
@@ -141,7 +142,7 @@ UNIT_TEST(OsmType_Combined)
   TEST(params.IsTypeExist(GetType(arr[3])), ());
   TEST(params.IsTypeExist(GetType({"building"})), ());
 
-  string s;
+  std::string s;
   params.name.GetString(0, s);
   TEST_EQUAL(s, arr[5][1], ());
 
@@ -195,7 +196,7 @@ UNIT_TEST(OsmType_PlaceState)
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
 
-  string s;
+  std::string s;
   TEST(params.name.GetString(0, s), ());
   TEST_EQUAL(s, "California", ());
   TEST_GREATER(params.rank, 1, ());
@@ -667,7 +668,7 @@ UNIT_TEST(OsmType_Dibrugarh)
 
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
-  string name;
+  std::string name;
   TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }

@@ -9,14 +9,16 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/bind.hpp"
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/initializer_list.hpp"
-#include "std/set.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <functional>
+#include <initializer_list>
+#include <set>
+#include <vector>
+
+using namespace std;
 
 namespace ftype
 {
@@ -227,7 +229,7 @@ namespace ftype
     {
       Classificator const & c = classif();
 
-      StringIL arr[] =
+      my::StringIL arr[] =
       {
         {"entrance"}, {"highway"},
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
@@ -431,13 +433,13 @@ namespace ftype
     if (!isHighway || (surface.empty() && smoothness.empty()))
       return string();
 
-    static StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
-                                     "sett", "concrete", "concrete:lanes", "concrete:plates",
-                                     "paving_stones", "metal", "wood"};
-    static StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
-                                   "mud", "sand", "snow", "woodchips"};
-    static StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
-                                     "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+    static my::StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
+                                         "sett", "concrete", "concrete:lanes", "concrete:plates",
+                                         "paving_stones", "metal", "wood"};
+    static my::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
+                                       "mud", "sand", "snow", "woodchips"};
+    static my::StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
+                                         "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
 
     bool isPaved = false;
     bool isGood = true;
