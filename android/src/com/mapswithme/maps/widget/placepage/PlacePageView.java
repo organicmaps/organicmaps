@@ -740,13 +740,10 @@ public class PlacePageView extends RelativeLayout
     else
     {
       UiUtils.show(mHotelFacilities);
-      boolean oldValue = mFacilitiesAdapter.isShowAll();
       mFacilitiesAdapter.setShowAll(false);
       mFacilitiesAdapter.setItems(Arrays.asList(info.mFacilities));
       mHotelMoreFacilities.setVisibility(info.mFacilities.length > FacilitiesAdapter.MAX_COUNT
                                          ? VISIBLE : GONE);
-      if (oldValue != mFacilitiesAdapter.isShowAll())
-        mAnimationController.onContentSizeChanged();
     }
   }
 
@@ -862,7 +859,11 @@ public class PlacePageView extends RelativeLayout
   public void onNeedOpenBanner()
   {
     if (mBannerController != null)
+    {
+      if (!mBannerController.isOpened())
+        compensateViewHeight(0);
       mBannerController.open();
+    }
   }
 
   private void compensateViewHeight(int height)
@@ -947,12 +948,16 @@ public class PlacePageView extends RelativeLayout
     int heightCompensation = 0;
     if (mBannerController != null)
     {
-      if ((state == State.HIDDEN || state == State.PREVIEW) && !UiUtils.isLandscape(getContext()))
+      State lastState = getState();
+      boolean isLastStateNotHiddenOrPreview = lastState != State.HIDDEN
+                                              && lastState != State.PREVIEW;
+      if (isLastStateNotHiddenOrPreview && (state == State.HIDDEN || state == State.PREVIEW)
+          && !UiUtils.isLandscape(getContext()))
       {
         if (mBannerController.close())
           heightCompensation = mBannerController.getLastBannerHeight();
       }
-      else
+      else if (isLastStateNotHiddenOrPreview)
       {
         mBannerController.open();
       }
@@ -1590,14 +1595,12 @@ public class PlacePageView extends RelativeLayout
       case R.id.tv__place_hotel_more:
         UiUtils.hide(mHotelMoreDescription);
         mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
-        mAnimationController.onContentSizeChanged();
         break;
       case R.id.tv__place_hotel_facilities_more:
         if (mSponsored != null && mMapObject != null)
           Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_FACILITIES, mSponsored, mMapObject);
         UiUtils.hide(mHotelMoreFacilities);
         mFacilitiesAdapter.setShowAll(true);
-        mAnimationController.onContentSizeChanged();
         break;
       case R.id.tv__place_hotel_reviews_more:
         if (isSponsored())
@@ -1817,7 +1820,6 @@ public class PlacePageView extends RelativeLayout
     mCurrentCountry = null;
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
-    mAnimationController.onContentSizeChanged();
   }
 
   MwmActivity getActivity()
@@ -1844,16 +1846,5 @@ public class PlacePageView extends RelativeLayout
       mPreview.setPadding(mPreview.getPaddingLeft(), mPreview.getPaddingTop(),
                           getPaddingRight(), mMarginBase);
     }
-    addOnLayoutChangeListener(new OnLayoutChangeListener()
-    {
-      @Override
-      public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-                                 int oldTop, int oldRight, int oldBottom)
-      {
-        removeOnLayoutChangeListener(this);
-        mAnimationController.onContentSizeChanged();
-      }
-    });
-    requestLayout();
   }
 }

@@ -322,6 +322,11 @@ final class BannerController
     animator.start();
   }
 
+  boolean isOpened()
+  {
+    return mOpened;
+  }
+
   interface BannerListener
   {
     void onSizeChanged();
