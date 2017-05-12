@@ -7,8 +7,8 @@
 #include <algorithm>
 
 #include <EGL/egl.h>
-#include <android/native_window_jni.h>
 #include <android/native_window.h>
+#include <android/native_window_jni.h>
 
 namespace android
 {
@@ -239,7 +239,7 @@ bool AndroidOGLContextFactory::createWindowSurface()
   {
     LOG(LDEBUG, ("Backbuffer format: RGB8"));
   }
-  ASSERT(count > 0, ("Didn't std::find any configs."));
+  ASSERT(count > 0, ("Didn't find any configs."));
 
   std::sort(&configs[0], &configs[count], ConfigComparator(m_display));
   for (int i = 0; i < count; ++i)

@@ -21,7 +21,7 @@
 
 namespace
 {
-using TCuisine = pair<std::string, std::string>;
+using TCuisine = std::pair<std::string, std::string>;
 osm::EditableMapObject g_editableMapObject;
 
 jclass g_featureCategoryClazz;

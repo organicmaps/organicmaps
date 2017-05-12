@@ -29,8 +29,8 @@ namespace android
     bool HasAvailableSpaceForWriting(uint64_t size) const;
     void RunOnGuiThread(TFunctor const & fn);
 
-    void SendPushWooshTag(std::string const & tag, vector<std::string> const & values);
-    void SendMarketingEvent(std::string const & tag, map<std::string, std::string> const & params);
+    void SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values);
+    void SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params);
 
     static Platform & Instance();
 

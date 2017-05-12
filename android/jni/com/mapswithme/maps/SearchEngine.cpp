@@ -244,7 +244,7 @@ jobject ToJavaResult(Result & result, bool isLocalAdsCustomer, bool hasPosition,
   env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
 
   ms::LatLon ll = ms::LatLon::Zero();
-  std::string distance;
+  string distance;
   if (result.HasPoint())
   {
     ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
