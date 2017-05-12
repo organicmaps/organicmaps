@@ -19,7 +19,7 @@ float alphaFromPattern(float curLen, float dashLen, float gapLen)
 
 void main()
 {
-  vec4 color = u_color;
+  vec4 color = u_color + v_color;
   if (v_length.x < v_length.z)
   {
     color.a = 0.0;
