@@ -256,6 +256,7 @@ using namespace osm_auth_ios;
 
       break;
     }
+    case ParsedMapApi::ParsingResult::Lead: break;
     }
   }
   else if (m_fileURL)
