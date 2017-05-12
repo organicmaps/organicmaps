@@ -1454,6 +1454,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
         return true;
+      case ParsedUrlMwmRequest.RESULT_LEAD:
+        return true;
       }
 
       return false;
