@@ -355,6 +355,17 @@ namespace m2
     );
   }
 
+  template <typename T, typename TCollection>
+  inline bool HasIntersection(m2::Rect<T> const & rect, TCollection const & geometry)
+  {
+    for (auto const & g : geometry)
+    {
+      if (rect.IsIntersect(g))
+        return true;
+    }
+    return false;
+  };
+
   template <class TArchive, class PointT>
   TArchive & operator >> (TArchive & ar, m2::Rect<PointT> & rect)
   {

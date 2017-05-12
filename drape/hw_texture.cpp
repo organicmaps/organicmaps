@@ -75,17 +75,23 @@ float HWTexture::GetT(uint32_t y) const
 
 void HWTexture::UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
 {
+  // Now we support only 1-byte-per-channel textures.
+  pixelType = gl_const::GL8BitOnChannel;
+
   switch (format)
   {
   case RGBA8:
     layout = gl_const::GLRGBA;
-    pixelType = gl_const::GL8BitOnChannel;
     break;
   case ALPHA:
     // On OpenGL ES3 GLAlpha is not supported, we use GLRed instead.
     layout = GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLAlpha
                                                                          : gl_const::GLRed;
-    pixelType = gl_const::GL8BitOnChannel;
+    break;
+  case RED_GREEN:
+    // On OpenGL ES2 2-channel textures are not supported.
+    layout = GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLRGBA
+                                                                         : gl_const::GLRedGreen;
     break;
   default: ASSERT(false, ()); break;
   }
@@ -109,6 +115,7 @@ void HWTexture::SetFilter(glConst filter)
 }
 
 int32_t HWTexture::GetID() const { return m_textureID; }
+
 OpenGLHWTexture::~OpenGLHWTexture()
 {
   if (m_textureID != -1)

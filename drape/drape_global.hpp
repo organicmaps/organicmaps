@@ -16,6 +16,7 @@ enum TextureFormat
 {
   RGBA8,
   ALPHA,
+  RED_GREEN,
   UNSPECIFIED
 };
 
@@ -26,6 +27,7 @@ inline uint8_t GetBytesPerPixel(TextureFormat format)
   {
   case RGBA8: result = 4; break;
   case ALPHA: result = 1; break;
+  case RED_GREEN: result = 2; break;
   default: ASSERT(false, ()); break;
   }
   return result;

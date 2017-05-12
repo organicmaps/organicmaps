@@ -427,16 +427,10 @@ void GLFunctions::glClearColor(float r, float g, float b, float a)
   GLCHECK(glClearColorFn(r, g, b, a));
 }
 
-void GLFunctions::glClear()
+void GLFunctions::glClear(uint32_t clearBits)
 {
   ASSERT(glClearFn != nullptr, ());
-  GLCHECK(glClearFn(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-}
-
-void GLFunctions::glClearDepth()
-{
-  ASSERT(glClearFn != nullptr, ());
-  GLCHECK(glClearFn(GL_DEPTH_BUFFER_BIT));
+  GLCHECK(glClearFn(clearBits));
 }
 
 void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
@@ -458,8 +452,21 @@ void GLFunctions::glFlush()
 }
 
 void GLFunctions::glFinish() { GLCHECK(::glFinish()); }
+
 void GLFunctions::glFrontFace(glConst mode) { GLCHECK(::glFrontFace(mode)); }
+
 void GLFunctions::glCullFace(glConst face) { GLCHECK(::glCullFace(face)); }
+
+void GLFunctions::glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass)
+{
+  GLCHECK(::glStencilOpSeparate(face, sfail, dpfail, dppass));
+}
+
+void GLFunctions::glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask)
+{
+  GLCHECK(::glStencilFuncSeparate(face, func, ref, mask));
+}
+
 void GLFunctions::glPixelStore(glConst name, uint32_t value)
 {
   GLCHECK(::glPixelStorei(name, value));
@@ -900,14 +907,20 @@ void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pi
 {
   // In OpenGL ES3:
   // - we can't create unsized GL_RED texture, so we use GL_R8;
+  // - we can't create unsized GL_RG texture, so we use GL_RG8;
   // - we can't create unsized GL_DEPTH_COMPONENT texture, so we use GL_DEPTH_COMPONENT16
-  //   or GL_DEPTH_COMPONENT24 or GL_DEPTH_COMPONENT32F.
+  //   or GL_DEPTH_COMPONENT24 or GL_DEPTH_COMPONENT32F;
+  // - we can't create unsized GL_DEPTH_STENCIL texture, so we use GL_DEPTH24_STENCIL8.
   glConst internalFormat = layout;
   if (CurrentApiVersion == dp::ApiVersion::OpenGLES3)
   {
     if (layout == gl_const::GLRed)
     {
       internalFormat = GL_R8;
+    }
+    else if (layout == gl_const::GLRedGreen)
+    {
+      internalFormat = GL_RG8;
     }
     else if (layout == gl_const::GLDepthComponent)
     {
@@ -917,10 +930,14 @@ void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pi
       else if (pixelType == gl_const::GLFloatType)
         internalFormat = GL_DEPTH_COMPONENT32F;
     }
+    else if (layout == gl_const::GLDepthStencil)
+    {
+      internalFormat = GL_DEPTH24_STENCIL8;
+    }
   }
 
-  GLCHECK(
-      ::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, layout, pixelType, data));
+  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height,
+                         0, layout, pixelType, data));
 }
 
 void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout,

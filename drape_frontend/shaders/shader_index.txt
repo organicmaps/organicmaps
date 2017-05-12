@@ -37,3 +37,6 @@ TEXT_FIXED_BILLBOARD_PROGRAM text_billboard.vsh.glsl text_fixed.fsh.glsl
 BOOKMARK_BILLBOARD_PROGRAM user_mark_billboard.vsh.glsl texturing.fsh.glsl
 TRAFFIC_PROGRAM traffic.vsh.glsl traffic.fsh.glsl
 TRAFFIC_LINE_PROGRAM traffic_line.vsh.glsl traffic_line.fsh.glsl
+SMAA_EDGES_PROGRAM smaa_edges.vsh.glsl smaa_edges.fsh.glsl
+SMAA_BLENDING_WEIGHT_PROGRAM smaa_blending_weight.vsh.glsl smaa_blending_weight.fsh.glsl
+SMAA_FINAL_PROGRAM smaa_final.vsh.glsl smaa_final.fsh.glsl

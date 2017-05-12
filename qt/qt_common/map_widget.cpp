@@ -21,6 +21,8 @@ namespace qt
 {
 namespace common
 {
+//#define ENABLE_AA_SWITCH
+
 MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
@@ -54,6 +56,11 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Minus, SLOT(ScaleMinus())},
       {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
       {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
+      {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
+#ifdef ENABLE_AA_SWITCH
+      {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
+      {Qt::ALT + Qt::Key_S, SLOT(AntialiasingOff())},
+#endif
   };
 
   for (auto const & hotkey : hotkeys)
@@ -103,6 +110,20 @@ void MapWidget::ScaleMinus() { m_framework.Scale(Framework::SCALE_MIN, true); }
 void MapWidget::ScalePlusLight() { m_framework.Scale(Framework::SCALE_MAG_LIGHT, true); }
 
 void MapWidget::ScaleMinusLight() { m_framework.Scale(Framework::SCALE_MIN_LIGHT, true); }
+
+void MapWidget::AntialiasingOn()
+{
+  auto engine = m_framework.GetDrapeEngine();
+  if (engine != nullptr)
+    engine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, true);
+}
+
+void MapWidget::AntialiasingOff()
+{
+  auto engine = m_framework.GetDrapeEngine();
+  if (engine != nullptr)
+    engine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing, false);
+}
 
 void MapWidget::ScaleChanged(int action)
 {

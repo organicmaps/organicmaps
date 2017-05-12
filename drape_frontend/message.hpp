@@ -46,7 +46,7 @@ public:
     FollowRoute,
     DeactivateRouteFollowing,
     UpdateMapStyle,
-    InvalidateTextures,
+    SwitchMapStyle,
     Invalidate,
     Allow3dMode,
     Allow3dBuildings,
@@ -78,6 +78,8 @@ public:
     AddCustomSymbols,
     RemoveCustomSymbols,
     UpdateCustomSymbols,
+    SetPostprocessStaticTextures,
+    SetPosteffectEnabled,
   };
 
   virtual ~Message() {}

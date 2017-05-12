@@ -19,8 +19,7 @@ public:
 
   static bool glHasExtension(std::string const & name);
   static void glClearColor(float r, float g, float b, float a);
-  static void glClear();
-  static void glClearDepth();
+  static void glClear(uint32_t clearBits);
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
@@ -29,6 +28,9 @@ public:
   static void glFrontFace(glConst mode);
   static void glCullFace(glConst face);
 
+  static void glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass);
+  static void glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask);
+  
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);

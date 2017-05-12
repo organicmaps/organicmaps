@@ -45,6 +45,8 @@
 		454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */; };
 		45580ABA1E28DB2600CD535D /* scenario_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45580AB81E28DB2600CD535D /* scenario_manager.cpp */; };
 		45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580AB91E28DB2600CD535D /* scenario_manager.hpp */; };
+		456B3F991ED464FE009B3D1F /* postprocess_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */; };
+		456B3F9A1ED464FE009B3D1F /* postprocess_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */; };
 		457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457D89241E7AE89500049500 /* custom_symbol.hpp */; };
 		45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */; };
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
@@ -275,6 +277,8 @@
 		45580AB81E28DB2600CD535D /* scenario_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenario_manager.cpp; sourceTree = "<group>"; };
 		45580AB91E28DB2600CD535D /* scenario_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scenario_manager.hpp; sourceTree = "<group>"; };
 		4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shaders_lib.glsl; path = shaders/shaders_lib.glsl; sourceTree = "<group>"; };
+		456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocess_renderer.cpp; sourceTree = "<group>"; };
+		456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = postprocess_renderer.hpp; sourceTree = "<group>"; };
 		457D89241E7AE89500049500 /* custom_symbol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_symbol.hpp; sourceTree = "<group>"; };
 		45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_animations.cpp; sourceTree = "<group>"; };
 		45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_animations.hpp; sourceTree = "<group>"; };
@@ -605,6 +609,8 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */,
+				456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */,
 				45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */,
 				45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */,
 				45BB02221EB8BE1400FE5C0C /* shaders */,
@@ -859,6 +865,7 @@
 				6709486A1BDF9C7F005014C0 /* brush_info.hpp in Headers */,
 				675D218E1BFB871D00717E4F /* rect.h in Headers */,
 				670948191BDF9C39005014C0 /* interpolations.hpp in Headers */,
+				456B3F9A1ED464FE009B3D1F /* postprocess_renderer.hpp in Headers */,
 				670947CB1BDF9BE1005014C0 /* threads_commutator.hpp in Headers */,
 				347F52121DC2334A0064B273 /* drape_api.hpp in Headers */,
 				670948701BDF9C7F005014C0 /* feature_processor.hpp in Headers */,
@@ -1106,6 +1113,7 @@
 				347F52111DC2334A0064B273 /* drape_api.cpp in Sources */,
 				347F520F1DC2334A0064B273 /* drape_api_renderer.cpp in Sources */,
 				347F520D1DC2334A0064B273 /* drape_api_builder.cpp in Sources */,
+				456B3F991ED464FE009B3D1F /* postprocess_renderer.cpp in Sources */,
 				670947CA1BDF9BE1005014C0 /* threads_commutator.cpp in Sources */,
 				670947981BDF9BE1005014C0 /* map_data_provider.cpp in Sources */,
 				670948181BDF9C39005014C0 /* interpolations.cpp in Sources */,

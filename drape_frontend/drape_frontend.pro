@@ -71,6 +71,7 @@ SOURCES += \
     path_symbol_shape.cpp \
     path_text_shape.cpp \
     poi_symbol_shape.cpp \
+    postprocess_renderer.cpp \
     read_manager.cpp \
     read_mwm_task.cpp \
     render_group.cpp \
@@ -179,6 +180,7 @@ HEADERS += \
     path_symbol_shape.hpp \
     path_text_shape.hpp \
     poi_symbol_shape.hpp \
+    postprocess_renderer.hpp \
     read_manager.hpp \
     read_mwm_task.hpp \
     render_group.hpp \
@@ -267,6 +269,12 @@ OTHER_FILES += \
     shaders/screen_quad.vsh.glsl \
     shaders/shader_index.txt \
     shaders/shaders_lib.glsl \
+    shaders/smaa_blending_weight.fsh.glsl \
+    shaders/smaa_blending_weight.vsh.glsl \
+    shaders/smaa_edges.fsh.glsl \
+    shaders/smaa_edges.vsh.glsl \
+    shaders/smaa_final.fsh.glsl \
+    shaders/smaa_final.vsh.glsl \
     shaders/solid_color.fsh.glsl \
     shaders/text.fsh.glsl \
     shaders/text.vsh.glsl \

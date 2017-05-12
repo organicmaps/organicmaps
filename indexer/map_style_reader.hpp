@@ -4,6 +4,8 @@
 
 #include "map_style.hpp"
 
+#include <string>
+
 class StyleReader
 {
 public:
@@ -14,7 +16,8 @@ public:
 
   ReaderPtr<Reader> GetDrawingRulesReader();
 
-  ReaderPtr<Reader> GetResourceReader(string const & file, string const & density);
+  ReaderPtr<Reader> GetResourceReader(std::string const & file, std::string const & density);
+  ReaderPtr<Reader> GetDefaultResourceReader(std::string const & file);
 
 private:
   MapStyle m_mapStyle;

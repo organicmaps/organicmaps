@@ -308,9 +308,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::InvalidateTextures:
+  case Message::SwitchMapStyle:
     {
-      m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
+      m_texMng->OnSwitchMapStyle();
       RecacheMapShapes();
       m_trafficGenerator->InvalidateTexturesCache();
       break;
@@ -536,6 +536,14 @@ void BackendRenderer::InitGLDependentResource()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texMng->Init(params);
+
+  // Send some textures to frontend renderer.
+  drape_ptr<PostprocessStaticTextures> textures = make_unique_dp<PostprocessStaticTextures>();
+  textures->m_smaaAreaTexture = m_texMng->GetSMAAAreaTexture();
+  textures->m_smaaSearchTexture = m_texMng->GetSMAASearchTexture();
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<SetPostprocessStaticTexturesMessage>(std::move(textures)),
+                            MessagePriority::High);
 }
 
 void BackendRenderer::RecacheMapShapes()

@@ -10,6 +10,7 @@
 
 #include <atomic>
 #include <list>
+#include <string>
 #include <vector>
 
 namespace dp
@@ -81,7 +82,7 @@ public:
   void Release();
 
   void Init(Params const & params);
-  void Invalidate(string const & resPostfix);
+  void OnSwitchMapStyle();
 
   void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
 
@@ -107,6 +108,8 @@ public:
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
   ref_ptr<Texture> GetHatchingTexture() const;
+  ref_ptr<Texture> GetSMAAAreaTexture() const;
+  ref_ptr<Texture> GetSMAASearchTexture() const;
 
 private:
   struct GlyphGroup
@@ -239,6 +242,7 @@ private:
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
+  std::string m_resPostfix;
   std::vector<drape_ptr<Texture>> m_symbolTextures;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
@@ -246,6 +250,8 @@ private:
 
   drape_ptr<Texture> m_trafficArrowTexture;
   drape_ptr<Texture> m_hatchingTexture;
+  drape_ptr<Texture> m_smaaAreaTexture;
+  drape_ptr<Texture> m_smaaSearchTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

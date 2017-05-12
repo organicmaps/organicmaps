@@ -7,6 +7,7 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
+#include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
@@ -25,8 +26,8 @@
 
 #include "base/strings_bundle.hpp"
 
-#include "std/map.hpp"
-#include "std/mutex.hpp"
+#include <functional>
+#include <vector>
 
 namespace dp
 {
@@ -58,7 +59,7 @@ public:
            bool trafficEnabled,
            bool blockTapEvents,
            bool showChoosePositionMark,
-           vector<m2::TriangleD> && boundAreaTriangles,
+           std::vector<m2::TriangleD> && boundAreaTriangles,
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
@@ -71,18 +72,18 @@ public:
       , m_hints(hints)
       , m_vs(vs)
       , m_fontsScaleFactor(fontsScaleFactor)
-      , m_info(move(info))
+      , m_info(std::move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
-      , m_myPositionModeChanged(move(myPositionModeChanged))
+      , m_myPositionModeChanged(std::move(myPositionModeChanged))
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
-      , m_boundAreaTriangles(move(boundAreaTriangles))
+      , m_boundAreaTriangles(std::move(boundAreaTriangles))
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
-      , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
+      , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
     {}
 
     dp::ApiVersion m_apiVersion;
@@ -100,7 +101,7 @@ public:
     bool m_trafficEnabled;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
-    vector<m2::TriangleD> m_boundAreaTriangles;
+    std::vector<m2::TriangleD> m_boundAreaTriangles;
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
@@ -120,7 +121,7 @@ public:
   void AddTouchEvent(TouchEvent const & event);
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
-  /// if zoom == -1, then current zoom will not change
+  // If zoom == -1 then current zoom will not be changed.
   void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim);
   void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim);
   void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim);
@@ -149,13 +150,14 @@ public:
   void SetUserPositionListener(TUserPositionChangedFn && fn);
 
   FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
-  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, FeatureID const & featureID, bool isAnim);
+  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
+                    FeatureID const & featureID, bool isAnim);
   void DeselectObject();
   bool GetMyPosition(m2::PointD & myPosition);
   SelectionShape::ESelectedObject GetSelectedObject();
 
-  void AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
+  void AddRoute(m2::PolylineD const & routePolyline, std::vector<double> const & turns,
+                df::ColorConstant color, std::vector<traffic::SpeedGroup> const & traffic,
                 df::RoutePattern pattern = df::RoutePattern());
   void RemoveRoute(bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
@@ -169,10 +171,11 @@ public:
   void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings);
   void EnablePerspective();
 
-  void UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
+  void UpdateGpsTrackPoints(std::vector<df::GpsTrackPoint> && toAdd,
+                            std::vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
-  void EnableChoosePositionMode(bool enable, vector<m2::TriangleD> && boundAreaTriangles,
+  void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
                                 bool hasPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
@@ -182,9 +185,9 @@ public:
 
   void SetDisplacementMode(int mode);
 
-  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointF> const &)>;
+  using TRequestSymbolsSizeCallback = std::function<void(std::vector<m2::PointF> const &)>;
 
-  void RequestSymbolsSize(vector<string> const & symbols,
+  void RequestSymbolsSize(std::vector<string> const & symbols,
                           TRequestSymbolsSizeCallback const & callback);
 
   void EnableTraffic(bool trafficEnabled);
@@ -201,6 +204,8 @@ public:
   void AddCustomSymbols(CustomSymbols && symbols);
   void RemoveCustomSymbols(MwmSet::MwmId const & mwmId);
   void RemoveAllCustomSymbols();
+
+  void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
