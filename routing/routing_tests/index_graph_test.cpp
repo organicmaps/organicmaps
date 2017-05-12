@@ -508,8 +508,13 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
              routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 2, 0 /* seg id */,
                                                     m2::PointD(0.00005, 0.0004)) /* finish */);
 
-  double constexpr kExpectedRouteTimeSec = 3.92527;
-  TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
+  vector<Segment> const expectedRoute = {{kTestNumMwmId, 1, 0, true},  {kTestNumMwmId, 0, 0, true},
+                                         {kTestNumMwmId, 0, 1, true},  {kTestNumMwmId, 0, 8, false},
+                                         {kTestNumMwmId, 0, 7, false}, {kTestNumMwmId, 0, 6, false},
+                                         {kTestNumMwmId, 2, 0, true}};
+
+  TestRoute(m_starter->GetStartVertex(), m_starter->GetFinishVertex(), 7, &expectedRoute,
+            m_starter->GetGraph());
 }
 
 UNIT_TEST(IndexGraph_OnlyTopology_1)
