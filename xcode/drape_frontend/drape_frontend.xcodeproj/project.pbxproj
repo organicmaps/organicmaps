@@ -50,6 +50,8 @@
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
 		45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8CA1CF5C16B00A54761 /* screen_operations.hpp */; };
+		45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */; };
+		45BB025E1EB8BE5200FE5C0C /* shader_def.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
@@ -221,6 +223,20 @@
 		F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830F1C1B04680081957A /* gps_track_shape.hpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		45BB025F1EB8BE9400FE5C0C /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.glsl */shader_index.txt";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			name = "Shader Generator";
+			outputFiles = (
+			);
+			script = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${INPUT_FILE_DIR} shader_index.txt shaders_lib.glsl ${INPUT_FILE_DIR}/.. shader_def";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
 		347F52071DC2334A0064B273 /* drape_api_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api_builder.cpp; sourceTree = "<group>"; };
 		347F52081DC2334A0064B273 /* drape_api_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api_builder.hpp; sourceTree = "<group>"; };
@@ -262,11 +278,70 @@
 		454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_system.hpp; sourceTree = "<group>"; };
 		45580AB81E28DB2600CD535D /* scenario_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenario_manager.cpp; sourceTree = "<group>"; };
 		45580AB91E28DB2600CD535D /* scenario_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scenario_manager.hpp; sourceTree = "<group>"; };
+		4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shaders_lib.glsl; path = shaders/shaders_lib.glsl; sourceTree = "<group>"; };
 		457D89241E7AE89500049500 /* custom_symbol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_symbol.hpp; sourceTree = "<group>"; };
 		45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_animations.cpp; sourceTree = "<group>"; };
 		45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_animations.hpp; sourceTree = "<group>"; };
 		45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_operations.cpp; sourceTree = "<group>"; };
 		45B4B8CA1CF5C16B00A54761 /* screen_operations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_operations.hpp; sourceTree = "<group>"; };
+		45BB02231EB8BE2B00FE5C0C /* area.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = area.vsh.glsl; path = shaders/area.vsh.glsl; sourceTree = "<group>"; };
+		45BB02241EB8BE2B00FE5C0C /* area3d_outline.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = area3d_outline.vsh.glsl; path = shaders/area3d_outline.vsh.glsl; sourceTree = "<group>"; };
+		45BB02251EB8BE2B00FE5C0C /* area3d.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = area3d.vsh.glsl; path = shaders/area3d.vsh.glsl; sourceTree = "<group>"; };
+		45BB02261EB8BE2B00FE5C0C /* arrow3d_outline.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d_outline.fsh.glsl; path = shaders/arrow3d_outline.fsh.glsl; sourceTree = "<group>"; };
+		45BB02271EB8BE2B00FE5C0C /* arrow3d_shadow.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d_shadow.fsh.glsl; path = shaders/arrow3d_shadow.fsh.glsl; sourceTree = "<group>"; };
+		45BB02281EB8BE2B00FE5C0C /* arrow3d_shadow.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d_shadow.vsh.glsl; path = shaders/arrow3d_shadow.vsh.glsl; sourceTree = "<group>"; };
+		45BB02291EB8BE2B00FE5C0C /* arrow3d.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d.fsh.glsl; path = shaders/arrow3d.fsh.glsl; sourceTree = "<group>"; };
+		45BB022A1EB8BE2B00FE5C0C /* arrow3d.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arrow3d.vsh.glsl; path = shaders/arrow3d.vsh.glsl; sourceTree = "<group>"; };
+		45BB022B1EB8BE2B00FE5C0C /* circle.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.fsh.glsl; path = shaders/circle.fsh.glsl; sourceTree = "<group>"; };
+		45BB022C1EB8BE2B00FE5C0C /* circle.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.vsh.glsl; path = shaders/circle.vsh.glsl; sourceTree = "<group>"; };
+		45BB022D1EB8BE2B00FE5C0C /* colored_symbol_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = colored_symbol_billboard.vsh.glsl; path = shaders/colored_symbol_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB022E1EB8BE2B00FE5C0C /* colored_symbol.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = colored_symbol.fsh.glsl; path = shaders/colored_symbol.fsh.glsl; sourceTree = "<group>"; };
+		45BB022F1EB8BE2B00FE5C0C /* colored_symbol.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = colored_symbol.vsh.glsl; path = shaders/colored_symbol.vsh.glsl; sourceTree = "<group>"; };
+		45BB02301EB8BE2B00FE5C0C /* dashed_line.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dashed_line.fsh.glsl; path = shaders/dashed_line.fsh.glsl; sourceTree = "<group>"; };
+		45BB02311EB8BE2B00FE5C0C /* dashed_line.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dashed_line.vsh.glsl; path = shaders/dashed_line.vsh.glsl; sourceTree = "<group>"; };
+		45BB02321EB8BE2B00FE5C0C /* debug_rect.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = debug_rect.fsh.glsl; path = shaders/debug_rect.fsh.glsl; sourceTree = "<group>"; };
+		45BB02331EB8BE2B00FE5C0C /* debug_rect.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = debug_rect.vsh.glsl; path = shaders/debug_rect.vsh.glsl; sourceTree = "<group>"; };
+		45BB02341EB8BE2B00FE5C0C /* discarded_texturing.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = discarded_texturing.fsh.glsl; path = shaders/discarded_texturing.fsh.glsl; sourceTree = "<group>"; };
+		45BB02351EB8BE2B00FE5C0C /* hatching_area.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hatching_area.fsh.glsl; path = shaders/hatching_area.fsh.glsl; sourceTree = "<group>"; };
+		45BB02361EB8BE2B00FE5C0C /* hatching_area.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hatching_area.vsh.glsl; path = shaders/hatching_area.vsh.glsl; sourceTree = "<group>"; };
+		45BB02371EB8BE2B00FE5C0C /* line.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = line.fsh.glsl; path = shaders/line.fsh.glsl; sourceTree = "<group>"; };
+		45BB02381EB8BE2B00FE5C0C /* line.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = line.vsh.glsl; path = shaders/line.vsh.glsl; sourceTree = "<group>"; };
+		45BB02391EB8BE2B00FE5C0C /* masked_texturing_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = masked_texturing_billboard.vsh.glsl; path = shaders/masked_texturing_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB023A1EB8BE2B00FE5C0C /* masked_texturing.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = masked_texturing.fsh.glsl; path = shaders/masked_texturing.fsh.glsl; sourceTree = "<group>"; };
+		45BB023B1EB8BE2B00FE5C0C /* masked_texturing.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = masked_texturing.vsh.glsl; path = shaders/masked_texturing.vsh.glsl; sourceTree = "<group>"; };
+		45BB023C1EB8BE2B00FE5C0C /* my_position.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = my_position.vsh.glsl; path = shaders/my_position.vsh.glsl; sourceTree = "<group>"; };
+		45BB023D1EB8BE2B00FE5C0C /* path_symbol.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = path_symbol.vsh.glsl; path = shaders/path_symbol.vsh.glsl; sourceTree = "<group>"; };
+		45BB023E1EB8BE2B00FE5C0C /* position_accuracy3d.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = position_accuracy3d.vsh.glsl; path = shaders/position_accuracy3d.vsh.glsl; sourceTree = "<group>"; };
+		45BB023F1EB8BE2B00FE5C0C /* route_arrow.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_arrow.vsh.glsl; path = shaders/route_arrow.vsh.glsl; sourceTree = "<group>"; };
+		45BB02401EB8BE2B00FE5C0C /* route_dash.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_dash.fsh.glsl; path = shaders/route_dash.fsh.glsl; sourceTree = "<group>"; };
+		45BB02411EB8BE2B00FE5C0C /* route.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route.fsh.glsl; path = shaders/route.fsh.glsl; sourceTree = "<group>"; };
+		45BB02421EB8BE2B00FE5C0C /* route.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route.vsh.glsl; path = shaders/route.vsh.glsl; sourceTree = "<group>"; };
+		45BB02431EB8BE2B00FE5C0C /* ruler.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ruler.vsh.glsl; path = shaders/ruler.vsh.glsl; sourceTree = "<group>"; };
+		45BB02441EB8BE2B00FE5C0C /* screen_quad.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = screen_quad.vsh.glsl; path = shaders/screen_quad.vsh.glsl; sourceTree = "<group>"; };
+		45BB02451EB8BE2B00FE5C0C /* shader_index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shader_index.txt; path = shaders/shader_index.txt; sourceTree = "<group>"; };
+		45BB02461EB8BE2B00FE5C0C /* solid_color.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = solid_color.fsh.glsl; path = shaders/solid_color.fsh.glsl; sourceTree = "<group>"; };
+		45BB02471EB8BE2B00FE5C0C /* text_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_billboard.vsh.glsl; path = shaders/text_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB02481EB8BE2B00FE5C0C /* text_fixed.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_fixed.fsh.glsl; path = shaders/text_fixed.fsh.glsl; sourceTree = "<group>"; };
+		45BB02491EB8BE2B00FE5C0C /* text_outlined_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_outlined_billboard.vsh.glsl; path = shaders/text_outlined_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB024A1EB8BE2B00FE5C0C /* text_outlined_gui.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_outlined_gui.vsh.glsl; path = shaders/text_outlined_gui.vsh.glsl; sourceTree = "<group>"; };
+		45BB024B1EB8BE2B00FE5C0C /* text_outlined.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text_outlined.vsh.glsl; path = shaders/text_outlined.vsh.glsl; sourceTree = "<group>"; };
+		45BB024C1EB8BE2B00FE5C0C /* text.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text.fsh.glsl; path = shaders/text.fsh.glsl; sourceTree = "<group>"; };
+		45BB024D1EB8BE2B00FE5C0C /* text.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = text.vsh.glsl; path = shaders/text.vsh.glsl; sourceTree = "<group>"; };
+		45BB024E1EB8BE2B00FE5C0C /* texturing_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing_billboard.vsh.glsl; path = shaders/texturing_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB024F1EB8BE2B00FE5C0C /* texturing_gui.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing_gui.vsh.glsl; path = shaders/texturing_gui.vsh.glsl; sourceTree = "<group>"; };
+		45BB02501EB8BE2B00FE5C0C /* texturing.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing.fsh.glsl; path = shaders/texturing.fsh.glsl; sourceTree = "<group>"; };
+		45BB02511EB8BE2B00FE5C0C /* texturing.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing.vsh.glsl; path = shaders/texturing.vsh.glsl; sourceTree = "<group>"; };
+		45BB02521EB8BE2B00FE5C0C /* texturing3d.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing3d.fsh.glsl; path = shaders/texturing3d.fsh.glsl; sourceTree = "<group>"; };
+		45BB02531EB8BE2B00FE5C0C /* trackpoint.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = trackpoint.fsh.glsl; path = shaders/trackpoint.fsh.glsl; sourceTree = "<group>"; };
+		45BB02541EB8BE2B00FE5C0C /* trackpoint.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = trackpoint.vsh.glsl; path = shaders/trackpoint.vsh.glsl; sourceTree = "<group>"; };
+		45BB02551EB8BE2B00FE5C0C /* traffic_line.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic_line.fsh.glsl; path = shaders/traffic_line.fsh.glsl; sourceTree = "<group>"; };
+		45BB02561EB8BE2B00FE5C0C /* traffic_line.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic_line.vsh.glsl; path = shaders/traffic_line.vsh.glsl; sourceTree = "<group>"; };
+		45BB02571EB8BE2B00FE5C0C /* traffic.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic.fsh.glsl; path = shaders/traffic.fsh.glsl; sourceTree = "<group>"; };
+		45BB02581EB8BE2B00FE5C0C /* traffic.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic.vsh.glsl; path = shaders/traffic.vsh.glsl; sourceTree = "<group>"; };
+		45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark_billboard.vsh.glsl; path = shaders/user_mark_billboard.vsh.glsl; sourceTree = "<group>"; };
+		45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.vsh.glsl; path = shaders/user_mark.vsh.glsl; sourceTree = "<group>"; };
+		45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_def.cpp; sourceTree = "<group>"; };
+		45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader_def.hpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
 		56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = choose_position_mark.hpp; sourceTree = "<group>"; };
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
@@ -452,6 +527,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45BB02221EB8BE1400FE5C0C /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */,
+				45BB02231EB8BE2B00FE5C0C /* area.vsh.glsl */,
+				45BB02241EB8BE2B00FE5C0C /* area3d_outline.vsh.glsl */,
+				45BB02251EB8BE2B00FE5C0C /* area3d.vsh.glsl */,
+				45BB02261EB8BE2B00FE5C0C /* arrow3d_outline.fsh.glsl */,
+				45BB02271EB8BE2B00FE5C0C /* arrow3d_shadow.fsh.glsl */,
+				45BB02281EB8BE2B00FE5C0C /* arrow3d_shadow.vsh.glsl */,
+				45BB02291EB8BE2B00FE5C0C /* arrow3d.fsh.glsl */,
+				45BB022A1EB8BE2B00FE5C0C /* arrow3d.vsh.glsl */,
+				45BB022B1EB8BE2B00FE5C0C /* circle.fsh.glsl */,
+				45BB022C1EB8BE2B00FE5C0C /* circle.vsh.glsl */,
+				45BB022D1EB8BE2B00FE5C0C /* colored_symbol_billboard.vsh.glsl */,
+				45BB022E1EB8BE2B00FE5C0C /* colored_symbol.fsh.glsl */,
+				45BB022F1EB8BE2B00FE5C0C /* colored_symbol.vsh.glsl */,
+				45BB02301EB8BE2B00FE5C0C /* dashed_line.fsh.glsl */,
+				45BB02311EB8BE2B00FE5C0C /* dashed_line.vsh.glsl */,
+				45BB02321EB8BE2B00FE5C0C /* debug_rect.fsh.glsl */,
+				45BB02331EB8BE2B00FE5C0C /* debug_rect.vsh.glsl */,
+				45BB02341EB8BE2B00FE5C0C /* discarded_texturing.fsh.glsl */,
+				45BB02351EB8BE2B00FE5C0C /* hatching_area.fsh.glsl */,
+				45BB02361EB8BE2B00FE5C0C /* hatching_area.vsh.glsl */,
+				45BB02371EB8BE2B00FE5C0C /* line.fsh.glsl */,
+				45BB02381EB8BE2B00FE5C0C /* line.vsh.glsl */,
+				45BB02391EB8BE2B00FE5C0C /* masked_texturing_billboard.vsh.glsl */,
+				45BB023A1EB8BE2B00FE5C0C /* masked_texturing.fsh.glsl */,
+				45BB023B1EB8BE2B00FE5C0C /* masked_texturing.vsh.glsl */,
+				45BB023C1EB8BE2B00FE5C0C /* my_position.vsh.glsl */,
+				45BB023D1EB8BE2B00FE5C0C /* path_symbol.vsh.glsl */,
+				45BB023E1EB8BE2B00FE5C0C /* position_accuracy3d.vsh.glsl */,
+				45BB023F1EB8BE2B00FE5C0C /* route_arrow.vsh.glsl */,
+				45BB02401EB8BE2B00FE5C0C /* route_dash.fsh.glsl */,
+				45BB02411EB8BE2B00FE5C0C /* route.fsh.glsl */,
+				45BB02421EB8BE2B00FE5C0C /* route.vsh.glsl */,
+				45BB02431EB8BE2B00FE5C0C /* ruler.vsh.glsl */,
+				45BB02441EB8BE2B00FE5C0C /* screen_quad.vsh.glsl */,
+				45BB02451EB8BE2B00FE5C0C /* shader_index.txt */,
+				45BB02461EB8BE2B00FE5C0C /* solid_color.fsh.glsl */,
+				45BB02471EB8BE2B00FE5C0C /* text_billboard.vsh.glsl */,
+				45BB02481EB8BE2B00FE5C0C /* text_fixed.fsh.glsl */,
+				45BB02491EB8BE2B00FE5C0C /* text_outlined_billboard.vsh.glsl */,
+				45BB024A1EB8BE2B00FE5C0C /* text_outlined_gui.vsh.glsl */,
+				45BB024B1EB8BE2B00FE5C0C /* text_outlined.vsh.glsl */,
+				45BB024C1EB8BE2B00FE5C0C /* text.fsh.glsl */,
+				45BB024D1EB8BE2B00FE5C0C /* text.vsh.glsl */,
+				45BB024E1EB8BE2B00FE5C0C /* texturing_billboard.vsh.glsl */,
+				45BB024F1EB8BE2B00FE5C0C /* texturing_gui.vsh.glsl */,
+				45BB02501EB8BE2B00FE5C0C /* texturing.fsh.glsl */,
+				45BB02511EB8BE2B00FE5C0C /* texturing.vsh.glsl */,
+				45BB02521EB8BE2B00FE5C0C /* texturing3d.fsh.glsl */,
+				45BB02531EB8BE2B00FE5C0C /* trackpoint.fsh.glsl */,
+				45BB02541EB8BE2B00FE5C0C /* trackpoint.vsh.glsl */,
+				45BB02551EB8BE2B00FE5C0C /* traffic_line.fsh.glsl */,
+				45BB02561EB8BE2B00FE5C0C /* traffic_line.vsh.glsl */,
+				45BB02571EB8BE2B00FE5C0C /* traffic.fsh.glsl */,
+				45BB02581EB8BE2B00FE5C0C /* traffic.vsh.glsl */,
+				45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */,
+				45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */,
+			);
+			name = shaders;
+			sourceTree = "<group>";
+		};
 		670947311BDF9B82005014C0 = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +613,9 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */,
+				45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */,
+				45BB02221EB8BE1400FE5C0C /* shaders */,
 				672D24981E892768004BB7B1 /* overlays_tracker.cpp */,
 				672D24991E892768004BB7B1 /* overlays_tracker.hpp */,
 				457D89241E7AE89500049500 /* custom_symbol.hpp */,
@@ -789,6 +931,7 @@
 				452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */,
 				452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
+				45BB025E1EB8BE5200FE5C0C /* shader_def.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
@@ -851,6 +994,7 @@
 				670947381BDF9B82005014C0 /* Headers */,
 			);
 			buildRules = (
+				45BB025F1EB8BE9400FE5C0C /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -951,6 +1095,7 @@
 				670948681BDF9C7F005014C0 /* agg_curves.cpp in Sources */,
 				670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */,
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
+				45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
 				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,
 				670948491BDF9C48005014C0 /* ruler_helper.cpp in Sources */,

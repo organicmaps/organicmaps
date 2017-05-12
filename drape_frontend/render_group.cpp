@@ -1,8 +1,8 @@
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "geometry/screenbase.hpp"

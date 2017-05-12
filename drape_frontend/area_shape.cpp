@@ -1,9 +1,9 @@
 #include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 
-#include "drape/shader_def.hpp"
-#include "drape/glstate.hpp"
-#include "drape/batcher.hpp"
 #include "drape/attribute_provider.hpp"
+#include "drape/batcher.hpp"
+#include "drape/glstate.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 

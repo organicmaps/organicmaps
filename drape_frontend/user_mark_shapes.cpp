@@ -2,11 +2,11 @@
 
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
 
 #include "geometry/spline.hpp"

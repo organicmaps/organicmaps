@@ -1,11 +1,11 @@
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "indexer/map_style_reader.hpp"

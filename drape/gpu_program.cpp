@@ -1,23 +1,17 @@
 #include "drape/gpu_program.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glstate.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
-
-#ifdef DEBUG
-  #include "std/map.hpp"
-#endif
 
 namespace dp
 {
-
-GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader,
+                       ref_ptr<Shader> fragmentShader, uint8_t textureSlotsCount)
   : m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
-  , m_textureSlotsCount(gpu::GetTextureSlotsCount(programIndex))
+  , m_textureSlotsCount(textureSlotsCount)
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
@@ -27,8 +21,7 @@ GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader, ref_ptr<S
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
     LOG(LERROR, ("Program ", m_programID, " link error = ", errorLog));
 
-  // originaly i detached shaders there, but then i try it on Tegra3 device.
-  // on Tegra3, glGetActiveUniform will not work if you detach shaders after linking
+  // On Tegra3 glGetActiveUniform isn't work if you detach shaders after linking.
   LoadUniformLocations();
 
   // On Tegra2 we cannot detach shaders at all.
@@ -71,12 +64,12 @@ void GpuProgram::Unbind()
   GLFunctions::glUseProgram(0);
 }
 
-int8_t GpuProgram::GetAttributeLocation(string const & attributeName) const
+int8_t GpuProgram::GetAttributeLocation(std::string const & attributeName) const
 {
   return GLFunctions::glGetAttribLocation(m_programID, attributeName);
 }
 
-int8_t GpuProgram::GetUniformLocation(string const & uniformName) const
+int8_t GpuProgram::GetUniformLocation(std::string const & uniformName) const
 {
   auto const it = m_uniforms.find(uniformName);
   if (it == m_uniforms.end())
@@ -92,10 +85,9 @@ void GpuProgram::LoadUniformLocations()
   {
     int32_t size = 0;
     glConst type = gl_const::GLFloatVec4;
-    string name;
+    std::string name;
     GLFunctions::glGetActiveUniform(m_programID, i, &size, &type, name);
     m_uniforms[name] = GLFunctions::glGetUniformLocation(m_programID, name);
   }
 }
-
-} // namespace dp
+}  // namespace dp

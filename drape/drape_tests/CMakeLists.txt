@@ -1,16 +1,8 @@
 project(drape_tests)
 
-execute_process(
-  COMMAND python ${OMIM_ROOT}/tools/autobuild/shader_preprocessor.py
-  ${DRAPE_ROOT}/shaders
-  shader_index.txt
-  shader_def
-)
-
 add_definitions(
   -DOGL_TEST_ENABLED
   -DGTEST_DONT_DEFINE_TEST
-  -DCOMPILER_TESTS
 )
 
 include_directories(
@@ -26,7 +18,6 @@ set(
   bidi_tests.cpp
   bingind_info_tests.cpp
   buffer_tests.cpp
-  compile_shaders_test.cpp
   dummy_texture.hpp
   failure_reporter.cpp
   font_texture_tests.cpp

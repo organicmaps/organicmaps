@@ -160,6 +160,8 @@ copy_resources(
   05_khmeros.ttf
   06_code2000.ttf
   07_roboto_medium.ttf
+
+  ../tools/shaders_compiler
 )
 
 add_subdirectory(qt_common)

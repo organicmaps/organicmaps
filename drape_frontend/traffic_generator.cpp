@@ -2,6 +2,7 @@
 
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
@@ -9,7 +10,6 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "indexer/map_style_reader.hpp"

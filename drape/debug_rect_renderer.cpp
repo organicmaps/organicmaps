@@ -2,7 +2,6 @@
 
 #include "drape/gpu_program_manager.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/shader_def.hpp"
 
 namespace dp
 {
@@ -40,7 +39,7 @@ DebugRectRenderer::~DebugRectRenderer()
   ASSERT_EQUAL(m_vertexBuffer, 0, ());
 }
 
-void DebugRectRenderer::Init(ref_ptr<dp::GpuProgramManager> mng)
+void DebugRectRenderer::Init(ref_ptr<dp::GpuProgramManager> mng, int programId)
 {
   m_vertexBuffer = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
@@ -48,7 +47,7 @@ void DebugRectRenderer::Init(ref_ptr<dp::GpuProgramManager> mng)
   m_VAO = GLFunctions::glGenVertexArray();
   GLFunctions::glBindVertexArray(m_VAO);
 
-  m_program = mng->GetProgram(gpu::DEBUG_RECT_PROGRAM);
+  m_program = mng->GetProgram(programId);
   int8_t attributeLocation = m_program->GetAttributeLocation("a_position");
   ASSERT_NOT_EQUAL(attributeLocation, -1, ());
   GLFunctions::glEnableVertexAttribute(attributeLocation);

@@ -1,12 +1,12 @@
 #include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/intrusive_vector.hpp"
+#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
-#include "drape_frontend/intrusive_vector.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/glstate.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/overlay_handle.hpp"
 
 #include "base/math.hpp"

@@ -1,10 +1,10 @@
 #include "drape_frontend/route_renderer.hpp"
-#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/shader_def.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/glsl_func.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/utils/projection.hpp"
 #include "drape/vertex_array_buffer.hpp"
 

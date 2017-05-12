@@ -427,8 +427,9 @@ void RuleDrawer::operator()(FeatureType const & f)
                      strings::to_string(key.m_zoomLevel);
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
-  tp.m_primaryOffset = {0.f, 0.f};
-  drape_ptr<TextShape> textShape = make_unique_dp<TextShape>(r.Center(), tp, false, 0, false);
+  tp.m_primaryOffset = {0.0f, 0.0f};
+  drape_ptr<TextShape> textShape =
+      make_unique_dp<TextShape>(r.Center(), tp, m_context->GetTileKey(), false, 0, false);
   textShape->DisableDisplacing();
   insertShape(move(textShape));
 #endif

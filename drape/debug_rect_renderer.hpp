@@ -16,7 +16,7 @@ class DebugRectRenderer
 {
 public:
   static DebugRectRenderer & Instance();
-  void Init(ref_ptr<dp::GpuProgramManager> mng);
+  void Init(ref_ptr<dp::GpuProgramManager> mng, int programId);
   void Destroy();
 
   bool IsEnabled() const;
