@@ -316,13 +316,6 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       continue;
     }
 
-    // In case of leaps from the start to its mwm transition and from finish mwm transition
-    // Route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
-    if ((i == 0 || i + 2 == input.size()) && worldRouteMode == WorldGraph::Mode::LeapsOnly)
-      worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
-    else
-      worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
-
     ++i;
     CHECK_LESS(i, input.size(), ());
     Segment const & next = input[i];
