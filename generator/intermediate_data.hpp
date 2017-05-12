@@ -12,12 +12,11 @@
 #include <algorithm>
 #include <deque>
 #include <exception>
+#include <fstream>
 #include <limits>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include <fstream>
 
 #include "defines.hpp"
 
@@ -192,7 +191,7 @@ public:
     uint64_t pos = 0;
     if (!m_offsets.GetValueByKey(id, pos))
     {
-      LOG_SHORT(LWARNING, ("Can't std::find offset in file", m_offsets.GetFileName(), "by id", id));
+      LOG_SHORT(LWARNING, ("Can't find offset in file", m_offsets.GetFileName(), "by id", id));
       return false;
     }
 

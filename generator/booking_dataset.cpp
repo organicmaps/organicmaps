@@ -17,7 +17,7 @@ namespace generator
 // BookingHotel ------------------------------------------------------------------------------------
 BookingHotel::BookingHotel(std::string const & src)
 {
-  vector<std::string> rec;
+  std::vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
@@ -62,7 +62,7 @@ bool BookingDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb)
 
 template <>
 void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
-                                                function<void(FeatureBuilder1 &)> const fn) const
+                                                std::function<void(FeatureBuilder1 &)> const fn) const
 {
   // Turn a hotel into a simple building.
   if (fb.GetGeomType() == feature::GEOM_AREA)
@@ -89,7 +89,7 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
 
 template <>
 void BookingDataset::BuildObject(Object const & hotel,
-                                 function<void(FeatureBuilder1 &)> const & fn) const
+                                 std::function<void(FeatureBuilder1 &)> const & fn) const
 {
   FeatureBuilder1 fb;
   FeatureParams params;
@@ -117,7 +117,7 @@ void BookingDataset::BuildObject(Object const & hotel,
   if (!hotel.m_translations.empty())
   {
     // TODO(mgsergio): Move parsing to the hotel costruction stage.
-    vector<std::string> parts;
+    std::vector<std::string> parts;
     strings::ParseCSVRow(hotel.m_translations, '|', parts);
     CHECK_EQUAL(parts.size() % 3, 0, ("Invalid translation string:", hotel.m_translations));
     for (size_t i = 0; i < parts.size(); i += 3)

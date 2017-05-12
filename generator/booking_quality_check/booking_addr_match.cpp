@@ -92,12 +92,12 @@ int main(int argc, char * argv[])
       ++matchedNum;
       std::cout << "[" << i << "/" << bookingDataset.Size() << "] Hotel: " << hotel.address
            << " AddLoc: " << hotel.translations << " --> " << hotel.street << " "
-           << hotel.houseNumber << endl;
+           << hotel.houseNumber << std::endl;
     }
   }
 
   std::cout << "Num of hotels: " << bookingDataset.Size() << " matched: " << matchedNum
-       << " Empty addresses: " << emptyAddr << endl;
+       << " Empty addresses: " << emptyAddr << std::endl;
 
   return 0;
 }

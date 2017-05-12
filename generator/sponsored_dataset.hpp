@@ -33,14 +33,16 @@ public:
   static double constexpr kDistanceLimitInMeters = 150;
   static size_t constexpr kMaxSelectedElements = 3;
 
-  explicit SponsoredDataset(std::string const & dataPath, std::string const & addressReferencePath = std::string());
-  explicit SponsoredDataset(istream & dataSource, std::string const & addressReferencePath = std::string());
+  explicit SponsoredDataset(std::string const & dataPath,
+                            std::string const & addressReferencePath = std::string());
+  explicit SponsoredDataset(std::istream & dataSource,
+                            std::string const & addressReferencePath = std::string());
 
   size_t Size() const { return m_objects.size(); }
 
   Object const & GetObjectById(ObjectId id) const;
   Object & GetObjectById(ObjectId id);
-  vector<ObjectId> GetNearestObjects(ms::LatLon const & latLon, size_t limit,
+  std::vector<ObjectId> GetNearestObjects(ms::LatLon const & latLon, size_t limit,
                                      double maxDistance = 0.0) const;
 
   /// @return true if |fb| satisfies some necessary conditions to match one or serveral
@@ -64,7 +66,7 @@ protected:
 
   private:
     Index m_index;
-    unique_ptr<search::ReverseGeocoder> m_coder;
+    std::unique_ptr<search::ReverseGeocoder> m_coder;
   };
 
   // TODO(mgsergio): Get rid of Box since boost::rtree supports point as value type.
@@ -72,7 +74,7 @@ protected:
   // instead of boost::geometry::cs::cartesian.
   using Point = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
   using Box = boost::geometry::model::box<Point>;
-  using Value = pair<Box, ObjectId>;
+  using Value = std::pair<Box, ObjectId>;
 
   // Create the rtree using default constructor.
   boost::geometry::index::rtree<Value, boost::geometry::index::quadratic<16>> m_rtree;
@@ -80,7 +82,7 @@ protected:
   void BuildObject(Object const & object,
                    std::function<void(FeatureBuilder1 &)> const & fn) const;
 
-  void LoadData(istream & src, std::string const & addressReferencePath);
+  void LoadData(std::istream & src, std::string const & addressReferencePath);
 
   /// @return an id of a matched object or kInvalidObjectId on failure.
   ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const;

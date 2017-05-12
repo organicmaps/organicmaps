@@ -95,7 +95,7 @@ feature::GenerateInfo GetGenerateInfo()
   return info;
 }
 
-void DumpRestaurants(std::vector<FeatureBuilder1> const & features, ostream & out)
+void DumpRestaurants(std::vector<FeatureBuilder1> const & features, std::ostream & out)
 {
   for (auto const & f : features)
   {

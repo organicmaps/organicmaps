@@ -18,7 +18,7 @@ namespace
 {
 using namespace routing;
 
-vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes =
+std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes =
   {{"no_right_turn", Restriction::Type::No},  {"no_left_turn", Restriction::Type::No},
    {"no_u_turn", Restriction::Type::No}, {"no_straight_on", Restriction::Type::No},
    {"no_entry", Restriction::Type::No}, {"no_exit", Restriction::Type::No},

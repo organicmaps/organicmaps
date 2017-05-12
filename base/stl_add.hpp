@@ -8,7 +8,7 @@
 
 namespace my
 {
-typedef std::initializer_list<char const *> StringIL;
+using StringIL = std::initializer_list<char const *>;
 
 /// @todo(y): replace this hand-written helper function by
 /// std::make_unique when it will be available in C++14

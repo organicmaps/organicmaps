@@ -42,11 +42,11 @@ UNIT_TEST(OsmType_SkipDummy)
 
 namespace
 {
-  void DumpTypes(vector<uint32_t> const & v)
+  void DumpTypes(std::vector<uint32_t> const & v)
   {
     Classificator const & c = classif();
     for (size_t i = 0; i < v.size(); ++i)
-      std::cout << c.GetFullObjectName(v[i]) << endl;
+      std::cout << c.GetFullObjectName(v[i]) << std::endl;
   }
 
   void DumpParsedTypes(char const * arr[][2], size_t count)
@@ -60,7 +60,8 @@ namespace
     DumpTypes(params.m_Types);
   }
 
-  void TestSurfaceTypes(std::string const & surface, std::string const & smoothness, std::string const & grade, char const * value)
+  void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
+                        std::string const & grade, char const * value)
   {
     OsmElement e;
     e.AddTag("highway", "unclassified");
