@@ -142,6 +142,9 @@ struct JSONFreeDeleter
 
 namespace strings
 {
+void FromJSON(json_t * root, UniString & result);
+my::JSONPtr ToJSON(UniString const & s);
+
 void FromJSONObject(json_t * root, std::string const & field, UniString & result);
 void ToJSONObject(json_t & root, std::string const & field, UniString const & value);
 }

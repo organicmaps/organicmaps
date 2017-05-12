@@ -20,19 +20,34 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
 namespace
 {
 template <typename Layout>
+Layout * BuildSubLayout(QLayout & mainLayout, QWidget & parent, QWidget ** box)
+{
+  *box = new QWidget(&parent);
+  auto * subLayout = BuildLayoutWithoutMargins<Layout>(*box /* parent */);
+  (*box)->setLayout(subLayout);
+  mainLayout.addWidget(*box);
+  return subLayout;
+}
+
+template <typename Layout>
 Layout * BuildSubLayout(QLayout & mainLayout, QWidget & parent)
 {
-  auto * box = new QWidget(&parent);
-  auto * subLayout = BuildLayoutWithoutMargins<Layout>(box /* parent */);
-  box->setLayout(subLayout);
-  mainLayout.addWidget(box);
-  return subLayout;
+  QWidget * box = nullptr;
+  return BuildSubLayout<Layout>(mainLayout, parent, &box);
+}
+
+void SetVerticalStretch(QWidget & widget, int stretch)
+{
+  auto policy = widget.sizePolicy();
+  policy.setVerticalStretch(stretch);
+  widget.setSizePolicy(policy);
 }
 }  // namespace
 
@@ -76,7 +91,19 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
-    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */);
+    auto * layout =
+        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_relatedQueriesBox);
+    SetVerticalStretch(*m_relatedQueriesBox, 1 /* stretch */);
+    layout->addWidget(new QLabel(tr("Related queries")));
+
+    m_relatedQueries = new QListWidget();
+    layout->addWidget(m_relatedQueries);
+  }
+
+  {
+    auto * layout =
+        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_foundResultsBox);
+    SetVerticalStretch(*m_foundResultsBox, 4 /* stretch */);
 
     {
       auto * subLayout = BuildSubLayout<QHBoxLayout>(*layout, *this /* parent */);
@@ -91,13 +118,16 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
-    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */);
+    auto * layout =
+        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_nonFoundResultsBox);
+    SetVerticalStretch(*m_nonFoundResultsBox, 2 /* stretch */);
 
     layout->addWidget(new QLabel(tr("Non found results")));
 
     m_nonFoundResults = new ResultsView(*this /* parent */);
     layout->addWidget(m_nonFoundResults);
   }
+
   setLayout(mainLayout);
 
   Clear();
@@ -117,6 +147,12 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
   }
   m_showViewport->setEnabled(true);
   m_showPosition->setEnabled(positionAvailable);
+
+  m_relatedQueries->clear();
+  for (auto const & query : sample.m_relatedQueries)
+    m_relatedQueries->addItem(ToQString(query));
+  if (m_relatedQueries->count() != 0)
+    m_relatedQueriesBox->show();
 
   ClearAllResults();
 }
@@ -147,12 +183,16 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
         static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(result.m_pos));
     mark->SetCustomSymbol("non-found-search-result");
   }
+
+  if (!results.empty())
+    m_nonFoundResultsBox->show();
 }
 
 void SampleView::ClearAllResults()
 {
   m_foundResults->Clear();
   m_nonFoundResults->Clear();
+  m_nonFoundResultsBox->hide();
   m_framework.ClearSearchResultsMarks();
 }
 
@@ -169,6 +209,9 @@ void SampleView::Clear()
 
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
+
+  m_relatedQueriesBox->hide();
+
   ClearAllResults();
   OnSearchCompleted();
 }

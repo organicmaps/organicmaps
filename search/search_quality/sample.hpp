@@ -62,6 +62,7 @@ struct Sample
   bool m_posAvailable = false;
   m2::RectD m_viewport = m2::RectD(0, 0, 0, 0);
   std::vector<Result> m_results;
+  std::vector<strings::UniString> m_relatedQueries;
 };
 
 void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance);
