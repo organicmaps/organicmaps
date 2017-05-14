@@ -58,9 +58,9 @@ public class Bookmark extends MapObject
     dest.writeString(mObjectTitle);
   }
 
-  protected Bookmark(Parcel source)
+  protected Bookmark(@MapObjectType int type, Parcel source)
   {
-    super(source);
+    super(type, source);
     mCategoryId = source.readInt();
     mBookmarkId = source.readInt();
     mIcon = getIconInternal();

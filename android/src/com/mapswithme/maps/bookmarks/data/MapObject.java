@@ -89,13 +89,13 @@ public class MapObject implements Parcelable
       mBanners = new ArrayList<>(Arrays.asList(banners));
   }
 
-  protected MapObject(Parcel source)
+  protected MapObject(@MapObjectType int type, Parcel source)
   {
     //noinspection ResourceType
     this(source.readString(), // MwmName
          source.readLong(),   // MwmVersion
          source.readInt(),    // FeatureId
-         source.readInt(),    // MapObjectType
+         type, // MapObjectType
          source.readString(), // Title
          source.readString(), // SecondaryTitle
          source.readString(), // Subtitle
@@ -268,9 +268,9 @@ public class MapObject implements Parcelable
   {
     @MapObjectType int type = source.readInt();
     if (type == BOOKMARK)
-      return new Bookmark(source);
+      return new Bookmark(type, source);
 
-    return new MapObject(source);
+    return new MapObject(type, source);
   }
 
   @Override
@@ -282,11 +282,12 @@ public class MapObject implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
+    // A map object type must be written first, since it's used in readParcel method to distinguish
+    // what type of object should be read from the parcel.
+    dest.writeInt(mMapObjectType);
     dest.writeString(mMwmName);
     dest.writeLong(mMwmVersion);
     dest.writeInt(mFeatureIndex);
-    dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
-    dest.writeInt(mMapObjectType);
     dest.writeString(mTitle);
     dest.writeString(mSecondaryTitle);
     dest.writeString(mSubtitle);
