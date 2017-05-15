@@ -213,7 +213,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   IndexGraphStarter starter(start, finish, graph);
 
   AStarProgress progress(0, 100);
-  progress.Initialize(startPoint, finalPoint);
+  progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   uint32_t drawPointsStep = 0;
   auto onVisitJunction = [&](Segment const & from, Segment const & to) {

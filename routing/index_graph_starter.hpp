@@ -36,6 +36,7 @@ public:
     NumMwmId GetMwmId() const { return m_segment.GetMwmId(); }
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
     m2::PointD const & GetPoint() const { return m_point; }
+    Segment const & GetSegment() const { return m_segment; }
 
     Segment GetSegmentWithDirection(bool forward) const
     {
