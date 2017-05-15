@@ -83,7 +83,7 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
     {
       UErrorCode status = U_ZERO_ERROR;
 
-      std::string const removeDiacriticRule = ";NFD;[\u02B9-\u02D3\u0301-\u0358]Remove;NFC";
+      std::string const removeDiacriticRule = ";NFD;[\u02B9-\u02D3\u0301-\u0358\u00B7\u0027]Remove;NFC";
       transliteratorId.append(removeDiacriticRule);
 
       UnicodeString translitId(transliteratorId.c_str());
