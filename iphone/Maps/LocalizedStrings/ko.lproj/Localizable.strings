@@ -1848,7 +1848,7 @@
 
 "whats_new_auto_update_updating_maps" = "지도 업데이트";
 
-"whats_new_auto_update_title" = "다운로드한 지도 업데이트";
+"whats_new_auto_update_title" = "다운로드한 지도를 업데이트해야 합니다";
 
 "whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
 

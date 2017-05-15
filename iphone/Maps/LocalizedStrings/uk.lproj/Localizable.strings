@@ -1848,7 +1848,7 @@
 
 "whats_new_auto_update_updating_maps" = "Оновлення карт";
 
-"whats_new_auto_update_title" = "Оновлення завантажених карт";
+"whats_new_auto_update_title" = "Оновити завантажені карти";
 
 "whats_new_auto_update_message" = "Оновлення карт дозволяє підтримувати інформацію про об'єкти в актуальному стані";
 
@@ -1874,7 +1874,7 @@
 
 "create_campaign_button" = "Я — власник";
 
-"view_campaign_button" = "Реклама";
+"view_campaign_button" = "Ця компанія рекламується";
 
 "search_hotel_filters_type" = "Тип";
 

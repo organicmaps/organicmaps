@@ -1071,7 +1071,7 @@
 	<string name="offline_place_page_more_information">Підключіться до мережі Інтернет, щоб отримати більше інформації про місце.</string>
 	<string name="failed_load_information">Не вдалося завантажити інформацію.</string>
 	<string name="whats_new_auto_update_updating_maps">Оновлення карт</string>
-	<string name="whats_new_auto_update_title">Оновлення завантажених карт</string>
+	<string name="whats_new_auto_update_title">Оновити завантажені карти</string>
 	<string name="whats_new_auto_update_message">Оновлення карт дозволяє підтримувати інформацію про об\&#39;єкти в актуальному стані</string>
 	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
 	<string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
@@ -1084,7 +1084,7 @@
 	<string name="search_hotel_filter_hotel">Готель</string>
 	<string name="search_hotel_filter_motel">Мотель</string>
 	<string name="create_campaign_button">Я — власник</string>
-	<string name="view_campaign_button">Реклама</string>
+	<string name="view_campaign_button">Ця компанія рекламується</string>
 	<string name="search_hotel_filters_type">Тип</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Загальний відгук</string>

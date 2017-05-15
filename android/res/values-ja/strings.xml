@@ -1066,7 +1066,7 @@
 	<string name="offline_place_page_more_information">この場所に関する詳細情報を取得するには、インターネットに接続してください。</string>
 	<string name="failed_load_information">情報の読み込みに失敗しました。</string>
 	<string name="whats_new_auto_update_updating_maps">地図を更新中</string>
-	<string name="whats_new_auto_update_title">ダウンロード済みのマップを更新します</string>
+	<string name="whats_new_auto_update_title">ダウンロード済みのマップを更新してください</string>
 	<string name="whats_new_auto_update_message">地図を更新することで物件情報を最新の状態に保ちます</string>
 	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
 	<string name="whats_new_auto_update_button_later">あとで手動で更新</string>

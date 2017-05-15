@@ -1073,7 +1073,7 @@
 	<string name="offline_place_page_more_information">اتصل بالإنترنت للحصول على مزيد من التفاصيل حول المكان.</string>
 	<string name="failed_load_information">فشل تحميل المعلومات.</string>
 	<string name="whats_new_auto_update_updating_maps">تحديث الخرائط</string>
-	<string name="whats_new_auto_update_title">تحديث الخرائط الخاصة بك التي تم تنزيلها</string>
+	<string name="whats_new_auto_update_title">قم بتحديث الخرائط التي قمت بنتزيلها</string>
 	<string name="whats_new_auto_update_message">تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة</string>
 	<string name="whats_new_auto_update_button_size">تحديث (%s)</string>
 	<string name="whats_new_auto_update_button_later">تحديث يدوياً في وقت لاحق</string>

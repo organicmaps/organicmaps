@@ -1063,7 +1063,7 @@
 	<string name="offline_place_page_more_information">인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.</string>
 	<string name="failed_load_information">정보를 로드하지 못했습니다.</string>
 	<string name="whats_new_auto_update_updating_maps">지도 업데이트</string>
-	<string name="whats_new_auto_update_title">다운로드한 지도 업데이트</string>
+	<string name="whats_new_auto_update_title">다운로드한 지도를 업데이트해야 합니다</string>
 	<string name="whats_new_auto_update_message">지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.</string>
 	<string name="whats_new_auto_update_button_size">업데이트(%s)</string>
 	<string name="whats_new_auto_update_button_later">나중에 수동으로 업데이트</string>

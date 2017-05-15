@@ -1065,7 +1065,7 @@
 	<string name="offline_place_page_more_information">Koble til internett for å få mer informasjon om stedet.</string>
 	<string name="failed_load_information">Kunne ikke laste inn informasjon.</string>
 	<string name="whats_new_auto_update_updating_maps">Oppdaterer kart</string>
-	<string name="whats_new_auto_update_title">Oppdater nedlastede kart</string>
+	<string name="whats_new_auto_update_title">Oppdater dine nedlastede kart</string>
 	<string name="whats_new_auto_update_message">Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert</string>
 	<string name="whats_new_auto_update_button_size">Oppdater (%s)</string>
 	<string name="whats_new_auto_update_button_later">Oppdater manuelt senere</string>

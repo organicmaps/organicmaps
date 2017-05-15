@@ -831,7 +831,7 @@
 	<string name="offline_place_page_more_information">Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.</string>
 	<string name="failed_load_information">Η φόρτωση πληροφοριών απέτυχε.</string>
 	<string name="whats_new_auto_update_updating_maps">Ενημέρωση χαρτών</string>
-	<string name="whats_new_auto_update_title">Ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
+	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
 	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
 	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
 	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
