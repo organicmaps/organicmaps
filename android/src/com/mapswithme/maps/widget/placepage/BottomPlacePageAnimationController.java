@@ -23,7 +23,8 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
-class BottomPlacePageAnimationController extends BasePlacePageAnimationController implements ObservableLinearLayout.SizeChangedListener
+class BottomPlacePageAnimationController extends BasePlacePageAnimationController
+    implements ObservableLinearLayout.SizeChangedListener
 {
   @SuppressWarnings("unused")
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
@@ -359,8 +360,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected void onStateChanged(final State currentState, final State newState, @MapObject.MapObjectType int type)
   {
-    if (currentState == newState && newState == State.HIDDEN)
+    if (newState == State.HIDDEN && currentState == newState)
       return;
+
     prepareYTranslations(newState, type);
 
     mDetailsScroll.setGestureDetector(mGestureDetector);
@@ -571,7 +573,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     mBannerOpenListener = bannerOpenListener;
   }
 
-  private boolean isOverDetailState()
+  private boolean isOverDetailsState()
   {
     return mDetailsScroll.getTranslationY() < mScreenHeight - mDetailMaxHeight;
   }
@@ -585,7 +587,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     if (object != null)
     {
       State newState = getState();
-      if (isOverDetailState())
+      if (isOverDetailsState())
         newState = State.FULLSCREEN;
       onStateChanged(getState(), newState, object.getMapObjectType());
     }
