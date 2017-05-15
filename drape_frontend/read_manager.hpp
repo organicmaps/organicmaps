@@ -26,6 +26,8 @@ namespace df
 class MapDataProvider;
 class CoverageUpdateDescriptor;
 
+uint8_t constexpr kReadingThreadsCount = 2;
+
 class ReadManager
 {
 public:
@@ -46,8 +48,6 @@ public:
   void UpdateCustomSymbols(CustomSymbols const & symbols);
   void RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds);
   void RemoveAllCustomSymbols();
-
-  static uint32_t ReadCount();
 
 private:
   void OnTaskFinished(threads::IRoutine * task);

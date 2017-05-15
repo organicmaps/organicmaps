@@ -518,7 +518,7 @@ void BackendRenderer::Routine::Do()
 void BackendRenderer::InitGLDependentResource()
 {
   uint32_t constexpr kBatchSize = 5000;
-  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(ReadManager::ReadCount(),
+  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(kReadingThreadsCount,
                                                bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3),
                                                kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
