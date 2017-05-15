@@ -5,8 +5,6 @@
 #include "base/macros.hpp"
 
 #include "std/string.hpp"
-#include "std/map.hpp"
-#include "std/mutex.hpp"
 
 namespace settings
 {
@@ -24,6 +22,7 @@ class StringStorage : public platform::StringStorageBase
 {
 public:
   static StringStorage & Instance();
+
 private:
   StringStorage();
 };

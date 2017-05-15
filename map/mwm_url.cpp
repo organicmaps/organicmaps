@@ -8,6 +8,7 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/marketing_service.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/uri.hpp"
@@ -24,25 +25,19 @@ namespace url_scheme
 {
 namespace lead
 {
-char const * kFrom = "utm_source";
-char const * kType = "utm_medium";
-char const * kName = "utm_campaign";
-char const * kContent = "utm_content";
-char const * kKeyword = "utm_term";
+char const * kFrom = marketing::kFrom;
+char const * kType = marketing::kType;
+char const * kName = marketing::kName;
+char const * kContent = marketing::kContent;
+char const * kKeyword = marketing::kKeyword;
 
 struct CampaignDescription
 {
-  string m_from;
-  string m_type;
-  string m_name;
-  string m_content;
-  string m_keyword;
-
   void Write() const
   {
     if (!IsValid())
     {
-      LOG(LERROR, ("Invalid campaign description!"));
+      LOG(LERROR, ("Invalid campaign description"));
       return;
     }
 
@@ -58,6 +53,12 @@ struct CampaignDescription
   }
 
   bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
+  
+  string m_from;
+  string m_type;
+  string m_name;
+  string m_content;
+  string m_keyword;
 };
 }  // namespace lead
 

@@ -12,7 +12,9 @@
 #include "indexer/scales.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/url_encode.hpp"
@@ -22,6 +24,7 @@
 
 #include "private.h"
 
+#include <array>
 #include <cstring>
 #include <sstream>
 
@@ -31,6 +34,8 @@
 
 namespace
 {
+std::array<char const * const, 5> const kMarketingParameters = {marketing::kFrom, marketing::kType, marketing::kName,
+                                                                marketing::kContent, marketing::kKeyword};
 std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignPageUrl = LOCAL_ADS_COMPANY_PAGE_URL;
 
@@ -143,6 +148,26 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   std::ostringstream ss;
   ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
      << UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
+
+  bool isFirstParam = true;
+  for (auto const & key : kMarketingParameters)
+  {
+    string value;
+    if (!marketing::Settings::Get(key, value))
+      continue;
+
+    if (isFirstParam)
+    {
+      ss << "?";
+      isFirstParam = false;
+    }
+    else
+    {
+      ss << "&";
+    }
+    ss << key << "=" << value;
+  }
+
   return ss.str();
 }
 }  // namespace
