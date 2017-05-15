@@ -23182,7 +23182,7 @@
   [whats_new_auto_update_title]
     en = Update your downloaded maps
     ru = Обновите ваши загруженные карты
-    ar = تحديث الخرائط الخاصة بك التي تم تنزيلها
+    ar = قم بتحديث الخرائط التي قمت بنتزيلها
     cs = Aktualizujte své stažené mapy
     da = Opdater dine downloadede kort
     nl = Werk uw gedownloade kaarten bij
@@ -23192,9 +23192,9 @@
     hu = Frissítse a letöltött térképeit
     id = Perbarui peta yang sudah Anda unduh
     it = Aggiorna le mappe scaricate
-    ja = ダウンロード済みのマップを更新します
-    ko = 다운로드한 지도 업데이트
-    nb = Oppdater nedlastede kart
+    ja = ダウンロード済みのマップを更新してください
+    ko = 다운로드한 지도를 업데이트해야 합니다
+    nb = Oppdater dine nedlastede kart
     pl = Zaktualizuj pobrane mapy
     pt = Atualize seus mapas transferidos
     ro = Actualizați hărțile descărcate
@@ -23202,15 +23202,15 @@
     sv = Uppdatera dina nedladdade kartor
     th = อัปเดตแผนที่ที่คุณดาวน์โหลดมา
     tr = İndirdiğiniz haritaları güncelleyin
-    uk = Оновлення завантажених карт
+    uk = Оновити завантажені карти
     vi = Cập nhật các bản đồ đã tải về của bạn
     zh-Hans = 更新已下载的地图
     zh-Hant = 更新您下載的地圖
     af = Werk jou afgelaaide kaarte by
-    be = Абнаўленне спампаваных карт
-    el = Ενημερώστε τους χάρτες που έχετε κατεβάσει
-    es_MX = Actualice sus mapas descargados
-    fr_CA = Mettre à jour vos cartes téléchargées
+    be = Абнавіце спампаваныя карты
+    el = Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει
+    es_MX = Debe actualizar sus mapas descargados
+    fr_CA = Mettez à jour vos cartes téléchargées
     he = עדכן את המפות שהורדת
     hi = अपने डाउनलोड किए गए मानचित्र अपडेट करें
     pt_BR = Atualize os mapas no seu dispositivo
@@ -23630,7 +23630,7 @@
     sv = Företaget marknadsförs
     th = ธุรกิจได้รับการโฆษณาแล้ว
     tr = İşletme reklamı verildi
-    uk = Реклама
+    uk = Ця компанія рекламується
     vi = Doanh nghiệp này được quảng cáo
     zh-Hans = 商家已推广
     zh-Hant = 業務已發出廣告
