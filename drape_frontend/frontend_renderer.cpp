@@ -716,6 +716,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
       m_myPositionController->SetVisibleViewport(msg->GetRect());
       m_myPositionController->UpdatePosition();
+      PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
       break;
     }
 
