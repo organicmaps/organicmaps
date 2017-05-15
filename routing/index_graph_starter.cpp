@@ -10,10 +10,11 @@ m2::PointD CalcProjectionToSegment(Segment const & segment, m2::PointD const & p
                                    WorldGraph & graph)
 {
   m2::ProjectionToSection<m2::PointD> projection;
-  projection.SetBounds(graph.GetPoint(segment, false), graph.GetPoint(segment, true));
+  projection.SetBounds(graph.GetPoint(segment, false /* front */),
+                       graph.GetPoint(segment, true /* front */));
   return projection(point);
 }
-}
+}  // namespace
 
 namespace routing
 {
