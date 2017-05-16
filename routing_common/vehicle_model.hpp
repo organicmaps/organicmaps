@@ -65,6 +65,12 @@ public:
     bool m_isTransitAllowed;  /// transit allowed for this road type
   };
 
+  struct AdditionalRoadTags final
+  {
+    std::initializer_list<char const *> m_hwtag;
+    double m_speedKMpH;
+  };
+
   typedef std::initializer_list<FeatureTypeLimits> InitListT;
 
   VehicleModel(Classificator const & c, InitListT const & featureTypeLimits);
@@ -92,12 +98,6 @@ public:
   }
 
 protected:
-  struct AdditionalRoadTags final
-  {
-    std::initializer_list<char const *> m_hwtag;
-    double m_speedKMpH;
-  };
-
   /// @returns a special restriction which is set to the feature.
   virtual RoadAvailability GetRoadAvailability(feature::TypesHolder const & types) const;
 

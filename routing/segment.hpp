@@ -65,6 +65,12 @@ public:
 
   bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
+  bool IsInverse(Segment const & seg) const
+  {
+    return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
+           m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
+  }
+
 private:
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;

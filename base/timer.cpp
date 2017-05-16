@@ -84,6 +84,11 @@ std::string TimestampToString(time_t time)
   return buf;
 }
 
+std::string SecondsSinceEpochToString(uint64_t secondsSinceEpoch)
+{
+  return TimestampToString(SecondsSinceEpochToTimeT(secondsSinceEpoch));
+}
+
 namespace
 {
 bool IsValid(tm const & t)

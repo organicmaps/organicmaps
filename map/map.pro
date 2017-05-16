@@ -29,10 +29,10 @@ HEADERS += \
     gps_tracker.hpp \
     local_ads_manager.hpp \
     local_ads_mark.hpp \
-    mwm_tree.hpp \
     mwm_url.hpp \
     place_page_info.hpp \
     reachable_by_taxi_checker.hpp \
+    routing_helpers.cpp \
     routing_manager.hpp \
     routing_mark.hpp \
     taxi_delegate.hpp \
@@ -63,10 +63,10 @@ SOURCES += \
     local_ads_manager.cpp \
     local_ads_mark.cpp \
     local_ads_supported_types.cpp \
-    mwm_tree.cpp \
     mwm_url.cpp \
     place_page_info.cpp \
     reachable_by_taxi_checker.cpp \
+    routing_helpers.cpp \
     routing_manager.cpp \
     routing_mark.cpp \
     taxi_delegate.cpp \

@@ -50,14 +50,14 @@ set(
   local_ads_mark.cpp
   local_ads_mark.hpp
   local_ads_supported_types.cpp
-  mwm_tree.cpp
-  mwm_tree.hpp
   mwm_url.cpp
   mwm_url.hpp
   place_page_info.cpp
   place_page_info.hpp
   reachable_by_taxi_checker.cpp
   reachable_by_taxi_checker.hpp
+  routing_helpers.cpp
+  routing_helpers.hpp
   routing_manager.cpp
   routing_manager.hpp
   routing_mark.cpp

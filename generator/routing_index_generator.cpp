@@ -165,17 +165,6 @@ private:
   IndexGraph & m_graph;
 };
 
-bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & point)
-{
-  for (auto const & region : regions)
-  {
-    if (region.Contains(point))
-      return true;
-  }
-
-  return false;
-}
-
 // Calculate distance from the starting border point to the transition along the border.
 // It could be measured clockwise or counterclockwise, direction doesn't matter.
 RouteWeight CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
@@ -236,11 +225,11 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
     CHECK(osmIt != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
     uint64_t const osmId = osmIt->second.OsmId();
 
-    bool prevPointIn = RegionsContain(borders, f.GetPoint(0));
+    bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
 
     for (size_t i = 1; i < pointsCount; ++i)
     {
-      bool const currPointIn = RegionsContain(borders, f.GetPoint(i));
+      bool const currPointIn = m2::RegionsContain(borders, f.GetPoint(i));
       if (currPointIn == prevPointIn)
         continue;
 

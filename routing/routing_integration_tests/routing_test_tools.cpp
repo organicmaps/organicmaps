@@ -5,7 +5,7 @@
 #include "testing/testing.hpp"
 
 #include "map/feature_vec_model.hpp"
-#include "map/mwm_tree.hpp"
+#include "map/routing_helpers.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"

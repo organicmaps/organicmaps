@@ -344,6 +344,18 @@ namespace m2
     return (DebugPrint(r.m_rect) + ::DebugPrint(r.m_points));
   }
 
+  template <class PointT>
+  bool RegionsContain(vector<Region<PointT>> const & regions, PointT const & point)
+  {
+    for (auto const & region : regions)
+    {
+      if (region.Contains(point))
+        return true;
+    }
+
+    return false;
+  }
+
   typedef Region<m2::PointD> RegionD;
   typedef Region<m2::PointI> RegionI;
   typedef Region<m2::PointU> RegionU;
