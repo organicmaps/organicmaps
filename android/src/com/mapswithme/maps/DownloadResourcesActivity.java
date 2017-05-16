@@ -626,7 +626,16 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public boolean isSupported(Intent intent)
     {
       final Uri data = intent.getData();
-      return (data != null && "mapsme".equals(intent.getScheme()) && "lead".equals(data.getHost()));
+
+      if (data == null)
+        return false;
+
+      String scheme = intent.getScheme();
+      String host = data.getHost();
+      if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
+        return false;
+
+      return (scheme.equals("https") || scheme.equals("http")) && "lead.maps.me".equals(host);
     }
 
     @Override
