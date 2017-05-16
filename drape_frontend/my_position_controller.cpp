@@ -809,16 +809,10 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom)
     m_routingNotFollowTimer.Reset();
     m_enableAutoZoomInRouting = enableAutoZoom;
 
-    if (IsRotationAvailable())
-    {
-      ChangeMode(location::FollowAndRotate);
-      ChangeModelView(m_position, m_drawDirection, GetRoutingRotationPixelCenter(), zoomLevel);
-    }
-    else
-    {
-      ChangeMode(location::Follow);
-      ChangeModelView(m_position, zoomLevel);
-    }
+    ChangeMode(location::FollowAndRotate);
+    ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0,
+                    GetRoutingRotationPixelCenter(), zoomLevel);
+
   }
 }
 
