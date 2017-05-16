@@ -8,7 +8,7 @@
     android:overScrollMode="never"
     android:layout_above="@+id/pp__buttons">
 
-    <LinearLayout
+    <com.mapswithme.maps.widget.ObservableLinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="?cardBackground"/>
-    </LinearLayout>
+    </com.mapswithme.maps.widget.ObservableLinearLayout>
   </com.mapswithme.maps.widget.ObservableScrollView>
 
   <include
