@@ -51,7 +51,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                         params.m_isAutozoomEnabled,
                                         bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
 
-  FrontendRenderer::Params frParams(make_ref(m_threadCommutator),
+  FrontendRenderer::Params frParams(params.m_apiVersion,
+                                    make_ref(m_threadCommutator),
                                     params.m_factory,
                                     make_ref(m_textureManager),
                                     move(mpParams),
@@ -67,7 +68,8 @@ DrapeEngine::DrapeEngine(Params && params)
 
   m_frontend = make_unique_dp<FrontendRenderer>(move(frParams));
 
-  BackendRenderer::Params brParams(frParams.m_commutator,
+  BackendRenderer::Params brParams(params.m_apiVersion,
+                                   frParams.m_commutator,
                                    frParams.m_oglContextFactory,
                                    frParams.m_texMng,
                                    params.m_model,

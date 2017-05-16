@@ -55,7 +55,6 @@ SOURCES += \
     drape_engine.cpp \
     drape_measurer.cpp \
     engine_context.cpp \
-    framebuffer.cpp \
     frontend_renderer.cpp \
     gps_track_renderer.cpp \
     gps_track_shape.cpp \
@@ -100,7 +99,6 @@ SOURCES += \
     user_event_stream.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
-    viewport.cpp \
     visual_params.cpp \
     kinetic_scroller.cpp \
     watch/cpu_drawer.cpp \
@@ -160,7 +158,6 @@ HEADERS += \
     drape_hints.hpp \
     drape_measurer.hpp \
     engine_context.hpp \
-    framebuffer.hpp \
     frontend_renderer.hpp \
     gps_track_point.hpp \
     gps_track_renderer.hpp \
@@ -211,7 +208,6 @@ HEADERS += \
     user_event_stream.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
-    viewport.hpp \
     visual_params.hpp \
     kinetic_scroller.hpp \
     watch/cpu_drawer.hpp \

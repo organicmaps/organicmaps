@@ -143,6 +143,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   }
 
   ::Framework::DrapeCreationParams p;
+  p.m_apiVersion = factory->IsSupportedOpenGLES3() ? dp::ApiVersion::OpenGLES3 :
+                                                     dp::ApiVersion::OpenGLES2;
   p.m_surfaceWidth = factory->GetWidth();
   p.m_surfaceHeight = factory->GetHeight();
   p.m_visualScale = dp::VisualScale(densityDpi);

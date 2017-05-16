@@ -146,7 +146,7 @@ namespace newtype_default_output
 template <typename Type, typename Tag>
 string SimpleDebugPrint(NewType<Type, Tag> const & nt)
 {
-  return DebugPrint(nt.Get());
+  return ::DebugPrint(nt.Get());
 }
 }  // namespace newtype_default_output
 }  // namespace my

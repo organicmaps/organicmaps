@@ -13,6 +13,7 @@ SOURCES += \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/debug_rect_renderer.cpp \
     $$DRAPE_DIR/font_texture.cpp \
+    $$DRAPE_DIR/framebuffer.cpp \
     $$DRAPE_DIR/glconstants.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
     $$DRAPE_DIR/glstate.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
     $$DRAPE_DIR/utils/projection.cpp \
     $$DRAPE_DIR/utils/vertex_decl.cpp \
     $$DRAPE_DIR/vertex_array_buffer.cpp \
+    $$DRAPE_DIR/viewport.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
@@ -63,6 +65,7 @@ HEADERS += \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/font_texture.hpp \
+    $$DRAPE_DIR/framebuffer.hpp \
     $$DRAPE_DIR/glconstants.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/glfunctions.hpp \
@@ -101,6 +104,7 @@ HEADERS += \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
+    $$DRAPE_DIR/viewport.hpp \
     $$DRAPE_DIR/visual_scale.hpp \
 
 iphone*{

@@ -13,6 +13,7 @@
 
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/viewport.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -27,23 +28,25 @@
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 
-namespace dp { class OGLContextFactory; }
+namespace dp
+{
+class OGLContextFactory;
+}  // namespace dp
 
 namespace df
 {
-
 class UserMarksProvider;
 class MapDataProvider;
-class Viewport;
 
 class DrapeEngine
 {
 public:
   struct Params
   {
-    Params(ref_ptr<dp::OGLContextFactory> factory,
+    Params(dp::ApiVersion apiVersion,
+           ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<StringsBundle> stringBundle,
-           Viewport const & viewport,
+           dp::Viewport const & viewport,
            MapDataProvider const & model,
            Hints const & hints,
            double vs,
@@ -60,7 +63,8 @@ public:
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
            OverlaysShowStatsCallback && overlaysShowStatsCallback)
-      : m_factory(factory)
+      : m_apiVersion(apiVersion)
+      , m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
       , m_model(model)
@@ -81,9 +85,10 @@ public:
       , m_overlaysShowStatsCallback(move(overlaysShowStatsCallback))
     {}
 
+    dp::ApiVersion m_apiVersion;
     ref_ptr<dp::OGLContextFactory> m_factory;
     ref_ptr<StringsBundle> m_stringsBundle;
-    Viewport m_viewport;
+    dp::Viewport m_viewport;
     MapDataProvider m_model;
     Hints m_hints;
     double m_vs;
@@ -216,7 +221,7 @@ private:
   drape_ptr<RequestedTiles> m_requestedTiles;
   location::TMyPositionModeChanged m_myPositionModeChanged;
 
-  Viewport m_viewport;
+  dp::Viewport m_viewport;
 
   TModelViewListenerFn m_modelViewChanged;
   TUserPositionChangedFn m_userPositionChanged;

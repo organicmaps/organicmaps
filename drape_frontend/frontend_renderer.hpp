@@ -38,13 +38,13 @@
 
 namespace dp
 {
-  class RenderBucket;
-  class OverlayTree;
-}
+class Framebuffer;
+class OverlayTree;
+class RenderBucket;
+}  // namespace dp
 
 namespace df
 {
-class Framebuffer;
 class ScenarioManager;
 class ScreenQuadRenderer;
 class SelectionShape;
@@ -69,11 +69,12 @@ public:
 
   struct Params : BaseRenderer::Params
   {
-    Params(ref_ptr<ThreadsCommutator> commutator,
+    Params(dp::ApiVersion apiVersion,
+           ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams,
-           Viewport viewport,
+           dp::Viewport viewport,
            TModelViewChanged const & modelViewChangedFn,
            TTapEventInfoFn const & tapEventFn,
            TUserPositionChangedFn const & positionChangedFn,
@@ -82,7 +83,7 @@ public:
            bool allow3dBuildings,
            bool trafficEnabled,
            bool blockTapEvents)
-      : BaseRenderer::Params(commutator, factory, texMng)
+      : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
       , m_myPositionParams(move(myPositionParams))
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -96,7 +97,7 @@ public:
     {}
 
     MyPositionController::Params m_myPositionParams;
-    Viewport m_viewport;
+    dp::Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
     TTapEventInfoFn m_tapEventFn;
     TUserPositionChangedFn m_positionChangedFn;
@@ -267,7 +268,7 @@ private:
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;
-  drape_ptr<Framebuffer> m_framebuffer;
+  drape_ptr<dp::Framebuffer> m_framebuffer;
   drape_ptr<ScreenQuadRenderer> m_screenQuadRenderer;
   drape_ptr<GpsTrackRenderer> m_gpsTrackRenderer;
   drape_ptr<DrapeApiRenderer> m_drapeApiRenderer;
@@ -284,7 +285,7 @@ private:
 
   bool m_choosePositionMode;
 
-  Viewport m_viewport;
+  dp::Viewport m_viewport;
   UserEventStream m_userEventStream;
   TModelViewChanged m_modelViewChangedFn;
   TTapEventInfoFn m_tapEventInfoFn;

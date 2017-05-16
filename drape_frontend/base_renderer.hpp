@@ -22,15 +22,18 @@ class BaseRenderer : public MessageAcceptor
 public:
   struct Params
   {
-    Params(ref_ptr<ThreadsCommutator> commutator,
+    Params(dp::ApiVersion apiVersion,
+           ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng)
-      : m_commutator(commutator)
+      : m_apiVersion(apiVersion)
+      , m_commutator(commutator)
       , m_oglContextFactory(factory)
       , m_texMng(texMng)
     {
     }
 
+    dp::ApiVersion m_apiVersion;
     ref_ptr<ThreadsCommutator> m_commutator;
     ref_ptr<dp::OGLContextFactory> m_oglContextFactory;
     ref_ptr<dp::TextureManager> m_texMng;
@@ -46,6 +49,7 @@ public:
   bool IsRenderingEnabled() const;
 
 protected:
+  dp::ApiVersion m_apiVersion;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::OGLContextFactory> m_contextFactory;
   ref_ptr<dp::TextureManager> m_texMng;

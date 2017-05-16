@@ -1,17 +1,18 @@
 #pragma once
 
-#import "drape/oglcontext.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/oglcontext.hpp"
+#include "drape/glIncludes.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
 
-#include "std/atomic.hpp"
+#include <atomic>
 
 class iosOGLContext : public dp::OGLContext
 {
 public:
-  iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShareWith, bool needBuffers = false);
+  iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
+                iosOGLContext * contextToShareWith, bool needBuffers = false);
   ~iosOGLContext();
 
   virtual void makeCurrent();
@@ -22,6 +23,7 @@ public:
   void setPresentAvailable(bool available);
 
 private:
+  dp::ApiVersion m_apiVersion;
   CAEAGLLayer * m_layer;
   EAGLContext * m_nativeContext;
 
@@ -37,5 +39,5 @@ private:
   GLuint m_frameBufferId;
   //@} buffers
   
-  atomic<bool> m_presentAvailable;
+  std::atomic<bool> m_presentAvailable;
 };

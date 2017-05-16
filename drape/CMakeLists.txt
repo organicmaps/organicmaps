@@ -42,6 +42,8 @@ set(
   ${DRAPE_ROOT}/dynamic_texture.hpp
   ${DRAPE_ROOT}/font_texture.cpp
   ${DRAPE_ROOT}/font_texture.hpp
+  ${DRAPE_ROOT}/framebuffer.cpp
+  ${DRAPE_ROOT}/framebuffer.hpp
   ${DRAPE_ROOT}/glconstants.cpp
   ${DRAPE_ROOT}/glconstants.hpp
   ${DRAPE_ROOT}/glextensions_list.cpp
@@ -111,6 +113,8 @@ set(
   ${DRAPE_ROOT}/utils/vertex_decl.hpp
   ${DRAPE_ROOT}/vertex_array_buffer.cpp
   ${DRAPE_ROOT}/vertex_array_buffer.hpp
+  ${DRAPE_ROOT}/viewport.cpp
+  ${DRAPE_ROOT}/viewport.hpp
   ${DRAPE_ROOT}/visual_scale.hpp
 )
 

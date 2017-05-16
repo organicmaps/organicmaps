@@ -11,8 +11,12 @@ const float aaPixelsCount = 2.5;
 void main()
 {
   vec4 color = texture2D(u_colorTex, v_colorTexCoord);
-  vec4 mask = texture2D(u_maskTex, v_maskTexCoord);
-  color.a = color.a * mask.a * u_opacity;
+#ifdef GLES3
+  float mask = texture2D(u_maskTex, v_maskTexCoord).r;
+#else
+  float mask = texture2D(u_maskTex, v_maskTexCoord).a;
+#endif
+  color.a = color.a * mask * u_opacity;
   
   float currentW = abs(v_halfLength.x);
   float diff = v_halfLength.y - currentW;

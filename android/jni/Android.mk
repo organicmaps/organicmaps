@@ -70,6 +70,7 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/opengl/android_gl_utils.hpp \
 	com/mapswithme/opengl/androidoglcontext.hpp \
 	com/mapswithme/opengl/androidoglcontextfactory.hpp \
+	com/mapswithme/opengl/gl3stub.h \
 	com/mapswithme/platform/Platform.hpp \
 
 LOCAL_SRC_FILES := \
@@ -102,6 +103,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
+	com/mapswithme/opengl/gl3stub.c \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/SocketImpl.cpp \
 	com/mapswithme/platform/Language.cpp \

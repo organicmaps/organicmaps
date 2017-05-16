@@ -7,7 +7,8 @@ namespace df
 {
 
 BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params)
-  : m_commutator(params.m_commutator)
+  : m_apiVersion(params.m_apiVersion)
+  , m_commutator(params.m_commutator)
   , m_contextFactory(params.m_oglContextFactory)
   , m_texMng(params.m_texMng)
   , m_threadName(name)

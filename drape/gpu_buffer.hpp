@@ -1,14 +1,14 @@
 #pragma once
 
-#include "drape/pointers.hpp"
 #include "drape/buffer_base.hpp"
+#include "drape/pointers.hpp"
 
 namespace dp
 {
-
 class GPUBuffer : public BufferBase
 {
-  typedef BufferBase TBase;
+  using TBase = BufferBase;
+
 public:
   enum Target
   {
@@ -23,22 +23,22 @@ public:
   void UploadData(void const * data, uint32_t elementCount);
   void Bind();
 
-  void * Map();
+  void * Map(uint32_t elementOffset, uint32_t elementCount);
   void UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount);
   void Unmap();
 
 protected:
-  /// discard old data
+  // Discard old data.
   void Resize(void const * data, uint32_t elementCount);
 
 private:
   friend class GPUBufferMapper;
   Target m_t;
   uint32_t m_bufferID;
+  uint32_t m_mappingOffset;
 
 #ifdef DEBUG
   bool m_isMapped;
 #endif
 };
-
-} // namespace dp
+}  // namespace dp

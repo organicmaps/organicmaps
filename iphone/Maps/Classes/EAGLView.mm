@@ -59,9 +59,22 @@ double getExactDPI(double contentScaleFactor)
   return self;
 }
 
+- (dp::ApiVersion)getSupportedApiVersion
+{
+  dp::ApiVersion apiVersion = dp::ApiVersion::OpenGLES2;
+  EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+  if (tempContext != nil)
+  {
+    tempContext = nil;
+    apiVersion = dp::ApiVersion::OpenGLES3;
+  }
+  return apiVersion;
+}
+
 - (void)initialize
 {
   lastViewSize = CGRectZero;
+  m_apiVersion = [self getSupportedApiVersion];
 
   // Setup Layer Properties
   CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
@@ -73,7 +86,7 @@ double getExactDPI(double contentScaleFactor)
   // Correct retina display support in opengl renderbuffer
   self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
 
-  m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
+  m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer, m_apiVersion));
 }
 
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
@@ -81,6 +94,7 @@ double getExactDPI(double contentScaleFactor)
   LOG(LINFO, ("EAGLView createDrapeEngine Started"));
   
   Framework::DrapeCreationParams p;
+  p.m_apiVersion = m_apiVersion;
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));

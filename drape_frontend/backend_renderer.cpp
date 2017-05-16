@@ -482,7 +482,7 @@ void BackendRenderer::OnContextCreate()
   m_contextFactory->waitForInitialization();
   m_contextFactory->getResourcesUploadContext()->makeCurrent();
 
-  GLFunctions::Init();
+  GLFunctions::Init(m_apiVersion);
 
   InitGLDependentResource();
 }

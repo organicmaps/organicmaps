@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 
 #include "drape/glfunctions.hpp"
+#include "drape/glIncludes.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
 

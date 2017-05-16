@@ -1,4 +1,4 @@
-#include "framebuffer.hpp"
+#include "drape/framebuffer.hpp"
 
 #include "drape/glfunctions.hpp"
 #include "drape/oglcontext.hpp"
@@ -7,16 +7,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "math.h"
-
-namespace df
+namespace dp
 {
-
-Framebuffer::~Framebuffer()
-{
-  Destroy();
-}
-
+Framebuffer::~Framebuffer() { Destroy(); }
 void Framebuffer::Destroy()
 {
   if (m_colorTextureId != 0)
@@ -24,11 +17,13 @@ void Framebuffer::Destroy()
     GLFunctions::glDeleteTexture(m_colorTextureId);
     m_colorTextureId = 0;
   }
+
   if (m_depthTextureId != 0)
   {
     GLFunctions::glDeleteTexture(m_depthTextureId);
     m_depthTextureId = 0;
   }
+
   if (m_framebufferId != 0)
   {
     GLFunctions::glDeleteFramebuffer(&m_framebufferId);
@@ -36,11 +31,7 @@ void Framebuffer::Destroy()
   }
 }
 
-void Framebuffer::SetDefaultContext(dp::OGLContext * context)
-{
-  m_defaultContext = context;
-}
-
+void Framebuffer::SetDefaultContext(dp::OGLContext * context) { m_defaultContext = context; }
 void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
   ASSERT(m_defaultContext, ());
@@ -58,7 +49,8 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   m_colorTextureId = GLFunctions::glGenTexture();
   GLFunctions::glBindTexture(m_colorTextureId);
-  GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLRGBA, gl_const::GLUnsignedByteType, NULL);
+  GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLRGBA, gl_const::GLUnsignedByteType,
+                            nullptr);
   GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear);
   GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear);
   GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
@@ -66,7 +58,15 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   m_depthTextureId = GLFunctions::glGenTexture();
   GLFunctions::glBindTexture(m_depthTextureId);
-  GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLDepthComponent, gl_const::GLUnsignedIntType, NULL);
+  GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLDepthComponent,
+                            gl_const::GLUnsignedIntType, nullptr);
+  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLNearest);
+    GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLNearest);
+    GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
+    GLFunctions::glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge);
+  }
 
   GLFunctions::glBindTexture(0);
 
@@ -101,8 +101,5 @@ void Framebuffer::Disable()
   m_defaultContext->setDefaultFramebuffer();
 }
 
-uint32_t Framebuffer::GetTextureId() const
-{
-  return m_colorTextureId;
-}
-}  // namespace df
+uint32_t Framebuffer::GetTextureId() const { return m_colorTextureId; }
+}  // namespace dp

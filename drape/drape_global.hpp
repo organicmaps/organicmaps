@@ -72,4 +72,13 @@ struct FontDecl
   float m_size = 0;
   bool m_isSdf = true;
 };
+
+inline std::string DebugPrint(dp::ApiVersion apiVersion)
+{
+  if (apiVersion == dp::OpenGLES2)
+    return "OpenGLES2";
+  else if (apiVersion == dp::OpenGLES3)
+    return "OpenGLES3";
+  return "Unknown";
+}
 }  // namespace dp

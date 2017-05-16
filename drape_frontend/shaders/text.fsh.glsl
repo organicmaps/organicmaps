@@ -18,7 +18,11 @@ void main()
 #else
   lowp vec4 glyphColor = texture2D(u_colorTex, v_colorTexCoord);
 #endif
+#ifdef GLES3
+  float dist = texture2D(u_maskTex, v_maskTexCoord).r;
+#else
   float dist = texture2D(u_maskTex, v_maskTexCoord).a;
+#endif
   float alpha = smoothstep(u_contrastGamma.x - u_contrastGamma.y, u_contrastGamma.x + u_contrastGamma.y, dist) * u_opacity;
   glyphColor.a *= alpha;
   gl_FragColor = glyphColor;

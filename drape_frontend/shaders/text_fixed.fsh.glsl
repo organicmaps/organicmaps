@@ -11,14 +11,18 @@ uniform sampler2D u_maskTex;
 uniform float u_opacity;
 uniform vec2 u_contrastGamma;
 
-void main (void)
+void main()
 {
 #ifdef ENABLE_VTF
   lowp vec4 glyphColor = v_color;
 #else
   lowp vec4 glyphColor = texture2D(u_colorTex, v_colorTexCoord);
 #endif
+#ifdef GLES3
+  float alpha = texture2D(u_maskTex, v_maskTexCoord).r;
+#else
   float alpha = texture2D(u_maskTex, v_maskTexCoord).a;
+#endif
   glyphColor.a *= u_opacity * alpha;
   gl_FragColor = glyphColor;
 }

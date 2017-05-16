@@ -25,6 +25,14 @@
   #define GL_LUMINANCE8_ALPHA4_OES 0x8043
 #endif
 
+#if !defined(GL_LUMINANCE)
+  #define GL_LUMINANCE 0x1909
+#endif
+
+#if !defined(GL_LUMINANCE_ALPHA)
+  #define GL_LUMINANCE_ALPHA 0x190A
+#endif
+
 #if defined(GL_WRITE_ONLY)
   #define WRITE_ONLY_DEF GL_WRITE_ONLY
 #elif defined(GL_WRITE_ONLY_OES)
@@ -125,6 +133,7 @@ const glConst GLAlpha8              = GL_ALPHA8_OES;
 const glConst GLLuminance8          = GL_LUMINANCE8_OES;
 const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
 const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
+const glConst GLRed                 = GL_RED;
 
 const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
 const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;

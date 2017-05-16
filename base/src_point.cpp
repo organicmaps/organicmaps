@@ -3,14 +3,12 @@
 #include <algorithm>
 #include <sstream>
 
-
 namespace my
 {
-
 void SrcPoint::TruncateFileName()
 {
   size_t const maxLen = 10000;
-  char const * p[] = { m_fileName, m_fileName };
+  char const * p[] = {m_fileName, m_fileName};
   for (size_t i = 0; i < maxLen && m_fileName[i]; ++i)
   {
     if (m_fileName[i] == '\\' || m_fileName[i] == '/')
@@ -22,9 +20,7 @@ void SrcPoint::TruncateFileName()
   m_fileName = p[1];
 }
 
-} // namespace my
-
-std::string DebugPrint(my::SrcPoint const & srcPoint)
+std::string DebugPrint(SrcPoint const & srcPoint)
 {
   std::ostringstream out;
   if (srcPoint.Line() > 0)
@@ -32,3 +28,4 @@ std::string DebugPrint(my::SrcPoint const & srcPoint)
         << srcPoint.Postfix() << " ";
   return out.str();
 }
+}  // namespace my

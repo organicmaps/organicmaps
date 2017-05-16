@@ -35,7 +35,7 @@ namespace my
   inline void OnTestFailed(SrcPoint const & srcPoint, string const & msg)
   {
     LOG(LINFO, ("FAILED"));
-    LOG(LINFO, (DebugPrint(srcPoint.FileName()) + ":" + DebugPrint(srcPoint.Line()), msg));
+    LOG(LINFO, (::DebugPrint(srcPoint.FileName()) + ":" + ::DebugPrint(srcPoint.Line()), msg));
     MYTHROW(TestFailureException, (srcPoint.FileName(), srcPoint.Line(), msg));
   }
 }

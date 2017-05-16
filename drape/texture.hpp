@@ -1,9 +1,9 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-#include "drape/glconstants.hpp"
 #include "drape/drape_global.hpp"
+#include "drape/glconstants.hpp"
 #include "drape/hw_texture.hpp"
+#include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -12,7 +12,6 @@
 
 namespace dp
 {
-
 class Texture
 {
 public:
@@ -37,7 +36,6 @@ public:
   public:
     ResourceInfo(m2::RectF const & texRect);
     virtual ~ResourceInfo() {}
-
     virtual ResourceType GetType() const = 0;
     m2::RectF const & GetTexRect() const;
 
@@ -52,7 +50,6 @@ public:
   virtual void UpdateState() {}
   virtual bool HasAsyncRoutines() const { return false; }
   virtual bool HasEnoughSpace(uint32_t /*newKeysCount*/) const { return true; }
-
   using Params = HWTexture::Params;
 
   void Create(Params const & params);
@@ -81,5 +78,4 @@ protected:
 private:
   drape_ptr<HWTexture> m_hwTexture;
 };
-
-} // namespace dp
+}  // namespace dp

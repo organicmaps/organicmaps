@@ -4,6 +4,8 @@
 #include "androidoglcontext.hpp"
 #include "drape/oglcontextfactory.hpp"
 
+#include "base/src_point.hpp"
+
 namespace android
 {
 
@@ -27,6 +29,8 @@ public:
   int GetHeight() const;
   void UpdateSurfaceSize();
 
+  bool IsSupportedOpenGLES3() const { return m_supportedES3; }
+
 private:
   bool QuerySurfaceSize();
 
@@ -48,6 +52,7 @@ private:
   int m_surfaceHeight;
 
   bool m_windowSurfaceValid;
+  bool m_supportedES3;
 };
 
 }  // namespace android
