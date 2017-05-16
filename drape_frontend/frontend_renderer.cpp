@@ -1675,7 +1675,6 @@ void FrontendRenderer::OnContextCreate()
   context->makeCurrent();
 
   GLFunctions::Init(m_apiVersion);
-  GLFunctions::AttachCache(this_thread::get_id());
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 

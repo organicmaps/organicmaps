@@ -33,6 +33,7 @@ std::mutex g_boundBuffersMutex;
 #endif
 
 inline GLboolean convert(bool v) { return static_cast<GLboolean>(v ? GL_TRUE : GL_FALSE); }
+
 typedef void(DP_APIENTRY * TglClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a);
 typedef void(DP_APIENTRY * TglClearFn)(GLbitfield mask);
 typedef void(DP_APIENTRY * TglViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h);
@@ -193,161 +194,6 @@ TglGetStringiFn glGetStringiFn = nullptr;
 
 std::mutex s_mutex;
 bool s_inited = false;
-
-class GLFunctionsCache
-{
-public:
-  GLFunctionsCache() = default;
-
-  void SetThread(std::thread::id const & threadId)
-  {
-    m_threadId = threadId;
-
-    m_glBindTextureCache = CachedParam<uint32_t>();
-    m_glActiveTextureCache = CachedParam<glConst>();
-    m_glUseProgramCache = CachedParam<uint32_t>();
-    m_glLineWidthCache = CachedParam<uint32_t>();
-    m_glStateCache.clear();
-    m_uniformsCache.clear();
-  }
-
-  void glBindTexture(uint32_t textureID)
-  {
-    if (!IsCachedThread() || m_glBindTextureCache.Assign(textureID))
-      GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
-  }
-
-  void glActiveTexture(glConst texBlock)
-  {
-    if (!IsCachedThread() || m_glActiveTextureCache.Assign(texBlock))
-    {
-      ASSERT(glActiveTextureFn != nullptr, ());
-      GLCHECK(glActiveTextureFn(texBlock));
-    }
-  }
-
-  void glUseProgram(uint32_t programID)
-  {
-    if (!IsCachedThread() || m_glUseProgramCache.Assign(programID))
-    {
-      ASSERT(glUseProgramFn != nullptr, ());
-      GLCHECK(glUseProgramFn(programID));
-    }
-  }
-
-  void glEnable(glConst mode)
-  {
-    if (!IsCachedThread() || m_glStateCache[mode].Assign(true))
-      GLCHECK(::glEnable(mode));
-  }
-
-  void glDisable(glConst mode)
-  {
-    if (!IsCachedThread() || m_glStateCache[mode].Assign(false))
-      GLCHECK(::glDisable(mode));
-  }
-
-  void glUniformValuei(int8_t location, int32_t v)
-  {
-    if (!IsCachedThread() || GetCacheForCurrentProgram().Assign(location, v))
-    {
-      ASSERT(glUniform1iFn != nullptr, ());
-      ASSERT(location != -1, ());
-      GLCHECK(glUniform1iFn(location, v));
-    }
-  }
-
-  void glUniformValuef(int8_t location, float v)
-  {
-    if (!IsCachedThread() || GetCacheForCurrentProgram().Assign(location, v))
-    {
-      ASSERT(glUniform1fFn != nullptr, ());
-      ASSERT(location != -1, ());
-      GLCHECK(glUniform1fFn(location, v));
-    }
-  }
-
-  void glLineWidth(uint32_t value)
-  {
-    if (!IsCachedThread() || m_glLineWidthCache.Assign(value))
-    {
-      GLCHECK(::glLineWidth(static_cast<float>(value)));
-    }
-  }
-
-private:
-  template <typename TValue>
-  struct CachedParam
-  {
-    TValue m_value;
-    bool m_inited;
-
-    CachedParam() : m_value(TValue()), m_inited(false) {}
-    explicit CachedParam(TValue const & value) : m_value(value), m_inited(true) {}
-    bool Assign(TValue const & newValue)
-    {
-      if (m_inited && newValue == m_value)
-        return false;
-
-      m_value = newValue;
-      m_inited = true;
-      return true;
-    }
-
-    bool operator!=(TValue const & value) const { return m_value != value; }
-    CachedParam & operator=(TValue const & param)
-    {
-      m_value = param;
-      m_inited = true;
-      return *this;
-    }
-  };
-
-  template <typename TValue>
-  using UniformCache = std::map<int8_t, CachedParam<TValue>>;
-  using StateParams = std::map<glConst, CachedParam<bool>>;
-
-  struct UniformsCache
-  {
-    UniformCache<int32_t> m_glUniform1iCache;
-    UniformCache<float> m_glUniform1fCache;
-
-    bool Assign(int8_t location, int32_t value)
-    {
-      return Assign(location, value, m_glUniform1iCache);
-    }
-    bool Assign(int8_t location, float value)
-    {
-      return Assign(location, value, m_glUniform1fCache);
-    }
-
-    template <typename TValue>
-    bool Assign(int8_t location, TValue const & value, UniformCache<TValue> & cache)
-    {
-      return cache[location].Assign(value);
-    }
-  };
-
-  GLFunctionsCache::UniformsCache & GetCacheForCurrentProgram()
-  {
-    ASSERT(m_glUseProgramCache.m_inited, ());
-    return m_uniformsCache[m_glUseProgramCache.m_value];
-  }
-
-  bool IsCachedThread() const { return std::this_thread::get_id() == m_threadId; }
-  CachedParam<uint32_t> m_glBindTextureCache;
-  CachedParam<glConst> m_glActiveTextureCache;
-  CachedParam<uint32_t> m_glUseProgramCache;
-  StateParams m_glStateCache;
-  CachedParam<uint32_t> m_glLineWidthCache;
-
-  std::map<uint32_t, UniformsCache> m_uniformsCache;
-
-  std::thread::id m_threadId;
-};
-
-GLFunctionsCache s_cache;
-
 }  // namespace
 
 #ifdef OMIM_OS_WINDOWS
@@ -522,7 +368,6 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   glCheckFramebufferStatusFn = LOAD_GL_FUNC(TglCheckFramebufferStatusFn, glCheckFramebufferStatus);
 }
 
-void GLFunctions::AttachCache(std::thread::id const & threadId) { s_cache.SetThread(threadId); }
 bool GLFunctions::glHasExtension(std::string const & name)
 {
   if (CurrentApiVersion == dp::ApiVersion::OpenGLES2)
@@ -635,8 +480,16 @@ int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
   return static_cast<int32_t>(result);
 }
 
-void GLFunctions::glEnable(glConst mode) { s_cache.glEnable(mode); }
-void GLFunctions::glDisable(glConst mode) { s_cache.glDisable(mode); }
+void GLFunctions::glEnable(glConst mode)
+{
+  GLCHECK(::glEnable(mode));
+}
+
+void GLFunctions::glDisable(glConst mode)
+{
+  GLCHECK(::glDisable(mode));
+}
+
 void GLFunctions::glClearDepthValue(double depth)
 {
 #if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID)
@@ -855,7 +708,12 @@ void GLFunctions::glDeleteProgram(uint32_t programID)
   GLCHECK(glDeleteProgramFn(programID));
 }
 
-void GLFunctions::glUseProgram(uint32_t programID) { s_cache.glUseProgram(programID); }
+void GLFunctions::glUseProgram(uint32_t programID)
+{
+  ASSERT(glUseProgramFn != nullptr, ());
+  GLCHECK(glUseProgramFn(programID));
+}
+
 int8_t GLFunctions::glGetAttribLocation(uint32_t programID, std::string const & name)
 {
   ASSERT(glGetAttribLocationFn != nullptr, ());
@@ -906,7 +764,9 @@ int8_t GLFunctions::glGetUniformLocation(uint32_t programID, std::string const &
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v)
 {
-  s_cache.glUniformValuei(location, v);
+  ASSERT(glUniform1iFn != nullptr, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1iFn(location, v));
 }
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2)
@@ -939,7 +799,9 @@ void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size)
 
 void GLFunctions::glUniformValuef(int8_t location, float v)
 {
-  s_cache.glUniformValuef(location, v);
+  ASSERT(glUniform1fFn != nullptr, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1fFn(location, v));
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v1, float v2)
@@ -993,7 +855,12 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
   return paramValue;
 }
 
-void GLFunctions::glActiveTexture(glConst texBlock) { s_cache.glActiveTexture(texBlock); }
+void GLFunctions::glActiveTexture(glConst texBlock)
+{
+  ASSERT(glActiveTextureFn != nullptr, ());
+  GLCHECK(glActiveTextureFn(texBlock));
+}
+
 uint32_t GLFunctions::glGenTexture()
 {
   GLuint result = 0;
@@ -1001,8 +868,16 @@ uint32_t GLFunctions::glGenTexture()
   return result;
 }
 
-void GLFunctions::glDeleteTexture(uint32_t id) { GLCHECK(::glDeleteTextures(1, &id)); }
-void GLFunctions::glBindTexture(uint32_t textureID) { s_cache.glBindTexture(textureID); }
+void GLFunctions::glDeleteTexture(uint32_t id)
+{
+  GLCHECK(::glDeleteTextures(1, &id));
+}
+
+void GLFunctions::glBindTexture(uint32_t textureID)
+{
+  GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
+}
+
 void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType,
                                void const * data)
 {
@@ -1087,7 +962,11 @@ uint32_t GLFunctions::glCheckFramebufferStatus()
   return result;
 }
 
-void GLFunctions::glLineWidth(uint32_t value) { s_cache.glLineWidth(value); }
+void GLFunctions::glLineWidth(uint32_t value)
+{
+  GLCHECK(::glLineWidth(static_cast<float>(value)));
+}
+
 namespace
 {
 std::string GetGLError(GLenum error)

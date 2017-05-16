@@ -17,11 +17,6 @@ public:
 
   static void Init(dp::ApiVersion apiVersion);
 
-  /// Attaches cache of gl-functions to specified thread. The only cache
-  /// is available, so invoking of this method on other thread leads to
-  /// disabling of current cache and enabling another
-  static void AttachCache(std::thread::id const & threadId);
-
   static bool glHasExtension(std::string const & name);
   static void glClearColor(float r, float g, float b, float a);
   static void glClear();
