@@ -23,6 +23,11 @@ public class TimeFormatUtils
     {
       sCurrentLocale = Locale.getDefault();
       sShortWeekdays = DateFormatSymbols.getInstance().getShortWeekdays();
+      for (int i = 1; i < sShortWeekdays.length; i++)
+      {
+        sShortWeekdays[i] = Character.toUpperCase(sShortWeekdays[i].charAt(0)) +
+                            sShortWeekdays[i].substring(1);
+      }
     }
   }
 
