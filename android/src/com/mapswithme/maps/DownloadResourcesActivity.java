@@ -100,6 +100,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new Ge0IntentProcessor(),
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
+      new LeadUrlIntentProcessor(),
       new OpenCountryTaskProcessor(),
       new KmzKmlProcessor()
   };
@@ -615,6 +616,26 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       LOGGER.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::process", url);
+      return true;
+    }
+  }
+
+  private class LeadUrlIntentProcessor implements IntentProcessor
+  {
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      final Uri data = intent.getData();
+      return (data != null && "mapsme".equals(intent.getScheme()) && "lead".equals(data.getHost()));
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      final String url = intent.getData().toString();
+      LOGGER.i(TAG, "URL = " + url);
+      mMapTaskToForward = new OpenUrlTask(url);
+      org.alohalytics.Statistics.logEvent("LeadUrlIntentProcessor::process", url);
       return true;
     }
   }
