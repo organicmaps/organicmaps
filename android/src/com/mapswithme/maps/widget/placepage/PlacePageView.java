@@ -1285,8 +1285,21 @@ public class PlacePageView extends RelativeLayout
       if (tt.containsWeekday(currentDay))
       {
         containsCurrentWeekday = true;
-        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + tt.workingTimespan,
+        String workingTime;
+
+        if (tt.isFullday)
+        {
+          String allDay = resources.getString(R.string.editor_time_allday);
+          workingTime = Character.toLowerCase(allDay.charAt(0)) + allDay.substring(1);
+        }
+        else
+        {
+          workingTime = tt.workingTimespan.toString();
+        }
+
+        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + workingTime,
                                  ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+
         break;
       }
     }
