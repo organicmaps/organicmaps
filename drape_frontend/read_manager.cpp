@@ -41,7 +41,8 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
                          bool allow3dBuildings, bool trafficEnabled)
   : m_commutator(commutator)
   , m_model(model)
-  , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
+  , m_pool(make_unique_dp<threads::ThreadPool>(kReadingThreadsCount,
+                                               bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
@@ -49,8 +50,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , myPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
-{
-}
+{}
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
@@ -186,11 +186,6 @@ bool ReadManager::CheckTileKey(TileKey const & tileKey) const
       return !tileInfo->IsCancelled();
 
   return false;
-}
-
-uint32_t ReadManager::ReadCount()
-{
-  return max(static_cast<int>(GetPlatform().CpuCores()) - 2, 2);
 }
 
 bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
