@@ -1710,7 +1710,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
     {
-      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery());
+      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery())
+                     && !RoutingController.get().isNavigating();
       mFilterController.show(show, true);
       mMainMenu.show(!show);
     }
@@ -1739,6 +1740,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
     adjustCompass(UiUtils.getCompassYOffset(this));
+    if (show)
+    {
+      mSearchController.clear();
+      mSearchController.hide();
+      if (mFilterController != null)
+        mFilterController.show(false, true);
+    }
   }
 
   @Override
