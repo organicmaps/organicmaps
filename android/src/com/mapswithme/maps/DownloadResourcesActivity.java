@@ -635,7 +635,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
         return false;
 
-      return (scheme.equals("https") || scheme.equals("http")) && "lead.maps.me".equals(host);
+      return scheme.equals("mapsme") && "lead".equals(host);
     }
 
     @Override

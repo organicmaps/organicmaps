@@ -141,12 +141,8 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data
-          android:host="lead.maps.me"
-          android:scheme="http"/>
-
-        <data
-          android:host="lead.maps.me"
-          android:scheme="https"/>
+          android:host="lead"
+          android:scheme="mapsme"/>
       </intent-filter>
 
       <!-- API CALL -->
