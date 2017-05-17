@@ -49,6 +49,7 @@ private:
                  std::vector<size_t> const & actualMatching);
 
   void ResetSearch();
+  void ShowMarks(Context const & context);
 
   Framework & m_framework;
   Index const & m_index;

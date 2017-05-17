@@ -26,10 +26,17 @@ public:
   void SetContents(search::Sample const & sample, bool positionAvailable);
   void OnSearchStarted();
   void OnSearchCompleted();
-  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
-  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results);
 
-  void EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits);
+  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
+                           std::vector<Edits::Entry> const & entries);
+
+  void ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
+                                std::vector<Edits::Entry> const & entries);
+  void ClearSearchResultMarks();
+
+  void SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits);
 
   void Clear();
 
@@ -44,7 +51,8 @@ signals:
 
 private:
   void ClearAllResults();
-  void EnableEditing(ResultsView & results, Edits & edits);
+  void SetEdits(ResultsView & results, Edits & edits);
+  void OnRemoveNonFoundResult(int row);
 
   Framework & m_framework;
 
@@ -58,11 +66,14 @@ private:
 
   QPushButton * m_showViewport = nullptr;
   QPushButton * m_showPosition = nullptr;
+
   ResultsView * m_foundResults = nullptr;
   QWidget * m_foundResultsBox = nullptr;
 
   ResultsView * m_nonFoundResults = nullptr;
   QWidget * m_nonFoundResultsBox = nullptr;
+
+  Edits * m_nonFoundResultsEdits = nullptr;
 
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;

@@ -32,9 +32,17 @@ public:
   virtual void OnSearchCompleted() = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample, bool positionAvailable,
                           bool hasEdits) = 0;
+
   virtual void ShowFoundResults(search::Results::ConstIter begin,
                                 search::Results::ConstIter end) = 0;
-  virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) = 0;
+  virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
+                                   std::vector<Edits::Entry> const & entries) = 0;
+
+  virtual void ShowFoundResultsMarks(search::Results::ConstIter begin,
+                                     search::Results::ConstIter end) = 0;
+  virtual void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
+                                        std::vector<Edits::Entry> const & entries) = 0;
+  virtual void ClearSearchResultMarks() = 0;
 
   virtual void MoveViewportToResult(search::Result const & result) = 0;
   virtual void MoveViewportToResult(search::Sample::Result const & result) = 0;
@@ -42,8 +50,7 @@ public:
 
   virtual void OnResultChanged(size_t sampleIndex, ResultType type,
                                Edits::Update const & update) = 0;
-  virtual void EnableSampleEditing(size_t index, Edits & foundResultsEdits,
-                                   Edits & nonFoundResultsEdits) = 0;
+  virtual void SetEdits(size_t index, Edits & foundResultsEdits, Edits & nonFoundResultsEdits) = 0;
   virtual void OnSampleChanged(size_t sampleIndex, bool hasEdits) = 0;
   virtual void OnSamplesChanged(bool hasEdits) = 0;
 
@@ -54,3 +61,13 @@ public:
 protected:
   Model * m_model = nullptr;
 };
+
+inline std::string DebugPrint(View::ResultType type)
+{
+  switch (type)
+  {
+  case View::ResultType::Found: return "Found";
+  case View::ResultType::NonFound: return "NonFound";
+  }
+  return "Unknown";
+}

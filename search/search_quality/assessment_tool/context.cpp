@@ -31,14 +31,14 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
   if (!m_initialized)
     return outSample;
 
-  auto const & foundRelevances = m_foundResultsEdits.GetRelevances();
-  auto const & nonFoundRelevances = m_nonFoundResultsEdits.GetRelevances();
+  auto const & foundEntries = m_foundResultsEdits.GetEntries();
+  auto const & nonFoundEntries = m_nonFoundResultsEdits.GetEntries();
 
   auto & outResults = outSample.m_results;
   outResults.clear();
 
   CHECK_EQUAL(m_goldenMatching.size(), m_sample.m_results.size(), ());
-  CHECK_EQUAL(m_actualMatching.size(), foundRelevances.size(), ());
+  CHECK_EQUAL(m_actualMatching.size(), foundEntries.size(), ());
   CHECK_EQUAL(m_actualMatching.size(), m_foundResults.GetCount(), ());
 
   // Iterates over original (loaded from the file with search samples)
@@ -53,8 +53,10 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     // assessor. But we want to keep them.
     if (j == search::Matcher::kInvalidId)
     {
-      auto const relevance = nonFoundRelevances[k++];
-      if (relevance != search::Sample::Result::Relevance::Irrelevant)
+      auto const & entry = nonFoundEntries[k++];
+      auto const deleted = entry.m_deleted;
+      auto const relevance = entry.m_curr;
+      if (!deleted && relevance != search::Sample::Result::Relevance::Irrelevant)
       {
         auto result = m_sample.m_results[i];
         result.m_relevance = relevance;
@@ -64,11 +66,11 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     }
 
     // No need to keep irrelevant results.
-    if (foundRelevances[j] == search::Sample::Result::Relevance::Irrelevant)
+    if (foundEntries[j].m_curr == search::Sample::Result::Relevance::Irrelevant)
       continue;
 
     auto result = m_sample.m_results[i];
-    result.m_relevance = foundRelevances[j];
+    result.m_relevance = foundEntries[j].m_curr;
     outResults.push_back(move(result));
   }
 
@@ -83,7 +85,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     }
 
     // No need to keep irrelevant results.
-    if (foundRelevances[i] == search::Sample::Result::Relevance::Irrelevant)
+    if (foundEntries[i].m_curr == search::Sample::Result::Relevance::Irrelevant)
       continue;
 
     auto const & result = m_foundResults[i];
@@ -93,7 +95,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     FeatureType ft;
     CHECK(loader.Load(result.GetFeatureID(), ft), ());
-    outResults.push_back(search::Sample::Result::Build(ft, foundRelevances[i]));
+    outResults.push_back(search::Sample::Result::Build(ft, foundEntries[i].m_curr));
   }
 
   return outSample;
@@ -103,8 +105,8 @@ void Context::ApplyEdits()
 {
   if (!m_initialized)
     return;
-  m_foundResultsEdits.ResetRelevances(m_foundResultsEdits.GetRelevances());
-  m_nonFoundResultsEdits.ResetRelevances(m_nonFoundResultsEdits.GetRelevances());
+  m_foundResultsEdits.Apply();
+  m_nonFoundResultsEdits.Apply();
 }
 
 // ContextList -------------------------------------------------------------------------------------
