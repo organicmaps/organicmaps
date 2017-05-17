@@ -22,6 +22,9 @@
 #include "coding/zip_creator.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include <fstream>
+#include <vector>
+
 #define PINDIAMETER 18
 
 #define EMPTY_SECTION -666
@@ -409,11 +412,17 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
 {
   MWMMailViewController * mailVC = [[MWMMailViewController alloc] init];
   mailVC.mailComposeDelegate = self;
-  NSError * err = nil;
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
-  NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath options:NSDataReadingMappedAlways error:&err];
-  if (err) return;
 
+  std::ifstream ifs(filePath.UTF8String);
+  ifs.seekg(ifs.end);
+  auto const size = ifs.tellg();
+  std::vector<char> data(size);
+  ifs.seekg(ifs.beg);
+  ifs.read(data.data(), size);
+  ifs.close();
+
+  auto myData = [[NSData alloc] initWithBytes:data.data() length:size];
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
   [self presentViewController:mailVC animated:YES completion:nil];
