@@ -277,6 +277,16 @@ std::ostream & operator<<(std::ostream & ost, Time const & time)
   return ost;
 }
 
+bool operator==(Time const & lhs, Time const & rhs)
+{
+  if (lhs.IsEmpty() && rhs.IsEmpty())
+    return true;
+
+  return lhs.GetType() == rhs.GetType() &&
+         lhs.GetHours() == rhs.GetHours() &&
+         lhs.GetMinutes() == rhs.GetMinutes();
+}
+
 // TimespanPeriod ----------------------------------------------------------------------------------
 TimespanPeriod::TimespanPeriod(HourMinutes const & hm):
     m_hourMinutes(hm),
@@ -299,6 +309,16 @@ std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p)
   else if (p.IsMinutes())
     PrintPaddedNumber(ost, p.GetMinutesCount(), 2);
   return ost;
+}
+
+bool operator==(TimespanPeriod const & lhs, TimespanPeriod const & rhs)
+{
+  if (lhs.IsEmpty() && rhs.IsEmpty())
+    return true;
+
+  return lhs.GetType() == rhs.GetType() &&
+         lhs.GetHourMinutes() == rhs.GetHourMinutes() &&
+         lhs.GetMinutes() == rhs.GetMinutes();
 }
 
 // Timespan ----------------------------------------------------------------------------------------
@@ -347,6 +367,25 @@ std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespan
 {
   PrintVector(ost, timespans);
   return ost;
+}
+
+bool operator==(Timespan const & lhs, Timespan const & rhs)
+{
+  if (lhs.IsEmpty() && rhs.IsEmpty())
+    return true;
+
+  if (lhs.IsEmpty() != rhs.IsEmpty() ||
+      lhs.HasStart() != rhs.HasStart() ||
+      lhs.HasEnd() != rhs.HasEnd() ||
+      lhs.HasPlus() != rhs.HasPlus() ||
+      lhs.HasPeriod() != rhs.HasPeriod())
+  {
+    return false;
+  }
+
+  return lhs.GetStart() == rhs.GetStart() &&
+         lhs.GetEnd() == rhs.GetEnd() &&
+         lhs.GetPeriod() == lhs.GetPeriod();
 }
 
 // NthWeekdayOfTheMonthEntry -----------------------------------------------------------------------
