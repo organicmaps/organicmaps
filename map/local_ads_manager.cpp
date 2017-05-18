@@ -79,7 +79,10 @@ std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
     return {};
 
   std::ostringstream ss;
-  ss << kServerUrl << "/" << mwmId.GetInfo()->GetVersion() << "/"
+  auto const campaignDataVersion = static_cast<uint32_t>(local_ads::Version::latest);
+  ss << kServerUrl << "/"
+     << campaignDataVersion << "/"
+     << mwmId.GetInfo()->GetVersion() << "/"
      << UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
   return ss.str();
 }

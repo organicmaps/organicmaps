@@ -11,14 +11,6 @@
 
 namespace
 {
-enum class Version
-{
-  unknown = -1,
-  v1 = 0,  // March 2017 (Store feature ids and icon ids as varints,
-           // use one byte for days before expiration.)
-  latest = v1
-};
-
 template<typename T>
 constexpr bool IsEnumOrIntegral()
 {
@@ -103,7 +95,7 @@ std::vector<Campaign> Deserialize(std::vector<uint8_t> const & bytes)
         featureIds[i],
         icons[i],
         expirations[i],
-        false /* priorityBit */
+        true /* priorityBit */
     );
   }
   return campaigns;
