@@ -225,11 +225,28 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
 
 /// VAO
 #if defined(OMIM_OS_MAC)
-  glGenVertexArraysFn = &glGenVertexArraysAPPLE;
-  glBindVertexArrayFn = &glBindVertexArrayAPPLE;
-  glDeleteVertexArrayFn = &glDeleteVertexArraysAPPLE;
-  glMapBufferFn = &::glMapBuffer;
-  glUnmapBufferFn = &::glUnmapBuffer;
+  if (CurrentApiVersion == dp::ApiVersion::OpenGLES2)
+  {
+    glGenVertexArraysFn = &glGenVertexArraysAPPLE;
+    glBindVertexArrayFn = &glBindVertexArrayAPPLE;
+    glDeleteVertexArrayFn = &glDeleteVertexArraysAPPLE;
+    glMapBufferFn = &::glMapBuffer;
+    glUnmapBufferFn = &::glUnmapBuffer;
+  }
+  else if (CurrentApiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    glGenVertexArraysFn = &::glGenVertexArrays;
+    glBindVertexArrayFn = &::glBindVertexArray;
+    glDeleteVertexArrayFn = &::glDeleteVertexArrays;
+    glUnmapBufferFn = &::glUnmapBuffer;
+    glMapBufferRangeFn = &::glMapBufferRange;
+    glFlushMappedBufferRangeFn = &::glFlushMappedBufferRange;
+    glGetStringiFn = &::glGetStringi;
+  }
+  else
+  {
+    ASSERT(false, ("Unknown Graphics API"));
+  }
 #elif defined(OMIM_OS_LINUX)
   glGenVertexArraysFn = &::glGenVertexArrays;
   glBindVertexArrayFn = &::glBindVertexArray;

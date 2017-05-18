@@ -43,7 +43,7 @@ public Q_SLOTS:
   void OnUpdateCountryStatusByTimer();
 
 public:
-  DrawWidget(Framework & framework, QWidget * parent);
+  DrawWidget(Framework & framework, bool useOpenGL3, QWidget * parent);
   ~DrawWidget();
 
   bool Search(search::EverywhereSearchParams const & params);
@@ -71,6 +71,8 @@ public:
   void RetryToDownloadCountry(storage::TCountryId const & countryId);
 
   void SetSelectionMode(bool mode);
+
+  static void SetDefaultSurfaceFormat(bool useOpenGL3);
 
 protected:
   /// @name Overriden from MapWidget.

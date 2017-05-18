@@ -45,6 +45,7 @@ private:
   double m_azimuth = 0.0;
   bool m_obsoletePosition = false;
 
+  uint32_t m_VAO = 0;
   uint32_t m_bufferId = 0;
   uint32_t m_bufferNormalsId = 0;
 

@@ -16,6 +16,7 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+#include <QSurfaceFormat>
 #include <QtCore/QDir>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -103,8 +104,14 @@ int main(int argc, char * argv[])
   int returnCode = -1;
   if (eulaAccepted)   // User has accepted EULA
   {
+    bool useOpenGL3 = false;
+#if defined(OMIM_OS_MAC)
+    useOpenGL3 = a.arguments().contains("gl3");
+#endif
+    qt::MainWindow::SetDefaultSurfaceFormat(useOpenGL3);
+
     Framework framework;
-    qt::MainWindow w(framework);
+    qt::MainWindow w(framework, useOpenGL3);
     w.show();
     returnCode = a.exec();
   }

@@ -88,6 +88,9 @@ Arrow3d::~Arrow3d()
 
   if (m_bufferNormalsId != 0)
     GLFunctions::glDeleteBuffer(m_bufferNormalsId);
+
+  if (m_VAO != 0)
+    GLFunctions::glDeleteVertexArray(m_VAO);
 }
 
 void Arrow3d::SetPosition(const m2::PointD & position)
@@ -107,6 +110,11 @@ void Arrow3d::SetTexture(ref_ptr<dp::TextureManager> texMng)
 
 void Arrow3d::Build()
 {
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  {
+    m_VAO = GLFunctions::glGenVertexArray();
+    GLFunctions::glBindVertexArray(m_VAO);
+  }
   m_bufferId = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_vertices.size()) * sizeof(m_vertices[0]),
@@ -117,6 +125,8 @@ void Arrow3d::Build()
   GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_normals.size()) * sizeof(m_normals[0]),
                             m_normals.data(), gl_const::GLStaticDraw);
 
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
@@ -127,10 +137,6 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
 
 void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng, bool routingMode)
 {
-  // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-
   if (!m_isInitialized)
   {
     Build();
@@ -162,6 +168,8 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   RenderArrow(screen, arrowProgram, color, 0.0f /* dz */, 1.0f /* scaleFactor */, true /* hasNormals */);
 
   arrowProgram->Unbind();
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
@@ -169,6 +177,9 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> pro
                           dp::Color const & color, float dz, float scaleFactor, bool hasNormals)
 {
   program->Bind();
+
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(m_VAO);
 
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
   int8_t const attributePosition = program->GetAttributeLocation("a_pos");

@@ -36,8 +36,8 @@ using namespace qt::common;
 
 namespace qt
 {
-DrawWidget::DrawWidget(Framework & framework, QWidget * parent)
-  : TBase(framework, parent)
+DrawWidget::DrawWidget(Framework & framework, bool useOpenGL3, QWidget * parent)
+  : TBase(framework, useOpenGL3, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -401,5 +401,33 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 {
   m_framework.SetRouter(routerType);
 }
+
 void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
+
+// static
+void DrawWidget::SetDefaultSurfaceFormat(bool useOpenGL3)
+{
+  QSurfaceFormat fmt;
+  fmt.setAlphaBufferSize(8);
+  fmt.setBlueBufferSize(8);
+  fmt.setGreenBufferSize(8);
+  fmt.setRedBufferSize(8);
+  fmt.setStencilBufferSize(0);
+  fmt.setSamples(0);
+  fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+  fmt.setSwapInterval(1);
+  fmt.setDepthBufferSize(16);
+  if (useOpenGL3)
+  {
+    fmt.setProfile(QSurfaceFormat::CoreProfile);
+    fmt.setVersion(3, 2);
+  }
+  else
+  {
+    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+    fmt.setVersion(2, 1);
+  }
+  //fmt.setOption(QSurfaceFormat::DebugContext);
+  QSurfaceFormat::setDefaultFormat(fmt);
 }
+}  // namespace qt
