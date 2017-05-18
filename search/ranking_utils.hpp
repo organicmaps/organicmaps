@@ -30,10 +30,9 @@ bool PrefixMatch(QueryParams::Token const & token, strings::UniString const & te
 enum NameScore
 {
   NAME_SCORE_ZERO = 0,
-  NAME_SCORE_SUBSTRING_PREFIX = 1,
-  NAME_SCORE_SUBSTRING = 2,
-  NAME_SCORE_FULL_MATCH_PREFIX = 3,
-  NAME_SCORE_FULL_MATCH = 4,
+  NAME_SCORE_SUBSTRING = 1,
+  NAME_SCORE_PREFIX = 2,
+  NAME_SCORE_FULL_MATCH = 3,
 
   NAME_SCORE_COUNT
 };
@@ -44,8 +43,8 @@ bool IsStopWord(strings::UniString const & s);
 // Normalizes, simplifies and splits string, removes stop-words.
 void PrepareStringForMatching(std::string const & name, std::vector<strings::UniString> & tokens);
 
-template <typename TSlice>
-NameScore GetNameScore(std::string const & name, TSlice const & slice)
+template <typename Slice>
+NameScore GetNameScore(std::string const & name, Slice const & slice)
 {
   if (slice.Empty())
     return NAME_SCORE_ZERO;
@@ -55,8 +54,8 @@ NameScore GetNameScore(std::string const & name, TSlice const & slice)
   return GetNameScore(tokens, slice);
 }
 
-template <typename TSlice>
-NameScore GetNameScore(std::vector<strings::UniString> const & tokens, TSlice const & slice)
+template <typename Slice>
+NameScore GetNameScore(std::vector<strings::UniString> const & tokens, Slice const & slice)
 {
   if (slice.Empty())
     return NAME_SCORE_ZERO;
@@ -75,18 +74,19 @@ NameScore GetNameScore(std::vector<strings::UniString> const & tokens, TSlice co
     if (!match)
       continue;
 
-    if (impl::FullMatch(slice.Get(m - 1), tokens[offset + m - 1]))
-    {
-      if (m == n)
-        return NAME_SCORE_FULL_MATCH;
-      score = max(score, NAME_SCORE_SUBSTRING);
-    }
-    if (lastTokenIsPrefix && impl::PrefixMatch(slice.Get(m - 1), tokens[offset + m - 1]))
-    {
-      if (m == n)
-        return NAME_SCORE_FULL_MATCH_PREFIX;
-      score = max(score, NAME_SCORE_SUBSTRING_PREFIX);
-    }
+    bool const fullMatch = impl::FullMatch(slice.Get(m - 1), tokens[offset + m - 1]);
+    bool const prefixMatch =
+        lastTokenIsPrefix && impl::PrefixMatch(slice.Get(m - 1), tokens[offset + m - 1]);
+    if (!fullMatch && !prefixMatch)
+      continue;
+
+    if (m == n && fullMatch)
+      return NAME_SCORE_FULL_MATCH;
+
+    if (offset == 0)
+      score = max(score, NAME_SCORE_PREFIX);
+
+    score = max(score, NAME_SCORE_SUBSTRING);
   }
   return score;
 }

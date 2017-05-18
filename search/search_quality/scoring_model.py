@@ -16,7 +16,7 @@ import sys
 MAX_DISTANCE_METERS = 2e6
 MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
-NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
+NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
 
 FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats'] + NAME_SCORES + SEARCH_TYPES
@@ -25,8 +25,6 @@ FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats'] + NAME_SCORES + SEARCH_TYPES
 def transform_name_score(value, categories_match):
     if categories_match == 1:
         return 'Zero'
-    elif value == 'Full Match Prefix':
-        return 'Full Match'
     else:
         return value
 
@@ -40,10 +38,6 @@ def normalize_data(data):
 
     cats = data['PureCats'].combine(data['FalseCats'], max)
 
-    # Full prefix match is unified with a full match as these features
-    # are collinear. But we need both of them as they're also used in
-    # locality sorting.
-    #
     # TODO (@y, @m): do forward/backward/subset selection of features
     # instead of this merging.  It would be great to conduct PCA on
     # the features too.
@@ -277,7 +271,6 @@ def main(args):
 
     # Following code restores coeffs for merged features.
     ws[FEATURES.index('Building')] = ws[FEATURES.index('POI')]
-    ws[FEATURES.index('Full Match Prefix')] = ws[FEATURES.index('Full Match')]
 
     ndcgs = compute_ndcgs_for_ws(data, ws)
 
