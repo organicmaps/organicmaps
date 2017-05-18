@@ -316,7 +316,8 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     auto const & countryName = mwmId.GetInfo()->GetCountryName();
-    if (m_campaigns.find(countryName) != m_campaigns.cend())
+    auto const it = m_campaigns.find(countryName);
+    if (it != m_campaigns.cend() && it->second)
       return false;
   }
 

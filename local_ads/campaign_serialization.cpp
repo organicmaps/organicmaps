@@ -85,7 +85,7 @@ std::vector<Campaign> Deserialize(std::vector<uint8_t> const & bytes)
   ArrayByteSource src(bytes.data());
   auto const version = Read<Version>(src);
   static_cast<void>(version);  // No version dispatching for now.
-  auto const chunksNumber = Read<size_t>(src);
+  auto const chunksNumber = Read<uint64_t>(src);
 
   auto const featureIds = ReadData<uint32_t>(src, chunksNumber);
   auto const icons = ReadData<uint16_t>(src, chunksNumber);
