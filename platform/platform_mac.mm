@@ -1,5 +1,7 @@
 #include "platform/platform.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "base/logging.hpp"
 
 #include "std/target_os.hpp"
@@ -24,7 +26,16 @@ Platform::Platform()
   // get resources directory path
   string const resourcesPath = [[[NSBundle mainBundle] resourcePath] UTF8String];
   string const bundlePath = [[[NSBundle mainBundle] bundlePath] UTF8String];
-  if (resourcesPath == bundlePath)
+
+  char const * envResourcesDir = ::getenv("MWM_RESOURCES_DIR");
+  char const * envWritableDir = ::getenv("MWM_WRITABLE_DIR");
+
+  if (envResourcesDir && envWritableDir)
+  {
+    m_resourcesDir = envResourcesDir;
+    m_writableDir = envWritableDir;
+  }
+  else if (resourcesPath == bundlePath)
   {
     // we're the console app, probably unit test, and path is our directory
     m_resourcesDir = bundlePath + "/../../data/";
@@ -71,6 +82,9 @@ Platform::Platform()
       ::mkdir(m_writableDir.c_str(), 0755);
     }
   }
+
+  m_resourcesDir = my::AddSlashIfNeeded(m_resourcesDir);
+  m_writableDir = my::AddSlashIfNeeded(m_writableDir);
 
   m_settingsDir = m_writableDir;
 
