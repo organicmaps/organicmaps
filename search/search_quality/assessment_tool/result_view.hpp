@@ -48,5 +48,4 @@ private:
   QRadioButton * m_vital = nullptr;
 
   std::unique_ptr<Edits::RelevanceEditor> m_editor;
-  std::unique_ptr<Edits::ResultDeleter> m_deleter;
 };

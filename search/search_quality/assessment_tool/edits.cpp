@@ -20,19 +20,12 @@ Edits::Relevance Edits::RelevanceEditor::Get() const
 
 bool Edits::RelevanceEditor::HasChanges() const { return m_parent.HasChanges(m_index); }
 
-// Edits::ResultDeleter ----------------------------------------------------------------------------
-Edits::ResultDeleter::ResultDeleter(Edits & parent, size_t index) : m_parent(parent), m_index(index)
-{
-}
-
-void Edits::ResultDeleter::Delete() { m_parent.Delete(m_index); }
-
 // Edits -------------------------------------------------------------------------------------------
 void Edits::Apply()
 {
   WithObserver(Update::MakeAll(), [this]() {
     for (auto & entry : m_entries)
-      entry.m_curr = entry.m_orig;
+      entry.m_orig = entry.m_curr;
     m_numEdits = 0;
   });
 }

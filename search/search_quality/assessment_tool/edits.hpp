@@ -50,18 +50,6 @@ public:
 
   using OnUpdate = std::function<void(Update const & update)>;
 
-  class ResultDeleter
-  {
-  public:
-    ResultDeleter(Edits & parent, size_t index);
-
-    void Delete();
-
-  private:
-    Edits & m_parent;
-    size_t m_index = 0;
-  };
-
   class RelevanceEditor
   {
   public:
