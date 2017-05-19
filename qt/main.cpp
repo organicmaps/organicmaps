@@ -103,8 +103,14 @@ int main(int argc, char * argv[])
   int returnCode = -1;
   if (eulaAccepted)   // User has accepted EULA
   {
+    bool apiOpenGLES3 = false;
+#if defined(OMIM_OS_MAC)
+    apiOpenGLES3 = a.arguments().contains("es3", Qt::CaseInsensitive);
+#endif
+    qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
+
     Framework framework;
-    qt::MainWindow w(framework);
+    qt::MainWindow w(framework, apiOpenGLES3);
     w.show();
     returnCode = a.exec();
   }

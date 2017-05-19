@@ -55,10 +55,12 @@ namespace qt
     Q_OBJECT
 
   public:
-    MainWindow(Framework & framework);
+    MainWindow(Framework & framework, bool apiOpenGLES3);
 
     virtual void OnLocationError(location::TLocationError errorCode);
     virtual void OnLocationUpdated(location::GpsInfo const & info);
+
+    static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
   protected:
     string GetIniFile();

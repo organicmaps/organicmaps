@@ -6,8 +6,8 @@
   #include <OpenGLES/ES2/glext.h>
   #include <OpenGLES/ES3/gl.h>
 #elif defined(OMIM_OS_MAC)
-  #include <OpenGL/gl.h>
   #include <OpenGL/glext.h>
+  #include <OpenGL/gl3.h>
 #elif defined(OMIM_OS_WINDOWS)
   #include "std/windows.hpp"
   #define GL_GLEXT_PROTOTYPES

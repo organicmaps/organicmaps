@@ -21,6 +21,11 @@ ScreenQuadRenderer::~ScreenQuadRenderer()
 
 void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
 {
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  {
+    m_VAO = GLFunctions::glGenVertexArray();
+    GLFunctions::glBindVertexArray(m_VAO);
+  }
   m_attributePosition = prg->GetAttributeLocation("a_pos");
   ASSERT_NOT_EQUAL(m_attributePosition, -1, ());
 
@@ -40,21 +45,22 @@ void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBufferData(gl_const::GLArrayBuffer,
                             static_cast<uint32_t>(vertices.size()) * sizeof(vertices[0]),
                             vertices.data(), gl_const::GLStaticDraw);
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void ScreenQuadRenderer::RenderTexture(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng,
                                        float opacity)
 {
-  // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
   prg->Bind();
 
   if (m_bufferId == 0)
     Build(prg);
+
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(m_VAO);
 
   if (m_textureLocation >= 0)
   {
@@ -85,6 +91,8 @@ void ScreenQuadRenderer::RenderTexture(uint32_t textureId, ref_ptr<dp::GpuProgra
   GLFunctions::glDisable(gl_const::GLBlending);
 
   prg->Unbind();
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindTexture(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }

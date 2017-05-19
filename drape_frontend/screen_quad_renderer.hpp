@@ -27,6 +27,7 @@ private:
   void Build(ref_ptr<dp::GpuProgram> prg);
 
   uint32_t m_bufferId = 0;
+  uint32_t m_VAO = 0;
   int8_t m_attributePosition = -1;
   int8_t m_attributeTexCoord = -1;
   int8_t m_textureLocation = -1;

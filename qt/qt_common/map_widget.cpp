@@ -14,38 +14,23 @@
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtWidgets/QAction>
 
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
+
 namespace qt
 {
 namespace common
 {
-MapWidget::MapWidget(Framework & framework, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
+  , m_apiOpenGLES3(apiOpenGLES3)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
   , m_ratio(1.0)
   , m_contextFactory(nullptr)
 {
-  QSurfaceFormat fmt = format();
-
-  fmt.setMajorVersion(2);
-  fmt.setMinorVersion(1);
-
-  fmt.setAlphaBufferSize(8);
-  fmt.setBlueBufferSize(8);
-  fmt.setGreenBufferSize(8);
-  fmt.setRedBufferSize(8);
-  fmt.setStencilBufferSize(0);
-  fmt.setSamples(0);
-  fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
-  fmt.setSwapInterval(1);
-  fmt.setDepthBufferSize(16);
-  fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-
-  // fmt.setOption(QSurfaceFormat::DebugContext);
-  setFormat(fmt);
   setMouseTracking(true);
-
   // Update widget contents each 30ms.
   m_updateTimer = make_unique<QTimer>(this);
   VERIFY(connect(m_updateTimer.get(), SIGNAL(timeout()), this, SLOT(update())), ());
@@ -92,7 +77,8 @@ void MapWidget::BindSlider(ScaleSlider & slider)
 void MapWidget::CreateEngine()
 {
   Framework::DrapeCreationParams p;
-  p.m_apiVersion = dp::ApiVersion::OpenGLES2;
+
+  p.m_apiVersion = m_apiOpenGLES3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
   p.m_surfaceWidth = m_ratio * width();
   p.m_surfaceHeight = m_ratio * height();
   p.m_visualScale = m_ratio;
@@ -178,6 +164,86 @@ void MapWidget::UpdateScaleControl()
   m_slider->SetPosWithBlockedSignals(m_framework.GetDrawScale());
 }
 
+void MapWidget::Build()
+{
+  std::string vertexSrc;
+  std::string fragmentSrc;
+  if (m_apiOpenGLES3)
+  {
+    vertexSrc =
+        "\
+      #version 150 core\n \
+      in vec4 a_position; \
+      uniform vec2 u_samplerSize; \
+      out vec2 v_texCoord; \
+      \
+      void main() \
+      { \
+        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
+        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
+      }";
+
+    fragmentSrc =
+        "\
+      #version 150 core\n \
+      uniform sampler2D u_sampler; \
+      in vec2 v_texCoord; \
+      out vec4 v_FragColor; \
+      \
+      void main() \
+      { \
+        v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
+      }";
+  }
+  else
+  {
+    vertexSrc =
+        "\
+      attribute vec4 a_position; \
+      uniform vec2 u_samplerSize; \
+      varying vec2 v_texCoord; \
+      \
+      void main() \
+      { \
+        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
+        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
+      }";
+
+    fragmentSrc =
+        "\
+      uniform sampler2D u_sampler; \
+      varying vec2 v_texCoord; \
+      \
+      void main() \
+      { \
+        gl_FragColor = vec4(texture2D(u_sampler, v_texCoord).rgb, 1.0); \
+      }";
+  }
+
+  m_program = make_unique<QOpenGLShaderProgram>(this);
+  m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexSrc.c_str());
+  m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentSrc.c_str());
+  m_program->link();
+
+  m_vao = make_unique<QOpenGLVertexArrayObject>(this);
+  m_vao->create();
+  m_vao->bind();
+
+  m_vbo = make_unique<QOpenGLBuffer>(QOpenGLBuffer::VertexBuffer);
+  m_vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
+  m_vbo->create();
+  m_vbo->bind();
+
+  QVector4D vertices[4] = {QVector4D(-1.0, 1.0, 0.0, 1.0),
+                           QVector4D(1.0, 1.0, 1.0, 1.0),
+                           QVector4D(-1.0, -1.0, 0.0, 0.0),
+                           QVector4D(1.0, -1.0, 1.0, 0.0)};
+  m_vbo->allocate(static_cast<void*>(vertices), sizeof(vertices));
+
+  m_program->release();
+  m_vao->release();
+}
+
 void MapWidget::initializeGL()
 {
   ASSERT(m_contextFactory == nullptr, ());
@@ -191,76 +257,38 @@ void MapWidget::initializeGL()
 
 void MapWidget::paintGL()
 {
-  static QOpenGLShaderProgram * program = nullptr;
-  if (program == nullptr)
-  {
-    const char * vertexSrc =
-        "\
-      attribute vec2 a_position; \
-      attribute vec2 a_texCoord; \
-      uniform mat4 u_projection; \
-      varying vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        gl_Position = u_projection * vec4(a_position, 0.0, 1.0);\
-        v_texCoord = a_texCoord; \
-      }";
-
-    const char * fragmentSrc =
-        "\
-      uniform sampler2D u_sampler; \
-      varying vec2 v_texCoord; \
-      \
-      void main() \
-      { \
-        gl_FragColor = vec4(texture2D(u_sampler, v_texCoord).rgb, 1.0); \
-      }";
-
-    program = new QOpenGLShaderProgram(this);
-    program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexSrc);
-    program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentSrc);
-    program->link();
-  }
+  if (m_program == nullptr)
+    Build();
 
   if (m_contextFactory->LockFrame())
   {
+    m_vao->bind();
+    m_program->bind();
+
     QOpenGLFunctions * funcs = context()->functions();
     funcs->glActiveTexture(GL_TEXTURE0);
-    GLuint image = m_contextFactory->GetTextureHandle();
+    GLuint const image = m_contextFactory->GetTextureHandle();
     funcs->glBindTexture(GL_TEXTURE_2D, image);
 
-    int projectionLocation = program->uniformLocation("u_projection");
-    int samplerLocation = program->uniformLocation("u_sampler");
-
-    QMatrix4x4 projection;
-    QRect r = rect();
-    r.setWidth(m_ratio * r.width());
-    r.setHeight(m_ratio * r.height());
-    projection.ortho(r);
-
-    program->bind();
-    program->setUniformValue(projectionLocation, projection);
-    program->setUniformValue(samplerLocation, 0);
-
-    float const w = m_ratio * width();
-    float h = m_ratio * height();
-
-    QVector2D positions[4] = {QVector2D(0.0, 0.0), QVector2D(w, 0.0), QVector2D(0.0, h),
-                              QVector2D(w, h)};
+    int const samplerLocation = m_program->uniformLocation("u_sampler");
+    m_program->setUniformValue(samplerLocation, 0);
 
     QRectF const & texRect = m_contextFactory->GetTexRect();
-    QVector2D texCoords[4] = {QVector2D(texRect.bottomLeft()), QVector2D(texRect.bottomRight()),
-                              QVector2D(texRect.topLeft()), QVector2D(texRect.topRight())};
+    QVector2D const samplerSize(texRect.width(), texRect.height());
 
-    program->enableAttributeArray("a_position");
-    program->enableAttributeArray("a_texCoord");
-    program->setAttributeArray("a_position", positions, 0);
-    program->setAttributeArray("a_texCoord", texCoords, 0);
+    int const samplerSizeLocation = m_program->uniformLocation("u_samplerSize");
+    m_program->setUniformValue(samplerSizeLocation, samplerSize);
+
+    m_program->enableAttributeArray("a_position");
+    m_program->setAttributeBuffer("a_position", GL_FLOAT, 0, 4, 0);
 
     funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
     funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    m_program->release();
+    m_vao->release();
 
     m_contextFactory->UnlockFrame();
   }

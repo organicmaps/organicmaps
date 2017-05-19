@@ -83,6 +83,18 @@
   #define UNSYNCHRONIZED_BIT_DEF 0x0020
 #endif
 
+#if !defined(GL_FUNC_ADD)
+  #define GL_FUNC_ADD 0x8006
+#endif
+
+#if !defined(GL_FUNC_SUBTRACT)
+  #define GL_FUNC_SUBTRACT 0x800A
+#endif
+
+#if !defined(GL_FUNC_REVERSE_SUBTRACT)
+  #define GL_FUNC_REVERSE_SUBTRACT 0x800B
+#endif
+
 namespace gl_const
 {
 
