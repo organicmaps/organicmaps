@@ -7,6 +7,7 @@
 #include "geometry/point2d.hpp"
 
 #include "std/map.hpp"
+#include "std/sstream.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -45,6 +46,19 @@ private:
     bool m_bearingChecked = false;
   };
 
+  friend string DebugPrint(Vertex const & u)
+  {
+    ostringstream os;
+    os << "Vertex [ ";
+    os << "junction: " << DebugPrint(u.m_junction) << ", ";
+    os << "stageStart: " << DebugPrint(u.m_stageStart) << ", ";
+    os << "stageStartDistance: " << u.m_stageStartDistance << ", ";
+    os << "stage: " << u.m_stage << ", ";
+    os << "bearingChecked: " << u.m_bearingChecked;
+    os << " ]";
+    return os.str();
+  }
+
   struct Edge final
   {
     Edge() = default;
@@ -64,6 +78,18 @@ private:
     routing::Edge m_raw;
     bool m_isSpecial = false;
   };
+
+  friend string DebugPrint(Edge const & edge)
+  {
+    ostringstream os;
+    os << "Edge [ ";
+    os << "u: " << DebugPrint(edge.m_u) << ", ";
+    os << "v: " << DebugPrint(edge.m_v) << ", ";
+    os << "raw: " << DebugPrint(edge.m_raw) << ", ";
+    os << "isSpecial: " << edge.m_isSpecial;
+    os << " ]";
+    return os.str();
+  }
 
   using Links = map<Vertex, pair<Vertex, Edge>>;
 
