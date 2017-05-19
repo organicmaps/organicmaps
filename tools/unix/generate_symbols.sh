@@ -96,17 +96,17 @@ BuildSkin clear  clear xhdpi  36 false _clear symbols
 BuildSkin clear  clear xxhdpi 54 false _clear symbols
 BuildSkin clear  clear 6plus  54 false _clear symbols
 
-BuildSkin clear  night mdpi   18 false _dark symbols-ad -ad
-BuildSkin clear  night hdpi   27 false _dark symbols-ad -ad
-BuildSkin clear  night xhdpi  36 false _dark symbols-ad -ad
-BuildSkin clear  night xxhdpi 54 false _dark symbols-ad -ad
-BuildSkin clear  night 6plus  54 false _dark symbols-ad -ad
+BuildSkin clear  night mdpi   22 false _dark symbols-ad -ad
+BuildSkin clear  night hdpi   34 false _dark symbols-ad -ad
+BuildSkin clear  night xhdpi  44 false _dark symbols-ad -ad
+BuildSkin clear  night xxhdpi 68 false _dark symbols-ad -ad
+BuildSkin clear  night 6plus  68 false _dark symbols-ad -ad
 
-BuildSkin clear  clear mdpi   18 false _clear symbols-ad -ad
-BuildSkin clear  clear hdpi   27 false _clear symbols-ad -ad
-BuildSkin clear  clear xhdpi  36 false _clear symbols-ad -ad
-BuildSkin clear  clear xxhdpi 54 false _clear symbols-ad -ad
-BuildSkin clear  clear 6plus  54 false _clear symbols-ad -ad
+BuildSkin clear  clear mdpi   22 false _clear symbols-ad -ad
+BuildSkin clear  clear hdpi   34 false _clear symbols-ad -ad
+BuildSkin clear  clear xhdpi  44 false _clear symbols-ad -ad
+BuildSkin clear  clear xxhdpi 68 false _clear symbols-ad -ad
+BuildSkin clear  clear 6plus  68 false _clear symbols-ad -ad
 
 echo "Generate local ads symbols"
 python "$LOCAL_ADS_SYMBOLS_GENERATOR" "$DATA_PATH/styles" "$DATA_PATH"
