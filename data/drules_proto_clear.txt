@@ -21016,6 +21016,73 @@ cont {
   }
 }
 cont {
+  name: "highway-rest_area"
+  element {
+    scale: 16
+    symbol {
+      name: "picnic-m"
+      priority: 16623
+      min_distance: 10
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16623
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "picnic-l"
+      priority: 16623
+      min_distance: 10
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16623
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "picnic-l"
+      priority: 16623
+      min_distance: 10
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16623
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "picnic-l"
+      priority: 16623
+      min_distance: 10
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 16623
+    }
+  }
+}
+cont {
   name: "highway-road"
   element {
     scale: 12
@@ -56893,7 +56960,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "alcohol-m"
       priority: 16594
       min_distance: 10
     }
@@ -56960,7 +57027,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "bakery-m"
       priority: 16594
       min_distance: 10
     }
@@ -57027,7 +57094,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "beauty-m"
       priority: 16594
       min_distance: 10
     }
@@ -57094,7 +57161,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "alcohol-m"
       priority: 16594
       min_distance: 10
     }
@@ -57161,7 +57228,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "shop-bicycle-m"
       priority: 16594
       min_distance: 10
     }
@@ -57228,7 +57295,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "bookmaker-m"
       priority: 16594
       min_distance: 10
     }
@@ -57295,7 +57362,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "book-shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -57362,7 +57429,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "butcher-m"
       priority: 16594
       min_distance: 10
     }
@@ -57429,7 +57496,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car_shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -57496,7 +57563,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-part-m"
       priority: 16594
       min_distance: 10
     }
@@ -57563,7 +57630,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-repair-m"
       priority: 16594
       min_distance: 10
     }
@@ -57646,7 +57713,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-repair-m"
       priority: 16653
       min_distance: 10
     }
@@ -57713,7 +57780,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "chemist-m"
       priority: 16594
       min_distance: 10
     }
@@ -57780,7 +57847,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "clothes-m"
       priority: 16594
       min_distance: 10
     }
@@ -57914,7 +57981,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "computer-m"
       priority: 16594
       min_distance: 10
     }
@@ -57981,7 +58048,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "sweets-m"
       priority: 16594
       min_distance: 10
     }
@@ -58048,7 +58115,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "grocery-m"
       priority: 16594
       min_distance: 10
     }
@@ -58115,7 +58182,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "copyshop-m"
       priority: 16594
       min_distance: 10
     }
@@ -58182,7 +58249,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "beauty-m"
       priority: 16594
       min_distance: 10
     }
@@ -58249,7 +58316,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "department_store-m"
       priority: 16594
       min_distance: 10
     }
@@ -58316,7 +58383,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "doityourself-m"
       priority: 16594
       min_distance: 10
     }
@@ -58383,7 +58450,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "laundry-m"
       priority: 16594
       min_distance: 10
     }
@@ -58450,7 +58517,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "electronics-m"
       priority: 16594
       min_distance: 10
     }
@@ -58517,7 +58584,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "florist-m"
       priority: 16594
       min_distance: 10
     }
@@ -58584,7 +58651,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "furniture-m"
       priority: 16594
       min_distance: 10
     }
@@ -58651,7 +58718,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "garden_center-m"
       priority: 16594
       min_distance: 10
     }
@@ -58718,7 +58785,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "gift-m"
       priority: 16594
       min_distance: 10
     }
@@ -58785,7 +58852,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "greengrocer-m"
       priority: 16594
       min_distance: 10
     }
@@ -58852,7 +58919,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "hairdresser-m"
       priority: 16594
       min_distance: 10
     }
@@ -58919,7 +58986,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "doityourself-m"
       priority: 16594
       min_distance: 10
     }
@@ -58986,7 +59053,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "jewelry-m"
       priority: 16594
       min_distance: 10
     }
@@ -59053,7 +59120,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "kiosk-m"
       priority: 16594
       min_distance: 10
     }
@@ -59120,7 +59187,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "laundry-m"
       priority: 16594
       min_distance: 10
     }
@@ -59286,7 +59353,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "mobile_phone-m"
       priority: 16594
       min_distance: 10
     }
@@ -59353,7 +59420,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "optician-m"
       priority: 16594
       min_distance: 10
     }
@@ -59420,7 +59487,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "outdoor-shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -59487,7 +59554,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "petshop-m"
       priority: 16594
       min_distance: 10
     }
@@ -59554,7 +59621,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "photo-shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -59621,7 +59688,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "seafood-shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -59688,7 +59755,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "shoes-m"
       priority: 16594
       min_distance: 10
     }
@@ -59755,7 +59822,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "sports-m"
       priority: 16594
       min_distance: 10
     }
@@ -59956,7 +60023,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "ticket-shop-m"
       priority: 16594
       min_distance: 10
     }
@@ -60023,7 +60090,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "toys-m"
       priority: 16594
       min_distance: 10
     }
@@ -60157,7 +60224,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "car-repair-m"
       priority: 16594
       min_distance: 10
     }
@@ -60224,7 +60291,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "alcohol-m"
       priority: 16594
       min_distance: 10
     }
