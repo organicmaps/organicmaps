@@ -256,6 +256,41 @@ void GLFunctions::glLineWidth(uint32_t value)
   return MOCK_CALL(glLineWidth(value));
 }
 
+void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  return MOCK_CALL(glViewport(x, y, w, h));
+}
+
+void GLFunctions::glScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  return MOCK_CALL(glScissor(x, y, w, h));
+}
+
+void GLFunctions::glGenFramebuffer(uint32_t * fbo)
+{
+  return MOCK_CALL(glGenFramebuffer(fbo));
+}
+
+void GLFunctions::glBindFramebuffer(uint32_t fbo)
+{
+  return MOCK_CALL(glBindFramebuffer(fbo));
+}
+
+void GLFunctions::glDeleteFramebuffer(uint32_t * fbo)
+{
+  return MOCK_CALL(glDeleteFramebuffer(fbo));
+}
+
+void GLFunctions::glFramebufferTexture2D(glConst attachment, glConst texture)
+{
+  return MOCK_CALL(glFramebufferTexture2D(attachment, texture));
+}
+
+uint32_t GLFunctions::glCheckFramebufferStatus()
+{
+  return MOCK_CALL(glCheckFramebufferStatus());
+}
+
 void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
 void GLFunctions::glEnable(glConst mode) {}
