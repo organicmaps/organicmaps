@@ -451,9 +451,6 @@ Framework::Framework(FrameworkParams const & params)
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
-  if (!params.m_disableLocalAds)
-    m_localAdsManager.Startup();
-
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
   // To avoid possible races - init country info getter once in constructor.
@@ -473,6 +470,10 @@ Framework::Framework(FrameworkParams const & params)
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   LOG(LDEBUG, ("Storage initialized"));
+
+  // Local ads manager should be initialized after storage initialization.
+  if (!params.m_disableLocalAds)
+    m_localAdsManager.Startup();
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
   {
