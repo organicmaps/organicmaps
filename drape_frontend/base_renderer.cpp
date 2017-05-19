@@ -125,21 +125,24 @@ void BaseRenderer::CheckRenderingEnabled()
     unique_lock<mutex> lock(m_renderingEnablingMutex);
     m_renderingEnablingCondition.wait(lock, [this] { return m_wasNotified; });
 
-    // here rendering is enabled again
     m_wasNotified = false;
-    m_isEnabled = true;
 
-    if (m_wasContextReset)
+    if (!m_selfThread.GetRoutine()->IsCancelled())
     {
-      m_wasContextReset = false;
-      DisableMessageFiltering();
-      OnContextCreate();
-    }
-    else
-    {
-      context->setRenderingEnabled(true);
-    }
+      // here rendering is enabled again
+      m_isEnabled = true;
 
+      if (m_wasContextReset)
+      {
+        m_wasContextReset = false;
+        DisableMessageFiltering();
+        OnContextCreate();
+      }
+      else
+      {
+        context->setRenderingEnabled(true);
+      }
+    }
     // notify initiator-thread about rendering enabling
     // m_renderingEnablingCompletionHandler will be setup before awakening of this thread
     Notify();
