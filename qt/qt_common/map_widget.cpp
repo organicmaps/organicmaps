@@ -14,8 +14,8 @@
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtWidgets/QAction>
 
-#include <QOpenGLBuffer>
-#include <QOpenGLVertexArrayObject>
+#include <QtGui/QOpenGLBuffer>
+#include <QtGui/QOpenGLVertexArrayObject>
 
 namespace qt
 {

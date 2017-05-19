@@ -16,7 +16,7 @@ public:
   static GLMockFunctions & Instance();
   static void ValidateAndClear();
 
-  //VAO
+  // VAO
   MOCK_METHOD0(glGenVertexArray, uint32_t());
   MOCK_METHOD1(glBindVertexArray, void(uint32_t vao));
   MOCK_METHOD1(glDeleteVertexArray, void(uint32_t vao));
@@ -71,7 +71,7 @@ public:
                                         int32_t*, glConst *,
                                         string &));
 
-  //Texture functions
+  // Texture functions
   MOCK_METHOD1(glActiveTexture, void(glConst));
   MOCK_METHOD0(glGenTexture, uint32_t());
   MOCK_METHOD1(glDeleteTexture, void(uint32_t));
@@ -85,6 +85,15 @@ public:
   MOCK_METHOD0(glGetMaxLineWidth, int32_t());
 
   MOCK_METHOD1(glLineWidth, void(uint32_t value));
+  MOCK_METHOD4(glViewport, void(uint32_t x, uint32_t y, uint32_t w, uint32_t h));
+  MOCK_METHOD4(glScissor, void(uint32_t x, uint32_t y, uint32_t w, uint32_t h));
+
+  // FBO
+  MOCK_METHOD1(glGenFramebuffer, void(uint32_t * fbo));
+  MOCK_METHOD1(glBindFramebuffer, void(uint32_t fbo));
+  MOCK_METHOD1(glDeleteFramebuffer, void(uint32_t * fbo));
+  MOCK_METHOD2(glFramebufferTexture2D, void(glConst attachment, glConst texture));
+  MOCK_METHOD0(glCheckFramebufferStatus, uint32_t());
 
 private:
   static GLMockFunctions * m_mock;

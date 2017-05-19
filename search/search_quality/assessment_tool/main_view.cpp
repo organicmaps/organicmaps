@@ -250,7 +250,7 @@ void MainView::InitMapWidget()
   widget->setLayout(layout);
 
   {
-    auto * mapWidget = new qt::common::MapWidget(m_framework, widget /* parent */);
+    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */, widget /* parent */);
     auto * toolBar = new QToolBar(widget /* parent */);
     toolBar->setOrientation(Qt::Vertical);
     toolBar->setIconSize(QSize(32, 32));
