@@ -21,10 +21,10 @@ namespace qt
 {
 namespace common
 {
-MapWidget::MapWidget(Framework & framework, bool useOpenGL3, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
-  , m_useOpenGL3(useOpenGL3)
+  , m_apiOpenGLES3(apiOpenGLES3)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
   , m_ratio(1.0)
@@ -78,7 +78,7 @@ void MapWidget::CreateEngine()
 {
   Framework::DrapeCreationParams p;
 
-  p.m_apiVersion = m_useOpenGL3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
+  p.m_apiVersion = m_apiOpenGLES3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
   p.m_surfaceWidth = m_ratio * width();
   p.m_surfaceHeight = m_ratio * height();
   p.m_visualScale = m_ratio;
@@ -166,9 +166,9 @@ void MapWidget::UpdateScaleControl()
 
 void MapWidget::Build()
 {
-  string vertexSrc;
-  string fragmentSrc;
-  if (m_useOpenGL3)
+  std::string vertexSrc;
+  std::string fragmentSrc;
+  if (m_apiOpenGLES3)
   {
     vertexSrc =
         "\

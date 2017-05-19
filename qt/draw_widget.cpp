@@ -36,8 +36,8 @@ using namespace qt::common;
 
 namespace qt
 {
-DrawWidget::DrawWidget(Framework & framework, bool useOpenGL3, QWidget * parent)
-  : TBase(framework, useOpenGL3, parent)
+DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
+  : TBase(framework, apiOpenGLES3, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
@@ -405,7 +405,7 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
 
 // static
-void DrawWidget::SetDefaultSurfaceFormat(bool useOpenGL3)
+void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
   QSurfaceFormat fmt;
   fmt.setAlphaBufferSize(8);
@@ -417,7 +417,7 @@ void DrawWidget::SetDefaultSurfaceFormat(bool useOpenGL3)
   fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   fmt.setSwapInterval(1);
   fmt.setDepthBufferSize(16);
-  if (useOpenGL3)
+  if (apiOpenGLES3)
   {
     fmt.setProfile(QSurfaceFormat::CoreProfile);
     fmt.setVersion(3, 2);

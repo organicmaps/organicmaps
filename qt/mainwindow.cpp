@@ -121,7 +121,7 @@ namespace qt
 extern char const * kTokenKeySetting;
 extern char const * kTokenSecretSetting;
 
-MainWindow::MainWindow(Framework & framework, bool useOpenGL3)
+MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3)
   : m_Docks{}
   , m_locationService(CreateDesktopLocationService(*this))
 {
@@ -129,7 +129,7 @@ MainWindow::MainWindow(Framework & framework, bool useOpenGL3)
   QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  m_pDrawWidget = new DrawWidget(framework, useOpenGL3, this);
+  m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, this);
   setCentralWidget(m_pDrawWidget);
 
   QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
@@ -684,9 +684,9 @@ void MainWindow::OnQuitTrafficMode()
 }
 
 // static
-void MainWindow::SetDefaultSurfaceFormat(bool useOpenGL3)
+void MainWindow::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
-  DrawWidget::SetDefaultSurfaceFormat(useOpenGL3);
+  DrawWidget::SetDefaultSurfaceFormat(apiOpenGLES3);
 }
 
 }  // namespace qt

@@ -29,7 +29,7 @@ class MapWidget : public QOpenGLWidget
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool useOpenGL3, QWidget * parent);
+  MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
@@ -77,7 +77,7 @@ protected:
   void wheelEvent(QWheelEvent * e) override;
 
   Framework & m_framework;
-  bool m_useOpenGL3;
+  bool m_apiOpenGLES3;
   ScaleSlider * m_slider;
   SliderState m_sliderState;
 
