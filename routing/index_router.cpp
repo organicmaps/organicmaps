@@ -193,11 +193,11 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   IndexGraphStarter::FakeVertex const start(
       Segment(m_numMwmIds->GetId(startFile), startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
               true /* forward */),
-      startPoint);
+      startPoint, true /* soft */);
   IndexGraphStarter::FakeVertex const finish(
       Segment(m_numMwmIds->GetId(finishFile), finishEdge.GetFeatureId().m_index,
               finishEdge.GetSegId(), true /* forward */),
-      finalPoint);
+      finalPoint, true /* soft */);
 
   WorldGraph::Mode mode = WorldGraph::Mode::SingleMwm;
   if (forSingleMwm)
@@ -310,7 +310,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   for (size_t i = 0; i < input.size(); ++i)
   {
     Segment const & current = input[i];
-    if (worldRouteMode == WorldGraph::Mode::LeapsIfPossible && !starter.IsLeap(current.GetMwmId()))
+
+    if ((worldRouteMode == WorldGraph::Mode::LeapsOnly && IndexGraphStarter::IsFakeSegment(current))
+      || (worldRouteMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(current.GetMwmId())))
     {
       output.push_back(current);
       continue;
@@ -330,14 +332,8 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
           ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
     }
 
-    IndexGraphStarter::FakeVertex const start =
-        (current == IndexGraphStarter::kStartFakeSegment)
-            ? starter.GetStartVertex()
-            : IndexGraphStarter::FakeVertex(current, starter.GetPoint(current, true /* front */));
-    IndexGraphStarter::FakeVertex const finish =
-        (next == IndexGraphStarter::kFinishFakeSegment)
-            ? starter.GetFinishVertex()
-            : IndexGraphStarter::FakeVertex(next, starter.GetPoint(next, true /* front */));
+    IndexGraphStarter::FakeVertex const start(current, starter.GetPoint(current, true /* front */), false /* soft */);
+    IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */), false /* soft */);
 
     IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
 

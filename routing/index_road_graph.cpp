@@ -97,10 +97,16 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
   }
 }
 
+m2::PointD IndexRoadGraph::GetJunctionPoint(Segment const & segment, bool front) const
+{
+  return front && m_starter.FitsFinish(segment) ? m_starter.GetFinishVertex().GetPoint()
+                                                : m_starter.GetPoint(segment, front);
+}
+
 Junction IndexRoadGraph::GetJunction(Segment const & segment, bool front) const
 {
   // TODO: Use real altitudes for pedestrian and bicycle routing.
-  return Junction(m_starter.GetPoint(segment, front), feature::kDefaultAltitudeMeters);
+  return Junction(GetJunctionPoint(segment, front), feature::kDefaultAltitudeMeters);
 }
 
 vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,

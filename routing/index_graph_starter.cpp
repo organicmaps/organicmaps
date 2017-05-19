@@ -22,22 +22,21 @@ namespace routing
 Segment constexpr IndexGraphStarter::kStartFakeSegment;
 Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 
-IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish,
-                                     WorldGraph & graph)
+IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph)
   : m_graph(graph)
   , m_start(start.GetSegment(),
-            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph))
+            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph), start.GetSoft())
   , m_finish(finish.GetSegment(),
-             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph))
+             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph), finish.GetSoft())
 {
 }
 
 m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front)
 {
-  if (segment == kStartFakeSegment || (!front && m_start.Fits(segment)))
+  if (segment == kStartFakeSegment)
     return m_start.GetPoint();
 
-  if (segment == kFinishFakeSegment || (front && m_finish.Fits(segment)))
+  if (segment == kFinishFakeSegment)
     return m_finish.GetPoint();
 
   return m_graph.GetPoint(segment, front);
@@ -61,6 +60,9 @@ m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & segm
   if (pointIndex == 0)
     return m_start.GetPoint();
 
+  if (pointIndex + 1 == GetRouteNumPoints(segments))
+    return m_finish.GetPoint();
+
   CHECK_LESS(pointIndex, segments.size(), ());
   return GetPoint(segments[pointIndex], true /* front */);
 }
@@ -82,6 +84,12 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
     return;
   }
 
+  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly && (m_start.Fits(segment) || m_finish.Fits(segment)))
+  {
+    ConnectLeapToTransitions(segment, isOutgoing, edges);
+    return;
+  }
+
   m_graph.GetEdgeList(segment, isOutgoing, IsLeap(segment.GetMwmId()), edges);
   GetNormalToFakeEdge(segment, m_start, kStartFakeSegment, isOutgoing, edges);
   GetNormalToFakeEdge(segment, m_finish, kFinishFakeSegment, isOutgoing, edges);
@@ -90,9 +98,9 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
 void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
                                              vector<SegmentEdge> & edges)
 {
-  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  if (!fakeVertex.GetSoft())
   {
-    ConnectLeapToTransitions(fakeVertex, isOutgoing, edges);
+    GetFakeToNormalEdge(fakeVertex, fakeVertex.GetSegment().IsForward(), edges);
     return;
   }
 
@@ -134,18 +142,18 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
                      m_graph.GetEstimator().CalcLeapWeight(pointFrom, fakeVertex.GetPoint()));
 }
 
-void IndexGraphStarter::ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
+void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,
                                                  vector<SegmentEdge> & edges)
 {
   edges.clear();
-  m2::PointD const & segmentPoint = fakeVertex.GetPoint();
+  m2::PointD const & segmentPoint = GetPoint(segment, true /* front */);
 
   // Note. If |isOutgoing| == true it's necessary to add edges which connect the start with all
   // exits of its mwm. So |isEnter| below should be set to false.
   // If |isOutgoing| == false all enters of the finish mwm should be connected with the finish point.
   // So |isEnter| below should be set to true.
   m_graph.ForEachTransition(
-      fakeVertex.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
+      segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
         edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapWeight(
           segmentPoint, GetPoint(transition, isOutgoing)));
       });

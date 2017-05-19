@@ -29,6 +29,7 @@ public:
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
+  m2::PointD GetJunctionPoint(Segment const & segment, bool front) const;
   Junction GetJunction(Segment const & segment, bool front) const;
   vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 

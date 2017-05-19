@@ -375,7 +375,28 @@ UNIT_TEST(OneSegmentWay)
   IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
   IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 0, 0, m2::PointD(2, 0));
 
-  vector<Segment> const expectedRoute({{kTestNumMwmId, 0, 0, true}});
+  // According to picture above it seems that direction of route segment should be true but it's false
+  // according to current code. The reason is the start and the finish of the route are projected to
+  // the same segment. In IndexGraphStarter::GetEdgesList() two fake edges are added. One of them
+  // from start to end of the segment. The other one is from beginning of the segment to the finish.
+  // So the route will be built in opposite direction of segment 0 of feature 0. See IndexGraphStarter
+  // for details.
+  //
+  //                    finish
+  //                      O
+  //                  ↗
+  //               ↗
+  //            ↗
+  //    R0    * - - - - - - - - *
+  //                         ↗
+  //                      ↗
+  //                   ↗
+  //                O
+  //              start
+  //
+  //    x:    0     1     2     3
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */,
+                                        false /* forward */}});
   TestRoute(start, finish, 1 /* expectedLength */, &expectedRoute, *worldGraph);
 }
 

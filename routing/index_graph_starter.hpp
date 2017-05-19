@@ -24,12 +24,12 @@ public:
   {
   public:
     FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
+      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point), m_soft(true)
     {
     }
 
-    FakeVertex(Segment const & segment, m2::PointD const & point)
-      : m_segment(segment), m_point(point)
+    FakeVertex(Segment const & segment, m2::PointD const & point, bool soft)
+      : m_segment(segment), m_point(point), m_soft(soft)
     {
     }
 
@@ -37,6 +37,7 @@ public:
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
     m2::PointD const & GetPoint() const { return m_point; }
     Segment const & GetSegment() const { return m_segment; }
+    bool GetSoft() const { return m_soft; }
 
     Segment GetSegmentWithDirection(bool forward) const
     {
@@ -46,10 +47,11 @@ public:
 
     bool Fits(Segment const & segment) const
     {
-      // Note. Comparing |segment| and |m_segment| without field |Segment::m_forward|.
-      return segment.GetMwmId() == m_segment.GetMwmId() &&
-             segment.GetFeatureId() == m_segment.GetFeatureId() &&
-             segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
+      bool const softFits = segment.GetMwmId() == m_segment.GetMwmId() &&
+                            segment.GetFeatureId() == m_segment.GetFeatureId() &&
+                            segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
+      return m_soft ? softFits : softFits && m_segment.IsForward() == segment.IsForward();
+
     }
 
     uint32_t GetSegmentIdxForTesting() const { return m_segment.GetSegmentIdx(); }
@@ -57,6 +59,7 @@ public:
   private:
     Segment m_segment;
     m2::PointD const m_point;
+    bool const m_soft;
   };
 
   static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
@@ -74,6 +77,7 @@ public:
   FakeVertex const & GetStartVertex() const { return m_start; }
   FakeVertex const & GetFinishVertex() const { return m_finish; }
   m2::PointD const & GetPoint(Segment const & segment, bool front);
+  bool FitsFinish(Segment const & s) const { return m_finish.Fits(s); }
 
   static size_t GetRouteNumPoints(vector<Segment> const & route);
   m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
@@ -125,7 +129,7 @@ private:
   /// |fakeVertex| with all exits of mwm.
   /// \brief If |isOutgoing| == false fills |edges| with SegmentEdge(s) which connects
   /// all enters to mwm with |fakeVertex|.
-  void ConnectLeapToTransitions(FakeVertex const & fakeVertex, bool isOutgoing,
+  void ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,
                                 vector<SegmentEdge> & edges);
 
   WorldGraph & m_graph;
