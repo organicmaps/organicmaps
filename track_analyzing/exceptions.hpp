@@ -2,7 +2,7 @@
 
 #include "base/exception.hpp"
 
-namespace tracking
+namespace track_analyzing
 {
 DECLARE_EXCEPTION(MessageException, RootException);
-}  // namespace tracking
+}  // namespace track_analyzing

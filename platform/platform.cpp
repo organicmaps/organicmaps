@@ -192,6 +192,33 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
+// static
+void Platform::GetFilesRecursively(string const & directory, FilesList & filesList)
+{
+  TFilesWithType files;
+
+  GetFilesByType(directory, Platform::FILE_TYPE_REGULAR, files);
+  for (auto const & p : files)
+  {
+    auto const & file = p.first;
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_REGULAR, ("dir:", directory, "file:", file));
+    filesList.push_back(my::JoinPath(directory, file));
+  }
+
+  TFilesWithType subdirs;
+  GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
+
+  for (auto const & p : subdirs)
+  {
+    auto const & subdir = p.first;
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_DIRECTORY, ("dir:", directory, "subdir:", subdir));
+    if (subdir == "." || subdir == "..")
+      continue;
+
+    GetFilesRecursively(my::JoinPath(directory, subdir), filesList);
+  }
+}
+
 void Platform::SetWritableDirForTests(string const & path)
 {
   m_writableDir = my::AddSlashIfNeeded(path);

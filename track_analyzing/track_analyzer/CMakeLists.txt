@@ -42,7 +42,4 @@ omim_link_libraries(
   ${LIBZ}
 )
 
-find_package(Boost COMPONENTS filesystem REQUIRED)
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
-
 link_qt5_core(${PROJECT_NAME})

@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace tracking
+namespace track_analyzing
 {
 class TrackMatcher final
 {
@@ -26,11 +26,9 @@ public:
 
   void MatchTrack(std::vector<DataPoint> const & track, std::vector<MatchedTrack> & matchedTracks);
 
-  size_t GetTracksCount() const { return m_tracksCount; }
-  size_t GetShortTracksCount() const { return m_shortTracksCount; }
-  size_t GetPointsCount() const { return m_pointsCount; }
-  size_t GetShortTrackPointsCount() const { return m_shortTrackPointsCount; }
-  size_t GetNonMatchedPointsCount() const { return m_nonMatchedPointsCount; }
+  uint64_t GetTracksCount() const { return m_tracksCount; }
+  uint64_t GetPointsCount() const { return m_pointsCount; }
+  uint64_t GetNonMatchedPointsCount() const { return m_nonMatchedPointsCount; }
 
 private:
   class Candidate final
@@ -57,10 +55,8 @@ private:
 
     DataPoint const & GetDataPoint() const { return m_dataPoint; }
     routing::Segment const & GetSegment() const { return m_segment; }
-
     bool HasCandidates() const { return !m_candidates.empty(); }
-
-    void FillCandidatesWithNearbySegments(Index const & index,
+    void FillCandidatesWithNearbySegments(Index const & index, routing::IndexGraph const & graph,
                                           routing::IVehicleModel const & vehicleModel,
                                           routing::NumMwmId mwmId);
     void FillCandidates(Step const & previousStep, routing::IndexGraph & graph);
@@ -68,6 +64,9 @@ private:
     void ChooseNearestSegment();
 
   private:
+    void AddCandidate(routing::Segment const & segment, double distance,
+                      routing::IndexGraph const & graph);
+
     DataPoint m_dataPoint;
     m2::PointD m_point;
     routing::Segment m_segment;
@@ -78,10 +77,8 @@ private:
   Index m_index;
   std::shared_ptr<routing::IVehicleModel> m_vehicleModel;
   std::unique_ptr<routing::IndexGraph> m_graph;
-  size_t m_tracksCount = 0;
-  size_t m_shortTracksCount = 0;
-  size_t m_pointsCount = 0;
-  size_t m_shortTrackPointsCount = 0;
-  size_t m_nonMatchedPointsCount = 0;
+  uint64_t m_tracksCount = 0;
+  uint64_t m_pointsCount = 0;
+  uint64_t m_nonMatchedPointsCount = 0;
 };
-}  // namespace tracking
+}  // namespace track_analyzing

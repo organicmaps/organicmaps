@@ -32,7 +32,7 @@ HEADERS += \
     mwm_url.hpp \
     place_page_info.hpp \
     reachable_by_taxi_checker.hpp \
-    routing_helpers.cpp \
+    routing_helpers.hpp \
     routing_manager.hpp \
     routing_mark.hpp \
     taxi_delegate.hpp \

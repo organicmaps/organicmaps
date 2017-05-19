@@ -190,6 +190,15 @@ VehicleModel::InitListT const g_carLimitsUK = g_carLimitsDefault;
 
 VehicleModel::InitListT const g_carLimitsUS = g_carLimitsDefault;
 
+vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
+    {{"route", "ferry", "motorcar"}, kSpeedFerryMotorcarKMpH},
+    {{"route", "ferry", "motor_vehicle"}, kSpeedFerryMotorcarVehicleKMpH},
+    {{"railway", "rail", "motor_vehicle"}, kSpeedRailMotorcarVehicleKMpH},
+    {{"route", "shuttle_train"}, kSpeedShuttleTrainKMpH},
+    {{"route", "ferry"}, kSpeedFerryMotorcarKMpH},
+    {{"man_made", "pier"}, kSpeedPierKMpH},
+};
+
 }  // namespace
 
 namespace routing
@@ -209,16 +218,7 @@ CarModel::CarModel(VehicleModel::InitListT const & roadLimits)
 
 void CarModel::InitAdditionalRoadTypes()
 {
-  vector<AdditionalRoadTags> const additionalTags = {
-      {{"route", "ferry", "motorcar"}, kSpeedFerryMotorcarKMpH},
-      {{"route", "ferry", "motor_vehicle"}, kSpeedFerryMotorcarVehicleKMpH},
-      {{"railway", "rail", "motor_vehicle"}, kSpeedRailMotorcarVehicleKMpH},
-      {{"route", "shuttle_train"}, kSpeedShuttleTrainKMpH},
-      {{"route", "ferry"}, kSpeedFerryMotorcarKMpH},
-      {{"man_made", "pier"}, kSpeedPierKMpH},
-  };
-
-  SetAdditionalRoadTypes(classif(), additionalTags);
+  SetAdditionalRoadTypes(classif(), kAdditionalTags);
 }
 
 // static
@@ -226,6 +226,14 @@ CarModel const & CarModel::AllLimitsInstance()
 {
   static CarModel const instance;
   return instance;
+}
+
+// static
+routing::VehicleModel::InitListT const & CarModel::GetLimits() { return g_carLimitsDefault; }
+// static
+vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditionalTags()
+{
+  return kAdditionalTags;
 }
 
 CarModelFactory::CarModelFactory()

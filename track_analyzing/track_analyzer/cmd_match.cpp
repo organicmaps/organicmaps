@@ -23,7 +23,7 @@
 
 using namespace routing;
 using namespace std;
-using namespace tracking;
+using namespace track_analyzing;
 
 namespace
 {
@@ -32,55 +32,57 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
 {
   my::Timer timer;
 
-  size_t tracksCount = 0;
-  size_t shortTracksCount = 0;
-  size_t pointsCount = 0;
-  size_t shortTrackPointsCount = 0;
-  size_t nonMatchedPointsCount = 0;
+  uint64_t tracksCount = 0;
+  uint64_t pointsCount = 0;
+  uint64_t nonMatchedPointsCount = 0;
 
-  ForTracksSortedByMwmName(
-      [&](string const & mwmName, UserToTrack const & userToTrack) {
-        auto const countryFile = platform::CountryFile(mwmName);
-        auto const mwmId = numMwmIds.GetId(countryFile);
-        TrackMatcher matcher(storage, mwmId, countryFile);
+  auto processMwm = [&](string const & mwmName, UserToTrack const & userToTrack) {
+    auto const countryFile = platform::CountryFile(mwmName);
+    auto const mwmId = numMwmIds.GetId(countryFile);
+    TrackMatcher matcher(storage, mwmId, countryFile);
 
-        auto & userToMatchedTracks = mwmToMatchedTracks[mwmId];
+    auto & userToMatchedTracks = mwmToMatchedTracks[mwmId];
 
-        for (auto const & it : userToTrack)
-        {
-          auto & matchedTracks = userToMatchedTracks[it.first];
-          matcher.MatchTrack(it.second, matchedTracks);
+    for (auto const & it : userToTrack)
+    {
+      string const & user = it.first;
+      auto & matchedTracks = userToMatchedTracks[user];
+      try
+      {
+        matcher.MatchTrack(it.second, matchedTracks);
+      }
+      catch (RootException const & e)
+      {
+        LOG(LERROR, ("Can't match track for mwm:", mwmName, ", user:", user));
+        LOG(LERROR, ("  ", e.what()));
+      }
 
-          if (matchedTracks.empty())
-            userToMatchedTracks.erase(it.first);
-        }
+      if (matchedTracks.empty())
+        userToMatchedTracks.erase(user);
+    }
 
-        if (userToMatchedTracks.empty())
-          mwmToMatchedTracks.erase(mwmId);
+    if (userToMatchedTracks.empty())
+      mwmToMatchedTracks.erase(mwmId);
 
-        tracksCount += matcher.GetTracksCount();
-        shortTracksCount += matcher.GetShortTracksCount();
-        pointsCount += matcher.GetPointsCount();
-        shortTrackPointsCount += matcher.GetShortTrackPointsCount();
-        nonMatchedPointsCount += matcher.GetNonMatchedPointsCount();
+    tracksCount += matcher.GetTracksCount();
+    pointsCount += matcher.GetPointsCount();
+    nonMatchedPointsCount += matcher.GetNonMatchedPointsCount();
 
-        LOG(LINFO, (numMwmIds.GetFile(mwmId).GetName(), ", users:", userToTrack.size(), ", tracks:",
-                    matcher.GetTracksCount(), ", short tracks:", matcher.GetShortTracksCount(),
-                    ", points:", matcher.GetPointsCount(), ", short track points",
-                    matcher.GetShortTrackPointsCount(), ", non matched points:",
-                    matcher.GetNonMatchedPointsCount()));
-      },
-      mwmToTracks, numMwmIds);
+    LOG(LINFO, (numMwmIds.GetFile(mwmId).GetName(), ", users:", userToTrack.size(), ", tracks:",
+                matcher.GetTracksCount(), ", points:", matcher.GetPointsCount(),
+                ", non matched points:", matcher.GetNonMatchedPointsCount()));
+  };
+
+  ForTracksSortedByMwmName(mwmToTracks, numMwmIds, processMwm);
 
   LOG(LINFO,
       ("Matching finished, elapsed:", timer.ElapsedSeconds(), "seconds, tracks:", tracksCount,
-       ", short tracks:", shortTracksCount, ", points:", pointsCount, ", short track points",
-       shortTrackPointsCount, ", non matched points:", nonMatchedPointsCount));
+       ", points:", pointsCount, ", non matched points:", nonMatchedPointsCount));
 }
 
 }  // namespace
 
-namespace tracking
+namespace track_analyzing
 {
 void CmdMatch(string const & logFile, string const & trackFile)
 {
@@ -97,7 +99,7 @@ void CmdMatch(string const & logFile, string const & trackFile)
       storage::CountryInfoReader::CreateCountryInfoReader(platform);
   unique_ptr<m4::Tree<NumMwmId>> mwmTree = MakeNumMwmTree(*numMwmIds, *countryInfoGetter);
 
-  tracking::LogParser parser(numMwmIds, move(mwmTree), dataDir);
+  LogParser parser(numMwmIds, move(mwmTree), dataDir);
   MwmToTracks mwmToTracks;
   parser.Parse(logFile, mwmToTracks);
 
@@ -107,6 +109,6 @@ void CmdMatch(string const & logFile, string const & trackFile)
   FileWriter writer(trackFile, FileWriter::OP_WRITE_TRUNCATE);
   MwmToMatchedTracksSerializer serializer(numMwmIds);
   serializer.Serialize(mwmToMatchedTracks, writer);
-  LOG(LINFO, ("Matched track was saved to", trackFile));
+  LOG(LINFO, ("Matched tracks were saved to", trackFile));
 }
-}  // namespace tracking
+}  // namespace track_analyzing

@@ -21,13 +21,13 @@
 #include <memory>
 #include <vector>
 
-namespace tracking
+namespace track_analyzing
 {
 class MwmToMatchedTracksSerializer final
 {
 public:
   MwmToMatchedTracksSerializer(std::shared_ptr<routing::NumMwmIds> numMwmIds)
-    : m_numMwmIds(numMwmIds)
+    : m_numMwmIds(move(numMwmIds))
   {
   }
 
@@ -61,6 +61,7 @@ public:
             Serialize(point.GetSegment(), sink);
 
           std::vector<DataPoint> dataPoints;
+          dataPoints.reserve(track.size());
           for (MatchedTrackPoint const & point : track)
             dataPoints.push_back(point.GetDataPoint());
 
@@ -126,6 +127,7 @@ public:
           CHECK_EQUAL(numSegments, dataPoints.size(), ("mwm:", mwmName, "user:", user));
 
           MatchedTrack & track = tracks[iTrack];
+          track.reserve(numSegments);
 
           for (size_t iPoint = 0; iPoint < numSegments; ++iPoint)
             track.emplace_back(dataPoints[iPoint], segments[iPoint]);
@@ -135,8 +137,8 @@ public:
   }
 
 private:
-  static constexpr uint8_t kForward = 0;
-  static constexpr uint8_t kBackward = 1;
+  static uint8_t constexpr kForward = 0;
+  static uint8_t constexpr kBackward = 1;
 
   template <class Sink>
   static void WriteSize(Sink & sink, size_t size)
@@ -160,7 +162,7 @@ private:
   }
 
   template <class Source>
-  void Deserialize(routing::NumMwmId numMwmId, routing::Segment & segment, Source & src)
+  static void Deserialize(routing::NumMwmId numMwmId, routing::Segment & segment, Source & src)
   {
     auto const featureId = ReadPrimitiveFromSource<uint32_t>(src);
     auto const segmentIdx = ReadPrimitiveFromSource<uint32_t>(src);
@@ -170,4 +172,4 @@ private:
 
   std::shared_ptr<routing::NumMwmIds> m_numMwmIds;
 };
-}  // namespace tracking
+}  // namespace track_analyzing

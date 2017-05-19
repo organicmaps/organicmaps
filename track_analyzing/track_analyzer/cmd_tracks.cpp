@@ -20,19 +20,20 @@
 
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 
 using namespace routing;
 using namespace std;
-using namespace tracking;
+using namespace track_analyzing;
 
 namespace
 {
 class TrackStats final
 {
 public:
-  void AddUsers(size_t numUsers) { m_numUsers += numUsers; }
-  void AddTracks(size_t numTracks) { m_numTracks += numTracks; }
-  void AddPoints(size_t numPoints) { m_numPoints += numPoints; }
+  void AddUsers(uint64_t numUsers) { m_numUsers += numUsers; }
+  void AddTracks(uint64_t numTracks) { m_numTracks += numTracks; }
+  void AddPoints(uint64_t numPoints) { m_numPoints += numPoints; }
 
   void Add(TrackStats const & rhs)
   {
@@ -51,9 +52,9 @@ public:
   bool IsEmpty() const { return m_numPoints == 0; }
 
 private:
-  size_t m_numUsers = 0;
-  size_t m_numTracks = 0;
-  size_t m_numPoints = 0;
+  uint64_t m_numUsers = 0;
+  uint64_t m_numTracks = 0;
+  uint64_t m_numPoints = 0;
 };
 
 class ErrorStat final
@@ -67,10 +68,18 @@ public:
     m_max = max(m_max, value);
   }
 
-  double GetDeviation() const
+  double GetStdDev() const
   {
-    CHECK_GREATER(m_count, 0.0, ());
-    return std::sqrt(m_squares / m_count);
+    CHECK_GREATER(m_count, 1.0, ());
+    return std::sqrt(m_squares / (m_count - 1.0));
+  }
+
+  string GetStdDevString() const
+  {
+    if (m_count <= 1.0)
+      return "N/A";
+
+    return to_string(GetStdDev());
   }
 
   double GetMin() const { return m_min; }
@@ -115,42 +124,37 @@ double EstimateDuration(MatchedTrack const & track, shared_ptr<EdgeEstimator> es
 }
 }  // namespace
 
-namespace tracking
+namespace track_analyzing
 {
-void CmdTracks(string const & filepath, string const & trackExtension, string const & mwmFilter,
-               string const & userFilter, TrackFilter const & filter, bool noTrackLogs,
+void CmdTracks(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
+               StringFilter userFilter, TrackFilter const & filter, bool noTrackLogs,
                bool noMwmLogs, bool noWorldLogs)
 {
   storage::Storage storage;
   auto numMwmIds = CreateNumMwmIds(storage);
-
-  if (!mwmFilter.empty() && !numMwmIds->ContainsFile(platform::CountryFile(mwmFilter)))
-    MYTHROW(MessageException, ("Mwm", mwmFilter, "does not exist"));
 
   map<string, TrackStats> mwmToStats;
   ErrorStat absoluteError;
   ErrorStat relativeError;
 
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
-    if (IsFiltered(mwmFilter, mwmName))
+    if (mwmFilter(mwmName))
       return;
 
     TrackStats & mwmStats = mwmToStats[mwmName];
 
     shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
 
-    Geometry geometry(GeometryLoader::CreateFromFile(
-        my::JoinPath(GetPlatform().WritableDir(), to_string(storage.GetCurrentDataVersion()),
-                     mwmName + DATA_FILE_EXTENSION),
-        vehicleModel));
+    Geometry geometry(
+        GeometryLoader::CreateFromFile(GetCurrentVersionMwmFile(storage, mwmName), vehicleModel));
 
-    shared_ptr<EdgeEstimator> estimator =
-        EdgeEstimator::CreateForCar(nullptr, vehicleModel->GetMaxSpeed());
+    shared_ptr<EdgeEstimator> estimator = EdgeEstimator::Create(
+        VehicleType::Car, vehicleModel->GetMaxSpeed(), nullptr /* trafficStash */);
 
     for (auto it : userToMatchedTracks)
     {
       string const & user = it.first;
-      if (IsFiltered(userFilter, user))
+      if (userFilter(user))
         continue;
 
       vector<MatchedTrack> const & tracks = it.second;
@@ -200,15 +204,15 @@ void CmdTracks(string const & filepath, string const & trackExtension, string co
 
   auto processFile = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks) {
     LOG(LINFO, ("Processing", filename));
-    ForTracksSortedByMwmName(processMwm, mwmToMatchedTracks, *numMwmIds);
+    ForTracksSortedByMwmName(mwmToMatchedTracks, *numMwmIds, processMwm);
   };
 
-  ForEachTrackFile(processFile, filepath, trackExtension, numMwmIds);
+  ForEachTrackFile(filepath, trackExtension, numMwmIds, processFile);
 
   if (!noMwmLogs)
   {
     cout << endl;
-    for (auto it : mwmToStats)
+    for (auto const & it : mwmToStats)
     {
       if (!it.second.IsEmpty())
         cout << it.first << ": " << it.second.GetSummary() << endl;
@@ -218,16 +222,16 @@ void CmdTracks(string const & filepath, string const & trackExtension, string co
   if (!noWorldLogs)
   {
     TrackStats worldStats;
-    for (auto it : mwmToStats)
+    for (auto const & it : mwmToStats)
       worldStats.Add(it.second);
 
     cout << endl << "World: " << worldStats.GetSummary() << endl;
     cout << fixed << setprecision(1)
-         << "Absolute error: deviation: " << absoluteError.GetDeviation()
+         << "Absolute error: deviation: " << absoluteError.GetStdDevString()
          << ", min: " << absoluteError.GetMin() << ", max: " << absoluteError.GetMax() << endl;
     cout << fixed << setprecision(3)
-         << "Relative error: deviation: " << relativeError.GetDeviation()
+         << "Relative error: deviation: " << relativeError.GetStdDevString()
          << ", min: " << relativeError.GetMin() << ", max: " << relativeError.GetMax() << endl;
   }
 }
-}  // namespace tracking
+}  // namespace track_analyzing

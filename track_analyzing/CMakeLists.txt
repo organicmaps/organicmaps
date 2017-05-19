@@ -6,6 +6,7 @@ set(
   log_parser.cpp
   log_parser.hpp
   serialization.hpp
+  track.cpp
   track.hpp
   track_matcher.cpp
   track_matcher.hpp

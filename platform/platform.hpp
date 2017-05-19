@@ -171,6 +171,8 @@ public:
   static void GetFilesByType(string const & directory, unsigned typeMask,
                              TFilesWithType & outFiles);
 
+  static void GetFilesRecursively(string const & directory, FilesList & filesList);
+
   static bool IsDirectoryEmpty(string const & directory);
   // Returns true if |path| refers to a directory. Returns false otherwise or on error.
   static bool IsDirectory(string const & path);

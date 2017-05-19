@@ -6,30 +6,35 @@
 #include "routing/geometry.hpp"
 #include "routing/num_mwm_id.hpp"
 
-#include <boost/filesystem.hpp>
+#include "storage/storage.hpp"
+
+#include "platform/platform.hpp"
 
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
 
-namespace tracking
+namespace track_analyzing
 {
-double CalcSubtrackLength(MatchedTrack const & track, size_t begin, size_t end,
+using StringFilter = std::function<bool(std::string const &)>;
+
+double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::const_iterator end,
                           routing::Geometry & geometry);
 double CalcTrackLength(MatchedTrack const & track, routing::Geometry & geometry);
 double CalcSpeedKMpH(double meters, uint64_t secondsElapsed);
-bool IsFiltered(std::string const & argument, std::string const & variable);
 void ReadTracks(std::shared_ptr<routing::NumMwmIds> numMwmIds, std::string const & filename,
                 MwmToMatchedTracks & mwmToMatchedTracks);
 MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTracks,
                                      routing::NumMwmIds const & numMwmIds,
                                      std::string const & mwmName, std::string const & user,
                                      size_t trackIdx);
+std::string GetCurrentVersionMwmFile(storage::Storage const & storage, std::string const & mwmName);
 
 template <typename MwmToTracks, typename ToDo>
-void ForTracksSortedByMwmName(ToDo && toDo, MwmToTracks const & mwmToTracks,
-                              routing::NumMwmIds const & numMwmIds)
+void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmIds const & numMwmIds,
+                              ToDo && toDo)
 {
   std::vector<std::string> mwmNames;
   mwmNames.reserve(mwmToTracks.size());
@@ -46,41 +51,8 @@ void ForTracksSortedByMwmName(ToDo && toDo, MwmToTracks const & mwmToTracks,
   }
 }
 
-template <typename ToDo>
-void ForEachTrackFile(ToDo && toDo, std::string const & filepath, std::string const & extension,
-                      shared_ptr<routing::NumMwmIds> numMwmIds)
-{
-  if (!boost::filesystem::exists(filepath.c_str()))
-    MYTHROW(MessageException, ("File doesn't exist", filepath));
-
-  if (boost::filesystem::is_regular(filepath))
-  {
-    MwmToMatchedTracks mwmToMatchedTracks;
-    ReadTracks(numMwmIds, filepath, mwmToMatchedTracks);
-    toDo(filepath, mwmToMatchedTracks);
-    return;
-  }
-
-  if (boost::filesystem::is_directory(filepath))
-  {
-    for (boost::filesystem::recursive_directory_iterator it(filepath.c_str()), end; it != end; ++it)
-    {
-      boost::filesystem::path const & path = it->path();
-      if (!boost::filesystem::is_regular(path))
-        continue;
-
-      if (path.extension() != extension)
-        continue;
-
-      MwmToMatchedTracks mwmToMatchedTracks;
-      string const & filename = path.string();
-      ReadTracks(numMwmIds, filename, mwmToMatchedTracks);
-      toDo(filename, mwmToMatchedTracks);
-    }
-
-    return;
-  }
-
-  MYTHROW(MessageException, (filepath, "is neither a regular file nor a directory't exist"));
-}
-}  // namespace tracking
+void ForEachTrackFile(
+    std::string const & filepath, std::string const & extension,
+    shared_ptr<routing::NumMwmIds> numMwmIds,
+    std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo);
+}  // namespace track_analyzing

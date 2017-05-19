@@ -16,6 +16,8 @@ public:
   CarModel(VehicleModel::InitListT const & roadLimits);
 
   static CarModel const & AllLimitsInstance();
+  static InitListT const & GetLimits();
+  static std::vector<AdditionalRoadTags> const & GetAdditionalTags();
 
 private:
   void InitAdditionalRoadTypes();

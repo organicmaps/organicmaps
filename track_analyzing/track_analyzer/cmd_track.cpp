@@ -20,7 +20,7 @@
 using namespace routing;
 using namespace std;
 
-namespace tracking
+namespace track_analyzing
 {
 void CmdTrack(string const & trackFile, string const & mwmName, string const & user,
               size_t trackIdx)
@@ -33,9 +33,7 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
   MatchedTrack const & track =
       GetMatchedTrack(mwmToMatchedTracks, *numMwmIds, mwmName, user, trackIdx);
 
-  string const mwmFile =
-      my::JoinPath(GetPlatform().WritableDir(), to_string(storage.GetCurrentDataVersion()),
-                   mwmName + DATA_FILE_EXTENSION);
+  string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
   shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
   FeaturesVectorTest featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)));
   Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
@@ -74,4 +72,4 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
                 ", speed:", speed));
   }
 }
-}  // namespace tracking
+}  // namespace track_analyzing

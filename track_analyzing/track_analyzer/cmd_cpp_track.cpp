@@ -8,7 +8,7 @@
 using namespace routing;
 using namespace std;
 
-namespace tracking
+namespace track_analyzing
 {
 void CmdCppTrack(string const & trackFile, string const & mwmName, string const & user,
                  size_t trackIdx)
@@ -21,11 +21,13 @@ void CmdCppTrack(string const & trackFile, string const & mwmName, string const 
   MatchedTrack const & track =
       GetMatchedTrack(mwmToMatchedTracks, *numMwmIds, mwmName, user, trackIdx);
 
-  cout.precision(numeric_limits<double>::max_digits10);
+  auto const backupPrecision = cout.precision();
+  cout.precision(8);
   for (MatchedTrackPoint const & point : track)
   {
     cout << "  {" << point.GetDataPoint().m_latLon.lat << ", " << point.GetDataPoint().m_latLon.lon
          << "}," << endl;
   }
+  cout.precision(backupPrecision);
 }
-}  // namespace tracking
+}  // namespace track_analyzing

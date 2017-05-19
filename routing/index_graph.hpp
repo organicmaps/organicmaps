@@ -40,6 +40,11 @@ public:
   bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
 
+  RoadAccess::Type GetAccessType(Segment const & segment) const
+  {
+    return m_roadAccess.GetSegmentType(segment);
+  }
+
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
   uint32_t GetNumJoints() const { return m_jointIndex.GetNumJoints(); }
   uint32_t GetNumPoints() const { return m_jointIndex.GetNumPoints(); }

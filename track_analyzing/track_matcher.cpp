@@ -1,5 +1,7 @@
 #include "track_analyzing/track_matcher.hpp"
 
+#include "track_analyzing/exceptions.hpp"
+
 #include <routing/index_graph_loader.hpp>
 
 #include <routing_common/car_model.hpp>
@@ -8,14 +10,16 @@
 
 #include <geometry/distance.hpp>
 
-using namespace tracking;
+using namespace routing;
 using namespace std;
+using namespace track_analyzing;
 
 namespace
 {
+// Matching range in meters.
 double constexpr kMatchingRange = 20.0;
-uint64_t constexpr kShortTrackDuration = 60;
 
+// Mercator distance from segment to point in meters.
 double DistanceToSegment(m2::PointD const & segmentBegin, m2::PointD const & segmentEnd,
                          m2::PointD const & point)
 {
@@ -25,14 +29,13 @@ double DistanceToSegment(m2::PointD const & segmentBegin, m2::PointD const & seg
   return MercatorBounds::DistanceOnEarth(point, projectionPoint);
 }
 
-double DistanceToSegment(routing::Segment const & segment, m2::PointD const & point,
-                         routing::IndexGraph & indexGraph)
+double DistanceToSegment(Segment const & segment, m2::PointD const & point, IndexGraph & indexGraph)
 {
   return DistanceToSegment(indexGraph.GetGeometry().GetPoint(segment.GetRoadPoint(false)),
                            indexGraph.GetGeometry().GetPoint(segment.GetRoadPoint(true)), point);
 }
 
-bool EdgesContain(vector<routing::SegmentEdge> const & edges, routing::Segment const & segment)
+bool EdgesContain(vector<SegmentEdge> const & edges, Segment const & segment)
 {
   for (auto const & edge : edges)
   {
@@ -44,13 +47,13 @@ bool EdgesContain(vector<routing::SegmentEdge> const & edges, routing::Segment c
 }
 }  // namespace
 
-namespace tracking
+namespace track_analyzing
 {
 // TrackMatcher ------------------------------------------------------------------------------------
-TrackMatcher::TrackMatcher(storage::Storage const & storage, routing::NumMwmId mwmId,
+TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
                            platform::CountryFile const & countryFile)
   : m_mwmId(mwmId)
-  , m_vehicleModel(routing::CarModelFactory().GetVehicleModelForCountry(countryFile.GetName()))
+  , m_vehicleModel(CarModelFactory().GetVehicleModelForCountry(countryFile.GetName()))
 {
   auto localCountryFile = storage.GetLatestLocalFile(countryFile);
   CHECK(localCountryFile, ("Can't find latest country file for", countryFile.GetName()));
@@ -58,13 +61,13 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, routing::NumMwmId m
   CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success,
               ("Can't register mwm", countryFile.GetName()));
 
-  m_graph = make_unique<routing::IndexGraph>(
-      routing::GeometryLoader::Create(m_index, registerResult.first, m_vehicleModel),
-      routing::EdgeEstimator::CreateForCar(nullptr /* trafficStash */,
-                                           m_vehicleModel->GetMaxSpeed()));
-
   MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(countryFile);
-  routing::DeserializeIndexGraph(*handle.GetValue<MwmValue>(), *m_graph);
+  m_graph = make_unique<IndexGraph>(
+      GeometryLoader::Create(m_index, handle, m_vehicleModel, false /* loadAltitudes */),
+      EdgeEstimator::Create(VehicleType::Car, m_vehicleModel->GetMaxSpeed(),
+                            nullptr /* trafficStash */));
+
+  DeserializeIndexGraph(*handle.GetValue<MwmValue>(), kCarMask, *m_graph);
 }
 
 void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTrack> & matchedTracks)
@@ -72,6 +75,7 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
   m_pointsCount += track.size();
 
   vector<Step> steps;
+  steps.reserve(track.size());
   for (auto const & routePoint : track)
     steps.emplace_back(routePoint);
 
@@ -79,7 +83,8 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
   {
     for (; trackBegin < steps.size(); ++trackBegin)
     {
-      steps[trackBegin].FillCandidatesWithNearbySegments(m_index, *m_vehicleModel, m_mwmId);
+      steps[trackBegin].FillCandidatesWithNearbySegments(m_index, *m_graph, *m_vehicleModel,
+                                                         m_mwmId);
       if (steps[trackBegin].HasCandidates())
         break;
 
@@ -93,7 +98,8 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
     for (; trackEnd < steps.size() - 1; ++trackEnd)
     {
       Step & nextStep = steps[trackEnd + 1];
-      nextStep.FillCandidates(steps[trackEnd], *m_graph);
+      Step const & prevStep = steps[trackEnd];
+      nextStep.FillCandidates(prevStep, *m_graph);
       if (!nextStep.HasCandidates())
         break;
     }
@@ -105,22 +111,12 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
 
     ++m_tracksCount;
 
-    uint64_t const trackTime =
-        steps[trackEnd].GetDataPoint().m_timestamp - steps[trackBegin].GetDataPoint().m_timestamp;
-    if (trackTime < kShortTrackDuration)
+    matchedTracks.push_back({});
+    MatchedTrack & matchedTrack = matchedTracks.back();
+    for (size_t i = trackBegin; i <= trackEnd; ++i)
     {
-      ++m_shortTracksCount;
-      m_shortTrackPointsCount += trackEnd + 1 - trackBegin;
-    }
-    else
-    {
-      matchedTracks.push_back({});
-      MatchedTrack & matchedTrack = matchedTracks.back();
-      for (size_t i = trackBegin; i <= trackEnd; ++i)
-      {
-        Step const & step = steps[i];
-        matchedTrack.emplace_back(step.GetDataPoint(), step.GetSegment());
-      }
+      Step const & step = steps[i];
+      matchedTrack.emplace_back(step.GetDataPoint(), step.GetSegment());
     }
 
     trackBegin = trackEnd + 1;
@@ -133,8 +129,10 @@ TrackMatcher::Step::Step(DataPoint const & dataPoint)
 {
 }
 
-void TrackMatcher::Step::FillCandidatesWithNearbySegments(
-    Index const & index, routing::IVehicleModel const & vehicleModel, routing::NumMwmId mwmId)
+void TrackMatcher::Step::FillCandidatesWithNearbySegments(Index const & index,
+                                                          IndexGraph const & graph,
+                                                          IVehicleModel const & vehicleModel,
+                                                          NumMwmId mwmId)
 {
   index.ForEachInRect(
       [&](FeatureType const & ft) {
@@ -155,14 +153,16 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
               DistanceToSegment(ft.GetPoint(segIdx), ft.GetPoint(segIdx + 1), m_point);
           if (distance < kMatchingRange)
           {
-            m_candidates.emplace_back(
-                routing::Segment(mwmId, ft.GetID().m_index, static_cast<uint32_t>(segIdx), true),
-                distance);
+            AddCandidate(Segment(mwmId, ft.GetID().m_index, static_cast<uint32_t>(segIdx),
+                                 true /* forward */),
+                         distance, graph);
 
             if (!vehicleModel.IsOneWay(ft))
-              m_candidates.emplace_back(
-                  routing::Segment(mwmId, ft.GetID().m_index, static_cast<uint32_t>(segIdx), false),
-                  distance);
+            {
+              AddCandidate(Segment(mwmId, ft.GetID().m_index, static_cast<uint32_t>(segIdx),
+                                   false /* forward */),
+                           distance, graph);
+            }
           }
         }
       },
@@ -170,21 +170,21 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
       scales::GetUpperScale());
 }
 
-void TrackMatcher::Step::FillCandidates(Step const & previousStep, routing::IndexGraph & graph)
+void TrackMatcher::Step::FillCandidates(Step const & previousStep, IndexGraph & graph)
 {
-  vector<routing::SegmentEdge> edges;
+  vector<SegmentEdge> edges;
 
   for (Candidate const & candidate : previousStep.m_candidates)
   {
-    routing::Segment const & segment = candidate.GetSegment();
+    Segment const & segment = candidate.GetSegment();
     m_candidates.emplace_back(segment, DistanceToSegment(segment, m_point, graph));
 
     edges.clear();
-    graph.GetEdgeList(segment, true, edges);
+    graph.GetEdgeList(segment, true /* isOutgoing */, edges);
 
-    for (routing::SegmentEdge const & edge : edges)
+    for (SegmentEdge const & edge : edges)
     {
-      routing::Segment const & target = edge.GetTarget();
+      Segment const & target = edge.GetTarget();
       if (!segment.IsInverse(target))
         m_candidates.emplace_back(target, DistanceToSegment(target, m_point, graph));
     }
@@ -199,15 +199,15 @@ void TrackMatcher::Step::FillCandidates(Step const & previousStep, routing::Inde
                      m_candidates.end());
 }
 
-void TrackMatcher::Step::ChooseSegment(Step const & nextStep, routing::IndexGraph & indexGraph)
+void TrackMatcher::Step::ChooseSegment(Step const & nextStep, IndexGraph & indexGraph)
 {
   CHECK(!m_candidates.empty(), ());
 
   double minDistance = numeric_limits<double>::max();
 
-  vector<routing::SegmentEdge> edges;
-  indexGraph.GetEdgeList(nextStep.m_segment, false, edges);
-  edges.emplace_back(nextStep.m_segment, 0.0 /* weight */);
+  vector<SegmentEdge> edges;
+  indexGraph.GetEdgeList(nextStep.m_segment, false /* isOutgoing */, edges);
+  edges.emplace_back(nextStep.m_segment, RouteWeight(0.0));
 
   for (Candidate const & candidate : m_candidates)
   {
@@ -218,8 +218,8 @@ void TrackMatcher::Step::ChooseSegment(Step const & nextStep, routing::IndexGrap
     }
   }
 
-  CHECK_LESS(minDistance, numeric_limits<double>::max(),
-             ("Can't find previous segment for", nextStep.m_segment));
+  if (minDistance == numeric_limits<double>::max())
+    MYTHROW(MessageException, ("Can't find previous step for", nextStep.m_segment));
 }
 
 void TrackMatcher::Step::ChooseNearestSegment()
@@ -237,4 +237,11 @@ void TrackMatcher::Step::ChooseNearestSegment()
     }
   }
 }
-}  // namespace tracking
+
+void TrackMatcher::Step::AddCandidate(Segment const & segment, double distance,
+                                      IndexGraph const & graph)
+{
+  if (graph.GetAccessType(segment) == RoadAccess::Type::Yes)
+    m_candidates.emplace_back(segment, distance);
+}
+}  // namespace track_analyzing

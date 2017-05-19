@@ -1,8 +1,8 @@
 #include "routing_manager.hpp"
 
 #include "map/chart_generator.hpp"
+#include "map/routing_helpers.hpp"
 #include "map/routing_mark.hpp"
-#include "map/mwm_tree.hpp"
 
 #include "private.h"
 

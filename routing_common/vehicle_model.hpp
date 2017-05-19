@@ -67,8 +67,15 @@ public:
 
   struct AdditionalRoadTags final
   {
+    AdditionalRoadTags() = default;
+
+    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag, double speedKMpH)
+      : m_hwtag(hwtag), m_speedKMpH(speedKMpH)
+    {
+    }
+
     std::initializer_list<char const *> m_hwtag;
-    double m_speedKMpH;
+    double m_speedKMpH = 0.0;
   };
 
   typedef std::initializer_list<FeatureTypeLimits> InitListT;

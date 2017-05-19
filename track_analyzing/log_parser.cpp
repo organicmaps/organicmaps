@@ -1,30 +1,34 @@
-#include <generator/borders_generator.hpp>
-#include <coding/file_name_utils.hpp>
-#include <generator/borders_loader.hpp>
-#include <regex>
-#include <fstream>
-#include <unordered_set>
-#include <platform/platform.hpp>
-#include <base/timer.hpp>
-#include <coding/hex.hpp>
 #include "track_analyzing/log_parser.hpp"
+
+#include "track_analyzing/exceptions.hpp"
+
+#include "generator/borders_generator.hpp"
+#include "generator/borders_loader.hpp"
+
+#include "platform/platform.hpp"
+
+#include "coding/file_name_utils.hpp"
+#include "coding/hex.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "base/timer.hpp"
+
 #include <cstdint>
-#include <geometry/mercator.hpp>
+#include <fstream>
+#include <regex>
+#include <unordered_set>
 
 using namespace std;
-using namespace tracking;
+using namespace track_analyzing;
 
 namespace
 {
 vector<DataPoint> ReadDataPoints(string const & data)
 {
   string const decoded = FromHex(data);
-  vector<uint8_t> buffer;
-  for (auto c : decoded)
-    buffer.push_back(static_cast<uint8_t>(c));
-
   vector<DataPoint> points;
-  MemReader memReader(buffer.data(), buffer.size());
+  MemReader memReader(decoded.data(), decoded.size());
   ReaderSource<MemReader> src(memReader);
   coding::TrafficGPSEncoder::DeserializeDataPoints(1 /* version */, src, points);
   return points;
@@ -52,11 +56,8 @@ public:
     routing::NumMwmId result = routing::kFakeNumMwmId;
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, 1);
     m_mwmTree->ForEachInRect(rect, [&](routing::NumMwmId numMwmId) {
-      if (m2::RegionsContain(GetBorders(numMwmId), point))
-      {
+      if (result == routing::kFakeNumMwmId && m2::RegionsContain(GetBorders(numMwmId), point))
         result = numMwmId;
-        return;
-      }
     });
 
     return result;
@@ -75,7 +76,7 @@ private:
 };
 }  // namespace
 
-namespace tracking
+namespace track_analyzing
 {
 LogParser::LogParser(shared_ptr<routing::NumMwmIds> numMwmIds,
                      unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree, string const & dataDir)
@@ -97,15 +98,15 @@ void LogParser::ParseUserTracks(string const & logFile, UserToTrack & userToTrac
   my::Timer timer;
 
   std::ifstream stream(logFile);
-  CHECK(stream.is_open(), ("Can't open file", logFile));
+  if (!stream)
+    MYTHROW(MessageException, ("Can't open file", logFile, "to parse tracks"));
 
-  std::regex const base_regex(
-      ".*(DataV0|CurrentData)\\s+aloha_id\\s*:\\s*(\\S+)\\s+.*\\|(\\w+)\\|");
+  std::regex const base_regex(R"(.*(DataV0|CurrentData)\s+aloha_id\s*:\s*(\S+)\s+.*\|(\w+)\|)");
   std::unordered_set<string> usersWithOldVersion;
-  size_t linesCount = 0;
+  uint64_t linesCount = 0;
   size_t pointsCount = 0;
 
-  for (string line; getline(stream, line);)
+  for (string line; getline(stream, line); ++linesCount)
   {
     std::smatch base_match;
     if (!std::regex_match(line, base_match, base_regex))
@@ -127,10 +128,9 @@ void LogParser::ParseUserTracks(string const & logFile, UserToTrack & userToTrac
     if (!packet.empty())
     {
       Track & track = userToTrack[userId];
-      track.insert(track.end(), packet.begin(), packet.end());
+      track.insert(track.end(), packet.cbegin(), packet.cend());
     }
 
-    ++linesCount;
     pointsCount += packet.size();
   };
 
@@ -146,10 +146,10 @@ void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwm
 
   PointToMwmId const pointToMwmId(m_mwmTree, *m_numMwmIds, m_dataDir);
 
-  for (auto & it : userToTrack)
+  for (auto const & kv : userToTrack)
   {
-    string const & user = it.first;
-    Track const & track = it.second;
+    string const & user = kv.first;
+    Track const & track = kv.second;
 
     routing::NumMwmId mwmId = routing::kFakeNumMwmId;
     for (DataPoint const & point : track)
@@ -162,7 +162,7 @@ void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwm
     }
   }
 
-  LOG(LINFO, ("Data was splitted into", mwmToTracks.size(), "mwms, elapsed:",
-              timer.ElapsedSeconds(), "seconds"));
+  LOG(LINFO, ("Data was split into", mwmToTracks.size(), "mwms, elapsed:", timer.ElapsedSeconds(),
+              "seconds"));
 }
-}  // namespace tracking
+}  // namespace track_analyzing

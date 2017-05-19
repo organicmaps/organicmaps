@@ -11,6 +11,7 @@
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "storage/storage.hpp"
 
@@ -20,7 +21,7 @@
 
 using namespace routing;
 using namespace std;
-using namespace tracking;
+using namespace track_analyzing;
 
 namespace
 {
@@ -30,21 +31,6 @@ string RoadTypeToString(uint32_t type)
     return "unknown-type";
 
   return classif().GetReadableObjectName(type);
-}
-
-bool FeatureHasType(FeatureType const & feature, uint32_t type)
-{
-  bool result = false;
-
-  feature.ForEachType([&](uint32_t featureType) {
-    if (featureType == type)
-    {
-      result = true;
-      return;
-    }
-  });
-
-  return result;
 }
 
 class CarModelTypes final
@@ -67,9 +53,10 @@ public:
 
   uint32_t GetType(FeatureType const & feature) const
   {
+    feature::TypesHolder holder(feature);
     for (uint32_t type : m_tags)
     {
-      if (FeatureHasType(feature, type))
+      if (holder.Has(type))
         return type;
     }
 
@@ -137,17 +124,14 @@ private:
 class MoveTypeAggregator final
 {
 public:
-  void Add(MoveType const moveType, MatchedTrack const & track, size_t begin, size_t end,
-           Geometry & geometry)
+  void Add(MoveType const moveType, MatchedTrack::const_iterator begin,
+           MatchedTrack::const_iterator end, Geometry & geometry)
   {
-    CHECK_LESS_OR_EQUAL(end, track.size(), ());
-
     if (begin + 1 >= end)
       return;
 
-    uint64_t const time =
-        track[end - 1].GetDataPoint().m_timestamp - track[begin].GetDataPoint().m_timestamp;
-    double const length = CalcSubtrackLength(track, begin, end, geometry);
+    uint64_t const time = (end - 1)->GetDataPoint().m_timestamp - begin->GetDataPoint().m_timestamp;
+    double const length = CalcSubtrackLength(begin, end, geometry);
     m_moveInfos[moveType].Add(length, time);
   }
 
@@ -167,13 +151,9 @@ public:
     {
       MoveInfo const & speedInfo = it.second;
       if (firstIteration)
-      {
         firstIteration = false;
-      }
       else
-      {
         out << " ";
-      }
 
       out << it.first.ToString() << ": " << speedInfo.GetDistance() << " / " << speedInfo.GetTime();
     }
@@ -207,7 +187,6 @@ private:
 
     FeatureType feature;
     m_featuresVector.GetVector().GetByIndex(featureId, feature);
-    feature.ParseTypes();
 
     m_prevFeatureId = featureId;
     m_prevRoadType = m_carModelTypes.GetType(feature);
@@ -221,10 +200,10 @@ private:
 };
 }  // namespace
 
-namespace tracking
+namespace track_analyzing
 {
-void CmdTagsTable(string const & filepath, string const & trackExtension, string const & mwmFilter,
-                  string const & userFilter)
+void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
+                  StringFilter userFilter)
 {
   cout << "mwm user track_idx start length time speed ... type: meters / seconds" << endl;
 
@@ -232,25 +211,23 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, string
   auto numMwmIds = CreateNumMwmIds(storage);
 
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
-    if (IsFiltered(mwmFilter, mwmName))
+    if (mwmFilter(mwmName))
       return;
 
     shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(mwmName);
-    string const mwmFile =
-        my::JoinPath(GetPlatform().WritableDir(), to_string(storage.GetCurrentDataVersion()),
-                     mwmName + DATA_FILE_EXTENSION);
+    string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
     MatchedTrackPointToMoveType pointToMoveType(mwmFile);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 
-    for (auto uIt : userToMatchedTracks)
+    for (auto const & kv : userToMatchedTracks)
     {
-      string const & user = uIt.first;
-      if (IsFiltered(userFilter, user))
+      string const & user = kv.first;
+      if (userFilter(user))
         continue;
 
-      for (size_t trackIdx = 0; trackIdx < uIt.second.size(); ++trackIdx)
+      for (size_t trackIdx = 0; trackIdx < kv.second.size(); ++trackIdx)
       {
-        MatchedTrack const & track = uIt.second[trackIdx];
+        MatchedTrack const & track = kv.second[trackIdx];
         uint64_t const start = track.front().GetDataPoint().m_timestamp;
         uint64_t const timeElapsed = track.back().GetDataPoint().m_timestamp - start;
         double const length = CalcTrackLength(track, geometry);
@@ -258,20 +235,17 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, string
 
         MoveTypeAggregator aggregator;
 
-        MoveType currentType(numeric_limits<uint32_t>::max(), traffic::SpeedGroup::Count);
-        size_t subTrackBegin = 0;
-
-        for (size_t i = 0; i < track.size(); ++i)
+        for (auto subTrackBegin = track.begin(); subTrackBegin != track.end();)
         {
-          MoveType const type = pointToMoveType.GetMoveType(track[i]);
-          if (type == currentType)
-            continue;
+          auto moveType = pointToMoveType.GetMoveType(*subTrackBegin);
+          auto subTrackEnd = subTrackBegin + 1;
+          while (subTrackEnd != track.end() &&
+                 pointToMoveType.GetMoveType(*subTrackEnd) == moveType)
+            ++subTrackEnd;
 
-          aggregator.Add(currentType, track, subTrackBegin, i, geometry);
-          currentType = type;
-          subTrackBegin = i;
+          aggregator.Add(moveType, subTrackBegin, subTrackEnd, geometry);
+          subTrackBegin = subTrackEnd;
         }
-        aggregator.Add(currentType, track, subTrackBegin, track.size(), geometry);
 
         cout << mwmName << " " << user << " " << trackIdx << " "
              << my::SecondsSinceEpochToString(start) << " " << length << " " << timeElapsed << " "
@@ -282,9 +256,9 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, string
 
   auto processTrack = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks) {
     LOG(LINFO, ("Processing", filename));
-    ForTracksSortedByMwmName(processMwm, mwmToMatchedTracks, *numMwmIds);
+    ForTracksSortedByMwmName(mwmToMatchedTracks, *numMwmIds, processMwm);
   };
 
-  ForEachTrackFile(processTrack, filepath, trackExtension, numMwmIds);
+  ForEachTrackFile(filepath, trackExtension, numMwmIds, processTrack);
 }
-}  // namespace tracking
+}  // namespace track_analyzing

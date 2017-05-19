@@ -344,8 +344,8 @@ namespace m2
     return (DebugPrint(r.m_rect) + ::DebugPrint(r.m_points));
   }
 
-  template <class PointT>
-  bool RegionsContain(vector<Region<PointT>> const & regions, PointT const & point)
+  template <class Point>
+  bool RegionsContain(vector<Region<Point>> const & regions, Point const & point)
   {
     for (auto const & region : regions)
     {

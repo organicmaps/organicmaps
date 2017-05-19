@@ -8,10 +8,8 @@
 
 #include <memory>
 #include <string>
-#include <unordered_map>
-#include <vector>
 
-namespace tracking
+namespace track_analyzing
 {
 class LogParser final
 {
@@ -29,4 +27,4 @@ private:
   std::shared_ptr<m4::Tree<routing::NumMwmId>> m_mwmTree;
   std::string const m_dataDir;
 };
-}  // namespace tracking
+}  // namespace track_analyzing
