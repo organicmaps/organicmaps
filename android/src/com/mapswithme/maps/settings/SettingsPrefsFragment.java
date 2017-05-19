@@ -425,7 +425,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     int curValue = Config.getUseMobileDataSettings();
 
-    if (curValue != NetworkPolicy.NOT_TODAY && curValue != NetworkPolicy.TODAY)
+    if (curValue != NetworkPolicy.NOT_TODAY && curValue != NetworkPolicy.TODAY
+        && curValue != NetworkPolicy.NONE)
     {
       mobilePref.setValue(String.valueOf(curValue));
       mobilePref.setSummary(mobilePref.getEntry());
