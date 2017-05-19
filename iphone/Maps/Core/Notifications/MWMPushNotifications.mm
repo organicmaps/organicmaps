@@ -62,9 +62,12 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 + (BOOL)handleURLPush:(NSDictionary *)userInfo
 {
   auto app = UIApplication.sharedApplication;
+  NSLog(@"Handle url push");
+  NSLog(@"User info: %@", userInfo);
   if (app.applicationState != UIApplicationStateInactive)
     return NO;
   NSString * openLink = userInfo[@"openURL"];
+  NSLog(@"Push's url: %@", openLink);
   if (!openLink)
     return NO;
   NSURL * url = [NSURL URLWithString:openLink];

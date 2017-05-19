@@ -214,6 +214,7 @@ using namespace osm_auth_ios;
 
     string const url = m_mwmURL.UTF8String;
     auto const parsingType = f.ParseAndSetApiURL(url);
+    NSLog(@"Started by url: %@", m_mwmURL);
     switch (parsingType)
     {
     case ParsedMapApi::ParsingResult::Incorrect:
@@ -574,7 +575,7 @@ using namespace osm_auth_ios;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
-  LOG(LINFO, ("Pushwoosh: ", [MWMPushNotifications pushToken].UTF8String));
+  NSLog(@"Pushwoosh token: %@", [MWMPushNotifications pushToken]);
   [self.mapViewController onGetFocus:YES];
   [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];
