@@ -300,6 +300,10 @@
 	<string name="length">Длина</string>
 	<string name="share_my_location">Поделиться местоположением</string>
 	<string name="menu_search">Поиск</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Общие настройки</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Информация</string>
 	<!-- Settings screen: "Map" category title -->
 	<string name="prefs_group_map">Карта</string>
 	<!-- Settings screen: "Miscellaneous" category title -->

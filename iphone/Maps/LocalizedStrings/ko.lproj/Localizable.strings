@@ -467,6 +467,12 @@
 
 "menu_search" = "검색";
 
+/* Settings general group in settings screen */
+"prefs_group_general" = "General settings";
+
+/* Settings information group in settings screen */
+"prefs_group_information" = "Information";
+
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "지도";
 
