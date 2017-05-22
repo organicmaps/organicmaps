@@ -1629,7 +1629,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavAnimationController != null && !mIsFragmentContainer)
     {
-      mNavAnimationController.setBottomLimit(show ? 0 : getCurrentMenu().getFrame().getHeight());
+      mNavAnimationController.setBottomLimit(!show ? 0 : getCurrentMenu().getFrame().getHeight());
       mNavAnimationController.slide(show, getCurrentMenu().getFrame().getHeight());
     }
     if (show)
