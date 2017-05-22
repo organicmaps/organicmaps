@@ -23,7 +23,7 @@ public:
   explicit ResultsView(QWidget & parent);
 
   void Add(search::Result const & result);
-  void Add(search::Sample::Result const & result);
+  void Add(search::Sample::Result const & result, Edits::Entry const & entry);
 
   ResultView & Get(size_t i);
   ResultView const & Get(size_t i) const;
@@ -38,7 +38,7 @@ signals:
 
 private:
   template <typename Result>
-  void AddImpl(Result const & result);
+  void AddImpl(Result const & result, bool hidden);
 
   std::vector<ResultView *> m_results;
 };

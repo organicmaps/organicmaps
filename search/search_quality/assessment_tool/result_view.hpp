@@ -24,7 +24,7 @@ public:
   ResultView(search::Result const & result, QWidget & parent);
   ResultView(search::Sample::Result const & result, QWidget & parent);
 
-  void EnableEditing(Edits::RelevanceEditor && editor);
+  void SetEditor(Edits::RelevanceEditor && editor);
 
   void Update();
 

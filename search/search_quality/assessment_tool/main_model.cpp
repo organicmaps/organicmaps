@@ -232,6 +232,14 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Updat
   m_view->OnResultChanged(sampleIndex, type, update);
   m_view->OnSampleChanged(sampleIndex, context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
+
+  if (update.m_type == Edits::Update::Type::Delete)
+  {
+    CHECK(context.m_initialized, ());
+
+    CHECK_EQUAL(type, View::ResultType::NonFound, ());
+    ShowMarks(context);
+  }
 }
 
 void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
@@ -256,7 +264,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
 
   if (!context.m_initialized)
   {
-    context.m_foundResultsEdits.ResetRelevances(relevances);
+    context.m_foundResultsEdits.Reset(relevances);
     context.m_goldenMatching = goldenMatching;
     context.m_actualMatching = actualMatching;
 
@@ -273,20 +281,21 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
         nonFound.push_back(context.m_sample.m_results[i]);
         relevances.push_back(nonFound.back().m_relevance);
       }
-      context.m_nonFoundResultsEdits.ResetRelevances(relevances);
+      context.m_nonFoundResultsEdits.Reset(relevances);
     }
 
     context.m_initialized = true;
   }
 
-  m_view->ShowNonFoundResults(context.m_nonFoundResults);
+  m_view->ShowNonFoundResults(context.m_nonFoundResults,
+                              context.m_nonFoundResultsEdits.GetEntries());
+  ShowMarks(context);
   m_view->OnResultChanged(sampleIndex, View::ResultType::Found,
-                          Edits::Update::AllRelevancesUpdate());
+                          Edits::Update::MakeAll());
   m_view->OnResultChanged(sampleIndex, View::ResultType::NonFound,
-                          Edits::Update::AllRelevancesUpdate());
+                          Edits::Update::MakeAll());
   m_view->OnSampleChanged(sampleIndex, context.HasChanges());
-  m_view->EnableSampleEditing(sampleIndex, context.m_foundResultsEdits,
-                              context.m_nonFoundResultsEdits);
+  m_view->SetEdits(sampleIndex, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
   m_view->OnSearchCompleted();
 }
 
@@ -295,4 +304,12 @@ void MainModel::ResetSearch()
   ++m_queryTimestamp;
   if (auto handle = m_queryHandle.lock())
     handle->Cancel();
+}
+
+void MainModel::ShowMarks(Context const & context)
+{
+  m_view->ClearSearchResultMarks();
+  m_view->ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
+  m_view->ShowNonFoundResultsMarks(context.m_nonFoundResults,
+                                   context.m_nonFoundResultsEdits.GetEntries());
 }

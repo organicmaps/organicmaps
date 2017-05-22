@@ -13,32 +13,42 @@
 class Edits
 {
 public:
+  using Relevance = search::Sample::Result::Relevance;
+
+  struct Entry
+  {
+    Entry() = default;
+
+    Relevance m_curr = Relevance::Irrelevant;
+    Relevance m_orig = Relevance::Irrelevant;
+    bool m_deleted = false;
+  };
+
   struct Update
   {
     static auto constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
 
     enum class Type
     {
-      SingleRelevance,
-      AllRelevances
+      Single,
+      All,
+      Delete
     };
 
-    static Update AllRelevancesUpdate() { return Update{}; }
+    Update() = default;
+    Update(Type type, size_t index): m_type(type), m_index(index) {}
 
-    static Update SingleRelevanceUpdate(size_t index)
-    {
-      Update result;
-      result.m_index = index;
-      result.m_type = Type::SingleRelevance;
-      return result;
-    }
+    static Update MakeAll() { return Update{}; }
 
+    static Update MakeSingle(size_t index) { return Update{Type::Single, index}; }
+
+    static Update MakeDelete(size_t index) { return Update{Type::Delete, index}; }
+
+    Type m_type = Type::All;
     size_t m_index = kInvalidIndex;
-    Type m_type = Type::AllRelevances;
   };
 
   using OnUpdate = std::function<void(Update const & update)>;
-  using Relevance = search::Sample::Result::Relevance;
 
   class RelevanceEditor
   {
@@ -58,13 +68,21 @@ public:
 
   explicit Edits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
 
-  void ResetRelevances(std::vector<Relevance> const & relevances);
+  void Apply();
+  void Reset(std::vector<Relevance> const & relevances);
 
   // Sets relevance at |index| to |relevance|. Returns true iff
   // |relevance| differs from the original one.
   bool SetRelevance(size_t index, Relevance relevance);
 
-  std::vector<Relevance> const & GetRelevances() const { return m_currRelevances; }
+  // Marks entry at |index| as deleted.
+  void Delete(size_t index);
+
+  std::vector<Entry> const & GetEntries() const { return m_entries; }
+  std::vector<Relevance> GetRelevances() const;
+
+  Entry const & Get(size_t index) const;
+
 
   void Clear();
   bool HasChanges() const;
@@ -81,8 +99,7 @@ private:
     return fn();
   }
 
-  std::vector<Relevance> m_origRelevances;
-  std::vector<Relevance> m_currRelevances;
+  std::vector<Entry> m_entries;
 
   size_t m_numEdits = 0;
 

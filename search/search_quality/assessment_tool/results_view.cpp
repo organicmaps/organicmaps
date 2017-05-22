@@ -21,12 +21,12 @@ ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent) { setAlternati
 
 void ResultsView::Add(search::Result const & result)
 {
-  AddImpl(result);
+  AddImpl(result, false /* hidden */);
 }
 
-void ResultsView::Add(search::Sample::Result const & result)
+void ResultsView::Add(search::Sample::Result const & result, Edits::Entry const & entry)
 {
-  AddImpl(result);
+  AddImpl(result, entry.m_deleted /* hidden */);
 }
 
 ResultView & ResultsView::Get(size_t i)
@@ -45,15 +45,26 @@ void ResultsView::Update(Edits::Update const & update)
 {
   switch (update.m_type)
   {
-  case Edits::Update::Type::SingleRelevance:
+  case Edits::Update::Type::Single:
+  {
     CHECK_LESS(update.m_index, m_results.size(), ());
     m_results[update.m_index]->Update();
     break;
-  case Edits::Update::Type::AllRelevances:
+  }
+  case Edits::Update::Type::All:
+  {
     for (auto * result : m_results)
       result->Update();
     break;
   }
+  case Edits::Update::Type::Delete:
+  {
+    auto const index = update.m_index;
+    CHECK_LESS(index, Size(), ());
+    item(static_cast<int>(index))->setHidden(true);
+    break;
+  }
+  };
 }
 
 void ResultsView::Clear()
@@ -63,9 +74,10 @@ void ResultsView::Clear()
 }
 
 template <typename Result>
-void ResultsView::AddImpl(Result const & result)
+void ResultsView::AddImpl(Result const & result, bool hidden)
 {
   auto * item = new QListWidgetItem(this /* parent */);
+  item->setHidden(hidden);
   addItem(item);
 
   auto * view = new ResultView(result, *this /* parent */);

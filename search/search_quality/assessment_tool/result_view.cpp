@@ -63,7 +63,7 @@ ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
 {
 }
 
-void ResultView::EnableEditing(Edits::RelevanceEditor && editor)
+void ResultView::SetEditor(Edits::RelevanceEditor && editor)
 {
   m_editor = my::make_unique<Edits::RelevanceEditor>(std::move(editor));
 

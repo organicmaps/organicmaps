@@ -21,6 +21,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
@@ -125,6 +126,22 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
     layout->addWidget(new QLabel(tr("Non found results")));
 
     m_nonFoundResults = new ResultsView(*this /* parent */);
+    m_nonFoundResults->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_nonFoundResults, &ResultsView::customContextMenuRequested, [&](QPoint pos) {
+      pos = m_nonFoundResults->mapToGlobal(pos);
+
+      auto const items = m_nonFoundResults->selectedItems();
+      for (auto const * item : items)
+      {
+        int const row = m_nonFoundResults->row(item);
+
+        QMenu menu;
+        auto const * action = menu.addAction("Remove result");
+        connect(action, &QAction::triggered, [this, row]() { OnRemoveNonFoundResult(row); });
+
+        menu.exec(pos);
+      }
+    });
     layout->addWidget(m_nonFoundResults);
   }
 
@@ -165,41 +182,73 @@ void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Resu
 {
   for (auto it = begin; it != end; ++it)
     m_foundResults->Add(*it /* result */);
-  m_framework.FillSearchResultsMarks(begin, end);
 }
 
-void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results)
+void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
+                                     std::vector<Edits::Entry> const & entries)
 {
+  CHECK_EQUAL(results.size(), entries.size(), ());
+
   auto & bookmarkManager = m_framework.GetBookmarkManager();
   UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
 
-  for (auto const & result : results)
+  bool allDeleted = true;
+  for (size_t i = 0; i < results.size(); ++i)
   {
-    m_nonFoundResults->Add(result);
+    m_nonFoundResults->Add(results[i], entries[i]);
+    if (!entries[i].m_deleted)
+      allDeleted = false;
+  }
+  if (!allDeleted)
+    m_nonFoundResultsBox->show();
+}
+
+void SampleView::ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end)
+{
+  m_framework.FillSearchResultsMarks(begin, end);
+}
+
+void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
+                                          std::vector<Edits::Entry> const & entries)
+
+{
+  CHECK_EQUAL(results.size(), entries.size(), ());
+
+  auto & bookmarkManager = m_framework.GetBookmarkManager();
+  UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
+  guard.m_controller.SetIsVisible(true);
+  guard.m_controller.SetIsDrawable(true);
+
+  for (size_t i = 0; i < results.size(); ++i)
+  {
+    auto const & result = results[i];
+    auto const & entry = entries[i];
+    if (entry.m_deleted)
+      continue;
 
     SearchMarkPoint * mark =
         static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(result.m_pos));
     mark->SetCustomSymbol("non-found-search-result");
   }
-
-  if (!results.empty())
-    m_nonFoundResultsBox->show();
 }
+
+void SampleView::ClearSearchResultMarks() { m_framework.ClearSearchResultsMarks(); }
 
 void SampleView::ClearAllResults()
 {
   m_foundResults->Clear();
   m_nonFoundResults->Clear();
   m_nonFoundResultsBox->hide();
-  m_framework.ClearSearchResultsMarks();
+  ClearSearchResultMarks();
 }
 
-void SampleView::EnableEditing(Edits & resultsEdits, Edits & nonFoundResultsEdits)
+void SampleView::SetEdits(Edits & resultsEdits, Edits & nonFoundResultsEdits)
 {
-  EnableEditing(*m_foundResults, resultsEdits);
-  EnableEditing(*m_nonFoundResults, nonFoundResultsEdits);
+  SetEdits(*m_foundResults, resultsEdits);
+  SetEdits(*m_nonFoundResults, nonFoundResultsEdits);
+  m_nonFoundResultsEdits = &nonFoundResultsEdits;
 }
 
 void SampleView::Clear()
@@ -224,10 +273,12 @@ void SampleView::OnLocationChanged(Qt::DockWidgetArea area)
     layout()->setContentsMargins(m_defaultMargins);
 }
 
-void SampleView::EnableEditing(ResultsView & results, Edits & edits)
+void SampleView::SetEdits(ResultsView & results, Edits & edits)
 {
   size_t const numRelevances = edits.GetRelevances().size();
   CHECK_EQUAL(results.Size(), numRelevances, ());
   for (size_t i = 0; i < numRelevances; ++i)
-    results.Get(i).EnableEditing(Edits::RelevanceEditor(edits, i));
+    results.Get(i).SetEditor(Edits::RelevanceEditor(edits, i));
 }
+
+void SampleView::OnRemoveNonFoundResult(int row) { m_nonFoundResultsEdits->Delete(row); }

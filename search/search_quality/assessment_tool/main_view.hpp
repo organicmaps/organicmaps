@@ -32,16 +32,24 @@ public:
   void OnSearchCompleted() override;
   void ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
                   bool hasEdits) override;
+
   void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
-  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results) override;
+  void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
+                           std::vector<Edits::Entry> const & entries) override;
+
+  void ShowFoundResultsMarks(search::Results::ConstIter begin,
+                             search::Results::ConstIter end) override;
+  void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
+                                std::vector<Edits::Entry> const & entries) override;
+  void ClearSearchResultMarks() override;
 
   void MoveViewportToResult(search::Result const & result) override;
   void MoveViewportToResult(search::Sample::Result const & result) override;
   void MoveViewportToRect(m2::RectD const & rect) override;
 
   void OnResultChanged(size_t sampleIndex, ResultType type, Edits::Update const & update) override;
-  void EnableSampleEditing(size_t sampleIndex, Edits & foundResultsEdits,
-                           Edits & nonFoundResultsEdits) override;
+  void SetEdits(size_t sampleIndex, Edits & foundResultsEdits,
+                Edits & nonFoundResultsEdits) override;
   void OnSampleChanged(size_t sampleIndex, bool hasEdits) override;
   void OnSamplesChanged(bool hasEdits) override;
 
