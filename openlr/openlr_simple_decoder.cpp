@@ -40,6 +40,7 @@ struct alignas(kCacheLineSize) Stats
     m_zeroCanditates += rhs.m_zeroCanditates;
     m_moreThanOneCandidate += rhs.m_moreThanOneCandidate;
     m_routeIsNotCalculated += rhs.m_routeIsNotCalculated;
+    m_tightOffsets += rhs.m_tightOffsets;
     m_total += rhs.m_total;
   }
 
@@ -47,6 +48,7 @@ struct alignas(kCacheLineSize) Stats
   uint32_t m_zeroCanditates = 0;
   uint32_t m_moreThanOneCandidate = 0;
   uint32_t m_routeIsNotCalculated = 0;
+  uint32_t m_tightOffsets = 0;
   uint32_t m_total = 0;
 };
 
@@ -119,6 +121,8 @@ OpenLRSimpleDecoder::OpenLRSimpleDecoder(string const & dataFilename, vector<Ind
 void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmentsToHandle,
                                  SegmentsFilter const & filter, uint32_t const numThreads)
 {
+  double const kOffsetToleranceM = 10;
+
   // TODO(mgsergio): Feed segments directly to the decoder. Parsing should not
   // take place inside decoder process.
   vector<LinearSegment> segments;
@@ -144,8 +148,8 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
   size_t constexpr kBatchSize = my::LCM(a, b);
   size_t constexpr kProgressFrequency = 100;
 
-  auto worker = [&segments, &paths, kBatchSize, kProgressFrequency, numThreads, this](
-      size_t threadNum, Index const & index, Stats & stats) {
+  auto worker = [&segments, &paths, kBatchSize, kProgressFrequency, kOffsetToleranceM, numThreads,
+                 this](size_t threadNum, Index const & index, Stats & stats) {
     FeaturesRoadGraph roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag,
                                 make_unique<CarModelFactory>());
     RoadInfoGetter roadInfoGetter(index);
@@ -192,6 +196,14 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
             ++stats.m_routeIsNotCalculated;
             continue;
           }
+
+          if (positiveOffsetM + negativeOffsetM + kOffsetToleranceM >= expectedLength)
+          {
+            LOG(LINFO, ("Too tight positive and negative offsets, setting them to zero."));
+            positiveOffsetM = 0;
+            negativeOffsetM = 0;
+            ++stats.m_tightOffsets;
+          }
         }
 
         auto & path = paths[j];
@@ -224,10 +236,11 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
   for (auto const & s : stats)
     allStats.Add(s);
 
-  LOG(LINFO, ("Parsed segments:", allStats.m_total,
-              "Routes failed:", allStats.m_routeIsNotCalculated,
-              "Short routes:", allStats.m_shortRoutes,
-              "Ambiguous routes:", allStats.m_moreThanOneCandidate,
-              "Path is not reconstructed:", allStats.m_zeroCanditates));
+  LOG(LINFO, ("Parsed segments:", allStats.m_total));
+  LOG(LINFO, ("Routes failed:", allStats.m_routeIsNotCalculated));
+  LOG(LINFO, ("Tight offsets:", allStats.m_tightOffsets));
+  LOG(LINFO, ("Short routes:", allStats.m_shortRoutes));
+  LOG(LINFO, ("Ambiguous routes:", allStats.m_moreThanOneCandidate));
+  LOG(LINFO, ("Path is not reconstructed:", allStats.m_zeroCanditates));
 }
 }  // namespace openlr

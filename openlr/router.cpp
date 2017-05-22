@@ -42,7 +42,7 @@ class Score final
 {
 public:
   // A weight for total length of true fake edges.
-  static const int kTrueFakeCoeff = 3;
+  static const int kTrueFakeCoeff = 10;
 
   // A weight for total length of fake edges that are parts of some
   // real edges.
@@ -578,11 +578,12 @@ template <typename It>
 double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It e)
 {
   double const kEps = 1e-5;
+  double const kLengthThresholdM = 1;
 
   m2::PointD const uv = v - u;
   double const sqlen = u.SquareLength(v);
 
-  if (sqlen < kEps)
+  if (MercatorBounds::DistanceOnEarth(u, v) < kLengthThresholdM)
     return 0;
 
   std::vector<std::pair<double, double>> covs;
@@ -709,7 +710,7 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
           if (score > frontEdgeScore)
           {
             frontEdgeScore = score;
-            frontEdge = edge;
+            frontEdge = edge.GetReverseEdge();
           }
         });
   });
@@ -738,10 +739,10 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
       path.push_back(e.m_raw);
   }
 
-  if (frontEdgeScore >= kFakeCoverageThreshold)
+  if (frontEdgeScore >= kFakeCoverageThreshold && !path.empty() && path.front() != frontEdge)
     path.insert(path.begin(), frontEdge);
 
-  if (backEdgeScore >= kFakeCoverageThreshold)
+  if (backEdgeScore >= kFakeCoverageThreshold && !path.empty() && path.back() != backEdge)
     path.insert(path.end(), backEdge);
 
   if (path.empty())
@@ -753,9 +754,11 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
   return !path.empty();
 }
 
-void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::vector<routing::Edge> & path)
+void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges,
+                                         std::vector<routing::Edge> & path)
 {
-  double const kThreshold = 0.95;
+  double const kThreshold = 0.8;
+  double const kCoverageThreshold = 0.5;
 
   CHECK(all_of(edges.begin(), edges.end(), mem_fn(&Edge::IsFake)), ());
 
@@ -793,7 +796,7 @@ void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::v
     ForEachNonFakeClosestEdge(v, m_points[stage].m_lfrcnp, checkEdge);
   }
 
-  if (bestCoverage >= expectedLength * kThreshold)
+  if (bestCoverage >= expectedLength * kCoverageThreshold)
     path = {bestEdge};
 }
 }  // namespace openlr

@@ -75,6 +75,7 @@ public:
   bool SameRoadSegmentAndDirection(Edge const & r) const;
 
   bool operator==(Edge const & r) const;
+  bool operator!=(Edge const & r) const { return !(*this == r); }
   bool operator<(Edge const & r) const;
 
 private:
