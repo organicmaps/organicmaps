@@ -47,11 +47,12 @@ public:
 
     bool Fits(Segment const & segment) const
     {
-      bool const softFits = segment.GetMwmId() == m_segment.GetMwmId() &&
-                            segment.GetFeatureId() == m_segment.GetFeatureId() &&
-                            segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
-      return m_soft ? softFits : softFits && m_segment.IsForward() == segment.IsForward();
+      if (!m_soft)
+        return segment == m_segment;
 
+      return segment.GetMwmId() == m_segment.GetMwmId() &&
+             segment.GetFeatureId() == m_segment.GetFeatureId() &&
+             segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
     }
 
     uint32_t GetSegmentIdxForTesting() const { return m_segment.GetSegmentIdx(); }
@@ -59,6 +60,11 @@ public:
   private:
     Segment m_segment;
     m2::PointD const m_point;
+    // If |m_soft| == true it means that |m_segment| should be used as a two way segment. So it's
+    // possible to go along |m_segment| in any direction. In that case the instanse of FakeVertex
+    // could be considered as a soft FakeVertex.
+    // If |m_soft| == true it means it's possible to go along |m_segment| only in direction according
+    // to its |m_forward| parameter.
     bool const m_soft;
   };
 
@@ -77,6 +83,7 @@ public:
   FakeVertex const & GetStartVertex() const { return m_start; }
   FakeVertex const & GetFinishVertex() const { return m_finish; }
   m2::PointD const & GetPoint(Segment const & segment, bool front);
+  bool FitsStart(Segment const & s) const { return m_start.Fits(s); }
   bool FitsFinish(Segment const & s) const { return m_finish.Fits(s); }
 
   static size_t GetRouteNumPoints(vector<Segment> const & route);
