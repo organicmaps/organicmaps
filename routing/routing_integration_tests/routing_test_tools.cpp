@@ -91,9 +91,14 @@ namespace integration
       return infoGetter.GetLimitRectForLeaf(countryId);
     };
 
-    shared_ptr<NumMwmIds> numMwmIds = make_shared<NumMwmIds>();
-    for (LocalCountryFile const & f : localFiles)
-      numMwmIds->RegisterFile(f.GetCountryFile());
+    auto numMwmIds = make_shared<NumMwmIds>();
+    for (auto const & f : localFiles)
+    {
+      auto const & countryFile = f.GetCountryFile();
+      auto const mwmId = index.GetMwmIdByCountryFile(countryFile);
+      if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
+        numMwmIds->RegisterFile(countryFile);
+    }
 
     auto carRouter = make_unique<CarRouter>(
         index, countryFileGetter,

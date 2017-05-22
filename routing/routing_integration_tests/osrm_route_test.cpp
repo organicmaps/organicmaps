@@ -137,6 +137,13 @@ namespace
         {39.836562407458047, 65.774372510437971}, 239426.);
   }
 
+  UNIT_TEST(RussiaMoscowBelarusMinsk)
+  {
+    integration::CalculateRouteAndTestRouteLength(integration::GetOsrmComponents(),
+                                                  MercatorBounds::FromLatLon(55.750650, 37.617673), {0., 0.},
+                                                  MercatorBounds::FromLatLon(53.902114, 27.562020), 712649.0);
+  }
+
   // TODO OSRM offers a possible turn to a pedestrian road in this test. It's fixing right now.
   UNIT_TEST(UKRugbyStIvesRouteTest)
   {
