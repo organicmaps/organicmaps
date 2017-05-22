@@ -40,6 +40,7 @@
     <attr name="buttonDialogTextColor" format="color"/>
 
     <attr name="accentButtonBackground" format="reference"/>
+    <attr name="accentButtonRoundBackground" format="reference"/>
     <attr name="accentButtonTextColor" format="color"/>
     <attr name="accentButtonTextColorDisabled" format="color"/>
 
@@ -84,6 +85,8 @@
     <attr name="warmGray" format="color"/>
 
     <attr name="localAdSearchResBackground" format="color"/>
+
+    <attr name="tagBackground" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

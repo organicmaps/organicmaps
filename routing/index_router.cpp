@@ -40,7 +40,9 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
 {
   size_t constexpr kDeadEndTestLimit = 50;
 
-  auto const getVertexByEdgeFn = [](SegmentEdge const & edge) { return edge.GetTarget(); };
+  auto const getVertexByEdgeFn = [](SegmentEdge const & edge) {
+    return edge.GetTarget();
+  };
 
   // Note. If |isOutgoing| == true outgoing edges are looked for.
   // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
@@ -51,6 +53,35 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
 
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
+}
+
+// ReconstructRoute duplicates polyline internal points.
+// Internal points are all polyline points except first and last.
+//
+// Need duplicate times also.
+void DuplicateRouteTimes(size_t const polySize, Route::TTimes &times)
+{
+  if (polySize - 2 != (times.size() - 2) * 2)
+  {
+    LOG(LERROR, ("Can't duplicate route times, polyline:", polySize, ", times:", times.size()));
+    return;
+  }
+
+  Route::TTimes duplicatedTimes;
+  duplicatedTimes.reserve(polySize);
+  size_t index = 0;
+  duplicatedTimes.emplace_back(index++, times.front().second);
+
+  for (size_t i = 1; i < times.size() - 1; ++i)
+  {
+    double const time = times[i].second;
+    duplicatedTimes.emplace_back(index++, time);
+    duplicatedTimes.emplace_back(index++, time);
+  }
+
+  duplicatedTimes.emplace_back(index++, times.back().second);
+  times = move(duplicatedTimes);
+  CHECK_EQUAL(times.size(), polySize, ());
 }
 }  // namespace
 
@@ -91,6 +122,7 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
 {
   string const startCountry = m_countryFileFn(startPoint);
   string const finishCountry = m_countryFileFn(finalPoint);
+
   return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
                         startDirection, finalPoint, delegate, route);
 }
@@ -141,6 +173,15 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
       IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
 
+  bool const isStartMwmLoaded = m_index.IsLoaded(startFile);
+  bool const isFinishMwmLoaded = m_index.IsLoaded(finishFile);
+  if (!isStartMwmLoaded)
+    route.AddAbsentCountry(startCountry);
+  if (!isFinishMwmLoaded)
+    route.AddAbsentCountry(finishCountry);
+  if (!isStartMwmLoaded || !isFinishMwmLoaded)
+    return IRouter::NeedMoreMaps;
+
   Edge startEdge;
   if (!FindClosestEdge(startFile, startPoint, true /* isOutgoing */, graph, startEdge))
     return IRouter::StartPointNotFound;
@@ -172,7 +213,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   IndexGraphStarter starter(start, finish, graph);
 
   AStarProgress progress(0, 100);
-  progress.Initialize(startPoint, finalPoint);
+  progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   uint32_t drawPointsStep = 0;
   auto onVisitJunction = [&](Segment const & from, Segment const & to) {
@@ -235,6 +276,7 @@ bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD
   {
     Edge const & edge = candidates[i].first;
     Segment const segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+
     if (edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(segment, isOutgoing, worldGraph))
       continue;
 
@@ -342,7 +384,8 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
     starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate,
+                   false /* hasAltitude */, junctions, route);
 
   if (!route.IsValid())
   {
@@ -360,8 +403,9 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
     times.emplace_back(static_cast<uint32_t>(i), time);
     time += starter.CalcSegmentWeight(segments[i]);
   }
-  route.SetSectionTimes(move(times));
 
+  DuplicateRouteTimes(route.GetPoly().GetSize(), times);
+  route.SetSectionTimes(move(times));
   return true;
 }
 

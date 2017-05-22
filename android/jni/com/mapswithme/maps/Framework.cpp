@@ -565,6 +565,18 @@ int Framework::ToDoAfterUpdate() const
   return (int) m_work.ToDoAfterUpdate();
 }
 
+void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
+{
+  auto const & info = g_framework->GetPlacePageInfo();
+  auto const & featureID = info.GetID();
+  auto const & mwmInfo = featureID.m_mwmId.GetInfo();
+  if (!mwmInfo)
+    return;
+
+  local_ads::Event event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(), featureID.m_index,
+                         m_work.GetDrawScale(), std::chrono::steady_clock::now(), lat, lon, accuracy);
+  m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
+}
 }  // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -1278,5 +1290,12 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
 {
   return frm()->IsRouteFinished();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeLogLocalAdsEvent(JNIEnv * env, jclass, jint type,
+                                                          jdouble lat, jdouble lon, jint accuracy)
+{
+  g_framework->LogLocalAdsEvent(static_cast<local_ads::EventType>(type), lat, lon, accuracy);
 }
 }  // extern "C"

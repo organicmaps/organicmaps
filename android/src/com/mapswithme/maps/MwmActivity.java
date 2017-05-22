@@ -1100,6 +1100,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       TrafficManager.INSTANCE.attach(mTrafficButtonController);
     if (mNavigationController != null)
       TrafficManager.INSTANCE.attach(mNavigationController);
+    mPlacePage.onActivityStarted();
   }
 
   @Override
@@ -1111,6 +1112,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     TrafficManager.INSTANCE.detachAll();
     if (mTrafficButtonController != null)
       mTrafficButtonController.destroy();
+    mPlacePage.onActivityStopped();
   }
 
   @Override
@@ -1203,7 +1205,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onMapObjectActivated(MapObject object)
+  public void onMapObjectActivated(final MapObject object)
   {
     if (MapObject.isOfType(MapObject.API_POINT, object))
     {
@@ -1225,7 +1227,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void onSetMapObjectComplete()
         {
           if (!mPlacePageRestored)
+          {
             mPlacePage.setState(State.PREVIEW);
+            if (object != null)
+              Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
+          }
           mPlacePageRestored = false;
         }
       });
@@ -1438,13 +1444,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(new MapObject(MapObject.API_POINT, from.mName, "", "", "",
-                                                      from.mLat, from.mLon, "", null, false, "", null),
-                                        new MapObject(MapObject.API_POINT, to.mName, "", "", "",
-                                                      to.mLat, to.mLon, "", null, false, "", null));
+        RoutingController.get().prepare(new MapObject("", 0L, 0, MapObject.API_POINT, from.mName,
+                                                      "", "", "", from.mLat, from.mLon, "", null,
+                                                      false, "", null),
+                                        new MapObject("", 0L, 0, MapObject.API_POINT, to.mName, "",
+                                                      "", "", to.mLat, to.mLon, "", null, false, "",
+                                                      null));
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
+        return true;
+      case ParsedUrlMwmRequest.RESULT_LEAD:
         return true;
       }
 
@@ -1551,7 +1561,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (controller.isBuilt() || controller.isUberRequestHandled())
     {
-      mMainMenu.showLineFrame(true, new Runnable()
+      showLineFrame(true, new Runnable()
       {
         @Override
         public void run()
@@ -1567,7 +1577,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
-      mMainMenu.showLineFrame(false, new Runnable()
+      showLineFrame(false, new Runnable()
       {
         @Override
         public void run()
@@ -1578,10 +1588,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
             completion.run();
         }
       });
+
       return;
     }
 
-    mMainMenu.showLineFrame(true, new Runnable()
+    showLineFrame(true, new Runnable()
     {
       @Override
       public void run()
@@ -1592,6 +1603,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (completion != null)
       completion.run();
+  }
+
+  private void showLineFrame(boolean show, @Nullable Runnable completion)
+  {
+    mMainMenu.showLineFrame(show, completion);
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.showStartButton(show);
+    }
   }
 
   private void setNavButtonsTopLimit(int limit)
@@ -1688,7 +1710,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setNavButtonsTopLimit(visible ? toolbarHeight : 0);
     if (mFilterController != null)
     {
-      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery());
+      boolean show = visible && !TextUtils.isEmpty(SearchEngine.getQuery())
+                     && !RoutingController.get().isNavigating();
       mFilterController.show(show, true);
       mMainMenu.show(!show);
     }
@@ -1717,6 +1740,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.updateState(false);
     adjustCompass(UiUtils.getCompassYOffset(this));
+    if (show)
+    {
+      mSearchController.clear();
+      mSearchController.hide();
+      if (mFilterController != null)
+        mFilterController.show(false, true);
+    }
   }
 
   @Override

@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Mapa";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Zpětná vazba";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Přihlásit se k odběru novinek";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Reset";
 
-"booking_filters_rating" = "Hodnocení";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Hodnocení od";
 
 "booking_filters_rating_any" = "Jakékoli";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Objednání taxi není dočasně k dispozici.";
 
-"advertisement" = "Inzerce";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Použít mobilní internet ke zobrazení podrobnějších informací?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Aktualizuji mapy";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Aktualizujte své stažené mapy";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Aktualizace map zajišťuje aktuální informace o objektech";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Aktualizace (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Aktualizovat ručně později";
 
 "search_hotel_filter_apartment" = "Byty";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Letovisko";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Zaregistruj si tento podnik";
 
-"off" = "Off";
+"view_campaign_button" = "Podnik je propagován";
+
+"search_hotel_filters_type" = "Typ";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Všeobecné připomínky";
+
+"on" = "Zapnout";
+
+"off" = "Vypnout";
+
+"prefs_languages_information" = "Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –> Jazyk a vstupy –> Mluvené slovo –> Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.";
+
+"prefs_languages_information_off_link" = "Více informací najdete v tomto návodu.";
+
+"whatsnew_transliteration_title" = "Transliterace do latinky";
+
+"whatsnew_transliteration_message" = "Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.";

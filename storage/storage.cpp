@@ -114,18 +114,24 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   , m_currentSlotId(0)
   , m_dataDir(dataDir)
   , m_downloadMapOnTheMap(nullptr)
+  , m_maxMwmSizeBytes(0)
 {
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
+  CalMaxMwmSizeBytes();
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                  unique_ptr<MapFilesDownloader> mapDownloaderForTesting)
-  : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0), m_downloadMapOnTheMap(nullptr)
+  : m_downloader(move(mapDownloaderForTesting))
+  , m_currentSlotId(0)
+  , m_downloadMapOnTheMap(nullptr)
+  , m_maxMwmSizeBytes(0)
 {
   m_currentVersion =
       LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
+  CalMaxMwmSizeBytes();
 }
 
 void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete)
@@ -1308,6 +1314,19 @@ bool Storage::IsDisputed(TCountryTreeNode const & node) const
   vector<TCountryTreeNode const *> found;
   m_countries.Find(node.Value().Name(), found);
   return found.size() > 1;
+}
+
+void Storage::CalMaxMwmSizeBytes()
+{
+  m_maxMwmSizeBytes = 0;
+  m_countries.GetRoot().ForEachInSubtree([&](TCountryTree::Node const & node) {
+    if (node.ChildrenCount() == 0)
+    {
+      TMwmSize mwmSizeBytes = node.Value().GetSubtreeMwmSizeBytes();
+      if (mwmSizeBytes > m_maxMwmSizeBytes)
+        m_maxMwmSizeBytes = mwmSizeBytes;
+    }
+  });
 }
 
 StatusAndError Storage::GetNodeStatusInfo(

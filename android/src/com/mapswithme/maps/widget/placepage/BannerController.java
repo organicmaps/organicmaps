@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.AdTracker;
 import com.mapswithme.maps.ads.Banner;
@@ -34,6 +35,9 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
+
 
 final class BannerController
 {
@@ -81,6 +85,8 @@ final class BannerController
   private CompoundNativeAdLoader mAdsLoader;
   @Nullable
   private AdTracker mAdTracker;
+  @NonNull
+  private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
 
   BannerController(@NonNull View bannerView, @Nullable BannerListener listener,
                    @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker)
@@ -106,7 +112,6 @@ final class BannerController
     });
     Resources res = mFrame.getResources();
     UiUtils.expandTouchAreaForView(mAds, (int) res.getDimension(R.dimen.margin_quarter_plus));
-    loader.setAdListener(new MyNativeAdsListener());
     mAdsLoader = loader;
     mAdTracker = tracker;
     mFrame.setOnClickListener(new View.OnClickListener()
@@ -181,8 +186,7 @@ final class BannerController
     }
 
     UiUtils.show(mFrame);
-
-    mAdsLoader.loadAd(mFrame.getContext(), mBanners);
+    mAdsLoader.loadAd(MwmApplication.get(), mBanners);
     updateVisibility();
   }
 
@@ -260,9 +264,26 @@ final class BannerController
       return;
 
     if (isVisible)
+    {
       mAdTracker.onViewShown(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.registerView(mFrame);
+    }
     else
+    {
       mAdTracker.onViewHidden(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.unregisterView(mFrame);
+    }
+  }
+
+  void detach()
+  {
+    mAdsLoader.detach();
+    mAdsLoader.setAdListener(null);
+  }
+
+  void attach()
+  {
+    mAdsLoader.setAdListener(mAdsListener);
   }
 
   private void fillViews(@NonNull MwmNativeAd data)
@@ -285,7 +306,7 @@ final class BannerController
     else if (!mOpened)
     {
       close();
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, 0);
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
     }
     else
     {
@@ -382,7 +403,8 @@ final class BannerController
     @Override
     public void onClick(@NonNull MwmNativeAd ad)
     {
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad, mOpened ? 1 : 0);
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
+                                        mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
     }
   }
 }

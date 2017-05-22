@@ -30,9 +30,6 @@
   UIView * toView = toVC.view;
   UIView * containerView = [transitionContext containerView];
 
-  if (self.isPresentation)
-    [containerView addSubview:toView];
-
   UIViewController * animatingVC = self.isPresentation ? toVC : fromVC;
   UIView * animatingView = animatingVC.view;
 
@@ -44,6 +41,9 @@
   CGRect const finalFrame = self.isPresentation ? finalFrameForVC : initialFrameForVC;
 
   animatingView.frame = initialFrame;
+
+  if (self.isPresentation)
+    [containerView addSubview:toView];
 
   [UIView animateWithDuration:[self transitionDuration:transitionContext]
       delay:0

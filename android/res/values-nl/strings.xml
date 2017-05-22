@@ -963,7 +963,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
 	<string name="booking_filters_reset">Resetten</string>
-	<string name="booking_filters_rating">Beoordeling</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Rating van</string>
 	<string name="booking_filters_rating_any">Alle</string>
 	<string name="booking_filters_ragting_good">Goed</string>
 	<string name="booking_filters_rating_very_good">Heel Goed</string>
@@ -989,7 +990,6 @@
 	<string name="whatsnew_uber_message">Bestel een Uber-taxi rechtstreeks vanuit de app!</string>
 	<string name="dialog_taxi_offline">Het bestellen van een taxi is niet beschikbaar in de offline modus.</string>
 	<string name="dialog_taxi_error">Het bestellen van een taxi is tijdelijk niet beschikbaar.</string>
-	<string name="advertisement">Reclame</string>
 	<string name="mobile_data_dialog">Mobiel internet gebruiken om gedetailleerde informatie weer te geven?</string>
 	<string name="mobile_data_option_always">Altijd Gebruiken</string>
 	<string name="mobile_data_option_today">Enkel Vandaag</string>
@@ -1066,10 +1066,29 @@
 	<string name="reviews_on_bookingcom">Meer beoordelingen op Booking.com</string>
 	<string name="offline_place_page_more_information">Maak verbinding met het internet om meer informatie over de plaats te krijgen.</string>
 	<string name="failed_load_information">Informatie laden mislukt.</string>
+	<string name="whats_new_auto_update_updating_maps">Kaarten bijwerken</string>
+	<string name="whats_new_auto_update_title">Werk uw gedownloade kaarten bij</string>
+	<string name="whats_new_auto_update_message">Kaarten bijwerken houdt de informatie over objecten actueel</string>
+	<string name="whats_new_auto_update_button_size">Bijwerken (%s)</string>
+	<string name="whats_new_auto_update_button_later">Later handmatig bijwerken</string>
 	<string name="search_hotel_filter_apartment">Appartementen</string>
 	<string name="search_hotel_filter_camp_site">Camping</string>
 	<string name="search_hotel_filter_chalet">Chalet</string>
 	<string name="search_hotel_filter_guest_house">Gasthuis</string>
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Complex</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Dit bedrijf claimen</string>
+	<string name="view_campaign_button">Bedrijf wordt geadverteerd</string>
+	<string name="search_hotel_filters_type">Type</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Algemene Feedback</string>
+	<string name="on">Aan</string>
+	<string name="off">Uit</string>
+	<string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -&gt; Taal en invoer -&gt; Spraak -&gt; Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.</string>
+	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
+	<string name="whatsnew_transliteration_title">Transliteratie in het Latijn</string>
+	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>
 </resources>

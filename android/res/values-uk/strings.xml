@@ -967,7 +967,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фільтр</string>
 	<string name="booking_filters_reset">Скинути</string>
-	<string name="booking_filters_rating">Рейтинг</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Рейтинг від</string>
 	<string name="booking_filters_rating_any">Будь-який</string>
 	<string name="booking_filters_ragting_good">Добре</string>
 	<string name="booking_filters_rating_very_good">Дуже добре</string>
@@ -993,7 +994,6 @@
 	<string name="whatsnew_uber_message">Замовляйте таксі прямо з додатку!</string>
 	<string name="dialog_taxi_offline">Замовлення таксі неможливе в автономному режимі.</string>
 	<string name="dialog_taxi_error">Замовлення таксі тимчасово недоступне.</string>
-	<string name="advertisement">Реклама</string>
 	<string name="mobile_data_dialog">Використовувати мобільні дані для перегляду докладної інформації?</string>
 	<string name="mobile_data_option_always">Завжди</string>
 	<string name="mobile_data_option_today">Тільки сьогодні</string>
@@ -1070,10 +1070,29 @@
 	<string name="reviews_on_bookingcom">Більше відгуків на Booking.com</string>
 	<string name="offline_place_page_more_information">Підключіться до мережі Інтернет, щоб отримати більше інформації про місце.</string>
 	<string name="failed_load_information">Не вдалося завантажити інформацію.</string>
+	<string name="whats_new_auto_update_updating_maps">Оновлення карт</string>
+	<string name="whats_new_auto_update_title">Оновити завантажені карти</string>
+	<string name="whats_new_auto_update_message">Оновлення карт дозволяє підтримувати інформацію про об\&#39;єкти в актуальному стані</string>
+	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
+	<string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
 	<string name="search_hotel_filter_apartment">Апартаменти</string>
 	<string name="search_hotel_filter_camp_site">Кемпінг</string>
 	<string name="search_hotel_filter_chalet">Шале</string>
 	<string name="search_hotel_filter_guest_house">Гостинний дім</string>
 	<string name="search_hotel_filter_hostel">Хостел</string>
 	<string name="search_hotel_filter_resort">Будинок відпочинку</string>
+	<string name="search_hotel_filter_hotel">Готель</string>
+	<string name="search_hotel_filter_motel">Мотель</string>
+	<string name="create_campaign_button">Я — власник</string>
+	<string name="view_campaign_button">Ця компанія рекламується</string>
+	<string name="search_hotel_filters_type">Тип</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Загальний відгук</string>
+	<string name="on">Увімкн.</string>
+	<string name="off">Вимкн.</string>
+	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –&gt; Мова та введення –&gt; Мовлення –&gt; Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.</string>
+	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
+	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
+	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\\\&#39;єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
 </resources>

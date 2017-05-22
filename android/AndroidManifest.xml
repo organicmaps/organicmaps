@@ -134,6 +134,20 @@
           android:scheme="http"/>
       </intent-filter>
 
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+          android:host="lead"
+          android:scheme="mapsme"/>
+        <data
+          android:host="lead"
+          android:scheme="mapswithme"/>
+      </intent-filter>
+
       <!-- API CALL -->
       <intent-filter>
         <action android:name="com.mapswithme.maps.api.request"/>

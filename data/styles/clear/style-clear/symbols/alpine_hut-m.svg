@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>alpine_hut-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="alpine_hut-m">
-            <g id="Shape-+-Shape-+-Shape">
-                <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill-opacity="0.6" fill="#FFFFFF"></path>
-                <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#5D4037"></path>
-                <polygon id="Shape" fill="#FFFFFF" points="17 10.502 17 18 13 18 13 14 10 14 10 18 6 18 6 10.502 11.498 5"></polygon>
-            </g>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".6"/>
+    <circle cx="12" cy="12" r="11" fill="#664E42"/>
+    <polygon fill="#FFF" points="18 10.079 18 17 13.636 17 13.636 13.308 10.364 13.308 10.364 17 6 17 6 10.079 11.998 5"/>
+  </g>
 </svg>

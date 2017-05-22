@@ -288,8 +288,6 @@
 	<string name="contact_us">Επικοινωνήστε μαζί μας</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Σχόλια</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">Γενικάό σχόλιο</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">Εγγραφή στο ενημερωτικό μας δελτίο</string>
 	<!-- Text in menu -->
@@ -729,7 +727,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Φίλτρο</string>
 	<string name="booking_filters_reset">Μηδενισμός</string>
-	<string name="booking_filters_rating">Βαθμολογία</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Βαθμολογία από</string>
 	<string name="booking_filters_rating_any">Οποιοδήποτε</string>
 	<string name="booking_filters_ragting_good">Καλή</string>
 	<string name="booking_filters_rating_very_good">Πολύ καλή</string>
@@ -755,7 +754,6 @@
 	<string name="whatsnew_uber_message">Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!</string>
 	<string name="dialog_taxi_offline">Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.</string>
 	<string name="dialog_taxi_error">Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.</string>
-	<string name="advertisement">Διαφήμιση</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
 	<string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
 	<string name="mobile_data_option_today">Μόνο σήμερα</string>
@@ -832,10 +830,29 @@
 	<string name="reviews_on_bookingcom">Περισσότερες κριτικές στο Booking.com</string>
 	<string name="offline_place_page_more_information">Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.</string>
 	<string name="failed_load_information">Η φόρτωση πληροφοριών απέτυχε.</string>
+	<string name="whats_new_auto_update_updating_maps">Ενημέρωση χαρτών</string>
+	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
+	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
+	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
+	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
 	<string name="search_hotel_filter_apartment">Διαμερίσματα</string>
 	<string name="search_hotel_filter_camp_site">Κάμπινγκ</string>
 	<string name="search_hotel_filter_chalet">Σαλέ</string>
 	<string name="search_hotel_filter_guest_house">Ξενώνας</string>
 	<string name="search_hotel_filter_hostel">Πανδοχείο</string>
 	<string name="search_hotel_filter_resort">Θέρετρο</string>
+	<string name="search_hotel_filter_hotel">Ξενοδοχείο</string>
+	<string name="search_hotel_filter_motel">Μοτέλ</string>
+	<string name="create_campaign_button">Καταχωρήστε αυτήν την επιχείρηση</string>
+	<string name="view_campaign_button">Η επιχείριση διαφημίζεται</string>
+	<string name="search_hotel_filters_type">Τύπος</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Γενικό σχόλιο</string>
+	<string name="on">Ενεργ.</string>
+	<string name="off">Απενεργ.</string>
+	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – &gt; Γλώσσα και εισαγωγή – &gt; Ομιλία – &gt; Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.</string>
+	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
+	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
+	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>
 </resources>

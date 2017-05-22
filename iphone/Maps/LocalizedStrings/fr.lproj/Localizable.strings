@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Carte";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Avis général";
 
 /* Text in menu */
 "subscribe_to_news" = "S'abonner à nos informations";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Réinitialiser";
 
-"booking_filters_rating" = "Note";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Note à partir de";
 
 "booking_filters_rating_any" = "N’importe quel";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "La commande d'un taxi est temporairement indisponible.";
 
-"advertisement" = "Publicité";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Utiliser l'Internet mobile pour afficher les informations détaillées?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Mise à jour des cartes";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Mettez à jour vos cartes téléchargées";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Actualiser les cartes permet d'actualiser également les informations sur les objets";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Mettre à jour (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Mettre à jour manuellement plus tard";
 
 "search_hotel_filter_apartment" = "Appart'hôtel";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Complexe touristique";
 
+"search_hotel_filter_hotel" = "Hôtel";
+
 "search_hotel_filter_motel" = "Motel";
+
+"create_campaign_button" = "Cette entreprise m'appartient";
+
+"view_campaign_button" = "L'entreprise est publiée";
+
+"search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Feedback général";
 
 "on" = "On";
 
 "off" = "Off";
+
+"prefs_languages_information" = "Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Pour les langues arabe, grecque et roumaine, Il vous faudra peut-être installer un TTS supplémentaire (car Google TTS n'est pas encore compatible avec ces langues) depuis Google Play tel que Vocalizer TTS ou SVOX Classics. Pour gérer les paramètres de synthèse vocale, ouvrez sur votre appareil Paramètres –> Langue et entrée – > Parole – > Texte en parole. Vous pouvez télécharger ici un package de langues supplémentaires ou sélectionner votre logiciel de synthèse vocale préféré.";
+
+"prefs_languages_information_off_link" = "Pour plus d’informations, veuillez consulter ce guide.";
+
+"whatsnew_transliteration_title" = "Translittération en latin";
+
+"whatsnew_transliteration_message" = "Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l'écrire.";

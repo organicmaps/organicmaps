@@ -46,6 +46,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.List;
 import java.util.Locale;
 
 public class RoutingPlanController extends ToolbarController implements SlotFrame.SlotClickListener
@@ -497,9 +498,9 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
   {
     UiUtils.hide(getViewById(R.id.error), mAltitudeChartFrame);
 
-    final UberInfo.Product[] products = info.getProducts();
+    final List<UberInfo.Product> products = info.getProducts();
     mUberInfo = info;
-    mUberProduct = products[0];
+    mUberProduct = products.get(0);
     final PagerAdapter adapter = new UberAdapter(mActivity, products);
     DotPager pager = new DotPager.Builder(mActivity, (ViewPager) mUberFrame.findViewById(R.id.pager), adapter)
         .setIndicatorContainer((ViewGroup) mUberFrame.findViewById(R.id.indicator))
@@ -508,7 +509,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
           @Override
           public void onPageChanged(int position)
           {
-            mUberProduct = products[position];
+            mUberProduct = products.get(position);
           }
         }).build();
     pager.show();
@@ -547,7 +548,15 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     TextView error = (TextView) getViewById(R.id.error);
     error.setText(message);
     error.setVisibility(View.VISIBLE);
-    getViewById(R.id.start).setVisibility(View.GONE);
+    showStartButton(false);
+  }
+
+  void showStartButton(boolean show)
+  {
+    if (show)
+      UiUtils.show(getViewById(R.id.start));
+    else
+      UiUtils.hide(getViewById(R.id.start));
   }
 
   @NonNull
@@ -591,8 +600,11 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
           if (mUberProduct != null)
           {
             UberLinks links = RoutingController.get().getUberLink(mUberProduct.getProductId());
-            Utils.launchUber(mActivity, links);
-            trackUberStatistics(isUberInstalled);
+            if (links != null)
+            {
+              Utils.launchUber(mActivity, links);
+              trackUberStatistics(isUberInstalled);
+            }
           }
         }
       });
@@ -617,7 +629,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     }
 
     UiUtils.updateAccentButton(start);
-    UiUtils.show(start);
+    showStartButton(true);
   }
 
   private static void trackUberStatistics(boolean isUberInstalled)

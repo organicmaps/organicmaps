@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Térkép";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Visszajelzés";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Iratkozz fel hírlevelünkre";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Alaphelyzetbe állítás";
 
-"booking_filters_rating" = "Minősítés";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Besorolás innentől";
 
 "booking_filters_rating_any" = "Bármelyik";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";
 
-"advertisement" = "Hirdetés";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Térképek frissítése";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Frissítés (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Kézi frissítés később";
 
 "search_hotel_filter_apartment" = "Apartmanok";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Resort hotel";
 
+"search_hotel_filter_hotel" = "Szálloda";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Igényelje ezt az üzletet";
 
-"off" = "Off";
+"view_campaign_button" = "Hirdetett üzlet";
+
+"search_hotel_filters_type" = "Típus";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Általános visszajelzés";
+
+"on" = "Be";
+
+"off" = "Ki";
+
+"prefs_languages_information" = "TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.";
+
+"prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
+
+"whatsnew_transliteration_title" = "Átírás latin nyelvre";
+
+"whatsnew_transliteration_message" = "Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.";

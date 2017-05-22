@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.ads.AdListener;
 import com.facebook.ads.NativeAd;
 
 class FacebookNativeAd extends CachedMwmNativeAd
@@ -82,5 +83,20 @@ class FacebookNativeAd extends CachedMwmNativeAd
   public String getPrivacyInfoUrl()
   {
     return mAd.getAdChoicesLinkUrl();
+  }
+
+  @Override
+  void detachAdListener()
+  {
+    mAd.setAdListener(null);
+  }
+
+  @Override
+  void attachAdListener(@NonNull Object listener)
+  {
+    if (!(listener instanceof AdListener))
+      throw new AssertionError("A listener for Facebook ad must be instance of " +
+                               "AdListener class! Not '" + listener.getClass() + "'!");
+    mAd.setAdListener((AdListener) listener);
   }
 }

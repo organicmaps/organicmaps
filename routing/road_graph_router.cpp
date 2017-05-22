@@ -201,8 +201,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT_GREATER(result.distance, 0., ());
 
     CHECK(m_directionsEngine, ());
-    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr /* trafficColoring */,
-                     delegate, result.path, route);
+    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr, delegate, true /* hasAltitude */,
+                     result.path, route);
   }
 
   m_roadGraph->ResetFakes();

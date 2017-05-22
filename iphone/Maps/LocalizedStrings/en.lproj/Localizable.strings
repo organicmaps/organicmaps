@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Map";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Subscribe to our newsletter";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Reset";
 
-"booking_filters_rating" = "Rating";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Rating from";
 
 "booking_filters_rating_any" = "Any";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Taxi ordering is temporarily unavailable.";
 
-"advertisement" = "Advertisement";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 
@@ -1865,7 +1856,7 @@
 
 "whats_new_auto_update_title" = "Update your downloaded maps";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Updating maps keeps the information about objects up to date";
 
 "whats_new_auto_update_button_size" = "Update (%s)";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Resort";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
+
+"create_campaign_button" = "Claim this business";
+
+"view_campaign_button" = "Business is advertised";
+
+"search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "General Feedback";
 
 "on" = "On";
 
 "off" = "Off";
+
+"prefs_languages_information" = "We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.";
+
+"prefs_languages_information_off_link" = "For more information please check this guide.";
+
+"whatsnew_transliteration_title" = "Transliteration into Latin";
+
+"whatsnew_transliteration_message" = "If a street or an object doesn't have a name in your language, it will be spelt using the Latin alphabet.";

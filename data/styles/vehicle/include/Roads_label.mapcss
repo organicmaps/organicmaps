@@ -295,39 +295,39 @@ line|z10-11[highway=motorway],
 line|z10-11[highway=trunk],
 line|z10-11[highway=motorway_link],
 line|z10-11[highway=trunk_link]
-{font-size: 12;text-color: @label_medium;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;}
+{font-size: 13;text-color: @label_medium;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;}
 line|z12-13[highway=motorway],
 line|z12-13[highway=trunk],
 line|z12-13[highway=motorway_link],
 line|z12-13[highway=trunk_link]
-{font-size: 13;text-halo-color: @label_halo_light;}
+{font-size: 15;text-halo-color: @label_halo_light;}
 line|z14-15[highway=motorway],
 line|z14-15[highway=trunk],
-{font-size: 14;text-color: @label_dark;text-halo-opacity: 0.9;}
+{font-size: 16;text-color: @label_dark;text-halo-opacity: 0.9;}
 line|z14[highway=motorway_link],
 line|z14[highway=trunk_link]
-{font-size: 11.5;text-halo-color: @label_halo_medium;}
+{font-size: 13.5;text-halo-color: @label_halo_medium;}
 line|z15[highway=motorway_link],
 line|z15[highway=trunk_link]
-{font-size: 12;text-halo-color: @label_halo_medium;}
+{font-size: 14;text-halo-color: @label_halo_medium;}
 line|z16[highway=trunk],
 line|z16[highway=motorway],
-{font-size: 16.5;text-color: @label_dark;text-halo-opacity: 0.9;}
+{font-size: 18.5;text-color: @label_dark;text-halo-opacity: 0.9;}
 line|z16[highway=motorway_link],
 line|z16[highway=trunk_link]
-{font-size: 13.75;text-halo-opacity: 0.9;}
+{font-size: 15.75;text-halo-opacity: 0.9;}
 line|z17[highway=trunk],
 line|z17[highway=motorway],
-{font-size: 17.5;text-color: @label_dark;text-halo-opacity: 0.99;}
+{font-size: 19.5;text-color: @label_dark;text-halo-opacity: 0.99;}
 line|z17[highway=motorway_link],
 line|z17[highway=trunk_link]
-{font-size: 14;text-halo-opacity: 0.99;}
+{font-size: 16;text-halo-opacity: 0.99;}
 line|z18-[highway=trunk],
 line|z18-[highway=motorway],
-{font-size: 18.5;text-color: @label_dark;text-halo-opacity: 1;}
+{font-size: 20.5;text-color: @label_dark;text-halo-opacity: 1;}
 line|z18-[highway=motorway_link],
 line|z18-[highway=trunk_link]
-{font-size: 14.75;text-halo-opacity: 1;}
+{font-size: 16.75;text-halo-opacity: 1;}
 
 /* 4.PRIMARY 10-22 ZOOM */
 
@@ -337,31 +337,31 @@ line|z10-[highway=primary_link],
 
 line|z10[highway=primary],
 line|z10[highway=primary_link]
-{font-size: 11.5;text-halo-color: @label_halo_medium;}
+{font-size: 12.5;text-halo-color: @label_halo_medium;}
 line|z11[highway=primary],
 line|z11[highway=primary_link]
-{font-size: 11.5;text-halo-color: @label_halo_medium;}
+{font-size: 13.5;text-halo-color: @label_halo_medium;}
 line|z12-13[highway=primary],
 line|z12-13[highway=primary_link]
-{font-size: 12.75;text-halo-opacity: 0.9;text-halo-color: @label_halo_medium;}
+{font-size: 14.75;text-halo-opacity: 0.9;text-halo-color: @label_halo_medium;}
 line|z14-15[highway=primary],
-{font-size: 13.5;text-color: @label_dark;}
-line|z14[highway=primary_link]
-{font-size: 11;text-halo-color: @label_halo_medium;}
-line|z15[highway=primary_link]
-{font-size: 11.5;text-halo-color: @label_halo_medium;}
-line|z16[highway=primary],
 {font-size: 15.5;text-color: @label_dark;}
+line|z14[highway=primary_link]
+{font-size: 13;text-halo-color: @label_halo_medium;}
+line|z15[highway=primary_link]
+{font-size: 13.5;text-halo-color: @label_halo_medium;}
+line|z16[highway=primary],
+{font-size: 17.5;text-color: @label_dark;}
 line|z16[highway=primary_link],
-{font-size: 13;}
+{font-size: 15;}
 line|z17[highway=primary],
-{font-size: 16.75;text-color: @label_dark;}
+{font-size: 18.75;text-color: @label_dark;}
 line|z17[highway=primary_link],
-{font-size: 13.5;}
+{font-size: 15.5;}
 line|z18-[highway=primary],
-{font-size: 17;text-color: @label_dark;}
+{font-size: 19;text-color: @label_dark;}
 line|z18-[highway=primary_link],
-{font-size: 14.5;text-halo-opacity: 1;}
+{font-size: 16.5;text-halo-opacity: 1;}
 
 /* 5.SECONDARY 10-22 ZOOM */
 
@@ -370,22 +370,22 @@ line|z16-[highway=secondary_link]
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_medium;}
 
 line|z10-11[highway=secondary]
-{font-size: 11;text-color: @label_light;}
+{font-size: 12;text-color: @label_light;}
 line|z12-13[highway=secondary]
-{font-size: 12;text-color: @label_light;text-halo-opacity: 0.9;text-halo-color: @road_label_halo;}
+{font-size: 14;text-color: @label_light;text-halo-opacity: 0.9;text-halo-color: @road_label_halo;}
 line|z14[highway=secondary],
-{font-size: 12.75;}
+{font-size: 14.75;}
 line|z15[highway=secondary],
-{font-size: 13.75;}
+{font-size: 15.75;}
 line|z16[highway=secondary],
 line|z16[highway=secondary_link]
-{font-size: 15;text-color: @label_dark;text-halo-color: @label_halo_light;}
+{font-size: 17;text-color: @label_dark;text-halo-color: @label_halo_light;}
 line|z17[highway=secondary],
 line|z17[highway=secondary_link]
-{font-size: 15.75;text-color: @label_dark;text-halo-color: @label_halo_light;}
+{font-size: 17.75;text-color: @label_dark;text-halo-color: @label_halo_light;}
 line|z18-[highway=secondary],
 line|z18-[highway=secondary_link]
-{font-size: 16;text-color: @label_dark;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
+{font-size: 18;text-color: @label_dark;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
 /* 6.RESIDENTAL & TERTIARY 12-22 ZOOM */
 
@@ -397,24 +397,24 @@ line|z18-[highway=tertiary_link]
 
 line|z12-13[highway=residential],
 line|z12-13[highway=tertiary]
-{font-size: 10;text-color: @label_light;text-halo-opacity: 0.9;text-halo-color: @road_label_halo;}
+{font-size: 12;text-color: @label_light;text-halo-opacity: 0.9;text-halo-color: @road_label_halo;}
 line|z14[highway=residential],
 line|z14[highway=tertiary],
-{font-size: 11;}
+{font-size: 13;}
 line|z15[highway=residential],
 line|z15[highway=tertiary],
-{font-size: 12.5;}
+{font-size: 14.5;}
 line|z16[highway=residential],
 line|z16[highway=tertiary],
-{font-size: 13.5;text-halo-color: @label_halo_light;}
+{font-size: 15.5;text-halo-color: @label_halo_light;}
 line|z17[highway=residential],
 line|z17[highway=tertiary],
-{font-size: 14.25;text-halo-color: @label_halo_light;}
+{font-size: 16.25;text-halo-color: @label_halo_light;}
 line|z18-[highway=residential],
 line|z18-[highway=residential_link],
 line|z18-[highway=tertiary],
 line|z18-[highway=tertiary_link]
-{font-size: 15;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
+{font-size: 17;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
 /* 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 14-22 ZOOM */
 
@@ -429,25 +429,25 @@ line|z14[highway=unclassified],
 line|z14[highway=living_street],
 line|z14[highway=pedestrian],
 line|z14[highway=road],
-{font-size: 10.5;}
+{font-size: 12.5;}
 line|z15[highway=unclassified],
 line|z15[highway=living_street],
 line|z15[highway=pedestrian],
 line|z15[highway=road],
-{font-size: 11.5;}
+{font-size: 13.5;}
 line|z16-17[highway=unclassified],
 line|z16-17[highway=living_street],
-{font-size: 12.5;text-halo-color: @label_halo_light;}
+{font-size: 14.5;text-halo-color: @label_halo_light;}
 line|z16-17[highway=pedestrian],
 line|z16-17[highway=service],
 line|z16-17[highway=road],
-{font-size: 12.5;text-halo-color: @label_halo_light;}
+{font-size: 15.5;text-halo-color: @label_halo_light;}
 line|z18-[highway=unclassified],
 line|z18-[highway=living_street],
 line|z18-[highway=pedestrian],
 line|z18-[highway=service],
 line|z18-[highway=road],
-{font-size: 13.75;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
+{font-size: 15.75;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
 /* 8.OTHERS ROADS 15-22 ZOOM */
 

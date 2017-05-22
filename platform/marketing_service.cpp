@@ -30,6 +30,12 @@ char const * const kPlacepageHotelBook = "Placepage_Hotel_book";
 char const * const kEditorAddStart = "EditorAdd_start";
 char const * const kEditorEditStart = "EditorEdit_start";
 
+// Settings.
+char const * const kFrom = "utm_source";
+char const * const kType = "utm_medium";
+char const * const kName = "utm_campaign";
+char const * const kContent = "utm_content";
+char const * const kKeyword = "utm_term";
 }  // marketing
 
 void MarketingService::ProcessFirstLaunch()

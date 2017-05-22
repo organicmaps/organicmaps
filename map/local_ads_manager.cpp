@@ -12,7 +12,9 @@
 #include "indexer/scales.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/url_encode.hpp"
@@ -22,6 +24,7 @@
 
 #include "private.h"
 
+#include <array>
 #include <cstring>
 #include <sstream>
 
@@ -31,12 +34,17 @@
 
 namespace
 {
+std::array<char const * const, 5> const kMarketingParameters = {marketing::kFrom, marketing::kType, marketing::kName,
+                                                                marketing::kContent, marketing::kKeyword};
 std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignPageUrl = LOCAL_ADS_COMPANY_PAGE_URL;
 
 std::string const kCampaignFile = "local_ads_campaigns.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
+uint8_t constexpr kRequestMinZoomLevel = 12;
+auto constexpr kFailedDownloadingTimeout = std::chrono::seconds(2);
+auto constexpr kMaxDownloadingAttempts = 5;
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
@@ -71,23 +79,12 @@ std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
     return {};
 
   std::ostringstream ss;
-  ss << kServerUrl << "/" << mwmId.GetInfo()->GetVersion() << "/"
+  auto const campaignDataVersion = static_cast<uint32_t>(local_ads::Version::latest);
+  ss << kServerUrl << "/"
+     << campaignDataVersion << "/"
+     << mwmId.GetInfo()->GetVersion() << "/"
      << UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
   return ss.str();
-}
-
-std::vector<uint8_t> DownloadCampaign(MwmSet::MwmId const & mwmId)
-{
-  std::string const url = MakeCampaignDownloadingURL(mwmId);
-  if (url.empty())
-    return {};
-
-  platform::HttpClient request(url);
-  if (!request.RunHttpRequest() || request.ErrorCode() != 200)
-    return {};
-
-  string const & response = request.ServerResponse();
-  return std::vector<uint8_t>(response.cbegin(), response.cend());
 }
 
 df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
@@ -154,6 +151,26 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   std::ostringstream ss;
   ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
      << UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
+
+  bool isFirstParam = true;
+  for (auto const & key : kMarketingParameters)
+  {
+    string value;
+    if (!marketing::Settings::Get(key, value))
+      continue;
+
+    if (isFirstParam)
+    {
+      ss << "?";
+      isFirstParam = false;
+    }
+    else
+    {
+      ss << "&";
+    }
+    ss << key << "=" << value;
+  }
+
   return ss.str();
 }
 }  // namespace
@@ -225,7 +242,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
   auto connectionStatus = GetPlatform().ConnectionStatus();
   if (kServerUrl.empty() || connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
-      df::GetZoomLevel(screen.GetScale()) <= scales::GetUpperWorldScale())
+      df::GetZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
   {
     return;
   }
@@ -246,6 +263,18 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
       auto info = mwm.GetInfo();
       if (!info)
         continue;
+
+      // Skip downloading request if maximum attempts count has reached or
+      // we are waiting for new attempt.
+      auto const failedDownloadsIt = m_failedDownloads.find(mwm);
+      if (failedDownloadsIt != m_failedDownloads.cend() &&
+          (failedDownloadsIt->second.m_attemptsCount >= kMaxDownloadingAttempts ||
+           Now() <= failedDownloadsIt->second.m_lastDownloading +
+                        failedDownloadsIt->second.m_currentTimeout))
+      {
+        continue;
+      }
+
       std::string const & mwmName = info->GetCountryName();
       auto campaignIt = m_campaigns.find(mwmName);
       if (campaignIt == m_campaigns.end())
@@ -276,6 +305,52 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
   }
 }
 
+bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes)
+{
+  bytes.clear();
+
+  std::string const url = MakeCampaignDownloadingURL(mwmId);
+  if (url.empty())
+    return true; // In this case empty result is valid.
+
+  // Skip already downloaded campaigns. We do not lock whole method because RunHttpRequest
+  // is a synchronous method and may take a lot of time. The case in which countryName will
+  // be added to m_campaigns between locks is neglected.
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto const & countryName = mwmId.GetInfo()->GetCountryName();
+    auto const it = m_campaigns.find(countryName);
+    if (it != m_campaigns.cend() && it->second)
+      return false;
+  }
+
+  platform::HttpClient request(url);
+  bool const success = request.RunHttpRequest() && request.ErrorCode() == 200;
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (!success)
+  {
+    auto const it = m_failedDownloads.find(mwmId);
+    if (it == m_failedDownloads.cend())
+    {
+      m_failedDownloads.insert(std::make_pair(
+          mwmId, BackoffStats(Now(), kFailedDownloadingTimeout, 1 /* m_attemptsCount */)));
+    }
+    else
+    {
+      // Here we increase timeout multiplying by 2.
+      it->second.m_currentTimeout = std::chrono::seconds(it->second.m_currentTimeout.count() * 2);
+      it->second.m_attemptsCount++;
+    }
+    return false;
+  }
+
+  m_failedDownloads.erase(mwmId);
+  auto const & response = request.ServerResponse();
+  bytes.assign(response.cbegin(), response.cend());
+  return true;
+}
+
 void LocalAdsManager::ThreadRoutine()
 {
   local_ads::IconsInfo::Instance().SetSourceFile(kLocalAdsSymbolsFile);
@@ -299,25 +374,28 @@ void LocalAdsManager::ThreadRoutine()
       {
         // Download campaign data from server.
         CampaignInfo info;
-        info.m_data = DownloadCampaign(mwm.first);
-        if (info.m_data.empty())
+        if (!DownloadCampaign(mwm.first, info.m_data))
           continue;
-        info.m_created = Now();
 
-        // Parse data and send symbols to rendering.
-        auto symbols = ParseCampaign(std::move(info.m_data), mwm.first, info.m_created);
-        if (symbols.empty())
+        // Parse data and send symbols to rendering (or delete from rendering).
+        if (!info.m_data.empty())
         {
-          std::lock_guard<std::mutex> lock(m_mutex);
-          m_campaigns.erase(countryName);
-          m_info.erase(countryName);
-          DeleteSymbolsFromRendering(mwm.first);
+          auto symbols = ParseCampaign(std::move(info.m_data), mwm.first, info.m_created);
+          if (symbols.empty())
+          {
+            DeleteSymbolsFromRendering(mwm.first);
+          }
+          else
+          {
+            UpdateFeaturesCache(symbols);
+            SendSymbolsToRendering(std::move(symbols));
+          }
         }
         else
         {
-          UpdateFeaturesCache(symbols);
-          SendSymbolsToRendering(std::move(symbols));
+          DeleteSymbolsFromRendering(mwm.first);
         }
+        info.m_created = Now();
 
         // Update run-time data.
         {

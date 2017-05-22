@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Kaart";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Aanmelden voor onze nieuwtjes";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Resetten";
 
-"booking_filters_rating" = "Beoordeling";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Rating van";
 
 "booking_filters_rating_any" = "Alle";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Het bestellen van een taxi is tijdelijk niet beschikbaar.";
 
-"advertisement" = "Reclame";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Mobiel internet gebruiken om gedetailleerde informatie weer te geven?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Kaarten bijwerken";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Werk uw gedownloade kaarten bij";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Kaarten bijwerken houdt de informatie over objecten actueel";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Bijwerken (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
 "search_hotel_filter_apartment" = "Appartementen";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Complex";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Dit bedrijf claimen";
 
-"off" = "Off";
+"view_campaign_button" = "Bedrijf wordt geadverteerd";
+
+"search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Algemene Feedback";
+
+"on" = "Aan";
+
+"off" = "Uit";
+
+"prefs_languages_information" = "We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.";
+
+"prefs_languages_information_off_link" = "Gelieve deze handleiding te lezen voor meer informatie.";
+
+"whatsnew_transliteration_title" = "Transliteratie in het Latijn";
+
+"whatsnew_transliteration_message" = "Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.";

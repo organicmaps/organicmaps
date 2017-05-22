@@ -196,10 +196,6 @@ void TestRouteGeometry(
     routing::AStarAlgorithm<routing::IndexGraphStarter>::Result expectedRouteResult,
     vector<m2::PointD> const & expectedRouteGeom);
 
-void TestRouteTime(IndexGraphStarter & starter,
-                   AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                   double expectedTime);
-
 /// \brief Applies |restrictions| to graph in |restrictionTest| and
 /// tests the resulting route.
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.

@@ -341,6 +341,7 @@ void setPermissionRequested()
     case routing::RouterType::Pedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case routing::RouterType::Bicycle: manager.geoMode = GeoMode::BicycleRouting; break;
     case routing::RouterType::Taxi: break;
+    case routing::RouterType::Count: NSAssert(false, @"Incorrect state"); break;
     }
   }
   else

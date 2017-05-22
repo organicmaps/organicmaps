@@ -959,7 +959,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrare</string>
 	<string name="booking_filters_reset">Resetare</string>
-	<string name="booking_filters_rating">Clasificare</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Evaluări de la</string>
 	<string name="booking_filters_rating_any">Oricare</string>
 	<string name="booking_filters_ragting_good">Bine</string>
 	<string name="booking_filters_rating_very_good">Foarte bine</string>
@@ -985,7 +986,6 @@
 	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
 	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
-	<string name="advertisement">Reclamă</string>
 	<string name="mobile_data_dialog">Folosiți internetul mobil pentru a afişa informaţii detaliate?</string>
 	<string name="mobile_data_option_always">Folosiți întotdeauna</string>
 	<string name="mobile_data_option_today">Doar astăzi</string>
@@ -1062,10 +1062,29 @@
 	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
 	<string name="offline_place_page_more_information">Conectați-vă la internet pentru a primi mai multe informații despre locație.</string>
 	<string name="failed_load_information">Încărcarea informațiilor a eșuat.</string>
+	<string name="whats_new_auto_update_updating_maps">Se actualizează hărțile</string>
+	<string name="whats_new_auto_update_title">Actualizați hărțile descărcate</string>
+	<string name="whats_new_auto_update_message">Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte</string>
+	<string name="whats_new_auto_update_button_size">Actualizare (%s)</string>
+	<string name="whats_new_auto_update_button_later">Actualizare manuală mai târziu</string>
 	<string name="search_hotel_filter_apartment">Apartamente</string>
 	<string name="search_hotel_filter_camp_site">Camping</string>
 	<string name="search_hotel_filter_chalet">Cabană</string>
 	<string name="search_hotel_filter_guest_house">Pensiune</string>
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Stațiuni</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Revendicați această afacere</string>
+	<string name="view_campaign_button">Afacerea este promovată</string>
+	<string name="search_hotel_filters_type">Tip</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Feedback general</string>
+	<string name="on">Activat</string>
+	<string name="off">Dezactivat</string>
+	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –&gt; Limbă și introducere –&gt; Voce –&gt; Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.</string>
+	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
+	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
+	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
 </resources>

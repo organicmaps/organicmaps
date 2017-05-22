@@ -1073,6 +1073,7 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
 }
 
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                        feature::TypesHolder const & holder, string const & defaultName,
                         NoteProblemType const type, string const & note)
 {
   auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
@@ -1080,13 +1081,14 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   ostringstream sstr;
   auto canCreate = true;
 
+  if (!note.empty())
+    sstr << "\"" << note << "\"" << endl;
+
   switch (type)
   {
     case NoteProblemType::PlaceDoesNotExist:
     {
-      sstr << kPlaceDoesNotExistMessage;
-      if (!note.empty())
-        sstr << " User comments: \"" << note << '\"';
+      sstr << kPlaceDoesNotExistMessage << endl;
       auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
       auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
       CHECK(!isCreated || createdAndUploaded, ());
@@ -1098,13 +1100,22 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 
       break;
     }
-    case NoteProblemType::General:
-    {
-      sstr << note;
-      break;
-    }
+    case NoteProblemType::General: break;
   }
-  sstr << " (OSM data version: " << stringVersion << ')';
+
+  if (defaultName.empty())
+    sstr << "POI has no name" << endl;
+  else
+    sstr << "POI name: " << defaultName << endl;
+
+  sstr << "POI types:";
+  for (auto const & type : holder.ToObjectNames())
+  {
+    sstr << ' ' << type;
+  }
+  sstr << endl;
+
+  sstr << "OSM data version: " << stringVersion << endl;
 
   if (canCreate)
     m_notes->CreateNote(latLon, sstr.str());

@@ -152,12 +152,14 @@ public class PlacePageView extends RelativeLayout
   private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
+  private View mTaxiDivider;
   private View mTaxi;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
   private View mLocalAd;
   private TextView mTvLocalAd;
+  private View mEditTopSpace;
   // Bookmark
   private View mBookmarkFrame;
   private WebView mWvBookmarkNote;
@@ -298,6 +300,18 @@ public class PlacePageView extends RelativeLayout
       mBannerController.onChangedVisibility(false);
   }
 
+  public void onActivityStopped()
+  {
+    if (mBannerController != null)
+      mBannerController.detach();
+  }
+
+  public void onActivityStarted()
+  {
+    if (mBannerController != null)
+      mBannerController.attach();
+  }
+
   private void initViews()
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
@@ -346,6 +360,7 @@ public class PlacePageView extends RelativeLayout
     mWiki.setOnClickListener(this);
     mEntrance = mDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
+    mTaxiDivider = mDetails.findViewById(R.id.place_page_taxi_divider);
     mTaxi = mDetails.findViewById(R.id.ll__place_page_taxi);
     TextView orderTaxi = (TextView) mTaxi.findViewById(R.id.tv__place_page_order_taxi);
     orderTaxi.setOnClickListener(this);
@@ -358,6 +373,7 @@ public class PlacePageView extends RelativeLayout
     mLocalAd = mDetails.findViewById(R.id.ll__local_ad);
     mLocalAd.setOnClickListener(this);
     mTvLocalAd = (TextView) mLocalAd.findViewById(R.id.tv__local_ad);
+    mEditTopSpace = mDetails.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -373,7 +389,7 @@ public class PlacePageView extends RelativeLayout
     mTvBookmarkNote = (TextView) mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
 
-    ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
+    ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons).findViewById(R.id.container);
 
     mHeightCompensationView = findViewById(R.id.pp__height_compensation);
 
@@ -605,7 +621,7 @@ public class PlacePageView extends RelativeLayout
     mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
                                                              LinearLayoutManager.HORIZONTAL, false));
     mRvHotelGallery.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
-                                                                                          R.drawable.divider_transparent)));
+                                                                                          R.drawable.divider_transparent_quarter)));
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
   }
@@ -1198,13 +1214,7 @@ public class PlacePageView extends RelativeLayout
       final String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mapObject.getMetadata(Metadata.MetadataType.FMD_URL)
                                                        : website, mWebsite, mTvWebsite);
-      UiUtils.hide(mHotelDescription);
-      UiUtils.hide(mHotelFacilities);
-      UiUtils.hide(mHotelGallery);
-      UiUtils.hide(mHotelNearby);
-      UiUtils.hide(mHotelReview);
-//    TODO: remove this after booking_api.cpp will be done
-      UiUtils.hide(mHotelMore);
+      hideHotelViews();
     }
     else
     {
@@ -1212,7 +1222,7 @@ public class PlacePageView extends RelativeLayout
       UiUtils.show(mHotelMore);
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-        UiUtils.hide(mHotelMore);
+        hideHotelViews();
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
@@ -1228,22 +1238,31 @@ public class PlacePageView extends RelativeLayout
                             LocationHelper.INSTANCE.getMyPosition() != null &&
                             ConnectionState.isConnected();
 
-    UiUtils.showIf(showTaxiOffer, mTaxi);
+    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiDivider);
 
     boolean inRouting = RoutingController.get().isNavigating() ||
                         RoutingController.get().isPlanning();
 
     if (inRouting || MapManager.nativeIsLegacyMode())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd, mEditTopSpace);
     }
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      UiUtils.showIf(UiUtils.isVisible(mEditPlace)
+                     || UiUtils.isVisible(mAddOrganisation)
+                     || UiUtils.isVisible(mAddPlace), mEditTopSpace);
       refreshLocalAdInfo(mapObject);
     }
+  }
+
+  private void hideHotelViews()
+  {
+    UiUtils.hide(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
+                 mHotelReview, mHotelMore);
   }
 
   private void refreshLocalAdInfo(@NonNull MapObject mapObject)
@@ -1539,7 +1558,10 @@ public class PlacePageView extends RelativeLayout
             throw new AssertionError("A local ad must be non-null if button is shown!");
 
           if (!TextUtils.isEmpty(localAdInfo.getUrl()))
+          {
+            Statistics.INSTANCE.trackPPOwnershipButtonClick(mMapObject);
             Utils.openUrl(getContext(), localAdInfo.getUrl());
+          }
         }
         break;
       case R.id.ll__more:
@@ -1560,9 +1582,13 @@ public class PlacePageView extends RelativeLayout
         break;
       case R.id.ll__place_phone:
         Utils.callPhone(getContext(), mTvPhone.getText().toString());
+        if (mMapObject != null)
+          Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_CLICKED_PHONE, mMapObject);
         break;
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
+        if (mMapObject != null)
+          Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_CLICKED_WEBSITE, mMapObject);
         break;
       case R.id.ll__place_wiki:
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.

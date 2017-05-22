@@ -8,6 +8,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
@@ -24,6 +25,9 @@
 #include "geometry/point2d.hpp"
 
 #include "platform/measurement_utils.hpp"
+
+extern NSString * const kBookmarkDeletedNotification;
+extern NSString * const kBookmarkCategoryDeletedNotification;
 
 namespace
 {
@@ -82,7 +86,16 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   }
 
   [MWMLocationManager addObserver:self];
-  [self.layout setDistanceToObject:self.distanceToObject];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(handleBookmarkDeleting:)
+                                               name:kBookmarkDeletedNotification
+                                             object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(handleBookmarkCategoryDeleting:)
+                                               name:kBookmarkCategoryDeletedNotification
+                                             object:nil];
+  [self setupSpeedAndDistance];
 
   [self.layout showWithData:self.data];
   
@@ -96,6 +109,38 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   self.data = nil;
   [MWMLocationManager removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleBookmarkDeleting:(NSNotification *)notification
+{
+  NSAssert(self.data && self.layout, @"It must be openned place page!");
+  if (!self.data.isBookmark)
+    return;
+
+  auto value = static_cast<NSValue *>(notification.object);
+  auto deletedBac = BookmarkAndCategory();
+  [value getValue:&deletedBac];
+  NSAssert(deletedBac.IsValid(), @"Place page must have valid bookmark and category.");
+  auto bac = self.data.bac;
+  if (bac.m_bookmarkIndex != deletedBac.m_bookmarkIndex || bac.m_categoryIndex != deletedBac.m_categoryIndex)
+    return;
+
+  [self shouldClose];
+}
+
+- (void)handleBookmarkCategoryDeleting:(NSNotification *)notification
+{
+  NSAssert(self.data && self.layout, @"It must be openned place page!");
+  if (!self.data.isBookmark)
+    return;
+
+  auto deletedIndex = static_cast<NSNumber *>(notification.object).integerValue;
+  auto index = self.data.bac.m_categoryIndex;
+  if (index != deletedIndex)
+    return;
+
+  [self shouldClose];
 }
 
 #pragma mark - MWMPlacePageLayoutDataSource
@@ -200,9 +245,16 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.layout rotateDirectionArrowToAngle:angle];
 }
 
-- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+- (void)setupSpeedAndDistance
 {
   [self.layout setDistanceToObject:self.distanceToObject];
+  if (self.data.isMyPosition)
+    [self.layout setSpeedAndAltitude:location_helpers::formattedSpeedAndAltitude(MWMLocationManager.lastLocation)];
+}
+
+- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+{
+  [self setupSpeedAndDistance];
 }
 
 - (void)mwm_refreshUI { [self.layout mwm_refreshUI]; }

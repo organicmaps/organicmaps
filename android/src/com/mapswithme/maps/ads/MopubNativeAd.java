@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mopub.nativeads.BaseNativeAd;
 import com.mopub.nativeads.NativeAd;
 import com.mopub.nativeads.NativeImageHelper;
 import com.mopub.nativeads.StaticNativeAd;
@@ -81,5 +82,21 @@ class MopubNativeAd extends CachedMwmNativeAd
   public String getPrivacyInfoUrl()
   {
     return mAd.getPrivacyInformationIconClickThroughUrl();
+  }
+
+  @Override
+  void detachAdListener()
+  {
+    mAd.setNativeEventListener(null);
+  }
+
+  @Override
+  void attachAdListener(@NonNull Object listener)
+  {
+    if (!(listener instanceof BaseNativeAd.NativeEventListener))
+      throw new AssertionError("A listener for MoPub ad must be instance of " +
+                               "NativeAd.MoPubNativeEventListener class! Not '"
+                               + listener.getClass() + "'!");
+    mAd.setNativeEventListener((BaseNativeAd.NativeEventListener) listener);
   }
 }

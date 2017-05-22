@@ -8,9 +8,14 @@ final class WhatsNewController: MWMViewController, WelcomeProtocol {
 //                  text: "whatsnew_improved_search_text",
 //                  buttonTitle: "whats_new_next_button",
 //                  buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_1"),
-                  title: "whatsnew_more_info_on_hotels_title",
-                  text: "whatsnew_more_info_on_hotels_message",
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_whatsnew_driving_style"),
+                  title: "whatsnew_driving_style_title",
+                  text: "whatsnew_driving_style_message",
+                  buttonTitle: "whats_new_next_button",
+                  buttonAction: #selector(nextPage)),
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_whatsnew_transliteration"),
+                  title: "whatsnew_transliteration_title",
+                  text: "whatsnew_transliteration_message",
                   buttonTitle: "done",
                   buttonAction: #selector(close))
   ]

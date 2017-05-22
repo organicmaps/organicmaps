@@ -12,11 +12,24 @@
 
 #include "base/base.hpp"
 
+#include "std/unordered_map.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
 namespace
 {
 using StrUtf8 = StringUtf8Multilang;
+
+int8_t GetIndex(string const & lang)
+{
+  return StrUtf8::GetLangIndex(lang);
+}
+
+unordered_map<int8_t, vector<int8_t>> const kSimilarToDeviceLanguages =
+{
+  {GetIndex("be"), {GetIndex("ru")}},
+  {GetIndex("ru"), {GetIndex("be")}}
+};
 
 void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
 {
@@ -49,14 +62,13 @@ bool GetTransliteratedName(feature::RegionData const & regionData, StringUtf8Mul
 
 bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorityList, string & out)
 {
-  auto const priorityListSize = static_cast<long>(priorityList.size());
-  auto bestIndex = priorityListSize;
+  auto bestIndex = priorityList.size();
 
   auto const findAndSet = [](vector<int8_t> const & langs, int8_t const code, string const & name,
-                               long & bestIndex, string & outName)
+                             size_t & bestIndex, string & outName)
   {
     auto const it = find(langs.begin(), langs.end(), code);
-    if (it != langs.end() && bestIndex > distance(langs.begin(), it))
+    if (it != langs.end() && bestIndex > static_cast<size_t>(distance(langs.begin(), it)))
     {
       bestIndex = distance(langs.begin(), it);
       outName = name;
@@ -73,13 +85,69 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   });
 
   // There are many "junk" names in Arabian island.
-  if (bestIndex < priorityListSize &&
+  if (bestIndex < priorityList.size() &&
       priorityList[bestIndex] == StrUtf8::kInternationalCode)
   {
     out = out.substr(0, out.find_first_of(','));
   }
 
-  return bestIndex < priorityListSize;
+  return bestIndex < priorityList.size();
+}
+
+vector<int8_t> GetSimilarToDeviceLanguages(int8_t deviceLang)
+{  
+  auto const it = kSimilarToDeviceLanguages.find(deviceLang);
+  if (it != kSimilarToDeviceLanguages.cend())
+    return it->second;
+
+  return {};
+}
+
+bool IsNativeLang(feature::RegionData const & regionData, int8_t deviceLang)
+{
+  if (regionData.HasLanguage(deviceLang))
+    return true;
+
+  for (auto const lang : GetSimilarToDeviceLanguages(deviceLang))
+  {
+    if (regionData.HasLanguage(lang))
+      return true;
+  }
+
+  return false;
+}
+
+vector<int8_t> MakePrimaryNamePriorityList(int8_t deviceLang, bool preferDefault)
+{
+  vector<int8_t> langPriority = {deviceLang};
+  if (preferDefault)
+    langPriority.push_back(StrUtf8::kDefaultCode);
+
+  auto const similarLangs = GetSimilarToDeviceLanguages(deviceLang);
+  langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
+  langPriority.insert(langPriority.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
+
+  return langPriority;
+}
+
+void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multilang const & src,
+                         int8_t deviceLang, bool preferDefault, bool allowTranslit, string & out)
+{
+  vector<int8_t> langPriority = MakePrimaryNamePriorityList(deviceLang, preferDefault);
+
+  if (GetBestName(src, langPriority, out))
+    return;
+
+  if (allowTranslit && GetTransliteratedName(regionData, src, out))
+    return;
+
+  if (!preferDefault)
+  {
+    if (GetBestName(src, {StrUtf8::kDefaultCode}, out))
+      return;
+  }
+
+  GetMwmLangName(regionData, src, out);
 }
 }  // namespace
 
@@ -233,19 +301,16 @@ void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const 
     return;
 
   // When the language of the user is equal to one of the languages of the MWM
-  // only single name scheme is used.
-  if (regionData.HasLanguage(deviceLang))
-    return GetReadableName(regionData, src, deviceLang, allowTranslit, primary);
+  // (or similar languages) only single name scheme is used.
+  if (IsNativeLang(regionData, deviceLang))
+    return GetReadableNameImpl(regionData, src, deviceLang, true, allowTranslit, primary);
 
-  vector<int8_t> const primaryCodes = {deviceLang,
-                                       StrUtf8::kInternationalCode,
-                                       StrUtf8::kEnglishCode};
+  vector<int8_t> primaryCodes = MakePrimaryNamePriorityList(deviceLang, false);
 
   if (!GetBestName(src, primaryCodes, primary) && allowTranslit)
     GetTransliteratedName(regionData, src, primary);
 
-  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode,
-                                   StrUtf8::kInternationalCode};
+  vector<int8_t> secondaryCodes = {StrUtf8::kDefaultCode, StrUtf8::kInternationalCode};
 
   vector<int8_t> mwmLangCodes;
   regionData.GetLanguages(mwmLangCodes);
@@ -269,28 +334,10 @@ void GetReadableName(RegionData const & regionData, StringUtf8Multilang const & 
   if (src.IsEmpty())
     return;
 
-  vector<int8_t> codes;
   // If MWM contains user's language.
-  bool const preferDefault = regionData.HasLanguage(deviceLang);
-  if (preferDefault)
-    codes = {deviceLang, StrUtf8::kDefaultCode, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
-  else
-    codes = {deviceLang, StrUtf8::kInternationalCode, StrUtf8::kEnglishCode};
+  bool const preferDefault = IsNativeLang(regionData, deviceLang);
 
-  if (GetBestName(src, codes, out))
-    return;
-
-  if (allowTranslit && GetTransliteratedName(regionData, src, out))
-    return;
-
-  if (!preferDefault)
-  {
-    codes = {StrUtf8::kDefaultCode};
-    if (GetBestName(src, codes, out))
-      return;
-  }
-
-  GetMwmLangName(regionData, src, out);
+  GetReadableNameImpl(regionData, src, deviceLang, preferDefault, allowTranslit, out);
 }
 
 int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src,

@@ -392,8 +392,6 @@
 	<string name="contact_us">聯絡我們</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">意見反應</string>
-	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">一般意見反應</string>
 	<!-- Text in menu -->
 	<string name="subscribe_to_news">訂閱我們的新聞</string>
 	<!-- Text in menu -->
@@ -975,7 +973,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">篩選條件</string>
 	<string name="booking_filters_reset">重設</string>
-	<string name="booking_filters_rating">評分</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">評分下限</string>
 	<string name="booking_filters_rating_any">任意</string>
 	<string name="booking_filters_ragting_good">好</string>
 	<string name="booking_filters_rating_very_good">很好</string>
@@ -1001,7 +1000,6 @@
 	<string name="whatsnew_uber_message">直接從應用程序預訂計程車！</string>
 	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>
 	<string name="dialog_taxi_error">叫計程車服務暫時無法使用。</string>
-	<string name="advertisement">廣告</string>
 	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
 	<string name="mobile_data_option_always">一律使用</string>
 	<string name="mobile_data_option_today">僅限今天</string>
@@ -1078,10 +1076,29 @@
 	<string name="reviews_on_bookingcom">Booking.com 上的更多評價</string>
 	<string name="offline_place_page_more_information">連上網路以取得關於地點的更多資訊。</string>
 	<string name="failed_load_information">無法載入資訊。</string>
+	<string name="whats_new_auto_update_updating_maps">更新地圖</string>
+	<string name="whats_new_auto_update_title">更新您下載的地圖</string>
+	<string name="whats_new_auto_update_message">更新地圖以讓物件資訊保持在最新狀態</string>
+	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
+	<string name="whats_new_auto_update_button_later">稍後手動更新</string>
 	<string name="search_hotel_filter_apartment">公寓</string>
 	<string name="search_hotel_filter_camp_site">露營</string>
 	<string name="search_hotel_filter_chalet">木屋</string>
 	<string name="search_hotel_filter_guest_house">賓館</string>
 	<string name="search_hotel_filter_hostel">旅舍</string>
 	<string name="search_hotel_filter_resort">度假酒店</string>
+	<string name="search_hotel_filter_hotel">飯店</string>
+	<string name="search_hotel_filter_motel">汽車旅館</string>
+	<string name="create_campaign_button">聲明這是你的公司</string>
+	<string name="view_campaign_button">業務已發出廣告</string>
+	<string name="search_hotel_filters_type">類型</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">一般反應</string>
+	<string name="on">開</string>
+	<string name="off">關</string>
+	<string name="prefs_languages_information">我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">對於阿拉伯語、希臘語或羅馬尼亞語，必須從 Google Play 下載 Vocalizer TTS 或 SVOX Classics 等其他 TTS (因為 Google TTS 尚未支援這些語言)。\n若要管理語音合成的設定，請在您的裝置上開啟「設定 –&gt; 語言和輸入 –&gt; 語音 –&gt; 文字轉語音輸出」。您可在此下載其他語言套件，或選擇偏好的文字轉語音引擎。</string>
+	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
+	<string name="whatsnew_transliteration_title">音譯為拉丁文</string>
+	<string name="whatsnew_transliteration_message">若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。</string>
 </resources>

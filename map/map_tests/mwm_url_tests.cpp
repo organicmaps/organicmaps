@@ -5,6 +5,8 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/settings.hpp"
+
 #include "coding/uri.hpp"
 
 #include "base/string_format.hpp"
@@ -154,6 +156,37 @@ UNIT_TEST(SearchApiInvalidUrl)
   TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsupported parameters"));
   TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa"), ("Query parameter position doesn't matter"));
   TEST(!IsValid(f, "mapsme://search?Query=fff"), ("The parser is case sensitive"));
+}
+
+UNIT_TEST(LeadApiSmoke)
+{
+  string const uriString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
+  TEST(Uri(uriString).IsValid(), ());
+  ApiTest test(uriString);
+  TEST(test.IsValid(), ());
+
+  auto checkEqual = [](string const & key, string const & value)
+  {
+    string result;
+    TEST(marketing::Settings::Get(key, result), ());
+    TEST_EQUAL(result, value, ());
+  };
+
+  checkEqual("utm_source", "a");
+  checkEqual("utm_medium", "b");
+  checkEqual("utm_campaign", "c");
+  checkEqual("utm_content", "d");
+  checkEqual("utm_term", "e");
+}
+
+UNIT_TEST(LeadApiInvalid)
+{
+  Framework f;
+  TEST(!IsValid(f, "mapsme://lead?"), ("From, type and name parameters are necessary"));
+  TEST(!IsValid(f, "mapsme://lead?utm_source&utm_medium&utm_campaign"), ("Parameters can't be empty"));
+  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c"), ("These parameters are enough"));
+  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&smh=smh"), ("If there is an excess parameter just ignore it"));
+  TEST(!IsValid(f, "mapsme://lead?utm_source=a&UTM_MEDIUM=b&utm_campaign=c&smh=smh"), ("The parser is case sensitive"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)

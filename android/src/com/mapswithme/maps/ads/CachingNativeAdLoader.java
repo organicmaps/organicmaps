@@ -2,6 +2,7 @@ package com.mapswithme.maps.ads;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -45,6 +46,7 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
    *
    */
   @Override
+  @CallSuper
   public void loadAd(@NonNull Context context, @NonNull String bannerId)
   {
     LOGGER.d(TAG, "Load the ad for a banner id '" + bannerId + "'");
@@ -69,6 +71,14 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
       LOGGER.d(TAG, "A cached ad '" + cachedAd.getTitle() + "' is set immediately");
       getAdListener().onAdLoaded(cachedAd);
     }
+  }
+
+  @CallSuper
+  @Override
+  public void cancel()
+  {
+    super.cancel();
+    PENDING_REQUESTS.clear();
   }
 
   private boolean isImpressionGood(@NonNull CachedMwmNativeAd ad)
@@ -169,5 +179,24 @@ abstract class CachingNativeAdLoader extends BaseNativeAdLoader
   private boolean isCacheEmptyForId(@NonNull BannerKey key)
   {
     return getAdByIdFromCache(key) == null;
+  }
+
+  @CallSuper
+  @Override
+  public void detach()
+  {
+    for (CachedMwmNativeAd ad : CACHE.values())
+      ad.detachAdListener();
+  }
+
+  @CallSuper
+  @Override
+  public void attach()
+  {
+    for (CachedMwmNativeAd ad : CACHE.values())
+    {
+      if (ad.getProvider().equals(getProvider()))
+        ad.attachAdListener(this);
+    }
   }
 }

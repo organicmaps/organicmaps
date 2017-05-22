@@ -43,7 +43,7 @@ public class GalleryFragment extends BaseMwmFragment implements RecyclerClickLis
       RecyclerView rvGallery = (RecyclerView) view.findViewById(R.id.rv__gallery);
       rvGallery.setLayoutManager(new GridLayoutManager(getContext(), NUM_COLUMNS));
       rvGallery.setAdapter(new ImageAdapter(mImages, this));
-      Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent);
+      Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_quarter);
       rvGallery.addItemDecoration(new GridDividerItemDecoration(divider, divider, NUM_COLUMNS));
     }
   }

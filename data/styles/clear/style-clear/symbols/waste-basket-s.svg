@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>waste-basket-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="waste-basket-s" fill="#717065">
-            <polygon id="path5654-copy" points="5 7.5 6 14 6.32584 14 10.58899 14 11 14 12 7.5"></polygon>
-            <path d="M6.5,3 L6.5,5 L5,5 L5,6 L12,6 L12,5 L10.5,5 L10.5,3 L6.5,3 Z M7,4 L10,4 L10,5 L7.01005,5 L7,4 Z" id="Combined-Shape" transform="translate(8.500000, 4.500000) rotate(-15.000000) translate(-8.500000, -4.500000) "></path>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".2"/>
+    <path fill="#717065" fill-rule="nonzero" d="M7.14285714,4 L6.71428571,4.42105263 L5,4.42105263 L5,5.26315789 L11,5.26315789 L11,4.42105263 L9.28571429,4.42105263 L8.85714286,4 L7.14285714,4 Z M5.42857143,5.68421053 L5.42857143,11.1578947 C5.42857143,11.6210526 5.81428571,12 6.28571429,12 L9.71428571,12 C10.1857143,12 10.5714286,11.6210526 10.5714286,11.1578947 L10.5714286,5.68421053 L5.42857143,5.68421053 Z M6.71428571,6.94736842 L7.57142857,6.94736842 L7.57142857,10.7368421 L6.71428571,10.7368421 L6.71428571,6.94736842 Z M8.42857143,6.94736842 L9.28571429,6.94736842 L9.28571429,10.7368421 L8.42857143,10.7368421 L8.42857143,6.94736842 Z"/>
+  </g>
 </svg>

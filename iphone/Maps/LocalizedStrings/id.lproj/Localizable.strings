@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Peta";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Umpan balik";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Berlangganan berita kami";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Atur ulang";
 
-"booking_filters_rating" = "Peringkat";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Peringkat dari";
 
 "booking_filters_rating_any" = "Apa saja";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Memesan taksi untuk sementara tidak tersedia.";
 
-"advertisement" = "Iklan";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Gunakan internet seluler untuk memperlihatkan informasi terperinci?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Memperbarui peta";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Perbarui peta yang sudah Anda unduh";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Memperbarui peta membuat informasi tentang objek tetap terkini";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Pembaruan (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
 
 "search_hotel_filter_apartment" = "Apartemen";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Sanggraloka";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
+
+"create_campaign_button" = "Klaim bisnis ini";
+
+"view_campaign_button" = "Bisnis diiklankan";
+
+"search_hotel_filters_type" = "Jenis";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Umpan Balik Umum";
 
 "on" = "On";
 
-"off" = "Off";
+"off" = "Mati";
+
+"prefs_languages_information" = "Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Untuk bahasa Arab, Yunani, dan Romania, Anda mungkin perlu menginstal TTS tambahan (karena Google TTS belum mendukung bahasa-bahasa ini) dari Google Play, seperti Vocalizer TTS atau SVOX Classics.\nUntuk mengelola pengaturan untuk sintesis suara, pada perangkat Anda buka Settings (Pengaturan) –> Language and input (Bahasa dan input) –> Speech (Tuturan) –> Text to speech output (Output teks ke tuturan). Di sini Anda dapat mengunduh paket bahasa tambahan atau memilih mesin teks ke tuturan yang diinginkan.";
+
+"prefs_languages_information_off_link" = "Untuk informasi selengkapnya, bacalah panduan ini.";
+
+"whatsnew_transliteration_title" = "Transliterasi ke dalam bahasa Latin";
+
+"whatsnew_transliteration_message" = "Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.";

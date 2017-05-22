@@ -92,6 +92,7 @@ HEADERS += \
     servers_list.hpp \
     settings.hpp \
     socket.hpp \
+    string_storage_base.hpp \
 
 SOURCES += \
     chunks_download_strategy.cpp \
@@ -111,3 +112,4 @@ SOURCES += \
     preferred_languages.cpp \
     servers_list.cpp \
     settings.cpp \
+    string_storage_base.cpp \

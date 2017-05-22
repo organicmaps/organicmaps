@@ -29,26 +29,32 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/ic_wn_rich_page_hotel</item>
+    <item>@drawable/img_whatsnew_driving_style</item>
+    <item>@drawable/img_whatsnew_transliteration</item>
   </integer-array>
-s
+
   <string-array name="news_titles">
-    <item>@string/whatsnew_more_info_on_hotels_title</item>
+    <item>@string/whatsnew_driving_style_title</item>
+    <item>@string/whatsnew_transliteration_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_more_info_on_hotels_message</item>
+    <item>@string/whatsnew_driving_style_message</item>
+    <item>@string/whatsnew_transliteration_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
+    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
     <item/>
   </string-array>
 </resources>

@@ -282,7 +282,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
     noteInfo[kStatProblem] = self.note;
     CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.lat longitude:latLon.lon];
     [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo atLocation:location];
-    f.CreateNote(latLon, featureID, osm::Editor::NoteProblemType::General, self.note.UTF8String);
+    f.CreateNote(m_mapObject, osm::Editor::NoteProblemType::General, self.note.UTF8String);
   }
 
   switch (f.SaveEditedMapObject(m_mapObject))
@@ -410,7 +410,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
   {
     m_sections.push_back(MWMEditorSectionAddress);
     m_cells[MWMEditorSectionAddress] = kSectionAddressCellTypes;
-    if (m_mapObject.IsBuilding())
+    if (m_mapObject.IsBuilding() && !m_mapObject.IsPointType())
       m_cells[MWMEditorSectionAddress].push_back(MWMPlacePageCellTypeBuildingLevels);
 
     registerCellsForTableView(kSectionAddressCellTypes, self.tableView);
@@ -968,7 +968,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
               kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage)
             }
                 atLocation:location];
-      GetFramework().CreateNote(latLon, fid, osm::Editor::NoteProblemType::PlaceDoesNotExist,
+      GetFramework().CreateNote(m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self backTap];
       [self showDropDown];

@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Harita";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Geri Bildirim";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Haberlerimize abone ol";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Sıfırla";
 
-"booking_filters_rating" = "Oy Verin";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "En düşük derece";
 
 "booking_filters_rating_any" = "Herhangi biri";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";
 
-"advertisement" = "Reklam";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Haritalar güncelleniyor";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "İndirdiğiniz haritaları güncelleyin";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Güncelle (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Daha sonra manüel olarak güncelle";
 
 "search_hotel_filter_apartment" = "Apart otel";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Tatil köyü";
 
+"search_hotel_filter_hotel" = "Otel";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Bu iş yerinin sahibiyim";
 
-"off" = "Off";
+"view_campaign_button" = "İşletme reklamı verildi";
+
+"search_hotel_filters_type" = "Tür";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Genel Geribildirim";
+
+"on" = "Aç";
+
+"off" = "Kapat";
+
+"prefs_languages_information" = "Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Arapça, Yunanca ve Rumence dilleri için Google Play'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.";
+
+"prefs_languages_information_off_link" = "Daha fazla bilgi için lütfen bu kılavuzu inceleyin.";
+
+"whatsnew_transliteration_title" = "Latince alfabesine çevirme";
+
+"whatsnew_transliteration_message" = "Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.";

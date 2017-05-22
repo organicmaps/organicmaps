@@ -8,6 +8,7 @@ import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public enum SearchEngine implements NativeSearchListener,
@@ -174,4 +175,10 @@ public enum SearchEngine implements NativeSearchListener,
   private static native void nativeShowAllResults();
 
   public static native void nativeCancelInteractiveSearch();
+
+  /**
+   * @return all existing hotel types
+   */
+  @NonNull
+  static native HotelsFilter.HotelType[] nativeGetHotelTypes();
 }

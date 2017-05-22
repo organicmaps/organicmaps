@@ -1,6 +1,20 @@
 #include "routing/index_graph_starter.hpp"
 
-#include "routing/routing_exceptions.hpp"
+#include "geometry/distance.hpp"
+
+namespace
+{
+using namespace routing;
+
+m2::PointD CalcProjectionToSegment(Segment const & segment, m2::PointD const & point,
+                                   WorldGraph & graph)
+{
+  m2::ProjectionToSection<m2::PointD> projection;
+  projection.SetBounds(graph.GetPoint(segment, false /* front */),
+                       graph.GetPoint(segment, true /* front */));
+  return projection(point);
+}
+}  // namespace
 
 namespace routing
 {
@@ -10,7 +24,11 @@ Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 
 IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish,
                                      WorldGraph & graph)
-  : m_graph(graph), m_start(start), m_finish(finish)
+  : m_graph(graph)
+  , m_start(start.GetSegment(),
+            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph))
+  , m_finish(finish.GetSegment(),
+             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph))
 {
 }
 

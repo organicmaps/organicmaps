@@ -106,7 +106,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(map.name);
 
     final TextView szView = (TextView) countryView.findViewById(R.id.tv__size);
-    szView.setText(MapManager.nativeIsLegacyMode() ? "" : StringUtils.getFileSizeString(map.totalSize - map.size));
+    szView.setText(MapManager.nativeIsLegacyMode() ? "" : StringUtils.getFileSizeString(map.totalSize));
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
     lp.rightMargin = 0;
     szView.setLayoutParams(lp);
@@ -164,7 +164,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
       countries.add(data);
 
       if (!legacy)
-        size += (item.totalSize - item.size);
+        size += item.totalSize;
     }
 
     Map<String, String> group = new HashMap<>();

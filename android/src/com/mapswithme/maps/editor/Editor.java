@@ -100,6 +100,7 @@ public final class Editor
 
   public static native boolean nativeIsAddressEditable();
   public static native boolean nativeIsNameEditable();
+  public static native boolean nativeIsPointType();
   public static native boolean nativeIsBuilding();
 
   public static native NamesDataSource nativeGetNamesDataSource(boolean needFakes);

@@ -34,6 +34,13 @@ extern char const * const kBookmarksBookmarkAction;
 extern char const * const kPlacepageHotelBook;
 extern char const * const kEditorAddStart;
 extern char const * const kEditorEditStart;
+
+// Settings.
+extern char const * const kFrom;
+extern char const * const kType;
+extern char const * const kName;
+extern char const * const kContent;
+extern char const * const kKeyword;
 }  // marketing
 
 class MarketingService

@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="@dimen/place_page_buttons_height"
-  android:layout_marginTop="@dimen/margin_base"
-  android:orientation="horizontal"
-  android:background="?ppButtonsBackground"/>
+  android:layout_marginTop="@dimen/margin_base">
+  <LinearLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/place_page_buttons_height"
+    android:orientation="horizontal"
+    android:background="?ppButtonsBackground"/>
+  <include
+    layout="@layout/divider_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
+</FrameLayout>

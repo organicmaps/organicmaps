@@ -73,7 +73,8 @@ void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::K
   keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
   {
     drule::BaseRule const * const rule = drule::rules().Find(key);
-    ASSERT(rule != nullptr, ());
+    if (rule == nullptr)
+      return true;
     return !rule->TestFeature(f, zoomLevel);
   });
 }
@@ -143,6 +144,9 @@ private:
     }
 
     drule::BaseRule const * const dRule = drule::rules().Find(key);
+    if (dRule == nullptr)
+      return;
+
     m_rules.emplace_back(make_pair(dRule, depth));
 
     if (dRule->GetCaption(0) != nullptr)

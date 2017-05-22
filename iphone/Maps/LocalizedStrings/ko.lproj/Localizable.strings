@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "지도";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "피드백";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "우리 뉴스 구독";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "재설정";
 
-"booking_filters_rating" = "평가";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "등급";
 
 "booking_filters_rating_any" = "모두";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";
 
-"advertisement" = "광고";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "지도 업데이트";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "다운로드한 지도를 업데이트해야 합니다";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "업데이트(%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
 
 "search_hotel_filter_apartment" = "아파트";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "리조트";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_hotel" = "호텔";
 
-"on" = "On";
+"search_hotel_filter_motel" = "모텔";
 
-"off" = "Off";
+"create_campaign_button" = "이 비즈니스 클레임";
+
+"view_campaign_button" = "비즈니스 광고를 하고 있습니다.";
+
+"search_hotel_filters_type" = "유형";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "일반 피드백";
+
+"on" = "켜기";
+
+"off" = "끄기";
+
+"prefs_languages_information" = "당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.";
+
+"prefs_languages_information_off" = "아랍어, 그리스어 및 루마니아어의 경우 Google Play에서 Vocalizer TTS 또는 SVOX Classic 같은 추가적인 TTS(Google TTS는 해당 언어를 아직 지원하지 않음)를 설치해야 할 수 있습니다.\n음성 합성에 대한 설정을 관리하려면 장치에서 설정 -> 언어 및 입력 -> 음성 -> 음성으로 읽어주기 설정을 엽니다. 여기에서 추가적인 언어 팩을 다운로드하거나 기본 음성으로 읽어주기 엔진을 선택할 수 있습니다.";
+
+"prefs_languages_information_off_link" = "자세한 내용을 보려면 이 가이드를 확인하세요.";
+
+"whatsnew_transliteration_title" = "라틴어로 음역";
+
+"whatsnew_transliteration_message" = "거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.";

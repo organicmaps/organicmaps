@@ -5110,22 +5110,6 @@
     en = Information
     ru = Информация
 
-  [prefs_languages_information]
-    comment = Settings languages information in voice instructions screen
-    tags = android
-    en = Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).
-    ru = Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).
-
-  [prefs_languages_information_off]
-    comment = Settings languages off information in voice instructions screen
-    tags = android
-    en = For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
-    ru = For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
-
-  [prefs_languages_information_off_link]
-    en = For more information please check the guide.
-    ru = Для получения дополнительной информации, пожалуйста, ознакомьтесь с руководством.
-
   [prefs_group_map]
     comment = Settings screen: "Map" category title
     tags = android
@@ -6909,17 +6893,6 @@
     zh-Hant = 意見反應
     el = Σχόλια
     sk = Spätná väzba
-
-  [feedback_general]
-    comment = Settings: "Send general feedback" button
-    tags = android
-    en = General Feedback
-    ru = Отправить отзыв
-    fr = Avis général
-    de = Allgemeine Rückmeldung
-    pl = Ogólne opinie
-    zh-Hant = 一般意見反應
-    el = Γενικάό σχόλιο
 
   [subscribe_to_news]
     comment = Text in menu
@@ -20621,34 +20594,36 @@
     sk = Obnoviť
 
   [booking_filters_rating]
-    en = Rating
-    ru = Рейтинг
-    ar = تصنيف
-    cs = Hodnocení
-    da = Vurdering
-    nl = Beoordeling
-    fi = Arvio
-    fr = Note
-    de = Bewertung
-    hu = Minősítés
-    id = Peringkat
-    it = Voto
-    ja = 評価
-    ko = 평가
-    nb = Vurdering
-    pl = Ocena
-    pt = Classificação
-    ro = Clasificare
-    es = Clasificación
-    sv = Betyg
-    th = อันดับ
-    tr = Oy Verin
-    uk = Рейтинг
-    vi = Cho điểm
-    zh-Hans = 评分
-    zh-Hant = 評分
-    el = Βαθμολογία
-    sk = Hodnotenie
+    comment = Beginning from a particular value and
+    en = Rating from
+    ru = Рейтинг от
+    ar = تصنيف من
+    cs = Hodnocení od
+    da = Vurdering fra
+    nl = Rating van
+    fi = Arvio vähintään
+    fr = Note à partir de
+    de = Bewertung von
+    hu = Besorolás innentől
+    id = Peringkat dari
+    it = Voto da
+    ja = 指定評価以上
+    ko = 등급
+    nb = Rangering fra
+    pl = Ocena od
+    pt = Com classificação desde
+    ro = Evaluări de la
+    es = Con calificación desde
+    sv = Betyg från
+    th = คะแนนตั้งแต่
+    tr = En düşük derece
+    uk = Рейтинг від
+    vi = Hạng từ
+    zh-Hans = 最低评分
+    zh-Hant = 評分下限
+    el = Βαθμολογία από
+    sk = Hodnotenie nad
+    sw = Kadirio kuanzia
 
   [booking_filters_rating_any]
     en = Any
@@ -21288,6 +21263,7 @@
     sk = Objednanie taxíka je dočasne nedostupné.
 
   [advertisement]
+    comment = Abbreviated for all languages.
     en = AD
 
   [mobile_data_dialog]
@@ -23152,22 +23128,192 @@
   [whats_new_auto_update_updating_maps]
     en = Updating maps
     ru = Обновляем карты
+    ar = تحديث الخرائط
+    cs = Aktualizuji mapy
+    da = Opdaterer kort
+    nl = Kaarten bijwerken
+    fi = Päivitetään karttoja
+    fr = Mise à jour des cartes
+    de = Kartenaktualisierung
+    hu = Térképek frissítése
+    id = Memperbarui peta
+    it = Aggiornamento mappe
+    ja = 地図を更新中
+    ko = 지도 업데이트
+    nb = Oppdaterer kart
+    pl = Aktualizacja map
+    pt = Atualização de mapas
+    ro = Se actualizează hărțile
+    es = Actualizando mapas
+    sv = Uppdaterar kartor
+    th = กำลังอัปเดตแผนที่
+    tr = Haritalar güncelleniyor
+    uk = Оновлення карт
+    vi = Đang cập nhật bản đồ
+    zh-Hans = 正在更新地图
+    zh-Hant = 更新地圖
+    af = Kaarte bywerk
+    be = Абнаўленне карт
+    el = Ενημέρωση χαρτών
+    es_MX = Actualización de mapas
+    fr_CA = Mise à jour des cartes
+    he = מעדכן מפות
+    hi = मानचित्र अपडेट हो रहे
+    pt_BR = Atualizando mapas
+    sk = Prebieha aktualizácia máp
+    sw = Inasasisha ramani
 
   [whats_new_auto_update_title]
     en = Update your downloaded maps
     ru = Обновите ваши загруженные карты
+    ar = قم بتحديث الخرائط التي قمت بنتزيلها
+    cs = Aktualizujte své stažené mapy
+    da = Opdater dine downloadede kort
+    nl = Werk uw gedownloade kaarten bij
+    fi = Päivitä ladatut kartat
+    fr = Mettez à jour vos cartes téléchargées
+    de = Aktualisieren Sie Ihre heruntergeladenen Karten
+    hu = Frissítse a letöltött térképeit
+    id = Perbarui peta yang sudah Anda unduh
+    it = Aggiorna le mappe scaricate
+    ja = ダウンロード済みのマップを更新してください
+    ko = 다운로드한 지도를 업데이트해야 합니다
+    nb = Oppdater dine nedlastede kart
+    pl = Zaktualizuj pobrane mapy
+    pt = Atualize seus mapas transferidos
+    ro = Actualizați hărțile descărcate
+    es = Actualice sus mapas descargados
+    sv = Uppdatera dina nedladdade kartor
+    th = อัปเดตแผนที่ที่คุณดาวน์โหลดมา
+    tr = İndirdiğiniz haritaları güncelleyin
+    uk = Оновити завантажені карти
+    vi = Cập nhật các bản đồ đã tải về của bạn
+    zh-Hans = 更新已下载的地图
+    zh-Hant = 更新您下載的地圖
+    af = Werk jou afgelaaide kaarte by
+    be = Абнавіце спампаваныя карты
+    el = Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει
+    es_MX = Debe actualizar sus mapas descargados
+    fr_CA = Mettez à jour vos cartes téléchargées
+    he = עדכן את המפות שהורדת
+    hi = अपने डाउनलोड किए गए मानचित्र अपडेट करें
+    pt_BR = Atualize os mapas no seu dispositivo
+    sk = Aktualizujte svoje stiahnuté mapy
+    sw = Sasisha ramani zako ulizopakua
 
   [whats_new_auto_update_message]
-    en = Update maps supports information about objects in the current state
+    en = Updating maps keeps the information about objects up to date
     ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
+    ar = تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة
+    cs = Aktualizace map zajišťuje aktuální informace o objektech
+    da = Opdatering af kort sikrer, at oplysningerne om objekter er aktuel
+    nl = Kaarten bijwerken houdt de informatie over objecten actueel
+    fi = Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla
+    fr = Actualiser les cartes permet d'actualiser également les informations sur les objets
+    de = Das Aktualisieren der Karten sorgt dafür, dass die Objektinformationen stets auf dem neuesten Stand sind
+    hu = A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat
+    id = Memperbarui peta membuat informasi tentang objek tetap terkini
+    it = Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti
+    ja = 地図を更新することで物件情報を最新の状態に保ちます
+    ko = 지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.
+    nb = Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert
+    pl = Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach
+    pt = Atualizar os mapas mantém atualizada a informação sobre objetos
+    ro = Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte
+    es = La actualización de mapas mantiene actualizada la información sobre objetos
+    sv = Uppdatering av kartor håller information om objekt uppdaterade
+    th = การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ
+    tr = Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar
+    uk = Оновлення карт дозволяє підтримувати інформацію про об'єкти в актуальному стані
+    vi = Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó
+    zh-Hans = 更新地图可以让对象的信息保持最新状态
+    zh-Hant = 更新地圖以讓物件資訊保持在最新狀態
+    af = As jy kaarte bywerk, bly inligting oor voorwerpe op datum
+    be = Абнаўленне карт падтрымлівае актуальнасць звестак пра аб’екты
+    el = Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες
+    es_MX = Actualizar los mapas mantiene actualizada también la información acerca de los objetos
+    fr_CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
+    he = עדכון המפות שומר על המידע שבהן עדכני
+    hi = मानचित्रों का अपडेट होना ऑब्जेक्ट्स के बारे में जानकारी अप टू डेट रखता है
+    pt_BR = A atualização de mapas mantém as informações sobre objetos atualizadas
+    sk = Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované
+    sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
 
   [whats_new_auto_update_button_size]
     en = Update (%s)
     ru = Обновить (%s)
+    ar = تحديث (%s)
+    cs = Aktualizace (%s)
+    da = Opdater (%s)
+    nl = Bijwerken (%s)
+    fi = Päivitä (%s)
+    fr = Mettre à jour (%s)
+    de = Aktualisieren (%s)
+    hu = Frissítés (%s)
+    id = Pembaruan (%s)
+    it = Aggiorna (%s)
+    ja = 更新 (%s)
+    ko = 업데이트(%s)
+    nb = Oppdater (%s)
+    pl = Zaktualizuj (%s)
+    pt = Atualização (%s)
+    ro = Actualizare (%s)
+    es = Actualizar (%s)
+    sv = Uppdatera (%s)
+    th = อัปเดต (%s)
+    tr = Güncelle (%s)
+    uk = Оновити (%s)
+    vi = Cập nhật (%s)
+    zh-Hans = 更新 (%s)
+    zh-Hant = 更新 (%s)
+    af = Werk by (%s)
+    be = Абнавіць (%s)
+    el = Ενημέρωση (%s)
+    es_MX = Actualizar (%s)
+    fr_CA = Mettre à jour (%s)
+    he = עדכן (%s)
+    hi = (%s) अपडेट करें
+    pt_BR = Atualizar (%s)
+    sk = Aktualizovať (%s)
+    sw = Sasisha (%s)
 
   [whats_new_auto_update_button_later]
-    en = Manually update later 
+    en = Manually update later
     ru = Обновить вручную позже
+    ar = تحديث يدوياً في وقت لاحق
+    cs = Aktualizovat ručně později
+    da = Opdater manuelt senere
+    nl = Later handmatig bijwerken
+    fi = Päivitä manuaalisesti myöhemmin
+    fr = Mettre à jour manuellement plus tard
+    de = Später manuell aktualisieren
+    hu = Kézi frissítés később
+    id = Perbarui secara manual nanti
+    it = Aggiorna manualmente più tardi
+    ja = あとで手動で更新
+    ko = 나중에 수동으로 업데이트
+    nb = Oppdater manuelt senere
+    pl = Zaktualizuj ręcznie później
+    pt = Atualizar manualmente mais tarde
+    ro = Actualizare manuală mai târziu
+    es = Actualizar más tarde de forma manual
+    sv = Uppdatera senare manuellt
+    th = อัปเดตด้วยตนเองภายหลัง
+    tr = Daha sonra manüel olarak güncelle
+    uk = Оновити вручну пізніше
+    vi = Cập nhật thủ công sau
+    zh-Hans = 稍后手动更新
+    zh-Hant = 稍後手動更新
+    af = Werk later handmatig by
+    be = Абнавіць пазней уручную
+    el = Χειροκίνητη ενημέρωση αργότερα
+    es_MX = Actualizar después manualmente
+    fr_CA = Plus tard (manuel)
+    he = עדכן ידנית מאוחר יותר
+    hi = बाद में मैनुअल रूप से अपडेट करें
+    pt_BR = Atualizar manualmente mais tarde
+    sk = Manuálne aktualizovať neskôr
+    sw = Sasisha mwenyewe baadaye
 
   [search_hotel_filter_apartment]
     en = Apartments
@@ -23216,7 +23362,7 @@
     ko = ^캠핑
     nb = Overnatting i bobiler
     pl = Kamping
-    pt: = Acampamento
+    pt = Acampamento
     ro = Camping
     es = Campamento
     sv = Camping
@@ -23352,20 +23498,423 @@
     el = Θέρετρο
     sk = Rezort
 
+  [search_hotel_filter_hotel]
+    en = Hotel
+    ru = Гостиница
+    ar = الفندق
+    cs = Hotel
+    da = Hotel
+    nl = Hotel
+    fi = Hotelli
+    fr = Hôtel
+    de = Hotel
+    hu = Szálloda
+    id = Hotel
+    it = Hôtel
+    ja = ホテル
+    ko = 호텔
+    nb = Hotell
+    pl = Hotel
+    pt = Hotel
+    ro = Hotel
+    es = Hotel
+    sv = Hotell
+    th = โรงแรม
+    tr = Otel
+    uk = Готель
+    vi = Khách sạn
+    zh-Hans = 旅店
+    zh-Hant = 飯店
+    el = Ξενοδοχείο
+    he = מלון
+    sk = Hotel
+
   [search_hotel_filter_motel]
     en = Motel
     ru = Мотель
+    ar = موتيل
+    cs = Motel
+    da = Motel
+    nl = Motel
+    fi = Motelli
+    fr = Motel
+    de = Motel
+    hu = Motel
+    id = Motel
+    it = Motel
+    ja = モーテル
+    ko = 모텔
+    nb = Motell
+    pl = Motel
+    pt = Motel
+    ro = Motel
+    es = Motel
+    sv = Motell
+    th = โมเต็ล
+    tr = Motel
+    uk = Мотель
+    vi = Nhà nghỉ
+    zh-Hans = 汽车旅馆
+    zh-Hant = 汽車旅館
+    el = Μοτέλ
+    sk = Motel
+    sw = Moteli
 
   [create_campaign_button]
-    en = Create ad campaign
+    en = Claim this business
+    ru = Я владелец компании
+    ar = مطالبة هذه الشركة
+    cs = Zaregistruj si tento podnik
+    da = Denne virksomhed tilhører mig
+    nl = Dit bedrijf claimen
+    fi = Ilmoittaudu yrityksen omistajaksi
+    fr = Cette entreprise m'appartient
+    de = Ist das Ihr Unternehmen?
+    hu = Igényelje ezt az üzletet
+    id = Klaim bisnis ini
+    it = Rivendica questa attività
+    ja = この企業の所有者であることを報告
+    ko = 이 비즈니스 클레임
+    nb = Dette er min bedrift
+    pl = Zweryfikuj jako moja firma
+    pt = Reivindicar este negócio
+    ro = Revendicați această afacere
+    es = Este negocio es mío
+    sv = Gör anspråk på det här företaget
+    th = อ้างสิทธิ์ในธุรกิจนี้
+    tr = Bu iş yerinin sahibiyim
+    uk = Я — власник
+    vi = Tôi là chủ doanh nghiệp này
+    zh-Hans = 认领此商家
+    zh-Hant = 聲明這是你的公司
+    el = Καταχωρήστε αυτήν την επιχείρηση
+    sk = Nárokovať záznam firmy
+    sw = Miliki biashara hii
 
   [view_campaign_button]
-    en = View ad campagain
+    en = Business is advertised
+    ru = Эта компания рекламируется
+    ar = تم عمل إعلان عن الشركة
+    cs = Podnik je propagován
+    da = Virksomhed er annonceret
+    nl = Bedrijf wordt geadverteerd
+    fi = Yritystä mainostetaan
+    fr = L'entreprise est publiée
+    de = Es wird für das Unternehmen geworben
+    hu = Hirdetett üzlet
+    id = Bisnis diiklankan
+    it = Attività pubblicizzata
+    ja = 企業は宣伝中です
+    ko = 비즈니스 광고를 하고 있습니다.
+    nb = Virksomheten er annonsert
+    pl = Firma jest reklamowana
+    pt = Negócio publicitado
+    ro = Afacerea este promovată
+    es = Anuncio destacado
+    sv = Företaget marknadsförs
+    th = ธุรกิจได้รับการโฆษณาแล้ว
+    tr = İşletme reklamı verildi
+    uk = Ця компанія рекламується
+    vi = Doanh nghiệp này được quảng cáo
+    zh-Hans = 商家已推广
+    zh-Hant = 業務已發出廣告
+    el = Η επιχείριση διαφημίζεται
+    sk = Firma sa inzeruje
+    sw = Biashara imetangazwa
+
+  [search_hotel_filters_type]
+    en = Type
+    ru = Тип
+    ar = النوع
+    cs = Typ
+    da = Type
+    nl = Type
+    fi = Tyyppi
+    fr = Type
+    de = Art
+    hu = Típus
+    id = Jenis
+    it = Tipo
+    ja = 種類
+    ko = 유형
+    nb = Type
+    pl = Typ
+    pt = Tipo
+    ro = Tip
+    es = Tipo
+    sv = Typ
+    th = ประเภท
+    tr = Tür
+    uk = Тип
+    vi = Loại
+    zh-Hans = 类型
+    zh-Hant = 類型
+    el = Τύπος
+    sk = Typ
+    sw = Aina
+
+  [feedback_general]
+    comment = Settings: "Send general feedback" button
+    tags = android
+    en = General Feedback
+    ru = Отправить отзыв
+    ar = تعقيب عام
+    cs = Všeobecné připomínky
+    da = Generel feedback
+    nl = Algemene Feedback
+    fi = Yleinen palaute
+    fr = Feedback général
+    de = Allgemeines Feedback
+    hu = Általános visszajelzés
+    id = Umpan Balik Umum
+    it = Feedback generale
+    ja = 一般的なフィードバック
+    ko = 일반 피드백
+    nb = Generell tilbakemelding
+    pl = Ogólne uwagi
+    pt = Opinão geral
+    ro = Feedback general
+    es = Opinión general
+    sv = Allmän feedback
+    th = ข้อเสนอแนะทั่วไป
+    tr = Genel Geribildirim
+    uk = Загальний відгук
+    vi = Phản hồi chung
+    zh-Hans = 一般反馈
+    zh-Hant = 一般反應
+    el = Γενικό σχόλιο
+    sk = Všeobecné pripomienky
+    sw = Maoni Jumla
 
   [on]
     en = On
     ru = Вкл.
+    ar = تشغيل
+    cs = Zapnout
+    da = Til
+    nl = Aan
+    fi = Käytössä
+    fr = On
+    de = An
+    hu = Be
+    id = On
+    it = On
+    ja = オン
+    ko = 켜기
+    nb = På
+    pl = Wł.
+    pt = Lig.
+    ro = Activat
+    es = Akt.
+    sv = På
+    th = เปิด
+    tr = Aç
+    uk = Увімкн.
+    vi = Bật
+    zh-Hans = 开
+    zh-Hant = 開
+    el = Ενεργ.
+    sk = Zap.
+    sw = Washa
 
   [off]
     en = Off
     ru = Выкл.
+    ar = إيقاف
+    cs = Vypnout
+    da = Fra
+    nl = Uit
+    fi = Ei käytössä
+    fr = Off
+    de = Aus
+    hu = Ki
+    id = Mati
+    it = Off
+    ja = オフ
+    ko = 끄기
+    nb = Av
+    pl = Wył.
+    pt = Deslig.
+    ro = Dezactivat
+    es = Desact.
+    sv = Av
+    th = ปิด
+    tr = Kapat
+    uk = Вимкн.
+    vi = Tắt
+    zh-Hans = 关
+    zh-Hant = 關
+    el = Απενεργ.
+    sk = Vyp.
+    sw = Zima
+
+  [prefs_languages_information]
+    en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    ru = Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    ar = نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    cs = Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    da = Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    nl = We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    fi = Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    fr = Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    de = Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das können Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren.
+    hu = TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    id = Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    it = Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    ja = 音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。
+    ko = 당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.
+    nb = Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pl = Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pt = Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    ro = Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    es = Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    sv = Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    th = เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    tr = Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    uk = Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    vi = Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    zh-Hans = 我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能
+    zh-Hant = 我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    el = Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    sk = Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    sw = Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+
+  [prefs_languages_information_off]
+    en = For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.
+    ru = Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.
+    ar = بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.
+    cs = Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –> Jazyk a vstupy –> Mluvené slovo –> Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.
+    da = I forbindelse med sprogene arabisk, græsk og rumænsk skal du installere yderligere TTS såsom som Vocalizer TTS eller SVOX Classics fra Google Play (eftersom Google TTS ikke understøtter disse sprog endnu). Hvis du vil administrere indstillinger for talesyntese på enheden, skal du åbne Indstillinger –> Sprog og input –> Tale –> Tekst til tale-output. Her kan du downloade yderligere sprogpakker eller vælge dit foretrukne tekst til tale-program.
+    nl = Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.
+    fi = Arabian, kreikan ja romanian kieliä varten sinun täytyy mahdollisesti asentaa ylimääräinen tekstistä puheeksi -järjestelmä Google Playstä (koska Googlen tekstistä puheeksi -sovellus ei vielä tue näitä kieliä), kuten Vocalizer TTS tai SVOX Classic. Voit hallita tekstistä puheeksi -ominaisuuden asetuksia laitteellasi kohdassa Asetukset –> Kieli ja syöttötapa –> Puhe –> Tekstistä puheeksi -toisto. Täällä voit ladata uusia kielipaketteja tai valita haluamasi tekstistä puheeksi -ohjelman.
+    fr = Pour les langues arabe, grecque et roumaine, Il vous faudra peut-être installer un TTS supplémentaire (car Google TTS n'est pas encore compatible avec ces langues) depuis Google Play tel que Vocalizer TTS ou SVOX Classics. Pour gérer les paramètres de synthèse vocale, ouvrez sur votre appareil Paramètres –> Langue et entrée – > Parole – > Texte en parole. Vous pouvez télécharger ici un package de langues supplémentaires ou sélectionner votre logiciel de synthèse vocale préféré.
+    de = Für Arabisch, Griechisch und Rumänisch müssen Sie möglicherweise zusätzliche TTS-Systeme von Google Play herunterladen und installieren (denn Google-TTS unterstützt diese Sprachen bisher noch nicht), Sie können zum Beispiel Vocalizer TTS oder SVOX Classics verwenden. Um die Einstellungen für Sprachsynthese zu verwalten, gehen Sie auf Ihrem Gerät zu Einstellungen -> Sprache und Eingabe -> Sprache -> Text-to-Speech-Ausgabe. Hier können Sie zusätzliche Sprachpakete herunterladen oder das bevorzugte Versprachlichungsprogramm auswählen.
+    hu = Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.
+    id = Untuk bahasa Arab, Yunani, dan Romania, Anda mungkin perlu menginstal TTS tambahan (karena Google TTS belum mendukung bahasa-bahasa ini) dari Google Play, seperti Vocalizer TTS atau SVOX Classics.\nUntuk mengelola pengaturan untuk sintesis suara, pada perangkat Anda buka Settings (Pengaturan) –> Language and input (Bahasa dan input) –> Speech (Tuturan) –> Text to speech output (Output teks ke tuturan). Di sini Anda dapat mengunduh paket bahasa tambahan atau memilih mesin teks ke tuturan yang diinginkan.
+    it = Per l'arabo, il greco e il rumeno, potrebbe essere necessario installare un servizio TTS aggiuntivo (poiché Google TTS non supporta ancora queste lingue) da Google Play, ad esempio Vocalizer TTS o SVOX Classics.\nPer gestire le impostazioni di sintesi vocale, dal tuo dispositivo apri Impostazioni –> Lingua e input –> Riconoscimento vocale –> Output sintesi vocale. Qui puoi scaricare il language pack aggiuntivo o selezionare il tuo motore di sintesi vocale preferito.
+    ja = アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –> [言語と入力] –> [音声] –> [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。
+    ko = 아랍어, 그리스어 및 루마니아어의 경우 Google Play에서 Vocalizer TTS 또는 SVOX Classic 같은 추가적인 TTS(Google TTS는 해당 언어를 아직 지원하지 않음)를 설치해야 할 수 있습니다.\n음성 합성에 대한 설정을 관리하려면 장치에서 설정 -> 언어 및 입력 -> 음성 -> 음성으로 읽어주기 설정을 엽니다. 여기에서 추가적인 언어 팩을 다운로드하거나 기본 음성으로 읽어주기 엔진을 선택할 수 있습니다.
+    nb = Du må installere ekstra TTS for arabisk, gresk og rumensk (siden Google TTS ikke støtter språkene ennå) fra Google Play, som for eksempel Vocalizer TTS eller SVOX Classics.\nFor å behandle innstillinger for talesyntese, gå til Innstillinger -> Språk og inndata -> Tale-> Tekst til tale. Her kan du laste ned flere språkpakker eller velg foretrukket tekst til tale-motor.
+    pl = Do obsługi języka arabskiego, greckiego i rumuńskiego koniecznie może być zainstalowanie dodatkowych systemów TTS (Google TTS nie obsługuje obecnie tych języków) z Google Play, takich jak Vocalizer TTS lub SVOX Classics. Aby zarządzać ustawieniami dla syntezy mowy, na swoim urządzeniu otwórz Ustawienia –> Język i wprowadzanie – > Mowa – > Wyjście tekstu na mowę. Tutaj można pobrać dodatkowe pakiety językowe lub wybrać preferowane silniki konwersji tekstu na mowę.
+    pt = Para os idiomas árabe, grego e romeno: é possível que tenha de instalar TTS adicionais (uma vez que o Google TTS ainda não inclui estes idiomas) a partir do Google Play, como o Vocalizer TTS ou o SVOX Classics. Para gerir as configurações de síntese de fala, no seu dispositivo, vá a Configurações – > idioma e entrada – > voz – > saída de texto para voz. Aqui pode transferir um pacote de idioma adicional ou selecionar um motor de texto para voz.
+    ro = Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.
+    es = Para los idiomas árabe, griego y rumano, es posible que necesite instalar un TTS adicional (puesto que Google TTS aún no incluye estos idiomas) desde Google Play, como Vocalizer TTS o SVOX Classics.\nPara administrar los ajustes de síntesis del habla, abra los Ajustes de su dispositivo –> Idioma e introducción –> Voz –> Opciones texto a voz. En este menú puede descargar un paquete de idioma especial o seleccionar un motor existente de conversión de texto a voz.
+    sv = För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –> Språk och inmatning –> Tal –> Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.
+    th = สำหรับภาษาอาหรับ กรีก และโรมาเนีย คุณอาจจำเป็นต้องติดตั้ง TTS (เนื่องจาก Google TTS ยังไม่ได้รองรับภาษาเหล่านี้) เพิ่มเติมจาก Google Play อย่างเช่น Vocalizer TTS หรือ SVOX Classics\nในการที่จะจัดการการตั้งค่าสำหรับการสังเคราะห์เสียงพูด เปิด การตั้งค่า –> ภาษาและอินพุต –> เสียงพูด –> เอาท์พุตการแปลงข้อความไปเป็นเสียงพูด บนเครื่องของคุณ ซึ่งคุณสามารถดาวน์โหลดชุดภาษาเพิ่มเติมหรือเลือกเอนจินการแปลงข้อความไปเป็นเสียงพูดที่ชอบได้
+    tr = Arapça, Yunanca ve Rumence dilleri için Google Play'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.
+    uk = Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –> Мова та введення –> Мовлення –> Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.
+    vi = Đối với tiếng Ả Rập, tiếng Hy Lạp và tiếng Rumani, bạn có thể cần cài đặt thêm TTS (bởi Google TTS chưa hỗ trợ các ngôn ngữ này) từ Google Play như Vocalizer TTS hoặc SVOX Classics.\nĐể quản lý các thiết lập tổng hợp giọng nói, trên thiết bị của bạn mở Cài đặt –> Ngôn ngữ và nhập liệu –> Giọng nói –> Đầu ra văn bản thành giọng nói. Ở đây bạn có thể tải về thêm các gói ngôn ngữ và lựa chọn công cụ chuyển văn bản thành giọng nói ưa thích.
+    zh-Hans = 对于阿拉伯语、希腊语和罗马尼亚语，您需要从 Google Play 中安装其他“文字转语音”功能（因为 Google 文字转语音不支持这些语言），例如 Vocalizer TTS 或 SVOX Classics。\n要管理语音合成的设置，请在您的设备上打开“设置 –> 语言和输入法 –> 语音 –> 文字转语音 (TTS) 输出”。您可以从这里下载其他语言包或选择首先的文字转语音引擎。
+    zh-Hant = 對於阿拉伯語、希臘語或羅馬尼亞語，必須從 Google Play 下載 Vocalizer TTS 或 SVOX Classics 等其他 TTS (因為 Google TTS 尚未支援這些語言)。\n若要管理語音合成的設定，請在您的裝置上開啟「設定 –> 語言和輸入 –> 語音 –> 文字轉語音輸出」。您可在此下載其他語言套件，或選擇偏好的文字轉語音引擎。
+    el = Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.
+    sk = Pre arabčinu, gréčtinu a rumunčinu bude potrebné z obchodu Google Play nainštalovať dodatočné TTS (keďže Google tieto jazyky ešte nepodporuje) ako Vocalizer TTS alebo SVOX Classics. Ak chcete nastaviť nastavenia na syntézu reči, otvorte v zariadení Nastavenia -> Jazyk a vstup -> Reč -> Výstup textu na reč. Tam si môžete prevziať dodatočný jazykový balík alebo si vybrať preferovaný systém prevodu textu na reč.
+    sw = Kwa lugha za Kiarabu, Kigiriki na Kiromania huenda ukahitajika kusakinisha TTS ya ziada (kwani Google TTS bado haina lugha hizi) kwenye Google Play kama vile Vocalizer TTS au SVOX Classics.\nIli kudhibiti mipangilio ya usanidi wa usemi, kwenye kifaa chako fungua Mipangilio –> Lugha na Ingizo –> Usemi –> Tokeo la kugeuza maandishi kuwa usemi. Hapa unaweza kupakua furushi za ziada za lugha au uchague injini inayopendelea ya kugeuza maandishi kuwa usemi.
+
+  [prefs_languages_information_off_link]
+    en = For more information please check this guide.
+    ru = Более подробная информация — в этом руководстве.
+    ar = لمزيد من المعلومات الرجاء مراجعة هذا الدليل.
+    cs = Více informací najdete v tomto návodu.
+    da = Se denne vejledning for flere oplysninger.
+    nl = Gelieve deze handleiding te lezen voor meer informatie.
+    fi = Lisätietoja saat tästä oppaasta.
+    fr = Pour plus d’informations, veuillez consulter ce guide.
+    de = Weitere Informationen finden Sie in dieser Anleitung.
+    hu = További tájékoztatást találhat még ebben az útmutatóban.
+    id = Untuk informasi selengkapnya, bacalah panduan ini.
+    it = Per maggiori informazioni, consulta questa guida.
+    ja = 詳細については、このガイドをご確認ください。
+    ko = 자세한 내용을 보려면 이 가이드를 확인하세요.
+    nb = Les denne veiledningen for mer informasjon.
+    pl = Aby uzyskać więcej informacji, sprawdź ten poradnik.
+    pt = Para obter mais informações, consulte este guia.
+    ro = Consultați acest ghid pentru informații suplimentare.
+    es = Para obtener más información, consulte esta guía.
+    sv = Kolla in den här guiden för mer information.
+    th = สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้
+    tr = Daha fazla bilgi için lütfen bu kılavuzu inceleyin.
+    uk = Додаткову інформацію див. у цьому керівництві.
+    vi = Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.
+    zh-Hans = 如需了解更多信息，请查阅此指南。
+    zh-Hant = 如需更多資訊，請參閱本指南。
+    el = Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.
+    sk = Viac informácií nájdete v tomto návode.
+    sw = Kwa maelezo zaidi tafadhali tazama mwongozo huu.
+
+  [whatsnew_transliteration_title]
+    en = Transliteration into Latin
+    ru = Латинская транслитерация
+    ar = كتابة بالحروف اللاتينية
+    cs = Transliterace do latinky
+    da = Translitteration til latinsk
+    nl = Transliteratie in het Latijn
+    fi = Translitterointi latinaksi
+    fr = Translittération en latin
+    de = Transliteration ins Lateinische
+    hu = Átírás latin nyelvre
+    id = Transliterasi ke dalam bahasa Latin
+    it = Traslitterazione in latino
+    ja = ラテン文字への字訳
+    ko = 라틴어로 음역
+    nb = Omskrivning til latin
+    pl = Transkrypcja na alfabet łaciński
+    pt = Transliteração para o latim
+    ro = Transcriere în alfabet latin
+    es = Transliteración al alfabeto latino
+    sv = Transkribering till latin
+    th = การทับศัพท์เป็นภาษาละติน
+    tr = Latince alfabesine çevirme
+    uk = Транслітерація латинськими літерами
+    vi = Chuyển ngữ sang chữ Latinh
+    zh-Hans = 直译成拉丁文
+    zh-Hant = 音譯為拉丁文
+    af = Transliterasie na Latynse alfabet
+    be = Транслітарацыя лацінкай
+    el = Μεταγραφή στα Λατινικά
+    es_MX = Transliteración al alfabeto latino
+    fr_CA = Translittération vers l'alphabet latin
+    he = תעתיק ללטינית
+    hi = लैटिन में लिप्यंतरण
+    ms = Transliterasi kepada Latin
+    pt_BR = Transliteração para alfabeto latino
+    sk = Prepis do latinčiny
+    sw = Tafsiri kwa lugha ya Kilatini
+
+  [whatsnew_transliteration_message]
+    en = If a street or an object doesn't have a name in your language, it will be spelt using the Latin alphabet.
+    ru = Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.
+    ar = إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.
+    cs = Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.
+    da = Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.
+    nl = Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.
+    fi = Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.
+    fr = Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l'écrire.
+    de = Wenn eine Straße oder ein Objekt in Ihrer Sprache keinen Namen hat, wird er mit lateinischen Buchstaben geschrieben.
+    hu = Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.
+    id = Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.
+    it = Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l'alfabeto latino.
+    ja = 通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。
+    ko = 거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.
+    nb = Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.
+    pl = Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.
+    pt = Se uma rua ou um objeto não tiver nome na sua língua, será utilizado o alfabeto latino.
+    ro = Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.
+    es = Si una calle o un objeto no tiene nombre en su idioma, se escribirá con el alfabeto latino.
+    sv = Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.
+    th = หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน
+    tr = Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.
+    uk = Якщо для вулиці чи об\\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.
+    vi = Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.
+    zh-Hans = 如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。
+    zh-Hant = 若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。
+    af = As 'n straat of objek nie 'n naam in u taal het nie, sal dit geskryf word in die Latynse alfabet.
+    be = Калі назвы вуліцы ці аб’екта на вашай мове няма, яны будуць запісвацца лацінскім алфавітам.
+    el = Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.
+    es_MX = Si una calle o un objeto no tienen nombre en su idioma, se escribirá con el alfabeto latino.
+    fr_CA = Si une rue ou un objet ne possède pas de nom dans votre langue, il apparaîtra toujours en alphabet latin.
+    he = אם אין לרחוב או לאובייקט אחר שם בשפה שלך, הוא יתועתק באמצעות אותיות לטיניות.
+    hi = यदि किसी गली, मुहल्ले या किसी अन्य चीज़ का आपकी भाषा में कोई नाम न हो तो यह लैटिन वर्णमाला का प्रयोग करते हुए उच्चारित होगा।
+    ms = Jika objek atau jalan yang tidak mempunyai nama dalam bahasa anda, ia akan dieja menggunakan huruf Rumi.
+    pt_BR = Se uma rua ou um objeto não possui um nome em seu idioma, ele será soletrado usando o alfabeto latino.
+    sk = Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.
+    sw = Ikiwa mtaa au kipengee hakina jina kwa lugha yako, kitaandikwa kwa herufi za alfabeti ya Kilatini.

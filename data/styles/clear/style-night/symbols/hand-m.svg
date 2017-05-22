@@ -1,20 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>hand-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <circle id="path-1" cx="11.5" cy="11.5" r="10.5"></circle>
-    </defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="hand-m">
-            <circle id="Oval-1-Copy-38" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" r="11.5"></circle>
-            <g id="Oval-1-Copy-47">
-                <use fill="#2D7970" xlink:href="#path-1"></use>
-                <use fill="#825089" xlink:href="#path-1"></use>
-                <use fill-opacity="0.65" fill="#000000" xlink:href="#path-1"></use>
-            </g>
-            <path d="M7.84615385,14.8519018 L7,13 L7,7 C7,7 7.375,6.5 7.75,6.5 C8.125,6.5 8.5,7 8.5,7 L8.5,10 L9,10 L9,5 C9,5 9.375,4.5 9.75,4.5 C10.125,4.5 10.5,5 10.5,5 L10.5,10 L11,10 L11,4 C11,4 11.375,3.50264525 11.75,3.50264525 C12.125,3.50264525 12.5,4 12.5,4 L12.5,10 L13,10 L13,5 C13,5 13.375,4.5 13.75,4.5 C14.125,4.5 14.5,5 14.5,5 L14.5,12.2974828 L15.5,9.99999976 C15.5,9.99999976 15.875,9.49999976 16.25,9.49999976 C16.625,9.49999976 17,9.99999976 17,9.99999976 L14,18 L14.0143576,18.9999998 L9,19 L9,18 L7.84615385,14.8519018 Z" id="Path-1150" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".4"/>
+    <circle cx="12" cy="12" r="11" fill="#4E3551"/>
+    <path fill="#FFF" fill-rule="nonzero" d="M11.4734774,6 L11.4734774,10.8 L10.9076621,10.8 L10.9076621,6.6 L9.77603143,6.6 L9.77603143,13.2 L9.77603143,13.55625 C9.77603143,13.55625 8.18467583,12.4125 7.90176817,12.4125 C7.16620825,12.4125 7,13.25625 7,13.25625 L9.82907662,17.2125 C10.1119843,17.6925 10.6777996,18 11.2436149,18 L13.7367387,18 C14.9815324,18 16,16.92 16,15.6 L16,14.4 L16,12.3 L16,7.8 L14.8683694,7.8 L14.8683694,11.325 L14.302554,11.23125 L14.302554,6.6 L13.1709234,6.6 L13.1709234,11.04375 L12.6051081,10.95 L12.6051081,6 L11.4734774,6 Z" opacity=".6"/>
+  </g>
 </svg>

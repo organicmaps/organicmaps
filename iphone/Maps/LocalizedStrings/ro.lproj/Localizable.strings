@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Hartă";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Abonați-vă la știrile noastre";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Resetare";
 
-"booking_filters_rating" = "Clasificare";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Evaluări de la";
 
 "booking_filters_rating_any" = "Oricare";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Comandarea unui taxi este momentan indisponibilă.";
 
-"advertisement" = "Reclamă";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Folosiți internetul mobil pentru a afişa informaţii detaliate?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Se actualizează hărțile";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Actualizați hărțile descărcate";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Actualizare (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Actualizare manuală mai târziu";
 
 "search_hotel_filter_apartment" = "Apartamente";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Stațiuni";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Revendicați această afacere";
 
-"off" = "Off";
+"view_campaign_button" = "Afacerea este promovată";
+
+"search_hotel_filters_type" = "Tip";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Feedback general";
+
+"on" = "Activat";
+
+"off" = "Dezactivat";
+
+"prefs_languages_information" = "Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.";
+
+"prefs_languages_information_off_link" = "Consultați acest ghid pentru informații suplimentare.";
+
+"whatsnew_transliteration_title" = "Transcriere în alfabet latin";
+
+"whatsnew_transliteration_message" = "Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.";

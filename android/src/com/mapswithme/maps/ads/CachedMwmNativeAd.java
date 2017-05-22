@@ -1,5 +1,7 @@
 package com.mapswithme.maps.ads;
 
+import android.support.annotation.NonNull;
+
 abstract class CachedMwmNativeAd extends BaseMwmNativeAd
 {
   private final long mLoadedTime;
@@ -13,4 +15,8 @@ abstract class CachedMwmNativeAd extends BaseMwmNativeAd
   {
     return mLoadedTime;
   }
+
+  abstract void detachAdListener();
+
+  abstract void attachAdListener(@NonNull Object listener);
 }

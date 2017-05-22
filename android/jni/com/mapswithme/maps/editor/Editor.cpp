@@ -299,6 +299,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsPointType(JNIEnv * env, jclass clazz)
+{
+  return g_editableMapObject.IsPointType();
+}
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsBuilding();
@@ -438,16 +444,17 @@ Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, j
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
-  g_framework->NativeFramework()->CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
-                                             osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
+  g_framework->NativeFramework()->CreateNote(
+      g_editableMapObject, osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
 // static void nativePlaceDoesNotExist(String comment);
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz, jstring comment)
 {
-  g_framework->NativeFramework()->CreateNote(g_editableMapObject.GetLatLon(), g_editableMapObject.GetID(),
-                                             osm::Editor::NoteProblemType::PlaceDoesNotExist, jni::ToNativeString(env, comment));
+  g_framework->NativeFramework()->CreateNote(g_editableMapObject,
+                                             osm::Editor::NoteProblemType::PlaceDoesNotExist,
+                                             jni::ToNativeString(env, comment));
 }
 
 JNIEXPORT void JNICALL

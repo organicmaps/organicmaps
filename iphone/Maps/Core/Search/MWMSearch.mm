@@ -101,6 +101,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
             f.SearchInViewport(m_viewportParams);
           }
         }
+        [self updateItemsIndexWithBannerReload:YES];
         [self onSearchCompleted];
       }
       else
@@ -108,7 +109,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
         self->m_everywhereResults = results;
         self->m_isLocalAdsCustomer = isLocalAdsCustomer;
         self.suggestionsCount = results.GetSuggestsCount();
-        [self updateItemsIndex];
+        [self updateItemsIndexWithBannerReload:NO];
         [self onSearchResultsUpdated];
       }
     };
@@ -256,7 +257,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   auto manager = [MWMSearch manager];
   manager->m_everywhereResults.Clear();
   manager.suggestionsCount = 0;
-  [manager updateItemsIndex];
+  [manager updateItemsIndexWithBannerReload:YES];
   [self reset];
 }
 
@@ -296,7 +297,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   [manager onSearchCompleted];
 }
 
-- (void)updateItemsIndex
+- (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner
 {
   auto const resultsCount = self->m_everywhereResults.GetCount();
   auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
@@ -311,14 +312,15 @@ using TObservers = NSHashTable<__kindof TObserver>;
       __weak auto weakSelf = self;
       [bannersCache
           getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners())
+                   cacheOnly:YES
+                     loadNew:reloadBanner
                   completion:^(id<MWMBanner> ad, BOOL isAsync) {
                     __strong auto self = weakSelf;
                     if (!self)
                       return;
                     NSAssert(isAsync == NO, @"Banner is not from cache!");
                     [self.banners add:ad];
-                  }
-                   cacheOnly:YES];
+                  }];
     }
   }
   else

@@ -1,10 +1,10 @@
-#import "SwiftBridge.h"
+#include "local_ads/event.hpp"
+
+#include "partners_api/booking_api.hpp"
 
 #include "map/place_page_info.hpp"
 
 #include "std/vector.hpp"
-
-#include "partners_api/booking_api.hpp"
 
 @class MWMPlacePageData;
 
@@ -14,12 +14,13 @@ enum class Sections
 {
   Preview,
   Bookmark,
-  Metainfo,
-  Buttons,
   HotelPhotos,
   HotelDescription,
   HotelFacilities,
-  HotelReviews
+  HotelReviews,
+  Metainfo,
+  Ad,
+  Buttons
 };
 
 enum class PreviewRows
@@ -70,6 +71,12 @@ enum class MetainfoRows
   Operator,
   Internet,
   Coordinate,
+  LocalAdsCandidate,
+  LocalAdsCustomer
+};
+
+enum class AdRows
+{
   Taxi
 };
 
@@ -79,11 +86,7 @@ enum class ButtonsRows
   EditPlace,
   AddPlace,
   HotelDescription,
-  BookingShowMoreFacilities,
-  BookingShowMoreOnSite,
-  BookingShowMoreReviews,
-  LocalAdsCandidate,
-  LocalAdsCustomer
+  Other
 };
 
 enum class OpeningHours
@@ -101,6 +104,7 @@ using BannerIsReady = void (^)();
 
 
 @class MWMGalleryItemModel;
+@protocol MWMBanner;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject
@@ -156,6 +160,7 @@ using BannerIsReady = void (^)();
 
 // Local Ads
 - (NSString *)localAdsURL;
+- (void)logLocalAdsEvent:(local_ads::EventType)type;
 
 // Table view's data
 - (vector<place_page::Sections> const &)sections;
@@ -165,6 +170,7 @@ using BannerIsReady = void (^)();
 - (vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
 - (vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
 - (vector<place_page::MetainfoRows> const &)metainfoRows;
+- (vector<place_page::AdRows> const &)adRows;
 - (vector<place_page::ButtonsRows> const &)buttonsRows;
 
 // Table view metainfo rows

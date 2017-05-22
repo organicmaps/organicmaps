@@ -96,8 +96,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
               else
               {
 //              TODO remove attachMap() when dialog migrated to SplashActivity
-                attachMap();
-                dismiss();
+                finish();
               }
             }
           });
@@ -110,8 +109,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         return;
 
 //    TODO remove attachMap() when dialog migrated to SplashActivity
-      attachMap();
-      dismiss();
+      finish();
     }
 
     @Override
@@ -125,6 +123,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                                    getString(R.string.whats_new_auto_update_updating_maps), progress));
     }
   };
+
+  private void finish()
+  {
+    attachMap();
+    updateActivityMenu();
+    dismiss();
+  }
 
   @NonNull
   private final View.OnClickListener mCancelClickListener = new View.OnClickListener()
@@ -141,8 +146,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         MapManager.nativeCancel(CountryItem.getRootId());
 
 //    TODO remove attachMap() when dialog migrated to SplashActivity
-      attachMap();
-      dismiss();
+      finish();
     }
   };
 
@@ -247,8 +251,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (isAllUpdated())
     {
 //    TODO remove attachMap() when dialog migrated to SplashActivity
-      attachMap();
-      dismiss();
+      finish();
       return;
     }
 
@@ -290,10 +293,19 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
 //  TODO remove attachMap() when dialog migrated to SplashActivity
     attachMap();
+    updateActivityMenu();
     super.onCancel(dialog);
   }
 
-//TODO remove attachMap() when dialog migrated to SplashActivity
+  private void updateActivityMenu()
+  {
+    if (!(getActivity() instanceof MwmActivity))
+      return;
+
+    ((MwmActivity)getActivity()).getMainMenu().onResume(null);
+  }
+
+  //TODO remove attachMap() when dialog migrated to SplashActivity
   private void attachMap()
   {
     if (!(getActivity() instanceof MwmActivity))

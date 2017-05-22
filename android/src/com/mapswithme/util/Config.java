@@ -233,7 +233,7 @@ public final class Config
   @NetworkPolicy.NetworkPolicyDef
   public static int getUseMobileDataSettings()
   {
-    switch(getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.ASK))
+    switch(getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.NONE))
     {
       case NetworkPolicy.ASK:
         return NetworkPolicy.ASK;
@@ -245,6 +245,8 @@ public final class Config
         return NetworkPolicy.NOT_TODAY;
       case NetworkPolicy.TODAY:
         return NetworkPolicy.TODAY;
+      case NetworkPolicy.NONE:
+        return NetworkPolicy.NONE;
     }
 
     throw new AssertionError("Wrong NetworkPolicy type!");

@@ -1,10 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="11px" height="10px" viewBox="0 0 11 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>peakt-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M5.5,1 C5.25,1 5.136955,1.1197 5.0625,1.25 L1.0625,8.25 C1.01845,8.327 1,8.4137 1,8.5 C1,8.875 1.25,9.0001 1.5,9 L9.5,9 C9.75,9.0001 10,8.875 10,8.5 C10,8.414 9.98155,8.3272 9.9375,8.25 L5.9375,1.25 C5.86304,1.1197 5.75,1 5.5,1 L5.5,1 Z" id="peakt-m" fill="#252522"></path>
-    </g>
+<svg width="11" height="10" viewBox="0 0 11 10">
+  <path fill="#252522" fill-rule="evenodd" d="M5.5,1 C5.25,1 5.136955,1.1197 5.0625,1.25 L1.0625,8.25 C1.01845,8.327 1,8.4137 1,8.5 C1,8.875 1.25,9.0001 1.5,9 L9.5,9 C9.75,9.0001 10,8.875 10,8.5 C10,8.414 9.98155,8.3272 9.9375,8.25 L5.9375,1.25 C5.86304,1.1197 5.75,1 5.5,1 L5.5,1 Z"/>
 </svg>

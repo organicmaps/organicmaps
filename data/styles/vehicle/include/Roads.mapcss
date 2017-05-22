@@ -916,28 +916,33 @@ line|z19-[highway=proposed]
 
 /* 8.6 Track & Path 14-22 ZOOM */
 
-/*line|z14[highway=track][tracktype=grade1],
-line|z14[highway=raceway],
-line|z14[leisure=track]
-{width: 1;}
-line|z15[highway=track][tracktype=grade1],
-line|z15[highway=raceway],
-line|z15[leisure=track]
-{width: 1.5;}
-line|z16[highway=track][tracktype=grade1],
-line|z16[highway=raceway],
-line|z16[leisure=track]
-{width: 1.8;}
-line|z17-18[highway=track][tracktype=grade1],
-line|z17-18[highway=raceway],
-line|z17-18[leisure=track]
-{width:3;}
-line|z19-[highway=track][tracktype=grade1],
-line|z19-[highway=raceway],
-line|z19-[leisure=track]
-{width:4;}
+line|z14-[highway=track][tracktype=grade1],
+line|z14-[psurface=unpaved_good],
+line|z14-[psurface=unpaved_bad]
+{color: @pedestrian;opacity: 1;}
 
-line|z14[highway=track],
+line|z14[highway=track][tracktype=grade1],
+line|z14[psurface=unpaved_good],
+line|z14[psurface=unpaved_bad]
+{width: 1.4;dashes: 2,1.35;}
+line|z15[highway=track][tracktype=grade1],
+line|z15[psurface=unpaved_good],
+line|z15[psurface=unpaved_bad]
+{width: 2;dashes: 2.2,1.26;}
+line|z16[highway=track][tracktype=grade1],
+line|z16[psurface=unpaved_good],
+line|z16[psurface=unpaved_bad]
+{width: 2.6;dashes: 3.3,1.8;}
+line|z17-18[highway=track][tracktype=grade1],
+line|z17-18[psurface=unpaved_good],
+line|z17-18[psurface=unpaved_bad]
+{width: 3;dashes: 4,1.8;}
+line|z19-[highway=track][tracktype=grade1],
+line|z19-[psurface=unpaved_good],
+line|z19-[psurface=unpaved_bad]
+{width: 4;dashes: 6.3,2.7;}
+
+/*line|z14[highway=track],
 line|z14[highway=path],
 line|z14[route=hiking]
 {width:0.9;dashes: 2.52,1.35;}

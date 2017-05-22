@@ -22,11 +22,15 @@
 #include "coding/zip_creator.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include <fstream>
+#include <vector>
+
 #define PINDIAMETER 18
 
 #define EMPTY_SECTION -666
 
 extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotification";
+extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotification";
 
 @interface BookmarksVC() <MFMailComposeViewControllerDelegate, MWMLocationObserver>
 {
@@ -295,9 +299,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         }
         else
         {
-          BookmarkAndCategory bookmarkAndCategory{static_cast<size_t>(indexPath.row), m_categoryIndex};
-          NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
-          [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
+          auto bac = BookmarkAndCategory(static_cast<size_t>(indexPath.row), m_categoryIndex);
+          NSValue * value = [NSValue valueWithBytes:&bac objCType:@encode(BookmarkAndCategory)];
+          [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkDeletedNotification object:value];
           BookmarkCategory::Guard guard(*cat);
           guard.m_controller.DeleteUserMark(indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
@@ -409,7 +413,16 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   MWMMailViewController * mailVC = [[MWMMailViewController alloc] init];
   mailVC.mailComposeDelegate = self;
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
-  NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath];
+
+  std::ifstream ifs(filePath.UTF8String);
+  ifs.seekg(ifs.end);
+  auto const size = ifs.tellg();
+  std::vector<char> data(size);
+  ifs.seekg(ifs.beg);
+  ifs.read(data.data(), size);
+  ifs.close();
+
+  auto myData = [[NSData alloc] initWithBytes:data.data() length:size];
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
   [self presentViewController:mailVC animated:YES completion:nil];

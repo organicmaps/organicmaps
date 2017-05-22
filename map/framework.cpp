@@ -63,6 +63,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
@@ -146,7 +147,9 @@ size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 vector<string> kSearchMarks =
 {
   "search-result",
-  "search-booking"
+  "search-booking",
+  "search-tinkoff",
+  "search-adv",
 };
 
 // TODO!
@@ -339,7 +342,8 @@ void Framework::StopLocationFollow()
 
 bool Framework::IsEnoughSpaceForMigrate() const
 {
-  return GetPlatform().GetWritableStorageStatus(kMaxMwmSizeBytes) == Platform::TStorageStatus::STORAGE_OK;
+  return GetPlatform().GetWritableStorageStatus(GetStorage().GetMaxMwmSizeBytes()) ==
+         Platform::TStorageStatus::STORAGE_OK;
 }
 
 TCountryId Framework::PreMigrate(ms::LatLon const & position,
@@ -447,9 +451,6 @@ Framework::Framework(FrameworkParams const & params)
   m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
-  if (!params.m_disableLocalAds)
-    m_localAdsManager.Startup();
-
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
   // To avoid possible races - init country info getter once in constructor.
@@ -469,6 +470,10 @@ Framework::Framework(FrameworkParams const & params)
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   LOG(LDEBUG, ("Storage initialized"));
+
+  // Local ads manager should be initialized after storage initialization.
+  if (!params.m_disableLocalAds)
+    m_localAdsManager.Startup();
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
   {
@@ -1550,10 +1555,12 @@ bool Framework::Search(search::SearchParams const & params)
   CancelQuery(intent.m_handle);
 
   {
-    m2::PointD const defaultMarkSize = GetSearchMarkSize(SearchMarkType::DefaultSearchMark);
-    m2::PointD const bookingMarkSize = GetSearchMarkSize(SearchMarkType::BookingSearchMark);
-    double const eps =
-        max(max(defaultMarkSize.x, defaultMarkSize.y), max(bookingMarkSize.x, bookingMarkSize.y));
+    double eps = 0.0;
+    for (size_t i = 0; i < SearchMarkType::SearchMarkTypesCount; i++)
+    {
+      m2::PointD const markSize = GetSearchMarkSize(static_cast<SearchMarkType>(i));
+      eps = max(eps, max(markSize.x, markSize.y));
+    }
     intent.m_params.m_minDistanceOnMapBetweenResults = eps;
   }
 
@@ -1747,6 +1754,10 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetCustomSymbol("search-booking");
+    else if (r.m_metadata.m_isSponsoredBank)
+      mark->SetCustomSymbol("search-tinkoff");
+    else if (m_localAdsManager.Contains(r.GetFeatureID()))
+      mark->SetCustomSymbol("search-adv");
   }
 }
 
@@ -2675,9 +2686,13 @@ void Framework::SetRouterImpl(RouterType type)
   }
   else
   {
-    auto localFileChecker = [this](string const & countryFile) -> bool
-    {
-      return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
+    auto localFileChecker = [this](string const & countryFile) -> bool {
+      MwmSet::MwmId const mwmId =
+          m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile));
+      if (!mwmId.IsAlive())
+        return false;
+
+      return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
     };
 
     auto numMwmIds = make_shared<routing::NumMwmIds>();
@@ -2854,49 +2869,28 @@ void Framework::OnRebuildRouteReady(Route const & route, IRouter::ResultCode cod
   CallRouteBuilded(code, storage::TCountriesVec());
 }
 
-RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint)
+RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
 {
-  if (MercatorBounds::DistanceOnEarth(startPoint, finalPoint) < kKeepPedestrianDistanceMeters)
-  {
-    auto const lastUsedRouter = GetLastUsedRouter();
-    switch (lastUsedRouter)
-    {
-      case RouterType::Pedestrian:
-      case RouterType::Bicycle:
-        return lastUsedRouter;
-      case RouterType::Taxi:
-        ASSERT(false, ("GetLastUsedRouter should not return RouterType::Taxi"));
-      case RouterType::Vehicle:
-        break;
-      case RouterType::Count:
-        CHECK(false, ("Bad router type", lastUsedRouter));
-    }
-
-    // Return on a short distance the vehicle router flag only if we are already have routing files.
-    auto countryFileGetter = [this](m2::PointD const & pt)
-    {
-      return m_infoGetter->GetRegionCountryId(pt);
-    };
-    if (!CarRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
-                                        m_model.GetIndex()))
-    {
-      return RouterType::Pedestrian;
-    }
-  }
-  return RouterType::Vehicle;
+  // todo Implement something more sophisticated here (or delete the method).
+  return GetLastUsedRouter();
 }
 
 RouterType Framework::GetLastUsedRouter() const
 {
-  string routerType;
-  if (!settings::Get(kRouterTypeKey, routerType))
+  string routerTypeStr;
+  if (!settings::Get(kRouterTypeKey, routerTypeStr))
     return RouterType::Vehicle;
 
-  if (routerType == routing::ToString(RouterType::Pedestrian))
-    return  RouterType::Pedestrian;
-  if (routerType == routing::ToString(RouterType::Bicycle))
-    return RouterType::Bicycle;
-  return RouterType::Vehicle;
+  auto const routerType = routing::FromString(routerTypeStr);
+
+  switch (routerType)
+  {
+  case RouterType::Pedestrian:
+  case RouterType::Bicycle:
+    return routerType;
+  default:
+    return RouterType::Vehicle;
+  }
 }
 
 void Framework::SetLastUsedRouter(RouterType type)
@@ -3448,7 +3442,8 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   if (shouldNotify)
   {
     // TODO @mgsergio fill with correct NoteProblemType
-    editor.CreateNote(issueLatLon, emo.GetID(), osm::Editor::NoteProblemType::General,
+    editor.CreateNote(emo.GetLatLon(), emo.GetID(), emo.GetTypes(), emo.GetDefaultName(),
+                      osm::Editor::NoteProblemType::General,
                       "The address on this POI is different from the building address."
                       " It is either a user's mistake, or an issue in the data. Please"
                       " check this and fix if needed. (This note was created automatically"
@@ -3489,10 +3484,11 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   return rolledBack;
 }
 
-void Framework::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+void Framework::CreateNote(osm::MapObject const & mapObject,
                            osm::Editor::NoteProblemType const type, string const & note)
 {
-  osm::Editor::Instance().CreateNote(latLon, fid, type, note);
+  osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
+                                     mapObject.GetDefaultName(), type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
     DeactivateMapSelection(true /* notifyUI */);
 }

@@ -9,7 +9,6 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -286,7 +285,7 @@ public class RoutingController
         return;
       }
       if (mContainer != null)
-        requestUberInfo(mContainer.getActivity().getSupportFragmentManager());
+        requestUberInfo();
     }
 
     setBuildState(BuildState.BUILDING);
@@ -840,26 +839,26 @@ public class RoutingController
     return true;
   }
 
-  private void requestUberInfo(@NonNull FragmentManager fragmentManager)
+  private void requestUberInfo()
   {
-    NetworkPolicy.checkNetworkPolicy(fragmentManager, new NetworkPolicy.NetworkPolicyListener()
-    {
-      @Override
-      public void onResult(@NonNull NetworkPolicy policy)
-      {
-        mUberPlanning = true;
-        Uber.nativeRequestUberProducts(policy, mStartPoint.getLat(),
-                                       mStartPoint.getLon(),
-                                       mEndPoint.getLat(), mEndPoint.getLon());
-        if (mContainer != null)
-          mContainer.updateBuildProgress(0, mLastRouterType);
-      }
-    });
+    if (mStartPoint == null || mEndPoint == null)
+      throw new AssertionError("Start and end points must be set to make a taxi request!");
+
+    mUberPlanning = true;
+
+    Uber.nativeRequestUberProducts(NetworkPolicy.newInstance(true), mStartPoint.getLat(),
+                                   mStartPoint.getLon(),
+                                   mEndPoint.getLat(), mEndPoint.getLon());
+    if (mContainer != null)
+      mContainer.updateBuildProgress(0, mLastRouterType);
   }
 
-  @NonNull
+  @Nullable
   UberLinks getUberLink(@NonNull String productId)
   {
+    if (mStartPoint == null || mEndPoint == null)
+      return null;
+
     return Uber.nativeGetUberLinks(productId, mStartPoint.getLat(), mStartPoint.getLon(),
                                    mEndPoint.getLat(), mEndPoint.getLon());
   }

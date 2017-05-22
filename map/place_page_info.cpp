@@ -180,7 +180,9 @@ string Info::GetApproximatePricing() const
     return string();
 
   int pricing;
-  strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing);
+  if (!strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing))
+    return string();
+
   string result;
   for (auto i = 0; i < pricing; i++)
     result.append(kPricingSymbol);

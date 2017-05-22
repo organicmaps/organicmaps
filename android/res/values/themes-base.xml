@@ -51,6 +51,7 @@
     <item name="buttonDialogTextColor">@color/base_accent</item>
 
     <item name="accentButtonBackground">@drawable/button_accent</item>
+    <item name="accentButtonRoundBackground">@drawable/button_accent_round</item>
     <item name="accentButtonTextColor">@color/button_accent_text</item>
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
 
@@ -101,6 +102,8 @@
 
     <item name="localAdSearchResBackground">@color/search_local_ads_customer_result</item>
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+    <item name="tagBackground">@drawable/bg_tag</item>
   </style>
 
   <!-- Night theme -->
@@ -155,6 +158,7 @@
     <item name="buttonDialogTextColor">@color/base_accent_night</item>
 
     <item name="accentButtonBackground">@drawable/button_accent_night</item>
+    <item name="accentButtonRoundBackground">@drawable/button_accent_round_night</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
 
@@ -204,6 +208,7 @@
     <item name="warmGray">@color/warm_gray_night</item>
 
     <item name="localAdSearchResBackground">@color/search_local_ads_customer_result_night</item>
-    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+    <item name="tagBackground">@drawable/bg_tag_night</item>
   </style>
 </resources>

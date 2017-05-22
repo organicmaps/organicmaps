@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+
+  <solid android:color="@color/base_accent_night"/>
+  <size android:height="@dimen/hotel_filters_tag_height"/>
+  <padding
+    android:bottom="@dimen/margin_half"
+    android:top="@dimen/margin_half"
+    android:left="@dimen/margin_base"
+    android:right="@dimen/margin_base"/>
+  <corners android:radius="@dimen/margin_base"/>
+</shape>

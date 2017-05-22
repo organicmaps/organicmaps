@@ -80,7 +80,7 @@
   case storage::NodeStatus::InQueue:
   case storage::NodeStatus::Partly:
     size = isModeDownloaded ? nodeAttrs.m_localMwmSize
-                            : nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+                            : nodeAttrs.m_mwmSize;
     break;
   case storage::NodeStatus::OnDisk: size = isModeDownloaded ? nodeAttrs.m_mwmSize : 0; break;
   }

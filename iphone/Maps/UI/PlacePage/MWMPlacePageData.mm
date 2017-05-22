@@ -1,6 +1,7 @@
 #import "MWMPlacePageData.h"
 #import "AppInfo.h"
 #import "MWMBannerHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
 #import "Statistics.h"
@@ -39,6 +40,7 @@ using namespace place_page;
   vector<Sections> m_sections;
   vector<PreviewRows> m_previewRows;
   vector<MetainfoRows> m_metainfoRows;
+  vector<AdRows> m_adRows;
   vector<ButtonsRows> m_buttonsRows;
   vector<HotelPhotosRow> m_hotelPhotosRows;
   vector<HotelDescriptionRow> m_hotelDescriptionRows;
@@ -62,6 +64,7 @@ using namespace place_page;
   m_sections.clear();
   m_previewRows.clear();
   m_metainfoRows.clear();
+  m_adRows.clear();
   m_buttonsRows.clear();
   m_hotelPhotosRows.clear();
   m_hotelDescriptionRows.clear();
@@ -79,6 +82,12 @@ using namespace place_page;
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
 
+  if (m_info.IsReachableByTaxi())
+  {
+    m_sections.push_back(Sections::Ad);
+    m_adRows.push_back(AdRows::Taxi);
+  }
+
   // There is at least one of these buttons.
   if (m_info.ShouldShowAddPlace() || m_info.ShouldShowEditPlace() ||
       m_info.ShouldShowAddBusiness() || m_info.IsSponsored())
@@ -92,7 +101,7 @@ using namespace place_page;
 {
   if (self.title.length) m_previewRows.push_back(PreviewRows::Title);
   if (self.externalTitle.length) m_previewRows.push_back(PreviewRows::ExternalTitle);
-  if (self.subtitle.length) m_previewRows.push_back(PreviewRows::Subtitle);
+  if (self.subtitle.length || self.isMyPosition) m_previewRows.push_back(PreviewRows::Subtitle);
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
   if (self.isBooking) m_previewRows.push_back(PreviewRows::Booking);
   if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
@@ -104,6 +113,8 @@ using namespace place_page;
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
         getWithCoreBanners:banner_helpers::MatchPriorityBanners(m_info.GetBanners())
+                 cacheOnly:NO
+                   loadNew:YES
                 completion:^(id<MWMBanner> ad, BOOL isAsync) {
                   __strong auto self = wSelf;
                   if (!self)
@@ -113,8 +124,7 @@ using namespace place_page;
                   self->m_previewRows.push_back(PreviewRows::Banner);
                   if (isAsync)
                     self.bannerIsReadyCallback();
-                }
-                 cacheOnly:NO];
+                }];
   }
 }
 
@@ -153,8 +163,18 @@ using namespace place_page;
     m_metainfoRows.push_back(MetainfoRows::Address);
 
   m_metainfoRows.push_back(MetainfoRows::Coordinate);
-  if (m_info.IsReachableByTaxi())
-    m_metainfoRows.push_back(MetainfoRows::Taxi);
+
+  switch (m_info.GetLocalAdsStatus())
+  {
+  case place_page::LocalAdsStatus::NotAvailable: break;
+  case place_page::LocalAdsStatus::Candidate:
+    m_metainfoRows.push_back(MetainfoRows::LocalAdsCandidate);
+    break;
+  case place_page::LocalAdsStatus::Customer:
+    m_metainfoRows.push_back(MetainfoRows::LocalAdsCustomer);
+    [self logLocalAdsEvent:local_ads::EventType::OpenInfo];
+    break;
+  }
 }
 
 - (void)fillButtonsSection
@@ -174,17 +194,6 @@ using namespace place_page;
 
   if (m_info.ShouldShowAddBusiness())
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
-
-  switch (m_info.GetLocalAdsStatus())
-  {
-  case place_page::LocalAdsStatus::NotAvailable: break;
-  case place_page::LocalAdsStatus::Candidate:
-    m_buttonsRows.push_back(ButtonsRows::LocalAdsCandidate);
-    break;
-  case place_page::LocalAdsStatus::Customer:
-    m_buttonsRows.push_back(ButtonsRows::LocalAdsCustomer);
-    break;
-  }
 }
 
 - (void)fillOnlineBookingSections
@@ -472,7 +481,6 @@ using namespace place_page;
 - (NSString *)bookmarkColor
 {
   return m_info.IsBookmark() ? @(m_info.m_bookmarkColorName.c_str()) : nil;
-  ;
 }
 
 - (NSString *)bookmarkDescription
@@ -483,7 +491,6 @@ using namespace place_page;
 - (NSString *)bookmarkCategory
 {
   return m_info.IsBookmark() ? @(m_info.m_bookmarkCategoryName.c_str()) : nil;
-  ;
 }
 
 - (BookmarkAndCategory)bac;
@@ -493,6 +500,23 @@ using namespace place_page;
 
 #pragma mark - Local Ads
 - (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
+- (void)logLocalAdsEvent:(local_ads::EventType)type
+{
+  if (m_info.GetLocalAdsStatus() != place_page::LocalAdsStatus::Customer)
+    return;
+  auto const featureID = m_info.GetID();
+  auto const & mwmInfo = featureID.m_mwmId.GetInfo();
+  if (!mwmInfo)
+    return;
+  auto & f = GetFramework();
+  auto location = [MWMLocationManager lastLocation];
+  auto event = local_ads::Event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
+                                featureID.m_index, f.GetDrawScale(),
+                                std::chrono::steady_clock::now(), location.coordinate.latitude,
+                                location.coordinate.longitude, location.horizontalAccuracy);
+  f.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
+}
+
 #pragma mark - Getters
 
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
@@ -501,6 +525,7 @@ using namespace place_page;
 - (vector<PreviewRows> const &)previewRows { return m_previewRows; }
 - (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
+- (vector<AdRows> const &)adRows { return m_adRows; }
 - (vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
 - (vector<HotelPhotosRow> const &)photosRows { return m_hotelPhotosRows; }
 - (vector<HotelDescriptionRow> const &)descriptionRows { return m_hotelDescriptionRows; }
@@ -510,7 +535,7 @@ using namespace place_page;
 {
   switch (row)
   {
-  case MetainfoRows::Taxi:
+  
   case MetainfoRows::ExtendedOpeningHours: return nil;
   case MetainfoRows::OpeningHours: return @(m_info.GetOpeningHours().c_str());
   case MetainfoRows::Phone: return @(m_info.GetPhone().c_str());
@@ -521,6 +546,8 @@ using namespace place_page;
     return @(strings::JoinStrings(m_info.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
   case MetainfoRows::Operator: return @(m_info.GetOperator().c_str());
   case MetainfoRows::Internet: return L(@"WiFi_available");
+  case MetainfoRows::LocalAdsCandidate: return L(@"create_campaign_button");
+  case MetainfoRows::LocalAdsCustomer: return L(@"view_campaign_button");
   case MetainfoRows::Coordinate:
     return @(m_info
                  .GetFormattedCoordinate(

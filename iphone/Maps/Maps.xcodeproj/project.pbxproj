@@ -317,6 +317,9 @@
 		34943BBA1E2626B200B14F84 /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB91E2626B200B14F84 /* WelcomePageController.swift */; };
 		34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB91E2626B200B14F84 /* WelcomePageController.swift */; };
 		34943BBC1E2626B200B14F84 /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB91E2626B200B14F84 /* WelcomePageController.swift */; };
+		3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
+		3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
+		3495433F1EB22DAD00F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
 		349A13821DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
 		349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
@@ -918,6 +921,9 @@
 		F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */; };
 		F6558DA31E642CC0002203AE /* MWMFacilitiesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */; };
 		F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
+		F660DEE41EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */; };
+		F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */; };
+		F660DEE61EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */; };
 		F6664BF91E6459CB00E703C2 /* PPFacilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6664BF71E6459CB00E703C2 /* PPFacilityCell.swift */; };
 		F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6664BF71E6459CB00E703C2 /* PPFacilityCell.swift */; };
 		F6664BFB1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6664BF71E6459CB00E703C2 /* PPFacilityCell.swift */; };
@@ -1761,6 +1767,7 @@
 		34926BE51EA4C2A700DCF14C /* SearchBanners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBanners.swift; sourceTree = "<group>"; };
 		34943BB51E26222300B14F84 /* WelcomeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeProtocol.swift; sourceTree = "<group>"; };
 		34943BB91E2626B200B14F84 /* WelcomePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomePageController.swift; sourceTree = "<group>"; };
+		3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = 3party/MoPubSDK/Internal/Common/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
 		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetAlert.h; sourceTree = "<group>"; };
@@ -2074,6 +2081,7 @@
 		F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFacilitiesController.mm; sourceTree = "<group>"; };
 		F6588E2A1B15C26700EE1E58 /* MWMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextView.h; sourceTree = "<group>"; };
 		F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextView.mm; sourceTree = "<group>"; };
+		F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWMLocationManager+SpeedAndAltitude.swift"; sourceTree = "<group>"; };
 		F6664BF71E6459CB00E703C2 /* PPFacilityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPFacilityCell.swift; sourceTree = "<group>"; };
 		F6664BF81E6459CB00E703C2 /* PPFacilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPFacilityCell.xib; sourceTree = "<group>"; };
 		F6664BFF1E6459DA00E703C2 /* PPReviewHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPReviewHeaderCell.swift; sourceTree = "<group>"; };
@@ -2791,6 +2799,7 @@
 				3404752A1E081A4600C92850 /* MWMLocationHelpers.h */,
 				3404752B1E081A4600C92850 /* MWMLocationManager.h */,
 				3404752C1E081A4600C92850 /* MWMLocationManager.mm */,
+				F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */,
 				3404752D1E081A4600C92850 /* MWMLocationObserver.h */,
 				3404752E1E081A4600C92850 /* MWMLocationPredictor.h */,
 				3404752F1E081A4600C92850 /* MWMLocationPredictor.mm */,
@@ -4266,6 +4275,7 @@
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				EE026F0511D6AC0D00645242 /* classificator.txt */,
+				3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */,
 			);
 			name = "External Resources";
 			sourceTree = "<group>";
@@ -4500,6 +4510,7 @@
 				F6E2FEAB1E097BA00083EBEC /* _MWMPPPBooking.xib in Resources */,
 				F6E2FEAE1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB11E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
+				3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */,
 				F6E2FEB41E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB71E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
 				F6E2FEBA1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
@@ -4654,6 +4665,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -4840,6 +4852,7 @@
 				F6E2FEB61E097BA00083EBEC /* _MWMPPPSpace.xib in Resources */,
 				F6E2FEB91E097BA00083EBEC /* _MWMPPPSubtitle.xib in Resources */,
 				4554B6EF1E55F0F40084017F /* drules_proto_vehicle_dark.bin in Resources */,
+				3495433F1EB22DAD00F08F73 /* MPAdBrowserController.xib in Resources */,
 				F6E2FEBC1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
 				849CF6441DE842290024A8A5 /* AddSetTableViewCell.xib in Resources */,
 				340E1EED1E2F614400CE49BF /* Authorization.storyboard in Resources */,
@@ -5274,6 +5287,7 @@
 				3490D2E01CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				340475491E081A4600C92850 /* AppInfo.mm in Sources */,
 				34F4072B1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
+				F660DEE41EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF11E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				F6E2FD821E097BA00083EBEC /* MWMMapDownloaderSearchDataSource.mm in Sources */,
 				F6664C011E6459DA00E703C2 /* PPReviewHeaderCell.swift in Sources */,
@@ -5571,6 +5585,7 @@
 				349B926D1DF0518E007779DD /* MWMToast.mm in Sources */,
 				3404754A1E081A4600C92850 /* AppInfo.mm in Sources */,
 				34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
+				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF21E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				F6E2FD831E097BA00083EBEC /* MWMMapDownloaderSearchDataSource.mm in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
@@ -5868,6 +5883,7 @@
 				849CF6F11DE842290024A8A5 /* MWMCircularProgress.mm in Sources */,
 				849CF6F31DE842290024A8A5 /* MWMButton.mm in Sources */,
 				34F4072D1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
+				F660DEE61EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
 				F6E2FDF31E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				F6E2FD841E097BA00083EBEC /* MWMMapDownloaderSearchDataSource.mm in Sources */,
 				F6664C031E6459DA00E703C2 /* PPReviewHeaderCell.swift in Sources */,

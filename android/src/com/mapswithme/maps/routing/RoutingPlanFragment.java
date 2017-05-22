@@ -57,6 +57,11 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.showUberError(code);
   }
 
+  public void showStartButton(boolean show)
+  {
+    mPlanController.showStartButton(show);
+  }
+
   @Override
   public boolean onBackPressed()
   {

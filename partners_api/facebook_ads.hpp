@@ -12,5 +12,7 @@ public:
 
   // ContainerBase overrides:
   std::string GetBannerIdForOtherTypes() const override;
+  bool HasSearchBanner() const override;
+  std::string GetSearchBannerId() const override;
 };
 }  // namespace ads

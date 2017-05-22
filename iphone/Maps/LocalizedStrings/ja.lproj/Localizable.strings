@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "地図";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "フィードバック";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "当社のニュースに登録";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "リセット";
 
-"booking_filters_rating" = "評価";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "指定評価以上";
 
 "booking_filters_rating_any" = "すべて";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
 
-"advertisement" = "広告";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "モバイルインターネットを使用して詳細な情報を表示しますか？";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "地図を更新中";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "ダウンロード済みのマップを更新してください";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "地図を更新することで物件情報を最新の状態に保ちます";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "更新 (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "あとで手動で更新";
 
 "search_hotel_filter_apartment" = "アパート";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "リゾート";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_hotel" = "ホテル";
 
-"on" = "On";
+"search_hotel_filter_motel" = "モーテル";
 
-"off" = "Off";
+"create_campaign_button" = "この企業の所有者であることを報告";
+
+"view_campaign_button" = "企業は宣伝中です";
+
+"search_hotel_filters_type" = "種類";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "一般的なフィードバック";
+
+"on" = "オン";
+
+"off" = "オフ";
+
+"prefs_languages_information" = "音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。";
+
+"prefs_languages_information_off" = "アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –> [言語と入力] –> [音声] –> [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。";
+
+"prefs_languages_information_off_link" = "詳細については、このガイドをご確認ください。";
+
+"whatsnew_transliteration_title" = "ラテン文字への字訳";
+
+"whatsnew_transliteration_message" = "通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。";

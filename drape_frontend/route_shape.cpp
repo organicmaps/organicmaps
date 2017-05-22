@@ -440,7 +440,9 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
   PrepareGeometry(routeData.m_sourcePolyline.GetPoints(), routeData.m_pivot, segmentsColors,
                   geometry, joinsGeometry, routeData.m_length);
 
-  dp::GLState state = dp::GLState(gpu::ROUTE_PROGRAM, dp::GLState::GeometryLayer);
+  dp::GLState state =
+      dp::GLState(routeData.m_pattern.m_isDashed ? gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
+                  dp::GLState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),

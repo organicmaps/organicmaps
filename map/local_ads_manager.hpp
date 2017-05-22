@@ -82,6 +82,10 @@ private:
 
   void FillSupportedTypes();
 
+  // Returned value means if downloading process finished correctly or was interrupted
+  // by some reason.
+  bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
+
   GetMwmsByRectFn m_getMwmsByRectFn;
   GetMwmIdByName m_getMwmIdByNameFn;
 
@@ -98,16 +102,32 @@ private:
   df::CustomSymbols m_symbolsCache;
   std::mutex m_symbolsCacheMutex;
 
+  std::set<FeatureID> m_featuresCache;
+  mutable std::mutex m_featuresCacheMutex;
+
+  ftypes::HashSetMatcher<uint32_t> m_supportedTypes;
+
+  struct BackoffStats
+  {
+    BackoffStats() = default;
+    BackoffStats(Timestamp lastDownloading, std::chrono::seconds currentTimeout,
+                 uint8_t attemptsCount)
+      : m_lastDownloading(lastDownloading)
+      , m_currentTimeout(currentTimeout)
+      , m_attemptsCount(attemptsCount)
+    {}
+
+    Timestamp m_lastDownloading = {};
+    std::chrono::seconds m_currentTimeout = std::chrono::seconds(0);
+    uint8_t m_attemptsCount = 0;
+  };
+  std::map<MwmSet::MwmId, BackoffStats> m_failedDownloads;
+
+  local_ads::Statistics m_statistics;
+
   bool m_isRunning = false;
   std::condition_variable m_condition;
   std::set<Request> m_requestedCampaigns;
   std::mutex m_mutex;
   threads::SimpleThread m_thread;
-
-  local_ads::Statistics m_statistics;
-
-  std::set<FeatureID> m_featuresCache;
-  mutable std::mutex m_featuresCacheMutex;
-
-  ftypes::HashSetMatcher<uint32_t> m_supportedTypes;
 };

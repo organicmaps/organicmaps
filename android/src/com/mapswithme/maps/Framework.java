@@ -1,17 +1,20 @@
 package com.mapswithme.maps;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
+import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
 
@@ -53,6 +56,16 @@ public class Framework
   public static final int DO_AFTER_UPDATE_AUTO_UPDATE = 1;
   public static final int DO_AFTER_UPDATE_ASK_FOR_UPDATE = 2;
   public static final int DO_AFTER_UPDATE_MIGRATE = 3;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({LOCAL_ADS_EVENT_SHOW_POINT, LOCAL_ADS_EVENT_OPEN_INFO, LOCAL_ADS_EVENT_CLICKED_PHONE,
+           LOCAL_ADS_EVENT_CLICKED_WEBSITE})
+  public @interface LocalAdsEventType {}
+
+  public static final int LOCAL_ADS_EVENT_SHOW_POINT = 0;
+  public static final int LOCAL_ADS_EVENT_OPEN_INFO = 1;
+  public static final int LOCAL_ADS_EVENT_CLICKED_PHONE = 2;
+  public static final int LOCAL_ADS_EVENT_CLICKED_WEBSITE = 3;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener
@@ -114,6 +127,20 @@ public class Framework
       return null;
 
     return Bitmap.createBitmap(altitudeChartBits, width, height, Bitmap.Config.ARGB_8888);
+  }
+
+  public static void logLocalAdsEvent(@Framework.LocalAdsEventType int type,
+                                      @NonNull MapObject mapObject)
+  {
+    LocalAdInfo info = mapObject.getLocalAdInfo();
+    if (info == null || !info.isCustomer())
+      return;
+
+    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
+    double lat = location != null ? location.getLatitude() : 0;
+    double lon = location != null ? location.getLongitude() : 0;
+    int accuracy = location != null ? (int) location.getAccuracy() : 0;
+    nativeLogLocalAdsEvent(type, lat, lon, accuracy);
   }
 
   public static native void nativeShowTrackRect(int category, int track);
@@ -295,4 +322,7 @@ public class Framework
 
   // Navigation.
   public static native boolean nativeIsRouteFinished();
+
+  private static native void nativeLogLocalAdsEvent(@LocalAdsEventType int eventType,
+                                                   double lat, double lon, int accuracy);
 }

@@ -969,7 +969,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">筛选器</string>
 	<string name="booking_filters_reset">重置</string>
-	<string name="booking_filters_rating">评分</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">最低评分</string>
 	<string name="booking_filters_rating_any">任意</string>
 	<string name="booking_filters_ragting_good">好</string>
 	<string name="booking_filters_rating_very_good">很好</string>
@@ -995,7 +996,6 @@
 	<string name="whatsnew_uber_message">从应用直接叫优步出租车！</string>
 	<string name="dialog_taxi_offline">叫出租车服务在离线模式下无法使用。</string>
 	<string name="dialog_taxi_error">叫出租车服务暂时无法使用。</string>
-	<string name="advertisement">广告</string>
 	<string name="mobile_data_dialog">使用移动网络显示详细信息？</string>
 	<string name="mobile_data_option_always">始终使用</string>
 	<string name="mobile_data_option_today">仅在今天</string>
@@ -1072,10 +1072,29 @@
 	<string name="reviews_on_bookingcom">Booking.com 上的更多评价</string>
 	<string name="offline_place_page_more_information">连接到互联网来获取关于地点的更多信息。</string>
 	<string name="failed_load_information">无法加载信息。</string>
+	<string name="whats_new_auto_update_updating_maps">正在更新地图</string>
+	<string name="whats_new_auto_update_title">更新已下载的地图</string>
+	<string name="whats_new_auto_update_message">更新地图可以让对象的信息保持最新状态</string>
+	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
+	<string name="whats_new_auto_update_button_later">稍后手动更新</string>
 	<string name="search_hotel_filter_apartment">公寓</string>
 	<string name="search_hotel_filter_camp_site">露营</string>
 	<string name="search_hotel_filter_chalet">木屋</string>
 	<string name="search_hotel_filter_guest_house">招待所์|์旅馆์|์旅社|旅店</string>
 	<string name="search_hotel_filter_hostel">旅馆</string>
 	<string name="search_hotel_filter_resort">度假村</string>
+	<string name="search_hotel_filter_hotel">旅店</string>
+	<string name="search_hotel_filter_motel">汽车旅馆</string>
+	<string name="create_campaign_button">认领此商家</string>
+	<string name="view_campaign_button">商家已推广</string>
+	<string name="search_hotel_filters_type">类型</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">一般反馈</string>
+	<string name="on">开</string>
+	<string name="off">关</string>
+	<string name="prefs_languages_information">我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能</string>
+	<string name="prefs_languages_information_off">对于阿拉伯语、希腊语和罗马尼亚语，您需要从 Google Play 中安装其他“文字转语音”功能（因为 Google 文字转语音不支持这些语言），例如 Vocalizer TTS 或 SVOX Classics。\n要管理语音合成的设置，请在您的设备上打开“设置 –&gt; 语言和输入法 –&gt; 语音 –&gt; 文字转语音 (TTS) 输出”。您可以从这里下载其他语言包或选择首先的文字转语音引擎。</string>
+	<string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
+	<string name="whatsnew_transliteration_title">直译成拉丁文</string>
+	<string name="whatsnew_transliteration_message">如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。</string>
 </resources>

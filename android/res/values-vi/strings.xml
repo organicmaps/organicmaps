@@ -963,7 +963,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Bộ lọc</string>
 	<string name="booking_filters_reset">Đặt lại</string>
-	<string name="booking_filters_rating">Cho điểm</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Hạng từ</string>
 	<string name="booking_filters_rating_any">Bất kỳ</string>
 	<string name="booking_filters_ragting_good">Tốt</string>
 	<string name="booking_filters_rating_very_good">Rất tốt</string>
@@ -989,7 +990,6 @@
 	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
 	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>
 	<string name="dialog_taxi_error">Gọi taxi tạm thời không khả dụng.</string>
-	<string name="advertisement">Quảng cáo</string>
 	<string name="mobile_data_dialog">Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?</string>
 	<string name="mobile_data_option_always">Luôn Sử dụng</string>
 	<string name="mobile_data_option_today">Chỉ Hôm nay</string>
@@ -1066,10 +1066,29 @@
 	<string name="reviews_on_bookingcom">Xem thêm đánh giá trên Booking.com</string>
 	<string name="offline_place_page_more_information">Kết nối đến Internet để xem thêm thông tin về địa điểm này.</string>
 	<string name="failed_load_information">Không thể tải thông tin.</string>
+	<string name="whats_new_auto_update_updating_maps">Đang cập nhật bản đồ</string>
+	<string name="whats_new_auto_update_title">Cập nhật các bản đồ đã tải về của bạn</string>
+	<string name="whats_new_auto_update_message">Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó</string>
+	<string name="whats_new_auto_update_button_size">Cập nhật (%s)</string>
+	<string name="whats_new_auto_update_button_later">Cập nhật thủ công sau</string>
 	<string name="search_hotel_filter_apartment">Căn hộ</string>
 	<string name="search_hotel_filter_camp_site">Cắm trại</string>
 	<string name="search_hotel_filter_chalet">Nhà vệ sinh công cộng</string>
 	<string name="search_hotel_filter_guest_house">Nhà khách</string>
 	<string name="search_hotel_filter_hostel">Nhà trọ</string>
 	<string name="search_hotel_filter_resort">Khu nghỉ dưỡng</string>
+	<string name="search_hotel_filter_hotel">Khách sạn</string>
+	<string name="search_hotel_filter_motel">Nhà nghỉ</string>
+	<string name="create_campaign_button">Tôi là chủ doanh nghiệp này</string>
+	<string name="view_campaign_button">Doanh nghiệp này được quảng cáo</string>
+	<string name="search_hotel_filters_type">Loại</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Phản hồi chung</string>
+	<string name="on">Bật</string>
+	<string name="off">Tắt</string>
+	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Đối với tiếng Ả Rập, tiếng Hy Lạp và tiếng Rumani, bạn có thể cần cài đặt thêm TTS (bởi Google TTS chưa hỗ trợ các ngôn ngữ này) từ Google Play như Vocalizer TTS hoặc SVOX Classics.\nĐể quản lý các thiết lập tổng hợp giọng nói, trên thiết bị của bạn mở Cài đặt –&gt; Ngôn ngữ và nhập liệu –&gt; Giọng nói –&gt; Đầu ra văn bản thành giọng nói. Ở đây bạn có thể tải về thêm các gói ngôn ngữ và lựa chọn công cụ chuyển văn bản thành giọng nói ưa thích.</string>
+	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
+	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
+	<string name="whatsnew_transliteration_message">Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.</string>
 </resources>

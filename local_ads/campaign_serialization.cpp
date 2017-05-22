@@ -11,14 +11,6 @@
 
 namespace
 {
-enum class Version
-{
-  unknown = -1,
-  v1 = 0,  // March 2017 (Store feature ids and icon ids as varints,
-           // use one byte for days before expiration.)
-  latest = v1
-};
-
 template<typename T>
 constexpr bool IsEnumOrIntegral()
 {
@@ -85,7 +77,7 @@ std::vector<Campaign> Deserialize(std::vector<uint8_t> const & bytes)
   ArrayByteSource src(bytes.data());
   auto const version = Read<Version>(src);
   static_cast<void>(version);  // No version dispatching for now.
-  auto const chunksNumber = Read<size_t>(src);
+  auto const chunksNumber = Read<uint64_t>(src);
 
   auto const featureIds = ReadData<uint32_t>(src, chunksNumber);
   auto const icons = ReadData<uint16_t>(src, chunksNumber);
@@ -103,7 +95,7 @@ std::vector<Campaign> Deserialize(std::vector<uint8_t> const & bytes)
         featureIds[i],
         icons[i],
         expirations[i],
-        false /* priorityBit */
+        true /* priorityBit */
     );
   }
   return campaigns;

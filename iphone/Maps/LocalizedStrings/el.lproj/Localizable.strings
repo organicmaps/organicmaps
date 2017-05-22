@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Χάρτης";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Σχόλια";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Γενικάό σχόλιο";
 
 /* Text in menu */
 "subscribe_to_news" = "Εγγραφή στο ενημερωτικό μας δελτίο";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Μηδενισμός";
 
-"booking_filters_rating" = "Βαθμολογία";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Βαθμολογία από";
 
 "booking_filters_rating_any" = "Οποιοδήποτε";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.";
 
-"advertisement" = "Διαφήμιση";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Ενημέρωση χαρτών";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Ενημέρωση (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Χειροκίνητη ενημέρωση αργότερα";
 
 "search_hotel_filter_apartment" = "Διαμερίσματα";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Θέρετρο";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_hotel" = "Ξενοδοχείο";
 
-"on" = "On";
+"search_hotel_filter_motel" = "Μοτέλ";
 
-"off" = "Off";
+"create_campaign_button" = "Καταχωρήστε αυτήν την επιχείρηση";
+
+"view_campaign_button" = "Η επιχείριση διαφημίζεται";
+
+"search_hotel_filters_type" = "Τύπος";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Γενικό σχόλιο";
+
+"on" = "Ενεργ.";
+
+"off" = "Απενεργ.";
+
+"prefs_languages_information" = "Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.";
+
+"prefs_languages_information_off_link" = "Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.";
+
+"whatsnew_transliteration_title" = "Μεταγραφή στα Λατινικά";
+
+"whatsnew_transliteration_message" = "Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.";

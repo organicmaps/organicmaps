@@ -180,6 +180,7 @@ public:
   };
 
   void CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
+                  feature::TypesHolder const & holder, string const & defaultName,
                   NoteProblemType const type, string const & note);
   void UploadNotes(string const & key, string const & secret);
 

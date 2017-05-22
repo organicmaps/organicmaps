@@ -29,7 +29,7 @@ std::vector<Campaign> GenerateRandomCampaigns(size_t number)
     auto const fid = featureIds(gen);
     auto const iconid = icons(gen);
     auto const days = expirationDays(gen);
-    cs.emplace_back(fid, iconid, days, false /* priorityBit */);
+    cs.emplace_back(fid, iconid, days, true /* priorityBit */);
   }
   return cs;
 }
@@ -38,9 +38,9 @@ std::vector<Campaign> GenerateRandomCampaigns(size_t number)
 UNIT_TEST(Serialization_Smoke)
 {
   TEST(TestSerialization({
-        {10, 10, 10, 0},
-        {1000, 100, 20, 0},
-        {120003, 456, 15, 0}
+        {10, 10, 10, true},
+        {1000, 100, 20, true},
+        {120003, 456, 15, true}
       }), ());
 
   TEST(TestSerialization(GenerateRandomCampaigns(100)), ());

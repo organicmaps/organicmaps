@@ -140,12 +140,14 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 @property(nonatomic) CGFloat leading;
 @property(nonatomic) MWMDirectionView * directionView;
 @property(copy, nonatomic) NSString * distance;
+@property(copy, nonatomic) NSString * speedAndAltitude;
 @property(weak, nonatomic) UIImageView * compass;
 @property(nonatomic) NSIndexPath * lastCellIndexPath;
 @property(nonatomic) BOOL lastCellIsBanner;
 @property(nonatomic) NSUInteger distanceRow;
 
 @property(weak, nonatomic) MWMAdBanner * cachedBannerCell;
+@property(weak, nonatomic) _MWMPPPSubtitle * cachedSubtitle;
 
 @end
 
@@ -177,7 +179,10 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   self.lastCellIsBanner = NO;
   self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
   auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
-  if (it != previewRows.end())
+
+  if (data.isMyPosition)
+    self.distanceRow = 0;
+  else if (it != previewRows.end())
     self.distanceRow = distance(previewRows.begin(), it) - 1;
 }
 
@@ -198,8 +203,16 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     static_cast<_MWMPPPExternalTitle *>(c).externalTitle.text = data.externalTitle;
     break;
   case PreviewRows::Subtitle:
-    static_cast<_MWMPPPSubtitle *>(c).subtitle.text = data.subtitle;
+  {
+    auto subtitleCell = static_cast<_MWMPPPSubtitle *>(c);
+    if (data.isMyPosition)
+      subtitleCell.subtitle.text = self.speedAndAltitude;
+    else
+      subtitleCell.subtitle.text = data.subtitle;
+
+    self.cachedSubtitle = subtitleCell;
     break;
+  }
   case PreviewRows::Schedule:
   {
     auto scheduleCell = static_cast<_MWMPPPSchedule *>(c);
@@ -291,6 +304,15 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
   self.distance = distance;
   self.directionView.distanceLabel.text = distance;
+}
+
+- (void)setSpeedAndAltitude:(NSString *)speedAndAltitude
+{
+  if ([speedAndAltitude isEqualToString:_speedAndAltitude] || !self.data.isMyPosition)
+    return;
+
+  _speedAndAltitude = speedAndAltitude;
+  self.cachedSubtitle.subtitle.text = speedAndAltitude;
 }
 
 - (void)insertRowAtTheEnd

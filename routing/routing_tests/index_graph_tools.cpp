@@ -278,7 +278,8 @@ shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & tr
 
 shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
 {
-  return EdgeEstimator::CreateForCar(trafficStash, 90.0 /* maxSpeedKMpH */);
+  return EdgeEstimator::CreateForCar(trafficStash,
+                                     CarModelFactory().GetVehicleModel()->GetMaxSpeed());
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,
@@ -335,19 +336,6 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 
   pushPoint(starter.GetPoint(routeSegs.back(), false /* front */));
   TEST_EQUAL(geom, expectedRouteGeom, ());
-}
-
-void TestRouteTime(IndexGraphStarter & starter,
-                   AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                   double expectedTime)
-{
-  vector<Segment> routeSegs;
-  double timeSec = 0.0;
-  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec);
-
-  TEST_EQUAL(resultCode, expectedRouteResult, ());
-  double const kEpsilon = 1e-5;
-  TEST(my::AlmostEqualAbs(timeSec, expectedTime, kEpsilon), ());
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,

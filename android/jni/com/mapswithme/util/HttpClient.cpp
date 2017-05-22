@@ -105,14 +105,15 @@ void SetHeaders(ScopedEnv & env, jobject const params,
   RethrowOnJniException(env);
 
   using HeaderPair = std::unordered_map<std::string, std::string>::value_type;
-  env->CallVoidMethod(
-      params, setHeaders,
-      jni::ToJavaArray(env.get(), g_httpHeaderClazz, headers, [](JNIEnv * env,
-                                                                 HeaderPair const & item) {
-        return env->NewObject(g_httpHeaderClazz, headerInit,
-                              jni::TScopedLocalRef(env, jni::ToJavaString(env, item.first)).get(),
-                              jni::TScopedLocalRef(env, jni::ToJavaString(env, item.second)).get());
-      }));
+  auto headerFunc = [](JNIEnv * env, HeaderPair const & item)
+  {
+    jni::TScopedLocalRef first(env, jni::ToJavaString(env, item.first));
+    jni::TScopedLocalRef second(env, jni::ToJavaString(env, item.second));
+    return env->NewObject(g_httpHeaderClazz, headerInit, first.get(), second.get());
+  };
+  jni::TScopedLocalObjectArrayRef jHeaders(env.get(), jni::ToJavaArray(env.get(), g_httpHeaderClazz,
+                                           headers, headerFunc));
+  env->CallVoidMethod(params, setHeaders, jHeaders.get());
   RethrowOnJniException(env);
 }
 
@@ -243,17 +244,15 @@ bool HttpClient::RunHttpRequest()
     env->GetStaticMethodID(g_httpClientClazz, "run",
         "(Lcom/mapswithme/util/HttpClient$Params;)Lcom/mapswithme/util/HttpClient$Params;");
 
-  // Current Java implementation simply reuses input params instance, so we don't need to
-  // call DeleteLocalRef(response).
-  jobject const response =
-      env->CallStaticObjectMethod(g_httpClientClazz, httpClientClassRun, httpParamsObject.get());
+  jni::ScopedLocalRef<jobject> const response(env.get(), env->CallStaticObjectMethod(g_httpClientClazz,
+                                              httpClientClassRun, httpParamsObject.get()));
   if (jni::HandleJavaException(env.get()))
     return false;
 
   try
   {
-    GetInt(env, response, ids.GetId("httpResponseCode"), m_errorCode);
-    GetString(env, response, ids.GetId("receivedUrl"), m_urlReceived);
+    GetInt(env, response.get(), ids.GetId("httpResponseCode"), m_errorCode);
+    GetString(env, response.get(), ids.GetId("receivedUrl"), m_urlReceived);
     ::LoadHeaders(env, httpParamsObject.get(), m_headers);
   }
   catch (JniException const & ex)

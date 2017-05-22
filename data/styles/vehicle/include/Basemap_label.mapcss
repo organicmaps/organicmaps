@@ -602,34 +602,34 @@ area|z17[building],
 node|z17[building],
 area|z17[addr:housenumber][addr:street],
 node|z17[addr:housenumber][addr:street]
-{font-size: 13;}
+{font-size: 15;}
 area|z17[building]::int_name,
 node|z17[building]::int_name,
 area|z17[addr:housenumber][addr:street]::int_name,
 node|z17[addr:housenumber][addr:street]::int_name
-{font-size: 12.5;}
+{font-size: 14.5;}
 
 area|z18[building],
 node|z18[building],
 area|z18[addr:housenumber][addr:street],
 node|z18[addr:housenumber][addr:street]
-{font-size: 14;}
+{font-size: 16;}
 area|z18[building]::int_name,
 node|z18[building]::int_name,
 area|z18[addr:housenumber][addr:street]::int_name,
 node|z18[addr:housenumber][addr:street]::int_name
-{font-size: 13;}
+{font-size: 15;}
 
 area|z19[building],
 node|z19[building],
 area|z19[addr:housenumber][addr:street],
 node|z19[addr:housenumber][addr:street]
-{font-size: 14.5;}
+{font-size: 17.5;}
 area|z19[building]::int_name,
 node|z19[building]::int_name,
 area|z19[addr:housenumber][addr:street]::int_name,
 node|z19[addr:housenumber][addr:street]::int_name
-{font-size: 14;}
+{font-size: 17;}
 
 
 

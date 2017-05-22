@@ -25,7 +25,7 @@ colors
   Selection-color: #1E96F0;
   Selection-opacity: 0.64;
   Route-color: #0087FF;
-  RouteOutline-color: #871814;
+  RouteOutline-color: #055FCD;
   RouteTrafficG0-color: #9B2300;
   RouteTrafficG1-color: #E82705;
   RouteTrafficG2-color: #E82705;

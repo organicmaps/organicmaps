@@ -962,7 +962,8 @@
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrar</string>
 	<string name="booking_filters_reset">Redefinir</string>
-	<string name="booking_filters_rating">Classificação</string>
+	<!-- Beginning from a particular value and -->
+	<string name="booking_filters_rating">Com classificação desde</string>
 	<string name="booking_filters_rating_any">Qualquer</string>
 	<string name="booking_filters_ragting_good">Bom</string>
 	<string name="booking_filters_rating_very_good">Muito bom</string>
@@ -988,7 +989,6 @@
 	<string name="whatsnew_uber_message">Chame um táxi Uber diretamente do aplicativo!</string>
 	<string name="dialog_taxi_offline">O serviço de táxi não está disponível no modo off-line.</string>
 	<string name="dialog_taxi_error">O serviço de táxi está temporariamente indisponível.</string>
-	<string name="advertisement">Anúncio</string>
 	<string name="mobile_data_dialog">Utilizar a internet móvel para mostrar informações detalhadas?</string>
 	<string name="mobile_data_option_always">Utilizar Sempre</string>
 	<string name="mobile_data_option_today">Apenas Hoje</string>
@@ -1065,9 +1065,29 @@
 	<string name="reviews_on_bookingcom">Mais opiniões em Booking.com</string>
 	<string name="offline_place_page_more_information">Efetue ligação à internet para obter mais informações sobre o local.</string>
 	<string name="failed_load_information">Falha ao carregar informações.</string>
+	<string name="whats_new_auto_update_updating_maps">Atualização de mapas</string>
+	<string name="whats_new_auto_update_title">Atualize seus mapas transferidos</string>
+	<string name="whats_new_auto_update_message">Atualizar os mapas mantém atualizada a informação sobre objetos</string>
+	<string name="whats_new_auto_update_button_size">Atualização (%s)</string>
+	<string name="whats_new_auto_update_button_later">Atualizar manualmente mais tarde</string>
 	<string name="search_hotel_filter_apartment">Apartamentos</string>
+	<string name="search_hotel_filter_camp_site">Acampamento</string>
 	<string name="search_hotel_filter_chalet">Chalé</string>
 	<string name="search_hotel_filter_guest_house">Casa de hóspedes</string>
 	<string name="search_hotel_filter_hostel">Hostel</string>
 	<string name="search_hotel_filter_resort">Resort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
+	<string name="create_campaign_button">Reivindicar este negócio</string>
+	<string name="view_campaign_button">Negócio publicitado</string>
+	<string name="search_hotel_filters_type">Tipo</string>
+	<!-- Settings: "Send general feedback" button -->
+	<string name="feedback_general">Opinão geral</string>
+	<string name="on">Lig.</string>
+	<string name="off">Deslig.</string>
+	<string name="prefs_languages_information">Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+	<string name="prefs_languages_information_off">Para os idiomas árabe, grego e romeno: é possível que tenha de instalar TTS adicionais (uma vez que o Google TTS ainda não inclui estes idiomas) a partir do Google Play, como o Vocalizer TTS ou o SVOX Classics. Para gerir as configurações de síntese de fala, no seu dispositivo, vá a Configurações – &gt; idioma e entrada – &gt; voz – &gt; saída de texto para voz. Aqui pode transferir um pacote de idioma adicional ou selecionar um motor de texto para voz.</string>
+	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
+	<string name="whatsnew_transliteration_title">Transliteração para o latim</string>
+	<string name="whatsnew_transliteration_message">Se uma rua ou um objeto não tiver nome na sua língua, será utilizado o alfabeto latino.</string>
 </resources>

@@ -166,9 +166,7 @@ public class SearchFilterController
       mFilterIcon.setImageResource(R.drawable.ic_cancel);
       mFilterIcon.setColorFilter(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)));
-      UiUtils.setBackgroundDrawable(mFilterButton, R.attr.accentButtonBackground);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        mFilterButton.setElevation(mElevation);
+      UiUtils.setBackgroundDrawable(mFilterButton, R.attr.accentButtonRoundBackground);
       mFilterText.setTextColor(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)));
     }
@@ -179,8 +177,6 @@ public class SearchFilterController
       mFilterIcon.setColorFilter(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.colorAccent)));
       UiUtils.setBackgroundDrawable(mFilterButton, R.attr.clickableBackground);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        mFilterButton.setElevation(0);
       mFilterText.setTextColor(ContextCompat.getColor(mFrame.getContext(),
           UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.colorAccent)));
     }

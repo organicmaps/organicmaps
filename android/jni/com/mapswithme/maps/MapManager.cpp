@@ -103,7 +103,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceForMigration(JNIEnv
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadAmount(JNIEnv * env, jclass clazz, jlong bytes)
 {
-  return IsEnoughSpaceForDownload(bytes);
+  return IsEnoughSpaceForDownload(bytes, GetStorage().GetMaxMwmSizeBytes());
 }
 
 // static boolean nativeHasSpaceToDownloadCountry(String root);

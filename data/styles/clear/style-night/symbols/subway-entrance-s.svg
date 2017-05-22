@@ -1,18 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>subway-entrance-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group-4">
-            <g id="subway-entrance-arrow">
-                <g id="g24875">
-                    <circle id="Oval-1-Copy-43" fill-opacity="0.1" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                    <circle id="Oval-1-Copy-42" fill="#252522" cx="8.5" cy="8.5" r="7.5"></circle>
-                </g>
-            </g>
-            <path d="M10,9 L10,5 L7,5 L7,9 L5,9 L8.5,13.1007991 L12,9 L10,9 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".4"/>
+    <circle cx="8" cy="8" r="7.059" fill="#3D3C36"/>
+    <path fill="#FFF" d="M9.28571429,8.45644914 L9.28571429,5 L6.71428571,5 L6.71428571,8.45644914 L5,8.45644914 L8,12 L11,8.45644914 L9.28571429,8.45644914 Z" opacity=".6"/>
+  </g>
 </svg>

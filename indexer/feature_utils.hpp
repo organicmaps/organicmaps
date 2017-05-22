@@ -15,8 +15,11 @@ namespace feature
   /// Get viewport scale to show given feature. Used in search.
   int GetFeatureViewportScale(TypesHolder const & types);
 
+  /// When the language of the device is equal to one of the languages of the MWM
+  /// (or similar to device languages) only single name scheme is used. See GetReadableName method.
   /// Primary name using priority:
   /// - device language name;
+  /// - similar to device languages if provided;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed).
@@ -30,15 +33,19 @@ namespace feature
   void GetPreferredNames(RegionData const & regionData, StringUtf8Multilang const & src,
                          int8_t const deviceLang, bool allowTranslit, string & primary, string & secondary);
 
-  /// When MWM contains user's language, the priority is the following:
+  /// When MWM contains user's language (or similar to device languages if provided),
+  /// the priority is the following:
   /// - device language name;
   /// - default name;
+  /// - similar to device languages if provided;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);
   /// - country language name.
-  /// When MWM does not contain user's language, the priority is the following:
+  /// When MWM does not contain user's language (or similar to device languages),
+  /// the priority is the following:
   /// - device language name;
+  /// - similar to device languages if provided;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);

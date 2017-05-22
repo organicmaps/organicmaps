@@ -426,8 +426,8 @@ void Statistics::SendToServer()
     }
     else
     {
-      LOG(LWARNING,
-          ("Sending statistics failed:", request.ErrorCode(), it->first.first, it->first.second));
+      LOG(LWARNING, ("Sending statistics failed:", "URL:", url, "Error code:", request.ErrorCode(),
+                     it->first.first, it->first.second));
       ++it;
     }
   }

@@ -10,6 +10,8 @@
 namespace
 {
 
+static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
+
 std::array<ftypes::IsHotelChecker::Type, static_cast<size_t>(ftypes::IsHotelChecker::Type::Count)> const kTypes = {{
   ftypes::IsHotelChecker::Type::Hotel,
   ftypes::IsHotelChecker::Type::Apartment,
@@ -143,7 +145,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (void)initialTypeConfig
 {
-  [self.type config];
+  [self.type configWithTableView:self.tableView];
   [self resetTypes];
 }
 
@@ -262,7 +264,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   {
   case Section::Rating: return L(@"booking_filters_rating");
   case Section::PriceCategory: return L(@"booking_filters_price_category");
-  case Section::Type: return L(@"type");
+  case Section::Type: return L(@"search_hotel_filters_type");
   default: return nil;
   }
 }
@@ -274,7 +276,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   MWMFilterTypeCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMFilterTypeCell className]
                                                                        forIndexPath:indexPath];
   auto const type = kTypes[indexPath.row];
-  cell.tagName.text = @(ftypes::IsHotelChecker::GetHotelTypeTag(type));
+  auto str = [NSString stringWithFormat:kHotelTypePattern, @(ftypes::IsHotelChecker::GetHotelTypeTag(type))];
+  cell.tagName.text = L(str);
   cell.selected = find(m_selectedTypes.begin(), m_selectedTypes.end(), type) != m_selectedTypes.end();
   return cell;
 }

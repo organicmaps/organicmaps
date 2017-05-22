@@ -9,6 +9,10 @@
 
 #define TEXTFIELD_TAG 999
 
+extern NSString * const kBookmarkCategoryDeletedNotification =
+    @"BookmarkCategoryDeletedNotification";
+
+
 @implementation BookmarksRootVC
 
 - (id)init
@@ -235,7 +239,7 @@
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
     [Statistics logEvent:kStatEventName(kStatPlacePage, kStatRemove)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_CATEGORY_DELETED_NOTIFICATION object:@(indexPath.row)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkCategoryDeletedNotification object:@(indexPath.row)];
     Framework & f = GetFramework();
     f.DeleteBmCategory(indexPath.row);
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Kort";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Abonnér på vores nyheder";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Nulstil";
 
-"booking_filters_rating" = "Vurdering";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Vurdering fra";
 
 "booking_filters_rating_any" = "Hvilken som helst";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Bestilling af en taxi er ikke muligt lige nu.";
 
-"advertisement" = "Annonce";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Skal mobilt internet bruges til at vise detaljerede oplysninger?";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "Opdaterer kort";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "Opdater dine downloadede kort";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "Opdatering af kort sikrer, at oplysningerne om objekter er aktuel";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "Opdater (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "Opdater manuelt senere";
 
 "search_hotel_filter_apartment" = "Lejligheder";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Resort";
 
+"search_hotel_filter_hotel" = "Hotel";
+
 "search_hotel_filter_motel" = "Motel";
 
-"on" = "On";
+"create_campaign_button" = "Denne virksomhed tilhører mig";
 
-"off" = "Off";
+"view_campaign_button" = "Virksomhed er annonceret";
+
+"search_hotel_filters_type" = "Type";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Generel feedback";
+
+"on" = "Til";
+
+"off" = "Fra";
+
+"prefs_languages_information" = "Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "I forbindelse med sprogene arabisk, græsk og rumænsk skal du installere yderligere TTS såsom som Vocalizer TTS eller SVOX Classics fra Google Play (eftersom Google TTS ikke understøtter disse sprog endnu). Hvis du vil administrere indstillinger for talesyntese på enheden, skal du åbne Indstillinger –> Sprog og input –> Tale –> Tekst til tale-output. Her kan du downloade yderligere sprogpakker eller vælge dit foretrukne tekst til tale-program.";
+
+"prefs_languages_information_off_link" = "Se denne vejledning for flere oplysninger.";
+
+"whatsnew_transliteration_title" = "Translitteration til latinsk";
+
+"whatsnew_transliteration_message" = "Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.";

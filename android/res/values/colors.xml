@@ -21,12 +21,14 @@
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
   <color name="black_lightest">#61000000</color>  <!-- 38% black -->
   <color name="black_8">#14000000</color> <!-- 8% black -->
+  <color name="black_11">#1E000000</color> <!-- 11% black -->
   <color name="black_24">#3D000000</color> <!-- 24% black -->
   <color name="black_60">#99000000</color> <!-- 24% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color>  <!-- 50% white -->
   <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
+  <color name="white_11">#1EFFFFFF</color> <!-- 11% white -->
   <color name="white_12">#1Effffff</color> <!-- 12% white -->
   <color name="white_24">#3DFFFFFF</color> <!-- 24% black -->
   <color name="white_60">#99FFFFFF</color> <!-- 24% black -->
@@ -99,7 +101,7 @@
   <color name="button_accent_normal">@color/base_accent</color>
   <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">#FF1C85D6</color>
-  <color name="button_accent_pressed_night">#FFCCB870</color>
+  <color name="button_accent_pressed_night">#FF3C9BBE</color>
   <color name="button_accent_disabled">#FFEFEFEF</color>
   <color name="button_accent_disabled_night">#FF505050</color>
   <color name="button_accent_text">#FFFFFFFF</color>

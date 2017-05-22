@@ -6,6 +6,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -29,7 +30,10 @@ import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
+import com.my.tracker.MyTracker;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,15 +42,20 @@ import java.util.Map;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
@@ -54,12 +63,18 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 
 public enum Statistics
 {
   INSTANCE;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
+  public @interface BannerState {}
+
+  public static final int PP_BANNER_STATE_PREVIEW = 0;
+  public static final int PP_BANNER_STATE_DETAILS = 1;
 
   // Statistics counters
   private int mBookmarksCreated;
@@ -117,6 +132,7 @@ public enum Statistics
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
     public static final String PP_HOTEL_FACILITIES = "PlacePage_Hotel_Facilities_open";
+    static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
@@ -238,9 +254,9 @@ public enum Statistics
     public static final String IS_AUTHENTICATED = "is_authenticated";
     public static final String IS_ONLINE = "is_online";
     public static final String IS_SUCCESS = "is_success_message";
-    public static final String FEATURE_ID = "feature_id";
-    public static final String MWM_NAME = "mwm_name";
-    public static final String MWM_VERSION = "mwm_version";
+    static final String FEATURE_ID = "feature_id";
+    static final String MWM_NAME = "mwm_name";
+    static final String MWM_VERSION = "mwm_version";
     public static final String ERR_TYPE = "error_type"; // (1 - No space left)
     public static final String ERR_MSG = "error_message";
     public static final String ERR_DATA = "err_data";
@@ -533,12 +549,15 @@ public enum Statistics
     trackHotelEvent(PP_SPONSORED_BOOK, hotel, mapObject);
   }
 
-  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, int state)
+  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, @BannerState int state)
   {
     trackEvent(eventName, Statistics.params()
                                     .add(BANNER, ad.getBannerId())
                                     .add(PROVIDER, ad.getProvider())
                                     .add(BANNER_STATE, String.valueOf(state)));
+
+    if (!eventName.equals(PP_BANNER_SHOW) || state == PP_BANNER_STATE_PREVIEW)
+      MyTracker.trackEvent(eventName);
   }
 
   public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
@@ -553,6 +572,7 @@ public enum Statistics
            .add(PROVIDER, provider)
            .add(BANNER_STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
+    MyTracker.trackEvent(eventName);
   }
 
   public void trackBookingSearchEvent(@NonNull MapObject mapObject)
@@ -579,6 +599,16 @@ public enum Statistics
                                                   .add(TYPE, error));
   }
 
+  public void trackPPOwnershipButtonClick(@NonNull MapObject mapObject)
+  {
+    trackEvent(PP_OWNERSHIP_BUTTON_CLICK, LocationHelper.INSTANCE.getLastKnownLocation(),
+               params()
+                   .add(MWM_NAME, mapObject.getMwmName())
+                   .add(MWM_VERSION, mapObject.getMwmVersion())
+                   .add(FEATURE_ID, mapObject.getFeatureIndex())
+                   .get());
+  }
+
   public static ParameterBuilder params()
   {
     return new ParameterBuilder();
@@ -586,8 +616,8 @@ public enum Statistics
 
   public static ParameterBuilder editorMwmParams()
   {
-    return params().add(EventParam.MWM_NAME, Editor.nativeGetMwmName())
-                   .add(EventParam.MWM_VERSION, Editor.nativeGetMwmVersion());
+    return params().add(MWM_NAME, Editor.nativeGetMwmName())
+                   .add(MWM_VERSION, Editor.nativeGetMwmVersion());
   }
 
   public static class ParameterBuilder

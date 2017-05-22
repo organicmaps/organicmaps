@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Информация";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "Для получения дополнительной информации, пожалуйста, ознакомьтесь с руководством.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Карта";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Связаться с нами";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "Отправить отзыв";
 
 /* Text in menu */
 "subscribe_to_news" = "Подписаться на новости";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "Сбросить";
 
-"booking_filters_rating" = "Рейтинг";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "Рейтинг от";
 
 "booking_filters_rating_any" = "Любой";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "Заказ такси временно недоступен.";
 
-"advertisement" = "Реклама";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "Дом отдыха";
 
+"search_hotel_filter_hotel" = "Гостиница";
+
 "search_hotel_filter_motel" = "Мотель";
+
+"create_campaign_button" = "Я владелец компании";
+
+"view_campaign_button" = "Эта компания рекламируется";
+
+"search_hotel_filters_type" = "Тип";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "Отправить отзыв";
 
 "on" = "Вкл.";
 
 "off" = "Выкл.";
+
+"prefs_languages_information" = "Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.";
+
+"prefs_languages_information_off_link" = "Более подробная информация — в этом руководстве.";
+
+"whatsnew_transliteration_title" = "Латинская транслитерация";
+
+"whatsnew_transliteration_message" = "Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.";

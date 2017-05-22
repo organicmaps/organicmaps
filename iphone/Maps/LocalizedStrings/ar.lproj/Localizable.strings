@@ -473,14 +473,6 @@
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
 
-/* Settings languages information in voice instructions screen */
-"prefs_languages_information" = "Написать о том когда вообще ничего не установлено\n\nНа Android голосовые подсказки доступны на 24 языках: русский, английский, арабский, венгерский, голландский, греческий, датский, индонезийский, испанский, итальянский, китайский (традиционный и упрощенный), корейский, немецкий, польский, португальский, румынский, тайский, турецкий, финский, французский, хинди, чешский, японский.\n\nВозможно, для некоторых языков вам необходимо будет установить сторонний синтезатор речи и дополнительный языковой пакет из магазина приложений (Google Play Маркет, Samsung Apps и др.).";
-
-/* Settings languages off information in voice instructions screen */
-"prefs_languages_information_off" = "For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\n\nOpen your device's settings –> Language and input –> Speech –> Text to speech output.*\n\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
-"prefs_languages_information_off_link" = "For more information please check the guide.";
-
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "الخريطة";
 
@@ -633,9 +625,6 @@
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "تعقيب";
-
-/* Settings: "Send general feedback" button */
-"feedback_general" = "General Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "أشترك في نشرتنا الإخبارية";
@@ -1666,7 +1655,8 @@
 
 "booking_filters_reset" = "إعادة تعيين";
 
-"booking_filters_rating" = "تصنيف";
+/* Beginning from a particular value and */
+"booking_filters_rating" = "تصنيف من";
 
 "booking_filters_rating_any" = "أي";
 
@@ -1714,7 +1704,8 @@
 
 "dialog_taxi_error" = "طلب تاكسي غير متاح مؤقتا.";
 
-"advertisement" = "إعلان";
+/* Abbreviated for all languages. */
+"advertisement" = "AD";
 
 "mobile_data_dialog" = "استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟";
 
@@ -1861,15 +1852,15 @@
 
 "booking_search" = "Booking.com";
 
-"whats_new_auto_update_updating_maps" = "Updating maps";
+"whats_new_auto_update_updating_maps" = "تحديث الخرائط";
 
-"whats_new_auto_update_title" = "Update your downloaded maps";
+"whats_new_auto_update_title" = "قم بتحديث الخرائط التي قمت بنتزيلها";
 
-"whats_new_auto_update_message" = "Update maps supports information about objects in the current state";
+"whats_new_auto_update_message" = "تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة";
 
-"whats_new_auto_update_button_size" = "Update (%s)";
+"whats_new_auto_update_button_size" = "تحديث (%s)";
 
-"whats_new_auto_update_button_later" = "Manually update later";
+"whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
 
 "search_hotel_filter_apartment" = "شُقَق";
 
@@ -1883,8 +1874,29 @@
 
 "search_hotel_filter_resort" = "منتج";
 
-"search_hotel_filter_motel" = "Motel";
+"search_hotel_filter_hotel" = "الفندق";
 
-"on" = "On";
+"search_hotel_filter_motel" = "موتيل";
 
-"off" = "Off";
+"create_campaign_button" = "مطالبة هذه الشركة";
+
+"view_campaign_button" = "تم عمل إعلان عن الشركة";
+
+"search_hotel_filters_type" = "النوع";
+
+/* Settings: "Send general feedback" button */
+"feedback_general" = "تعقيب عام";
+
+"on" = "تشغيل";
+
+"off" = "إيقاف";
+
+"prefs_languages_information" = "نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
+
+"prefs_languages_information_off" = "بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.";
+
+"prefs_languages_information_off_link" = "لمزيد من المعلومات الرجاء مراجعة هذا الدليل.";
+
+"whatsnew_transliteration_title" = "كتابة بالحروف اللاتينية";
+
+"whatsnew_transliteration_message" = "إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.";
