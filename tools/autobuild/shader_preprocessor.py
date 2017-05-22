@@ -233,9 +233,16 @@ def calc_texture_slots(vertex_shader_file, fragment_shader_file, shader_dir):
         line = line.replace(" ", "")
         if line.find("uniformsampler") != -1:
             slots.add(line)
+    is_inside_workaround = False;
     for line in open(os.path.join(shader_dir, fragment_shader_file)):
-        line = line.replace(" ", "")
-        if line.find("uniformsampler") != -1:
+        line = line.replace(" ", "")  
+        if line.find("#ifdefSAMSUNG_GOOGLE_NEXUS") != -1:
+            is_inside_workaround = True;
+            continue;
+        if is_inside_workaround and line.find("#endif"):
+            is_inside_workaround = False;
+            continue;
+        if not is_inside_workaround and line.find("uniformsampler") != -1:
             slots.add(line)
     return len(slots)
 

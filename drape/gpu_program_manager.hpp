@@ -30,6 +30,7 @@ private:
   ProgramMap m_programs;
   ShaderMap m_shaders;
   std::string m_globalDefines;
+  uint8_t m_minTextureSlotsCount = 0;
   drape_ptr<gpu::GpuProgramGetter> m_programGetter;
 
   DISALLOW_COPY_AND_MOVE(GpuProgramManager);
