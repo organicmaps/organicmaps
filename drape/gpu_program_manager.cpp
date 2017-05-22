@@ -5,6 +5,8 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
+#include <algorithm>
+
 namespace dp
 {
 GpuProgramManager::~GpuProgramManager()
@@ -29,7 +31,10 @@ void GpuProgramManager::Init(drape_ptr<gpu::GpuProgramGetter> && programGetter)
 #endif
 
   if (SupportManager::Instance().IsSamsungGoogleNexus())
+  {
+    m_minTextureSlotsCount = 1;
     m_globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
+  }
 
   if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
     m_globalDefines.append("#define GLES3\n");
@@ -47,8 +52,9 @@ ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
   auto fragmentShader = GetShader(programInfo.m_fragmentIndex, programInfo.m_fragmentSource,
                                   Shader::Type::FragmentShader);
 
+  auto const textureSlotsCount = std::max(m_minTextureSlotsCount, programInfo.m_textureSlotsCount);
   drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(index, vertexShader, fragmentShader,
-                                                             programInfo.m_textureSlotsCount);
+                                                             textureSlotsCount);
   ref_ptr<GpuProgram> result = make_ref(program);
   m_programs.emplace(index, move(program));
 
