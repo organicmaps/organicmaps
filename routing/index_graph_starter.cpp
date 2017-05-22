@@ -25,9 +25,9 @@ Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph)
   : m_graph(graph)
   , m_start(start.GetSegment(),
-            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph), start.GetSoft())
+            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph), start.IsSoft())
   , m_finish(finish.GetSegment(),
-             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph), finish.GetSoft())
+             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph), finish.IsSoft())
 {
 }
 
@@ -98,7 +98,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
 void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
                                              vector<SegmentEdge> & edges)
 {
-  if (!fakeVertex.GetSoft())
+  if (!fakeVertex.IsSoft())
   {
     GetFakeToNormalEdge(fakeVertex, fakeVertex.GetSegment().IsForward(), edges);
     return;

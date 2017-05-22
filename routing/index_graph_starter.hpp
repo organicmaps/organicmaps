@@ -37,7 +37,7 @@ public:
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
     m2::PointD const & GetPoint() const { return m_point; }
     Segment const & GetSegment() const { return m_segment; }
-    bool GetSoft() const { return m_soft; }
+    bool IsSoft() const { return m_soft; }
 
     Segment GetSegmentWithDirection(bool forward) const
     {
