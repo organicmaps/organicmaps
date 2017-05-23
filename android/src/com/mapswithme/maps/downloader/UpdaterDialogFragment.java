@@ -15,9 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -53,7 +53,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private boolean mAutoUpdate;
   @Nullable
   private String[] mOutdatedMaps;
-  private boolean mFromInstanceState;
+  @Nullable
+  private BaseNewsFragment.NewsDialogListener mDoneTask;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -95,7 +96,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
               }
               else
               {
-//              TODO remove attachMap() when dialog migrated to SplashActivity
                 finish();
               }
             }
@@ -108,7 +108,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (!isAllUpdated())
         return;
 
-//    TODO remove attachMap() when dialog migrated to SplashActivity
       finish();
     }
 
@@ -126,9 +125,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private void finish()
   {
-    attachMap();
-    updateActivityMenu();
     dismiss();
+    if (mDoneTask != null)
+      mDoneTask.onDialogDone();
   }
 
   @NonNull
@@ -145,7 +144,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (MapManager.nativeIsDownloading())
         MapManager.nativeCancel(CountryItem.getRootId());
 
-//    TODO remove attachMap() when dialog migrated to SplashActivity
       finish();
     }
   };
@@ -168,27 +166,38 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     }
   };
 
-  public static boolean showOn(@NonNull FragmentActivity activity)
+  public static boolean showOn(@NonNull FragmentActivity activity,
+                               @Nullable BaseNewsFragment.NewsDialogListener doneTask)
   {
     final FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
-      return false;
-
-    Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
-    if (f != null)
-      return false;
-
-    @Framework.DoAfterUpdate
-    final int result = Framework.nativeToDoAfterUpdate();
-    if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
       return false;
 
     final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     if (info == null)
       return false;
 
-    final Bundle args = new Bundle();
+    @Framework.DoAfterUpdate
+    final int result;
+
     final long size = info.totalSize / Constants.MB;
+    Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
+    if (f != null)
+    {
+      fm.beginTransaction().remove(f).commitAllowingStateLoss();
+      fm.executePendingTransactions();
+      result = Framework.DO_AFTER_UPDATE_AUTO_UPDATE;
+    }
+    else
+    {
+      result = Framework.nativeToDoAfterUpdate();
+      if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
+        return false;
+
+      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
+    }
+
+    final Bundle args = new Bundle();
     args.putBoolean(ARG_UPDATE_IMMEDIATELY, result == Framework.DO_AFTER_UPDATE_AUTO_UPDATE);
     args.putString(ARG_TOTAL_SIZE, StringUtils.getFileSizeString(info.totalSize));
     args.putLong(ARG_TOTAL_SIZE_MB, size);
@@ -196,14 +205,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
     fragment.setArguments(args);
+    fragment.mDoneTask = doneTask;
     FragmentTransaction transaction = fm.beginTransaction()
       .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-//  TODO remove detachMap() when dialog migrated to SplashActivity
-    if (activity instanceof MwmActivity)
-      ((MwmActivity) activity).detachMap(transaction);
     fragment.show(transaction, UpdaterDialogFragment.class.getName());
-
-    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
 
     return true;
   }
@@ -219,7 +224,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     super.onCreate(savedInstanceState);
 
-    mFromInstanceState = savedInstanceState != null;
     readArguments();
   }
 
@@ -250,18 +254,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     if (isAllUpdated())
     {
-//    TODO remove attachMap() when dialog migrated to SplashActivity
       finish();
       return;
-    }
-
-//  TODO remove detachMap() when dialog migrated to SplashActivity
-    if (getActivity() instanceof MwmActivity && mFromInstanceState)
-    {
-      FragmentTransaction transaction = getActivity().getSupportFragmentManager()
-                                                     .beginTransaction();
-      ((MwmActivity) getActivity()).detachMap(transaction);
-      transaction.commit();
     }
 
     mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
@@ -291,27 +285,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (MapManager.nativeIsDownloading())
       MapManager.nativeCancel(CountryItem.getRootId());
 
-//  TODO remove attachMap() when dialog migrated to SplashActivity
-    attachMap();
-    updateActivityMenu();
+    if (mDoneTask != null)
+      mDoneTask.onDialogDone();
+
     super.onCancel(dialog);
-  }
-
-  private void updateActivityMenu()
-  {
-    if (!(getActivity() instanceof MwmActivity))
-      return;
-
-    ((MwmActivity)getActivity()).getMainMenu().onResume(null);
-  }
-
-  //TODO remove attachMap() when dialog migrated to SplashActivity
-  private void attachMap()
-  {
-    if (!(getActivity() instanceof MwmActivity))
-      return;
-
-    ((MwmActivity)getActivity()).attachMap();
   }
 
   private void readArguments()
