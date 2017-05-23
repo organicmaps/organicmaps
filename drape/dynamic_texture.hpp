@@ -39,15 +39,17 @@ protected:
     m2::PointU m_size;
     dp::TextureFormat m_format;
     glConst m_filter;
+    bool m_usePixelBuffer;
   };
 
-  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, TextureParams const & params)
+  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer,
+            TextureParams const & params)
   {
     Init(allocator, indexer, params, nullptr);
   }
 
-  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, TextureParams const & params,
-            ref_ptr<void> data)
+  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer,
+            TextureParams const & params, ref_ptr<void> data)
   {
     m_indexer = indexer;
     Texture::Params p;
@@ -56,6 +58,7 @@ protected:
     p.m_height = params.m_size.y;
     p.m_format = params.m_format;
     p.m_filter = params.m_filter;
+    p.m_usePixelBuffer = params.m_usePixelBuffer;
 
     Create(p, data);
   }

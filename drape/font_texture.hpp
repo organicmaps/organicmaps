@@ -15,7 +15,6 @@
 
 namespace dp
 {
-
 class GlyphPacker
 {
 public:
@@ -153,11 +152,7 @@ public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng)
   {
-    TBase::TextureParams params;
-    params.m_size = size;
-    params.m_format = TextureFormat::ALPHA;
-    params.m_filter = gl_const::GLLinear;
-
+    TBase::TextureParams params{size, TextureFormat::ALPHA, gl_const::GLLinear, true /* m_usePixelBuffer */};
     vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
     TBase::Init(allocator, make_ref(&m_index), params, make_ref(initData.data()));
   }
@@ -182,5 +177,4 @@ public:
 private:
   GlyphIndex m_index;
 };
-
-}
+}  // namespace dp
