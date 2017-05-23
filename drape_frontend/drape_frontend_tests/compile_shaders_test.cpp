@@ -16,15 +16,19 @@
 #include <QtCore/QProcess>
 #include <QtCore/QTextStream>
 
-#if defined(OMIM_OS_MAC)
-
 std::string const kCompilersDir = "shaders_compiler";
-std::string const kMaliCompilerOpenGLES2Dir = "mali_compiler";
-std::string const kMaliCompilerOpenGLES3Dir = "mali_compiler_es3";
-std::string const kCompilerOpenGLES2 = "GLSLESCompiler_Series5.mac";
+
+#if defined(OMIM_OS_MAC)
+std::string const kMaliCompilerOpenGLES2Dir = "macos/mali_compiler";
+std::string const kMaliCompilerOpenGLES3Dir = "macos/mali_compiler_es3";
+std::string const kCompilerOpenGLES2 = "macos/GLSLESCompiler_Series5.mac";
 std::string const kCompilerMaliOpenGLES2 = kMaliCompilerOpenGLES2Dir + "/malisc";
-std::string const kCompilerOpenGLES3 = "GLSLESCompiler_Series6.mac";
+std::string const kCompilerOpenGLES3 = "macos/GLSLESCompiler_Series6.mac";
 std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
+#elif defined(OMIM_OS_LINUX)
+std::string const kMaliCompilerOpenGLES3Dir = "linux/mali_compiler_es3";
+std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
+#endif
 
 std::string DebugPrint(QString const & s) { return s.toStdString(); }
 
@@ -106,6 +110,8 @@ std::string GetCompilerPath(std::string const & compilerName)
 }
 }  // namespace
 
+#if defined(OMIM_OS_MAC)
+
 UNIT_TEST(CompileShaders_Test)
 {
   struct CompilerData
@@ -164,6 +170,8 @@ UNIT_TEST(CompileShaders_Test)
   }
 }
 
+#endif
+
 UNIT_TEST(MALI_CompileShaders_Test)
 {
   struct ReleaseVersion
@@ -189,6 +197,7 @@ UNIT_TEST(MALI_CompileShaders_Test)
     std::vector<DriverSet> m_driverSets;
   };
 
+#if defined(OMIM_OS_MAC)
   std::vector<DriverSet> const driversES2old = {
      {"Mali-400_r4p0-00rel1",
       {{"Mali-200", "r0p1", true}, {"Mali-200", "r0p2", true},
@@ -209,6 +218,7 @@ UNIT_TEST(MALI_CompileShaders_Test)
        {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
        {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
        {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true}}}};
+#endif
 
   std::vector<DriverSet> const driversES3new = {
      {"Mali-T600_r3p0-00rel0",
@@ -405,10 +415,12 @@ UNIT_TEST(MALI_CompileShaders_Test)
   driversES2new.insert(driversES2new.end(), driversES3new.begin(), driversES3new.end());
 
   std::vector<CompilerData> const compilers = {
+#if defined(OMIM_OS_MAC)
     {dp::ApiVersion::OpenGLES2,
       GetCompilerPath(kCompilerMaliOpenGLES2),
       GetCompilerPath(kMaliCompilerOpenGLES2Dir),
       driversES2old},
+#endif
     {dp::ApiVersion::OpenGLES2,
      GetCompilerPath(kCompilerMaliOpenGLES3),
      GetCompilerPath(kMaliCompilerOpenGLES3Dir),
@@ -441,7 +453,7 @@ UNIT_TEST(MALI_CompileShaders_Test)
         auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
         QString shaderType = "-v";
         auto argForming = [&](QStringList & args, QString const & fileName) {
-          args << shaderType// << "-V"
+          args << shaderType
                << "-r" << version.m_version << "-c" << version.m_series << "-d" << set.m_driverName
                << fileName;
         };
@@ -462,4 +474,3 @@ UNIT_TEST(MALI_CompileShaders_Test)
     }
   }
 }
-#endif
