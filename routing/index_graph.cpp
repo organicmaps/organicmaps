@@ -97,6 +97,23 @@ void IndexGraph::SetRestrictions(RestrictionVec && restrictions)
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(roadAccess); }
 
+void IndexGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
+{
+  edges.clear();
+  GetEdgeList(segment, true /* isOutgoing */, edges);
+}
+
+void IndexGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
+{
+  edges.clear();
+  GetEdgeList(segment, false /* isOutgoing */, edges);
+}
+
+double IndexGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
+{
+  return m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
+}
+
 double IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId()));

@@ -17,19 +17,19 @@ class IndexGraphStarter final
 {
 public:
   // AStarAlgorithm types aliases:
-  using TVertexType = WorldGraph::Vertex;
-  using TEdgeType = WorldGraph::Edge;
+  using TVertexType = IndexGraph::TVertexType;
+  using TEdgeType = IndexGraph::TEdgeType;
 
   class FakeVertex final
   {
   public:
     FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point), m_soft(true)
+      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
     {
     }
 
-    FakeVertex(Segment const & segment, m2::PointD const & point, bool soft)
-      : m_segment(segment), m_point(point), m_soft(soft)
+    FakeVertex(Segment const & segment, m2::PointD const & point)
+      : m_segment(segment), m_point(point)
     {
     }
 
@@ -37,7 +37,6 @@ public:
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
     m2::PointD const & GetPoint() const { return m_point; }
     Segment const & GetSegment() const { return m_segment; }
-    bool IsSoft() const { return m_soft; }
 
     Segment GetSegmentWithDirection(bool forward) const
     {
@@ -47,9 +46,6 @@ public:
 
     bool Fits(Segment const & segment) const
     {
-      if (!m_soft)
-        return segment == m_segment;
-
       return segment.GetMwmId() == m_segment.GetMwmId() &&
              segment.GetFeatureId() == m_segment.GetFeatureId() &&
              segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
@@ -60,12 +56,6 @@ public:
   private:
     Segment m_segment;
     m2::PointD const m_point;
-    // If |m_soft| == true it means that |m_segment| should be used as a two way segment. So it's
-    // possible to go along |m_segment| in any direction. In that case the instanse of FakeVertex
-    // could be considered as a soft FakeVertex.
-    // If |m_soft| == true it means it's possible to go along |m_segment| only in direction according
-    // to its |m_forward| parameter.
-    bool const m_soft;
   };
 
   static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();

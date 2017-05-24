@@ -1,6 +1,5 @@
 #include "routing/index_router.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/index_graph.hpp"
@@ -193,11 +192,11 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
   IndexGraphStarter::FakeVertex const start(
       Segment(m_numMwmIds->GetId(startFile), startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
               true /* forward */),
-      startPoint, true /* soft */);
+      startPoint);
   IndexGraphStarter::FakeVertex const finish(
       Segment(m_numMwmIds->GetId(finishFile), finishEdge.GetFeatureId().m_index,
               finishEdge.GetSegId(), true /* forward */),
-      finalPoint, true /* soft */);
+      finalPoint);
 
   WorldGraph::Mode mode = WorldGraph::Mode::SingleMwm;
   if (forSingleMwm)
@@ -228,31 +227,25 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
     ++drawPointsStep;
   };
 
-  AStarAlgorithm<IndexGraphStarter> algorithm;
-
   RoutingResult<Segment> routingResult;
-  auto const resultCode = algorithm.FindPathBidirectional(
-      starter, starter.GetStart(), starter.GetFinish(), routingResult, delegate, onVisitJunction);
+  IRouter::ResultCode const result = FindPath(starter.GetStart(), starter.GetFinish(), delegate,
+                                              starter, onVisitJunction, routingResult);
+  if (result != IRouter::NoError)
+    return result;
 
-  switch (resultCode)
-  {
-  case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
-  case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
-  case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-    vector<Segment> segments;
-    IRouter::ResultCode const leapsResult =
-        ProcessLeaps(routingResult.path, delegate, starter, segments);
-    if (leapsResult != IRouter::NoError)
-      return leapsResult;
+  vector<Segment> segments;
+  IRouter::ResultCode const leapsResult =
+      ProcessLeaps(routingResult.path, delegate, starter, segments);
+  if (leapsResult != IRouter::NoError)
+    return leapsResult;
 
-    CHECK_GREATER_OR_EQUAL(segments.size(), routingResult.path.size(), ());
+  CHECK_GREATER_OR_EQUAL(segments.size(), routingResult.path.size(), ());
 
-    if (!RedressRoute(segments, delegate, forSingleMwm, starter, route))
-      return IRouter::InternalError;
-    if (delegate.IsCancelled())
-      return IRouter::Cancelled;
-    return IRouter::NoError;
-  }
+  if (!RedressRoute(segments, delegate, forSingleMwm, starter, route))
+    return IRouter::InternalError;
+  if (delegate.IsCancelled())
+    return IRouter::Cancelled;
+  return IRouter::NoError;
 }
 
 bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
@@ -305,6 +298,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
 
   WorldGraph & worldGraph = starter.GetGraph();
   WorldGraph::Mode const worldRouteMode = worldGraph.GetMode();
+  worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
@@ -317,58 +311,39 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       continue;
     }
 
+    // Clear previous loaded graphs to not spend too much memory at one time.
+    worldGraph.ClearIndexGraphs();
+
+    ++i;
+    CHECK_LESS(i, input.size(), ());
+    Segment const & next = input[i];
+
+    CHECK(!IndexGraphStarter::IsFakeSegment(current), ());
+    CHECK(!IndexGraphStarter::IsFakeSegment(next), ());
+    CHECK_EQUAL(
+      current.GetMwmId(), next.GetMwmId(),
+      ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
+
+    IRouter::ResultCode result = IRouter::InternalError;
+    RoutingResult<Segment> routingResult;
     // In case of leaps from the start to its mwm transition and from finish mwm transition
     // Route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
     if ((current.GetMwmId() == starter.GetStartVertex().GetMwmId()
         || current.GetMwmId() == starter.GetFinishVertex().GetMwmId())
         && worldRouteMode == WorldGraph::Mode::LeapsOnly)
     {
-      worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
+      // World graph route.
+      result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);
     }
     else
     {
-      worldGraph.SetMode(WorldGraph::Mode::SingleMwm);
+      // Single mwm route.
+      IndexGraph & indexGraph = worldGraph.GetIndexGraph(current.GetMwmId());
+      result = FindPath(current, next, delegate, indexGraph, {} /* onVisitedVertexCallback */, routingResult);
     }
-
-    ++i;
-    CHECK_LESS(i, input.size(), ());
-    Segment const & next = input[i];
-
-    CHECK_NOT_EQUAL(current, IndexGraphStarter::kFinishFakeSegment, ());
-    CHECK_NOT_EQUAL(next, IndexGraphStarter::kStartFakeSegment, ());
-    if (current != IndexGraphStarter::kStartFakeSegment &&
-        next != IndexGraphStarter::kFinishFakeSegment)
-    {
-      CHECK_EQUAL(
-          current.GetMwmId(), next.GetMwmId(),
-          ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
-    }
-
-    IndexGraphStarter::FakeVertex const start(current, starter.GetPoint(current, true /* front */), false /* soft */);
-    IndexGraphStarter::FakeVertex const finish(next, starter.GetPoint(next, true /* front */), false /* soft */);
-
-    IndexGraphStarter leapStarter(start, finish, starter.GetGraph());
-
-    // Clear previous loaded graphs.
-    // Dont spend too much memory at one time.
-    worldGraph.ClearIndexGraphs();
-
-    AStarAlgorithm<IndexGraphStarter> algorithm;
-    RoutingResult<Segment> routingResult;
-    auto const resultCode = algorithm.FindPathBidirectional(
-        leapStarter, leapStarter.GetStart(), leapStarter.GetFinish(), routingResult, delegate, {});
-
-    switch (resultCode)
-    {
-    case AStarAlgorithm<IndexGraphStarter>::Result::NoPath: return IRouter::RouteNotFound;
-    case AStarAlgorithm<IndexGraphStarter>::Result::Cancelled: return IRouter::Cancelled;
-    case AStarAlgorithm<IndexGraphStarter>::Result::OK:
-      for (Segment const & segment : routingResult.path)
-      {
-        if (!IndexGraphStarter::IsFakeSegment(segment))
-          output.push_back(segment);
-      }
-    }
+    if (result != IRouter::NoError)
+      return result;
+    output.insert(output.end(), routingResult.path.cbegin(), routingResult.path.cend());
   }
 
   return IRouter::NoError;

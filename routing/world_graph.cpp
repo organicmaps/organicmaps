@@ -47,6 +47,23 @@ RoadGeometry const & WorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featur
   return GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
 }
 
+void WorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
+{
+  edges.clear();
+  GetEdgeList(segment, true /* isOutgoing */, false /* isLeap */, edges);
+}
+
+void WorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
+{
+  edges.clear();
+  GetEdgeList(segment, false /* isOutgoing */, false /* isLeap */, edges);
+}
+
+double WorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
+{
+  return m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
+}
+
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
 {
   m_twins.clear();

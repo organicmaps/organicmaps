@@ -17,9 +17,13 @@ namespace routing
 class WorldGraph final
 {
 public:
+  // AStarAlgorithm types aliases:
+  using TVertexType = IndexGraph::TVertexType;
+  using TEdgeType = IndexGraph::TEdgeType;
+
   // CheckGraphConnectivity() types aliases:
-  using Vertex = Segment;
-  using Edge = SegmentEdge;
+  using Vertex = TVertexType;
+  using Edge = TEdgeType;
 
   enum class Mode
   {
@@ -49,7 +53,12 @@ public:
   void ClearIndexGraphs() { m_loader->Clear(); }
   void SetMode(Mode mode) { m_mode = mode; }
   Mode GetMode() const { return m_mode; }
-  
+
+  // Interface for AStarAlgorithm:
+  void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+  void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+  double HeuristicCostEstimate(Segment const & from, Segment const & to);
+
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)
   {
@@ -61,7 +70,7 @@ public:
     return m_crossMwmGraph->IsTransition(s, isOutgoing);
   }
 
-private:  
+private:
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

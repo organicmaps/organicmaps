@@ -23,6 +23,10 @@ namespace routing
 class IndexGraph final
 {
 public:
+  // AStarAlgorithm types aliases:
+  using TVertexType = Segment;
+  using TEdgeType = SegmentEdge;
+
   IndexGraph() = default;
   explicit IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator);
 
@@ -44,6 +48,11 @@ public:
 
   void SetRestrictions(RestrictionVec && restrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
+
+  // Interface for AStarAlgorithm:
+  void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+  void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
+  double HeuristicCostEstimate(Segment const & from, Segment const & to);
 
   void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
   {
@@ -69,6 +78,10 @@ private:
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           vector<SegmentEdge> & edges);
   double GetPenalties(Segment const & u, Segment const & v) const;
+  m2::PointD const & GetPoint(Segment const & segment, bool front)
+  {
+    return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
+  }
 
   Geometry m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;
