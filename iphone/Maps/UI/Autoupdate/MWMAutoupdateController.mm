@@ -9,7 +9,7 @@
 
 namespace
 {
-  string RootId() { return GetFramework().GetStorage().GetRootId(); }
+string RootId() { return GetFramework().GetStorage().GetRootId(); }
 }  // namespace
 
 @interface MWMAutoupdateView : UIView
@@ -72,7 +72,6 @@ namespace
   NSString * pattern = [L(@"whats_new_auto_update_button_size") stringByReplacingOccurrencesOfString:@"%s"
                                                             withString:@"%@"];
   self.primaryButton.localizedText = [NSString stringWithFormat:pattern, self.updateSize];
-  [MWMStorage cancelDownloadNode:RootId()];
 }
 
 - (void)startSpinner
@@ -177,7 +176,17 @@ namespace
   NodeStatuses nodeStatuses;
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status == NodeStatus::Error)
-    [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
+  {
+    SEL const process = @selector(processError);
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:process object:nil];
+    [self performSelector:process withObject:nil afterDelay:0.2];
+  }
+}
+
+- (void)processError
+{
+  [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
+  [MWMStorage cancelDownloadNode:RootId()];
 }
 
 - (void)processCountry:(TCountryId const &)countryId
