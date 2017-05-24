@@ -86,6 +86,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
@@ -1062,7 +1063,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPlacePage != null)
       mPlacePage.restore();
 
-    LikesManager.INSTANCE.showDialogs(this);
+    if (!LikesManager.INSTANCE.isNewUser() && Counters.isShowReviewForOldUser())
+    {
+      LikesManager.INSTANCE.showRateDialogForOldUser(this);
+      Counters.setShowReviewForOldUser(false);
+    }
+    else
+    {
+      LikesManager.INSTANCE.showDialogs(this);
+    }
   }
 
 

@@ -4,6 +4,15 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
 
+import static com.mapswithme.util.Counters.KEY_APP_FIRST_INSTALL_FLAVOR;
+import static com.mapswithme.util.Counters.KEY_APP_FIRST_INSTALL_VERSION;
+import static com.mapswithme.util.Counters.KEY_APP_LAST_SESSION_TIMESTAMP;
+import static com.mapswithme.util.Counters.KEY_APP_LAUNCH_NUMBER;
+import static com.mapswithme.util.Counters.KEY_APP_SESSION_NUMBER;
+import static com.mapswithme.util.Counters.KEY_LIKES_LAST_RATED_SESSION;
+import static com.mapswithme.util.Counters.KEY_MISC_FIRST_START_DIALOG_SEEN;
+import static com.mapswithme.util.Counters.KEY_MISC_NEWS_LAST_VERSION;
+
 public final class Config
 {
   private static final String KEY_APP_STORAGE = "StoragePath";
@@ -91,6 +100,21 @@ public final class Config
   private static void setBool(String key, boolean value)
   {
     nativeSetBoolean(key, value);
+  }
+
+  public static void migrateCountersToSharedPrefs()
+  {
+    MwmApplication.prefs()
+                  .edit()
+                  .putInt(KEY_APP_LAUNCH_NUMBER, getInt(KEY_APP_LAUNCH_NUMBER))
+                  .putInt(KEY_APP_FIRST_INSTALL_VERSION, getInt(KEY_APP_FIRST_INSTALL_VERSION))
+                  .putString(KEY_APP_FIRST_INSTALL_FLAVOR, getString(KEY_APP_FIRST_INSTALL_FLAVOR))
+                  .putLong(KEY_APP_LAST_SESSION_TIMESTAMP, getLong(KEY_APP_LAST_SESSION_TIMESTAMP))
+                  .putInt(KEY_APP_SESSION_NUMBER, getInt(KEY_APP_SESSION_NUMBER))
+                  .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, getBool(KEY_MISC_FIRST_START_DIALOG_SEEN))
+                  .putInt(KEY_MISC_NEWS_LAST_VERSION, getInt(KEY_MISC_NEWS_LAST_VERSION))
+                  .putInt(KEY_LIKES_LAST_RATED_SESSION, getInt(KEY_LIKES_LAST_RATED_SESSION))
+                  .apply();
   }
 
   public static String getStoragePath()

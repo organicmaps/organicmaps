@@ -14,6 +14,7 @@ import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
@@ -114,6 +115,13 @@ public class SplashActivity extends AppCompatActivity
     //  TODO show permissions dialog if Permissions is not granted
     if (!mPermissionsGranted || mCanceled)
       return;
+
+    if (Counters.isMigrationNeeded())
+    {
+      Config.migrateCountersToSharedPrefs();
+      Counters.setMigrationExecuted();
+      Counters.initCounters(this);
+    }
 
     sFirstStart = FirstStartFragment.showOn(this, this);
     if (sFirstStart)
