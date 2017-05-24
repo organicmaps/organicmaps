@@ -332,7 +332,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   auto data = self.data;
   if (!data)
-    return [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
+    return [[UITableViewCell alloc] init];
+
   id<MWMPlacePageButtonsProtocol> delegate = self.delegate;
   switch (data.sections[indexPath.section])
   {
