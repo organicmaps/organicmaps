@@ -15,18 +15,27 @@ GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
   {
 #ifdef OMIM_OS_ANDROID
     SetExtension(VertexArrayObject, false);
+    // On some Android devices glMapBufferRange/glMapBuffer works very slow.
+    // We have to substitute these functions to glBufferData/glBufferSubData.
+    SetExtension(MapBuffer, false);
+    SetExtension(MapBufferRange, false);
 #else
     CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
-#endif
     CheckExtension(MapBuffer, "GL_OES_mapbuffer");
-    CheckExtension(UintIndices, "GL_OES_element_index_uint");
     CheckExtension(MapBufferRange, "GL_EXT_map_buffer_range");
+#endif
+    CheckExtension(UintIndices, "GL_OES_element_index_uint");
   }
   else
   {
-    SetExtension(VertexArrayObject, true);
+#ifdef OMIM_OS_ANDROID
+    SetExtension(MapBuffer, false);
+    SetExtension(MapBufferRange, false);
+#else
     SetExtension(MapBuffer, true);
     SetExtension(MapBufferRange, true);
+#endif
+    SetExtension(VertexArrayObject, true);
     SetExtension(UintIndices, true);
   }
 #elif defined(OMIM_OS_WINDOWS)

@@ -76,6 +76,7 @@ void GPUBuffer::UploadData(void const * data, uint32_t elementCount)
 }
 
 void GPUBuffer::Bind() { GLFunctions::glBindBuffer(m_bufferID, glTarget(m_t)); }
+
 void * GPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
 {
 #ifdef DEBUG
@@ -90,7 +91,11 @@ void * GPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
   }
   else if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
   {
-    ASSERT(IsMapBufferSupported(), ());
+    if (!IsMapBufferSupported())
+    {
+      m_mappingOffset = elementOffset;
+      return nullptr;
+    }
     m_mappingOffset = 0;
     uint32_t const elementSize = GetElementSize();
     uint32_t const byteOffset = elementOffset * elementSize;
@@ -125,7 +130,7 @@ void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOff
   {
     ASSERT(gpuPtr == nullptr, ());
     if (byteOffset == 0 && byteCount == byteCapacity)
-      GLFunctions::glBufferData(glTarget(m_t), byteCount, data, gl_const::GLStaticDraw);
+      GLFunctions::glBufferData(glTarget(m_t), byteCount, data, gl_const::GLDynamicDraw);
     else
       GLFunctions::glBufferSubData(glTarget(m_t), byteCount, data, byteOffset);
   }
@@ -137,6 +142,7 @@ void GPUBuffer::Unmap()
   ASSERT(m_isMapped, ());
   m_isMapped = false;
 #endif
+
   m_mappingOffset = 0;
   if (IsMapBufferSupported())
     GLFunctions::glUnmapBuffer(glTarget(m_t));

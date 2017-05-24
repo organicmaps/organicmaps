@@ -245,6 +245,7 @@ uint32_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingIn
 }
 
 uint32_t VertexArrayBuffer::GetIndexCount() const { return GetIndexBuffer()->GetCurrentSize(); }
+
 void VertexArrayBuffer::UploadIndexes(void const * data, uint32_t count)
 {
   ASSERT_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
@@ -317,7 +318,9 @@ void VertexArrayBuffer::Unbind() const
 }
 
 void VertexArrayBuffer::BindStaticBuffers() const { BindBuffers(m_staticBuffers); }
+
 void VertexArrayBuffer::BindDynamicBuffers() const { BindBuffers(m_dynamicBuffers); }
+
 void VertexArrayBuffer::BindBuffers(BuffersMap const & buffers) const
 {
   for (auto it = buffers.begin(); it != buffers.end(); ++it)
