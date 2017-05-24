@@ -633,7 +633,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public boolean isMapAttached()
   {
-    return mMapFragment != null;
+    return mMapFragment != null && mMapFragment.isAdded();
   }
 
   private void initNavigationButtons()
