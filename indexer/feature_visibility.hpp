@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/drawing_rule_def.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/feature_decl.hpp"
 
 #include "base/base.hpp"
@@ -64,6 +65,7 @@ namespace feature
                               drule::KeysT & keys);
   void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
                    drule::KeysT & keys);
+  void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys);
 
   /// Used to check whether user types belong to particular classificator set.
   class TypeSetChecker

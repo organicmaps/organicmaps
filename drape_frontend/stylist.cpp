@@ -68,17 +68,6 @@ bool IsMiddleTunnel(int const layer, double const depth)
   return layer != feature::LAYER_EMPTY && depth < 19000;
 }
 
-void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys)
-{
-  keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
-  {
-    drule::BaseRule const * const rule = drule::rules().Find(key);
-    if (rule == nullptr)
-      return true;
-    return !rule->TestFeature(f, zoomLevel);
-  });
-}
-
 class Aggregator
 {
 public:
@@ -382,7 +371,7 @@ bool InitStylist(FeatureType const & f, int8_t deviceLang, int const zoomLevel, 
   drule::KeysT keys;
   pair<int, bool> const geomType = feature::GetDrawRule(types, zoomLevel, keys);
 
-  FilterRulesByRuntimeSelector(f, zoomLevel, keys);
+  feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   if (keys.empty())
     return false;
@@ -433,7 +422,7 @@ double GetFeaturePriority(FeatureType const & f, int const zoomLevel)
   drule::KeysT keys;
   pair<int, bool> const geomType = feature::GetDrawRule(f, zoomLevel, keys);
 
-  FilterRulesByRuntimeSelector(f, zoomLevel, keys);
+  feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
   feature::EGeomType const mainGeomType = feature::EGeomType(geomType.first);
 

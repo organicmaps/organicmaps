@@ -1,6 +1,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -112,6 +112,17 @@ void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
 
   for (uint32_t t : types)
     (void)c.ProcessObjects(t, doRules);
+}
+
+void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys)
+{
+  keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
+  {
+    drule::BaseRule const * const rule = drule::rules().Find(key);
+    if (rule == nullptr)
+      return true;
+    return !rule->TestFeature(f, zoomLevel);
+  });
 }
 
 namespace

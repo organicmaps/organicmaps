@@ -185,6 +185,8 @@ private:
       // Calculate depth field
       drule::KeysT keys;
       feature::GetDrawRule(ft, zoomLevel, keys);
+      // While the function has "runtime" in its name, it merely filters by metadata-based rules.
+      feature::FilterRulesByRuntimeSelector(ft, zoomLevel, keys);
       drule::MakeUnique(keys);
       float depth = 0;
       for (size_t i = 0, count = keys.size(); i < count; ++i)
