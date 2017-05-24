@@ -86,6 +86,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
@@ -358,6 +359,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPanelAnimator.show(fragmentClass, args, completionListener);
   }
 
+  public boolean containsFragment(@NonNull Class<? extends Fragment> fragmentClass)
+  {
+    return mIsFragmentContainer && getFragment(fragmentClass) != null;
+  }
+
   private void showBookmarks()
   {
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
@@ -623,6 +629,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       container.setOnTouchListener(this);
       mRootView = (ViewGroup) container.getParent();
     }
+  }
+
+  public boolean isMapAttached()
+  {
+    return mMapFragment != null && mMapFragment.isAdded();
   }
 
   private void initNavigationButtons()
@@ -1051,6 +1062,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().restore();
     if (mPlacePage != null)
       mPlacePage.restore();
+
+    if (!LikesManager.INSTANCE.isNewUser() && Counters.isShowReviewForOldUser())
+    {
+      LikesManager.INSTANCE.showRateDialogForOldUser(this);
+      Counters.setShowReviewForOldUser(false);
+    }
+    else
+    {
+      LikesManager.INSTANCE.showDialogs(this);
+    }
   }
 
 

@@ -13,16 +13,18 @@ import com.mapswithme.maps.R;
 
 public final class Counters
 {
-  private static final String KEY_APP_LAUNCH_NUMBER = "LaunchNumber";
-  private static final String KEY_APP_FIRST_INSTALL_VERSION = "FirstInstallVersion";
-  private static final String KEY_APP_FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
-  private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
-  private static final String KEY_APP_SESSION_NUMBER = "SessionNumber";
-  private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
-  private static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
-  private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
+  static final String KEY_APP_LAUNCH_NUMBER = "LaunchNumber";
+  static final String KEY_APP_FIRST_INSTALL_VERSION = "FirstInstallVersion";
+  static final String KEY_APP_FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
+  static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
+  static final String KEY_APP_SESSION_NUMBER = "SessionNumber";
+  static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
+  static final String KEY_MISC_NEWS_LAST_VERSION = "WhatsNewShownVersion";
+  static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
+  private static final String KEY_SHOW_REVIEW_FOR_OLD_USER = "ShowReviewForOldUser";
+  private static final String KEY_MIGRATION_EXECUTED = "MigrationExecuted";
 
   private Counters() {}
 
@@ -172,5 +174,31 @@ public final class Counters
                   .putInt(key, ++value)
                   .apply();
     return value;
+  }
+
+  public static void setShowReviewForOldUser(boolean value)
+  {
+    MwmApplication.prefs()
+                  .edit()
+                  .putBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, value)
+                  .apply();
+  }
+
+  public static boolean isShowReviewForOldUser()
+  {
+    return MwmApplication.prefs().getBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, false);
+  }
+
+  public static boolean isMigrationNeeded()
+  {
+    return !MwmApplication.prefs().getBoolean(KEY_MIGRATION_EXECUTED, false);
+  }
+
+  public static void setMigrationExecuted()
+  {
+    MwmApplication.prefs()
+                  .edit()
+                  .putBoolean(KEY_MIGRATION_EXECUTED, true)
+                  .apply();
   }
 }

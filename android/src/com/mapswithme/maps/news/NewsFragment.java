@@ -93,6 +93,7 @@ public class NewsFragment extends BaseNewsFragment
     create(activity, NewsFragment.class, listener);
 
     Counters.setWhatsNewShown();
+    Counters.setShowReviewForOldUser(true);
 
     return true;
   }

@@ -10,11 +10,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
@@ -116,6 +116,13 @@ public class SplashActivity extends AppCompatActivity
     if (!mPermissionsGranted || mCanceled)
       return;
 
+    if (Counters.isMigrationNeeded())
+    {
+      Config.migrateCountersToSharedPrefs();
+      Counters.setMigrationExecuted();
+      Counters.initCounters(this);
+    }
+
     sFirstStart = FirstStartFragment.showOn(this, this);
     if (sFirstStart)
     {
@@ -149,7 +156,6 @@ public class SplashActivity extends AppCompatActivity
       }
       else
       {
-        LikesManager.INSTANCE.showDialogs(this);
         processNavigation();
       }
     }
