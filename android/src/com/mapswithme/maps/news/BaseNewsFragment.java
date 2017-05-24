@@ -332,6 +332,12 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
     return true;
   }
 
+  @Nullable
+  protected NewsDialogListener getListener()
+  {
+    return mListener;
+  }
+
   public interface NewsDialogListener
   {
     void onDialogDone();

@@ -2,30 +2,17 @@ package com.mapswithme.maps.news;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.Counters;
 
 public class NewsFragment extends BaseNewsFragment
 {
-  private static final long DONE_DELAY = MwmApplication.get().getResources()
-                                                .getInteger(android.R.integer.config_longAnimTime);
-
-  @NonNull
-  private final Runnable mDoneTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      NewsFragment.super.onDoneClick();
-    }
-  };
 
   private class Adapter extends BaseNewsFragment.Adapter
   {
@@ -75,17 +62,10 @@ public class NewsFragment extends BaseNewsFragment
   @Override
   protected void onDoneClick()
   {
-    if (!UpdaterDialogFragment.showOn(getActivity()))
+    if (!UpdaterDialogFragment.showOn(getActivity(), getListener()))
       super.onDoneClick();
     else
-      UiThread.runLater(mDoneTask, DONE_DELAY);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    UiThread.cancelDelayedTasks(mDoneTask);
-    super.onDestroy();
+      dismissAllowingStateLoss();
   }
 
   /**
@@ -93,7 +73,7 @@ public class NewsFragment extends BaseNewsFragment
    * @return whether "What's new" dialog should be shown.
    */
   public static boolean showOn(@NonNull FragmentActivity activity,
-                               @Nullable NewsDialogListener listener)
+                               final @Nullable NewsDialogListener listener)
   {
     if (Counters.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
       return false;
@@ -102,6 +82,10 @@ public class NewsFragment extends BaseNewsFragment
     if (fm.isDestroyed())
       return false;
 
+    Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
+    if (f != null)
+      return UpdaterDialogFragment.showOn(activity, listener);
+
     if (Counters.getLastWhatsNewVersion() / 10 >= BuildConfig.VERSION_CODE / 10 &&
         !recreate(activity, NewsFragment.class))
       return false;
@@ -109,6 +93,7 @@ public class NewsFragment extends BaseNewsFragment
     create(activity, NewsFragment.class, listener);
 
     Counters.setWhatsNewShown();
+
     return true;
   }
 }
