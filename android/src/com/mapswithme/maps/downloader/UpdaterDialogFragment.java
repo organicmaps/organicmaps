@@ -54,7 +54,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @Nullable
   private String[] mOutdatedMaps;
   @Nullable
-  private BaseNewsFragment.NewsDialogListener mDoneTask;
+  private BaseNewsFragment.NewsDialogListener mDoneListener;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -126,8 +126,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private void finish()
   {
     dismiss();
-    if (mDoneTask != null)
-      mDoneTask.onDialogDone();
+    if (mDoneListener != null)
+      mDoneListener.onDialogDone();
   }
 
   @NonNull
@@ -167,7 +167,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   };
 
   public static boolean showOn(@NonNull FragmentActivity activity,
-                               @Nullable BaseNewsFragment.NewsDialogListener doneTask)
+                               @Nullable BaseNewsFragment.NewsDialogListener doneListener)
   {
     final FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
@@ -205,7 +205,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
     fragment.setArguments(args);
-    fragment.mDoneTask = doneTask;
+    fragment.mDoneListener = doneListener;
     FragmentTransaction transaction = fm.beginTransaction()
       .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
     fragment.show(transaction, UpdaterDialogFragment.class.getName());
@@ -285,8 +285,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (MapManager.nativeIsDownloading())
       MapManager.nativeCancel(CountryItem.getRootId());
 
-    if (mDoneTask != null)
-      mDoneTask.onDialogDone();
+    if (mDoneListener != null)
+      mDoneListener.onDialogDone();
 
     super.onCancel(dialog);
   }
