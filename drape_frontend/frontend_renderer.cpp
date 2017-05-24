@@ -1268,7 +1268,7 @@ void FrontendRenderer::PrepareBucket(dp::GLState const & state, drape_ptr<dp::Re
 
 void FrontendRenderer::MergeBuckets()
 {
-  if (BatchMergeHelper::IsMergeSupported() == false)
+  if (!BatchMergeHelper::IsMergeSupported())
     return;
 
   ++m_mergeBucketsCounter;
