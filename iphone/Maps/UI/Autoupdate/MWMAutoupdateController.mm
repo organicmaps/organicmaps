@@ -3,6 +3,7 @@
 #import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMStorage.h"
+#import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"
 
 #include <vector>
@@ -10,6 +11,11 @@
 namespace
 {
 string RootId() { return GetFramework().GetStorage().GetRootId(); }
+enum class State
+{
+  Downloading,
+  Waiting
+};
 }  // namespace
 
 @interface MWMAutoupdateView : UIView
@@ -32,6 +38,7 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 
 @property(nonatomic) MWMCircularProgress * spinner;
 @property(copy, nonatomic) NSString * updateSize;
+@property(nonatomic) State state;
 
 - (void)startSpinner;
 - (void)stopSpinner;
@@ -58,6 +65,7 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 
 - (void)stateDownloading
 {
+  self.state = State::Downloading;
   self.primaryButton.hidden = YES;
   [self startSpinner];
   self.secondaryButton.localizedText = L(@"cancel");
@@ -66,6 +74,7 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 
 - (void)stateWaiting
 {
+  self.state = State::Waiting;
   [self stopSpinner];
   self.primaryButton.hidden = NO;
   self.secondaryButton.localizedText = L(@"whats_new_auto_update_button_later");
@@ -101,6 +110,8 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 @interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
 
 @property(nonatomic) Framework::DoAfterUpdate todo;
+@property(nonatomic) TMwmSize sizeInMB;
+@property(nonatomic) NodeErrorCode errorCode;
 
 @end
 
@@ -119,6 +130,7 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
   s.GetNodeAttrs(s.GetRootId(), attrs);
   TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
   view.updateSize = formattedSize(countrySizeInBytes);
+  controller.sizeInMB = countrySizeInBytes * MB;
   [MWMFrameworkListener addObserver:controller];
   return controller;
 }
@@ -126,11 +138,19 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [Statistics logEvent:kStatDownloaderOnStartScreenShow
+        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
+  {
     [view stateDownloading];
+    [Statistics logEvent:kStatDownloaderOnStartScreenAutoDownload
+          withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
+  }
   else
+  {
     [view stateWaiting];
+  }
 }
 
 - (void)dismiss
@@ -145,12 +165,19 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 {
   [static_cast<MWMAutoupdateView *>(self.view) stateDownloading];
   [MWMStorage updateNode:RootId()];
+  [Statistics logEvent:kStatDownloaderOnStartScreenManualDownload
+        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 
 - (IBAction)cancelTap
 {
   [MWMStorage cancelDownloadNode:RootId()];
   [self dismiss];
+  auto view = static_cast<MWMAutoupdateView *>(self.view);
+  [Statistics logEvent:view.state == State::Downloading ?
+                                     kStatDownloaderOnStartScreenCancelDownload :
+                                     kStatDownloaderOnStartScreenSelectLater
+        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -167,6 +194,8 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 {
   [MWMStorage cancelDownloadNode:RootId()];
   [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
+  [Statistics logEvent:kStatDownloaderOnStartScreenCancelDownload
+        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -177,6 +206,7 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status == NodeStatus::Error)
   {
+    self.errorCode = nodeStatuses.m_error;
     SEL const process = @selector(processError);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:process object:nil];
     [self performSelector:process withObject:nil afterDelay:0.2];
@@ -187,6 +217,24 @@ string RootId() { return GetFramework().GetStorage().GetRootId(); }
 {
   [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
   [MWMStorage cancelDownloadNode:RootId()];
+  auto errorType = ^NSString * (NodeErrorCode code)
+  {
+    switch (code)
+    {
+    case storage::NodeErrorCode::NoError:
+      LOG(LWARNING, ("Incorrect error type"));
+      return @"";
+    case storage::NodeErrorCode::NoInetConnection:
+      return @"no internet connection";
+    case storage::NodeErrorCode::UnknownError:
+      return  @"unknown error";
+    case storage::NodeErrorCode::OutOfMemFailed:
+      return @"not enough space";
+    }
+  }(self.errorCode);
+  
+  [Statistics logEvent:kStatDownloaderOnStartScreenError
+        withParameters:@{kStatMapDataSize : @(self.sizeInMB), kStatType : errorType}];
 }
 
 - (void)processCountry:(TCountryId const &)countryId
