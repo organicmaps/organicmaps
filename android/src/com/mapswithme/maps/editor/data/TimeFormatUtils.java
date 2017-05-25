@@ -24,7 +24,7 @@ public class TimeFormatUtils
     {
       sCurrentLocale = Locale.getDefault();
       sShortWeekdays = DateFormatSymbols.getInstance().getShortWeekdays();
-      for (int i = 1; i < sShortWeekdays.length; i++)
+      for (int i = 0; i < sShortWeekdays.length; i++)
       {
         sShortWeekdays[i] = Utils.capitalize(sShortWeekdays[i]);
       }

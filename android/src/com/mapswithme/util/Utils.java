@@ -424,7 +424,7 @@ public class Utils
     }
   }
 
-  public static String capitalize(String src)
+  public static String capitalize(@Nullable String src)
   {
     if (TextUtils.isEmpty(src))
       return src;
@@ -435,7 +435,7 @@ public class Utils
     return Character.toUpperCase(src.charAt(0)) + src.substring(1);
   }
 
-  public static String unCapitalize(String src)
+  public static String unCapitalize(@Nullable String src)
   {
     if (TextUtils.isEmpty(src))
       return src;
