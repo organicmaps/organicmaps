@@ -95,7 +95,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader
   @Override
   public void onAdImpressed()
   {
-    // No op.
+    LOGGER.d(TAG, "on MoPub Ad impressed");
   }
 
   @Override

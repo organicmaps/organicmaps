@@ -186,7 +186,7 @@ final class BannerController
     }
 
     UiUtils.show(mFrame);
-    mAdsLoader.loadAd(MwmApplication.get(), mBanners);
+    mAdsLoader.loadAd(mFrame.getContext(), mBanners);
     updateVisibility();
   }
 
