@@ -6,7 +6,6 @@ TEXT_PROGRAM text.vsh.glsl text.fsh.glsl
 TEXT_FIXED_PROGRAM text.vsh.glsl text_fixed.fsh.glsl
 TEXT_OUTLINED_GUI_PROGRAM text_outlined_gui.vsh.glsl text.fsh.glsl
 AREA_PROGRAM area.vsh.glsl solid_color.fsh.glsl
-HATCHING_AREA_PROGRAM hatching_area.vsh.glsl hatching_area.fsh.glsl
 AREA_OUTLINE_PROGRAM area.vsh.glsl solid_color.fsh.glsl
 AREA_3D_PROGRAM area3d.vsh.glsl texturing3d.fsh.glsl
 AREA_3D_OUTLINE_PROGRAM area3d_outline.vsh.glsl solid_color.fsh.glsl
@@ -14,6 +13,7 @@ LINE_PROGRAM line.vsh.glsl line.fsh.glsl
 CAP_JOIN_PROGRAM circle.vsh.glsl circle.fsh.glsl
 DASHED_LINE_PROGRAM dashed_line.vsh.glsl dashed_line.fsh.glsl
 PATH_SYMBOL_LINE path_symbol.vsh.glsl texturing.fsh.glsl
+HATCHING_AREA_PROGRAM hatching_area.vsh.glsl hatching_area.fsh.glsl
 TEXTURING_GUI_PROGRAM texturing_gui.vsh.glsl texturing.fsh.glsl
 RULER_PROGRAM ruler.vsh.glsl texturing.fsh.glsl
 ACCURACY_PROGRAM position_accuracy3d.vsh.glsl texturing.fsh.glsl
