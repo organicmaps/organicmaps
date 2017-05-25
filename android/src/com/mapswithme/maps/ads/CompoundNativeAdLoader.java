@@ -73,7 +73,15 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
       mLoaders.add(loader);
       attach();
       loader.setAdListener(this);
-      loader.loadAd(context, banner.getId());
+      // TODO: this workaround is need to avoid memory leak of activity context in MyTarget SDK.
+      // The fix of myTarged sdk will be done in this issue https://jira.mail.ru/browse/MOBADS-207.
+      // After the mentioned issued is fixed, this workaround should be removed. Also, we can't use
+      // the application context for all providers, because some of them (e.g. Mopub) requires an
+      // activity context and can't work with application context correctly.
+      if (loader instanceof MyTargetAdsLoader)
+        loader.loadAd(context.getApplicationContext(), banner.getId());
+      else
+        loader.loadAd(context, banner.getId());
     }
   }
 
