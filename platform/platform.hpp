@@ -165,7 +165,8 @@ public:
                              TFilesWithType & outFiles);
 
   static bool IsDirectoryEmpty(string const & directory);
-  static bool IsDirectory(string const & directory);
+  // Returns true if |path| refers to a directory. Returns false otherwise or on error.
+  static bool IsDirectory(string const & path);
 
   static EError GetFileType(string const & path, EFileType & type);
 

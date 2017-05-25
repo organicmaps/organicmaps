@@ -13,10 +13,13 @@
 
 #include <cstdint>
 #include <cstdio>
+#include <string>
 #include <vector>
 
 DEFINE_string(input, "", "Path to OpenLR file.");
 DEFINE_string(output, "output.txt", "Path to output file");
+DEFINE_string(non_matched_ids, "non-matched-ids.txt",
+              "Path to a file ids of non-matched segments will be saved to");
 DEFINE_string(mwms_path, "", "Path to a folder with mwms.");
 DEFINE_int32(limit, -1, "Max number of segments to handle. -1 for all.");
 DEFINE_bool(multipoints_only, false, "Only segments with multiple points to handle.");
@@ -133,7 +136,7 @@ int main(int argc, char * argv[])
 
   OpenLRSimpleDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
   OpenLRSimpleDecoder decoder(FLAGS_input, indexes);
-  decoder.Decode(FLAGS_output, FLAGS_limit, filter, numThreads);
+  decoder.Decode(FLAGS_output, FLAGS_non_matched_ids, FLAGS_limit, filter, numThreads);
 
   return 0;
 }

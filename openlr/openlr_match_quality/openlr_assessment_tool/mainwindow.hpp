@@ -1,8 +1,10 @@
 #pragma once
 
-#include "openlr/openlr_match_quality/assessment_tool/traffic_mode.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_mode.hpp"
 
 #include "base/string_utils.hpp"
+
+#include <string>
 
 #include <QMainWindow>
 
@@ -12,7 +14,7 @@ class TrafficMode;
 namespace df
 {
 class DrapeApi;
-}  // namespace df
+}
 
 class QDockWidget;
 
@@ -24,7 +26,7 @@ public:
   MainWindow(Framework & framework);
 
 private:
-  void CreateTrafficPanel(string const & dataFilePath, string const & sampleFilePath);
+  void CreateTrafficPanel(std::string const & dataFilePath, std::string const & sampleFilePath);
   void DestroyTrafficPanel();
 
   void OnOpenTrafficSample();

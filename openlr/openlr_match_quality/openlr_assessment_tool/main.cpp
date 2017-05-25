@@ -1,6 +1,6 @@
 #include "map/framework.hpp"
 
-#include "openlr/openlr_match_quality/assessment_tool/mainwindow.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 

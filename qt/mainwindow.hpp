@@ -29,7 +29,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
 {
   DrawWidget * m_pDrawWidget = nullptr;
   // TODO(mgsergio): Make indexing more informative.
-  array<QDockWidget *, 1> m_Docks;
+  std::array<QDockWidget *, 1> m_Docks;
 
   QPushButton * m_downloadButton = nullptr;
   QPushButton * m_retryButton = nullptr;

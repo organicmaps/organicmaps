@@ -52,6 +52,22 @@ struct alignas(kCacheLineSize) Stats
   uint32_t m_total = 0;
 };
 
+void SaveNonMatchedIds(string const & filename, std::vector<LinearSegment> const & segments,
+                       std::vector<IRoadGraph::TEdgeVector> const & paths)
+{
+  CHECK_EQUAL(segments.size(), paths.size(), ());
+
+  if (filename.empty())
+    return;
+
+  ofstream ofs(filename);
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    if (paths[i].empty())
+      ofs << segments[i].m_segmentId << endl;
+  }
+}
+
 openlr::SamplePool MakeSamplePool(std::vector<LinearSegment> const & segments,
                                   std::vector<IRoadGraph::TEdgeVector> const & paths)
 {
@@ -118,7 +134,8 @@ OpenLRSimpleDecoder::OpenLRSimpleDecoder(string const & dataFilename, vector<Ind
     MYTHROW(DecoderError, ("Can't load file", dataFilename, ":", load_result.description()));
 }
 
-void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmentsToHandle,
+void OpenLRSimpleDecoder::Decode(string const & outputFilename,
+                                 string const & nonMatchedIdsFilename, int const segmentsToHandle,
                                  SegmentsFilter const & filter, uint32_t const numThreads)
 {
   double const kOffsetToleranceM = 10;
@@ -228,6 +245,8 @@ void OpenLRSimpleDecoder::Decode(string const & outputFilename, int const segmen
   worker(0 /* threadNum */, m_indexes[0], stats[0]);
   for (auto & worker : workers)
     worker.join();
+
+  SaveNonMatchedIds(nonMatchedIdsFilename, segments, paths);
 
   auto const samplePool = MakeSamplePool(segments, paths);
   SaveSamplePool(outputFilename, samplePool, false /* saveEvaluation */);

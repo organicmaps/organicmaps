@@ -1,7 +1,7 @@
-#include "openlr/openlr_match_quality/assessment_tool/mainwindow.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
 
-#include "openlr/openlr_match_quality/assessment_tool/traffic_panel.hpp"
-#include "openlr/openlr_match_quality/assessment_tool/trafficmodeinitdlg.h"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_panel.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/trafficmodeinitdlg.h"
 
 #include "qt/qt_common/map_widget.hpp"
 
@@ -86,18 +86,18 @@ MainWindow::MainWindow(Framework & framework)
   // setWindowTitle(tr("MAPS.ME"));
   // setWindowIcon(QIcon(":/ui/logo.png"));
 
-  QMenu * fileMenu = new QMenu(tr("File"), this);
+  QMenu * fileMenu = new QMenu("File", this);
   menuBar()->addMenu(fileMenu);
 
-  fileMenu->addAction(tr("Open sample"), this, &MainWindow::OnOpenTrafficSample);
+  fileMenu->addAction("Open sample", this, &MainWindow::OnOpenTrafficSample);
 
   m_closeTrafficSampleAction = fileMenu->addAction(
-      tr("Close sample"), this, &MainWindow::OnCloseTrafficSample
+      "Close sample", this, &MainWindow::OnCloseTrafficSample
   );
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
 
   m_saveTrafficSampleAction = fileMenu->addAction(
-      tr("Save sample"), this, &MainWindow::OnSaveTrafficSample
+      "Save sample", this, &MainWindow::OnSaveTrafficSample
   );
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
 }
@@ -152,14 +152,14 @@ void MainWindow::OnCloseTrafficSample()
 void MainWindow::OnSaveTrafficSample()
 {
   // TODO(mgsergio): Add default filename.
-  auto const & fileName = QFileDialog::getSaveFileName(this, tr("Save sample"));
+  auto const & fileName = QFileDialog::getSaveFileName(this, "Save sample");
   if (fileName.isEmpty())
     return;
 
   if (!m_trafficMode->SaveSampleAs(fileName.toStdString()))
   {
     QMessageBox::critical(
-        this, tr("Saving error"),
-        tr("Can't save file: ") + strerror(errno));
+        this, "Saving error",
+        QString("Can't save file: ") + strerror(errno));
   }
 }

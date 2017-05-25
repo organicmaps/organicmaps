@@ -1,4 +1,4 @@
-#include "openlr/openlr_match_quality/assessment_tool/traffic_mode.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_mode.hpp"
 
 #include "openlr/openlr_simple_parser.hpp"
 
@@ -10,8 +10,6 @@
 #include "3party/pugixml/src/pugixml.hpp"
 
 #include <QtCore/QItemSelection>
-
-#include <fstream>
 
 
 // DecodedSample -----------------------------------------------------------------------------------
@@ -171,6 +169,7 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
 
   // TODO(mgsergio): Use algo for center calculation.
   // Now viewport is set to the first point of the first segment.
+  CHECK_LESS(row, m_decodedSample->m_decodedItems.size(), ());
   auto & sampleItem = m_decodedSample->m_decodedItems[row];
   auto const partnerSegmentId = sampleItem.m_partnerSegmentId;
   LOG(LINFO, ("Partner segment id:", partnerSegmentId));

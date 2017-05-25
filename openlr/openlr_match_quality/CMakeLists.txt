@@ -1,3 +1,3 @@
 project(openlr_match_quality)
 
-add_subdirectory(assessment_tool)
+add_subdirectory(openlr_assessment_tool)

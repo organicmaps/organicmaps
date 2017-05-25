@@ -179,10 +179,10 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
 }
 
 // static
-bool Platform::IsDirectory(string const & directory)
+bool Platform::IsDirectory(string const & path)
 {
   EFileType fileType;
-  if (GetFileType(directory, fileType) != ERR_OK)
+  if (GetFileType(path, fileType) != ERR_OK)
     return false;
   return fileType == FILE_TYPE_DIRECTORY;
 }
