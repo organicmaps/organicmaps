@@ -120,7 +120,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     CGFloat const leftOffset =
         self.hidden ? -self.view.width : self.leftBound + kViewControlsOffsetToBounds;
     UIView * ov = self.view.superview;
-    [ov layoutIfNeeded];
+    [ov setNeedsLayout];
     self.topOffset.constant = topOffset;
     self.leftOffset.constant = leftOffset;
     [UIView animateWithDuration:kDefaultAnimationDuration
