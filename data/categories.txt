@@ -710,7 +710,7 @@ ko:^편의점
 nb:^Nærbutikk|nærbutikk
 pt:^Loja de conveniência
 ro:4^Magazin mixt
-es:^Tienda de ultramarinos|chino|bazar
+es:^Tienda de abarrotes|chino|bazar
 sv:^Närbutik
 th:^ร้านสะดวกซื้อ
 tr:^Bakkal
