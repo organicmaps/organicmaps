@@ -1748,7 +1748,8 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     SearchMarkPoint * mark =
         static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
     ASSERT_EQUAL(mark->GetMarkType(), UserMark::Type::SEARCH, ());
-    if (r.GetResultType() == search::Result::RESULT_FEATURE)
+    auto const isFeature = r.GetResultType() == search::Result::RESULT_FEATURE;
+    if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
     mark->SetMatchedName(r.GetString());
 
@@ -1756,7 +1757,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       mark->SetCustomSymbol("search-booking");
     else if (r.m_metadata.m_isSponsoredBank)
       mark->SetCustomSymbol("search-tinkoff");
-    else if (m_localAdsManager.Contains(r.GetFeatureID()))
+    else if (isFeature && m_localAdsManager.Contains(r.GetFeatureID()))
       mark->SetCustomSymbol("search-adv");
   }
 }
