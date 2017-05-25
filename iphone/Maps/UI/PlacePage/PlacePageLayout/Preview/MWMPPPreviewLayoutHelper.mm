@@ -348,6 +348,9 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   if (IPAD)
     return;
 
+  if (!self.data)
+    return;
+
   [self.tableView update:^{
     self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
   }];
