@@ -13,10 +13,73 @@
 
 namespace df
 {
+namespace
+{
+class TextureRendererContext : public RendererContext
+{
+public:
+  int GetGpuProgram() const override { return gpu::SCREEN_QUAD_PROGRAM; }
+
+  void PreRender(ref_ptr<dp::GpuProgram> prg) override
+  {
+    BindTexture(m_textureId, prg, "u_colorTex", 0 /* slotIndex */,
+                gl_const::GLLinear, gl_const::GLClampToEdge);
+
+    dp::UniformValuesStorage uniforms;
+    uniforms.SetFloatValue("u_opacity", m_opacity);
+    dp::ApplyUniforms(uniforms, prg);
+
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+    GLFunctions::glEnable(gl_const::GLBlending);
+  }
+
+  void PostRender() override
+  {
+    GLFunctions::glDisable(gl_const::GLBlending);
+    GLFunctions::glBindTexture(0);
+  }
+
+  void SetParams(uint32_t textureId, float opacity)
+  {
+    m_textureId = textureId;
+    m_opacity = opacity;
+  }
+
+private:
+  uint32_t m_textureId = 0;
+  float m_opacity = 1.0f;
+};
+}  // namespace
+
+void RendererContext::BindTexture(uint32_t textureId, ref_ptr<dp::GpuProgram> prg,
+                                  std::string const & uniformName, uint8_t slotIndex,
+                                  uint32_t filteringMode, uint32_t wrappingMode)
+{
+  int8_t const textureLocation = prg->GetUniformLocation(uniformName);
+  ASSERT_NOT_EQUAL(textureLocation, -1, ());
+  if (textureLocation < 0)
+    return;
+
+  GLFunctions::glActiveTexture(gl_const::GLTexture0 + slotIndex);
+  GLFunctions::glBindTexture(textureId);
+  GLFunctions::glUniformValuei(textureLocation, slotIndex);
+  GLFunctions::glTexParameter(gl_const::GLMinFilter, filteringMode);
+  GLFunctions::glTexParameter(gl_const::GLMagFilter, filteringMode);
+  GLFunctions::glTexParameter(gl_const::GLWrapS, wrappingMode);
+  GLFunctions::glTexParameter(gl_const::GLWrapT, wrappingMode);
+}
+
+ScreenQuadRenderer::ScreenQuadRenderer()
+  : m_textureRendererContext(make_unique_dp<TextureRendererContext>())
+{}
+
 ScreenQuadRenderer::~ScreenQuadRenderer()
 {
   if (m_bufferId != 0)
     GLFunctions::glDeleteBuffer(m_bufferId);
+
+  if (m_VAO != 0)
+    GLFunctions::glDeleteVertexArray(m_VAO);
 }
 
 void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
@@ -31,10 +94,7 @@ void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
 
   m_attributeTexCoord = prg->GetAttributeLocation("a_tcoord");
   ASSERT_NOT_EQUAL(m_attributeTexCoord, -1, ());
-
-  m_textureLocation = prg->GetUniformLocation("u_colorTex");
-  ASSERT_NOT_EQUAL(m_textureLocation, -1, ());
-
+  
   std::vector<float> vertices = {-1.0f, 1.0f,  m_textureRect.minX(), m_textureRect.maxY(),
                                  1.0f,  1.0f,  m_textureRect.maxX(), m_textureRect.maxY(),
                                  -1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),
@@ -50,28 +110,16 @@ void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
-void ScreenQuadRenderer::RenderTexture(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng,
-                                       float opacity)
+void ScreenQuadRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<RendererContext> context)
 {
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(context->GetGpuProgram());
   prg->Bind();
 
   if (m_bufferId == 0)
     Build(prg);
 
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  if (m_VAO != 0)
     GLFunctions::glBindVertexArray(m_VAO);
-
-  if (m_textureLocation >= 0)
-  {
-    GLFunctions::glActiveTexture(gl_const::GLTexture0);
-    GLFunctions::glBindTexture(textureId);
-    GLFunctions::glUniformValuei(m_textureLocation, 0);
-    GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear);
-    GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear);
-    GLFunctions::glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge);
-    GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
-  }
 
   GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
 
@@ -82,29 +130,39 @@ void ScreenQuadRenderer::RenderTexture(uint32_t textureId, ref_ptr<dp::GpuProgra
   GLFunctions::glVertexAttributePointer(m_attributeTexCoord, 2, gl_const::GLFloatType, false,
                                         sizeof(float) * 4, sizeof(float) * 2);
 
-  dp::UniformValuesStorage uniforms;
-  uniforms.SetFloatValue("u_opacity", opacity);
-  dp::ApplyUniforms(uniforms, prg);
-
-  GLFunctions::glEnable(gl_const::GLBlending);
+  context->PreRender(prg);
   GLFunctions::glDrawArrays(gl_const::GLTriangleStrip, 0, 4);
-  GLFunctions::glDisable(gl_const::GLBlending);
+  context->PostRender();
 
   prg->Unbind();
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindTexture(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+
+  if (m_VAO != 0)
+    GLFunctions::glBindVertexArray(0);
 }
 
-void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect, ref_ptr<dp::GpuProgramManager> mng)
+void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GpuProgramManager> mng, uint32_t textureId,
+                                       float opacity)
+{
+  ASSERT(dynamic_cast<TextureRendererContext *>(m_textureRendererContext.get()) != nullptr, ());
+
+  auto context = static_cast<TextureRendererContext *>(m_textureRendererContext.get());
+  context->SetParams(textureId, opacity);
+
+  Render(mng, make_ref(m_textureRendererContext));
+}
+
+void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect, ref_ptr<dp::GpuProgram> prg)
 {
   m_textureRect = rect;
+  Rebuild(prg);
+}
 
+void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GpuProgram> prg)
+{
   if (m_bufferId != 0)
     GLFunctions::glDeleteBuffer(m_bufferId);
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
   prg->Bind();
   Build(prg);
   prg->Unbind();

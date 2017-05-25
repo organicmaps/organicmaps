@@ -12,6 +12,7 @@
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
+#include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -785,14 +786,14 @@ private:
   bool const m_enableAutoZoom;
 };
 
-class InvalidateTexturesMessage : public BaseBlockingMessage
+class SwitchMapStyleMessage : public BaseBlockingMessage
 {
 public:
-  InvalidateTexturesMessage(Blocker & blocker)
+  SwitchMapStyleMessage(Blocker & blocker)
     : BaseBlockingMessage(blocker)
   {}
 
-  Type GetType() const override { return Message::InvalidateTextures; }
+  Type GetType() const override { return Message::SwitchMapStyle; }
 };
 
 class InvalidateMessage : public Message
@@ -1198,4 +1199,35 @@ private:
   std::vector<FeatureID> m_symbolsFeatures;
 };
 
-} // namespace df
+class SetPostprocessStaticTexturesMessage : public Message
+{
+public:
+  explicit SetPostprocessStaticTexturesMessage(drape_ptr<PostprocessStaticTextures> && textures)
+    : m_textures(std::move(textures))
+  {}
+
+  Type GetType() const override { return Message::SetPostprocessStaticTextures; }
+
+  drape_ptr<PostprocessStaticTextures> && AcceptTextures() { return std::move(m_textures); }
+
+private:
+  drape_ptr<PostprocessStaticTextures> m_textures;
+};
+
+class SetPosteffectEnabledMessage : public Message
+{
+public:
+  SetPosteffectEnabledMessage(PostprocessRenderer::Effect effect, bool enabled)
+    : m_effect(effect)
+    , m_enabled(enabled)
+  {}
+
+  Type GetType() const override { return Message::SetPosteffectEnabled; }
+  PostprocessRenderer::Effect GetEffect() const { return m_effect; }
+  bool IsEnabled() const { return m_enabled; }
+
+private:
+  PostprocessRenderer::Effect const m_effect;
+  bool const m_enabled;
+};
+}  // namespace df

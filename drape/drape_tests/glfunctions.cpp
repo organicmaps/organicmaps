@@ -318,6 +318,10 @@ void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
 
+void GLFunctions::glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass) {}
+
+void GLFunctions::glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask) {}
+
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
 {
   return MOCK_CALL(glGetBufferParameter(target, name));

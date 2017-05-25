@@ -46,6 +46,9 @@ public Q_SLOTS:
   void SliderPressed();
   void SliderReleased();
 
+  void AntialiasingOn();
+  void AntialiasingOff();
+
 public:
   Q_SIGNAL void BeforeEngineCreation();
 

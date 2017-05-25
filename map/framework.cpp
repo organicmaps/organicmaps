@@ -3072,16 +3072,31 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     desiredStyle = MapStyleVehicleDark;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
     desiredStyle = MapStyleVehicleClear;
-  else
-    return false;
 
+  if (desiredStyle != MapStyleCount)
+  {
 #if defined(OMIM_OS_ANDROID)
-  MarkMapStyle(desiredStyle);
+    MarkMapStyle(desiredStyle);
 #else
-  SetMapStyle(desiredStyle);
+    SetMapStyle(desiredStyle);
 #endif
+    return true;
+  }
 
-  return true;
+  if (query == "?aa" || query == "effect:antialiasing")
+  {
+    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
+                                        true /* enabled */);
+    return true;
+  }
+  else if (query == "?no-aa" || query == "effect:no-antialiasing")
+  {
+    m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
+                                        false /* enabled */);
+    return true;
+  }
+
+  return false;
 }
 
 bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
