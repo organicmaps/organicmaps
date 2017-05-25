@@ -27,7 +27,7 @@ struct Transliteration::TransliteratorInfo
 };
 
 Transliteration::Transliteration()
-  : m_enabled(true)
+  : m_mode(Mode::Enabled)
 {}
 
 Transliteration::~Transliteration()
@@ -62,14 +62,14 @@ void Transliteration::Init(std::string const & icuDataDir)
   }
 }
 
-void Transliteration::SetEnabled(bool enable)
+void Transliteration::SetMode(Transliteration::Mode mode)
 {
-  m_enabled = enable;
+  m_mode = mode;
 }
 
 bool Transliteration::Transliterate(std::string const & str, int8_t langCode, std::string & out) const
 {
-  if (!m_enabled)
+  if (m_mode != Mode::Enabled)
     return false;
 
   if (str.empty() || strings::IsASCIIString(str))

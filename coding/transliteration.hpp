@@ -8,19 +8,25 @@
 class Transliteration
 {
 public:
+  enum class Mode
+  {
+    Enabled,
+    Disabled
+  };
+
   ~Transliteration();
 
   static Transliteration & Instance();
 
   void Init(std::string const & icuDataDir);
 
-  void SetEnabled(bool enable);
+  void SetMode(Mode mode);
   bool Transliterate(std::string const & str, int8_t langCode, std::string & out) const;
 
 private:
   Transliteration();
 
-  std::atomic<bool> m_enabled;
+  std::atomic<Mode> m_mode;
 
   struct TransliteratorInfo;
   std::map<std::string, std::unique_ptr<TransliteratorInfo>> m_transliterators;
