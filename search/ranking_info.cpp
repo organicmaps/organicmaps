@@ -11,19 +11,26 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = -1.0000000;
-double const kRank = 0.7165246;
-double const kFalseCats = -0.3833900;
+double const kDistanceToPivot = -0.37897824370302247;
+double const kRank = 1.0;
+double const kFalseCats = -0.05775625793967508;
+
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-    -0.1069757 /* Zero */, -0.0250079 /* Substring Prefix */, 0.0447104 /* Substring */,
-    0.0872732 /* Full Match Prefix */, 0.0872732 /* Full Match */
+     -0.11436302557264734 /* Zero */
+    , 0.014295634567960331 /* Substring */
+    , 0.046219090910780115 /* Prefix */
+    , 0.05384830009390816 /* Full Match */
 };
 
 double const kSearchType[SearchModel::SEARCH_TYPE_COUNT] = {
-    -0.3884116 /* POI */,     -0.3884116 /* Building */,
-    -0.3214653 /* Street */,  -0.3357469 /* Unclassified */,
-    -0.4341714 /* Village */, 0.2721947 /* City */,
-    0.4708555 /* State */,    0.7367450 /* Country */
+      -0.09164609318265761 /* POI */
+    , -0.09164609318265761 /* Building */
+    , -0.0805969548653964 /* Street */
+    , -0.030493728520630793 /* Unclassified */
+    , -0.19242203325862917 /* Village */
+    , -0.10945592241057521 /* City */
+    , 0.19250143015921584 /* State */
+    , 0.31211330207867427 /* Country */
 };
 
 double TransformDistance(double distance)

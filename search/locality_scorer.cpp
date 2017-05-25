@@ -19,7 +19,7 @@ namespace
 {
 bool IsAlmostFullMatch(NameScore score)
 {
-  return score == NAME_SCORE_FULL_MATCH_PREFIX || score == NAME_SCORE_FULL_MATCH;
+  return score == NAME_SCORE_PREFIX || score == NAME_SCORE_FULL_MATCH;
 }
 }  // namespace
 

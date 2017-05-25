@@ -65,9 +65,8 @@ string DebugPrint(NameScore score)
   switch (score)
   {
   case NAME_SCORE_ZERO: return "Zero";
-  case NAME_SCORE_SUBSTRING_PREFIX: return "Substring Prefix";
   case NAME_SCORE_SUBSTRING: return "Substring";
-  case NAME_SCORE_FULL_MATCH_PREFIX: return "Full Match Prefix";
+  case NAME_SCORE_PREFIX: return "Prefix";
   case NAME_SCORE_FULL_MATCH: return "Full Match";
   case NAME_SCORE_COUNT: return "Count";
   }

@@ -64,7 +64,8 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
     meta.m_hotelRating = rating;
 
     int pricing;
-    strings::to_int(src.Get(feature::Metadata::FMD_PRICE_RATE), pricing);
+    if (!strings::to_int(src.Get(feature::Metadata::FMD_PRICE_RATE), pricing))
+      pricing = 0;
     string pricingStr;
     CHECK_GREATER_OR_EQUAL(pricing, 0, ("Pricing must be positive!"));
     for (auto i = 0; i < pricing; i++)
@@ -292,11 +293,12 @@ bool PreResult2::IsStreet() const
 string PreResult2::DebugPrint() const
 {
   stringstream ss;
-  ss << "{ IntermediateResult: " <<
-        "Name: " << m_str <<
-        "; Type: " << GetBestType() <<
-        "; Rank: " << static_cast<int>(m_info.m_rank) <<
-        "; Distance: " << m_distance << " }";
+  ss << "IntermediateResult [ "
+     << "Name: " << m_str
+     << "; Type: " << GetBestType()
+     << "; Ranking info: " << search::DebugPrint(m_info)
+     << "; Linear model rank: " << m_info.GetLinearModelRank()
+     << " ]";
   return ss.str();
 }
 
