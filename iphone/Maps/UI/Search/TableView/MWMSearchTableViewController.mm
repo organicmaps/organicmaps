@@ -148,6 +148,7 @@
   BOOL const noResults = [MWMSearch resultsCount] == 0;
   self.tableView.hidden = noResults;
   [(MWMSearchTableView *)self.view hideNoResultsView:!noResults];
+  [self reloadData];
 }
 
 - (void)onSearchResultsUpdated
