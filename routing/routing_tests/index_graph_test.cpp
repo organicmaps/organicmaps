@@ -375,7 +375,7 @@ UNIT_TEST(OneSegmentWay)
   IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
   IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 0, 0, m2::PointD(2, 0));
 
-  // According to picture above it seems that direction of route segment should be true but it's false
+  // According to picture below it seems that direction of route segment should be true but it's false
   // according to current code. The reason is the start and the finish of the route are projected to
   // the same segment. In IndexGraphStarter::GetEdgesList() two fake edges are added. One of them
   // from start to end of the segment. The other one is from beginning of the segment to the finish.

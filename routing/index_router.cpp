@@ -1,5 +1,6 @@
 #include "routing/index_router.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
 #include "routing/bicycle_directions.hpp"
 #include "routing/index_graph.hpp"
@@ -34,6 +35,24 @@ namespace
 size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
+
+template <typename Graph>
+IRouter::ResultCode FindPath(
+  typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
+  RouterDelegate const & delegate, Graph & graph,
+  typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
+  RoutingResult<typename Graph::TVertexType> & routingResult)
+{
+  AStarAlgorithm<Graph> algorithm;
+  auto const resultCode = algorithm.FindPathBidirectional(graph, start, finish, routingResult,
+                                                          delegate, onVisitedVertexCallback);
+  switch (resultCode)
+  {
+    case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
+    case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
+    case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
+  }
+}
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
 {
@@ -235,7 +254,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   vector<Segment> segments;
   IRouter::ResultCode const leapsResult =
-      ProcessLeaps(routingResult.path, delegate, starter, segments);
+      ProcessLeaps(routingResult.path, delegate, mode, starter, segments);
   if (leapsResult != IRouter::NoError)
     return leapsResult;
 
@@ -292,20 +311,21 @@ bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD
 
 IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
                                               RouterDelegate const & delegate,
-                                              IndexGraphStarter & starter, vector<Segment> & output)
+                                              WorldGraph::Mode prevMode,
+                                              IndexGraphStarter & starter,
+                                              vector<Segment> & output)
 {
   output.reserve(input.size());
 
   WorldGraph & worldGraph = starter.GetGraph();
-  WorldGraph::Mode const worldRouteMode = worldGraph.GetMode();
   worldGraph.SetMode(WorldGraph::Mode::NoLeaps);
 
   for (size_t i = 0; i < input.size(); ++i)
   {
     Segment const & current = input[i];
 
-    if ((worldRouteMode == WorldGraph::Mode::LeapsOnly && IndexGraphStarter::IsFakeSegment(current))
-      || (worldRouteMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(current.GetMwmId())))
+    if ((prevMode == WorldGraph::Mode::LeapsOnly && IndexGraphStarter::IsFakeSegment(current))
+      || (prevMode != WorldGraph::Mode::LeapsOnly && !starter.IsLeap(current.GetMwmId())))
     {
       output.push_back(current);
       continue;
@@ -327,10 +347,10 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     IRouter::ResultCode result = IRouter::InternalError;
     RoutingResult<Segment> routingResult;
     // In case of leaps from the start to its mwm transition and from finish mwm transition
-    // Route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
+    // route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
     if ((current.GetMwmId() == starter.GetStartVertex().GetMwmId()
         || current.GetMwmId() == starter.GetFinishVertex().GetMwmId())
-        && worldRouteMode == WorldGraph::Mode::LeapsOnly)
+        && prevMode == WorldGraph::Mode::LeapsOnly)
     {
       // World graph route.
       result = FindPath(current, next, delegate, worldGraph, {} /* onVisitedVertexCallback */, routingResult);

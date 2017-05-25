@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/base/astar_algorithm.hpp"
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
@@ -78,28 +77,13 @@ private:
                        bool isOutgoing, WorldGraph & worldGraph, Edge & closestEdge) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  IRouter::ResultCode ProcessLeaps(vector<Segment> const & input, RouterDelegate const & delegate,
-                                   IndexGraphStarter & starter, vector<Segment> & output);
+  IRouter::ResultCode ProcessLeaps(vector<Segment> const & input,
+                                   RouterDelegate const & delegate,
+                                   WorldGraph::Mode prevMode,
+                                   IndexGraphStarter & starter,
+                                   vector<Segment> & output);
   bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
                     bool forSingleMwm, IndexGraphStarter & starter, Route & route) const;
-
-  template <typename Graph>
-  IRouter::ResultCode FindPath(
-      typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
-      RouterDelegate const & delegate, Graph & graph,
-      typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
-      RoutingResult<typename Graph::TVertexType> & routingResult)
-  {
-    AStarAlgorithm<Graph> algorithm;
-    auto const resultCode = algorithm.FindPathBidirectional(graph, start, finish, routingResult,
-                                                            delegate, onVisitedVertexCallback);
-    switch (resultCode)
-    {
-    case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
-    case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
-    case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
-    }
-  }
 
   bool AreMwmsNear(NumMwmId startId, NumMwmId finishId) const;
 
