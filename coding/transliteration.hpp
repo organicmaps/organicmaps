@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <map>
 #include <memory>
 #include <string>
@@ -13,10 +14,13 @@ public:
 
   void Init(std::string const & icuDataDir);
 
+  void SetEnabled(bool enable);
   bool Transliterate(std::string const & str, int8_t langCode, std::string & out) const;
 
 private:
-  Transliteration() = default;
+  Transliteration();
+
+  std::atomic<bool> m_enabled;
 
   struct TransliteratorInfo;
   std::map<std::string, std::unique_ptr<TransliteratorInfo>> m_transliterators;

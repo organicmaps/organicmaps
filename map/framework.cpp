@@ -134,6 +134,7 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
+char const kAllowTranslit[] = "Transliteration";
 
 #if defined(OMIM_OS_ANDROID)
 char const kICUDataFile[] = "icudt57l.dat";
@@ -1485,6 +1486,9 @@ void Framework::InitTransliteration()
 #else
   Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 #endif
+
+  if (!LoadTransliteration())
+    Transliteration::Instance().SetEnabled(false /* enable */);
 }
 
 storage::TCountryId Framework::GetCountryIndex(m2::PointD const & pt) const
@@ -2909,6 +2913,25 @@ void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
+}
+
+void Framework::AllowTransliteration(bool allowTranslit)
+{
+  Transliteration::Instance().SetEnabled(allowTranslit);
+  InvalidateRect(GetCurrentViewport());
+}
+
+bool Framework::LoadTransliteration()
+{
+  bool isTranslitAllowed;
+  if (!settings::Get(kLargeFontsSize, isTranslitAllowed))
+    isTranslitAllowed = true;
+  return isTranslitAllowed;
+}
+
+void Framework::SaveTransliteration(bool allowTranslit)
+{
+  settings::Set(kAllowTranslit, allowTranslit);
 }
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
