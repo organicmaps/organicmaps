@@ -1290,7 +1290,7 @@ public class PlacePageView extends RelativeLayout
         if (tt.isFullday)
         {
           String allDay = resources.getString(R.string.editor_time_allday);
-          workingTime = Character.toLowerCase(allDay.charAt(0)) + allDay.substring(1);
+          workingTime = Utils.unCapitalize(allDay);
         }
         else
         {

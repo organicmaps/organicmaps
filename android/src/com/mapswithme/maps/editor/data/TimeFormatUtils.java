@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 public class TimeFormatUtils
 {
@@ -25,8 +26,7 @@ public class TimeFormatUtils
       sShortWeekdays = DateFormatSymbols.getInstance().getShortWeekdays();
       for (int i = 1; i < sShortWeekdays.length; i++)
       {
-        sShortWeekdays[i] = Character.toUpperCase(sShortWeekdays[i].charAt(0)) +
-                            sShortWeekdays[i].substring(1);
+        sShortWeekdays[i] = Utils.capitalize(sShortWeekdays[i]);
       }
     }
   }

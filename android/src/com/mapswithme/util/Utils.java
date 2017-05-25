@@ -423,4 +423,26 @@ public class Utils
                                   .commit();
     }
   }
+
+  public static String capitalize(String src)
+  {
+    if (TextUtils.isEmpty(src))
+      return src;
+
+    if (src.length() == 1)
+      return Character.toString(Character.toUpperCase(src.charAt(0)));
+
+    return Character.toUpperCase(src.charAt(0)) + src.substring(1);
+  }
+
+  public static String unCapitalize(String src)
+  {
+    if (TextUtils.isEmpty(src))
+      return src;
+
+    if (src.length() == 1)
+      return Character.toString(Character.toLowerCase(src.charAt(0)));
+
+    return Character.toLowerCase(src.charAt(0)) + src.substring(1);
+  }
 }
