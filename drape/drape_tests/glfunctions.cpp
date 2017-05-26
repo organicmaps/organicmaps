@@ -111,8 +111,7 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 }
 
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
-{
-}
+{}
 
 /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
 void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
@@ -208,7 +207,8 @@ void GLFunctions::glActiveTexture(glConst texBlock)
 
 uint32_t GLFunctions::glGenTexture()
 {
-  return MOCK_CALL(glGenTexture());
+  MOCK_CALL(glGenTexture());
+  return 1;
 }
 
 void GLFunctions::glDeleteTexture(uint32_t id)
