@@ -11,7 +11,7 @@ IndexBuffer::IndexBuffer(uint32_t capacity)
 
 void IndexBuffer::UploadData(void const * data, uint32_t size)
 {
-  GetBuffer()->UploadData((void const *)data, size);
+  GetBuffer()->UploadData(data, size);
 }
 
 void IndexBuffer::UpdateData(void const * data, uint32_t size)

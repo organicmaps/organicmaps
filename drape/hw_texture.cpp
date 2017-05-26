@@ -5,22 +5,38 @@
 
 #include "platform/platform.hpp"
 
+#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #if defined(OMIM_OS_IPHONE)
 #include "hw_texture_ios.hpp"
 #endif
 
-#define ASSERT_ID ASSERT(GetID() != -1, ())
+#define ASSERT_ID ASSERT(GetID() != 0, ())
 
 namespace dp
 {
 HWTexture::HWTexture()
-  : m_width(0), m_height(0), m_format(UNSPECIFIED), m_textureID(-1), m_filter(gl_const::GLLinear)
+  : m_width(0)
+  , m_height(0)
+  , m_format(UNSPECIFIED)
+  , m_textureID(0)
+  , m_filter(gl_const::GLLinear)
+  , m_pixelBufferID(0)
+  , m_pixelBufferSize(0)
+  , m_pixelBufferElementSize(0)
+{}
+
+HWTexture::~HWTexture()
 {
+#if defined(TRACK_GPU_MEM)
+  dp::GPUMemTracker::Inst().RemoveDeallocated("Texture", m_textureID);
+  dp::GPUMemTracker::Inst().RemoveDeallocated("PBO", m_pixelBufferID);
+#endif
 }
 
 void HWTexture::Create(Params const & params) { Create(params, nullptr); }
+
 void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
 {
   m_width = params.m_width;
@@ -28,27 +44,29 @@ void HWTexture::Create(Params const & params, ref_ptr<void> /*data*/)
   m_format = params.m_format;
   m_filter = params.m_filter;
 
+  uint32_t const bytesPerPixel = GetBytesPerPixel(m_format);
+  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3 && params.m_usePixelBuffer &&
+      bytesPerPixel > 0)
+  {
+    float const kPboPercent = 0.1f;
+    m_pixelBufferElementSize = bytesPerPixel;
+    m_pixelBufferSize = static_cast<uint32_t>(kPboPercent * m_width * m_height * bytesPerPixel);
+  }
+
 #if defined(TRACK_GPU_MEM)
-  glConst layout;
-  glConst pixelType;
-  UnpackFormat(format, layout, pixelType);
-
-  uint32_t channelBitSize = 8;
-  uint32_t channelCount = 4;
-  if (pixelType == gl_const::GL4BitOnChannel)
-    channelBitSize = 4;
-
-  if (layout == gl_const::GLAlpha || layout == gl_const::GLRed)
-    channelCount = 1;
-
-  uint32_t bitCount = channelBitSize * channelCount * m_width * m_height;
-  uint32_t memSize = bitCount >> 3;
+  uint32_t const memSize = (CHAR_BIT * bytesPerPixel * m_width * m_height) >> 3;
   dp::GPUMemTracker::Inst().AddAllocated("Texture", m_textureID, memSize);
   dp::GPUMemTracker::Inst().SetUsed("Texture", m_textureID, memSize);
+  if (params.m_usePixelBuffer)
+  {
+    dp::GPUMemTracker::Inst().AddAllocated("PBO", m_pixelBufferID, m_pixelBufferSize);
+    dp::GPUMemTracker::Inst().SetUsed("PBO", m_pixelBufferID, m_pixelBufferSize);
+  }
 #endif
 }
 
 TextureFormat HWTexture::GetFormat() const { return m_format; }
+
 uint32_t HWTexture::GetWidth() const
 {
   ASSERT_ID;
@@ -100,8 +118,8 @@ void HWTexture::UnpackFormat(TextureFormat format, glConst & layout, glConst & p
 void HWTexture::Bind() const
 {
   ASSERT_ID;
-  if (m_textureID != -1)
-    GLFunctions::glBindTexture(static_cast<uint32_t>(GetID()));
+  if (m_textureID != 0)
+    GLFunctions::glBindTexture(GetID());
 }
 
 void HWTexture::SetFilter(glConst filter)
@@ -114,12 +132,15 @@ void HWTexture::SetFilter(glConst filter)
   }
 }
 
-int32_t HWTexture::GetID() const { return m_textureID; }
+uint32_t HWTexture::GetID() const { return m_textureID; }
 
 OpenGLHWTexture::~OpenGLHWTexture()
 {
-  if (m_textureID != -1)
-    GLFunctions::glDeleteTexture(static_cast<uint32_t>(m_textureID));
+  if (m_textureID != 0)
+    GLFunctions::glDeleteTexture(m_textureID);
+
+  if (m_pixelBufferID != 0)
+    GLFunctions::glDeleteBuffer(m_pixelBufferID);
 }
 
 void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
@@ -145,6 +166,15 @@ void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
   GLFunctions::glTexParameter(gl_const::GLWrapS, params.m_wrapSMode);
   GLFunctions::glTexParameter(gl_const::GLWrapT, params.m_wrapTMode);
 
+  if (m_pixelBufferSize > 0)
+  {
+    m_pixelBufferID = GLFunctions::glGenBuffer();
+    GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
+    GLFunctions::glBufferData(gl_const::GLPixelBufferWrite, m_pixelBufferSize, nullptr,
+                              gl_const::GLDynamicDraw);
+    GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
+  }
+
   GLFunctions::glFlush();
   GLFunctions::glBindTexture(0);
 }
@@ -157,7 +187,19 @@ void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_
   glConst pixelType;
   UnpackFormat(m_format, layout, pixelType);
 
-  GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.get());
+  uint32_t const mappingSize = height * width * m_pixelBufferElementSize;
+  if (m_pixelBufferID != 0 && m_pixelBufferSize != 0 && m_pixelBufferSize >= mappingSize)
+  {
+    ASSERT_GREATER(m_pixelBufferElementSize, 0, ());
+    GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
+    GLFunctions::glBufferSubData(gl_const::GLPixelBufferWrite, mappingSize, data.get(), 0);
+    GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, nullptr);
+    GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
+  }
+  else
+  {
+    GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.get());
+  }
 }
 
 drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()

@@ -15,7 +15,6 @@
 
 namespace dp
 {
-
 class StipplePenKey : public Texture::Key
 {
 public:
@@ -124,7 +123,7 @@ public:
   StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
-    TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest };
+    TBase::TextureParams params{size, TextureFormat::ALPHA, gl_const::GLNearest, false /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_index), params);
   }
 
@@ -135,5 +134,4 @@ public:
 private:
   StipplePenIndex m_index;
 };
-
-}
+}  // namespace dp
