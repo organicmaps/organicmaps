@@ -485,8 +485,10 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!data)
     return;
   auto url = [NSURL URLWithString:data.localAdsURL];
-  if (url)
-    [self.ownerViewController openUrl:url];
+  if (!url)
+    return;
+  [self.ownerViewController openUrl:url];
+  [data logLocalAdsEvent:local_ads::EventType::OpenInfo];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
