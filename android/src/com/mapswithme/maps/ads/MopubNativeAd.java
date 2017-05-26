@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mopub.nativeads.BaseNativeAd;
 import com.mopub.nativeads.NativeAd;
 import com.mopub.nativeads.NativeImageHelper;
 import com.mopub.nativeads.StaticNativeAd;
@@ -87,16 +86,16 @@ class MopubNativeAd extends CachedMwmNativeAd
   @Override
   void detachAdListener()
   {
-    mAd.setNativeEventListener(null);
+    mNativeAd.setMoPubNativeEventListener(null);
   }
 
   @Override
   void attachAdListener(@NonNull Object listener)
   {
-    if (!(listener instanceof BaseNativeAd.NativeEventListener))
+    if (!(listener instanceof NativeAd.MoPubNativeEventListener))
       throw new AssertionError("A listener for MoPub ad must be instance of " +
                                "NativeAd.MoPubNativeEventListener class! Not '"
                                + listener.getClass() + "'!");
-    mAd.setNativeEventListener((BaseNativeAd.NativeEventListener) listener);
+    mNativeAd.setMoPubNativeEventListener((NativeAd.MoPubNativeEventListener) listener);
   }
 }

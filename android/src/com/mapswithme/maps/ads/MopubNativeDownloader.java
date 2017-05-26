@@ -23,7 +23,7 @@ import com.mopub.nativeads.StaticNativeAd;
 import java.util.EnumSet;
 
 class MopubNativeDownloader extends CachingNativeAdLoader
-    implements MoPubNative.MoPubNativeNetworkListener, BaseNativeAd.NativeEventListener
+    implements MoPubNative.MoPubNativeNetworkListener, NativeAd.MoPubNativeEventListener
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private final static String TAG = MopubNativeDownloader.class.getSimpleName();
@@ -76,7 +76,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader
   @Override
   public void onNativeLoad(final NativeAd nativeAd)
   {
-    nativeAd.getBaseNativeAd().setNativeEventListener(this);
+    nativeAd.setMoPubNativeEventListener(this);
     LOGGER.d(TAG, "onNativeLoad nativeAd = " + nativeAd);
     CachedMwmNativeAd ad = new MopubNativeAd(nativeAd, SystemClock.elapsedRealtime());
     onAdLoaded(nativeAd.getAdUnitId(), ad);
@@ -93,13 +93,13 @@ class MopubNativeDownloader extends CachingNativeAdLoader
   }
 
   @Override
-  public void onAdImpressed()
+  public void onImpression(View view)
   {
     LOGGER.d(TAG, "on MoPub Ad impressed");
   }
 
   @Override
-  public void onAdClicked()
+  public void onClick(View view)
   {
     if (!TextUtils.isEmpty(mBannerId))
       onAdClicked(mBannerId);
