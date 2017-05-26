@@ -141,9 +141,6 @@ public:
 
   void SetCachingEnable(bool enable);
 
-  int GetDisplacementMode() const { return m_displacementMode; }
-  void SetDisplacementMode(int mode) { m_displacementMode = mode; }
-
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() { return ""; }
 #endif
@@ -166,7 +163,6 @@ protected:
 private:
   bool const m_isBillboard;
   bool m_isVisible;
-  int m_displacementMode;
 
   dp::IndexStorage m_indexes;
   struct LessOffsetNode

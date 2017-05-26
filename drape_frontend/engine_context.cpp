@@ -8,11 +8,20 @@
 namespace df
 {
 
-EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator,
-                             ref_ptr<dp::TextureManager> texMng)
+EngineContext::EngineContext(TileKey tileKey,
+                             ref_ptr<ThreadsCommutator> commutator,
+                             ref_ptr<dp::TextureManager> texMng,
+                             CustomSymbolsContextWeakPtr customSymbolsContext,
+                             bool is3dBuildingsEnabled,
+                             bool isTrafficEnabled,
+                             int displacementMode)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
   , m_texMng(texMng)
+  , m_customSymbolsContext(customSymbolsContext)
+  , m_3dBuildingsEnabled(is3dBuildingsEnabled)
+  , m_trafficEnabled(isTrafficEnabled)
+  , m_displacementMode(displacementMode)
 {}
 
 ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const

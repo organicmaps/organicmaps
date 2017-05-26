@@ -14,15 +14,13 @@
 
 #include "base/thread_pool.hpp"
 
-#include "std/atomic.hpp"
-#include "std/mutex.hpp"
-#include "std/set.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/target_os.hpp"
+#include <memory>
+#include <mutex>
+#include <set>
+#include <vector>
 
 namespace df
 {
-
 class MapDataProvider;
 class CoverageUpdateDescriptor;
 
@@ -45,9 +43,13 @@ public:
 
   void SetTrafficEnabled(bool trafficEnabled);
 
+  void SetDisplacementMode(int displacementMode);
+
   void UpdateCustomSymbols(CustomSymbols const & symbols);
   void RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds);
   void RemoveAllCustomSymbols();
+
+  bool IsModeChanged() const { return m_modeChanged; }
 
 private:
   void OnTaskFinished(threads::IRoutine * task);
@@ -65,34 +67,32 @@ private:
   bool m_have3dBuildings;
   bool m_allow3dBuildings;
   bool m_trafficEnabled;
+  int m_displacementMode;
   bool m_modeChanged;
 
   struct LessByTileInfo
   {
-    bool operator ()(shared_ptr<TileInfo> const & l, shared_ptr<TileInfo> const & r) const
-    {
-      return *l < *r;
-    }
+    bool operator ()(std::shared_ptr<TileInfo> const & l,
+                     std::shared_ptr<TileInfo> const & r) const;
   };
 
-  using TTileSet = set<shared_ptr<TileInfo>, LessByTileInfo>;
+  using TTileSet = std::set<std::shared_ptr<TileInfo>, LessByTileInfo>;
   TTileSet m_tileInfos;
 
   ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
 
   int m_counter;
-  mutex m_finishedTilesMutex;
+  std::mutex m_finishedTilesMutex;
   uint64_t m_generationCounter;
 
-  using TTileInfoCollection = buffer_vector<shared_ptr<TileInfo>, 8>;
+  using TTileInfoCollection = buffer_vector<std::shared_ptr<TileInfo>, 8>;
   TTilesCollection m_activeTiles;
 
   CustomSymbolsContextPtr m_customSymbolsContext;
 
-  void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
-  void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
+  void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
+  void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);
   void IncreaseCounter(int value);
   void CheckFinishedTiles(TTileInfoCollection const & requestedTiles);
 };
-
-} // namespace df
+}  // namespace df

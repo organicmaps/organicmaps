@@ -392,9 +392,10 @@ void BaseApplyFeature::SetHotelData(HotelData && hotelData)
   m_hotelData = move(hotelData);
 }
 
-ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
-                                     float posZ)
+ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                                     FeatureID const & id, int minVisibleScale, uint8_t rank,
+                                     CaptionDescription const & captions, float posZ,
+                                     int displacementMode)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
@@ -403,8 +404,8 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
   , m_obsoleteInEditor(false)
   , m_symbolDepth(dp::minDepth)
   , m_symbolRule(nullptr)
-{
-}
+  , m_displacementMode(displacementMode)
+{}
 
 void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
@@ -445,31 +446,30 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
-    if (!params.m_primaryText.empty() || !params.m_secondaryText.empty())
+
+    bool specialDisplacementMode = false;
+    uint16_t specialModePriority = 0;
+    if (m_displacementMode == dp::displacement::kHotelMode &&
+        m_hotelData.m_isHotel && !params.m_primaryText.empty())
     {
-      int displacementMode = dp::displacement::kAllModes;
-      // For hotels we set only kDefaultMode, because we have a special shape
-      // for kHotelMode and this shape will not be displayed in this case.
-      if (m_hotelData.m_isHotel)
-        displacementMode = dp::displacement::kDefaultMode;
-      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, m_tileKey,
-                                              hasPOI, 0 /* textIndex */,
-                                              true /* affectedByZoomPriority */,
-                                              displacementMode));
-    }
-    if (m_hotelData.m_isHotel && !params.m_primaryText.empty())
-    {
+      specialDisplacementMode = true;
+      specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
+
       params.m_primaryOptional = false;
       params.m_primaryTextFont.m_size *= 1.2;
       params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
       params.m_secondaryTextFont = params.m_primaryTextFont;
       params.m_secondaryText = ExtractHotelInfo();
       params.m_secondaryOptional = false;
-      uint16_t const priority = CalculateHotelOverlayPriority(m_hotelData);
+
+    }
+
+    if (!params.m_primaryText.empty() || !params.m_secondaryText.empty())
+    {
       m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, m_tileKey,
                                               hasPOI, 0 /* textIndex */,
                                               true /* affectedByZoomPriority */,
-                                              dp::displacement::kHotelMode, priority));
+                                              specialDisplacementMode, specialModePriority));
     }
   }
 }
@@ -505,22 +505,23 @@ void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsCont
   params.m_prioritized = prioritized || m_createdByEditor;
   params.m_obsoleteInEditor = m_obsoleteInEditor;
 
-  m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
-                                               m_hotelData.m_isHotel ? dp::displacement::kDefaultMode :
-                                                                       dp::displacement::kAllModes));
-  if (m_hotelData.m_isHotel)
+  bool specialDisplacementMode = false;
+  uint16_t specialModePriority = 0;
+  if (m_displacementMode == dp::displacement::kHotelMode && m_hotelData.m_isHotel)
   {
-    uint16_t const priority = CalculateHotelOverlayPriority(m_hotelData);
-    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
-                                                 dp::displacement::kHotelMode, priority));
+    specialDisplacementMode = true;
+    specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
   }
+
+  m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
+                                               specialDisplacementMode, specialModePriority));
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ)
+  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, dp::displacement::kDefaultMode)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -621,7 +622,8 @@ bool ApplyAreaFeature::FindEdge(TEdge const & edge)
   return false;
 }
 
-m2::PointD ApplyAreaFeature::CalculateNormal(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3) const
+m2::PointD ApplyAreaFeature::CalculateNormal(m2::PointD const & p1, m2::PointD const & p2,
+                                             m2::PointD const & p3) const
 {
   m2::PointD const tangent = (p2 - p1).Normalize();
   m2::PointD normal = m2::PointD(-tangent.y, tangent.x);

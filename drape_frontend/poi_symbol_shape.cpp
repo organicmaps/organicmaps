@@ -95,10 +95,10 @@ namespace df
 {
 PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
                                TileKey const & tileKey, uint32_t textIndex,
-                               int displacementMode, uint16_t specialModePriority)
+                               bool specialDisplacementMode, uint16_t specialModePriority)
   : m_pt(mercatorPt)
   , m_params(params)
-  , m_displacementMode(displacementMode)
+  , m_specialDisplacementMode(specialDisplacementMode)
   , m_specialModePriority(specialModePriority)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
@@ -121,7 +121,6 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          true /* isBound */,
                                                                          m_params.m_symbolName,
                                                                          true /* isBillboard */);
-  handle->SetDisplacementMode(m_displacementMode);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
@@ -144,7 +143,7 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if ((m_displacementMode & dp::displacement::kDefaultMode) == 0)
+  if (m_specialDisplacementMode)
     return dp::CalculateSpecialModePriority(m_specialModePriority);
 
   // Set up minimal priority for shapes which belong to areas.

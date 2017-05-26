@@ -551,7 +551,7 @@ void DrapeEngine::SetTimeInBackground(double time)
 
 void DrapeEngine::SetDisplacementMode(int mode)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<SetDisplacementModeMessage>(mode),
                                   MessagePriority::Normal);
 }

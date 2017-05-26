@@ -66,7 +66,6 @@ public:
 
   void SetFollowingMode(bool mode);
   void SetDisplacementEnabled(bool enabled);
-  void SetDisplacementMode(int displacementMode);
 
   void SetSelectedFeature(FeatureID const & featureID);
   bool GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect);
@@ -102,7 +101,6 @@ private:
   bool m_followingMode;
 
   bool m_isDisplacementEnabled;
-  int m_displacementMode;
 
   FeatureID m_selectedFeatureID;
 

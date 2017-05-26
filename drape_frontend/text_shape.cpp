@@ -16,10 +16,8 @@
 
 namespace df
 {
-
 namespace
 {
-
 class StraightTextHandle : public TextHandle
 {
   using TBase = TextHandle;
@@ -121,19 +119,19 @@ private:
   bool m_affectedByZoomPriority;
 };
 
-} // namespace
+}  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
                      TileKey const & tileKey, bool hasPOI,
                      uint32_t textIndex, bool affectedByZoomPriority,
-                     int displacementMode, uint16_t specialModePriority)
+                     bool specialDisplacementMode, uint16_t specialModePriority)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_hasPOI(hasPOI)
   , m_affectedByZoomPriority(affectedByZoomPriority)
   , m_textIndex(textIndex)
-  , m_displacementMode(displacementMode)
+  , m_specialDisplacementMode(specialDisplacementMode)
   , m_specialModePriority(specialModePriority)
 {}
 
@@ -243,7 +241,6 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            m_affectedByZoomPriority,
                                                                            move(dynamicBuffer),
                                                                            true);
-  handle->SetDisplacementMode(m_displacementMode);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
@@ -293,7 +290,6 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            m_affectedByZoomPriority,
                                                                            move(dynamicBuffer),
                                                                            true);
-  handle->SetDisplacementMode(m_displacementMode);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
@@ -312,7 +308,7 @@ uint64_t TextShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if ((m_displacementMode & dp::displacement::kDefaultMode) == 0)
+  if (m_specialDisplacementMode)
     return dp::CalculateSpecialModePriority(m_specialModePriority);
 
   // Set up minimal priority for shapes which belong to areas
@@ -330,5 +326,4 @@ uint64_t TextShape::GetOverlayPriority() const
 
   return priority;
 }
-
-} //end of df namespace
+}  // namespace df

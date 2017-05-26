@@ -16,13 +16,13 @@ namespace df
 
 ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
                                        TileKey const & tileKey, uint32_t textIndex, bool needOverlay,
-                                       int displacementMode, uint16_t specialModePriority)
+                                       bool specialDisplacementMode, uint16_t specialModePriority)
   : m_point(mercatorPt)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
   , m_needOverlay(needOverlay)
-  , m_displacementMode(displacementMode)
+  , m_specialDisplacementMode(specialDisplacementMode)
   , m_specialModePriority(specialModePriority)
 {}
 
@@ -217,10 +217,9 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureM
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
   // Special displacement mode.
-  if ((m_displacementMode & dp::displacement::kDefaultMode) == 0)
+  if (m_specialDisplacementMode)
     return dp::CalculateSpecialModePriority(m_specialModePriority);
 
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }
-
 } //  namespace df

@@ -2,50 +2,56 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/platform.hpp"
+#include "drape/constants.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/iterator.hpp"
+#include <algorithm>
+#include <functional>
 
 namespace df
 {
-
 namespace
 {
-
 struct LessCoverageCell
 {
-  bool operator()(shared_ptr<TileInfo> const & l, TileKey const & r) const
+  bool operator()(std::shared_ptr<TileInfo> const & l,
+                  TileKey const & r) const
   {
     return l->GetTileKey() < r;
   }
 
-  bool operator()(TileKey const & l, shared_ptr<TileInfo> const & r) const
+  bool operator()(TileKey const & l,
+                  std::shared_ptr<TileInfo> const & r) const
   {
     return l < r->GetTileKey();
   }
 
-  bool operator()(shared_ptr<TileInfo> const & l, shared_ptr<TileInfo> const & r) const
+  bool operator()(std::shared_ptr<TileInfo> const & l,
+                  std::shared_ptr<TileInfo> const & r) const
   {
     return l->GetTileKey() < r->GetTileKey();
   }
 };
+}  // namespace
 
-} // namespace
+bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l,
+                                             std::shared_ptr<TileInfo> const & r) const
+{
+  return *l < *r;
+}
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
                          bool allow3dBuildings, bool trafficEnabled)
   : m_commutator(commutator)
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(kReadingThreadsCount,
-                                               bind(&ReadManager::OnTaskFinished, this, _1)))
+                                               std::bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
+  , m_displacementMode(dp::displacement::kDefaultMode)
   , m_modeChanged(false)
   , myPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
@@ -59,7 +65,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
   // finish tiles
   {
-    lock_guard<mutex> lock(m_finishedTilesMutex);
+    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
 
     m_activeTiles.erase(t->GetTileKey());
 
@@ -78,7 +84,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
       TTilesCollection tiles;
       tiles.emplace(t->GetTileKey());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<FinishTileReadMessage>(move(tiles)),
+                                make_unique_dp<FinishTileReadMessage>(std::move(tiles)),
                                 MessagePriority::Normal);
     }
   }
@@ -87,8 +93,10 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   myPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
-                                 TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
+void ReadManager::UpdateCoverage(ScreenBase const & screen,
+                                 bool have3dBuildings, bool forceUpdate,
+                                 TTilesCollection const & tiles,
+                                 ref_ptr<dp::TextureManager> texMng)
 {
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
@@ -97,48 +105,43 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
   {
     m_modeChanged = false;
 
-    for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
+    for (auto const & info : m_tileInfos)
+      CancelTileInfo(info);
     m_tileInfos.clear();
 
     IncreaseCounter(static_cast<int>(tiles.size()));
     m_generationCounter++;
 
-    for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
+    for (auto const & tileKey : tiles)
+      PushTaskBackForTileKey(tileKey, texMng);
   }
   else
   {
-    // Find rects that go out from viewport
+    // Find rects that go out from viewport.
     TTileInfoCollection outdatedTiles;
-#ifdef _MSC_VER
-    vs_bug::
-#endif
-    set_difference(m_tileInfos.begin(), m_tileInfos.end(),
-                   tiles.begin(), tiles.end(),
-                   back_inserter(outdatedTiles), LessCoverageCell());
+    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(),
+                        tiles.begin(), tiles.end(),
+                        std::back_inserter(outdatedTiles), LessCoverageCell());
 
-    for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
+    for (auto const & info : outdatedTiles)
+      ClearTileInfo(info);
 
     // Find rects that go in into viewport.
     buffer_vector<TileKey, 8> newTiles;
-#ifdef _MSC_VER
-    vs_bug::
-#endif
-    set_difference(tiles.begin(), tiles.end(),
-                   m_tileInfos.begin(), m_tileInfos.end(),
-                   back_inserter(newTiles), LessCoverageCell());
+    std::set_difference(tiles.begin(), tiles.end(),
+                        m_tileInfos.begin(), m_tileInfos.end(),
+                        std::back_inserter(newTiles), LessCoverageCell());
 
     // Find ready tiles.
     TTileInfoCollection readyTiles;
-#ifdef _MSC_VER
-    vs_bug::
-#endif
-    set_difference(m_tileInfos.begin(), m_tileInfos.end(),
-                   outdatedTiles.begin(), outdatedTiles.end(),
-                   back_inserter(readyTiles), LessCoverageCell());
+    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(),
+                        outdatedTiles.begin(), outdatedTiles.end(),
+                        std::back_inserter(readyTiles), LessCoverageCell());
 
     IncreaseCounter(static_cast<int>(newTiles.size()));
     CheckFinishedTiles(readyTiles);
-    for_each(newTiles.begin(), newTiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
+    for (auto const & tileKey : newTiles)
+      PushTaskBackForTileKey(tileKey, texMng);
   }
 
   m_currentViewport = screen;
@@ -172,7 +175,8 @@ void ReadManager::InvalidateAll()
 
 void ReadManager::Stop()
 {
-  for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
+  for (auto const & info : m_tileInfos)
+    CancelTileInfo(info);
   m_tileInfos.clear();
 
   m_pool->Stop();
@@ -182,9 +186,10 @@ void ReadManager::Stop()
 bool ReadManager::CheckTileKey(TileKey const & tileKey) const
 {
   for (auto const & tileInfo : m_tileInfos)
+  {
     if (tileInfo->GetTileKey() == tileKey)
       return !tileInfo->IsCancelled();
-
+  }
   return false;
 }
 
@@ -197,16 +202,17 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng)
 {
-  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
-                                             m_commutator, texMng), m_customSymbolsContext));
-  tileInfo->Set3dBuildings(m_have3dBuildings && m_allow3dBuildings);
-  tileInfo->SetTrafficEnabled(m_trafficEnabled);
+  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
+                                               m_commutator, texMng, m_customSymbolsContext,
+                                               m_have3dBuildings && m_allow3dBuildings,
+                                               m_trafficEnabled, m_displacementMode);
+  std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
 
   task->Init(tileInfo);
   {
-    lock_guard<mutex> lock(m_finishedTilesMutex);
+    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
     m_activeTiles.insert(tileKey);
   }
   m_pool->PushBack(task);
@@ -219,7 +225,7 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
 
   TTilesCollection finishedTiles;
 
-  lock_guard<mutex> lock(m_finishedTilesMutex);
+  std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
 
   for (auto const & tile : requestedTiles)
     if (m_activeTiles.find(tile->GetTileKey()) == m_activeTiles.end())
@@ -228,17 +234,17 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
   if (!finishedTiles.empty())
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<FinishTileReadMessage>(move(finishedTiles)),
+                              make_unique_dp<FinishTileReadMessage>(std::move(finishedTiles)),
                               MessagePriority::Normal);
   }
 }
 
-void ReadManager::CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel)
+void ReadManager::CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel)
 {
   tileToCancel->Cancel();
 }
 
-void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
+void ReadManager::ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear)
 {
   CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);
@@ -246,7 +252,7 @@ void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
 
 void ReadManager::IncreaseCounter(int value)
 {
-  lock_guard<mutex> lock(m_finishedTilesMutex);
+  std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
   m_counter += value;
 
   if (m_counter == 0)
@@ -272,6 +278,15 @@ void ReadManager::SetTrafficEnabled(bool trafficEnabled)
   {
     m_modeChanged = true;
     m_trafficEnabled = trafficEnabled;
+  }
+}
+
+void ReadManager::SetDisplacementMode(int displacementMode)
+{
+  if (m_displacementMode != displacementMode)
+  {
+    m_modeChanged = true;
+    m_displacementMode = displacementMode;
   }
 }
 
@@ -306,5 +321,4 @@ void ReadManager::RemoveAllCustomSymbols()
 {
   m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(CustomSymbols());
 }
-
 } // namespace df
