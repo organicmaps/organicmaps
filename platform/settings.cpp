@@ -4,12 +4,13 @@
 
 #include "defines.hpp"
 
-#include "coding/reader_streambuf.hpp"
-#include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/transliteration.hpp"
 
-#include "geometry/rect2d.hpp"
 #include "geometry/any_rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
 
@@ -321,6 +322,29 @@ bool FromString<location::EMyPositionMode>(string const & s, location::EMyPositi
     v = location::Follow;
   else if (s == "FollowAndRotate")
     v = location::FollowAndRotate;
+  else
+    return false;
+
+  return true;
+}
+
+template <>
+string ToString<Transliteration::Mode>(Transliteration::Mode const & mode)
+{
+  switch (mode)
+  {
+  case Transliteration::Mode::Enabled: return "Enabled";
+  case Transliteration::Mode::Disabled: return "Disabled";
+  }
+}
+
+template <>
+bool FromString<Transliteration::Mode>(string const & s, Transliteration::Mode & mode)
+{
+  if (s == "Enabled")
+    mode = Transliteration::Mode::Enabled;
+  else if (s == "Disabled")
+    mode = Transliteration::Mode::Disabled;
   else
     return false;
 

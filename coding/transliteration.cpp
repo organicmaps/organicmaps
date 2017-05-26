@@ -12,7 +12,6 @@
 
 #include "std/unique_ptr.hpp"
 
-#include <atomic>
 #include <cstring>
 #include <mutex>
 
@@ -26,6 +25,10 @@ struct Transliteration::TransliteratorInfo
   std::mutex m_mutex;
   std::unique_ptr<Transliterator> m_transliterator;
 };
+
+Transliteration::Transliteration()
+  : m_mode(Mode::Enabled)
+{}
 
 Transliteration::~Transliteration()
 {
@@ -59,8 +62,16 @@ void Transliteration::Init(std::string const & icuDataDir)
   }
 }
 
+void Transliteration::SetMode(Transliteration::Mode mode)
+{
+  m_mode = mode;
+}
+
 bool Transliteration::Transliterate(std::string const & str, int8_t langCode, std::string & out) const
 {
+  if (m_mode != Mode::Enabled)
+    return false;
+
   if (str.empty() || strings::IsASCIIString(str))
     return false;
 

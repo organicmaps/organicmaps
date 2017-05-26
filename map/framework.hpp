@@ -814,6 +814,10 @@ public:
   void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
   void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
 
+  void AllowTransliteration(bool allowTranslit);
+  bool LoadTransliteration();
+  void SaveTransliteration(bool allowTranslit);
+
   void Allow3dMode(bool allow3d, bool allow3dBuildings);
   void Save3dMode(bool allow3d, bool allow3dBuildings);
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
