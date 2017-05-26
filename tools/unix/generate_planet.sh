@@ -176,6 +176,7 @@ else
 fi
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
+LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
 BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
@@ -187,6 +188,7 @@ COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
+TEST_LOG="$LOG_PATH/test_planet.log"
 [ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed at $(hostname)\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start ${DESC-}"
@@ -477,7 +479,8 @@ if [ "$MODE" == "routing" ]; then
   for file in "$TARGET"/*.mwm; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       BASENAME="$(basename "$file" .mwm)"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+      "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
       forky
     fi
   done
@@ -524,14 +527,31 @@ if [ "$MODE" == "resources" ]; then
   MODE=test
 fi
 
-if [ "$MODE" == "test" ]; then
+if [ -n "${LOCALADS-}" ]; then
+  putmode "Step AD: Generating CSV for local ads database"
+  (
+    LOCALADS_PATH="$INTDIR/localads"
+    mkdir -p "$LOCALADS_PATH"
+    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH" --output "$LOCALADS_PATH" >> /dev/null 2>&1
+    LOCALADS_ARCHIVE="$INTDIR/localads_$COUNTRIES_VERSION.tgz"
+    tar -czf "$LOCALADS_ARCHIVE" "$LOCALADS_PATH"/* >> "$PLANET_LOG" 2>&1
+    AD_URL="$(curl -s --upload-file "$LOCALADS_ARCHIVE" "https://t.bk.ru/$(basename "$LOCALADS_ARCHIVE")")" >> "$PLANET_LOG" 2>&1
+    log STATUS "Uploaded localads file: $AD_URL"
+  ) &
+fi
+
+if [ "$MODE" == "test" -a -z "${SKIP_TESTS-}" ]; then
   putmode "Step 8: Testing data"
-  TEST_LOG="$LOG_PATH/test_planet.log"
   bash "$TESTING_SCRIPT" "$TARGET" "${DELTA_WITH-}" > "$TEST_LOG"
-  # Send both log files via e-mail
-  if [ -n "${MAIL-}" ]; then
-    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
-  fi
+else
+  echo "Tests were skipped" > "$TEST_LOG"
+fi
+
+wait
+
+# Send both log files via e-mail
+if [ -n "${MAIL-}" ]; then
+  cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
 fi
 
 # Clean temporary indices
