@@ -79,7 +79,7 @@ public:
 
   void OnDestroyGLContext();
   void OnRecoverGLContext();
-  void OnMwmDelete(MwmSet::MwmId const & mwmId);
+  void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
 
   void OnEnterForeground();
   void OnEnterBackground();

@@ -141,7 +141,7 @@ void TrafficManager::SetCurrentDataVersion(int64_t dataVersion)
   m_currentDataVersion = dataVersion;
 }
 
-void TrafficManager::OnMwmDelete(MwmSet::MwmId const & mwmId)
+void TrafficManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
 {
   if (!IsEnabled())
     return;
@@ -237,8 +237,7 @@ void TrafficManager::ThreadRoutine()
   {
     for (auto const & mwm : mwms)
     {
-      auto const & mwmInfo = mwm.GetInfo();
-      if (!mwmInfo)
+      if (!mwm.IsAlive())
         continue;
 
       traffic::TrafficInfo info(mwm, m_currentDataVersion);
