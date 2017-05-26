@@ -139,10 +139,8 @@ void RenderGroup::Render(ScreenBase const & screen)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
 
-#ifdef RENDER_DEBUG_RECTS
   for(auto const & renderBucket : m_renderBuckets)
     renderBucket->RenderDebug(screen);
-#endif
 }
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)

@@ -1187,10 +1187,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
                           modelView);
   }
 
-#if defined(RENDER_DEBUG_RECTS) && defined(COLLECT_DISPLACEMENT_INFO)
   for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
     dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
-#endif
 
   m_postprocessRenderer->EndFrame(make_ref(m_gpuProgramManager));
 
@@ -1684,9 +1682,7 @@ void FrontendRenderer::OnContextDestroy()
   m_drapeApiRenderer->Clear();
   m_postprocessRenderer->ClearGLDependentResources();
 
-#ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Destroy();
-#endif
 
   m_gpuProgramManager.reset();
   m_contextFactory->getDrawContext()->doneCurrent();
@@ -1724,8 +1720,9 @@ void FrontendRenderer::OnContextCreate()
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
-#ifdef RENDER_DEBUG_RECTS
   dp::DebugRectRenderer::Instance().Init(make_ref(m_gpuProgramManager), gpu::DEBUG_RECT_PROGRAM);
+#ifdef RENDER_DEBUG_DISPLACEMENT
+  dp::DebugRectRenderer::Instance().SetEnabled(true);
 #endif
 
   // Resources recovering.
@@ -1844,11 +1841,6 @@ void FrontendRenderer::Routine::Do()
   }
 
   m_renderer.CollectShowOverlaysEvents();
-
-#ifdef RENDER_DEBUG_RECTS
-  dp::DebugRectRenderer::Instance().Destroy();
-#endif
-
   m_renderer.ReleaseResources();
 }
 

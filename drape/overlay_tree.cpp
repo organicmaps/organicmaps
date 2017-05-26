@@ -1,20 +1,19 @@
 #include "drape/overlay_tree.hpp"
 
 #include "drape/constants.hpp"
+#include "drape/debug_rect_renderer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
 namespace dp
 {
-
 int const kFrameUpdatePeriod = 10;
 size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 int const kInvalidFrame = -1;
 
 namespace
 {
-
 class HandleComparator
 {
 public:
@@ -59,7 +58,25 @@ private:
   bool m_enableMask;
 };
 
-} // namespace
+void StoreDisplacementInfo(ScreenBase const & modelView, int caseIndex,
+                           ref_ptr<OverlayHandle> displacingHandle,
+                           ref_ptr<OverlayHandle> displacedHandle,
+                           OverlayTree::TDisplacementInfo & displacementInfo)
+{
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  LOG(LINFO, ("Displace (", caseIndex, "):", displacingHandle->GetOverlayDebugInfo(),
+              "->", displacedHandle->GetOverlayDebugInfo()));
+#else
+  UNUSED_VALUE(caseIndex);
+#endif
+
+  if (!dp::DebugRectRenderer::Instance().IsEnabled())
+    return;
+  displacementInfo.emplace_back(displacingHandle->GetExtendedPixelRect(modelView).Center(),
+                                displacedHandle->GetExtendedPixelRect(modelView).Center(),
+                                dp::Color(0, 0, 255, 255));
+}
+}  // namespace
 
 OverlayTree::OverlayTree()
   : m_frameCounter(kInvalidFrame)
@@ -93,10 +110,7 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
   Clear();
   m_handlesCache.clear();
   m_traits.m_modelView = screen;
-
-#ifdef COLLECT_DISPLACEMENT_INFO
   m_displacementInfo.clear();
-#endif
 }
 
 void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
@@ -223,27 +237,9 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
         if (boundToParent)
         {
           DeleteHandleWithParents(parentOverlay, currentRank - 1);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-          LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                           parentOverlay->GetExtendedPixelRect(modelView).Center(),
-                                                           dp::Color(0, 255, 0, 255)));
-#endif
+          StoreDisplacementInfo(modelView, 0 /* case index */, handle, parentOverlay, m_displacementInfo);
         }
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-        LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                         handle->GetExtendedPixelRect(modelView).Center(),
-                                                         dp::Color(0, 0, 255, 255)));
-#endif
+        StoreDisplacementInfo(modelView, 1 /* case index */, rivalHandle, handle, m_displacementInfo);
         return;
       }
     }
@@ -260,17 +256,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
         if ((*it)->GetOverlayID() == rivalHandle->GetOverlayID())
         {
           Erase(*it);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-          LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", (*it)->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                           (*it)->GetExtendedPixelRect(modelView).Center(),
-                                                           dp::Color(0, 0, 255, 255)));
-#endif
-
+          StoreDisplacementInfo(modelView, 2 /* case index */, handle, *it, m_displacementInfo);
           it = m_handlesCache.erase(it);
         }
         else
@@ -282,16 +268,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     else
     {
       DeleteHandle(rivalHandle);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-      LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", rivalHandle->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-      m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                       rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                       dp::Color(0, 0, 255, 255)));
-#endif
+      StoreDisplacementInfo(modelView, 3 /* case index */, handle, rivalHandle, m_displacementInfo);
     }
   }
 
@@ -450,13 +427,8 @@ void OverlayTree::SetSelectedFeature(FeatureID const & featureID)
   m_selectedFeatureID = featureID;
 }
 
-#ifdef COLLECT_DISPLACEMENT_INFO
-
 OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
 {
   return m_displacementInfo;
 }
-
-#endif
-
-} // namespace dp
+}  // namespace dp
