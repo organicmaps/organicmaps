@@ -88,6 +88,11 @@ using TObservers = NSHashTable<__kindof TObserver>;
         return;
       if (timestamp != self.lastSearchStamp)
         return;
+
+      self->m_everywhereResults = results;
+      self->m_isLocalAdsCustomer = isLocalAdsCustomer;
+      self.suggestionsCount = results.GetSuggestsCount();
+
       if (results.IsEndMarker())
       {
         [self checkIsHotelResults:results];
@@ -106,9 +111,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
       }
       else
       {
-        self->m_everywhereResults = results;
-        self->m_isLocalAdsCustomer = isLocalAdsCustomer;
-        self.suggestionsCount = results.GetSuggestsCount();
         [self updateItemsIndexWithBannerReload:NO];
         [self onSearchResultsUpdated];
       }

@@ -747,7 +747,10 @@ using namespace osm_auth_ios;
   m_sourceApplication = sourceApplication;
 
   if ([self checkLaunchURL:url])
+  {
+    [self handleURLs];
     return YES;
+  }
 
   return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                         openURL:url

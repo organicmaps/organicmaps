@@ -224,10 +224,7 @@ public:
   T const * data() const
   {
     if (IsDynamic())
-    {
-      ASSERT(!m_dynamic.empty(), ());
-      return &m_dynamic[0];
-    }
+      return m_dynamic.data();
 
     return &m_static[0];
   }
@@ -235,10 +232,7 @@ public:
   T * data()
   {
     if (IsDynamic())
-    {
-      ASSERT(!m_dynamic.empty(), ());
-      return &m_dynamic[0];
-    }
+      return m_dynamic.data();
 
     return &m_static[0];
   }
