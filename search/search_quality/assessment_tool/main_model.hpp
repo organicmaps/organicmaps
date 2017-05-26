@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/engine.hpp"
+#include "search/feature_loader.hpp"
 #include "search/search_quality/assessment_tool/context.hpp"
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/assessment_tool/model.hpp"
@@ -37,6 +38,8 @@ public:
   void OnShowViewportClicked() override;
   void OnShowPositionClicked() override;
   bool HasChanges() override;
+  bool AlreadyInSamples(FeatureID const & id) override;
+  void AddNonFoundResult(FeatureID const & id) override;
 
 private:
   static int constexpr kInvalidIndex = -1;
@@ -51,8 +54,12 @@ private:
   void ResetSearch();
   void ShowMarks(Context const & context);
 
+  template <typename Fn>
+  void ForMatchingEntries(Context & context, FeatureID const & id, Fn && fn);
+
   Framework & m_framework;
   Index const & m_index;
+  search::FeatureLoader m_loader;
 
   ContextList m_contexts;
 

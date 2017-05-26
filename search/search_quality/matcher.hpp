@@ -7,6 +7,8 @@
 #include <limits>
 #include <vector>
 
+class FeatureType;
+
 namespace search
 {
 class FeatureLoader;
@@ -21,9 +23,10 @@ public:
   void Match(std::vector<Sample::Result> const & golden, std::vector<Result> const & actual,
              std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching);
 
-private:
+  bool Matches(Sample::Result const & golden, FeatureType & ft);
   bool Matches(Sample::Result const & golden, Result const & actual);
 
+private:
   FeatureLoader & m_loader;
 };
 }  // namespace search

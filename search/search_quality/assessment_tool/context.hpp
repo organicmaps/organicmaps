@@ -2,6 +2,7 @@
 
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/edits.hpp"
+#include "search/search_quality/matcher.hpp"
 #include "search/search_quality/sample.hpp"
 
 #include "base/string_utils.hpp"
@@ -21,6 +22,17 @@ struct Context
   Context(Edits::OnUpdate onFoundResultsUpdate, Edits::OnUpdate onNonFoundResultsUpdate)
     : m_foundResultsEdits(onFoundResultsUpdate), m_nonFoundResultsEdits(onNonFoundResultsUpdate)
   {
+  }
+
+  void AddNonFoundResult(search::Sample::Result const & result)
+  {
+    CHECK_EQUAL(m_goldenMatching.size(), m_sample.m_results.size(), ());
+
+    m_sample.m_results.push_back(result);
+    m_goldenMatching.push_back(search::Matcher::kInvalidId);
+
+    m_nonFoundResults.push_back(result);
+    m_nonFoundResultsEdits.Add(result.m_relevance);
   }
 
   bool HasChanges() const

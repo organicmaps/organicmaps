@@ -36,7 +36,10 @@ public:
   void BindSlider(ScaleSlider & slider);
   void CreateEngine();
 
-public Q_SLOTS:
+signals:
+  void OnContextMenuRequested(QPoint const & p);
+
+public slots:
   void ScalePlus();
   void ScaleMinus();
   void ScalePlusLight();

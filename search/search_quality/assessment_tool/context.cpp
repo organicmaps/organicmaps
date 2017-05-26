@@ -49,8 +49,6 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
   {
     auto const j = m_goldenMatching[i];
 
-    // Some results weren't matched, so they weren't displayed to the
-    // assessor. But we want to keep them.
     if (j == search::Matcher::kInvalidId)
     {
       auto const & entry = nonFoundEntries[k++];

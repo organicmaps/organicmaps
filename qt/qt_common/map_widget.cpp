@@ -356,6 +356,9 @@ void MapWidget::mouseMoveEvent(QMouseEvent * e)
 
 void MapWidget::mouseReleaseEvent(QMouseEvent * e)
 {
+  if (e->button() == Qt::RightButton)
+    emit OnContextMenuRequested(e->globalPos());
+
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
