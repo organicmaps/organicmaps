@@ -10,7 +10,6 @@
 
 namespace df
 {
-
 class StraightTextLayout;
 
 class TextShape : public MapShape
@@ -19,8 +18,7 @@ public:
   TextShape(m2::PointD const & basePoint, TextViewParams const & params,
             TileKey const & tileKey, bool hasPOI,
             uint32_t textIndex, bool affectedByZoomPriority,
-            int displacementMode = dp::displacement::kAllModes,
-            uint16_t specialModePriority = 0xFFFF);
+            bool specialDisplacementMode = false, uint16_t specialModePriority = 0xFFFF);
 
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
@@ -49,9 +47,9 @@ private:
   bool m_affectedByZoomPriority;
   uint32_t m_textIndex;
 
-  bool m_disableDisplacing = false;
-  int m_displacementMode;
+  bool m_specialDisplacementMode;
   uint16_t m_specialModePriority;
-};
 
-} // namespace df
+  bool m_disableDisplacing = false;
+};
+}  // namespace df

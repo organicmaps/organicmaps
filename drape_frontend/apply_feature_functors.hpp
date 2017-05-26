@@ -77,9 +77,10 @@ class ApplyPointFeature : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
-                    float posZ);
+  ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                    FeatureID const & id, int minVisibleScale, uint8_t rank,
+                    CaptionDescription const & captions, float posZ,
+                    int displacementMode);
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
@@ -96,6 +97,7 @@ private:
   double m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;
+  int m_displacementMode;
 };
 
 class ApplyAreaFeature : public ApplyPointFeature

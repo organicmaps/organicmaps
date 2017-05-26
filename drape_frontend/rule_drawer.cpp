@@ -18,8 +18,6 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-
 #ifdef DRAW_TILE_NET
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -27,22 +25,70 @@
 #include "base/string_utils.hpp"
 #endif
 
+#include <vector>
+
 namespace
 {
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
-//                                             10     11    12     13    14    15    16    17    18   19
-vector<size_t> const kAverageSegmentsCount = { 10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500 };
+std::vector<size_t> const kAverageSegmentsCount =
+{
+  // 10  11    12     13    14    15    16    17    18   19
+  10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500
+};
+
+double GetBuildingHeightInMeters(FeatureType const & f)
+{
+  double constexpr kDefaultHeightInMeters = 3.0;
+  double constexpr kMetersPerLevel = 3.0;
+
+  feature::Metadata const & md = f.GetMetadata();
+  double heightInMeters = kDefaultHeightInMeters;
+
+  std::string value = md.Get(feature::Metadata::FMD_HEIGHT);
+  if (!value.empty())
+  {
+    if (!strings::to_double(value, heightInMeters))
+      heightInMeters = kDefaultHeightInMeters;
+  }
+  else
+  {
+    value = md.Get(feature::Metadata::FMD_BUILDING_LEVELS);
+    if (!value.empty())
+    {
+      if (strings::to_double(value, heightInMeters))
+        heightInMeters *= kMetersPerLevel;
+    }
+  }
+  return heightInMeters;
+}
+
+double GetBuildingMinHeightInMeters(FeatureType const & f)
+{
+  feature::Metadata const & md = f.GetMetadata();
+  std::string value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
+  if (value.empty())
+    return 0.0;
+
+  double minHeightInMeters;
+  if (!strings::to_double(value, minHeightInMeters))
+    minHeightInMeters = 0.0;
+
+  return minHeightInMeters;
+}
 
 df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
 {
   df::BaseApplyFeature::HotelData result;
   if (ftypes::IsBookingChecker::Instance()(f))
   {
+    auto const & metadata = f.GetMetadata();
     result.m_isHotel = true;
-    result.m_rating = f.GetMetadata().Get(feature::Metadata::FMD_RATING);
-    strings::to_int(f.GetMetadata().Get(feature::Metadata::FMD_STARS), result.m_stars);
-    strings::to_int(f.GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory);
+    result.m_rating = metadata.Get(feature::Metadata::FMD_RATING);
+    if (!strings::to_int(metadata.Get(feature::Metadata::FMD_STARS), result.m_stars))
+      result.m_stars = 0;
+    if (!strings::to_int(metadata.Get(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory))
+      result.m_priceCategory = 0;
   }
   return result;
 }
@@ -62,8 +108,8 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   if (!oneWay)
     twoWayOffset = pixelToGlobalScale * df::TrafficRenderer::GetTwoWayOffset(roadClass, zoomLevel);
 
-  static vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
-                                       traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
+  static std::vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
+                                            traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
 
   int const index = zoomLevel - kFirstZoomInAverageSegments;
@@ -94,14 +140,14 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
         m2::PointD const tangent = (segment[1] - segment[0]).Normalize();
         m2::PointD const normal = isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) :
                                                       m2::PointD(tangent.y, -tangent.x);
-        m2::PolylineD segmentPolyline(vector<m2::PointD>{segment[0] + normal * twoWayOffset,
-                                                         segment[1] + normal * twoWayOffset});
-        segments.emplace_back(sid, df::TrafficSegmentGeometry(move(segmentPolyline), roadClass));
+        m2::PolylineD segmentPolyline(std::vector<m2::PointD>{segment[0] + normal * twoWayOffset,
+                                                              segment[1] + normal * twoWayOffset});
+        segments.emplace_back(sid, df::TrafficSegmentGeometry(std::move(segmentPolyline), roadClass));
       }
       else
       {
-        m2::PolylineD segmentPolyline(vector<m2::PointD>{segment[0], segment[1]});
-        segments.emplace_back(sid, df::TrafficSegmentGeometry(move(segmentPolyline), roadClass));
+        m2::PolylineD segmentPolyline(std::vector<m2::PointD>{segment[0], segment[1]});
+        segments.emplace_back(sid, df::TrafficSegmentGeometry(std::move(segmentPolyline), roadClass));
       }
     }
   }
@@ -115,16 +161,12 @@ namespace df
 RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> engineContext,
-                       CustomSymbolsContextPtr customSymbolsContext,
-                       bool is3dBuildings, bool trafficEnabled)
+                       ref_ptr<EngineContext> engineContext)
   : m_callback(drawerFn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
-  , m_customSymbolsContext(customSymbolsContext)
-  , m_is3dBuildings(is3dBuildings)
-  , m_trafficEnabled(trafficEnabled)
+  , m_customSymbolsContext(engineContext->GetCustomSymbolsContext().lock())
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
@@ -163,10 +205,10 @@ RuleDrawer::~RuleDrawer()
   {
     TMapShapes overlayShapes;
     overlayShapes.swap(m_mapShapes[df::OverlayType]);
-    m_context->FlushOverlays(move(overlayShapes));
+    m_context->FlushOverlays(std::move(overlayShapes));
   }
 
-  m_context->FlushTrafficGeometry(move(m_trafficGeometry));
+  m_context->FlushTrafficGeometry(std::move(m_trafficGeometry));
 }
 
 bool RuleDrawer::CheckCancelled()
@@ -214,7 +256,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
 #ifdef DEBUG
   // Validate on feature styles
-  if (s.AreaStyleExists() == false)
+  if (!s.AreaStyleExists())
   {
     int checkFlag = s.PointStyleExists() ? 1 : 0;
     checkFlag += s.LineStyleExists() ? 1 : 0;
@@ -229,7 +271,7 @@ void RuleDrawer::operator()(FeatureType const & f)
     ASSERT_LESS(index, static_cast<int>(m_mapShapes.size()), ());
 
     shape->SetFeatureMinZoom(minVisibleScale);
-    m_mapShapes[index].push_back(move(shape));
+    m_mapShapes[index].push_back(std::move(shape));
   };
 
   if (s.AreaStyleExists())
@@ -249,7 +291,7 @@ void RuleDrawer::operator()(FeatureType const & f)
           !ftypes::IsTunnelChecker::Instance()(f);
 
       isBuildingOutline = isBuilding && hasParts && !isPart;
-      is3dBuilding = m_is3dBuildings && (isBuilding && !isBuildingOutline);
+      is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
     }
 
     m2::PointD featureCenter;
@@ -260,32 +302,8 @@ void RuleDrawer::operator()(FeatureType const & f)
     float areaMinHeight = 0.0f;
     if (is3dBuilding)
     {
-      feature::Metadata const & md = f.GetMetadata();
-
-      constexpr double kDefaultHeightInMeters = 3.0;
-      constexpr double kMetersPerLevel = 3.0;
-      double heightInMeters = kDefaultHeightInMeters;
-
-      string value = md.Get(feature::Metadata::FMD_HEIGHT);
-      if (!value.empty())
-      {
-        strings::to_double(value, heightInMeters);
-      }
-      else
-      {
-        value = md.Get(feature::Metadata::FMD_BUILDING_LEVELS);
-        if (!value.empty())
-        {
-          if (strings::to_double(value, heightInMeters))
-            heightInMeters *= kMetersPerLevel;
-        }
-      }
-
-      value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
-      double minHeightInMeters = 0.0;
-      if (!value.empty())
-        strings::to_double(value, minHeightInMeters);
-
+      double const heightInMeters = GetBuildingHeightInMeters(f);
+      double const minHeightInMeters = GetBuildingMinHeightInMeters(f);
       featureCenter = feature::GetCenter(f, zoomLevel);
       double const lon = MercatorBounds::XToLon(featureCenter.x);
       double const lat = MercatorBounds::YToLat(featureCenter.y);
@@ -313,7 +331,8 @@ void RuleDrawer::operator()(FeatureType const & f)
       minVisibleScale = feature::GetMinDrawableScale(f);
 
     ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
-                           m_currentScaleGtoP, isBuilding, m_is3dBuildings && isBuildingOutline,
+                           m_currentScaleGtoP, isBuilding,
+                           m_context->Is3dBuildingsEnabled() && isBuildingOutline,
                            areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
                            s.GetCaptionDescription(), hatchingArea);
     f.ForEachTriangle(apply, zoomLevel);
@@ -342,11 +361,11 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     apply.Finish(ftypes::GetRoadShields(f));
 
-    if (m_trafficEnabled && zoomLevel >= kRoadClass0ZoomLevel)
+    if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
     {
       struct Checker
       {
-        vector<ftypes::HighwayClass> m_highwayClasses;
+        std::vector<ftypes::HighwayClass> m_highwayClasses;
         int m_zoomLevel;
         df::RoadClass m_roadClass;
       };
@@ -367,7 +386,7 @@ void RuleDrawer::operator()(FeatureType const & f)
         if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
             zoomLevel >= checkers[i].m_zoomLevel)
         {
-          vector<m2::PointD> points;
+          std::vector<m2::PointD> points;
           points.reserve(f.GetPointsCount());
           f.ResetGeometry();
           f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
@@ -385,7 +404,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     minVisibleScale = feature::GetMinDrawableScale(f);
     ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
-                            s.GetCaptionDescription(), 0.0f /* posZ */);
+                            s.GetCaptionDescription(), 0.0f /* posZ */, m_context->GetDisplacementMode());
     apply.SetHotelData(ExtractHotelData(f));
     f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
@@ -399,7 +418,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 #ifdef DRAW_TILE_NET
   TileKey key = m_context->GetTileKey();
   m2::RectD r = key.GetGlobalRect();
-  vector<m2::PointD> path;
+  std::vector<m2::PointD> path;
   path.push_back(r.LeftBottom());
   path.push_back(r.LeftTop());
   path.push_back(r.RightTop());
@@ -431,7 +450,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   drape_ptr<TextShape> textShape =
       make_unique_dp<TextShape>(r.Center(), tp, m_context->GetTileKey(), false, 0, false);
   textShape->DisableDisplacing();
-  insertShape(move(textShape));
+  insertShape(std::move(textShape));
 #endif
 
   if (CheckCancelled())
@@ -444,8 +463,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   {
     TMapShapes geomShapes;
     geomShapes.swap(m_mapShapes[df::GeometryType]);
-    m_context->Flush(move(geomShapes));
+    m_context->Flush(std::move(geomShapes));
   }
 }
-
-} // namespace df
+}  // namespace df

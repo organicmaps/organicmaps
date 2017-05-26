@@ -697,13 +697,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetDisplacementMode:
-    {
-      ref_ptr<SetDisplacementModeMessage> msg = message;
-      m_overlayTree->SetDisplacementMode(msg->GetMode());
-      break;
-    }
-
   case Message::SetVisibleViewport:
     {
       ref_ptr<SetVisibleViewportMessage> msg = message;
@@ -734,6 +727,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::RegenerateTraffic:
   case Message::SetSimplifiedTrafficColors:
+  case Message::SetDisplacementMode:
     {
       m_forceUpdateScene = true;
       break;

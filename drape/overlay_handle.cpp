@@ -34,7 +34,6 @@ OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
   , m_pivotZ(0.0)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
-  , m_displacementMode(displacement::kAllModes)
   , m_enableCaching(false)
   , m_extendedShapeDirty(true)
   , m_extendedRectDirty(true)

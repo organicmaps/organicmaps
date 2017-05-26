@@ -456,6 +456,19 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetDisplacementMode:
+    {
+      ref_ptr<SetDisplacementModeMessage> msg = message;
+      m_readManager->SetDisplacementMode(msg->GetMode());
+      if (m_readManager->IsModeChanged())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetDisplacementModeMessage>(msg->GetMode()),
+                                  MessagePriority::Normal);
+      }
+      break;
+    }
+
   default:
     ASSERT(false, ());
     break;
