@@ -239,7 +239,7 @@ public:
 
     // Called when a map is updated to a newer version. Feel free to
     // treat it as combined OnMapRegistered(newFile) +
-    // OnMapRegistered(oldFile).
+    // OnMapDeregistered(oldFile).
     virtual void OnMapUpdated(platform::LocalCountryFile const & /*newFile*/,
                               platform::LocalCountryFile const & /*oldFile*/) {}
 

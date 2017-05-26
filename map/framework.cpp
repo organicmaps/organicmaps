@@ -664,11 +664,9 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   bool deferredDelete = false;
   if (localFile)
   {
-    auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(countryId));
     rect = m_infoGetter->GetLimitRectForLeaf(countryId);
     m_model.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
-    m_trafficManager.OnMwmDelete(mwmId);
     m_localAdsManager.OnDeleteCountry(countryId);
   }
   InvalidateRect(rect);
@@ -690,6 +688,9 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     action();
   else
     GetPlatform().RunOnGuiThread(action);
+
+  auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(localFile.GetCountryFile());
+  m_trafficManager.OnMwmDeregistered(mwmId);
 }
 
 bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
