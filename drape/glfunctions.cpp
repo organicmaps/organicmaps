@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <limits>
 #include <map>
 #include <mutex>
 #include <utility>
@@ -543,7 +544,7 @@ void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor)
 uint32_t GLFunctions::glGenVertexArray()
 {
   ASSERT(glGenVertexArraysFn != nullptr, ());
-  GLuint result = 0;
+  GLuint result = std::numeric_limits<GLuint>::max();
   GLCHECK(glGenVertexArraysFn(1, &result));
   return result;
 }
@@ -563,7 +564,7 @@ void GLFunctions::glDeleteVertexArray(uint32_t vao)
 uint32_t GLFunctions::glGenBuffer()
 {
   ASSERT(glGenBuffersFn != nullptr, ());
-  GLuint result = (GLuint)-1;
+  GLuint result = std::numeric_limits<GLuint>::max();
   GLCHECK(glGenBuffersFn(1, &result));
   return result;
 }
@@ -887,7 +888,7 @@ void GLFunctions::glActiveTexture(glConst texBlock)
 
 uint32_t GLFunctions::glGenTexture()
 {
-  GLuint result = 0;
+  GLuint result = std::numeric_limits<GLuint>::max();
   GLCHECK(::glGenTextures(1, &result));
   return result;
 }

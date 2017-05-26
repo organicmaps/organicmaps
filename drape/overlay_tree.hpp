@@ -14,10 +14,8 @@
 
 namespace dp
 {
-
 namespace detail
 {
-
 struct OverlayTraits
 {
   ScreenBase m_modelView;
@@ -37,8 +35,7 @@ struct OverlayHasher
     return m_hasher(handle.get());
   }
 };
-
-}
+}  // namespace detail
 
 using TOverlayContainer = buffer_vector<ref_ptr<OverlayHandle>, 8>;
 
@@ -70,19 +67,18 @@ public:
   void SetSelectedFeature(FeatureID const & featureID);
   bool GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & featureRect);
 
-#ifdef COLLECT_DISPLACEMENT_INFO
   struct DisplacementData
   {
     m2::PointF m_arrowStart;
     m2::PointF m_arrowEnd;
     dp::Color m_arrowColor;
-    DisplacementData(m2::PointF const & arrowStart, m2::PointF const & arrowEnd, dp::Color const & arrowColor)
+    DisplacementData(m2::PointF const & arrowStart, m2::PointF const & arrowEnd,
+                     dp::Color const & arrowColor)
       : m_arrowStart(arrowStart), m_arrowEnd(arrowEnd), m_arrowColor(arrowColor)
     {}
   };
-  using TDisplacementInfo = vector<DisplacementData>;
+  using TDisplacementInfo = std::vector<DisplacementData>;
   TDisplacementInfo const & GetDisplacementInfo() const;
-#endif
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
@@ -104,9 +100,6 @@ private:
 
   FeatureID m_selectedFeatureID;
 
-#ifdef COLLECT_DISPLACEMENT_INFO
   TDisplacementInfo m_displacementInfo;
-#endif
 };
-
-} // namespace dp
+}  // namespace dp
