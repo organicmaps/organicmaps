@@ -1668,6 +1668,7 @@ void FrontendRenderer::OnContextDestroy()
 
   m_selectObjectMessage.reset();
   m_overlayTree->SetSelectedFeature(FeatureID());
+  m_overlayTree->Clear();
 
   m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();

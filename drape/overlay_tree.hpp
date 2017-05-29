@@ -48,6 +48,7 @@ public:
 
   OverlayTree();
 
+  void Clear();
   bool Frame();
   bool IsNeedUpdate() const;
 
