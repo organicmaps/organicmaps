@@ -52,21 +52,24 @@
 
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
-static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
 extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
-static NSString * const kUDSessionsCountKey = @"SessionsCount";
-static NSString * const kUDFirstVersionKey = @"FirstVersion";
-static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
-static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
-static NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
-static NSString * const kIOSIDFA = @"IFA";
-static NSString * const kBundleVersion = @"BundleVersion";
 
 extern NSString * const kUDTrackWarningAlertWasShown;
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
 extern string const kLanguageKey;
+
+namespace
+{
+NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
+NSString * const kUDSessionsCountKey = @"SessionsCount";
+NSString * const kUDFirstVersionKey = @"FirstVersion";
+NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
+NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
+NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
+NSString * const kIOSIDFA = @"IFA";
+NSString * const kBundleVersion = @"BundleVersion";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -126,6 +129,15 @@ void ConfigCrashTrackers()
                                         forKey:@"AlohalyticsInstallationId"];
 #endif
 }
+
+void OverrideUserAgent()
+{
+  [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+    @"UserAgent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
+                   @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
+  }];
+}
+}  // namespace
 
 using namespace osm_auth_ios;
 
@@ -313,6 +325,8 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  OverrideUserAgent();
+
   InitCrashTrackers();
 
   // Initialize all 3party engines.
