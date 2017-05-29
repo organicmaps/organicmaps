@@ -87,6 +87,15 @@ OverlayTree::OverlayTree()
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
+void OverlayTree::Clear()
+{
+  m_frameCounter = kInvalidFrame;
+  TBase::Clear();
+  m_handlesCache.clear();
+  for (auto & handles : m_handles)
+    handles.clear();
+}
+
 bool OverlayTree::Frame()
 {
   if (IsNeedUpdate())
@@ -107,7 +116,7 @@ bool OverlayTree::IsNeedUpdate() const
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 {
   ASSERT(IsNeedUpdate(), ());
-  Clear();
+  TBase::Clear();
   m_handlesCache.clear();
   m_traits.m_modelView = screen;
   m_displacementInfo.clear();
