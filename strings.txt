@@ -19697,7 +19697,7 @@
 
   [placepage_add_place_button]
     en = Add a place to the map
-    ru = Добавить на карту
+    ru = Добавить место на карту
     ar = إضافة مكان ما للخريطة
     cs = Přidat místo na mapu
     da = Tilføj et sted på kortet
