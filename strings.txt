@@ -24546,7 +24546,7 @@
     sv = Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.
     th = หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน
     tr = Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.
-    uk = Якщо для вулиці чи об\\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.
+    uk = Якщо для вулиці чи об'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.
     vi = Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.
     zh-Hans = 如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。
     zh-Hant = 若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。
