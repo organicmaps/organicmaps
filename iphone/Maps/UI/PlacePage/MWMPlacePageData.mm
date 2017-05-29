@@ -502,8 +502,6 @@ using namespace place_page;
 - (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
 - (void)logLocalAdsEvent:(local_ads::EventType)type
 {
-  if (m_info.GetLocalAdsStatus() != place_page::LocalAdsStatus::Customer)
-    return;
   auto const featureID = m_info.GetID();
   auto const & mwmInfo = featureID.m_mwmId.GetInfo();
   if (!mwmInfo)
