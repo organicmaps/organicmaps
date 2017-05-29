@@ -333,10 +333,6 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-    <activity
-        android:name="ru.mail.android.mytarget.ads.MyTargetActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-
     <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
     <receiver
@@ -384,11 +380,6 @@
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
     </receiver>
-
-    <!-- PushWoosh -->
-    <activity android:name="com.pushwoosh.richpages.RichPageActivity"/>
-    <activity android:name="com.pushwoosh.MessageActivity"/>
-    <activity android:name="com.pushwoosh.PushHandlerActivity"/>
 
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"
