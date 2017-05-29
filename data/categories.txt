@@ -733,7 +733,7 @@ nb:^Nærbutikk|nærbutikk
 pt:^Loja de conveniência
 pt-BR:^Loja de conveniência|4mercadinho|compras
 ro:4^Magazin mixt
-es:^Tienda de ultramarinos|chino|bazar
+es:^Tienda de abarrotes|chino|bazar
 sv:^Närbutik
 th:^ร้านสะดวกซื้อ
 tr:^Bakkal
