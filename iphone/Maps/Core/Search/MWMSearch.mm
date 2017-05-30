@@ -304,15 +304,14 @@ using TObservers = NSHashTable<__kindof TObserver>;
   auto const resultsCount = self->m_everywhereResults.GetCount();
   auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
                                                               resultsCount:resultsCount];
-  auto bannersCache = [MWMBannersCache cache];
   if (resultsCount > 0)
   {
     auto const & adsEngine = GetFramework().GetAdsEngine();
-    if (adsEngine.HasSearchBanner())
+    if (![MWMSettings adForbidden] && adsEngine.HasSearchBanner())
     {
       self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
       __weak auto weakSelf = self;
-      [bannersCache
+      [[MWMBannersCache cache]
           getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners())
                    cacheOnly:YES
                      loadNew:reloadBanner
