@@ -79,49 +79,16 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
                       expandable:(BOOL)expandable;
 
 /**
-  Initialize this view with explicit parameters.
+ Initialize this view with a given native ad. Configuration is pulled from the native ad.
 
- - Parameter viewController: View controller to present the AdChoices webview from.
- - Parameter adChoicesIcon: Native ad AdChoices icon.
- - Parameter adChoicesLinkURL: Native ad AdChoices link URL.
- - Parameter attributes: Attributes to configure look and feel.
- */
-- (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
-                            attributes:(nullable FBNativeAdViewAttributes *)attributes;
-
-/**
-  Initialize this view with explicit parameters.
-
- - Parameter viewController: View controller to present the AdChoices webview from.
- - Parameter adChoicesIcon: Native ad AdChoices icon.
- - Parameter adChoicesLinkURL: Native ad AdChoices link URL.
- - Parameter attributes: Attributes to configure look and feel.
+ - Parameter nativeAd: The native ad to initialize with.
  - Parameter expandable: Controls whether view defaults to expanded or not, see property documentation
- */
-- (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
-                            attributes:(nullable FBNativeAdViewAttributes *)attributes
-                            expandable:(BOOL)expandable;
-
-/**
-  Initialize this view with explicit parameters.
-
- - Parameter viewController: View controller to present the AdChoices webview from.
- - Parameter adChoicesIcon: Native ad AdChoices icon.
- - Parameter adChoicesLinkURL: Native ad AdChoices link URL.
- - Parameter adChoicesText: Native ad AdChoices label.
  - Parameter attributes: Attributes to configure look and feel.
- - Parameter expandable: Controls whether view defaults to expanded or not, see property documentation
  */
-- (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
-                         adChoicesText:(nullable NSString*)adChoicesText
-                            attributes:(nullable FBNativeAdViewAttributes *)attributes
-                            expandable:(BOOL)expandable NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNativeAd:(FBNativeAd *)nativeAd
+                      expandable:(BOOL)expandable
+                      attributes:(nullable FBNativeAdViewAttributes *)attributes;
+
 /**
   Using the superview, this updates the frame of this view, positioning the icon in the top right corner by default.
  */

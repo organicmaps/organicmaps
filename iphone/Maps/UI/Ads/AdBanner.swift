@@ -57,9 +57,6 @@ final class AdBanner: UITableViewCell {
       adTitleLabel.numberOfLines = config.numberOfTitleLines
       adBodyLabel.numberOfLines = config.numberOfBodyLines
       detailedModeConstraints.forEach { $0.priority = config.priority }
-      if state == .search {
-        adCallToActionButtonCompactLeading.priority = UILayoutPriorityDefaultHigh
-      }
       setNeedsLayout()
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
       refreshBannerIfNeeded()
@@ -103,7 +100,7 @@ final class AdBanner: UITableViewCell {
     case .none:
       assert(false)
     case .facebook:
-      configFBBanner(ad: ad as! FBNativeAd)
+      configFBBanner(ad: (ad as! FacebookBanner).nativeAd)
     case .rb:
       configRBBanner(ad: ad as! MTRGNativeAd)
     case .mopub:
@@ -136,7 +133,7 @@ final class AdBanner: UITableViewCell {
   private func configFBBanner(ad: FBNativeAd) {
     let adCallToActionButtons: [UIView]
     if (state == .search) {
-      adCallToActionButtons = [self]
+      adCallToActionButtons = [self, adCallToActionButtonCompact]
     } else {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
     }
@@ -189,7 +186,7 @@ final class AdBanner: UITableViewCell {
     let adCallToActionButtons: [UIButton]
     if state == .search {
       adCallToActionButtonCustom.isHidden = false
-      adCallToActionButtons = [adCallToActionButtonCustom]
+      adCallToActionButtons = [adCallToActionButtonCustom, adCallToActionButtonCompact]
     } else {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
       adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }

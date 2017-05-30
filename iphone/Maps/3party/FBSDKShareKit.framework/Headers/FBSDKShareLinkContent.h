@@ -31,22 +31,34 @@
  If not specified, this field is automatically populated by information scraped from the contentURL,
  typically the title of the page.  This value may be discarded for specially handled links (ex: iTunes URLs).
  - Returns: The description of the link
+
+ @deprecated `contentDescription` is deprecated from Graph API 2.9.
+ For more information, see https://developers.facebook.com/docs/apps/changelog#v2_9_deprecations.
  */
-@property (nonatomic, copy) NSString *contentDescription;
+@property (nonatomic, readonly) NSString *contentDescription
+  DEPRECATED_MSG_ATTRIBUTE("`contentDescription` is deprecated from Graph API 2.9");
 
 /**
   The title to display for this link.
 
  This value may be discarded for specially handled links (ex: iTunes URLs).
  - Returns: The link title
+
+ @deprecated `contentTitle` is deprecated from Graph API 2.9.
+ For more information, see https://developers.facebook.com/docs/apps/changelog#v2_9_deprecations
  */
-@property (nonatomic, copy) NSString *contentTitle;
+@property (nonatomic, readonly) NSString *contentTitle
+  DEPRECATED_MSG_ATTRIBUTE("`contentTitle` is deprecated from Graph API 2.9");
 
 /**
   The URL of a picture to attach to this content.
  - Returns: The network URL of an image
+
+ @deprecated `imageURL` is deprecated from Graph API 2.9.
+ For more information, see https://developers.facebook.com/docs/apps/changelog#v2_9_deprecations
  */
-@property (nonatomic, copy) NSURL *imageURL;
+@property (nonatomic, readonly) NSURL *imageURL
+  DEPRECATED_MSG_ATTRIBUTE("`imageURL` is deprecated from Graph API 2.9");
 
 /**
   Some quote text of the link.

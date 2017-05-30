@@ -1,7 +1,7 @@
 import FBAudienceNetwork
 
 // MARK: FacebookBanner
-final class FacebookBanner: FBNativeAd, Banner {
+final class FacebookBanner: NSObject, Banner {
   private enum Limits {
     static let minTimeOnScreen: TimeInterval = 3
     static let minTimeSinceLastRequest: TimeInterval = 5
@@ -11,17 +11,20 @@ final class FacebookBanner: FBNativeAd, Banner {
   fileprivate var failure: Banner.Failure!
   fileprivate var click: Banner.Click!
 
+  let nativeAd: FBNativeAd
+
   func reload(success: @escaping Banner.Success, failure: @escaping Banner.Failure, click: @escaping Click) {
+    FBAdSettings.clearTestDevices()
     self.success = success
     self.failure = failure
     self.click = click
 
-    load()
+    nativeAd.load()
     requestDate = Date()
   }
 
   func unregister() {
-    unregisterView()
+    nativeAd.unregisterView()
   }
 
   var isPossibleToReload: Bool {
@@ -34,7 +37,7 @@ final class FacebookBanner: FBNativeAd, Banner {
   private(set) var isNeedToRetain: Bool = true
   var type: BannerType { return .facebook(bannerID) }
   var mwmType: MWMBannerType { return type.mwmType }
-  var bannerID: String! { return placementID }
+  var bannerID: String! { return nativeAd.placementID }
   var isBannerOnScreen = false {
     didSet {
       if isBannerOnScreen {
@@ -84,9 +87,10 @@ final class FacebookBanner: FBNativeAd, Banner {
   }
 
   init(bannerID: String) {
-    super.init(placementID: bannerID)
-    mediaCachePolicy = .all
-    delegate = self
+    nativeAd = FBNativeAd(placementID: bannerID)
+    nativeAd.mediaCachePolicy = .all
+    super.init()
+    nativeAd.delegate = self
     let center = NotificationCenter.default
     center.addObserver(self,
                        selector: #selector(enterForeground),
@@ -119,12 +123,12 @@ final class FacebookBanner: FBNativeAd, Banner {
 extension FacebookBanner: FBNativeAdDelegate {
 
   func nativeAdDidLoad(_ nativeAd: FBNativeAd) {
-    guard nativeAd === self else { return }
+    guard nativeAd === self.nativeAd else { return }
     success(self)
   }
 
   func nativeAd(_ nativeAd: FBNativeAd, didFailWithError error: Error) {
-    guard nativeAd === self else { return }
+    guard nativeAd === self.nativeAd else { return }
 
     // https://developers.facebook.com/docs/audience-network/testing
     var params: [String: Any] = [kStatBanner : nativeAd.placementID, kStatProvider : kStatFacebook]
@@ -142,7 +146,7 @@ extension FacebookBanner: FBNativeAdDelegate {
   }
 
   func nativeAdDidClick(_ nativeAd: FBNativeAd) {
-    guard nativeAd === self else { return }
+    guard nativeAd === self.nativeAd else { return }
     click(self)
   }
 }
