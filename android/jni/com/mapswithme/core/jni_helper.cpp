@@ -4,7 +4,6 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
-#include "base/logging.hpp"
 
 #include <vector>
 
@@ -199,10 +198,27 @@ bool HandleJavaException(JNIEnv * env)
      const jthrowable e = env->ExceptionOccurred();
      env->ExceptionDescribe();
      env->ExceptionClear();
-     LOG(LERROR, (ToNativeString(env, e)));
+     my::LogLevel level = GetLogLevelForException(env, e);
+     LOG(level, (ToNativeString(env, e)));
      return true;
    }
    return false;
+}
+
+my::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e)
+{
+  static jclass const errorClass = jni::GetGlobalClassRef(env, "java/lang/Error");
+  ASSERT(errorClass, (jni::DescribeException()));
+  static jclass const runtimeExceptionClass =
+    jni::GetGlobalClassRef(env, "java/lang/RuntimeException");
+  ASSERT(runtimeExceptionClass, (jni::DescribeException()));
+  // If Unchecked Exception or Error is occurred during Java call the app should fail immediately.
+  // In other cases, just a warning message about exception (Checked Exception)
+  // will be written into LogCat.
+  if (env->IsInstanceOf(e, errorClass) || env->IsInstanceOf(e, runtimeExceptionClass))
+    return LERROR;
+
+  return LWARNING;
 }
 
 std::string DescribeException()
