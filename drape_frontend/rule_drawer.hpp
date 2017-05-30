@@ -27,6 +27,7 @@ public:
   using TDrawerCallback = std::function<void(FeatureType const &, Stylist &)>;
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string const &)>;
+  using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
 
   RuleDrawer(TDrawerCallback const & drawerFn,
              TCheckCancelledCallback const & checkCancelled,
@@ -37,6 +38,19 @@ public:
   void operator()(FeatureType const & f);
 
 private:
+  void ProcessAreaStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                        int & minVisibleScale);
+  void ProcessLineStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                        int & minVisibleScale);
+  void ProcessPointStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                         int & minVisibleScale);
+
+  bool CheckCoastlines(FeatureType const & f, Stylist const & s);
+
+#ifdef DRAW_TILE_NET
+  void DrawTileNet(TInsertShapeFn const & insertShape);
+#endif
+
   bool CheckCancelled();
 
   TDrawerCallback m_callback;
