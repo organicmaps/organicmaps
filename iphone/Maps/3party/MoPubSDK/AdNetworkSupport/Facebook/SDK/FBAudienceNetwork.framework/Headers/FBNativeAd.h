@@ -81,6 +81,10 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  */
 @property (nonatomic, strong, readonly, nullable) FBAdImage *coverImage;
 /**
+  Typed access to the body raw untruncated text, usually a longer description of the ad. Note, this method always returns untruncated text, as opposed to -(NSString *) body.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *rawBody;
+/**
   Typed access to the body text, usually a longer description of the ad.
  */
 @property (nonatomic, copy, readonly, nullable) NSString *body;

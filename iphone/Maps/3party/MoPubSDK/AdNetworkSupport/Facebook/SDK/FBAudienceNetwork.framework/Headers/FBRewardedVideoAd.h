@@ -183,7 +183,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter rewardedVideoAd: An FBRewardedVideoAd object sending the message.
  */
-- (void)rewardedVideoAdServerSuccess:(FBRewardedVideoAd *)rewardedVideoAd;
+- (void)rewardedVideoAdServerRewardDidSucceed:(FBRewardedVideoAd *)rewardedVideoAd;
 
 /**
   Sent if server call to publisher's reward endpoint did not return HTTP status code 200
@@ -191,7 +191,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter rewardedVideoAd: An FBRewardedVideoAd object sending the message.
  */
-- (void)rewardedVideoAdServerFailed:(FBRewardedVideoAd *)rewardedVideoAd;
+- (void)rewardedVideoAdServerRewardDidFail:(FBRewardedVideoAd *)rewardedVideoAd;
 
 @end
 

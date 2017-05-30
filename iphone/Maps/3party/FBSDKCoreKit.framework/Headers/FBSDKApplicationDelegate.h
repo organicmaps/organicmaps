@@ -56,7 +56,7 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_9_3
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_9_0
 /**
   Call this method from the [UIApplicationDelegate application:openURL:options:] method
  of the AppDelegate for your app. It should be invoked for the proper processing of responses during interaction

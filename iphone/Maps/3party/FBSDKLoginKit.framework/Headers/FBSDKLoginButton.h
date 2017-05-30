@@ -110,7 +110,7 @@ typedef NS_ENUM(NSUInteger, FBSDKLoginButtonTooltipBehavior)
  - Parameter result: The results of the login
  - Parameter error: The error (if any) from the login
  */
-- (void)  loginButton:(FBSDKLoginButton *)loginButton
+- (void)loginButton:(FBSDKLoginButton *)loginButton
 didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
                 error:(NSError *)error;
 
