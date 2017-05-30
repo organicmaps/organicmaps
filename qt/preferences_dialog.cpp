@@ -4,28 +4,15 @@
 #include "platform/settings.hpp"
 
 #include <QtGui/QIcon>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QCheckBox>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QTableWidget>
-  #include <QtGui/QHeaderView>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QGroupBox>
-  #include <QtGui/QButtonGroup>
-  #include <QtGui/QRadioButton>
-#else
-  #include <QtWidgets/QCheckBox>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QTableWidget>
-  #include <QtWidgets/QHeaderView>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QGroupBox>
-  #include <QtWidgets/QButtonGroup>
-  #include <QtWidgets/QRadioButton>
-#endif
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QRadioButton>
 
 using namespace measurement_utils;
 

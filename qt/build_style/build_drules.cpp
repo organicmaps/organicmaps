@@ -3,8 +3,7 @@
 
 #include "platform/platform.hpp"
 
-#include "std/exception.hpp"
-
+#include <exception>
 #include <fstream>
 #include <streambuf>
 
@@ -15,32 +14,22 @@
 
 namespace
 {
-
 QString GetScriptPath()
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "kothic/src/libkomwm.py";
+  return GetExternalPath("libkomwm.py", "kothic/src", "../tools/kothic/src");
 }
-
-QString GetProtobufEggPath()
-{
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "kothic/protobuf-2.6.1-py2.7.egg";
-}
-
 }  // namespace
 
 namespace build_style
 {
-
 void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir)
 {
-  QString const outputTemplate = outputDir + "drules_proto";
+  QString const outputTemplate = JoinFoldersToPath({outputDir, "drules_proto_design"});
   QString const outputFile = outputTemplate + ".bin";
 
   // Caller ensures that output directory is clear
   if (QFile(outputFile).exists())
-    throw runtime_error("Output directory is not clear");
+    throw std::runtime_error("Output directory is not clear");
 
   // Prepare command line
   QStringList params;
@@ -64,41 +53,27 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
     QString msg = QString("System error ") + to_string(res.first).c_str();
     if (!res.second.isEmpty())
       msg = msg + "\n" + res.second;
-    throw runtime_error(to_string(msg));
+    throw std::runtime_error(to_string(msg));
   }
 
   // Ensure generated files has non-zero size
   if (QFile(outputFile).size() == 0)
-    throw runtime_error("Drawing rules file has zero size");
+    throw std::runtime_error("Drawing rules file has zero size");
 }
 
 void BuildDrawingRules(QString const & mapcssFile, QString const & outputDir)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-
-  if (!QFile::copy(resourceDir + "mapcss-mapping.csv", outputDir + "mapcss-mapping.csv"))
-    throw runtime_error("Unable to copy mapcss-mapping.csv file");
-
-  if (!QFile::copy(resourceDir + "mapcss-dynamic.txt", outputDir + "mapcss-dynamic.txt"))
-    throw runtime_error("Unable to copy mapcss-dynamic.txt file");
-
+  CopyFromResources("mapcss-mapping.csv", outputDir);
+  CopyFromResources("mapcss-dynamic.txt", outputDir);
   BuildDrawingRulesImpl(mapcssFile, outputDir);
 }
 
 void ApplyDrawingRules(QString const & outputDir)
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-
-  if (!CopyFile(outputDir + "drules_proto.bin", resourceDir + "drules_proto.bin"))
-    throw runtime_error("Cannot copy drawing rules file");
-  if (!CopyFile(outputDir + "classificator.txt", resourceDir + "classificator.txt"))
-    throw runtime_error("Cannot copy classificator file");
-  if (!CopyFile(outputDir + "types.txt", resourceDir + "types.txt"))
-    throw runtime_error("Cannot copy types file");
-  if (!CopyFile(outputDir + "patterns.txt", resourceDir + "patterns.txt"))
-    throw runtime_error("Cannot copy patterns file");
-  if (!CopyFile(outputDir + "colors.txt", resourceDir + "colors.txt"))
-    throw runtime_error("Cannot copy colors file");
+  CopyToResources("drules_proto_design.bin", outputDir);
+  CopyToResources("classificator.txt", outputDir);
+  CopyToResources("types.txt", outputDir);
+  CopyToResources("patterns.txt", outputDir, "patterns_design.txt");
+  CopyToResources("colors.txt", outputDir, "colors_design.txt");
 }
-
 }  // namespace build_style

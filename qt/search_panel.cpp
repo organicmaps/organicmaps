@@ -15,26 +15,14 @@
 #include <functional>
 
 #include <QtCore/QTimer>
-
 #include <QtGui/QBitmap>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QHeaderView>
-  #include <QtGui/QTableWidget>
-  #include <QtGui/QLineEdit>
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QLabel>
-#else
-  #include <QtWidgets/QHeaderView>
-  #include <QtWidgets/QTableWidget>
-  #include <QtWidgets/QLineEdit>
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QLabel>
-#endif
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLabel>
 
 namespace qt
 {
@@ -55,11 +43,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_pTable->verticalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setVisible(false);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  m_pTable->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-#else
   m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-#endif
 
   connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
 

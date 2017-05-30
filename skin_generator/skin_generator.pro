@@ -1,12 +1,14 @@
 TARGET = skin_generator
 TEMPLATE = app
-CONFIG   += console
+CONFIG += console
 
-!map_designer {
-  CONFIG   -= app_bundle
+!map_designer_standalone {
+  CONFIG -= app_bundle
 }
 
 ROOT_DIR = ..
+DEPENDENCIES = coding geometry freetype gflags base
+
 include($$ROOT_DIR/common.pri)
 
 QT *= core gui svg xml
@@ -23,7 +25,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/boost \
                $$ROOT_DIR/3party/freetype/include \
                $$ROOT_DIR/3party/gflags/src
 
-HEADERS += skin_generator.hpp
+HEADERS += generator.hpp
            
 SOURCES += main.cpp \
-    skin_generator.cpp
+           generator.cpp

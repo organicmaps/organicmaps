@@ -2,8 +2,6 @@
 
 #include "build_common.h"
 
-#include "std/exception.hpp"
-
 #include "platform/platform.hpp"
 
 #include <QDir>
@@ -11,21 +9,14 @@
 #include <QFileInfo>
 #include <QStringList>
 
+#include <exception>
+
 namespace
 {
-
 QString GetScriptPath()
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "kothic/src/drules_info.py";
+  return GetExternalPath("drules_info.py", "kothic/src", "../tools/python/stylesheet");
 }
-
-QString GetProtobufEggPath()
-{
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "kothic/protobuf-2.6.1-py2.7.egg";
-}
-
 }  // namespace
 
 namespace build_style
@@ -34,10 +25,10 @@ namespace build_style
 QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & drulesFile)
 {
   if (!QFile(mapcssMappingFile).exists())
-    throw runtime_error("mapcss-mapping file does not exist");
+    throw std::runtime_error("mapcss-mapping file does not exist");
 
   if (!QFile(drulesFile).exists())
-    throw runtime_error("drawing-rules file does not exist");
+    throw std::runtime_error("drawing-rules file does not exist");
 
   // Prepare command line
   QStringList params;
@@ -67,10 +58,9 @@ QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & dr
 QString GetCurrentStyleStatistics()
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  QString const mappingPath = resourceDir + "mapcss-mapping.csv";
-  QString const drulesPath = resourceDir + "drules_proto.bin";
+  QString const mappingPath = JoinFoldersToPath({resourceDir, "mapcss-mapping.csv"});
+  QString const drulesPath = JoinFoldersToPath({resourceDir, "drules_proto_design.bin"});
   return GetStyleStatistics(mappingPath, drulesPath);
 }
-
 }  // namespace build_style
 

@@ -33,6 +33,9 @@ BuildDrawingRules clear  night _dark
 BuildDrawingRules vehicle  clear _vehicle_clear
 BuildDrawingRules vehicle  night _vehicle_dark
 
+# In designer mode we use drules_proto_design file instead of standard ones
+cp $OMIM_PATH/data/drules_proto_clear.bin $OMIM_PATH/data/drules_proto_design.bin
+
 echo "Merging default and vehicle styles"
 python "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
   "$DATA_PATH/drules_proto_clear.bin" "$DATA_PATH/drules_proto_vehicle_clear.bin" \

@@ -1,12 +1,10 @@
 #pragma once
 
-#include "std/utility.hpp"
-
 #include <QString>
+
+#include <utility>
 
 namespace build_style
 {
-
-pair<bool, QString> RunCurrentStyleTests();
-
+std::pair<bool, QString> RunCurrentStyleTests();
 } // namespace build_style

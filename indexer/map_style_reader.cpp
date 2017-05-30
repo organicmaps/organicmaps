@@ -15,10 +15,14 @@ std::string const kSuffixVehicleClear = "_vehicle_clear";
 
 std::string const kStylesOverrideDir = "styles";
 
+#ifdef BUILD_DESIGNER
+std::string const kSuffixDesignTool = "_design";
+#endif // BUILD_DESIGNER
+
 std::string GetStyleRulesSuffix(MapStyle mapStyle)
 {
 #ifdef BUILD_DESIGNER
-  return string();
+  return kSuffixDesignTool;
 #else
   switch (mapStyle)
   {
@@ -44,7 +48,7 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
 std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 {
 #ifdef BUILD_DESIGNER
-  return string();
+  return kSuffixDesignTool;
 #else
   // We use the same resources for default and vehicle styles
   // to avoid textures duplication and package size increasing.

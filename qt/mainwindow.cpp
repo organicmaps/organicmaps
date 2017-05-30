@@ -10,6 +10,8 @@
 #include "qt/traffic_panel.hpp"
 #include "qt/trafficmodeinitdlg.h"
 
+#include "drape/debug_rect_renderer.hpp"
+
 #include "openlr/openlr_sample.hpp"
 
 #include "platform/settings.hpp"
@@ -38,6 +40,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QToolButton>
@@ -54,8 +57,6 @@
 #include <QtCore/QFile>
 
 #endif // NO_DOWNLOADER
-
-#include "drape/debug_rect_renderer.hpp"
 
 namespace
 {
@@ -113,7 +114,6 @@ private:
 
 namespace qt
 {
-
 // Defined in osm_auth_dialog.cpp.
 extern char const * kTokenKeySetting;
 extern char const * kTokenSecretSetting;
@@ -123,12 +123,6 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
   , m_locationService(CreateDesktopLocationService(*this))
 #ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
-  , m_pBuildStyleAction(nullptr)
-  , m_pRecalculateGeomIndex(nullptr)
-  , m_pDrawDebugRectAction(nullptr)
-  , m_pGetStatisticsAction(nullptr)
-  , m_pRunTestsAction(nullptr)
-  , m_pBuildPhonePackAction(nullptr)
 #endif
 {
   // Always runs on the first desktop
@@ -145,8 +139,10 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
   CreateSearchBarAndPanel();
 
   QString caption = qAppName();
+#ifdef BUILD_DESIGNER
   if (!m_mapcssFilePath.isEmpty())
     caption += QString(" - ") + m_mapcssFilePath;
+#endif
 
   setWindowTitle(caption);
   setWindowIcon(QIcon(":/ui/logo.png"));
@@ -271,45 +267,45 @@ void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 
 namespace
 {
-  struct button_t
-  {
-    QString name;
-    char const * icon;
-    char const * slot;
-  };
+struct button_t
+{
+  QString name;
+  char const * icon;
+  char const * slot;
+};
 
-  void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
+void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
+{
+  for (size_t i = 0; i < count; ++i)
   {
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (buttons[i].icon)
-        pBar->addAction(QIcon(buttons[i].icon), buttons[i].name, pReceiver, buttons[i].slot);
-      else
-        pBar->addSeparator();
-    }
-  }
-
-  void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
-  {
-    int const mbInBytes = 1024 * 1024;
-    int const kbInBytes = 1024;
-    if (sizeInBytes > mbInBytes)
-    {
-      sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
-      units = "MB";
-    }
-    else if (sizeInBytes > kbInBytes)
-    {
-      sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
-      units = "KB";
-    }
+    if (buttons[i].icon)
+      pBar->addAction(QIcon(buttons[i].icon), buttons[i].name, pReceiver, buttons[i].slot);
     else
-    {
-      sizeToDownload = sizeInBytes;
-      units = "B";
-    }
+      pBar->addSeparator();
   }
 }
+
+void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
+{
+  int const mbInBytes = 1024 * 1024;
+  int const kbInBytes = 1024;
+  if (sizeInBytes > mbInBytes)
+  {
+    sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
+    units = "MB";
+  }
+  else if (sizeInBytes > kbInBytes)
+  {
+    sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
+    units = "KB";
+  }
+  else
+  {
+    sizeToDownload = sizeInBytes;
+    units = "B";
+  }
+}
+}  // namespace
 
 void MainWindow::CreateNavigationBar()
 {
@@ -343,6 +339,7 @@ void MainWindow::CreateNavigationBar()
     m_trafficEnableAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
     pToolBar->addSeparator();
 
+#ifndef BUILD_DESIGNER
     m_selectStartRoutePoint = new QAction(QIcon(":/navig64/point-start.png"),
                                           tr("Start point"), this);
     connect(m_selectStartRoutePoint, SIGNAL(triggered()), this, SLOT(OnStartPointSelected()));
@@ -402,6 +399,7 @@ void MainWindow::CreateNavigationBar()
     m_clearSelection->setToolTip(tr("Clear selection"));
 
     pToolBar->addSeparator();
+#endif // NOT BUILD_DESIGNER
 
     // Add search button with "checked" behavior.
     m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Search"),
@@ -681,8 +679,10 @@ void MainWindow::OnBuildStyle()
     build_style::BuildAndApply(m_mapcssFilePath);
     // m_pDrawWidget->RefreshDrawingRules();
 
-    bool enabled = false;
-    settings::Get(kEnabledAutoRegenGeomIndex, enabled);
+    bool enabled;
+    if (!settings::Get(kEnabledAutoRegenGeomIndex, enabled))
+      enabled = false;
+
     if (enabled)
     {
       build_style::NeedRecalculate = true;
@@ -964,5 +964,4 @@ void MainWindow::SetDefaultSurfaceFormat(bool apiOpenGLES3)
 {
   DrawWidget::SetDefaultSurfaceFormat(apiOpenGLES3);
 }
-
 }  // namespace qt

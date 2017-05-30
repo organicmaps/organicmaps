@@ -24,11 +24,7 @@
 #if defined(OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP) && !defined(OMIM_OS_IPHONE)
   #include <QtCore/Qt>
   #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
-    #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-      #include <QtGui/QApplication>
-    #else
-      #include <QtWidgets/QApplication>
-    #endif
+    #include <QtWidgets/QApplication>
     #define QAPP QApplication
   #else
     #include <QtCore/QCoreApplication>

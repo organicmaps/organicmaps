@@ -6,19 +6,15 @@
 
 namespace
 {
-
 QString GetStyleTestPath()
 {
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "style_tests.app/Contents/MacOS/style_tests";
+  return GetExternalPath("style_tests", "style_tests.app/Contents/MacOS", "");
 }
-
 } // namespace
 
 namespace build_style
 {
-
-pair<bool, QString> RunCurrentStyleTests()
+std::pair<bool, QString> RunCurrentStyleTests()
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
 
@@ -32,7 +28,6 @@ pair<bool, QString> RunCurrentStyleTests()
 
   // Unfortunately test process returns 0 even if some test failed,
   // therefore phrase 'All tests passed.' is looked to be sure that everything is OK.
-  return make_pair(res.second.contains("All tests passed."), res.second);
+  return std::make_pair(res.second.contains("All tests passed."), res.second);
 }
-
 } // namespace build_style

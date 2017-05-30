@@ -1,11 +1,12 @@
-#include "skin_generator.hpp"
+#include "generator.hpp"
 
 #include "base/logging.hpp"
 #include <iostream>
 
+#include <QApplication>
 #include <QtCore/QFile>
 #include <QtCore/QString>
-#include <QApplication>
+#include <QtCore/QHash>
 
 #include <QtXml/QXmlSimpleReader>
 #include <QtXml/QXmlInputSource>
@@ -27,12 +28,14 @@ DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_bool(colorCorrection, false, "apply color correction");
 DEFINE_int32(maxSize, 2048, "max width/height of output textures");
 
-// Used to lock the hash seed, so the order of XML attributes is always the same.
-extern Q_CORE_EXPORT QBasicAtomicInt qt_qhash_seed;
-
 int main(int argc, char *argv[])
 {
-  qt_qhash_seed.store(0);
+// Used to lock the hash seed, so the order of XML attributes is always the same.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+  qSetGlobalQHashSeed(0);
+#else
+  qputenv("QT_HASH_SEED", "0");
+#endif
   try
   {
     google::ParseCommandLineFlags(&argc, &argv, true);

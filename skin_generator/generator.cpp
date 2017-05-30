@@ -1,4 +1,4 @@
-#include "skin_generator.hpp"
+#include "generator.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -12,6 +12,10 @@
 #include <QtXml/QDomElement>
 #include <QtXml/QDomDocument>
 #include <QtCore/QDir>
+
+#include <boost/gil/gil_all.hpp>
+
+namespace gil = boost::gil;
 
 namespace tools
 {

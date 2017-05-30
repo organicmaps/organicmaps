@@ -108,5 +108,12 @@ BuildSkin clear  clear xhdpi  44 false _clear symbols-ad -ad
 BuildSkin clear  clear xxhdpi 68 false _clear symbols-ad -ad
 BuildSkin clear  clear 6plus  68 false _clear symbols-ad -ad
 
+rm -rf $OMIM_PATH/data/resources-{*}
+
+rm -rf $OMIM_PATH/data/resources-*_design
+for i in mdpi hdpi xhdpi xxhdpi 6plus; do
+  cp -r $OMIM_PATH/data/resources-${i}_clear/ $OMIM_PATH/data/resources-${i}_design/
+done
+
 echo "Generate local ads symbols"
 python "$LOCAL_ADS_SYMBOLS_GENERATOR" "$DATA_PATH/styles" "$DATA_PATH"

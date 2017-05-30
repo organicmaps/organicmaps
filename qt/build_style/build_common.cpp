@@ -1,10 +1,16 @@
 #include "build_common.h"
 
+#include "platform/platform.hpp"
+
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QProcess>
+#include <QRegExp>
 
-pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * env)
+#include <exception>
+
+std::pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * env)
 {
   QProcess p;
   if (nullptr != env)
@@ -23,11 +29,13 @@ pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * 
     output += error;
   }
 
-  return make_pair(exitCode, output);
+  return std::make_pair(exitCode, output);
 }
 
 bool CopyFile(QString const & oldFile, QString const & newFile)
 {
+  if (oldFile == newFile)
+    return true;
   if (!QFile::exists(oldFile))
     return false;
   if (QFile::exists(newFile) && !QFile::remove(newFile))
@@ -35,14 +43,71 @@ bool CopyFile(QString const & oldFile, QString const & newFile)
   return QFile::copy(oldFile, newFile);
 }
 
+void CopyFromResources(QString const & name, QString const & output)
+{
+  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  if (!CopyFile(JoinFoldersToPath({resourceDir, name}),
+                JoinFoldersToPath({output, name})))
+  {
+    throw std::runtime_error(std::string("Cannot copy file ") +
+                             name.toStdString() +
+                             " to " + output.toStdString());
+  }
+}
+
+void CopyToResources(QString const & name, QString const & input, QString const & newName)
+{
+  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  if (!CopyFile(JoinFoldersToPath({input, name}),
+                JoinFoldersToPath({resourceDir, newName.isEmpty() ? name : newName})))
+  {
+    throw std::runtime_error(std::string("Cannot copy file ") +
+                             name.toStdString() +
+                             " from " + input.toStdString());
+  }
+}
+
 QString JoinFoldersToPath(std::initializer_list<QString> const & folders)
 {
   QString result;
+  bool firstInserted = false;
   for (auto it = folders.begin(); it != folders.end(); ++it)
   {
-    if (it != folders.begin())
+    if (it->isEmpty() || *it == QDir::separator())
+      continue;
+
+    if (firstInserted)
       result.append(QDir::separator());
+
     result.append(*it);
+    firstInserted = true;
   }
   return QDir::cleanPath(result);
+}
+
+QString GetExternalPath(QString const & name, QString const & primaryPath,
+                        QString const & secondaryPath)
+{
+  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  QString path = JoinFoldersToPath({resourceDir, primaryPath, name});
+  if (!QFileInfo::exists(path))
+    path = JoinFoldersToPath({resourceDir, secondaryPath, name});
+
+  // Special case for looking for in application folder.
+  if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
+  {
+    QString const appPath = QCoreApplication::applicationDirPath();
+    QRegExp rx("(/[^/]*\\.app)", Qt::CaseInsensitive);
+    int i = rx.indexIn(appPath);
+    if (i >= 0)
+      path = JoinFoldersToPath({appPath.left(i), name});
+  }
+
+  ASSERT(QFileInfo::exists(path), (path.toStdString()));
+  return path;
+}
+
+QString GetProtobufEggPath()
+{
+  return GetExternalPath("protobuf-2.6.1-py2.7.egg", "kothic", "../protobuf");
 }

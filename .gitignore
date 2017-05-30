@@ -19,6 +19,11 @@ data/[!W]*.mwm
 data/local_ads*.dat
 data/local_ads_*/*.*
 data/shaders_compiler/*
+data/styles/*/*/out/*
+data/resources-*_design/*
+data/drules_proto_design.bin
+data/colors_design.txt
+data/patterns_design.txt
 
 # Compiled Python
 *.pyc
@@ -154,3 +159,5 @@ server
 *.autosave
 
 cmake-build-*
+
+designer_version.h

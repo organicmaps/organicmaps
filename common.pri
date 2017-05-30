@@ -6,8 +6,13 @@
 # Qt5.6.x sets target OS X version to 10.7 which leads to compile errors.
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
 
-CONFIG(map_designer) {
+CONFIG(map_designer_standalone) {
+  CONFIG += map_designer
+  DEFINES *= USE_DESIGNER_VERSION
   DEFINES *= STANDALONE_APP
+}
+
+CONFIG(map_designer) {
   DEFINES *= BUILD_DESIGNER
 }
 

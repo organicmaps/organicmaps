@@ -12,8 +12,6 @@
 #include "std/string.hpp"
 #include "std/map.hpp"
 
-#include <boost/gil/gil_all.hpp>
-
 #include <QtGui/QPainter>
 #include <QtGui/QImage>
 #include <QtCore/QFileInfo>
@@ -23,8 +21,6 @@
 #include <QtXml/QXmlDefaultHandler>
 
 class QImage;
-
-namespace gil = boost::gil;
 
 namespace tools
 {

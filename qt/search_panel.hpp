@@ -9,12 +9,7 @@
 #include <vector>
 
 #include <QtGui/QPixmap>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QWidget>
-#else
-  #include <QtWidgets/QWidget>
-#endif
+#include <QtWidgets/QWidget>
 
 class QTableWidget;
 class QLineEdit;

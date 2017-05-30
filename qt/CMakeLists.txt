@@ -9,8 +9,21 @@ set(RESOURCES_FOLDER ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 execute_process(
-    COMMAND mkdir -p ${RESOURCES_FOLDER}
+  COMMAND mkdir -p ${RESOURCES_FOLDER}
 )
+
+if (BUILD_DESIGNER)
+  execute_process(
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-mdpi_clear/ ${OMIM_ROOT}/data/resources-mdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-hdpi_clear/ ${OMIM_ROOT}/data/resources-hdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xhdpi_clear/ ${OMIM_ROOT}/data/resources-xhdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xxhdpi_clear/ ${OMIM_ROOT}/data/resources-xxhdpi_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-6plus_clear/ ${OMIM_ROOT}/data/resources-6plus_design/
+    COMMAND cp -f ${OMIM_ROOT}/data/drules_proto_clear.bin ${OMIM_ROOT}/data/drules_proto_design.bin
+    COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
+    COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
+  )
+endif()
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
@@ -179,5 +192,18 @@ copy_resources(
 
   ../tools/shaders_compiler
 )
+
+if (BUILD_DESIGNER)
+  copy_resources(
+    resources-mdpi_design
+    resources-hdpi_design
+    resources-xhdpi_design
+    resources-xxhdpi_design
+    resources-6plus_design
+    colors_design.txt
+    patterns_design.txt
+    drules_proto_design.bin
+  )
+endif()
 
 add_subdirectory(qt_common)

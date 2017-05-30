@@ -39,7 +39,6 @@ Platform::Platform()
   {
 #ifdef STANDALONE_APP
     m_resourcesDir = resourcesPath + "/";
-    m_writableDir = m_resourcesDir;
 #else // STANDALONE_APP
     // we're the console app, probably unit test, and path is our directory
     m_resourcesDir = bundlePath + "/../../data/";
@@ -52,8 +51,8 @@ Platform::Platform()
       else
         m_resourcesDir = "./data/";
     }
-    m_writableDir = m_resourcesDir;
 #endif // STANDALONE_APP
+    m_writableDir = m_resourcesDir;
   }
   else
   {
@@ -94,6 +93,8 @@ Platform::Platform()
     }
   }
 
+  if (m_resourcesDir.empty())
+    m_resourcesDir = ".";
   m_resourcesDir = my::AddSlashIfNeeded(m_resourcesDir);
   m_writableDir = my::AddSlashIfNeeded(m_writableDir);
 

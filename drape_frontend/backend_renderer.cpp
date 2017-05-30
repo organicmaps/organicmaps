@@ -548,8 +548,13 @@ void BackendRenderer::InitGLDependentResource()
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
+#ifdef BUILD_DESIGNER
+  params.m_colors = "colors_design.txt";
+  params.m_patterns = "patterns_design.txt";
+#else
   params.m_colors = "colors.txt";
   params.m_patterns = "patterns.txt";
+#endif // BUILD_DESIGNER
   params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
   params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";

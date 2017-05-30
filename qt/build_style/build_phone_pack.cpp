@@ -13,11 +13,7 @@ namespace
 {
 QString GetScriptPath()
 {
-  QString const kScriptName = "generate_styles_override.py";
-  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (resourceDir.isEmpty())
-    return kScriptName;
-  return JoinFoldersToPath({resourceDir, kScriptName});
+  return GetExternalPath("generate_styles_override.py", "", "../tools/python");
 }
 }  // namespace
 

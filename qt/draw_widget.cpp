@@ -509,11 +509,10 @@ void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
   }
   //fmt.setOption(QSurfaceFormat::DebugContext);
   QSurfaceFormat::setDefaultFormat(fmt);
-
+}
 
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleClear);
 }
-
-}
+}  // namespace qt

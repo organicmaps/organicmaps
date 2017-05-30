@@ -18,6 +18,17 @@ map_designer {
   TARGET = MAPS.ME
 }
 
+map_designer {
+  CP_MDPI = $$system(cp -rf $$PWD/../data/resources-mdpi_clear $$PWD/../data/resources-mdpi_design)
+  CP_HDPI = $$system(cp -rf $$PWD/../data/resources-hdpi_clear $$PWD/../data/resources-hdpi_design)
+  CP_XHDPI = $$system(cp -rf $$PWD/../data/resources-xhdpi_clear $$PWD/../data/resources-xhdpi_design)
+  CP_XXHDPI = $$system(cp -rf $$PWD/../data/resources-xxhdpi_clear $$PWD/../data/resources-xxhdpi_design)
+  CP_6PLUS = $$system(cp -rf $$PWD/../data/resources-6plus_clear $$PWD/../data/resources-6plus_design)
+  CP_DRULES = $$system(cp -f $$PWD/../data/drules_proto_clear.bin $$PWD/../data/drules_proto_design.bin)
+  CP_COLORS = $$system(cp -f $$PWD/../data/colors.txt $$PWD/../data/colors_design.txt)
+  CP_PATTERNS = $$system(cp -f $$PWD/../data/patterns.txt $$PWD/../data/patterns_design.txt)
+}
+
 TEMPLATE = app
 CONFIG += warn_on
 QT *= core widgets gui opengl
@@ -88,6 +99,53 @@ MDPI_SKIN_RES.files = ../data/resources-mdpi_clear/symbols.sdf ../data/resources
 XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi_clear
 XHDPI_SKIN_RES.files = ../data/resources-xhdpi_clear/symbols.sdf ../data/resources-xhdpi_clear/symbols.png
 
+map_designer {
+  DESIGN_TOOL_RES.path = $$DATADIR
+  DESIGN_TOOL_RES.files = ../data/drules_proto_design.bin \
+                          ../data/colors_design.txt \
+                          ../data/patterns_design.txt
+
+  DESIGN_TOOL_MDPI_RES.path = $$DATADIR/resources-mdpi_design
+  DESIGN_TOOL_MDPI_RES.files = ../data/resources-mdpi_design/symbols.png \
+                               ../data/resources-mdpi_design/symbols.sdf \
+                               ../data/resources-mdpi_design/symbols-ad.png \
+                               ../data/resources-mdpi_design/symbols-ad.sdf \
+                               ../data/resources-mdpi_design/area-hatching.png \
+                               ../data/resources-mdpi_design/traffic-arrow.png
+
+  DESIGN_TOOL_HDPI_RES.path = $$DATADIR/resources-hdpi_design
+  DESIGN_TOOL_HDPI_RES.files = ../data/resources-hdpi_design/symbols.png \
+                               ../data/resources-hdpi_design/symbols.sdf \
+                               ../data/resources-hdpi_design/symbols-ad.png \
+                               ../data/resources-hdpi_design/symbols-ad.sdf \
+                               ../data/resources-hdpi_design/area-hatching.png \
+                               ../data/resources-hdpi_design/traffic-arrow.png
+
+  DESIGN_TOOL_XHDPI_RES.path = $$DATADIR/resources-xhdpi_design
+  DESIGN_TOOL_XHDPI_RES.files = ../data/resources-xhdpi_design/symbols.png \
+                                ../data/resources-xhdpi_design/symbols.sdf \
+                                ../data/resources-xhdpi_design/symbols-ad.png \
+                                ../data/resources-xhdpi_design/symbols-ad.sdf \
+                                ../data/resources-xhdpi_design/area-hatching.png \
+                                ../data/resources-xhdpi_design/traffic-arrow.png
+
+  DESIGN_TOOL_XXHDPI_RES.path = $$DATADIR/resources-xxhdpi_design
+  DESIGN_TOOL_XXHDPI_RES.files = ../data/resources-xxhdpi_design/symbols.png \
+                                 ../data/resources-xxhdpi_design/symbols.sdf \
+                                 ../data/resources-xxhdpi_design/symbols-ad.png \
+                                 ../data/resources-xxhdpi_design/symbols-ad.sdf \
+                                 ../data/resources-xxhdpi_design/area-hatching.png \
+                                 ../data/resources-xxhdpi_design/traffic-arrow.png
+
+  DESIGN_TOOL_6PLUS_RES.path = $$DATADIR/resources-6plus_design
+  DESIGN_TOOL_6PLUS_RES.files = ../data/resources-6plus_design/symbols.png \
+                                ../data/resources-6plus_design/symbols.sdf \
+                                ../data/resources-6plus_design/symbols-ad.png \
+                                ../data/resources-6plus_design/symbols-ad.sdf \
+                                ../data/resources-6plus_design/area-hatching.png \
+                                ../data/resources-6plus_design/traffic-arrow.png
+}
+
 FONT_RES.path = $$FONTSDIR
 FONT_RES.files = ../data/01_dejavusans.ttf \
                  ../data/02_droidsans-fallback.ttf \
@@ -108,6 +166,10 @@ MWM_RES.path = $$DATADIR
 MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
 ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES ICU_RES
+map_designer {
+  ALL_RESOURCES += DESIGN_TOOL_RES DESIGN_TOOL_MDPI_RES DESIGN_TOOL_HDPI_RES DESIGN_TOOL_XHDPI_RES \
+                   DESIGN_TOOL_XXHDPI_RES DESIGN_TOOL_6PLUS_RES
+}
 #ALL_RESOURCES += DEFAULT_SKIN_RES
 
 linux* {

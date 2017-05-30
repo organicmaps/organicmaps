@@ -21,15 +21,8 @@
 #include "3party/gflags/src/gflags/gflags.h"
 
 #include <QMessageBox>
-
 #include <QtCore/QDir>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QApplication>
-#else
-  #include <QtWidgets/QApplication>
-#endif
-
+#include <QtWidgets/QApplication>
 #include <QFileDialog>
 
 DEFINE_string(log_abort_level, my::ToString(my::GetDefaultLogAbortLevel()),
@@ -152,13 +145,16 @@ int main(int argc, char * argv[])
 #endif
     qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
 
-    QString mapcssFilePath;
 #ifdef BUILD_DESIGNER
     if (argc >= 2 && GetPlatform().IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
-        mapcssFilePath = QFileDialog::getOpenFileName(nullptr,
-          "Open MapCSS file", "~/", "MapCSS Files (*.mapcss)");
+    {
+      mapcssFilePath = QFileDialog::getOpenFileName(nullptr, "Open MapCSS file", "~/",
+                                                    "MapCSS Files (*.mapcss)");
+    }
+    if (mapcssFilePath.isEmpty())
+      return returnCode;
 #endif // BUILD_DESIGNER
 
     Framework framework;
@@ -167,7 +163,8 @@ int main(int argc, char * argv[])
     returnCode = a.exec();
   }
 
-  if (build_style::NeedRecalculate && mapcssFilePath.length() != 0)
+#ifdef BUILD_DESIGNER
+  if (build_style::NeedRecalculate && !mapcssFilePath.isEmpty())
   {
     try
     {
@@ -183,6 +180,7 @@ int main(int argc, char * argv[])
       msgBox.exec();
     }
   }
+#endif // BUILD_DESIGNER
 
   LOG_SHORT(LINFO, ("MapsWithMe finished with code", returnCode));
   return returnCode;

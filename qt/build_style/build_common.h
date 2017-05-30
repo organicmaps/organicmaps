@@ -1,17 +1,23 @@
 #pragma once
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
-
 #include <QString>
 #include <QProcessEnvironment>
 
 #include <initializer_list>
+#include <string>
+#include <utility>
 
-inline string to_string(const QString & qs) { return qs.toUtf8().constData(); }
+inline std::string to_string(const QString & qs) { return qs.toUtf8().constData(); }
 
-pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * env = nullptr);
+std::pair<int, QString> ExecProcess(QString const & cmd, QProcessEnvironment const * env = nullptr);
 
 bool CopyFile(QString const & oldFile, QString const & newFile);
 
+void CopyFromResources(QString const & name, QString const & output);
+void CopyToResources(QString const & name, QString const & input, QString const & newName = "");
+
 QString JoinFoldersToPath(std::initializer_list<QString> const & folders);
+
+QString GetExternalPath(QString const & name, QString const & primaryPath,
+                        QString const & secondaryPath);
+QString GetProtobufEggPath();

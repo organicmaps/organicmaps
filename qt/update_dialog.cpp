@@ -400,13 +400,8 @@ namespace qt
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_tree->header()->setResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
-    m_tree->header()->setResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
-#else
     m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
     m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
-#endif
   }
 
   void UpdateDialog::OnCountryChanged(TCountryId const & countryId)

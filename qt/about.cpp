@@ -7,23 +7,18 @@
 #include <QtCore/QFile>
 #include <QtGui/QIcon>
 
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextBrowser>
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QMenuBar>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QLabel>
-  #include <QtGui/QTextBrowser>
-#else
-  #include <QtWidgets/QMenuBar>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QLabel>
-  #include <QtWidgets/QTextBrowser>
-#endif
-
-#ifdef BUILD_DESIGNER
+#ifdef USE_DESIGNER_VERSION
   #include "designer_version.h"
+#else
+  #define DESIGNER_APP_VERSION ""
+  #define DESIGNER_CODEBASE_SHA ""
+  #define DESIGNER_DATA_VERSION ""
 #endif // BUILD_DESIGNER
 
 AboutDialog::AboutDialog(QWidget * parent)

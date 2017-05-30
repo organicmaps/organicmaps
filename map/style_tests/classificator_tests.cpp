@@ -6,7 +6,7 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "Platform/platform.hpp"
+#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 

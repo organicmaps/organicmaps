@@ -110,6 +110,7 @@ set(
   scale_index.hpp
   scales.cpp
   scales.hpp
+  scales_patch.hpp
   search_delimiters.cpp     # it's in indexer because of CategoriesHolder dependency.
   search_delimiters.hpp       # it's in indexer because of CategoriesHolder dependency.
   search_string_utils.cpp   # it's in indexer because of CategoriesHolder dependency.

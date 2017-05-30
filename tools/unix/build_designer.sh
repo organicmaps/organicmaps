@@ -23,8 +23,13 @@ DVER
 rm -rf "$RELEASE_PATH"
 (
   cd "$OMIM_PATH"
-  ${QMAKE-qmake} omim.pro -r -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=map_designer CONFIG+=no-tests
-  make -j8
+  ${QMAKE-qmake} omim.pro -r -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=map_designer_standalone CONFIG+=no-tests
+  TMP_FILE="build_error.log"
+  if ! make -j8 2> "$TMP_FILE"; then
+    echo '--------------------'
+    cat "$TMP_FILE"
+    exit 1
+  fi
 )
 
 # Prepare app package by copying Qt, Kothic, Skin Generator, Style tests
@@ -48,9 +53,9 @@ cp "$OMIM_PATH/tools/python/generate_styles_override.py" "$MAC_RESOURCES/generat
 rm -rf $MAC_RESOURCES/drules_proto*
 rm -rf $MAC_RESOURCES/resources-*
 for i in mdpi hdpi xhdpi xxhdpi 6plus; do
-  cp -r $OMIM_PATH/data/resources-${i}_clear/ $MAC_RESOURCES/resources-$i/
+  cp -r $OMIM_PATH/data/resources-${i}_design/ $MAC_RESOURCES/resources-${i}_design/
 done
-cp $OMIM_PATH/data/drules_proto_clear.bin $MAC_RESOURCES/drules_proto.bin
+cp $OMIM_PATH/data/drules_proto_design.bin $MAC_RESOURCES/drules_proto_design.bin
 for i in resources-default countries-strings cuisine-strings WorldCoasts_obsolete.mwm countries.txt cuisines.txt countries_obsolete.txt packed_polygons.bin packed_polygons_obsolete.bin; do
   cp -r $OMIM_PATH/data/$i $MAC_RESOURCES/
 done

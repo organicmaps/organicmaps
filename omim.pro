@@ -116,7 +116,8 @@ SUBDIRS = 3party base coding geometry editor indexer routing routing_common sear
   CONFIG(map_designer):CONFIG(no-tests) {
     # Designer Tool package includes style tests
     style_tests.subdir = map/style_tests
-    style_tests.depends = map indexer platform geometry coding base
+    style_tests.depends = 3party base coding geometry editor platform storage indexer search map \
+                          routing_common drape drape_frontend
     SUBDIRS *= style_tests
   }
 
