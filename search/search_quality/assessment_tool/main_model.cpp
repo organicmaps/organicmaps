@@ -230,12 +230,11 @@ bool MainModel::AlreadyInSamples(FeatureID const & id)
   CHECK(m_selectedSample < m_contexts.Size(), ());
 
   bool found = false;
-  ForMatchingEntries(m_contexts[m_selectedSample], id, [&](Edits & edits, size_t index)
-                     {
-                       auto const & entry = edits.GetEntry(index);
-                       if (!entry.m_deleted)
-                         found = true;
-                     });
+  ForAnyMatchingEntry(m_contexts[m_selectedSample], id, [&](Edits & edits, size_t index) {
+    auto const & entry = edits.GetEntry(index);
+    if (!entry.m_deleted)
+      found = true;
+  });
   return found;
 }
 
@@ -247,22 +246,19 @@ void MainModel::AddNonFoundResult(FeatureID const & id)
   auto & context = m_contexts[m_selectedSample];
 
   bool resurrected = false;
-  ForMatchingEntries(context, id, [&](Edits & edits, size_t index)
-                     {
-                       auto const & entry = edits.GetEntry(index);
-                       CHECK(entry.m_deleted, ());
-                       edits.Resurrect(index);
-                       resurrected = true;
-                     });
+  ForAnyMatchingEntry(context, id, [&](Edits & edits, size_t index) {
+    auto const & entry = edits.GetEntry(index);
+    CHECK(entry.m_deleted, ());
+    edits.Resurrect(index);
+    resurrected = true;
+  });
   if (resurrected)
     return;
 
-  {
-    FeatureType ft;
-    CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
-    auto const result = search::Sample::Result::Build(ft, search::Sample::Result::Relevance::Vital);
-    context.AddNonFoundResult(result);
-  }
+  FeatureType ft;
+  CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
+  auto const result = search::Sample::Result::Build(ft, search::Sample::Result::Relevance::Vital);
+  context.AddNonFoundResult(result);
 }
 
 void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update)
@@ -338,7 +334,6 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
     context.m_initialized = true;
   }
 
-
   m_view->ShowNonFoundResults(context.m_nonFoundResults,
                               context.m_nonFoundResultsEdits.GetEntries());
   ShowMarks(context);
@@ -367,7 +362,7 @@ void MainModel::ShowMarks(Context const & context)
 }
 
 template <typename Fn>
-void MainModel::ForMatchingEntries(Context & context, FeatureID const & id, Fn && fn)
+void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn)
 {
   CHECK(context.m_initialized, ());
 
@@ -379,7 +374,7 @@ void MainModel::ForMatchingEntries(Context & context, FeatureID const & id, Fn &
     if (result.GetResultType() != search::Result::RESULT_FEATURE)
       continue;
     if (result.GetFeatureID() == id)
-      fn(context.m_foundResultsEdits, i);
+      return fn(context.m_foundResultsEdits, i);
   }
 
   FeatureType ft;
@@ -392,6 +387,6 @@ void MainModel::ForMatchingEntries(Context & context, FeatureID const & id, Fn &
   {
     auto const & result = context.m_nonFoundResults[i];
     if (matcher.Matches(result, ft))
-      fn(context.m_nonFoundResultsEdits, i);
+      return fn(context.m_nonFoundResultsEdits, i);
   }
 }

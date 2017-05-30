@@ -80,7 +80,6 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
 
 bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)
 {
-
   if (actual.GetResultType() != Result::RESULT_FEATURE)
     return false;
 

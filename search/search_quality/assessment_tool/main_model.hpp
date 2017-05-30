@@ -55,7 +55,7 @@ private:
   void ShowMarks(Context const & context);
 
   template <typename Fn>
-  void ForMatchingEntries(Context & context, FeatureID const & id, Fn && fn);
+  void ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn);
 
   Framework & m_framework;
   Index const & m_index;

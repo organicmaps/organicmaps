@@ -17,22 +17,22 @@ public:
 
   struct Entry
   {
-    enum class Origin
+    enum class Type
     {
       Loaded,
       Created
     };
 
     Entry() = default;
-    Entry(Relevance relevance, Origin origin)
-      : m_curr(relevance), m_orig(relevance), m_origin(origin)
+    Entry(Relevance relevance, Type type)
+      : m_curr(relevance), m_orig(relevance), m_type(type)
     {
     }
 
     Relevance m_curr = Relevance::Irrelevant;
     Relevance m_orig = Relevance::Irrelevant;
     bool m_deleted = false;
-    Origin m_origin = Origin::Loaded;
+    Type m_type = Type::Loaded;
   };
 
   struct Update
@@ -51,11 +51,11 @@ public:
     Update() = default;
     Update(Type type, size_t index): m_type(type), m_index(index) {}
 
-    static Update MakeAll() { return Update{}; }
-    static Update MakeSingle(size_t index) { return Update{Type::Single, index}; }
-    static Update MakeAdd(size_t index) { return Update{Type::Add, index}; }
-    static Update MakeDelete(size_t index) { return Update{Type::Delete, index}; }
-    static Update MakeResurrect(size_t index) { return Update{Type::Resurrect, index}; }
+    static Update MakeAll() { return {}; }
+    static Update MakeSingle(size_t index) { return {Type::Single, index}; }
+    static Update MakeAdd(size_t index) { return {Type::Add, index}; }
+    static Update MakeDelete(size_t index) { return {Type::Delete, index}; }
+    static Update MakeResurrect(size_t index) { return {Type::Resurrect, index}; }
 
     Type m_type = Type::All;
     size_t m_index = kInvalidIndex;
@@ -73,7 +73,7 @@ public:
     bool Set(Relevance relevance);
     Relevance Get() const;
     bool HasChanges() const;
-    Entry::Origin GetOrigin() const;
+    Entry::Type GetType() const;
 
   private:
     Edits & m_parent;
@@ -89,7 +89,7 @@ public:
   // |relevance| differs from the original one.
   bool SetRelevance(size_t index, Relevance relevance);
 
-  // Addes new entry.
+  // Adds a new entry.
   void Add(Relevance relevance);
 
   // Marks entry at |index| as deleted.

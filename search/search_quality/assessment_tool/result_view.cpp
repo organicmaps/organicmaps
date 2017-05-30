@@ -85,7 +85,7 @@ void ResultView::Update()
 {
   if (m_editor)
   {
-    if (m_editor->GetOrigin() == Edits::Entry::Origin::Created)
+    if (m_editor->GetType() == Edits::Entry::Type::Created)
       setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
     else if (m_editor->HasChanges())
       setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");

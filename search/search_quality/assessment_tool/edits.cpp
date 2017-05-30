@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 
-// Edits::RelevanceEditor --------------------------------------------------------------------------
+// Edits::Editor -----------------------------------------------------------------------------------
 Edits::Editor::Editor(Edits & parent, size_t index)
   : m_parent(parent), m_index(index)
 {
@@ -20,9 +20,9 @@ Edits::Relevance Edits::Editor::Get() const
 
 bool Edits::Editor::HasChanges() const { return m_parent.HasChanges(m_index); }
 
-Edits::Entry::Origin Edits::Editor::GetOrigin() const
+Edits::Entry::Type Edits::Editor::GetType() const
 {
-  return m_parent.Get(m_index).m_origin;
+  return m_parent.Get(m_index).m_type;
 }
 
 // Edits -------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ void Edits::Apply()
     for (auto & entry : m_entries)
     {
       entry.m_orig = entry.m_curr;
-      entry.m_origin = Entry::Origin::Loaded;
+      entry.m_type = Entry::Type::Loaded;
     }
     m_numEdits = 0;
   });
@@ -48,7 +48,7 @@ void Edits::Reset(std::vector<Relevance> const & relevances)
       entry.m_orig = relevances[i];
       entry.m_curr = relevances[i];
       entry.m_deleted = false;
-      entry.m_origin = Entry::Origin::Loaded;
+      entry.m_type = Entry::Type::Loaded;
     }
     m_numEdits = 0;
   });
@@ -75,7 +75,7 @@ void Edits::Add(Relevance relevance)
 {
   auto const index = m_entries.size();
   WithObserver(Update::MakeAdd(index), [&]() {
-      m_entries.emplace_back(relevance, Entry::Origin::Created);
+    m_entries.emplace_back(relevance, Entry::Type::Created);
     ++m_numEdits;
   });
 }
@@ -88,10 +88,10 @@ void Edits::Delete(size_t index)
     auto & entry = m_entries[index];
     CHECK(!entry.m_deleted, ());
     entry.m_deleted = true;
-    switch (entry.m_origin)
+    switch (entry.m_type)
     {
-    case Entry::Origin::Loaded: ++m_numEdits; break;
-    case Entry::Origin::Created: --m_numEdits; break;
+    case Entry::Type::Loaded: ++m_numEdits; break;
+    case Entry::Type::Created: --m_numEdits; break;
     }
   });
 }
@@ -105,10 +105,10 @@ void Edits::Resurrect(size_t index)
     CHECK(entry.m_deleted, ());
     CHECK_GREATER(m_numEdits, 0, ());
     entry.m_deleted = false;
-    switch (entry.m_origin)
+    switch (entry.m_type)
     {
-    case Entry::Origin::Loaded: --m_numEdits; break;
-    case Entry::Origin::Created: ++m_numEdits; break;
+    case Entry::Type::Loaded: --m_numEdits; break;
+    case Entry::Type::Created: ++m_numEdits; break;
     }
   });
 }
@@ -153,6 +153,5 @@ bool Edits::HasChanges(size_t index) const
 {
   CHECK_LESS(index, m_entries.size(), ());
   auto const & entry = m_entries[index];
-  bool result = entry.m_curr != entry.m_orig;
-  return result;
+  return entry.m_curr != entry.m_orig;
 }
