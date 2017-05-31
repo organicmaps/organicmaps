@@ -4,6 +4,8 @@
 
 #include "ScopedLocalRef.hpp"
 
+#include "base/logging.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <memory>
@@ -47,6 +49,7 @@ char const * GetStringClassName();
 
 std::string DescribeException();
 bool HandleJavaException(JNIEnv * env);
+my::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e);
 
 std::shared_ptr<jobject> make_global_ref(jobject obj);
 using TScopedLocalRef = ScopedLocalRef<jobject>;
