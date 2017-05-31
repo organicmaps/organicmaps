@@ -1326,6 +1326,32 @@
 
 "onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
 
+"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+
+"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+
+"onboarding_storage_permissions_title" = "Grant access";
+
+"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+
+"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
+
+"onboarding_detail_permissions_storage_title" = "Storage";
+
+"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
+
+"onboarding_detail_permissions_location_title" = "Location";
+
+"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
+
+"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
+
+"onboarding_welcome_title" = "Welcome to MAPS.ME";
+
+"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+
+"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
@@ -1535,7 +1561,7 @@
 
 "booking_checkout" = "выезд: %s";
 
-"placepage_add_place_button" = "Добавить на карту";
+"placepage_add_place_button" = "Добавить место на карту";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Отправить всем пользователям?";
@@ -1621,6 +1647,8 @@
 
 /* For the first routing */
 "accept" = "Принять";
+
+"accept_and_continue" = "Принять и продолжить";
 
 /* For the first routing */
 "decline" = "Отклонить";
@@ -1900,3 +1928,9 @@
 "whatsnew_transliteration_title" = "Латинская транслитерация";
 
 "whatsnew_transliteration_message" = "Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.";
+
+"learn_more" = "Узнать больше";
+
+"exit" = "Выход";
+
+"location_permission_denied" = "App location permission denied";

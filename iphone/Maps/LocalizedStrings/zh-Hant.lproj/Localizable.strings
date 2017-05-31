@@ -1326,6 +1326,32 @@
 
 "onboarding_location_message" = "如要使用導航和其他功能，我們需要能獲取您的地理位置.";
 
+"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+
+"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+
+"onboarding_storage_permissions_title" = "Grant access";
+
+"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+
+"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
+
+"onboarding_detail_permissions_storage_title" = "Storage";
+
+"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
+
+"onboarding_detail_permissions_location_title" = "Location";
+
+"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
+
+"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
+
+"onboarding_welcome_title" = "Welcome to MAPS.ME";
+
+"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+
+"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+
 "dialog_incorrect_feature_position" = "改變位置";
 
 "message_invalid_feature_position" = "物件無法設置在這裡";
@@ -1622,6 +1648,8 @@
 /* For the first routing */
 "accept" = "接受";
 
+"accept_and_continue" = "Accept and continue";
+
 /* For the first routing */
 "decline" = "拒絕";
 
@@ -1900,3 +1928,9 @@
 "whatsnew_transliteration_title" = "音譯為拉丁文";
 
 "whatsnew_transliteration_message" = "若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。";
+
+"learn_more" = "Learn more";
+
+"exit" = "Exit";
+
+"location_permission_denied" = "App location permission denied";
