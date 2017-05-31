@@ -11,16 +11,12 @@
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "base/logging.hpp"
 
 namespace df
 {
-
 namespace
 {
-
 float const kLeftSide = 1.0f;
 float const kCenter = 0.0f;
 float const kRightSide = -1.0f;
@@ -33,9 +29,9 @@ void GetArrowTextureRegion(ref_ptr<dp::TextureManager> textures, dp::TextureMana
   textures->GetSymbolRegion("route-arrow", region);
 }
 
-vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start, double end)
+std::vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start, double end)
 {
-  vector<m2::PointD> result;
+  std::vector<m2::PointD> result;
   result.reserve(polyline.GetSize() / 4);
 
   auto addIfNotExist = [&result](m2::PointD const & pnt)
@@ -44,7 +40,7 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
       result.push_back(pnt);
   };
 
-  vector<m2::PointD> const & path = polyline.GetPoints();
+  std::vector<m2::PointD> const & path = polyline.GetPoints();
   double len = 0;
   bool started = false;
   for (size_t i = 0; i + 1 < path.size(); i++)
@@ -81,8 +77,9 @@ vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start,
   return result;
 }
 
-void GenerateJoinsTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals, glsl::vec4 const & color,
-                            glsl::vec2 const & length, bool isLeft, RouteShape::TGeometryBuffer & joinsGeometry)
+void GenerateJoinsTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> const & normals,
+                            glsl::vec4 const & color, glsl::vec2 const & length, bool isLeft,
+                            RouteShape::TGeometryBuffer & joinsGeometry)
 {
   float const kEps = 1e-5;
   size_t const trianglesCount = normals.size() / 3;
@@ -110,8 +107,8 @@ glsl::vec2 GetUV(m2::RectF const & texRect, glsl::vec2 const & uv)
   return GetUV(texRect, uv.x, uv.y);
 }
 
-void GenerateArrowsTriangles(glsl::vec4 const & pivot, vector<glsl::vec2> const & normals,
-                             m2::RectF const & texRect, vector<glsl::vec2> const & uv,
+void GenerateArrowsTriangles(glsl::vec4 const & pivot, std::vector<glsl::vec2> const & normals,
+                             m2::RectF const & texRect, std::vector<glsl::vec2> const & uv,
                              bool normalizedUV, RouteShape::TArrowGeometryBuffer & joinsGeometry)
 {
   size_t const trianglesCount = normals.size() / 3;
@@ -128,15 +125,15 @@ void GenerateArrowsTriangles(glsl::vec4 const & pivot, vector<glsl::vec2> const 
 
 } // namespace
 
-void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
-                                 vector<glsl::vec4> const & segmentsColors,
+void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
+                                 std::vector<glsl::vec4> const & segmentsColors,
                                  TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                                  double & outputLength)
 {
   ASSERT(path.size() > 1, ());
 
   // Construct segments.
-  vector<LineSegment> segments;
+  std::vector<LineSegment> segments;
   segments.reserve(path.size() - 1);
   ConstructLineSegments(path, segmentsColors, segments);
 
@@ -199,7 +196,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
       float widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x :
                                                                 segments[i].m_leftWidthScalar[EndPoint].x;
 
-      vector<glsl::vec2> normals;
+      std::vector<glsl::vec2> normals;
       normals.reserve(24);
       GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
                           widthScalar, normals);
@@ -211,7 +208,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
     // Generate caps.
     if (i == 0)
     {
-      vector<glsl::vec2> normals;
+      std::vector<glsl::vec2> normals;
       normals.reserve(24);
       GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[StartPoint],
                          segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
@@ -223,7 +220,7 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
 
     if (i == static_cast<int>(segments.size()) - 1)
     {
-      vector<glsl::vec2> normals;
+      std::vector<glsl::vec2> normals;
       normals.reserve(24);
       GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[EndPoint],
                          segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
@@ -237,20 +234,20 @@ void RouteShape::PrepareGeometry(vector<m2::PointD> const & path, m2::PointD con
   }
 }
 
-void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
+void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                       m2::RectF const & texRect, float depthStep, float depth,
                                       TArrowGeometryBuffer & geometry, TArrowGeometryBuffer & joinsGeometry)
 {
   ASSERT(path.size() > 1, ());
 
   // Construct segments.
-  vector<LineSegment> segments;
+  std::vector<LineSegment> segments;
   segments.reserve(path.size() - 1);
-  ConstructLineSegments(path, vector<glsl::vec4>(), segments);
+  ConstructLineSegments(path, std::vector<glsl::vec4>(), segments);
 
   m2::RectF tr = texRect;
-  tr.setMinX(texRect.minX() * (1.0 - kArrowTailSize) + texRect.maxX() * kArrowTailSize);
-  tr.setMaxX(texRect.minX() * kArrowHeadSize + texRect.maxX() * (1.0 - kArrowHeadSize));
+  tr.setMinX(static_cast<float>(texRect.minX() * (1.0 - kArrowTailSize) + texRect.maxX() * kArrowTailSize));
+  tr.setMaxX(static_cast<float>(texRect.minX() * kArrowHeadSize + texRect.maxX() * (1.0 - kArrowHeadSize)));
 
   // Build geometry.
   float const depthInc = depthStep / (segments.size() + 1);
@@ -300,9 +297,9 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
                                                                 segments[i].m_leftWidthScalar[EndPoint].x;
 
       int const kAverageSize = 24;
-      vector<glsl::vec2> normals;
+      std::vector<glsl::vec2> normals;
       normals.reserve(kAverageSize);
-      vector<glsl::vec2> uv;
+      std::vector<glsl::vec2> uv;
       uv.reserve(kAverageSize);
 
       GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint],
@@ -316,14 +313,14 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
     // Generate arrow head.
     if (i == segments.size() - 1)
     {
-      vector<glsl::vec2> normals =
+      std::vector<glsl::vec2> normals =
       {
         segments[i].m_rightNormals[EndPoint],
         segments[i].m_leftNormals[EndPoint],
         kArrowHeadFactor * segments[i].m_tangent
       };
-      float const u = 1.0f - kArrowHeadSize;
-      vector<glsl::vec2> uv = { glsl::vec2(u, 1.0f), glsl::vec2(u, 0.0f), glsl::vec2(1.0f, 0.5f) };
+      float const u = 1.0f - static_cast<float>(kArrowHeadSize);
+      std::vector<glsl::vec2> uv = { glsl::vec2(u, 1.0f), glsl::vec2(u, 0.0f), glsl::vec2(1.0f, 0.5f) };
       glsl::vec4 const headPivot = glsl::vec4(glsl::ToVec2(endPt), depth, 1.0);
       depth += depthInc;
       GenerateArrowsTriangles(headPivot, normals, texRect, uv, true /* normalizedUV */, joinsGeometry);
@@ -336,11 +333,11 @@ void RouteShape::PrepareArrowGeometry(vector<m2::PointD> const & path, m2::Point
       glsl::vec2 const n2 = segments[i].m_rightNormals[StartPoint];
       glsl::vec2 const n3 = (n1 - kArrowTailFactor * segments[i].m_tangent);
       glsl::vec2 const n4 = (n2 - kArrowTailFactor * segments[i].m_tangent);
-      vector<glsl::vec2> normals = { n2, n4, n1, n1, n4, n3 };
+      std::vector<glsl::vec2> normals = { n2, n4, n1, n1, n4, n3 };
 
       m2::RectF t = texRect;
       t.setMaxX(tr.minX());
-      vector<glsl::vec2> uv =
+      std::vector<glsl::vec2> uv =
       {
         glsl::ToVec2(t.RightBottom()),
         glsl::ToVec2(t.LeftBottom()),
@@ -395,7 +392,8 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
 }
 
 void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
-                                  vector<ArrowBorders> const & borders, RouteArrowsData & routeArrowsData)
+                                  std::vector<ArrowBorders> const & borders,
+                                  RouteArrowsData & routeArrowsData)
 {
   TArrowGeometryBuffer geometry;
   TArrowGeometryBuffer joinsGeometry;
@@ -410,7 +408,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
   for (ArrowBorders const & b : borders)
   {
     depth -= depthStep;
-    vector<m2::PointD> points = CalculatePoints(polyline, b.m_startDistance, b.m_endDistance);
+    std::vector<m2::PointD> points = CalculatePoints(polyline, b.m_startDistance, b.m_endDistance);
     ASSERT_LESS_OR_EQUAL(points.size(), polyline.GetSize(), ());
     PrepareArrowGeometry(points, routeArrowsData.m_pivot, region.GetTexRect(), depthStep,
                          depth, geometry, joinsGeometry);
@@ -423,12 +421,13 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
 
 void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData)
 {
-  vector<glsl::vec4> segmentsColors;
+  std::vector<glsl::vec4> segmentsColors;
   segmentsColors.reserve(routeData.m_traffic.size());
-  for (auto const & speedGroup : routeData.m_traffic)
+  for (auto speedGroup : routeData.m_traffic)
   {
-    dp::Color const color = df::GetColorConstant(TrafficGenerator::GetColorBySpeedGroup(speedGroup,
-                                                                                        true /* route */));
+    speedGroup = TrafficGenerator::CheckColorsSimplification(speedGroup);
+    auto const colorConstant = TrafficGenerator::GetColorBySpeedGroup(speedGroup, true /* route */);
+    dp::Color const color = df::GetColorConstant(colorConstant);
     float const alpha = (speedGroup == traffic::SpeedGroup::G4 ||
                          speedGroup == traffic::SpeedGroup::G5 ||
                          speedGroup == traffic::SpeedGroup::Unknown) ? 0.0f : 1.0f;
@@ -479,5 +478,4 @@ void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry
     }
   }
 }
-
-} // namespace df
+}  // namespace df
