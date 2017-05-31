@@ -314,7 +314,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s, TIns
     return;
 
   s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
-  apply.Finish(m_customSymbolsContext);
+  apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
 }
 
 void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
@@ -333,7 +333,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s, TIns
   if (apply.HasGeometry())
     s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
 
-  apply.Finish(ftypes::GetRoadShields(f));
+  apply.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f));
 
   if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
   {
@@ -388,7 +388,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TIn
     return;
 
   s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
-  apply.Finish(m_customSymbolsContext);
+  apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
 }
 
 void RuleDrawer::operator()(FeatureType const & f)

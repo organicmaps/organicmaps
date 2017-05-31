@@ -122,13 +122,14 @@ private:
 }  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey, bool hasPOI,
+                     TileKey const & tileKey, bool hasPOI, m2::PointF const & symbolSize,
                      uint32_t textIndex, bool affectedByZoomPriority,
                      bool specialDisplacementMode, uint16_t specialModePriority)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_hasPOI(hasPOI)
+  , m_symbolSize(symbolSize)
   , m_affectedByZoomPriority(affectedByZoomPriority)
   , m_textIndex(textIndex)
   , m_specialDisplacementMode(specialDisplacementMode)
@@ -149,7 +150,7 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
                                        m_params.m_primaryTextFont.m_isSdf, textures, m_params.m_anchor);
   }
 
-  glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset);
+  glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset + m2::PointF(0.0f, m_symbolSize.y / 2.0f));
 
   if (!m_params.m_secondaryText.empty())
   {
@@ -242,7 +243,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                            move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
+                                  : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
@@ -291,7 +293,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                            move(dynamicBuffer),
                                                                            true);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
+                                  : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));

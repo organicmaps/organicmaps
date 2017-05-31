@@ -20,6 +20,7 @@
 
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
+#include "drape/texture_manager.hpp"
 #include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
@@ -465,45 +466,13 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     }
 
     if (!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-    {
-      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, m_tileKey,
-                                              hasPOI, 0 /* textIndex */,
-                                              true /* affectedByZoomPriority */,
-                                              specialDisplacementMode, specialModePriority));
-    }
+      m_textParams.push_back(params);
   }
 }
 
-void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsContext)
+void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng, CustomSymbolsContextPtr const & customSymbolsContext)
 {
-  if (m_symbolRule == nullptr)
-    return;
-
-  PoiSymbolViewParams params(m_id);
-  params.m_tileCenter = m_tileRect.Center();
-  params.m_depth = static_cast<float>(m_symbolDepth);
-  params.m_minVisibleScale = m_minVisibleScale;
-  params.m_rank = m_rank;
-
-  params.m_symbolName = m_symbolRule->name();
-  bool prioritized = false;
-  if (customSymbolsContext)
-  {
-    auto customSymbolIt = customSymbolsContext->m_symbols.find(m_id);
-    if (customSymbolIt != customSymbolsContext->m_symbols.end())
-    {
-      params.m_symbolName = customSymbolIt->second.m_symbolName;
-      prioritized = customSymbolIt->second.m_prioritized;
-    }
-  }
-
-  double const mainScale = df::VisualParams::Instance().GetVisualScale();
-  params.m_extendingSize = static_cast<uint32_t>(m_symbolRule->has_min_distance() ?
-                                                 mainScale * m_symbolRule->min_distance() : 0.0);
-  params.m_posZ = m_posZ;
-  params.m_hasArea = m_hasArea;
-  params.m_prioritized = prioritized || m_createdByEditor;
-  params.m_obsoleteInEditor = m_obsoleteInEditor;
+  m2::PointF symbolSize(0.0f, 0.0f);
 
   bool specialDisplacementMode = false;
   uint16_t specialModePriority = 0;
@@ -513,8 +482,51 @@ void ApplyPointFeature::Finish(CustomSymbolsContextPtr const & customSymbolsCont
     specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
   }
 
-  m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
+  bool const hasPOI = m_symbolRule != nullptr;
+
+  if (hasPOI)
+  {
+    PoiSymbolViewParams params(m_id);
+    params.m_tileCenter = m_tileRect.Center();
+    params.m_depth = static_cast<float>(m_symbolDepth);
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
+
+    params.m_symbolName = m_symbolRule->name();
+    bool prioritized = false;
+    if (customSymbolsContext)
+    {
+      auto customSymbolIt = customSymbolsContext->m_symbols.find(m_id);
+      if (customSymbolIt != customSymbolsContext->m_symbols.end())
+      {
+        params.m_symbolName = customSymbolIt->second.m_symbolName;
+        prioritized = customSymbolIt->second.m_prioritized;
+      }
+    }
+
+    double const mainScale = df::VisualParams::Instance().GetVisualScale();
+    params.m_extendingSize = static_cast<uint32_t>(m_symbolRule->has_min_distance() ?
+                                                   mainScale * m_symbolRule->min_distance() : 0.0);
+    params.m_posZ = m_posZ;
+    params.m_hasArea = m_hasArea;
+    params.m_prioritized = prioritized || m_createdByEditor;
+    params.m_obsoleteInEditor = m_obsoleteInEditor;
+
+    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
                                                specialDisplacementMode, specialModePriority));
+
+    dp::TextureManager::SymbolRegion region;
+    texMng->GetSymbolRegion(params.m_symbolName, region);
+    symbolSize = region.GetPixelSize();
+  }
+
+  for (auto const & textParams : m_textParams)
+  {
+    m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey,
+                                            hasPOI, symbolSize, 0 /* textIndex */,
+                                            true /* affectedByZoomPriority */,
+                                            specialDisplacementMode, specialModePriority));
+  }
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
@@ -934,7 +946,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   }
 }
 
-void ApplyLineFeature::Finish(std::set<ftypes::RoadShield> && roadShields)
+void ApplyLineFeature::Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftypes::RoadShield> && roadShields)
 {
 #ifdef CALC_FILTERED_POINTS
   LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
@@ -974,7 +986,7 @@ void ApplyLineFeature::Finish(std::set<ftypes::RoadShield> && roadShields)
       for (uint32_t i = 0; i < shieldsCount && !it.BeginAgain(); i++)
       {
         m_insertShape(make_unique_dp<TextShape>(shieldOffset + it.m_pos, textParams, m_tileKey,
-                                                true /* hasPOI */, textIndex,
+                                                true /* hasPOI */, m2::PointF(0.0f, 0.0f) /* symbolSize */, textIndex,
                                                 false /* affectedByZoomPriority */));
         if (IsColoredRoadShield(shield))
         {
