@@ -390,7 +390,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 - (UIViewController *)topController
 {
   [MWMFrameworkListener removeObserver:self];
-  [MWMSearch removeObserver:self.tableViewController];
   self.noMapsController = nil;
   switch (self.state)
   {
@@ -402,7 +401,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
     [MWMFrameworkListener addObserver:self];
     return self.noMapsController;
   case MWMSearchManagerStateTableSearch:
-    [MWMSearch addObserver:self.tableViewController];
     return self.tableViewController;
   case MWMSearchManagerStateMapSearch: return self.tableViewController;
   }
