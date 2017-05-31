@@ -22,8 +22,16 @@
 {
   self = [super init];
   if (self)
+  {
     _delegate = delegate;
+    [MWMSearch addObserver:self];
+  }
   return self;
+}
+
+- (void)dealloc
+{
+  [MWMSearch removeObserver:self];
 }
 
 - (void)viewDidLoad

@@ -106,12 +106,10 @@ using TObservers = NSHashTable<__kindof TObserver>;
             f.SearchInViewport(m_viewportParams);
           }
         }
-        [self updateItemsIndexWithBannerReload:YES];
         [self onSearchCompleted];
       }
       else
       {
-        [self updateItemsIndexWithBannerReload:NO];
         [self onSearchResultsUpdated];
       }
     };
@@ -259,7 +257,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
   auto manager = [MWMSearch manager];
   manager->m_everywhereResults.Clear();
   manager.suggestionsCount = 0;
-  [manager updateItemsIndexWithBannerReload:YES];
   [self reset];
 }
 
@@ -357,6 +354,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 // if (allCompleted && allEmpty)
 //   [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
 
+  [self updateItemsIndexWithBannerReload:YES];
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
@@ -366,6 +364,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchResultsUpdated
 {
+  [self updateItemsIndexWithBannerReload:NO];
   for (TObserver observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
