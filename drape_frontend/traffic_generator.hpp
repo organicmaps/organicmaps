@@ -148,7 +148,8 @@ public:
   void InvalidateTexturesCache();
 
   static void SetSimplifiedColorSchemeEnabled(bool enabled);
-  static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route);
+  static traffic::SpeedGroup CheckColorsSimplification(traffic::SpeedGroup speedGroup);
+  static df::ColorConstant GetColorBySpeedGroup(traffic::SpeedGroup speedGroup, bool route);
 
 private:
   struct TrafficBatcherKey

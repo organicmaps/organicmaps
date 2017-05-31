@@ -345,7 +345,16 @@ void TrafficGenerator::SetSimplifiedColorSchemeEnabled(bool enabled)
 }
 
 // static
-df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup const & speedGroup, bool route)
+traffic::SpeedGroup TrafficGenerator::CheckColorsSimplification(traffic::SpeedGroup speedGroup)
+{
+  // In simplified color scheme we reduce amount of speed groups visually.
+  if (m_simplifiedColorScheme && speedGroup == traffic::SpeedGroup::G4)
+    return traffic::SpeedGroup::G3;
+  return speedGroup;
+}
+
+// static
+df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup speedGroup, bool route)
 {
   size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
   static array<df::ColorConstant, kSpeedGroupsCount> const kColorMap
@@ -372,12 +381,7 @@ df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup con
     "TrafficUnknown",
   }};
 
-  traffic::SpeedGroup group = speedGroup;
-  // In simplified color scheme we reduce amount of speed groups visually.
-  if (m_simplifiedColorScheme && speedGroup == traffic::SpeedGroup::G4)
-    group = traffic::SpeedGroup::G3;
-
-  size_t const index = static_cast<size_t>(group);
+  size_t const index = static_cast<size_t>(CheckColorsSimplification(speedGroup));
   ASSERT_LESS(index, kSpeedGroupsCount, ());
   return route ? kColorMapRoute[index] : kColorMap[index];
 }

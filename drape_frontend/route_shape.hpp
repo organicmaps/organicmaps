@@ -13,11 +13,10 @@
 
 #include "geometry/polyline2d.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace df
 {
-
 double const kArrowSize = 0.0008;
 
 // Constants below depend on arrow texture.
@@ -28,9 +27,9 @@ double const kArrowHeadTextureWidth = 32.0;
 double const kArrowTailTextureWidth = 4.0;
 
 double const kArrowHeadSize = kArrowHeadTextureWidth / kArrowTextureWidth;
-float const kArrowHeadFactor = 2.0 * kArrowHeadTextureWidth / kArrowTextureHeight;
+float const kArrowHeadFactor = static_cast<float>(2.0 * kArrowHeadTextureWidth / kArrowTextureHeight);
 double const kArrowTailSize = kArrowTailTextureWidth / kArrowTextureWidth;
-float const kArrowTailFactor = 2.0 * kArrowTailTextureWidth / kArrowTextureHeight;
+float const kArrowTailFactor = static_cast<float>(2.0 * kArrowTailTextureWidth / kArrowTextureHeight);
 double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
@@ -52,7 +51,7 @@ struct RoutePattern
 struct RouteRenderProperty
 {
   dp::GLState m_state;
-  vector<drape_ptr<dp::RenderBucket>> m_buckets;
+  std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
   RouteRenderProperty() : m_state(0, dp::GLState::GeometryLayer) {}
 };
 
@@ -67,10 +66,10 @@ struct RouteData
 {
   int m_routeIndex;
   m2::PolylineD m_sourcePolyline;
-  vector<double> m_sourceTurns;
+  std::vector<double> m_sourceTurns;
   m2::PointD m_pivot;
   df::ColorConstant m_color;
-  vector<traffic::SpeedGroup> m_traffic;
+  std::vector<traffic::SpeedGroup> m_traffic;
   double m_length;
   RouteRenderProperty m_route;
   RoutePattern m_pattern;
@@ -104,19 +103,20 @@ public:
   static void CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
   static void CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData);
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
-                               vector<ArrowBorders> const & borders, RouteArrowsData & routeArrowsData);
+                               std::vector<ArrowBorders> const & borders,
+                               RouteArrowsData & routeArrowsData);
 
 private:
-  static void PrepareGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
-                              vector<glsl::vec4> const & segmentsColors,
+  static void PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
+                              std::vector<glsl::vec4> const & segmentsColors,
                               TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                               double & outputLength);
-  static void PrepareArrowGeometry(vector<m2::PointD> const & path, m2::PointD const & pivot,
+  static void PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                    m2::RectF const & texRect, float depthStep, float depth,
-                                   TArrowGeometryBuffer & geometry, TArrowGeometryBuffer & joinsGeometry);
+                                   TArrowGeometryBuffer & geometry,
+                                   TArrowGeometryBuffer & joinsGeometry);
   static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
                             ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                             dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
 };
-
-} // namespace df
+}  // namespace df
