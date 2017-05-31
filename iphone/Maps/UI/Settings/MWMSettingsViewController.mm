@@ -27,6 +27,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showOffersCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * statisticsCell;
@@ -126,6 +127,10 @@ extern NSString * const kAlohalyticsTapEventKey;
                                    title:L(@"big_font")
                                     isOn:[MWMSettings largeFontSize]];
 
+  [self.transliterationCell configWithDelegate:self
+                                         title:L(@"transliteration")
+                                          isOn:[MWMSettings transliteration]];
+
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
@@ -219,6 +224,12 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleLargeFontSize)
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     [MWMSettings setLargeFontSize:value];
+  }
+  else if (cell == self.transliterationCell)
+  {
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleTransliteration)
+          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
+    [MWMSettings setTransliteration:value];
   }
   else if (cell == self.compassCalibrationCell)
   {

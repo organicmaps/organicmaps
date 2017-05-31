@@ -172,4 +172,13 @@ NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
   f.SetLargeFontsSize(isLargeSize);
 }
 
++ (BOOL)transliteration { return GetFramework().LoadTransliteration(); }
++ (void)setTransliteration:(BOOL)transliteration
+{
+  bool const isTransliteration = static_cast<bool>(transliteration);
+  auto & f = GetFramework();
+  f.SaveTransliteration(isTransliteration);
+  f.AllowTransliteration(isTransliteration);
+}
+
 @end
