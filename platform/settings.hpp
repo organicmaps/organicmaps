@@ -21,7 +21,7 @@ string ToString(T const & value);
 class StringStorage : public platform::StringStorageBase
 {
 public:
-  static StringStorage & Instance();
+  static StringStorage & Instance(bool reload = false);
 
 private:
   StringStorage();
@@ -42,6 +42,7 @@ void Set(string const & key, Value const & value)
   StringStorage::Instance().SetValue(key, ToString(value));
 }
 
+inline void Reload() { StringStorage::Instance(true); }
 inline void Delete(string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }
 inline void Clear() { StringStorage::Instance().Clear(); }
 

@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
-import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.maps.news.WelcomeDialogFragment;
+import com.mapswithme.maps.permissions.PermissionsDialogFragment;
+import com.mapswithme.maps.permissions.StoragePermissionsDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
@@ -27,6 +30,7 @@ public class SplashActivity extends AppCompatActivity
   public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   private static final int REQUEST_PERMISSIONS = 1;
+  private static final long FIRST_START_DELAY = 1000;
   private static final long DELAY = 100;
 
   // The first launch of application ever - onboarding screen will be shown.
@@ -35,7 +39,23 @@ public class SplashActivity extends AppCompatActivity
   private View mIvLogo;
 
   private boolean mPermissionsGranted;
+  private boolean mNeedStoragePermission;
   private boolean mCanceled;
+
+  @Nullable
+  private DialogFragment mPermissionsDialog;
+  @Nullable
+  private DialogFragment mStoragePermissionsDialog;
+
+  @NonNull
+  private final Runnable mPermissionsTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      mPermissionsDialog = PermissionsDialogFragment.show(SplashActivity.this, REQUEST_PERMISSIONS);
+    }
+  };
 
   @NonNull
   private final Runnable mDelayedTask = new Runnable()
@@ -79,6 +99,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    UiThread.cancelDelayedTasks(mPermissionsTask);
     UiThread.cancelDelayedTasks(mDelayedTask);
     UiThread.cancelDelayedTasks(mFinalTask);
     Counters.initCounters(this);
@@ -93,9 +114,36 @@ public class SplashActivity extends AppCompatActivity
     mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
     if (!mPermissionsGranted)
     {
-//    TODO requestPermissions after Permissions dialog
-      PermissionsUtils.requestPermissions(this, REQUEST_PERMISSIONS);
+      mStoragePermissionsDialog = StoragePermissionsDialogFragment.find(this);
+      if (mNeedStoragePermission || mStoragePermissionsDialog != null)
+      {
+        if (mPermissionsDialog != null)
+        {
+          mPermissionsDialog.dismiss();
+          mPermissionsDialog = null;
+        }
+        if (mStoragePermissionsDialog == null)
+          mStoragePermissionsDialog = StoragePermissionsDialogFragment.show(this);
+        return;
+      }
+      mPermissionsDialog = PermissionsDialogFragment.find(this);
+      if (mPermissionsDialog == null)
+        UiThread.runLater(mPermissionsTask, FIRST_START_DELAY);
+
       return;
+    }
+    else
+    {
+      if (mPermissionsDialog != null)
+      {
+        mPermissionsDialog.dismiss();
+        mPermissionsDialog = null;
+      }
+      if (mStoragePermissionsDialog != null)
+      {
+        mStoragePermissionsDialog.dismiss();
+        mStoragePermissionsDialog = null;
+      }
     }
 
     UiThread.runLater(mDelayedTask, DELAY);
@@ -105,6 +153,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onPause()
   {
     mCanceled = true;
+    UiThread.cancelDelayedTasks(mPermissionsTask);
     UiThread.cancelDelayedTasks(mDelayedTask);
     UiThread.cancelDelayedTasks(mFinalTask);
     super.onPause();
@@ -112,18 +161,16 @@ public class SplashActivity extends AppCompatActivity
 
   private void resumeDialogs()
   {
-    //  TODO show permissions dialog if Permissions is not granted
-    if (!mPermissionsGranted || mCanceled)
+    if (mCanceled)
       return;
 
     if (Counters.isMigrationNeeded())
     {
       Config.migrateCountersToSharedPrefs();
       Counters.setMigrationExecuted();
-      Counters.initCounters(this);
     }
 
-    sFirstStart = FirstStartFragment.showOn(this, this);
+    sFirstStart = WelcomeDialogFragment.showOn(this, this);
     if (sFirstStart)
     {
       PushwooshHelper.nativeProcessFirstLaunch();
@@ -175,16 +222,7 @@ public class SplashActivity extends AppCompatActivity
 
     mPermissionsGranted = PermissionsUtils.computePermissionsResult(permissions, grantResults)
                                           .isExternalStorageGranted();
-
-    if (mPermissionsGranted)
-    {
-      init();
-      resumeDialogs();
-    }
-    else
-    {
-      finish();
-    }
+    mNeedStoragePermission = !mPermissionsGranted;
   }
 
   @Override

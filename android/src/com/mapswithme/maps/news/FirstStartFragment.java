@@ -67,13 +67,6 @@ public class FirstStartFragment extends BaseNewsFragment
     return super.onCreateDialog(savedInstanceState);
   }
 
-  @Override
-  protected void onDoneClick()
-  {
-    super.onDoneClick();
-    LocationHelper.INSTANCE.onExitFromFirstRun();
-  }
-
   public static boolean showOn(@NonNull FragmentActivity activity,
                                @Nullable NewsDialogListener listener)
   {
