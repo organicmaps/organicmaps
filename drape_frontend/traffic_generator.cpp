@@ -347,11 +347,10 @@ void TrafficGenerator::SetSimplifiedColorSchemeEnabled(bool enabled)
 // static
 traffic::SpeedGroup TrafficGenerator::CheckColorsSimplification(traffic::SpeedGroup speedGroup)
 {
-  traffic::SpeedGroup group = speedGroup;
   // In simplified color scheme we reduce amount of speed groups visually.
   if (m_simplifiedColorScheme && speedGroup == traffic::SpeedGroup::G4)
-    group = traffic::SpeedGroup::G3;
-  return group;
+    return traffic::SpeedGroup::G3;
+  return speedGroup;
 }
 
 // static
