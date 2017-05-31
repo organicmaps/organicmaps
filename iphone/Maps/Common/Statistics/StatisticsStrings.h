@@ -231,6 +231,7 @@ static NSString * const kStatToggleDownload = @"Toggle download";
 static NSString * const kStatToggleLargeFontSize = @"Toggle large fonts size";
 static NSString * const kStatToggleSection = @"Toggle section";
 static NSString * const kStatToggleStatistics = @"Toggle statistics";
+static NSString * const kStatToggleTransliteration = @"Toggle transliteration";
 static NSString * const kStatToggleVisibility = @"Toggle visibility";
 static NSString * const kStatToggleZoomButtonsVisibility = @"Toggle zoom buttons visibility";
 static NSString * const kStatTraffic = @"Traffic";

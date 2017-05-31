@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -299,6 +299,40 @@
                                         <connections>
                                             <outlet property="switchButton" destination="bAw-rB-tR1" id="qhm-rr-Tpv"/>
                                             <outlet property="title" destination="uNY-c3-bGX" id="4uS-f6-Gre"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="f8Z-Jk-JIR" customClass="SettingsTableViewSwitchCell" customModule="cm_beta" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="442.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8Z-Jk-JIR" id="1QF-6L-hJp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Увеличенные подписи" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="NQ0-0Q-Y8K">
+                                                    <rect key="frame" x="16" y="11" width="286" height="21"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tuY-xc-X6P">
+                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="tuY-xc-X6P" secondAttribute="trailing" constant="8" id="8y5-x6-7f3"/>
+                                                <constraint firstItem="tuY-xc-X6P" firstAttribute="leading" secondItem="NQ0-0Q-Y8K" secondAttribute="trailing" constant="8" id="kZB-B3-pzz"/>
+                                                <constraint firstItem="tuY-xc-X6P" firstAttribute="centerY" secondItem="1QF-6L-hJp" secondAttribute="centerY" id="sSK-jJ-0CC"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NQ0-0Q-Y8K" secondAttribute="bottom" constant="3.5" id="sge-ih-TLc"/>
+                                                <constraint firstItem="NQ0-0Q-Y8K" firstAttribute="leading" secondItem="1QF-6L-hJp" secondAttribute="leadingMargin" constant="8" id="ssf-uE-aDZ"/>
+                                                <constraint firstItem="NQ0-0Q-Y8K" firstAttribute="top" secondItem="1QF-6L-hJp" secondAttribute="topMargin" constant="3" id="zfH-b3-h9L"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="switchButton" destination="tuY-xc-X6P" id="etQ-UJ-mwC"/>
+                                            <outlet property="title" destination="NQ0-0Q-Y8K" id="aCm-zk-ZTn"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="P5e-67-f4k" customClass="SettingsTableViewSwitchCell" customModule="cm_beta" customModuleProvider="target">
@@ -684,6 +718,7 @@
                         <outlet property="showOffersCell" destination="F1Y-qu-HAo" id="poJ-lN-MJ2"/>
                         <outlet property="simplifiedColorsCell" destination="QMS-lo-BP8" id="MGk-6C-VLQ"/>
                         <outlet property="statisticsCell" destination="NOt-bc-7ls" id="OeS-uK-O2Q"/>
+                        <outlet property="transliterationCell" destination="f8Z-Jk-JIR" id="4X8-tt-Wf3"/>
                         <outlet property="unitsCell" destination="Igk-BI-aHN" id="wc7-AI-ZlZ"/>
                         <outlet property="voiceInstructionsCell" destination="nED-2n-gN6" id="AOZ-0Q-2TH"/>
                         <outlet property="zoomButtonsCell" destination="LYi-oF-eGj" id="FHr-5G-l4F"/>
