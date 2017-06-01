@@ -59,9 +59,8 @@ void SupportManager::Init()
   if (!settings::Get(kSupportedAntialiasing, val))
   {
 #ifdef OMIM_OS_ANDROID
-    std::vector<std::string> const models = {"Mali-G71",        "Mali-T880",
-                                             "Adreno (TM) 540", "Adreno (TM) 530",
-                                             "Adreno (TM) 430", "Adreno (TM) 330"};
+    std::vector<std::string> const models = {"Mali-G71", "Mali-T880", "Adreno (TM) 540",
+                                             "Adreno (TM) 530", "Adreno (TM) 430"};
     m_isAntialiasingEnabledByDefault =
         (std::find(models.begin(), models.end(), renderer) != models.end());
 #else
