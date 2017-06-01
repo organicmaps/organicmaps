@@ -34,6 +34,7 @@
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define RANKS_FILE_TAG "ranks"
 #define REGION_INFO_FILE_TAG "rgninfo"
+#define METALINES_FILE_TAG "metalines"
 // Temporary addresses section that is used in search index generation.
 #define SEARCH_TOKENS_FILE_TAG "addrtags"
 #define TRAFFIC_KEYS_FILE_TAG "traffic"
@@ -80,6 +81,7 @@
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
 #define ROAD_ACCESS_FILENAME "road_access.csv"
+#define METALINES_FILENAME "metalines.bin"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

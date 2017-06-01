@@ -689,8 +689,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
     OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
         emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName(), info.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""),
-        info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "")
-        );
+        info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, ""),
+        info.GetIntermediateFileName(METALINES_FILENAME, ""));
 
     TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                           info.GetIntermediateFileName("towns", ".csv"));

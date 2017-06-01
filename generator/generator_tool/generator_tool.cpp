@@ -7,9 +7,10 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/metaline_builder.hpp"
 #include "generator/osm_source.hpp"
-#include "generator/road_access_generator.hpp"
 #include "generator/restriction_generator.hpp"
+#include "generator/road_access_generator.hpp"
 #include "generator/routing_generator.hpp"
 #include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
@@ -205,6 +206,8 @@ int main(int argc, char ** argv)
   {
     std::string const & country = genInfo.m_bucketNames[i];
     std::string const datFile = my::JoinFoldersToPath(path, country + DATA_FILE_EXTENSION);
+    std::string const osmToFeatureFilename =
+        genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_generate_geometry)
     {
@@ -223,6 +226,13 @@ int main(int argc, char ** argv)
       LOG(LINFO, ("Generating offsets table for", datFile));
       if (!feature::BuildOffsetsTable(datFile))
         continue;
+
+      std::string const metalinesFilename =
+          genInfo.GetIntermediateFileName(METALINES_FILENAME, "" /* extension */);
+
+      LOG(LINFO, ("Processing metalines from", metalinesFilename));
+      if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
+        LOG(LWARNING, ("Error generating metalines section."));
     }
 
     if (FLAGS_generate_index)
@@ -251,8 +261,6 @@ int main(int argc, char ** argv)
 
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(datFile, FLAGS_srtm_path);
-
-    std::string const osmToFeatureFilename = genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_make_routing_index)
     {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
+#include "generator/metaline_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/restriction_writer.hpp"
@@ -236,6 +237,7 @@ class OsmToFeatureTranslator
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
+  feature::MetalinesBuilder m_metalinesBuilder;
 
   class HolesAccumulator
   {
@@ -458,6 +460,7 @@ public:
           ft.SetAreaAddHoles(processor.GetHoles());
         });
 
+        m_metalinesBuilder(*p, params);
         EmitLine(ft, params, isCoastLine);
         state = FeatureState::Ok;
         break;
@@ -542,13 +545,16 @@ public:
 
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
-                         std::string const & addrFilePath = {}, std::string const & restrictionsFilePath = {},
-                         std::string const & roadAccessFilePath = {})
+                         std::string const & addrFilePath = {},
+                         std::string const & restrictionsFilePath = {},
+                         std::string const & roadAccessFilePath = {},
+                         std::string const & metalinesFilePath = {})
     : m_emitter(emitter)
     , m_holder(holder)
     , m_coastType(coastType)
     , m_nodeRelations(m_routingTagsProcessor)
     , m_wayRelations(m_routingTagsProcessor)
+    , m_metalinesBuilder(metalinesFilePath)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
