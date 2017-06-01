@@ -11,6 +11,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
@@ -18,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.UiUtils;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
@@ -81,6 +83,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     LocationHelper.INSTANCE.onEnteredIntoFirstRun();
+    if (!LocationHelper.INSTANCE.isActive())
+      LocationHelper.INSTANCE.start();
 
     Dialog res = super.onCreateDialog(savedInstanceState);
     res.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -89,7 +93,14 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(content);
     content.findViewById(R.id.btn__continue).setOnClickListener(this);
-    TextView terms = (TextView) content.findViewById(R.id.tv__terms_and_privacy);
+    ImageView image = (ImageView) content.findViewById(R.id.iv__image);
+    image.setImageResource(R.drawable.img_welcome);
+    TextView title = (TextView) content.findViewById(R.id.tv__title);
+    title.setText(R.string.onboarding_welcome_title);
+    TextView subtitle = (TextView) content.findViewById(R.id.tv__subtitle1);
+    subtitle.setText(R.string.onboarding_welcome_first_subtitle);
+    TextView terms = (TextView) content.findViewById(R.id.tv__subtitle2);
+    UiUtils.show(terms);
     terms.setText(Html.fromHtml(getString(R.string.onboarding_welcome_second_subtitle)));
     terms.setMovementMethod(LinkMovementMethod.getInstance());
 

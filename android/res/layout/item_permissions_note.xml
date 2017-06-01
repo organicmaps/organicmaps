@@ -6,7 +6,8 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:paddingLeft="@dimen/margin_double"
-  android:paddingRight="@dimen/margin_double">
+  android:paddingRight="@dimen/margin_double"
+  android:paddingTop="@dimen/permissions_title_note_margin">
   <TextView
     android:id="@+id/tv__note"
     android:layout_width="wrap_content"

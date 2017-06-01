@@ -2,17 +2,22 @@ package com.mapswithme.maps.permissions;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.PermissionsUtils;
 
@@ -92,7 +97,35 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     if (button != null)
       button.setOnClickListener(this);
 
+    ImageView image = (ImageView) content.findViewById(R.id.iv__image);
+    if (image != null)
+      image.setImageResource(getImageRes());
+    TextView title = (TextView) content.findViewById(R.id.tv__title);
+    if (title != null)
+      title.setText(getTitleRes());
+    TextView subtitle = (TextView) content.findViewById(R.id.tv__subtitle1);
+    if (subtitle != null)
+      subtitle.setText(getSubtitleRes());
+
     return res;
+  }
+
+  @DrawableRes
+  protected int getImageRes()
+  {
+    return 0;
+  }
+
+  @StringRes
+  protected int getTitleRes()
+  {
+    return 0;
+  }
+
+  @StringRes
+  protected int getSubtitleRes()
+  {
+    return 0;
   }
 
   @LayoutRes

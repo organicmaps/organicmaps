@@ -191,6 +191,9 @@
   <dimen name="action_bar_extended_height">72dp</dimen>
 
   <dimen name="permissions_title_top_margin">80dp</dimen>
-  <dimen name="permissions_items_margin">@dimen/margin_double</dimen>
+  <dimen name="permissions_title_bottom_margin">@dimen/margin_base</dimen>
+  <dimen name="permissions_title_note_margin">@dimen/margin_base</dimen>
+  <dimen name="permissions_items_margin">@dimen/margin_base</dimen>
   <dimen name="permissions_details_width">@dimen/match_parent</dimen>
+  <dimen name="info_page_image_size">240dp</dimen>
 </resources>

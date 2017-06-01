@@ -37,6 +37,7 @@ public class SplashActivity extends AppCompatActivity
   private static boolean sFirstStart;
 
   private View mIvLogo;
+  private View mAppName;
 
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
@@ -174,7 +175,7 @@ public class SplashActivity extends AppCompatActivity
     if (sFirstStart)
     {
       PushwooshHelper.nativeProcessFirstLaunch();
-      UiUtils.hide(mIvLogo);
+      UiUtils.hide(mIvLogo, mAppName);
       return;
     }
 
@@ -183,7 +184,7 @@ public class SplashActivity extends AppCompatActivity
     {
       if (ViralFragment.shouldDisplay())
       {
-        UiUtils.hide(mIvLogo);
+        UiUtils.hide(mIvLogo, mAppName);
         ViralFragment dialog = new ViralFragment();
         dialog.onDismiss(new DialogInterface()
         {
@@ -208,7 +209,7 @@ public class SplashActivity extends AppCompatActivity
     }
     else
     {
-      UiUtils.hide(mIvLogo);
+      UiUtils.hide(mIvLogo, mAppName);
     }
   }
 
@@ -236,6 +237,7 @@ public class SplashActivity extends AppCompatActivity
     UiUtils.setupStatusBar(this);
     setContentView(R.layout.activity_splash);
     mIvLogo = findViewById(R.id.iv__logo);
+    mAppName = findViewById(R.id.tv__app_name);
   }
 
   private void init()

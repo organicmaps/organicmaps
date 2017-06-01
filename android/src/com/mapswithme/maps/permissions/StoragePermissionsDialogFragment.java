@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
@@ -65,6 +67,12 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
     res.setContentView(content);
     content.findViewById(R.id.btn__exit).setOnClickListener(this);
     content.findViewById(R.id.btn__settings).setOnClickListener(this);
+    ImageView image = (ImageView) content.findViewById(R.id.iv__image);
+    image.setImageResource(R.drawable.img_no_storage_permission);
+    TextView title = (TextView) content.findViewById(R.id.tv__title);
+    title.setText(R.string.onboarding_storage_permissions_title);
+    TextView subtitle = (TextView) content.findViewById(R.id.tv__subtitle1);
+    subtitle.setText(R.string.onboarding_storage_permissions_message);
 
     return res;
   }
