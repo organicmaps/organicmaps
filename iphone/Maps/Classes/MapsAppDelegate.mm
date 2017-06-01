@@ -651,12 +651,17 @@ using namespace osm_auth_ios;
       [statistics application:application didFinishLaunchingWithOptions:launchOptions];
 
   NSString * connectionType;
+  NSString * network = kStatOff;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE: break;
-  case Platform::EConnectionType::CONNECTION_WIFI: connectionType = @"Wi-Fi"; break;
+  case Platform::EConnectionType::CONNECTION_WIFI:
+      connectionType = @"Wi-Fi";
+      network = kStatWifi;
+      break;
   case Platform::EConnectionType::CONNECTION_WWAN:
     connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
+    network = kStatMobile;
     break;
   }
   if (!connectionType)
@@ -666,6 +671,20 @@ using namespace osm_auth_ios;
           kStatCountry : [AppInfo sharedInfo].countryCode,
           kStatConnection : connectionType
         }];
+
+  NSString * charging = kStatUnknown;
+  UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
+  if (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull)
+    charging = kStatOn;
+  else if (state == UIDeviceBatteryStateUnplugged)
+    charging = kStatOff;
+
+  [Statistics logEvent:kStatApplicationColdStartupInfo
+        withParameters:@{
+                         kStatBattery : @(UIDevice.currentDevice.batteryLevel * 100),
+                         kStatCharging : charging,
+                         kStatNetwork : network
+                         }];
 
   return returnValue;
 }
@@ -720,7 +739,6 @@ using namespace osm_auth_ios;
     NSForegroundColorAttributeName : [UIColor lightGrayColor],
   }
                         forState:UIControlStateDisabled];
-  barBtn.tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
   pageControl.pageIndicatorTintColor = [UIColor blackHintText];
