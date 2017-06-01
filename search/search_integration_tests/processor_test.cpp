@@ -847,5 +847,24 @@ UNIT_CLASS_TEST(ProcessorTest, StopWords)
     TEST_EQUAL(info.m_nameScore, NAME_SCORE_FULL_MATCH, ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, Numerals)
+{
+  TestCountry country(m2::PointD(0, 0), "Беларусь", "ru");
+  TestPOI school(m2::PointD(0, 0), "СШ №61", "ru");
+  school.SetTypes({{"amenity", "school"}});
+
+  auto id = BuildCountry(country.GetName(), [&](TestMwmBuilder & builder) { builder.Add(school); });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  {
+    TRules rules{ExactMatch(id, school)};
+    TEST(ResultsMatch("Школа 61", "ru", rules), ());
+    TEST(ResultsMatch("Школа # 61", "ru", rules), ());
+    TEST(ResultsMatch("school #61", "ru", rules), ());
+    TEST(ResultsMatch("сш №61", "ru", rules), ());
+    TEST(ResultsMatch("школа", "ru", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

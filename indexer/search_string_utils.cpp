@@ -5,12 +5,41 @@
 #include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
-#include "std/algorithm.hpp"
+#include <cctype>
 
+using namespace std;
 using namespace strings;
 
 namespace search
 {
+namespace
+{
+// Replaces '#' followed by an end-of-string or a digit with space.
+void RemoveNumeroSigns(UniString & s)
+{
+  size_t const n = s.size();
+
+  size_t i = 0;
+  while (i < n)
+  {
+    if (s[i] != '#')
+    {
+      ++i;
+      continue;
+    }
+
+    size_t j = i + 1;
+    while (j < n && isspace(s[j]))
+      ++j;
+
+    if (j == n || isdigit(s[j]))
+      s[i] = ' ';
+
+    i = j;
+  }
+}
+}  // namespace
+
 UniString NormalizeAndSimplifyString(string const & s)
 {
   UniString uniString = MakeUniString(s);
@@ -22,26 +51,38 @@ UniString NormalizeAndSimplifyString(string const & s)
     // Replace "d with stroke" to simple d letter. Used in Vietnamese.
     // (unicode-compliant implementation leaves it unchanged)
     case 0x0110:
-    case 0x0111: c = 'd'; break;
-    // Replace small turkish dotless 'ı' with dotted 'i'.
-    // Our own invented hack to avoid well-known Turkish I-letter bug.
-    case 0x0131: c = 'i'; break;
+    case 0x0111:
+      c = 'd';
+      break;
+    // Replace small turkish dotless 'ı' with dotted 'i'.  Our own
+    // invented hack to avoid well-known Turkish I-letter bug.
+    case 0x0131:
+      c = 'i';
+      break;
     // Replace capital turkish dotted 'İ' with dotted lowercased 'i'.
-    // Here we need to handle this case manually too, because default unicode-compliant implementation
-    // of MakeLowerCase converts 'İ' to 'i' + 0x0307.
-    case 0x0130: c = 'i'; break;
+    // Here we need to handle this case manually too, because default
+    // unicode-compliant implementation of MakeLowerCase converts 'İ'
+    // to 'i' + 0x0307.
+    case 0x0130:
+      c = 'i';
+      break;
     // Some Danish-specific hacks.
-    case 0x00d8:                    // Ø
-    case 0x00f8: c = 'o'; break;    // ø
-    case 0x0152:                    // Œ
-    case 0x0153:                    // œ
+    case 0x00d8:  // Ø
+    case 0x00f8:
+      c = 'o';
+      break;      // ø
+    case 0x0152:  // Œ
+    case 0x0153:  // œ
       c = 'o';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
       break;
-    case 0x00c6:                    // Æ
-    case 0x00e6:                    // æ
+    case 0x00c6:  // Æ
+    case 0x00e6:  // æ
       c = 'a';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
+      break;
+    case 0x2116:  // №
+      c = '#';
       break;
     }
   }
@@ -50,12 +91,13 @@ UniString NormalizeAndSimplifyString(string const & s)
   NormalizeInplace(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c)
-  {
+  uniString.erase_if([](UniChar const & c) {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
+
+  RemoveNumeroSigns(uniString);
 
   return uniString;
 
