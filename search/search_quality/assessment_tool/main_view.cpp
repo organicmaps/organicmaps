@@ -10,6 +10,7 @@
 #include "qt/qt_common/scale_slider.hpp"
 
 #include "map/framework.hpp"
+#include "map/place_page_info.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -43,6 +44,14 @@ MainView::MainView(Framework & framework) : m_framework(framework)
   InitMapWidget();
   InitDocks();
   InitMenuBar();
+
+  m_framework.SetMapSelectionListeners(
+      [this](place_page::Info const & info) {
+        auto const & selectedFeature = info.GetID();
+        if (selectedFeature.IsValid())
+          m_selectedFeature = selectedFeature;
+      },
+      [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); });
 }
 
 MainView::~MainView()
@@ -60,9 +69,17 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
   m_sampleView->Clear();
 }
 
-void MainView::OnSearchStarted() { m_sampleView->OnSearchStarted(); }
+void MainView::OnSearchStarted()
+{
+  m_state = State::Search;
+  m_sampleView->OnSearchStarted();
+}
 
-void MainView::OnSearchCompleted() { m_sampleView->OnSearchCompleted(); }
+void MainView::OnSearchCompleted()
+{
+  m_state = State::AfterSearch;
+  m_sampleView->OnSearchCompleted();
+}
 
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
                           bool hasEdits)
@@ -77,9 +94,9 @@ void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, boo
   OnSampleChanged(sampleIndex, hasEdits);
 }
 
-void MainView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
+void MainView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
-  m_sampleView->ShowFoundResults(begin, end);
+  m_sampleView->AddFoundResults(begin, end);
 }
 
 void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
@@ -266,6 +283,8 @@ void MainView::InitMapWidget()
 
   {
     auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */, widget /* parent */);
+    connect(mapWidget, &qt::common::MapWidget::OnContextMenuRequested,
+            [this](QPoint const & p) { AddSelectedFeature(p); });
     auto * toolBar = new QToolBar(widget /* parent */);
     toolBar->setOrientation(Qt::Vertical);
     toolBar->setIconSize(QSize(32, 32));
@@ -382,6 +401,26 @@ MainView::SaveResult MainView::TryToSaveEdits(QString const & msg)
 
   CHECK(false, ());
   return SaveResult::Cancelled;
+}
+
+void MainView::AddSelectedFeature(QPoint const & p)
+{
+  auto const selectedFeature = m_selectedFeature;
+
+  if (!selectedFeature.IsValid())
+    return;
+
+  if (m_state != State::AfterSearch)
+    return;
+
+  if (m_model->AlreadyInSamples(selectedFeature))
+    return;
+
+  QMenu menu;
+  auto const * action = menu.addAction("Add to non-found results");
+  connect(action, &QAction::triggered,
+          [this, selectedFeature]() { m_model->AddNonFoundResult(selectedFeature); });
+  menu.exec(p);
 }
 
 QDockWidget * MainView::CreateDock(QWidget & widget)

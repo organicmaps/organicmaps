@@ -50,16 +50,9 @@ void Matcher::Match(std::vector<Sample::Result> const & golden, std::vector<Resu
   }
 }
 
-bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)
+bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
 {
   static double constexpr kToleranceMeters = 50;
-
-  if (actual.GetResultType() != Result::RESULT_FEATURE)
-    return false;
-
-  FeatureType ft;
-  if (!m_loader.Load(actual.GetFeatureID(), ft))
-    return false;
 
   auto const houseNumber = ft.GetHouseNumber();
   auto const center = feature::GetCenter(ft);
@@ -83,5 +76,17 @@ bool Matcher::Matches(Sample::Result const & golden, search::Result const & actu
 
   return nameMatches && golden.m_houseNumber == houseNumber &&
          MercatorBounds::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
+}
+
+bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)
+{
+  if (actual.GetResultType() != Result::RESULT_FEATURE)
+    return false;
+
+  FeatureType ft;
+  if (!m_loader.Load(actual.GetFeatureID(), ft))
+    return false;
+
+  return Matches(golden, ft);
 }
 }  // namespace search

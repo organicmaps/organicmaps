@@ -57,6 +57,12 @@ void ResultsView::Update(Edits::Update const & update)
       result->Update();
     break;
   }
+  case Edits::Update::Type::Add:
+  {
+    CHECK_LESS(update.m_index, m_results.size(), ());
+    m_results[update.m_index]->Update();
+    break;
+  }
   case Edits::Update::Type::Delete:
   {
     auto const index = update.m_index;
@@ -64,6 +70,11 @@ void ResultsView::Update(Edits::Update const & update)
     item(static_cast<int>(index))->setHidden(true);
     break;
   }
+  case Edits::Update::Type::Resurrect:
+    auto const index = update.m_index;
+    CHECK_LESS(index, Size(), ());
+    item(static_cast<int>(index))->setHidden(false);
+    break;
   };
 }
 

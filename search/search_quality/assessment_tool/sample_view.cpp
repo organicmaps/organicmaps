@@ -178,7 +178,7 @@ void SampleView::OnSearchStarted() { m_spinner->Show(); }
 
 void SampleView::OnSearchCompleted() { m_spinner->Hide(); }
 
-void SampleView::ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
+void SampleView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
   for (auto it = begin; it != end; ++it)
     m_foundResults->Add(*it /* result */);
@@ -193,6 +193,8 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
   UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
+
+  m_nonFoundResults->Clear();
 
   bool allDeleted = true;
   for (size_t i = 0; i < results.size(); ++i)
@@ -278,7 +280,7 @@ void SampleView::SetEdits(ResultsView & results, Edits & edits)
   size_t const numRelevances = edits.GetRelevances().size();
   CHECK_EQUAL(results.Size(), numRelevances, ());
   for (size_t i = 0; i < numRelevances; ++i)
-    results.Get(i).SetEditor(Edits::RelevanceEditor(edits, i));
+    results.Get(i).SetEditor(Edits::Editor(edits, i));
 }
 
 void SampleView::OnRemoveNonFoundResult(int row) { m_nonFoundResultsEdits->Delete(row); }

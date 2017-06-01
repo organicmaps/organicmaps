@@ -63,9 +63,9 @@ ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
 {
 }
 
-void ResultView::SetEditor(Edits::RelevanceEditor && editor)
+void ResultView::SetEditor(Edits::Editor && editor)
 {
-  m_editor = my::make_unique<Edits::RelevanceEditor>(std::move(editor));
+  m_editor = my::make_unique<Edits::Editor>(std::move(editor));
 
   m_irrelevant->setChecked(false);
   m_relevant->setChecked(false);
@@ -83,10 +83,19 @@ void ResultView::SetEditor(Edits::RelevanceEditor && editor)
 
 void ResultView::Update()
 {
-  if (m_editor && m_editor->HasChanges())
-    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
+  if (m_editor)
+  {
+    if (m_editor->GetType() == Edits::Entry::Type::Created)
+      setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
+    else if (m_editor->HasChanges())
+      setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
+    else
+      setStyleSheet("");
+  }
   else
+  {
     setStyleSheet("");
+  }
 }
 
 void ResultView::Init()

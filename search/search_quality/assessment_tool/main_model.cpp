@@ -31,6 +31,7 @@ using namespace std;
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)
   , m_index(m_framework.GetIndex())
+  , m_loader(m_index)
   , m_contexts(
         [this](size_t sampleIndex, Edits::Update const & update) {
           OnUpdate(View::ResultType::Found, sampleIndex, update);
@@ -92,10 +93,8 @@ void MainModel::SaveAs(string const & path)
   CHECK(HasChanges(), ());
   CHECK(!path.empty(), ());
 
-  search::FeatureLoader loader(m_index);
-
   string contents;
-  search::Sample::SerializeToJSONLines(m_contexts.MakeSamples(loader), contents);
+  search::Sample::SerializeToJSONLines(m_contexts.MakeSamples(m_loader), contents);
 
   {
     ofstream ofs(path);
@@ -147,6 +146,7 @@ void MainModel::OnSampleSelected(int index)
 
       if (results.IsEndedNormal())
       {
+        // Can't use m_loader here due to thread-safety issues.
         search::FeatureLoader loader(m_index);
         search::Matcher matcher(loader);
 
@@ -224,19 +224,66 @@ void MainModel::OnShowPositionClicked()
 
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
 
+bool MainModel::AlreadyInSamples(FeatureID const & id)
+{
+  CHECK(m_selectedSample != kInvalidIndex, ());
+  CHECK(m_selectedSample < m_contexts.Size(), ());
+
+  bool found = false;
+  ForAnyMatchingEntry(m_contexts[m_selectedSample], id, [&](Edits & edits, size_t index) {
+    auto const & entry = edits.GetEntry(index);
+    if (!entry.m_deleted)
+      found = true;
+  });
+  return found;
+}
+
+void MainModel::AddNonFoundResult(FeatureID const & id)
+{
+  CHECK(m_selectedSample != kInvalidIndex, ());
+  CHECK(m_selectedSample < m_contexts.Size(), ());
+
+  auto & context = m_contexts[m_selectedSample];
+
+  bool resurrected = false;
+  ForAnyMatchingEntry(context, id, [&](Edits & edits, size_t index) {
+    auto const & entry = edits.GetEntry(index);
+    CHECK(entry.m_deleted, ());
+    edits.Resurrect(index);
+    resurrected = true;
+  });
+  if (resurrected)
+    return;
+
+  FeatureType ft;
+  CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
+  auto const result = search::Sample::Result::Build(ft, search::Sample::Result::Relevance::Vital);
+  context.AddNonFoundResult(result);
+}
+
 void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update)
 {
+  using Type = Edits::Update::Type;
+
   CHECK_LESS(sampleIndex, m_contexts.Size(), ());
   auto & context = m_contexts[sampleIndex];
+
+  if (update.m_type == Type::Add)
+  {
+    CHECK_EQUAL(type, View::ResultType::NonFound, ());
+    m_view->ShowNonFoundResults(context.m_nonFoundResults,
+                                context.m_nonFoundResultsEdits.GetEntries());
+    m_view->SetEdits(m_selectedSample, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
+  }
 
   m_view->OnResultChanged(sampleIndex, type, update);
   m_view->OnSampleChanged(sampleIndex, context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 
-  if (update.m_type == Edits::Update::Type::Delete)
+  if (update.m_type == Type::Add || update.m_type == Type::Resurrect ||
+      update.m_type == Type::Delete)
   {
     CHECK(context.m_initialized, ());
-
     CHECK_EQUAL(type, View::ResultType::NonFound, ());
     ShowMarks(context);
   }
@@ -253,7 +300,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
     return;
 
   CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
-  m_view->ShowFoundResults(results.begin() + m_numShownResults, results.end());
+  m_view->AddFoundResults(results.begin() + m_numShownResults, results.end());
   m_numShownResults = results.GetCount();
 
   auto & context = m_contexts[sampleIndex];
@@ -312,4 +359,34 @@ void MainModel::ShowMarks(Context const & context)
   m_view->ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
   m_view->ShowNonFoundResultsMarks(context.m_nonFoundResults,
                                    context.m_nonFoundResultsEdits.GetEntries());
+}
+
+template <typename Fn>
+void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn)
+{
+  CHECK(context.m_initialized, ());
+
+  auto const & foundResults = context.m_foundResults;
+  CHECK_EQUAL(foundResults.GetCount(), context.m_foundResultsEdits.NumEntries(), ());
+  for (size_t i = 0; i < foundResults.GetCount(); ++i)
+  {
+    auto const & result = foundResults[i];
+    if (result.GetResultType() != search::Result::RESULT_FEATURE)
+      continue;
+    if (result.GetFeatureID() == id)
+      return fn(context.m_foundResultsEdits, i);
+  }
+
+  FeatureType ft;
+  CHECK(m_loader.Load(id, ft), ("Can't load feature:", id));
+  search::Matcher matcher(m_loader);
+
+  auto const & nonFoundResults = context.m_nonFoundResults;
+  CHECK_EQUAL(nonFoundResults.size(), context.m_nonFoundResultsEdits.NumEntries(), ());
+  for (size_t i = 0; i < nonFoundResults.size(); ++i)
+  {
+    auto const & result = context.m_nonFoundResults[i];
+    if (matcher.Matches(result, ft))
+      return fn(context.m_nonFoundResultsEdits, i);
+  }
 }

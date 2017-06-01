@@ -2,6 +2,8 @@
 
 #include "search/search_quality/assessment_tool/view.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include <QtWidgets/QMainWindow>
 
 class Framework;
@@ -33,7 +35,7 @@ public:
   void ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
                   bool hasEdits) override;
 
-  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
+  void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                            std::vector<Edits::Entry> const & entries) override;
 
@@ -67,6 +69,23 @@ private slots:
   void OnNonFoundResultSelected(QItemSelection const & current);
 
 private:
+  enum class State
+  {
+    BeforeSearch,
+    Search,
+    AfterSearch
+  };
+
+  friend string DebugPrint(State state)
+  {
+    switch (state)
+    {
+    case State::BeforeSearch: return "BeforeSearch";
+    case State::Search: return "Search";
+    case State::AfterSearch: return "AfterSearch";
+    }
+  }
+
   enum class SaveResult
   {
     NoEdits,
@@ -87,6 +106,8 @@ private:
   void SetSampleDockTitle(bool hasEdits);
   SaveResult TryToSaveEdits(QString const & msg);
 
+  void AddSelectedFeature(QPoint const & p);
+
   QDockWidget * CreateDock(QWidget & widget);
 
   Framework & m_framework;
@@ -99,4 +120,7 @@ private:
 
   QAction * m_save = nullptr;
   QAction * m_saveAs = nullptr;
+
+  State m_state = State::BeforeSearch;
+  FeatureID m_selectedFeature;
 };

@@ -17,11 +17,22 @@ public:
 
   struct Entry
   {
+    enum class Type
+    {
+      Loaded,
+      Created
+    };
+
     Entry() = default;
+    Entry(Relevance relevance, Type type)
+      : m_curr(relevance), m_orig(relevance), m_type(type)
+    {
+    }
 
     Relevance m_curr = Relevance::Irrelevant;
     Relevance m_orig = Relevance::Irrelevant;
     bool m_deleted = false;
+    Type m_type = Type::Loaded;
   };
 
   struct Update
@@ -32,17 +43,19 @@ public:
     {
       Single,
       All,
-      Delete
+      Add,
+      Delete,
+      Resurrect
     };
 
     Update() = default;
     Update(Type type, size_t index): m_type(type), m_index(index) {}
 
-    static Update MakeAll() { return Update{}; }
-
-    static Update MakeSingle(size_t index) { return Update{Type::Single, index}; }
-
-    static Update MakeDelete(size_t index) { return Update{Type::Delete, index}; }
+    static Update MakeAll() { return {}; }
+    static Update MakeSingle(size_t index) { return {Type::Single, index}; }
+    static Update MakeAdd(size_t index) { return {Type::Add, index}; }
+    static Update MakeDelete(size_t index) { return {Type::Delete, index}; }
+    static Update MakeResurrect(size_t index) { return {Type::Resurrect, index}; }
 
     Type m_type = Type::All;
     size_t m_index = kInvalidIndex;
@@ -50,16 +63,17 @@ public:
 
   using OnUpdate = std::function<void(Update const & update)>;
 
-  class RelevanceEditor
+  class Editor
   {
   public:
-    RelevanceEditor(Edits & parent, size_t index);
+    Editor(Edits & parent, size_t index);
 
     // Sets relevance to |relevance|. Returns true iff |relevance|
     // differs from the original one.
     bool Set(Relevance relevance);
     Relevance Get() const;
     bool HasChanges() const;
+    Entry::Type GetType() const;
 
   private:
     Edits & m_parent;
@@ -75,10 +89,19 @@ public:
   // |relevance| differs from the original one.
   bool SetRelevance(size_t index, Relevance relevance);
 
+  // Adds a new entry.
+  void Add(Relevance relevance);
+
   // Marks entry at |index| as deleted.
   void Delete(size_t index);
 
+  // Resurrects previously deleted entry at |index|.
+  void Resurrect(size_t index);
+
   std::vector<Entry> const & GetEntries() const { return m_entries; }
+  Entry & GetEntry(size_t index);
+  Entry const & GetEntry(size_t index) const;
+  size_t NumEntries() const { return m_entries.size(); }
   std::vector<Relevance> GetRelevances() const;
 
   Entry const & Get(size_t index) const;

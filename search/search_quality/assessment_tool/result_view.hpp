@@ -24,7 +24,7 @@ public:
   ResultView(search::Result const & result, QWidget & parent);
   ResultView(search::Sample::Result const & result, QWidget & parent);
 
-  void SetEditor(Edits::RelevanceEditor && editor);
+  void SetEditor(Edits::Editor && editor);
 
   void Update();
 
@@ -47,5 +47,5 @@ private:
   QRadioButton * m_relevant = nullptr;
   QRadioButton * m_vital = nullptr;
 
-  std::unique_ptr<Edits::RelevanceEditor> m_editor;
+  std::unique_ptr<Edits::Editor> m_editor;
 };

@@ -27,7 +27,7 @@ public:
   void OnSearchStarted();
   void OnSearchCompleted();
 
-  void ShowFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
+  void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end);
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                            std::vector<Edits::Entry> const & entries);
 
