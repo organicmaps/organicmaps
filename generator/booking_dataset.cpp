@@ -112,8 +112,6 @@ void BookingDataset::BuildObject(Object const & hotel,
   if (!hotel.m_houseNumber.empty())
     fb.AddHouseNumber(hotel.m_houseNumber);
 
-  params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode),
-                 hotel.m_name);
   if (!hotel.m_translations.empty())
   {
     // TODO(mgsergio): Move parsing to the hotel costruction stage.
@@ -127,6 +125,8 @@ void BookingDataset::BuildObject(Object const & hotel,
       // TODO(mgsergio): e.AddTag("addr:full:" + parts[i], parts[i + 2]);
     }
   }
+  params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kEnglishCode),
+                 hotel.m_name);
 
   auto const & clf = classif();
   params.AddType(clf.GetTypeByPath({"sponsored", "booking"}));
