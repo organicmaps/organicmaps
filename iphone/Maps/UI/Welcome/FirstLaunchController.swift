@@ -64,6 +64,6 @@ final class FirstLaunchController: MWMViewController, WelcomeProtocol {
   @objc
   private func close() {
     pageController.close()
-    MWMFrameworkHelper.zoomToCurrentPosition()
+    MWMFrameworkHelper.processFirstLaunch()
   }
 }

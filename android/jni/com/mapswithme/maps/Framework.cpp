@@ -1298,4 +1298,10 @@ Java_com_mapswithme_maps_Framework_nativeLogLocalAdsEvent(JNIEnv * env, jclass, 
 {
   g_framework->LogLocalAdsEvent(static_cast<local_ads::EventType>(type), lat, lon, accuracy);
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
+{
+  frm()->RunFirstLaunchAnimation();
+}
 }  // extern "C"

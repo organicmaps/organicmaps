@@ -231,6 +231,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         }
       }
       UpdateCanBeDeletedStatus();
+
+      m_firstTilesReady = true;
+      if (m_firstLaunchAnimationTriggered)
+      {
+        CheckAndRunFirstLaunchAnimation();
+        m_firstLaunchAnimationTriggered = false;
+      }
       break;
     }
 
@@ -785,6 +792,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
       m_postprocessRenderer->SetEffectEnabled(msg->GetEffect(), msg->IsEnabled());
+      break;
+    }
+
+  case Message::RunFirstLaunchAnimation:
+    {
+      ref_ptr<RunFirstLaunchAnimationMessage> msg = message;
+      m_firstLaunchAnimationTriggered = true;
+      CheckAndRunFirstLaunchAnimation();
       break;
     }
 
@@ -1507,6 +1522,7 @@ void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+  m_firstLaunchAnimationInterrupted = true;
 }
 
 void FrontendRenderer::OnScaleStarted()
@@ -1538,12 +1554,14 @@ void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+  m_firstLaunchAnimationInterrupted = true;
 }
 
 void FrontendRenderer::OnAnimatedScaleEnded()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
+  m_firstLaunchAnimationInterrupted = true;
 }
 
 void FrontendRenderer::OnTouchMapAction()
@@ -1689,6 +1707,8 @@ void FrontendRenderer::OnContextDestroy()
   m_contextFactory->getDrawContext()->doneCurrent();
 
   m_needRestoreSize = true;
+  m_firstTilesReady = false;
+  m_firstLaunchAnimationInterrupted = false;
 }
 
 void FrontendRenderer::OnContextCreate()
@@ -1981,6 +2001,19 @@ void FrontendRenderer::CollectShowOverlaysEvents()
 {
   ASSERT(m_overlaysShowStatsCallback != nullptr, ());
   m_overlaysShowStatsCallback(m_overlaysTracker->Collect());
+}
+
+void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
+{
+  if (!m_firstTilesReady || m_firstLaunchAnimationInterrupted ||
+      !m_myPositionController->IsModeHasPosition())
+  {
+    return;
+  }
+
+  int constexpr kDesiredZoomLevel = 13;
+  m2::PointD const pos =  m_myPositionController->GetDrawablePosition();
+  AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */));
 }
 
 FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)

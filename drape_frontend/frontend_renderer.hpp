@@ -228,6 +228,8 @@ private:
 
   void CollectShowOverlaysEvents();
 
+  void CheckAndRunFirstLaunchAnimation();
+
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
   struct RenderLayer
@@ -322,6 +324,10 @@ private:
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
+
+  bool m_firstTilesReady = false;
+  bool m_firstLaunchAnimationTriggered = false;
+  bool m_firstLaunchAnimationInterrupted = false;
 
 #ifdef DEBUG
   bool m_isTeardowned;

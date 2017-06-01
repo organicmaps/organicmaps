@@ -2,7 +2,7 @@
 
 @interface MWMFrameworkHelper : NSObject
 
-+ (void)zoomToCurrentPosition;
++ (void)processFirstLaunch;
 
 + (void)setVisibleViewport:(CGRect)rect;
 
