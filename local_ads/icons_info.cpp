@@ -49,8 +49,9 @@ void IconsInfo::SetSourceFile(std::string const & fileName)
     auto const pos = icon.find(kDelimiter);
     if (pos == std::string::npos)
       return;
-    uint32_t index = 0;
-    strings::to_uint(icon.substr(0, pos), index);
+    uint32_t index;
+    if (!strings::to_uint(icon.substr(0, pos), index))
+      index = 0;
     icons[static_cast<uint16_t>(index)] = icon;
   });
 

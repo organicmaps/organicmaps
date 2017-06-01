@@ -75,8 +75,8 @@ Framebuffer::Framebuffer(uint32_t colorFormat)
 }
 
 Framebuffer::Framebuffer(uint32_t colorFormat, bool stencilEnabled)
-  : m_colorFormat(colorFormat)
-  , m_depthStencil(make_unique_dp<dp::Framebuffer::DepthStencil>(stencilEnabled))
+  : m_depthStencil(make_unique_dp<dp::Framebuffer::DepthStencil>(stencilEnabled))
+  , m_colorFormat(colorFormat)
 {
   ApplyOwnDepthStencil();
 }
@@ -121,7 +121,7 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   m_colorTextureId = GLFunctions::glGenTexture();
   GLFunctions::glBindTexture(m_colorTextureId);
-  GLFunctions::glTexImage2D(m_width, m_height, gl_const::GLRGBA, gl_const::GLUnsignedByteType,
+  GLFunctions::glTexImage2D(m_width, m_height, m_colorFormat, gl_const::GLUnsignedByteType,
                             nullptr);
   GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear);
   GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear);
