@@ -5,8 +5,6 @@
 #include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
-#include <cctype>
-
 using namespace std;
 using namespace strings;
 
@@ -29,10 +27,10 @@ void RemoveNumeroSigns(UniString & s)
     }
 
     size_t j = i + 1;
-    while (j < n && isspace(s[j]))
+    while (j < n && IsASCIISpace(s[j]))
       ++j;
 
-    if (j == n || isdigit(s[j]))
+    if (j == n || IsASCIIDigit(s[j]))
       s[i] = ' ';
 
     i = j;
@@ -68,9 +66,9 @@ UniString NormalizeAndSimplifyString(string const & s)
       break;
     // Some Danish-specific hacks.
     case 0x00d8:  // Ø
-    case 0x00f8:
+    case 0x00f8:  // ø
       c = 'o';
-      break;      // ø
+      break;
     case 0x0152:  // Œ
     case 0x0153:  // œ
       c = 'o';

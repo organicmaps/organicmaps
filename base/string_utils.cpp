@@ -236,6 +236,12 @@ bool IsASCIIString(std::string const & str)
 }
 
 bool IsASCIIDigit(UniChar c) { return c >= '0' && c <= '9'; }
+
+bool IsASCIISpace(UniChar c)
+{
+  return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v';
+}
+
 bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
 
 bool StartsWith(UniString const & s, UniString const & p)
