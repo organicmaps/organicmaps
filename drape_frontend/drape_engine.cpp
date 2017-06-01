@@ -655,4 +655,11 @@ void DrapeEngine::SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool 
                                   make_unique_dp<SetPosteffectEnabledMessage>(effect, enabled),
                                   MessagePriority::Normal);
 }
+
+void DrapeEngine::RunFirstLaunchAnimation()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<RunFirstLaunchAnimationMessage>(),
+                                  MessagePriority::Normal);
+}
 }  // namespace df

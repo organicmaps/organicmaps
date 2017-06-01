@@ -80,6 +80,7 @@ public:
     UpdateCustomSymbols,
     SetPostprocessStaticTextures,
     SetPosteffectEnabled,
+    RunFirstLaunchAnimation,
   };
 
   virtual ~Message() {}

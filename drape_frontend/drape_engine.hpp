@@ -207,6 +207,8 @@ public:
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
 
+  void RunFirstLaunchAnimation();
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);

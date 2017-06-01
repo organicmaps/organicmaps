@@ -1239,6 +1239,12 @@ int Framework::GetDrawScale() const
   return df::GetDrawTileScale(m_currentModelView);
 }
 
+void Framework::RunFirstLaunchAnimation()
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RunFirstLaunchAnimation();
+}
+
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
 {
   // TODO (@gorshenin, @govako): the method's name is quite

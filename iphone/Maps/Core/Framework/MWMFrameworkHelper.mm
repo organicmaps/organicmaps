@@ -9,14 +9,14 @@
 
 @implementation MWMFrameworkHelper
 
-+ (void)zoomToCurrentPosition
++ (void)processFirstLaunch
 {
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
     f.SwitchMyPositionNextMode();
   else
-    f.SetViewportCenter(lastLocation.mercator, 13 /* zoom */);
+    f.RunFirstLaunchAnimation();
 }
 
 + (void)setVisibleViewport:(CGRect)rect

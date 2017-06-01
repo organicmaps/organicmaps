@@ -185,12 +185,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       TOverlaysRenderData overlays;
       overlays.swap(m_overlays);
-      if (!overlays.empty())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FlushOverlaysMessage>(move(overlays)),
-                                  MessagePriority::Normal);
-      }
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<FlushOverlaysMessage>(move(overlays)),
+                                MessagePriority::Normal);
       break;
     }
 

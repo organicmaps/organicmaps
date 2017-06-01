@@ -599,7 +599,7 @@ public enum LocationHelper
     {
       notifyLocationUpdated();
       mLogger.d(TAG, "Current location is available, so play the nice zoom animation");
-      Framework.nativeZoomToPoint(location.getLatitude(), location.getLongitude(), 14, true);
+      Framework.nativeRunFirstLaunchAnimation();
       return;
     }
 

@@ -1230,4 +1230,10 @@ private:
   PostprocessRenderer::Effect const m_effect;
   bool const m_enabled;
 };
+
+class RunFirstLaunchAnimationMessage : public Message
+{
+public:
+  Type GetType() const override { return Message::RunFirstLaunchAnimation; }
+};
 }  // namespace df

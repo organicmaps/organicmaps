@@ -325,4 +325,6 @@ public class Framework
 
   private static native void nativeLogLocalAdsEvent(@LocalAdsEventType int eventType,
                                                    double lat, double lon, int accuracy);
+
+  public static native void nativeRunFirstLaunchAnimation();
 }
