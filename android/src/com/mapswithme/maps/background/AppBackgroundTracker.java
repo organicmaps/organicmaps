@@ -141,7 +141,7 @@ public final class AppBackgroundTracker
   {
     for (OnVisibleAppLaunchListener listener : mVisibleAppLaunchListeners)
       listener.onVisibleAppLaunch();
-    mTransitionListeners.finishIterate();
+    mVisibleAppLaunchListeners.finishIterate();
   }
 
   public void addListener(OnTransitionListener listener)

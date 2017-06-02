@@ -168,6 +168,7 @@ public class MwmApplication extends Application
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
+    mBackgroundTracker.addListener(mVisibleAppLaunchListener);
   }
 
   public void initNativePlatform()
@@ -197,7 +198,6 @@ public class MwmApplication extends Application
       setInstallationIdToCrashlytics();
 
     mBackgroundTracker.addListener(mBackgroundListener);
-    mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     TrackRecorder.init();
     Editor.init();
     mIsPlatformInitialized = true;
