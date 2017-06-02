@@ -23,7 +23,8 @@ public final class AppBackgroundTracker
   private static final String TAG = AppBackgroundTracker.class.getSimpleName();
   private static final int TRANSITION_DELAY_MS = 1000;
 
-  private final Listeners<OnTransitionListener> mListeners = new Listeners<>();
+  private final Listeners<OnTransitionListener> mTransitionListeners = new Listeners<>();
+  private final Listeners<OnFirstLaunchListener> mFirstLaunchListeners = new Listeners<>();
   private SparseArray<WeakReference<Activity>> mActivities = new SparseArray<>();
   private boolean mForeground;
 
@@ -47,7 +48,7 @@ public final class AppBackgroundTracker
       mForeground = (mActivities.size() > 0);
 
       if (mForeground != old)
-        notifyListeners();
+        notifyTransitionListeners();
     }
   };
 
@@ -64,6 +65,8 @@ public final class AppBackgroundTracker
     public void onActivityStarted(Activity activity)
     {
       LOGGER.d(TAG, "onActivityStarted activity = " + activity);
+      if (mActivities.size() == 0)
+        notifyFirstLaunchListeners();
       mActivities.put(activity.hashCode(), new WeakReference<>(activity));
       onActivityChanged();
     }
@@ -112,6 +115,11 @@ public final class AppBackgroundTracker
     void onTransit(boolean foreground);
   }
 
+  public interface OnFirstLaunchListener
+  {
+    void onFirstLaunch();
+  }
+
   public AppBackgroundTracker()
   {
     MwmApplication.get().registerActivityLifecycleCallbacks(mAppLifecycleCallbacks);
@@ -122,21 +130,38 @@ public final class AppBackgroundTracker
     return mForeground;
   }
 
-  private void notifyListeners()
+  private void notifyTransitionListeners()
   {
-    for (OnTransitionListener listener : mListeners)
+    for (OnTransitionListener listener : mTransitionListeners)
       listener.onTransit(mForeground);
-    mListeners.finishIterate();
+    mTransitionListeners.finishIterate();
+  }
+
+  private void notifyFirstLaunchListeners()
+  {
+    for (OnFirstLaunchListener listener : mFirstLaunchListeners)
+      listener.onFirstLaunch();
+    mTransitionListeners.finishIterate();
   }
 
   public void addListener(OnTransitionListener listener)
   {
-    mListeners.register(listener);
+    mTransitionListeners.register(listener);
   }
 
   public void removeListener(OnTransitionListener listener)
   {
-    mListeners.unregister(listener);
+    mTransitionListeners.unregister(listener);
+  }
+
+  public void addListener(OnFirstLaunchListener listener)
+  {
+    mFirstLaunchListeners.register(listener);
+  }
+
+  public void removeListener(OnFirstLaunchListener listener)
+  {
+    mFirstLaunchListeners.unregister(listener);
   }
 
   @android.support.annotation.UiThread
