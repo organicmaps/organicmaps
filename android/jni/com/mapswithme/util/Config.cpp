@@ -116,10 +116,4 @@ extern "C"
       frm()->SaveTransliteration(value);
       frm()->AllowTransliteration(value);
     }
-
-    JNIEXPORT void JNICALL
-    Java_com_mapswithme_util_Config_nativeReload(JNIEnv * env, jclass thiz)
-    {
-      settings::Reload();
-    }
 } // extern "C"

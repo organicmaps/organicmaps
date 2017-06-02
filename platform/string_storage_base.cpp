@@ -49,17 +49,6 @@ StringStorageBase::StringStorageBase(string const & path) : m_path(path)
   }
 }
 
-StringStorageBase::StringStorageBase(StringStorageBase const & rhs)
-{
-  m_values = Container(rhs.m_values.begin(), rhs.m_values.end());
-}
-
-StringStorageBase& StringStorageBase::operator=(StringStorageBase const & rhs)
-{
-  m_values = Container(rhs.m_values.begin(), rhs.m_values.end());
-  return *this;
-}
-
 void StringStorageBase::Save() const
 {
   try

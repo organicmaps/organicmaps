@@ -105,7 +105,6 @@ public final class Config
 
   public static void migrateCountersToSharedPrefs()
   {
-    nativeReload();
     int version = getInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
     MwmApplication.prefs()
                   .edit()
@@ -336,5 +335,4 @@ public final class Config
   private static native void nativeSetLargeFontsSize(boolean value);
   private static native boolean nativeGetTransliteration();
   private static native void nativeSetTransliteration(boolean value);
-  private static native void nativeReload();
 }

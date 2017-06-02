@@ -9,7 +9,7 @@
     </shape>
   </item>
   <item
-    android:drawable="@drawable/ic_storage_light_24_px"
+    android:drawable="@drawable/ic_storage_light"
     android:left="@dimen/margin_half"
     android:right="@dimen/margin_half"
     android:top="@dimen/margin_half"

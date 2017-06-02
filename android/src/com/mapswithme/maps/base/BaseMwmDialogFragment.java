@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 
@@ -12,6 +13,9 @@ public class BaseMwmDialogFragment extends DialogFragment
 {
   protected final @StyleRes int getFullscreenTheme()
   {
+    if (!MwmApplication.get().isPlatformInitialized())
+      return R.style.MwmTheme_DialogFragment_Fullscreen;
+
     return (ThemeUtils.isNightTheme() ? R.style.MwmTheme_DialogFragment_Fullscreen_Night
                                       : R.style.MwmTheme_DialogFragment_Fullscreen);
   }

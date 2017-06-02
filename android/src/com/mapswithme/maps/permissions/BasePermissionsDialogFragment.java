@@ -20,11 +20,15 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     implements View.OnClickListener
 {
-  private static final String REQUEST_ID = "arg_request_id";
+  private static final String TAG = BasePermissionsDialogFragment.class.getName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String ARG_REQUEST_ID = "arg_request_id";
 
   private int mRequestId;
 
@@ -46,20 +50,19 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     {
       dialog = dialogClass.newInstance();
       final Bundle args = new Bundle();
-      args.putInt(REQUEST_ID, requestId);
+      args.putInt(ARG_REQUEST_ID, requestId);
       dialog.setArguments(args);
       dialog.setCancelable(false);
       dialog.show(fm, dialogClass.getName());
     }
     catch (java.lang.InstantiationException e)
     {
-      e.printStackTrace();
+      LOGGER.e(TAG, "Can't instantiate " + dialogClass.getName() + " fragment", e);
     }
     catch (IllegalAccessException e)
     {
-      e.printStackTrace();
+      LOGGER.e(TAG, "Can't instantiate " + dialogClass.getName() + " fragment", e);
     }
-
 
     return dialog;
   }
@@ -70,9 +73,7 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     super.onCreate(savedInstanceState);
     Bundle args = getArguments();
     if (args != null)
-    {
-      mRequestId = args.getInt(REQUEST_ID);
-    }
+      mRequestId = args.getInt(ARG_REQUEST_ID);
   }
 
   @Override

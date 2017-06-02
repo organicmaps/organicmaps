@@ -43,18 +43,13 @@ public class SplashActivity extends AppCompatActivity
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
 
-  @Nullable
-  private DialogFragment mPermissionsDialog;
-  @Nullable
-  private DialogFragment mStoragePermissionsDialog;
-
   @NonNull
   private final Runnable mPermissionsTask = new Runnable()
   {
     @Override
     public void run()
     {
-      mPermissionsDialog = PermissionsDialogFragment.show(SplashActivity.this, REQUEST_PERMISSIONS);
+      PermissionsDialogFragment.show(SplashActivity.this, REQUEST_PERMISSIONS);
     }
   };
 
@@ -113,39 +108,30 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     mCanceled = false;
     mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
+    DialogFragment storagePermissionsDialog = StoragePermissionsDialogFragment.find(this);
+    DialogFragment permissionsDialog = PermissionsDialogFragment.find(this);
     if (!mPermissionsGranted)
     {
-      mStoragePermissionsDialog = StoragePermissionsDialogFragment.find(this);
-      if (mNeedStoragePermission || mStoragePermissionsDialog != null)
+      if (mNeedStoragePermission || storagePermissionsDialog != null)
       {
-        if (mPermissionsDialog != null)
-        {
-          mPermissionsDialog.dismiss();
-          mPermissionsDialog = null;
-        }
-        if (mStoragePermissionsDialog == null)
-          mStoragePermissionsDialog = StoragePermissionsDialogFragment.show(this);
+        if (permissionsDialog != null)
+          permissionsDialog.dismiss();
+        if (storagePermissionsDialog == null)
+          StoragePermissionsDialogFragment.show(this);
         return;
       }
-      mPermissionsDialog = PermissionsDialogFragment.find(this);
-      if (mPermissionsDialog == null)
+      permissionsDialog = PermissionsDialogFragment.find(this);
+      if (permissionsDialog == null)
         UiThread.runLater(mPermissionsTask, FIRST_START_DELAY);
 
       return;
     }
-    else
-    {
-      if (mPermissionsDialog != null)
-      {
-        mPermissionsDialog.dismiss();
-        mPermissionsDialog = null;
-      }
-      if (mStoragePermissionsDialog != null)
-      {
-        mStoragePermissionsDialog.dismiss();
-        mStoragePermissionsDialog = null;
-      }
-    }
+
+    if (permissionsDialog != null)
+      permissionsDialog.dismiss();
+
+    if (storagePermissionsDialog != null)
+      storagePermissionsDialog.dismiss();
 
     UiThread.runLater(mDelayedTask, DELAY);
   }

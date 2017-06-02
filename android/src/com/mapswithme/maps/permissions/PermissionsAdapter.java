@@ -16,6 +16,7 @@ import com.mapswithme.maps.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHolder>
@@ -30,18 +31,19 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
 
   private static final List<PermissionItem> ITEMS;
   static {
-    ITEMS = new ArrayList<>();
-    ITEMS.add(new PermissionItem(TYPE_TITLE, R.string.onboarding_detail_permissions_title, 0, 0));
-    ITEMS.add(new PermissionItem(TYPE_PERMISSION,
+    ArrayList<PermissionItem> items = new ArrayList<>();
+    items.add(new PermissionItem(TYPE_TITLE, R.string.onboarding_detail_permissions_title, 0, 0));
+    items.add(new PermissionItem(TYPE_PERMISSION,
                                  R.string.onboarding_detail_permissions_storage_title,
                                  R.string.onboarding_detail_permissions_storage_message,
                                  R.drawable.ic_storage_permission));
-    ITEMS.add(new PermissionItem(TYPE_PERMISSION,
+    items.add(new PermissionItem(TYPE_PERMISSION,
                                  R.string.onboarding_detail_permissions_location_title,
                                  R.string.onboarding_detail_permissions_location_message,
                                  R.drawable.ic_navigation_permission));
-    ITEMS.add(new PermissionItem(TYPE_NOTE, 0,
+    items.add(new PermissionItem(TYPE_NOTE, 0,
                                  R.string.onboarding_detail_permissions_storage_path_message, 0));
+    ITEMS = Collections.unmodifiableList(items);
   }
 
   @ViewHolderType
@@ -106,7 +108,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
 
   static abstract class ViewHolder extends RecyclerView.ViewHolder
   {
-    public ViewHolder(View itemView)
+    public ViewHolder(@NonNull View itemView)
     {
       super(itemView);
     }
@@ -118,7 +120,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
   {
     private final TextView mTitle;
 
-    TitleViewHolder(View itemView)
+    TitleViewHolder(@NonNull View itemView)
     {
       super(itemView);
 
@@ -138,7 +140,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     private final TextView mTitle;
     private final TextView mMessage;
 
-    PermissionViewHolder(View itemView)
+    PermissionViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mIcon = (ImageView) itemView.findViewById(R.id.iv__permission_icon);
@@ -159,7 +161,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
   {
     private final TextView mMessage;
 
-    NoteViewHolder(View itemView)
+    NoteViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mMessage = (TextView) itemView.findViewById(R.id.tv__note);

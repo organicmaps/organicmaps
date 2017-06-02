@@ -95,6 +95,7 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -193,16 +194,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
 
-      boolean granted = PermissionsUtils.isLocationGranted();
-      if (!granted && PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
+      if (!PermissionsUtils.isLocationGranted())
       {
-        PermissionsUtils.requestLocationPermission(MwmActivity.this, LOCATION_REQUEST);
-        return;
-      }
-      else if (!granted)
-      {
-        Toast.makeText(MwmActivity.this, R.string.location_permission_denied, Toast.LENGTH_SHORT)
-             .show();
+        if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
+          PermissionsUtils.requestLocationPermission(MwmActivity.this, LOCATION_REQUEST);
+        else
+          Toast.makeText(MwmActivity.this, R.string.location_permission_denied, Toast.LENGTH_SHORT)
+               .show();
         return;
       }
 
@@ -992,7 +990,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (requestCode != LOCATION_REQUEST || grantResults.length == 0)
       return;
 
-    if (PermissionsUtils.computePermissionsResult(permissions, grantResults).isLocationGranted())
+    PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
+    if (result.isLocationGranted())
       myPositionClick();
   }
 

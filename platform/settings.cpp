@@ -25,11 +25,9 @@ char const * kMeasurementUnits = "Units";
 
 StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
 
-StringStorage & StringStorage::Instance(bool reload)
+StringStorage & StringStorage::Instance()
 {
   static StringStorage inst;
-  if (reload)
-    inst = StringStorage();
   return inst;
 }
 
