@@ -205,9 +205,9 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
   if (capRule->has_offset_x())
   {
     if (capRule->offset_x() > 0)
-      return dp::Right;
-    else
       return dp::Left;
+    else
+      return dp::Right;
   }
 
   return dp::Center;

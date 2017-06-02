@@ -150,34 +150,79 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
                                        m_params.m_primaryTextFont.m_isSdf, textures, m_params.m_anchor);
   }
 
-  glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset + m2::PointF(0.0f, m_symbolSize.y / 2.0f));
-
+  drape_ptr<StraightTextLayout> secondaryLayout;
   if (!m_params.m_secondaryText.empty())
   {
-    StraightTextLayout secondaryLayout(strings::MakeUniString(m_params.m_secondaryText),
-                                       m_params.m_secondaryTextFont.m_size, m_params.m_secondaryTextFont.m_isSdf,
-                                       textures, m_params.m_anchor);
+    secondaryLayout = make_unique_dp<StraightTextLayout>(strings::MakeUniString(m_params.m_secondaryText),
+                                                         m_params.m_secondaryTextFont.m_size,
+                                                         m_params.m_secondaryTextFont.m_isSdf,
+                                                         textures,
+                                                         m_params.m_anchor);
+  }
 
-    glsl::vec2 secondaryOffset = primaryOffset + glsl::ToVec2(m_params.m_secondaryOffset);
+  glsl::vec2 primaryOffset(0.0f, 0.0f);
+  glsl::vec2 secondaryOffset(0.0f, 0.0f);
 
-    if (m_params.m_anchor & dp::Top)
-      secondaryOffset += glsl::vec2(0.0, primaryLayout.GetPixelSize().y);
-    else if (m_params.m_anchor & dp::Bottom)
-      primaryOffset -= glsl::vec2(0.0, secondaryLayout.GetPixelSize().y);
-    else
+  float const halfSymbolW = m_symbolSize.x / 2.0;
+  float const halfSymbolH = m_symbolSize.y / 2.0;
+
+  if (m_params.m_anchor & dp::Top)
+  {
+    // In the case when the anchor is dp::Top the value of primary offset y > 0,
+    // the text shape is below the POI.
+    primaryOffset.y = m_params.m_primaryOffset.y + halfSymbolH;
+    if (secondaryLayout != nullptr)
     {
-      primaryOffset -= glsl::vec2(0.0, primaryLayout.GetPixelSize().y / 2.0f);
-      secondaryOffset += glsl::vec2(0.0, secondaryLayout.GetPixelSize().y / 2.0f);
+      secondaryOffset.y = m_params.m_primaryOffset.y + primaryLayout.GetPixelSize().y +
+          m_params.m_secondaryOffset.y + halfSymbolH;
     }
+  }
+  else if (m_params.m_anchor & dp::Bottom)
+  {
+    // In the case when the anchor is dp::Bottom the value of primary offset y < 0,
+    // the text shape is above the POI.
+    primaryOffset.y = m_params.m_primaryOffset.y - halfSymbolH;
+    if (secondaryLayout != nullptr)
+    {
+      primaryOffset.y -= secondaryLayout->GetPixelSize().y + m_params.m_secondaryOffset.y;
+      secondaryOffset.y = m_params.m_primaryOffset.y - halfSymbolH;
+    }
+  }
+  else if (secondaryLayout != nullptr)
+  {
+    // In the case when the anchor is dp::Center there isn't primary offset y.
+    primaryOffset.y = -(primaryLayout.GetPixelSize().y + m_params.m_secondaryOffset.y) / 2.0f;
+    secondaryOffset.y = (secondaryLayout->GetPixelSize().y + m_params.m_secondaryOffset.y) / 2.0f;
+  }
 
-    if (secondaryLayout.GetGlyphCount() > 0)
-      DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher,
-                    textures, false /* isPrimary */, m_params.m_secondaryOptional);
+  if (m_params.m_anchor & dp::Left)
+  {
+    // In the case when the anchor is dp::Left the value of primary offset x > 0,
+    // the text shape is on the right from the POI.
+    primaryOffset.x = m_params.m_primaryOffset.x + halfSymbolW;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.x = primaryOffset.x;
+  }
+  else if (m_params.m_anchor & dp::Right)
+  {
+    // In the case when the anchor is dp::Right the value of primary offset x < 0,
+    // the text shape is on the left from the POI.
+    primaryOffset.x = m_params.m_primaryOffset.x - halfSymbolW;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.x = primaryOffset.x;
   }
 
   if (primaryLayout.GetGlyphCount() > 0)
+  {
     DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher,
                   textures, true /* isPrimary */, m_params.m_primaryOptional);
+  }
+
+  if (secondaryLayout != nullptr && secondaryLayout->GetGlyphCount() > 0)
+  {
+    DrawSubString(*secondaryLayout.get(), m_params.m_secondaryTextFont, secondaryOffset, batcher,
+                  textures, false /* isPrimary */, m_params.m_secondaryOptional);
+  }
 }
 
 void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
@@ -190,7 +235,7 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
 
   if (outlineColor == dp::Color::Transparent())
   {
-    DrawSubStringPlain(layout, font, baseOffset,batcher, textures, isPrimary, isOptional);
+    DrawSubStringPlain(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
   }
   else
   {
