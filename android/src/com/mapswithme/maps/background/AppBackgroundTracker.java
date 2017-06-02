@@ -24,7 +24,7 @@ public final class AppBackgroundTracker
   private static final int TRANSITION_DELAY_MS = 1000;
 
   private final Listeners<OnTransitionListener> mTransitionListeners = new Listeners<>();
-  private final Listeners<OnFirstLaunchListener> mFirstLaunchListeners = new Listeners<>();
+  private final Listeners<OnVisibleAppLaunchListener> mVisibleAppLaunchListeners = new Listeners<>();
   private SparseArray<WeakReference<Activity>> mActivities = new SparseArray<>();
   private boolean mForeground;
 
@@ -66,7 +66,7 @@ public final class AppBackgroundTracker
     {
       LOGGER.d(TAG, "onActivityStarted activity = " + activity);
       if (mActivities.size() == 0)
-        notifyFirstLaunchListeners();
+        notifyVisibleAppLaunchListeners();
       mActivities.put(activity.hashCode(), new WeakReference<>(activity));
       onActivityChanged();
     }
@@ -115,9 +115,9 @@ public final class AppBackgroundTracker
     void onTransit(boolean foreground);
   }
 
-  public interface OnFirstLaunchListener
+  public interface OnVisibleAppLaunchListener
   {
-    void onFirstLaunch();
+    void onVisibleAppLaunch();
   }
 
   public AppBackgroundTracker()
@@ -137,10 +137,10 @@ public final class AppBackgroundTracker
     mTransitionListeners.finishIterate();
   }
 
-  private void notifyFirstLaunchListeners()
+  private void notifyVisibleAppLaunchListeners()
   {
-    for (OnFirstLaunchListener listener : mFirstLaunchListeners)
-      listener.onFirstLaunch();
+    for (OnVisibleAppLaunchListener listener : mVisibleAppLaunchListeners)
+      listener.onVisibleAppLaunch();
     mTransitionListeners.finishIterate();
   }
 
@@ -154,14 +154,14 @@ public final class AppBackgroundTracker
     mTransitionListeners.unregister(listener);
   }
 
-  public void addListener(OnFirstLaunchListener listener)
+  public void addListener(OnVisibleAppLaunchListener listener)
   {
-    mFirstLaunchListeners.register(listener);
+    mVisibleAppLaunchListeners.register(listener);
   }
 
-  public void removeListener(OnFirstLaunchListener listener)
+  public void removeListener(OnVisibleAppLaunchListener listener)
   {
-    mFirstLaunchListeners.unregister(listener);
+    mVisibleAppLaunchListeners.unregister(listener);
   }
 
   @android.support.annotation.UiThread

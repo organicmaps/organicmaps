@@ -104,11 +104,11 @@ public class MwmApplication extends Application
       };
 
   @NonNull
-  private final AppBackgroundTracker.OnFirstLaunchListener mFirstLaunchListener =
-      new AppBackgroundTracker.OnFirstLaunchListener()
+  private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener =
+      new AppBackgroundTracker.OnVisibleAppLaunchListener()
       {
         @Override
-        public void onFirstLaunch()
+        public void onVisibleAppLaunch()
         {
           IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
           Intent batteryStatus = registerReceiver(null, filter);
@@ -198,7 +198,7 @@ public class MwmApplication extends Application
 
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mBackgroundListener);
-    mBackgroundTracker.addListener(mFirstLaunchListener);
+    mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     TrackRecorder.init();
     Editor.init();
     mIsPlatformInitialized = true;
