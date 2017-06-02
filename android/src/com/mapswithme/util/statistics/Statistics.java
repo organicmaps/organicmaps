@@ -2,9 +2,11 @@ package com.mapswithme.util.statistics;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
@@ -47,6 +50,8 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_B
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
+import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
@@ -56,6 +61,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
+import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
@@ -201,6 +207,9 @@ public enum Statistics
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
     public static final String EDITOR_REPORT = "Editor_Problem_report";
 
+    // Cold start
+    public static final String APPLICATION_COLD_STARTUP_INFO = "Application_ColdStartup_info";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -286,6 +295,9 @@ public enum Statistics
     static final String ERROR_CODE = "error_code";
     static final String ERROR_MESSAGE = "error_message";
     static final String MAP_DATA_SIZE = "map_data_size:";
+    static final String BATTERY = "battery";
+    static final String CHARGING = "charging";
+    static final String NETWORK = "network";
     private EventParam() {}
   }
 
@@ -606,6 +618,43 @@ public enum Statistics
                    .add(MWM_NAME, mapObject.getMwmName())
                    .add(MWM_VERSION, mapObject.getMwmVersion())
                    .add(FEATURE_ID, mapObject.getFeatureIndex())
+                   .get());
+  }
+
+  public void trackColdStartupInfo(@NonNull Intent batteryStatus)
+  {
+    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    final String charging;
+    if (chargePlug > 0)
+      charging = "on";
+    else if (chargePlug < 0)
+      charging = "unknown";
+    else
+      charging = "off";
+
+    final String network;
+    if (ConnectionState.isWifiConnected())
+    {
+      network = "wifi";
+    }
+    else if (ConnectionState.isMobileConnected())
+    {
+      if (ConnectionState.isInRoaming())
+        network = "roaming (android)";
+      else
+        network = "mobile";
+    }
+    else
+    {
+      network = "off";
+    }
+
+    trackEvent(APPLICATION_COLD_STARTUP_INFO,
+               params()
+                   .add(BATTERY, level)
+                   .add(CHARGING, charging)
+                   .add(NETWORK, network)
                    .get());
   }
 
