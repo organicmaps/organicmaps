@@ -105,6 +105,11 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return EConnectionType::CONNECTION_NONE;
 }
 
+Platform::ChargingStatus Platform::GetChargingStatus()
+{
+  return Platform::ChargingStatus::Unknown;
+}
+
 void Platform::GetSystemFontNames(FilesList & res) const
 {
 }

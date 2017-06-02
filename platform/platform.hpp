@@ -55,6 +55,13 @@ public:
     CONNECTION_WWAN
   };
 
+  enum class ChargingStatus : uint8_t
+  {
+    Unknown,
+    Plugged,
+    Unplugged
+  };
+
   using TFilesWithType = vector<pair<string, EFileType>>;
 
 protected:
@@ -226,6 +233,8 @@ public:
   static EConnectionType ConnectionStatus();
   static bool IsConnected() { return ConnectionStatus() != EConnectionType::CONNECTION_NONE; }
 
+  static ChargingStatus GetChargingStatus();
+
   void SetupMeasurementSystem() const;
 
   MarketingService & GetMarketingService() { return m_marketingService; }
@@ -237,3 +246,4 @@ private:
 extern Platform & GetPlatform();
 
 string DebugPrint(Platform::EError err);
+string DebugPrint(Platform::ChargingStatus status);

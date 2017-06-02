@@ -170,6 +170,17 @@ Platform::EConnectionType Platform::ConnectionStatus()
     return EConnectionType::CONNECTION_WIFI;
 }
 
+Platform::ChargingStatus Platform::GetChargingStatus()
+{
+  switch (UIDevice.currentDevice.batteryState)
+  {
+  case UIDeviceBatteryStateUnknown: return Platform::ChargingStatus::Unknown;
+  case UIDeviceBatteryStateUnplugged: return Platform::ChargingStatus::Unplugged;
+  case UIDeviceBatteryStateCharging:
+  case UIDeviceBatteryStateFull: return Platform::ChargingStatus::Plugged;
+  }
+}
+
 void Platform::SetupMeasurementSystem() const
 {
   auto units = measurement_utils::Units::Metric;

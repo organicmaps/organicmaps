@@ -54,6 +54,11 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState), getConnectionMethodId));
 }
 
+Platform::ChargingStatus Platform::GetChargingStatus()
+{
+  return Platform::ChargingStatus::Unknown;
+}
+
 namespace android
 {
   void Platform::Initialize(JNIEnv * env,

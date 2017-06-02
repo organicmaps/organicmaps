@@ -218,3 +218,13 @@ string DebugPrint(Platform::EError err)
   case Platform::ERR_UNKNOWN: return "Unknown";
   }
 }
+
+string DebugPrint(Platform::ChargingStatus status)
+{
+  switch (status)
+  {
+  case Platform::ChargingStatus::Unknown: return "Unknown";
+  case Platform::ChargingStatus::Plugged: return "Plugged";
+  case Platform::ChargingStatus::Unplugged: return "Unplugged";
+  }
+}
