@@ -53,6 +53,7 @@ public:
   bool IsMyPosition() const;
   bool IsSponsored() const;
   bool IsNotEditableSponsored() const;
+  bool IsRoutePoint() const;
 
   bool ShouldShowAddPlace() const;
   bool ShouldShowAddBusiness() const;

@@ -184,8 +184,9 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
+  // TODO(@rokuz) use correct DrapeID
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveRoute(deactivateFollowing);
+    m_drapeEngine->RemoveRouteSegment(dp::DrapeID(), deactivateFollowing);
 }
 
 void RoutingManager::InsertRoute(routing::Route const & route)
@@ -199,27 +200,38 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     return;
   }
 
-  std::vector<double> turns;
-  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle ||
-      m_currentRouterType == RouterType::Taxi)
+  auto segment = make_unique_dp<df::RouteSegment>();
+  segment->m_polyline = route.GetPoly();
+  switch (m_currentRouterType)
   {
-    route.GetTurnsDistances(turns);
+    case RouterType::Vehicle:
+      segment->m_routeType = df::RouteType::Car;
+      segment->m_color = df::kRouteColor;
+      segment->m_traffic = route.GetTraffic();
+      route.GetTurnsDistances(segment->m_turns);
+      break;
+    case RouterType::Pedestrian:
+      segment->m_routeType = df::RouteType::Pedestrian;
+      segment->m_color = df::kRoutePedestrian;
+      segment->m_pattern = df::RoutePattern(4.0, 2.0);
+      break;
+    case RouterType::Bicycle:
+      segment->m_routeType = df::RouteType::Bicycle;
+      segment->m_color = df::kRouteBicycle;
+      segment->m_pattern = df::RoutePattern(8.0, 2.0);
+      route.GetTurnsDistances(segment->m_turns);
+      break;
+    case RouterType::Taxi:
+      segment->m_routeType = df::RouteType::Taxi;
+      segment->m_color = df::kRouteColor;
+      segment->m_traffic = route.GetTraffic();
+      route.GetTurnsDistances(segment->m_turns);
+      break;
+    default: ASSERT(false, ("Unknown router type"));
   }
 
-  df::ColorConstant routeColor = df::kRouteColor;
-  df::RoutePattern pattern;
-  if (m_currentRouterType == RouterType::Pedestrian)
-  {
-    routeColor = df::kRoutePedestrian;
-    pattern = df::RoutePattern(4.0, 2.0);
-  }
-  else if (m_currentRouterType == RouterType::Bicycle)
-  {
-    routeColor = df::kRouteBicycle;
-    pattern = df::RoutePattern(8.0, 2.0);
-  }
-
-  m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor, route.GetTraffic(), pattern);
+  dp::DrapeID const segmentId = m_drapeEngine->AddRouteSegment(std::move(segment));
+  // TODO (@rokuz) Save and use segment id
 }
 
 void RoutingManager::FollowRoute()
@@ -230,7 +242,8 @@ void RoutingManager::FollowRoute()
     return;
 
   m_delegate.OnRouteFollow(m_currentRouterType);
-  m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
+
+  // TODO(@darina) Hide start point user mark
 }
 
 void RoutingManager::CloseRouting()
@@ -241,6 +254,8 @@ void RoutingManager::CloseRouting()
   }
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
+
+  //TODO (@darina) Remove route points
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
@@ -248,16 +263,71 @@ void RoutingManager::SetLastUsedRouter(RouterType type)
   settings::Set(kRouterTypeKey, routing::ToString(type));
 }
 
-void RoutingManager::SetRouteStartPoint(m2::PointD const & pt, bool isValid)
+// TODO(@darina) Remove me
+// TEMPORARY {
+void TempAddBookmarkAsRoutePoint(BookmarkManager & bm, std::string const & name,
+                                 std::string const & bookmarkSymbol,
+                                 m2::PointD const & pt, bool isValid)
 {
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetRoutePoint(pt, true /* isStart */, isValid);
+  std::string categoryName = "TMP_Routing_Points";
+  int categoryIndex = -1;
+  for (size_t i = 0; i < bm.GetBmCategoriesCount(); ++i)
+  {
+    if (bm.GetBmCategory(i)->GetName() == categoryName)
+    {
+      categoryIndex = static_cast<int>(i);
+      break;
+    }
+  }
+  if (categoryIndex == -1)
+    categoryIndex = bm.CreateBmCategory(categoryName);
+
+  if (!isValid)
+  {
+    BookmarkCategory * cat = bm.GetBmCategory(categoryIndex);
+    BookmarkCategory::Guard guard(*cat);
+    int indexToDelete = -1;
+    for (size_t i = 0; i < guard.m_controller.GetUserMarkCount(); ++i)
+    {
+      Bookmark const * bookmark = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(i));
+      if (bookmark->GetName() == name)
+      {
+        indexToDelete = i;
+        break;
+      }
+    }
+    if (indexToDelete >= 0)
+      guard.m_controller.DeleteUserMark(indexToDelete);
+  }
+  else
+  {
+    BookmarkData dat(name, bookmarkSymbol);
+    bm.AddBookmark(categoryIndex, pt, dat);
+  }
+
+  {
+    BookmarkCategory * cat = bm.GetBmCategory(categoryIndex);
+    cat->SaveToKMLFile();
+  }
+}
+// } TEMPORARY
+
+void RoutingManager::SetRouteStartPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid)
+{
+  // TODO(@darina) Implement on new user marks
+  // TEMPORARY {
+  //TempAddBookmarkAsRoutePoint(bm, "Route start point", "placemark-blue",
+  //                            pt, isValid);
+  // } TEMPORARY
 }
 
-void RoutingManager::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
+void RoutingManager::SetRouteFinishPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid)
 {
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
+  // TODO(@darina) Implement on new user marks
+  // TEMPORARY {
+  //TempAddBookmarkAsRoutePoint(bm, "Route end point", "placemark-green",
+  //                            pt, isValid);
+  // } TEMPORARY
 }
 
 void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNotifications)

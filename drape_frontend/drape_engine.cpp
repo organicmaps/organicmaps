@@ -257,6 +257,13 @@ void DrapeEngine::RecacheMapShapes()
                                   MessagePriority::Normal);
 }
 
+dp::DrapeID DrapeEngine::GenerateDrapeID()
+{
+  std::lock_guard<std::mutex> lock(m_drapeIdGeneratorMutex);
+  ++m_drapeIdGenerator;
+  return m_drapeIdGenerator;
+}
+
 void DrapeEngine::RecacheGui(bool needResetOldGui)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -414,20 +421,19 @@ bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
   return hasPosition;
 }
 
-void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, std::vector<double> const & turns,
-                           df::ColorConstant color, std::vector<traffic::SpeedGroup> const & traffic,
-                           df::RoutePattern pattern)
+dp::DrapeID DrapeEngine::AddRouteSegment(drape_ptr<RouteSegment> && segment)
 {
+  dp::DrapeID const id = GenerateDrapeID();
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddRouteMessage>(routePolyline, turns,
-                                                                  color, traffic, pattern),
+                                  make_unique_dp<AddRouteSegmentMessage>(id, std::move(segment)),
                                   MessagePriority::Normal);
+  return id;
 }
 
-void DrapeEngine::RemoveRoute(bool deactivateFollowing)
+void DrapeEngine::RemoveRouteSegment(dp::DrapeID segmentId, bool deactivateFollowing)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<RemoveRouteMessage>(deactivateFollowing),
+                                  make_unique_dp<RemoveRouteSegmentMessage>(segmentId, deactivateFollowing),
                                   MessagePriority::Normal);
 }
 
@@ -435,13 +441,6 @@ void DrapeEngine::DeactivateRouteFollowing()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<DeactivateRouteFollowingMessage>(),
-                                  MessagePriority::Normal);
-}
-
-void DrapeEngine::SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(position, isStart, isValid),
                                   MessagePriority::Normal);
 }
 

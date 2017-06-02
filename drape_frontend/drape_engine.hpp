@@ -12,6 +12,7 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/viewport.hpp"
@@ -27,6 +28,7 @@
 #include "base/strings_bundle.hpp"
 
 #include <functional>
+#include <mutex>
 #include <vector>
 
 namespace dp
@@ -139,7 +141,8 @@ public:
   void UpdateMapStyle();
 
   void SetCompassInfo(location::CompassInfo const & info);
-  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
+  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
+                  location::RouteMatchingInfo const & routeInfo);
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
@@ -156,13 +159,11 @@ public:
   bool GetMyPosition(m2::PointD & myPosition);
   SelectionShape::ESelectedObject GetSelectedObject();
 
-  void AddRoute(m2::PolylineD const & routePolyline, std::vector<double> const & turns,
-                df::ColorConstant color, std::vector<traffic::SpeedGroup> const & traffic,
-                df::RoutePattern pattern = df::RoutePattern());
-  void RemoveRoute(bool deactivateFollowing);
+  dp::DrapeID AddRouteSegment(drape_ptr<RouteSegment> && segment);
+  void RemoveRouteSegment(dp::DrapeID segmentId, bool deactivateFollowing);
+
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
   void DeactivateRouteFollowing();
-  void SetRoutePoint(m2::PointD const & position, bool isStart, bool isValid);
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
 
@@ -221,6 +222,8 @@ private:
   void RecacheGui(bool needResetOldGui);
   void RecacheMapShapes();
 
+  dp::DrapeID GenerateDrapeID();
+
   drape_ptr<FrontendRenderer> m_frontend;
   drape_ptr<BackendRenderer> m_backend;
   drape_ptr<ThreadsCommutator> m_threadCommutator;
@@ -239,6 +242,9 @@ private:
 
   bool m_choosePositionMode = false;
   bool m_kineticScrollEnabled = true;
+
+  std::mutex m_drapeIdGeneratorMutex;
+  dp::DrapeID m_drapeIdGenerator = 0;
 
   friend class DrapeApi;
 };

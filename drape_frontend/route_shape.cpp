@@ -24,12 +24,14 @@ float const kRightSide = -1.0f;
 float const kRouteDepth = 100.0f;
 float const kArrowsDepth = 200.0f;
 
-void GetArrowTextureRegion(ref_ptr<dp::TextureManager> textures, dp::TextureManager::SymbolRegion & region)
+void GetArrowTextureRegion(ref_ptr<dp::TextureManager> textures,
+                           dp::TextureManager::SymbolRegion & region)
 {
   textures->GetSymbolRegion("route-arrow", region);
 }
 
-std::vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double start, double end)
+std::vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline,
+                                        double start, double end)
 {
   std::vector<m2::PointD> result;
   result.reserve(polyline.GetSize() / 4);
@@ -77,18 +79,23 @@ std::vector<m2::PointD> CalculatePoints(m2::PolylineD const & polyline, double s
   return result;
 }
 
+float SideByNormal(glsl::vec2 const & normal, bool isLeft)
+{
+  float const kEps = 1e-5;
+  float const side = isLeft ? kLeftSide : kRightSide;
+  return glsl::length(normal) < kEps ? kCenter : side;
+}
+
 void GenerateJoinsTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> const & normals,
                             glsl::vec4 const & color, glsl::vec2 const & length, bool isLeft,
                             RouteShape::TGeometryBuffer & joinsGeometry)
 {
-  float const kEps = 1e-5;
   size_t const trianglesCount = normals.size() / 3;
-  float const side = isLeft ? kLeftSide : kRightSide;
   for (size_t j = 0; j < trianglesCount; j++)
   {
-    glsl::vec3 const len1 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j]) < kEps ? kCenter : side);
-    glsl::vec3 const len2 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j + 1]) < kEps ? kCenter : side);
-    glsl::vec3 const len3 = glsl::vec3(length.x, length.y, glsl::length(normals[3 * j + 2]) < kEps ? kCenter : side);
+    glsl::vec3 const len1 = glsl::vec3(length.x, length.y, SideByNormal(normals[3 * j], isLeft));
+    glsl::vec3 const len2 = glsl::vec3(length.x, length.y, SideByNormal(normals[3 * j + 1], isLeft));
+    glsl::vec3 const len3 = glsl::vec3(length.x, length.y, SideByNormal(normals[3 * j + 2], isLeft));
 
     joinsGeometry.push_back(RouteShape::RV(pivot, normals[3 * j], len1, color));
     joinsGeometry.push_back(RouteShape::RV(pivot, normals[3 * j + 1], len2, color));
@@ -175,15 +182,23 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     float const projRightStart = -segments[i].m_rightWidthScalar[StartPoint].y;
     float const projRightEnd = segments[i].m_rightWidthScalar[EndPoint].y;
 
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(startPivot, leftNormalStart, glsl::vec3(startLength, projLeftStart, kLeftSide), segments[i].m_color));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(endPivot, leftNormalEnd, glsl::vec3(length, projLeftEnd, kLeftSide), segments[i].m_color));
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0),
+                          glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(startPivot, leftNormalStart,
+                          glsl::vec3(startLength, projLeftStart, kLeftSide), segments[i].m_color));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0),
+                          glsl::vec3(length, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(endPivot, leftNormalEnd,
+                          glsl::vec3(length, projLeftEnd, kLeftSide), segments[i].m_color));
 
-    geometry.push_back(RV(startPivot, rightNormalStart, glsl::vec3(startLength, projRightStart, kRightSide), segments[i].m_color));
-    geometry.push_back(RV(startPivot, glsl::vec2(0, 0), glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
-    geometry.push_back(RV(endPivot, rightNormalEnd, glsl::vec3(length, projRightEnd, kRightSide), segments[i].m_color));
-    geometry.push_back(RV(endPivot, glsl::vec2(0, 0), glsl::vec3(length, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(startPivot, rightNormalStart,
+                          glsl::vec3(startLength, projRightStart, kRightSide), segments[i].m_color));
+    geometry.push_back(RV(startPivot, glsl::vec2(0, 0),
+                          glsl::vec3(startLength, 0, kCenter), segments[i].m_color));
+    geometry.push_back(RV(endPivot, rightNormalEnd,
+                          glsl::vec3(length, projRightEnd, kRightSide), segments[i].m_color));
+    geometry.push_back(RV(endPivot, glsl::vec2(0, 0),
+                          glsl::vec3(length, 0, kCenter), segments[i].m_color));
 
     // Generate joins.
     if (segments[i].m_generateJoin && i < static_cast<int>(segments.size()) - 1)
@@ -352,45 +367,6 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
   }
 }
 
-void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData)
-{
-  dp::TextureManager::SymbolRegion symbol;
-  mng->GetSymbolRegion(routeSignData.m_isStart ? "route_from" : "route_to", symbol);
-
-  m2::RectF const & texRect = symbol.GetTexRect();
-  m2::PointF halfSize = symbol.GetPixelSize() * 0.5f;
-
-  glsl::vec4 const pivot = glsl::vec4(0.0f /* x */, 0.0f /* y */, 0.0f /* depth */, 0.0f /* pivot z */);
-  gpu::SolidTexturingVertex data[4]=
-  {
-    { pivot, glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
-    { pivot, glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
-    { pivot, glsl::vec2( halfSize.x,  halfSize.y), glsl::ToVec2(texRect.RightTop()) },
-    { pivot, glsl::vec2( halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()) }
-  };
-
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  if (!routeSignData.m_isStart)
-    state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
-  state.SetColorTexture(symbol.GetTexture());
-
-  {
-    dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, [&routeSignData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
-    {
-      routeSignData.m_sign.m_buckets.push_back(move(b));
-      routeSignData.m_sign.m_state = state;
-    });
-
-    dp::AttributeProvider provider(1 /* stream count */, dp::Batcher::VertexPerQuad);
-    provider.InitStream(0 /* stream index */, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(data));
-
-    dp::IndicesRange indices = batcher.InsertTriangleStrip(state, make_ref(&provider), nullptr);
-    UNUSED_VALUE(indices);
-    ASSERT(indices.IsValid(), ());
-  }
-}
-
 void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                   std::vector<ArrowBorders> const & borders,
                                   RouteArrowsData & routeArrowsData)
@@ -416,14 +392,14 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
 
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
-                AV::GetBindingInfo(), routeArrowsData.m_arrows);
+                AV::GetBindingInfo(), routeArrowsData.m_renderProperty);
 }
 
 void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData)
 {
   std::vector<glsl::vec4> segmentsColors;
-  segmentsColors.reserve(routeData.m_traffic.size());
-  for (auto speedGroup : routeData.m_traffic)
+  segmentsColors.reserve(routeData.m_segment->m_traffic.size());
+  for (auto speedGroup : routeData.m_segment->m_traffic)
   {
     speedGroup = TrafficGenerator::CheckColorsSimplification(speedGroup);
     auto const colorConstant = TrafficGenerator::GetColorBySpeedGroup(speedGroup, true /* route */);
@@ -436,16 +412,17 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
 
   TGeometryBuffer geometry;
   TGeometryBuffer joinsGeometry;
-  PrepareGeometry(routeData.m_sourcePolyline.GetPoints(), routeData.m_pivot, segmentsColors,
+  PrepareGeometry(routeData.m_segment->m_polyline.GetPoints(), routeData.m_pivot, segmentsColors,
                   geometry, joinsGeometry, routeData.m_length);
 
-  dp::GLState state =
-      dp::GLState(routeData.m_pattern.m_isDashed ? gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
-                  dp::GLState::GeometryLayer);
+  dp::GLState state = dp::GLState(routeData.m_segment->m_pattern.m_isDashed ?
+                                  gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
+                                  dp::GLState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
+
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
-                RV::GetBindingInfo(), routeData.m_route);
+                RV::GetBindingInfo(), routeData.m_renderProperty);
 }
 
 void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
@@ -453,29 +430,29 @@ void RouteShape::BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry
                                dp::BindingInfo const & bindingInfo, RouteRenderProperty & property)
 {
   size_t const verticesCount = geomSize + joinsGeomSize;
-  if (verticesCount != 0)
+  if (verticesCount == 0)
+    return;
+
+  uint32_t const kBatchSize = 5000;
+  dp::Batcher batcher(kBatchSize, kBatchSize);
+  dp::SessionGuard guard(batcher, [&property](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
   {
-    uint32_t const kBatchSize = 5000;
-    dp::Batcher batcher(kBatchSize, kBatchSize);
-    dp::SessionGuard guard(batcher, [&property](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
-    {
-      property.m_buckets.push_back(move(b));
-      property.m_state = state;
-    });
+    property.m_buckets.push_back(move(b));
+    property.m_state = state;
+  });
 
-    if (geomSize != 0)
-    {
-      dp::AttributeProvider provider(1 /* stream count */, geomSize);
-      provider.InitStream(0 /* stream index */, bindingInfo, geometry);
-      batcher.InsertListOfStrip(state, make_ref(&provider), 4);
-    }
+  if (geomSize != 0)
+  {
+    dp::AttributeProvider provider(1 /* stream count */, geomSize);
+    provider.InitStream(0 /* stream index */, bindingInfo, geometry);
+    batcher.InsertListOfStrip(state, make_ref(&provider), 4);
+  }
 
-    if (joinsGeomSize != 0)
-    {
-      dp::AttributeProvider joinsProvider(1 /* stream count */, joinsGeomSize);
-      joinsProvider.InitStream(0 /* stream index */, bindingInfo, joinsGeometry);
-      batcher.InsertTriangleList(state, make_ref(&joinsProvider));
-    }
+  if (joinsGeomSize != 0)
+  {
+    dp::AttributeProvider joinsProvider(1 /* stream count */, joinsGeomSize);
+    joinsProvider.InitStream(0 /* stream index */, bindingInfo, joinsGeometry);
+    batcher.InsertTriangleList(state, make_ref(&joinsProvider));
   }
 }
 }  // namespace df

@@ -28,6 +28,12 @@ bool Info::IsNotEditableSponsored() const
   return m_sponsoredType != SponsoredType::None && m_sponsoredType != SponsoredType::Opentable;
 }
 
+bool Info::IsRoutePoint() const
+{
+  //TODO(@darina) Implement checker
+  return m_bac.IsValid() && m_bookmarkCategoryName == "TMP_Routing_Points";
+}
+
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();

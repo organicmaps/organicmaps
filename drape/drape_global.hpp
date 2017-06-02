@@ -4,6 +4,8 @@
 
 #include "base/assert.hpp"
 
+#include <cstdint>
+
 namespace dp
 {
 enum ApiVersion
@@ -59,6 +61,8 @@ enum LineJoin
   BevelJoin = 0,
   RoundJoin = 1,
 };
+
+using DrapeID = uint64_t;
 
 struct FontDecl
 {

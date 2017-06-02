@@ -602,109 +602,72 @@ private:
   bool & m_hasPosition;
 };
 
-class AddRouteMessage : public Message
+class AddRouteSegmentMessage : public Message
 {
 public:
-  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                  df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
-                  df::RoutePattern const & pattern)
-    : AddRouteMessage(routePolyline, turns, color, traffic, pattern, -1 /* invalid recache id */)
+  AddRouteSegmentMessage(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment)
+    : AddRouteSegmentMessage(segmentId, std::move(segment), -1 /* invalid recache id */)
   {}
 
-  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                  df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
-                  df::RoutePattern const & pattern, int recacheId)
-    : m_routePolyline(routePolyline)
-    , m_color(color)
-    , m_turns(turns)
-    , m_pattern(pattern)
-    , m_traffic(traffic)
+  AddRouteSegmentMessage(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment,
+                         int recacheId)
+    : m_segmentId(segmentId)
+    , m_segment(std::move(segment))
     , m_recacheId(recacheId)
   {}
 
-  Type GetType() const override { return Message::AddRoute; }
+  Type GetType() const override { return Message::AddRouteSegment; }
 
-  m2::PolylineD const & GetRoutePolyline() { return m_routePolyline; }
-  df::ColorConstant GetColor() const { return m_color; }
-  vector<double> const & GetTurns() const { return m_turns; }
-  df::RoutePattern const & GetPattern() const { return m_pattern; }
-  vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
+  dp::DrapeID GetSegmentId() const { return m_segmentId; };
+  drape_ptr<RouteSegment> && GetRouteSegment() { return std::move(m_segment); }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
-  m2::PolylineD m_routePolyline;
-  df::ColorConstant m_color;
-  vector<double> m_turns;
-  df::RoutePattern m_pattern;
-  vector<traffic::SpeedGroup> m_traffic;
-  int const m_recacheId;
-};
-
-class CacheRouteSignMessage : public Message
-{
-public:
-  CacheRouteSignMessage(m2::PointD const & pos, bool isStart, bool isValid)
-    : CacheRouteSignMessage(pos, isStart, isValid, -1 /* invalid recache id */)
-  {}
-
-  CacheRouteSignMessage(m2::PointD const & pos, bool isStart, bool isValid, int recacheId)
-    : m_position(pos)
-    , m_isStart(isStart)
-    , m_isValid(isValid)
-    , m_recacheId(recacheId)
-  {}
-
-  Type GetType() const override { return Message::CacheRouteSign; }
-
-  m2::PointD const & GetPosition() const { return m_position; }
-  bool IsStart() const { return m_isStart; }
-  bool IsValid() const { return m_isValid; }
-  int GetRecacheId() const { return m_recacheId; }
-
-private:
-  m2::PointD const m_position;
-  bool const m_isStart;
-  bool const m_isValid;
+  dp::DrapeID m_segmentId;
+  drape_ptr<RouteSegment> m_segment;
   int const m_recacheId;
 };
 
 class CacheRouteArrowsMessage : public Message
 {
 public:
-  CacheRouteArrowsMessage(int routeIndex, vector<ArrowBorders> const & borders)
-    : CacheRouteArrowsMessage(routeIndex, borders, -1 /* invalid recache id */)
+  CacheRouteArrowsMessage(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders)
+    : CacheRouteArrowsMessage(segmentId, borders, -1 /* invalid recache id */)
   {}
 
-  CacheRouteArrowsMessage(int routeIndex, vector<ArrowBorders> const & borders, int recacheId)
-    : m_routeIndex(routeIndex)
+  CacheRouteArrowsMessage(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders,
+                          int recacheId)
+    : m_segmentId(segmentId)
     , m_borders(borders)
     , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::CacheRouteArrows; }
-
-  int GetRouteIndex() const { return m_routeIndex; }
-  vector<ArrowBorders> const & GetBorders() const { return m_borders; }
+  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  std::vector<ArrowBorders> const & GetBorders() const { return m_borders; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
-  int m_routeIndex;
-  vector<ArrowBorders> m_borders;
+  dp::DrapeID m_segmentId;
+  std::vector<ArrowBorders> m_borders;
   int const m_recacheId;
 };
 
-class RemoveRouteMessage : public Message
+class RemoveRouteSegmentMessage : public Message
 {
 public:
-  RemoveRouteMessage(bool deactivateFollowing)
-    : m_deactivateFollowing(deactivateFollowing)
+  RemoveRouteSegmentMessage(dp::DrapeID segmentId, bool deactivateFollowing)
+    : m_segmentId(segmentId)
+    , m_deactivateFollowing(deactivateFollowing)
   {}
 
-  Type GetType() const override { return Message::RemoveRoute; }
+  Type GetType() const override { return Message::RemoveRouteSegment; }
 
+  dp::DrapeID GetSegmentId() const { return m_segmentId; }
   bool NeedDeactivateFollowing() const { return m_deactivateFollowing; }
 
 private:
+  dp::DrapeID m_segmentId;
   bool m_deactivateFollowing;
 };
 
@@ -712,13 +675,13 @@ class FlushRouteMessage : public Message
 {
 public:
   FlushRouteMessage(drape_ptr<RouteData> && routeData)
-    : m_routeData(move(routeData))
+    : m_routeData(std::move(routeData))
   {}
 
   Type GetType() const override { return Message::FlushRoute; }
-  bool IsGLContextDependent() const override { return true; }
 
-  drape_ptr<RouteData> && AcceptRouteData() { return move(m_routeData); }
+  bool IsGLContextDependent() const override { return true; }
+  drape_ptr<RouteData> && AcceptRouteData() { return std::move(m_routeData); }
 
 private:
   drape_ptr<RouteData> m_routeData;
@@ -728,31 +691,15 @@ class FlushRouteArrowsMessage : public Message
 {
 public:
   FlushRouteArrowsMessage(drape_ptr<RouteArrowsData> && routeArrowsData)
-    : m_routeArrowsData(move(routeArrowsData))
+    : m_routeArrowsData(std::move(routeArrowsData))
   {}
 
   Type GetType() const override { return Message::FlushRouteArrows; }
 
-  drape_ptr<RouteArrowsData> && AcceptRouteArrowsData() { return move(m_routeArrowsData); }
+  drape_ptr<RouteArrowsData> && AcceptRouteArrowsData() { return std::move(m_routeArrowsData); }
 
 private:
   drape_ptr<RouteArrowsData> m_routeArrowsData;
-};
-
-class FlushRouteSignMessage : public Message
-{
-public:
-  FlushRouteSignMessage(drape_ptr<RouteSignData> && routeSignData)
-    : m_routeSignData(move(routeSignData))
-  {}
-
-  Type GetType() const override { return Message::FlushRouteSign; }
-  bool IsGLContextDependent() const override { return true; }
-
-  drape_ptr<RouteSignData> && AcceptRouteSignData() { return move(m_routeSignData); }
-
-private:
-  drape_ptr<RouteSignData> m_routeSignData;
 };
 
 class UpdateMapStyleMessage : public BaseBlockingMessage

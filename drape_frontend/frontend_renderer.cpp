@@ -464,42 +464,22 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteMessage> msg = message;
       drape_ptr<RouteData> routeData = msg->AcceptRouteData();
-
-      if (routeData->m_recacheId > 0 && routeData->m_recacheId < m_lastRecacheRouteId)
+      if (!CheckRouteRecaching(make_ref(routeData)))
         break;
 
-      m2::PointD const finishPoint = routeData->m_sourcePolyline.Back();
-      m_routeRenderer->SetRouteData(std::move(routeData), make_ref(m_gpuProgramManager));
+      m_routeRenderer->AddRouteData(std::move(routeData), make_ref(m_gpuProgramManager));
+
       // Here we have to recache route arrows.
       m_routeRenderer->UpdateRoute(m_userEventStream.GetCurrentScreen(),
                                    std::bind(&FrontendRenderer::OnCacheRouteArrows, this, _1, _2));
 
-      if (!m_routeRenderer->GetFinishPoint())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CacheRouteSignMessage>(finishPoint, false /* isStart */,
-                                                                        true /* isValid */),
-                                  MessagePriority::High);
-      }
-
       if (m_pendingFollowRoute != nullptr)
       {
-        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d,
+        FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel,
+                    m_pendingFollowRoute->m_preferredZoomLevelIn3d,
                     m_pendingFollowRoute->m_enableAutoZoom);
         m_pendingFollowRoute.reset();
       }
-      break;
-    }
-
-  case Message::FlushRouteSign:
-    {
-      ref_ptr<FlushRouteSignMessage> msg = message;
-      drape_ptr<RouteSignData> routeSignData = msg->AcceptRouteSignData();
-
-      if (routeSignData->m_recacheId > 0 && routeSignData->m_recacheId < m_lastRecacheRouteId)
-        break;
-
-      m_routeRenderer->SetRouteSign(std::move(routeSignData), make_ref(m_gpuProgramManager));
       break;
     }
 
@@ -507,25 +487,30 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteArrowsMessage> msg = message;
       drape_ptr<RouteArrowsData> routeArrowsData = msg->AcceptRouteArrowsData();
-
-      if (routeArrowsData->m_recacheId > 0 && routeArrowsData->m_recacheId < m_lastRecacheRouteId)
-        break;
-
-      m_routeRenderer->SetRouteArrows(std::move(routeArrowsData), make_ref(m_gpuProgramManager));
+      if (CheckRouteRecaching(make_ref(routeArrowsData)))
+      {
+        m_routeRenderer->AddRouteArrowsData(std::move(routeArrowsData),
+                                            make_ref(m_gpuProgramManager));
+      }
       break;
     }
 
-  case Message::RemoveRoute:
+  case Message::RemoveRouteSegment:
     {
-      ref_ptr<RemoveRouteMessage> msg = message;
-      m_routeRenderer->Clear();
-      ++m_lastRecacheRouteId;
+      ref_ptr<RemoveRouteSegmentMessage> msg = message;
       if (msg->NeedDeactivateFollowing())
       {
+        m_routeRenderer->SetFollowingEnabled(false);
+        m_routeRenderer->Clear();
+        ++m_lastRecacheRouteId;
         m_myPositionController->DeactivateRouting();
         m_overlayTree->SetFollowingMode(false);
         if (m_enablePerspectiveInNavigation)
           DisablePerspective();
+      }
+      else
+      {
+        m_routeRenderer->RemoveRouteData(msg->GetSegmentId());
       }
       break;
     }
@@ -536,7 +521,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       // After night style switching or drape engine reinitialization FrontendRenderer can
       // receive FollowRoute message before FlushRoute message, so we need to postpone its processing.
-      if (m_routeRenderer->GetRouteData() == nullptr)
+      if (m_routeRenderer->GetRouteData().empty())
       {
         m_pendingFollowRoute = my::make_unique<FollowRouteData>(msg->GetPreferredZoomLevel(),
                                                                 msg->GetPreferredZoomLevelIn3d(),
@@ -817,35 +802,15 @@ void FrontendRenderer::UpdateGLResources()
 {
   ++m_lastRecacheRouteId;
 
-  // Invalidate route.
-  if (m_routeRenderer->GetStartPoint())
+  for (auto const & routeData : m_routeRenderer->GetRouteData())
   {
-    m2::PointD const & position = m_routeRenderer->GetStartPoint()->m_position;
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<CacheRouteSignMessage>(position, true /* isStart */,
-                                                                    true /* isValid */, m_lastRecacheRouteId),
-                              MessagePriority::High);
-  }
-
-  if (m_routeRenderer->GetFinishPoint())
-  {
-    m2::PointD const & position = m_routeRenderer->GetFinishPoint()->m_position;
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<CacheRouteSignMessage>(position, false /* isStart */,
-                                                                    true /* isValid */, m_lastRecacheRouteId),
-                              MessagePriority::High);
-  }
-
-  auto const & routeData = m_routeRenderer->GetRouteData();
-  if (routeData != nullptr)
-  {
-    auto recacheRouteMsg = make_unique_dp<AddRouteMessage>(routeData->m_sourcePolyline, routeData->m_sourceTurns,
-                                                           routeData->m_color, routeData->m_traffic,
-                                                           routeData->m_pattern, m_lastRecacheRouteId);
-    m_routeRenderer->ClearGLDependentResources();
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(recacheRouteMsg),
+    auto msg = make_unique_dp<AddRouteSegmentMessage>(routeData->m_segmentId,
+                                                      std::move(routeData->m_segment),
+                                                      m_lastRecacheRouteId);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg),
                               MessagePriority::Normal);
   }
+  m_routeRenderer->ClearRouteData();
 
   m_trafficRenderer->ClearGLDependentResources();
 
@@ -872,6 +837,16 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
 
   m_overlayTree->SetFollowingMode(true);
+
+  m_routeRenderer->SetFollowingEnabled(true);
+}
+
+bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseRouteData> routeData)
+{
+  if (routeData->m_recacheId < 0)
+    return true;
+
+  return routeData->m_recacheId >= m_lastRecacheRouteId;
 }
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
@@ -1187,7 +1162,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     StencilWriterGuard guard(make_ref(m_postprocessRenderer));
     RenderUserMarksLayer(modelView);
-    m_routeRenderer->RenderRouteSigns(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
   }
 
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
