@@ -2,9 +2,11 @@ package com.mapswithme.util.statistics;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -619,8 +621,18 @@ public enum Statistics
                    .get());
   }
 
-  public void trackColdStartupInfo(int batteryLevel, @NonNull String chargingStatus)
+  public void trackColdStartupInfo(@NonNull Intent batteryStatus)
   {
+    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    final String charging;
+    if (chargePlug > 0)
+      charging = "on";
+    else if (chargePlug < 0)
+      charging = "unknown";
+    else
+      charging = "off";
+
     final String network;
     if (ConnectionState.isWifiConnected())
     {
@@ -640,8 +652,8 @@ public enum Statistics
 
     trackEvent(APPLICATION_COLD_STARTUP_INFO,
                params()
-                   .add(BATTERY, batteryLevel)
-                   .add(CHARGING, chargingStatus)
+                   .add(BATTERY, level)
+                   .add(CHARGING, charging)
                    .add(NETWORK, network)
                    .get());
   }
