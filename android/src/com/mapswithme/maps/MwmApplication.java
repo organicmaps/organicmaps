@@ -196,7 +196,6 @@ public class MwmApplication extends Application
     if (!isInstallationIdFound)
       setInstallationIdToCrashlytics();
 
-    mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mBackgroundListener);
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     TrackRecorder.init();
