@@ -8,6 +8,9 @@
 #include "drape/constants.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/platform.hpp"
+
+#include "base/assert.hpp"
 
 #include "std/bind.hpp"
 
@@ -36,7 +39,10 @@
 namespace qt
 {
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png")
+  : QWidget(parent)
+  , m_pDrawWidget(drawWidget)
+  , m_busyIcon(":/ui/busy.png")
+  , m_timestamp(0)
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)),
@@ -71,17 +77,6 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   verticalLayout->addLayout(horizontalLayout);
   verticalLayout->addWidget(m_pTable);
   setLayout(verticalLayout);
-
-  // for multithreading support
-  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
-                this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
-
-  m_params.m_onResults = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
-}
-
-void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
-{
-  emit SearchResultSignal(new ResultsT(result));
 }
 
 namespace
@@ -101,53 +96,53 @@ void SearchPanel::ClearResults()
   m_results.clear();
 }
 
-void SearchPanel::OnSearchResult(ResultsT * results)
+void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & results)
 {
-  unique_ptr<ResultsT> const guard(results);
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
 
-  if (results->IsEndMarker())
+  if (timestamp != m_timestamp)
+    return;
+
+  CHECK_LESS_OR_EQUAL(m_results.size(), results.GetCount(), ());
+
+  for (size_t i = m_results.size(); i < results.GetCount(); ++i)
   {
-    if (results->IsEndedNormal())
+    auto const & res = results[i];
+    QString const name = QString::fromStdString(res.GetString());
+    QString strHigh;
+    int pos = 0;
+    for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
     {
-      // stop search busy indicator
-      m_pAnimationTimer->stop();
-      m_pClearButton->setIcon(QIcon(":/ui/x.png"));
+      pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
+      strHigh.append(name.mid(pos, range.first - pos));
+      strHigh.append("<font color=\"green\">");
+      strHigh.append(name.mid(range.first, range.second));
+      strHigh.append("</font>");
+
+      pos = range.first + range.second;
     }
+    strHigh.append(name.mid(pos));
+
+    int const rowCount = m_pTable->rowCount();
+    m_pTable->insertRow(rowCount);
+    m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
+    m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
+
+    if (res.GetResultType() == search::Result::RESULT_FEATURE)
+    {
+      m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureType())));
+      m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
+    }
+
+    m_results.push_back(res);
   }
-  else
+
+  if (results.IsEndMarker())
   {
-    ClearResults();
-
-    for (auto const & res : *results)
-    {
-      QString const name = QString::fromStdString(res.GetString());
-      QString strHigh;
-      int pos = 0;
-      for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
-      {
-        pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
-        strHigh.append(name.mid(pos, range.first - pos));
-        strHigh.append("<font color=\"green\">");
-        strHigh.append(name.mid(range.first, range.second));
-        strHigh.append("</font>");
-
-        pos = range.first + range.second;
-      }
-      strHigh.append(name.mid(pos));
-
-      int const rowCount = m_pTable->rowCount();
-      m_pTable->insertRow(rowCount);
-      m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-      m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
-
-      if (res.GetResultType() == ResultT::RESULT_FEATURE)
-      {
-        m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureType())));
-        m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
-      }
-
-      m_results.push_back(res);
-    }
+    // stop search busy indicator
+    m_pAnimationTimer->stop();
+    m_pClearButton->setIcon(QIcon(":/ui/x.png"));
   }
 }
 
@@ -272,10 +267,18 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryTrafficSimplifiedColorsCmd(normalized))
     return;
 
+  ClearResults();
+
   // search even with empty query
   if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
+    auto const timestamp = ++m_timestamp;
+    m_params.m_onResults = [this, timestamp](search::Results const & results,
+                                             vector<bool> const & /* isLocalAdsCustomer */) {
+      GetPlatform().RunOnGuiThread(bind(&SearchPanel::OnSearchResults, this, timestamp, results));
+    };
+
     if (m_pDrawWidget->Search(m_params))
     {
       // show busy indicator
@@ -288,8 +291,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   }
   else
   {
-    ClearResults();
-
     m_pDrawWidget->GetFramework().CancelSearch(search::Mode::Everywhere);
 
     // hide X button

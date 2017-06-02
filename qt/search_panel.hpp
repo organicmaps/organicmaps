@@ -3,6 +3,9 @@
 #include "search/result.hpp"
 #include "search/everywhere_search_params.hpp"
 
+#include "base/thread_checker.hpp"
+
+#include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
 #include <QtGui/QPixmap>
@@ -32,12 +35,12 @@ class SearchPanel : public QWidget
 
   QPixmap m_busyIcon;
 
-  /// Stores current search results
-  typedef search::Results ResultsT;
-  typedef search::Result ResultT;
-  vector<ResultT> m_results;
+  vector<search::Result> m_results;
 
   search::EverywhereSearchParams m_params;
+  uint64_t m_timestamp;
+
+  ThreadChecker m_threadChecker;
 
   Q_OBJECT
 
@@ -47,18 +50,12 @@ public:
 private:
   virtual void hideEvent(QHideEvent *);
 
-  void SearchResultThreadFunc(ResultsT const & result);
   void ClearResults();
-
-signals:
-  void SearchResultSignal(ResultsT * result);
 
 private slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
-
-  /// Called via signal to support multithreading
-  void OnSearchResult(ResultsT * results);
+  void OnSearchResults(uint64_t timestamp, search::Results const & results);
 
   void OnAnimationTimer();
   void OnClearButton();
