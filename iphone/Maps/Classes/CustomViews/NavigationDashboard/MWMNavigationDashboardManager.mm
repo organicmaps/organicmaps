@@ -65,7 +65,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
-  if (GetFramework().IsRouteFinished())
+  if (GetFramework().GetRoutingManager().IsRouteFinished())
   {
     [MWMRouter stopRouting];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);

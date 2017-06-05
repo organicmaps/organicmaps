@@ -49,11 +49,11 @@ static NSString * const kETAKey = @"eta";
 + (void)store
 {
   Framework & f = GetFramework();
-  if (!f.IsOnRoute())
+  if (!f.GetRoutingManager().IsOnRoute())
     return;
   location::FollowingInfo routeInfo;
-  f.GetRouteFollowingInfo(routeInfo);
-  m2::PointD const endPoint = f.GetRouteEndPoint();
+  f.GetRoutingManager().GetRouteFollowingInfo(routeInfo);
+  m2::PointD const endPoint = f.GetRoutingManager().GetRouteEndPoint();
   NSMutableDictionary * const stateDict = [NSMutableDictionary dictionary];
   NSUInteger size;
   NSGetSizeAndAlignment(@encode(m2::PointD), &size, nullptr);
@@ -75,7 +75,7 @@ static NSString * const kETAKey = @"eta";
 
 + (void)restore
 {
-  if (GetFramework().IsRoutingActive())
+  if (GetFramework().GetRoutingManager().IsRoutingActive())
     return;
   if ([MWMRouterSavedState state].forceStateChange == MWMRouterForceStateChange::None)
     [self remove];

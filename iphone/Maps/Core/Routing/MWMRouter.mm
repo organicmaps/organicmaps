@@ -64,8 +64,11 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   return router;
 }
 
-+ (BOOL)hasRouteAltitude { return GetFramework().HasRouteAltitude(); }
-+ (BOOL)isTaxi { return GetFramework().GetRouter() == routing::RouterType::Taxi; }
++ (BOOL)hasRouteAltitude { return GetFramework().GetRoutingManager().HasRouteAltitude(); }
++ (BOOL)isTaxi
+{
+  return GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Taxi;
+}
 + (void)startRouting
 {
   auto router = [self router];
@@ -97,7 +100,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   [MWMNavigationDashboardManager manager].taxiDataSource = nil;
 }
 
-+ (BOOL)isRoutingActive { return GetFramework().IsRoutingActive(); }
++ (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
 - (instancetype)initRouter
 {
   self = [super init];
@@ -124,10 +127,10 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   if (type == self.type)
     return;
   [self doStop];
-  GetFramework().SetRouter(coreRouterType(type));
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
 
-- (MWMRouterType)type { return routerType(GetFramework().GetRouter()); }
+- (MWMRouterType)type { return routerType(GetFramework().GetRoutingManager().GetRouter()); }
 - (BOOL)arePointsValidForRouting
 {
   return self.startPoint.isValid && self.finishPoint.isValid && self.startPoint != self.finishPoint;
@@ -196,10 +199,11 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   auto finishPoint = mercatorMWMRoutePoint(self.finishPoint);
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
-    self.type = routerType(GetFramework().GetBestRouter(startPoint, finishPoint));
-  f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
-  f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
-  f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
+    self.type =
+        routerType(GetFramework().GetRoutingManager().GetBestRouter(startPoint, finishPoint));
+  f.GetRoutingManager().BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
+  f.GetRoutingManager().SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
+  f.GetRoutingManager().SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
   [mapViewControlsManager onRouteRebuild];
 }
 
@@ -218,7 +222,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
     if (self.startPoint.isMyPosition)
     {
-      GetFramework().FollowRoute();
+      GetFramework().GetRoutingManager().FollowRoute();
       [[MWMMapViewControlsManager manager] onRouteStart];
       MapsAppDelegate * app = [MapsAppDelegate theApp];
       app.routingPlaneMode = MWMRoutingPlaneModeNone;
@@ -265,10 +269,10 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 {
   // Don't save taxi routing type as default.
   if ([[self class] isTaxi])
-    GetFramework().SetRouter(routing::RouterType::Vehicle);
+    GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
 
   [self clearAltitudeImagesData];
-  GetFramework().CloseRouting();
+  GetFramework().GetRoutingManager().CloseRouting();
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];
@@ -278,11 +282,11 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
 - (void)updateFollowingInfo
 {
-  auto & f = GetFramework();
-  if (!f.IsRoutingActive())
+  auto const & f = GetFramework();
+  if (!f.GetRoutingManager().IsRoutingActive())
     return;
   location::FollowingInfo info;
-  f.GetRouteFollowingInfo(info);
+  f.GetRoutingManager().GetRouteFollowingInfo(info);
   if (info.IsValid())
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
 }
@@ -308,8 +312,8 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
       int32_t minRouteAltitude = 0;
       int32_t maxRouteAltitude = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
-      if (!GetFramework().GenerateRouteAltitudeChart(width, height, imageRGBAData,
-                                                     minRouteAltitude, maxRouteAltitude, units))
+      if (!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(
+              width, height, imageRGBAData, minRouteAltitude, maxRouteAltitude, units))
       {
         return;
       }
@@ -343,11 +347,11 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  auto & f = GetFramework();
-  if (f.IsRoutingActive())
+  auto const & routingManager = GetFramework().GetRoutingManager();
+  if (routingManager.IsRoutingActive())
   {
     MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-    if (f.IsOnRoute() && tts.active)
+    if (routingManager.IsOnRoute() && tts.active)
       [tts playTurnNotifications];
 
     [self updateFollowingInfo];
@@ -358,7 +362,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     if (state.forceStateChange == MWMRouterForceStateChange::Rebuild)
     {
       state.forceStateChange = MWMRouterForceStateChange::Start;
-      self.type = routerType(GetFramework().GetLastUsedRouter());
+      self.type = routerType(GetFramework().GetRoutingManager().GetLastUsedRouter());
       [self buildToPoint:state.restorePoint bestRouter:NO];
     }
   }

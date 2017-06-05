@@ -264,7 +264,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   MapViewController * ownerController = self.ownerController;
   if (platform::migrate::NeedMigrate())
   {
-    if (GetFramework().IsRoutingActive())
+    if (GetFramework().GetRoutingManager().IsRoutingActive())
     {
       [Statistics logEvent:kStatDownloaderMigrationProhibitedDialogue
             withParameters:@{kStatFrom : kStatDownloader}];
@@ -441,7 +441,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (![MWMRouter router].startPoint.isMyPosition)
   {
     dispatch_async(dispatch_get_main_queue(), ^{
-      GetFramework().DisableFollowMode();
+      GetFramework().GetRoutingManager().DisableFollowMode();
       [self.navigationManager updateDashboard];
     });
   }

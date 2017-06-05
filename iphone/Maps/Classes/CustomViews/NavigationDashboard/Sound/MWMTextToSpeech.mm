@@ -153,7 +153,7 @@ vector<pair<string, string>> availableLanguages()
   if (active && ![self isValid])
     [self createSynthesizer];
   [self setAudioSessionActive:active];
-  GetFramework().EnableTurnNotifications(active ? true : false);
+  GetFramework().GetRoutingManager().EnableTurnNotifications(active ? true : false);
   runAsyncOnMainQueue(^{
     [[NSNotificationCenter defaultCenter]
         postNotificationName:[[self class] ttsStatusNotificationKey]
@@ -164,7 +164,10 @@ vector<pair<string, string>> availableLanguages()
 
 - (BOOL)active
 {
-  return [[self class] isTTSEnabled] && GetFramework().AreTurnNotificationsEnabled() ? YES : NO;
+  return [[self class] isTTSEnabled] &&
+                 GetFramework().GetRoutingManager().AreTurnNotificationsEnabled()
+             ? YES
+             : NO;
 }
 
 + (NSString *)savedLanguage
@@ -222,7 +225,7 @@ vector<pair<string, string>> availableLanguages()
       LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTextToSpeech "
                    "is invalid."));
     else
-      GetFramework().SetTurnNotificationsLocale(twineLang);
+      GetFramework().GetRoutingManager().SetTurnNotificationsLocale(twineLang);
   }
   else
   {
@@ -242,12 +245,12 @@ vector<pair<string, string>> availableLanguages()
 
 - (void)playTurnNotifications
 {
-  Framework & frm = GetFramework();
-  if (!frm.IsRoutingActive())
+  auto & routingManager = GetFramework().GetRoutingManager();
+  if (!routingManager.IsRoutingActive())
     return;
 
   vector<string> notifications;
-  frm.GenerateTurnNotifications(notifications);
+  routingManager.GenerateTurnNotifications(notifications);
 
   if (![self isValid])
     return;

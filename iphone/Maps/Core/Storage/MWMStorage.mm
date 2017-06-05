@@ -51,7 +51,7 @@ using namespace storage;
 + (void)deleteNode:(TCountryId const &)countryId
 {
   auto & f = GetFramework();
-  if (f.IsRoutingActive())
+  if (f.GetRoutingManager().IsRoutingActive())
   {
     [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
     return;

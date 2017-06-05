@@ -206,7 +206,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 - (BOOL)zoomHidden { return self.sideView.zoomHidden; }
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
-  if (GetFramework().IsRoutingActive())
+  if (GetFramework().GetRoutingManager().IsRoutingActive())
     self.sideView.zoomHidden = NO;
   else
     self.sideView.zoomHidden = [MWMSettings zoomButtonsEnabled] ? zoomHidden : YES;

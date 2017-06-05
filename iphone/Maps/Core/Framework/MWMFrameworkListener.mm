@@ -106,13 +106,13 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   // This will help to avoid unnecessary parameters copying and will make all our framework
   // callbacks
   // consistent: every notification to UI will run on a main UI thread.
-  f.SetRouteBuildingListener(
+  f.GetRoutingManager().SetRouteBuildingListener(
       [observers](IRouter::ResultCode code, TCountriesVec const & absentCountries) {
         loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
           [observer processRouteBuilderEvent:code countries:absentCountries];
         });
       });
-  f.SetRouteProgressListener([observers](float progress) {
+  f.GetRoutingManager().SetRouteProgressListener([observers](float progress) {
     loopWrappers(observers, [progress](TRouteBuildingObserver observer) {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];

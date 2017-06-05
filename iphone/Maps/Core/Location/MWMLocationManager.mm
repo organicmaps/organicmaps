@@ -123,10 +123,10 @@ BOOL keepRunningInBackground()
   if (needGPSForTrackRecorder)
     return YES;
 
-  auto const & f = GetFramework();
-  bool const isRouteBuilt = f.IsRouteBuilt();
-  bool const isRouteFinished = f.IsRouteFinished();
-  bool const isRouteRebuildingOnly = f.IsRouteRebuildingOnly();
+  auto const & routingManager = GetFramework().GetRoutingManager();
+  bool const isRouteBuilt = routingManager.IsRouteBuilt();
+  bool const isRouteFinished = routingManager.IsRouteFinished();
+  bool const isRouteRebuildingOnly = routingManager.IsRouteRebuildingOnly();
   bool const needGPSForRouting = ((isRouteBuilt || isRouteRebuildingOnly) && !isRouteFinished);
   if (needGPSForRouting)
     return YES;
@@ -333,9 +333,9 @@ void setPermissionRequested()
   [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
   auto const & f = GetFramework();
-  if (f.IsRoutingActive())
+  if (f.GetRoutingManager().IsRoutingActive())
   {
-    switch (f.GetRouter())
+    switch (f.GetRoutingManager().GetRouter())
     {
     case routing::RouterType::Vehicle: manager.geoMode = GeoMode::VehicleRouting; break;
     case routing::RouterType::Pedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
