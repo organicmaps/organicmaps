@@ -5,10 +5,15 @@
 
 #include "storage/index.hpp"
 
+#include "tracking/reporter.hpp"
+
 #include "base/thread_checker.hpp"
 
 #include <functional>
 #include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace df
 {
@@ -35,7 +40,7 @@ public:
   {
   public:
     virtual void OnRouteFollow(routing::RouterType type) = 0;
-    virtual void RegisterCountryFiles(std::shared_ptr<routing::NumMwmIds> ptr) const = 0;
+    virtual void RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const = 0;
 
     virtual ~Delegate() = default;
   };
@@ -76,9 +81,12 @@ public:
   bool IsRouteNotReady() const { return m_routingSession.IsNotReady(); }
   bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
+  bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   void BuildRoute(m2::PointD const & finish, uint32_t timeoutSec);
   void BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P,
                   uint32_t timeoutSec);
+  void SetUserCurrentPosition(m2::PointD const & position);
+  void ResetRoutingSession() { m_routingSession.Reset(); }
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
   // This method was added because we do not want to break the behaviour that is familiar to our
   // users.
@@ -124,7 +132,7 @@ public:
   /// \brief Sets a locale for TTS.
   /// \param locale is a string with locale code. For example "en", "ru", "zh-Hant" and so on.
   /// \note See sound/tts/languages.txt for the full list of available locales.
-  void SetTurnNotificationsLocale(string const & locale)
+  void SetTurnNotificationsLocale(std::string const & locale)
   {
     m_routingSession.SetTurnNotificationsLocale(locale);
   }
@@ -132,7 +140,7 @@ public:
   /// In case of error returns an empty string.
   /// \note The method returns correct locale after SetTurnNotificationsLocale has been called.
   /// If not, it returns an empty string.
-  string GetTurnNotificationsLocale() const
+  std::string GetTurnNotificationsLocale() const
   {
     return m_routingSession.GetTurnNotificationsLocale();
   }
@@ -144,7 +152,7 @@ public:
   /// For example if C++ part wants the client to pronounce "Make a right turn." this method returns
   /// an array with one string "Make a right turn.". The next call of the method returns nothing.
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
-  void GenerateTurnNotifications(vector<string> & turnNotifications);
+  void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
   void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
   void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
@@ -152,16 +160,19 @@ public:
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
 
-  void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::IRouter::ResultCode code,
                         storage::TCountriesVec const & absentCountries);
-  void MatchLocationToRoute(location::GpsInfo & info,
-                            location::RouteMatchingInfo & routeMatchingInfo) const;
   void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
+  void OnLocationUpdate(location::GpsInfo & info);
+  void SetAllowSendingPoints(bool isAllowed)
+  {
+    m_trackingReporter.SetAllowSendingPoints(isAllowed);
+  }
 
-  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine) { m_drapeEngine = engine; };
+  void SetTurnNotificationsUnits(measurement_utils::Units const units) { m_routingSession.SetTurnNotificationsUnits(units); }
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
@@ -178,11 +189,15 @@ public:
   /// |imageRGBAData| is not zero.
   /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
   /// could return false if route was deleted or rebuilt between the calls.
-  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, vector<uint8_t> & imageRGBAData,
+  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData,
                                   int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;
 
+private:
+  void InsertRoute(routing::Route const & route);
   bool IsTrackingReporterEnabled() const;
+  void MatchLocationToRoute(location::GpsInfo & info,
+                            location::RouteMatchingInfo & routeMatchingInfo) const;
 
 private:
   RouteBuildingCallback m_routingCallback = nullptr;
@@ -192,4 +207,5 @@ private:
   routing::RoutingSession m_routingSession;
   DECLARE_THREAD_CHECKER(m_threadChecker);
   Delegate & m_delegate;
+  tracking::Reporter m_trackingReporter;
 };

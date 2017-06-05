@@ -237,16 +237,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo rInfo(info);
 #endif
 
-  location::RouteMatchingInfo routeMatchingInfo;
-  m_routingManager.CheckLocationForRouting(rInfo);
-
-  m_routingManager.MatchLocationToRoute(rInfo, routeMatchingInfo);
-
-  auto & routingSession = m_routingManager.RoutingSession();
-  CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo, routingSession.IsNavigable(),
-                         routeMatchingInfo));
-  if (m_routingManager.IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(info, routingSession.MatchTraffic(routeMatchingInfo));
+  m_routingManager.OnLocationUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -285,10 +276,7 @@ void Framework::OnUserPositionChanged(m2::PointD const & position)
 {
   MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
   myPosition->SetUserPosition(position);
-
-  if (m_routingManager.IsRoutingActive())
-    m_routingManager.RoutingSession().SetUserCurrentPosition(position);
-
+  m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
 
@@ -392,19 +380,15 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
-  , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
-                       tracking::Reporter::kPushDelayMs)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
                                                bind(&Framework::GetCountryInfoGetter, this),
                                                [this](m2::PointD const & pt) {
 #ifdef DEBUG
-                                                 {
-                                                   UserMarkControllerGuard guard(
-                                                       m_bmManager, UserMarkType::DEBUG_MARK);
-                                                   guard.m_controller.SetIsVisible(true);
-                                                   guard.m_controller.SetIsDrawable(true);
-                                                   guard.m_controller.CreateUserMark(pt);
-                                                 }
+                                                 UserMarkControllerGuard guard(
+                                                     m_bmManager, UserMarkType::DEBUG_MARK);
+                                                 guard.m_controller.SetIsVisible(true);
+                                                 guard.m_controller.SetIsDrawable(true);
+                                                 guard.m_controller.CreateUserMark(pt);
 #endif
                                                }),
                      static_cast<RoutingManager::Delegate &>(*this))
@@ -610,7 +594,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
 void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
-  m_routingManager.RoutingSession().Reset();
+  m_routingManager.ResetRoutingSession();
 
   m2::RectD rect = MercatorBounds::FullRect();
 
@@ -631,7 +615,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
 bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
-  m_routingManager.RoutingSession().Reset();
+  m_routingManager.ResetRoutingSession();
 
   if (countryId == m_lastReportedCountry)
     m_lastReportedCountry = kInvalidCountryId;
@@ -1385,7 +1369,7 @@ void Framework::EnterBackground()
   SaveViewport();
 
   m_trafficManager.OnEnterBackground();
-  m_trackingReporter.SetAllowSendingPoints(false);
+  m_routingManager.SetAllowSendingPoints(false);
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -1407,7 +1391,7 @@ void Framework::EnterForeground()
   CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
 
   m_trafficManager.OnEnterForeground();
-  m_trackingReporter.SetAllowSendingPoints(true);
+  m_routingManager.SetAllowSendingPoints(true);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1855,8 +1839,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
-  auto const & routingSession = m_routingManager.RoutingSession();
-
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory, make_ref(&m_stringsBundle),
       dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
@@ -1865,8 +1847,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
       move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
-      routingSession.IsActive() && routingSession.IsFollowing(), isAutozoomEnabled,
-      simplifiedTrafficColors, move(overlaysShowStatsFn));
+      m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
+      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
@@ -1892,14 +1874,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
 
-  // In case of the engine reinitialization recover route.
-  if (routingSession.IsActive())
-  {
-    m_routingManager.InsertRoute(*routingSession.GetRoute());
-    if (allow3d && routingSession.IsFollowing())
-      m_drapeEngine->EnablePerspective();
-  }
-
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
@@ -1909,7 +1883,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   });
 
   m_drapeApi.SetEngine(make_ref(m_drapeEngine));
-  m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine));
+  m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
 
@@ -2055,7 +2029,7 @@ void Framework::SetupMeasurementSystem()
   auto units = measurement_utils::Units::Metric;
   UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
 
-  m_routingManager.RoutingSession().SetTurnNotificationsUnits(units);
+  m_routingManager.SetTurnNotificationsUnits(units);
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
@@ -3273,7 +3247,7 @@ void Framework::OnRouteFollow(routing::RouterType type)
 }
 
 // RoutingManager::Delegate
-void Framework::RegisterCountryFiles(std::shared_ptr<routing::NumMwmIds> ptr) const
+void Framework::RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const
 {
   m_storage.ForEachCountryFile(
       [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });

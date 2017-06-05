@@ -183,7 +183,6 @@ protected:
   df::DrapeApi m_drapeApi;
 
   bool m_isRenderingEnabled;
-  tracking::Reporter m_trackingReporter;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -780,7 +779,7 @@ public:
 protected:
   /// RoutingManager::Delegate
   void OnRouteFollow(routing::RouterType type) override;
-  void RegisterCountryFiles(std::shared_ptr<routing::NumMwmIds> ptr) const override;
+  void RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const override;
 
 public:
   /// @name Editor interface.

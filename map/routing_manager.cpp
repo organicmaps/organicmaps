@@ -3,6 +3,8 @@
 #include "map/chart_generator.hpp"
 #include "map/mwm_tree.hpp"
 
+#include "private.h"
+
 #include "tracking/reporter.hpp"
 
 #include "routing/car_router.hpp"
@@ -25,8 +27,11 @@
 #include "platform/country_file.hpp"
 #include "platform/mwm_traits.hpp"
 #include "platform/platform.hpp"
+#include "platform/socket.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
+#include <map>
 
 namespace
 {
@@ -41,17 +46,20 @@ char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 using namespace routing;
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
-  : m_callbacks(std::move(callbacks)), m_delegate(delegate)
+  : m_callbacks(std::move(callbacks))
+  , m_delegate(delegate)
+  , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
+                       tracking::Reporter::kPushDelayMs)
 {
-  auto const routingStatisticsFn = [](map<string, string> const & statistics) {
+  auto const routingStatisticsFn = [](std::map<std::string, std::string> const & statistics) {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
     GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
   };
 
   m_routingSession.Init(routingStatisticsFn, m_callbacks.m_visualizer);
   m_routingSession.SetReadyCallbacks(
-      [&](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
-      [&](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
+      [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
+      [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
 }
 
 void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
@@ -103,7 +111,7 @@ RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
 
 RouterType RoutingManager::GetLastUsedRouter() const
 {
-  string routerTypeStr;
+  std::string routerTypeStr;
   if (!settings::Get(kRouterTypeKey, routerTypeStr))
     return RouterType::Vehicle;
 
@@ -121,10 +129,10 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 {
   auto const indexGetterFn = m_callbacks.m_featureIndexGetter;
   ASSERT(indexGetterFn, ());
-  unique_ptr<IRouter> router;
-  unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
+  std::unique_ptr<IRouter> router;
+  std::unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
 
-  auto const countryFileGetter = [this](m2::PointD const & p) -> string {
+  auto const countryFileGetter = [this](m2::PointD const & p) -> std::string {
     // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
     // instances instead of plain strings.
     return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p);
@@ -144,7 +152,7 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
   {
     auto & index = m_callbacks.m_featureIndexGetter();
 
-    auto localFileChecker = [this](string const & countryFile) -> bool {
+    auto localFileChecker = [this](std::string const & countryFile) -> bool {
       MwmSet::MwmId const mwmId = m_callbacks.m_featureIndexGetter().GetMwmIdByCountryFile(
           platform::CountryFile(countryFile));
       if (!mwmId.IsAlive())
@@ -155,9 +163,9 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 
     auto numMwmIds = make_shared<routing::NumMwmIds>();
 
-    m_delegate.RegisterCountryFiles(numMwmIds);
+    m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
 
-    auto const getMwmRectByName = [this](string const & countryId) -> m2::RectD {
+    auto const getMwmRectByName = [this](std::string const & countryId) -> m2::RectD {
       return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId);
     };
 
@@ -191,7 +199,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     return;
   }
 
-  vector<double> turns;
+  std::vector<double> turns;
   if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle ||
       m_currentRouterType == RouterType::Taxi)
   {
@@ -252,7 +260,7 @@ void RoutingManager::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
     m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
 }
 
-void RoutingManager::GenerateTurnNotifications(vector<string> & turnNotifications)
+void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNotifications)
 {
   if (m_currentRouterType == routing::RouterType::Taxi)
     return;
@@ -282,7 +290,7 @@ void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & fin
 
   // Send tag to Push Woosh.
   {
-    string tag;
+    std::string tag;
     switch (m_currentRouterType)
     {
     case RouterType::Vehicle:
@@ -308,6 +316,12 @@ void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & fin
 
   m_routingSession.SetUserCurrentPosition(start);
   m_routingSession.BuildRoute(start, finish, timeoutSec);
+}
+
+void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
+{
+  if (IsRoutingActive())
+    m_routingSession.SetUserCurrentPosition(position);
 }
 
 bool RoutingManager::DisableFollowMode()
@@ -355,15 +369,41 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
+void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
+{
+  location::RouteMatchingInfo routeMatchingInfo;
+  CheckLocationForRouting(info);
+
+  MatchLocationToRoute(info, routeMatchingInfo);
+
+  m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
+  if (IsTrackingReporterEnabled())
+    m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
+}
+
+void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
+{
+  m_drapeEngine = engine;
+
+  // In case of the engine reinitialization recover route.
+  if (IsRoutingActive())
+  {
+    InsertRoute(*m_routingSession.GetRoute());
+    if (is3dAllowed && m_routingSession.IsFollowing())
+      m_drapeEngine->EnablePerspective();
+  }
+}
+
 bool RoutingManager::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
+
 bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                                vector<uint8_t> & imageRGBAData,
+                                                std::vector<uint8_t> & imageRGBAData,
                                                 int32_t & minRouteAltitude,
                                                 int32_t & maxRouteAltitude,
                                                 measurement_utils::Units & altitudeUnits) const
 {
   feature::TAltitudes altitudes;
-  vector<double> segDistance;
+  std::vector<double> segDistance;
 
   if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistance, altitudes))
     return false;
