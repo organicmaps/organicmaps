@@ -60,14 +60,14 @@ Platform::ChargingStatus Platform::GetChargingStatus()
   if (env == nullptr)
     return Platform::ChargingStatus::Unknown;
 
-  static shared_ptr<jobject> clazzBatteryState =
-      jni::make_global_ref(env->FindClass("com/mapswithme/util/BatteryState"));
+  static jclass const clazzBatteryState =
+      jni::GetGlobalClassRef(env, "com/mapswithme/util/BatteryState");
   ASSERT(clazzBatteryState, ());
 
-  static jmethodID const getChargingMethodId = jni::GetStaticMethodID(
-      env, static_cast<jclass>(*clazzBatteryState), "getChargingStatus", "()I");
+  static jmethodID const getChargingMethodId =
+      jni::GetStaticMethodID(env, clazzBatteryState, "getChargingStatus", "()I");
   return static_cast<Platform::ChargingStatus>(
-      env->CallStaticIntMethod(static_cast<jclass>(*clazzBatteryState), getChargingMethodId));
+      env->CallStaticIntMethod(clazzBatteryState, getChargingMethodId));
 }
 
 namespace android
