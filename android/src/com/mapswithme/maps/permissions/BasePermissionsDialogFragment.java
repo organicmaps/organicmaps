@@ -1,6 +1,7 @@
 package com.mapswithme.maps.permissions;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -52,7 +53,6 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
       final Bundle args = new Bundle();
       args.putInt(ARG_REQUEST_ID, requestId);
       dialog.setArguments(args);
-      dialog.setCancelable(false);
       dialog.show(fm, dialogClass.getName());
     }
     catch (java.lang.InstantiationException e)

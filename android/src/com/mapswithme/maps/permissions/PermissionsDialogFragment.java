@@ -1,5 +1,6 @@
 package com.mapswithme.maps.permissions;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -100,5 +101,12 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
     if (mDetailDialog != null)
       mDetailDialog.dismiss();
     super.dismiss();
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    getActivity().finish();
   }
 }

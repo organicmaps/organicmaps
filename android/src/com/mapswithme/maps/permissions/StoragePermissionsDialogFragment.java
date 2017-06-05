@@ -1,6 +1,7 @@
 package com.mapswithme.maps.permissions;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +35,6 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
       return (DialogFragment) f;
 
     StoragePermissionsDialogFragment dialog = new StoragePermissionsDialogFragment();
-    dialog.setCancelable(false);
     dialog.show(fm, StoragePermissionsDialogFragment.class.getName());
 
     return dialog;
@@ -94,5 +94,12 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
         startActivity(intent);
         break;
     }
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    getActivity().finish();
   }
 }
