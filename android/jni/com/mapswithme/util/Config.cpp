@@ -102,4 +102,18 @@ extern "C"
       frm()->SaveLargeFontsSize(value);
       frm()->SetLargeFontsSize(value);
     }
+
+    JNIEXPORT jboolean JNICALL
+    Java_com_mapswithme_util_Config_nativeGetTransliteration(JNIEnv * env, jclass thiz)
+    {
+      return frm()->LoadTransliteration();
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_mapswithme_util_Config_nativeSetTransliteration(JNIEnv * env, jclass thiz,
+                                                             jboolean value)
+    {
+      frm()->SaveTransliteration(value);
+      frm()->AllowTransliteration(value);
+    }
 } // extern "C"

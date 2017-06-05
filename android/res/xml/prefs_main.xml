@@ -36,11 +36,16 @@
       android:title="@string/big_font"
       android:defaultValue="false"
       android:order="5"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_transliteration"
+      android:title="@string/whatsnew_transliteration_title"
+      android:defaultValue="false"
+      android:order="6"/>
     <android.support.v7.preference.PreferenceScreen
       android:key="@string/pref_track_screen"
       android:title="@string/pref_track_record_title"
       android:persistent="false"
-      android:order="6">
+      android:order="7">
       <SwitchPreferenceCompat
         android:key="@string/pref_track_record_time"
         android:title="@string/pref_track_record_title"
@@ -62,37 +67,37 @@
       android:key="@string/pref_storage"
       android:title="@string/maps_storage"
       android:summary="@string/maps_storage_summary"
-      android:order="7"/>
+      android:order="8"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_send_statistics"
       android:title="@string/allow_statistics"
       android:summary="@string/allow_statistics_hint"
-      android:order="8"/>
+      android:order="9"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_play_services"
       android:title="Google Play Services"
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"
-      android:order="9"/>
+      android:order="10"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_showcase_switched_on"
       android:title="@string/showcase_settings_title"
       android:defaultValue="true"
       android:switchTextOff=""
       android:switchTextOn=""
-      android:order="10"/>
+      android:order="11"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="Enable logging"
       android:defaultValue="false"
-      android:order="11"/>
+      android:order="12"/>
     <ListPreference
       android:key="@string/pref_use_mobile_data"
       android:title="@string/mobile_data"
       android:summary="@string/mobile_data_option_ask"
       android:entries="@array/mobile_data_options"
       android:entryValues="@array/mobile_data_options_values"
-      android:order="12"/>
+      android:order="13"/>
   </android.support.v7.preference.PreferenceCategory>
 
   <android.support.v7.preference.PreferenceCategory
