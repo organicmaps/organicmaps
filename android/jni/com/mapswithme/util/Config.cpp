@@ -111,7 +111,7 @@ extern "C"
 
     JNIEXPORT void JNICALL
     Java_com_mapswithme_util_Config_nativeSetTransliteration(JNIEnv * env, jclass thiz,
-                                                            jboolean value)
+                                                             jboolean value)
     {
       frm()->SaveTransliteration(value);
       frm()->AllowTransliteration(value);
