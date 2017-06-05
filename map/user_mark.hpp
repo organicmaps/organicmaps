@@ -28,6 +28,7 @@ public:
     POI,
     BOOKMARK,
     MY_POSITION,
+    ROUTING,
     DEBUG_MARK
   };
 

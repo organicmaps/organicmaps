@@ -21,7 +21,8 @@ enum class UserMarkType
   SEARCH_MARK,
   API_MARK,
   DEBUG_MARK,
-  BOOKMARK_MARK
+  BOOKMARK_MARK,
+  ROUTING_MARK
 };
 
 class UserMarksController

@@ -90,6 +90,8 @@ void CacheUserPoints(UserMarksProvider const * provider, ref_ptr<dp::TextureMana
   for (size_t i = 0; i < markCount; ++i)
   {
     UserPointMark const * userMark = provider->GetUserPointMark(i);
+    if (!userMark->IsVisible())
+      continue;
     TileKey const tileKey = GetTileKeyByPoint(userMark->GetPivot(), kZoomLevel);
     marks[tileKey].push_back(userMark);
   }

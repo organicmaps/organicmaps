@@ -106,5 +106,6 @@ string DebugPrint(UserMark::Type type)
   case UserMark::Type::BOOKMARK: return "BOOKMARK";
   case UserMark::Type::MY_POSITION: return "MY_POSITION";
   case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
+  case UserMark::Type::ROUTING: return "ROUTING";
   }
 }
