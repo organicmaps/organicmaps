@@ -32,6 +32,7 @@ HEADERS += \
     mwm_url.hpp \
     place_page_info.hpp \
     reachable_by_taxi_checker.hpp \
+    routing_manager.hpp \
     track.hpp \
     traffic_manager.hpp \
     user_mark.hpp \
@@ -61,6 +62,7 @@ SOURCES += \
     mwm_url.cpp \
     place_page_info.cpp \
     reachable_by_taxi_checker.cpp \
+    routing_manager.cpp \
     track.cpp \
     traffic_manager.cpp \
     user_mark.cpp \
