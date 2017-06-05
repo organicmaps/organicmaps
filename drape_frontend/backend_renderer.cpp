@@ -45,17 +45,12 @@ BackendRenderer::BackendRenderer(Params && params)
   m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(move(routeData)),
-                              MessagePriority::Normal);
-  }, [this](drape_ptr<RouteSignData> && routeSignData)
-  {
-    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteSignMessage>(move(routeSignData)),
+                              make_unique_dp<FlushRouteMessage>(std::move(routeData)),
                               MessagePriority::Normal);
   }, [this](drape_ptr<RouteArrowsData> && routeArrowsData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteArrowsMessage>(move(routeArrowsData)),
+                              make_unique_dp<FlushRouteArrowsMessage>(std::move(routeArrowsData)),
                               MessagePriority::Normal);
   });
 
@@ -271,36 +266,31 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AddRoute:
+  case Message::AddRouteSegment:
     {
-      ref_ptr<AddRouteMessage> msg = message;
-      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(), msg->GetColor(),
-                            msg->GetTraffic(), msg->GetPattern(), m_texMng, msg->GetRecacheId());
-      break;
-    }
-
-  case Message::CacheRouteSign:
-    {
-      ref_ptr<CacheRouteSignMessage> msg = message;
-      m_routeBuilder->BuildSign(msg->GetPosition(), msg->IsStart(), msg->IsValid(), m_texMng, msg->GetRecacheId());
+      ref_ptr<AddRouteSegmentMessage> msg = message;
+      m_routeBuilder->Build(msg->GetSegmentId(), msg->GetRouteSegment(), m_texMng,
+                            msg->GetRecacheId());
       break;
     }
 
   case Message::CacheRouteArrows:
     {
       ref_ptr<CacheRouteArrowsMessage> msg = message;
-      m_routeBuilder->BuildArrows(msg->GetRouteIndex(), msg->GetBorders(), m_texMng, msg->GetRecacheId());
+      m_routeBuilder->BuildArrows(msg->GetSegmentId(), msg->GetBorders(), m_texMng,
+                                  msg->GetRecacheId());
       break;
     }
 
-  case Message::RemoveRoute:
+  case Message::RemoveRouteSegment:
     {
-      ref_ptr<RemoveRouteMessage> msg = message;
+      ref_ptr<RemoveRouteSegmentMessage> msg = message;
       m_routeBuilder->ClearRouteCache();
       // We have to resend the message to FR, because it guaranties that
-      // RemoveRouteMessage will be processed after FlushRouteMessage.
+      // RemoveRouteSegment will be processed after FlushRouteMessage.
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<RemoveRouteMessage>(msg->NeedDeactivateFollowing()),
+                                make_unique_dp<RemoveRouteSegmentMessage>(
+                                  msg->GetSegmentId(), msg->NeedDeactivateFollowing()),
                                 MessagePriority::Normal);
       break;
     }

@@ -8,14 +8,14 @@
 #include "drape/utils/projection.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
 
+#include <algorithm>
+
 namespace df
 {
-
 std::string const kRouteColor = "Route";
 std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
@@ -23,8 +23,7 @@ std::string const kRouteBicycle = "RouteBicycle";
 
 namespace
 {
-
-float const kHalfWidthInPixelVehicle[] =
+float const kHalfWidthInPixelCar[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.0f, 1.5f, 1.5f, 1.5f, 2.0f, 2.0f, 2.0f, 2.5f, 2.5f,
@@ -43,31 +42,31 @@ float const kHalfWidthInPixelOthers[] =
 int const kArrowAppearingZoomLevel = 14;
 int const kInvalidGroup = -1;
 
-void ClipBorders(vector<ArrowBorders> & borders)
+void ClipBorders(std::vector<ArrowBorders> & borders)
 {
   auto invalidBorders = [](ArrowBorders const & borders)
   {
     return borders.m_groupIndex == kInvalidGroup;
   };
-  borders.erase(remove_if(borders.begin(), borders.end(), invalidBorders), borders.end());
+  borders.erase(std::remove_if(borders.begin(), borders.end(), invalidBorders), borders.end());
 }
 
-void MergeAndClipBorders(vector<ArrowBorders> & borders)
+void MergeAndClipBorders(std::vector<ArrowBorders> & borders)
 {
-  // initial clipping
+  // Initial clipping.
   ClipBorders(borders);
 
   if (borders.empty())
     return;
 
-  // mark groups
+  // Mark groups.
   for (size_t i = 0; i + 1 < borders.size(); i++)
   {
     if (borders[i].m_endDistance >= borders[i + 1].m_startDistance)
       borders[i + 1].m_groupIndex = borders[i].m_groupIndex;
   }
 
-  // merge groups
+  // Merge groups.
   int lastGroup = borders.front().m_groupIndex;
   size_t lastGroupIndex = 0;
   for (size_t i = 1; i < borders.size(); i++)
@@ -85,17 +84,12 @@ void MergeAndClipBorders(vector<ArrowBorders> & borders)
   }
   borders[lastGroupIndex].m_endDistance = borders.back().m_endDistance;
 
-  // clip groups
+  // Clip groups.
   ClipBorders(borders);
 }
 
-void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<dp::GpuProgramManager> mng)
-{
-  for (drape_ptr<dp::RenderBucket> const & bucket : renderProperty.m_buckets)
-    bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgramIndex()));
-}
-
-bool AreEqualArrowBorders(vector<ArrowBorders> const & borders1, vector<ArrowBorders> const & borders2)
+bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1,
+                          std::vector<ArrowBorders> const & borders2)
 {
   if (borders1.size() != borders2.size())
     return false;
@@ -119,28 +113,105 @@ bool AreEqualArrowBorders(vector<ArrowBorders> const & borders1, vector<ArrowBor
   return true;
 }
 
-dp::Color GetOutlineColor(df::ColorConstant const & routeColor)
+std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float currentHalfWidth,
+                                                drape_ptr<RouteData> const & routeData,
+                                                double distanceFromBegin)
 {
-  return df::GetColorConstant(routeColor == kRouteColor ? kRouteOutlineColor : routeColor);
+  if (routeData->m_segment->m_turns.empty())
+    return {};
+
+  // Calculate arrow mercator length.
+  double glbHalfLen = 0.5 * kArrowSize;
+  double const glbHalfTextureWidth = currentHalfWidth * kArrowHeightFactor * screen.GetScale();
+  double const glbHalfTextureLen = glbHalfTextureWidth * kArrowAspect;
+  if (glbHalfLen < glbHalfTextureLen)
+    glbHalfLen = glbHalfTextureLen;
+
+  double const glbArrowHead = 2.0 * kArrowHeadSize * glbHalfTextureLen;
+  double const glbArrowTail = 2.0 * kArrowTailSize * glbHalfTextureLen;
+  double const glbMinArrowSize = glbArrowHead + glbArrowTail;
+
+  double const kExtendCoef = 1.1;
+  m2::RectD screenRect = screen.ClipRect();
+  screenRect.Scale(kExtendCoef);
+
+  auto const & segment = routeData->m_segment;
+
+  // Calculate arrow borders.
+  std::vector<ArrowBorders> newArrowBorders;
+  newArrowBorders.reserve(segment->m_turns.size());
+  for (size_t i = 0; i < segment->m_turns.size(); i++)
+  {
+    ArrowBorders arrowBorders;
+    arrowBorders.m_groupIndex = static_cast<int>(i);
+    arrowBorders.m_startDistance = std::max(0.0, segment->m_turns[i] - glbHalfLen * 0.8);
+    arrowBorders.m_endDistance = std::min(routeData->m_length, segment->m_turns[i] + glbHalfLen * 1.2);
+
+    if ((arrowBorders.m_endDistance - arrowBorders.m_startDistance) < glbMinArrowSize ||
+        arrowBorders.m_startDistance < distanceFromBegin)
+    {
+      continue;
+    }
+
+    m2::PointD pt = segment->m_polyline.GetPointByDistance(arrowBorders.m_startDistance);
+    if (screenRect.IsPointInside(pt))
+    {
+      newArrowBorders.push_back(arrowBorders);
+      continue;
+    }
+
+    pt = segment->m_polyline.GetPointByDistance(arrowBorders.m_endDistance);
+    if (screenRect.IsPointInside(pt))
+    {
+      newArrowBorders.push_back(arrowBorders);
+      continue;
+    }
+  }
+
+  // Merge intersected borders and clip them.
+  MergeAndClipBorders(newArrowBorders);
+
+  // Process head and tail.
+  for (ArrowBorders & borders : newArrowBorders)
+  {
+    borders.m_startDistance += glbArrowTail;
+    borders.m_endDistance -= glbArrowHead;
+  }
+
+  return newArrowBorders;
 }
 
-} // namespace
+void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<dp::GpuProgramManager> mng)
+{
+  for (auto const & bucket : renderProperty.m_buckets)
+    bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgramIndex()));
+}
+
+dp::Color GetOutlineColor(drape_ptr<RouteSegment> const & routeSegment)
+{
+  if (routeSegment->m_routeType == RouteType::Car || routeSegment->m_routeType == RouteType::Taxi)
+    return df::GetColorConstant(kRouteOutlineColor);
+
+  return df::GetColorConstant(routeSegment->m_color);
+}
+}  // namespace
 
 RouteRenderer::RouteRenderer()
   : m_distanceFromBegin(0.0)
+  , m_followingEnabled(false)
 {}
 
-void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, ColorConstant color,
+void RouteRenderer::InterpolateByZoom(drape_ptr<RouteSegment> const & routeSegment, ScreenBase const & screen,
                                       float & halfWidth, double & zoom) const
 {
   double const zoomLevel = GetZoomLevel(screen.GetScale());
   zoom = trunc(zoomLevel);
-  int const index = zoom - 1.0;
-  float const lerpCoef = zoomLevel - zoom;
+  int const index = static_cast<int>(zoom - 1.0);
+  float const lerpCoef = static_cast<float>(zoomLevel - zoom);
 
-  float const * halfWidthInPixel = kHalfWidthInPixelVehicle;
-  if (color != kRouteColor)
-    halfWidthInPixel = kHalfWidthInPixelOthers;
+  float const * halfWidthInPixel = kHalfWidthInPixelOthers;
+  if (routeSegment->m_routeType == RouteType::Car || routeSegment->m_routeType == RouteType::Taxi)
+    halfWidthInPixel = kHalfWidthInPixelCar;
 
   if (index < scales::UPPER_STYLE_SCALE)
     halfWidth = halfWidthInPixel[index] + lerpCoef * (halfWidthInPixel[index + 1] - halfWidthInPixel[index]);
@@ -153,272 +224,192 @@ void RouteRenderer::InterpolateByZoom(ScreenBase const & screen, ColorConstant c
 void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCallback const & callback)
 {
   ASSERT(callback != nullptr, ());
-
-  if (!m_routeData)
-    return;
-
-  // Interpolate values by zoom level.
-  double zoom = 0.0;
-  InterpolateByZoom(screen, m_routeData->m_color, m_currentHalfWidth, zoom);
-
-  // Update arrows.
-  if (zoom >= kArrowAppearingZoomLevel && !m_routeData->m_sourceTurns.empty())
+  for (auto const & routeData : m_routeData)
   {
-    // Calculate arrow mercator length.
-    double glbHalfLen = 0.5 * kArrowSize;
-    double const glbHalfTextureWidth = m_currentHalfWidth * kArrowHeightFactor * screen.GetScale();
-    double const glbHalfTextureLen = glbHalfTextureWidth * kArrowAspect;
-    if (glbHalfLen < glbHalfTextureLen)
-      glbHalfLen = glbHalfTextureLen;
+    auto & additional = m_routeAdditional[routeData->m_segmentId];
 
-    double const glbArrowHead = 2.0 * kArrowHeadSize * glbHalfTextureLen;
-    double const glbArrowTail = 2.0 * kArrowTailSize * glbHalfTextureLen;
-    double const glbMinArrowSize = glbArrowHead + glbArrowTail;
+    // Interpolate values by zoom level.
+    double zoom = 0.0;
+    float halfWidth = 0.0;
+    InterpolateByZoom(routeData->m_segment, screen, halfWidth, zoom);
+    additional.m_currentHalfWidth = halfWidth;
 
-    double const kExtendCoef = 1.1;
-    m2::RectD screenRect = screen.ClipRect();
-    screenRect.Scale(kExtendCoef);
+    if (zoom < kArrowAppearingZoomLevel)
+    {
+      additional.m_arrowsData.reset();
+      additional.m_arrowBorders.clear();
+      continue;
+    }
 
     // Calculate arrow borders.
-    vector<ArrowBorders> newArrowBorders;
-    newArrowBorders.reserve(m_routeData->m_sourceTurns.size());
-    for (size_t i = 0; i < m_routeData->m_sourceTurns.size(); i++)
-    {
-      ArrowBorders arrowBorders;
-      arrowBorders.m_groupIndex = static_cast<int>(i);
-      arrowBorders.m_startDistance = max(0.0, m_routeData->m_sourceTurns[i] - glbHalfLen * 0.8);
-      arrowBorders.m_endDistance = min(m_routeData->m_length, m_routeData->m_sourceTurns[i] + glbHalfLen * 1.2);
-
-      if ((arrowBorders.m_endDistance - arrowBorders.m_startDistance) < glbMinArrowSize ||
-          arrowBorders.m_startDistance < m_distanceFromBegin)
-        continue;
-
-      m2::PointD pt = m_routeData->m_sourcePolyline.GetPointByDistance(arrowBorders.m_startDistance);
-      if (screenRect.IsPointInside(pt))
-      {
-        newArrowBorders.push_back(arrowBorders);
-        continue;
-      }
-
-      pt = m_routeData->m_sourcePolyline.GetPointByDistance(arrowBorders.m_endDistance);
-      if (screenRect.IsPointInside(pt))
-      {
-        newArrowBorders.push_back(arrowBorders);
-        continue;
-      }
-    }
-
-    // Merge intersected borders and clip them.
-    MergeAndClipBorders(newArrowBorders);
-
-    // Process head and tail.
-    for (ArrowBorders & borders : newArrowBorders)
-    {
-      borders.m_startDistance += glbArrowTail;
-      borders.m_endDistance -= glbArrowHead;
-    }
-
+    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, routeData,
+                                                 m_followingEnabled ? m_distanceFromBegin : -1.0f);
     if (newArrowBorders.empty())
     {
       // Clear arrows.
-      m_arrowBorders.clear();
-      m_routeArrows.reset();
+      additional.m_arrowsData.reset();
+      additional.m_arrowBorders.clear();
     }
-    else if (!AreEqualArrowBorders(newArrowBorders, m_arrowBorders))
+    else if (!AreEqualArrowBorders(newArrowBorders, additional.m_arrowBorders))
     {
-      m_arrowBorders = move(newArrowBorders);
-      callback(m_routeData->m_routeIndex, m_arrowBorders);
+      additional.m_arrowBorders = std::move(newArrowBorders);
+      callback(routeData->m_segmentId, additional.m_arrowBorders);
     }
+  }
+}
+
+void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
+                                    ScreenBase const & screen, bool trafficShown,
+                                    ref_ptr<dp::GpuProgramManager> mng,
+                                    dp::UniformValuesStorage const & commonUniforms)
+{
+  if (routeData->m_renderProperty.m_buckets.empty())
+    return;
+
+  float const currentHalfWidth = m_routeAdditional[routeData->m_segmentId].m_currentHalfWidth;
+  float const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
+  float const dist = m_followingEnabled ? static_cast<float>(m_distanceFromBegin) : -1.0f;
+
+  dp::GLState const & state = routeData->m_renderProperty.m_state;
+  auto const & segment = routeData->m_segment;
+
+  // Set up uniforms.
+  dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(routeData->m_pivot, kShapeCoordScalar);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+
+  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(segment->m_color));
+  uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
+
+  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, screenHalfWidth, dist,
+                         trafficShown ? 1.0f : 0.0f);
+
+  if (segment->m_pattern.m_isDashed)
+  {
+    uniforms.SetFloatValue("u_pattern",
+                           static_cast<float>(screenHalfWidth * segment->m_pattern.m_dashLength),
+                           static_cast<float>(screenHalfWidth * segment->m_pattern.m_gapLength));
   }
   else
   {
-    m_routeArrows.reset();
+    glsl::vec4 const outlineColor = glsl::ToVec4(GetOutlineColor(segment));
+    uniforms.SetFloatValue("u_outlineColor", outlineColor.r, outlineColor.g,
+                           outlineColor.b, outlineColor.a);
   }
+
+  // Set up shaders and apply uniforms.
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(segment->m_pattern.m_isDashed ?
+                                                gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM);
+  prg->Bind();
+  dp::ApplyState(state, prg);
+  dp::ApplyUniforms(uniforms, prg);
+
+  // Render buckets.
+  for (auto const & bucket : routeData->m_renderProperty.m_buckets)
+    bucket->Render(state.GetDrawAsLine());
+}
+
+void RouteRenderer::RenderRouteArrowData(dp::DrapeID segmentId, RouteAdditional const & routeAdditional,
+                                         ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                                         dp::UniformValuesStorage const & commonUniforms)
+{
+  if (routeAdditional.m_arrowsData == nullptr ||
+      routeAdditional.m_arrowsData->m_renderProperty.m_buckets.empty())
+  {
+    return;
+  }
+
+  float const currentHalfWidth = m_routeAdditional[segmentId].m_currentHalfWidth;
+  dp::GLState const & state = routeAdditional.m_arrowsData->m_renderProperty.m_state;
+
+  // Set up shaders and apply common uniforms.
+  dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(routeAdditional.m_arrowsData->m_pivot,
+                                                     kShapeCoordScalar);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetFloatValue("u_arrowHalfWidth", static_cast<float>(currentHalfWidth * kArrowHeightFactor));
+  uniforms.SetFloatValue("u_opacity", 1.0f);
+
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
+  prg->Bind();
+  dp::ApplyState(state, prg);
+  dp::ApplyUniforms(uniforms, prg);
+  for (auto const & bucket : routeAdditional.m_arrowsData->m_renderProperty.m_buckets)
+    bucket->Render(state.GetDrawAsLine());
 }
 
 void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
                                 ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_routeData || m_routeData->m_route.m_buckets.empty())
+  if (m_routeData.empty())
     return;
 
   // Render route.
-  {
-    dp::GLState const & state = m_routeData->m_route.m_state;
-
-    // Set up uniforms.
-    dp::UniformValuesStorage uniforms = commonUniforms;
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(m_routeData->m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-    glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(m_routeData->m_color));
-    uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
-    double const screenScale = screen.GetScale();
-    uniforms.SetFloatValue("u_routeParams", m_currentHalfWidth, m_currentHalfWidth * screenScale,
-                           m_distanceFromBegin, trafficShown ? 1.0f : 0.0f);
-
-    if (m_routeData->m_pattern.m_isDashed)
-    {
-      uniforms.SetFloatValue("u_pattern", m_currentHalfWidth * m_routeData->m_pattern.m_dashLength * screenScale,
-                             m_currentHalfWidth * m_routeData->m_pattern.m_gapLength * screenScale);
-    }
-    else
-    {
-      glsl::vec4 const outlineColor = glsl::ToVec4(GetOutlineColor(m_routeData->m_color));
-      uniforms.SetFloatValue("u_outlineColor", outlineColor.r, outlineColor.g, outlineColor.b, outlineColor.a);
-    }
-
-    // Set up shaders and apply uniforms.
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(m_routeData->m_pattern.m_isDashed ?
-                                                  gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM);
-    prg->Bind();
-    dp::ApplyState(state, prg);
-    dp::ApplyUniforms(uniforms, prg);
-
-    // Render buckets.
-    for (drape_ptr<dp::RenderBucket> const & bucket : m_routeData->m_route.m_buckets)
-      bucket->Render(state.GetDrawAsLine());
-  }
+  for (auto const & routeData : m_routeData)
+    RenderRouteData(routeData, screen, trafficShown, mng, commonUniforms);
 
   // Render arrows.
-  if (m_routeArrows != nullptr)
-  {
-    dp::GLState const & state = m_routeArrows->m_arrows.m_state;
-
-    // set up shaders and apply common uniforms
-    dp::UniformValuesStorage uniforms = commonUniforms;
-    math::Matrix<float, 4, 4> mv = screen.GetModelView(m_routeArrows->m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-    uniforms.SetFloatValue("u_arrowHalfWidth", m_currentHalfWidth * kArrowHeightFactor);
-    uniforms.SetFloatValue("u_opacity", 1.0f);
-
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
-    prg->Bind();
-    dp::ApplyState(state, prg);
-    dp::ApplyUniforms(uniforms, prg);
-    for (drape_ptr<dp::RenderBucket> const & bucket : m_routeArrows->m_arrows.m_buckets)
-      bucket->Render(state.GetDrawAsLine());
-  }
+  for (auto const & p : m_routeAdditional)
+    RenderRouteArrowData(p.first, p.second, screen, mng, commonUniforms);
 }
 
-void RouteRenderer::RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
-                                     dp::UniformValuesStorage const & commonUniforms)
+void RouteRenderer::AddRouteData(drape_ptr<RouteData> && routeData,
+                                 ref_ptr<dp::GpuProgramManager> mng)
 {
-  if (m_startRouteSign)
-  {
-    ASSERT(m_startRouteSign->m_isValid, ());
-    RenderRouteSign(m_startRouteSign, screen, mng, commonUniforms);
-  }
+  // Remove old route data with the same id.
+  RemoveRouteData(routeData->m_segmentId);
 
-  if (m_finishRouteSign)
-  {
-    ASSERT(m_finishRouteSign->m_isValid, ());
-    RenderRouteSign(m_finishRouteSign, screen, mng, commonUniforms);
-  }
+  // Add new route data.
+  m_routeData.push_back(std::move(routeData));
+  BuildBuckets(m_routeData.back()->m_renderProperty, mng);
 }
 
-void RouteRenderer::RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
-                                    ref_ptr<dp::GpuProgramManager> mng,
-                                    dp::UniformValuesStorage const & commonUniforms)
-{
-  if (sign->m_sign.m_buckets.empty())
-    return;
-
-  dp::GLState const & state = sign->m_sign.m_state;
-  dp::UniformValuesStorage uniforms = commonUniforms;
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(sign->m_position, 1.0);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-  uniforms.SetFloatValue("u_opacity", 1.0f);
-
-  ref_ptr<dp::GpuProgram> program = screen.isPerspective() ? mng->GetProgram(state.GetProgram3dIndex())
-                                                           : mng->GetProgram(state.GetProgramIndex());
-  program->Bind();
-
-  dp::ApplyState(state, program);
-  dp::ApplyUniforms(uniforms, program);
-
-  for (auto const & bucket : sign->m_sign.m_buckets)
-  {
-    bucket->GetBuffer()->Build(program);
-    bucket->Render(state.GetDrawAsLine());
-  }
-}
-
-void RouteRenderer::SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng)
-{
-  m_routeData = move(routeData);
-  m_arrowBorders.clear();
-
-  BuildBuckets(m_routeData->m_route, mng);
-}
-
-void RouteRenderer::SetRouteSign(drape_ptr<RouteSignData> && routeSignData, ref_ptr<dp::GpuProgramManager> mng)
-{
-  if (routeSignData->m_isStart)
-  {
-    if (!routeSignData->m_isValid)
-    {
-      m_startRouteSign.reset();
-      return;
-    }
-
-    m_startRouteSign = move(routeSignData);
-    BuildBuckets(m_startRouteSign->m_sign, mng);
-  }
-  else
-  {
-    if (!routeSignData->m_isValid)
-    {
-      m_finishRouteSign.reset();
-      return;
-    }
-
-    m_finishRouteSign = move(routeSignData);
-    BuildBuckets(m_finishRouteSign->m_sign, mng);
-  }
-}
-
-drape_ptr<RouteSignData> const & RouteRenderer::GetStartPoint() const
-{
-  return m_startRouteSign;
-}
-
-drape_ptr<RouteSignData> const & RouteRenderer::GetFinishPoint() const
-{
-  return m_finishRouteSign;
-}
-
-drape_ptr<RouteData> const & RouteRenderer::GetRouteData() const
+std::vector<drape_ptr<RouteData>> const & RouteRenderer::GetRouteData() const
 {
   return m_routeData;
 }
 
-void RouteRenderer::SetRouteArrows(drape_ptr<RouteArrowsData> && routeArrowsData,
-                                   ref_ptr<dp::GpuProgramManager> mng)
+void RouteRenderer::RemoveRouteData(dp::DrapeID segmentId)
 {
-  m_routeArrows = move(routeArrowsData);
-  BuildBuckets(m_routeArrows->m_arrows, mng);
+  auto const functor = [&segmentId](drape_ptr<RouteData> const & data)
+  {
+    return data->m_segmentId == segmentId;
+  };
+  m_routeData.erase(std::remove_if(m_routeData.begin(), m_routeData.end(), functor),
+                    m_routeData.end());
+  m_routeAdditional[segmentId].m_arrowsData.reset();
+  m_routeAdditional[segmentId].m_arrowBorders.clear();
+}
+
+void RouteRenderer::AddRouteArrowsData(drape_ptr<RouteArrowsData> && routeArrowsData,
+                                       ref_ptr<dp::GpuProgramManager> mng)
+{
+  auto & additional = m_routeAdditional[routeArrowsData->m_segmentId];
+  additional.m_arrowsData = std::move(routeArrowsData);
+  BuildBuckets(additional.m_arrowsData->m_renderProperty, mng);
+}
+
+void RouteRenderer::ClearRouteData()
+{
+  m_routeData.clear();
+  m_routeAdditional.clear();
 }
 
 void RouteRenderer::Clear()
 {
-  m_routeData.reset();
-  m_startRouteSign.reset();
-  m_finishRouteSign.reset();
-  m_arrowBorders.clear();
-  m_routeArrows.reset();
+  ClearRouteData();
   m_distanceFromBegin = 0.0;
 }
 
 void RouteRenderer::ClearGLDependentResources()
 {
-  if (m_routeData != nullptr)
-    m_routeData->m_route = RouteRenderProperty();
-  if (m_startRouteSign != nullptr)
-    m_startRouteSign->m_sign = RouteRenderProperty();
-  if (m_finishRouteSign != nullptr)
-    m_finishRouteSign->m_sign = RouteRenderProperty();
-  m_routeArrows.reset();
+  // Here we clear only GL-dependent part of route data.
+  for (auto & routeData : m_routeData)
+    routeData->m_renderProperty = RouteRenderProperty();
+
+  // All additional data (like arrows) will be regenerated, so clear them all.
+  m_routeAdditional.clear();
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
@@ -426,4 +417,8 @@ void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
   m_distanceFromBegin = distanceFromBegin;
 }
 
-} // namespace df
+void RouteRenderer::SetFollowingEnabled(bool enabled)
+{
+  m_followingEnabled = enabled;
+}
+}  // namespace df

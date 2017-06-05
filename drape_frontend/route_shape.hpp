@@ -33,6 +33,14 @@ float const kArrowTailFactor = static_cast<float>(2.0 * kArrowTailTextureWidth /
 double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
+enum class RouteType : uint8_t
+{
+  Car,
+  Pedestrian,
+  Bicycle,
+  Taxi
+};
+
 struct RoutePattern
 {
   bool m_isDashed = false;
@@ -48,6 +56,24 @@ struct RoutePattern
   {}
 };
 
+struct RouteSegment
+{
+  df::RouteType m_routeType;
+  m2::PolylineD m_polyline;
+  df::ColorConstant m_color;
+  std::vector<double> m_turns;
+  std::vector<traffic::SpeedGroup> m_traffic;
+  df::RoutePattern m_pattern;
+
+  RouteSegment() = default;
+  RouteSegment(m2::PolylineD const & polyline, df::ColorConstant color,
+               std::vector<double> const & turns,
+               std::vector<traffic::SpeedGroup> const & traffic,
+               df::RoutePattern pattern = df::RoutePattern())
+    : m_polyline(polyline), m_color(color), m_turns(turns), m_traffic(traffic), m_pattern(pattern)
+  {}
+};
+
 struct RouteRenderProperty
 {
   dp::GLState m_state;
@@ -55,41 +81,27 @@ struct RouteRenderProperty
   RouteRenderProperty() : m_state(0, dp::GLState::GeometryLayer) {}
 };
 
+struct BaseRouteData
+{
+  dp::DrapeID m_segmentId = 0;
+  m2::PointD m_pivot = m2::PointD(0.0, 0.0);
+  int m_recacheId = -1;
+  RouteRenderProperty m_renderProperty;
+};
+
+struct RouteData : public BaseRouteData
+{
+  drape_ptr<RouteSegment> m_segment;
+  double m_length = 0.0;
+};
+
+struct RouteArrowsData : public BaseRouteData {};
+
 struct ArrowBorders
 {
-  double m_startDistance = 0;
-  double m_endDistance = 0;
+  double m_startDistance = 0.0;
+  double m_endDistance = 0.0;
   int m_groupIndex = 0;
-};
-
-struct RouteData
-{
-  int m_routeIndex;
-  m2::PolylineD m_sourcePolyline;
-  std::vector<double> m_sourceTurns;
-  m2::PointD m_pivot;
-  df::ColorConstant m_color;
-  std::vector<traffic::SpeedGroup> m_traffic;
-  double m_length;
-  RouteRenderProperty m_route;
-  RoutePattern m_pattern;
-  int m_recacheId;
-};
-
-struct RouteSignData
-{
-  RouteRenderProperty m_sign;
-  bool m_isStart;
-  bool m_isValid;
-  m2::PointD m_position;
-  int m_recacheId;
-};
-
-struct RouteArrowsData
-{
-  RouteRenderProperty m_arrows;
-  m2::PointD m_pivot;
-  int m_recacheId;
 };
 
 class RouteShape
@@ -101,7 +113,7 @@ public:
   using TArrowGeometryBuffer = buffer_vector<AV, 128>;
 
   static void CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
-  static void CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData & routeSignData);
+
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                std::vector<ArrowBorders> const & borders,
                                RouteArrowsData & routeArrowsData);

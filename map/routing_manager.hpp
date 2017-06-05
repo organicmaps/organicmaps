@@ -1,9 +1,14 @@
-#include "drape/pointers.hpp"
+#pragma once
+
+// TODO (@darina) TEMPORARY Remove me
+#include "map/bookmark_manager.hpp"
 
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
 
 #include "storage/index.hpp"
+
+#include "drape/pointers.hpp"
 
 #include "tracking/reporter.hpp"
 
@@ -154,8 +159,9 @@ public:
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
   void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
-  void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
-  void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
+  // TODO (@darina) Change interface to add/remove route point
+  void SetRouteStartPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid);
+  void SetRouteFinishPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid);
 
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
@@ -171,7 +177,10 @@ public:
     m_trackingReporter.SetAllowSendingPoints(isAllowed);
   }
 
-  void SetTurnNotificationsUnits(measurement_utils::Units const units) { m_routingSession.SetTurnNotificationsUnits(units); }
+  void SetTurnNotificationsUnits(measurement_utils::Units const units)
+  {
+    m_routingSession.SetTurnNotificationsUnits(units);
+  }
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
@@ -199,13 +208,13 @@ private:
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
 
-private:
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
   ref_ptr<df::DrapeEngine> m_drapeEngine = nullptr;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   routing::RoutingSession m_routingSession;
-  DECLARE_THREAD_CHECKER(m_threadChecker);
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
+
+  DECLARE_THREAD_CHECKER(m_threadChecker);
 };
