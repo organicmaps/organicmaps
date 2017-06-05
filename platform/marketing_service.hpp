@@ -29,7 +29,6 @@ extern char const * const kTrafficDiscovered;
 // Events.
 extern char const * const kDownloaderMapActionFinished;
 extern char const * const kSearchEmitResultsAndCoords;
-extern char const * const kRoutingCalculatingRoute;
 extern char const * const kBookmarksBookmarkAction;
 extern char const * const kPlacepageHotelBook;
 extern char const * const kEditorAddStart;

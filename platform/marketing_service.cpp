@@ -24,7 +24,6 @@ char const * const kTrafficDiscovered = "traffic_discovered";
 // Events.
 char const * const kDownloaderMapActionFinished = "Downloader_Map_action_finished";
 char const * const kSearchEmitResultsAndCoords = "searchEmitResultsAndCoords";
-char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 char const * const kBookmarksBookmarkAction = "Bookmarks_Bookmark_action";
 char const * const kPlacepageHotelBook = "Placepage_Hotel_book";
 char const * const kEditorAddStart = "EditorAdd_start";

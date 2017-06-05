@@ -235,7 +235,7 @@ using namespace osm_auth_ios;
     case ParsedMapApi::ParsingResult::Route:
     {
       auto const parsedData = f.GetParsedRoutingData();
-      f.SetRouter(parsedData.m_type);
+      f.GetRoutingManager().SetRouter(parsedData.m_type);
       auto const points = parsedData.m_points;
       auto const & p1 = points[0];
       auto const & p2 = points[1];
@@ -944,7 +944,7 @@ using namespace osm_auth_ios;
 
 - (void)showAlert:(BOOL)isRate
 {
-  if (!Platform::IsConnected() || GetFramework().IsRoutingActive())
+  if (!Platform::IsConnected() || GetFramework().GetRoutingManager().IsRoutingActive())
     return;
 
   if (isRate)

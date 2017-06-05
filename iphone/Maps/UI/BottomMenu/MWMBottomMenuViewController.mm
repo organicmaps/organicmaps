@@ -287,10 +287,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)ttsButtonStatusChanged:(NSNotification *)notification
 {
-  auto & f = GetFramework();
-  if (!f.IsRoutingActive())
+  auto const & f = GetFramework();
+  if (!f.GetRoutingManager().IsRoutingActive())
     return;
-  BOOL const isPedestrianRouting = f.GetRouter() == routing::RouterType::Pedestrian;
+  BOOL const isPedestrianRouting =
+      f.GetRoutingManager().GetRouter() == routing::RouterType::Pedestrian;
   MWMButton * ttsButton = self.ttsSoundButton;
   ttsButton.hidden = isPedestrianRouting || ![MWMTextToSpeech isTTSEnabled];
   if (!ttsButton.hidden)

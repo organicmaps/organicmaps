@@ -126,7 +126,6 @@ namespace
 {
 static const int BM_TOUCH_PIXEL_INCREASE = 20;
 static const int kKeepPedestrianDistanceMeters = 10000;
-char const kRouterTypeKey[] = "router";
 char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
@@ -238,15 +237,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo rInfo(info);
 #endif
 
-  location::RouteMatchingInfo routeMatchingInfo;
-  CheckLocationForRouting(rInfo);
-
-  MatchLocationToRoute(rInfo, routeMatchingInfo);
-
-  CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo,
-                         m_routingSession.IsNavigable(), routeMatchingInfo));
-  if (IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
+  m_routingManager.OnLocationUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -281,27 +272,11 @@ LocalAdsManager & Framework::GetLocalAdsManager()
   return m_localAdsManager;
 }
 
-bool Framework::IsTrackingReporterEnabled() const
-{
-  if (m_currentRouterType != routing::RouterType::Vehicle)
-    return false;
-
-  if (!m_routingSession.IsFollowing())
-    return false;
-
-  bool enableTracking = false;
-  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking));
-  return enableTracking;
-}
-
 void Framework::OnUserPositionChanged(m2::PointD const & position)
 {
   MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
   myPosition->SetUserPosition(position);
-
-  if (IsRoutingActive())
-    m_routingSession.SetUserCurrentPosition(position);
-
+  m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
 
@@ -405,12 +380,20 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
-  , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
-                       tracking::Reporter::kPushDelayMs)
+  , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
+                                               bind(&Framework::GetCountryInfoGetter, this),
+                                               [this](m2::PointD const & pt) {
+#ifdef DEBUG
+                                                 UserMarkControllerGuard guard(
+                                                     m_bmManager, UserMarkType::DEBUG_MARK);
+                                                 guard.m_controller.SetIsVisible(true);
+                                                 guard.m_controller.SetIsDrawable(true);
+                                                 guard.m_controller.CreateUserMark(pt);
+#endif
+                                               }),
+                     static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
-                     kMaxTrafficCacheSizeBytes,
-                     // Note. |m_routingSession| should be declared before |m_trafficManager|.
-                     m_routingSession)
+                     kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
   , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1))
   , m_displacementModeManager([this](bool show) {
@@ -476,28 +459,7 @@ Framework::Framework(FrameworkParams const & params)
   if (!params.m_disableLocalAds)
     m_localAdsManager.Startup();
 
-  auto const routingStatisticsFn = [](map<string, string> const & statistics)
-  {
-    alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
-    GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
-  };
-#ifdef DEBUG
-  auto const routingVisualizerFn = [this](m2::PointD const & pt)
-  {
-    UserMarkControllerGuard guard(m_bmManager, UserMarkType::DEBUG_MARK);
-    guard.m_controller.SetIsVisible(true);
-    guard.m_controller.SetIsDrawable(true);
-
-    guard.m_controller.CreateUserMark(pt);
-  };
-#else
-  routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
-#endif
-  m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
-  m_routingSession.SetReadyCallbacks([&](Route const & route, IRouter::ResultCode code){ OnBuildRouteReady(route, code); },
-                                     [&](Route const & route, IRouter::ResultCode code){ OnRebuildRouteReady(route, code); });
-
-  SetRouterImpl(RouterType::Vehicle);
+  m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
   UpdateMinBuildingsTapZoom();
 
@@ -632,7 +594,7 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
 void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
-  m_routingSession.Reset();
+  m_routingManager.ResetRoutingSession();
 
   m2::RectD rect = MercatorBounds::FullRect();
 
@@ -653,7 +615,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
 bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
-  m_routingSession.Reset();
+  m_routingManager.ResetRoutingSession();
 
   if (countryId == m_lastReportedCountry)
     m_lastReportedCountry = kInvalidCountryId;
@@ -1407,7 +1369,7 @@ void Framework::EnterBackground()
   SaveViewport();
 
   m_trafficManager.OnEnterBackground();
-  m_trackingReporter.SetAllowSendingPoints(false);
+  m_routingManager.SetAllowSendingPoints(false);
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -1429,7 +1391,7 @@ void Framework::EnterForeground()
   CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
 
   m_trafficManager.OnEnterForeground();
-  m_trackingReporter.SetAllowSendingPoints(true);
+  m_routingManager.SetAllowSendingPoints(true);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1885,8 +1847,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
       move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
-      m_routingSession.IsActive() && m_routingSession.IsFollowing(), isAutozoomEnabled,
-      simplifiedTrafficColors, move(overlaysShowStatsFn));
+      m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
+      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
@@ -1912,14 +1874,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   SetVisibleViewport(m2::RectD(0, 0, params.m_surfaceWidth, params.m_surfaceHeight));
 
-  // In case of the engine reinitialization recover route.
-  if (m_routingSession.IsActive())
-  {
-    InsertRoute(*m_routingSession.GetRoute());
-    if (allow3d && m_routingSession.IsFollowing())
-      m_drapeEngine->EnablePerspective();
-  }
-
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 
@@ -1929,6 +1883,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   });
 
   m_drapeApi.SetEngine(make_ref(m_drapeEngine));
+  m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
 
@@ -2074,7 +2029,7 @@ void Framework::SetupMeasurementSystem()
   auto units = measurement_utils::Units::Metric;
   UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
 
-  m_routingSession.SetTurnNotificationsUnits(units);
+  m_routingManager.SetTurnNotificationsUnits(units);
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
@@ -2573,355 +2528,6 @@ void Framework::UpdateSavedDataVersion()
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 
-void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
-
-  m2::PointD start;
-  if (!m_drapeEngine->GetMyPosition(start))
-  {
-    CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
-    return;
-  }
-  BuildRoute(start, finish, false /* isP2P */, timeoutSec);
-}
-
-void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P, uint32_t timeoutSec)
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
-
-  // Send tag to Push Woosh.
-  {
-    string tag;
-    switch (m_currentRouterType)
-    {
-    case RouterType::Vehicle:
-      tag = isP2P ? marketing::kRoutingP2PVehicleDiscovered : marketing::kRoutingVehicleDiscovered;
-      break;
-    case RouterType::Pedestrian:
-      tag = isP2P ? marketing::kRoutingP2PPedestrianDiscovered : marketing::kRoutingPedestrianDiscovered;
-      break;
-    case RouterType::Bicycle:
-      tag = isP2P ? marketing::kRoutingP2PBicycleDiscovered : marketing::kRoutingBicycleDiscovered;
-      break;
-    case RouterType::Taxi:
-      tag = isP2P ? marketing::kRoutingP2PTaxiDiscovered : marketing::kRoutingTaxiDiscovered;
-      break;
-    case RouterType::Count:
-      CHECK(false, ("Bad router type", m_currentRouterType));
-    }
-    GetPlatform().GetMarketingService().SendPushWooshTag(tag);
-  }
-
-  if (IsRoutingActive())
-    CloseRouting();
-
-  m_routingSession.SetUserCurrentPosition(start);
-  m_routingSession.BuildRoute(start, finish, timeoutSec);
-}
-
-void Framework::FollowRoute()
-{
-  ASSERT(m_drapeEngine != nullptr, ());
-
-  if (!m_routingSession.EnableFollowMode())
-    return;
-
-  bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
-  bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
-  int const scale = isPedestrianRoute ? scales::GetPedestrianNavigationScale()
-                                      : scales::GetNavigationScale();
-  int scale3d = isPedestrianRoute ? scales::GetPedestrianNavigation3dScale()
-                                  : scales::GetNavigation3dScale();
-  if (enableAutoZoom)
-    ++scale3d;
-
-  bool const isBicycleRoute = m_currentRouterType == RouterType::Bicycle;
-  if ((isPedestrianRoute || isBicycleRoute) && LoadTrafficEnabled())
-  {
-    m_trafficManager.SetEnabled(false /* enabled */);
-    SaveTrafficEnabled(false /* enabled */);
-  }
-
-  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
-  m_drapeEngine->SetRoutePoint(m2::PointD(), true /* isStart */, false /* isValid */);
-}
-
-bool Framework::DisableFollowMode()
-{
-  bool const disabled = m_routingSession.DisableFollowMode();
-  if (disabled && m_drapeEngine != nullptr)
-    m_drapeEngine->DeactivateRouteFollowing();
-
-  return disabled;
-}
-
-void Framework::SetRouter(RouterType type)
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("SetRouter"));
-
-  if (m_currentRouterType == type)
-    return;
-
-  SetLastUsedRouter(type);
-  SetRouterImpl(type);
-}
-
-routing::RouterType Framework::GetRouter() const
-{
-  return m_currentRouterType;
-}
-
-void Framework::SetRouterImpl(RouterType type)
-{
-  unique_ptr<IRouter> router;
-  unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
-
-  auto const countryFileGetter = [this](m2::PointD const & p) -> string
-  {
-    // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
-    // instances instead of plain strings.
-    return m_infoGetter->GetRegionCountryId(p);
-  };
-
-  if (type == RouterType::Pedestrian)
-  {
-    router = CreatePedestrianAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
-    m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
-  }
-  else if (type == RouterType::Bicycle)
-  {
-    router = CreateBicycleAStarBidirectionalRouter(m_model.GetIndex(), countryFileGetter);
-    m_routingSession.SetRoutingSettings(routing::GetBicycleRoutingSettings());
-  }
-  else
-  {
-    auto localFileChecker = [this](string const & countryFile) -> bool {
-      MwmSet::MwmId const mwmId =
-          m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile));
-      if (!mwmId.IsAlive())
-        return false;
-
-      return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
-    };
-
-    auto numMwmIds = make_shared<routing::NumMwmIds>();
-    m_storage.ForEachCountryFile(
-        [&](platform::CountryFile const & file) { numMwmIds->RegisterFile(file); });
-
-    auto const getMwmRectByName = [this](string const & countryId) -> m2::RectD {
-      return m_infoGetter->GetLimitRectForLeaf(countryId);
-    };
-
-    router.reset(
-        new CarRouter(m_model.GetIndex(), countryFileGetter,
-                      IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
-                                                   MakeNumMwmTree(*numMwmIds, *m_infoGetter),
-                                                   m_routingSession, m_model.GetIndex())));
-    fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
-    m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
-  }
-
-  m_routingSession.SetRouter(move(router), move(fetcher));
-  m_currentRouterType = type;
-}
-
-void Framework::RemoveRoute(bool deactivateFollowing)
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveRoute(deactivateFollowing);
-}
-
-void Framework::CloseRouting()
-{
-  if (m_routingSession.IsBuilt())
-  {
-    m_routingSession.EmitCloseRoutingEvent();
-  }
-  m_routingSession.Reset();
-  RemoveRoute(true /* deactivateFollowing */);
-}
-
-void Framework::InsertRoute(Route const & route)
-{
-  if (m_drapeEngine == nullptr)
-    return;
-
-  if (route.GetPoly().GetSize() < 2)
-  {
-    LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));
-    return;
-  }
-
-  vector<double> turns;
-  if (m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle ||
-      m_currentRouterType == RouterType::Taxi)
-  {
-    route.GetTurnsDistances(turns);
-  }
-
-  df::ColorConstant routeColor = df::kRouteColor;
-  df::RoutePattern pattern;
-  if (m_currentRouterType == RouterType::Pedestrian)
-  {
-    routeColor = df::kRoutePedestrian;
-    pattern = df::RoutePattern(4.0, 2.0);
-  }
-  else if (m_currentRouterType == RouterType::Bicycle)
-  {
-    routeColor = df::kRouteBicycle;
-    pattern = df::RoutePattern(8.0, 2.0);
-  }
-
-  m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor, route.GetTraffic(), pattern);
-}
-
-void Framework::CheckLocationForRouting(GpsInfo const & info)
-{
-  if (!IsRoutingActive())
-    return;
-
-  RoutingSession::State state = m_routingSession.OnLocationPositionChanged(info, m_model.GetIndex());
-  if (state == RoutingSession::RouteNeedRebuild)
-  {
-    m_routingSession.RebuildRoute(MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
-                                  [&](Route const & route, IRouter::ResultCode code){ OnRebuildRouteReady(route, code); },
-                                  0 /* timeoutSec */,
-                                  routing::RoutingSession::State::RouteRebuilding);
-  }
-}
-
-void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
-{
-  if (!IsRoutingActive())
-    return;
-
-  m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
-}
-
-void Framework::CallRouteBuilded(IRouter::ResultCode code, storage::TCountriesVec const & absentCountries)
-{
-  if (code == IRouter::Cancelled)
-    return;
-  m_routingCallback(code, absentCountries);
-}
-
-string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
-{
-  string messageID = "";
-  switch (code)
-  {
-  case IRouter::NoCurrentPosition:
-    messageID = "routing_failed_unknown_my_position";
-    break;
-  case IRouter::InconsistentMWMandRoute: // the same as RouteFileNotExist
-  case IRouter::RouteFileNotExist:
-    messageID = "routing_failed_has_no_routing_file";
-    break;
-  case IRouter::StartPointNotFound:
-    messageID = "routing_failed_start_point_not_found";
-    break;
-  case IRouter::EndPointNotFound:
-    messageID = "routing_failed_dst_point_not_found";
-    break;
-  case IRouter::PointsInDifferentMWM:
-    messageID = "routing_failed_cross_mwm_building";
-    break;
-  case IRouter::RouteNotFound:
-    messageID = "routing_failed_route_not_found";
-    break;
-  case IRouter::InternalError:
-    messageID = "routing_failed_internal_error";
-    break;
-  default:
-    ASSERT(false, ());
-  }
-
-  return m_stringsBundle.GetString(messageID);
-}
-
-void Framework::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
-{
-  storage::TCountriesVec absentCountries;
-  if (code == IRouter::NoError)
-  {
-    double const kRouteScaleMultiplier = 1.5;
-
-    InsertRoute(route);
-    StopLocationFollow();
-
-    // Validate route (in case of bicycle routing it can be invalid).
-    ASSERT(route.IsValid(), ());
-    if (route.IsValid())
-    {
-      m2::RectD routeRect = route.GetPoly().GetLimitRect();
-      routeRect.Scale(kRouteScaleMultiplier);
-      ShowRect(routeRect, -1);
-    }
-  }
-  else
-  {
-    absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
-
-    if (code != IRouter::NeedMoreMaps)
-      RemoveRoute(true /* deactivateFollowing */);
-  }
-  CallRouteBuilded(code, absentCountries);
-}
-
-void Framework::OnRebuildRouteReady(Route const & route, IRouter::ResultCode code)
-{
-  if (code != IRouter::NoError)
-    return;
-
-  RemoveRoute(false /* deactivateFollowing */);
-  InsertRoute(route);
-  CallRouteBuilded(code, storage::TCountriesVec());
-}
-
-RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const
-{
-  // todo Implement something more sophisticated here (or delete the method).
-  return GetLastUsedRouter();
-}
-
-RouterType Framework::GetLastUsedRouter() const
-{
-  string routerTypeStr;
-  if (!settings::Get(kRouterTypeKey, routerTypeStr))
-    return RouterType::Vehicle;
-
-  auto const routerType = routing::FromString(routerTypeStr);
-
-  switch (routerType)
-  {
-  case RouterType::Pedestrian:
-  case RouterType::Bicycle:
-    return routerType;
-  default:
-    return RouterType::Vehicle;
-  }
-}
-
-void Framework::SetLastUsedRouter(RouterType type)
-{
-  settings::Set(kRouterTypeKey, routing::ToString(type));
-}
-
-void Framework::SetRouteStartPoint(m2::PointD const & pt, bool isValid)
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetRoutePoint(pt, true /* isStart */, isValid);
-}
-
-void Framework::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetRoutePoint(pt, false /* isStart */, isValid);
-}
-
 void Framework::AllowTransliteration(bool allowTranslit)
 {
   Transliteration::Instance().SetMode(allowTranslit ? Transliteration::Mode::Enabled
@@ -3022,8 +2628,9 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  bool const isPedestrianRoute = m_currentRouterType == RouterType::Pedestrian;
-  bool const isTaxiRoute = m_currentRouterType == RouterType::Taxi;
+  routing::RouterType const type = m_routingManager.GetRouter();
+  bool const isPedestrianRoute = type == RouterType::Pedestrian;
+  bool const isTaxiRoute = type == RouterType::Taxi;
 
   CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1,
                          allowAutoZoom && !isPedestrianRoute && !isTaxiRoute));
@@ -3546,47 +3153,6 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
 }
 
-bool Framework::HasRouteAltitude() const { return m_routingSession.HasRouteAltitude(); }
-
-bool Framework::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                           vector<uint8_t> & imageRGBAData,
-                                           int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
-                                           measurement_utils::Units & altitudeUnits) const
-{
-  feature::TAltitudes altitudes;
-  vector<double> segDistance;
-
-  if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistance, altitudes))
-    return false;
-  segDistance.insert(segDistance.begin(), 0.0);
-
-  if (altitudes.empty())
-    return false;
-
-  if (!maps::GenerateChart(width, height, segDistance, altitudes, GetMapStyle(), imageRGBAData))
-    return false;
-
-  auto const minMaxIt = minmax_element(altitudes.cbegin(), altitudes.cend());
-  feature::TAltitude const minRouteAltitudeM = *minMaxIt.first;
-  feature::TAltitude const maxRouteAltitudeM = *minMaxIt.second;
-
-  if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
-    altitudeUnits = measurement_utils::Units::Metric;
-
-  switch (altitudeUnits)
-  {
-  case measurement_utils::Units::Imperial:
-    minRouteAltitude = measurement_utils::MetersToFeet(minRouteAltitudeM);
-    maxRouteAltitude = measurement_utils::MetersToFeet(maxRouteAltitudeM);
-    break;
-  case measurement_utils::Units::Metric:
-    minRouteAltitude = minRouteAltitudeM;
-    maxRouteAltitude = maxRouteAltitudeM;
-    break;
-  }
-  return true;
-}
-
 namespace
 {
   vector<dp::Color> colorList = { dp::Color(255, 0, 0, 255), dp::Color(0, 255, 0, 255), dp::Color(0, 0, 255, 255),
@@ -3656,4 +3222,33 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
 MwmSet::MwmId Framework::GetMwmIdByName(std::string const & name) const
 {
   return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
+}
+
+// RoutingManager::Delegate
+void Framework::OnRouteFollow(routing::RouterType type)
+{
+  bool const isPedestrianRoute = type == RouterType::Pedestrian;
+  bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
+  int const scale =
+      isPedestrianRoute ? scales::GetPedestrianNavigationScale() : scales::GetNavigationScale();
+  int scale3d =
+      isPedestrianRoute ? scales::GetPedestrianNavigation3dScale() : scales::GetNavigation3dScale();
+  if (enableAutoZoom)
+    ++scale3d;
+
+  bool const isBicycleRoute = type == RouterType::Bicycle;
+  if ((isPedestrianRoute || isBicycleRoute) && LoadTrafficEnabled())
+  {
+    m_trafficManager.SetEnabled(false /* enabled */);
+    SaveTrafficEnabled(false /* enabled */);
+  }
+
+  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
+}
+
+// RoutingManager::Delegate
+void Framework::RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const
+{
+  m_storage.ForEachCountryFile(
+      [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
 }

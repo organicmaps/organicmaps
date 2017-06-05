@@ -98,7 +98,7 @@ using namespace storage;
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
-  if (!nodeAttrs.m_present && !f.IsRoutingActive())
+  if (!nodeAttrs.m_present && !f.GetRoutingManager().IsRoutingActive())
   {
     BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
     BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());

@@ -109,6 +109,8 @@
 		F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283001C1B03320081957A /* gps_track_storage.hpp */; };
 		F6B283091C1B03320081957A /* gps_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B283011C1B03320081957A /* gps_track.cpp */; };
 		F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283021C1B03320081957A /* gps_track.hpp */; };
+		F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */; };
+		F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -236,6 +238,8 @@
 		F6B283001C1B03320081957A /* gps_track_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_storage.hpp; sourceTree = "<group>"; };
 		F6B283011C1B03320081957A /* gps_track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track.cpp; sourceTree = "<group>"; };
 		F6B283021C1B03320081957A /* gps_track.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track.hpp; sourceTree = "<group>"; };
+		F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_manager.cpp; sourceTree = "<group>"; };
+		F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_manager.hpp; sourceTree = "<group>"; };
 		F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		F6DA2A981CCE252600F087B5 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		F6DA2A991CCE252600F087B5 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -418,6 +422,8 @@
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
 				F63421F61DF9BF9100A96868 /* reachable_by_taxi_checker.cpp */,
 				F63421F71DF9BF9100A96868 /* reachable_by_taxi_checker.hpp */,
+				F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */,
+				F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */,
 				347B60741DD9926D0050FA24 /* traffic_manager.cpp */,
 				347B60751DD9926D0050FA24 /* traffic_manager.hpp */,
 				348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */,
@@ -495,6 +501,7 @@
 				6753469C1A4054E800A0A8C3 /* track.hpp in Headers */,
 				675346651A4054E800A0A8C3 /* framework.hpp in Headers */,
 				674A2A381B2715FB001A525C /* osm_opening_hours.hpp in Headers */,
+				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
 				670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */,
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
 				342D833B1D5233E8000D8AEA /* displacement_mode_manager.hpp in Headers */,
@@ -619,6 +626,7 @@
 				342D833A1D5233E8000D8AEA /* displacement_mode_manager.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				675346661A4054E800A0A8C3 /* ge0_parser.cpp in Sources */,
+				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */,
 				0C2B73DE1E92AB9900530BB8 /* local_ads_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,

@@ -45,7 +45,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * paren
       [this](place_page::Info const & info) { ShowPlacePage(info); },
       [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
 
-  m_framework.SetRouteBuildingListener(
+  m_framework.GetRoutingManager().SetRouteBuildingListener(
       [](routing::IRouter::ResultCode, storage::TCountriesVec const &) {});
 
   m_framework.SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId) {
@@ -314,10 +314,10 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   m_framework.OnLocationUpdate(info);
 
-  if (m_framework.IsRoutingActive())
+  if (m_framework.GetRoutingManager().IsRoutingActive())
   {
     location::FollowingInfo loc;
-    m_framework.GetRouteFollowingInfo(loc);
+    m_framework.GetRoutingManager().GetRouteFollowingInfo(loc);
     LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
                  "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix,
                  ") Roundabout exit number:", loc.m_exitNum));
@@ -326,10 +326,11 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
-  if (m_framework.IsRoutingActive())
-    m_framework.CloseRouting();
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.IsRoutingActive())
+    routingManager.CloseRouting();
   else
-    m_framework.BuildRoute(m_framework.PtoG(pt), 0 /* timeoutSec */);
+    routingManager.BuildRoute(m_framework.PtoG(pt), 0 /* timeoutSec */);
 }
 
 void DrawWidget::ShowPlacePage(place_page::Info const & info)
@@ -399,7 +400,7 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 
 void DrawWidget::SetRouter(routing::RouterType routerType)
 {
-  m_framework.SetRouter(routerType);
+  m_framework.GetRoutingManager().SetRouter(routerType);
 }
 
 void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
