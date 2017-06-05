@@ -90,9 +90,13 @@ namespace android
 
     void SetupMeasurementSystem();
 
-    void SetRouter(routing::RouterType type) { m_work.SetRouter(type); }
-    routing::RouterType GetRouter() const { return m_work.GetRouter(); }
-    routing::RouterType GetLastUsedRouter() const { return m_work.GetLastUsedRouter(); }
+    RoutingManager & GetRoutingManager() { return m_work.GetRoutingManager(); }
+    void SetRouter(routing::RouterType type) { m_work.GetRoutingManager().SetRouter(type); }
+    routing::RouterType GetRouter() const { return m_work.GetRoutingManager().GetRouter(); }
+    routing::RouterType GetLastUsedRouter() const
+    {
+      return m_work.GetRoutingManager().GetLastUsedRouter();
+    }
 
     void Resize(int w, int h);
 

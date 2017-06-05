@@ -891,25 +891,25 @@ Java_com_mapswithme_maps_Framework_nativeLoadBookmarks(JNIEnv * env, jclass)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass)
 {
-  return frm()->IsRoutingActive();
+  return frm()->GetRoutingManager().IsRoutingActive();
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
 {
-  return frm()->IsRouteBuilding();
+  return frm()->GetRoutingManager().IsRouteBuilding();
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass)
 {
-  return frm()->IsRouteBuilt();
+  return frm()->GetRoutingManager().IsRouteBuilt();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass)
 {
-  frm()->CloseRouting();
+  frm()->GetRoutingManager().CloseRouting();
 }
 
 JNIEXPORT void JNICALL
@@ -918,33 +918,32 @@ Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass,
                                                     jdouble finishLat, jdouble finishLon,
                                                     jboolean isP2P)
 {
-  frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-                    MercatorBounds::FromLatLon(finishLat, finishLon),
-                    isP2P, 0 /* timeoutSec */);
-
+  frm()->GetRoutingManager().BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
+                                        MercatorBounds::FromLatLon(finishLat, finishLon), isP2P,
+                                        0 /* timeoutSec */);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass)
 {
-  frm()->FollowRoute();
+  frm()->GetRoutingManager().FollowRoute();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 {
-  frm()->DisableFollowMode();
+  frm()->GetRoutingManager().DisableFollowMode();
 }
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass)
 {
   ::Framework * fr = frm();
-  if (!fr->IsRoutingActive())
+  if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
   vector<string> turnNotifications;
-  fr->GenerateTurnNotifications(turnNotifications);
+  fr->GetRoutingManager().GenerateTurnNotifications(turnNotifications);
   if (turnNotifications.empty())
     return nullptr;
 
@@ -955,11 +954,11 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 {
   ::Framework * fr = frm();
-  if (!fr->IsRoutingActive())
+  if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
   location::FollowingInfo info;
-  fr->GetRouteFollowingInfo(info);
+  fr->GetRoutingManager().GetRouteFollowingInfo(info);
   if (!info.IsValid())
     return nullptr;
 
@@ -1016,7 +1015,8 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   int32_t minRouteAltitude = 0;
   int32_t maxRouteAltitude = 0;
   measurement_utils::Units units = measurement_utils::Units::Metric;
-  if (!fr->GenerateRouteAltitudeChart(width, height, imageRGBAData, minRouteAltitude, maxRouteAltitude, units))
+  if (!fr->GetRoutingManager().GenerateRouteAltitudeChart(
+          width, height, imageRGBAData, minRouteAltitude, maxRouteAltitude, units))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
@@ -1078,14 +1078,16 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
-  frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
+  frm()->GetRoutingManager().SetRouteBuildingListener(
+      bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
-  frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
+  frm()->GetRoutingManager().SetRouteProgressListener(
+      bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
 }
 
 JNIEXPORT void JNICALL
@@ -1119,37 +1121,40 @@ Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass, jint
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass, jint routerType)
 {
-  g_framework->SetRouter(static_cast<routing::RouterType>(routerType));
+  g_framework->GetRoutingManager().SetRouter(static_cast<routing::RouterType>(routerType));
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetRouter(JNIEnv * env, jclass)
 {
-  return static_cast<jint>(g_framework->GetRouter());
+  return static_cast<jint>(g_framework->GetRoutingManager().GetRouter());
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass)
 {
-  return static_cast<jint>(g_framework->GetLastUsedRouter());
+  return static_cast<jint>(g_framework->GetRoutingManager().GetLastUsedRouter());
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
 {
-  return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
+  return static_cast<jint>(frm()->GetRoutingManager().GetBestRouter(
+      MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
 {
-  frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
+  frm()->GetRoutingManager().SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
+                                                static_cast<bool>(valid));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
 {
-  frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
+  frm()->GetRoutingManager().SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
+                                                 static_cast<bool>(valid));
 }
 
 JNIEXPORT void JNICALL
@@ -1289,7 +1294,7 @@ Java_com_mapswithme_maps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, ji
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
 {
-  return frm()->IsRouteFinished();
+  return frm()->GetRoutingManager().IsRouteFinished();
 }
 
 JNIEXPORT void JNICALL
