@@ -16,7 +16,7 @@ class TextShape : public MapShape
 {
 public:
   TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-            TileKey const & tileKey, bool hasPOI,
+            TileKey const & tileKey, bool hasPOI, m2::PointF const & symbolSize,
             uint32_t textIndex, bool affectedByZoomPriority,
             bool specialDisplacementMode = false, uint16_t specialModePriority = 0xFFFF);
 
@@ -44,6 +44,7 @@ private:
   TextViewParams m_params;
   m2::PointI m_tileCoords;
   bool m_hasPOI;
+  m2::PointF m_symbolSize;
   bool m_affectedByZoomPriority;
   uint32_t m_textIndex;
 

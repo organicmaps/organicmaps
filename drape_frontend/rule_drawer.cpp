@@ -217,17 +217,8 @@ bool RuleDrawer::CheckCancelled()
   return m_wasCancelled;
 }
 
-void RuleDrawer::operator()(FeatureType const & f)
+bool RuleDrawer::CheckCoastlines(FeatureType const & f, Stylist const & s)
 {
-  if (CheckCancelled())
-    return;
-
-  Stylist s;
-  m_callback(f, s);
-
-  if (s.IsEmpty())
-    return;
-
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   if (s.IsCoastLine() &&
@@ -242,11 +233,179 @@ void RuleDrawer::operator()(FeatureType const & f)
       while (iter)
       {
         if (m_isLoadedFn(*iter))
-          return;
+          return false;
         ++iter;
       }
     }
   }
+  return true;
+}
+
+void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                                  int & minVisibleScale)
+{
+  bool isBuilding = false;
+  bool is3dBuilding = false;
+  bool isBuildingOutline = false;
+  if (f.GetLayer() >= 0)
+  {
+    bool const hasParts = IsBuildingHasPartsChecker::Instance()(f);
+    bool const isPart = IsBuildingPartChecker::Instance()(f);
+
+    // Looks like nonsense, but there are some osm objects with types
+    // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
+    isBuilding = (isPart || ftypes::IsBuildingChecker::Instance()(f)) &&
+        !ftypes::IsBridgeChecker::Instance()(f) &&
+        !ftypes::IsTunnelChecker::Instance()(f);
+
+    isBuildingOutline = isBuilding && hasParts && !isPart;
+    is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
+  }
+
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
+  m2::PointD featureCenter;
+
+  bool hatchingArea = false;
+
+  float areaHeight = 0.0f;
+  float areaMinHeight = 0.0f;
+  if (is3dBuilding)
+  {
+    double const heightInMeters = GetBuildingHeightInMeters(f);
+    double const minHeightInMeters = GetBuildingMinHeightInMeters(f);
+    featureCenter = feature::GetCenter(f, zoomLevel);
+    double const lon = MercatorBounds::XToLon(featureCenter.x);
+    double const lat = MercatorBounds::YToLat(featureCenter.y);
+
+    m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
+    areaHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
+
+    rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeightInMeters);
+    areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
+  }
+  else
+  {
+    hatchingArea = IsHatchingTerritoryChecker::Instance()(f);
+  }
+
+  bool applyPointStyle = s.PointStyleExists();
+  if (applyPointStyle)
+  {
+    if (!is3dBuilding)
+      featureCenter = feature::GetCenter(f, zoomLevel);
+    applyPointStyle = m_globalRect.IsPointInside(featureCenter);
+  }
+
+  if (applyPointStyle || is3dBuilding)
+    minVisibleScale = feature::GetMinDrawableScale(f);
+
+  ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
+                         m_currentScaleGtoP, isBuilding,
+                         m_context->Is3dBuildingsEnabled() && isBuildingOutline,
+                         areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
+                         s.GetCaptionDescription(), hatchingArea);
+  f.ForEachTriangle(apply, zoomLevel);
+  apply.SetHotelData(ExtractHotelData(f));
+  if (applyPointStyle)
+    apply(featureCenter, true /* hasArea */);
+
+  if (CheckCancelled())
+    return;
+
+  s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
+  apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
+}
+
+void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                                  int & minVisibleScale)
+{
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
+  ApplyLineFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
+                         m_currentScaleGtoP, minVisibleScale, f.GetRank(),
+                         s.GetCaptionDescription(), f.GetPointsCount());
+  f.ForEachPoint(apply, zoomLevel);
+
+  if (CheckCancelled())
+    return;
+
+  if (apply.HasGeometry())
+    s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
+
+  apply.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f));
+
+  if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
+  {
+    struct Checker
+    {
+      std::vector<ftypes::HighwayClass> m_highwayClasses;
+      int m_zoomLevel;
+      df::RoadClass m_roadClass;
+    };
+    static Checker const checkers[] = {
+      {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary},
+       kRoadClass0ZoomLevel, df::RoadClass::Class0},
+      {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary},
+       kRoadClass1ZoomLevel, df::RoadClass::Class1},
+      {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service},
+       kRoadClass2ZoomLevel, df::RoadClass::Class2}
+    };
+
+    bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
+    auto const highwayClass = ftypes::GetHighwayClass(f);
+    for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
+    {
+      auto const & classes = checkers[i].m_highwayClasses;
+      if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
+          zoomLevel >= checkers[i].m_zoomLevel)
+      {
+        std::vector<m2::PointD> points;
+        points.reserve(f.GetPointsCount());
+        f.ResetGeometry();
+        f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
+                       FeatureType::BEST_GEOMETRY);
+        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
+                               zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
+        break;
+      }
+    }
+  }
+}
+
+void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+                                   int & minVisibleScale)
+{
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
+  minVisibleScale = feature::GetMinDrawableScale(f);
+  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+                          s.GetCaptionDescription(), 0.0f /* posZ */, m_context->GetDisplacementMode());
+  apply.SetHotelData(ExtractHotelData(f));
+  f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
+
+  if (CheckCancelled())
+    return;
+
+  s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
+  apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
+}
+
+void RuleDrawer::operator()(FeatureType const & f)
+{
+  if (CheckCancelled())
+    return;
+
+  Stylist s;
+  m_callback(f, s);
+
+  if (s.IsEmpty())
+    return;
+
+  if (!CheckCoastlines(f, s))
+    return;
+
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   // FeatureType::GetLimitRect call invokes full geometry reading and decoding.
   // That's why this code follows after all lightweight return options.
@@ -276,146 +435,39 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    bool isBuilding = false;
-    bool is3dBuilding = false;
-    bool isBuildingOutline = false;
-    if (f.GetLayer() >= 0)
-    {
-      bool const hasParts = IsBuildingHasPartsChecker::Instance()(f);
-      bool const isPart = IsBuildingPartChecker::Instance()(f);
-
-      // Looks like nonsense, but there are some osm objects with types
-      // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
-      isBuilding = (isPart || ftypes::IsBuildingChecker::Instance()(f)) &&
-          !ftypes::IsBridgeChecker::Instance()(f) &&
-          !ftypes::IsTunnelChecker::Instance()(f);
-
-      isBuildingOutline = isBuilding && hasParts && !isPart;
-      is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
-    }
-
-    m2::PointD featureCenter;
-
-    bool hatchingArea = false;
-
-    float areaHeight = 0.0f;
-    float areaMinHeight = 0.0f;
-    if (is3dBuilding)
-    {
-      double const heightInMeters = GetBuildingHeightInMeters(f);
-      double const minHeightInMeters = GetBuildingMinHeightInMeters(f);
-      featureCenter = feature::GetCenter(f, zoomLevel);
-      double const lon = MercatorBounds::XToLon(featureCenter.x);
-      double const lat = MercatorBounds::YToLat(featureCenter.y);
-
-      m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
-      areaHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
-
-      rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeightInMeters);
-      areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
-    }
-    else
-    {
-      hatchingArea = IsHatchingTerritoryChecker::Instance()(f);
-    }
-
-    bool applyPointStyle = s.PointStyleExists();
-    if (applyPointStyle)
-    {
-      if (!is3dBuilding)
-        featureCenter = feature::GetCenter(f, zoomLevel);
-      applyPointStyle = m_globalRect.IsPointInside(featureCenter);
-    }
-
-    if (applyPointStyle || is3dBuilding)
-      minVisibleScale = feature::GetMinDrawableScale(f);
-
-    ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
-                           m_currentScaleGtoP, isBuilding,
-                           m_context->Is3dBuildingsEnabled() && isBuildingOutline,
-                           areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
-                           s.GetCaptionDescription(), hatchingArea);
-    f.ForEachTriangle(apply, zoomLevel);
-    apply.SetHotelData(ExtractHotelData(f));
-    if (applyPointStyle)
-      apply(featureCenter, true /* hasArea */);
-
-    if (CheckCancelled())
-      return;
-
-    s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
-    apply.Finish(m_customSymbolsContext);
+    ProcessAreaStyle(f, s, insertShape, minVisibleScale);
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
-                           m_currentScaleGtoP, minVisibleScale, f.GetRank(),
-                           s.GetCaptionDescription(), f.GetPointsCount());
-    f.ForEachPoint(apply, zoomLevel);
-
-    if (CheckCancelled())
-      return;
-
-    if (apply.HasGeometry())
-      s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
-
-    apply.Finish(ftypes::GetRoadShields(f));
-
-    if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
-    {
-      struct Checker
-      {
-        std::vector<ftypes::HighwayClass> m_highwayClasses;
-        int m_zoomLevel;
-        df::RoadClass m_roadClass;
-      };
-      static Checker const checkers[] = {
-        {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary},
-         kRoadClass0ZoomLevel, df::RoadClass::Class0},
-        {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary},
-         kRoadClass1ZoomLevel, df::RoadClass::Class1},
-        {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service},
-         kRoadClass2ZoomLevel, df::RoadClass::Class2}
-      };
-
-      bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
-      auto const highwayClass = ftypes::GetHighwayClass(f);
-      for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
-      {
-        auto const & classes = checkers[i].m_highwayClasses;
-        if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
-            zoomLevel >= checkers[i].m_zoomLevel)
-        {
-          std::vector<m2::PointD> points;
-          points.reserve(f.GetPointsCount());
-          f.ResetGeometry();
-          f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
-                         FeatureType::BEST_GEOMETRY);
-          ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
-                                 zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
-          break;
-        }
-      }
-    }
+    ProcessLineStyle(f, s, insertShape, minVisibleScale);
   }
   else
   {
     ASSERT(s.PointStyleExists(), ());
-
-    minVisibleScale = feature::GetMinDrawableScale(f);
-    ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
-                            s.GetCaptionDescription(), 0.0f /* posZ */, m_context->GetDisplacementMode());
-    apply.SetHotelData(ExtractHotelData(f));
-    f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
-
-    if (CheckCancelled())
-      return;
-
-    s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
-    apply.Finish(m_customSymbolsContext);
+    ProcessPointStyle(f, s, insertShape, minVisibleScale);
   }
 
 #ifdef DRAW_TILE_NET
+  DrawTileNet(insertShape);
+#endif
+
+  if (CheckCancelled())
+    return;
+
+  for (auto const & shape : m_mapShapes[df::GeometryType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::GeometryType].empty())
+  {
+    TMapShapes geomShapes;
+    geomShapes.swap(m_mapShapes[df::GeometryType]);
+    m_context->Flush(std::move(geomShapes));
+  }
+}
+
+#ifdef DRAW_TILE_NET
+void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
+{
   TileKey key = m_context->GetTileKey();
   m2::RectD r = key.GetGlobalRect();
   std::vector<m2::PointD> path;
@@ -451,19 +503,6 @@ void RuleDrawer::operator()(FeatureType const & f)
       make_unique_dp<TextShape>(r.Center(), tp, m_context->GetTileKey(), false, 0, false);
   textShape->DisableDisplacing();
   insertShape(std::move(textShape));
-#endif
-
-  if (CheckCancelled())
-    return;
-
-  for (auto const & shape : m_mapShapes[df::GeometryType])
-    shape->Prepare(m_context->GetTextureManager());
-
-  if (!m_mapShapes[df::GeometryType].empty())
-  {
-    TMapShapes geomShapes;
-    geomShapes.swap(m_mapShapes[df::GeometryType]);
-    m_context->Flush(std::move(geomShapes));
-  }
 }
+#endif
 }  // namespace df

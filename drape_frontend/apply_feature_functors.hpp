@@ -28,6 +28,11 @@ namespace ftypes
 struct RoadShield;
 }
 
+namespace dp
+{
+class TextureManager;
+} // namespace dp
+
 namespace df
 {
 
@@ -84,7 +89,7 @@ public:
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish(CustomSymbolsContextPtr const & customSymbolsContext);
+  void Finish(ref_ptr<dp::TextureManager> texMng, CustomSymbolsContextPtr const & customSymbolsContext);
 
 protected:
   float const m_posZ;
@@ -98,6 +103,7 @@ private:
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;
   int m_displacementMode;
+  std::vector<TextViewParams> m_textParams;
 };
 
 class ApplyAreaFeature : public ApplyPointFeature
@@ -150,7 +156,7 @@ public:
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish(std::set<ftypes::RoadShield> && roadShields);
+  void Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftypes::RoadShield> && roadShields);
 
   m2::PolylineD GetPolyline() const;
 
