@@ -68,7 +68,7 @@ bool IsSupportedRGB8(EGLDisplay display, bool es3)
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
   return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs,
-                         kMaxConfigCount, &count) == EGL_TRUE;
+                         kMaxConfigCount, &count) == EGL_TRUE && count != 0;
 }
 }  // namespace
 
