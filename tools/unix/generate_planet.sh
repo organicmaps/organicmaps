@@ -167,7 +167,6 @@ fi
 NUM_PROCESSES=${NUM_PROCESSES:-$(($CPUS - 1))}
 
 STATUS_FILE="$INTDIR/status"
-OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
 if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
   # In a compact packaging python scripts may be placed along with shell scripts.
@@ -175,9 +174,9 @@ if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
 else
   PYTHON_SCRIPTS_PATH="$OMIM_PATH/tools/python"
 fi
-ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
+LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
 BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
@@ -189,6 +188,7 @@ COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
+TEST_LOG="$LOG_PATH/test_planet.log"
 [ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed at $(hostname)\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start ${DESC-}"
@@ -257,46 +257,46 @@ fi
 
 # The building process starts here
 
+# Download booking.com hotels. This takes around 3 hours, just like coastline processing.
+if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
+  log "STATUS" "Step S1: Starting background hotels downloading"
+  (
+      $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
+      if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
+        echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+      else
+        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
+          cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
+          warn "Failed to download hotels! Using older hotels list."
+        else
+          warn "Failed to download hotels!"
+        fi
+        [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
+      fi
+  ) &
+fi
+
+# Download opentable.com restaurants. This takes around 30 minutes.
+if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
+  log "STATUS" "Step S2: Starting background restaurants downloading"
+  (
+      $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log || true
+      if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
+        echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+      else
+        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
+          cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
+          warn "Failed to download restaurants! Using older restaurants list."
+        else
+          warn "Failed to download restaurants!"
+        fi
+        [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
+      fi
+  ) &
+fi
+
 if [ "$MODE" == "coast" ]; then
   putmode
-
-  # Download booking.com hotels. This takes around 3 hours, just like coastline processing.
-  if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
-    log "STATUS" "Step S1: Starting background hotels downloading"
-    (
-        $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
-        if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
-          echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
-        else
-          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
-            cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
-            warn "Failed to download hotels! Using older hotels list."
-          else
-            warn "Failed to download hotels!"
-          fi
-          [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
-        fi
-    ) &
-  fi
-
-  # Download opentable.com restaurants. This takes around 30 minutes.
-  if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
-    log "STATUS" "Step S2: Starting background restaurants downloading"
-    (
-        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log || true
-        if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
-          echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
-        else
-          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
-            cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
-            warn "Failed to download restaurants! Using older restaurants list."
-          else
-            warn "Failed to download restaurants!"
-          fi
-          [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
-        fi
-    ) &
-  fi
 
   [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c     "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
   [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
@@ -383,43 +383,6 @@ if [ "$MODE" == "roads" ]; then
   MODE=inter
 fi
 
-# Starting routing generation as early as we can, since it's done in parallel
-if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
-  if [ -e "$OSRM_FLAG" ]; then
-    log "start_routing(): OSRM files have been already created, no need to repeat"
-  else
-    putmode "Step R: Starting OSRM files generation"
-    PBF_FLAG="${OSRM_FLAG}_pbf"
-    if [ -n "$ASYNC_PBF" -a ! -e "$PBF_FLAG" ]; then
-      (
-        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
-        touch "$PBF_FLAG"
-        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
-        touch "$OSRM_FLAG"
-        rm "$PBF_FLAG"
-      ) &
-    else
-      # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
-      if [ -e "$PBF_FLAG" ]; then
-        log "start_routing(): PBF files have been already created, skipping that step"
-      else
-        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
-        touch "$PBF_FLAG"
-      fi
-      (
-        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
-        touch "$OSRM_FLAG"
-        rm "$PBF_FLAG"
-      ) &
-    fi
-  fi
-fi
-
-if [ -n "$OPT_ONLINE_ROUTING" -a -z "$NO_REGIONS" ]; then
-  putmode "Step RO: Generating OSRM files for osrm-routed server."
-  bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
-fi
-
 if [ "$MODE" == "inter" ]; then
   putmode "Step 3: Generating intermediate data for all MWMs"
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
@@ -427,6 +390,9 @@ if [ "$MODE" == "inter" ]; then
     -preprocess 2>> "$PLANET_LOG"
   MODE=features
 fi
+
+# Wait until booking and restaurants lists are downloaded.
+wait
 
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
@@ -495,6 +461,7 @@ if [ "$MODE" == "mwm" ]; then
         forky
       fi
     done
+    wait
   fi
 
   if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
@@ -504,25 +471,25 @@ if [ "$MODE" == "mwm" ]; then
   fi
 fi
 
-# The following steps require *.mwm and *.osrm files complete
-wait
-
 if [ "$MODE" == "routing" ]; then
   putmode "Step 6: Using freshly generated *.mwm and *.osrm to create routing files"
-  if [ ! -e "$OSRM_FLAG" ]; then
-    warn "OSRM files are missing, skipping routing step."
-  else
-    # If *.mwm.osm2ft were moved to INTDIR, let's put them back
-    [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
-    bash "$ROUTING_SCRIPT" mwm >> "$PLANET_LOG" 2>&1
-  fi
+  # If *.mwm.osm2ft were moved to INTDIR, let's put them back
+  [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
+
+  for file in "$TARGET"/*.mwm; do
+    if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
+      BASENAME="$(basename "$file" .mwm)"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+      forky
+    fi
+  done
+  wait
   MODE=resources
 fi
 
 # Clean up temporary routing files
-[ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 [ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
-[ -n "$(ls "$TARGET" | grep '\.mwm\.norouting')" ] && mkdir -p "$INTDIR/norouting" && mv "$TARGET"/*.mwm.norouting "$INTDIR/norouting"
 
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
@@ -560,14 +527,31 @@ if [ "$MODE" == "resources" ]; then
   MODE=test
 fi
 
-if [ "$MODE" == "test" ]; then
+if [ -n "${LOCALADS-}" ]; then
+  putmode "Step AD: Generating CSV for local ads database"
+  (
+    LOCALADS_PATH="$INTDIR/localads"
+    mkdir -p "$LOCALADS_PATH"
+    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH" --output "$LOCALADS_PATH" >> /dev/null 2>&1
+    LOCALADS_ARCHIVE="$INTDIR/localads_$COUNTRIES_VERSION.tgz"
+    tar -czf "$LOCALADS_ARCHIVE" "$LOCALADS_PATH"/* >> "$PLANET_LOG" 2>&1
+    AD_URL="$(curl -s --upload-file "$LOCALADS_ARCHIVE" "https://t.bk.ru/$(basename "$LOCALADS_ARCHIVE")")" >> "$PLANET_LOG" 2>&1
+    log STATUS "Uploaded localads file: $AD_URL"
+  ) &
+fi
+
+if [ "$MODE" == "test" -a -z "${SKIP_TESTS-}" ]; then
   putmode "Step 8: Testing data"
-  TEST_LOG="$LOG_PATH/test_planet.log"
   bash "$TESTING_SCRIPT" "$TARGET" "${DELTA_WITH-}" > "$TEST_LOG"
-  # Send both log files via e-mail
-  if [ -n "${MAIL-}" ]; then
-    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
-  fi
+else
+  echo "Tests were skipped" > "$TEST_LOG"
+fi
+
+wait
+
+# Send both log files via e-mail
+if [ -n "${MAIL-}" ]; then
+  cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
 fi
 
 # Clean temporary indices

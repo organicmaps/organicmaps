@@ -71,8 +71,11 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
                         RoadAccess::Type roadAccessType, uint64_t osmId) {
     auto & m = segmentType[static_cast<size_t>(vehicleType)];
     auto const emplaceRes = m.emplace(segment, roadAccessType);
-    if (!emplaceRes.second)
-      LOG(LERROR, ("Duplicate road access info for", osmId));
+    if (!emplaceRes.second && emplaceRes.first->second != roadAccessType)
+    {
+      LOG(LDEBUG, ("Duplicate road access info for OSM way", osmId, "vehicle:", vehicleType,
+                   "access is:", emplaceRes.first->second, "tried:", roadAccessType));
+    }
   };
 
   string line;
