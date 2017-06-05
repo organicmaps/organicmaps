@@ -307,6 +307,16 @@ public final class Config
     return getBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, false);
   }
 
+  public static boolean isTransliteration()
+  {
+    return nativeGetTransliteration();
+  }
+
+  public static void setTransliteration(boolean value)
+  {
+    nativeSetTransliteration(value);
+  }
+
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);
@@ -320,4 +330,6 @@ public final class Config
   private static native void nativeSetString(String name, String value);
   private static native boolean nativeGetLargeFontsSize();
   private static native void nativeSetLargeFontsSize(boolean value);
+  private static native boolean nativeGetTransliteration();
+  private static native void nativeSetTransliteration(boolean value);
 }

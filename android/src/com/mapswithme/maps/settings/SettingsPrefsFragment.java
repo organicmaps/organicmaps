@@ -287,6 +287,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initMapStylePrefsCallbacks();
     initAutoDownloadPrefsCallbacks();
     initLargeFontSizePrefsCallbacks();
+    initTransliterationPrefsCallbacks();
     init3dModePrefsCallbacks();
     initPerspectivePrefsCallbacks();
     initTrackRecordPrefsCallbacks();
@@ -410,6 +411,28 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         boolean newVal = (Boolean) newValue;
         if (oldVal != newVal)
           Config.setLargeFontsSize(newVal);
+
+        return true;
+      }
+    });
+  }
+
+  private void initTransliterationPrefsCallbacks()
+  {
+    Preference pref = findPreference(getString(R.string.pref_transliteration));
+    if (pref == null)
+      return;
+
+    ((TwoStatePreference)pref).setChecked(Config.isTransliteration());
+    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        boolean oldVal = Config.isTransliteration();
+        boolean newVal = (Boolean) newValue;
+        if (oldVal != newVal)
+          Config.setTransliteration(newVal);
 
         return true;
       }
