@@ -12,7 +12,7 @@
 
 #include "base/assert.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
 
 #include <QtCore/QTimer>
 

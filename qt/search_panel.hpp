@@ -5,8 +5,8 @@
 
 #include "base/thread_checker.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <vector>
 
 #include <QtGui/QPixmap>
 
