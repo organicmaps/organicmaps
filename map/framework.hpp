@@ -9,6 +9,7 @@
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
+#include "map/routing_manager.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 
@@ -113,7 +114,8 @@ struct FrameworkParams
 
 class Framework : public search::ViewportSearchCallback::Delegate,
                   public search::DownloaderSearchCallback::Delegate,
-                  public search::EverywhereSearchCallback::Delegate
+                  public search::EverywhereSearchCallback::Delegate,
+                  public RoutingManager::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -162,8 +164,6 @@ protected:
   using TViewportChanged = df::DrapeEngine::TModelViewListenerFn;
   TViewportChanged m_viewportChanged;
 
-  routing::RoutingSession m_routingSession;
-
   drape_ptr<df::DrapeEngine> m_drapeEngine;
   drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
@@ -184,6 +184,9 @@ protected:
 
   bool m_isRenderingEnabled;
   tracking::Reporter m_trackingReporter;
+
+  // Note. |m_routingManager| should be declared before |m_trafficManager|
+  RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
 
@@ -455,7 +458,6 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
 private:
-  bool IsTrackingReporterEnabled() const;
   void OnUserPositionChanged(m2::PointD const & position);
   //@}
 
@@ -744,77 +746,6 @@ public:
   //@}
 
 public:
-  using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode,
-                                               storage::TCountriesVec const &)>;
-  using TRouteProgressCallback = function<void(float)>;
-
-  /// @name Routing mode
-  //@{
-  void SetRouter(routing::RouterType type);
-  routing::RouterType GetRouter() const;
-  bool IsRoutingActive() const { return m_routingSession.IsActive(); }
-  bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
-  bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
-  bool IsRouteBuildingOnly() const { return m_routingSession.IsBuildingOnly(); }
-  bool IsRouteRebuildingOnly() const { return m_routingSession.IsRebuildingOnly(); }
-  bool IsRouteNotReady() const { return m_routingSession.IsNotReady(); }
-  bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
-  bool IsRouteNoFollowing() const { return m_routingSession.IsNoFollowing(); }
-  bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
-  bool IsRouteNavigable() const { return m_routingSession.IsNavigable(); }
-
-  void BuildRoute(m2::PointD const & finish, uint32_t timeoutSec);
-  void BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P, uint32_t timeoutSec);
-  // FollowRoute has a bug where the router follows the route even if the method hads't been called.
-  // This method was added because we do not want to break the behaviour that is familiar to our users.
-  bool DisableFollowMode();
-  /// @TODO(AlexZ): Warning! These two routing callbacks are the only callbacks which are not called in the main thread context.
-  /// UI code should take it into an account. This is a result of current implementation, that can be improved:
-  /// Drape core calls some RunOnGuiThread with "this" pointers, and it causes crashes on Android, when Drape engine is destroyed
-  /// while switching between activities. Current workaround cleans all callbacks when destroying Drape engine
-  /// (@see MwmApplication.clearFunctorsOnUiThread on Android). Better soulution can be fair copying of all needed information into
-  /// lambdas/functors before calling RunOnGuiThread.
-  void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
-  /// See warning above.
-  void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_routingSession.SetProgressCallback(progressCallback); }
-  void FollowRoute();
-  void CloseRouting();
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
-  m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
-  /// Returns the most situable router engine type.
-  routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const;
-  routing::RouterType GetLastUsedRouter() const;
-  void SetLastUsedRouter(routing::RouterType type);
-  // Sound notifications for turn instructions.
-  inline void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
-  inline bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
-  /// \brief Sets a locale for TTS.
-  /// \param locale is a string with locale code. For example "en", "ru", "zh-Hant" and so on.
-  /// \note See sound/tts/languages.txt for the full list of available locales.
-  inline void SetTurnNotificationsLocale(string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
-  /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.
-  /// In case of error returns an empty string.
-  /// \note The method returns correct locale after SetTurnNotificationsLocale has been called.
-  /// If not, it returns an empty string.
-  inline string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
-  /// \brief When an end user is going to a turn he gets sound turn instructions.
-  /// If C++ part wants the client to pronounce an instruction GenerateTurnNotifications (in
-  /// turnNotifications) returns
-  /// an array of one of more strings. C++ part assumes that all these strings shall be pronounced
-  /// by the client's TTS.
-  /// For example if C++ part wants the client to pronounce "Make a right turn." this method returns
-  /// an array with one string "Make a right turn.". The next call of the method returns nothing.
-  /// GenerateTurnNotifications shall be called by the client when a new position is available.
-  inline void GenerateTurnNotifications(vector<string> & turnNotifications)
-  {
-    if (m_currentRouterType == routing::RouterType::Taxi)
-      return;
-
-    return m_routingSession.GenerateTurnNotifications(turnNotifications);
-  }
-
-  void SetRouteStartPoint(m2::PointD const & pt, bool isValid);
-  void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
 
   void AllowTransliteration(bool allowTranslit);
   bool LoadTransliteration();
@@ -842,25 +773,14 @@ public:
   bool LoadTrafficSimplifiedColors();
   void SaveTrafficSimplifiedColors(bool simplified);
 
-  /// \returns true if altitude information along |m_route| is available and
-  /// false otherwise.
-  bool HasRouteAltitude() const;
-  /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
-  /// \param width is width of chart shall be generated in pixels.
-  /// \param height is height of chart shall be generated in pixels.
-  /// \param imageRGBAData is bits of result image in RGBA.
-  /// \param minRouteAltitude is min altitude along the route in altitudeUnits.
-  /// \param maxRouteAltitude is max altitude along the route in altitudeUnits.
-  /// \param altitudeUnits is units (meters or feet) which is used to pass min and max altitudes.
-  /// \returns If there is valid route info and the chart was generated returns true
-  /// and false otherwise. If the method returns true it is guaranteed that the size of
-  /// |imageRGBAData| is not zero.
-  /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
-  /// could return false if route was deleted or rebuilt between the calls.
-  bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                  vector<uint8_t> & imageRGBAData,
-                                  int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
-                                  measurement_utils::Units & altitudeUnits) const;
+public:
+  /// Routing Manager
+  RoutingManager & GetRoutingManager() { return m_routingManager; }
+  RoutingManager const & GetRoutingManager() const { return m_routingManager; }
+protected:
+  /// RoutingManager::Delegate
+  void OnRouteFollow(routing::RouterType type) override;
+  void RegisterCountryFiles(std::shared_ptr<routing::NumMwmIds> ptr) const override;
 
 public:
   /// @name Editor interface.
@@ -878,24 +798,6 @@ public:
   bool RollBackChanges(FeatureID const & fid);
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                   string const & note);
-
-  //@}
-
-private:
-  void SetRouterImpl(routing::RouterType type);
-  void RemoveRoute(bool deactivateFollowing);
-
-  void InsertRoute(routing::Route const & route);
-  void CheckLocationForRouting(location::GpsInfo const & info);
-  void CallRouteBuilded(routing::IRouter::ResultCode code,
-                        storage::TCountriesVec const & absentCountries);
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
-  string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
-  void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
-  void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
-
-  TRouteBuildingCallback m_routingCallback;
-  routing::RouterType m_currentRouterType;
   //@}
 
 public:
@@ -926,6 +828,4 @@ public:
 private:
   std::unique_ptr<CityFinder> m_cityFinder;
   unique_ptr<ads::Engine> m_adsEngine;
-
-  DECLARE_THREAD_CHECKER(m_threadChecker);
 };
