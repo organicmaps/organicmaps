@@ -29,6 +29,7 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.placepage.Sponsored;
+import com.mapswithme.util.BatteryState;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
@@ -41,6 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
+import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
+import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
@@ -624,14 +628,24 @@ public enum Statistics
   public void trackColdStartupInfo(@NonNull Intent batteryStatus)
   {
     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    @BatteryState.ChargingStatus
+    int chargePlug = BatteryState.getChargingStatus(batteryStatus);
     final String charging;
-    if (chargePlug > 0)
-      charging = "on";
-    else if (chargePlug < 0)
-      charging = "unknown";
-    else
-      charging = "off";
+    switch (chargePlug)
+    {
+      case CHARGING_STATUS_UNKNOWN:
+        charging = "unknown";
+        break;
+      case CHARGING_STATUS_PLUGGED:
+        charging = "on";
+        break;
+      case CHARGING_STATUS_UNPLUGGED:
+        charging = "off";
+        break;
+      default:
+        charging = "unknown";
+        break;
+    }
 
     final String network;
     if (ConnectionState.isWifiConnected())

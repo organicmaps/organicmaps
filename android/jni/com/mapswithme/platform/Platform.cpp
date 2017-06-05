@@ -56,7 +56,18 @@ Platform::EConnectionType Platform::ConnectionStatus()
 
 Platform::ChargingStatus Platform::GetChargingStatus()
 {
-  return Platform::ChargingStatus::Unknown;
+  JNIEnv * env = jni::GetEnv();
+  if (env == nullptr)
+    return Platform::ChargingStatus::Unknown;
+
+  static shared_ptr<jobject> clazzBatteryState =
+      jni::make_global_ref(env->FindClass("com/mapswithme/util/BatteryState"));
+  ASSERT(clazzBatteryState, ());
+
+  static jmethodID const getChargingMethodId = jni::GetStaticMethodID(
+      env, static_cast<jclass>(*clazzBatteryState), "getChargingStatus", "()I");
+  return static_cast<Platform::ChargingStatus>(
+      env->CallStaticIntMethod(static_cast<jclass>(*clazzBatteryState), getChargingMethodId));
 }
 
 namespace android
