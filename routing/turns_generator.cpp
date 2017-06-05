@@ -278,6 +278,8 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
   for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend();
        ++loadedSegmentIt)
   {
+    CHECK(loadedSegmentIt->IsValid(), ());
+
     // ETA information.
     double const nodeTimeSeconds = loadedSegmentIt->m_weight;
 
@@ -323,7 +325,11 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
       --skipTurnSegments;
 
     // Path geometry.
-    junctions.insert(junctions.end(), loadedSegmentIt->m_path.begin(), loadedSegmentIt->m_path.end());
+    CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
+    junctions.insert(junctions.end(), loadedSegmentIt == loadedSegments.cbegin()
+                                          ? loadedSegmentIt->m_path.cbegin()
+                                          : loadedSegmentIt->m_path.cbegin() + 1,
+                     loadedSegmentIt->m_path.cend());
     trafficSegs.insert(trafficSegs.end(), loadedSegmentIt->m_trafficSegs.cbegin(),
                        loadedSegmentIt->m_trafficSegs.cend());
   }

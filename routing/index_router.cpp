@@ -72,35 +72,6 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
-
-// ReconstructRoute duplicates polyline internal points.
-// Internal points are all polyline points except first and last.
-//
-// Need duplicate times also.
-void DuplicateRouteTimes(size_t const polySize, Route::TTimes &times)
-{
-  if (polySize - 2 != (times.size() - 2) * 2)
-  {
-    LOG(LERROR, ("Can't duplicate route times, polyline:", polySize, ", times:", times.size()));
-    return;
-  }
-
-  Route::TTimes duplicatedTimes;
-  duplicatedTimes.reserve(polySize);
-  size_t index = 0;
-  duplicatedTimes.emplace_back(index++, times.front().second);
-
-  for (size_t i = 1; i < times.size() - 1; ++i)
-  {
-    double const time = times[i].second;
-    duplicatedTimes.emplace_back(index++, time);
-    duplicatedTimes.emplace_back(index++, time);
-  }
-
-  duplicatedTimes.emplace_back(index++, times.back().second);
-  times = move(duplicatedTimes);
-  CHECK_EQUAL(times.size(), polySize, ());
-}
 }  // namespace
 
 namespace routing
@@ -407,7 +378,6 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
     time += starter.CalcSegmentWeight(segments[i]);
   }
 
-  DuplicateRouteTimes(route.GetPoly().GetSize(), times);
   route.SetSectionTimes(move(times));
   return true;
 }

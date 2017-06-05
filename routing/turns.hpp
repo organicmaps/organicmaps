@@ -18,19 +18,25 @@ using TEdgeWeight = double;
 
 /// \brief Unique identification for a road edge between two junctions (joints).
 /// In case of OSRM it's NodeID and in case of RoadGraph (IndexGraph)
-/// it's mwm id, feature id, segment id and direction.
+/// it's mwm id, feature id, range of segment ids [|m_startSegId|, |m_endSegId|) and direction.
 struct UniNodeId
 {
   enum class Type
   {
-    Osrm,
-    Mwm,
+    Osrm, // It's an OSRM node id so only |m_type| and |m_nodeId| are valid.
+    Mwm,  // It's a node for A* router so |m_nodeId| is not valid.
   };
 
   UniNodeId(Type type) : m_type(type) {}
-  UniNodeId(FeatureID const & featureId, uint32_t segId, bool forward)
-    : m_type(Type::Mwm), m_featureId(featureId), m_segId(segId), m_forward(forward)
+  UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward)
+    : m_type(Type::Mwm)
+    , m_featureId(featureId)
+    , m_startSegId(startSegId)
+    , m_endSegId(endSegId)
+    , m_forward(forward)
   {
+    if (!m_featureId.IsValid())
+      m_nodeId = nextFakeId++;
   }
   UniNodeId(uint32_t nodeId) : m_type(Type::Osrm), m_nodeId(nodeId) {}
   bool operator==(UniNodeId const & rh) const;
@@ -38,16 +44,17 @@ struct UniNodeId
   void Clear();
   uint32_t GetNodeId() const;
   FeatureID const & GetFeature() const;
-  uint32_t GetSegId() const;
-  bool IsForward() const;
 
 private:
+  static uint32_t nextFakeId;
   Type m_type;
-  /// \note In case of OSRM unique id is kept in |m_featureId.m_index|.
-  /// So |m_featureId.m_mwmId|, |m_segId| and |m_forward| have default values.
-  FeatureID m_featureId;  // |m_featureId.m_index| is NodeID for OSRM.
-  uint32_t m_segId = 0;   // Not valid for OSRM.
-  bool m_forward = true;  // Segment direction in |m_featureId|.
+  FeatureID m_featureId;     // Not valid for OSRM.
+  uint32_t m_startSegId = 0; // Not valid for OSRM. The first segment index of UniNodeId.
+  uint32_t m_endSegId = 0;   // Not valid for OSRM. The segment index after last of UniNodeId.
+  bool m_forward = true;     // Not valid for OSRM. Segment direction in |m_featureId|.
+  // Node id for OSRM case. Fake feature id if UniNodeId is based on an invalid feature id valid for
+  // mwm case. UniNodeId is based on an invalid feature id in case of fake edges near starts and
+  // finishes.
   NodeID m_nodeId = SPECIAL_NODEID;
 };
 

@@ -33,8 +33,28 @@ public:
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
-  void LoadPathGeometry(UniNodeId const & uniNodeId, vector<Junction> const & path,
-                        LoadedPathSegment & pathSegment);
+  void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
+  void GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
+                                    FeatureID const & inFeatureId, uint32_t startSegId,
+                                    uint32_t endSegId, bool inIsForward, UniNodeId & uniNodeId,
+                                    BicycleDirectionsEngine::AdjacentEdges & adjacentEdges);
+  /// \brief The method gathers sequence of segments according to IsJoint() method
+  /// and fills |m_adjacentEdges| and |m_pathSegments|.
+  void FillPathSegmentsAndAdjacentEdgesMap(RoadGraphBase const & graph,
+                                           vector<Junction> const & path,
+                                           IRoadGraph::TEdgeVector const & routeEdges,
+                                           my::Cancellable const & cancellable);
+  /// \brief This method should be called for an internal junction of the route with corresponding
+  /// |ingoingEdges|, |outgoingEdges|, |ingoingRouteEdge| and |outgoingRouteEdge|.
+  /// \returns false if the junction is an internal point of feature segment and can be considered as
+  /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
+  /// of a new LoadedPathSegment.
+  bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
+               IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
+               Edge const & outgoingRouteEdge);
+
+  bool GetSegment(FeatureID const & featureId, uint32_t segId, bool isFeatureForward,
+                  Segment & segment);
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;

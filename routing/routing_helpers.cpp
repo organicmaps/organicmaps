@@ -63,7 +63,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<traffic::SpeedGroup> traffic;
   if (trafficStash && !trafficSegs.empty())
   {
-    traffic.reserve(2 * trafficSegs.size());
+    traffic.reserve(trafficSegs.size());
     for (Segment const & seg : trafficSegs)
     {
       traffic::TrafficInfo::RoadSegmentId roadSegment(
@@ -78,22 +78,10 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
         if (it != trafficColoring->cend())
           segTraffic = it->second;
       }
-      // @TODO It's written to compensate an error. The problem is in case of any routing except for osrm
-      // all route points except for begining and ending are duplicated.
-      // See a TODO in BicycleDirectionsEngine::Generate() for details.
-      // At this moment the route looks like:
-      // 0----1    4----5
-      //      2----3    6---7
-      // This route consists of 4 edges and there're 4 items in trafficSegs.
-      // But it has 8 items in routeGeometry.
-      // So for segments 0-1 and 1-2 let's set trafficSegs[0]
-      // for segments 2-3 and 3-4 let's set trafficSegs[1]
-      // for segments 4-5 and 5-6 let's set trafficSegs[2]
-      // and for segment 6-7 let's set trafficSegs[3]
-      traffic.insert(traffic.end(), {segTraffic, segTraffic});
+      traffic.push_back(segTraffic);
     }
     CHECK(!traffic.empty(), ());
-    traffic.pop_back();
+    CHECK_EQUAL(trafficSegs.size(), traffic.size(), ());
   }
 
   route.SetTraffic(move(traffic));

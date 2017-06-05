@@ -52,6 +52,8 @@ static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count),
 namespace routing
 {
 // UniNodeId -------------------------------------------------------------------
+uint32_t UniNodeId::nextFakeId = 0;
+
 bool UniNodeId::operator==(UniNodeId const & rhs) const
 {
   if (m_type != rhs.m_type)
@@ -61,7 +63,8 @@ bool UniNodeId::operator==(UniNodeId const & rhs) const
   {
   case Type::Osrm: return m_nodeId == rhs.m_nodeId;
   case Type::Mwm:
-    return m_featureId == rhs.m_featureId && m_segId == rhs.m_segId && m_forward == rhs.m_forward;
+    return m_featureId == rhs.m_featureId && m_startSegId == rhs.m_startSegId &&
+           m_endSegId == rhs.m_endSegId && m_forward == rhs.m_forward && m_nodeId == rhs.m_nodeId;
   }
 }
 
@@ -77,17 +80,24 @@ bool UniNodeId::operator<(UniNodeId const & rhs) const
     if (m_featureId != rhs.m_featureId)
       return m_featureId < rhs.m_featureId;
 
-    if (m_segId != rhs.m_segId)
-      return m_segId < rhs.m_segId;
+    if (m_startSegId != rhs.m_startSegId)
+      return m_startSegId < rhs.m_startSegId;
 
-    return m_forward < rhs.m_forward;
+    if (m_endSegId != rhs.m_endSegId)
+      return m_endSegId < rhs.m_endSegId;
+
+    if (m_forward != rhs.m_forward)
+      return m_forward < rhs.m_forward;
+
+    return m_nodeId < rhs.m_nodeId;
   }
 }
 
 void UniNodeId::Clear()
 {
   m_featureId = FeatureID();
-  m_segId = 0;
+  m_startSegId = 0;
+  m_endSegId = 0;
   m_forward = true;
   m_nodeId = SPECIAL_NODEID;
 }
@@ -102,18 +112,6 @@ FeatureID const & UniNodeId::GetFeature() const
 {
   ASSERT_EQUAL(m_type, Type::Mwm, ());
   return m_featureId;
-}
-
-uint32_t UniNodeId::GetSegId() const
-{
-  ASSERT_EQUAL(m_type, Type::Mwm, ());
-  return m_segId;
-}
-
-bool UniNodeId::IsForward() const
-{
-  ASSERT_EQUAL(m_type, Type::Mwm, ());
-  return m_forward;
 }
 
 string DebugPrint(UniNodeId::Type type)

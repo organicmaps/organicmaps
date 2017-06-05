@@ -15,6 +15,10 @@
 
 #include "geometry/point2d.hpp"
 
+#include <cstdlib>
+#include <numeric>
+#include <utility>
+
 namespace
 {
 using namespace routing;
@@ -118,6 +122,10 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
     return;
   }
 
+  // @TODO(bykoianko) This method should be removed. Generally speaking it's wrong to calculate ETA
+  // based on max speed as it's done in CalculateTimes(). We'll get a better result and better code
+  // if to used ETA calculated in MakeTurnAnnotation(). To do that it's necessary to fill
+  // LoadedPathSegment::m_weight in FillPathSegmentsAndAdjacentEdgesMap().
   CalculateTimes(graph, path, times);
 
   IRoadGraph::TEdgeVector routeEdges;
@@ -133,86 +141,21 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
     return;
   }
 
-  // Filling |m_adjacentEdges|.
-  m_adjacentEdges.insert(make_pair(UniNodeId(UniNodeId::Type::Mwm), AdjacentEdges(0)));
-  for (size_t i = 1; i < pathSize; ++i)
-  {
-    if (cancellable.IsCancelled())
-      return;
+  FillPathSegmentsAndAdjacentEdgesMap(graph, path, routeEdges, cancellable);
 
-    Junction const & prevJunction = path[i - 1];
-    Junction const & currJunction = path[i];
-    IRoadGraph::TEdgeVector outgoingEdges, ingoingEdges;
-    graph.GetOutgoingEdges(currJunction, outgoingEdges);
-    graph.GetIngoingEdges(currJunction, ingoingEdges);
-
-    AdjacentEdges adjacentEdges = AdjacentEdges(ingoingEdges.size());
-    // Outgoing edge angle is not used for bicyle routing.
-    adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
-    adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
-    ASSERT_EQUAL(routeEdges.size(), pathSize - 1, ());
-    FeatureID const inFeatureId = routeEdges[i - 1].GetFeatureId();
-    uint32_t const inSegId = routeEdges[i - 1].GetSegId();
-    bool const inIsForward = routeEdges[i - 1].IsForward();
-    UniNodeId const uniNodeId(inFeatureId, inSegId, inIsForward);
-
-    for (auto const & edge : outgoingEdges)
-    {
-      auto const & outFeatureId = edge.GetFeatureId();
-      // Checking for if |edge| is a fake edge.
-      if (!outFeatureId.IsValid())
-        continue;
-
-      FeatureType ft;
-      if (!GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft))
-        continue;
-
-      auto const highwayClass = ftypes::GetHighwayClass(ft);
-      ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
-      ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
-      adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId,
-                                                            highwayClass);
-    }
-
-    LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
-    // @TODO(bykoianko) This place should be fixed. Putting |prevJunction| and |currJunction|
-    // for every route edge leads that all route points are duplicated. It's because
-    // prevJunction == path[i - 1] and currJunction == path[i].
-    if (inFeatureId.IsValid())
-      LoadPathGeometry(uniNodeId, {prevJunction, currJunction}, pathSegment);
-
-    if (m_numMwmIds)
-    {
-      ASSERT(inFeatureId.m_mwmId.IsAlive(), ());
-      NumMwmId const numMwmId =
-          m_numMwmIds->GetId(inFeatureId.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-      pathSegment.m_trafficSegs = {{numMwmId, inFeatureId.m_index, inSegId, inIsForward}};
-    }
-
-    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
-    ASSERT(it.second, ());
-    UNUSED_VALUE(it);
-    m_pathSegments.push_back(move(pathSegment));
-  }
+  if (cancellable.IsCancelled())
+    return;
 
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
-  Route::TTimes turnAnnotationTimes;
+  Route::TTimes dummyTimes;
   Route::TStreets streetNames;
 
-  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, turnAnnotationTimes,
-                     streetNames, trafficSegs);
-
-  // @TODO(bykoianko) The invariant below it's an issue but now it's so and it should be checked.
-  // The problem is every edge is added as a pair of points to route geometry.
-  // So all the points except for beginning and ending are duplicated. It should
-  // be fixed in the future.
-
-  // Note 1. Accoding to current implementation all internal points are duplicated for
-  // all A* routes.
-  // Note 2. Number of |trafficSegs| should be equal to number of |routeEdges|.
-  ASSERT_EQUAL(routeGeometry.size(), 2 * (pathSize - 2) + 2, ());
-  ASSERT_EQUAL(trafficSegs.size(), pathSize - 1, ());
+  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, dummyTimes, streetNames,
+                     trafficSegs);
+  CHECK_EQUAL(routeGeometry.size(), pathSize, ());
+  if (!trafficSegs.empty())
+    CHECK_EQUAL(trafficSegs.size(), routeEdges.size(), ());
 }
 
 Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
@@ -222,26 +165,13 @@ Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId co
   return *m_loader;
 }
 
-void BicycleDirectionsEngine::LoadPathGeometry(UniNodeId const & uniNodeId,
-                                               vector<Junction> const & path,
-                                               LoadedPathSegment & pathSegment)
+void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment)
 {
-  pathSegment.Clear();
-
-  if (!uniNodeId.GetFeature().IsValid())
-  {
-    ASSERT(false, ());
+  if (!featureId.IsValid())
     return;
-  }
 
   FeatureType ft;
-  if (!GetLoader(uniNodeId.GetFeature().m_mwmId)
-           .GetFeatureByIndex(uniNodeId.GetFeature().m_index, ft))
-  {
-    // The feature can't be read, therefore path geometry can't be
-    // loaded.
-    return;
-  }
+  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
 
   auto const highwayClass = ftypes::GetHighwayClass(ft);
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
@@ -249,12 +179,158 @@ void BicycleDirectionsEngine::LoadPathGeometry(UniNodeId const & uniNodeId,
 
   pathSegment.m_highwayClass = highwayClass;
   pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
-
   ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);
-
-  pathSegment.m_nodeId = uniNodeId;
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
-  pathSegment.m_path = path;
-  // @TODO(bykoianko) It's better to fill pathSegment.m_weight.
+}
+
+void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(
+    IRoadGraph::TEdgeVector const & outgoingEdges, FeatureID const & inFeatureId,
+    uint32_t startSegId, uint32_t endSegId, bool inIsForward, UniNodeId & uniNodeId,
+    BicycleDirectionsEngine::AdjacentEdges & adjacentEdges)
+{
+  // Outgoing edge angle is not used for bicycle routing.
+  adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
+  adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
+  uniNodeId = UniNodeId(inFeatureId, startSegId, endSegId, inIsForward);
+
+  for (auto const & edge : outgoingEdges)
+  {
+    auto const & outFeatureId = edge.GetFeatureId();
+    // Checking if |edge| is a fake edge.
+    if (!outFeatureId.IsValid())
+      continue;
+
+    FeatureType ft;
+    GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft);
+
+    auto const highwayClass = ftypes::GetHighwayClass(ft);
+    ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
+    ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
+    adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId, highwayClass);
+  }
+}
+
+bool BicycleDirectionsEngine::IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
+                                      IRoadGraph::TEdgeVector const & outgoingEdges,
+                                      Edge const & ingoingRouteEdge, Edge const & outgoingRouteEdge)
+{
+  if (ingoingRouteEdge.GetFeatureId() != outgoingRouteEdge.GetFeatureId())
+    return true;
+
+  FeatureID const & featureId = ingoingRouteEdge.GetFeatureId();
+  uint32_t const segOut = outgoingRouteEdge.GetSegId();
+  for (Edge const & e : ingoingEdges)
+  {
+    // It's necessary to compare segments for cases when |featureId| is a loop.
+    if (e.GetFeatureId() != featureId || abs(static_cast<int>(segOut - e.GetSegId())) != 1)
+      return true;
+  }
+
+  uint32_t const segIn = ingoingRouteEdge.GetSegId();
+  for (Edge const & e : outgoingEdges)
+  {
+    // It's necessary to compare segments for cases when |featureId| is a loop.
+    if (e.GetFeatureId() != featureId || abs(static_cast<int>(segIn - e.GetSegId())) != 1)
+      return true;
+  }
+  return false;
+}
+
+bool BicycleDirectionsEngine::GetSegment(FeatureID const & featureId, uint32_t segId,
+                                         bool isFeatureForward, Segment & segment)
+{
+  if (!m_numMwmIds)
+    return false;
+
+  if (!featureId.m_mwmId.IsAlive())
+  {
+    ASSERT(featureId.m_mwmId.IsAlive(), ("Feature:", featureId, "is not alive."));
+    return false;
+  }
+
+  NumMwmId const numMwmId =
+    m_numMwmIds->GetId(featureId.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  segment = Segment(numMwmId, featureId.m_index, segId, isFeatureForward);
+  return true;
+}
+
+void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
+    RoadGraphBase const & graph, vector<Junction> const & path,
+    IRoadGraph::TEdgeVector const & routeEdges, my::Cancellable const & cancellable)
+{
+  size_t const pathSize = path.size();
+  CHECK_GREATER(pathSize, 1, ());
+  // Filling |m_adjacentEdges|.
+  m_adjacentEdges.insert(make_pair(UniNodeId(UniNodeId::Type::Mwm), AdjacentEdges(0)));
+  uint32_t constexpr kInvalidSegId = std::numeric_limits<uint32_t>::max();
+  // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
+  uint32_t startSegId = kInvalidSegId;
+  vector<Junction> prevJunctions;
+  vector<Segment> prevSegments;
+  for (size_t i = 1; i < pathSize; ++i)
+  {
+    if (cancellable.IsCancelled())
+      return;
+
+    Junction const & prevJunction = path[i - 1];
+    Junction const & currJunction = path[i];
+    IRoadGraph::TEdgeVector ingoingEdges;
+    IRoadGraph::TEdgeVector outgoingEdges;
+    graph.GetOutgoingEdges(currJunction, outgoingEdges);
+    graph.GetIngoingEdges(currJunction, ingoingEdges);
+    ASSERT_EQUAL(routeEdges.size(), pathSize - 1, ());
+
+    Edge const & inEdge = routeEdges[i - 1];
+    // Note. |inFeatureId| may be invalid in case of adding fake features.
+    // It happens for example near starts and a finishes.
+    FeatureID const & inFeatureId = inEdge.GetFeatureId();
+    uint32_t const inSegId = inEdge.GetSegId();
+    bool const inIsForward = inEdge.IsForward();
+
+    if (startSegId == kInvalidSegId)
+      startSegId = inSegId;
+
+    if (inFeatureId.IsValid() && i + 1 != pathSize && !IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i]))
+    {
+      prevJunctions.push_back(prevJunction);
+      Segment inSegment;
+      if (GetSegment(inFeatureId, inSegId, inIsForward, inSegment))
+        prevSegments.push_back(inSegment);
+      continue;
+    }
+    CHECK_EQUAL(prevJunctions.size(), abs(static_cast<int32_t>(inSegId - startSegId)), ());
+
+    prevJunctions.push_back(prevJunction);
+    prevJunctions.push_back(currJunction);
+    Segment segment;
+    if (GetSegment(inFeatureId, inSegId, inIsForward, segment))
+      prevSegments.push_back(segment);
+
+    AdjacentEdges adjacentEdges(ingoingEdges.size());
+    UniNodeId uniNodeId(UniNodeId::Type::Mwm);
+    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inFeatureId, startSegId, inSegId + 1, inIsForward,
+                                 uniNodeId, adjacentEdges);
+
+    size_t const prevJunctionSize = prevJunctions.size();
+    LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
+    LoadPathAttributes(uniNodeId.GetFeature(), pathSegment);
+    pathSegment.m_nodeId = uniNodeId;
+    pathSegment.m_path = std::move(prevJunctions);
+    // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
+
+    // Checking if |prevJunctions| reflects real feature ids. If not it means that |prevJunctions|
+    // reflects fake features near starts of finishes.
+    if (prevSegments.size() + 1 == prevJunctionSize)
+      pathSegment.m_trafficSegs = std::move(prevSegments);
+
+    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));
+    ASSERT(it.second, ());
+    UNUSED_VALUE(it);
+    m_pathSegments.push_back(std::move(pathSegment));
+
+    prevJunctions.clear();
+    prevSegments.clear();
+    startSegId = kInvalidSegId;
+  }
 }
 }  // namespace routing
