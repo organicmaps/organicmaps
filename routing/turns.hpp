@@ -9,6 +9,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include <atomic>
+
 #include "3party/osrm/osrm-backend/typedefs.h"
 
 namespace routing
@@ -27,18 +29,9 @@ struct UniNodeId
     Mwm,  // It's a node for A* router so |m_nodeId| is not valid.
   };
 
-  UniNodeId(Type type) : m_type(type) {}
-  UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward)
-    : m_type(Type::Mwm)
-    , m_featureId(featureId)
-    , m_startSegId(startSegId)
-    , m_endSegId(endSegId)
-    , m_forward(forward)
-  {
-    if (!m_featureId.IsValid())
-      m_nodeId = nextFakeId++;
-  }
-  UniNodeId(uint32_t nodeId) : m_type(Type::Osrm), m_nodeId(nodeId) {}
+  explicit UniNodeId(Type type) : m_type(type) {}
+  UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId, bool forward);
+  explicit UniNodeId(uint32_t nodeId) : m_type(Type::Osrm), m_nodeId(nodeId) {}
   bool operator==(UniNodeId const & rh) const;
   bool operator<(UniNodeId const & rh) const;
   void Clear();
@@ -46,7 +39,8 @@ struct UniNodeId
   FeatureID const & GetFeature() const;
 
 private:
-  static uint32_t nextFakeId;
+  static std::atomic<uint32_t> m_nextFakeId;
+
   Type m_type;
   FeatureID m_featureId;     // Not valid for OSRM.
   uint32_t m_startSegId = 0; // Not valid for OSRM. The first segment index of UniNodeId.

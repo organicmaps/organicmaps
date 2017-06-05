@@ -45,6 +45,7 @@ public:
 
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
+
   void GetPossibleTurns(UniNodeId const & node, m2::PointD const & /* ingoingPoint */,
                         m2::PointD const & /* junctionPoint */, size_t & ingoingCount,
                         TurnCandidates & outgoingTurns) const override
@@ -83,6 +84,50 @@ private:
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
+
+/// \brief This method should be called for an internal junction of the route with corresponding
+/// |ingoingEdges|, |outgoingEdges|, |ingoingRouteEdge| and |outgoingRouteEdge|.
+/// \returns false if the junction is an internal point of feature segment and can be considered as
+/// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
+/// of a new LoadedPathSegment.
+bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
+             IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
+             Edge const & outgoingRouteEdge)
+{
+  // When feature id is changed at a junction this junction should be considered as a joint.
+  //
+  // If a feature id is not changed at a junction but the junction has some ingoing or outgoing edges with
+  // different feature ids, the junction should be considered as a joint.
+  //
+  // If a feature id is not changed at a junction and all ingoing and outgoing edges of the junction has
+  // the same feature id, the junction still may be considered as a joint.
+  // It happens in case of self intersected features. For example:
+  //            *--Seg3--*
+  //            |        |
+  //          Seg4      Seg2
+  //            |        |
+  //   *--Seg0--*--Seg1--*
+  // The common point of segments 0, 1 and 4 should be considered as a joint.
+  if (ingoingRouteEdge.GetFeatureId() != outgoingRouteEdge.GetFeatureId())
+    return true;
+
+  FeatureID const & featureId = ingoingRouteEdge.GetFeatureId();
+  uint32_t const segOut = outgoingRouteEdge.GetSegId();
+  for (Edge const & e : ingoingEdges)
+  {
+    if (e.GetFeatureId() != featureId || abs(static_cast<int32_t>(segOut - e.GetSegId())) != 1)
+      return true;
+  }
+
+  uint32_t const segIn = ingoingRouteEdge.GetSegId();
+  for (Edge const & e : outgoingEdges)
+  {
+    // It's necessary to compare segments for cases when |featureId| is a loop.
+    if (e.GetFeatureId() != featureId || abs(static_cast<int32_t>(segIn - e.GetSegId())) != 1)
+      return true;
+  }
+  return false;
+}
 }  // namespace
 
 namespace routing
@@ -171,7 +216,8 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
     return;
 
   FeatureType ft;
-  GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft);
+  if(!GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft))
+    return;
 
   auto const highwayClass = ftypes::GetHighwayClass(ft);
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
@@ -195,13 +241,13 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(
 
   for (auto const & edge : outgoingEdges)
   {
-    auto const & outFeatureId = edge.GetFeatureId();
-    // Checking if |edge| is a fake edge.
-    if (!outFeatureId.IsValid())
+    if (edge.IsFake())
       continue;
 
+    auto const & outFeatureId = edge.GetFeatureId();
     FeatureType ft;
-    GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft);
+    if (!GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft))
+      continue;
 
     auto const highwayClass = ftypes::GetHighwayClass(ft);
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
@@ -210,47 +256,18 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(
   }
 }
 
-bool BicycleDirectionsEngine::IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
-                                      IRoadGraph::TEdgeVector const & outgoingEdges,
-                                      Edge const & ingoingRouteEdge, Edge const & outgoingRouteEdge)
-{
-  if (ingoingRouteEdge.GetFeatureId() != outgoingRouteEdge.GetFeatureId())
-    return true;
-
-  FeatureID const & featureId = ingoingRouteEdge.GetFeatureId();
-  uint32_t const segOut = outgoingRouteEdge.GetSegId();
-  for (Edge const & e : ingoingEdges)
-  {
-    // It's necessary to compare segments for cases when |featureId| is a loop.
-    if (e.GetFeatureId() != featureId || abs(static_cast<int>(segOut - e.GetSegId())) != 1)
-      return true;
-  }
-
-  uint32_t const segIn = ingoingRouteEdge.GetSegId();
-  for (Edge const & e : outgoingEdges)
-  {
-    // It's necessary to compare segments for cases when |featureId| is a loop.
-    if (e.GetFeatureId() != featureId || abs(static_cast<int>(segIn - e.GetSegId())) != 1)
-      return true;
-  }
-  return false;
-}
-
 bool BicycleDirectionsEngine::GetSegment(FeatureID const & featureId, uint32_t segId,
-                                         bool isFeatureForward, Segment & segment)
+                                         bool forward, Segment & segment) const
 {
   if (!m_numMwmIds)
     return false;
 
   if (!featureId.m_mwmId.IsAlive())
-  {
-    ASSERT(featureId.m_mwmId.IsAlive(), ("Feature:", featureId, "is not alive."));
     return false;
-  }
 
   NumMwmId const numMwmId =
     m_numMwmIds->GetId(featureId.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-  segment = Segment(numMwmId, featureId.m_index, segId, isFeatureForward);
+  segment = Segment(numMwmId, featureId.m_index, segId, forward);
   return true;
 }
 
@@ -260,9 +277,10 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 {
   size_t const pathSize = path.size();
   CHECK_GREATER(pathSize, 1, ());
+  CHECK_EQUAL(routeEdges.size(), pathSize - 1, ());
   // Filling |m_adjacentEdges|.
   m_adjacentEdges.insert(make_pair(UniNodeId(UniNodeId::Type::Mwm), AdjacentEdges(0)));
-  uint32_t constexpr kInvalidSegId = std::numeric_limits<uint32_t>::max();
+  auto constexpr kInvalidSegId = std::numeric_limits<uint32_t>::max();
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
   uint32_t startSegId = kInvalidSegId;
   vector<Junction> prevJunctions;
@@ -278,7 +296,6 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     IRoadGraph::TEdgeVector outgoingEdges;
     graph.GetOutgoingEdges(currJunction, outgoingEdges);
     graph.GetIngoingEdges(currJunction, ingoingEdges);
-    ASSERT_EQUAL(routeEdges.size(), pathSize - 1, ());
 
     Edge const & inEdge = routeEdges[i - 1];
     // Note. |inFeatureId| may be invalid in case of adding fake features.
@@ -290,7 +307,8 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     if (startSegId == kInvalidSegId)
       startSegId = inSegId;
 
-    if (inFeatureId.IsValid() && i + 1 != pathSize && !IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i]))
+    if (inFeatureId.IsValid() && i + 1 != pathSize &&
+        !IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i]))
     {
       prevJunctions.push_back(prevJunction);
       Segment inSegment;
@@ -318,8 +336,13 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     pathSegment.m_path = std::move(prevJunctions);
     // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
 
-    // Checking if |prevJunctions| reflects real feature ids. If not it means that |prevJunctions|
-    // reflects fake features near starts of finishes.
+    // For LoadedPathSegment instances which contain fake feature id(s), |LoadedPathSegment::m_trafficSegs|
+    // should be empty because there's no traffic information for fake features.
+    // Traffic information is not supported for bicycle routes as well.
+    // Method BicycleDirectionsEngine::GetSegment() returns false for fake features and for bicycle routes.
+    // It leads to preventing pushing item to |prevSegments|. So if there's no enough items in |prevSegments|
+    // |pathSegment.m_trafficSegs| should be empty.
+    // Note. For the time being BicycleDirectionsEngine is used for turn generation for bicycle and car routes.
     if (prevSegments.size() + 1 == prevJunctionSize)
       pathSegment.m_trafficSegs = std::move(prevSegments);
 

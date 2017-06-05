@@ -44,17 +44,9 @@ private:
                                            vector<Junction> const & path,
                                            IRoadGraph::TEdgeVector const & routeEdges,
                                            my::Cancellable const & cancellable);
-  /// \brief This method should be called for an internal junction of the route with corresponding
-  /// |ingoingEdges|, |outgoingEdges|, |ingoingRouteEdge| and |outgoingRouteEdge|.
-  /// \returns false if the junction is an internal point of feature segment and can be considered as
-  /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
-  /// of a new LoadedPathSegment.
-  bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
-               IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
-               Edge const & outgoingRouteEdge);
 
-  bool GetSegment(FeatureID const & featureId, uint32_t segId, bool isFeatureForward,
-                  Segment & segment);
+  bool GetSegment(FeatureID const & featureId, uint32_t segId, bool forward,
+                  Segment & segment) const;
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
