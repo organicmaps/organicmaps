@@ -110,10 +110,7 @@ public class MwmApplication extends Application
         @Override
         public void onVisibleAppLaunch()
         {
-          IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-          Intent batteryStatus = registerReceiver(null, filter);
-          if (batteryStatus != null)
-            Statistics.INSTANCE.trackColdStartupInfo(batteryStatus);
+          Statistics.INSTANCE.trackColdStartupInfo();
         }
       };
 
