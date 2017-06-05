@@ -134,6 +134,7 @@ HEADERS += \
     trie_reader.hpp \
     types_mapping.hpp \
     unique_index.hpp \
+    wheelchair.hpp \
 
 OTHER_FILES += drules_struct.proto
 

@@ -198,6 +198,11 @@ string MapObject::GetBuildingLevels() const
   return m_metadata.Get(feature::Metadata::FMD_BUILDING_LEVELS);
 }
 
+wheelchair::Type MapObject::GetWheelchairType() const
+{
+  return wheelchair::Matcher::GetType(m_types);
+}
+
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }
 bool MapObject::IsPointType() const { return m_geomType == feature::EGeomType::GEOM_POINT; }
 bool MapObject::IsBuilding() const { return ftypes::IsBuildingChecker::Instance()(m_types); }
