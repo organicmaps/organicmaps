@@ -59,3 +59,4 @@ SOURCES += \
     test_type.cpp \
     trie_test.cpp \
     visibility_test.cpp \
+    wheelchair_tests.cpp \
