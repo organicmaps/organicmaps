@@ -1,9 +1,12 @@
 #pragma once
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/ftypes_mapping.hpp"
 
+#include <cstdint>
 #include <initializer_list>
+#include <string>
 
 namespace wheelchair
 {
@@ -14,7 +17,7 @@ enum class Type
   Limited
 };
 
-inline string DebugPrint(Type wheelchair)
+inline std::string DebugPrint(Type wheelchair)
 {
   switch (wheelchair)
   {
@@ -22,7 +25,6 @@ inline string DebugPrint(Type wheelchair)
   case Type::Yes: return "Yes";
   case Type::Limited: return "Limited";
   }
-  return {};
 }
 
 class Matcher
