@@ -3,12 +3,14 @@ ROOT_DIR = ..
 
 DEPENDENCIES = qt_common map drape_frontend openlr routing search storage tracking traffic routing_common \
                indexer drape partners_api local_ads platform editor geometry \
-               coding base freetype expat jansson protobuf osrm stats_client \
+               coding base freetype expat gflags jansson protobuf osrm stats_client \
                minizip succinct pugixml oauthcpp stb_image sdf_image icu
 
 DEPENDENCIES += opening_hours \
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
 TARGET = MAPS.ME
 TEMPLATE = app

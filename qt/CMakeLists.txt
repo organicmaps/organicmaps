@@ -14,6 +14,7 @@ execute_process(
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
+  ${OMIM_ROOT}/3party/gflags/src
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -74,6 +75,7 @@ omim_link_libraries(
   base
   freetype
   expat
+  gflags
   icu
   jansson
   protobuf
