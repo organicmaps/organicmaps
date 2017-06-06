@@ -24561,6 +24561,3 @@
   [exit]
     en = Exit
     ru = Выход
-
-  [location_permission_denied]
-    en = App location permission denied
