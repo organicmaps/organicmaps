@@ -1,5 +1,6 @@
 package com.mapswithme.maps.news;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,8 +27,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @Nullable
   private BaseNewsFragment.NewsDialogListener mListener;
 
-  public static boolean showOn(@NonNull FragmentActivity activity,
-                               @Nullable BaseNewsFragment.NewsDialogListener listener)
+  public static boolean showOn(@NonNull FragmentActivity activity)
   {
     if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
@@ -40,24 +40,22 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
         !recreate(activity))
       return false;
 
-    create(activity, listener);
+    create(activity);
 
     Counters.setFirstStartDialogSeen();
     return true;
   }
 
-  private static void create(@NonNull FragmentActivity activity,
-                             @Nullable BaseNewsFragment.NewsDialogListener listener)
+  private static void create(@NonNull FragmentActivity activity)
   {
     final WelcomeDialogFragment fragment = new WelcomeDialogFragment();
-    fragment.mListener = listener;
     activity.getSupportFragmentManager()
             .beginTransaction()
             .add(fragment, WelcomeDialogFragment.class.getName())
             .commitAllowingStateLoss();
   }
 
-  private static boolean recreate(FragmentActivity activity)
+  private static boolean recreate(@NonNull FragmentActivity activity)
   {
     FragmentManager fm = activity.getSupportFragmentManager();
     Fragment f = fm.findFragmentByTag(WelcomeDialogFragment.class.getName());
@@ -67,9 +65,26 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     // If we're here, it means that the user has rotated the screen.
     // We use different dialog themes for landscape and portrait modes on tablets,
     // so the fragment should be recreated to be displayed correctly.
-    fm.beginTransaction().remove(f).commitAllowingStateLoss();
+    fm.beginTransaction()
+      .remove(f)
+      .commitAllowingStateLoss();
     fm.executePendingTransactions();
     return true;
+  }
+
+  @Override
+  public void onAttach(Activity activity)
+  {
+    super.onAttach(activity);
+    if (activity instanceof BaseNewsFragment.NewsDialogListener)
+      mListener = (BaseNewsFragment.NewsDialogListener) activity;
+  }
+
+  @Override
+  public void onDetach()
+  {
+    mListener = null;
+    super.onDetach();
   }
 
   @Override

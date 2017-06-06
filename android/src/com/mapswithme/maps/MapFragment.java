@@ -182,7 +182,6 @@ public class MapFragment extends BaseMwmFragment
         public void run()
         {
           LocationHelper.INSTANCE.onExitFromFirstRun();
-          Framework.nativeRunFirstLaunchAnimation();
         }
       });
     }

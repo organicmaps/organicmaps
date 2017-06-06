@@ -1,7 +1,6 @@
 package com.mapswithme.maps.permissions;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -29,13 +28,13 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
 {
   private static final String TAG = BasePermissionsDialogFragment.class.getName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String ARG_REQUEST_ID = "arg_request_id";
+  private static final String ARG_REQUEST_CODE = "arg_request_code";
 
-  private int mRequestId;
+  private int mRequestCode;
 
   @SuppressWarnings("TryWithIdenticalCatches")
   @Nullable
-  public static DialogFragment show(@NonNull FragmentActivity activity, int requestId,
+  public static DialogFragment show(@NonNull FragmentActivity activity, int requestCode,
                                     @NonNull Class<? extends BaseMwmDialogFragment> dialogClass)
   {
     final FragmentManager fm = activity.getSupportFragmentManager();
@@ -51,7 +50,7 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     {
       dialog = dialogClass.newInstance();
       final Bundle args = new Bundle();
-      args.putInt(ARG_REQUEST_ID, requestId);
+      args.putInt(ARG_REQUEST_CODE, requestCode);
       dialog.setArguments(args);
       dialog.show(fm, dialogClass.getName());
     }
@@ -73,13 +72,14 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     super.onCreate(savedInstanceState);
     Bundle args = getArguments();
     if (args != null)
-      mRequestId = args.getInt(ARG_REQUEST_ID);
+      mRequestCode = args.getInt(ARG_REQUEST_CODE);
   }
 
   @Override
   protected int getCustomTheme()
   {
-    return super.getFullscreenTheme();
+    // We can't read actual theme, because permissions are not granted yet.
+    return R.style.MwmTheme_DialogFragment_Fullscreen;
   }
 
   @NonNull
@@ -150,13 +150,11 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
     }
 
     if (v.getId() == getContinueActionButton())
-    {
-      PermissionsUtils.requestPermissions(getActivity(), mRequestId);
-    }
+      PermissionsUtils.requestPermissions(getActivity(), mRequestCode);
   }
 
-  protected int getRequestId()
+  protected int getRequestCode()
   {
-    return mRequestId;
+    return mRequestCode;
   }
 }

@@ -53,7 +53,8 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
   @Override
   protected int getCustomTheme()
   {
-    return super.getFullscreenTheme();
+    // We can't read actual theme, because permissions are not granted yet.
+    return R.style.MwmTheme_DialogFragment_Fullscreen;
   }
 
   @NonNull

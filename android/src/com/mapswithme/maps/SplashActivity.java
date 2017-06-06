@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity
   private boolean mCanceled;
 
   @NonNull
-  private final Runnable mPermissionsTask = new Runnable()
+  private final Runnable mPermissionsDelayedTask = new Runnable()
   {
     @Override
     public void run()
@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity
   };
 
   @NonNull
-  private final Runnable mDelayedTask = new Runnable()
+  private final Runnable mInitCoreDelayedTask = new Runnable()
   {
     @Override
     public void run()
@@ -63,11 +63,11 @@ public class SplashActivity extends AppCompatActivity
 //    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
 //    since onPause() callback can be blocked because of UI thread is busy with framework
 //    initialization.
-      UiThread.runLater(mFinalTask);
+      UiThread.runLater(mFinalDelayedTask);
     }
   };
   @NonNull
-  private final Runnable mFinalTask = new Runnable()
+  private final Runnable mFinalDelayedTask = new Runnable()
   {
     @Override
     public void run()
@@ -95,9 +95,9 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    UiThread.cancelDelayedTasks(mPermissionsTask);
-    UiThread.cancelDelayedTasks(mDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalTask);
+    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
+    UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
   }
@@ -122,7 +122,7 @@ public class SplashActivity extends AppCompatActivity
       }
       permissionsDialog = PermissionsDialogFragment.find(this);
       if (permissionsDialog == null)
-        UiThread.runLater(mPermissionsTask, FIRST_START_DELAY);
+        UiThread.runLater(mPermissionsDelayedTask, FIRST_START_DELAY);
 
       return;
     }
@@ -133,16 +133,16 @@ public class SplashActivity extends AppCompatActivity
     if (storagePermissionsDialog != null)
       storagePermissionsDialog.dismiss();
 
-    UiThread.runLater(mDelayedTask, DELAY);
+    UiThread.runLater(mInitCoreDelayedTask, DELAY);
   }
 
   @Override
   protected void onPause()
   {
     mCanceled = true;
-    UiThread.cancelDelayedTasks(mPermissionsTask);
-    UiThread.cancelDelayedTasks(mDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalTask);
+    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
+    UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalDelayedTask);
     super.onPause();
   }
 
@@ -157,7 +157,7 @@ public class SplashActivity extends AppCompatActivity
       Counters.setMigrationExecuted();
     }
 
-    sFirstStart = WelcomeDialogFragment.showOn(this, this);
+    sFirstStart = WelcomeDialogFragment.showOn(this);
     if (sFirstStart)
     {
       PushwooshHelper.nativeProcessFirstLaunch();

@@ -13,9 +13,6 @@ public class BaseMwmDialogFragment extends DialogFragment
 {
   protected final @StyleRes int getFullscreenTheme()
   {
-    if (!MwmApplication.get().isPlatformInitialized())
-      return R.style.MwmTheme_DialogFragment_Fullscreen;
-
     return (ThemeUtils.isNightTheme() ? R.style.MwmTheme_DialogFragment_Fullscreen_Night
                                       : R.style.MwmTheme_DialogFragment_Fullscreen);
   }

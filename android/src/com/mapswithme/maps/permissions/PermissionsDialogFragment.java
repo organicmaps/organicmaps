@@ -1,7 +1,6 @@
 package com.mapswithme.maps.permissions;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -14,20 +13,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.SplashActivity;
 
 public class PermissionsDialogFragment extends BasePermissionsDialogFragment
 {
-  @Nullable
-  private DialogFragment mDetailDialog;
-
   @Nullable
   public static DialogFragment show(@NonNull FragmentActivity activity, int requestId)
   {
     return BasePermissionsDialogFragment.show(activity, requestId, PermissionsDialogFragment.class);
   }
 
-  public static DialogFragment find(SplashActivity activity)
+  public static DialogFragment find(@NonNull FragmentActivity activity)
   {
     final FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
@@ -35,16 +30,6 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
 
     Fragment f = fm.findFragmentByTag(PermissionsDialogFragment.class.getName());
     return (DialogFragment) f;
-  }
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-    Fragment f = getActivity().getSupportFragmentManager()
-                              .findFragmentByTag(PermissionsDetailDialogFragment.class.getName());
-    if (f != null)
-      mDetailDialog = (DialogFragment) f;
   }
 
   @DrawableRes
@@ -85,7 +70,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected void onFirstActionClick()
   {
-    mDetailDialog = PermissionsDetailDialogFragment.show(getActivity(), getRequestId());
+    PermissionsDetailDialogFragment.show(getActivity(), getRequestCode());
   }
 
   @IdRes
@@ -98,8 +83,9 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   public void dismiss()
   {
-    if (mDetailDialog != null)
-      mDetailDialog.dismiss();
+    DialogFragment dialog = PermissionsDetailDialogFragment.find(getActivity());
+    if (dialog != null)
+      dialog.dismiss();
     super.dismiss();
   }
 
