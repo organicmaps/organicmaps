@@ -18,9 +18,9 @@ import com.mapswithme.maps.R;
 public class PermissionsDetailDialogFragment extends BasePermissionsDialogFragment
 {
   @Nullable
-  public static DialogFragment show(@NonNull FragmentActivity activity, int requestId)
+  public static DialogFragment show(@NonNull FragmentActivity activity, int requestCode)
   {
-    DialogFragment dialog = BasePermissionsDialogFragment.show(activity, requestId,
+    DialogFragment dialog = BasePermissionsDialogFragment.show(activity, requestCode,
                                        PermissionsDetailDialogFragment.class);
     if (dialog != null)
       dialog.setCancelable(true);

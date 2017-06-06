@@ -17,9 +17,9 @@ import com.mapswithme.maps.R;
 public class PermissionsDialogFragment extends BasePermissionsDialogFragment
 {
   @Nullable
-  public static DialogFragment show(@NonNull FragmentActivity activity, int requestId)
+  public static DialogFragment show(@NonNull FragmentActivity activity, int requestCode)
   {
-    return BasePermissionsDialogFragment.show(activity, requestId, PermissionsDialogFragment.class);
+    return BasePermissionsDialogFragment.show(activity, requestCode, PermissionsDialogFragment.class);
   }
 
   public static DialogFragment find(@NonNull FragmentActivity activity)
