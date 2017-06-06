@@ -199,7 +199,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
           PermissionsUtils.requestLocationPermission(MwmActivity.this, LOCATION_REQUEST);
         else
-          Toast.makeText(MwmActivity.this, R.string.location_permission_denied, Toast.LENGTH_SHORT)
+          Toast.makeText(MwmActivity.this, R.string.enable_location_services, Toast.LENGTH_SHORT)
                .show();
         return;
       }
