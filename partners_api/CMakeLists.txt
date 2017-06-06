@@ -15,6 +15,8 @@ set(
   cian_api.hpp
   facebook_ads.cpp
   facebook_ads.hpp
+  google_ads.cpp
+  google_ads.hpp
   mopub_ads.cpp
   mopub_ads.hpp
   opentable_api.cpp

@@ -7,8 +7,8 @@ public class Factory
 {
   @NonNull
   static NativeAdLoader createLoaderForBanner(@NonNull Banner banner,
-                                                     @Nullable OnAdCacheModifiedListener cacheListener,
-                                                     @Nullable AdTracker tracker)
+                                              @Nullable OnAdCacheModifiedListener cacheListener,
+                                              @Nullable AdTracker tracker)
   {
     String provider = banner.getProvider();
     switch (provider)
@@ -19,6 +19,8 @@ public class Factory
         return new MyTargetAdsLoader(cacheListener, tracker);
       case Providers.MOPUB:
         return new MopubNativeDownloader(cacheListener, tracker);
+      case Providers.GOOGLE:
+        throw new AssertionError("Not implemented yet");
       default:
         throw new AssertionError("Unknown ads provider: " + provider);
     }

@@ -105,6 +105,8 @@ final class AdBanner: UITableViewCell {
       configRBBanner(ad: ad as! MTRGNativeAd)
     case .mopub:
       configMopubBanner(ad: ad as! MopubBanner)
+    case .google:
+      assert(false)
     }
   }
 

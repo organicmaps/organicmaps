@@ -3,6 +3,7 @@ enum BannerType {
   case facebook(String)
   case rb(String)
   case mopub(String)
+  case google(String)
 
   var banner: Banner? {
     switch self {
@@ -10,6 +11,7 @@ enum BannerType {
     case .facebook(let id): return FacebookBanner(bannerID: id)
     case .rb(let id): return RBBanner(bannerID: id)
     case .mopub(let id): return MopubBanner(bannerID: id)
+    case .google: return nil
     }
   }
 
@@ -19,6 +21,7 @@ enum BannerType {
     case .facebook: return .facebook
     case .rb: return .rb
     case .mopub: return .mopub
+    case .google: return .google
     }
   }
 
@@ -28,6 +31,7 @@ enum BannerType {
     case .facebook: self = .facebook(id)
     case .rb: self = .rb(id)
     case .mopub: self = .mopub(id)
+    case .google: self = .google(id)
     }
   }
 }
@@ -39,10 +43,12 @@ extension BannerType: Equatable {
     case let (.facebook(l), .facebook(r)): return l == r
     case let (.rb(l), .rb(r)): return l == r
     case let (.mopub(l), .mopub(r)): return l == r
+    case let (.google(l), .google(r)): return l == r
     case (.none, _),
          (.facebook, _),
          (.rb, _),
-         (.mopub, _): return false
+         (.mopub, _),
+         (.google, _): return false
     }
   }
 }
@@ -54,6 +60,7 @@ extension BannerType: Hashable {
     case .facebook(let id): return mwmType.hashValue ^ id.hashValue
     case .rb(let id): return mwmType.hashValue ^ id.hashValue
     case .mopub(let id): return mwmType.hashValue ^ id.hashValue
+    case .google(let id): return mwmType.hashValue ^ id.hashValue
     }
   }
 }

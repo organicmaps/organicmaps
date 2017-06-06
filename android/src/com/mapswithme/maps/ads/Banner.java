@@ -14,9 +14,10 @@ public final class Banner implements Parcelable
   private static final int TYPE_FACEBOOK = 1;
   private static final int TYPE_RB = 2;
   private static final int TYPE_MOPUB = 3;
+  private static final int TYPE_GOOGLE = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_NONE, TYPE_FACEBOOK, TYPE_RB, TYPE_MOPUB })
+  @IntDef({ TYPE_NONE, TYPE_FACEBOOK, TYPE_RB, TYPE_MOPUB, TYPE_GOOGLE })
 
   public @interface BannerType {}
 
@@ -68,6 +69,8 @@ public final class Banner implements Parcelable
         return Providers.MY_TARGET;
       case TYPE_MOPUB:
         return Providers.MOPUB;
+      case TYPE_GOOGLE:
+        return Providers.GOOGLE;
       default:
         throw new AssertionError("Unsupported banner type: " + mType);
     }

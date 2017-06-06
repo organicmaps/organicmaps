@@ -11,7 +11,8 @@ struct Banner
     None = 0,
     Facebook = 1,
     RB = 2,
-    Mopub = 3
+    Mopub = 3,
+    Google = 4
   };
 
   Banner() = default;
@@ -29,6 +30,7 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Facebook: return "Facebook";
   case Banner::Type::RB: return "RB";
   case Banner::Type::Mopub: return "Mopub";
+  case Banner::Type::Google: return "Google";
   }
 }
 }  // namespace ads

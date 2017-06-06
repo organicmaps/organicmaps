@@ -22,7 +22,7 @@ class FacebookAdsLoader extends CachingNativeAdLoader implements AdListener
   private static final String TAG = FacebookAdsLoader.class.getSimpleName();
 
   FacebookAdsLoader(@Nullable OnAdCacheModifiedListener cacheListener,
-                           @Nullable AdTracker tracker)
+                    @Nullable AdTracker tracker)
   {
     super(tracker, cacheListener);
   }

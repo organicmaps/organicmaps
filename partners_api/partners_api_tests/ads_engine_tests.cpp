@@ -6,6 +6,7 @@
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/facebook_ads.hpp"
+#include "partners_api/google_ads.hpp"
 #include "partners_api/mopub_ads.hpp"
 #include "partners_api/rb_ads.hpp"
 
@@ -135,13 +136,13 @@ UNIT_TEST(AdsEngine_Smoke)
     auto result = engine.GetBanners(holder, {"Russian Federation"}, "ru");
     TEST(result.empty(), ());
   }
-  ads::Facebook facebook;
+  ads::Google google;
   {
     TEST(engine.HasSearchBanner(), ());
     auto result = engine.GetSearchBanners();
     TEST_EQUAL(result.size(), 1, ());
-    TEST_EQUAL(result[0].m_type, ads::Banner::Type::Facebook, ());
-    TEST_EQUAL(result[0].m_bannerId, facebook.GetSearchBannerId(), ());
+    TEST_EQUAL(result[0].m_type, ads::Banner::Type::Google, ());
+    TEST_EQUAL(result[0].m_bannerId, google.GetSearchBannerId(), ());
   }
 }
 }

@@ -2,7 +2,8 @@ typedef NS_ENUM(NSInteger, MWMBannerType) {
   MWMBannerTypeNone,
   MWMBannerTypeFacebook,
   MWMBannerTypeRb,
-  MWMBannerTypeMopub
+  MWMBannerTypeMopub,
+  MWMBannerTypeGoogle
 };
 
 @protocol MWMBanner
