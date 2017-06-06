@@ -3956,6 +3956,7 @@ zh-Hans:^村庄
 zh-Hant:^村|1村莊|鄉下
 el:^Χωριουδάκι|χωριό
 sk:^Dedina
+sw:^Kijiji kidogo
 
 place-village
 en:^Village|hamlet
@@ -5203,6 +5204,7 @@ zh-Hans:^政府机构
 zh-Hant:^政府辦公室|政府機關
 el:^Κυβερνητικό γραφείο
 sk:^Štátny úrad
+sw:^Ofisi ya serikali
 
 office-lawyer
 en:^Lawyer|advocate|attorney|barrister|counsel|councellor|solicitor
