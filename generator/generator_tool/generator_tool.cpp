@@ -7,7 +7,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/metaline_builder.hpp"
+#include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
@@ -232,7 +232,7 @@ int main(int argc, char ** argv)
 
       LOG(LINFO, ("Processing metalines from", metalinesFilename));
       if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
-        LOG(LWARNING, ("Error generating metalines section."));
+        LOG(LCRITICAL, ("Error generating metalines section."));
     }
 
     if (FLAGS_generate_index)

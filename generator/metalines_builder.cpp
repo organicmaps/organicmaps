@@ -1,4 +1,4 @@
-#include "generator/metaline_builder.hpp"
+#include "generator/metalines_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "indexer/classificator.hpp"
@@ -17,13 +17,16 @@
 
 namespace
 {
-using Ways = std::vector<std::int32_t>;
+uint8_t const kMetaLinesSectionVersion = 1;
 
+using Ways = std::vector<int32_t>;
+
+/// A string of connected ways.
 class LineString
 {
   Ways m_ways;
-  std::uint64_t m_start;
-  std::uint64_t m_end;
+  uint64_t m_start;
+  uint64_t m_end;
   bool m_oneway;
 
 public:
@@ -31,8 +34,9 @@ public:
   {
     std::string const oneway = way.GetTag("oneway");
     m_oneway = !oneway.empty() && oneway != "no";
-    std::int32_t const wayId = base::checked_cast<std::int32_t>(way.id);
+    int32_t const wayId = base::checked_cast<int32_t>(way.id);
     m_ways.push_back(oneway == "-1" ? -wayId : wayId);
+    CHECK_GREATER_OR_EQUAL(way.Nodes().size(), 2, ());
     m_start = way.Nodes().front();
     m_end = way.Nodes().back();
   }
@@ -82,12 +86,13 @@ public:
 
 namespace feature
 {
+/// A list of segments, that is, LineStrings, sharing the same attributes.
 class Segments
 {
   std::list<LineString> m_parts;
 
 public:
-  explicit Segments(OsmElement const & way) { m_parts.push_back(LineString(way)); }
+  explicit Segments(OsmElement const & way) { m_parts.emplace_back(way); }
 
   void Add(OsmElement const & way)
   {
@@ -101,11 +106,13 @@ public:
         break;
       }
     }
+    // If no LineString accepted the way in its Add method, create a new LineString with it.
     if (found == m_parts.cend())
     {
       m_parts.push_back(line);
       return;
     }
+    // Otherwise check if the extended LineString can be merged with some other LineString.
     for (LineString & part : m_parts)
     {
       if (part.Add(*found))
@@ -120,25 +127,32 @@ public:
   {
     std::vector<Ways> result;
     for (LineString const & line : m_parts)
+    {
       if (line.Ways().size() > 1)
+      {
         result.push_back(line.Ways());
+      }
+    }
     return result;
   }
 };
 
+// MetalinesBuilder --------------------------------------------------------------------------------
 void MetalinesBuilder::operator()(OsmElement const & el, FeatureParams const & params)
 {
   static uint32_t const highwayType = classif().GetTypeByPath({"highway"});
   if (params.FindType(highwayType, 1) == ftype::GetEmptyValue() ||
       el.Nodes().front() == el.Nodes().back())
+  {
     return;
+  }
 
   std::string name;
-  params.name.GetString(0, name);
+  params.name.GetString(StringUtf8Multilang::kDefaultCode, name);
   if (name.empty() || params.ref.empty())
     return;
 
-  std::size_t const key = std::hash<std::string>{}(name + '\0' + params.ref);
+  size_t const key = std::hash<std::string>{}(name + '\0' + params.ref);
   auto segment = m_data.find(key);
   if (segment == m_data.cend())
     m_data.emplace(key, std::make_shared<Segments>(el));
@@ -148,23 +162,31 @@ void MetalinesBuilder::operator()(OsmElement const & el, FeatureParams const & p
 
 void MetalinesBuilder::Flush()
 {
-  uint32_t count = 0;
-  FileWriter writer(m_filePath);
-  for (auto const & seg : m_data)
+  try
   {
-    auto const & longWays = seg.second->GetLongWays();
-    for (Ways const & ways : longWays)
+    uint32_t count = 0;
+    FileWriter writer(m_filePath);
+    for (auto const & seg : m_data)
     {
-      uint16_t size = ways.size();
-      WriteToSink(writer, size);
-      for (std::int32_t const way : ways)
-        WriteToSink(writer, way);
-      ++count;
+      auto const & longWays = seg.second->GetLongWays();
+      for (Ways const & ways : longWays)
+      {
+        uint16_t size = base::checked_cast<uint16_t>(ways.size());
+        WriteToSink(writer, size);
+        for (int32_t const way : ways)
+          WriteToSink(writer, way);
+        ++count;
+      }
     }
+    LOG_SHORT(LINFO, ("Wrote", count, "metalines with OSM IDs for the entire planet to", m_filePath));
   }
-  LOG_SHORT(LINFO, ("Wrote", count, "metalines with OSM IDs for the entire planet to", m_filePath));
+  catch (RootException const & e)
+  {
+    LOG(LERROR, ("An exception happened while saving metalines to", m_filePath, ":", e.what()));
+  }
 }
 
+// Functions --------------------------------------------------------------------------------
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
@@ -174,23 +196,27 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
 
   FileReader reader(metalinesPath);
   ReaderSource<FileReader> src(reader);
-  std::vector<std::uint8_t> buffer;
-  MemWriter<std::vector<std::uint8_t>> memWriter(buffer);
-  std::uint32_t count = 0;
+  std::vector<uint8_t> buffer;
+  MemWriter<std::vector<uint8_t>> memWriter(buffer);
+  WriteToSink(memWriter, kMetaLinesSectionVersion);
+  uint32_t count = 0;
 
-  while (src.Size())
+  while (src.Size() > 0)
   {
-    std::vector<std::int32_t> featureIds;
-    std::uint16_t size = ReadPrimitiveFromSource<std::uint16_t>(src);
-    std::vector<std::int32_t> ways(size);
-    src.Read(&ways[0], size * sizeof(std::int32_t));
+    std::vector<int32_t> featureIds;
+    uint32_t size = ReadPrimitiveFromSource<uint32_t>(src);
+    std::vector<int32_t> ways(size);
+    src.Read(ways.data(), size * sizeof(int32_t));
     for (auto const wayId : ways)
     {
+      // We get a negative wayId when a feature direction should be reversed.
       auto fid = osmIdToFeatureId.find(osm::Id::Way(std::abs(wayId)));
       if (fid == osmIdToFeatureId.cend())
         break;
 
-      featureIds.push_back(wayId > 0 ? fid->second : -fid->second);
+      // Keeping the sign for the feature direction.
+      int32_t const featureId = static_cast<int32_t>(fid->second);
+      featureIds.push_back(wayId > 0 ? featureId : -featureId);
     }
 
     if (featureIds.size() > 1)
@@ -203,13 +229,10 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
     }
   }
 
-  // Terminate the metalines stream with a zero-length list.
-  uint8_t const zero = 0;
-  WriteToSink(memWriter, zero);
-
   // Write buffer to section.
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(METALINES_FILE_TAG);
+  WriteVarUint(writer, count);
   writer.Write(buffer.data(), buffer.size());
   LOG(LINFO, ("Finished writing metalines section, found", count, "metalines."));
   return true;

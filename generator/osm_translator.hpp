@@ -1,7 +1,7 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
-#include "generator/metaline_builder.hpp"
+#include "generator/metalines_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/restriction_writer.hpp"

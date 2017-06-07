@@ -37,8 +37,8 @@ set(SRC
   generate_info.hpp
   intermediate_data.hpp
   intermediate_elements.hpp
-  metaline_builder.cpp
-  metaline_builder.hpp
+  metalines_builder.cpp
+  metalines_builder.hpp
   opentable_dataset.cpp
   opentable_dataset.hpp
   opentable_scoring.cpp

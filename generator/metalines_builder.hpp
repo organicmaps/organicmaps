@@ -17,15 +17,21 @@ class MetalinesBuilder
 {
 public:
   explicit MetalinesBuilder(std::string const & filePath) : m_filePath(filePath) {}
+
   ~MetalinesBuilder() { Flush(); }
+
+  /// Add a highway segment to the collection of metalines.
   void operator()(OsmElement const & el, FeatureParams const & params);
+
+  /// Write all metalines to the intermediate file.
   void Flush();
 
 private:
-  std::unordered_map<std::size_t, std::shared_ptr<Segments>> m_data;
+  std::unordered_map<size_t, std::shared_ptr<Segments>> m_data;
   std::string m_filePath;
 };
 
+/// Read an intermediate file from MetalinesBuilder and convert it to an mwm section.
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath);
 }

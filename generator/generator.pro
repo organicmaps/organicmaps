@@ -28,7 +28,7 @@ SOURCES += \
     feature_generator.cpp \
     feature_merger.cpp \
     feature_sorter.cpp \
-    metaline_builder.cpp \
+    metalines_builder.cpp \
     opentable_dataset.cpp \
     opentable_scoring.cpp \
     osm2meta.cpp \
@@ -71,7 +71,7 @@ HEADERS += \
     generate_info.hpp \
     intermediate_data.hpp\
     intermediate_elements.hpp\
-    metaline_builder.hpp \
+    metalines_builder.hpp \
     opentable_dataset.hpp \
     osm2meta.hpp \
     osm2type.hpp \
