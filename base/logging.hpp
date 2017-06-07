@@ -4,6 +4,7 @@
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 
+#include <array>
 #include <atomic>
 #include <string>
 
@@ -15,22 +16,24 @@ enum LogLevel
   LINFO,
   LWARNING,
   LERROR,
-  LCRITICAL
+  LCRITICAL,
+
+  NUM_LOG_LEVELS
 };
 
 std::string ToString(LogLevel level);
 bool FromString(std::string const & s, LogLevel & level);
-std::vector<std::string> const & GetLogLevelNames();
+std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames();
 
-using TLogLevel = std::atomic<LogLevel>;
-typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, std::string const &);
+using AtomicLogLevel = std::atomic<LogLevel>;
+using LogMessageFn = void (*)(LogLevel level, SrcPoint const &, std::string const &);
 
 LogLevel GetDefaultLogLevel();
 LogLevel GetDefaultLogAbortLevel();
 
 extern LogMessageFn LogMessage;
-extern TLogLevel g_LogLevel;
-extern TLogLevel g_LogAbortLevel;
+extern AtomicLogLevel g_LogLevel;
+extern AtomicLogLevel g_LogAbortLevel;
 
 /// @return Pointer to previous message function.
 LogMessageFn SetLogMessageFn(LogMessageFn fn);
@@ -73,24 +76,14 @@ using ::my::LCRITICAL;
 #define LOG(level, msg)                                        \
   do                                                           \
   {                                                            \
-    if ((level) < ::my::g_LogLevel)                            \
-    {                                                          \
-    }                                                          \
-    else                                                       \
-    {                                                          \
+    if ((level) >= ::my::g_LogLevel)                           \
       ::my::LogMessage(level, SRC(), ::my::impl::Message msg); \
-    }                                                          \
   } while (false)
 
 // Logging macro with short info (without entry point)
 #define LOG_SHORT(level, msg)                                           \
   do                                                                    \
   {                                                                     \
-    if ((level) < ::my::g_LogLevel)                                     \
-    {                                                                   \
-    }                                                                   \
-    else                                                                \
-    {                                                                   \
+    if ((level) >= ::my::g_LogLevel)                                    \
       ::my::LogMessage(level, my::SrcPoint(), ::my::impl::Message msg); \
-    }                                                                   \
   } while (false)
