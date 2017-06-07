@@ -4,6 +4,7 @@
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 
+#include <array>
 #include <atomic>
 #include <string>
 
@@ -15,12 +16,14 @@ enum LogLevel
   LINFO,
   LWARNING,
   LERROR,
-  LCRITICAL
+  LCRITICAL,
+
+  NUM_LOG_LEVELS
 };
 
 std::string ToString(LogLevel level);
 bool FromString(std::string const & s, LogLevel & level);
-std::vector<std::string> const & GetLogLevelNames();
+std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames();
 
 using AtomicLogLevel = std::atomic<LogLevel>;
 using LogMessageFn = void (*)(LogLevel level, SrcPoint const &, std::string const &);
@@ -73,7 +76,7 @@ using ::my::LCRITICAL;
 #define LOG(level, msg)                                        \
   do                                                           \
   {                                                            \
-    if (!((level) < ::my::g_LogLevel))                         \
+    if ((level) >= ::my::g_LogLevel)                           \
       ::my::LogMessage(level, SRC(), ::my::impl::Message msg); \
   } while (false)
 
@@ -81,6 +84,6 @@ using ::my::LCRITICAL;
 #define LOG_SHORT(level, msg)                                           \
   do                                                                    \
   {                                                                     \
-    if (!((level) < ::my::g_LogLevel))                                  \
+    if ((level) >= ::my::g_LogLevel)                                    \
       ::my::LogMessage(level, my::SrcPoint(), ::my::impl::Message msg); \
   } while (false)

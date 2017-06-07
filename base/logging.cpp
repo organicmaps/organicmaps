@@ -9,13 +9,13 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <map>
 #include <mutex>
 #include <sstream>
-#include <vector>
 
 using namespace std;
 
@@ -43,11 +43,12 @@ bool FromString(string const & s, LogLevel & level)
   return true;
 }
 
-vector<string> const & GetLogLevelNames()
+array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames()
 {
   // If you're going to modify the behavior of the function, please,
   // check validity of LogHelper ctor.
-  static vector<string> const kNames = {{"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
+  static array<char const *, NUM_LOG_LEVELS> const kNames = {
+      {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
   return kNames;
 }
 
@@ -66,22 +67,18 @@ class LogHelper
 
   my::Timer m_timer;
 
-  char const * m_names[5];
-  size_t m_lens[5];
+  array<char const *, NUM_LOG_LEVELS> m_names;
+  array<size_t, NUM_LOG_LEVELS> m_lens;
 
 public:
   LogHelper() : m_threadsCount(0)
   {
     // This code highly depends on the fact that GetLogLevelNames()
-    // always returns the same constant vector of strings.
-    auto const & names = GetLogLevelNames();
+    // always returns the same constant array of strings.
 
-    assert(names.size() == 5);
-    for (size_t i = 0; i < 5; ++i)
-    {
-      m_names[i] = names[i].c_str();
-      m_lens[i] = names[i].size();
-    }
+    m_names = GetLogLevelNames();
+    for (size_t i = 0; i < m_lens.size(); ++i)
+      m_lens[i] = strlen(m_names[i]);
   }
 
   void WriteProlog(ostream & s, LogLevel level)
