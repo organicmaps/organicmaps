@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
-import com.mapswithme.maps.news.FirstStartFragment;
 import com.mapswithme.maps.news.NewsFragment;
+import com.mapswithme.maps.news.WelcomeDialogFragment;
+import com.mapswithme.maps.permissions.PermissionsDialogFragment;
+import com.mapswithme.maps.permissions.StoragePermissionsDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
@@ -27,18 +30,31 @@ public class SplashActivity extends AppCompatActivity
   public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   private static final int REQUEST_PERMISSIONS = 1;
+  private static final long FIRST_START_DELAY = 1000;
   private static final long DELAY = 100;
 
   // The first launch of application ever - onboarding screen will be shown.
   private static boolean sFirstStart;
 
   private View mIvLogo;
+  private View mAppName;
 
   private boolean mPermissionsGranted;
+  private boolean mNeedStoragePermission;
   private boolean mCanceled;
 
   @NonNull
-  private final Runnable mDelayedTask = new Runnable()
+  private final Runnable mPermissionsDelayedTask = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      PermissionsDialogFragment.show(SplashActivity.this, REQUEST_PERMISSIONS);
+    }
+  };
+
+  @NonNull
+  private final Runnable mInitCoreDelayedTask = new Runnable()
   {
     @Override
     public void run()
@@ -47,11 +63,11 @@ public class SplashActivity extends AppCompatActivity
 //    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
 //    since onPause() callback can be blocked because of UI thread is busy with framework
 //    initialization.
-      UiThread.runLater(mFinalTask);
+      UiThread.runLater(mFinalDelayedTask);
     }
   };
   @NonNull
-  private final Runnable mFinalTask = new Runnable()
+  private final Runnable mFinalDelayedTask = new Runnable()
   {
     @Override
     public void run()
@@ -79,8 +95,9 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    UiThread.cancelDelayedTasks(mDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalTask);
+    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
+    UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
   }
@@ -91,43 +108,60 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     mCanceled = false;
     mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
+    DialogFragment storagePermissionsDialog = StoragePermissionsDialogFragment.find(this);
+    DialogFragment permissionsDialog = PermissionsDialogFragment.find(this);
     if (!mPermissionsGranted)
     {
-//    TODO requestPermissions after Permissions dialog
-      PermissionsUtils.requestPermissions(this, REQUEST_PERMISSIONS);
+      if (mNeedStoragePermission || storagePermissionsDialog != null)
+      {
+        if (permissionsDialog != null)
+          permissionsDialog.dismiss();
+        if (storagePermissionsDialog == null)
+          StoragePermissionsDialogFragment.show(this);
+        return;
+      }
+      permissionsDialog = PermissionsDialogFragment.find(this);
+      if (permissionsDialog == null)
+        UiThread.runLater(mPermissionsDelayedTask, FIRST_START_DELAY);
+
       return;
     }
 
-    UiThread.runLater(mDelayedTask, DELAY);
+    if (permissionsDialog != null)
+      permissionsDialog.dismiss();
+
+    if (storagePermissionsDialog != null)
+      storagePermissionsDialog.dismiss();
+
+    UiThread.runLater(mInitCoreDelayedTask, DELAY);
   }
 
   @Override
   protected void onPause()
   {
     mCanceled = true;
-    UiThread.cancelDelayedTasks(mDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalTask);
+    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
+    UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
+    UiThread.cancelDelayedTasks(mFinalDelayedTask);
     super.onPause();
   }
 
   private void resumeDialogs()
   {
-    //  TODO show permissions dialog if Permissions is not granted
-    if (!mPermissionsGranted || mCanceled)
+    if (mCanceled)
       return;
 
     if (Counters.isMigrationNeeded())
     {
       Config.migrateCountersToSharedPrefs();
       Counters.setMigrationExecuted();
-      Counters.initCounters(this);
     }
 
-    sFirstStart = FirstStartFragment.showOn(this, this);
+    sFirstStart = WelcomeDialogFragment.showOn(this);
     if (sFirstStart)
     {
       PushwooshHelper.nativeProcessFirstLaunch();
-      UiUtils.hide(mIvLogo);
+      UiUtils.hide(mIvLogo, mAppName);
       return;
     }
 
@@ -136,7 +170,7 @@ public class SplashActivity extends AppCompatActivity
     {
       if (ViralFragment.shouldDisplay())
       {
-        UiUtils.hide(mIvLogo);
+        UiUtils.hide(mIvLogo, mAppName);
         ViralFragment dialog = new ViralFragment();
         dialog.onDismiss(new DialogInterface()
         {
@@ -161,7 +195,7 @@ public class SplashActivity extends AppCompatActivity
     }
     else
     {
-      UiUtils.hide(mIvLogo);
+      UiUtils.hide(mIvLogo, mAppName);
     }
   }
 
@@ -175,16 +209,7 @@ public class SplashActivity extends AppCompatActivity
 
     mPermissionsGranted = PermissionsUtils.computePermissionsResult(permissions, grantResults)
                                           .isExternalStorageGranted();
-
-    if (mPermissionsGranted)
-    {
-      init();
-      resumeDialogs();
-    }
-    else
-    {
-      finish();
-    }
+    mNeedStoragePermission = !mPermissionsGranted;
   }
 
   @Override
@@ -198,6 +223,7 @@ public class SplashActivity extends AppCompatActivity
     UiUtils.setupStatusBar(this);
     setContentView(R.layout.activity_splash);
     mIvLogo = findViewById(R.id.iv__logo);
+    mAppName = findViewById(R.id.tv__app_name);
   }
 
   private void init()

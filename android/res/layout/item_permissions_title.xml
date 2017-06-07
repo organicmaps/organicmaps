@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:paddingLeft="@dimen/margin_double"
+  android:paddingRight="@dimen/margin_double"
+  android:paddingTop="@dimen/permissions_title_top_margin"
+  android:paddingBottom="@dimen/permissions_title_bottom_margin">
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.Toolbar"
+    android:textColor="?android:textColorPrimary"
+    android:fontFamily="@string/robotoMedium"
+    tools:text="@string/onboarding_detail_permissions_title"
+    tools:targetApi="jelly_bean"/>
+</LinearLayout>

@@ -911,7 +911,7 @@
 	<string name="last_update">Последнее обновление: %s</string>
 	<string name="booking_checkin">заезд: %s</string>
 	<string name="booking_checkout">выезд: %s</string>
-	<string name="placepage_add_place_button">Добавить на карту</string>
+	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
@@ -962,6 +962,7 @@
 	<string name="something_is_not_working">Что-то не работает</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
+	<string name="accept_and_continue">Принять и продолжить</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
 	<string name="whats_new_route_profile_title">Умный в гору не пойдет</string>
@@ -1110,4 +1111,6 @@
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
 	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
+	<string name="learn_more">Узнать больше</string>
+	<string name="exit">Выход</string>
 </resources>

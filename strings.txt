@@ -16657,6 +16657,45 @@
     el = Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.
     sk = Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.
 
+  [onboarding_permissions_title]
+    en = Allow MAPS.ME access to storage and location
+
+  [onboarding_permissions_message]
+    en = So you can download maps, see places and traffic near you and use navigation.
+
+  [onboarding_storage_permissions_title]
+    en = Grant access
+
+  [onboarding_storage_permissions_message]
+    en = Change permissions settings in your device. Needs a storage access to use MAPS.ME.
+
+  [onboarding_detail_permissions_title]
+    en = MAPS.ME needs access to
+
+  [onboarding_detail_permissions_storage_title]
+    en = Storage
+
+  [onboarding_detail_permissions_storage_message]
+    en = To save and use downloaded maps offline and save bookmarks.
+
+  [onboarding_detail_permissions_location_title]
+    en = Location
+
+  [onboarding_detail_permissions_location_message]
+    en = To see places and traffic near you and use navigation.
+
+  [onboarding_detail_permissions_storage_path_message]
+    en = You can also change a destination to save downloaded maps. 
+
+  [onboarding_welcome_title]
+    en = Welcome to MAPS.ME
+
+  [onboarding_welcome_first_subtitle]
+    en = Free, fast, detailed and entirely offline maps with turn-by-turn navigation.
+
+  [onboarding_welcome_second_subtitle]
+    en = By launching the application, you agree to <a href="http://legal.my.com/us/maps/tou/">Terms</a> of Use and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
+
   [dialog_incorrect_feature_position]
     en = Change location
     ru = Измените местоположение
@@ -20787,6 +20826,10 @@
     el = Συμφωνώ
     sk = Prijať
 
+  [accept_and_continue]
+    en = Accept and continue
+    ru = Принять и продолжить
+
   [decline]
     comment = For the first routing
     en = Decline
@@ -24510,3 +24553,11 @@
     pt_BR = Se uma rua ou um objeto não possui um nome em seu idioma, ele será soletrado usando o alfabeto latino.
     sk = Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.
     sw = Ikiwa mtaa au kipengee hakina jina kwa lugha yako, kitaandikwa kwa herufi za alfabeti ya Kilatini.
+
+  [learn_more]
+    en = Learn more
+    ru = Узнать больше
+
+  [exit]
+    en = Exit
+    ru = Выход

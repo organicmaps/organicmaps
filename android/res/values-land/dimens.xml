@@ -18,4 +18,10 @@
   <dimen name="altitude_chart_image_width">334dp</dimen>
 
   <dimen name="start_button_width">128dp</dimen>
+
+  <dimen name="permissions_title_top_margin">52dp</dimen>
+  <dimen name="permissions_title_bottom_margin">@dimen/margin_half</dimen>
+  <dimen name="permissions_title_note_margin">@dimen/margin_half</dimen>
+  <dimen name="permissions_items_margin">@dimen/margin_half</dimen>
+  <dimen name="info_page_image_size">200dp</dimen>
 </resources>

@@ -133,6 +133,8 @@
 	<string name="download_country_failed">%s descarga falhou</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Adicionar novo conjunto</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Adicionar aos Favoritos</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Cor de favoritos</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->

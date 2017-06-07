@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -88,11 +89,13 @@ import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -130,6 +133,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String STATE_PP = "PpState";
   private static final String STATE_MAP_OBJECT = "MapObject";
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
+
+  private static final int LOCATION_REQUEST = 1;
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -186,11 +191,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onClick(View v)
     {
-      mLocationErrorDialogAnnoying = false;
-      LocationHelper.INSTANCE.switchToNextMode();
-      LocationHelper.INSTANCE.restart();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
+
+      if (!PermissionsUtils.isLocationGranted())
+      {
+        if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
+          PermissionsUtils.requestLocationPermission(MwmActivity.this, LOCATION_REQUEST);
+        else
+          Toast.makeText(MwmActivity.this, R.string.enable_location_services, Toast.LENGTH_SHORT)
+               .show();
+        return;
+      }
+
+      myPositionClick();
     }
   };
 
@@ -307,6 +321,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingRestored()
   {
     runTasks();
+  }
+
+  private void myPositionClick()
+  {
+    mLocationErrorDialogAnnoying = false;
+    LocationHelper.INSTANCE.switchToNextMode();
+    LocationHelper.INSTANCE.restart();
   }
 
   private void runTasks()
@@ -959,6 +980,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mFilterController != null)
       mFilterController.onRestoreState(savedInstanceState);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                         @NonNull int[] grantResults)
+  {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode != LOCATION_REQUEST || grantResults.length == 0)
+      return;
+
+    PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
+    if (result.isLocationGranted())
+      myPositionClick();
   }
 
   @Override

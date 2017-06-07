@@ -248,7 +248,7 @@
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
 	<string name="appStore_message">Nous espérons que vous appréciez l\&#39;utilisation de MAPS.ME ! Si oui, veuillez évaluer l\&#39;appli ou laisser une critique sur l\&#39;App Store. Cela prend moins d\&#39;une minute, mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
-	<string name="no_thanks">Non, merci</string>
+	<string name="no_thanks">Hé, regarde mon épingle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Hé, regarde mon épingle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->

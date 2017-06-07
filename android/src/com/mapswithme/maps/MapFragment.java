@@ -16,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.PushwooshHelper;
+import com.mapswithme.util.concurrency.UiThread;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
@@ -166,10 +167,23 @@ public class MapFragment extends BaseMwmFragment
     getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    if (!nativeCreateEngine(surface, (int) exactDensityDpi, SplashActivity.isFirstStart()))
+    final boolean firstStart = SplashActivity.isFirstStart();
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart))
     {
       reportUnsupported();
       return;
+    }
+
+    if (firstStart)
+    {
+      UiThread.runLater(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          LocationHelper.INSTANCE.onExitFromFirstRun();
+        }
+      });
     }
 
     mContextCreated = true;

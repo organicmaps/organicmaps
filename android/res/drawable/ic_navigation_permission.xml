@@ -1,0 +1,17 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+           android:shape="oval">
+      <solid android:color="@color/black_4"/>
+      <size
+        android:height="@dimen/permissions_details_icon_size"
+        android:width="@dimen/permissions_details_icon_size"/>
+    </shape>
+  </item>
+  <item
+    android:drawable="@drawable/ic_navigation_light"
+    android:left="@dimen/margin_half"
+    android:right="@dimen/margin_half"
+    android:top="@dimen/margin_half"
+    android:bottom="@dimen/margin_half"/>
+</layer-list>

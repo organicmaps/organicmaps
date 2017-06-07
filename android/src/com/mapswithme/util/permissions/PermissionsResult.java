@@ -4,14 +4,11 @@ public final class PermissionsResult
 {
   private final boolean mExternalStorageGranted;
   private final boolean mLocationGranted;
-  private final boolean mGetAccountsGranted;
 
-  public PermissionsResult(boolean externalStorageGranted, boolean locationGranted,
-                           boolean getAccountsGranted)
+  public PermissionsResult(boolean externalStorageGranted, boolean locationGranted)
   {
     mExternalStorageGranted = externalStorageGranted;
     mLocationGranted = locationGranted;
-    mGetAccountsGranted = getAccountsGranted;
   }
 
   public boolean isExternalStorageGranted()
@@ -22,10 +19,5 @@ public final class PermissionsResult
   public boolean isLocationGranted()
   {
     return mLocationGranted;
-  }
-
-  public boolean isGetAccountsGranted()
-  {
-    return mGetAccountsGranted;
   }
 }

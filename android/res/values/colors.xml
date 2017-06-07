@@ -20,6 +20,7 @@
   <color name="black_primary">#DE000000</color>   <!-- 87% black -->
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
   <color name="black_lightest">#61000000</color>  <!-- 38% black -->
+  <color name="black_4">#0A000000</color> <!-- 4% black -->
   <color name="black_8">#14000000</color> <!-- 8% black -->
   <color name="black_11">#1E000000</color> <!-- 11% black -->
   <color name="black_24">#3D000000</color> <!-- 24% black -->

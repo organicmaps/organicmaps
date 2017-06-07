@@ -2,6 +2,7 @@ package com.mapswithme.util;
 
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 
 import static com.mapswithme.util.Counters.KEY_APP_FIRST_INSTALL_FLAVOR;
@@ -104,14 +105,16 @@ public final class Config
 
   public static void migrateCountersToSharedPrefs()
   {
+    int version = getInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
     MwmApplication.prefs()
                   .edit()
                   .putInt(KEY_APP_LAUNCH_NUMBER, getInt(KEY_APP_LAUNCH_NUMBER))
-                  .putInt(KEY_APP_FIRST_INSTALL_VERSION, getInt(KEY_APP_FIRST_INSTALL_VERSION))
+                  .putInt(KEY_APP_FIRST_INSTALL_VERSION, version)
                   .putString(KEY_APP_FIRST_INSTALL_FLAVOR, getString(KEY_APP_FIRST_INSTALL_FLAVOR))
                   .putLong(KEY_APP_LAST_SESSION_TIMESTAMP, getLong(KEY_APP_LAST_SESSION_TIMESTAMP))
                   .putInt(KEY_APP_SESSION_NUMBER, getInt(KEY_APP_SESSION_NUMBER))
-                  .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, getBool(KEY_MISC_FIRST_START_DIALOG_SEEN))
+                  .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN,
+                              getBool(KEY_MISC_FIRST_START_DIALOG_SEEN))
                   .putInt(KEY_MISC_NEWS_LAST_VERSION, getInt(KEY_MISC_NEWS_LAST_VERSION))
                   .putInt(KEY_LIKES_LAST_RATED_SESSION, getInt(KEY_LIKES_LAST_RATED_SESSION))
                   .apply();

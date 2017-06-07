@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <item name="match_parent" type="dimen">-1</item>
 
   <dimen name="track_circle_size">40dp</dimen>
 
@@ -188,4 +189,12 @@
   <dimen name="margin_dialog_title">20dp</dimen>
 
   <dimen name="action_bar_extended_height">72dp</dimen>
+
+  <dimen name="permissions_title_top_margin">80dp</dimen>
+  <dimen name="permissions_title_bottom_margin">@dimen/margin_base</dimen>
+  <dimen name="permissions_title_note_margin">@dimen/margin_base</dimen>
+  <dimen name="permissions_items_margin">@dimen/margin_base</dimen>
+  <dimen name="permissions_details_width">@dimen/match_parent</dimen>
+  <dimen name="permissions_details_icon_size">40dp</dimen>
+  <dimen name="info_page_image_size">240dp</dimen>
 </resources>

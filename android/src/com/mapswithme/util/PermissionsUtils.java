@@ -15,8 +15,8 @@ import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.GET_ACCOUNTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale;
 
 public final class PermissionsUtils
 {
@@ -24,8 +24,13 @@ public final class PermissionsUtils
       {
           WRITE_EXTERNAL_STORAGE,
           ACCESS_COARSE_LOCATION,
-          ACCESS_FINE_LOCATION,
-          GET_ACCOUNTS
+          ACCESS_FINE_LOCATION
+      };
+
+  private static final String[] LOCATION_PERMISSIONS = new String[]
+      {
+          ACCESS_COARSE_LOCATION,
+          ACCESS_FINE_LOCATION
       };
 
   private PermissionsUtils() {}
@@ -48,14 +53,15 @@ public final class PermissionsUtils
     return checkPermissions().isLocationGranted();
   }
 
+  public static boolean isLocationExplanationNeeded(@NonNull Activity activity)
+  {
+    return shouldShowRequestPermissionRationale(activity, ACCESS_COARSE_LOCATION)
+        || shouldShowRequestPermissionRationale(activity, ACCESS_FINE_LOCATION);
+  }
+
   public static boolean isExternalStorageGranted()
   {
     return checkPermissions().isExternalStorageGranted();
-  }
-
-  public static boolean isGetAccountsGranted()
-  {
-    return checkPermissions().isGetAccountsGranted();
   }
 
   @NonNull
@@ -82,13 +88,16 @@ public final class PermissionsUtils
                                ? result.get(ACCESS_COARSE_LOCATION) : false)
                               || (result.containsKey(ACCESS_FINE_LOCATION)
                                   ? result.get(ACCESS_FINE_LOCATION) : false);
-    boolean getAccountsGranted = result.containsKey(GET_ACCOUNTS)
-                                 ? result.get(GET_ACCOUNTS) : false;
-    return new PermissionsResult(externalStorageGranted, locationGranted, getAccountsGranted);
+    return new PermissionsResult(externalStorageGranted, locationGranted);
   }
 
   public static void requestPermissions(@NonNull Activity activity, int code)
   {
     ActivityCompat.requestPermissions(activity, PERMISSIONS, code);
+  }
+
+  public static void requestLocationPermission(@NonNull Activity activity, int code)
+  {
+    ActivityCompat.requestPermissions(activity, LOCATION_PERMISSIONS, code);
   }
 }
