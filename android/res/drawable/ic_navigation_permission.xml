@@ -4,8 +4,8 @@
            android:shape="oval">
       <solid android:color="@color/black_4"/>
       <size
-        android:height="40dp"
-        android:width="40dp"/>
+        android:height="@dimen/permissions_details_icon_size"
+        android:width="@dimen/permissions_details_icon_size"/>
     </shape>
   </item>
   <item
