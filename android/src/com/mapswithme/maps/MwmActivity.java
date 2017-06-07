@@ -2035,10 +2035,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   static class ShowPointTask implements MapTask
   {
-    private final float mLat;
-    private final float mLon;
+    private final double mLat;
+    private final double mLon;
 
-    ShowPointTask(float lat, float lon)
+    ShowPointTask(double lat, double lon)
     {
       mLat = lat;
       mLon = lon;
@@ -2055,26 +2055,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   static class BuildRouteTask implements MapTask
   {
-    private final float mLatTo;
-    private final float mLonTo;
+    private final double mLatTo;
+    private final double mLonTo;
     @Nullable
-    private final Float mLatFrom;
+    private final Double mLatFrom;
     @Nullable
-    private final Float mLonFrom;
+    private final Double mLonFrom;
     @Nullable
     private final String mRouter;
 
-    BuildRouteTask(float latTo, float lonTo)
+    BuildRouteTask(double latTo, double lonTo)
     {
       this(latTo, lonTo, null, null, null);
     }
 
-    BuildRouteTask(float latTo, float lonTo, @Nullable Float latFrom, @Nullable Float lonFrom)
+    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom)
     {
       this(latTo, lonTo, latFrom, lonFrom, null);
     }
 
-    BuildRouteTask(float latTo, float lonTo, @Nullable Float latFrom, @Nullable Float lonFrom,
+    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom,
                    @Nullable String router)
     {
       mLatTo = latTo;
@@ -2126,7 +2126,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @NonNull
-    private MapObject fromLatLon(float lat, float lon)
+    private MapObject fromLatLon(double lat, double lon)
     {
       return new MapObject("", 0L, 0, MapObject.API_POINT, "",
                            "", "", "", lat, lon, "", null,
