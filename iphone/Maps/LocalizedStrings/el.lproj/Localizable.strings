@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Διαθέσιμη";
 
 /* Country queued for download */
-"downloader_queued" = "στην ουρά";
+"downloader_queued" = "Στην ουρά";
 
 "downloader_near_me_subtitle" = "Κοντά μου";
 

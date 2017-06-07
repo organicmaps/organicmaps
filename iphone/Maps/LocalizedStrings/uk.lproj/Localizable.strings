@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Доступні";
 
 /* Country queued for download */
-"downloader_queued" = "в черзі";
+"downloader_queued" = "В черзі";
 
 "downloader_near_me_subtitle" = "Поблизу";
 

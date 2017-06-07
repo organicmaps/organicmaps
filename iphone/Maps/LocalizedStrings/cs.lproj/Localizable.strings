@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Dostupné";
 
 /* Country queued for download */
-"downloader_queued" = "ve frontě";
+"downloader_queued" = "Ve frontě";
 
 "downloader_near_me_subtitle" = "Poblíž mě";
 

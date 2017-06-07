@@ -430,7 +430,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponible</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">en file d\&#39;attente</string>
+	<string name="downloader_queued">En file d\&#39;attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>

@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Đã có";
 
 /* Country queued for download */
-"downloader_queued" = "đã xếp hàng chờ";
+"downloader_queued" = "Đã xếp hàng chờ";
 
 "downloader_near_me_subtitle" = "Gần tôi";
 

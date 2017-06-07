@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Beschikbaar";
 
 /* Country queued for download */
-"downloader_queued" = "in de wachtrij";
+"downloader_queued" = "In de wachtrij";
 
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
 
