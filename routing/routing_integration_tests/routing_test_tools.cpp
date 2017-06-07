@@ -36,7 +36,8 @@ using namespace routing;
 using namespace routing_test;
 
 using TRouterFactory =
-    function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn)>;
+    function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn,
+                                 shared_ptr<NumMwmIds> numMwmIds)>;
 
 namespace
 {
@@ -109,6 +110,7 @@ namespace integration
 
   unique_ptr<IRouter> CreateAStarRouter(Index & index,
                                         storage::CountryInfoGetter const & infoGetter,
+                                        vector<LocalCountryFile> const & localFiles,
                                         TRouterFactory const & routerFactory)
   {
     // |infoGetter| should be a reference to an object which exists while the
@@ -117,7 +119,12 @@ namespace integration
     {
       return infoGetter.GetRegionCountryId(pt);
     };
-    unique_ptr<IRouter> router = routerFactory(index, countryFileGetter);
+
+    auto numMwmIds = make_shared<NumMwmIds>();
+    for (auto const & file : localFiles)
+      numMwmIds->RegisterFile(file.GetCountryFile());
+
+    unique_ptr<IRouter> router = routerFactory(index, countryFileGetter, numMwmIds);
     return unique_ptr<IRouter>(move(router));
   }
 
@@ -143,7 +150,7 @@ namespace integration
   public:
     PedestrianRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, localFiles,
                                    CreatePedestrianAStarBidirectionalRouter))
     {
     }
@@ -159,7 +166,7 @@ namespace integration
   public:
     BicycleRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+      , m_router(CreateAStarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, localFiles,
                                    CreateBicycleAStarBidirectionalRouter))
     {
     }

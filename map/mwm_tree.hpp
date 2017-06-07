@@ -3,6 +3,7 @@
 #include "routing/num_mwm_id.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
 
 #include "geometry/tree4d.hpp"
 

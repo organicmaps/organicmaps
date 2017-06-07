@@ -10,6 +10,7 @@
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/tree4d.hpp"
 
 #include "std/function.hpp"
 #include "std/string.hpp"
@@ -51,6 +52,10 @@ private:
 };
 
 unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn);
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
-unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn);
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
+                                                             TCountryFileFn const & countryFileFn,
+                                                             shared_ptr<NumMwmIds> /* numMwmIds */);
+unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index,
+                                                          TCountryFileFn const & countryFileFn,
+                                                          shared_ptr<NumMwmIds> numMwmIds);
 }  // namespace routing

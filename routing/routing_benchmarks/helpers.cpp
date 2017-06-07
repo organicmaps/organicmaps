@@ -70,6 +70,8 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & nee
   set<string> registeredMaps;
   for (auto const & localFile : localFiles)
   {
+    m_numMwmIds->RegisterFile(localFile.GetCountryFile());
+
     auto const & name = localFile.GetCountryName();
     if (neededMaps.count(name) == 0)
       continue;

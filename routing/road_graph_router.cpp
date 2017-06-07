@@ -234,7 +234,9 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
   return router;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
+unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
+                                                             TCountryFileFn const & countryFileFn,
+                                                             shared_ptr<NumMwmIds> /* numMwmIds */)
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
@@ -245,11 +247,14 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index, TCou
   return router;
 }
 
-unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index, TCountryFileFn const & countryFileFn)
+unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index,
+                                                          TCountryFileFn const & countryFileFn,
+                                                          shared_ptr<NumMwmIds> numMwmIds)
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new BicycleDirectionsEngine(index, nullptr));
+  unique_ptr<IDirectionsEngine> directionsEngine(
+      new BicycleDirectionsEngine(index, numMwmIds, false /* generateTrafficSegs */));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-bicycle", index, countryFileFn, IRoadGraph::Mode::ObeyOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));

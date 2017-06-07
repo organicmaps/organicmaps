@@ -80,7 +80,6 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
       }
       traffic.push_back(segTraffic);
     }
-    CHECK(!traffic.empty(), ());
     CHECK_EQUAL(trafficSegs.size(), traffic.size(), ());
   }
 

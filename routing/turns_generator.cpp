@@ -326,6 +326,13 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
 
     // Path geometry.
     CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
+    // Note. Every LoadedPathSegment in TUnpackedPathSegments contains LoadedPathSegment::m_path
+    // of several Junctions. Last Junction in a LoadedPathSegment::m_path is equal to first junction
+    // in next LoadedPathSegment::m_path in vector TUnpackedPathSegments:
+    // *---*---*---*---*       *---*           *---*---*---*
+    //                 *---*---*   *---*---*---*
+    // To prevent having repetitions in |junctions| list it's necessary to take the first point only from the
+    // first item of |loadedSegments|. The beginning should be ignored for the rest |m_path|.
     junctions.insert(junctions.end(), loadedSegmentIt == loadedSegments.cbegin()
                                           ? loadedSegmentIt->m_path.cbegin()
                                           : loadedSegmentIt->m_path.cbegin() + 1,

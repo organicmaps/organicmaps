@@ -38,7 +38,8 @@ public:
 
 protected:
   // RoutingTest overrides:
-  unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() override
+  unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
+    shared_ptr<routing::NumMwmIds> /* numMwmIds */) override
   {
     unique_ptr<routing::IDirectionsEngine> engine(new routing::PedestrianDirectionsEngine());
     return engine;

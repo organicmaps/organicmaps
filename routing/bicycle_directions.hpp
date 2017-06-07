@@ -24,7 +24,9 @@ public:
 
   using AdjacentEdgesMap = std::map<UniNodeId, AdjacentEdges>;
 
-  BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
+  BicycleDirectionsEngine(Index const & index,
+                          std::shared_ptr<NumMwmIds> numMwmIds,
+                          bool generateTrafficSegs);
 
   // IDirectionsEngine override:
   void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
@@ -39,7 +41,7 @@ private:
                                     uint32_t startSegId,
                                     uint32_t endSegId,
                                     UniNodeId & uniNodeId,
-                                    BicycleDirectionsEngine::AdjacentEdges & adjacentEdges);
+                                    turns::TurnCandidates & outgoingTurns);
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
   void FillPathSegmentsAndAdjacentEdgesMap(RoadGraphBase const & graph,
@@ -47,13 +49,19 @@ private:
                                            IRoadGraph::TEdgeVector const & routeEdges,
                                            my::Cancellable const & cancellable);
 
-  bool GetSegment(FeatureID const & featureId, uint32_t segId, bool forward,
-                  Segment & segment) const;
+  Segment GetSegment(FeatureID const & featureId, uint32_t segId, bool forward) const;
+
+  void GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
+                bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
+                IRoadGraph::TEdgeVector & ingoing);
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
   Index const & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<Index::FeaturesLoaderGuard> m_loader;
+  // If |m_generateTrafficSegs| is set to true |LoadedPathSegment::m_trafficSeg| is filled
+  // and not otherwise.
+  bool const m_generateTrafficSegs;
 };
 }  // namespace routing

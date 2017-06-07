@@ -52,7 +52,7 @@ static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count),
 namespace routing
 {
 // UniNodeId -------------------------------------------------------------------
-std::atomic<uint32_t> UniNodeId::m_nextFakeId(0);
+std::atomic<NodeID> UniNodeId::m_nextFakeId(0);
 
 UniNodeId::UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                      bool forward)
@@ -63,7 +63,10 @@ UniNodeId::UniNodeId(FeatureID const & featureId, uint32_t startSegId, uint32_t 
   , m_forward(forward)
 {
   if (!m_featureId.IsValid())
+  {
     m_nodeId = m_nextFakeId++;
+    CHECK_NOT_EQUAL(m_nodeId, SPECIAL_NODEID, ());
+  }
 }
 
 bool UniNodeId::operator==(UniNodeId const & rhs) const

@@ -39,7 +39,7 @@ struct UniNodeId
   FeatureID const & GetFeature() const;
 
 private:
-  static std::atomic<uint32_t> m_nextFakeId;
+  static std::atomic<NodeID> m_nextFakeId;
 
   Type m_type;
   FeatureID m_featureId;     // Not valid for OSRM.

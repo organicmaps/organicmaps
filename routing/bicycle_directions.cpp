@@ -2,6 +2,7 @@
 #include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/routing_exceptions.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
@@ -92,8 +93,11 @@ private:
 /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
 /// of a new LoadedPathSegment.
 bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
-             IRoadGraph::TEdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
-             Edge const & outgoingRouteEdge)
+             IRoadGraph::TEdgeVector const & outgoingEdges,
+             Edge const & ingoingRouteEdge,
+             Edge const & outgoingRouteEdge,
+             bool isCurrJunctionFinish,
+             bool isInEdgeReal)
 {
   // When feature id is changed at a junction this junction should be considered as a joint.
   //
@@ -109,6 +113,12 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
   //            |        |
   //   *--Seg0--*--Seg1--*
   // The common point of segments 0, 1 and 4 should be considered as a joint.
+  if (!isInEdgeReal)
+    return true;
+
+  if (isCurrJunctionFinish)
+    return true;
+
   if (ingoingRouteEdge.GetFeatureId() != outgoingRouteEdge.GetFeatureId())
     return true;
 
@@ -134,9 +144,11 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 namespace routing
 {
 BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
-                                                 shared_ptr<NumMwmIds> numMwmIds)
-  : m_index(index), m_numMwmIds(numMwmIds)
+                                                 std::shared_ptr<NumMwmIds> numMwmIds,
+                                                 bool generateTrafficSegs)
+  : m_index(index), m_numMwmIds(numMwmIds), m_generateTrafficSegs(generateTrafficSegs)
 {
+  CHECK(m_numMwmIds, ());
 }
 
 void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
@@ -235,10 +247,10 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
                                                            uint32_t startSegId,
                                                            uint32_t endSegId,
                                                            UniNodeId & uniNodeId,
-                                                           BicycleDirectionsEngine::AdjacentEdges & adjacentEdges)
+                                                           TurnCandidates & outgoingTurns)
 {
-  adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = true;
-  adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
+  outgoingTurns.isCandidatesAngleValid = true;
+  outgoingTurns.candidates.reserve(outgoingEdges.size());
   uniNodeId = UniNodeId(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
   m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
   m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
@@ -273,25 +285,31 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
       // twins of inEdge.GetFeatureId() are considered as outgoing features.
       // In this case that turn candidate angle is invalid and
       // should not be used for turn generation.
-      adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
+      outgoingTurns.isCandidatesAngleValid = false;
     }
-    adjacentEdges.m_outgoingTurns.candidates.emplace_back(angle, uniNodeId, highwayClass);
+    outgoingTurns.candidates.emplace_back(angle, uniNodeId, highwayClass);
   }
 }
 
-bool BicycleDirectionsEngine::GetSegment(FeatureID const & featureId, uint32_t segId,
-                                         bool forward, Segment & segment) const
+Segment BicycleDirectionsEngine::GetSegment(FeatureID const & featureId, uint32_t segId, bool forward) const
 {
-  if (!m_numMwmIds)
-    return false;
+  auto info = featureId.m_mwmId.GetInfo();
+  if (!info)
+    MYTHROW(RoutingException, ("Mwm:", featureId.m_mwmId, "is not alive."));
 
-  if (!featureId.m_mwmId.IsAlive())
-    return false;
+  NumMwmId const numMwmId = m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
+  return Segment(numMwmId, featureId.m_index, segId, forward);
+}
 
-  NumMwmId const numMwmId =
-    m_numMwmIds->GetId(featureId.m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-  segment = Segment(numMwmId, featureId.m_index, segId, forward);
-  return true;
+void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
+                                       bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
+                                       IRoadGraph::TEdgeVector & ingoing)
+{
+  // Note. If |currJunction| is a finish the outgoing edges
+  // from finish are not important for turn generation.
+  if (!isCurrJunctionFinish)
+    graph.GetOutgoingEdges(currJunction, outgoing);
+  graph.GetIngoingEdges(currJunction, ingoing);
 }
 
 void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
@@ -302,7 +320,6 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
   CHECK_GREATER(pathSize, 1, ());
   CHECK_EQUAL(routeEdges.size(), pathSize - 1, ());
   // Filling |m_adjacentEdges|.
-  m_adjacentEdges.insert(make_pair(UniNodeId(UniNodeId::Type::Mwm), AdjacentEdges(0)));
   auto constexpr kInvalidSegId = std::numeric_limits<uint32_t>::max();
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
   uint32_t startSegId = kInvalidSegId;
@@ -316,14 +333,10 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     Junction const & prevJunction = path[i - 1];
     Junction const & currJunction = path[i];
 
-    // Note. i + 1 == pathSize means |currJunction| is a finish and the outgoing edges
-    // from finish are not important for turn generation.
     IRoadGraph::TEdgeVector outgoingEdges;
-    if (i + 1 != pathSize)
-      graph.GetOutgoingEdges(currJunction, outgoingEdges);
-
     IRoadGraph::TEdgeVector ingoingEdges;
-    graph.GetIngoingEdges(currJunction, ingoingEdges);
+    bool const isCurrJunctionFinish = (i + 1 == pathSize);
+    GetEdges(graph, currJunction, isCurrJunctionFinish, outgoingEdges, ingoingEdges);
 
     Edge const & inEdge = routeEdges[i - 1];
     // Note. |inFeatureId| may be invalid in case of adding fake features.
@@ -335,26 +348,24 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     if (startSegId == kInvalidSegId)
       startSegId = inSegId;
 
-    if (inFeatureId.IsValid() && i + 1 != pathSize &&
-        !IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i]))
+    prevJunctions.push_back(prevJunction);
+    if (m_generateTrafficSegs && !inEdge.IsFake())
+      prevSegments.push_back(GetSegment(inFeatureId, inSegId, inIsForward));
+
+    if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
+                 inFeatureId.IsValid()))
     {
-      prevJunctions.push_back(prevJunction);
-      Segment inSegment;
-      if (GetSegment(inFeatureId, inSegId, inIsForward, inSegment))
-        prevSegments.push_back(inSegment);
       continue;
     }
-    CHECK_EQUAL(prevJunctions.size(), abs(static_cast<int32_t>(inSegId - startSegId)), ());
 
-    prevJunctions.push_back(prevJunction);
+    CHECK_EQUAL(prevJunctions.size(), abs(static_cast<int32_t>(inSegId - startSegId)) + 1, ());
+
     prevJunctions.push_back(currJunction);
-    Segment segment;
-    if (GetSegment(inFeatureId, inSegId, inIsForward, segment))
-      prevSegments.push_back(segment);
 
     AdjacentEdges adjacentEdges(ingoingEdges.size());
     UniNodeId uniNodeId(UniNodeId::Type::Mwm);
-    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId + 1, uniNodeId, adjacentEdges);
+    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId + 1, uniNodeId,
+                                 adjacentEdges.m_outgoingTurns);
 
     size_t const prevJunctionSize = prevJunctions.size();
     LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
@@ -370,7 +381,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     // It leads to preventing pushing item to |prevSegments|. So if there's no enough items in |prevSegments|
     // |pathSegment.m_trafficSegs| should be empty.
     // Note. For the time being BicycleDirectionsEngine is used for turn generation for bicycle and car routes.
-    if (prevSegments.size() + 1 == prevJunctionSize)
+    if (m_generateTrafficSegs && prevSegments.size() + 1 == prevJunctionSize)
       pathSegment.m_trafficSegs = std::move(prevSegments);
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));

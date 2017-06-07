@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/num_mwm_id.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 #include "routing/road_graph_router.hpp"
@@ -30,7 +31,8 @@ public:
   void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos);
 
 protected:
-  virtual unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine() = 0;
+  virtual unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
+      shared_ptr<routing::NumMwmIds> numMwmIds) = 0;
   virtual unique_ptr<routing::VehicleModelFactory> CreateModelFactory() = 0;
 
   template <typename Algorithm>
@@ -40,7 +42,7 @@ protected:
     unique_ptr<routing::IRoutingAlgorithm> algorithm(new Algorithm());
     unique_ptr<routing::IRouter> router(
         new routing::RoadGraphRouter(name, m_index, getter, m_mode, CreateModelFactory(),
-                                     move(algorithm), CreateDirectionsEngine()));
+                                     move(algorithm), CreateDirectionsEngine(m_numMwmIds)));
     return router;
   }
 
@@ -49,6 +51,8 @@ protected:
 
   routing::IRoadGraph::Mode const m_mode;
   Index m_index;
+
+  shared_ptr<routing::NumMwmIds> m_numMwmIds;
   unique_ptr<storage::CountryInfoGetter> m_cig;
 };
 
