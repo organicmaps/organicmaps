@@ -102,7 +102,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new GoogleMapsIntentProcessor(),
       new LeadUrlIntentProcessor(),
       new OpenCountryTaskProcessor(),
-      new KmzKmlProcessor()
+      new KmzKmlProcessor(),
+      new ShowOnMapProcessor(),
+      new BuildRouteProcessor()
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -781,6 +783,80 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         return ".kml";
       else
         return null;
+    }
+  }
+
+  private class ShowOnMapProcessor implements IntentProcessor
+  {
+    private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
+    private static final String EXTRA_LAT = "lat";
+    private static final String EXTRA_LON = "lon";
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      return ACTION_SHOW_ON_MAP.equals(intent.getAction());
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
+        return false;
+
+      float lat = intent.getFloatExtra(EXTRA_LAT, 0.0f);
+      float lon = intent.getFloatExtra(EXTRA_LON, 0.0f);
+      mMapTaskToForward = new MwmActivity.ShowPointTask(lat, lon);
+
+      return true;
+    }
+  }
+
+  private class BuildRouteProcessor implements IntentProcessor
+  {
+    private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
+    private static final String EXTRA_LAT_TO = "lat_to";
+    private static final String EXTRA_LON_TO = "lon_to";
+    private static final String EXTRA_LAT_FROM = "lat_from";
+    private static final String EXTRA_LON_FROM = "lon_from";
+    private static final String EXTRA_ROUTER = "router";
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      return ACTION_BUILD_ROUTE.equals(intent.getAction());
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
+        return false;
+
+      float latTo = intent.getFloatExtra(EXTRA_LAT_TO, 0.0f);
+      float lonTo = intent.getFloatExtra(EXTRA_LON_TO, 0.0f);
+      boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
+      boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
+
+      if (hasFrom && hasRouter)
+      {
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
+                                                           intent.getFloatExtra(EXTRA_LAT_FROM, 0.0f),
+                                                           intent.getFloatExtra(EXTRA_LON_FROM, 0.0f),
+                                                           intent.getStringExtra(EXTRA_ROUTER));
+      }
+      else if (hasFrom)
+      {
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
+                                                           intent.getFloatExtra(EXTRA_LAT_FROM, 0.0f),
+                                                           intent.getFloatExtra(EXTRA_LON_FROM, 0.0f));
+      }
+      else
+      {
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo);
+      }
+
+      return true;
     }
   }
 
