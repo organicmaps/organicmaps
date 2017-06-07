@@ -35,8 +35,10 @@ private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
   void GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
-                                    FeatureID const & inFeatureId, uint32_t startSegId,
-                                    uint32_t endSegId, bool inIsForward, UniNodeId & uniNodeId,
+                                    Edge const & inEdge,
+                                    uint32_t startSegId,
+                                    uint32_t endSegId,
+                                    UniNodeId & uniNodeId,
                                     BicycleDirectionsEngine::AdjacentEdges & adjacentEdges);
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.

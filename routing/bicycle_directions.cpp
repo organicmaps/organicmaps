@@ -3,6 +3,7 @@
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_result_graph.hpp"
+#include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
 
 #include "traffic/traffic_info.hpp"
@@ -229,15 +230,18 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
 }
 
-void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(
-    IRoadGraph::TEdgeVector const & outgoingEdges, FeatureID const & inFeatureId,
-    uint32_t startSegId, uint32_t endSegId, bool inIsForward, UniNodeId & uniNodeId,
-    BicycleDirectionsEngine::AdjacentEdges & adjacentEdges)
+void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
+                                                           Edge const & inEdge,
+                                                           uint32_t startSegId,
+                                                           uint32_t endSegId,
+                                                           UniNodeId & uniNodeId,
+                                                           BicycleDirectionsEngine::AdjacentEdges & adjacentEdges)
 {
-  // Outgoing edge angle is not used for bicycle routing.
-  adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
+  adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = true;
   adjacentEdges.m_outgoingTurns.candidates.reserve(outgoingEdges.size());
-  uniNodeId = UniNodeId(inFeatureId, startSegId, endSegId, inIsForward);
+  uniNodeId = UniNodeId(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
+  m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
+  m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
 
   for (auto const & edge : outgoingEdges)
   {
@@ -252,7 +256,26 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(
     auto const highwayClass = ftypes::GetHighwayClass(ft);
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
-    adjacentEdges.m_outgoingTurns.candidates.emplace_back(0.0 /* angle */, uniNodeId, highwayClass);
+
+    double angle = 0;
+
+    if (inEdge.GetFeatureId().m_mwmId == edge.GetFeatureId().m_mwmId)
+    {
+      ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
+                  turns::kFeaturesNearTurnMeters, ());
+      m2::PointD const & outgoingPoint = edge.GetEndJunction().GetPoint();
+      angle = my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+    }
+    else
+    {
+      // Note. In case of crossing mwm border
+      // (inEdge.GetFeatureId().m_mwmId != edge.GetFeatureId().m_mwmId)
+      // twins of inEdge.GetFeatureId() are considered as outgoing features.
+      // In this case that turn candidate angle is invalid and
+      // should not be used for turn generation.
+      adjacentEdges.m_outgoingTurns.isCandidatesAngleValid = false;
+    }
+    adjacentEdges.m_outgoingTurns.candidates.emplace_back(angle, uniNodeId, highwayClass);
   }
 }
 
@@ -292,9 +315,14 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
     Junction const & prevJunction = path[i - 1];
     Junction const & currJunction = path[i];
-    IRoadGraph::TEdgeVector ingoingEdges;
+
+    // Note. i + 1 == pathSize means |currJunction| is a finish and the outgoing edges
+    // from finish are not important for turn generation.
     IRoadGraph::TEdgeVector outgoingEdges;
-    graph.GetOutgoingEdges(currJunction, outgoingEdges);
+    if (i + 1 != pathSize)
+      graph.GetOutgoingEdges(currJunction, outgoingEdges);
+
+    IRoadGraph::TEdgeVector ingoingEdges;
     graph.GetIngoingEdges(currJunction, ingoingEdges);
 
     Edge const & inEdge = routeEdges[i - 1];
@@ -326,8 +354,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
     AdjacentEdges adjacentEdges(ingoingEdges.size());
     UniNodeId uniNodeId(UniNodeId::Type::Mwm);
-    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inFeatureId, startSegId, inSegId + 1, inIsForward,
-                                 uniNodeId, adjacentEdges);
+    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId + 1, uniNodeId, adjacentEdges);
 
     size_t const prevJunctionSize = prevJunctions.size();
     LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
