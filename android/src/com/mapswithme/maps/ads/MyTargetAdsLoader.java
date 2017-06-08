@@ -58,6 +58,12 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
     onAdClicked(bannerId);
   }
 
+  @Override
+  public void onShow(NativeAd nativeAd)
+  {
+    // No op.
+  }
+
   @NonNull
   @Override
   String getProvider()
