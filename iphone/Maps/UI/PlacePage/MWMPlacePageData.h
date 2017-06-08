@@ -185,6 +185,7 @@ using BannerIsReady = void (^)();
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
+- (BOOL)isRoutePoint;
 
 // Coordinates
 - (m2::PointD const &)mercator;

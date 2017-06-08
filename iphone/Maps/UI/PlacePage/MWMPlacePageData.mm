@@ -564,6 +564,7 @@ using namespace place_page;
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.m_bookmarkDescription); }
+- (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
 
 #pragma mark - Coordinates
 

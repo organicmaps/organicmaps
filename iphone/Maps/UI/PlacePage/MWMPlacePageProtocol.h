@@ -9,6 +9,8 @@
 
 - (void)routeFrom;
 - (void)routeTo;
+- (void)addStop;
+- (void)removeStop;
 
 - (void)share;
 
