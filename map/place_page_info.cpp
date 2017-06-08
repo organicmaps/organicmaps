@@ -22,16 +22,11 @@ char const * const Info::kPricingSymbol = "$";
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac.IsValid(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
+bool Info::IsRoutePoint() const { return m_isRoutePoint; }
 bool Info::IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
 bool Info::IsNotEditableSponsored() const
 {
   return m_sponsoredType != SponsoredType::None && m_sponsoredType != SponsoredType::Opentable;
-}
-
-bool Info::IsRoutePoint() const
-{
-  //TODO(@darina) Implement checker
-  return m_bac.IsValid() && m_bookmarkCategoryName == "TMP_Routing_Points";
 }
 
 bool Info::ShouldShowAddPlace() const

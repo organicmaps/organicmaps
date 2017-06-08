@@ -231,6 +231,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   for_each(m_categories.begin(), m_categories.end(), ref(finder));
   finder(FindUserMarksContainer(UserMarkType::API_MARK));
   finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
+  finder(FindUserMarksContainer(UserMarkType::ROUTING_MARK));
 
   return finder.GetFindedMark();
 }

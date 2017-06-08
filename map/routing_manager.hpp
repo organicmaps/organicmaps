@@ -1,7 +1,7 @@
 #pragma once
 
-// TODO (@darina) TEMPORARY Remove me
 #include "map/bookmark_manager.hpp"
+#include "map/routing_mark.hpp"
 
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
@@ -74,6 +74,8 @@ public:
   using RouteProgressCallback = std::function<void(float)>;
 
   RoutingManager(Callbacks && callbacks, Delegate & delegate);
+
+  void SetBookmarkManager(BookmarkManager * bmManager);
 
   routing::RoutingSession const & RoutingSession() const { return m_routingSession; }
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
@@ -159,9 +161,11 @@ public:
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
   void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
-  // TODO (@darina) Change interface to add/remove route point
-  void SetRouteStartPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid);
-  void SetRouteFinishPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid);
+  void AddRoutePoint(m2::PointD const & pt, bool isVisible, RouteMarkType type, int8_t intermediateIndex = 0);
+  void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
+                      RouteMarkType targetType, int8_t targetIntermediateIndex);
+  void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
 
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
@@ -215,6 +219,7 @@ private:
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
+  BookmarkManager * m_bmManager = nullptr;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
 

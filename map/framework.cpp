@@ -414,6 +414,7 @@ Framework::Framework(FrameworkParams const & params)
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
+  m_routingManager.SetBookmarkManager(&m_bmManager);
 
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
@@ -940,6 +941,22 @@ void Framework::FillMyPositionInfo(place_page::Info & info) const
   info.SetMercator(MercatorBounds::FromLatLon(lat, lon));
   info.m_isMyPosition = true;
   info.m_customName = m_stringsBundle.GetString("my_position");
+}
+
+void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const
+{
+  FillPointInfo(rmp.GetPivot(), "", info);
+  info.m_isRoutePoint = true;
+
+  switch (rmp.GetRoutePointType())
+  {
+  case RouteMarkType::Start:
+    info.m_customName = "Start";
+    break;
+  case RouteMarkType::Finish:
+    info.m_customName = "Finish";
+    break;
+  }
 }
 
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
@@ -2416,6 +2433,9 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
       break;
     case UserMark::Type::SEARCH:
       FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
+      break;
+    case UserMark::Type::ROUTING:
+      FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
       break;
     default:
       ASSERT(false, ("FindNearestUserMark returned invalid mark."));

@@ -147,6 +147,7 @@ public:
   /// one part of the country (or several countries for disputed territories).
   storage::TCountriesVec m_topmostCountryIds;
 
+  bool m_isRoutePoint = false;
   bool m_isMyPosition = false;
   /// True if editing of a selected point is allowed by basic logic.
   /// See initialization in framework.
