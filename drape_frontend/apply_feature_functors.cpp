@@ -434,7 +434,6 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     m_symbolRule = symRule;
   }
 
-  bool const hasPOI = m_symbolRule != nullptr;
   bool const isNode = (pRule->GetType() & drule::node) != 0;
   CaptionDefProto const * capRule = pRule->GetCaption(0);
   if (capRule && isNode)

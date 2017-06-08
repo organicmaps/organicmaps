@@ -36,6 +36,8 @@
 namespace
 {
 char const kRouterTypeKey[] = "router";
+
+double const kRouteScaleMultiplier = 1.5;
 }  // namespace
 
 namespace marketing
@@ -64,13 +66,16 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
 void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
 {
+  // Hide preview.
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllRoutePreviewSegments();
+
   storage::TCountriesVec absentCountries;
   if (code == IRouter::NoError)
   {
-    double const kRouteScaleMultiplier = 1.5;
-
     InsertRoute(route);
-    m_drapeEngine->StopLocationFollow();
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->StopLocationFollow();
 
     // Validate route (in case of bicycle routing it can be invalid).
     ASSERT(route.IsValid(), ());
@@ -78,8 +83,11 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
     {
       m2::RectD routeRect = route.GetPoly().GetLimitRect();
       routeRect.Scale(kRouteScaleMultiplier);
-      m_drapeEngine->SetModelViewRect(routeRect, true /* applyRotation */, -1 /* zoom */,
-                                      true /* isAnim */);
+      if (m_drapeEngine != nullptr)
+      {
+        m_drapeEngine->SetModelViewRect(routeRect, true /* applyRotation */, -1 /* zoom */,
+                                        true /* isAnim */);
+      }
     }
   }
   else
@@ -94,6 +102,10 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
 
 void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCode code)
 {
+  // Hide preview.
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllRoutePreviewSegments();
+
   if (code != IRouter::NoError)
     return;
 
@@ -184,9 +196,12 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
-  // TODO(@rokuz) use correct DrapeID
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveRouteSegment(dp::DrapeID(), deactivateFollowing);
+  {
+    for (auto const & segmentId : m_drapeSubroutes)
+      m_drapeEngine->RemoveRouteSegment(segmentId, deactivateFollowing);
+    m_drapeSubroutes.clear();
+  }
 }
 
 void RoutingManager::InsertRoute(routing::Route const & route)
@@ -230,8 +245,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     default: ASSERT(false, ("Unknown router type"));
   }
 
-  dp::DrapeID const segmentId = m_drapeEngine->AddRouteSegment(std::move(segment));
-  // TODO (@rokuz) Save and use segment id
+  m_drapeSubroutes.push_back(m_drapeEngine->AddRouteSegment(std::move(segment)));
 }
 
 void RoutingManager::FollowRoute()
@@ -248,6 +262,10 @@ void RoutingManager::FollowRoute()
 
 void RoutingManager::CloseRouting()
 {
+  // Hide preview.
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  
   if (m_routingSession.IsBuilt())
   {
     m_routingSession.EmitCloseRoutingEvent();
@@ -383,6 +401,16 @@ void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & fin
 
   if (IsRoutingActive())
     CloseRouting();
+
+  // Show preview.
+  if (m_drapeEngine != nullptr)
+  {
+    m_drapeEngine->AddRoutePreviewSegment(start, finish);
+    m2::RectD rect(start, finish);
+    rect.Scale(kRouteScaleMultiplier);
+    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */,
+                                    true /* isAnim */);
+  }
 
   m_routingSession.SetUserCurrentPosition(start);
   m_routingSession.BuildRoute(start, finish, timeoutSec);

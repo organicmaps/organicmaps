@@ -2,9 +2,9 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/drape_measurer.hpp"
-#include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/read_manager.hpp"
@@ -12,9 +12,9 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "drape/texture_manager.hpp"
+
+#include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
 
@@ -303,14 +303,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CacheGpsTrackPoints:
+  case Message::CacheCirclesPack:
     {
-      ref_ptr<CacheGpsTrackPointsMessage> msg = message;
-      drape_ptr<GpsTrackRenderData> data = make_unique_dp<GpsTrackRenderData>();
+      ref_ptr<CacheCirclesPackMessage> msg = message;
+      drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
-      GpsTrackShape::Draw(m_texMng, *data.get());
+      CirclesPackShape::Draw(m_texMng, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FlushGpsTrackPointsMessage>(move(data)),
+                                make_unique_dp<FlushCirclesPackMessage>(
+                                  std::move(data), msg->GetDestination()),
                                 MessagePriority::Normal);
       break;
     }

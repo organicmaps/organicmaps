@@ -444,6 +444,36 @@ void DrapeEngine::DeactivateRouteFollowing()
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetRouteSegmentVisibility(dp::DrapeID segmentId, bool isVisible)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetRouteSegmentVisibilityMessage>(segmentId, isVisible),
+                                  MessagePriority::Normal);
+}
+
+dp::DrapeID DrapeEngine::AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt)
+{
+  dp::DrapeID const id = GenerateDrapeID();
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<AddRoutePreviewSegmentMessage>(id, startPt, finishPt),
+                                  MessagePriority::Normal);
+  return id;
+}
+
+void DrapeEngine::RemoveRoutePreviewSegment(dp::DrapeID segmentId)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<RemoveRoutePreviewSegmentMessage>(segmentId),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::RemoveAllRoutePreviewSegments()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<RemoveRoutePreviewSegmentMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::SetWidgetLayout(gui::TWidgetsLayoutInfo && info)
 {
   m_widgetsLayout = std::move(info);

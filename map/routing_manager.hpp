@@ -216,5 +216,7 @@ private:
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
 
+  std::vector<dp::DrapeID> m_drapeSubroutes;
+
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

@@ -13,6 +13,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
 {
@@ -20,10 +21,11 @@ std::string const kRouteColor = "Route";
 std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
+std::string const kRoutePreview = "RoutePreview";
 
 namespace
 {
-float const kHalfWidthInPixelCar[] =
+std::vector<float> const kHalfWidthInPixelCar =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.0f, 1.5f, 1.5f, 1.5f, 2.0f, 2.0f, 2.0f, 2.5f, 2.5f,
@@ -31,7 +33,7 @@ float const kHalfWidthInPixelCar[] =
   3.0f, 3.0f, 4.0f, 5.0f, 6.0, 8.0f, 10.0f, 10.0f, 18.0f, 27.0f
 };
 
-float const kHalfWidthInPixelOthers[] =
+std::vector<float> const kHalfWidthInPixelOthers =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.2f, 1.2f,
@@ -39,8 +41,45 @@ float const kHalfWidthInPixelOthers[] =
   1.5f, 1.5f, 2.0f, 2.5f, 3.0, 4.0f, 5.0f, 5.0f, 9.0f, 13.0f
 };
 
+std::vector<float> const kPreviewPointRadiusInPixel =
+{
+  // 1   2     3     4     5     6     7     8     9     10
+  0.8f, 0.8f, 0.8f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
+  //11   12    13    14    15    16    17    18    19     20
+  2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 3.5f, 4.5f, 4.5f, 4.5f, 5.5f
+};
+
 int const kArrowAppearingZoomLevel = 14;
 int const kInvalidGroup = -1;
+
+size_t const kPreviewPointsCount = 512;
+double const kPreviewAnimationSpeed = 3.0;
+double const kPreviewAnimationScale = 0.3;
+
+void InterpolateByZoom(drape_ptr<RouteSegment> const & routeSegment, ScreenBase const & screen,
+                       float & halfWidth, double & zoom)
+{
+  int index = 0;
+  float lerpCoef = 0.0f;
+  ExtractZoomFactors(screen, zoom, index, lerpCoef);
+
+  std::vector<float> const * halfWidthInPixel = &kHalfWidthInPixelOthers;
+  if (routeSegment->m_routeType == RouteType::Car || routeSegment->m_routeType == RouteType::Taxi)
+    halfWidthInPixel = &kHalfWidthInPixelCar;
+
+  halfWidth = InterpolateByZoomLevels(index, lerpCoef, *halfWidthInPixel);
+  halfWidth *= static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+}
+
+float CalculateRadius(ScreenBase const & screen)
+{
+  double zoom = 0.0;
+  int index = 0;
+  float lerpCoef = 0.0f;
+  ExtractZoomFactors(screen, zoom, index, lerpCoef);
+  float const radius = InterpolateByZoomLevels(index, lerpCoef, kPreviewPointRadiusInPixel);
+  return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
+}
 
 void ClipBorders(std::vector<ArrowBorders> & borders)
 {
@@ -196,32 +235,16 @@ dp::Color GetOutlineColor(drape_ptr<RouteSegment> const & routeSegment)
 }
 }  // namespace
 
-RouteRenderer::RouteRenderer()
+RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest)
   : m_distanceFromBegin(0.0)
   , m_followingEnabled(false)
-{}
-
-void RouteRenderer::InterpolateByZoom(drape_ptr<RouteSegment> const & routeSegment, ScreenBase const & screen,
-                                      float & halfWidth, double & zoom) const
+  , m_previewPointsRequest(std::move(previewPointsRequest))
+  , m_waitForPreviewRenderData(false)
 {
-  double const zoomLevel = GetZoomLevel(screen.GetScale());
-  zoom = trunc(zoomLevel);
-  int const index = static_cast<int>(zoom - 1.0);
-  float const lerpCoef = static_cast<float>(zoomLevel - zoom);
-
-  float const * halfWidthInPixel = kHalfWidthInPixelOthers;
-  if (routeSegment->m_routeType == RouteType::Car || routeSegment->m_routeType == RouteType::Taxi)
-    halfWidthInPixel = kHalfWidthInPixelCar;
-
-  if (index < scales::UPPER_STYLE_SCALE)
-    halfWidth = halfWidthInPixel[index] + lerpCoef * (halfWidthInPixel[index + 1] - halfWidthInPixel[index]);
-  else
-    halfWidth = halfWidthInPixel[scales::UPPER_STYLE_SCALE];
-
-  halfWidth *= df::VisualParams::Instance().GetVisualScale();
+  ASSERT(m_previewPointsRequest != nullptr, ());
 }
 
-void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCallback const & callback)
+void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback)
 {
   ASSERT(callback != nullptr, ());
   for (auto const & routeData : m_routeData)
@@ -258,12 +281,104 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCall
   }
 }
 
+bool RouteRenderer::UpdatePreview(ScreenBase const & screen)
+{
+  // Check if there are preview render data.
+  if (m_previewRenderData.empty() && !m_waitForPreviewRenderData)
+  {
+    m_previewPointsRequest(kPreviewPointsCount);
+    m_waitForPreviewRenderData = true;
+  }
+  if (m_waitForPreviewRenderData)
+    return false;
+
+  float scale = 1.0f;
+  float previewCircleRadius = 0.0;
+  if (!m_previewSegments.empty())
+  {
+    ClearPreviewHandles();
+    m_previewPivot = screen.GlobalRect().Center();
+    previewCircleRadius = CalculateRadius(screen);
+
+    using namespace std::chrono;
+    auto dt = steady_clock::now() - m_showPreviewTimestamp;
+    double const seconds = duration_cast<duration<double>>(dt).count();
+    scale = static_cast<float>(1.0 + kPreviewAnimationScale *
+                                     abs(sin(kPreviewAnimationSpeed * seconds)));
+  }
+  double const currentScaleGtoP = 1.0 / screen.GetScale();
+  double const radiusMercator = previewCircleRadius / currentScaleGtoP;
+  double const diameterMercator = 2.0 * radiusMercator;
+  double const gapMercator = diameterMercator;
+  dp::Color const circleColor = df::GetColorConstant(kRoutePreview);
+
+  for (auto const & previewSegment : m_previewSegments)
+  {
+    auto const & info = previewSegment.second;
+    m2::PolylineD polyline = {info.m_startPoint, info.m_finishPoint};
+    double const segmentLen = polyline.GetLength();
+    size_t circlesCount = static_cast<size_t>(segmentLen / (diameterMercator + gapMercator));
+    if (circlesCount == 0)
+      circlesCount = 1;
+    double const distDelta = segmentLen / circlesCount;
+    for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
+    {
+      float const r = scale * static_cast<float>(radiusMercator);
+      m2::PointD const pt = polyline.GetPointByDistance(d);
+      m2::RectD const circleRect(pt.x - r, pt.y - r, pt.x + r, pt.y + r);
+      if (!screen.ClipRect().IsIntersect(circleRect))
+        continue;
+
+      size_t pointIndex;
+      CirclesPackHandle * h = GetPreviewHandle(pointIndex);
+      if (h == nullptr)
+      {
+        // There is no any available handle.
+        m_previewPointsRequest(kPreviewPointsCount);
+        m_waitForPreviewRenderData = true;
+        return true;
+      }
+
+      m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_previewPivot, kShapeCoordScalar);
+      h->SetPoint(pointIndex, convertedPt, scale * previewCircleRadius, circleColor);
+    }
+  }
+  return !m_previewSegments.empty();
+}
+
+void RouteRenderer::ClearPreviewHandles()
+{
+  for (auto & handle : m_previewHandlesCache)
+  {
+    handle.first->Clear();
+    handle.second = 0;
+  }
+}
+
+CirclesPackHandle * RouteRenderer::GetPreviewHandle(size_t & index)
+{
+  for (auto & handle : m_previewHandlesCache)
+  {
+    if (handle.second < handle.first->GetPointsCount())
+    {
+      index = handle.second++;
+      return handle.first;
+    }
+  }
+  index = 0;
+  return nullptr;
+}
+
 void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
                                     ScreenBase const & screen, bool trafficShown,
                                     ref_ptr<dp::GpuProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
   if (routeData->m_renderProperty.m_buckets.empty())
+    return;
+
+  // Skip rendering of hidden segments.
+  if (m_hiddenSegments.find(routeData->m_segmentId) != m_hiddenSegments.end())
     return;
 
   float const currentHalfWidth = m_routeAdditional[routeData->m_segmentId].m_currentHalfWidth;
@@ -338,20 +453,48 @@ void RouteRenderer::RenderRouteArrowData(dp::DrapeID segmentId, RouteAdditional 
     bucket->Render(state.GetDrawAsLine());
 }
 
+void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+                                      dp::UniformValuesStorage const & commonUniforms)
+{
+  if (m_waitForPreviewRenderData || m_previewSegments.empty() || m_previewRenderData.empty())
+    return;
+
+  dp::UniformValuesStorage uniforms = commonUniforms;
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(m_previewPivot, kShapeCoordScalar);
+  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetFloatValue("u_opacity", 1.0f);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  program->Bind();
+
+  dp::GLState const & state = m_previewRenderData.front()->m_state;
+  dp::ApplyState(state, program);
+  dp::ApplyUniforms(uniforms, program);
+
+  ASSERT_EQUAL(m_previewRenderData.size(), m_previewHandlesCache.size(), ());
+  for (size_t i = 0; i < m_previewRenderData.size(); i++)
+  {
+    if (m_previewHandlesCache[i].second != 0)
+      m_previewRenderData[i]->m_bucket->Render(state.GetDrawAsLine());
+  }
+}
+
 void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
                                 ref_ptr<dp::GpuProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
-  if (m_routeData.empty())
-    return;
+  if (!m_routeData.empty())
+  {
+    // Render route.
+    for (auto const & routeData : m_routeData)
+      RenderRouteData(routeData, screen, trafficShown, mng, commonUniforms);
 
-  // Render route.
-  for (auto const & routeData : m_routeData)
-    RenderRouteData(routeData, screen, trafficShown, mng, commonUniforms);
+    // Render arrows.
+    for (auto const & p : m_routeAdditional)
+      RenderRouteArrowData(p.first, p.second, screen, mng, commonUniforms);
+  }
 
-  // Render arrows.
-  for (auto const & p : m_routeAdditional)
-    RenderRouteArrowData(p.first, p.second, screen, mng, commonUniforms);
+  // Render preview.
+  RenderPreviewData(screen, mng, commonUniforms);
 }
 
 void RouteRenderer::AddRouteData(drape_ptr<RouteData> && routeData,
@@ -390,10 +533,29 @@ void RouteRenderer::AddRouteArrowsData(drape_ptr<RouteArrowsData> && routeArrows
   BuildBuckets(additional.m_arrowsData->m_renderProperty, mng);
 }
 
+void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
+                                         ref_ptr<dp::GpuProgramManager> mng)
+{
+  drape_ptr<CirclesPackRenderData> data = std::move(renderData);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  program->Bind();
+  data->m_bucket->GetBuffer()->Build(program);
+  m_previewRenderData.push_back(std::move(data));
+  m_waitForPreviewRenderData = false;
+
+  // Save handle in the cache.
+  auto & bucket = m_previewRenderData.back()->m_bucket;
+  ASSERT_EQUAL(bucket->GetOverlayHandlesCount(), 1, ());
+  CirclesPackHandle * handle = static_cast<CirclesPackHandle *>(bucket->GetOverlayHandle(0).get());
+  handle->Clear();
+  m_previewHandlesCache.push_back(std::make_pair(handle, 0));
+}
+
 void RouteRenderer::ClearRouteData()
 {
   m_routeData.clear();
   m_routeAdditional.clear();
+  m_hiddenSegments.clear();
 }
 
 void RouteRenderer::Clear()
@@ -410,6 +572,10 @@ void RouteRenderer::ClearGLDependentResources()
 
   // All additional data (like arrows) will be regenerated, so clear them all.
   m_routeAdditional.clear();
+
+  m_previewRenderData.clear();
+  m_previewHandlesCache.clear();
+  m_waitForPreviewRenderData = false;
 }
 
 void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
@@ -420,5 +586,30 @@ void RouteRenderer::UpdateDistanceFromBegin(double distanceFromBegin)
 void RouteRenderer::SetFollowingEnabled(bool enabled)
 {
   m_followingEnabled = enabled;
+}
+
+void RouteRenderer::AddPreviewSegment(dp::DrapeID id, PreviewInfo && info)
+{
+  if (m_previewSegments.empty())
+    m_showPreviewTimestamp = std::chrono::steady_clock::now();
+  m_previewSegments.insert(std::make_pair(id, std::move(info)));
+}
+
+void RouteRenderer::RemovePreviewSegment(dp::DrapeID id)
+{
+  m_previewSegments.erase(id);
+}
+
+void RouteRenderer::RemoveAllPreviewSegments()
+{
+  m_previewSegments.clear();
+}
+
+void RouteRenderer::SetRouteSegmentVisibility(dp::DrapeID id, bool isVisible)
+{
+  if (isVisible)
+    m_hiddenSegments.erase(id);
+  else
+    m_hiddenSegments.insert(id);
 }
 }  // namespace df

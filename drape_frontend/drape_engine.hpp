@@ -161,9 +161,12 @@ public:
 
   dp::DrapeID AddRouteSegment(drape_ptr<RouteSegment> && segment);
   void RemoveRouteSegment(dp::DrapeID segmentId, bool deactivateFollowing);
-
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
   void DeactivateRouteFollowing();
+  void SetRouteSegmentVisibility(dp::DrapeID segmentId, bool isVisible);
+  dp::DrapeID AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt);
+  void RemoveRoutePreviewSegment(dp::DrapeID segmentId);
+  void RemoveAllRoutePreviewSegments();
 
   void SetWidgetLayout(gui::TWidgetsLayoutInfo && info);
 

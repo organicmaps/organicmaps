@@ -4,51 +4,49 @@
 #include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/glstate.hpp"
-#include "drape/render_bucket.hpp"
-#include "drape/utils/vertex_decl.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
+#include "drape/render_bucket.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace dp
 {
-  class TextureManager;
-}
+class TextureManager;
+}  // namespace dp
 
 namespace df
 {
-
-struct GpsTrackRenderData
+struct CirclesPackRenderData
 {
   uint32_t m_pointsCount;
 
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
-  GpsTrackRenderData() : m_pointsCount(0), m_state(0, dp::GLState::OverlayLayer) {}
+  CirclesPackRenderData() : m_pointsCount(0), m_state(0, dp::GLState::OverlayLayer) {}
 };
 
-struct GpsTrackDynamicVertex
+struct CirclesPackDynamicVertex
 {
   using TPosition = glsl::vec3;
   using TColor = glsl::vec4;
 
-  GpsTrackDynamicVertex() = default;
-  GpsTrackDynamicVertex(TPosition const & pos, TColor const & color)
-    : m_position(pos)
-    , m_color(color)
+  CirclesPackDynamicVertex() = default;
+  CirclesPackDynamicVertex(TPosition const & pos, TColor const & color)
+    : m_position(pos), m_color(color)
   {}
 
   TPosition m_position;
   TColor m_color;
 };
 
-class GpsTrackHandle : public dp::OverlayHandle
+class CirclesPackHandle : public dp::OverlayHandle
 {
   using TBase = dp::OverlayHandle;
 
 public:
-  GpsTrackHandle(size_t pointsCount);
+  CirclesPackHandle(size_t pointsCount);
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
   bool Update(ScreenBase const & screen) override;
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
@@ -60,14 +58,13 @@ public:
   size_t GetPointsCount() const;
 
 private:
-  vector<GpsTrackDynamicVertex> m_buffer;
+  std::vector<CirclesPackDynamicVertex> m_buffer;
   mutable bool m_needUpdate;
 };
 
-class GpsTrackShape
+class CirclesPackShape
 {
 public:
-  static void Draw(ref_ptr<dp::TextureManager> texMng, GpsTrackRenderData & data);
+  static void Draw(ref_ptr<dp::TextureManager> texMng, CirclesPackRenderData & data);
 };
-
-} // namespace df
+}  // namespace df
