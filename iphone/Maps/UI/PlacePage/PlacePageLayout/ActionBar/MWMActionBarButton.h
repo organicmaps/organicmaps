@@ -11,6 +11,8 @@ enum class EButton  // Required button's order
   RouteTo,
   Share,
   More,
+  AddStop,
+  RemoveStop,
   Spacer
 };
 

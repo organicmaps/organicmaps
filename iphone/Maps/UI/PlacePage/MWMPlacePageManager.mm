@@ -274,6 +274,17 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self close];
 }
 
+- (void)addStop
+{
+  // TODO: Implement adding a routing point.
+  // self.data contains all point's data.
+}
+
+- (void)removeStop
+{
+  // TODO: Implement removing a routing point.
+}
+
 - (void)taxiTo
 {
   auto data = self.data;

@@ -10,6 +10,7 @@
 - (BOOL)isBookingSearch;
 - (BOOL)isApi;
 - (BOOL)isMyPosition;
+- (BOOL)isRoutePoint;
 - (NSString *)title;
 - (NSString *)subtitle;
 - (NSString *)phoneNumber;

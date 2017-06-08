@@ -28,6 +28,10 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     return L(@"share");
   case EButton::More:
     return L(@"placepage_more_button");
+  case EButton::AddStop:
+    return L(@"placepage_add_stop");
+  case EButton::RemoveStop:
+    return L(@"placepage_remove_stop");
   case EButton::Spacer:
     return nil;
   }
@@ -112,6 +116,12 @@ NSString * titleForButton(EButton type, BOOL isSelected)
     break;
   case EButton::More:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];
+    break;
+  case EButton::AddStop:
+    [self.button setImage:[UIImage imageNamed:@"ic_add_route_point"] forState:UIControlStateNormal];
+    break;
+  case EButton::RemoveStop:
+    [self.button setImage:[UIImage imageNamed:@"ic_remove_route_point"] forState:UIControlStateNormal];
     break;
   case EButton::Spacer:
     [self.button removeFromSuperview];

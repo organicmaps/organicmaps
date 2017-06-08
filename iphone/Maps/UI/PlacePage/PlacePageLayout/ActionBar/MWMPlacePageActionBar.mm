@@ -43,6 +43,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.isBookmark = data.isBookmark;
   [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
+  [self setNeedsLayout];
 }
 
 - (void)configureButtons
@@ -62,15 +63,42 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isApi = data.isApi;
   BOOL const isP2P = self.isPrepareRouteMode;
   BOOL const isMyPosition = data.isMyPosition;
+  BOOL const isRoutePoint = data.isRoutePoint;
+  BOOL const isNeedToAddIntermediatePoint = GetFramework().GetRoutingManager().IsRoutingActive()
+                                                            /* && there is no intermediate point yet */;
 
   EButton sponsoredButton = EButton::BookingSearch;
   if (isBooking)
     sponsoredButton = EButton::Booking;
   else if (isOpentable)
     sponsoredButton = EButton::Opentable;
+  BOOL thereAreExtraButtons = true;
 
-  if (self.isAreaNotDownloaded)
+  if (isRoutePoint)
   {
+    thereAreExtraButtons = false;
+    m_visibleButtons.push_back(EButton::RemoveStop);
+  }
+  else if (isNeedToAddIntermediatePoint)
+  {
+    thereAreExtraButtons = false;
+    m_visibleButtons.push_back(EButton::RouteFrom);
+    m_visibleButtons.push_back(EButton::RouteTo);
+    m_visibleButtons.push_back(EButton::AddStop);
+    m_visibleButtons.push_back(EButton::More);
+
+    m_additionalButtons.push_back(EButton::Bookmark);
+    if (isSponsored)
+      m_additionalButtons.push_back(sponsoredButton);
+    if (itHasPhoneNumber)
+      m_additionalButtons.push_back(EButton::Call);
+    if (isApi)
+      m_additionalButtons.push_back(EButton::Api);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+  else if (self.isAreaNotDownloaded)
+  {
+    thereAreExtraButtons = false;
     m_visibleButtons.push_back(EButton::Download);
     m_visibleButtons.push_back(EButton::Bookmark);
     m_visibleButtons.push_back(EButton::RouteTo);
@@ -78,6 +106,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   else if (isMyPosition)
   {
+    thereAreExtraButtons = false;
     m_visibleButtons.push_back(EButton::Spacer);
     m_visibleButtons.push_back(EButton::Bookmark);
     m_visibleButtons.push_back(EButton::Share);
@@ -147,7 +176,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::RouteFrom);
   }
 
-  if (!isMyPosition || !self.isAreaNotDownloaded)
+
+  if (thereAreExtraButtons)
   {
     m_visibleButtons.push_back(EButton::RouteTo);
     m_visibleButtons.push_back(m_additionalButtons.empty() ? EButton::Share : EButton::More);
@@ -238,6 +268,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   case EButton::RouteTo: [delegate routeTo]; break;
   case EButton::Share: [delegate share]; break;
   case EButton::More: [self showActionSheet]; break;
+  case EButton::AddStop: [delegate addStop]; break;
+  case EButton::RemoveStop: [delegate removeStop]; break;
   case EButton::Spacer: break;
   }
 }
@@ -302,7 +334,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.maxY = self.superview.height;
 
   self.separator.width = self.width;
-  CGFloat const buttonWidth = self.width / self.buttons.count;
+  CGFloat const buttonWidth = self.width / m_visibleButtons.size();
   for (UIView * button in self.buttons)
   {
     button.minX = buttonWidth * (button.tag - 1);
