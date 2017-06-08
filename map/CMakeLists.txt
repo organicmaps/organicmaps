@@ -56,6 +56,8 @@ set(
   reachable_by_taxi_checker.hpp
   routing_manager.cpp
   routing_manager.hpp
+  routing_mark.cpp
+  routing_mark.hpp
   track.cpp
   track.hpp
   traffic_manager.cpp

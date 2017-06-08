@@ -202,8 +202,10 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     self.type =
         routerType(GetFramework().GetRoutingManager().GetBestRouter(startPoint, finishPoint));
   f.GetRoutingManager().BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
-  f.GetRoutingManager().AddRoutePoint(startPoint, isMarkerPoint(self.startPoint), RouteMarkType::Start);
-  f.GetRoutingManager().AddRoutePoint(finishPoint, isMarkerPoint(self.finishPoint), RouteMarkType::Finish);
+  if (self.startPoint.isValid)
+    f.GetRoutingManager().AddRoutePoint(startPoint, self.startPoint.isMyPosition, RouteMarkType::Start);
+  if (self.finishPoint.isValid)
+    f.GetRoutingManager().AddRoutePoint(finishPoint, self.finishPoint.isMyPosition, RouteMarkType::Finish);
   [mapViewControlsManager onRouteRebuild];
 }
 

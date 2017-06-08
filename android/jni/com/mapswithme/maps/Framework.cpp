@@ -1146,15 +1146,17 @@ Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass, jdo
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
 {
+  frm()->GetRoutingManager().RemoveRoutePoint(RouteMarkType::Start);
   frm()->GetRoutingManager().AddRoutePoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
-     static_cast<bool>(valid), RouteMarkType::Start);
+     static_cast<bool>(!valid), RouteMarkType::Start);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
 {
+  frm()->GetRoutingManager().RemoveRoutePoint(RouteMarkType::Finish);
   frm()->GetRoutingManager().AddRoutePoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
-      static_cast<bool>(valid), RouteMarkType::Finish);
+      static_cast<bool>(!valid), RouteMarkType::Finish);
 }
 
 JNIEXPORT void JNICALL

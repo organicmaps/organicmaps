@@ -276,13 +276,15 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)addStop
 {
-  // TODO: Implement adding a routing point.
-  // self.data contains all point's data.
+  GetFramework().GetRoutingManager().AddRoutePoint(self.data.mercator, false /* isMyPosition */,
+                                                   RouteMarkType::Intermediate, 0);
+  [self close];
 }
 
 - (void)removeStop
 {
-  // TODO: Implement removing a routing point.
+  GetFramework().GetRoutingManager().RemoveRoutePoint(self.data.routeMarkType, self.data.intermediateIndex);
+  [self close];
 }
 
 - (void)taxiTo

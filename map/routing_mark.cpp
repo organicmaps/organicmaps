@@ -2,8 +2,6 @@
 
 #include <algorithm>
 
-static int8_t const kMaxIntermediatePointsCount = 3;
-
 RouteMarkPoint::RouteMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {}
@@ -16,6 +14,16 @@ bool RouteMarkPoint::IsVisible() const
 void RouteMarkPoint::SetIsVisible(bool isVisible)
 {
   m_isVisible = isVisible;
+}
+
+void RouteMarkPoint::SetIsMyPosition(bool isMyPosition)
+{
+  m_isMyPosition = isMyPosition;
+}
+
+bool RouteMarkPoint::IsMyPosition() const
+{
+  return m_isMyPosition;
 }
 
 std::string RouteMarkPoint::GetSymbolName() const
@@ -153,10 +161,12 @@ bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t current
 
   m2::PointD const pt = point->GetPivot();
   bool const isVisible = point->IsVisible();
+  bool const isMyPosition = point->IsMyPosition();
 
   RemoveRoutePoint(currentType, currentIntermediateIndex);
   RouteMarkPoint * point2 = AddRoutePoint(pt, destType, destIntermediateIndex);
   point2->SetIsVisible(isVisible);
+  point2->SetIsMyPosition(isMyPosition);
   return true;
 }
 

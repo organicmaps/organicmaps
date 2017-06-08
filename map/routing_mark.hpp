@@ -27,12 +27,16 @@ public:
   void SetRoutePointType(RouteMarkType type) { m_pointType = type; }
 
   void SetIntermediateIndex(int8_t index) { m_intermediateIndex = index; }
-  int8_t GetIntermediateIndex() { return m_intermediateIndex; }
+  int8_t GetIntermediateIndex() const { return m_intermediateIndex; }
+
+  void SetIsMyPosition(bool isMyPosition);
+  bool IsMyPosition() const;
 
 private:
   RouteMarkType m_pointType;
   int8_t m_intermediateIndex = 0;
   bool m_isVisible = true;
+  bool m_isMyPosition = false;
 };
 
 class RouteUserMarkContainer : public UserMarkContainer
@@ -46,9 +50,11 @@ protected:
 class RoutePointsLayout
 {
 public:
+  static int8_t const kMaxIntermediatePointsCount = 1;
+
   RoutePointsLayout(UserMarksController & routeMarks);
 
-  RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex);
+  RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   RouteMarkPoint * AddRoutePoint(m2::PointD const & ptOrg, RouteMarkType type, int8_t intermediateIndex = 0);
   bool RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,

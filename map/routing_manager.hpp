@@ -161,11 +161,12 @@ public:
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
   void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
-  void AddRoutePoint(m2::PointD const & pt, bool isVisible, RouteMarkType type, int8_t intermediateIndex = 0);
+  void AddRoutePoint(m2::PointD const & pt, bool isMyPosition, RouteMarkType type, int8_t intermediateIndex = 0);
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
   void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  bool CouldAddIntermediatePoint() const;
 
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
@@ -211,6 +212,7 @@ private:
   bool IsTrackingReporterEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
+  void UpdateRoute();
 
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;

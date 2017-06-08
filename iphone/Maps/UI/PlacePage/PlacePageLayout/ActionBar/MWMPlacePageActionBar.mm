@@ -64,8 +64,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isP2P = self.isPrepareRouteMode;
   BOOL const isMyPosition = data.isMyPosition;
   BOOL const isRoutePoint = data.isRoutePoint;
-  BOOL const isNeedToAddIntermediatePoint = GetFramework().GetRoutingManager().IsRoutingActive()
-                                                            /* && there is no intermediate point yet */;
+  BOOL const isNeedToAddIntermediatePoint = GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
 
   EButton sponsoredButton = EButton::BookingSearch;
   if (isBooking)

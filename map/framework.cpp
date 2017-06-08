@@ -948,15 +948,29 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   FillPointInfo(rmp.GetPivot(), "", info);
   info.m_isRoutePoint = true;
 
-  switch (rmp.GetRoutePointType())
+  std::string title;
+  RouteMarkType const type = rmp.GetRoutePointType();
+  int8_t const intermediateIndex = rmp.GetIntermediateIndex();
+  switch (type)
   {
   case RouteMarkType::Start:
-    info.m_customName = "Start";
+    title = "Start";
+    break;
+  case RouteMarkType::Intermediate:
+    if (intermediateIndex == 0)
+      title = "First stop A";
+    else if (intermediateIndex == 1)
+      title = "Second stop B";
+    else
+      title = "Third stop C";
     break;
   case RouteMarkType::Finish:
-    info.m_customName = "Finish";
+    title = "Finish";
     break;
   }
+  info.m_customName = title;
+  info.m_routeMarkType = type;
+  info.m_intermediateIndex = intermediateIndex;
 }
 
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
