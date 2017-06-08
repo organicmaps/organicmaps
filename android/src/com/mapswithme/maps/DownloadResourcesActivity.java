@@ -805,8 +805,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
         return false;
 
-      double lat = getFloatValueFromIntent(intent, EXTRA_LAT);
-      double lon = getFloatValueFromIntent(intent, EXTRA_LON);
+      double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
+      double lon = getCoordinateFromIntent(intent, EXTRA_LON);
       mMapTaskToForward = new MwmActivity.ShowPointTask(lat, lon);
 
       return true;
@@ -834,22 +834,22 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
         return false;
 
-      double latTo = getFloatValueFromIntent(intent, EXTRA_LAT_TO);
-      double lonTo = getFloatValueFromIntent(intent, EXTRA_LON_TO);
+      double latTo = getCoordinateFromIntent(intent, EXTRA_LAT_TO);
+      double lonTo = getCoordinateFromIntent(intent, EXTRA_LON_TO);
       boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
       boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
 
       if (hasFrom && hasRouter)
       {
-        double latFrom = getFloatValueFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getFloatValueFromIntent(intent, EXTRA_LON_FROM);
+        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
+        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
         mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom,
                                                            intent.getStringExtra(EXTRA_ROUTER));
       }
       else if (hasFrom)
       {
-        double latFrom = getFloatValueFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getFloatValueFromIntent(intent, EXTRA_LON_FROM);
+        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
+        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
         mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom);
       }
       else
@@ -861,7 +861,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private static double getFloatValueFromIntent(@NonNull Intent intent, @NonNull String key)
+  private static double getCoordinateFromIntent(@NonNull Intent intent, @NonNull String key)
   {
     double value = intent.getDoubleExtra(key, 0.0);
     if (Double.compare(value, 0.0) == 0)
