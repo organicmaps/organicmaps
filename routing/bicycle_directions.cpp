@@ -212,6 +212,9 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, dummyTimes, streetNames,
                      trafficSegs);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
+  // In case of bicycle routing |m_pathSegments| may have an empty
+  // |LoadedPathSegment::m_trafficSegs| fields. In that case |trafficSegs| is empty
+  // so size of |trafficSegs| is not equal to size of |routeEdges|.
   if (!trafficSegs.empty())
     CHECK_EQUAL(trafficSegs.size(), routeEdges.size(), ());
 }
@@ -252,6 +255,7 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
   outgoingTurns.isCandidatesAngleValid = true;
   outgoingTurns.candidates.reserve(outgoingEdges.size());
   uniNodeId = UniNodeId(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward());
+  CHECK(uniNodeId.IsCorrect(), ());
   m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
   m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
 
@@ -364,7 +368,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 
     AdjacentEdges adjacentEdges(ingoingEdges.size());
     UniNodeId uniNodeId(UniNodeId::Type::Mwm);
-    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId + 1, uniNodeId,
+    GetUniNodeIdAndAdjacentEdges(outgoingEdges, inEdge, startSegId, inSegId, uniNodeId,
                                  adjacentEdges.m_outgoingTurns);
 
     size_t const prevJunctionSize = prevJunctions.size();
