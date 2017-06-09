@@ -145,6 +145,10 @@ using BannerIsReady = void (^)();
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
+// Route points
+- (RouteMarkType)routeMarkType;
+- (int8_t)intermediateIndex;
+
 // Banner
 - (id<MWMBanner>)nativeAd;
 

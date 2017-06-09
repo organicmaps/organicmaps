@@ -33,6 +33,7 @@ HEADERS += \
     place_page_info.hpp \
     reachable_by_taxi_checker.hpp \
     routing_manager.hpp \
+    routing_mark.hpp \
     track.hpp \
     traffic_manager.hpp \
     user_mark.hpp \
@@ -63,6 +64,7 @@ SOURCES += \
     place_page_info.cpp \
     reachable_by_taxi_checker.cpp \
     routing_manager.cpp \
+    routing_mark.cpp \
     track.cpp \
     traffic_manager.cpp \
     user_mark.cpp \

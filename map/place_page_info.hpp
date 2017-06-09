@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark.hpp"
+#include "map/routing_mark.hpp"
 
 #include "storage/index.hpp"
 
@@ -146,6 +147,10 @@ public:
   /// the country name for an object whose mwm represents only
   /// one part of the country (or several countries for disputed territories).
   storage::TCountriesVec m_topmostCountryIds;
+
+  bool m_isRoutePoint = false;
+  RouteMarkType m_routeMarkType;
+  int8_t m_intermediateIndex = 0;
 
   bool m_isMyPosition = false;
   /// True if editing of a selected point is allowed by basic logic.

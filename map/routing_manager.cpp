@@ -1,6 +1,7 @@
 #include "routing_manager.hpp"
 
 #include "map/chart_generator.hpp"
+#include "map/routing_mark.hpp"
 #include "map/mwm_tree.hpp"
 
 #include "private.h"
@@ -62,6 +63,11 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
       [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
+}
+
+void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
+{
+  m_bmManager = bmManager;
 }
 
 void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
@@ -257,7 +263,7 @@ void RoutingManager::FollowRoute()
 
   m_delegate.OnRouteFollow(m_currentRouterType);
 
-  // TODO(@darina) Hide start point user mark
+  HideRoutePoint(RouteMarkType::Start);
 }
 
 void RoutingManager::CloseRouting()
@@ -273,7 +279,8 @@ void RoutingManager::CloseRouting()
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
 
-  //TODO (@darina) Remove route points
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  guard.m_controller.Clear();
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
@@ -281,71 +288,96 @@ void RoutingManager::SetLastUsedRouter(RouterType type)
   settings::Set(kRouterTypeKey, routing::ToString(type));
 }
 
-// TODO(@darina) Remove me
-// TEMPORARY {
-void TempAddBookmarkAsRoutePoint(BookmarkManager & bm, std::string const & name,
-                                 std::string const & bookmarkSymbol,
-                                 m2::PointD const & pt, bool isValid)
+void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex)
 {
-  std::string categoryName = "TMP_Routing_Points";
-  int categoryIndex = -1;
-  for (size_t i = 0; i < bm.GetBmCategoriesCount(); ++i)
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
+  if (mark != nullptr)
   {
-    if (bm.GetBmCategory(i)->GetName() == categoryName)
+    mark->SetIsVisible(false);
+    guard.m_controller.Update();
+  }
+}
+
+void RoutingManager::UpdateRoute()
+{
+  if (!IsRoutingActive())
+    return;
+
+  bool isValid = false;
+
+  m2::PointD startPt;
+  m2::PointD finishPt;
+  {
+    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+    RoutePointsLayout routePoints(guard.m_controller);
+    RouteMarkPoint * start = routePoints.GetRoutePoint(RouteMarkType::Start);
+    RouteMarkPoint * finish = routePoints.GetRoutePoint(RouteMarkType::Finish);
+    if (start != nullptr && finish != nullptr)
     {
-      categoryIndex = static_cast<int>(i);
-      break;
+      startPt = start->GetPivot();
+      finishPt = finish->GetPivot();
+      isValid = true;
     }
   }
-  if (categoryIndex == -1)
-    categoryIndex = bm.CreateBmCategory(categoryName);
 
-  if (!isValid)
+  if (isValid)
   {
-    BookmarkCategory * cat = bm.GetBmCategory(categoryIndex);
-    BookmarkCategory::Guard guard(*cat);
-    int indexToDelete = -1;
-    for (size_t i = 0; i < guard.m_controller.GetUserMarkCount(); ++i)
-    {
-      Bookmark const * bookmark = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(i));
-      if (bookmark->GetName() == name)
-      {
-        indexToDelete = i;
-        break;
-      }
-    }
-    if (indexToDelete >= 0)
-      guard.m_controller.DeleteUserMark(indexToDelete);
+    RemoveRoute(true /* deactivateFollowing */);
+    m_routingSession.SetUserCurrentPosition(startPt);
+    m_routingSession.BuildRoute(startPt, finishPt, 0 /* timeoutSec */);
   }
   else
   {
-    BookmarkData dat(name, bookmarkSymbol);
-    bm.AddBookmark(categoryIndex, pt, dat);
+    CloseRouting();
   }
+}
 
+bool RoutingManager::CouldAddIntermediatePoint() const
+{
+  if (!IsRoutingActive())
+    return false;
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  return guard.m_controller.GetUserMarkCount() < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
+}
+
+void RoutingManager::AddRoutePoint(m2::PointD const & pt, bool isMyPosition,
+                                   RouteMarkType type, int8_t intermediateIndex)
+{
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  RouteMarkPoint * mark = routePoints.AddRoutePoint(pt, type, intermediateIndex);
+  if (mark != nullptr)
   {
-    BookmarkCategory * cat = bm.GetBmCategory(categoryIndex);
-    cat->SaveToKMLFile();
+    mark->SetIsVisible(!isMyPosition);
+    mark->SetIsMyPosition(isMyPosition);
   }
-}
-// } TEMPORARY
-
-void RoutingManager::SetRouteStartPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid)
-{
-  // TODO(@darina) Implement on new user marks
-  // TEMPORARY {
-  //TempAddBookmarkAsRoutePoint(bm, "Route start point", "placemark-blue",
-  //                            pt, isValid);
-  // } TEMPORARY
+  // TODO(@darina) Update route.
 }
 
-void RoutingManager::SetRouteFinishPoint(BookmarkManager & bm, m2::PointD const & pt, bool isValid)
+void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
 {
-  // TODO(@darina) Implement on new user marks
-  // TEMPORARY {
-  //TempAddBookmarkAsRoutePoint(bm, "Route end point", "placemark-green",
-  //                            pt, isValid);
-  // } TEMPORARY
+  ASSERT(m_bmManager != nullptr, ());
+  {
+    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+    RoutePointsLayout routePoints(guard.m_controller);
+    routePoints.RemoveRoutePoint(type, intermediateIndex);
+  }
+  //UpdateRoute();
+}
+
+void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
+                                    RouteMarkType targetType, int8_t targetIntermediateIndex)
+{
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  routePoints.MoveRoutePoint(currentType, currentIntermediateIndex,
+                             targetType, targetIntermediateIndex);
+
+  // TODO(@darina) Update route.
 }
 
 void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNotifications)
