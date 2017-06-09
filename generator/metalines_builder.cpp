@@ -149,7 +149,7 @@ void MetalinesBuilder::operator()(OsmElement const & el, FeatureParams const & p
 
   std::string name;
   params.name.GetString(StringUtf8Multilang::kDefaultCode, name);
-  if (name.empty() || params.ref.empty())
+  if (name.empty() && params.ref.empty())
     return;
 
   size_t const key = std::hash<std::string>{}(name + '\0' + params.ref);
@@ -198,13 +198,12 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   ReaderSource<FileReader> src(reader);
   std::vector<uint8_t> buffer;
   MemWriter<std::vector<uint8_t>> memWriter(buffer);
-  WriteToSink(memWriter, kMetaLinesSectionVersion);
   uint32_t count = 0;
 
   while (src.Size() > 0)
   {
     std::vector<int32_t> featureIds;
-    uint32_t size = ReadPrimitiveFromSource<uint32_t>(src);
+    uint16_t size = ReadPrimitiveFromSource<uint16_t>(src);
     std::vector<int32_t> ways(size);
     src.Read(ways.data(), size * sizeof(int32_t));
     for (auto const wayId : ways)
@@ -232,6 +231,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   // Write buffer to section.
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(METALINES_FILE_TAG);
+  WriteToSink(writer, kMetaLinesSectionVersion);
   WriteVarUint(writer, count);
   writer.Write(buffer.data(), buffer.size());
   LOG(LINFO, ("Finished writing metalines section, found", count, "metalines."));
