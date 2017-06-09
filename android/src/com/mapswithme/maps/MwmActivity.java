@@ -102,6 +102,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -2028,6 +2029,106 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(MwmActivity target)
     {
       Framework.nativeShowTrackRect(mCategoryId, mId);
+      return true;
+    }
+  }
+
+  static class ShowPointTask implements MapTask
+  {
+    private final double mLat;
+    private final double mLon;
+
+    ShowPointTask(double lat, double lon)
+    {
+      mLat = lat;
+      mLon = lon;
+    }
+
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      MapFragment.nativeShowMapForUrl(String.format(Locale.US,
+                                                    "mapsme://map?ll=%f,%f", mLat, mLon));
+      return true;
+    }
+  }
+
+  static class BuildRouteTask implements MapTask
+  {
+    private final double mLatTo;
+    private final double mLonTo;
+    @Nullable
+    private final Double mLatFrom;
+    @Nullable
+    private final Double mLonFrom;
+    @Nullable
+    private final String mRouter;
+
+    @NonNull
+    private static MapObject fromLatLon(double lat, double lon)
+    {
+      return new MapObject("", 0L, 0, MapObject.API_POINT, "",
+                           "", "", "", lat, lon, "", null,
+                           false, "", null);
+    }
+
+    BuildRouteTask(double latTo, double lonTo)
+    {
+      this(latTo, lonTo, null, null, null);
+    }
+
+    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom)
+    {
+      this(latTo, lonTo, latFrom, lonFrom, null);
+    }
+
+    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom,
+                   @Nullable String router)
+    {
+      mLatTo = latTo;
+      mLonTo = lonTo;
+      mLatFrom = latFrom;
+      mLonFrom = lonFrom;
+      mRouter = router;
+    }
+
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      @Framework.RouterType int routerType = -1;
+      if (!TextUtils.isEmpty(mRouter))
+      {
+        switch (mRouter)
+        {
+          case "vehicle":
+            routerType = Framework.ROUTER_TYPE_VEHICLE;
+            break;
+          case "pedestrian":
+            routerType = Framework.ROUTER_TYPE_PEDESTRIAN;
+            break;
+          case "bicycle":
+            routerType = Framework.ROUTER_TYPE_BICYCLE;
+            break;
+          case "taxi":
+            routerType = Framework.ROUTER_TYPE_TAXI;
+            break;
+        }
+      }
+
+      if (mLatFrom != null && mLonFrom != null && routerType >= 0)
+      {
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
+                                        fromLatLon(mLatTo, mLonTo), routerType);
+      }
+      else if (mLatFrom != null && mLonFrom != null)
+      {
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
+                                        fromLatLon(mLatTo, mLonTo));
+      }
+      else
+      {
+        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo));
+      }
       return true;
     }
   }

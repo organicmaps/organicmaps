@@ -8,6 +8,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
@@ -102,7 +103,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new GoogleMapsIntentProcessor(),
       new LeadUrlIntentProcessor(),
       new OpenCountryTaskProcessor(),
-      new KmzKmlProcessor()
+      new KmzKmlProcessor(),
+      new ShowOnMapProcessor(),
+      new BuildRouteProcessor()
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -782,6 +785,89 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       else
         return null;
     }
+  }
+
+  private class ShowOnMapProcessor implements IntentProcessor
+  {
+    private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
+    private static final String EXTRA_LAT = "lat";
+    private static final String EXTRA_LON = "lon";
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      return ACTION_SHOW_ON_MAP.equals(intent.getAction());
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
+        return false;
+
+      double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
+      double lon = getCoordinateFromIntent(intent, EXTRA_LON);
+      mMapTaskToForward = new MwmActivity.ShowPointTask(lat, lon);
+
+      return true;
+    }
+  }
+
+  private class BuildRouteProcessor implements IntentProcessor
+  {
+    private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
+    private static final String EXTRA_LAT_TO = "lat_to";
+    private static final String EXTRA_LON_TO = "lon_to";
+    private static final String EXTRA_LAT_FROM = "lat_from";
+    private static final String EXTRA_LON_FROM = "lon_from";
+    private static final String EXTRA_ROUTER = "router";
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      return ACTION_BUILD_ROUTE.equals(intent.getAction());
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
+        return false;
+
+      double latTo = getCoordinateFromIntent(intent, EXTRA_LAT_TO);
+      double lonTo = getCoordinateFromIntent(intent, EXTRA_LON_TO);
+      boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
+      boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
+
+      if (hasFrom && hasRouter)
+      {
+        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
+        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom,
+                                                           intent.getStringExtra(EXTRA_ROUTER));
+      }
+      else if (hasFrom)
+      {
+        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
+        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom);
+      }
+      else
+      {
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo);
+      }
+
+      return true;
+    }
+  }
+
+  private static double getCoordinateFromIntent(@NonNull Intent intent, @NonNull String key)
+  {
+    double value = intent.getDoubleExtra(key, 0.0);
+    if (Double.compare(value, 0.0) == 0)
+      value = intent.getFloatExtra(key, 0.0f);
+
+    return value;
   }
 
   private static native int nativeGetBytesToDownload();
