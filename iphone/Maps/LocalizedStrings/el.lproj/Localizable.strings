@@ -1053,6 +1053,10 @@
 
 "p2p_reroute_from_current" = "Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;";
 
+"p2p_add_stop" = "Add stop";
+
+"p2p_remove_stop" = "Remove stop";
+
 "whats_new_next_button" = "Επόμενη";
 
 "editor_time_add" = "Προσθέσετε χρονοδιάγραμμα";

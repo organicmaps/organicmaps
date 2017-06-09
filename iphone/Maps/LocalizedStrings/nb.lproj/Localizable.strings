@@ -1053,6 +1053,10 @@
 
 "p2p_reroute_from_current" = "Vil du vi skal planlegge en rute fra din nåværende posisjon?";
 
+"p2p_add_stop" = "Add stop";
+
+"p2p_remove_stop" = "Remove stop";
+
 "whats_new_next_button" = "Neste";
 
 "editor_time_add" = "Legg til tidsrom";

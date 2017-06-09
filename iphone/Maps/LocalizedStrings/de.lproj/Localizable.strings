@@ -1053,6 +1053,10 @@
 
 "p2p_reroute_from_current" = "Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?";
 
+"p2p_add_stop" = "Add stop";
+
+"p2p_remove_stop" = "Remove stop";
+
 "whats_new_next_button" = "Weiter";
 
 "editor_time_add" = "Zeitplan hinzufügen";

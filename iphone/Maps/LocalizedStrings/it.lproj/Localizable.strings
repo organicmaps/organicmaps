@@ -1053,6 +1053,10 @@
 
 "p2p_reroute_from_current" = "Vuoi che impostiamo il percorso dalla tua posizione corrente?";
 
+"p2p_add_stop" = "Add stop";
+
+"p2p_remove_stop" = "Remove stop";
+
 "whats_new_next_button" = "Avanti";
 
 "editor_time_add" = "Aggiungi orari";
