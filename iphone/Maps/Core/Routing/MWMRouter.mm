@@ -165,6 +165,7 @@ m2::PointD getMercator(MWMRoutePoint * p)
   auto points = rm.GetRoutePoints();
   if (points.empty())
   {
+    // No more than 1 point exist.
     if (type == RouteMarkType::Start)
       self.startPoint = zeroRoutePoint();
     else if (type == RouteMarkType::Finish)
@@ -172,8 +173,13 @@ m2::PointD getMercator(MWMRoutePoint * p)
   }
   else
   {
-    self.startPoint = routePoint(points.front());
-    self.finishPoint = routePoint(points.back());
+    // At least 2 points exist, one of them may (or may not) be my position.
+    self.startPoint = rm.IsMyPosition(RouteMarkType::Start) ?
+                                      routePoint(points.front()) :
+                                      routePoint(points.front(), nil);
+    self.finishPoint = rm.IsMyPosition(RouteMarkType::Finish) ?
+                                       routePoint(points.back()) :
+                                       routePoint(points.back(), nil);
   }
 }
 

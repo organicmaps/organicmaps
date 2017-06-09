@@ -314,6 +314,14 @@ void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex
   }
 }
 
+bool RoutingManager::IsMyPosition(RouteMarkType type, int8_t intermediateIndex)
+{
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
+  return mark != nullptr ? mark->IsMyPosition() : false;
+}
+
 std::vector<m2::PointD> RoutingManager::GetRoutePoints() const
 {
   std::vector<m2::PointD> result;

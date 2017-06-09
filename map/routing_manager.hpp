@@ -161,6 +161,7 @@ public:
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
   void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   bool CouldAddIntermediatePoint() const;
+  bool IsMyPosition(RouteMarkType type, int8_t intermediateIndex = 0);
 
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
