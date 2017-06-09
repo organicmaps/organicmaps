@@ -149,37 +149,37 @@ void LocalityScorer::SortByNameAndProb(std::vector<ExLocality> & ls) const
     for (auto const & name : names)
       score = max(score, GetNameScore(name, TokenSlice(m_params, l.m_locality.m_tokenRange)));
     l.m_nameScore = score;
-
-    std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
-      // Probabilities form a stronger signal than name scores do.
-      if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
-        return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
-      if (IsAlmostFullMatch(lhs.m_nameScore) && IsAlmostFullMatch(rhs.m_nameScore))
-      {
-        // When both localities match well, e.g. full or full prefix
-        // match, the one with larger number of tokens is selected. In
-        // case of tie, the one with better score is selected.
-        if (lhs.m_numTokens != rhs.m_numTokens)
-          return lhs.m_numTokens > rhs.m_numTokens;
-        if (lhs.m_nameScore != rhs.m_nameScore)
-          return lhs.m_nameScore > rhs.m_nameScore;
-      }
-      else
-      {
-        // When name scores differ, the one with better name score is
-        // selected.  In case of tie, the one with larger number of
-        // matched tokens is selected.
-        if (lhs.m_nameScore != rhs.m_nameScore)
-          return lhs.m_nameScore > rhs.m_nameScore;
-        if (lhs.m_numTokens != rhs.m_numTokens)
-          return lhs.m_numTokens > rhs.m_numTokens;
-      }
-
-      // Okay, in case of tie we select the one with better rank.  This
-      // is a quite arbitrary decision and definitely may be improved.
-      return lhs.m_rank > rhs.m_rank;
-    });
   }
+
+  std::sort(ls.begin(), ls.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+    // Probabilities form a stronger signal than name scores do.
+    if (lhs.m_locality.m_prob != rhs.m_locality.m_prob)
+      return lhs.m_locality.m_prob > rhs.m_locality.m_prob;
+    if (IsAlmostFullMatch(lhs.m_nameScore) && IsAlmostFullMatch(rhs.m_nameScore))
+    {
+      // When both localities match well, e.g. full or full prefix
+      // match, the one with larger number of tokens is selected. In
+      // case of tie, the one with better score is selected.
+      if (lhs.m_numTokens != rhs.m_numTokens)
+        return lhs.m_numTokens > rhs.m_numTokens;
+      if (lhs.m_nameScore != rhs.m_nameScore)
+        return lhs.m_nameScore > rhs.m_nameScore;
+    }
+    else
+    {
+      // When name scores differ, the one with better name score is
+      // selected.  In case of tie, the one with larger number of
+      // matched tokens is selected.
+      if (lhs.m_nameScore != rhs.m_nameScore)
+        return lhs.m_nameScore > rhs.m_nameScore;
+      if (lhs.m_numTokens != rhs.m_numTokens)
+        return lhs.m_numTokens > rhs.m_numTokens;
+    }
+
+    // Okay, in case of tie we select the one with better rank.  This
+    // is a quite arbitrary decision and definitely may be improved.
+    return lhs.m_rank > rhs.m_rank;
+  });
 }
 
 string DebugPrint(LocalityScorer::ExLocality const & locality)
