@@ -1,7 +1,7 @@
 #pragma once
 
+#include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/gps_track_point.hpp"
-#include "drape_frontend/gps_track_shape.hpp"
 
 #include "drape/gpu_program_manager.hpp"
 #include "drape/pointers.hpp"
@@ -10,23 +10,23 @@
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
 
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <functional>
+#include <map>
+#include <vector>
 
 namespace df
 {
-
 class GpsTrackRenderer final
 {
 public:
-  using TRenderDataRequestFn = function<void(size_t)>;
+  using TRenderDataRequestFn = std::function<void(size_t)>;
   explicit GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn);
 
   void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
-                     drape_ptr<GpsTrackRenderData> && renderData);
+                     drape_ptr<CirclesPackRenderData> && renderData);
 
-  void UpdatePoints(vector<GpsTrackPoint> const & toAdd,
-                    vector<uint32_t> const & toRemove);
+  void UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
+                    std::vector<uint32_t> const & toRemove);
 
   void RenderTrack(ScreenBase const & screen, int zoomLevel,
                    ref_ptr<dp::GpuProgramManager> mng,
@@ -37,21 +37,19 @@ public:
   void ClearRenderData();
 
 private:
-  float CalculateRadius(ScreenBase const & screen) const;
   size_t GetAvailablePointsCount() const;
   dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
                                 double lengthFromStart, double fullLength) const;
   dp::Color GetColorBySpeed(double speed) const;
 
   TRenderDataRequestFn m_dataRequestFn;
-  vector<drape_ptr<GpsTrackRenderData>> m_renderData;
-  vector<GpsTrackPoint> m_points;
+  std::vector<drape_ptr<CirclesPackRenderData>> m_renderData;
+  std::vector<GpsTrackPoint> m_points;
   m2::Spline m_pointsSpline;
   bool m_needUpdate;
   bool m_waitForRenderData;
-  vector<pair<GpsTrackHandle*, size_t>> m_handlesCache;
+  std::vector<std::pair<CirclesPackHandle *, size_t>> m_handlesCache;
   float m_radius;
   m2::PointD m_pivot;
 };
-
-} // namespace df
+}  // namespace df

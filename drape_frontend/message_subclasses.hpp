@@ -1,14 +1,13 @@
 #pragma once
 
-#include "drape_frontend/gui/layer_render.hpp"
-#include "drape_frontend/gui/skin.hpp"
-
+#include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_point.hpp"
-#include "drape_frontend/gps_track_shape.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
+#include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
@@ -17,25 +16,25 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
-#include "drape_frontend/user_marks_provider.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
-
-#include "geometry/polyline2d.hpp"
-#include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
-#include "geometry/triangle2d.hpp"
+#include "drape_frontend/user_marks_provider.hpp"
 
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/viewport.hpp"
 
+#include "geometry/polyline2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/triangle2d.hpp"
+
 #include "platform/location.hpp"
 
 #include "std/condition_variable.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/set.hpp"
 #include "std/function.hpp"
+#include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/utility.hpp"
 
 namespace df
@@ -702,6 +701,68 @@ private:
   drape_ptr<RouteArrowsData> m_routeArrowsData;
 };
 
+class AddRoutePreviewSegmentMessage : public Message
+{
+public:
+  AddRoutePreviewSegmentMessage(dp::DrapeID segmentId, m2::PointD const & startPt,
+                                m2::PointD const & finishPt)
+    : m_segmentId(segmentId)
+    , m_startPoint(startPt)
+    , m_finishPoint(finishPt)
+  {}
+
+  Type GetType() const override { return Message::AddRoutePreviewSegment; }
+
+  dp::DrapeID GetSegmentId() const { return m_segmentId; };
+  m2::PointD const & GetStartPoint() const { return m_startPoint; }
+  m2::PointD const & GetFinishPoint() const { return m_finishPoint; }
+
+private:
+  dp::DrapeID m_segmentId;
+  m2::PointD m_startPoint;
+  m2::PointD m_finishPoint;
+};
+
+class RemoveRoutePreviewSegmentMessage : public Message
+{
+public:
+  RemoveRoutePreviewSegmentMessage()
+    : m_needRemoveAll(true)
+  {}
+
+  explicit RemoveRoutePreviewSegmentMessage(dp::DrapeID segmentId)
+    : m_segmentId(segmentId)
+    , m_needRemoveAll(false)
+  {}
+
+  Type GetType() const override { return Message::RemoveRoutePreviewSegment; }
+
+  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  bool NeedRemoveAll() const { return m_needRemoveAll; }
+
+private:
+  dp::DrapeID m_segmentId;
+  bool m_needRemoveAll;
+};
+
+class SetRouteSegmentVisibilityMessage : public Message
+{
+public:
+  SetRouteSegmentVisibilityMessage(dp::DrapeID segmentId, bool isVisible)
+    : m_segmentId(segmentId)
+    , m_isVisible(isVisible)
+  {}
+
+  Type GetType() const override { return Message::SetRouteSegmentVisibility; }
+
+  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  bool IsVisible() const { return m_isVisible; }
+
+private:
+  dp::DrapeID m_segmentId;
+  bool m_isVisible;
+};
+
 class UpdateMapStyleMessage : public BaseBlockingMessage
 {
 public:
@@ -839,51 +900,68 @@ public:
   Type GetType() const override { return Message::EnablePerspective; }
 };
 
-class CacheGpsTrackPointsMessage : public Message
+class CacheCirclesPackMessage : public Message
 {
 public:
-  CacheGpsTrackPointsMessage(uint32_t pointsCount) : m_pointsCount(pointsCount) {}
+  enum Destination
+  {
+    GpsTrack,
+    RoutePreview
+  };
 
-  Type GetType() const override { return Message::CacheGpsTrackPoints; }
+  CacheCirclesPackMessage(uint32_t pointsCount, Destination dest)
+    : m_pointsCount(pointsCount)
+    , m_destination(dest)
+  {}
+
+  Type GetType() const override { return Message::CacheCirclesPack; }
 
   uint32_t GetPointsCount() const { return m_pointsCount; }
+  Destination GetDestination() const { return m_destination; }
 
 private:
   uint32_t m_pointsCount;
+  Destination m_destination;
 };
 
-class FlushGpsTrackPointsMessage : public Message
+class FlushCirclesPackMessage : public Message
 {
 public:
-  FlushGpsTrackPointsMessage(drape_ptr<GpsTrackRenderData> && renderData)
-    : m_renderData(move(renderData))
+
+  FlushCirclesPackMessage(drape_ptr<CirclesPackRenderData> && renderData,
+                          CacheCirclesPackMessage::Destination dest)
+    : m_renderData(std::move(renderData))
+    , m_destination(dest)
   {}
 
-  Type GetType() const override { return Message::FlushGpsTrackPoints; }
+  Type GetType() const override { return Message::FlushCirclesPack; }
   bool IsGLContextDependent() const override { return true; }
 
-  drape_ptr<GpsTrackRenderData> && AcceptRenderData() { return move(m_renderData); }
+  drape_ptr<CirclesPackRenderData> && AcceptRenderData() { return std::move(m_renderData); }
+  CacheCirclesPackMessage::Destination GetDestination() const { return m_destination; }
 
 private:
-  drape_ptr<GpsTrackRenderData> m_renderData;
+  drape_ptr<CirclesPackRenderData> m_renderData;
+  CacheCirclesPackMessage::Destination m_destination;
 };
 
 class UpdateGpsTrackPointsMessage : public Message
 {
 public:
-  UpdateGpsTrackPointsMessage(vector<GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
-    : m_pointsToAdd(move(toAdd))
-    , m_pointsToRemove(move(toRemove))
+  UpdateGpsTrackPointsMessage(std::vector<GpsTrackPoint> && toAdd,
+                              std::vector<uint32_t> && toRemove)
+    : m_pointsToAdd(std::move(toAdd))
+    , m_pointsToRemove(std::move(toRemove))
   {}
 
   Type GetType() const override { return Message::UpdateGpsTrackPoints; }
 
-  vector<GpsTrackPoint> const & GetPointsToAdd() { return m_pointsToAdd; }
-  vector<uint32_t> const & GetPointsToRemove() { return m_pointsToRemove; }
+  std::vector<GpsTrackPoint> const & GetPointsToAdd() { return m_pointsToAdd; }
+  std::vector<uint32_t> const & GetPointsToRemove() { return m_pointsToRemove; }
 
 private:
-  vector<GpsTrackPoint> m_pointsToAdd;
-  vector<uint32_t> m_pointsToRemove;
+  std::vector<GpsTrackPoint> m_pointsToAdd;
+  std::vector<uint32_t> m_pointsToRemove;
 };
 
 class ClearGpsTrackPointsMessage : public Message
@@ -892,7 +970,6 @@ public:
   ClearGpsTrackPointsMessage() = default;
 
   Type GetType() const override { return Message::ClearGpsTrackPoints; }
-
 };
 
 class SetTimeInBackgroundMessage : public Message

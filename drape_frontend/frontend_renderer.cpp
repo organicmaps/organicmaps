@@ -113,10 +113,7 @@ struct RemoveTilePredicate
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
-  , m_routeRenderer(new RouteRenderer())
   , m_trafficRenderer(new TrafficRenderer())
-  , m_gpsTrackRenderer(
-        new GpsTrackRenderer(std::bind(&FrontendRenderer::PrepareGpsTrackPoints, this, _1)))
   , m_drapeApiRenderer(new DrapeApiRenderer())
   , m_overlayTree(new dp::OverlayTree())
   , m_enablePerspectiveInNavigation(false)
@@ -147,7 +144,23 @@ FrontendRenderer::FrontendRenderer(Params && params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_myPositionController.reset(new MyPositionController(std::move(params.m_myPositionParams)));
+  m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](size_t pointsCount)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheCirclesPackMessage>(
+                                pointsCount, CacheCirclesPackMessage::GpsTrack),
+                              MessagePriority::Normal);
+  });
+
+  m_routeRenderer = make_unique_dp<RouteRenderer>([this](size_t pointsCount)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<CacheCirclesPackMessage>(
+                                pointsCount, CacheCirclesPackMessage::RoutePreview),
+                              MessagePriority::Normal);
+  });
+
+  m_myPositionController = make_unique_dp<MyPositionController>(std::move(params.m_myPositionParams));
 
   for (auto const & effect : params.m_enabledEffects)
     m_postprocessRenderer->SetEffectEnabled(effect, true /* enabled */);
@@ -542,6 +555,33 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::AddRoutePreviewSegment:
+    {
+      ref_ptr<AddRoutePreviewSegmentMessage> const msg = message;
+      RouteRenderer::PreviewInfo info;
+      info.m_startPoint = msg->GetStartPoint();
+      info.m_finishPoint = msg->GetFinishPoint();
+      m_routeRenderer->AddPreviewSegment(msg->GetSegmentId(), std::move(info));
+      break;
+    }
+
+  case Message::RemoveRoutePreviewSegment:
+    {
+      ref_ptr<RemoveRoutePreviewSegmentMessage> const msg = message;
+      if (msg->NeedRemoveAll())
+        m_routeRenderer->RemoveAllPreviewSegments();
+      else
+        m_routeRenderer->RemovePreviewSegment(msg->GetSegmentId());
+      break;
+    }
+
+  case Message::SetRouteSegmentVisibility:
+    {
+      ref_ptr<SetRouteSegmentVisibilityMessage> const msg = message;
+      m_routeRenderer->SetRouteSegmentVisibility(msg->GetSegmentId(), msg->IsVisible());
+      break;
+    }
+
   case Message::RecoverGLResources:
     {
       UpdateGLResources();
@@ -624,10 +664,18 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushGpsTrackPoints:
+  case Message::FlushCirclesPack:
     {
-      ref_ptr<FlushGpsTrackPointsMessage> msg = message;
-      m_gpsTrackRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptRenderData());
+      ref_ptr<FlushCirclesPackMessage> msg = message;
+      switch (msg->GetDestination())
+      {
+      case CacheCirclesPackMessage::GpsTrack:
+        m_gpsTrackRenderer->AddRenderData(make_ref(m_gpuProgramManager), msg->AcceptRenderData());
+        break;
+      case CacheCirclesPackMessage::RoutePreview:
+        m_routeRenderer->AddPreviewRenderData(msg->AcceptRenderData(), make_ref(m_gpuProgramManager));
+        break;
+      }
       break;
     }
 
@@ -1012,13 +1060,6 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
   }
 
   return featureID;
-}
-
-void FrontendRenderer::PrepareGpsTrackPoints(uint32_t pointsCount)
-{
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<CacheGpsTrackPointsMessage>(pointsCount),
-                            MessagePriority::Normal);
 }
 
 void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
@@ -1766,14 +1807,16 @@ void FrontendRenderer::Routine::Do()
     if (viewportChanged)
       m_renderer.OnResize(modelView);
 
-    if (modelViewChanged || viewportChanged)
+    // Check for a frame is active.
+    bool isActiveFrame = modelViewChanged || viewportChanged;
+
+    if (isActiveFrame)
       m_renderer.PrepareScene(modelView);
 
-    // Check for a frame is active.
-    bool isActiveFrame = modelViewChanged || viewportChanged ||
-                         m_renderer.m_myPositionController->IsWaitingForTimers();
-
+    isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
+    isActiveFrame |= m_renderer.m_routeRenderer->UpdatePreview(modelView);
+
     m_renderer.RenderScene(modelView);
 
     if (modelViewChanged || m_renderer.m_forceUpdateScene)

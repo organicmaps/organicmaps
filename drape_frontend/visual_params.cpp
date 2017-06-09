@@ -296,6 +296,23 @@ double GetZoomLevel(double scale)
   return my::clamp(fabs(log(scale) / kLog2), 1.0, scales::GetUpperStyleScale() + 1.0);
 }
 
+void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef)
+{
+  double const zoomLevel = GetZoomLevel(s.GetScale());
+  zoom = trunc(zoomLevel);
+  index = static_cast<int>(zoom - 1.0);
+  lerpCoef = static_cast<float>(zoomLevel - zoom);
+}
+
+float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> const & values)
+{
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  if (index < scales::UPPER_STYLE_SCALE)
+    return values[index] + lerpCoef * (values[index + 1] - values[index]);
+  return values[scales::UPPER_STYLE_SCALE];
+}
+
 double GetNormalizedZoomLevel(double scale, int minZoom)
 {
   double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;

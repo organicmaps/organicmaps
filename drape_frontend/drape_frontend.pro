@@ -47,6 +47,7 @@ SOURCES += \
     backend_renderer.cpp \
     base_renderer.cpp \
     batch_merge_helper.cpp \
+    circles_pack_shape.cpp \
     color_constants.cpp \
     colored_symbol_shape.cpp \
     drape_api.cpp \
@@ -57,7 +58,6 @@ SOURCES += \
     engine_context.cpp \
     frontend_renderer.cpp \
     gps_track_renderer.cpp \
-    gps_track_shape.cpp \
     line_shape.cpp \
     line_shape_helper.cpp \
     map_data_provider.cpp \
@@ -149,6 +149,7 @@ HEADERS += \
     base_renderer.hpp \
     batchers_pool.hpp \
     batch_merge_helper.hpp \
+    circles_pack_shape.hpp \
     color_constants.hpp \
     colored_symbol_shape.hpp \
     custom_symbol.hpp \
@@ -162,7 +163,6 @@ HEADERS += \
     frontend_renderer.hpp \
     gps_track_point.hpp \
     gps_track_renderer.hpp \
-    gps_track_shape.hpp \
     intrusive_vector.hpp \
     line_shape.hpp \
     line_shape_helper.hpp \
@@ -243,6 +243,8 @@ OTHER_FILES += \
     shaders/arrow3d_shadow.vsh.glsl \
     shaders/circle.fsh.glsl \
     shaders/circle.vsh.glsl \
+    shaders/circle_point.fsh.glsl \
+    shaders/circle_point.vsh.glsl \
     shaders/colored_symbol.fsh.glsl \
     shaders/colored_symbol.vsh.glsl \
     shaders/colored_symbol_billboard.vsh.glsl \
@@ -288,8 +290,6 @@ OTHER_FILES += \
     shaders/texturing3d.fsh.glsl \
     shaders/texturing_billboard.vsh.glsl \
     shaders/texturing_gui.vsh.glsl \
-    shaders/trackpoint.fsh.glsl \
-    shaders/trackpoint.vsh.glsl \
     shaders/traffic.fsh.glsl \
     shaders/traffic.vsh.glsl \
     shaders/traffic_line.fsh.glsl \

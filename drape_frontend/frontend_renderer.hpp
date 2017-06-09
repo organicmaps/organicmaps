@@ -220,8 +220,6 @@ private:
   FeatureID GetVisiblePOI(m2::PointD const & pixelPoint);
   FeatureID GetVisiblePOI(m2::RectD const & pixelRect);
 
-  void PrepareGpsTrackPoints(uint32_t pointsCount);
-
   void PullToBoundArea(bool randomPlace, bool applyZoom);
 
   void ProcessSelection(ref_ptr<SelectObjectMessage> msg);

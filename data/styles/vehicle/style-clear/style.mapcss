@@ -35,6 +35,8 @@ colors
   RoutePedestrian-opacity: 0.8;
   RouteBicycle-color: #9C27B0;
   RouteBicycle-opacity: 0.8;
+  RoutePreview-color: #000000;
+  RoutePreview-opacity: 0.3;
   Arrow3D-color: #50AAFF;
   Arrow3DObsolete-color: #82AAC8;
   Arrow3DObsolete-opacity: 0.72;

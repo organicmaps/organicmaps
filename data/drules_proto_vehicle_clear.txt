@@ -40726,6 +40726,12 @@ colors {
     y: 0
   }
   value {
+    name: "RoutePreview"
+    color: 3003121664
+    x: 0
+    y: 0
+  }
+  value {
     name: "Arrow3D"
     color: 5286655
     x: 0

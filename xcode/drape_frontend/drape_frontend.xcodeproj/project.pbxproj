@@ -20,6 +20,8 @@
 		34C624C51DABDB0400510300 /* traffic_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624C11DABDB0400510300 /* traffic_renderer.cpp */; };
 		34C624C61DABDB0400510300 /* traffic_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C21DABDB0400510300 /* traffic_renderer.hpp */; };
 		3D489BC51D3D21FC0052AA38 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D489BC41D3D21FC0052AA38 /* libdrape.a */; };
+		451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */; };
+		451A2A831EE8464E003E05A4 /* circles_pack_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */; };
 		452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC21CEDCF3200A55E57 /* animation.cpp */; };
 		452C9ED51CEDCF3200A55E57 /* animation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452C9EC31CEDCF3200A55E57 /* animation.hpp */; };
 		452C9ED61CEDCF3200A55E57 /* arrow_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */; };
@@ -217,8 +219,6 @@
 		F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830B1C1B04680081957A /* gps_track_point.hpp */; };
 		F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */; };
 		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
-		F6B283131C1B04680081957A /* gps_track_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830E1C1B04680081957A /* gps_track_shape.cpp */; };
-		F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830F1C1B04680081957A /* gps_track_shape.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -251,6 +251,10 @@
 		34C624C11DABDB0400510300 /* traffic_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_renderer.cpp; sourceTree = "<group>"; };
 		34C624C21DABDB0400510300 /* traffic_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_renderer.hpp; sourceTree = "<group>"; };
 		3D489BC41D3D21FC0052AA38 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
+		451A2A7E1EE8463F003E05A4 /* circle_point.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle_point.fsh.glsl; path = shaders/circle_point.fsh.glsl; sourceTree = "<group>"; };
+		451A2A7F1EE8463F003E05A4 /* circle_point.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle_point.vsh.glsl; path = shaders/circle_point.vsh.glsl; sourceTree = "<group>"; };
+		451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = circles_pack_shape.cpp; sourceTree = "<group>"; };
+		451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = circles_pack_shape.hpp; sourceTree = "<group>"; };
 		452C9EC21CEDCF3200A55E57 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation.cpp; sourceTree = "<group>"; };
 		452C9EC31CEDCF3200A55E57 /* animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation.hpp; sourceTree = "<group>"; };
 		452C9EC41CEDCF3200A55E57 /* arrow_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arrow_animation.cpp; sourceTree = "<group>"; };
@@ -332,8 +336,6 @@
 		45BB02501EB8BE2B00FE5C0C /* texturing.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing.fsh.glsl; path = shaders/texturing.fsh.glsl; sourceTree = "<group>"; };
 		45BB02511EB8BE2B00FE5C0C /* texturing.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing.vsh.glsl; path = shaders/texturing.vsh.glsl; sourceTree = "<group>"; };
 		45BB02521EB8BE2B00FE5C0C /* texturing3d.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = texturing3d.fsh.glsl; path = shaders/texturing3d.fsh.glsl; sourceTree = "<group>"; };
-		45BB02531EB8BE2B00FE5C0C /* trackpoint.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = trackpoint.fsh.glsl; path = shaders/trackpoint.fsh.glsl; sourceTree = "<group>"; };
-		45BB02541EB8BE2B00FE5C0C /* trackpoint.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = trackpoint.vsh.glsl; path = shaders/trackpoint.vsh.glsl; sourceTree = "<group>"; };
 		45BB02551EB8BE2B00FE5C0C /* traffic_line.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic_line.fsh.glsl; path = shaders/traffic_line.fsh.glsl; sourceTree = "<group>"; };
 		45BB02561EB8BE2B00FE5C0C /* traffic_line.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic_line.vsh.glsl; path = shaders/traffic_line.vsh.glsl; sourceTree = "<group>"; };
 		45BB02571EB8BE2B00FE5C0C /* traffic.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic.fsh.glsl; path = shaders/traffic.fsh.glsl; sourceTree = "<group>"; };
@@ -507,8 +509,6 @@
 		F6B2830B1C1B04680081957A /* gps_track_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_point.hpp; sourceTree = "<group>"; };
 		F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_renderer.cpp; sourceTree = "<group>"; };
 		F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_renderer.hpp; sourceTree = "<group>"; };
-		F6B2830E1C1B04680081957A /* gps_track_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_shape.cpp; sourceTree = "<group>"; };
-		F6B2830F1C1B04680081957A /* gps_track_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_shape.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -526,6 +526,8 @@
 		45BB02221EB8BE1400FE5C0C /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				451A2A7E1EE8463F003E05A4 /* circle_point.fsh.glsl */,
+				451A2A7F1EE8463F003E05A4 /* circle_point.vsh.glsl */,
 				4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */,
 				45BB02231EB8BE2B00FE5C0C /* area.vsh.glsl */,
 				45BB02241EB8BE2B00FE5C0C /* area3d_outline.vsh.glsl */,
@@ -575,8 +577,6 @@
 				45BB02501EB8BE2B00FE5C0C /* texturing.fsh.glsl */,
 				45BB02511EB8BE2B00FE5C0C /* texturing.vsh.glsl */,
 				45BB02521EB8BE2B00FE5C0C /* texturing3d.fsh.glsl */,
-				45BB02531EB8BE2B00FE5C0C /* trackpoint.fsh.glsl */,
-				45BB02541EB8BE2B00FE5C0C /* trackpoint.vsh.glsl */,
 				45BB02551EB8BE2B00FE5C0C /* traffic_line.fsh.glsl */,
 				45BB02561EB8BE2B00FE5C0C /* traffic_line.vsh.glsl */,
 				45BB02571EB8BE2B00FE5C0C /* traffic.fsh.glsl */,
@@ -609,6 +609,8 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */,
+				451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */,
 				456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */,
 				456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */,
 				45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */,
@@ -656,8 +658,6 @@
 				F6B2830B1C1B04680081957A /* gps_track_point.hpp */,
 				F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */,
 				F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */,
-				F6B2830E1C1B04680081957A /* gps_track_shape.cpp */,
-				F6B2830F1C1B04680081957A /* gps_track_shape.hpp */,
 				677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */,
 				677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */,
 				670948511BDF9C5F005014C0 /* watch */,
@@ -877,6 +877,7 @@
 				45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */,
 				670947C71BDF9BE1005014C0 /* text_layout.hpp in Headers */,
 				670948791BDF9C7F005014C0 /* glyph_cache.hpp in Headers */,
+				451A2A831EE8464E003E05A4 /* circles_pack_shape.hpp in Headers */,
 				670947FF1BDF9BF5005014C0 /* batchers_pool.hpp in Headers */,
 				670947C01BDF9BE1005014C0 /* selection_shape.hpp in Headers */,
 				6709481D1BDF9C39005014C0 /* opacity_animation.hpp in Headers */,
@@ -909,7 +910,6 @@
 				670947C11BDF9BE1005014C0 /* shape_view_params.hpp in Headers */,
 				670948461BDF9C48005014C0 /* gui_text.hpp in Headers */,
 				670947E51BDF9BEC005014C0 /* engine_context.hpp in Headers */,
-				F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */,
 				670947BE1BDF9BE1005014C0 /* rule_drawer.hpp in Headers */,
 				6709487C1BDF9C7F005014C0 /* pen_info.hpp in Headers */,
 				6709487D1BDF9C7F005014C0 /* point.h in Headers */,
@@ -1037,6 +1037,7 @@
 				6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */,
 				670E393A1C46C59000E9C0A6 /* batch_merge_helper.cpp in Sources */,
 				452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */,
+				451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */,
 				67E91C761BDFC85E005CEE88 /* glyph_cache_impl.cpp in Sources */,
 				67E91C781BDFC85E005CEE88 /* area_shape.cpp in Sources */,
 				67E91C791BDFC85E005CEE88 /* base_renderer.cpp in Sources */,
@@ -1075,7 +1076,6 @@
 				670947C41BDF9BE1005014C0 /* text_handle.cpp in Sources */,
 				670947BD1BDF9BE1005014C0 /* rule_drawer.cpp in Sources */,
 				6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */,
-				F6B283131C1B04680081957A /* gps_track_shape.cpp in Sources */,
 				45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */,
 				6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */,
 				45580ABA1E28DB2600CD535D /* scenario_manager.cpp in Sources */,

@@ -66,6 +66,8 @@ set(
   batch_merge_helper.cpp
   batch_merge_helper.hpp
   batchers_pool.hpp
+  circles_pack_shape.cpp
+  circles_pack_shape.hpp
   color_constants.cpp
   color_constants.hpp
   colored_symbol_shape.cpp
@@ -89,8 +91,6 @@ set(
   gps_track_point.hpp
   gps_track_renderer.cpp
   gps_track_renderer.hpp
-  gps_track_shape.cpp
-  gps_track_shape.hpp
   gui/choose_position_mark.cpp
   gui/choose_position_mark.hpp
   gui/compass.cpp
@@ -250,6 +250,8 @@ set(
   shaders/arrow3d_shadow.vsh.glsl
   shaders/circle.fsh.glsl
   shaders/circle.vsh.glsl
+  shaders/circle_point.fsh.glsl
+  shaders/circle_point.vsh.glsl
   shaders/colored_symbol.fsh.glsl
   shaders/colored_symbol.vsh.glsl
   shaders/colored_symbol_billboard.vsh.glsl
@@ -295,8 +297,6 @@ set(
   shaders/texturing3d.fsh.glsl
   shaders/texturing_billboard.vsh.glsl
   shaders/texturing_gui.vsh.glsl
-  shaders/trackpoint.fsh.glsl
-  shaders/trackpoint.vsh.glsl
   shaders/traffic.fsh.glsl
   shaders/traffic.vsh.glsl
   shaders/traffic_line.fsh.glsl
