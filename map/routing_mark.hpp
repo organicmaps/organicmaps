@@ -50,7 +50,7 @@ protected:
 class RoutePointsLayout
 {
 public:
-  static int8_t const kMaxIntermediatePointsCount = 1;
+  static int8_t const kMaxIntermediatePointsCount;
 
   RoutePointsLayout(UserMarksController & routeMarks);
 

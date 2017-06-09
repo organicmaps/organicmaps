@@ -53,11 +53,14 @@ UserMark * RouteUserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
   return new RouteMarkPoint(ptOrg, this);
 }
 
+int8_t const RoutePointsLayout::kMaxIntermediatePointsCount = 1;
+
 RoutePointsLayout::RoutePointsLayout(UserMarksController & routeMarks)
   : m_routeMarks(routeMarks)
 {}
 
-RouteMarkPoint * RoutePointsLayout::AddRoutePoint(m2::PointD const & ptOrg, RouteMarkType type, int8_t intermediateIndex)
+RouteMarkPoint * RoutePointsLayout::AddRoutePoint(m2::PointD const & ptOrg, RouteMarkType type,
+                                                  int8_t intermediateIndex)
 {
   if (m_routeMarks.GetUserMarkCount() == kMaxIntermediatePointsCount + 2)
     return nullptr;
