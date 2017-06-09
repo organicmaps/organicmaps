@@ -522,6 +522,20 @@ public class PlacePageView extends RelativeLayout
           }
           break;
 
+        case ROUTE_ADD:
+          if (mMapObject != null
+              && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating()))
+          {
+            RoutingController.get().addStop(mMapObject);
+            setMapObject(mMapObject, true, null);
+          }
+          break;
+
+        case ROUTE_REMOVE:
+          RoutingController.get().removeStop();
+          setMapObject(mMapObject, true, null);
+          break;
+
         case BOOKING:
         case OPENTABLE:
           onSponsoredClick(true /* book */, false);
@@ -1388,6 +1402,12 @@ public class PlacePageView extends RelativeLayout
   private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
     List<PlacePageButtons.Item> buttons = new ArrayList<>();
+    if (RoutingController.get().isStopPoint(mapObject))
+    {
+      buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);
+      mButtons.setItems(buttons);
+      return;
+    }
 
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
@@ -1421,6 +1441,8 @@ public class PlacePageView extends RelativeLayout
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
       buttons.add(PlacePageButtons.Item.ROUTE_TO);
+      if (RoutingController.get().isBuilt() && !RoutingController.get().hasStopPoint())
+        buttons.add(PlacePageButtons.Item.ROUTE_ADD);
     }
 
     buttons.add(PlacePageButtons.Item.SHARE);

@@ -317,6 +317,28 @@ public class MapObject implements Parcelable
     dest.writeTypedList(mBanners);
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    MapObject mapObject = (MapObject) o;
+
+    if (mMwmVersion != mapObject.mMwmVersion) return false;
+    if (mFeatureIndex != mapObject.mFeatureIndex) return false;
+    return mMwmName.equals(mapObject.mMwmName);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = mMwmName.hashCode();
+    result = 31 * result + (int) (mMwmVersion ^ (mMwmVersion >>> 32));
+    result = 31 * result + mFeatureIndex;
+    return result;
+  }
+
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()
   {
     @Override
