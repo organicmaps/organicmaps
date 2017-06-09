@@ -28,7 +28,6 @@ class DrapeEngine;
 namespace storage
 {
 class CountryInfoGetter;
-class Storage;
 }
 
 namespace routing
