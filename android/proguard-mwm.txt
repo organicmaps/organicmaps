@@ -19,7 +19,10 @@
 -dontwarn com.arellomobile.**
 
 # myTarget
--keep class com.my.target.** {*;}
+# Remove this dontwarn when MyTarget is updated to 4.6.15
+-dontwarn com.my.target.nativeads.mediation.**
+# Remove this dontwarn when MyTarget is updated to 4.6.16
+-dontwarn com.my.target.core.net.cookie.**
 -dontwarn com.mopub.**
 
 -dontoptimize
