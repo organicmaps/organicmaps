@@ -38,7 +38,12 @@ MWMRoutePoint * lastLocationPoint()
   return lastLocation ? routePoint(lastLocation.mercator) : zeroRoutePoint();
 }
 
-bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyPosition; }
+m2::PointD getMercator(MWMRoutePoint * p)
+{
+  if (p.isMyPosition)
+    return mercatorMWMRoutePoint(lastLocationPoint());
+  return mercatorMWMRoutePoint(p);
+}
 }  // namespace
 
 @interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
@@ -101,6 +106,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 }
 
 + (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
+
 - (instancetype)initRouter
 {
   self = [super init];
@@ -126,34 +132,95 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 {
   if (type == self.type)
     return;
-  [self doStop];
+  [self doStop:NO];
   GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
 
 - (MWMRouterType)type { return routerType(GetFramework().GetRoutingManager().GetRouter()); }
+
 - (BOOL)arePointsValidForRouting
 {
   return self.startPoint.isValid && self.finishPoint.isValid && self.startPoint != self.finishPoint;
 }
 
+- (void)applyRoutePoints
+{
+  auto & rm = GetFramework().GetRoutingManager();
+  if (self.startPoint.isValid)
+  {
+    rm.AddRoutePoint(getMercator(self.startPoint), self.startPoint.isMyPosition,
+                     RouteMarkType::Start);
+  }
+  if (self.finishPoint.isValid)
+  {
+    rm.AddRoutePoint(getMercator(self.finishPoint), self.finishPoint.isMyPosition,
+                     RouteMarkType::Finish);
+  }
+}
+
+- (void)removeRoutePoint:(RouteMarkType)type intermediateIndex:(int)intermediateIndex
+{
+  auto & rm = GetFramework().GetRoutingManager();
+  rm.RemoveRoutePoint(type, intermediateIndex);
+  auto points = rm.GetRoutePoints();
+  if (points.empty())
+  {
+    if (type == RouteMarkType::Start)
+      self.startPoint = zeroRoutePoint();
+    else if (type == RouteMarkType::Finish)
+      self.finishPoint = zeroRoutePoint();
+  }
+  else
+  {
+    self.startPoint = routePoint(points.front());
+    self.finishPoint = routePoint(points.back());
+  }
+}
+
 - (void)swapPointsAndRebuild
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatSwapRoutingPoints)];
-  swap(_startPoint, _finishPoint);
+  std::swap(_startPoint, _finishPoint);
+  [self applyRoutePoints];
+  [self rebuildWithBestRouter:NO];
+}
+
+- (void)removeStartPointAndRebuild:(int)intermediateIndex
+{
+  [self removeRoutePoint:RouteMarkType::Start intermediateIndex:intermediateIndex];
+  [self rebuildWithBestRouter:NO];
+}
+
+- (void)removeFinishPointAndRebuild:(int)intermediateIndex
+{
+  [self removeRoutePoint:RouteMarkType::Finish intermediateIndex:intermediateIndex];
+  [self rebuildWithBestRouter:NO];
+}
+
+- (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point intermediateIndex:(int)intermediateIndex
+{
+  GetFramework().GetRoutingManager().AddRoutePoint(getMercator(point), point.isMyPosition,
+                                                   RouteMarkType::Intermediate, intermediateIndex);
+  [self rebuildWithBestRouter:NO];
+}
+
+- (void)removeIntermediatePointAndRebuild:(int)intermediateIndex
+{
+  [self removeRoutePoint:RouteMarkType::Intermediate intermediateIndex:intermediateIndex];
   [self rebuildWithBestRouter:NO];
 }
 
 - (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
 {
   self.startPoint = startPoint;
+  [self applyRoutePoints];
   [self rebuildWithBestRouter:bestRouter];
 }
 
 - (void)buildToPoint:(MWMRoutePoint *)finishPoint bestRouter:(BOOL)bestRouter
 {
-  if (!self.startPoint.isValid && !finishPoint.isMyPosition)
-    self.startPoint = lastLocationPoint();
   self.finishPoint = finishPoint;
+  [self applyRoutePoints];
   [self rebuildWithBestRouter:bestRouter];
 }
 
@@ -163,6 +230,7 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 {
   self.startPoint = start;
   self.finishPoint = finish;
+  [self applyRoutePoints];
   [self rebuildWithBestRouter:bestRouter];
 }
 
@@ -175,13 +243,11 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
-    self.startPoint = lastLocationPoint();
   }
   else if (self.finishPoint.isMyPosition)
   {
     [Statistics logEvent:kStatPointToPoint
           withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
-    self.finishPoint = lastLocationPoint();
   }
   else
   {
@@ -192,20 +258,20 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   [mapViewControlsManager onRoutePrepare];
-  if (![self arePointsValidForRouting])
+
+  auto & rm = GetFramework().GetRoutingManager();
+  auto points = rm.GetRoutePoints();
+  if (points.size() < 2 || ![self arePointsValidForRouting])
+  {
+    rm.CloseRouting(false /* remove route points */);
     return;
-  auto & f = GetFramework();
-  auto startPoint = mercatorMWMRoutePoint(self.startPoint);
-  auto finishPoint = mercatorMWMRoutePoint(self.finishPoint);
+  }
+  
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
-    self.type =
-        routerType(GetFramework().GetRoutingManager().GetBestRouter(startPoint, finishPoint));
-  f.GetRoutingManager().BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
-  if (self.startPoint.isValid)
-    f.GetRoutingManager().AddRoutePoint(startPoint, self.startPoint.isMyPosition, RouteMarkType::Start);
-  if (self.finishPoint.isValid)
-    f.GetRoutingManager().AddRoutePoint(finishPoint, self.finishPoint.isMyPosition, RouteMarkType::Finish);
+    self.type = routerType(rm.GetBestRouter(points.front(), points.back()));
+
+  rm.BuildRoute(points.front(), points.back(), isP2P, 0 /* timeoutSec */);
   [mapViewControlsManager onRouteRebuild];
 }
 
@@ -263,18 +329,18 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [MWMSearch clear];
   [self resetPoints];
-  [self doStop];
+  [self doStop:YES];
   [[MWMMapViewControlsManager manager] onRouteStop];
 }
 
-- (void)doStop
+- (void)doStop:(BOOL)removeRoutePoints
 {
   // Don't save taxi routing type as default.
   if ([[self class] isTaxi])
     GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
 
   [self clearAltitudeImagesData];
-  GetFramework().GetRoutingManager().CloseRouting();
+  GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
   MapsAppDelegate * app = [MapsAppDelegate theApp];
   app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [MWMRouterSavedState remove];

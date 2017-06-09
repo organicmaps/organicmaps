@@ -36,6 +36,8 @@
 
 namespace
 {
+//#define SHOW_ROUTE_DEBUG_MARKS
+
 char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
@@ -59,7 +61,17 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
   };
 
-  m_routingSession.Init(routingStatisticsFn, m_callbacks.m_visualizer);
+  m_routingSession.Init(routingStatisticsFn, [this](m2::PointD const & pt)
+  {
+#ifdef SHOW_ROUTE_DEBUG_MARKS
+    if (m_bmManager == nullptr)
+      return;
+    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::DEBUG_MARK);
+    guard.m_controller.SetIsVisible(true);
+    guard.m_controller.SetIsDrawable(true);
+    guard.m_controller.CreateUserMark(pt);
+#endif
+  });
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
       [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
@@ -265,7 +277,7 @@ void RoutingManager::FollowRoute()
   HideRoutePoint(RouteMarkType::Start);
 }
 
-void RoutingManager::CloseRouting()
+void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
   // Hide preview.
   if (m_drapeEngine != nullptr)
@@ -278,8 +290,11 @@ void RoutingManager::CloseRouting()
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
 
-  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
-  guard.m_controller.Clear();
+  if (removeRoutePoints)
+  {
+    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+    guard.m_controller.Clear();
+  }
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
@@ -299,38 +314,19 @@ void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex
   }
 }
 
-void RoutingManager::UpdateRoute()
+std::vector<m2::PointD> RoutingManager::GetRoutePoints() const
 {
-  if (!IsRoutingActive())
-    return;
-
-  bool isValid = false;
-
-  m2::PointD startPt;
-  m2::PointD finishPt;
+  std::vector<m2::PointD> result;
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  RouteMarkPoint * start = routePoints.GetRoutePoint(RouteMarkType::Start);
+  RouteMarkPoint * finish = routePoints.GetRoutePoint(RouteMarkType::Finish);
+  if (start != nullptr && finish != nullptr)
   {
-    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
-    RoutePointsLayout routePoints(guard.m_controller);
-    RouteMarkPoint * start = routePoints.GetRoutePoint(RouteMarkType::Start);
-    RouteMarkPoint * finish = routePoints.GetRoutePoint(RouteMarkType::Finish);
-    if (start != nullptr && finish != nullptr)
-    {
-      startPt = start->GetPivot();
-      finishPt = finish->GetPivot();
-      isValid = true;
-    }
+    result.push_back(start->GetPivot());
+    result.push_back(finish->GetPivot());
   }
-
-  if (isValid)
-  {
-    RemoveRoute(true /* deactivateFollowing */);
-    m_routingSession.SetUserCurrentPosition(startPt);
-    m_routingSession.BuildRoute(startPt, finishPt, 0 /* timeoutSec */);
-  }
-  else
-  {
-    CloseRouting();
-  }
+  return result;
 }
 
 bool RoutingManager::CouldAddIntermediatePoint() const
@@ -338,7 +334,8 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   if (!IsRoutingActive())
     return false;
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
-  return guard.m_controller.GetUserMarkCount() < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
+  return guard.m_controller.GetUserMarkCount() <
+         static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);
 }
 
 void RoutingManager::AddRoutePoint(m2::PointD const & pt, bool isMyPosition,
@@ -347,24 +344,25 @@ void RoutingManager::AddRoutePoint(m2::PointD const & pt, bool isMyPosition,
   ASSERT(m_bmManager != nullptr, ());
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
   RoutePointsLayout routePoints(guard.m_controller);
+
+  // Always replace start and finish points.
+  if (type == RouteMarkType::Start || type == RouteMarkType::Finish)
+    routePoints.RemoveRoutePoint(type, intermediateIndex);
+
   RouteMarkPoint * mark = routePoints.AddRoutePoint(pt, type, intermediateIndex);
   if (mark != nullptr)
   {
     mark->SetIsVisible(!isMyPosition);
     mark->SetIsMyPosition(isMyPosition);
   }
-  // TODO(@darina) Update route.
 }
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
-  {
-    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
-    RoutePointsLayout routePoints(guard.m_controller);
-    routePoints.RemoveRoutePoint(type, intermediateIndex);
-  }
-  //UpdateRoute();
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  routePoints.RemoveRoutePoint(type, intermediateIndex);
 }
 
 void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
@@ -375,8 +373,6 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentInt
   RoutePointsLayout routePoints(guard.m_controller);
   routePoints.MoveRoutePoint(currentType, currentIntermediateIndex,
                              targetType, targetIntermediateIndex);
-
-  // TODO(@darina) Update route.
 }
 
 void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNotifications)
@@ -431,7 +427,7 @@ void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & fin
   }
 
   if (IsRoutingActive())
-    CloseRouting();
+    CloseRouting(false /* remove route points */);
 
   // Show preview.
   if (m_drapeEngine != nullptr)

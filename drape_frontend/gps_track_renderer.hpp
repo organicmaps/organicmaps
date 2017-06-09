@@ -19,7 +19,7 @@ namespace df
 class GpsTrackRenderer final
 {
 public:
-  using TRenderDataRequestFn = std::function<void(size_t)>;
+  using TRenderDataRequestFn = std::function<void(uint32_t)>;
   explicit GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn);
 
   void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,

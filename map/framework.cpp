@@ -381,16 +381,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
-                                               bind(&Framework::GetCountryInfoGetter, this),
-                                               [this](m2::PointD const & pt) {
-#ifdef DEBUG
-                                                 UserMarkControllerGuard guard(
-                                                     m_bmManager, UserMarkType::DEBUG_MARK);
-                                                 guard.m_controller.SetIsVisible(true);
-                                                 guard.m_controller.SetIsDrawable(true);
-                                                 guard.m_controller.CreateUserMark(pt);
-#endif
-                                               }),
+                                               std::bind(&Framework::GetCountryInfoGetter, this)),
                      static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
@@ -934,13 +925,22 @@ void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::In
     FillPointInfo(smp.GetPivot(), smp.GetMatchedName(), info);
 }
 
-void Framework::FillMyPositionInfo(place_page::Info & info) const
+void Framework::FillMyPositionInfo(place_page::Info & info, m2::PointD const & pt) const
 {
   double lat, lon;
   VERIFY(GetCurrentPosition(lat, lon), ());
   info.SetMercator(MercatorBounds::FromLatLon(lat, lon));
   info.m_isMyPosition = true;
   info.m_customName = m_stringsBundle.GetString("my_position");
+
+  UserMark const * mark = FindUserMarkInTapPosition(pt);
+  if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
+  {
+    RouteMarkPoint const * routingMark = static_cast<RouteMarkPoint const *>(mark);
+    info.m_isRoutePoint = true;
+    info.m_routeMarkType = routingMark->GetRoutePointType();
+    info.m_intermediateIndex = routingMark->GetIntermediateIndex();
+  }
 }
 
 void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const
@@ -2283,7 +2283,8 @@ void Framework::InvalidateUserMarks()
 {
   m_bmManager.InitBookmarks();
 
-  vector<UserMarkType> const types = { UserMarkType::SEARCH_MARK, UserMarkType::API_MARK, UserMarkType::DEBUG_MARK };
+  std::vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
+                                           UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
   {
     UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
@@ -2389,30 +2390,13 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
 
   if (tapInfo.m_isMyPositionTapped)
   {
-    FillMyPositionInfo(outInfo);
+    FillMyPositionInfo(outInfo, pxPoint2d);
     return df::SelectionShape::OBJECT_MY_POSITION;
   }
 
   outInfo.m_adsEngine = m_adsEngine.get();
 
-  df::VisualParams const & vp = df::VisualParams::Instance();
-
-  m2::AnyRectD rect;
-  uint32_t const touchRadius = vp.GetTouchRectRadius();
-  m_currentModelView.GetTouchRect(pxPoint2d, touchRadius, rect);
-
-  m2::AnyRectD bmSearchRect;
-  double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
-  double const pxWidth = touchRadius;
-  double const pxHeight = touchRadius + bmAddition;
-  m_currentModelView.GetTouchRect(pxPoint2d + m2::PointD(0, bmAddition),
-                                  pxWidth, pxHeight, bmSearchRect);
-  UserMark const * mark = m_bmManager.FindNearestUserMark(
-        [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
-        {
-          return (type == UserMarkType::BOOKMARK_MARK ? bmSearchRect : rect);
-        });
-
+  UserMark const * mark = FindUserMarkInTapPosition(pxPoint2d);
   if (mark)
   {
     switch (mark->GetMarkType())
@@ -2459,6 +2443,28 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   }
 
   return df::SelectionShape::OBJECT_EMPTY;
+}
+
+UserMark const * Framework::FindUserMarkInTapPosition(m2::PointD const & pt) const
+{
+  df::VisualParams const & vp = df::VisualParams::Instance();
+
+  m2::AnyRectD rect;
+  uint32_t const touchRadius = vp.GetTouchRectRadius();
+  m_currentModelView.GetTouchRect(pt, touchRadius, rect);
+
+  m2::AnyRectD bmSearchRect;
+  double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
+  double const pxWidth = touchRadius;
+  double const pxHeight = touchRadius + bmAddition;
+  m_currentModelView.GetTouchRect(pt + m2::PointD(0, bmAddition),
+                                  pxWidth, pxHeight, bmSearchRect);
+  UserMark const * mark = m_bmManager.FindNearestUserMark(
+    [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
+    {
+      return (type == UserMarkType::BOOKMARK_MARK ? bmSearchRect : rect);
+    });
+  return mark;
 }
 
 unique_ptr<Framework::TapEvent> Framework::MakeTapEvent(m2::PointD const & center,

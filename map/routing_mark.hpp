@@ -20,6 +20,8 @@ public:
   bool IsVisible() const override;
   void SetIsVisible(bool isVisible);
 
+  dp::Anchor GetAnchor() const override;
+
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
 

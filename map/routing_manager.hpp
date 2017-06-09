@@ -53,19 +53,14 @@ public:
   {
     using FeatureIndexGetterFn = std::function<Index &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
-    using VisualizerFn = std::function<void(m2::PointD const &)>;
 
-    Callbacks(FeatureIndexGetterFn && featureIndexGetter, CountryInfoGetterFn && countryInfoGetter,
-              VisualizerFn && visualizer)
+    Callbacks(FeatureIndexGetterFn && featureIndexGetter, CountryInfoGetterFn && countryInfoGetter)
       : m_featureIndexGetter(std::move(featureIndexGetter))
       , m_countryInfoGetter(std::move(countryInfoGetter))
-      , m_visualizer(std::move(visualizer))
-    {
-    }
+    {}
 
     FeatureIndexGetterFn m_featureIndexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
-    VisualizerFn m_visualizer;
   };
 
   using RouteBuildingCallback =
@@ -118,7 +113,7 @@ public:
     m_routingSession.SetProgressCallback(progressCallback);
   }
   void FollowRoute();
-  void CloseRouting();
+  void CloseRouting(bool removeRoutePoints);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const
   {
     m_routingSession.GetRouteFollowingInfo(info);
@@ -206,12 +201,13 @@ public:
                                   int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;
 
+  std::vector<m2::PointD> GetRoutePoints() const;
+
 private:
   void InsertRoute(routing::Route const & route);
   bool IsTrackingReporterEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
-  void UpdateRoute();
 
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
