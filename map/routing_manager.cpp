@@ -156,14 +156,17 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
     return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p);
   };
 
+  auto numMwmIds = make_shared<routing::NumMwmIds>();
+  m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
+
   if (type == RouterType::Pedestrian)
   {
-    router = CreatePedestrianAStarBidirectionalRouter(indexGetterFn(), countryFileGetter);
+    router = CreatePedestrianAStarBidirectionalRouter(indexGetterFn(), countryFileGetter, numMwmIds);
     m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
   }
   else if (type == RouterType::Bicycle)
   {
-    router = CreateBicycleAStarBidirectionalRouter(indexGetterFn(), countryFileGetter);
+    router = CreateBicycleAStarBidirectionalRouter(indexGetterFn(), countryFileGetter, numMwmIds);
     m_routingSession.SetRoutingSettings(routing::GetBicycleRoutingSettings());
   }
   else
@@ -178,10 +181,6 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 
       return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
     };
-
-    auto numMwmIds = make_shared<routing::NumMwmIds>();
-
-    m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
 
     auto const getMwmRectByName = [this](std::string const & countryId) -> m2::RectD {
       return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId);
