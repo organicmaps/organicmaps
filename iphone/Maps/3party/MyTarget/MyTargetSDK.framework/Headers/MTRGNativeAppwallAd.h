@@ -1,6 +1,6 @@
 //
 //  MTRGNativeAppwallAd.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 13.01.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -36,7 +36,14 @@
 @property(nonatomic) NSUInteger cachePeriodInSec;
 @property(nonatomic, readonly) MTRGCustomParams *customParams;
 @property(nonatomic, readonly) NSArray *banners;
+@property(nonatomic) BOOL autoLoadImages;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
+
++ (void)setDebugMode:(BOOL)enabled;
+
++ (BOOL)isDebugMode;
+
++ (void)loadImage:(MTRGImageData *)imageData toView:(UIImageView *)imageView;
 
 - (instancetype)initWithSlotId:(NSUInteger)slotId;
 

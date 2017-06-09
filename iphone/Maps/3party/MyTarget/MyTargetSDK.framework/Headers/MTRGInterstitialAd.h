@@ -1,6 +1,6 @@
 //
 //  InterstitialAd.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 04.02.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -39,13 +39,17 @@
 @property(nonatomic, readonly) MTRGCustomParams *customParams;
 @property(nonatomic) BOOL trackEnvironmentEnabled;
 
++ (void)setDebugMode:(BOOL)enabled;
+
++ (BOOL)isDebugMode;
+
 - (instancetype)initWithSlotId:(NSUInteger)slotId;
 
 - (void)load;
 
-- (void)showWithController:(__weak UIViewController *)controller;
+- (void)showWithController:(UIViewController *)controller;
 
-- (void)showModalWithController:(__weak UIViewController *)controller;
+- (void)showModalWithController:(UIViewController *)controller;
 
 - (void)close;
 

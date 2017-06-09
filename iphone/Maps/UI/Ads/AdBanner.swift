@@ -161,7 +161,7 @@ final class AdBanner: UITableViewCell {
   private func configRBBanner(ad: MTRGNativeAd) {
     guard let banner = ad.banner else { return }
 
-    ad.loadIcon(to: adIconImageView)
+    MTRGNativeAd.loadImage(banner.icon, to: adIconImageView)
 
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.firstLineHeadIndent = 24

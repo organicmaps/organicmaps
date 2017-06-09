@@ -54,9 +54,6 @@
 		340475081E08199E00C92850 /* MWMMyTarget.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340474EB1E08199D00C92850 /* MWMMyTarget.mm */; };
 		340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340474EB1E08199D00C92850 /* MWMMyTarget.mm */; };
 		3404750A1E08199E00C92850 /* MWMMyTarget.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340474EB1E08199D00C92850 /* MWMMyTarget.mm */; };
-		3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474ED1E08199D00C92850 /* MyTargetSDK.framework */; };
-		3404750C1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474ED1E08199D00C92850 /* MyTargetSDK.framework */; };
-		3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474ED1E08199D00C92850 /* MyTargetSDK.framework */; };
 		3404750E1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		340475101E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
@@ -951,6 +948,9 @@
 		F682249E1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F682249D1E5B105900BC1C18 /* PPHotelDescriptionCell.xib */; };
 		F682249F1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F682249D1E5B105900BC1C18 /* PPHotelDescriptionCell.xib */; };
 		F68224A01E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F682249D1E5B105900BC1C18 /* PPHotelDescriptionCell.xib */; };
+		F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
+		F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
+		F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */; };
 		F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
 		F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */; };
 		F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68FCB881DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm */; };
@@ -1597,7 +1597,6 @@
 		340474EA1E08199D00C92850 /* MWMMyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTarget.h; sourceTree = "<group>"; };
 		340474EB1E08199D00C92850 /* MWMMyTarget.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMyTarget.mm; sourceTree = "<group>"; };
 		340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTargetDelegate.h; sourceTree = "<group>"; };
-		340474ED1E08199D00C92850 /* MyTargetSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDK.framework; sourceTree = "<group>"; };
 		340474EE1E08199D00C92850 /* MyTrackerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDK.framework; sourceTree = "<group>"; };
 		340475151E081A4600C92850 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		340475161E081A4600C92850 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppInfo.mm; sourceTree = "<group>"; };
@@ -2094,6 +2093,7 @@
 		F68224991E5B104600BC1C18 /* PPHotelDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPHotelDescriptionCell.swift; sourceTree = "<group>"; };
 		F682249D1E5B105900BC1C18 /* PPHotelDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPHotelDescriptionCell.xib; sourceTree = "<group>"; };
 		F68224A11E5B1B1A00BC1C18 /* MWMPlacePageButtonsProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageButtonsProtocol.h; sourceTree = "<group>"; };
+		F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDK.framework; sourceTree = "<group>"; };
 		F68FCB831DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMTaxiPreviewDataSource.h; path = Views/RoutePreview/MWMTaxiPreviewDataSource.h; sourceTree = "<group>"; };
 		F68FCB841DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMTaxiPreviewDataSource.mm; path = Views/RoutePreview/MWMTaxiPreviewDataSource.mm; sourceTree = "<group>"; };
 		F68FCB871DA7BD20007CC7D7 /* MWMTaxiPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTaxiPreviewCell.h; sourceTree = "<group>"; };
@@ -2427,6 +2427,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F68BDF051EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15E1E9E2AA9009AC928 /* libMopub.a in Frameworks */,
 				344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */,
 				67B78B4B1E422E2E0018E590 /* CoreSpotlight.framework in Frameworks */,
@@ -2436,7 +2437,6 @@
 				340474F91E08199D00C92850 /* FBSDKLoginKit.framework in Frameworks */,
 				67B78B491E422E2E0018E590 /* iAd.framework in Frameworks */,
 				34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */,
-				3404750B1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F61E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				3488B03C1E9D14060068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F01E08199D00C92850 /* Crashlytics.framework in Frameworks */,
@@ -2485,6 +2485,7 @@
 				340475001E08199D00C92850 /* libFlurry_7.8.2.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
+				F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
 				6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */,
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
@@ -2513,7 +2514,6 @@
 				340474F71E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				340474FD1E08199D00C92850 /* FBSDKShareKit.framework in Frameworks */,
-				3404750C1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2522,6 +2522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F68BDF071EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				341CF15F1E9E2ADC009AC928 /* libMopub.a in Frameworks */,
 				67B78B511E422E300018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B531E422E300018E590 /* CoreData.framework in Frameworks */,
@@ -2531,7 +2532,6 @@
 				67B78B4F1E422E300018E590 /* iAd.framework in Frameworks */,
 				344D63191E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
 				34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */,
-				3404750D1E08199E00C92850 /* MyTargetSDK.framework in Frameworks */,
 				340474F81E08199D00C92850 /* FBSDKCoreKit.framework in Frameworks */,
 				3488B03D1E9D14070068AFD8 /* UserNotifications.framework in Frameworks */,
 				340474F21E08199D00C92850 /* Crashlytics.framework in Frameworks */,
@@ -2728,7 +2728,7 @@
 				340474EA1E08199D00C92850 /* MWMMyTarget.h */,
 				340474EB1E08199D00C92850 /* MWMMyTarget.mm */,
 				340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */,
-				340474ED1E08199D00C92850 /* MyTargetSDK.framework */,
+				F68BDF041EEA9A830009BB81 /* MyTargetSDK.framework */,
 			);
 			path = MyTarget;
 			sourceTree = "<group>";

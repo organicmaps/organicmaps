@@ -1,6 +1,6 @@
 //
 //  MTRGManager.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 18.09.15.
 //  Copyright © 2015 Mail.ru. All rights reserved.
@@ -10,10 +10,6 @@
 
 
 @interface MTRGManager : NSObject
-
-+ (void)setLoggingEnabled:(BOOL)loggingEnabled;
-
-+ (BOOL)loggingEnabled;
 
 + (NSDictionary *)getFingerprintParams;
 

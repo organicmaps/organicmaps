@@ -1,6 +1,6 @@
 //
 //  MTRGAppwallBannerAdView.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 15.01.15.
 //  Copyright (c) 2015 Mail.ru Group. All rights reserved.
@@ -64,6 +64,9 @@
 @property(nonatomic) UIFont * descriptionFont;
 @property(nonatomic) UIFont * votesFont;
 @property(nonatomic) UIFont * coinFont;
+
+@property(nonatomic) NSInteger descriptionNumberOfLines;
+@property(nonatomic) NSLineBreakMode descriptionLineBreakMode;
 
 @property(nonatomic) UIColor * titleColor;
 @property(nonatomic) UIColor * descriptionColor;

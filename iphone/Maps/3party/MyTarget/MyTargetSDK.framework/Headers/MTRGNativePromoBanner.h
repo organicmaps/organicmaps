@@ -1,6 +1,6 @@
 //
 //  MTRGNativePromoBanner.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 17.11.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MyTargetSDK/MTRGImageData.h>
 #import <MyTargetSDK/MTRGNavigationType.h>
-
+#import <MyTargetSDK/MTRGNativePromoCard.h>
 
 @interface MTRGNativePromoBanner : NSObject
 
@@ -27,5 +27,6 @@
 @property(nonatomic) MTRGNavigationType navigationType;
 @property(nonatomic) MTRGImageData *icon;
 @property(nonatomic) MTRGImageData *image;
+@property(nonatomic) NSArray<MTRGNativePromoCard *> *cards;
 
 @end
