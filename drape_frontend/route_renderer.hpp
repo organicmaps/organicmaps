@@ -27,7 +27,7 @@ class RouteRenderer final
 {
 public:
   using CacheRouteArrowsCallback = std::function<void(dp::DrapeID, std::vector<ArrowBorders> const &)>;
-  using PreviewPointsRequestCallback = std::function<void(size_t)>;
+  using PreviewPointsRequestCallback = std::function<void(uint32_t)>;
 
   struct PreviewInfo
   {

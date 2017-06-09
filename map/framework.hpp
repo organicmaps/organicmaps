@@ -430,7 +430,9 @@ private:
                                                      place_page::Info & outInfo) const;
   unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
                                     TapEvent::Source source) const;
+  UserMark const * FindUserMarkInTapPosition(m2::PointD const & pt) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
+
   void UpdateMinBuildingsTapZoom();
 
   int m_minBuildingsTapZoom;
@@ -676,7 +678,7 @@ private:
   void FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
-  void FillMyPositionInfo(place_page::Info & info) const;
+  void FillMyPositionInfo(place_page::Info & info, m2::PointD const & pt) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
 
 public:

@@ -17,6 +17,10 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 @property(nonatomic) MWMRouterType type;
 
 - (void)swapPointsAndRebuild;
+- (void)removeStartPointAndRebuild:(int)intermediateIndex;
+- (void)removeFinishPointAndRebuild:(int)intermediateIndex;
+- (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point intermediateIndex:(int)intermediateIndex;
+- (void)removeIntermediatePointAndRebuild:(int)intermediateIndex;
 - (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 - (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
 - (void)buildFromPoint:(MWMRoutePoint *)start

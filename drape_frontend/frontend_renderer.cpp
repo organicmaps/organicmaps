@@ -144,7 +144,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   ASSERT(m_tapEventInfoFn, ());
   ASSERT(m_userPositionChangedFn, ());
 
-  m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](size_t pointsCount)
+  m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](uint32_t pointsCount)
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<CacheCirclesPackMessage>(
@@ -152,7 +152,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
                               MessagePriority::Normal);
   });
 
-  m_routeRenderer = make_unique_dp<RouteRenderer>([this](size_t pointsCount)
+  m_routeRenderer = make_unique_dp<RouteRenderer>([this](uint32_t pointsCount)
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<CacheCirclesPackMessage>(

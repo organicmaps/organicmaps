@@ -909,7 +909,7 @@ Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass)
 {
-  frm()->GetRoutingManager().CloseRouting();
+  frm()->GetRoutingManager().CloseRouting(true /* remove route points */);
 }
 
 JNIEXPORT void JNICALL

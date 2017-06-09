@@ -28,7 +28,7 @@ df::ColorConstant const kTrackHumanSpeedColor = "TrackHumanSpeed";
 
 int const kMinVisibleZoomLevel = 5;
 
-size_t const kAveragePointsCount = 512;
+uint32_t const kAveragePointsCount = 512;
 
 // Radius of circles depending on zoom levels.
 std::vector<float> const kRadiusInPixel =

@@ -276,14 +276,26 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)addStop
 {
-  GetFramework().GetRoutingManager().AddRoutePoint(self.data.mercator, false /* isMyPosition */,
-                                                   RouteMarkType::Intermediate, 0);
+  [[MWMRouter router] addIntermediatePointAndRebuild:self.target
+                                   intermediateIndex:0];
   [self shouldClose];
 }
 
 - (void)removeStop
 {
-  GetFramework().GetRoutingManager().RemoveRoutePoint(self.data.routeMarkType, self.data.intermediateIndex);
+  auto router = [MWMRouter router];
+  switch (self.data.routeMarkType)
+  {
+  case RouteMarkType::Start:
+    [router removeStartPointAndRebuild:self.data.intermediateIndex];
+    break;
+  case RouteMarkType::Finish:
+    [router removeFinishPointAndRebuild:self.data.intermediateIndex];
+    break;
+  case RouteMarkType::Intermediate:
+    [router removeIntermediatePointAndRebuild:self.data.intermediateIndex];
+    break;
+  }
   [self shouldClose];
 }
 

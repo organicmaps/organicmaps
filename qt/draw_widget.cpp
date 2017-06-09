@@ -328,7 +328,7 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
   if (routingManager.IsRoutingActive())
-    routingManager.CloseRouting();
+    routingManager.CloseRouting(true /* remove route points */);
   else
     routingManager.BuildRoute(m_framework.PtoG(pt), 0 /* timeoutSec */);
 }
