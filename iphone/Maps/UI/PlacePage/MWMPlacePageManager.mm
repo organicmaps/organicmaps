@@ -278,13 +278,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   GetFramework().GetRoutingManager().AddRoutePoint(self.data.mercator, false /* isMyPosition */,
                                                    RouteMarkType::Intermediate, 0);
-  [self close];
+  [self shouldClose];
 }
 
 - (void)removeStop
 {
   GetFramework().GetRoutingManager().RemoveRoutePoint(self.data.routeMarkType, self.data.intermediateIndex);
-  [self close];
+  [self shouldClose];
 }
 
 - (void)taxiTo
