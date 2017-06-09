@@ -103,6 +103,15 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::RouteTo);
     m_visibleButtons.push_back(EButton::Share);
   }
+  else if (isMyPosition && isP2P)
+  {
+    thereAreExtraButtons = false;
+    m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteFrom);
+    m_visibleButtons.push_back(EButton::RouteTo);
+    m_visibleButtons.push_back(EButton::More);
+    m_additionalButtons.push_back(EButton::Share);
+  }
   else if (isMyPosition)
   {
     thereAreExtraButtons = false;
