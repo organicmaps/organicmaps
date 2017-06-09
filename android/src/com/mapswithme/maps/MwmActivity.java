@@ -2064,6 +2064,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Nullable
     private final String mRouter;
 
+    @NonNull
+    private static MapObject fromLatLon(double lat, double lon)
+    {
+      return new MapObject("", 0L, 0, MapObject.API_POINT, "",
+                           "", "", "", lat, lon, "", null,
+                           false, "", null);
+    }
+
     BuildRouteTask(double latTo, double lonTo)
     {
       this(latTo, lonTo, null, null, null);
@@ -2105,7 +2113,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
             routerType = Framework.ROUTER_TYPE_TAXI;
             break;
         }
-
       }
 
       if (mLatFrom != null && mLonFrom != null && routerType >= 0)
@@ -2123,14 +2130,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo));
       }
       return true;
-    }
-
-    @NonNull
-    private MapObject fromLatLon(double lat, double lon)
-    {
-      return new MapObject("", 0L, 0, MapObject.API_POINT, "",
-                           "", "", "", lat, lon, "", null,
-                           false, "", null);
     }
   }
 }
