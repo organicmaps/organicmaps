@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -272,6 +273,12 @@ public class RoutingController
 
   private void build()
   {
+    Framework.nativeRemoveRoute();
+
+    RoutePoint[] routePoints = Framework.nativeGetRoutePoints();
+    if (routePoints.length < 2)
+      return;
+
     mLogger.d(TAG, "build");
     mUberRequestHandled = false;
     mLastBuildProgress = 0;
@@ -291,12 +298,18 @@ public class RoutingController
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
-    boolean isP2P = !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint) && !MapObject.isOfType(MapObject.MY_POSITION, mEndPoint);
+    boolean isP2P = !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint) &&
+                    !MapObject.isOfType(MapObject.MY_POSITION, mEndPoint);
 
     Statistics.INSTANCE.trackRouteBuild(mLastRouterType, mStartPoint, mEndPoint);
-    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD, new String[]{Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
-                                                                                Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
-    Framework.nativeBuildRoute(mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon(), isP2P);
+    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD,
+            new String[]{Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
+                         Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
+
+    // TODO: multipoint route must be here soon.
+    RoutePoint from = routePoints[0];
+    RoutePoint to = routePoints[routePoints.length - 1];
+    Framework.nativeBuildRoute(from.mLat, from.mLon, to.mLat, to.mLon, isP2P);
   }
 
   private void completeUberRequest()
@@ -599,15 +612,26 @@ public class RoutingController
   private void setPointsInternal()
   {
     if (mStartPoint == null)
-      Framework.nativeSetRouteStartPoint(0.0, 0.0, false);
+    {
+      Framework.nativeRemoveRoutePoint(new RoutePointInfo(RoutePointInfo.ROUTE_MARK_START, 0));
+    }
     else
-      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon(),
-                                         !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint));
+    {
+      Framework.nativeAddRoutePoint(mStartPoint.getLat(), mStartPoint.getLon(),
+                                    MapObject.isOfType(MapObject.MY_POSITION, mStartPoint),
+                                    new RoutePointInfo(RoutePointInfo.ROUTE_MARK_START, 0));
+    }
 
     if (mEndPoint == null)
-      Framework.nativeSetRouteEndPoint(0.0, 0.0, false);
+    {
+      Framework.nativeRemoveRoutePoint(new RoutePointInfo(RoutePointInfo.ROUTE_MARK_FINISH, 0));
+    }
     else
-      Framework.nativeSetRouteEndPoint(mEndPoint.getLat(), mEndPoint.getLon(), true);
+    {
+      Framework.nativeAddRoutePoint(mEndPoint.getLat(), mEndPoint.getLon(),
+                                    MapObject.isOfType(MapObject.MY_POSITION, mEndPoint),
+                                    new RoutePointInfo(RoutePointInfo.ROUTE_MARK_FINISH, 0));
+    }
   }
 
   void checkAndBuildRoute()

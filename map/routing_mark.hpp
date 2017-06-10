@@ -4,11 +4,11 @@
 
 #include <string>
 
-enum class RouteMarkType
+enum class RouteMarkType : uint8_t
 {
-  Start,
-  Intermediate,
-  Finish
+  Start = 0,
+  Intermediate = 1,
+  Finish = 2
 };
 
 class RouteMarkPoint : public UserMark

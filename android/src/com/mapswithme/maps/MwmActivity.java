@@ -56,6 +56,7 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.NavigationController;
+import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
@@ -1480,10 +1481,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         final RoutePoint to = data.mPoints[1];
         RoutingController.get().prepare(new MapObject("", 0L, 0, MapObject.API_POINT, from.mName,
                                                       "", "", "", from.mLat, from.mLon, "", null,
-                                                      false, "", null),
-                                        new MapObject("", 0L, 0, MapObject.API_POINT, to.mName, "",
-                                                      "", "", to.mLat, to.mLon, "", null, false, "",
-                                                      null));
+                                                      false, "", null, null),
+                                        new MapObject("", 0L, 0, MapObject.API_POINT, to.mName,
+                                                      "", "", "", to.mLat, to.mLon, "", null,
+                                                      false, "", null, null));
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
@@ -2069,7 +2070,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       return new MapObject("", 0L, 0, MapObject.API_POINT, "",
                            "", "", "", lat, lon, "", null,
-                           false, "", null);
+                           false, "", null, null);
     }
 
     BuildRouteTask(double latTo, double lonTo)

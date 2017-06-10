@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
+import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
@@ -24,13 +25,15 @@ public class Bookmark extends MapObject
   @Nullable
   private final String mObjectTitle;
 
-  Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
-           @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title,
-           @Nullable String secondaryTitle, @Nullable String objectTitle, @Nullable Banner[] banners,
-           boolean reachableByTaxi, @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
+  public Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
+                  @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
+                  String title, @Nullable String secondaryTitle, @Nullable String objectTitle,
+                  @Nullable Banner[] banners, boolean reachableByTaxi,
+                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
+                  @Nullable RoutePointInfo routePointInfo)
   {
     super(mwmName, mwmVersion, featureIndex, BOOKMARK, title, secondaryTitle, "", "", 0, 0, "",
-          banners, reachableByTaxi, bookingSearchUrl, localAdInfo);
+          banners, reachableByTaxi, bookingSearchUrl, localAdInfo, routePointInfo);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
