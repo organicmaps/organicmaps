@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.settings.SettingsActivity;
@@ -23,6 +25,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -35,7 +38,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class NavigationController implements TrafficManager.TrafficCallback
+public class NavigationController implements TrafficManager.TrafficCallback, View.OnClickListener
 {
   private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
 
@@ -121,6 +124,11 @@ public class NavigationController implements TrafficManager.TrafficCallback
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
+
+    ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
+    bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
+                                                  R.drawable.ic_menu_bookmarks));
+    bookmarkButton.setOnClickListener(this);
   }
 
   public void onResume()
@@ -297,6 +305,11 @@ public class NavigationController implements TrafficManager.TrafficCallback
     update(Framework.nativeGetRouteFollowingInfo());
   }
 
+  public void showSearchButtons(boolean show)
+  {
+    UiUtils.showIf(show, mSearchButtonFrame);
+  }
+
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
@@ -367,5 +380,17 @@ public class NavigationController implements TrafficManager.TrafficCallback
   public void onExpiredApp(boolean notify)
   {
     // no op
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+      case R.id.btn_bookmarks:
+        Context context = mFrame.getContext();
+        context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
+        break;
+    }
   }
 }

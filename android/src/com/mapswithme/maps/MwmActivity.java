@@ -1564,6 +1564,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
+        if (mNavigationController != null)
+        {
+          mNavigationController.showSearchButtons(RoutingController.get().isPlanning()
+                                                  || RoutingController.get().isBuilt());
+        }
+
         if (RoutingController.get().isNavigating())
         {
           if (mNavigationController != null)
