@@ -739,6 +739,7 @@ using namespace osm_auth_ios;
     NSForegroundColorAttributeName : [UIColor lightGrayColor],
   }
                         forState:UIControlStateDisabled];
+  [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil].tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
   pageControl.pageIndicatorTintColor = [UIColor blackHintText];
