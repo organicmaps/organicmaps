@@ -1,7 +1,10 @@
 #include "reporter.hpp"
 
 #include "platform/location.hpp"
+#include "platform/platform.hpp"
 #include "platform/socket.hpp"
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"
@@ -13,6 +16,7 @@ namespace
 double constexpr kRequiredHorizontalAccuracy = 10.0;
 double constexpr kMinDelaySeconds = 1.0;
 double constexpr kReconnectDelaySeconds = 60.0;
+double constexpr kNotChargingEventPeriod = 5 * 60.0;
 size_t constexpr kRealTimeBufferSize = 60;
 } // namespace
 
@@ -52,6 +56,19 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup t
 
   if (info.m_timestamp < m_lastGpsTime + kMinDelaySeconds)
     return;
+
+  if (Platform::GetChargingStatus() != Platform::ChargingStatus::Plugged)
+  {
+    double const currentTime = my::Timer::LocalTime();
+    if (currentTime < m_lastNotChargingEvent + kNotChargingEventPeriod)
+      return;
+
+    alohalytics::Stats::Instance().LogEvent(
+        "Routing_DataSending_restricted",
+        {{"reason", "Device is not charging"}, {"mode", "vehicle"}});
+    m_lastNotChargingEvent = currentTime;
+    return;
+  }
 
   m_lastGpsTime = info.m_timestamp;
   m_input.push_back(
