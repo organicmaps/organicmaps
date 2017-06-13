@@ -879,7 +879,7 @@
 	<string name="placepage_more_button">Plus</string>
 	<string name="book_button">Réserver</string>
 	<string name="placepage_call_button">Appeler</string>
-	<string name="placepage_edit_bookmark_button">Éditer les signets</string>
+	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
 	<string name="placepage_bookmark_name_hint">Nom du signet</string>
 	<string name="placepage_personal_notes_hint">Remarques personnelles</string>
 	<string name="placepage_delete_bookmark_button">Supprimer signet</string>
