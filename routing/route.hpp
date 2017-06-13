@@ -1,6 +1,8 @@
 #pragma once
 
+#include "routing/road_graph.hpp"
 #include "routing/routing_settings.hpp"
+#include "routing/segment.hpp"
 #include "routing/turns.hpp"
 
 #include "traffic/speed_groups.hpp"
@@ -15,6 +17,7 @@
 #include "std/set.hpp"
 #include "std/string.hpp"
 
+#include <limits>
 
 namespace location
 {
@@ -33,6 +36,26 @@ public:
   using TTimes = vector<TTimeItem>;
   using TStreetItem = pair<uint32_t, string>;
   using TStreets = vector<TStreetItem>;
+
+  /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
+  /// For every Segment is kept some attributes in the structure SegmentInfo.
+  struct SegmentInfo
+  {
+    Segment m_segment;
+    string m_streetName;
+    turns::TurnItem m_turn;
+    Junction m_junction; // The front point of segment.
+    traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
+    double m_timeFromBeginningS = 0.0;
+  };
+
+  /// \brief For every subroute some attributes are kept the following stucture.
+  struct SubrouteSettings
+  {
+    RoutingSettings m_routingSettings;
+    string m_router;
+    uint64_t m_id = std::numeric_limits<uint64_t>::max();
+  };
 
   explicit Route(string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
@@ -84,7 +107,6 @@ public:
   vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
   vector<double> const & GetSegDistanceM() const { return m_poly.GetSegDistanceM(); }
   void GetTurnsDistances(vector<double> & distances) const;
-  string const & GetName() const { return m_name; }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
   double GetTotalDistanceMeters() const;
@@ -133,6 +155,22 @@ public:
     m_routingSettings = routingSettings;
     Update();
   }
+
+  // Subroute interface.
+  /// \returns Number of subroutes.
+  /// \note Intermediate points separate a route into several subroutes.
+  size_t GetSubrouteCount() const;
+  /// \brief Fills |junctions| with subroute geometry.
+  /// \param subrouteInx zero base number of subroute. |subrouteInx| should be less than GetSubrouteCount();
+  void GetSubrouteJunctions(size_t subrouteInx, vector<Junction> & junctions) const;
+  /// \brief Fills |info| with full subroute information.
+  void GetSubrouteFullInfo(size_t subrouteInx, vector<SegmentInfo> & info) const;
+  /// \returns Subroute settings by |subRouteInx|.
+  SubrouteSettings const & GetSubrouteSettings(size_t subRouteInx) const;
+  /// \brief Sets subroute id by |subRouteInx|.
+  /// \note |subrouteId| is a permanent id of subroute. This id can be used to address to a subroute
+  /// after the route is removed.
+  void SetSubrouteId(size_t subrouteInx, uint64_t subrouteId);
 
 private:
   friend string DebugPrint(Route const & r);
