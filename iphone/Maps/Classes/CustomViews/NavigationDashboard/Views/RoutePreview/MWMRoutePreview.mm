@@ -2,8 +2,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMRoutePointCell.h"
-#import "MWMRoutePointLayout.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "Statistics.h"
@@ -16,19 +14,14 @@ namespace
 CGFloat constexpr kAdditionalHeight = 20.;
 }  // namespace
 
-@interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
+@interface MWMRoutePreview ()<MWMCircularProgressProtocol>
 
 @property(weak, nonatomic) IBOutlet UIButton * backButton;
 @property(weak, nonatomic) IBOutlet UIView * pedestrian;
 @property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
 @property(weak, nonatomic) IBOutlet UIView * taxi;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property(weak, nonatomic) IBOutlet UIButton * extendButton;
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
-@property(weak, nonatomic) IBOutlet UICollectionView * collectionView;
-@property(weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
-@property(weak, nonatomic) IBOutlet UIImageView * arrowImageView;
 @property(weak, nonatomic) IBOutlet UIView * statusBox;
 @property(weak, nonatomic) IBOutlet UIView * planningBox;
 @property(weak, nonatomic) IBOutlet UIView * resultsBox;
@@ -65,7 +58,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.layer.shouldRasterize = YES;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
-  [self.collectionView registerWithCellClass:[MWMRoutePointCell class]];
   [self setupProgresses];
 
   [self.backButton matchInterfaceOrientation];
@@ -113,13 +105,9 @@ CGFloat constexpr kAdditionalHeight = 20.;
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
 
-  self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
-  self.extendButton.selected = YES;
   [self setupActualHeight];
-  [self reloadData];
-  [self.layout invalidateLayout];
   self.statusBox.hidden = YES;
   self.resultsBox.hidden = YES;
   self.heightBox.hidden = YES;
@@ -218,7 +206,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
                    }];
 }
 
-- (void)reloadData { [self.collectionView reloadData]; }
 - (void)selectRouter:(MWMRouterType)routerType
 {
   for (auto const & progress : m_progresses)
@@ -296,60 +283,13 @@ CGFloat constexpr kAdditionalHeight = 20.;
   return {{origin, self.topBound}, {width, self.superview.height - kAdditionalHeight}};
 }
 
-- (CGFloat)visibleHeight { return self.planningRouteViewHeight.constant + kAdditionalHeight; }
-- (IBAction)extendTap
-{
-  BOOL const isExtended = !self.extendButton.selected;
-  [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatExpand)
-        withParameters:@{kStatValue : (isExtended ? kStatYes : kStatNo)}];
-  self.extendButton.selected = isExtended;
-  [self layoutIfNeeded];
-  [self setupActualHeight];
-  [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     self.arrowImageView.transform = isExtended
-                                                         ? CGAffineTransformMakeRotation(M_PI)
-                                                         : CGAffineTransformIdentity;
-                     [self layoutIfNeeded];
-                   }];
-}
-
 - (void)setupActualHeight
 {
   if (!self.superview)
     return;
-  if (IPAD)
-  {
-    CGFloat const selfHeight = self.superview.height - kAdditionalHeight;
-    self.defaultHeight = selfHeight;
-    self.height = selfHeight;
-    return;
-  }
-  BOOL const isPortrait = self.superview.height > self.superview.width;
-  CGFloat const height = isPortrait ? 140. : 96.;
-  CGFloat const selfHeight = self.extendButton.selected ? height : 44.;
-  self.planningRouteViewHeight.constant = selfHeight;
+  CGFloat const selfHeight = IPAD ? self.superview.height - kAdditionalHeight : 44;
   self.defaultHeight = selfHeight;
   self.height = selfHeight;
-}
-
-- (void)snapshotCell:(MWMRoutePointCell *)cell
-{
-  UIGraphicsBeginImageContextWithOptions(cell.bounds.size, NO, 0.);
-  [cell drawViewHierarchyInRect:cell.bounds afterScreenUpdates:YES];
-  UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  self.movingCellImage = [[UIImageView alloc] initWithImage:image];
-  self.movingCellImage.alpha = 0.8;
-  [self.collectionView addSubview:self.movingCellImage];
-  CALayer * l = self.movingCellImage.layer;
-  l.masksToBounds = NO;
-  l.shadowColor = UIColor.blackColor.CGColor;
-  l.shadowRadius = 4.;
-  l.shadowOpacity = 0.4;
-  l.shadowOffset = {0., 0.};
-  l.shouldRasterize = YES;
-  l.rasterizationScale = [[UIScreen mainScreen] scale];
 }
 
 #pragma mark - MWMNavigationDashboardInfoProtocol
@@ -365,119 +305,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
                     dateStyle:NSDateFormatterNoStyle
                     timeStyle:NSDateFormatterShortStyle];
   self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
-}
-
-#pragma mark - MWMRoutePointCellDelegate
-
-- (void)startEditingCell:(MWMRoutePointCell *)cell
-{
-  NSUInteger const index = [self.collectionView indexPathForCell:cell].row;
-  [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0];
-}
-
-#pragma mark - PanGestureRecognizer
-
-- (void)didPan:(UIPanGestureRecognizer *)pan cell:(MWMRoutePointCell *)cell
-{
-  CGPoint const locationPoint = [pan locationInView:self.collectionView];
-  if (pan.state == UIGestureRecognizerStateBegan)
-  {
-    self.layout.isNeedToInitialLayout = NO;
-    self.isNeedToMove = NO;
-    self.indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
-    [self snapshotCell:cell];
-    [UIView animateWithDuration:kDefaultAnimationDuration
-                     animations:^{
-                       cell.contentView.alpha = 0.;
-                       CGFloat const scaleY = 1.05;
-                       self.movingCellImage.transform = CGAffineTransformMakeScale(1., scaleY);
-                     }];
-  }
-
-  if (pan.state == UIGestureRecognizerStateChanged)
-  {
-    self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
-    NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    if (finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell])
-    {
-      if (self.isNeedToMove)
-        return;
-      self.isNeedToMove = YES;
-      [self.collectionView performBatchUpdates:^{
-        [self.collectionView moveItemAtIndexPath:finalIndexPath
-                                     toIndexPath:self.indexPathOfMovingCell];
-        self.indexPathOfMovingCell = finalIndexPath;
-      }
-                                    completion:nil];
-    }
-    else
-    {
-      self.isNeedToMove = NO;
-    }
-  }
-
-  if (pan.state == UIGestureRecognizerStateEnded)
-  {
-    self.layout.isNeedToInitialLayout = YES;
-    NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    self.isNeedToMove = finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell];
-    if (self.isNeedToMove)
-    {
-      cell.contentView.alpha = 1.;
-      [self.collectionView performBatchUpdates:^{
-        [self.collectionView moveItemAtIndexPath:self.indexPathOfMovingCell
-                                     toIndexPath:finalIndexPath];
-      }
-          completion:^(BOOL finished) {
-            [self.movingCellImage removeFromSuperview];
-            self.movingCellImage.transform = CGAffineTransformIdentity;
-          }];
-    }
-    else
-    {
-      cell.contentView.alpha = 1.;
-      [self.movingCellImage removeFromSuperview];
-      [[MWMRouter router] swapPointsAndRebuild];
-      [self reloadData];
-    }
-  }
-}
-
-@end
-
-#pragma mark - UICollectionView
-
-@interface MWMRoutePreview (UICollectionView)<UICollectionViewDataSource, UICollectionViewDelegate>
-
-@end
-
-@implementation MWMRoutePreview (UICollectionView)
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
-{
-  return 2;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-  Class cls = [MWMRoutePointCell class];
-  auto cell = static_cast<MWMRoutePointCell *>(
-      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  cell.number.text = @(indexPath.row + 1).stringValue;
-  if (indexPath.row == 0)
-  {
-    cell.title.text = [MWMRouter router].startPoint.name;
-    cell.title.placeholder = L(@"p2p_from");
-  }
-  else
-  {
-    cell.title.text = [MWMRouter router].finishPoint.name;
-    cell.title.placeholder = L(@"p2p_to");
-  }
-  cell.delegate = self;
-  return cell;
 }
 
 #pragma mark - VisibleArea

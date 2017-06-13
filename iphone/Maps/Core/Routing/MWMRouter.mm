@@ -538,7 +538,6 @@ m2::PointD getMercator(MWMRoutePoint * p)
   _startPoint = startPoint;
   if (startPoint == self.finishPoint)
     self.finishPoint = zeroRoutePoint();
-  [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
 - (void)setFinishPoint:(MWMRoutePoint *)finishPoint
@@ -548,7 +547,6 @@ m2::PointD getMercator(MWMRoutePoint * p)
   _finishPoint = finishPoint;
   if (finishPoint == self.startPoint)
     self.startPoint = zeroRoutePoint();
-  [[MWMNavigationDashboardManager manager].routePreview reloadData];
 }
 
 @end
