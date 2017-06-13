@@ -37,6 +37,8 @@ public:
   using TStreetItem = pair<uint32_t, string>;
   using TStreets = vector<TStreetItem>;
 
+  static uint64_t constexpr kInvalidId = std::numeric_limits<uint64_t>::max();
+
   /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
   /// For every Segment is kept some attributes in the structure SegmentInfo.
   struct SegmentInfo
@@ -52,9 +54,14 @@ public:
   /// \brief For every subroute some attributes are kept the following stucture.
   struct SubrouteSettings
   {
+    SubrouteSettings(RoutingSettings const & routingSettings, string const & router, uint64_t id)
+      : m_routingSettings(routingSettings), m_router(router), m_id(id)
+    {
+    }
+
     RoutingSettings m_routingSettings;
     string m_router;
-    uint64_t m_id = std::numeric_limits<uint64_t>::max();
+    uint64_t m_id = kInvalidId;
   };
 
   explicit Route(string const & router)
@@ -166,9 +173,9 @@ public:
   /// \brief Fills |info| with full subroute information.
   void GetSubrouteFullInfo(size_t subrouteInx, vector<SegmentInfo> & info) const;
   /// \returns Subroute settings by |subRouteInx|.
-  SubrouteSettings const & GetSubrouteSettings(size_t subRouteInx) const;
+  SubrouteSettings const GetSubrouteSettings(size_t subrouteInx) const;
   /// \brief Sets subroute id by |subRouteInx|.
-  /// \note |subrouteId| is a permanent id of subroute. This id can be used to address to a subroute
+  /// \note |subrouteId| is a permanent id of a subroute. This id can be used to address to a subroute
   /// after the route is removed.
   void SetSubrouteId(size_t subrouteInx, uint64_t subrouteId);
 
@@ -198,6 +205,9 @@ private:
   vector<traffic::SpeedGroup> m_traffic;
 
   mutable double m_currentTime;
+
+  // Subroute
+  uint64_t m_subrouteId = kInvalidId;
 };
 
 } // namespace routing

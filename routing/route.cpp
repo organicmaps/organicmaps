@@ -4,6 +4,8 @@
 
 #include "traffic/speed_groups.hpp"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/location.hpp"
@@ -458,6 +460,39 @@ void Route::AppendRoute(Route const & route)
     CHECK_EQUAL(GetTraffic().size() + 1, m_poly.GetPolyline().GetSize(), ());
   }
   Update();
+}
+
+// Subroute interface fake implementation ---------------------------------------------------------
+// This implementation is valid for one subroute which is equal to the route.
+size_t Route::GetSubrouteCount() const { return IsValid() ? 1 : 0; }
+
+void Route::GetSubrouteJunctions(size_t subrouteInx, vector<Junction> & junctions) const
+{
+  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
+  junctions.clear();
+  vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
+  if (!m_altitudes.empty())
+    CHECK_EQUAL(m_altitudes.size(), points.size(), ());
+
+  for (size_t i = 0; i <= points.size(); ++i)
+    junctions.emplace_back(points[i], m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[i]);
+}
+
+void Route::GetSubrouteFullInfo(size_t /* subrouteInx */, vector<Route::SegmentInfo> & /* info */) const
+{
+  NOTIMPLEMENTED();
+}
+
+Route::SubrouteSettings const Route::GetSubrouteSettings(size_t subrouteInx) const
+{
+  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
+  return SubrouteSettings(m_routingSettings, m_router, m_subrouteId);
+}
+
+void Route::SetSubrouteId(size_t subrouteInx, uint64_t subrouteId)
+{
+  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
+  m_subrouteId = subrouteId;
 }
 
 string DebugPrint(Route const & r)
