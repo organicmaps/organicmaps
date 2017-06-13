@@ -380,8 +380,8 @@
     ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nb = Lastet ned (%1$qu %2$@) – trykk for å slette
     pl = Pobrano (%1$qu %2$@). Proszę nacisnąć, aby usunąć.
-    pt = Descarregado (%1$qu %2$@), toque para eliminar.
-    pt-BR = Baixado (%1$qu %2$@), toque para apagar.
+    pt = (%1$qu %2$@) descarregados, toque para eliminar.
+    pt-BR = (%1$qu %2$@) baixados, toque para apagar.
     ro = Descărcat (%1$qu %2$@). Atingeți pentru a șterge.
     es = Descargado (%1$qu %2$@), apreté para eliminar
     sv = Nedladdad (%1$qu %2$@), tryck för att ta bort
@@ -476,8 +476,8 @@
     ko = 지금 가져오기
     nb = Hent nå
     pl = Pobierz
-    pt = Obtenha agora
-    pt-BR = Obtenha agora
+    pt = Instale agora
+    pt-BR = Instale agora
     ro = Obțineți acum
     es = Instalar
     sv = Skaffa det nu
@@ -594,7 +594,7 @@
     nb = Legg inn en vurdering
     pl = Napisz recenzję
     pt = Deixe uma revisão
-    pt-BR = Deixe um comentário
+    pt-BR = Deixe uma avaliação
     ro = Scrieți o recenzie
     es = Escribir una opinión|comentario
     sv = Skriv en recension
@@ -965,7 +965,7 @@
     ko = 문제 보고하기
     nb = Rapporter et problem
     pl = Zgłoś błąd
-    pt = Reelatar um problema
+    pt = Relatar um problema
     pt-BR = Relatar um problema
     ro = Raportează o problemă
     es = Reportar un problema
@@ -1161,7 +1161,7 @@
     nb = Hvilket målesystem foretrekker du?
     pl = Który system miar jest najbardziej dogodny?
     pt = Que sistema de medidas prefere?
-    pt-BR = Que sistema de medidas prefere?
+    pt-BR = Que sistema de medidas você prefere?
     ro = Ce sistem de măsură preferați?
     es = ¿Cual sistema de medición prefieres?
     sv = Vilket mätsystem föredrar du?
@@ -1225,8 +1225,8 @@
     ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
     nb = Enheten din støtter ikke posisjonstjenester
     pl = Urządzenie nie obsługuje usług lokalizacji
-    pt = O seu dispositivo não suporta os Serviços de Localização
-    pt-BR = Seu dispositivo não suporta os Serviços de Localização
+    pt = Os Serviços de Localização não estão disponíveis em seu dispositivo
+    pt-BR = Os Serviços de Localização não estão disponíveis em seu dispositivo
     ro = Dispozitivul dvs. nu acceptă servicii de localizare.
     es = Su dispositivo no es compatible con los servicios de localización
     sv = Din enhet stöder inte platstjänster
@@ -1586,8 +1586,8 @@
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
     nb = Lastet ned (%@) – trykk for å slette
     pl = Pobrano (%@). Proszę nacisnąć, aby usunąć.
-    pt = Descarregado (%@), toque para eliminar
-    pt-BR = Baixado (%@), toque para apagar
+    pt = (%@) descarregados, toque para eliminar
+    pt-BR = (%@) baixados, toque para apagar
     ro = Descărcat (%@). Atingeți pentru a șterge.
     es = Descargado (%@), presionar para eliminar
     sv = Nedladdad (%@), tryck för att ta bort
@@ -1712,8 +1712,8 @@
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
     pl = Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.
-    pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
-    pt-BR = É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
+    pt = É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.
+    pt-BR = É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.
     ro = Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
     sv = Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.
@@ -1777,7 +1777,7 @@
     nb = SD-kort/USB-enhet med nedlastede kart er ikke tilgjengelig
     pl = Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna
     pt = Não está disponível um cartão SD/armazenamento USB com os mapas descarregados
-    pt-BR = O cartão SD/armazenamento USB com os mapas transferidos não está disponível
+    pt-BR = O cartão SD/armazenamento USB com os mapas baixados não está disponível
     ro = Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.
     es = La memoria SD/almacenamiento USB con los mapas descargados no está disponible
     sv = SD-kort/USB-lagring med nedladdade kartor är inte tillgänglig.
@@ -1934,8 +1934,8 @@
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
     pl = Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.
-    pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
-    pt-BR = Antes de começar vamos baixar um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
+    pt = Antes de começar, permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
+    pt-BR = Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.\n%@ de memória serão utilizados.
     ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %@ de datos.
     sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.
@@ -2031,7 +2031,7 @@
     nb = Laster ned %@. Du kan nå\nfortsette til kartet.
     pl = Pobieranie %@. Można teraz\nprzejść do mapy.
     pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
-    pt-BR = Baixando %@. Pode agora\ncontinuar para o mapa.
+    pt-BR = Baixando %@. Você pode\ncontinuar para o mapa agora.
     ro = Se descarcă %@. Puteți\ntrece la hartă.
     es = Descargando %@. Puede ahora\nproceder al mapa
     sv = Laddar ner %@. Du kan nu\n fortsätta till kartan.
@@ -2291,8 +2291,8 @@
     ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
     nb = Lastet ned (%@) – trykk for å oppdatere eller slette
     pl = Pobrano (%@). Proszę nacisnąć, aby uaktualnić lub usunąć.
-    pt = Descarregado (%@), toque para atualizar ou eliminar
-    pt-BR = Baixado (%@), toque para atualizar ou apagar
+    pt = (%@) descarregados, toque para atualizar ou eliminar
+    pt-BR = (%@) baixados, toque para atualizar ou apagar
     ro = Descărcat (%@). Atingeți pentru a actualiza sau a șterge.
     es = Descargado (%@), presionar para actualizar o borrar
     sv = Nedladdad (%@), tryck för att uppdatera eller ta bort
@@ -2356,7 +2356,7 @@
     nb = Du trenger oppdaterte kart for søkefunksjonen:
     pl = Aby korzystać z funkcji wyszukiwania, należy posiadać aktualne mapy:
     pt = Precisa de mapas atualizados para a função de procura:
-    pt-BR = Precisa de mapas atualizados para a função de procura:
+    pt-BR = Mapas atualizados são necessários para a função de busca:
     ro = Aveți nevoie de hărți actualizate pentru funcția de căutare:
     es = Necesita los mapas actualizados para la función de búsqueda
     sv = Du behöver uppdaterade kartor för sökfunktionen:
@@ -2423,7 +2423,7 @@
     nb = Du trenger ikke MAPS.ME Lite lenger, så du kan gjerne avinstallere det.
     pl = Nie potrzeba już więcej MAPS.ME Lite, więc można je usunąć.
     pt = Não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-la.
-    pt-BR = Não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-lo.
+    pt-BR = Você não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-lo.
     ro = Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.
     es = Ahora no necesita MAPS.ME Lite, la puede desinstalar.
     sv = Du behöver inte MAPS.ME Lite mer, så du kan avinstallera den.
@@ -2456,8 +2456,8 @@
     ko = %@이 성공적으로 다운로드
     nb = %@ ble lastet ned
     pl = Pobrano %@
-    pt = %@ descarregado com sucesso
-    pt-BR = %@ baixado com sucesso
+    pt = %@ descarregados com sucesso
+    pt-BR = %@ baixados com sucesso
     ro = %@, descărcată cu succes
     es = %@ se descargó exitosamente
     sv = %@ nedladdat lyckat
@@ -2930,7 +2930,7 @@
     nb = Du har ingen bokmerker enda.\nTrykk på et hvilket som helst sted på kartet for å legge til et bokmerke.\nBokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
     pl = Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    pt-BR = Você ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir arquivo KML/KMZ com favoritos guardados a partir do email, Dropbox ou ligação web.
+    pt-BR = Você ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos no aplicativo MAPS.ME. Abrir arquivo KML/KMZ com favoritos salvos em um email, Dropbox ou em um link para download.
     ro = Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el correo, Dropbox o Weblink.
     sv = Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.
@@ -2964,7 +2964,7 @@
     nb = Bokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
     pl = Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    pt-BR = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir arquivo KML/KMZ com favoritos guardados a partir do email, Dropbox ou ligação web.
+    pt-BR = Os marcadores de outras fontes podem ser importados e exibidos no aplicativo MAPS.ME. Abrir arquivo KML/KMZ com favoritos salvos em um email, Dropbox ou em um link para download.
     ro = Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
     sv = Bokmärken från andra källor kan importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.
@@ -3300,7 +3300,7 @@
     ko = 모든 곳
     pl = Wszędzie
     pt = Em toda a parte
-    pt-BR = Em toda a parte
+    pt-BR = Em todos os locais
     es = Todos
     sv = Överallt
     th = ทุกที่
@@ -4000,7 +4000,7 @@
     nb = Delte MAPS.ME-bokmerker
     pl = Udostępnione zakładki z MAPS.ME
     pt = Os favoritos do MAPS.ME foram partilhados consigo
-    pt-BR = Favoritos do MAPS.ME compartilhados
+    pt-BR = Favoritos do MAPS.ME foram compartilhados com você
     ro = Marcaje MAPS.ME partajate
     es = Marcapáginas de MAPS.ME compartidos contigo
     sv = MAPS.ME bokmärken har delats med dig
@@ -4102,7 +4102,7 @@
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
     pl = Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
-    pt-BR = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou na tela de gestão dos favoritos.
+    pt-BR = Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.
     ro = Marcaje încărcate cu succes! Le puteți găsi pe hartă sau pe ecranul „Gestionare marcaje”.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
     sv = Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.
@@ -4270,7 +4270,7 @@
     nb = Last ned det landet du søker på (%@)
     pl = Pobierz mapę kraju, którego aktualnie poszukujesz (%@)
     pt = Descarregue o país em que está a fazer a procura (%@)
-    pt-BR = Baixe o país que você está buscando (%@)
+    pt-BR = Baixe o país em que você está buscando (%@)
     ro = Descărcați hărțile pentru țara pe care o căutați pe (%@).
     es = Descargar país en el que estás buscando (%@)
     sv = Ladda ner landet du söker på (%@)
@@ -4371,7 +4371,7 @@
     nb = Håper du liker å bruke MAPS.ME! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!
     pl = Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
     pt = Esperamos que esteja a disfrutar da utilização do MAPS.ME! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
-    pt-BR = Esperamos que esteja a disfrutar da utilização do MAPS.ME! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
+    pt-BR = Esperamos que você esteja gostando de usar o MAPS.ME! Se estiver, por favor nos avalie ou dê a sua opinião sobre a app na App Store. Demora menos de um minuto mas pode nos ajudar muito. Obrigado pelo seu apoio!
     ro = Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!
     es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
     sv = Hoppas du gillar att använda MAPS.ME! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!
@@ -4469,7 +4469,7 @@
     nb = Hei, se posisjonen min på MAPS.ME! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://maps.me/get
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
-    pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem um mapa offline instalado? Baixe aqui: http://maps.me/get
+    pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem um aplicativo de mapa offline? Baixe aqui: http://maps.me/get
     ro = Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://maps.me/get
     es = Mira dónde estoy. Abre %1$@ o %2$@
     sv = Hej, kolla på min nuvarande position på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://maps.me/get
@@ -4569,7 +4569,7 @@
     ko = MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다
     nb = Hei, se posisjonen min på MAPS.ME-kartet!
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME
-    pt = Veja a minha localização atual em MAPS.ME map
+    pt = Veja a minha localização atual no mapa MAPS.ME!
     pt-BR = Veja a minha localização atual no mapa MAPS.ME!
     ro = Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!
     es = Mira mi ubicación actual en el mapa en MAPS.ME
@@ -5845,8 +5845,8 @@
     ko = 최근 추적
     nb = Siste rute
     pl = Ostatnia trasa
-    pt = Histórico recente
-    pt-BR = Rota recente
+    pt = Trajeto recente
+    pt-BR = Trajeto recente
     ro = Rute recente
     es = Trayecto reciente
     sv = Senaste resväg
@@ -6130,8 +6130,8 @@
     ko = 최근 추적은 여행한 경로를 보여줍니다.
     nb = Nylig rute viser ruten du har fulgt.
     pl = Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę.
-    pt = O percurso recente mostra o seu caminho viajado.
-    pt-BR = O percurso recente mostra o seu caminho viajado.
+    pt = O trajeto recente mostra o seu caminho percorrido.
+    pt-BR = O trajeto recente mostra o seu caminho percorrido.
     ro = Opțiunea Rută recentă vă afișează ruta folosită anterior.
     es = El trayecto reciente muestra tu recorrido de viaje.
     sv = Senaste resväg visar den väg du rest.
@@ -6161,8 +6161,8 @@
     ko = 추적을 저장하는 시간 범위를 선택하십시오.
     nb = Velg en tidsperiode for rutelagring.
     pl = Wybierz zakres czasowy dla zapisywanej trasy.
-    pt = Por favor, selecione o intervalo de tempo da gravação do percurso.
-    pt-BR = Por favor, selecione o intervalo de tempo da gravação do percurso.
+    pt = Por favor, selecione o intervalo de tempo para gravação do percurso.
+    pt-BR = Por favor, selecione o intervalo de tempo para gravação do percurso.
     ro = Vă rugăm să selectați intervalul orar corespunzător salvării rutei.
     es = Por favor, selecciona la periodicidad para guardar el trayecto.
     sv = Välj tidsintervall för att spara resvägen.
@@ -6319,7 +6319,7 @@
     nb = Kartdatalagring har blitt optimalisert. Start appen på nytt.\n\nMapsWithMe-mappen som ligger i hovedmappen på SD-kortet er ikke nødvendig lenger, og du kan gjerne slette den.
     pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
     pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
-    pt-BR = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie o app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária; pode excluí-la.
+    pt-BR = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie o app.\n\nA pasta MapsWithMe no diretório raiz do cartão SD não é mais necessária; você pode excluí-la.
     ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
     es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
     sv = Kartdata lagringen har optimerats. Vänligen starta om appen.\n\nMapsWithMe mappen i roten av SD.kortet behövs inte längre, du kan ta bort den.
@@ -6351,8 +6351,8 @@
     ko = Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.
     nb = På grunn av endringer i Android 4.4 må vi optimalisere kartdatalagringen, men det er ikke nok plass til å kopiere kartdataene.\n\nDu må frigjøre minne, ellers vil kartene bare være tilgjengelige i skrivebeskyttet modus.
     pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
-    pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.
-    pt-BR = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiá-los.\n\nPor favor, libere memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.
+    pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis somente no modo de leitura.
+    pt-BR = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiá-los.\n\nPor favor, libere memória, caso contrário, os mapas estarão disponíveis somente no modo de leitura.
     ro = Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.
     es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
     sv = På grund av förändringar i Android 4.4 behöver vi optimera kartadata lagringen, men det finns inte tillräckligt med utrymme för att kopiera kartdata.\n\nVänligen frigör mer minne, annars kommer kartorna vara skrivskyddade.
@@ -6416,8 +6416,8 @@
     ko = 지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.
     nb = Kartlagring optimaliseres nå. Vent litt, dette kan ta noen minutter.
     pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
-    pt = O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
-    pt-BR = O seu armazenamento de mapa está sendo otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
+    pt = O seu armazenamento de seus mapas está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
+    pt-BR = O armazenamento de seus mapas está sendo otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
     ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
     sv = Din kartlagring optimeras nu. Vänligen vänta, det kan ta några minuter.
@@ -6665,7 +6665,7 @@
     id = Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.
     ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
     nb = Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.
-    pt-BR = Esta aplicação utiliza dados geográficos (incluindo mapas, listas de empresas, pontos de interesses, fronteiras de países e regiões etc.) do projeto OpenStreetMap. Nós não garantimos a consistência, precisão, completude ou aplicabilidade dos dados do OpenStreetMap.
+    pt-BR = Esta aplicação utiliza dados geográficos (incluindo mapas, listas de empresas, pontos de interesse, fronteiras de países e regiões, etc.) do projeto OpenStreetMap. Nós não garantimos a consistência, precisão, completude ou aplicabilidade dos dados do OpenStreetMap.
     ro = Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.
     sv = Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.
     vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
@@ -6765,7 +6765,7 @@
     ko = MAPS.ME의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.
     pl = Pełna wersja MAPS.ME jest dziś za darmo! Pobierz teraz i powiedz znajomym.
     pt = A versão completa do MAPS.ME é hoje grátis! Descarregue e conte aos seus amigos.
-    pt-BR = A versão completa do MAPS.ME é grátis hoje! Baixe e conte aos seus amigos.
+    pt-BR = A versão completa do MAPS.ME está grátis hoje! Baixe e conte aos seus amigos.
     es = ¡Versión completa de MAPS.ME gratis hoy! Descárgalo ahora y dilo a tus amigos.
     sv = Fullständig version av MAPS.ME är gratis idag! Ladda ner den nu och berätta för dina vänner.
     th = เวอร์ชันเต็มของ MAPS.ME วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ
@@ -7062,7 +7062,7 @@
     nb = Kontakt oss
     pl = Skontaktuj się z nami
     pt = Contacte-nos
-    pt-BR = Contate-nos
+    pt-BR = Entre em contato
     ro = Contactați-ne
     es = Contacta con nosotros
     sv = Kontakta oss
@@ -7096,6 +7096,7 @@
     nb = Tilbakemelding
     pl = Opinia
     pt = Comentários
+    pt-BR = Comentários
     ro = Feedback
     es = Comentarios
     sv = Feedback
@@ -7128,7 +7129,7 @@
     nb = Abonner på nyheter fra oss
     pl = Subskrybuj nasze wiadomości
     pt = Subscreva as nossas notícias
-    pt-BR = Assine nossas notícias
+    pt-BR = Assine a nossa newsletter
     ro = Abonați-vă la știrile noastre
     es = Suscríbete a nuestras noticias
     sv = Prenumerera på våra nyheter
@@ -7161,8 +7162,8 @@
     ko = 앱 평가
     nb = Ranger appen
     pl = Oceń aplikację
-    pt = Classificar a aplicação
-    pt-BR = Avaliar a aplicação
+    pt = Classificar o aplicativo
+    pt-BR = Avaliar o aplicativo
     ro = Votați-ne aplicația
     es = Valora la aplicación
     sv = Ge appen ett betyg
@@ -7263,8 +7264,8 @@
     ko = 오류 신고
     nb = Rapporter en feil
     pl = Zgłoś błąd
-    pt = Reportar um problema
-    pt-BR = Reportar um problema
+    pt = Relatar um problema
+    pt-BR = Relatar um problema
     ro = Raportați o eroare
     es = Hay un error
     sv = Rapportera en bugg
@@ -7298,7 +7299,7 @@
     nb = Jeg vil abonnere på MAPS.ME-nyhetsbrevet
     pl = Chcę subskrybować biuletyn MAPS.ME
     pt = Por favor inscrevam-me na newsletter da MAPS.ME
-    pt-BR = Por favor inscrevam-me na newsletter do MAPS.ME
+    pt-BR = Por favor me inscrevam na newsletter do MAPS.ME
     ro = Abonează-mă la buletinul informativ MAPS.ME.
     es = Por favor quiero suscribirme al boletín de MAPS.ME
     sv = Anmäl mig till MAPS.ME nyhetsbrev
@@ -7331,8 +7332,8 @@
     ko = 나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.
     nb = Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.
     pl = Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.
-    pt = Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.
-    pt-BR = Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha inscrição a qualquer momento.
+    pt = Quero ser o(a) primeiro(a) a saber sobre as últimas notícias, actualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.
+    pt-BR = Quero ser o(a) primeiro(a) a saber sobre as últimas notícias, atualizações e promoções. Posso cancelar a minha inscrição a qualquer momento.
     ro = Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.
     es = Quiero ser el primero en conocer las últimas noticias actualizaciones y promociones. Puedo cancelar mi suscripción en cualquier momento.
     sv = Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.
@@ -7366,8 +7367,8 @@
     ko = MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, http://openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.
     nb = MAPS.ME tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan MAPS.ME hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre MAPS.ME. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support@maps.me. Vi svarer på alle forespørsler!\n\nLiker du MAPS.ME og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/mapswithme\n- Eller bare fortell mamma, venner og kolleger om MAPS.ME :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på http://openstreetmap.org, og endringene vil vises i MAPS.ME-appen når neste versjon kommer.
     pl = MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie http://openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.
-    pt = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça "gosto" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.
-    pt-BR = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, o MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer conexão à Internet.\n\nEstamos sempre trabalhando em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar o MAPS.ME. Se tiver algum problema com a app, não hesite em contatar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta do MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário na sua Loja de Aplicativost\n- curta a nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale do MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar conosco. Agradecemos imensamente o seu apoio!\n\nPS: Utilizamos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer no app MAPS.ME com o lançamento da próxima versão.
+    pt = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina, etc. mais próximos. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça "gosto" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.
+    pt-BR = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, em todos os países do mundo. Viaje com plena confiança: onde você estiver, o MAPS.ME ajuda a se localizar no mapa, a encontrar o restaurante, hotel, banco ou posto de gasolina, etc. mais próximos. Não requer conexão à Internet.\n\nEstamos sempre trabalhando em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar o MAPS.ME. Se tiver algum problema com a app, não hesite em entrar em contato pelo email support@maps.me. Respondemos a cada pedido!\n\nGosta do MAPS.ME e quer nos apoiar? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário na sua App Storet\n- curta a nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale do MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar conosco. Agradecemos imensamente o seu apoio!\n\nPS: Utilizamos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos usuários criarem e editarem mapas. Se perceber que algo está errado ou faltando no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer no app MAPS.ME no lançamento da próxima versão.
     ro = MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.
     es = MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.
     sv = MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.
@@ -7566,8 +7567,8 @@
     ko = MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.
     nb = Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.
     pl = Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.
-    pt = A nova versão do MAPS.ME permite criar rotas a partir da sua posição atual para um ponto de destino. Por favor, atualize o maps para utilizar esta funcionalidade.
-    pt-BR = A nova versão do MAPS.ME permite criar rotas a partir da sua posição atual para um ponto de destino. Por favor, atualize os mapas para utilizar.
+    pt = A nova versão do MAPS.ME permite criar rotas a partir da sua posição atual até um ponto de destino. Por favor, atualize o maps para utilizar esta funcionalidade.
+    pt-BR = A nova versão do MAPS.ME permite criar rotas da sua posição atual até um ponto de destino. Por favor, atualize os mapas para utilizar esta funcionalidade.
     ro = Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.
     es = La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.
     sv = Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.
@@ -7667,7 +7668,7 @@
     nb = Lastet ned
     pl = Pobrane
     pt = Descarregado
-    pt-BR = Descarregado
+    pt-BR = Baixado
     ro = Descărcat
     es = Descargado
     sv = Nedladdade
@@ -7860,7 +7861,7 @@
     ko = 다운로드 중:
     nb = Laster ned:
     pl = Pobieranie:
-    pt = Baixando:
+    pt = Descarregando:
     pt-BR = Baixando:
     ro = Descărcare:
     es = Descargando:
@@ -7924,8 +7925,8 @@
     ko = MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!
     nb = Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!
     pl = Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!
-    pt = Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!
-    pt-BR = Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas devem ser consideradas apenas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!
+    pt = Ao criar rotas no app MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!
+    pt-BR = Ao criar rotas no aplicativo MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas devem ser consideradas apenas como recomendações.\n - Condições da estrada, regras de trânsito e sinalização têm maior prioridade do que as sugestões de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule com segurança nas estradas e cuide do seu bem estar!
     ro = Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!
     es = Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!
     sv = När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!
@@ -8158,8 +8159,8 @@
     ko = 추가 데이터는 경로를 생성하기 위해 필요합니다. 다운로드를 시작하시겠습니까?
     nb = Tilleggsinformasjon som er nødvendig for å opprette ruter fra ditt ståsted.
     pl = Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?
-    pt = São necessários dados adicionais para criar uma rota. Iniciar o download?
-    pt-BR = São necessários dados adicionais para criar uma rota. Iniciar o download?
+    pt = São necessários dados adicionais para criar uma rota. Descarregar os dados agora?
+    pt-BR = Dados adicionais são necessários para criar uma rota. Baixar os dados agora?
     ro = Datele suplimentare necesare pentru a crea trasee de la locația dvs.
     es = Son necesarios datos adicionales para crear la ruta. ¿Empezar la descarga?
     sv = Ytterligare data behövs för att skapa en rutt. Påbörja nedladdning?
@@ -8192,8 +8193,8 @@
     ko = 경로를 계산할 수 없습니다. 시작 지점 근처에 도로가 없습니다.
     nb = Klarer ikke å beregne ruten. Ingen veier i nærheten av startpunktet.
     pl = Nie można obliczyć trasy. Brak dróg w pobliżu punktu rozpoczęcia podróży.
-    pt = Impossível calcular o trajeto. Não há estradas próximas do seu ponto de partida.
-    pt-BR = Impossível calcular o trajeto. Não há estradas próximas do seu ponto de partida.
+    pt = Impossível calcular o trajeto. Não há estradas próximas ao seu ponto de partida.
+    pt-BR = Impossível calcular o trajeto. Não há estradas próximas ao seu ponto de partida.
     ro = Nu se poate calcula ruta. Nu există drumuri în apropierea punctului de pornire.
     es = No se puede calcular la ruta. No hay carreteras cerca de su punto de partida.
     sv = Rutten kan inte beräknas. Det finns inga vägar vid startpunkten.
@@ -8226,8 +8227,8 @@
     ko = 경로를 계산할 수 없습니다. 목적지 근처에 도로가 없습니다.
     nb = Klarer ikke å beregne ruten. Ingen veier i nærheten av reisemålet.
     pl = Nie można obliczyć trasy. Brak dróg w pobliżu celu podróży.
-    pt = Impossível calcular o trajeto. Não há estradas próximas do seu destino.
-    pt-BR = Impossível calcular o trajeto. Não há estradas próximas do seu destino.
+    pt = Impossível calcular o trajeto. Não há estradas próximas ao seu destino.
+    pt-BR = Impossível calcular o trajeto. Não há estradas próximas ao seu destino.
     ro = Nu se poate calcula ruta. Nu există drumuri în apropierea punctului de destinație.
     es = No se puede calcular la ruta. No hay carreteras cerca de su destino.
     sv = Rutten kan inte beräknas. Det finns inga vägar vid målet.
@@ -8294,8 +8295,8 @@
     ko = 선택한 출발지와 목적지 사이에서 발견있는 경로가 없습니다. 다른 출발지 또는 도착지를 선택하십시오.
     nb = Finner ingen rute mellom valgt startsted og destinasjon. Velg et annet start- eller sluttpunkt.
     pl = Nie znaleziono trasy pomiędzy wybranym punktem rozpoczęcia podróży a jej celem. Wybierz inny punkt początkowy lub końcowy.
-    pt = Não foi encontrado um trajeto entre a origem selecionada e o destino. Por favor selecione um ponto de partida ou de chegada diferente.
-    pt-BR = Não foi encontrado um trajeto entre a origem selecionada e o destino. Por favor selecione um ponto de partida ou de chegada diferente.
+    pt = Não foi encontrado um trajeto entre a origem e o destino selecionados. Por favor selecione um ponto de partida ou de chegada diferente.
+    pt-BR = Não foi encontrado nenhum trajeto entre a origem e o destino selecionados. Por favor selecione um ponto de partida ou de chegada diferente.
     ro = Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.
     es = No se ha encontrado ninguna ruta entre el origen seleccionado y el destino. Por favor, seleccione un punto de partida o destino diferente.
     sv = Ingen rutt hittades mellan vald startpunkt och målet. Välj en annan start- eller slutpunkt.
@@ -8329,7 +8330,7 @@
     nb = Det oppsto en intern feil. Prøv å slette og laste ned kartet på nytt. Hvis problemet vedvarer kan du kontakte oss på support@maps.me.
     pl = Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support@maps.me.
     pt = Ocorreu um erro interno. Por favor experimente apagar o mapa e depois descarregue-o novamente. Se o problema persistir, contacte-nos através de support@maps.me.
-    pt-BR = Ocorreu um erro interno. Por favor experimente apagar o mapa e depois descarregue-o novamente. Se o problema persistir, contacte-nos através de support@maps.me.
+    pt-BR = Ocorreu um erro interno. Por favor experimente apagar o mapa e depois baixe-o novamente. Se o problema persistir, entre em contato conosco através de support@maps.me.
     ro = A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@maps.me.
     es = Se ha producido un error interno. Por favor, intente eliminar y descargar el mapa otra vez. Si el problema persiste, por favor contáctenos en support@maps.me.
     sv = Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support@maps.me om problemet kvarstår.
@@ -8363,7 +8364,7 @@
     nb = Last ned kart + rutetilordning
     pl = Pobierz mapę + wyznaczanie tras
     pt = Descarregar Mapa + Roteamento
-    pt-BR = Descarregar Mapa + Roteamento
+    pt-BR = Baixar Mapa + Roteamento
     ro = Descărcare hartă + traseu
     es = Descargar mapa + itinerario
     sv = Ladda ner karta + anvisningar
@@ -8396,7 +8397,7 @@
     nb = Last ned rutetilordning
     pl = Pobierz wyznaczanie tras
     pt = Descarregar Roteamento
-    pt-BR = Descarregar Roteamento
+    pt-BR = Baixar Roteamento
     ro = Descărcare traseu
     es = Descargar itinerario
     sv = Ladda ner anvisningar
@@ -8528,7 +8529,7 @@
     nb = Kjør!
     pl = Przejdź!
     pt = Avançar!
-    pt-BR = Vai!
+    pt-BR = Ir!
     ro = Pornește!
     es = ¡Listo!
     sv = Kör!
@@ -8761,7 +8762,7 @@
     nb = Applikasjonsmeny
     pl = Menu aplikacji
     pt = Menu de Aplicação
-    pt-BR = Menu de aplicação
+    pt-BR = Menu do aplicativo
     ro = Meniu aplicație
     es = Menú de aplicación
     sv = Programmeny
@@ -8923,8 +8924,8 @@
     ko = 별을 눌러 우리의 앱을 평가하세요.
     nb = Trykk på en stjerne for å vurdere appen.
     pl = Stuknij gwiazdkę, by ocenić naszą aplikację.
-    pt = Toque em uma estrela para avaliar o nosso app.
-    pt-BR = Toque em uma estrela para avaliar o nosso app.
+    pt = Toque em alguma estrela para classificar o nosso app.
+    pt-BR = Toque em alguma estrela para avaliar o nosso app.
     ro = Apasă pe una dintre stele pentru a ne vota aplicația
     es = Pulsa una estrella para puntuar tu aplicación.
     sv = Tryck på en stjärna för att betygsätta vår app.
@@ -9056,7 +9057,7 @@
     nb = Klikk på g+ for å fortelle vennene dine om denne appen.
     pl = Kliknij g+, aby powiedzieć swoim znajomym o tej apce.
     pt = Clique em g+ para contar aos seus amigos sobre o app.
-    pt-BR = Clique em g+ para contar aos seus amigos sobre o app.
+    pt-BR = Toque em g+ para contar aos seus amigos sobre o app.
     ro = Clic pe g+ pentru a le spune prietenilor tăi despre aplicație.
     es = Haz clic en g+ para hablar a tus amigos acerca de la app.
     sv = Klicka på g+ för att berätta om appen för dina vänner.
@@ -9088,8 +9089,8 @@
     ko = 경로를 따라 지도 다운로드
     nb = Last ned kart langs ruten
     pl = Pobierz mapy wzdłuż trasy
-    pt = Descarregue mapas ao longo do trajeto
-    pt-BR = Descarregue mapas ao longo do trajeto
+    pt = Descarregar todos os mapas ao longo do trajeto
+    pt-BR = Baixar todos os mapas ao longo do trajeto
     ro = Descarcă hărțile adiacente rutei
     es = Descarga mapas a lo largo de la ruta
     sv = Ladda ned kartor längs vägen
@@ -9154,8 +9155,8 @@
     ko = 업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 MAPS.ME 기능을 가져옵니다.
     nb = Last ned oppdatert kart og ruteinformasjon for å få alle MAPS.ME funksjonene
     pl = Pobierz zaktualizowaną mapę i dane ustalania tras, by mieć dostęp do wszystkich funkcji MAPS.ME.
-    pt = Baixe o mapa e os dados de itinerário atualizados para obter todos os recursos do MAPS.ME.
-    pt-BR = Baixe o mapa e os dados de roteamento atualizados para obter todos os recursos do MAPS.ME.
+    pt = Descarregue o mapa e os dados de itinerário atualizados para acessar todos os recursos do MAPS.ME.
+    pt-BR = Baixe o mapa e os dados de roteamento atualizados para acessar todos os recursos do MAPS.ME.
     ro = Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile MAPS.ME.
     es = Descarga el mapa actualizado y los datos de enrutamiento para conseguir todas las funciones de MAPS.ME.
     sv = Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla MAPS.ME funktioner.
@@ -9253,8 +9254,8 @@
     ko = 경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.
     nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
-    pt = É necessário baixar e atualizar todos os mapas da sua localização até o destino para criar uma rota.
-    pt-BR = É necessário baixar e atualizar todos os mapas da sua localização até o destino para criar uma rota.
+    pt = É necessário baixar e atualizar todos os mapas entre sua localização e o destino para criar uma rota.
+    pt-BR = É necessário baixar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
     ro = Crearea unui traseu necesită ca toate hărțile de la locația dvs. până la destinație să fie descărcate și actualizate.
     es = Para crear una ruta es necesario descargar y actualizar todos los mapas de la ubicación de destino.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
@@ -9318,7 +9319,7 @@
     ko = %@ MB를 다운로드해야 하지만 %@ MB만 사용할 수 있습니다.
     nb = Du vil laste ned %@ MB, men du har kun %@ MB tilgjengelig.
     pl = Musisz pobrać %@ MB, lecz dostępne jest tylko %@ MB.
-    pt = É necessário baixar %@ MB, mas há apenas %@ MB disponíveis.
+    pt = É necessário descarregar %@ MB, mas há apenas %@ MB disponíveis.
     pt-BR = É necessário baixar %@ MB, mas há apenas %@ MB disponíveis.
     ro = Trebuie să descărcați %@ MB, dar numai un spațiu de %@ MB este disponibil.
     es = Necesitas descargar %@ MB, pero solo hay %@ MB disponibles.
@@ -9419,7 +9420,7 @@
     ko = 위치에 대한 지도가 다운로드되지 않음
     nb = Kartet for posisjonen din er ikke lastet ned
     pl = Nie znaleziono mapy Twojej lokalizacji
-    pt = O mapa para a sua localização não foi baixado
+    pt = O mapa para a sua localização não foi descarregado
     pt-BR = O mapa para a sua localização não foi baixado
     ro = Harta pentru poziția dvs. nu este descărcată
     es = El mapa de tu ubicación no se ha descargado
@@ -9484,7 +9485,7 @@
     ko = 위치에 대한 지도 다운로드
     nb = Last ned kartet for posisjonen din
     pl = Pobierz mapę dla swojej lokalizacji
-    pt = Baixe o mapa para a sua localização
+    pt = Descarregue o mapa para a sua localização
     pt-BR = Baixe o mapa para a sua localização
     ro = Descărcați harta pentru poziția dvs.
     es = Descarga el mapa de tu ubicación
@@ -9517,7 +9518,7 @@
     nb = Last ned kartet for en aktuell posisjon til iPhone
     pl = Pobierz na swojego iPhone'a mapę dla bieżącej lokalizacji
     pt = Descarregue o mapa da localização atual para o seu iPhone
-    pt-BR = Descarregue o mapa da localização atual para o seu iPhone
+    pt-BR = Baixe o mapa da localização atual para o seu iPhone
     ro = Descărcați o hartă pentru poziția dvs. actuală pe iPhone-ul dvs.
     es = Descarga el mapa para la ubicación actual en tu iPhone
     sv = Ladda ner kartan för aktuell plats på din iPhone
@@ -9549,7 +9550,7 @@
     nb = I nærheten
     pl = W pobliżu
     pt = Próximo
-    pt-BR = Perto
+    pt-BR = Próximo
     ro = În apropiere
     es = Cerca
     sv = I närheten
@@ -9612,7 +9613,7 @@
     ko = 현재 위치는 정의되지 않습니다.
     nb = Nåværende posisjon er udefinert.
     pl = Bieżąca lokalizacja nie została zdefiniowana.
-    pt = A localização atual não foi definida.
+    pt = A localização actual não foi definida.
     pt-BR = A localização atual não foi definida.
     ro = Poziția dvs. curentă este nedefinită.
     es = La ubicación actual no está definida.
@@ -9645,8 +9646,8 @@
     ko = 귀하께서 현재 계신 국가인 을(를) 다운로드
     nb = Last ned kartet for posisjonen din
     pl = Pobierz mapę kraju, w którym aktualnie przebywasz
-    pt = Descarregue o país da sua localização atual
-    pt-BR = Descarregue o país da sua localização atual
+    pt = Descarregue o país da sua localização actual
+    pt-BR = Baixe o país da sua localização atual
     ro = Descărcați hărțile pentru țara în care vă aflați
     es = Descargar país de tu ubicación actual
     sv = Ladda ner landet vid din nuvarande position
@@ -10300,7 +10301,7 @@
     nb = — Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;
     pl = — Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach;
     pt = — Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;
-    pt-BR = — Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.
+    pt-BR = — Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.
     ro = — Aveți grijă în zonele de graniță: rutele create de aplicația noastră ar putea, ocazional, să treacă granița prin locuri nepermise;
     es = — Actúa con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;
     sv = — Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser;
@@ -10430,7 +10431,7 @@
     ko = GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.
     nb = Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.
     pl = Sprawdź sygnał GPS. Aktywacja Wi-Fi pomoże w precyzyjnym określeniu położenia.
-    pt = Verifique o sinal do GPS. Ative o wi-fi para melhorar a precisão da localização.
+    pt = Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.
     pt-BR = Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.
     ro = Verificaţi semnalul GPS. Pentru a îmbunătăţi precizia localizării, activaţi Wi-Fi.
     es = Verifique la señal del GPS. Activar Wi-Fi mejorará la precisión de su ubicación.
@@ -10529,8 +10530,8 @@
     ko = 현재 GPS 좌표를 찾을 수 없습니다.
     nb = Nåværende GPS-koordinater ble ikke funnet.
     pl = Nie można ustalić współrzędnych GPS.
-    pt = Não foi possível localizar as coordenadas do GPS.
-    pt-BR = Não foi possível localizar as coordenadas do GPS.
+    pt = Não foi possível obter as coordenadas GPS.
+    pt-BR = Não foi possível obter as coordenadas GPS.
     ro = Localizarea coordonatelor GPS curente a eşuat.
     es = No se pueden encontrar las coordenadas actuales del GPS.
     sv = Kan inte lokalisera nuvarande GPS-koordinater.
@@ -10561,7 +10562,7 @@
     ko = 필수 파일 다운로드
     nb = Last ned nødvendige filer
     pl = Pobierz wymagane pliki
-    pt = Baixe os arquivos necessários
+    pt = Descarregar os arquivos necessários
     pt-BR = Baixar os arquivos necessários
     ro = Descărcaţi fişierele necesare
     es = Descargar archivos requeridos
@@ -10594,8 +10595,8 @@
     ko = 경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.
     nb = Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.
     pl = Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.
-    pt = Baixe e atualize todos os dados de mapas e rotas referentes ao trajeto desejado para que a rota seja traçada.
-    pt-BR = Baixar e atualize todos os dados de mapas e rotas referentes ao trajeto desejado para que a rota seja traçada.
+    pt = Descarregue e actualize todos os dados de mapa e roteamento ao longo do trajeto desejado para que a rota seja traçada.
+    pt-BR = Baixe e atualize todos os dados de mapa e roteamento referentes ao trajeto desejado para que a rota seja traçada.
     ro = Pentru calcularea traseului, descărcaţi şi actualizaţi toate hărţile şi informaţiile de stabilire a traseului pentru calea estimată.
     es = Descargue y actualice toda la información de mapas y rutas junto con el trayecto proyectado para calcular la ruta.
     sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.
@@ -10627,8 +10628,8 @@
     ko = 경로 정보 파일
     nb = Ruteinformasjonsfiler
     pl = Pliki wyznaczania trasy
-    pt = Arquivos de dados de rota
-    pt-BR = Arquivos de dados de rota
+    pt = Arquivos de dados de roteamento
+    pt-BR = Arquivos de dados de roteamento
     ro = Fişiere cu informaţii de stabilire a traseului
     es = Archivos de información de ruta
     sv = Väginformationsfiler
@@ -11119,8 +11120,8 @@
     ko = 이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.
     nb = En mer optimal rute som går utenfor dette kartet er tilgjengelig.
     pl = Dostępna jest lepsza trasa, wykraczająca poza granice bieżącej mapy.
-    pt = Há uma rota disponível que vai além dos limites desse mapa.
-    pt-BR = Há uma rota disponível que vai além dos limites desse mapa.
+    pt = Há uma rota disponível que vai além dos limites deste mapa.
+    pt-BR = Há uma rota disponível que vai além dos limites deste mapa.
     ro = Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.
     es = Está disponible una ruta mejor que cruza los límites de este mapa.
     sv = En optimalare väg som sträcker sig utanför den här kartan är tillgänglig.
@@ -11216,7 +11217,7 @@
     ko = 지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?
     nb = Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?
     pl = Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?
-    pt = Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
+    pt = Deseja descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
     pt-BR = Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
     ro = Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?
     es = ¿Desea descargar el mapa y crear una ruta mejor que abarca más de un mapa?
@@ -11249,7 +11250,7 @@
     ko = 이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.
     nb = Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.
     pl = Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.
-    pt = Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.
+    pt = Descarregue o mapa para traçar uma rota melhor que vai além dos limites desse mapa.
     pt-BR = Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.
     ro = Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.
     es = Descargar el mapa para crear una ruta mejor que cruza los límites de este mapa.
@@ -11316,8 +11317,8 @@
     ko = 경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.
     nb = Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.
     pl = Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.
-    pt = Para começar a pesquisar e criar rotas, por favor, baixe o mapa e você não precisará mais de conexão com a internet.
-    pt-BR = Para começar a pesquisar e criar rotas, por favor, baixe o mapa e você não precisará mais de conexão com a internet.
+    pt = Para começar a pesquisar e criar rotas, por favor, descarregue o mapa. Assim, não precisará mais de uma conexão com a internet.
+    pt-BR = Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.
     ro = Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.
     es = Para empezar a buscar y crear rutas, por favor, descarga el mapa y no necesitarás conexión a Internet nunca más para usarlo.
     sv = För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.
@@ -11349,8 +11350,8 @@
     ko = 지도 선택
     nb = Velg kartet
     pl = Wybierz mapę
-    pt = Selecionar o Mapa
-    pt-BR = Selecionar o Mapa
+    pt = Selecionar Mapa
+    pt-BR = Selecionar Mapa
     ro = Selectați harta
     es = Seleccionar el mapa
     sv = Välj kartan
@@ -11612,8 +11613,8 @@
     ko = 경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.
     nb = Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.
     pl = Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.
-    pt = Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo da rota.
-    pt-BR = Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo da rota.
+    pt = Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.
+    pt-BR = Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.
     ro = Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.
     es = Para crear una ruta, por favor, descarga y actualiza todos los mapas a lo largo de la ruta.
     sv = För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.
@@ -11644,7 +11645,7 @@
     nb = Liker du appen?
     pl = Lubisz tę aplikację?
     pt = Gosta do aplicativo?
-    pt-BR = Gosta do aplicativo?
+    pt-BR = Você gosta do aplicativo?
     ro = Vă place aplicația?
     es = ¿Te gusta la aplicación?
     sv = Gillar du appen?
@@ -11676,7 +11677,7 @@
     nb = Takk for at du bruker MAPS.ME. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.
     pl = Dziękujemy za korzystanie z MAPS.ME. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.
     pt = Obrigado por usar MAPS.ME. Por favor, classifique o aplicativo. Seu feedback nos ajuda a melhorar.
-    pt-BR = Obrigado por usar MAPS.ME. Por favor, classifique o aplicativo. Seu feedback nos ajuda a melhorar.
+    pt-BR = Obrigado por usar MAPS.ME. Por favor, avalie o aplicativo. Seu feedback nos ajuda a melhorar.
     ro = Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.
     es = Gracias por usar MAPS.ME. Por favor, puntúa la aplicación. Tus comentarios nos ayudan a mejorar.
     sv = Tack för att du använder MAPS.ME. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.
@@ -11740,7 +11741,7 @@
     nb = Tusen takk, vi skal gjøre vårt beste!
     pl = Dziękujemy, zrobimy co w naszej mocy!
     pt = Obrigado, faremos o melhor possível!
-    pt-BR = Obrigado, faremos o melhor possível!
+    pt-BR = Obrigado, faremos o nosso melhor!
     ro = Vă mulțumim, vom face tot ce ne stă în putință!
     es = ¡Gracias, haremos todo lo posible!
     sv = Tack, vi ska göra vårt bästa!
@@ -11963,7 +11964,7 @@
     nb = Beklager, jeg fant ingenting.
     pl = Przepraszamy, nic nie znaleziono.
     pt = Lamento, mas não encontrei nada.
-    pt-BR = Lamento, nenhum resultado encontrado.
+    pt-BR = Sinto muito, nenhum resultado foi encontrado.
     ro = Ne pare rău, nu s-au găsit rezultate.
     es = Lo siento, no he encontrado nada.
     sv = Ledsen, jag hittade ingenting.
@@ -12026,7 +12027,7 @@
     ko = 검색할 지도를 다운로드하십시오.
     nb = Vennligst last ned kartet du søker i.
     pl = Pobierz mapę interesującego cię obszaru.
-    pt = Por favor, baixe o mapa em que está pesquisando.
+    pt = Por favor, descarregue o mapa em que está pesquisando.
     pt-BR = Por favor, baixe o mapa em que está pesquisando.
     ro = Vă rugăm să descărcați harta pe care doriți să căutați.
     es = Por favor, descarga el mapa en el que estás buscando.
@@ -12057,7 +12058,7 @@
     ko = 현재 위치의 지도를 다운로드하십시오.
     nb = Last ned kartet til din nåværende beliggenhet.
     pl = Pobierz mapę swojej bieżącej lokalizacji.
-    pt = Baixe o mapa da sua localização atual.
+    pt = Descarregue o mapa da sua localização atual.
     pt-BR = Baixe o mapa da sua localização atual.
     ro = Descărcați harta locului în care vă aflați acum.
     es = Descarga el mapa de tu ubicación actual.
@@ -12120,8 +12121,8 @@
     ko = 최근 검색 쿼리에 신속하게 액세스할 수 있습니다.
     nb = Vis de siste søkene raskt.
     pl = Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.
-    pt = Acesse os termos de busca recentes rapidamente.
-    pt-BR = Visualizar os termos de busca recentes.
+    pt = Visualizar as buscas recentes.
+    pt-BR = Visualizar as buscas recentes.
     ro = Accesare rapidă a căutărilor recente.
     es = Acceder rápidamente a las consultas de búsquedas recientes.
     sv = Få snabbare åtkomst till senaste sökförfrågan.
@@ -12206,7 +12207,8 @@
     fr = Wikipédia
     zh-Hant = 維基百科
     el = Wikipedia
-    pt-BR = Wikipedia
+    pt = Wikipédia
+    pt-BR = Wikipédia
 
   [p2p_route_planning]
     tags = ios, android
@@ -12289,8 +12291,8 @@
     ko = 출발 지점
     nb = Avreisested
     pl = Miejsce wyjazdu
-    pt = O ponto de partida
-    pt-BR = O ponto de partida
+    pt = Ponto de partida
+    pt-BR = Ponto de partida
     ro = Punctul de plecare
     es = El punto de origen
     sv = Startplats
@@ -12321,8 +12323,8 @@
     ko = 도착 지점
     nb = Destinasjonssted
     pl = Miejsce docelowe
-    pt = O ponto de destino
-    pt-BR = O ponto de destino
+    pt = Ponto de destino
+    pt-BR = Ponto de destino
     ro = Punctul de sosire
     es = El punto de destino
     sv = Målplats
@@ -12481,7 +12483,7 @@
     ko = 현재 위치에서만 네비게이션을 사용할 수 있습니다.
     nb = Navigering er kun tilgjengelig fra din nåværende beliggenhet.
     pl = Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.
-    pt = Só é possível navegar a partir da sua localização atual.
+    pt = Só é possível navegar a partir da sua localização actual.
     pt-BR = Só é possível navegar a partir da sua localização atual.
     ro = Navigația este disponibilă doar având ca punct de pornire locațiacctuală.
     es = La navegación solo está disponible desde tu ubicación actual.
@@ -12513,7 +12515,7 @@
     ko = 현재 위치에서 경로를 계획하시겠습니까?
     nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
     pl = Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?
-    pt = Deseja planejar uma rota a partir da sua localização atual?
+    pt = Deseja planejar uma rota a partir da sua localização actual?
     pt-BR = Deseja planejar uma rota a partir da sua localização atual?
     ro = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
     es = ¿Quieres que planeemos un ruta desde tu ubicación actual?
@@ -12618,7 +12620,7 @@
     nb = Slett tidsrom
     pl = Usuń harmonogram
     pt = Eliminar Horário
-    pt-BR = Eliminar Horário
+    pt-BR = Apagar Horário
     ro = Eliminare planificare
     es = Eliminar horario
     sv = Ta bort schema
@@ -12651,7 +12653,7 @@
     nb = Hele dagen (24 timer)
     pl = Całą dobę (24 godziny)
     pt = Todo o Dia (24 horas)
-    pt-BR = Todo o Dia (24 horas)
+    pt-BR = O Dia Todo (24 horas)
     ro = Toată ziua (non-stop)
     es = Todo el día (24 horas)
     sv = Alla dagar (24 timmar)
@@ -12746,8 +12748,8 @@
     ko = 폐점 시간 추가
     nb = Legg til stengt tid
     pl = Dodaj godziny zamknięcia
-    pt = Adicionar Horas Fechado
-    pt-BR = Adicionar Horas Sem Funcionamento
+    pt = Inserir Horas Sem Funcionamento
+    pt-BR = Inserir Horas Sem Funcionamento
     ro = Adăugare oră de închidere
     es = Añadir horas de cierre
     sv = Lägg till stängda timmar
@@ -12874,7 +12876,7 @@
     ko = 폐점 시간
     nb = Stengt
     pl = Godziny zamknięcia
-    pt = Horas Fechado
+    pt = Horas Sem Funcionamento
     pt-BR = Horas Sem Funcionamento
     ro = Ora închiderii
     es = Horas de cierre
@@ -12906,7 +12908,7 @@
     ko = 예제
     nb = Eksempelverdier
     pl = Przykładowe wartości
-    pt = Valores do Exemplo
+    pt = Valores de exemplo
     pt-BR = Valores de exemplo
     ro = Exemple de valori
     es = Valores de ejemplo
@@ -13031,8 +13033,8 @@
     ko = 세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.
     nb = Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.
     pl = Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.
-    pt = Alterou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
-    pt-BR = Alterou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
+    pt = Modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
+    pt-BR = Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
     ro = Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.
     es = Has cambiado el mapa del mundo. ¡No ocultarlo! Cuéntaselo a tus amigos y editadlo juntos.
     sv = Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.
@@ -13094,7 +13096,7 @@
     nb = Du har forbedret kartet, fortell vennene dine om det, og rediger kartet sammen.
     pl = Dokonałeś poprawek na mapie. Opowiedz o tym znajomym i razem ją edytujcie.
     pt = Melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.
-    pt-BR = Melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.
+    pt-BR = Você melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.
     ro = Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.
     es = Has mejorado el mapa: cuéntaselo a tus amigos y editadlo juntos.
     sv = Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.
@@ -13372,7 +13374,7 @@
     nb = MAPS.ME er klar til bruk
     pl = Aplikacja MAPS.ME jest gotowa
     pt = MAPS.ME está pronto para utilização
-    pt-BR = MAPS.ME está pronto para utilização
+    pt-BR = MAPS.ME está pronto para ser usado
     ro = MAPS.ME este gata pentru utilizare
     es = MAPS.ME está listo para usar
     sv = Du kan nu använda MAPS.ME
@@ -13467,7 +13469,7 @@
     ko = 모두 다운로드
     nb = Last ned alle
     pl = Pobierz wszystko
-    pt = Baixar tudo
+    pt = Descarregar tudo
     pt-BR = Baixar tudo
     ro = Descarcă toate
     es = Descargar todos
@@ -14074,7 +14076,7 @@
     nb = Logg inn
     pl = Zaloguj się
     pt = Acessar
-    pt-BR = Acessar
+    pt-BR = Login
     ro = Autentificare
     es = Iniciar sesión
     sv = Logga in
@@ -14201,8 +14203,8 @@
     ko = 등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.
     nb = Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.
     pl = Wpisz adres email, którego użyto podczas rejestracji, a prześlemy Ci link do ponownego utworzenia hasła.
-    pt = Digite o endereço de email que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.
-    pt-BR = Digite o endereço de email que você usou ao cadastrar-se, e nós lhe enviaremos o link para renovar a sua senha.
+    pt = Digite o endereço de email que você usou ao cadastrar-se, e nós lhe enviaremos o link para redefinir a sua senha.
+    pt-BR = Digite o endereço de email que você usou ao se cadastrar, e nós enviaremos o link para redefinir a sua senha.
     ro = Introduceți adresa de email pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.
     es = Introduce la dirección de correo electrónico que utilizaste durante el registro y te enviaremos el enlace para restaurar tu contraseña.
     sv = Mata in e-postadressen som du använde vid registrering så skickar vi en återställningslänk till dig.
@@ -14391,7 +14393,7 @@
     nb = Siste opplasting
     pl = Ostatnio przesłane
     pt = Último upload
-    pt-BR = Último envio
+    pt-BR = Último upload
     ro = Ultima încărcare
     es = Última carga
     sv = Senast uppladdad
@@ -14677,6 +14679,7 @@
     nb = Vis mer
     pl = Pokaż więcej
     pt = Mostrar mais
+    pt-BR = Mostrar mais
     ro = Afișează mai mult
     es = Mostrar más
     sv = Visa mer
@@ -14688,7 +14691,6 @@
     zh-Hant = 顯示更多
     el = Περισσότερα
     sk = Zobraziť viac
-    pt-BR = Mostrar Mais
 
   [show_less]
     comment = small button to close list with names in different languages
@@ -14710,6 +14712,7 @@
     nb = Vis mindre
     pl = Pokaż mniej
     pt = Mostrar menos
+    pt-BR = Mostrar menos
     ro = Afișează mai puțin
     es = Mostrar menos
     sv = Visa mindre
@@ -14721,7 +14724,6 @@
     zh-Hant = 顯示較少
     el = Λιγότερα
     sk = Zobraziť menej
-    pt-BR = Mostrar menos
 
   [add_language]
     tags = ios, android
@@ -14807,7 +14809,7 @@
     nb = Et husnummer
     pl = Numer domu
     pt = N.º de porta
-    pt-BR = N.º de porta
+    pt-BR = N.º do endereço
     ro = Număr casă
     es = Un número de domicilio
     sv = Ett husnummer
@@ -14968,7 +14970,7 @@
     nb = Postnummer
     pl = Kod pocztowy
     pt = Código postal
-    pt-BR = Código postal
+    pt-BR = CEP
     ro = Cod postal
     es = Código postal
     sv = Postkod
@@ -15127,8 +15129,8 @@
     ko = 참고 사항
     nb = Vær oppmerksom på at
     pl = Uwaga!
-    pt = Por favor note
-    pt-BR = Por favor note
+    pt = Aviso
+    pt-BR = Aviso
     ro = Actualizați hărțile
     es = Aviso
     sv = Observera
@@ -15254,8 +15256,8 @@
     ko = 경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.
     nb = For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.
     pl = Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.
-    pt = Para criar um itinerário, é necessário atualizar todos os mapas e, em seguida, voltar a planear o itinerário.
-    pt-BR = Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, voltar a planejar o itinerário.
+    pt = Para criar um itinerário é necessário actualizar todos os mapas e, em seguida, planejá-lo novamente.
+    pt-BR = Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.
     ro = Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.
     es = Los mapas empiezan a descargarse automáticamente cuando te aproximas al mapa.
     sv = För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.
@@ -15415,7 +15417,7 @@
     nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.
     pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
     pt = Por favor, verifique as suas opções e certifique-se de que o dispositivo está ligado à Internet.
-    pt-BR = Por favor, verifique as suas opções e certifique-se de que o dispositivo está ligado à Internet.
+    pt-BR = Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à Internet.
     ro = Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.
     es = Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.
     sv = Kontrollera dina inställningar och se till att din enhet är ansluten till internet.
@@ -15510,8 +15512,8 @@
     ko = 일반 로그인 오류.
     nb = Generell innloggingsfeil.
     pl = Ogólny błąd logowania.
-    pt = Erro geral de início de sessão.
-    pt-BR = Erro geral de início de sessão.
+    pt = Erro genérico de início de sessão.
+    pt-BR = Erro genérico de login.
     ro = Eroare generală de conectare.
     es = Error general de inicio de sesión.
     sv = Allmänt fel vid inloggning.
@@ -15542,7 +15544,7 @@
     nb = Innloggingsfeil.
     pl = Błąd logowania.
     pt = Erro de início de sessão.
-    pt-BR = Erro de início de sessão.
+    pt-BR = Erro no login.
     ro = Eroare de conectare.
     es = Error de inicio de sesión.
     sv = Inloggningsfel.
@@ -15574,7 +15576,7 @@
     nb = Innloggingen mislyktes
     pl = Nieudane logowanie
     pt = O início de sessão falhou
-    pt-BR = O início de sessão falhou
+    pt-BR = O login falhou
     ro = Conectare eșuată
     es = Error al iniciar sesión
     sv = Inloggningen misslyckades
@@ -15636,7 +15638,7 @@
     nb = Du har redigert et objekt!
     pl = Obiekt był edytowany!
     pt = Editou um objeto!
-    pt-BR = Editou um objeto!
+    pt-BR = Você editou um objeto!
     ro = Ați editat un obiect!
     es = ¡Has editado un objeto!
     sv = Du har redigerat ett objekt!
@@ -15667,7 +15669,7 @@
     nb = Logg inn med OpenStreetMat
     pl = Zaloguj się z OpenStreetMap
     pt = Iniciar sessão com a OpenStreetMap
-    pt-BR = Iniciar sessão no OpenStreetMap
+    pt-BR = Fazer login no OpenStreetMap
     ro = Conectați-vă cu OpenStreetMap
     es = Iniciar sesión con OpenStreetMap
     sv = Logga in med OpenStreetMap
@@ -15760,8 +15762,8 @@
     ko = 개체의 정확한 위치를 선택하려면 지도를 당깁니다.
     nb = Dra kartet for å velge riktig beliggenhet for objektet.
     pl = Przeciągnij mapę, aby wybrać poprawną lokalizację obiektu.
-    pt = Puxe o mapa para selecionar o lugar correto do objeto.
-    pt-BR = Puxe o mapa para selecionar o lugar correto do objeto.
+    pt = Mova o mapa para selecionar o lugar correto do objeto.
+    pt-BR = Mova o mapa para selecionar o lugar correto do objeto.
     ro = Trageți de hartă pentru a selecta locația corectă a obiectului.
     es = Arrastra el mapa para seleccionar la ubicación correcta del objeto.
     sv = Dra på kartan för att välja objektets rätta plats.
@@ -15792,8 +15794,8 @@
     ko = 범주 선택
     nb = Velg kategori
     pl = Wybierz kategorię
-    pt = Selecionar a categoria
-    pt-BR = Selecionar a categoria
+    pt = Selecionar categoria
+    pt-BR = Selecionar categoria
     ro = Selectați categoria
     es = Seleccionar categoría
     sv = Välj kategori
@@ -16142,7 +16144,7 @@
     nb = Dere har bedt om det og vi har fått det til
     pl = Prosiliście o to, więc to zrobiliśmy
     pt = Vocês têm pedido por isso e nós atendemos
-    pt-BR = Vocês têm pedido por isso e nós atendemos
+    pt-BR = Vocês têm pediram há bastante tempo e nós atendemos
     ro = Ne-ați cerut, iar noi am făcut
     es = Llevas tiempo pidiéndolo y lo hemos hecho
     sv = Du har bett om det och vi har gjort det
@@ -16173,8 +16175,8 @@
     ko = 지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.
     nb = Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land.
     pl = Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju
-    pt = Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.
-    pt-BR = Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.
+    pt = Dividimos os mapas em partes. Agora vocês podem descarregar regiões separadas em vez do país inteiro.
+    pt-BR = Nós dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.
     ro = Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.
     es = Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez del país entero.
     sv = Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.
@@ -16301,8 +16303,8 @@
     ko = 지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.
     nb = Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.
     pl = Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.
-    pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da app.
-    pt-BR = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da app.
+    pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.
+    pt-BR = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.
     ro = Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.
     es = Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.
     sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
@@ -16366,7 +16368,7 @@
     nb = Du vil aldri havne på villspor igjen
     pl = Nigdy się już nie zgubisz
     pt = Nunca mais voltará a perder-se
-    pt-BR = Você nunca mais ficará perdido outra vez
+    pt-BR = Você nunca mais vai se perder
     ro = Niciodată nu vă veți rătăci din nou
     es = Nunca volverás a perderte
     sv = Du kommer aldrig att gå vilse igen
@@ -16524,7 +16526,7 @@
     nb = Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.
     pl = Pobierz jednorazowo mapy dla wybranego obszaru, aby korzystać z nawigacji i wyszukiwania bez połączenia sieciowego.
     pt = Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma ligação à Internet.
-    pt-BR = Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma conexão à Internet.
+    pt-BR = Baixe os mapas para a área desejada apenas uma vez e utilize as funções de navegação e de pesquisa sem conexão à Internet.
     ro = Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.
     es = Descarga una vez los mapas para el área deseada, y utiliza las funciones de navegación y búsqueda sin conexión a Internet.
     sv = Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.
@@ -16693,7 +16695,7 @@
     en = To see places and traffic near you and use navigation.
 
   [onboarding_detail_permissions_storage_path_message]
-    en = You can also change a destination to save downloaded maps. 
+    en = You can also change a destination to save downloaded maps.
 
   [onboarding_welcome_title]
     en = Welcome to MAPS.ME
@@ -16721,8 +16723,8 @@
     ko = 위치 변경
     nb = Endre plassering
     pl = Zmień lokalizację
-    pt = Mudar o local
-    pt-BR = Mudar o local
+    pt = Mudar local
+    pt-BR = Mudar local
     ro = Schimbare locație
     es = Cambiar ubicación
     sv = Ändra placering
@@ -16752,8 +16754,8 @@
     ko = 목적지를 이곳에서 찾을 수 없습니다
     nb = Et objekt kan ikke plasseres her
     pl = Obiekt nie może znajdować się tutaj
-    pt = Um objeto não pode ser localizado aqui
-    pt-BR = Um objeto não pode ser localizado aqui
+    pt = Um objeto não pode ser posicionado aqui
+    pt-BR = Nenhum objeto pode ser posicionado aqui
     ro = În acest loc nu poate fi localizat un obiect
     es = No se puede ubicar ningún objeto aquí
     sv = Ett objekt kan inte placeras här
@@ -16783,8 +16785,8 @@
     ko = 로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.
     nb = Logg inn slik at andre brukere kan se endringene du har utført.
     pl = Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.
-    pt = Fazer Login para que outros usuários vejam as mudanças que você fez.
-    pt-BR = Fazer Login para que outros usuários vejam as mudanças que você fez.
+    pt = Inicie sessão para que outros usuários vejam as mudanças que você fez.
+    pt-BR = Fazer login para que outros usuários vejam as mudanças que você fez.
     ro = Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.
     es = Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.
     sv = Logga in så att andra användare kan se de ändringar du gjort.
@@ -16814,7 +16816,7 @@
     ko = 업데이트는 탐색 중 금지되어 있습니다.
     nb = Det er ikke mulig å oppdatere under navigering.
     pl = Podczas nawigacji aktualizacja jest niemożliwa.
-    pt = Atualização não é permitida durante a navegação.
+    pt = Actualização não é permitida durante a navegação.
     pt-BR = Atualização não é permitida durante a navegação.
     ro = În timpul navigării, actualizarea este interzisă.
     es = No se permite la actualización durante la navegación.
@@ -16999,7 +17001,7 @@
     ja = 携帯通信ネットワークで接続してダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     pl = Czy pobrać, używając połączenia z siecią komórkową?
-    pt = Baixar usando uma conexão de rede celular?
+    pt = Descarregar usando uma conexão de rede celular?
     pt-BR = Baixar usando uma conexão de rede celular?
     ro = Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?
     es = ¿Descargar con conexión de red móvil?
@@ -17029,8 +17031,8 @@
     ja = プランによって、またはローミングしている場合、非常に高額になる可能性があります。
     ko = 이는 일부 플랜이나 로밍할 경우에 비싸다고 간주될 수 있습니다.
     pl = Może to być kosztowne przy niektórych planach taryfowych lub w roamingu.
-    pt = Isto pode ser significativamente caro, com alguns planos ou se roaming.
-    pt-BR = Isto pode ser significativamente caro com alguns planos ou se estiver em roaming.
+    pt = Isto pode ser muito caro com alguns planos ou em roaming.
+    pt-BR = Isto pode ser muito caro com alguns planos ou se você estiver em roaming.
     ro = Aceasta poate fi destul de costisitoare în cazul unor abonamente sau dacă sunteți pe roaming.
     es = Podría ser muy caro con ciertos planes o con itinerancia de datos.
     sv = Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.
@@ -17060,8 +17062,8 @@
     ko = 올바른 집 번호 입력
     nb = Skriv riktig husnummer
     pl = Wprowadź poprawny numer domu
-    pt = Introduzir um número de casa correto
-    pt-BR = Informe o número correto da casa
+    pt = Introduzir um número de endereço correto
+    pt-BR = Informe o número correto do endereço
     ro = Introduceți numărul corect al casei
     es = Introducir el número de domicilio correcto
     sv = Ange korrekt husnummer
@@ -17126,7 +17128,7 @@
     nb = Rediger bygningen med maks. 25 etasjer
     pl = Edytuj budynek z maksymalną liczbą 25 pięter
     pt = Editar o edifício com um máximo de 25 pisos
-    pt-BR = Somente edifícios de até 25 andares podem ser editados
+    pt-BR = O número de andares não pode ultrapassar 25
     ro = Editare clădire cu maximum 25 de etaje
     es = Edite el edificio con un máximo de 25 plantas
     sv = Redigera byggnaden med max 25 våningar
@@ -17255,7 +17257,7 @@
     nb = Tilleggsinfo
     pl = Dodatkowe informacje
     pt = Informações adicionais
-    pt-BR = Informação adicional
+    pt-BR = Informações adicionais
     ro = Informații suplimentare
     es = Información adicional
     sv = Mer info
@@ -17594,7 +17596,7 @@
     nb = Du har ikke lastet ned noen kart
     pl = Nie pobrano żadnych map
     pt = Não descarregou quaisquer mapas
-    pt-BR = Você não fez o download de qualquer mapa
+    pt-BR = Você não fez o download de nenhum mapa
     ro = Nu ați descărcat nicio hartă
     es = No ha descargado ningún mapa
     sv = Du har inte laddat ner några kartor
@@ -17687,7 +17689,7 @@
     nb = Fortsette å oppdage din gjeldende plassering?
     pl = Kontynuować wykrywanie bieżącej lokalizacji?
     pt = Continuar a detetar a sua localização atual?
-    pt-BR = Continuar procurando sua localização atual?
+    pt-BR = Continuar detectando sua localização atual?
     ro = Continuați cu detectarea locației dvs. curente?
     es = ¿Continuar detectando su ubicación actual?
     sv = Fortsätt detektera din nuvarande plats?
@@ -17842,7 +17844,7 @@
     nb = Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.
     pl = Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.
     pt = Ocorreu um erro ao pesquisar a sua localização. Verifique se o seu dispositivo está a funcionar devidamente e volte a tentar mais tarde.
-    pt-BR = Ocorreu um erro enquanto procurava por sua localização. Verifique se o seu dispositivo está funcionando adequadamento e tente novamente depois.
+    pt-BR = Ocorreu um erro na busca por sua localização. Verifique se o seu dispositivo está funcionando corretamente e tente novamente mais tarde.
     ro = S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.
     es = Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.
     sv = Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.
@@ -17904,7 +17906,7 @@
     nb = MAPS.ME-brukere har foretatt 200 000 kartendringer. I fellesskap lager vi de mest detaljerte kartene i verden. Bli med du også!
     pl = Użytkownicy MAPS.ME dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!
     pt = Os utilizadores do MAPS.ME fizeram 200 000 alterações no mapa. Juntos, estamos a fazer os mapas mais detalhados do mundo. Junte-se a nós!
-    pt-BR = Usuários do MAPS.ME realizaram 200.000 alterações no mapa. Juntos nós estamos fazendo o mapa mais detalhado no Mundo. Junte-se a nós!
+    pt-BR = Usuários do MAPS.ME já realizaram 200.000 alterações no mapa. Juntos nós estamos fazendo o mapa mais detalhado do mundo. Junte-se a nós!
     ro = Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!
     es = Los usuarios de MAPS.ME han realizado 200 000 cambios de mapas. Juntos estamos creando los mapas más detallados del mundo. ¡Únase a nosotros!
     sv = MAPS.ME-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!
@@ -17966,7 +17968,7 @@
     ko = 위치 식별 사용할 수 없음
     nb = Lokalisering er deaktivert
     pl = Identyfikacja lokalizacji jest wyłączona
-    pt = A identificação do local está desativada
+    pt = Serviços de localização estão desativados
     pt-BR = Serviços de localização estão desativados
     ro = Geolocalizarea este dezactivată
     es = La identificación de la ubicación está desactivada
@@ -17998,8 +18000,8 @@
     ko = 장치 설정에서 위치 정보에 액세스할 수 있음
     nb = Tillat bruk av av geografisk lokalisering i enhetens innstillinger
     pl = Włącz dostęp do geolokalizacji w ustawieniach urządzenia
-    pt = Permitir o acesso à geolocalização nas configurações do dispositivo
-    pt-BR = Permitir o acesso à geolocalização nas configurações do dispositivo
+    pt = Permita o acesso à geolocalização nas configurações do dispositivo
+    pt-BR = Permita o acesso à geolocalização nas configurações do dispositivo
     ro = Activaţi accesul la geolocalizare din setările dispozitivului
     es = Activa el acceso a la geolocalización en los ajustes del dispositivo
     sv = Aktivera tillgång till geografisk plats i enhetens inställningar
@@ -18031,8 +18033,8 @@
     ko = 1. 설정 열기
     nb = 1. Åpne Innstillinger
     pl = 1. Uruchom ustawienia
-    pt = 1. Abrir configurações
-    pt-BR = 1. Abrir configurações
+    pt = 1. Abra as configurações
+    pt-BR = 1. Abra as configurações
     ro = 1. Deschideți setările
     es = 1. Abre los ajustes
     sv = 1. Öppna inställningar
@@ -18064,8 +18066,8 @@
     ko = 2. 위치 누르기
     nb = 2. Trykk Lokalisering
     pl = 2. Dotknij „Lokalizacja”
-    pt = 2. Tocar em localização
-    pt-BR = 2. Tocar em Localização
+    pt = 2. Toque em "Localização"
+    pt-BR = 2. Toque em "Localização"
     ro = 2. Apăsați pe Localizare
     es = 2. Pulsa "Ubicación"
     sv = 2. Tryck på Plats
@@ -18398,7 +18400,7 @@
     nb = Intervallbetaling
     pl = Płatny na godziny
     pt = Pagamento intervalado
-    pt-BR = Pago por tempo
+    pt-BR = Pago por tempo de uso
     ro = Interval de plată
     es = Pago por intervalos
     sv = Delvis kostnadsbelagd
@@ -18579,7 +18581,7 @@
     nb = fra %s
     pl = od %s
     pt = a partir de %s
-    pt-BR = a partir de %d
+    pt-BR = a partir de %s
     ro = din %s
     es = desde %s
     sv = från %s
@@ -18938,7 +18940,7 @@
     ko = 예약
     nb = Bestill
     pl = Zarezerwuj
-    pt = Livro
+    pt = Reservar
     pt-BR = Reservar
     ro = Rezervare
     es = Reservar
@@ -18969,7 +18971,7 @@
     nb = Ring
     pl = Zadzwoń
     pt = Chamada
-    pt-BR = Chamar
+    pt-BR = Ligar
     ro = Apel
     es = Llamar
     sv = Ring
@@ -19185,8 +19187,8 @@
     ko = 지역 변경 사항을 재설정하시겠습니까?
     nb = Nullstille alle lokale endringer?
     pl = Usunąć wszystkie lokalne zmiany?
-    pt = Repor todas as alterações locais?
-    pt-BR = Reinicializar todas as modificações locais?
+    pt = Descartar todas as alterações locais?
+    pt-BR = Descartar todas as modificações locais?
     ro = Resetați toate modificările locale?
     es = ¿Restablecer todos los cambios locales?
     sv = Återställ alla lokala ändringar?
@@ -19216,8 +19218,8 @@
     ko = 재설정
     nb = Nullstill
     pl = Usuń
-    pt = Repor
-    pt-BR = Reinicializar
+    pt = Descartar
+    pt-BR = Descartar
     ro = Resetare
     es = Restablecer
     sv = Återställ
@@ -19247,8 +19249,8 @@
     ko = 추가한 장소를 삭제하시겠습니까?
     nb = Fjerne et tilføyd sted?
     pl = Usunąć dodane miejsce?
-    pt = Remover um local adicionado?
-    pt-BR = Remover um local adicionado?
+    pt = Remover local adicionado?
+    pt-BR = Remover local adicionado?
     ro = Eliminați locul adăugat?
     es = ¿Eliminar el lugar añadido?
     sv = Ta bort en tillagd plats?
@@ -22710,6 +22712,7 @@
     nb = Trafikkdata i 36 land
     pl = Dane o ruchu w 36 krajach
     pt = Dados de tráfego em 36 países
+    pt-BR = Dados de tráfego em 36 países
     ro = Date privind traficul în 36 de țări
     es = Datos del tráfico en 36 países
     sv = Trafikdata i 36 länder
@@ -22726,7 +22729,6 @@
     fr-CA = Données de circulation dans 36 pays
     he = נתוני תנועה ב-36 מדינות
     hi = 36 देशों में ट्रैफिक डेटा
-    pt-BR = Dados sobre o Trânsito em 36 Países
     sk = Dopravné informácie v 36 krajinách
 
   [whatsnew_traffic_text]
@@ -22748,6 +22750,7 @@
     nb = Oppdatert trafikkinformasjon og raskeste kjøreruter basert på det!
     pl = Bieżące dane o ruchu drogowym oraz oparte o nie najszybsze trasy!
     pt = Informações sobre o trânsito actualizadas para percursos mais rápidos!
+    pt-BR = Informações sobre o trânsito atualizadas para percursos mais rápidos!
     ro = Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!
     es = ¡Información actualizada del tráfico y de las rutas más rápidas basadas en ella!
     sv = Aktuell trafikinformation och de snabbaste körrutterna som baseras på informationen!
@@ -22764,7 +22767,6 @@
     fr-CA = Des données de circulation à jour et les itinéraires les plus rapides calculés pour vous!
     he = נתוני תנועה מעודכנים ומסלולי הנהיגה המהירים ביותר!
     hi = अप-टू-डेट ट्रैफिक जानकारी और इस पर आधारित सबसे फ़ास्ट ड्राइविंग रूट!
-    pt-BR = Informações atualizadas sobre o trânsito e rotas mais rápidas com base nessas Informações!
     sk = Aktuálne dopravné informácie a na základe nich najrýchlejšie trasy!
 
   [whatsnew_traffic_roaming]
@@ -22786,6 +22788,7 @@
     nb = Trafikkinformasjon ved roaming
     pl = Dane o ruchu w trybie roamingu
     pt = Informações sobre o Tráfego em Roaming
+    pt-BR = Informações de Trânsito em Roaming
     ro = Informații privind traficul în roaming
     es = Información del tráfico en roaming
     sv = Trafikinformation i roaming
@@ -22802,7 +22805,6 @@
     fr-CA = Données de circulation en itinérance
     he = נתוני תנועה במצב נדידה
     hi = रोमिंग में यातायात जानकारी
-    pt-BR = Informações sobre o Trânsito em Roaming
     sk = Dopravné informácie v roamingu
 
   [whatsnew_traffic_roaming_text]
@@ -22824,6 +22826,7 @@
     nb = Bruker mindre enn 1MB mobildata per tur.
     pl = Wymaga mniej niż 1 MB transferu mobilnego w ciągu 1 podróży.
     pt = Requer menos de 1 MB de banda larga móvel por viagem.
+    pt-BR = Requer menos de 1 MB de dados móveis por viagem.
     ro = Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.
     es = Precisa menos de 1 MB de ancho de banda móvil por viaje.
     sv = Kräver mindre än 1 MB av mobil bandbredd per resa.
@@ -22840,7 +22843,6 @@
     fr-CA = Nécessitent moins de 1 Mo de données mobiles par trajet.
     he = דורש פחות מ-1MB של תעבורת נתונים סלולריים בכל נסיעה.
     hi = प्रति यात्रा 1 MB से भी कम मोबाइल बैंडविड्थ की ज़रूरत होती है।
-    pt-BR = Exige menos de 1 MB de dados móveis por viagem.
     sk = Vyžaduje menej ako 1 MB mobilných dát na jazdu.
 
   [whatsnew_order_taxi]
@@ -22862,6 +22864,7 @@
     nb = Bestill drosje
     pl = Zamów taksówkę
     pt = Chamar um Táxi
+    pt-BR = Chame um Táxi
     ro = Comandați un taxi
     es = Pedir un taxi
     sv = Beställ en taxi
@@ -22878,7 +22881,6 @@
     fr-CA = Appeler un taxi
     he = הזמן מונית
     hi = टैक्सी के लिए ऑर्डर करें
-    pt-BR = Chame um Táxi
     sk = Objednajte si taxík
 
   [whatsnew_order_taxi_text]
@@ -22900,6 +22902,7 @@
     nb = De fleste sidene har nå en knapp til å bestille taxi.
     pl = Większość stron z lokalizacjami zawiera teraz przycisk do zamówienia taksówki.
     pt = A maioria das páginas de localização contêm agora um botão para chamar um táxi.
+    pt-BR = Agora, a maioria das páginas de locais contêm um botão para chamar um táxi.
     ro = Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.
     es = La mayoría de las páginas de localización incluyen un botón para pedir un taxi ahora.
     sv = De flesta platssidorna har nu en knapp för att beställa en taxi.
@@ -22916,7 +22919,6 @@
     fr-CA = La plupart des lieux proposent maintenant un bouton permettant d'appeler un taxi.
     he = מרבית דפי המיקום כוללים כעת כפתור להזמנת מונית.
     hi = अधिकांश लोकेशन पृष्ठों पर टैक्सी ऑर्डर करने का बटन रहता है।
-    pt-BR = Agora, a maioria das páginas de locais contém um botão para chamar um táxi.
     sk = Väčšina stránok o lokalite odteraz obsahuje aj tlačidlo na objednávanie taxíka.
 
   [whatsnew_improved_search]
@@ -22937,7 +22939,8 @@
     ko = 향상된 검색
     nb = Forbedret søkefunksjon
     pl = Poprawiona opcja wyszukiwania
-    pt = Pesquisa Melhorada
+    pt = Pesquisa aprimorada
+    pt-BR = Pesquisa aprimorada
     ro = Căutare îmbunătățită
     es = Búsqueda mejorada
     sv = Förbättrad sökning
@@ -22954,7 +22957,6 @@
     fr-CA = Recherche améliorée
     he = חיפוש משופר
     hi = बेहतर खोज
-    pt-BR = Pesquisa Aprimorada
     sk = Vylepšené vyhľadávanie
 
   [whatsnew_improved_search_text]
@@ -22976,6 +22978,7 @@
     nb = Selv feilstavede forespørsler gir nøyaktige søkeresultater.
     pl = Dokładne wyniki wyszukiwania nawet przy błędnych zapytaniach.
     pt = Até as pesquisas com erros ortogrtáficos obtêm resultados precisos.
+    pt-BR = Até pesquisas com erros de ortografia geram resultados precisos.
     ro = Chiar și căutările scrise greșit aduc rezultate de căutare precise.
     es = Incluso las consultas mal escritas proporcionan resultados de búsqueda precisos.
     sv = Till och med felstavade frågor skapar resultat med hög kvalitet.
@@ -22992,7 +22995,6 @@
     fr-CA = Même les requêtes contenant des erreurs proposent des résultats de recherche pertinents.
     he = אפילו חיפושים עם שגיאות כתיב מספקים תוצאות מדויקות.
     hi = यहाँ तक कि अशुद्ध वर्तनी (स्पेलिंग) वाले प्रश्नों या खोजों में भी सटीक खोज परिणाम मिलते हैं।
-    pt-BR = Até pesquisas com erros de ortografia geram resultados precisos.
     sk = Presné výsledky vyhľadávania aj s nesprávne zadanými dotazmi.
 
   [whatsnew_filters_in_search]
@@ -23014,6 +23016,7 @@
     nb = Søkefiltre
     pl = Filtry wyszukiwania
     pt = Filtros de Pesquisa
+    pt-BR = Filtros de Pesquisa
     ro = Filtre de căutare
     es = Filtros de búsqueda
     sv = Sökfilter
@@ -23030,7 +23033,6 @@
     fr-CA = Filtres de recherche
     he = מסנני חיפוש
     hi = खोज फ़िल्टर
-    pt-BR = Filtros de Busca
     sk = Vyhľadávacie filtre
 
   [whatsnew_filters_in_search_text]
@@ -23052,6 +23054,7 @@
     nb = Søk etter hoteller basert på pris og vurdering.
     pl = Szukaj hoteli w oparciu o cenę i oceny.
     pt = Pesquisar Hotéis com base no preço e classificação.
+    pt-BR = Procure por hotéis com base no preço e em sua classificação.
     ro = Căutați hoteluri în funcție de preț și calificare.
     es = Búsqueda de hoteles según su precio y clasificación.
     sv = Sök hotell efter pris och omdöme.
@@ -23068,7 +23071,6 @@
     fr-CA = Cherchez un hôtel par prix et par évaluation.
     he = חיפוש מלונות על פי מחיר ודירוג.
     hi = कीमत और रेटिंग के आधार पर होटल खोजें।
-    pt-BR = Procure por hotéis com base no preço e em sua classificação.
     sk = Hľadať hotely podľa ceny a hodnotenia.
 
   [whatsnew_font_size]
@@ -23090,6 +23092,7 @@
     nb = Skriftstørrelse
     pl = Rozmiar czcionki
     pt = Tamanho da Fonte
+    pt-BR = Tamanho da Fonte
     ro = Dimensiunea fontului
     es = Tamaño de la fuente
     sv = Teckenstorlek
@@ -23106,7 +23109,6 @@
     fr-CA = Taille de police
     he = גודל גופן
     hi = फ़ॉन्ट आकार
-    pt-BR = Tamanho da Fonte
     sk = Veľkosť písma
 
   [whatsnew_font_size_text]
@@ -23128,6 +23130,7 @@
     nb = Etiketter på kartet kan gjøres større.
     pl = Etykiety na mapie dają się powiększyć.
     pt = É possível aumentar o tamanho das letras do mapa.
+    pt-BR = Os rótulos no mapa podem ser ampliados.
     ro = Etichetele de pe hartă pot fi făcute mai mari.
     es = Las etiquetas del mapa pueden ampliarse.
     sv = Etiketter på kartan kan göras större.
@@ -23144,7 +23147,6 @@
     fr-CA = Les étiquettes sur la carte peuvent être agrandies.
     he = ניתן להגדיל תוויות על המפה.
     hi = नक्शे पर लेबलों को बड़ा किया जा सकता है।
-    pt-BR = Os rótulos no mapa podem ser ampliados.
     sk = Nápisy na mape je možné zväčšiť.
 
   [uber]
