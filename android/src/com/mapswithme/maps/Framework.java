@@ -12,9 +12,11 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
 
@@ -221,7 +223,10 @@ public class Framework
 
   public static native void nativeCloseRouting();
 
-  public static native void nativeBuildRoute(double startLat, double startLon, double finishLat, double finishLon, boolean isP2P);
+  public static native void nativeBuildRoute(double startLat, double startLon,
+                                             double finishLat, double finishLon, boolean isP2P);
+
+  public static native void nativeRemoveRoute();
 
   public static native void nativeFollowRoute();
 
@@ -268,9 +273,12 @@ public class Framework
   @RouterType
   public static native int nativeGetBestRouter(double srcLat, double srcLon, double dstLat, double dstLon);
 
-  public static native void nativeSetRouteStartPoint(double lat, double lon, boolean valid);
-
-  public static native void nativeSetRouteEndPoint(double lat, double lon, boolean valid);
+  public static native void nativeAddRoutePoint(double lat, double lon, boolean isMyPosition,
+                                                @NonNull RoutePointInfo routePointInfo);
+  public static native void nativeRemoveRoutePoint(@NonNull RoutePointInfo routePointInfo);
+  public static native boolean nativeCouldAddIntermediatePoint();
+  @NonNull
+  public static native RoutePoint[] nativeGetRoutePoints();
 
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.

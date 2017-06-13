@@ -924,6 +924,12 @@ Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass,
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
+{
+  frm()->GetRoutingManager().RemoveRoute(false /* deactivateFollowing */);
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().FollowRoute();
@@ -1137,26 +1143,75 @@ Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
+Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass,
+                                                       jdouble srcLat, jdouble srcLon,
+                                                       jdouble dstLat, jdouble dstLon)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetBestRouter(
       MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
+void ExtractRoutePointInfo(JNIEnv * env, jobject routePointInfo,
+                           RouteMarkType & markType, int8_t & intermediateIndex)
 {
-  frm()->GetRoutingManager().RemoveRoutePoint(RouteMarkType::Start);
-  frm()->GetRoutingManager().AddRoutePoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
-     static_cast<bool>(!valid), RouteMarkType::Start);
+  static jclass const clazz = env->GetObjectClass(routePointInfo);
+  ASSERT(clazz, ());
+  static jfieldID const markTypeField = env->GetFieldID(clazz, "mMarkType", "I");
+  ASSERT(markTypeField, ());
+  static jfieldID const intermediateIndexField = env->GetFieldID(clazz, "mIntermediateIndex", "I");
+  ASSERT(intermediateIndexField, ());
+  markType = static_cast<RouteMarkType>(env->GetIntField(routePointInfo, markTypeField));
+  intermediateIndex = static_cast<int8_t>(env->GetIntField(routePointInfo, intermediateIndexField));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jboolean valid)
+Java_com_mapswithme_maps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass,
+                                                       jdouble lat, jdouble lon,
+                                                       jboolean isMyPosition,
+                                                       jobject routePointInfo)
 {
-  frm()->GetRoutingManager().RemoveRoutePoint(RouteMarkType::Finish);
+  RouteMarkType markType;
+  int8_t intermediateIndex;
+  ExtractRoutePointInfo(env, routePointInfo, markType, intermediateIndex);
+
   frm()->GetRoutingManager().AddRoutePoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)),
-      static_cast<bool>(!valid), RouteMarkType::Finish);
+                                           static_cast<bool>(isMyPosition),
+                                           markType, intermediateIndex);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass,
+                                                          jobject routePointInfo)
+{
+  RouteMarkType markType;
+  int8_t intermediateIndex;
+  ExtractRoutePointInfo(env, routePointInfo, markType, intermediateIndex);
+
+  frm()->GetRoutingManager().RemoveRoutePoint(markType, intermediateIndex);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().CouldAddIntermediatePoint();
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
+{
+  auto const points = frm()->GetRoutingManager().GetRoutePoints();
+
+  static jclass const pointClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/RoutePoint");
+  // Java signature : RoutePoint(double lat, double lon, String name)
+  static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz,
+                                                                  "(DDLjava/lang/String;)V");
+  return jni::ToJavaArray(env, pointClazz, points, [&](JNIEnv * env, m2::PointD const & pt)
+  {
+    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, ""));
+    return env->NewObject(pointClazz, pointConstructor,
+                          MercatorBounds::YToLat(pt.y),
+                          MercatorBounds::XToLon(pt.x), name.get());
+  });
 }
 
 JNIEXPORT void JNICALL

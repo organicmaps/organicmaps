@@ -28,12 +28,11 @@ static constexpr int kSearch = 4;
 // Fills mapobject's metadata.
 void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
-jobject CreateMapObject(JNIEnv * env, int mapObjectType, std::string const & title, std::string const & subtitle,
-                        double lat, double lon, feature::Metadata const & metadata);
-
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners);
 
 jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
+
+jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);
 }  // namespace usermark_helper

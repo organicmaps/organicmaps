@@ -9,6 +9,7 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
+import com.mapswithme.maps.routing.RoutePointInfo;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -53,22 +54,27 @@ public class MapObject implements Parcelable
   private String mBookingSearchUrl;
   @Nullable
   private LocalAdInfo mLocalAdInfo;
+  @Nullable
+  private RoutePointInfo mRoutePointInfo;
 
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, String apiId,
                    @Nullable Banner[] banners, boolean reachableByTaxi,
-                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
+                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
+                   @Nullable RoutePointInfo routePointInfo)
   {
-    this(mwmName, mwmVersion, featureIndex, mapObjectType, title, secondaryTitle, subtitle, address,
-         lat, lon, new Metadata(), apiId, banners, reachableByTaxi, bookingSearchUrl, localAdInfo);
+    this(mwmName, mwmVersion, featureIndex, mapObjectType, title, secondaryTitle,
+         subtitle, address, lat, lon, new Metadata(), apiId, banners,
+         reachableByTaxi, bookingSearchUrl, localAdInfo, routePointInfo);
   }
 
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, boolean reachableByTaxi,
-                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo)
+                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
+                   @Nullable RoutePointInfo routePointInfo)
   {
     mMwmName = mwmName;
     mMwmVersion = mwmVersion;
@@ -85,6 +91,7 @@ public class MapObject implements Parcelable
     mReachableByTaxi = reachableByTaxi;
     mBookingSearchUrl = bookingSearchUrl;
     mLocalAdInfo = localAdInfo;
+    mRoutePointInfo = routePointInfo;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
   }
@@ -107,7 +114,8 @@ public class MapObject implements Parcelable
          null, // mBanners
          source.readByte() != 0, // ReachableByTaxi
          source.readString(), // BookingSearchUrl
-         (LocalAdInfo) source.readParcelable(LocalAdInfo.class.getClassLoader())); // LocalAdInfo
+         (LocalAdInfo) source.readParcelable(LocalAdInfo.class.getClassLoader()), // LocalAdInfo
+         (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader())); // RoutePointInfo
     mBanners = readBanners(source);
   }
 
@@ -248,6 +256,12 @@ public class MapObject implements Parcelable
     return mLocalAdInfo;
   }
 
+  @Nullable
+  public RoutePointInfo getRoutePointInfo()
+  {
+    return mRoutePointInfo;
+  }
+
   @NonNull
   public String getMwmName()
   {
@@ -299,6 +313,7 @@ public class MapObject implements Parcelable
     dest.writeByte((byte) (mReachableByTaxi ? 1 : 0));
     dest.writeString(mBookingSearchUrl);
     dest.writeParcelable(mLocalAdInfo, 0);
+    dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeTypedList(mBanners);
   }
 
