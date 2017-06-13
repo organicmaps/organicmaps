@@ -132,7 +132,7 @@ FeatureID const & UniNodeId::GetFeature() const
 bool UniNodeId::IsCorrect() const
 {
   return m_type == Type::Mwm &&
-         (m_forward && m_startSegId <= m_endSegId || !m_forward && m_endSegId <= m_startSegId);
+         ((m_forward && m_startSegId <= m_endSegId) || (!m_forward && m_endSegId <= m_startSegId));
 }
 
 string DebugPrint(UniNodeId::Type type)

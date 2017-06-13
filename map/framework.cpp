@@ -125,7 +125,6 @@ Framework::FixedPosition::FixedPosition()
 namespace
 {
 static const int BM_TOUCH_PIXEL_INCREASE = 20;
-static const int kKeepPedestrianDistanceMeters = 10000;
 char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
