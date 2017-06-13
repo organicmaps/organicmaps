@@ -1154,7 +1154,7 @@ Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass,
 void ExtractRoutePointInfo(JNIEnv * env, jobject routePointInfo,
                            RouteMarkType & markType, int8_t & intermediateIndex)
 {
-  jclass const clazz = env->GetObjectClass(routePointInfo);
+  static jclass const clazz = env->GetObjectClass(routePointInfo);
   ASSERT(clazz, ());
   static jfieldID const markTypeField = env->GetFieldID(clazz, "mMarkType", "I");
   ASSERT(markTypeField, ());
@@ -1199,7 +1199,7 @@ Java_com_mapswithme_maps_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env,
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 {
-  std::vector<m2::PointD> const points = frm()->GetRoutingManager().GetRoutePoints();
+  auto const points = frm()->GetRoutingManager().GetRoutePoints();
 
   static jclass const pointClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/RoutePoint");
   // Java signature : RoutePoint(double lat, double lon, String name)

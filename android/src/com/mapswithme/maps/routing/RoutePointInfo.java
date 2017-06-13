@@ -10,33 +10,23 @@ import java.lang.annotation.RetentionPolicy;
 
 public class RoutePointInfo implements Parcelable
 {
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ROUTE_MARK_START, ROUTE_MARK_INTERMEDIATE, ROUTE_MARK_FINISH})
-  public @interface RouteMarkType {}
-
   public static final int ROUTE_MARK_START = 0;
   public static final int ROUTE_MARK_INTERMEDIATE = 1;
   public static final int ROUTE_MARK_FINISH = 2;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ ROUTE_MARK_START, ROUTE_MARK_INTERMEDIATE, ROUTE_MARK_FINISH })
+  public @interface RouteMarkType {}
+
   @RouteMarkType
-  private final int mMarkType;
-  @Nullable
-  private final int mIntermediateIndex;
+  public final int mMarkType;
+
+  public final int mIntermediateIndex;
 
   public RoutePointInfo(@RouteMarkType int markType, int intermediateIndex)
   {
     mMarkType = markType;
     mIntermediateIndex = intermediateIndex;
-  }
-
-  public @RouteMarkType int getMarkType()
-  {
-    return mMarkType;
-  }
-
-  public int getIntermediateIndex()
-  {
-    return mIntermediateIndex;
   }
 
   private RoutePointInfo(Parcel in)

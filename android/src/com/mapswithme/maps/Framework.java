@@ -277,6 +277,7 @@ public class Framework
                                                 @NonNull RoutePointInfo routePointInfo);
   public static native void nativeRemoveRoutePoint(@NonNull RoutePointInfo routePointInfo);
   public static native boolean nativeCouldAddIntermediatePoint();
+  @NonNull
   public static native RoutePoint[] nativeGetRoutePoints();
 
   /**
