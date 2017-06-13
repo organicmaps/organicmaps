@@ -41,7 +41,7 @@ public:
     m_end = way.Nodes().back();
   }
 
-  Ways const & Ways() const { return m_ways; }
+  Ways const & GetWays() const { return m_ways; }
 
   void Reverse()
   {
@@ -128,9 +128,9 @@ public:
     std::vector<Ways> result;
     for (LineString const & line : m_parts)
     {
-      if (line.Ways().size() > 1)
+      if (line.GetWays().size() > 1)
       {
-        result.push_back(line.Ways());
+        result.push_back(line.GetWays());
       }
     }
     return result;
