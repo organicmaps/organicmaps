@@ -18990,7 +18990,7 @@
     da = Rediger bogmærke
     nl = Bladwijzer bewerken
     fi = Muokkaa kirjanmerkkiä
-    fr = Éditer les signets
+    fr = Éditer le signet
     de = Lesezeichen bearbeiten
     hu = Könyvjelző szerkesztése
     id = Edit Bookmark
