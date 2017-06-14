@@ -603,7 +603,7 @@ bool RoutingSession::HasRouteAltitudeImpl() const
 {
   ASSERT(m_route, ());
 
-  return m_route->GetAltitudes().size() == m_route->GetSegDistanceM().size() + 1;
+  return m_route->GetAltitudes().size() == m_route->GetSegDistanceMeters().size() + 1;
 }
 
 bool RoutingSession::HasRouteAltitude() const
@@ -621,7 +621,7 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
   if (!m_route->IsValid() || !HasRouteAltitudeImpl())
     return false;
 
-  routeSegDistanceM = m_route->GetSegDistanceM();
+  routeSegDistanceM = m_route->GetSegDistanceMeters();
   routeAltitudesM.assign(m_route->GetAltitudes().cbegin(), m_route->GetAltitudes().cend());
   return true;
 }

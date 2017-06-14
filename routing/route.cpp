@@ -470,13 +470,11 @@ void Route::AppendRoute(Route const & route)
 // This implementation is valid for one subroute which is equal to the route.
 size_t Route::GetSubrouteCount() const { return IsValid() ? 1 : 0; }
 
-void Route::GetSubrouteInfo(size_t subrouteInx, vector<Route::SegmentInfo> & info) const
+void Route::GetSubrouteInfo(size_t segmentIdx, vector<Route::SegmentInfo> & info) const
 {
-  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
+  CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
+  CHECK(IsValid(), ());
   info.clear();
-
-  if (!IsValid())
-    return;
 
   vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
   size_t const polySz = m_poly.GetPolyline().GetSize();
@@ -505,6 +503,7 @@ void Route::GetSubrouteInfo(size_t subrouteInx, vector<Route::SegmentInfo> & inf
   size_t timeIdx = (m_times[0].first ? 1 : 0);
   double distFromBeginningMeters = 0.0;
   double distFromBeginningMerc = 0.0;
+  info.reserve(polySz - 1);
   for (size_t i = 1; i < points.size(); ++i)
   {
     TurnItem turn;
@@ -530,16 +529,16 @@ void Route::GetSubrouteInfo(size_t subrouteInx, vector<Route::SegmentInfo> & inf
   }
 }
 
-Route::SubrouteSettings const Route::GetSubrouteSettings(size_t subrouteInx) const
+Route::SubrouteSettings const Route::GetSubrouteSettings(size_t segmentIdx) const
 {
-  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
-  return SubrouteSettings(m_routingSettings, m_router, m_subrouteId);
+  CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
+  return SubrouteSettings(m_routingSettings, m_router, m_subrouteUid);
 }
 
-void Route::SetSubrouteId(size_t subrouteInx, uint64_t subrouteId)
+void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
 {
-  CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
-  m_subrouteId = subrouteId;
+  CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
+  m_subrouteUid = subrouteUid;
 }
 
 string DebugPrint(Route const & r)
