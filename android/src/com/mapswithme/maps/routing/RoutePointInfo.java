@@ -10,9 +10,24 @@ import java.lang.annotation.RetentionPolicy;
 
 public class RoutePointInfo implements Parcelable
 {
-  public static final int ROUTE_MARK_START = 0;
-  public static final int ROUTE_MARK_INTERMEDIATE = 1;
-  public static final int ROUTE_MARK_FINISH = 2;
+  public static final Creator<RoutePointInfo> CREATOR = new Creator<RoutePointInfo>()
+  {
+    @Override
+    public RoutePointInfo createFromParcel(Parcel in)
+    {
+      return new RoutePointInfo(in);
+    }
+
+    @Override
+    public RoutePointInfo[] newArray(int size)
+    {
+      return new RoutePointInfo[size];
+    }
+  };
+
+  static final int ROUTE_MARK_START = 0;
+  static final int ROUTE_MARK_INTERMEDIATE = 1;
+  static final int ROUTE_MARK_FINISH = 2;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ ROUTE_MARK_START, ROUTE_MARK_INTERMEDIATE, ROUTE_MARK_FINISH })
@@ -35,20 +50,20 @@ public class RoutePointInfo implements Parcelable
     this(in.readInt() /* mMarkType */, in.readInt() /* mIntermediateIndex */);
   }
 
-  public static final Creator<RoutePointInfo> CREATOR = new Creator<RoutePointInfo>()
+  boolean isIntermediatePoint()
   {
-    @Override
-    public RoutePointInfo createFromParcel(Parcel in)
-    {
-      return new RoutePointInfo(in);
-    }
+    return mMarkType == ROUTE_MARK_INTERMEDIATE;
+  }
 
-    @Override
-    public RoutePointInfo[] newArray(int size)
-    {
-      return new RoutePointInfo[size];
-    }
-  };
+  boolean isFinishPoint()
+  {
+    return mMarkType == ROUTE_MARK_FINISH;
+  }
+
+  boolean isStartPoint()
+  {
+    return mMarkType == ROUTE_MARK_START;
+  }
 
   @Override
   public int describeContents()

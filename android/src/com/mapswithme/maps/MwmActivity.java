@@ -1866,6 +1866,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.restart(isMapRendererActive());
   }
 
+  @Override
+  public void onAddedStop()
+  {
+    closePlacePage();
+  }
+
+  @Override
+  public void onRemovedStop()
+  {
+    closePlacePage();
+  }
+
   private void updateSearchBar()
   {
     if (!TextUtils.isEmpty(SearchEngine.getQuery()))

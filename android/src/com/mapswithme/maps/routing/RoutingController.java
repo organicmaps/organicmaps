@@ -73,6 +73,8 @@ public class RoutingController
     void onUberError(@NonNull Uber.ErrorCode code);
     void onNavigationCancelled();
     void onNavigationStarted();
+    void onAddedStop();
+    void onRemovedStop();
 
     /**
      * @param progress progress to be displayed.
@@ -93,8 +95,6 @@ public class RoutingController
   private MapObject mStartPoint;
   @Nullable
   private MapObject mEndPoint;
-  @Nullable
-  private MapObject mStopPoint;
 
   private int mLastBuildProgress;
   @Framework.RouterType
@@ -279,7 +279,10 @@ public class RoutingController
 
     RoutePoint[] routePoints = Framework.nativeGetRoutePoints();
     if (routePoints.length < 2)
+    {
+      setBuildState(BuildState.NONE);
       return;
+    }
 
     mLogger.d(TAG, "build");
     mUberRequestHandled = false;
@@ -437,28 +440,45 @@ public class RoutingController
 
   public void addStop(@NonNull MapObject mapObject)
   {
-    mStopPoint = mapObject;
-//  TODO call api method
+    RoutePointInfo info = new RoutePointInfo(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, 0);
+    Framework.nativeAddRoutePoint(mapObject.getLat(), mapObject.getLon(),
+                                  MapObject.isOfType(MapObject.MY_POSITION, mapObject), info);
+    build();
+    if (mContainer != null)
+      mContainer.onAddedStop();
   }
 
-  public void removeStop()
+  public void removeStop(@NonNull MapObject mapObject)
   {
-    mStopPoint = null;
-//  TODO call api method
+    RoutePointInfo info = mapObject.getRoutePointInfo();
+    if (info == null)
+      throw new AssertionError("A stop point must have the route point info!");
+
+    Framework.nativeRemoveRoutePoint(info);
+    if (info.isFinishPoint())
+      mEndPoint = null;
+    if (info.isStartPoint())
+      mStartPoint = null;
+    build();
+    if (mContainer != null)
+      mContainer.onRemovedStop();
   }
 
-  public boolean hasStopPoint()
+  public boolean isStopPointAllowed()
   {
-    return mStopPoint != null;
+    return Framework.nativeCouldAddIntermediatePoint();
   }
 
-  public boolean isStopPoint(@NonNull MapObject mapObject)
+  public boolean isRoutePoint(@NonNull MapObject mapObject)
   {
-    return mStopPoint != null && mStopPoint.equals(mapObject);
+    return mapObject.getRoutePointInfo() != null;
   }
 
   private void suggestRebuildRoute()
   {
+    if (mContainer == null)
+      return;
+
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
                                                        .setMessage(R.string.p2p_reroute_from_current)
                                                        .setCancelable(false)
@@ -508,7 +528,6 @@ public class RoutingController
 
     mStartPoint = null;
     mEndPoint = null;
-    mStopPoint = null;
     setPointsInternal();
     mWaitingPoiPickSlot = NO_SLOT;
     mUberRequestHandled = false;
