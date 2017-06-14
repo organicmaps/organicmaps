@@ -128,7 +128,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                                     isOn:[MWMSettings largeFontSize]];
 
   [self.transliterationCell configWithDelegate:self
-                                         title:L(@"transliteration")
+                                         title:L(@"whatsnew_transliteration_title")
                                           isOn:[MWMSettings transliteration]];
 
   [self.compassCalibrationCell configWithDelegate:self
