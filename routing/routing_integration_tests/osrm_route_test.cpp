@@ -275,7 +275,23 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 900.);
+    integration::TestRouteTime(route, 745.);
+  }
+
+  UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
+  {
+    TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
+      MercatorBounds::FromLatLon(55.8579, 37.40990));
+
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
+
+    Route const & route = *routeResult.first;
+    TEST_EQUAL(route.GetSubrouteCount(), 1, ());
+    vector<Route::SegmentInfo> info;
+    route.GetSubrouteInfo(0, info);
+    TEST_EQUAL(info.size(), 336, ());
   }
 
   UNIT_TEST(USALosAnglesAriaTwentyninePalmsHighwayTimeTest)
