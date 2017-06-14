@@ -18,7 +18,11 @@
 
 #include "std/numeric.hpp"
 
+#include <algorithm>
+#include <utility>
+
 using namespace traffic;
+using namespace routing::turns;
 
 namespace routing
 {
@@ -91,7 +95,7 @@ void Route::GetTurnsDistances(vector<double> & distances) const
 
     //TODO (ldragunov) Extract CalculateMercatorDistance higher to avoid including turns generator.
     double const mercatorDistanceBetweenTurns =
-      turns::CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
+      CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
     mercatorDistance += mercatorDistanceBetweenTurns;
 
     distances.push_back(mercatorDistance);
@@ -160,10 +164,10 @@ Route::TTurns::const_iterator Route::GetCurrentTurn() const
 {
   ASSERT(!m_turns.empty(), ());
 
-  turns::TurnItem t;
+  TurnItem t;
   t.m_index = static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind);
   return upper_bound(m_turns.cbegin(), m_turns.cend(), t,
-         [](turns::TurnItem const & lhs, turns::TurnItem const & rhs)
+         [](TurnItem const & lhs, TurnItem const & rhs)
          {
            return lhs.m_index < rhs.m_index;
          });
@@ -216,7 +220,7 @@ Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPol
   return curIter->first == iter.m_ind ? curIter : prevIter;
 }
 
-bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
+bool Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
   if (it == m_turns.end())
@@ -232,7 +236,7 @@ bool Route::GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn
   return true;
 }
 
-bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const
+bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
   auto it = GetCurrentTurn();
   auto const turnsEnd = m_turns.end();
@@ -240,7 +244,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) c
 
   if (it == turnsEnd || (it + 1) == turnsEnd)
   {
-    turn = turns::TurnItem();
+    turn = TurnItem();
     distanceToTurnMeters = 0;
     return false;
   }
@@ -252,16 +256,16 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) c
   return true;
 }
 
-bool Route::GetNextTurns(vector<turns::TurnItemDist> & turns) const
+bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
 {
-  turns::TurnItemDist currentTurn;
+  TurnItemDist currentTurn;
   if (!GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem))
     return false;
 
   turns.clear();
   turns.emplace_back(move(currentTurn));
 
-  turns::TurnItemDist nextTurn;
+  TurnItemDist nextTurn;
   if (GetNextTurn(nextTurn.m_distMeters, nextTurn.m_turnItem))
     turns.emplace_back(move(nextTurn));
   return true;
@@ -416,7 +420,7 @@ void Route::AppendRoute(Route const & route)
                 2 /* meters */, ());
     m_poly.PopBack();
     CHECK(!m_turns.empty(), ());
-    ASSERT_EQUAL(m_turns.back().m_turn, turns::TurnDirection::ReachedYourDestination, ());
+    ASSERT_EQUAL(m_turns.back().m_turn, TurnDirection::ReachedYourDestination, ());
     m_turns.pop_back();
     CHECK(!m_times.empty(), ());
     m_times.pop_back();
@@ -466,21 +470,64 @@ void Route::AppendRoute(Route const & route)
 // This implementation is valid for one subroute which is equal to the route.
 size_t Route::GetSubrouteCount() const { return IsValid() ? 1 : 0; }
 
-void Route::GetSubrouteJunctions(size_t subrouteInx, vector<Junction> & junctions) const
+void Route::GetSubrouteInfo(size_t subrouteInx, vector<Route::SegmentInfo> & info) const
 {
   CHECK_LESS(subrouteInx, GetSubrouteCount(), ());
-  junctions.clear();
+  info.clear();
+
+  if (!IsValid())
+    return;
+
   vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
+  size_t const polySz = m_poly.GetPolyline().GetSize();
+
+  CHECK(!m_turns.empty(), ());
+  CHECK_LESS(m_turns.back().m_index, polySz, ());
+  CHECK(std::is_sorted(m_turns.cbegin(), m_turns.cend(),
+            [](TurnItem const & lhs, TurnItem const & rhs) { return lhs.m_index < rhs.m_index; }),
+        ());
+
   if (!m_altitudes.empty())
-    CHECK_EQUAL(m_altitudes.size(), points.size(), ());
+    CHECK_EQUAL(m_altitudes.size(), polySz, ());
 
-  for (size_t i = 0; i <= points.size(); ++i)
-    junctions.emplace_back(points[i], m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[i]);
-}
+  CHECK(!m_times.empty(), ());
+  CHECK_LESS(m_times.back().first, polySz, ());
+  CHECK(std::is_sorted(m_times.cbegin(), m_times.cend(),
+            [](TTimeItem const & lhs, TTimeItem const & rhs) { return lhs.first < rhs.first; }),
+        ());
 
-void Route::GetSubrouteFullInfo(size_t /* subrouteInx */, vector<Route::SegmentInfo> & /* info */) const
-{
-  NOTIMPLEMENTED();
+  if (!m_traffic.empty())
+    CHECK_EQUAL(m_traffic.size() + 1, polySz, ());
+
+  // |m_index| of the first turn may be equal to zero. If there's a turn at very beginning of the route.
+  // The turn should be skipped in case of segement oriented route which is filled by the method.
+  size_t turnItemIdx = (m_turns[0].m_index == 0 ? 1 : 0);
+  size_t timeIdx = (m_times[0].first ? 1 : 0);
+  double distFromBeginningMeters = 0.0;
+  double distFromBeginningMerc = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    TurnItem turn;
+    if (m_turns[turnItemIdx].m_index == i)
+    {
+      turn = m_turns[turnItemIdx];
+      ++turnItemIdx;
+    }
+    CHECK_LESS_OR_EQUAL(turnItemIdx, m_turns.size(), ());
+
+    if (m_times[timeIdx].first == i)
+      ++timeIdx;
+
+    distFromBeginningMeters += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
+    distFromBeginningMerc += points[i - 1].Length(points[i]);
+
+    info.emplace_back(
+        Segment(), turn,
+        Junction(points[i], m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[i]),
+        string(), distFromBeginningMeters,
+        distFromBeginningMerc, m_times[timeIdx - 1].second,
+        m_traffic.empty() ? SpeedGroup::Unknown : m_traffic[i - 1]);
+  }
 }
 
 Route::SubrouteSettings const Route::GetSubrouteSettings(size_t subrouteInx) const

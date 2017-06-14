@@ -18,6 +18,7 @@
 #include "std/string.hpp"
 
 #include <limits>
+#include <string>
 
 namespace location
 {
@@ -43,12 +44,34 @@ public:
   /// For every Segment is kept some attributes in the structure SegmentInfo.
   struct SegmentInfo
   {
+    SegmentInfo(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
+                std::string const & streetName, double distFromBeginningMeters, double distFromBeginningMerc,
+                double timeFromBeginningS, traffic::SpeedGroup traffic)
+      : m_segment(segment)
+      , m_turn(turn)
+      , m_junction(junction)
+      , m_streetName(streetName)
+      , m_distFromBeginningMeters(distFromBeginningMeters)
+      , m_distFromBeginningMerc(distFromBeginningMerc)
+      , m_timeFromBeginningS(timeFromBeginningS)
+      , m_traffic(traffic)
+    {
+    }
+
     Segment m_segment;
-    string m_streetName;
+    /// Turn (maneuver) information for the turn next to the |m_segment| if any.
+    /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
     turns::TurnItem m_turn;
-    Junction m_junction; // The front point of segment.
-    traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
+    Junction m_junction; ///< The front point of segment.
+    /// Street name of |m_segment| if any. Otherwise |m_streetName| is empty.
+    std::string m_streetName;
+    /// Distance from the route beginning to the farthest end of |m_segment| in meters.
+    double m_distFromBeginningMeters = 0.0;
+    /// Distance from the route beginning to the farthest end of |m_segment| in mercator.
+    double m_distFromBeginningMerc = 0.0;
+    /// ETA from the route beginning in seconds to reach the farthest from the route beginning end of |m_segment|.
     double m_timeFromBeginningS = 0.0;
+    traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
   };
 
   /// \brief For every subroute some attributes are kept the following stucture.
@@ -61,6 +84,8 @@ public:
 
     RoutingSettings m_routingSettings;
     string m_router;
+    /// Some subsystems (for example drape) which is used Route class need to have an id of any subroute.
+    /// This subsystems may set the id and then use it. The id is kept in |m_id|.
     uint64_t m_id = kInvalidId;
   };
 
@@ -113,6 +138,7 @@ public:
   feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
   vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
   vector<double> const & GetSegDistanceM() const { return m_poly.GetSegDistanceM(); }
+  /// \returns distance to all turns in mercator.
   void GetTurnsDistances(vector<double> & distances) const;
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
@@ -167,13 +193,23 @@ public:
   /// \returns Number of subroutes.
   /// \note Intermediate points separate a route into several subroutes.
   size_t GetSubrouteCount() const;
-  /// \brief Fills |junctions| with subroute geometry.
-  /// \param subrouteInx zero base number of subroute. |subrouteInx| should be less than GetSubrouteCount();
-  void GetSubrouteJunctions(size_t subrouteInx, vector<Junction> & junctions) const;
+
   /// \brief Fills |info| with full subroute information.
-  void GetSubrouteFullInfo(size_t subrouteInx, vector<SegmentInfo> & info) const;
+  /// \param subrouteInx zero base number of subroute. |subrouteInx| should be less than GetSubrouteCount();
+  /// \note |info| is a segment oriented route. Size of |info| is equal to number of points in |m_poly| - 1.
+  /// Class Route is a point oriented route. While this conversion some attributes of zero point will be lost.
+  /// It happens with zero turn for example.
+  /// \note It's a fake implementation for single subroute which is equal to route without any
+  /// intermediate points.
+  /// Note. SegmentInfo::m_segment is filled with default Segment instance.
+  /// Note. SegmentInfo::m_streetName is filled with an empty string.
+  void GetSubrouteInfo(size_t subrouteInx, vector<SegmentInfo> & info) const;
+
   /// \returns Subroute settings by |subRouteInx|.
+  // @TODO(bykoianko) This method should return SubrouteSettings by reference. Now it returns by value
+  // because of fake implementation.
   SubrouteSettings const GetSubrouteSettings(size_t subrouteInx) const;
+
   /// \brief Sets subroute id by |subRouteInx|.
   /// \note |subrouteId| is a permanent id of a subroute. This id can be used to address to a subroute
   /// after the route is removed.
