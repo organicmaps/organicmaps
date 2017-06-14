@@ -15,10 +15,13 @@ using namespace routing;
 namespace
 {
 static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3}});
-static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::TurnDirection::TurnLeft),
-                               turns::TurnItem(2, turns::TurnDirection::TurnRight),
-                               turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
+static Route::TTurns const kTestTurns(
+    {turns::TurnItem(1, turns::TurnDirection::TurnLeft),
+     turns::TurnItem(2, turns::TurnDirection::TurnRight),
+     turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
 static Route::TStreets const kTestNames({{0, "Street1"}, {1, "Street2"}, {4, "Street3"}});
+static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(3, 10),
+                                      Route::TTimeItem(4, 15)});
 
 location::GpsInfo GetGps(double x, double y)
 {
@@ -28,6 +31,16 @@ location::GpsInfo GetGps(double x, double y)
   info.m_horizontalAccuracy = 2;
   info.m_speed = -1;
   return info;
+}
+
+void TestSegmentInfo(Route::SegmentInfo const & segmentInfo, turns::TurnDirection turn,
+                     double distFromBeginningMerc, traffic::SpeedGroup speedGroup,
+                     double timeFromBeginningS)
+{
+  TEST_EQUAL(segmentInfo.m_turn.m_turn, turn, ());
+  TEST_EQUAL(segmentInfo.m_distFromBeginningMerc, distFromBeginningMerc, ());
+  TEST_EQUAL(segmentInfo.m_traffic, speedGroup, ());
+  TEST_EQUAL(segmentInfo.m_timeFromBeginningS, timeFromBeginningS, ());
 }
 }  // namespace
 
@@ -187,4 +200,28 @@ UNIT_TEST(RouteNameTest)
 
   route.GetStreetNameAfterIdx(4, name);
   TEST_EQUAL(name, "Street3", ());
+}
+
+UNIT_TEST(GetSubrouteInfoTest)
+{
+  Route route("TestRouter");
+  route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+  vector<turns::TurnItem> turns(kTestTurns);
+  route.SetTurnInstructions(move(turns));
+  Route::TTimes times(kTestTimes);
+  route.SetSectionTimes(move(times));
+
+  TEST_EQUAL(route.GetSubrouteCount(), 1, ());
+  vector<Route::SegmentInfo> info;
+  route.GetSubrouteInfo(0, info);
+  TEST_EQUAL(info.size(), 4, ());
+
+  TestSegmentInfo(info[0], turns::TurnDirection::TurnLeft, 1.0 /* distFromBeginningMerc */,
+                  traffic::SpeedGroup::Unknown, 5.0/* timeFromBeginningS */);
+  TestSegmentInfo(info[1], turns::TurnDirection::TurnRight, 2.0 /* distFromBeginningMerc */,
+                  traffic::SpeedGroup::Unknown, 5.0/* timeFromBeginningS */);
+  TestSegmentInfo(info[2], turns::TurnDirection::NoTurn, 3.0 /* distFromBeginningMerc */,
+                  traffic::SpeedGroup::Unknown, 10.0/* timeFromBeginningS */);
+  TestSegmentInfo(info[3], turns::TurnDirection::ReachedYourDestination, 4.0 /* distFromBeginningMerc */,
+                  traffic::SpeedGroup::Unknown, 15.0/* timeFromBeginningS */);
 }
