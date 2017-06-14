@@ -2986,7 +2986,7 @@
     ar = الإعدادات
     cs = Nastavení
     da = Indstillinger
-    nl = İnstellingen
+    nl = Instellingen
     fi = Asetukset
     fr = Paramètres
     de = Einstellungen
