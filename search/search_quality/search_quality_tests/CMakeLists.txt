@@ -18,6 +18,7 @@ omim_link_libraries(
   base
   icu
   jansson
+  protobuf
   oauthcpp
   opening_hours
   pugixml
