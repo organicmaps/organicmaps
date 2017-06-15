@@ -73,6 +73,8 @@ public class RoutingController
     void onUberError(@NonNull Uber.ErrorCode code);
     void onNavigationCancelled();
     void onNavigationStarted();
+    void onAddedStop();
+    void onRemovedStop();
 
     /**
      * @param progress progress to be displayed.
@@ -277,7 +279,10 @@ public class RoutingController
 
     RoutePoint[] routePoints = Framework.nativeGetRoutePoints();
     if (routePoints.length < 2)
+    {
+      setBuildState(BuildState.NONE);
       return;
+    }
 
     mLogger.d(TAG, "build");
     mUberRequestHandled = false;
@@ -433,8 +438,47 @@ public class RoutingController
     LocationHelper.INSTANCE.restart();
   }
 
+  public void addStop(@NonNull MapObject mapObject)
+  {
+    RoutePointInfo info = new RoutePointInfo(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, 0);
+    Framework.nativeAddRoutePoint(mapObject.getLat(), mapObject.getLon(),
+                                  MapObject.isOfType(MapObject.MY_POSITION, mapObject), info);
+    build();
+    if (mContainer != null)
+      mContainer.onAddedStop();
+  }
+
+  public void removeStop(@NonNull MapObject mapObject)
+  {
+    RoutePointInfo info = mapObject.getRoutePointInfo();
+    if (info == null)
+      throw new AssertionError("A stop point must have the route point info!");
+
+    Framework.nativeRemoveRoutePoint(info);
+    if (info.isFinishPoint())
+      mEndPoint = null;
+    if (info.isStartPoint())
+      mStartPoint = null;
+    build();
+    if (mContainer != null)
+      mContainer.onRemovedStop();
+  }
+
+  public boolean isStopPointAllowed()
+  {
+    return Framework.nativeCouldAddIntermediatePoint();
+  }
+
+  public boolean isRoutePoint(@NonNull MapObject mapObject)
+  {
+    return mapObject.getRoutePointInfo() != null;
+  }
+
   private void suggestRebuildRoute()
   {
+    if (mContainer == null)
+      return;
+
     final AlertDialog.Builder builder = new AlertDialog.Builder(mContainer.getActivity())
                                                        .setMessage(R.string.p2p_reroute_from_current)
                                                        .setCancelable(false)

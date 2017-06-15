@@ -138,6 +138,36 @@ final class PlacePageButtons
       }
     },
 
+    ROUTE_ADD
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.p2p_add_stop;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_route_via;
+      }
+    },
+
+    ROUTE_REMOVE
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.p2p_remove_stop;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_route_remove;
+      }
+    },
+
     SHARE
     {
       @Override
@@ -179,7 +209,7 @@ final class PlacePageButtons
       @Override
       int getIcon()
       {
-        return R.drawable.ic_phone;
+        return R.drawable.ic_place_page_phone;
       }
     };
 
@@ -212,9 +242,17 @@ final class PlacePageButtons
     int from = res.indexOf(Item.ROUTE_FROM);
     if (from > -1)
     {
+      int addStop = res.indexOf(Item.ROUTE_ADD);
       int to = res.indexOf(Item.ROUTE_TO);
-      if (to > from && to >= MAX_BUTTONS)
+      if ((to > from && to >= MAX_BUTTONS) || (to > from && addStop >= MAX_BUTTONS))
         Collections.swap(res, from, to);
+
+      if (addStop >= MAX_BUTTONS)
+      {
+        from = res.indexOf(Item.ROUTE_FROM);
+        if (addStop > from)
+          Collections.swap(res, from, addStop);
+      }
 
       preserveRoutingButtons(res, Item.CALL);
       preserveRoutingButtons(res, Item.BOOKING);
@@ -235,8 +273,18 @@ final class PlacePageButtons
       items.remove(pos);
       items.add(MAX_BUTTONS, itemToShift);
       int to = items.indexOf(Item.ROUTE_TO);
-      items.remove(Item.ROUTE_FROM);
-      items.add(to + 1, Item.ROUTE_FROM);
+      if (items.indexOf(Item.ROUTE_ADD) > -1)
+      {
+        items.remove(Item.ROUTE_ADD);
+        items.remove(Item.ROUTE_FROM);
+        items.add(to + 1, Item.ROUTE_ADD);
+        items.add(MAX_BUTTONS, Item.ROUTE_FROM);
+      }
+      else
+      {
+        items.remove(Item.ROUTE_FROM);
+        items.add(to + 1, Item.ROUTE_FROM);
+      }
     }
   }
 

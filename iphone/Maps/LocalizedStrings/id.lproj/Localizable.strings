@@ -1053,6 +1053,10 @@
 
 "p2p_reroute_from_current" = "Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?";
 
+"p2p_add_stop" = "Add stop";
+
+"p2p_remove_stop" = "Remove stop";
+
 "whats_new_next_button" = "Berikut";
 
 "editor_time_add" = "Tambah Jadwal";
