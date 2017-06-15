@@ -77,4 +77,19 @@ public class RoutingPlanFragment extends BaseMwmFragment
   {
     mPlanController.saveRoutingPanelState(outState);
   }
+
+  public void needsStartPoint()
+  {
+    mPlanController.needsStartPoint();
+  }
+
+  public void needsFinishPoint()
+  {
+    mPlanController.needsFinishPoint();
+  }
+
+  public void hideActionFrame()
+  {
+    mPlanController.hideActionFrame();
+  }
 }

@@ -161,11 +161,12 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     ImageView altitudeChart = (ImageView) getViewById(R.id.altitude_chart);
     TextView altitudeDifference = (TextView) getViewById(R.id.altitude_difference);
     View numbersFrame = getViewById(R.id.numbers);
+    View actionFrame = getViewById(R.id.routing_action_frame);
     mRoutingBottomMenuController = new RoutingBottomMenuController(activity, altitudeChartFrame,
                                                                    uberFrame, error, start,
                                                                    altitudeChart,
                                                                    altitudeDifference,
-                                                                   numbersFrame);
+                                                                   numbersFrame, actionFrame);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -455,5 +456,20 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
   public void setOnToggleListener(@Nullable OnToggleListener listener)
   {
     mToggleListener = listener;
+  }
+
+  public void needsStartPoint()
+  {
+    mRoutingBottomMenuController.needsStartPoint();
+  }
+
+  public void needsFinishPoint()
+  {
+    mRoutingBottomMenuController.needsFinishPoint();
+  }
+
+  public void hideActionFrame()
+  {
+    mRoutingBottomMenuController.hideActionFrame();
   }
 }

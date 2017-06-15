@@ -11,6 +11,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,7 +36,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.List;
 import java.util.Locale;
 
-final class RoutingBottomMenuController
+final class RoutingBottomMenuController implements View.OnClickListener
 {
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_TAXI_INFO = "taxi_info";
@@ -56,6 +57,14 @@ final class RoutingBottomMenuController
   private final TextView mAltitudeDifference;
   @NonNull
   private final View mNumbersFrame;
+  @NonNull
+  private final View mActionFrame;
+  @NonNull
+  private final TextView mActionMessage;
+  @NonNull
+  private final View mActionButton;
+  @NonNull
+  private final ImageView mActionIcon;
 
   @Nullable
   private UberInfo mUberInfo;
@@ -69,7 +78,8 @@ final class RoutingBottomMenuController
                               @NonNull Button start,
                               @NonNull ImageView altitudeChart,
                               @NonNull TextView altitudeDifference,
-                              @NonNull View numbersFrame)
+                              @NonNull View numbersFrame,
+                              @NonNull View actionFrame)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -79,12 +89,25 @@ final class RoutingBottomMenuController
     mAltitudeChart = altitudeChart;
     mAltitudeDifference = altitudeDifference;
     mNumbersFrame = numbersFrame;
-    UiUtils.hide(mAltitudeChartFrame, mUberFrame);
+    mActionFrame = actionFrame;
+    mActionMessage = (TextView) actionFrame.findViewById(R.id.tv__message);
+    mActionButton = actionFrame.findViewById(R.id.btn__my_position_use);
+    mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
+    mActionButton.setOnClickListener(this);
+    mActionFrame.setOnTouchListener(new View.OnTouchListener()
+    {
+      @Override
+      public boolean onTouch(View v, MotionEvent event)
+      {
+        return !(UiUtils.isVisible(mActionButton) && UiUtils.isViewTouched(event, mActionButton));
+      }
+    });
+    UiUtils.hide(mAltitudeChartFrame, mUberFrame, mActionFrame);
   }
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mUberFrame);
+    UiUtils.hide(mError, mUberFrame, mActionFrame);
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -122,6 +145,28 @@ final class RoutingBottomMenuController
 
     setStartButton();
     UiUtils.show(mUberFrame);
+  }
+
+  void needsStartPoint()
+  {
+    UiUtils.show(mActionFrame, mActionButton);
+    mActionMessage.setText(R.string.routing_add_start_point);
+    Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_my_location);
+    int colorAccent = ContextCompat.getColor(mContext,
+                                             UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
+    mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
+  }
+
+  void needsFinishPoint()
+  {
+    UiUtils.show(mActionFrame);
+    mActionMessage.setText(R.string.routing_add_finish_point);
+    UiUtils.hide(mActionButton);
+  }
+
+  void hideActionFrame()
+  {
+    UiUtils.hide(mActionFrame);
   }
 
   void setStartButton()
@@ -220,10 +265,10 @@ final class RoutingBottomMenuController
       mAltitudeDifference.setText(String.format(Locale.getDefault(), "%d %s",
                                                 limits.maxRouteAltitude - limits.minRouteAltitude,
                                                 limits.isMetricUnits ? meter : foot));
-      Drawable icon = ContextCompat.getDrawable(mAltitudeDifference.getContext(),
+      Drawable icon = ContextCompat.getDrawable(mContext,
                                                 R.drawable.ic_altitude_difference);
-      int colorAccent = ContextCompat.getColor(mAltitudeDifference.getContext(),
-          UiUtils.getStyledResourceId(mAltitudeDifference.getContext(), R.attr.colorAccent));
+      int colorAccent = ContextCompat.getColor(mContext,
+          UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
       mAltitudeDifference.setCompoundDrawablesWithIntrinsicBounds(Graphics.tint(icon, colorAccent),
                                                                   null, null, null);
       UiUtils.show(mAltitudeDifference);
@@ -259,5 +304,16 @@ final class RoutingBottomMenuController
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
     Statistics.INSTANCE.trackUber(from, to, location, isUberInstalled);
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+      case R.id.btn__my_position_use:
+        RoutingController.get().setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+        break;
+    }
   }
 }

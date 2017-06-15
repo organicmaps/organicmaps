@@ -1612,6 +1612,33 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
+      if (!controller.hasStartPoint())
+      {
+        needsStartPoint();
+        showLineFrame(true, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            adjustRuler(0, 0);
+          }
+        });
+        return;
+      }
+      if (!controller.hasEndPoint())
+      {
+        needsFinishPoint();
+        showLineFrame(true, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            adjustRuler(0, 0);
+          }
+        });
+        return;
+      }
+
       showLineFrame(false, new Runnable()
       {
         @Override
@@ -1627,6 +1654,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
+    hideRoutingActionFrame();
     showLineFrame(true, new Runnable()
     {
       @Override
@@ -1638,6 +1666,48 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (completion != null)
       completion.run();
+  }
+
+  private void needsStartPoint()
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.needsStartPoint();
+    }
+    else
+    {
+      mRoutingPlanInplaceController.needsStartPoint();
+    }
+  }
+
+  private void needsFinishPoint()
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.needsFinishPoint();
+    }
+    else
+    {
+      mRoutingPlanInplaceController.needsFinishPoint();
+    }
+  }
+
+  private void hideRoutingActionFrame()
+  {
+    if (mIsFragmentContainer)
+    {
+      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+      if (fragment != null)
+        fragment.hideActionFrame();
+    }
+    else
+    {
+      mRoutingPlanInplaceController.hideActionFrame();
+    }
   }
 
   private void showLineFrame(boolean show, @Nullable Runnable completion)
@@ -1674,6 +1744,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
+        if (!RoutingController.get().hasStartPoint())
+        {
+          needsStartPoint();
+        }
+        else if (!RoutingController.get().hasEndPoint())
+        {
+          needsFinishPoint();
+        }
         adjustTraffic(UiUtils.dimen(R.dimen.panel_width), UiUtils.getStatusBarHeight(getApplicationContext()));
       }
       else

@@ -152,6 +152,9 @@
   <dimen name="altitude_chart_image_height">40dp</dimen>
   <dimen name="altitude_chart_image_width">232dp</dimen>
 
+  <!-- Routing action panel -->
+  <dimen name="routing_action_panel_margin_vert">14dp</dimen>
+
   <!-- Gallery-->
   <dimen name="placepage_hotel_gallery_height">100dp</dimen>
   <dimen name="placepage_hotel_gallery_width">150dp</dimen>

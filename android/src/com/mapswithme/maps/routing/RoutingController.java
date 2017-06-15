@@ -647,6 +647,16 @@ public class RoutingController
     return mEndPoint;
   }
 
+  public boolean hasStartPoint()
+  {
+    return mStartPoint != null;
+  }
+
+  public boolean hasEndPoint()
+  {
+    return mEndPoint != null;
+  }
+
   @Nullable
   RoutingInfo getCachedRoutingInfo()
   {
@@ -809,6 +819,8 @@ public class RoutingController
 
     setPointsInternal();
     checkAndBuildRoute();
+    if (mContainer != null)
+      mContainer.updateMenu();
   }
 
   public void setRouterType(@Framework.RouterType int router)
