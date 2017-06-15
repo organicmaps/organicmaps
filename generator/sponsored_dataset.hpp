@@ -1,23 +1,12 @@
 #pragma once
 
-#include "indexer/index.hpp"
-
-#include "search/reverse_geocoder.hpp"
-
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
+#include "generator/sponsored_storage.hpp"
 
 #include "base/newtype.hpp"
 
 #include <functional>
-#include <map>
+#include <iostream>
 #include <string>
-
-#include "boost/geometry.hpp"
-#include "boost/geometry/geometries/point.hpp"
-#include "boost/geometry/geometries/box.hpp"
-#include "boost/geometry/index/rtree.hpp"
 
 class FeatureBuilder1;
 
@@ -38,13 +27,6 @@ public:
   explicit SponsoredDataset(std::istream & dataSource,
                             std::string const & addressReferencePath = std::string());
 
-  size_t Size() const { return m_objects.size(); }
-
-  Object const & GetObjectById(ObjectId id) const;
-  Object & GetObjectById(ObjectId id);
-  std::vector<ObjectId> GetNearestObjects(ms::LatLon const & latLon, size_t limit,
-                                     double maxDistance = 0.0) const;
-
   /// @return true if |fb| satisfies some necessary conditions to match one or serveral
   /// objects from dataset.
   bool NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const;
@@ -57,37 +39,18 @@ public:
   // Creates objects and adds them to the map (MWM) via |fn|.
   void BuildOsmObjects(std::function<void(FeatureBuilder1 &)> const & fn) const;
 
-protected:
-  class AddressMatcher
-  {
-  public:
-    AddressMatcher();
-    void operator()(Object & object);
-
-  private:
-    Index m_index;
-    std::unique_ptr<search::ReverseGeocoder> m_coder;
-  };
-
-  // TODO(mgsergio): Get rid of Box since boost::rtree supports point as value type.
-  // TODO(mgsergio): Use mercator instead of latlon or boost::geometry::cs::spherical_equatorial
-  // instead of boost::geometry::cs::cartesian.
-  using Point = boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian>;
-  using Box = boost::geometry::model::box<Point>;
-  using Value = std::pair<Box, ObjectId>;
-
-  // Create the rtree using default constructor.
-  boost::geometry::index::rtree<Value, boost::geometry::index::quadratic<16>> m_rtree;
+private:
+  void InitStorage();
+  SponsoredStorage<Object> const & GetStorage() const;
+  SponsoredStorage<Object> & GetStorage();
 
   void BuildObject(Object const & object,
                    std::function<void(FeatureBuilder1 &)> const & fn) const;
 
-  void LoadData(std::istream & src, std::string const & addressReferencePath);
-
   /// @return an id of a matched object or kInvalidObjectId on failure.
   ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const;
 
-  std::map<ObjectId, Object> m_objects;
+  SponsoredStorage<Object> m_storage;
 };
 }  // namespace generator
 

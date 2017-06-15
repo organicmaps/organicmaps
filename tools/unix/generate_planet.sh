@@ -181,6 +181,8 @@ BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
 OPENTABLE_FILE="${OPENTABLE_FILE:-$INTDIR/restaurants.csv}"
+VIATOR_SCRIPT="$PYTHON_SCRIPTS_PATH/viator_cities.py"
+VIATOR_FILE="${VIATOR_FILE:-$INTDIR/viator.csv}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 PYTHON="$(which python2.7)"
 MWM_VERSION_FORMAT="%s"
@@ -291,6 +293,25 @@ if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}
           warn "Failed to download restaurants!"
         fi
         [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
+      fi
+  ) &
+fi
+
+# Download viator.com cities. This takes around 3 seconds.
+if [ ! -f "$VIATOR_FILE" -a -n "${VIATOR_KEY-}" ]; then
+  log "STATUS" "Step S3: Starting background viator cities downloading"
+  (
+      $PYTHON $VIATOR_SCRIPT --apikey $VIATOR_KEY --output "$VIATOR_FILE" 2>"$LOG_PATH"/viator.log || true
+      if [ -f "$VIATOR_FILE" -a "$(wc -l < "$VIATOR_FILE" || echo 0)" -gt 100 ]; then
+        echo "Viator cities have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+      else
+        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$VIATOR_FILE")" ]; then
+          cp "$OLD_INTDIR/$(basename "$VIATOR_FILE")" "$INTDIR"
+          warn "Failed to download viator cities! Using older viator cities list."
+        else
+          warn "Failed to download viator cities!"
+        fi
+        [ -n "${MAIL-}" ] && tail "$LOG_PATH/viator.log" | mailx -s "Failed to download viator cities at $(hostname), please hurry to fix" "$MAIL"
       fi
   ) &
 fi
@@ -419,6 +440,7 @@ if [ "$MODE" == "features" ]; then
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && warn "generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
+  [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm

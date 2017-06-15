@@ -500,6 +500,17 @@ IsInvisibleIndexedChecker const & IsInvisibleIndexedChecker::Instance()
   return instance;
 }
 
+IsCityChecker::IsCityChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"place", "city"}));
+}
+
+IsCityChecker const & IsCityChecker::Instance()
+{
+  static IsCityChecker const inst;
+  return inst;
+}
+
 IsViatorChecker::IsViatorChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"sponsored", "viator"}));

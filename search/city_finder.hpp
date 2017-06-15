@@ -9,6 +9,8 @@
 
 #include <cstdint>
 
+namespace search
+{
 class CityFinder
 {
 public:
@@ -30,3 +32,4 @@ private:
   search::VillagesCache m_unusedCache;
   search::LocalityFinder m_finder;
 };
+}  // namespace search

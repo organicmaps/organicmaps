@@ -225,6 +225,14 @@ public:
   static IsInvisibleIndexedChecker const & Instance();
 };
 
+class IsCityChecker : public BaseChecker
+{
+  IsCityChecker();
+
+public:
+  static IsCityChecker const & Instance();
+};
+
 class IsViatorChecker : public BaseChecker
 {
   IsViatorChecker();

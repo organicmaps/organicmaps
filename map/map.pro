@@ -16,7 +16,6 @@ HEADERS += \
     bookmark.hpp \
     bookmark_manager.hpp \
     chart_generator.hpp \
-    city_finder.hpp \
     displacement_mode_manager.hpp \
     feature_vec_model.hpp \
     framework.hpp \

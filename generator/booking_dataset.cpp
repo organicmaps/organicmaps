@@ -22,22 +22,22 @@ BookingHotel::BookingHotel(std::string const & src)
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
 
-  strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get());
+  CHECK(strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
   // TODO(mgsergio): Use ms::LatLon.
-  strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat);
-  strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon);
+  CHECK(strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
+  CHECK(strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
 
   m_name = rec[FieldIndex(Fields::Name)];
   m_address = rec[FieldIndex(Fields::Address)];
 
-  strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars);
-  strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory);
-  strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking);
-  strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser);
+  CHECK(strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
+  CHECK(strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
+  CHECK(strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
+  CHECK(strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
 
   m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 
-  strings::to_uint(rec[FieldIndex(Fields::Type)], m_type);
+  CHECK(strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
 
   m_translations = rec[FieldIndex(Fields::Translations)];
 }
@@ -195,12 +195,12 @@ BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder
     return Object::InvalidObjectId();
 
   // Find |kMaxSelectedElements| nearest values to a point.
-  auto const bookingIndexes = GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()),
-                                                kMaxSelectedElements, kDistanceLimitInMeters);
+  auto const bookingIndexes =
+      GetStorage().GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
 
   for (auto const j : bookingIndexes)
   {
-    if (sponsored_scoring::Match(GetObjectById(j), fb).IsMatched())
+    if (sponsored_scoring::Match(GetStorage().GetObjectById(j), fb).IsMatched())
       return j;
   }
 

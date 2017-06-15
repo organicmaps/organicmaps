@@ -77,6 +77,7 @@ set(SRC
   sponsored_dataset_inl.hpp
   sponsored_scoring.cpp
   sponsored_scoring.hpp
+  sponsored_storage.hpp
   srtm_parser.cpp
   srtm_parser.hpp
   statistics.cpp
@@ -90,6 +91,10 @@ set(SRC
   traffic_generator.hpp
   unpack_mwm.cpp
   unpack_mwm.hpp
+  utils.cpp
+  utils.hpp
+  viator_dataset.cpp
+  viator_dataset.hpp
   ways_merger.hpp
   world_map_generator.hpp
 )

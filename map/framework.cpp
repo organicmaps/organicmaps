@@ -180,7 +180,7 @@ void CancelQuery(weak_ptr<search::ProcessorHandle> & handle)
   handle.reset();
 }
 
-string MakeSearchBookingUrl(booking::Api const & bookingApi, CityFinder & cityFinder,
+string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder & cityFinder,
                             FeatureType const & ft)
 {
   string name;
@@ -469,7 +469,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 
-  m_cityFinder = make_unique<CityFinder>(m_model.GetIndex());
+  m_cityFinder = make_unique<search::CityFinder>(m_model.GetIndex());
 
   m_adsEngine = make_unique<ads::Engine>();
 

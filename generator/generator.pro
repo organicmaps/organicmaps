@@ -52,6 +52,8 @@ SOURCES += \
     towns_dumper.cpp \
     traffic_generator.cpp \
     unpack_mwm.cpp \
+    utils.cpp \
+    viator_dataset.cpp \
 
 HEADERS += \
     altitude_generator.hpp \
@@ -93,6 +95,7 @@ HEADERS += \
     sponsored_dataset.hpp \
     sponsored_dataset_inl.hpp \
     sponsored_scoring.hpp \
+    sponsored_storage.hpp \
     srtm_parser.hpp \
     statistics.hpp \
     tag_admixer.hpp \
@@ -100,5 +103,7 @@ HEADERS += \
     towns_dumper.hpp \
     traffic_generator.hpp \
     unpack_mwm.hpp \
+    utils.hpp \
+    viator_dataset.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \

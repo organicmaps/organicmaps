@@ -28,6 +28,11 @@
 		3D51BC571D5E512500F1FA8D /* region_meta.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */; };
 		3D51BC581D5E512500F1FA8D /* srtm_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */; };
 		3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */; };
+		3DFEBF7C1EF2D58900317D5C /* sponsored_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF771EF2D58900317D5C /* sponsored_storage.hpp */; };
+		3DFEBF7D1EF2D58900317D5C /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF781EF2D58900317D5C /* utils.cpp */; };
+		3DFEBF7E1EF2D58900317D5C /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF791EF2D58900317D5C /* utils.hpp */; };
+		3DFEBF7F1EF2D58900317D5C /* viator_dataset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */; };
+		3DFEBF801EF2D58900317D5C /* viator_dataset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */; };
 		670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BA1A8CDB0000CE4492 /* osm_source.cpp */; };
 		670B84BD1A8CDB0000CE4492 /* osm_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BB1A8CDB0000CE4492 /* osm_source.hpp */; };
 		6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */; };
@@ -119,6 +124,11 @@
 		3D51BC4F1D5E512500F1FA8D /* region_meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_meta.hpp; sourceTree = "<group>"; };
 		3D51BC501D5E512500F1FA8D /* srtm_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srtm_parser.cpp; sourceTree = "<group>"; };
 		3D51BC511D5E512500F1FA8D /* srtm_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = srtm_parser.hpp; sourceTree = "<group>"; };
+		3DFEBF771EF2D58900317D5C /* sponsored_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sponsored_storage.hpp; sourceTree = "<group>"; };
+		3DFEBF781EF2D58900317D5C /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		3DFEBF791EF2D58900317D5C /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
+		3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viator_dataset.cpp; sourceTree = "<group>"; };
+		3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viator_dataset.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
 		670B84BB1A8CDB0000CE4492 /* osm_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_source.hpp; sourceTree = "<group>"; };
 		6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm2meta.cpp; sourceTree = "<group>"; };
@@ -231,6 +241,11 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				3DFEBF771EF2D58900317D5C /* sponsored_storage.hpp */,
+				3DFEBF781EF2D58900317D5C /* utils.cpp */,
+				3DFEBF791EF2D58900317D5C /* utils.hpp */,
+				3DFEBF7A1EF2D58900317D5C /* viator_dataset.cpp */,
+				3DFEBF7B1EF2D58900317D5C /* viator_dataset.hpp */,
 				67C79BA71E2CEEAB00C40034 /* restriction_collector.cpp */,
 				67C79BA81E2CEEAB00C40034 /* restriction_collector.hpp */,
 				67C79BA91E2CEEAB00C40034 /* restriction_generator.cpp */,
@@ -349,6 +364,7 @@
 				675340631A3F2A7400A0A8C3 /* coastlines_generator.hpp in Headers */,
 				675340641A3F2A7400A0A8C3 /* intermediate_data.hpp in Headers */,
 				675340781A3F2A7400A0A8C3 /* intermediate_elements.hpp in Headers */,
+				3DFEBF7E1EF2D58900317D5C /* utils.hpp in Headers */,
 				6753406B1A3F2A7400A0A8C3 /* feature_emitter_iface.hpp in Headers */,
 				6753408C1A3F2A7400A0A8C3 /* world_map_generator.hpp in Headers */,
 				67C79BB41E2CEEAB00C40034 /* restriction_writer.hpp in Headers */,
@@ -363,8 +379,10 @@
 				34F5588B1DBF4C9600A4FC11 /* sponsored_dataset.hpp in Headers */,
 				6753405F1A3F2A7400A0A8C3 /* borders_loader.hpp in Headers */,
 				675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */,
+				3DFEBF7C1EF2D58900317D5C /* sponsored_storage.hpp in Headers */,
 				0C5FEC711DDE19E50017688C /* routing_index_generator.hpp in Headers */,
 				67C79BB01E2CEEAB00C40034 /* restriction_collector.hpp in Headers */,
+				3DFEBF801EF2D58900317D5C /* viator_dataset.hpp in Headers */,
 				675340941C5231BA002CF0D9 /* search_index_builder.hpp in Headers */,
 				3D51BC591D5E512500F1FA8D /* srtm_parser.hpp in Headers */,
 				677E2A181CAACC5F001DC42A /* towns_dumper.hpp in Headers */,
@@ -485,11 +503,13 @@
 				675340701A3F2A7400A0A8C3 /* feature_sorter.cpp in Sources */,
 				675340621A3F2A7400A0A8C3 /* coastlines_generator.cpp in Sources */,
 				675340811A3F2A7400A0A8C3 /* routing_generator.cpp in Sources */,
+				3DFEBF7F1EF2D58900317D5C /* viator_dataset.cpp in Sources */,
 				675340931C5231BA002CF0D9 /* search_index_builder.cpp in Sources */,
 				6753406E1A3F2A7400A0A8C3 /* feature_merger.cpp in Sources */,
 				34F5587B1DBF4C8300A4FC11 /* feature_segments_checker.cpp in Sources */,
 				67C79BB31E2CEEAB00C40034 /* restriction_writer.cpp in Sources */,
 				67A0FEBE1CEB467F008F2A61 /* booking_dataset.cpp in Sources */,
+				3DFEBF7D1EF2D58900317D5C /* utils.cpp in Sources */,
 				6753408D1A3F2A7400A0A8C3 /* osm_element.cpp in Sources */,
 				6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */,
 				34F5588C1DBF4C9600A4FC11 /* sponsored_scoring.cpp in Sources */,

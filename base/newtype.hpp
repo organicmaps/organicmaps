@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <type_traits>
 
 namespace my
@@ -144,7 +145,7 @@ private:
 namespace newtype_default_output
 {
 template <typename Type, typename Tag>
-string SimpleDebugPrint(NewType<Type, Tag> const & nt)
+std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
 {
   return ::DebugPrint(nt.Get());
 }
@@ -155,12 +156,12 @@ string SimpleDebugPrint(NewType<Type, Tag> const & nt)
   struct NAME ## _tag;                          \
   using NAME = my::NewType<REPR, NAME ## _tag>
 
-#define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \
-  inline string DebugPrint(NAME const & nt)                             \
-  {                                                                     \
-    return my::newtype_default_output::SimpleDebugPrint(nt);            \
-  }                                                                     \
-  inline ostream & operator<<(ostream & ost, NAME const & nt)           \
-  {                                                                     \
-    return ost << my::newtype_default_output::SimpleDebugPrint(nt);     \
+#define NEWTYPE_SIMPLE_OUTPUT(NAME)                                 \
+  inline std::string DebugPrint(NAME const & nt)                    \
+  {                                                                 \
+    return my::newtype_default_output::SimpleDebugPrint(nt);        \
+  }                                                                 \
+  inline ostream & operator<<(ostream & ost, NAME const & nt)       \
+  {                                                                 \
+    return ost << my::newtype_default_output::SimpleDebugPrint(nt); \
   }

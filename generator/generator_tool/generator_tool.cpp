@@ -86,6 +86,8 @@ DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
 DEFINE_string(booking_reference_path, "", "Path to mwm dataset for booking addresses matching.");
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(opentable_reference_path, "", "Path to mwm dataset for opentable addresses matching.");
+DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
+DEFINE_string(viator_reference_path, "", "Path to mwm dataset for viator cities matching.");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -141,6 +143,8 @@ int main(int argc, char ** argv)
   genInfo.m_bookingReferenceDir = FLAGS_booking_reference_path;
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
   genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
+  genInfo.m_viatorDatafileName = FLAGS_viator_data;
+  genInfo.m_viatorReferenceDir = FLAGS_viator_reference_path;
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
 

@@ -14,6 +14,7 @@
 
 #include "generator/booking_dataset.hpp"
 #include "generator/opentable_dataset.hpp"
+#include "generator/viator_dataset.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -262,7 +263,6 @@ private:
   m2::PointD m_pt;
   uint32_t m_type;
   double m_thresholdM;
-
 };
 
 class MainFeaturesEmitter : public EmitterBase
@@ -284,6 +284,7 @@ class MainFeaturesEmitter : public EmitterBase
 
   generator::BookingDataset m_bookingDataset;
   generator::OpentableDataset m_opentableDataset;
+  generator::ViatorDataset m_viatorDataset;
 
   /// Used to prepare a list of cities to serve as a list of nodes
   /// for building a highway graph with OSRM for low zooms.
@@ -308,6 +309,7 @@ public:
     , m_failOnCoasts(info.m_failOnCoasts)
     , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
     , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
+    , m_viatorDataset(info.m_viatorDatafileName, info.m_viatorReferenceDir)
   {
     Classificator const & c = classif();
 
@@ -354,6 +356,16 @@ public:
     // The first object which perform action terminates the cahin.
     if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
     {
+      auto const viatorObjId = m_viatorDataset.FindMatchingObjectId(fb);
+      if (viatorObjId != generator::ViatorCity::InvalidObjectId())
+      {
+        m_viatorDataset.PreprocessMatchedOsmObject(viatorObjId, fb, [this, viatorObjId](FeatureBuilder1 & fb)
+        {
+          m_skippedElements << "VIATOR\t" << DebugPrint(fb.GetMostGenericOsmId())
+                            << '\t' << viatorObjId.Get() << endl;
+        });
+      }
+
       m_places.ReplaceEqualInRect(
           Place(fb, type),
           [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },

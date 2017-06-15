@@ -15,6 +15,7 @@ HEADERS += \
     categories_cache.hpp \
     categories_set.hpp \
     cbv.hpp \
+    city_finder.hpp \
     common.hpp \
     displayed_categories.hpp \
     downloader_search_callback.hpp \

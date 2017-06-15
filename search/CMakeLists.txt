@@ -11,6 +11,7 @@ set(
   categories_set.hpp
   cbv.cpp
   cbv.hpp
+  city_finder.hpp
   common.hpp
   displayed_categories.cpp
   displayed_categories.hpp
