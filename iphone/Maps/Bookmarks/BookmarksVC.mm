@@ -415,15 +415,37 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
 
   std::ifstream ifs(filePath.UTF8String);
-  ifs.seekg(0, ifs.end);
-  auto const size = ifs.tellg();
-  std::vector<char> data(size);
-  ifs.seekg(0, ifs.beg);
-  ifs.read(data.data(), size);
-  ifs.close();
+  std::vector<char> data;
+  if (ifs.is_open())
+  {
+    ifs.seekg(0, ifs.end);
+    auto const size = ifs.tellg();
+    if (size == -1)
+    {
+      ASSERT(false, ("Attachment file seek error."));
+    }
+    else if (size == 0)
+    {
+      ASSERT(false, ("Attachment file is empty."));
+    }
+    else
+    {
+      data.resize(size);
+      ifs.seekg(0);
+      ifs.read(data.data(), size);
+      ifs.close();
+    }
+  }
+  else
+  {
+    ASSERT(false, ("Attachment file is missing."));
+  }
 
-  auto myData = [[NSData alloc] initWithBytes:data.data() length:size];
-  [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
+  if (!data.empty())
+  {
+    auto myData = [[NSData alloc] initWithBytes:data.data() length:data.size()];
+    [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
+  }
   [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
   [self presentViewController:mailVC animated:YES completion:nil];
 }
