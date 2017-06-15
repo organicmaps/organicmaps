@@ -277,7 +277,7 @@ public class RoutingController
   {
     Framework.nativeRemoveRoute();
 
-    RoutePoint[] routePoints = Framework.nativeGetRoutePoints();
+    RouteMarkData[] routePoints = Framework.nativeGetRoutePoints();
     if (routePoints.length < 2)
     {
       setBuildState(BuildState.NONE);
@@ -303,18 +303,12 @@ public class RoutingController
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
-    boolean isP2P = !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint) &&
-                    !MapObject.isOfType(MapObject.MY_POSITION, mEndPoint);
-
     Statistics.INSTANCE.trackRouteBuild(mLastRouterType, mStartPoint, mEndPoint);
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD,
             new String[]{Statistics.EventParam.FROM, Statistics.getPointType(mStartPoint),
                          Statistics.EventParam.TO, Statistics.getPointType(mEndPoint)});
 
-    // TODO: multipoint route must be here soon.
-    RoutePoint from = routePoints[0];
-    RoutePoint to = routePoints[routePoints.length - 1];
-    Framework.nativeBuildRoute(from.mLat, from.mLon, to.mLat, to.mLon, isP2P);
+    Framework.nativeBuildRoute();
   }
 
   private void completeUberRequest()
@@ -440,9 +434,9 @@ public class RoutingController
 
   public void addStop(@NonNull MapObject mapObject)
   {
-    RoutePointInfo info = new RoutePointInfo(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, 0);
-    Framework.nativeAddRoutePoint(mapObject.getLat(), mapObject.getLon(),
-                                  MapObject.isOfType(MapObject.MY_POSITION, mapObject), info);
+    Framework.nativeAddRoutePoint("", RoutePointInfo.ROUTE_MARK_INTERMEDIATE, 0,
+                                  MapObject.isOfType(MapObject.MY_POSITION, mapObject),
+                                  mapObject.getLat(), mapObject.getLon());
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -454,7 +448,7 @@ public class RoutingController
     if (info == null)
       throw new AssertionError("A stop point must have the route point info!");
 
-    Framework.nativeRemoveRoutePoint(info);
+    Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
     if (info.isFinishPoint())
       mEndPoint = null;
     if (info.isStartPoint())
@@ -657,24 +651,24 @@ public class RoutingController
   {
     if (mStartPoint == null)
     {
-      Framework.nativeRemoveRoutePoint(new RoutePointInfo(RoutePointInfo.ROUTE_MARK_START, 0));
+      Framework.nativeRemoveRoutePoint(RoutePointInfo.ROUTE_MARK_START, 0);
     }
     else
     {
-      Framework.nativeAddRoutePoint(mStartPoint.getLat(), mStartPoint.getLon(),
+      Framework.nativeAddRoutePoint("", RoutePointInfo.ROUTE_MARK_START, 0,
                                     MapObject.isOfType(MapObject.MY_POSITION, mStartPoint),
-                                    new RoutePointInfo(RoutePointInfo.ROUTE_MARK_START, 0));
+                                    mStartPoint.getLat(), mStartPoint.getLon());
     }
 
     if (mEndPoint == null)
     {
-      Framework.nativeRemoveRoutePoint(new RoutePointInfo(RoutePointInfo.ROUTE_MARK_FINISH, 0));
+      Framework.nativeRemoveRoutePoint(RoutePointInfo.ROUTE_MARK_FINISH, 0);
     }
     else
     {
-      Framework.nativeAddRoutePoint(mEndPoint.getLat(), mEndPoint.getLon(),
+      Framework.nativeAddRoutePoint("", RoutePointInfo.ROUTE_MARK_FINISH, 0,
                                     MapObject.isOfType(MapObject.MY_POSITION, mEndPoint),
-                                    new RoutePointInfo(RoutePointInfo.ROUTE_MARK_FINISH, 0));
+                                    mEndPoint.getLat(), mEndPoint.getLon());
     }
   }
 

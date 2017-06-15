@@ -322,18 +322,13 @@ bool RoutingManager::IsMyPosition(RouteMarkType type, int8_t intermediateIndex)
   return mark != nullptr ? mark->IsMyPosition() : false;
 }
 
-std::vector<m2::PointD> RoutingManager::GetRoutePoints() const
+std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
 {
-  std::vector<m2::PointD> result;
+  std::vector<RouteMarkData> result;
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
   RoutePointsLayout routePoints(guard.m_controller);
-  RouteMarkPoint * start = routePoints.GetRoutePoint(RouteMarkType::Start);
-  RouteMarkPoint * finish = routePoints.GetRoutePoint(RouteMarkType::Finish);
-  if (start != nullptr && finish != nullptr)
-  {
-    result.push_back(start->GetPivot());
-    result.push_back(finish->GetPivot());
-  }
+  for (auto const & p : routePoints.GetRoutePoints())
+    result.push_back(p->GetMarkData());
   return result;
 }
 
@@ -346,23 +341,18 @@ bool RoutingManager::CouldAddIntermediatePoint() const
          static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);
 }
 
-void RoutingManager::AddRoutePoint(m2::PointD const & pt, bool isMyPosition,
-                                   RouteMarkType type, int8_t intermediateIndex)
+void RoutingManager::AddRoutePoint(RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
   RoutePointsLayout routePoints(guard.m_controller);
 
   // Always replace start and finish points.
-  if (type == RouteMarkType::Start || type == RouteMarkType::Finish)
-    routePoints.RemoveRoutePoint(type, intermediateIndex);
+  if (markData.m_pointType == RouteMarkType::Start || markData.m_pointType == RouteMarkType::Finish)
+    routePoints.RemoveRoutePoint(markData.m_pointType);
 
-  RouteMarkPoint * mark = routePoints.AddRoutePoint(pt, type, intermediateIndex);
-  if (mark != nullptr)
-  {
-    mark->SetIsVisible(!isMyPosition);
-    mark->SetIsMyPosition(isMyPosition);
-  }
+  markData.m_isVisible = !markData.m_isMyPosition;
+  routePoints.AddRoutePoint(std::move(markData));
 }
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
@@ -391,25 +381,37 @@ void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNo
   return m_routingSession.GenerateTurnNotifications(turnNotifications);
 }
 
-void RoutingManager::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
+void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   ASSERT(m_drapeEngine != nullptr, ());
 
-  m2::PointD start;
-  if (!m_drapeEngine->GetMyPosition(start))
+  auto routePoints = GetRoutePoints();
+  if (routePoints.size() < 2)
   {
-    CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
+    if (routePoints.empty() || routePoints.back().m_pointType != RouteMarkType::Finish)
+      CallRouteBuilded(IRouter::EndPointNotFound, storage::TCountriesVec());
+    else
+      CallRouteBuilded(IRouter::StartPointNotFound, storage::TCountriesVec());
     return;
   }
-  BuildRoute(start, finish, false /* isP2P */, timeoutSec);
-}
 
-void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P,
-                                uint32_t timeoutSec)
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
-  ASSERT(m_drapeEngine != nullptr, ());
+  // Update my position.
+  for (auto & p : routePoints)
+  {
+    if (!p.m_isMyPosition)
+      continue;
+
+    m2::PointD myPos;
+    if (!m_drapeEngine->GetMyPosition(myPos))
+    {
+      CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
+      return;
+    }
+    p.m_position = myPos;
+  }
+
+  bool const isP2P = !routePoints.front().m_isMyPosition && !routePoints.back().m_isMyPosition;
 
   // Send tag to Push Woosh.
   {
@@ -440,15 +442,24 @@ void RoutingManager::BuildRoute(m2::PointD const & start, m2::PointD const & fin
   // Show preview.
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->AddRoutePreviewSegment(start, finish);
-    m2::RectD rect(start, finish);
+    m2::RectD rect;
+    for (size_t pointIndex = 0; pointIndex + 1 < routePoints.size(); pointIndex++)
+    {
+      rect.Add(routePoints[pointIndex].m_position);
+      rect.Add(routePoints[pointIndex + 1].m_position);
+      m_drapeEngine->AddRoutePreviewSegment(routePoints[pointIndex].m_position,
+                                            routePoints[pointIndex + 1].m_position);
+    }
     rect.Scale(kRouteScaleMultiplier);
     m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */,
                                     true /* isAnim */);
   }
 
-  m_routingSession.SetUserCurrentPosition(start);
-  m_routingSession.BuildRoute(start, finish, timeoutSec);
+  m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
+
+  //TODO: build using all points.
+  m_routingSession.BuildRoute(routePoints.front().m_position,
+                              routePoints.back().m_position, timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

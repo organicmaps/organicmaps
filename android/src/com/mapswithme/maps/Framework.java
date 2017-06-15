@@ -16,6 +16,7 @@ import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.util.Constants;
@@ -223,8 +224,7 @@ public class Framework
 
   public static native void nativeCloseRouting();
 
-  public static native void nativeBuildRoute(double startLat, double startLon,
-                                             double finishLat, double finishLon, boolean isP2P);
+  public static native void nativeBuildRoute();
 
   public static native void nativeRemoveRoute();
 
@@ -271,14 +271,18 @@ public class Framework
   @RouterType
   public static native int nativeGetLastUsedRouter();
   @RouterType
-  public static native int nativeGetBestRouter(double srcLat, double srcLon, double dstLat, double dstLon);
+  public static native int nativeGetBestRouter(double srcLat, double srcLon,
+                                               double dstLat, double dstLon);
 
-  public static native void nativeAddRoutePoint(double lat, double lon, boolean isMyPosition,
-                                                @NonNull RoutePointInfo routePointInfo);
-  public static native void nativeRemoveRoutePoint(@NonNull RoutePointInfo routePointInfo);
+  public static native void nativeAddRoutePoint(String name,
+                                                @RoutePointInfo.RouteMarkType int markType,
+                                                int intermediateIndex, boolean isMyPosition,
+                                                double lat, double lon);
+  public static native void nativeRemoveRoutePoint(@RoutePointInfo.RouteMarkType int markType,
+                                                   int intermediateIndex);
   public static native boolean nativeCouldAddIntermediatePoint();
   @NonNull
-  public static native RoutePoint[] nativeGetRoutePoints();
+  public static native RouteMarkData[] nativeGetRoutePoints();
 
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.

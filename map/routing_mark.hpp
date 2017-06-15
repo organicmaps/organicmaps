@@ -11,34 +11,45 @@ enum class RouteMarkType : uint8_t
   Finish = 2
 };
 
+struct RouteMarkData
+{
+  std::string m_name;
+  RouteMarkType m_pointType = RouteMarkType::Start;
+  int8_t m_intermediateIndex = 0;
+  bool m_isVisible = true;
+  bool m_isMyPosition = false;
+  bool m_isPassed = false;
+  m2::PointD m_position;
+};
+
 class RouteMarkPoint : public UserMark
 {
 public:
   RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~RouteMarkPoint() {}
 
-  bool IsVisible() const override;
-  void SetIsVisible(bool isVisible);
+  bool IsVisible() const override { return m_markData.m_isVisible; }
+  void SetIsVisible(bool isVisible) { m_markData.m_isVisible = isVisible; }
 
   dp::Anchor GetAnchor() const override;
 
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
 
-  RouteMarkType GetRoutePointType() const { return m_pointType; }
-  void SetRoutePointType(RouteMarkType type) { m_pointType = type; }
+  RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
+  void SetRoutePointType(RouteMarkType type) { m_markData.m_pointType = type; }
 
-  void SetIntermediateIndex(int8_t index) { m_intermediateIndex = index; }
-  int8_t GetIntermediateIndex() const { return m_intermediateIndex; }
+  void SetIntermediateIndex(int8_t index) { m_markData.m_intermediateIndex = index; }
+  int8_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
 
-  void SetIsMyPosition(bool isMyPosition);
-  bool IsMyPosition() const;
+  void SetIsMyPosition(bool isMyPosition) { m_markData.m_isMyPosition = isMyPosition;}
+  bool IsMyPosition() const { return m_markData.m_isMyPosition; }
+
+  RouteMarkData const & GetMarkData() const { return m_markData; }
+  void SetMarkData(RouteMarkData && data) { m_markData = std::move(data); }
 
 private:
-  RouteMarkType m_pointType;
-  int8_t m_intermediateIndex = 0;
-  bool m_isVisible = true;
-  bool m_isMyPosition = false;
+  RouteMarkData m_markData;
 };
 
 class RouteUserMarkContainer : public UserMarkContainer
@@ -56,8 +67,9 @@ public:
 
   RoutePointsLayout(UserMarksController & routeMarks);
 
+  RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
-  RouteMarkPoint * AddRoutePoint(m2::PointD const & ptOrg, RouteMarkType type, int8_t intermediateIndex = 0);
+  std::vector<RouteMarkPoint *> GetRoutePoints();
   bool RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType destType, int8_t destIntermediateIndex);

@@ -328,9 +328,23 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
   if (routingManager.IsRoutingActive())
+  {
     routingManager.CloseRouting(true /* remove route points */);
+  }
   else
-    routingManager.BuildRoute(m_framework.PtoG(pt), 0 /* timeoutSec */);
+  {
+    RouteMarkData startPoint;
+    startPoint.m_pointType = RouteMarkType::Start;
+    startPoint.m_isMyPosition = true;
+    routingManager.AddRoutePoint(std::move(startPoint));
+
+    RouteMarkData endPoint;
+    endPoint.m_pointType = RouteMarkType::Finish;
+    endPoint.m_position = m_framework.PtoG(pt);
+    routingManager.AddRoutePoint(std::move(endPoint));
+
+    routingManager.BuildRoute(0 /* timeoutSec */);
+  }
 }
 
 void DrawWidget::ShowPlacePage(place_page::Info const & info)

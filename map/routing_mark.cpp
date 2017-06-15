@@ -2,45 +2,28 @@
 
 #include <algorithm>
 
-RouteMarkPoint::RouteMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
+RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg,
+                               UserMarkContainer * container)
   : UserMark(ptOrg, container)
-{}
-
-bool RouteMarkPoint::IsVisible() const
 {
-  return m_isVisible;
-}
-
-void RouteMarkPoint::SetIsVisible(bool isVisible)
-{
-  m_isVisible = isVisible;
+  m_markData.m_position = ptOrg;
 }
 
 dp::Anchor RouteMarkPoint::GetAnchor() const
 {
-  if (m_pointType == RouteMarkType::Finish)
+  if (m_markData.m_pointType == RouteMarkType::Finish)
     return dp::Bottom;
   return dp::Center;
 }
 
-void RouteMarkPoint::SetIsMyPosition(bool isMyPosition)
-{
-  m_isMyPosition = isMyPosition;
-}
-
-bool RouteMarkPoint::IsMyPosition() const
-{
-  return m_isMyPosition;
-}
-
 std::string RouteMarkPoint::GetSymbolName() const
 {
-  switch (m_pointType)
+  switch (m_markData.m_pointType)
   {
   case RouteMarkType::Start: return "route-point-start";
   case RouteMarkType::Intermediate:
   {
-    switch (m_intermediateIndex)
+    switch (m_markData.m_intermediateIndex)
     {
     case 0: return "route-point-a";
     case 1: return "route-point-b";
@@ -67,16 +50,15 @@ RoutePointsLayout::RoutePointsLayout(UserMarksController & routeMarks)
   : m_routeMarks(routeMarks)
 {}
 
-RouteMarkPoint * RoutePointsLayout::AddRoutePoint(m2::PointD const & ptOrg, RouteMarkType type,
-                                                  int8_t intermediateIndex)
+RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
 {
   if (m_routeMarks.GetUserMarkCount() == kMaxIntermediatePointsCount + 2)
     return nullptr;
 
-  RouteMarkPoint * sameTypePoint = GetRoutePoint(type, intermediateIndex);
+  RouteMarkPoint * sameTypePoint = GetRoutePoint(data.m_pointType, data.m_intermediateIndex);
   if (sameTypePoint != nullptr)
   {
-    if (type == RouteMarkType::Finish)
+    if (data.m_pointType == RouteMarkType::Finish)
     {
       int const intermediatePointsCount = std::max(static_cast<int>(m_routeMarks.GetUserMarkCount()) - 2, 0);
       sameTypePoint->SetRoutePointType(RouteMarkType::Intermediate);
@@ -84,7 +66,7 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(m2::PointD const & ptOrg, Rout
     }
     else
     {
-      int const offsetIndex = type == RouteMarkType::Start ? 0 : intermediateIndex;
+      int const offsetIndex = data.m_pointType == RouteMarkType::Start ? 0 : data.m_intermediateIndex;
 
       ForEachIntermediatePoint([offsetIndex](RouteMarkPoint * mark)
       {
@@ -92,20 +74,18 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(m2::PointD const & ptOrg, Rout
           mark->SetIntermediateIndex(static_cast<int8_t>(mark->GetIntermediateIndex() + 1));
       });
 
-      if (type == RouteMarkType::Start)
+      if (data.m_pointType == RouteMarkType::Start)
       {
         sameTypePoint->SetRoutePointType(RouteMarkType::Intermediate);
         sameTypePoint->SetIntermediateIndex(0);
       }
     }
   }
-  RouteMarkPoint * newPoint = static_cast<RouteMarkPoint*>(m_routeMarks.CreateUserMark(ptOrg));
-  newPoint->SetRoutePointType(type);
-  newPoint->SetIntermediateIndex(intermediateIndex);
+  RouteMarkPoint * newPoint = static_cast<RouteMarkPoint *>(m_routeMarks.CreateUserMark(data.m_position));
+  newPoint->SetMarkData(std::move(data));
 
   return newPoint;
 }
-
 
 bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
 {
@@ -170,14 +150,13 @@ bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t current
   if (point == nullptr)
     return false;
 
-  m2::PointD const pt = point->GetPivot();
-  bool const isVisible = point->IsVisible();
-  bool const isMyPosition = point->IsMyPosition();
+  RouteMarkData data = point->GetMarkData();
+  data.m_pointType = destType;
+  data.m_intermediateIndex = destIntermediateIndex;
 
   RemoveRoutePoint(currentType, currentIntermediateIndex);
-  RouteMarkPoint * point2 = AddRoutePoint(pt, destType, destIntermediateIndex);
-  point2->SetIsVisible(isVisible);
-  point2->SetIsMyPosition(isMyPosition);
+
+  AddRoutePoint(std::move(data));
   return true;
 }
 
@@ -200,6 +179,34 @@ RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, int8_t int
     }
   }
   return nullptr;
+}
+
+std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
+{
+  std::vector<RouteMarkPoint *> points;
+  points.reserve(m_routeMarks.GetUserMarkCount());
+  RouteMarkPoint * startPoint = nullptr;
+  RouteMarkPoint * finishPoint = nullptr;
+  for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
+  {
+    RouteMarkPoint * p = static_cast<RouteMarkPoint *>(m_routeMarks.GetUserMarkForEdit(i));
+    ASSERT(p != nullptr, ());
+    if (p->GetRoutePointType() == RouteMarkType::Start)
+      startPoint = p;
+    else if (p->GetRoutePointType() == RouteMarkType::Finish)
+      finishPoint = p;
+    else
+      points.push_back(p);
+  }
+  std::sort(points.begin(), points.end(), [](RouteMarkPoint const * p1, RouteMarkPoint const * p2)
+  {
+    return p1->GetIntermediateIndex() < p2->GetIntermediateIndex();
+  });
+  if (startPoint != nullptr)
+    points.insert(points.begin(), startPoint);
+  if (finishPoint != nullptr)
+    points.push_back(finishPoint);
+  return points;
 }
 
 void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)

@@ -67,8 +67,8 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
     for (uint32_t i = 0; i < pixelsCount; i++)
     {
       unsigned char const * p = data + i * bpp;
-      convertedData[i * bytesPerPixel] = p[0];
-      convertedData[i * bytesPerPixel + 1] = p[1];
+      for (uint8_t b = 0; b < bytesPerPixel; b++)
+        convertedData[i * bytesPerPixel + b] = p[b];
     }
     stbi_image_free(data);
     completionHandler(convertedData.data(), static_cast<uint32_t>(w), static_cast<uint32_t>(h));

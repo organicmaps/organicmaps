@@ -148,13 +148,19 @@ m2::PointD getMercator(MWMRoutePoint * p)
   auto & rm = GetFramework().GetRoutingManager();
   if (self.startPoint.isValid)
   {
-    rm.AddRoutePoint(getMercator(self.startPoint), self.startPoint.isMyPosition,
-                     RouteMarkType::Start);
+    RouteMarkData pt;
+    pt.m_pointType = RouteMarkType::Start;
+    pt.m_isMyPosition = self.startPoint.isMyPosition;
+    pt.m_position = getMercator(self.startPoint);
+    rm.AddRoutePoint(std::move(pt));
   }
   if (self.finishPoint.isValid)
   {
-    rm.AddRoutePoint(getMercator(self.finishPoint), self.finishPoint.isMyPosition,
-                     RouteMarkType::Finish);
+    RouteMarkData pt;
+    pt.m_pointType = RouteMarkType::Finish;
+    pt.m_isMyPosition = self.finishPoint.isMyPosition;
+    pt.m_position = getMercator(self.finishPoint);
+    rm.AddRoutePoint(std::move(pt));
   }
 }
 
@@ -175,11 +181,11 @@ m2::PointD getMercator(MWMRoutePoint * p)
   {
     // At least 2 points exist, one of them may (or may not) be my position.
     self.startPoint = rm.IsMyPosition(RouteMarkType::Start) ?
-                                      routePoint(points.front()) :
-                                      routePoint(points.front(), nil);
+                                      routePoint(points.front().m_position) :
+                                      routePoint(points.front().m_position, nil);
     self.finishPoint = rm.IsMyPosition(RouteMarkType::Finish) ?
-                                       routePoint(points.back()) :
-                                       routePoint(points.back(), nil);
+                                       routePoint(points.back().m_position) :
+                                       routePoint(points.back().m_position, nil);
   }
 }
 
@@ -205,8 +211,12 @@ m2::PointD getMercator(MWMRoutePoint * p)
 
 - (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point intermediateIndex:(int)intermediateIndex
 {
-  GetFramework().GetRoutingManager().AddRoutePoint(getMercator(point), point.isMyPosition,
-                                                   RouteMarkType::Intermediate, intermediateIndex);
+  RouteMarkData pt;
+  pt.m_pointType = RouteMarkType::Intermediate;
+  pt.m_position = getMercator(point);
+  pt.m_intermediateIndex = intermediateIndex;
+  pt.m_isMyPosition = static_cast<bool>(point.isMyPosition);
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [self rebuildWithBestRouter:NO];
 }
 
@@ -275,9 +285,9 @@ m2::PointD getMercator(MWMRoutePoint * p)
   
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
-    self.type = routerType(rm.GetBestRouter(points.front(), points.back()));
+    self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
-  rm.BuildRoute(points.front(), points.back(), isP2P, 0 /* timeoutSec */);
+  rm.BuildRoute(0 /* timeoutSec */);
   [mapViewControlsManager onRouteRebuild];
 }
 
