@@ -37,6 +37,16 @@ class NumMwmIds;
 
 class Index;
 
+struct RoutePointInfo
+{
+  std::string m_name;
+  RouteMarkType m_markType = RouteMarkType::Start;
+  int8_t m_intermediateIndex = 0;
+  bool m_isPassed = false;
+  bool m_isMyPosition = false;
+  m2::PointD m_position;
+};
+
 class RoutingManager final
 {
 public:
@@ -83,9 +93,7 @@ public:
   bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
-  void BuildRoute(m2::PointD const & finish, uint32_t timeoutSec);
-  void BuildRoute(m2::PointD const & start, m2::PointD const & finish, bool isP2P,
-                  uint32_t timeoutSec);
+  void BuildRoute(uint32_t timeoutSec);
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
@@ -155,7 +163,7 @@ public:
   /// GenerateTurnNotifications shall be called by the client when a new position is available.
   void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
-  void AddRoutePoint(m2::PointD const & pt, bool isMyPosition, RouteMarkType type, int8_t intermediateIndex = 0);
+  void AddRoutePoint(RouteMarkData && markData);
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
@@ -202,7 +210,7 @@ public:
                                   int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;
 
-  std::vector<m2::PointD> GetRoutePoints() const;
+  std::vector<RouteMarkData> GetRoutePoints() const;
 
 private:
   void InsertRoute(routing::Route const & route);
