@@ -38,6 +38,7 @@ struct Color
   static Color White()       { return Color(255, 255, 255, 255); }
   static Color Red()         { return Color(255, 0, 0, 255); }
   static Color Green()       { return Color(0, 255, 0, 255); }
+  static Color Yellow()       { return Color(255, 255, 0, 255); }
   static Color Transparent() { return Color(0, 0, 0, 0); }
 
 private:

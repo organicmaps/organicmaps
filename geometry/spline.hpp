@@ -56,6 +56,8 @@ public:
   size_t GetSize() const;
   vector<PointD> const & GetPath() const { return m_position; }
 
+  iterator GetPoint(double step) const;
+
   template <typename TFunctor>
   void ForEachNode(iterator const & begin, iterator const & end, TFunctor & f) const
   {

@@ -27,7 +27,11 @@
 #include "base/string_utils.hpp"
 #endif
 
+#include <functional>
+#include <utility>
 #include <vector>
+
+using namespace std::placeholders;
 
 namespace
 {
@@ -243,7 +247,8 @@ bool RuleDrawer::CheckCoastlines(FeatureType const & f, Stylist const & s)
   return true;
 }
 
-void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
+void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
+                                  TInsertShapeFn const & insertShape,
                                   int & minVisibleScale)
 {
   bool isBuilding = false;
@@ -315,7 +320,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s, TIns
   if (CheckCancelled())
     return;
 
-  s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
+  s.ForEachRule(std::bind(&ApplyAreaFeature::ProcessAreaRule, &apply, _1));
   apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
 }
 
@@ -334,7 +339,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
     return;
 
   if (applyGeom.HasGeometry())
-    s.ForEachRule(bind(&ApplyLineFeatureGeometry::ProcessRule, &applyGeom, _1));
+    s.ForEachRule(std::bind(&ApplyLineFeatureGeometry::ProcessLineRule, &applyGeom, _1));
   applyGeom.Finish();
 
   std::vector<m2::SharedSpline> clippedSplines;
@@ -365,8 +370,9 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
     ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(),
                                                m_currentScaleGtoP, minVisibleScale, f.GetRank(),
                                                s.GetCaptionDescription(), clippedSplines);
-    s.ForEachRule(bind(&ApplyLineFeatureAdditional::ProcessRule, &applyAdditional, _1));
-    applyAdditional.Finish(ftypes::GetRoadShields(f));
+    s.ForEachRule(std::bind(&ApplyLineFeatureAdditional::ProcessLineRule, &applyAdditional, _1));
+    applyAdditional.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f),
+                           m_generatedRoadShields);
   }
 
   if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
@@ -421,7 +427,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TIn
   if (CheckCancelled())
     return;
 
-  s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
+  s.ForEachRule(bind(&ApplyPointFeature::ProcessPointRule, &apply, _1));
   apply.Finish(m_context->GetTextureManager(), m_customSymbolsContext);
 }
 

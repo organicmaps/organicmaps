@@ -6,8 +6,6 @@
 
 #include "base/math.hpp"
 
-#define ASSERT_ID ASSERT(GetID() != -1, ())
-
 namespace dp
 {
 Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect) : m_texRect(texRect) {}

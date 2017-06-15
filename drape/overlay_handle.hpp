@@ -141,6 +141,9 @@ public:
 
   void SetCachingEnable(bool enable);
 
+  void SetReady(bool isReady) { m_isReady = isReady; }
+  bool IsReady() const { return m_isReady; }
+
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() { return ""; }
 #endif
@@ -182,6 +185,8 @@ private:
   mutable bool m_extendedShapeDirty;
   mutable m2::RectD m_extendedRectCache;
   mutable bool m_extendedRectDirty;
+
+  bool m_isReady = false;
 };
 
 class SquareHandle : public OverlayHandle
@@ -190,7 +195,8 @@ class SquareHandle : public OverlayHandle
 
 public:
   SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-               m2::PointD const & pxSize, uint64_t priority, bool isBound, string const & debugStr,
+               m2::PointD const & pxSize, m2::PointD const & pxOffset,
+               uint64_t priority, bool isBound, string const & debugStr,
                bool isBillboard = false);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
@@ -204,6 +210,7 @@ public:
 private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
+  m2::PointD m_pxOffset;
   bool m_isBound;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT

@@ -12,8 +12,6 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/vector.hpp"
-
 namespace df
 {
 namespace
@@ -118,7 +116,6 @@ private:
   bool m_isOptional;
   bool m_affectedByZoomPriority;
 };
-
 }  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
@@ -163,8 +160,8 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   glsl::vec2 primaryOffset(0.0f, 0.0f);
   glsl::vec2 secondaryOffset(0.0f, 0.0f);
 
-  float const halfSymbolW = m_symbolSize.x / 2.0;
-  float const halfSymbolH = m_symbolSize.y / 2.0;
+  float const halfSymbolW = m_symbolSize.x / 2.0f;
+  float const halfSymbolH = m_symbolSize.y / 2.0f;
 
   if (m_params.m_anchor & dp::Top)
   {
@@ -234,13 +231,9 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
                                      : m_params.m_secondaryTextFont.m_outlineColor;
 
   if (outlineColor == dp::Color::Transparent())
-  {
     DrawSubStringPlain(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
-  }
   else
-  {
     DrawSubStringOutlined(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
-  }
 }
 
 void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,

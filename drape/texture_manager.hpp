@@ -10,12 +10,12 @@
 
 #include <atomic>
 #include <list>
+#include <mutex>
 #include <string>
 #include <vector>
 
 namespace dp
 {
-
 extern std::string const kDefaultSymbolsTexture;
 
 class HWTextureAllocator;
@@ -71,10 +71,10 @@ public:
 
   struct Params
   {
-    string m_resPostfix;
+    std::string m_resPostfix;
     double m_visualScale;
-    string m_colors;
-    string m_patterns;
+    std::string m_colors;
+    std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
   };
 
@@ -84,26 +84,26 @@ public:
   void Init(Params const & params);
   void OnSwitchMapStyle();
 
-  void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
+  void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
 
   typedef buffer_vector<uint8_t, 8> TStipplePattern;
   void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
 
-  typedef buffer_vector<strings::UniString, 4> TMultilineText;
-  typedef buffer_vector<GlyphRegion, 128> TGlyphsBuffer;
-  typedef buffer_vector<TGlyphsBuffer, 4> TMultilineGlyphsBuffer;
+  using TMultilineText = buffer_vector<strings::UniString, 4>;
+  using TGlyphsBuffer = buffer_vector<GlyphRegion, 128>;
+  using TMultilineGlyphsBuffer = buffer_vector<TGlyphsBuffer, 4>;
 
   void GetGlyphRegions(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers);
   void GetGlyphRegions(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & regions);
-
-  /// On some devices OpenGL driver can't resolve situation when we upload on texture from one thread
-  /// and use this texture to render on other thread. By this we move UpdateDynamicTextures call into render thread
-  /// If you implement some kind of dynamic texture, you must synchronyze UploadData and index creation operations
-  bool UpdateDynamicTextures();
-
-  /// This method must be called only on Frontend renderer's thread.
+  // This method must be called only on Frontend renderer's thread.
   bool AreGlyphsReady(strings::UniString const & str, int fixedHeight) const;
+
+  // On some devices OpenGL driver can't resolve situation when we upload to a texture on a thread
+  // and use this texture to render on another thread. By this we move UpdateDynamicTextures call
+  // into render thread. If you implement some kind of dynamic texture, you must synchronize UploadData
+  // and index creation operations.
+  bool UpdateDynamicTextures();
 
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
@@ -133,7 +133,7 @@ private:
       : m_texture(nullptr)
     {}
 
-    std::set<pair<strings::UniChar, int> > m_glyphs;
+    std::set<std::pair<strings::UniChar, int>> m_glyphs;
     ref_ptr<Texture> m_texture;
   };
 
@@ -150,14 +150,16 @@ private:
   size_t FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight);
   size_t FindHybridGlyphsGroup(TMultilineText const & text, int fixedHeight);
 
-  uint32_t GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight, HybridGlyphGroup const & group) const;
+  uint32_t GetNumberOfUnfoundCharacters(strings::UniString const & text, int fixedHeight,
+                                        HybridGlyphGroup const & group) const;
 
   void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, HybridGlyphGroup & group);
-  /// it's a dummy method to support generic code
+  // It's a dummy method to support generic code.
   void MarkCharactersUsage(strings::UniString const & text, int fixedHeight, GlyphGroup & group) {}
 
   template<typename TGlyphGroup>
-  void FillResultBuffer(strings::UniString const & text, int fixedHeight, TGlyphGroup & group, TGlyphsBuffer & regions)
+  void FillResultBuffer(strings::UniString const & text, int fixedHeight, TGlyphGroup & group,
+                        TGlyphsBuffer & regions)
   {
     if (group.m_texture == nullptr)
       group.m_texture = AllocateGlyphTexture();
@@ -172,14 +174,16 @@ private:
   }
 
   template<typename TGlyphGroup>
-  void FillResults(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & buffers, TGlyphGroup & group)
+  void FillResults(strings::UniString const & text, int fixedHeight, TGlyphsBuffer & buffers,
+                   TGlyphGroup & group)
   {
     MarkCharactersUsage(text, fixedHeight, group);
     FillResultBuffer<TGlyphGroup>(text, fixedHeight, group, buffers);
   }
 
   template<typename TGlyphGroup>
-  void FillResults(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
+  void FillResults(TMultilineText const & text, int fixedHeight, TMultilineGlyphsBuffer & buffers,
+                   TGlyphGroup & group)
   {
      buffers.resize(text.size());
      for (size_t i = 0; i < text.size(); ++i)
@@ -218,8 +222,10 @@ private:
     }
   }
 
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text, int fixedHeight);
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text, int fixedHeight);
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
+                                int fixedHeight) const;
+  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
+                                int fixedHeight) const;
 
   template<typename TGlyphGroups>
   void UpdateGlyphTextures(TGlyphGroups & groups)
@@ -260,6 +266,7 @@ private:
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
 
   std::atomic_flag m_nothingToUpload;
+  std::mutex m_calcGlyphsMutex;
 };
 
 } // namespace dp

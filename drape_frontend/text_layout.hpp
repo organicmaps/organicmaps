@@ -14,39 +14,34 @@
 #include "base/string_utils.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/vector.hpp"
-#include "std/shared_ptr.hpp"
+#include <memory>
+#include <vector>
 
 namespace dp
 {
-  class OverlayHandle;
-}
+class OverlayHandle;
+}  // namespace dp
 
 namespace df
 {
-
 class TextLayout
 {
-
 public:
   virtual ~TextLayout() {}
 
+  void Init(strings::UniString const & text,
+            float fontSize, bool isSdf,
+            ref_ptr<dp::TextureManager> textures);
+
   ref_ptr<dp::Texture> GetMaskTexture() const;
-
   uint32_t GetGlyphCount() const;
-
   float GetPixelLength() const;
   float GetPixelHeight() const;
-
   int GetFixedHeight() const { return m_fixedHeight; }
-
   strings::UniString const & GetText() const;
 
 protected:
-  void Init(strings::UniString const & text, float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
-
-protected:
-  typedef dp::TextureManager::GlyphRegion GlyphRegion;
+  using GlyphRegion = dp::TextureManager::GlyphRegion;
 
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
@@ -103,9 +98,8 @@ public:
   static bool CalculatePerspectivePosition(float splineLength, float textPixelLength,
                                            float & offset);
 
-  static void CalculatePositions(vector<float> & offsets, float splineLength,
-                                 float splineScaleToPixel, float textPixelLength);
-
+  static void CalculatePositions(float splineLength, float splineScaleToPixel,
+                                 float textPixelLength, std::vector<float> & offsets);
 private:
   static float CalculateTextLength(float textPixelLength);
 
@@ -115,6 +109,7 @@ private:
 class SharedTextLayout
 {
 public:
+  SharedTextLayout() = default;
   SharedTextLayout(PathTextLayout * layout);
 
   bool IsNull() const;
@@ -125,7 +120,6 @@ public:
   PathTextLayout const * operator->() const;
 
 private:
-  shared_ptr<PathTextLayout> m_layout;
+  std::shared_ptr<PathTextLayout> m_layout;
 };
-
-}
+}  // namespace df
