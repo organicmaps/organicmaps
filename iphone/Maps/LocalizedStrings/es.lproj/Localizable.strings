@@ -1936,3 +1936,9 @@
 "learn_more" = "Learn more";
 
 "exit" = "Exit";
+
+"routing_add_start_point" = "Add start point to plan a route.";
+
+"routing_add_finish_point" = "Add finish to plan a route.";
+
+"use" = "Use";

@@ -1140,4 +1140,7 @@
 	<string name="whatsnew_transliteration_message">If a street or an object doesn\&#39;t have a name in your language, it will be spelt using the Latin alphabet.</string>
 	<string name="learn_more">Learn more</string>
 	<string name="exit">Exit</string>
+	<string name="routing_add_start_point">Add start point to plan a route.</string>
+	<string name="routing_add_finish_point">Add finish to plan a route.</string>
+	<string name="use">Use</string>
 </resources>
