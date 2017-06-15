@@ -1,5 +1,6 @@
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/constants.hpp"
@@ -96,7 +97,8 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 void ReadManager::UpdateCoverage(ScreenBase const & screen,
                                  bool have3dBuildings, bool forceUpdate,
                                  TTilesCollection const & tiles,
-                                 ref_ptr<dp::TextureManager> texMng)
+                                 ref_ptr<dp::TextureManager> texMng,
+                                 ref_ptr<MetalineManager> metalineMng)
 {
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
@@ -113,7 +115,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen,
     m_generationCounter++;
 
     for (auto const & tileKey : tiles)
-      PushTaskBackForTileKey(tileKey, texMng);
+      PushTaskBackForTileKey(tileKey, texMng, metalineMng);
   }
   else
   {
@@ -141,7 +143,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen,
     IncreaseCounter(static_cast<int>(newTiles.size()));
     CheckFinishedTiles(readyTiles);
     for (auto const & tileKey : newTiles)
-      PushTaskBackForTileKey(tileKey, texMng);
+      PushTaskBackForTileKey(tileKey, texMng, metalineMng);
   }
 
   m_currentViewport = screen;
@@ -200,10 +202,13 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
   return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
 }
 
-void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng)
+void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
+                                         ref_ptr<dp::TextureManager> texMng,
+                                         ref_ptr<MetalineManager> metalineMng)
 {
   auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
-                                               m_commutator, texMng, m_customSymbolsContext,
+                                               m_commutator, texMng, metalineMng,
+                                               m_customSymbolsContext,
                                                m_have3dBuildings && m_allow3dBuildings,
                                                m_trafficEnabled, m_displacementMode);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));

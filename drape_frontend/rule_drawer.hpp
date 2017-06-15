@@ -2,6 +2,7 @@
 
 #include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 
@@ -13,6 +14,7 @@
 #include <array>
 #include <functional>
 #include <string>
+#include <unordered_set>
 
 class FeatureType;
 
@@ -59,6 +61,8 @@ private:
 
   ref_ptr<EngineContext> m_context;
   CustomSymbolsContextPtr m_customSymbolsContext;
+  std::unordered_set<m2::Spline const *> m_usedMetalines;
+
   m2::RectD m_globalRect;
   double m_currentScaleGtoP;
   double m_trafficScalePtoG;

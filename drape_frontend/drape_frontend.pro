@@ -63,6 +63,7 @@ SOURCES += \
     map_data_provider.cpp \
     message_acceptor.cpp \
     message_queue.cpp \
+    metaline_manager.cpp \
     my_position.cpp \
     my_position_controller.cpp \
     navigator.cpp \
@@ -73,6 +74,7 @@ SOURCES += \
     poi_symbol_shape.cpp \
     postprocess_renderer.cpp \
     read_manager.cpp \
+    read_metaline_task.cpp \
     read_mwm_task.cpp \
     render_group.cpp \
     render_node.cpp \
@@ -172,6 +174,7 @@ HEADERS += \
     message_acceptor.hpp \
     message_queue.hpp \
     message_subclasses.hpp \
+    metaline_manager.hpp \
     my_position.hpp \
     my_position_controller.hpp \
     navigator.hpp \
@@ -182,6 +185,7 @@ HEADERS += \
     poi_symbol_shape.hpp \
     postprocess_renderer.hpp \
     read_manager.hpp \
+    read_metaline_task.hpp \
     read_mwm_task.hpp \
     render_group.hpp \
     render_node.hpp \

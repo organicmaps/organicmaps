@@ -728,23 +728,24 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   }
 }
 
-ApplyLineFeature::ApplyLineFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                                   double currentScaleGtoP, int minVisibleScale, uint8_t rank,
-                                   CaptionDescription const & captions, size_t pointsCount)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
-  , m_currentScaleGtoP(currentScaleGtoP)
-  , m_sqrScale(math::sqr(m_currentScaleGtoP))
-  , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart && tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
+ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
+                                                   TInsertShapeFn const & insertShape,
+                                                   FeatureID const & id,
+                                                   double currentScaleGtoP,
+                                                   int minVisibleScale, uint8_t rank,
+                                                   size_t pointsCount)
+  : TBase(tileKey, insertShape, id, minVisibleScale, rank, CaptionDescription())
+  , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
+  , m_sqrScale(math::sqr(currentScaleGtoP))
+  , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart &&
+               tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
   , m_initialPointsCount(pointsCount)
-  , m_shieldDepth(0.0)
-  , m_shieldRule(nullptr)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
-{
-}
+{}
 
-void ApplyLineFeature::operator() (m2::PointD const & point)
+void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
 {
 #ifdef CALC_FILTERED_POINTS
   ++m_readedCount;
@@ -775,96 +776,125 @@ void ApplyLineFeature::operator() (m2::PointD const & point)
   }
 }
 
-bool ApplyLineFeature::HasGeometry() const
+bool ApplyLineFeatureGeometry::HasGeometry() const
 {
   return m_spline->IsValid();
 }
 
-void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
+void ApplyLineFeatureGeometry::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   ASSERT(HasGeometry(), ());
   drule::BaseRule const * pRule = rule.first;
-  float depth = rule.second;
+  float const depth = static_cast<float>(rule.second);
 
-  bool isWay = (pRule->GetType() & drule::way) != 0;
-  CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
   LineDefProto const * pLineRule = pRule->GetLine();
-  ShieldRuleProto const * pShieldRule = pRule->GetShield();
+  if (pLineRule == nullptr)
+    return;
 
   m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
-
   if (m_clippedSplines.empty())
     return;
 
-  if (pCaptionRule != nullptr && pCaptionRule->height() > 2 &&
-      !m_captions.GetPathName().empty() && isWay)
+  if (pLineRule->has_pathsym())
   {
-    dp::FontDecl fontDecl;
-    CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
-
-    PathTextViewParams params;
+    PathSymProto const & symRule = pLineRule->pathsym();
+    PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_featureID = m_id;
     params.m_depth = depth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
-    params.m_text = m_captions.GetPathName();
-    params.m_textFont = fontDecl;
+    params.m_symbolName = symRule.name();
+    double const mainScale = df::VisualParams::Instance().GetVisualScale();
+    params.m_offset = static_cast<float>(symRule.offset() * mainScale);
+    params.m_step = static_cast<float>(symRule.step() * mainScale);
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    uint32_t baseTextIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
-    {
-      m_insertShape(make_unique_dp<PathTextShape>(spline, params, m_tileKey, baseTextIndex));
-      baseTextIndex += kPathTextBaseTextStep;
-    }
+      m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
   }
-
-  if (pLineRule != nullptr)
+  else
   {
-    if (pLineRule->has_pathsym())
-    {
-      PathSymProto const & symRule = pLineRule->pathsym();
-      PathSymbolViewParams params;
-      params.m_tileCenter = m_tileRect.Center();
-      params.m_depth = depth;
-      params.m_minVisibleScale = m_minVisibleScale;
-      params.m_rank = m_rank;
-      params.m_symbolName = symRule.name();
-      double const mainScale = df::VisualParams::Instance().GetVisualScale();
-      params.m_offset = symRule.offset() * mainScale;
-      params.m_step = symRule.step() * mainScale;
-      params.m_baseGtoPScale = m_currentScaleGtoP;
+    LineViewParams params;
+    params.m_tileCenter = m_tileRect.Center();
+    Extract(pLineRule, params);
+    params.m_depth = depth;
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
+    params.m_baseGtoPScale = m_currentScaleGtoP;
+    params.m_zoomLevel = m_tileKey.m_zoomLevel;
 
-      for (auto const & spline : m_clippedSplines)
-        m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
-    }
-    else
-    {
-      LineViewParams params;
-      params.m_tileCenter = m_tileRect.Center();
-      Extract(pLineRule, params);
-      params.m_depth = depth;
-      params.m_minVisibleScale = m_minVisibleScale;
-      params.m_rank = m_rank;
-      params.m_baseGtoPScale = m_currentScaleGtoP;
-      params.m_zoomLevel = m_tileKey.m_zoomLevel;
-
-      for (auto const & spline : m_clippedSplines)
-        m_insertShape(make_unique_dp<LineShape>(spline, params));
-    }
+    for (auto const & spline : m_clippedSplines)
+      m_insertShape(make_unique_dp<LineShape>(spline, params));
   }
+}
 
+void ApplyLineFeatureGeometry::Finish()
+{
+#ifdef CALC_FILTERED_POINTS
+  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
+#endif
+}
+
+ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey,
+                                                       TInsertShapeFn const & insertShape,
+                                                       FeatureID const & id,
+                                                       double currentScaleGtoP,
+                                                       int minVisibleScale, uint8_t rank,
+                                                       CaptionDescription const & captions,
+                                                       std::vector<m2::SharedSpline> const & clippedSplines)
+  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
+  , m_clippedSplines(clippedSplines)
+  , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
+  , m_shieldDepth(0.0f)
+  , m_shieldRule(nullptr)
+{}
+
+void ApplyLineFeatureAdditional::ProcessRule(Stylist::TRuleWrapper const & rule)
+{
+  if (m_clippedSplines.empty())
+    return;
+
+  drule::BaseRule const * pRule = rule.first;
+  float const depth = static_cast<float>(rule.second);
+  ShieldRuleProto const * pShieldRule = pRule->GetShield();
   if (pShieldRule != nullptr)
   {
     m_shieldDepth = depth;
     m_shieldRule = pShieldRule;
   }
+
+  bool const isWay = (pRule->GetType() & drule::way) != 0;
+  if (!isWay)
+    return;
+
+  CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
+  if (pCaptionRule == nullptr || pCaptionRule->height() <= 2 || m_captions.GetPathName().empty())
+    return;
+
+  dp::FontDecl fontDecl;
+  CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
+  PathTextViewParams params;
+  params.m_tileCenter = m_tileRect.Center();
+  params.m_featureID = m_id;
+  params.m_depth = depth;
+  params.m_minVisibleScale = m_minVisibleScale;
+  params.m_rank = m_rank;
+  params.m_text = m_captions.GetPathName();
+  params.m_textFont = fontDecl;
+  params.m_baseGtoPScale = m_currentScaleGtoP;
+
+  uint32_t baseTextIndex = kPathTextBaseTextIndex;
+  for (auto const & spline : m_clippedSplines)
+  {
+    m_insertShape(make_unique_dp<PathTextShape>(spline, params, m_tileKey, baseTextIndex));
+    baseTextIndex += kPathTextBaseTextStep;
+  }
 }
 
-void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shield, TextViewParams & textParams,
-                                                ColoredSymbolViewParams & symbolParams,
-                                                PoiSymbolViewParams & poiParams)
+void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ftypes::RoadShield const & shield,
+                                                          TextViewParams & textParams,
+                                                          ColoredSymbolViewParams & symbolParams,
+                                                          PoiSymbolViewParams & poiParams)
 {
   ASSERT (m_shieldRule != nullptr, ());
 
@@ -877,7 +907,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
   dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
-  textParams.m_depth = static_cast<float>(m_shieldDepth);
+  textParams.m_depth = m_shieldDepth;
   textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
   textParams.m_anchor = dp::Center;
@@ -900,7 +930,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
     // Generated symbol properties.
     symbolParams.m_featureID = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
-    symbolParams.m_depth = static_cast<float>(m_shieldDepth);
+    symbolParams.m_depth = m_shieldDepth;
     symbolParams.m_minVisibleScale = m_minVisibleScale;
     symbolParams.m_rank = m_rank;
     symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
@@ -933,7 +963,7 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
     }
 
     poiParams.m_tileCenter = m_tileRect.Center();
-    poiParams.m_depth = static_cast<float>(m_shieldDepth);
+    poiParams.m_depth = m_shieldDepth;
     poiParams.m_minVisibleScale = m_minVisibleScale;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
@@ -945,12 +975,8 @@ void ApplyLineFeature::GetRoadShieldsViewParams(ftypes::RoadShield const & shiel
   }
 }
 
-void ApplyLineFeature::Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftypes::RoadShield> && roadShields)
+void ApplyLineFeatureAdditional::Finish(std::set<ftypes::RoadShield> && roadShields)
 {
-#ifdef CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
-#endif
-
   if (m_shieldRule == nullptr || m_clippedSplines.empty())
     return;
 
@@ -989,11 +1015,13 @@ void ApplyLineFeature::Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftype
                                                 false /* affectedByZoomPriority */));
         if (IsColoredRoadShield(shield))
         {
-          m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldOffset + it.m_pos, symbolParams, m_tileKey, textIndex));
+          m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldOffset + it.m_pos,
+                                                           symbolParams, m_tileKey, textIndex));
         }
         else if (IsSymbolRoadShield(shield))
         {
-          m_insertShape(make_unique_dp<PoiSymbolShape>(shieldOffset + it.m_pos, poiParams, m_tileKey, textIndex));
+          m_insertShape(make_unique_dp<PoiSymbolShape>(shieldOffset + it.m_pos,
+                                                       poiParams, m_tileKey, textIndex));
         }
         it.Advance(splineStep);
         textIndex++;
@@ -1003,10 +1031,4 @@ void ApplyLineFeature::Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftype
     shieldOffset += m2::PointD(symbolParams.m_sizeInPixels.x / m_currentScaleGtoP, 0.0);
   }
 }
-
-m2::PolylineD ApplyLineFeature::GetPolyline() const
-{
-  return HasGeometry() ? m2::PolylineD(m_spline->GetPath()) : m2::PolylineD();
-}
-
-} // namespace df
+}  // namespace df

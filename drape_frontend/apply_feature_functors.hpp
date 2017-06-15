@@ -144,21 +144,48 @@ private:
   double const m_currentScaleGtoP;
 };
 
-class ApplyLineFeature : public BaseApplyFeature
+class ApplyLineFeatureGeometry : public BaseApplyFeature
 {
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureID const & id,
-                   double currentScaleGtoP, int minVisibleScale, uint8_t rank,
-                   CaptionDescription const & captions, size_t pointsCount);
+  ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                           FeatureID const & id, double currentScaleGtoP, int minVisibleScale,
+                           uint8_t rank, size_t pointsCount);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::TRuleWrapper const & rule);
-  void Finish(ref_ptr<dp::TextureManager> texMng, std::set<ftypes::RoadShield> && roadShields);
+  void Finish();
 
-  m2::PolylineD GetPolyline() const;
+  std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
+
+private:
+  m2::SharedSpline m_spline;
+  vector<m2::SharedSpline> m_clippedSplines;
+  float m_currentScaleGtoP;
+  double m_sqrScale;
+  m2::PointD m_lastAddedPoint;
+  bool m_simplify;
+  size_t m_initialPointsCount;
+
+#ifdef CALC_FILTERED_POINTS
+  int m_readedCount;
+#endif
+};
+
+class ApplyLineFeatureAdditional : public BaseApplyFeature
+{
+  using TBase = BaseApplyFeature;
+
+public:
+  ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
+                             FeatureID const & id, double currentScaleGtoP, int minVisibleScale,
+                             uint8_t rank, CaptionDescription const & captions,
+                             std::vector<m2::SharedSpline> const & clippedSplines);
+
+  void ProcessRule(Stylist::TRuleWrapper const & rule);
+  void Finish(std::set<ftypes::RoadShield> && roadShields);
 
 private:
   void GetRoadShieldsViewParams(ftypes::RoadShield const & shield,
@@ -166,19 +193,10 @@ private:
                                 ColoredSymbolViewParams & symbolParams,
                                 PoiSymbolViewParams & poiParams);
 
-  m2::SharedSpline m_spline;
-  vector<m2::SharedSpline> m_clippedSplines;
-  double m_currentScaleGtoP;
-  double m_sqrScale;
-  m2::PointD m_lastAddedPoint;
-  bool m_simplify;
-  size_t m_initialPointsCount;
-  double m_shieldDepth;
+  std::vector<m2::SharedSpline> m_clippedSplines;
+  float m_currentScaleGtoP;
+  float m_shieldDepth;
   ShieldRuleProto const * m_shieldRule;
-
-#ifdef CALC_FILTERED_POINTS
-  int m_readedCount;
-#endif
 };
 
 extern dp::Color ToDrapeColor(uint32_t src);
