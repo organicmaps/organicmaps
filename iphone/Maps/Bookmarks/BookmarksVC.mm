@@ -415,10 +415,10 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   [mailVC setSubject:L(@"share_bookmarks_email_subject")];
 
   std::ifstream ifs(filePath.UTF8String);
-  ifs.seekg(ifs.end);
+  ifs.seekg(0, ifs.end);
   auto const size = ifs.tellg();
   std::vector<char> data(size);
-  ifs.seekg(ifs.beg);
+  ifs.seekg(0, ifs.beg);
   ifs.read(data.data(), size);
   ifs.close();
 
