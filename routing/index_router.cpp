@@ -29,21 +29,23 @@
 #include "base/exception.hpp"
 
 #include <algorithm>
+#include <map>
 
 using namespace routing;
+using namespace std;
 
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
-uint32_t constexpr kDrawPointsPeriod = 10;
+uint32_t constexpr kVisitPeriod = 40;
 
-// If user left the route within this range, adjust the route. Else full rebuild.
-double constexpr kAdjustRange = 5000.0;
-// Propagate astar wave for some distance to try to find a better return point.
-double constexpr kAdjustDistance = 2000.0;
-// Full rebuild if distance to finish is lesser.
-double const kMinDistanceToFinish = kAdjustDistance * 2.0;
+// If user left the route within this range(meters), adjust the route. Else full rebuild.
+double constexpr kAdjustRangeM = 5000.0;
+// Full rebuild if distance(meters) is less.
+double constexpr kMinDistanceToFinishM = 10000;
+// Limit of adjust in seconds.
+double constexpr kAdjustLimitSec = 5 * 60;
 
 template <typename Graph>
 IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result)
@@ -65,7 +67,7 @@ IRouter::ResultCode FindPath(
 {
   AStarAlgorithm<Graph> algorithm;
   return ConvertResult<Graph>(algorithm.FindPathBidirectional(graph, start, finish, routingResult,
-                                                       delegate, onVisitedVertexCallback));
+                                                              delegate, onVisitedVertexCallback));
 }
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
@@ -142,7 +144,8 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
 
 IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
                                                 m2::PointD const & startDirection,
-                                                m2::PointD const & finalPoint, bool adjust,
+                                                m2::PointD const & finalPoint,
+                                                bool adjustToPrevRoute,
                                                 RouterDelegate const & delegate, Route & route)
 {
   if (!AllMwmsHaveRoutingIndex(m_index, route))
@@ -151,37 +154,35 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
   string const startCountry = m_countryFileFn(startPoint);
   string const finishCountry = m_countryFileFn(finalPoint);
 
-  return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
-                        startDirection, finalPoint, adjust, delegate, route);
-}
-
-IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
-                                                string const & finishCountry, bool forSingleMwm,
-                                                m2::PointD const & startPoint,
-                                                m2::PointD const & startDirection,
-                                                m2::PointD const & finalPoint, bool adjust,
-                                                RouterDelegate const & delegate, Route & route)
-{
   try
   {
     auto const startFile = platform::CountryFile(startCountry);
     auto const finishFile = platform::CountryFile(finishCountry);
 
-    if (adjust && !m_lastRoute.IsEmpty() && finalPoint == m_lastRoute.GetFinish())
+    if (adjustToPrevRoute && m_lastRoute && finalPoint == m_lastRoute->GetFinish())
     {
-      double const distanceToRoute = m_lastRoute.CalcDistance(startPoint);
+      double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
       double const distanceToFinish = MercatorBounds::DistanceOnEarth(startPoint, finalPoint);
-      if (distanceToRoute <= kAdjustRange && distanceToFinish >= kMinDistanceToFinish)
-        return AdjustRoute(startFile, startPoint, startDirection, finalPoint, delegate, route);
+      if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
+      {
+        auto code = AdjustRoute(startFile, startPoint, startDirection, finalPoint, delegate, route);
+        if (code != IRouter::RouteNotFound)
+          return code;
+
+        LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:",
+          MercatorBounds::ToLatLon(m_lastRoute->GetStart()), ", start:",
+          MercatorBounds::ToLatLon(startPoint), ", finish:",
+          MercatorBounds::ToLatLon(finalPoint)));
+      }
     }
 
-    return DoCalculateRoute(startFile, finishFile, forSingleMwm, startPoint, startDirection,
-                            finalPoint, delegate, route);
+    return DoCalculateRoute(startFile, finishFile, false /* forSingleMwm */, startPoint,
+                            startDirection, finalPoint, delegate, route);
   }
   catch (RootException const & e)
   {
     LOG(LERROR, ("Can't find path from", MercatorBounds::ToLatLon(startPoint), "to",
-                 MercatorBounds::ToLatLon(finalPoint), ":\n ", e.what()));
+      MercatorBounds::ToLatLon(finalPoint), ":\n ", e.what()));
     return IRouter::InternalError;
   }
 }
@@ -193,7 +194,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & 
                                                   m2::PointD const & finalPoint,
                                                   RouterDelegate const & delegate, Route & route)
 {
-  m_lastRoute.Clear();
+  m_lastRoute.reset();
 
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph = MakeWorldGraph();
@@ -232,17 +233,20 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & 
   AStarProgress progress(0, 100);
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
-  uint32_t drawPointsStep = 0;
+  uint32_t visitCount = 0;
+
   auto onVisitJunction = [&](Segment const & from, Segment const & to) {
+    if (++visitCount % kVisitPeriod != 0)
+      return;
+
     m2::PointD const & pointFrom = starter.GetPoint(from, true /* front */);
     m2::PointD const & pointTo = starter.GetPoint(to, true /* front */);
     auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForBidirectedAlgo(pointFrom, pointTo);
     if (newValue - lastValue > kProgressInterval)
       delegate.OnProgress(newValue);
-    if (drawPointsStep % kDrawPointsPeriod == 0)
-      delegate.OnPointCheck(pointFrom);
-    ++drawPointsStep;
+
+    delegate.OnPointCheck(pointFrom);
   };
 
   RoutingResult<Segment> routingResult;
@@ -263,9 +267,12 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & 
   if (redressResult != IRouter::NoError)
     return redressResult;
 
-  m_lastRoute.Init(startPoint, finalPoint);
+  m_lastRoute = make_unique<SegmentedRoute>(startPoint, finalPoint);
   for (Segment const & segment : routingResult.path)
-    m_lastRoute.AddStep(segment, starter.GetPoint(segment, true /* front */));
+  {
+    if (!IndexGraphStarter::IsFakeSegment(segment))
+      m_lastRoute->AddStep(segment, starter.GetPoint(segment, true /* front */));
+  }
 
   return IRouter::NoError;
 }
@@ -285,93 +292,53 @@ IRouter::ResultCode IndexRouter::AdjustRoute(platform::CountryFile const & start
   if (!FindClosestSegment(startCountry, startPoint, true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
 
-  IndexGraphStarter starter(
-      IndexGraphStarter::FakeVertex(startSegment, startPoint),
-      IndexGraphStarter::FakeVertex(m_lastRoute.GetFinishSegment(), finalPoint), graph);
+  auto const & steps = m_lastRoute->GetSteps();
+
+  IndexGraphStarter starter(IndexGraphStarter::FakeVertex(startSegment, startPoint),
+                            IndexGraphStarter::FakeVertex(steps.back().GetSegment(), finalPoint),
+                            graph);
 
   AStarProgress progress(0, 100);
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
-  uint32_t drawPointsStep = 0;
-  auto onVisitJunction = [&](Segment const & from, Segment const & /* to */) {
-    m2::PointD const & point = starter.GetPoint(from, true /* front */);
+  vector<SegmentEdge> prevEdges;
+  for (auto const & step : steps)
+    prevEdges.emplace_back(step.GetSegment(), starter.CalcSegmentWeight(step.GetSegment()));
+
+  uint32_t visitCount = 0;
+
+  auto onVisitJunction = [&](Segment const & /* start */, Segment const & vertex) {
+    if (visitCount++ % kVisitPeriod != 0)
+      return;
+
+    m2::PointD const & point = starter.GetPoint(vertex, true /* front */);
     auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForDirectedAlgo(point);
     if (newValue - lastValue > kProgressInterval)
       delegate.OnProgress(newValue);
-    if (drawPointsStep % kDrawPointsPeriod == 0)
-      delegate.OnPointCheck(point);
-    ++drawPointsStep;
+
+    delegate.OnPointCheck(point);
   };
 
   AStarAlgorithm<IndexGraphStarter> algorithm;
-  RoutingResult<Segment> routingResult;
+  RoutingResult<Segment> result;
+  auto resultCode = ConvertResult<IndexGraphStarter>(algorithm.AdjustRoute(
+      starter, starter.GetStart(), prevEdges, kAdjustLimitSec, result, delegate, onVisitJunction));
+  if (resultCode != IRouter::NoError)
+    return resultCode;
 
-  auto const & steps = m_lastRoute.GetSteps();
-  set<Segment> routeSegmentsSet;
-  for (auto const & step : steps)
-  {
-    auto const & segment = step.GetSegment();
-    if (!IndexGraphStarter::IsFakeSegment(segment))
-      routeSegmentsSet.insert(segment);
-  }
-
-  double const requiredDistanceToFinish =
-      MercatorBounds::DistanceOnEarth(startPoint, finalPoint) - kAdjustDistance;
-  CHECK_GREATER(requiredDistanceToFinish, 0.0, ());
-
-  auto const isFinalVertex = [&](Segment const & vertex) {
-    if (vertex == starter.GetFinish())
-      return true;
-
-    return routeSegmentsSet.count(vertex) > 0 &&
-           MercatorBounds::DistanceOnEarth(
-               starter.GetPoint(vertex, true /* front */), finalPoint) <= requiredDistanceToFinish;
-  };
-
-  auto const code = ConvertResult<IndexGraphStarter>(
-      algorithm.FindPath(starter, starter.GetStart(), starter.GetFinish(), routingResult, delegate,
-                         onVisitJunction, isFinalVertex));
-  if (code != IRouter::NoError)
-    return code;
-
-  size_t const adjustingRouteSize = routingResult.path.size();
-  AppendRemainingRoute(routingResult.path);
-
-  auto const redressResult = RedressRoute(routingResult.path, delegate, false, starter, route);
+  result.path.push_back(starter.GetFinish());
+  auto const redressResult = RedressRoute(result.path, delegate, false, starter, route);
   if (redressResult != IRouter::NoError)
     return redressResult;
 
-  LOG(LINFO, ("Adjust route, elapsed:", timer.ElapsedSeconds(), ", start:",
-              MercatorBounds::ToLatLon(startPoint), ", finish:",
-              MercatorBounds::ToLatLon(finalPoint), ", old route:", steps.size(), ", new route:",
-              routingResult.path.size(), ", adjust:", adjustingRouteSize));
+  LOG(LINFO,
+      ("Adjust route, elapsed:", timer.ElapsedSeconds(), ", prev start:",
+       MercatorBounds::ToLatLon(m_lastRoute->GetStart()), ", start:",
+       MercatorBounds::ToLatLon(startPoint), ", finish:", MercatorBounds::ToLatLon(finalPoint),
+       ", prev route:", steps.size(), ", new route:", result.path.size()));
 
   return IRouter::NoError;
-}
-
-void IndexRouter::AppendRemainingRoute(vector<Segment> & route) const
-{
-  auto const steps = m_lastRoute.GetSteps();
-  Segment const joinSegment = route.back();
-
-  // Route to finish found, append is not needed.
-  if (IndexGraphStarter::IsFakeSegment(joinSegment))
-    return;
-
-  for (size_t i = 0; i < steps.size(); ++i)
-  {
-    if (steps[i].GetSegment() == joinSegment)
-    {
-      for (size_t j = i + 1; j < steps.size(); ++j)
-        route.push_back(steps[j].GetSegment());
-
-      return;
-    }
-  }
-
-  CHECK(false,
-        ("Can't find", joinSegment, ", m_routeSegments:", steps.size(), "path:", route.size()));
 }
 
 WorldGraph IndexRouter::MakeWorldGraph()

@@ -35,7 +35,7 @@ public:
   string GetName() const override { return m_name; }
   void ClearState() override;
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, bool adjust,
+                            m2::PointD const & finalPoint, bool adjustToPrevRoute,
                             RouterDelegate const & delegate, Route & route) override;
 
 private:

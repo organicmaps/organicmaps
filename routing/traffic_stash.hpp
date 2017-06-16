@@ -10,6 +10,7 @@
 
 #include "base/assert.hpp"
 
+#include <memory>
 #include <unordered_map>
 
 namespace routing
@@ -27,23 +28,11 @@ public:
     TrafficStash & m_stash;
   };
 
-  TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
-    : m_source(source), m_numMwmIds(numMwmIds)
-  {
-    CHECK(m_numMwmIds, ());
-  }
+  TrafficStash(traffic::TrafficCache const & source, std::shared_ptr<NumMwmIds> numMwmIds);
 
   traffic::SpeedGroup GetSpeedGroup(Segment const & segment) const;
-
-  void SetColoring(NumMwmId numMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring> coloring)
-  {
-    m_mwmToTraffic[numMwmId] = coloring;
-  }
-
-  bool Has(NumMwmId numMwmId) const
-  {
-    return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend();
-  }
+  void SetColoring(NumMwmId numMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring> coloring);
+  bool Has(NumMwmId numMwmId) const;
 
 private:
   void CopyTraffic();
@@ -52,6 +41,6 @@ private:
 
   traffic::TrafficCache const & m_source;
   shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unordered_map<NumMwmId, shared_ptr<traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
+  std::unordered_map<NumMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
 };
 }  // namespace routing

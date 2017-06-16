@@ -41,7 +41,7 @@ public:
   virtual string GetName() const override { return m_name; }
   virtual IRouter::ResultCode CalculateRoute(m2::PointD const & startPoint,
                                              m2::PointD const & startDirection,
-                                             m2::PointD const & finalPoint, bool adjust,
+                                             m2::PointD const & finalPoint, bool adjustToPrevRoute,
                                              RouterDelegate const & delegate,
                                              Route & route) override;
 
@@ -54,11 +54,6 @@ public:
                                                  Index & index);
 
 private:
-  IRouter::ResultCode CalculateRoute(string const & startCountry, string const & finishCountry,
-                                     bool forSingleMwm, m2::PointD const & startPoint,
-                                     m2::PointD const & startDirection,
-                                     m2::PointD const & finalPoint, bool adjust,
-                                     RouterDelegate const & delegate, Route & route);
   IRouter::ResultCode DoCalculateRoute(platform::CountryFile const & startCountry,
                                        platform::CountryFile const & finishCountry,
                                        bool forSingleMwm, m2::PointD const & startPoint,
@@ -69,7 +64,6 @@ private:
                                   m2::PointD const & startPoint, m2::PointD const & startDirection,
                                   m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                   Route & route);
-  void AppendRemainingRoute(std::vector<Segment> & route) const;
 
   WorldGraph MakeWorldGraph();
 
@@ -103,6 +97,6 @@ private:
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unique_ptr<IDirectionsEngine> m_directionsEngine;
-  SegmentedRoute m_lastRoute;
+  unique_ptr<SegmentedRoute> m_lastRoute;
 };
 }  // namespace routing

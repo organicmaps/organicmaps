@@ -57,10 +57,10 @@ private:
   map<unsigned, vector<Edge>> m_adjs;
 };
 
+using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
+
 void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, double const & expectedDistance)
 {
-  using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
-
   TAlgorithm algo;
 
   RoutingResult<unsigned> actualRoute;
@@ -90,4 +90,68 @@ UNIT_TEST(AStarAlgorithm_Sample)
   TestAStar(graph, expectedRoute, 23);
 }
 
+UNIT_TEST(AdjustRoute)
+{
+  UndirectedGraph graph;
+
+  for (unsigned int i = 0; i < 5; ++i)
+    graph.AddEdge(i /* from */, i + 1 /* to */, 1 /* weight */);
+
+  graph.AddEdge(6, 0, 1);
+  graph.AddEdge(6, 1, 1);
+  graph.AddEdge(6, 2, 1);
+
+  // Each edge contains {vertexId, weight}.
+  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+
+  TAlgorithm algo;
+  RoutingResult<unsigned> result;
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+
+  vector<unsigned> const expectedRoute = {6, 2, 3, 4, 5};
+  TEST_EQUAL(code, TAlgorithm::Result::OK, ());
+  TEST_EQUAL(result.path, expectedRoute, ());
+  TEST_EQUAL(result.distance, 4.0, ());
+}
+
+UNIT_TEST(AdjustRouteNoPath)
+{
+  UndirectedGraph graph;
+
+  for (unsigned int i = 0; i < 5; ++i)
+    graph.AddEdge(i /* from */, i + 1 /* to */, 1 /* weight */);
+
+  // Each edge contains {vertexId, weight}.
+  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+
+  TAlgorithm algo;
+  RoutingResult<unsigned> result;
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+
+  TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
+  TEST(result.path.empty(), ());
+}
+
+UNIT_TEST(AdjustRouteOutOfLimit)
+{
+  UndirectedGraph graph;
+
+  for (unsigned int i = 0; i < 5; ++i)
+    graph.AddEdge(i /* from */, i + 1 /* to */, 1 /* weight */);
+
+  graph.AddEdge(6, 2, 2);
+
+  // Each edge contains {vertexId, weight}.
+  vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
+
+  TAlgorithm algo;
+  RoutingResult<unsigned> result;
+  auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
+                               my::Cancellable(), nullptr /* onVisitedVertexCallback */);
+
+  TEST_EQUAL(code, TAlgorithm::Result::NoPath, ());
+  TEST(result.path.empty(), ());
+}
 }  // namespace routing_test

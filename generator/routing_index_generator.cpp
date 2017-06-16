@@ -289,7 +289,6 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   DeserializeIndexGraph(mwmValue, graph);
 
   map<Segment, map<Segment, double>> weights;
-  map<Segment, double> distanceMap;
   auto const numEnters = connector.GetEnters().size();
   size_t foundCount = 0;
   size_t notFoundCount = 0;
@@ -302,18 +301,16 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
 
     AStarAlgorithm<DijkstraWrapper> astar;
     DijkstraWrapper wrapper(graph);
-    astar.PropagateWave(
-        wrapper, enter, [](Segment const & /* vertex */) { return false; },
-        [](Segment const & /* vertex */, SegmentEdge const & edge) { return edge.GetWeight(); },
-        [](Segment const & /* from */, Segment const & /* to */) {} /* putToParents */,
-        distanceMap);
+    AStarAlgorithm<DijkstraWrapper>::Context context;
+    astar.PropagateWave(wrapper, enter,
+                        [](Segment const & /* vertex */) { return true; } /* visitVertex */,
+                        context);
 
     for (Segment const & exit : connector.GetExits())
     {
-      auto it = distanceMap.find(exit);
-      if (it != distanceMap.end())
+      if (context.HasDistance(exit))
       {
-        weights[enter][exit] = it->second;
+        weights[enter][exit] = context.GetDistance(exit);
         ++foundCount;
       }
       else

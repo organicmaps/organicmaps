@@ -565,8 +565,9 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   {
     m_routingSession.RebuildRoute(
         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
-        [&](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); },
-        0 /* timeoutSec */, routing::RoutingSession::State::RouteRebuilding);
+        [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); },
+        0 /* timeoutSec */, routing::RoutingSession::State::RouteRebuilding,
+        true /* adjustToPrevRoute */);
   }
 }
 

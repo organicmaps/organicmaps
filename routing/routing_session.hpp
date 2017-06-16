@@ -90,7 +90,7 @@ public:
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                   uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
-                    uint32_t timeoutSec, State routeRebuildingState, bool adjust);
+                    uint32_t timeoutSec, State routeRebuildingState, bool adjustToPrevRoute);
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }

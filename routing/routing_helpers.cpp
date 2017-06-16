@@ -73,21 +73,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   {
     traffic.reserve(segments.size());
     for (Segment const & seg : segments)
-    {
-      traffic::TrafficInfo::RoadSegmentId roadSegment(
-          seg.GetFeatureId(), seg.GetSegmentIdx(),
-          seg.IsForward() ? traffic::TrafficInfo::RoadSegmentId::kForwardDirection
-                          : traffic::TrafficInfo::RoadSegmentId::kReverseDirection);
-
-      auto segTraffic = SpeedGroup::Unknown;
-      if (auto trafficColoring = trafficStash->Get(seg.GetMwmId()))
-      {
-        auto const it = trafficColoring->find(roadSegment);
-        if (it != trafficColoring->cend())
-          segTraffic = it->second;
-      }
-      traffic.push_back(segTraffic);
-    }
+      traffic.push_back(trafficStash->GetSpeedGroup(seg));
     CHECK_EQUAL(segments.size(), traffic.size(), ());
   }
 

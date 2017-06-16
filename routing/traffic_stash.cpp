@@ -6,6 +6,12 @@
 
 namespace routing
 {
+TrafficStash::TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
+  : m_source(source), m_numMwmIds(std::move(numMwmIds))
+{
+  CHECK(m_numMwmIds, ());
+}
+
 traffic::SpeedGroup TrafficStash::GetSpeedGroup(Segment const & segment) const
 {
   auto itMwm = m_mwmToTraffic.find(segment.GetMwmId());
@@ -22,6 +28,17 @@ traffic::SpeedGroup TrafficStash::GetSpeedGroup(Segment const & segment) const
     return traffic::SpeedGroup::Unknown;
 
   return itSeg->second;
+}
+
+void TrafficStash::SetColoring(NumMwmId numMwmId,
+                               std::shared_ptr<traffic::TrafficInfo::Coloring> coloring)
+{
+  m_mwmToTraffic[numMwmId] = coloring;
+}
+
+bool TrafficStash::Has(NumMwmId numMwmId) const
+{
+  return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend();
 }
 
 void TrafficStash::CopyTraffic()

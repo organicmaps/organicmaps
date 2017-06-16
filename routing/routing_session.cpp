@@ -84,7 +84,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                                   TReadyCallback const & readyCallback, uint32_t timeoutSec,
-                                  State routeRebuildingState, bool adjust)
+                                  State routeRebuildingState, bool adjustToPrevRoute)
 {
   ASSERT(m_router != nullptr, ());
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
@@ -95,7 +95,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint, adjust,
+  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint, adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
                            m_progressCallback, timeoutSec);
 }
@@ -157,7 +157,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
   // Cancel current route building if going.
   m_router->ClearState();
   RebuildRoute(m_lastGoodPosition, m_rebuildReadyCallback, 0 /* timeoutSec */,
-               routing::RoutingSession::State::RouteRebuilding, false /* adjust */);
+               routing::RoutingSession::State::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
 void RoutingSession::Reset()

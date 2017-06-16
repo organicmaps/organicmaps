@@ -1,5 +1,7 @@
 #include "routing/segmented_route.hpp"
 
+#include "routing/index_graph_starter.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -9,11 +11,9 @@
 
 namespace routing
 {
-void SegmentedRoute::Init(m2::PointD const & start, m2::PointD const & finish)
+SegmentedRoute::SegmentedRoute(m2::PointD const & start, m2::PointD const & finish)
+  : m_start(start), m_finish(finish)
 {
-  m_start = start;
-  m_finish = finish;
-  m_steps.clear();
 }
 
 double SegmentedRoute::CalcDistance(m2::PointD const & point) const
@@ -25,12 +25,5 @@ double SegmentedRoute::CalcDistance(m2::PointD const & point) const
     result = std::min(result, MercatorBounds::DistanceOnEarth(point, step.GetPoint()));
 
   return result;
-}
-
-Segment const & SegmentedRoute::GetFinishSegment() const
-{
-  // Last segment is fake, before last is finish
-  CHECK_GREATER(m_steps.size(), 2, ());
-  return m_steps[m_steps.size() - 2].GetSegment();
 }
 }  // namespace routing

@@ -12,6 +12,7 @@ namespace routing
 
 namespace
 {
+uint32_t constexpr kVisitPeriod = 4;
 float constexpr kProgressInterval = 2;
 
 double constexpr KMPH2MPS = 1000.0 / (60 * 60);
@@ -137,10 +138,12 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 RoutingResult<Junction> & path)
 {
   AStarProgress progress(0, 100);
+  uint32_t visitCount = 0;
 
-  function<void(Junction const &, Junction const &)> onVisitJunctionFn =
-      [&delegate, &progress](Junction const & junction, Junction const & /* target */)
-  {
+  auto onVisitJunctionFn = [&](Junction const & junction, Junction const & /* target */) {
+    if (++visitCount % kVisitPeriod != 0)
+      return;
+
     delegate.OnPointCheck(junction.GetPoint());
     auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForDirectedAlgo(junction.GetPoint());
@@ -164,10 +167,12 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     RouterDelegate const & delegate, RoutingResult<Junction> & path)
 {
   AStarProgress progress(0, 100);
+  uint32_t visitCount = 0;
 
-  function<void(Junction const &, Junction const &)> onVisitJunctionFn =
-      [&delegate, &progress](Junction const & junction, Junction const & target)
-  {
+  auto onVisitJunctionFn = [&](Junction const & junction, Junction const & target) {
+    if (++visitCount % kVisitPeriod != 0)
+      return;
+
     delegate.OnPointCheck(junction.GetPoint());
     auto const lastValue = progress.GetLastValue();
     auto const newValue =
