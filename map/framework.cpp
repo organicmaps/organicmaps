@@ -10,7 +10,6 @@
 #include "defines.hpp"
 #include "private.h"
 
-#include "routing/car_router.hpp"
 #include "routing/index_router.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/online_absent_fetcher.hpp"

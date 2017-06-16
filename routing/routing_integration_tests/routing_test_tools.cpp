@@ -79,10 +79,10 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  unique_ptr<CarRouter> CreateCarRouter(Index & index,
-                                        storage::CountryInfoGetter const & infoGetter,
-                                        traffic::TrafficCache const & trafficCache,
-                                        vector<LocalCountryFile> const & localFiles)
+  unique_ptr<IndexRouter> CreateCarRouter(Index & index,
+                                          storage::CountryInfoGetter const & infoGetter,
+                                          traffic::TrafficCache const & trafficCache,
+                                          vector<LocalCountryFile> const & localFiles)
   {
     auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
       return infoGetter.GetRegionCountryId(pt);
@@ -101,11 +101,10 @@ namespace integration
         numMwmIds->RegisterFile(countryFile);
     }
 
-    auto carRouter = make_unique<CarRouter>(
-        index, countryFileGetter,
+    auto indexRouter =
         IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
-                                     MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index));
-    return carRouter;
+                                     MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
+    return indexRouter;
   }
 
   unique_ptr<IRouter> CreateAStarRouter(Index & index,
@@ -133,16 +132,16 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_carRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
-                                    localFiles))
+      , m_indexRouter(move(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
+                                           m_trafficCache, localFiles)))
     {
     }
 
-    IRouter * GetRouter() const override { return m_carRouter.get(); }
+    IRouter * GetRouter() const override { return m_indexRouter.get(); }
 
   private:
     traffic::TrafficCache m_trafficCache;
-    unique_ptr<CarRouter> m_carRouter;
+    unique_ptr<IndexRouter> m_indexRouter;
   };
 
   class PedestrianRouterComponents : public IRouterComponents

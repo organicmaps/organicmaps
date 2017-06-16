@@ -16,8 +16,6 @@ set(
   base/followed_polyline.hpp
   bicycle_directions.cpp
   bicycle_directions.hpp
-  car_router.cpp
-  car_router.hpp
   coding.hpp
   cross_mwm_connector.cpp
   cross_mwm_connector.hpp

@@ -1,3 +1,5 @@
+#include "routing/cross_mwm_index_graph.hpp"
+
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/cross_mwm_road_graph.hpp"
 

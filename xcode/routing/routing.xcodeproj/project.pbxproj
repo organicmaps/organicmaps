@@ -59,8 +59,6 @@
 		56555E561D897C90009D786D /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
 		56555E581D897C9D009D786D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		56555E591D897D28009D786D /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
-		56826BD01DB51C4E00807C62 /* car_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56826BCE1DB51C4E00807C62 /* car_router.cpp */; };
-		56826BD11DB51C4E00807C62 /* car_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56826BCF1DB51C4E00807C62 /* car_router.hpp */; };
 		5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */; };
 		5694CECB1EBA25F7004576D3 /* road_access_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5694CEC61EBA25F7004576D3 /* road_access_serialization.hpp */; };
 		5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC71EBA25F7004576D3 /* road_access.cpp */; };
@@ -316,8 +314,6 @@
 		56099E301CC9247E00A7772A /* bicycle_directions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_directions.cpp; sourceTree = "<group>"; };
 		56099E311CC9247E00A7772A /* bicycle_directions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bicycle_directions.hpp; sourceTree = "<group>"; };
 		56099E321CC9247E00A7772A /* directions_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directions_engine.cpp; sourceTree = "<group>"; };
-		56826BCE1DB51C4E00807C62 /* car_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = car_router.cpp; sourceTree = "<group>"; };
-		56826BCF1DB51C4E00807C62 /* car_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_router.hpp; sourceTree = "<group>"; };
 		5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_serialization.cpp; sourceTree = "<group>"; };
 		5694CEC61EBA25F7004576D3 /* road_access_serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_access_serialization.hpp; sourceTree = "<group>"; };
 		5694CEC71EBA25F7004576D3 /* road_access.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access.cpp; sourceTree = "<group>"; };
@@ -736,8 +732,6 @@
 				671F58BA1B874EA20032311E /* base */,
 				56099E301CC9247E00A7772A /* bicycle_directions.cpp */,
 				56099E311CC9247E00A7772A /* bicycle_directions.hpp */,
-				56826BCE1DB51C4E00807C62 /* car_router.cpp */,
-				56826BCF1DB51C4E00807C62 /* car_router.hpp */,
 				0C62BFE51E8ADC3100055A79 /* coding.hpp */,
 				0C5F5D1E1E798B0400307B98 /* cross_mwm_connector.cpp */,
 				0C5F5D1F1E798B0400307B98 /* cross_mwm_connector.hpp */,
@@ -922,7 +916,6 @@
 				A120B34F1B4A7C0A002F3808 /* online_absent_fetcher.hpp in Headers */,
 				0C62BFE61E8ADC3100055A79 /* coding.hpp in Headers */,
 				674F9BD51B0A580E00704FFA /* road_graph.hpp in Headers */,
-				56826BD11DB51C4E00807C62 /* car_router.hpp in Headers */,
 				A120B3511B4A7C0A002F3808 /* routing_algorithm.hpp in Headers */,
 				0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */,
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
@@ -1151,7 +1144,6 @@
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
 				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
-				56826BD01DB51C4E00807C62 /* car_router.cpp in Sources */,
 				0C090C811E4E274000D52AFD /* index_graph_loader.cpp in Sources */,
 				349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */,
 				56099E351CC9247E00A7772A /* directions_engine.cpp in Sources */,

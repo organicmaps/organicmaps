@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "routing/car_router.hpp"
+#include "routing/index_router.hpp"
 
 #include "indexer/features_offsets_table.hpp"
 #include "geometry/mercator.hpp"

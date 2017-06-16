@@ -24,6 +24,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "base/exception.hpp"
 
 #include <algorithm>
@@ -72,6 +74,27 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
   return !CheckGraphConnectivity(segment, kDeadEndTestLimit, worldGraph,
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
+
+bool AllMwmsHaveRoutingIndex(Index & index, Route & route)
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  index.GetMwmsInfo(infos);
+
+  bool result = true;
+  for (auto const & info : infos)
+  {
+    if (info->GetType() == MwmInfo::COUNTRY)
+    {
+      if (!version::MwmTraits(info->m_version).HasRoutingIndex())
+      {
+        result = false;
+        route.AddAbsentCountry(info->GetCountryName());
+      }
+    }
+  }
+
+  return result;
+}
 }  // namespace
 
 namespace routing
@@ -109,19 +132,14 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
                                                 m2::PointD const & finalPoint,
                                                 RouterDelegate const & delegate, Route & route)
 {
+  if (!AllMwmsHaveRoutingIndex(m_index, route))
+    return IRouter::ResultCode::FileTooOld;
+
   string const startCountry = m_countryFileFn(startPoint);
   string const finishCountry = m_countryFileFn(finalPoint);
 
   return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
                         startDirection, finalPoint, delegate, route);
-}
-
-IRouter::ResultCode IndexRouter::CalculateRouteForSingleMwm(
-    string const & country, m2::PointD const & startPoint, m2::PointD const & startDirection,
-    m2::PointD const & finalPoint, RouterDelegate const & delegate, Route & route)
-{
-  return CalculateRoute(country, country, true /* blockMwmBorders */, startPoint, startDirection,
-                        finalPoint, delegate, route);
 }
 
 IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,

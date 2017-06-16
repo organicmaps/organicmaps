@@ -16,7 +16,6 @@ SOURCES += \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
-    car_router.cpp \
     cross_mwm_connector.cpp \
     cross_mwm_connector_serialization.cpp \
     cross_mwm_graph.cpp \
@@ -71,7 +70,6 @@ HEADERS += \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
-    car_router.hpp \
     coding.hpp \
     cross_mwm_connector.hpp \
     cross_mwm_connector_serialization.hpp \

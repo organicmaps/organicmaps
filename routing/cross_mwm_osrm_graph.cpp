@@ -101,7 +101,7 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
   // without connectors works as AStar.
   // Most of routes don't use leaps, therefore it is important to keep AStar performance.
   double constexpr kAstarHeuristicFactor = 100000;
-  //// Osrm multiples seconds to 10, so we need to divide it back.
+  //// Osrm multiplies seconds to 10, so we need to divide it back.
   double constexpr kOSRMWeightToSecondsMultiplier = 0.1;
   edges.emplace_back(segment,
                      osrmEdge.GetWeight() * kOSRMWeightToSecondsMultiplier * kAstarHeuristicFactor);

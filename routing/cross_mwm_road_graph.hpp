@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/car_router.hpp"
 #include "routing/cross_mwm_router.hpp"
 #include "routing/osrm_engine.hpp"
 #include "routing/router.hpp"

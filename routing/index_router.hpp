@@ -44,12 +44,6 @@ public:
                                              RouterDelegate const & delegate,
                                              Route & route) override;
 
-  IRouter::ResultCode CalculateRouteForSingleMwm(string const & country,
-                                                 m2::PointD const & startPoint,
-                                                 m2::PointD const & startDirection,
-                                                 m2::PointD const & finalPoint,
-                                                 RouterDelegate const & delegate, Route & route);
-
   /// \note |numMwmIds| should not be null.
   static unique_ptr<IndexRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
                                                  CourntryRectFn const & coutryRectFn,
