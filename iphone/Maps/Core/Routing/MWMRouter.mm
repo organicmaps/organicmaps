@@ -474,7 +474,9 @@ m2::PointD getMercator(MWMRoutePoint * p)
     [self presentDownloaderAlert:code countries:absentCountries];
     [mapViewControlsManager onRouteError];
     break;
-  case routing::IRouter::Cancelled: break;
+  case routing::IRouter::Cancelled:
+    [mapViewControlsManager onRoutePrepare];
+    break;
   case routing::IRouter::StartPointNotFound:
   case routing::IRouter::EndPointNotFound:
   case routing::IRouter::NoCurrentPosition:

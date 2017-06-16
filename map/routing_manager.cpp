@@ -511,9 +511,6 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
 void RoutingManager::CallRouteBuilded(routing::IRouter::ResultCode code,
                                       storage::TCountriesVec const & absentCountries)
 {
-  if (code == IRouter::Cancelled)
-    return;
-
   m_routingCallback(code, absentCountries);
 }
 
