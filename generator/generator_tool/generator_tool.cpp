@@ -144,7 +144,6 @@ int main(int argc, char ** argv)
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
   genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
-  genInfo.m_viatorReferenceDir = FLAGS_viator_reference_path;
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
 

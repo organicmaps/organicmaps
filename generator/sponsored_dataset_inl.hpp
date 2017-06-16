@@ -45,24 +45,15 @@ SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath
   : m_storage(kDistanceLimitInMeters, kMaxSelectedElements)
 {
   InitStorage();
-  GetStorage().LoadData(dataPath, addressReferencePath);
-}
-
-template <typename SponsoredObject>
-SponsoredDataset<SponsoredObject>::SponsoredDataset(std::istream & dataSource,
-                                                    std::string const & addressReferencePath)
-  : m_storage(kDistanceLimitInMeters, kMaxSelectedElements)
-{
-  InitStorage();
-  GetStorage().LoadData(dataSource, addressReferencePath);
+  m_storage.LoadData(dataPath, addressReferencePath);
 }
 
 template <typename SponsoredObject>
 void SponsoredDataset<SponsoredObject>::InitStorage()
 {
-  using Container = typename SponsoredStorage<SponsoredObject>::ObjectsContainer;
+  using Container = typename SponsoredObjectStorage<SponsoredObject>::ObjectsContainer;
 
-  m_storage.SetFillObject([](Container & objects) {
+  m_storage.SetFillObjects([](Container & objects) {
     AddressMatcher addressMatcher;
 
     size_t matchedCount = 0;
@@ -78,27 +69,15 @@ void SponsoredDataset<SponsoredObject>::InitStorage()
         ++matchedCount;
     }
 
-    LOG(LINFO, ("Num of objects:", objects.size(), "matched:", matchedCount, "empty addresses:",
-                emptyCount));
+    LOG(LINFO, ("Num of objects:", objects.size(), "matched:", matchedCount,
+                "empty addresses:", emptyCount));
   });
-}
-
-template <typename SponsoredObject>
-SponsoredStorage<SponsoredObject> const & SponsoredDataset<SponsoredObject>::GetStorage() const
-{
-  return m_storage;
-}
-
-template <typename SponsoredObject>
-SponsoredStorage<SponsoredObject> & SponsoredDataset<SponsoredObject>::GetStorage()
-{
-  return m_storage;
 }
 
 template <typename SponsoredObject>
 void SponsoredDataset<SponsoredObject>::BuildOsmObjects(function<void(FeatureBuilder1 &)> const & fn) const
 {
-  for (auto const & item : GetStorage().GetObjects())
+  for (auto const & item : m_storage.GetObjects())
     BuildObject(item.second, fn);
 }
 

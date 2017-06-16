@@ -45,7 +45,6 @@ struct GenerateInfo
   std::string m_opentableDatafileName;
   std::string m_opentableReferenceDir;
   std::string m_viatorDatafileName;
-  std::string m_viatorReferenceDir;
 
   uint32_t m_versionDate = 0;
 

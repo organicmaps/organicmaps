@@ -15,8 +15,7 @@ class ViatorApi(object):
 
     def get_locations(self):
         url = 'http://viatorapi.viator.com/service/taxonomy/locations?apiKey=' + self.apikey
-        request = urllib2.Request(url)
-        stream = urllib2.urlopen(request)
+        stream = urllib2.urlopen(url)
         payload = stream.read()
         locations = json.loads(payload)
         return locations
@@ -31,8 +30,9 @@ def check_errors(locations):
 def save_cities(locations, output_file_name):
     with open(output_file_name, 'w') as output_file:
         for l in locations['data']:
-            if l['destinationType'] == 'CITY' and l['destinationId'] and \
-                    l['destinationName'] and l['latitude'] and l['longitude']:
+            is_object_supported = (l['destinationType'] == 'CITY' and l['destinationId'] and
+                                   l['destinationName'] and l['latitude'] and l['longitude'])
+            if is_object_supported:
                 city = '\t'.join([
                     str(l['destinationId']),
                     l['destinationName'],

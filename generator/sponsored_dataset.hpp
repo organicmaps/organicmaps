@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/sponsored_storage.hpp"
+#include "generator/sponsored_object_storage.hpp"
 
 #include "base/newtype.hpp"
 
@@ -24,8 +24,6 @@ public:
 
   explicit SponsoredDataset(std::string const & dataPath,
                             std::string const & addressReferencePath = std::string());
-  explicit SponsoredDataset(std::istream & dataSource,
-                            std::string const & addressReferencePath = std::string());
 
   /// @return true if |fb| satisfies some necessary conditions to match one or serveral
   /// objects from dataset.
@@ -41,8 +39,6 @@ public:
 
 private:
   void InitStorage();
-  SponsoredStorage<Object> const & GetStorage() const;
-  SponsoredStorage<Object> & GetStorage();
 
   void BuildObject(Object const & object,
                    std::function<void(FeatureBuilder1 &)> const & fn) const;
@@ -50,7 +46,7 @@ private:
   /// @return an id of a matched object or kInvalidObjectId on failure.
   ObjectId FindMatchingObjectIdImpl(FeatureBuilder1 const & fb) const;
 
-  SponsoredStorage<Object> m_storage;
+  SponsoredObjectStorage<Object> m_storage;
 };
 }  // namespace generator
 

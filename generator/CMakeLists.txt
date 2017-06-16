@@ -75,9 +75,9 @@ set(SRC
   search_index_builder.hpp
   sponsored_dataset.hpp
   sponsored_dataset_inl.hpp
+  sponsored_object_storage.hpp
   sponsored_scoring.cpp
   sponsored_scoring.hpp
-  sponsored_storage.hpp
   srtm_parser.cpp
   srtm_parser.hpp
   statistics.cpp

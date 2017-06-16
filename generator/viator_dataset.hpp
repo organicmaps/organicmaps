@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/sponsored_storage.hpp"
+#include "generator/sponsored_object_storage.hpp"
 
 #include "search/city_finder.hpp"
 
@@ -13,6 +13,8 @@
 #include <limits>
 #include <memory>
 #include <string>
+
+class FeatureBuilder1;
 
 namespace generator
 {
@@ -39,7 +41,7 @@ NEWTYPE_SIMPLE_OUTPUT(ViatorCity::ObjectId);
 class ViatorDataset
 {
 public:
-  ViatorDataset(std::string const & dataPath, std::string const & addressReferencePath);
+  ViatorDataset(std::string const & dataPath);
 
   ViatorCity::ObjectId FindMatchingObjectId(FeatureBuilder1 const & fb) const;
 
@@ -47,7 +49,7 @@ public:
                                   function<void(FeatureBuilder1 &)> const fn) const;
 
 private:
-  SponsoredStorage<ViatorCity> m_storage;
+  SponsoredObjectStorage<ViatorCity> m_storage;
   Index m_index;
   std::unique_ptr<search::CityFinder> m_cityFinder;
 };

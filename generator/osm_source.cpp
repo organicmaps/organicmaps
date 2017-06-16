@@ -309,7 +309,7 @@ public:
     , m_failOnCoasts(info.m_failOnCoasts)
     , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
     , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
-    , m_viatorDataset(info.m_viatorDatafileName, info.m_viatorReferenceDir)
+    , m_viatorDataset(info.m_viatorDatafileName)
   {
     Classificator const & c = classif();
 

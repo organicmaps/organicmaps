@@ -196,11 +196,11 @@ BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder
 
   // Find |kMaxSelectedElements| nearest values to a point.
   auto const bookingIndexes =
-      GetStorage().GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
+      m_storage.GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
 
   for (auto const j : bookingIndexes)
   {
-    if (sponsored_scoring::Match(GetStorage().GetObjectById(j), fb).IsMatched())
+    if (sponsored_scoring::Match(m_storage.GetObjectById(j), fb).IsMatched())
       return j;
   }
 

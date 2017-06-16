@@ -21,18 +21,16 @@
 namespace generator
 {
 template <typename Object>
-class SponsoredStorage
+class SponsoredObjectStorage
 {
 public:
   using ObjectId = typename Object::ObjectId;
   using ObjectsContainer = std::map<ObjectId, Object>;
   using FillObject = std::function<void(ObjectsContainer & objects)>;
 
-  SponsoredStorage(double distanceLimitMeters, size_t maxSelectedElements,
-                   FillObject const & fn = {})
+  SponsoredObjectStorage(double distanceLimitMeters, size_t maxSelectedElements)
     : m_distanceLimitMeters(distanceLimitMeters)
     , m_maxSelectedElements(maxSelectedElements)
-    , m_fillObject(fn)
   {
   }
 
@@ -56,7 +54,7 @@ public:
     return m_objects.size();
   }
 
-  void SetFillObject(FillObject const & fn)
+  void SetFillObjects(FillObject const & fn)
   {
     m_fillObject = fn;
   }
@@ -95,7 +93,7 @@ public:
       std::string const backupPath = platform.WritableDir();
 
       // MWMs can be loaded only from a writebledir or from a resourcedir,
-      // changig resourcedir can lead to probles with classificator, so
+      // changig resourcedir can lead to problems with classificator, so
       // we change writebledir.
       platform.SetWritableDirForTests(addressReferencePath);
 

@@ -36,7 +36,7 @@ ViatorCity::ViatorCity(std::string const & src)
   vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
   CHECK_EQUAL(rec.size(), FieldsCount(),
-              ("Error parsing viator cities line:", boost::replace_all_copy(src, "\t", "\\t")));
+              ("Error parsing viator cities, line:", boost::replace_all_copy(src, "\t", "\\t")));
 
   CHECK(strings::to_uint(rec[FieldIndex(TsvFields::Id)], m_id.Get()), ());
   CHECK(strings::to_double(rec[FieldIndex(TsvFields::Latitude)], m_latLon.lat), ());
@@ -53,13 +53,13 @@ ostream & operator<<(ostream & s, ViatorCity const & h)
 }
 
 // ViatorDataset ----------------------------------------------------------------------------------
-ViatorDataset::ViatorDataset(std::string const & dataPath, std::string const & addressReferencePath)
+ViatorDataset::ViatorDataset(std::string const & dataPath)
   : m_storage(3000.0 /* distanceLimitMeters */, 3 /* maxSelectedElements */)
 {
   LoadIndex(m_index);
   m_cityFinder = make_unique<search::CityFinder>(m_index);
 
-  m_storage.LoadData(dataPath, addressReferencePath);
+  m_storage.LoadData(dataPath, "");
 }
 
 ViatorCity::ObjectId ViatorDataset::FindMatchingObjectId(FeatureBuilder1 const & fb) const
@@ -97,7 +97,7 @@ void ViatorDataset::PreprocessMatchedOsmObject(ViatorCity::ObjectId const matche
 {
   FeatureParams params = fb.GetParams();
 
-  auto city = m_storage.GetObjectById(matchedObjId);
+  auto const & city = m_storage.GetObjectById(matchedObjId);
   auto & metadata = params.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(city.m_id.Get()));
 

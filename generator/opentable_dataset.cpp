@@ -54,7 +54,7 @@ void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, F
 {
   FeatureParams params = fb.GetParams();
 
-  auto restaurant = GetStorage().GetObjectById(matchedObjId);
+  auto const & restaurant = m_storage.GetObjectById(matchedObjId);
   auto & metadata = params.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(restaurant.m_id.Get()));
 
@@ -81,11 +81,11 @@ OpentableDataset::ObjectId OpentableDataset::FindMatchingObjectIdImpl(FeatureBui
     return Object::InvalidObjectId();
 
   // Find |kMaxSelectedElements| nearest values to a point.
-  auto const nearbyIds = GetStorage().GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
+  auto const nearbyIds = m_storage.GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
 
   for (auto const objId : nearbyIds)
   {
-    if (sponsored_scoring::Match(GetStorage().GetObjectById(objId), fb).IsMatched())
+    if (sponsored_scoring::Match(m_storage.GetObjectById(objId), fb).IsMatched())
       return objId;
   }
 
