@@ -79,6 +79,13 @@ public:
 
   RoadShieldType FindNetworkShield(std::string network) const
   {
+    // Special processing for US state highways, to not duplicate the table.
+    if (network.size() == 5 && strings::StartsWith(network, "US:"))
+    {
+      if (std::find(kStatesCode.begin(), kStatesCode.end(), network.substr(3)) != kStatesCode.end())
+        return RoadShieldType::Generic_White;
+    }
+
     // Minimum length for the network tag is 4 (US:I).
     if (network.size() > 4)
     {
