@@ -225,20 +225,6 @@
 		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		45BB025F1EB8BE9400FE5C0C /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.glsl */shader_index.txt";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			name = "Shader Generator";
-			outputFiles = (
-			);
-			script = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${INPUT_FILE_DIR} shader_index.txt shaders_lib.glsl ${INPUT_FILE_DIR}/.. shader_def";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXFileReference section */
 		347F52071DC2334A0064B273 /* drape_api_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_api_builder.cpp; sourceTree = "<group>"; };
 		347F52081DC2334A0064B273 /* drape_api_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_api_builder.hpp; sourceTree = "<group>"; };
@@ -996,12 +982,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6709473E1BDF9B82005014C0 /* Build configuration list for PBXNativeTarget "drape_frontend" */;
 			buildPhases = (
+				3451C6681EF3E86A00C718BB /* ShellScript */,
 				670947361BDF9B82005014C0 /* Sources */,
 				670947371BDF9B82005014C0 /* Frameworks */,
 				670947381BDF9B82005014C0 /* Headers */,
 			);
 			buildRules = (
-				45BB025F1EB8BE9400FE5C0C /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -1040,6 +1026,22 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3451C6681EF3E86A00C718BB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${SRCROOT}/../../drape_frontend/shaders shader_index.txt shaders_lib.glsl ${SRCROOT}/../../drape_frontend shader_def";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		670947361BDF9B82005014C0 /* Sources */ = {
