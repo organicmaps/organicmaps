@@ -85,14 +85,14 @@ public:
 
   void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
 
-  /// @param[in] startPoint and endPoint in mercator
+  /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
-  void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
+  void BuildRoute(Checkpoints const & checkpoints,
                   uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
                     uint32_t timeoutSec, State routeRebuildingState, bool adjustToPrevRoute);
 
-  m2::PointD GetEndPoint() const { return m_endPoint; }
+  m2::PointD GetEndPoint() const { return m_checkpoints.GetFinish(); }
   bool IsActive() const { return (m_state != RoutingNotActive); }
   bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild); }
@@ -203,7 +203,7 @@ private:
   shared_ptr<Route> m_route;
   atomic<State> m_state;
   atomic<bool> m_isFollowing;
-  m2::PointD m_endPoint;
+  Checkpoints m_checkpoints;
   size_t m_lastWarnedSpeedCameraIndex;
   SpeedCameraRestriction m_lastFoundCamera;
   // Index of a last point on a route checked for a speed camera.

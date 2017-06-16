@@ -39,11 +39,9 @@ public:
 
   // IRouter overrides:
   virtual string GetName() const override { return m_name; }
-  virtual IRouter::ResultCode CalculateRoute(m2::PointD const & startPoint,
-                                             m2::PointD const & startDirection,
-                                             m2::PointD const & finalPoint, bool adjustToPrevRoute,
-                                             RouterDelegate const & delegate,
-                                             Route & route) override;
+  virtual ResultCode CalculateRoute(Checkpoints const & checkpoints,
+                                    m2::PointD const & startDirection, bool adjustToPrevRoute,
+                                    RouterDelegate const & delegate, Route & route) override;
 
   /// \note |numMwmIds| should not be null.
   static unique_ptr<IndexRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
@@ -54,14 +52,10 @@ public:
                                                  Index & index);
 
 private:
-  IRouter::ResultCode DoCalculateRoute(platform::CountryFile const & startCountry,
-                                       platform::CountryFile const & finishCountry,
-                                       bool forSingleMwm, m2::PointD const & startPoint,
+  IRouter::ResultCode DoCalculateRoute(bool forSingleMwm, Checkpoints const &checkpoints,
                                        m2::PointD const & startDirection,
-                                       m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
-  IRouter::ResultCode AdjustRoute(platform::CountryFile const & startCountry,
-                                  m2::PointD const & startPoint, m2::PointD const & startDirection,
+  IRouter::ResultCode AdjustRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                                   m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                   Route & route);
 

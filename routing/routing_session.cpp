@@ -54,7 +54,6 @@ RoutingSession::RoutingSession()
   , m_route(make_shared<Route>(string()))
   , m_state(RoutingNotActive)
   , m_isFollowing(false)
-  , m_endPoint(m2::PointD::Zero())
   , m_lastWarnedSpeedCameraIndex(0)
   , m_lastCheckedSpeedCameraIndex(0)
   , m_speedWarningSignal(false)
@@ -70,16 +69,16 @@ void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn
   m_router.reset(new AsyncRouter(routingStatisticsFn, pointCheckCallback));
 }
 
-void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
+void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
                                 uint32_t timeoutSec)
 {
   ASSERT(m_router != nullptr, ());
-  m_lastGoodPosition = startPoint;
-  m_endPoint = endPoint;
+  m_checkpoints = checkpoints;
   m_router->ClearState();
   m_isFollowing = false;
   m_routingRebuildCount = -1; // -1 for the first rebuild.
-  RebuildRoute(startPoint, m_buildReadyCallback, timeoutSec, RouteBuilding, false /* adjust */);
+  RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, timeoutSec, RouteBuilding,
+               false /* adjust */);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
@@ -87,15 +86,16 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                                   State routeRebuildingState, bool adjustToPrevRoute)
 {
   ASSERT(m_router != nullptr, ());
-  ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
+  m_checkpoints.CheckValid();
   RemoveRoute();
   SetState(routeRebuildingState);
   m_routingRebuildCount++;
   m_lastCompletionPercent = 0;
 
+  m_checkpoints.SetStart(startPoint);
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint, adjustToPrevRoute,
+  m_router->CalculateRoute(m_checkpoints, startPoint - m_lastGoodPosition, adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
                            m_progressCallback, timeoutSec);
 }

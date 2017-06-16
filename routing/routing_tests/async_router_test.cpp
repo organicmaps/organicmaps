@@ -29,12 +29,11 @@ public:
   
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
-  ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, bool adjustToPrevRoute,
-                            RouterDelegate const & delegate, Route & route) override
+  ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                            bool adjustToPrevRoute, RouterDelegate const & delegate,
+                            Route & route) override
   {
-    vector<m2::PointD> points({startPoint, finalPoint});
-    route = Route("dummy", points.begin(), points.end());
+    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
 
     for (auto const & absent : m_absent)
       route.AddAbsentCountry(absent);
@@ -97,9 +96,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   DummyResultCallback resultCallback(2 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, false /* adjustToPrevRoute */,
-                       bind(ref(resultCallback), _1, _2), nullptr /* progressCallback */,
-                       0 /* timeoutSec */);
+  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, false, bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   resultCallback.WaitFinish();
 
@@ -119,9 +116,7 @@ UNIT_TEST(StandartAsyncFogTest)
   DummyResultCallback resultCallback(1 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, false /* adjustToPrevRoute */,
-                       bind(ref(resultCallback), _1, _2), nullptr /* progressCallback */,
-                       0 /* timeoutSec */);
+  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, false, bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   resultCallback.WaitFinish();
 

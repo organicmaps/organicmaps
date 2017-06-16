@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/checkpoints.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
@@ -77,9 +78,8 @@ public:
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
-  virtual ResultCode CalculateRoute(m2::PointD const & startPoint,
-                                    m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, bool adjust,
+  virtual ResultCode CalculateRoute(Checkpoints const & checkpoints,
+                                    m2::PointD const & startDirection, bool adjust,
                                     RouterDelegate const & delegate, Route & route) = 0;
 };
 

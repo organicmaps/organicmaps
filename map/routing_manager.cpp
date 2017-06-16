@@ -532,9 +532,12 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 
   m_routingSession.SetUserCurrentPosition(routePoints.front().m_position);
 
-  //TODO: build using all points.
-  m_routingSession.BuildRoute(routePoints.front().m_position,
-                              routePoints.back().m_position, timeoutSec);
+  std::vector<m2::PointD> points;
+  points.reserve(routePoints.size());
+  for (auto const & point : routePoints)
+    points.push_back(point.m_position);
+
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

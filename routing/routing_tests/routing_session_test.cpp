@@ -30,10 +30,11 @@ public:
   }
   string GetName() const override { return "dummy"; }
   void ClearState() override {}
-  ResultCode CalculateRoute(m2::PointD const & /* startPoint */,
-                            m2::PointD const & /* startDirection */,
-                            m2::PointD const & /* finalPoint */, bool adjust,
-                            RouterDelegate const & /* delegate */, Route & route) override
+  ResultCode CalculateRoute(Checkpoints const &,
+                              m2::PointD const &,
+                              bool adjust,
+                              RouterDelegate const &,
+                              Route &route) override
   {
     ++m_buildCount;
     route = m_route;
@@ -88,7 +89,7 @@ UNIT_TEST(TestRouteBuilding)
         },
   nullptr
         );
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto const time = steady_clock::now() + kRouteBuildingMaxDuration;
   TEST(timedSignal.WaitUntil(time), ("Route was not built."));
@@ -111,7 +112,7 @@ UNIT_TEST(TestRouteRebuilding)
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
       nullptr);
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
   TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));
@@ -137,7 +138,7 @@ UNIT_TEST(TestRouteRebuilding)
   session.SetReadyCallbacks(
       [&oppositeTimedSignal](Route const &, IRouter::ResultCode) { oppositeTimedSignal.Signal(); },
       nullptr);
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
 
   info.m_longitude = 0.;
@@ -166,7 +167,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
       nullptr);
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
   TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));
@@ -197,7 +198,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   session.SetReadyCallbacks(
       [&oppositeTimedSignal](Route const &, IRouter::ResultCode) { oppositeTimedSignal.Signal(); },
       nullptr);
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
 
   // Manual route building resets the following flag.
@@ -241,7 +242,7 @@ UNIT_TEST(TestFollowRoutePercentTest)
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
       nullptr);
-  session.BuildRoute(kTestRoute.front(), kTestRoute.back(), 0);
+  session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
   TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));

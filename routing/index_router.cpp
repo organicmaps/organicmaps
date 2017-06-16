@@ -142,30 +142,26 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
   CHECK(m_directionsEngine, ());
 }
 
-IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
+IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                                 m2::PointD const & startDirection,
-                                                m2::PointD const & finalPoint,
                                                 bool adjustToPrevRoute,
                                                 RouterDelegate const & delegate, Route & route)
 {
   if (!AllMwmsHaveRoutingIndex(m_index, route))
     return IRouter::ResultCode::FileTooOld;
 
-  string const startCountry = m_countryFileFn(startPoint);
-  string const finishCountry = m_countryFileFn(finalPoint);
+  auto const & startPoint = checkpoints.GetStart();
+  auto const & finalPoint = checkpoints.GetFinish();
 
   try
   {
-    auto const startFile = platform::CountryFile(startCountry);
-    auto const finishFile = platform::CountryFile(finishCountry);
-
     if (adjustToPrevRoute && m_lastRoute && finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
       double const distanceToFinish = MercatorBounds::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
-        auto code = AdjustRoute(startFile, startPoint, startDirection, finalPoint, delegate, route);
+        auto code = AdjustRoute(startPoint, startDirection, finalPoint, delegate, route);
         if (code != IRouter::RouteNotFound)
           return code;
 
@@ -176,8 +172,7 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
       }
     }
 
-    return DoCalculateRoute(startFile, finishFile, false /* forSingleMwm */, startPoint,
-                            startDirection, finalPoint, delegate, route);
+    return DoCalculateRoute(false /* forSingleMwm */, checkpoints, startDirection, delegate, route);
   }
   catch (RootException const & e)
   {
@@ -187,14 +182,17 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
   }
 }
 
-IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & startCountry,
-                                                  platform::CountryFile const & finishCountry,
-                                                  bool forSingleMwm, m2::PointD const & startPoint,
+IRouter::ResultCode IndexRouter::DoCalculateRoute(bool forSingleMwm,
+                                                  Checkpoints const & checkpoints,
                                                   m2::PointD const & /* startDirection */,
-                                                  m2::PointD const & finalPoint,
                                                   RouterDelegate const & delegate, Route & route)
 {
   m_lastRoute.reset();
+
+  auto const & startPoint = checkpoints.GetStart();
+  auto const & finalPoint = checkpoints.GetFinish();
+  auto const startCountry = platform::CountryFile(m_countryFileFn(startPoint));
+  auto const finishCountry = platform::CountryFile(m_countryFileFn(finalPoint));
 
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph = MakeWorldGraph();
@@ -277,12 +275,13 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & 
   return IRouter::NoError;
 }
 
-IRouter::ResultCode IndexRouter::AdjustRoute(platform::CountryFile const & startCountry,
-                                             m2::PointD const & startPoint,
+IRouter::ResultCode IndexRouter::AdjustRoute(m2::PointD const & startPoint,
                                              m2::PointD const & startDirection,
                                              m2::PointD const & finalPoint,
                                              RouterDelegate const & delegate, Route & route)
 {
+  auto const startCountry = platform::CountryFile(m_countryFileFn(startPoint));
+
   my::Timer timer;
   TrafficStash::Guard guard(*m_trafficStash);
   WorldGraph graph = MakeWorldGraph();

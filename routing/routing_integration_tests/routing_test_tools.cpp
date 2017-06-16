@@ -243,8 +243,9 @@ namespace integration
     IRouter * router = routerComponents.GetRouter();
     ASSERT(router, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    IRouter::ResultCode result = router->CalculateRoute(startPoint, startDirection, finalPoint,
-                                                        false /* adjust */, delegate, *route.get());
+    IRouter::ResultCode result =
+        router->CalculateRoute(Checkpoints(startPoint, finalPoint), startDirection,
+                               false /* adjust */, delegate, *route.get());
     ASSERT(route, ());
     return TRouteResult(route, result);
   }

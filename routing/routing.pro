@@ -72,6 +72,7 @@ HEADERS += \
     base/astar_algorithm.hpp \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
+    checkpoints.hpp \
     coding.hpp \
     cross_mwm_connector.hpp \
     cross_mwm_connector_serialization.hpp \

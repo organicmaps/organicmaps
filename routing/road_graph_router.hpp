@@ -34,9 +34,9 @@ public:
   // IRouter overrides:
   string GetName() const override { return m_name; }
   void ClearState() override;
-  ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, bool adjustToPrevRoute,
-                            RouterDelegate const & delegate, Route & route) override;
+  ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                            bool adjustToPrevRoute, RouterDelegate const & delegate,
+                            Route & route) override;
 
 private:
   /// Checks existance and add absent maps to route.
