@@ -24569,3 +24569,12 @@
   [exit]
     en = Exit
     ru = Выход
+
+  [routing_add_start_point]
+    en = Add start point to plan a route.
+
+  [routing_add_finish_point]
+    en = Add finish to plan a route.
+
+  [use]
+    en = Use

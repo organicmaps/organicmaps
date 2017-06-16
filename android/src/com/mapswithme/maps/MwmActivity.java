@@ -56,7 +56,6 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.NavigationController;
-import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
@@ -1596,14 +1595,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (controller.isBuilt() || controller.isUberRequestHandled())
     {
-      showLineFrame(true, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          adjustRuler(0, 0);
-        }
-      });
+      showLineFrame();
 
       if (completion != null)
         completion.run();
@@ -1612,6 +1604,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
+      if (showAddStartOrFinishFrame(controller, true))
+        return;
+
       showLineFrame(false, new Runnable()
       {
         @Override
@@ -1627,6 +1622,75 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
+    hideRoutingActionFrame();
+    showLineFrame();
+
+    if (completion != null)
+      completion.run();
+  }
+
+  private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
+                                            boolean showFrame)
+  {
+    if (!controller.hasStartPoint())
+    {
+      showAddStartFrame();
+      if (showFrame)
+        showLineFrame();
+      return true;
+    }
+    if (!controller.hasEndPoint())
+    {
+      showAddFinishFrame();
+      if (showFrame)
+        showLineFrame();
+      return true;
+    }
+
+    return false;
+  }
+
+  private void showAddStartFrame()
+  {
+    if (!mIsFragmentContainer)
+    {
+      mRoutingPlanInplaceController.showAddStartFrame();
+      return;
+    }
+
+    RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+    if (fragment != null)
+      fragment.showAddStartFrame();
+  }
+
+  private void showAddFinishFrame()
+  {
+    if (!mIsFragmentContainer)
+    {
+      mRoutingPlanInplaceController.showAddFinishFrame();
+      return;
+    }
+
+    RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+    if (fragment != null)
+      fragment.showAddFinishFrame();
+  }
+
+  private void hideRoutingActionFrame()
+  {
+    if (!mIsFragmentContainer)
+    {
+      mRoutingPlanInplaceController.hideActionFrame();
+      return;
+    }
+
+    RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+    if (fragment != null)
+      fragment.hideActionFrame();
+  }
+
+  private void showLineFrame()
+  {
     showLineFrame(true, new Runnable()
     {
       @Override
@@ -1635,9 +1699,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         adjustRuler(0, 0);
       }
     });
-
-    if (completion != null)
-      completion.run();
   }
 
   private void showLineFrame(boolean show, @Nullable Runnable completion)
@@ -1674,6 +1735,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
+        showAddStartOrFinishFrame(RoutingController.get(), false);
         adjustTraffic(UiUtils.dimen(R.dimen.panel_width), UiUtils.getStatusBarHeight(getApplicationContext()));
       }
       else

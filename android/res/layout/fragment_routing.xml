@@ -18,6 +18,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
+  <include
+    android:id="@+id/routing_action_frame"
+    layout="@layout/routing_action_panel"
+    android:visibility="gone"/>
+
   <Space
     android:layout_width="match_parent"
     android:layout_height="0dp"

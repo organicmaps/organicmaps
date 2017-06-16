@@ -5,8 +5,6 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -69,14 +67,6 @@ public class RoutingPlanInplaceController extends RoutingPlanController
       mSlotsRestoredState = state.getBoolean(STATE_OPEN);
 
     restoreRoutingPanelState(state);
-  }
-
-  @Override
-  public void showRouteAltitudeChart()
-  {
-    ImageView altitudeChart = (ImageView) mActivity.findViewById(R.id.altitude_chart);
-    TextView altitudeDifference = (TextView) mActivity.findViewById(R.id.altitude_difference);
-    showRouteAltitudeChartInternal(altitudeChart, altitudeDifference);
   }
 
   private void animateFrame(final boolean show, final @Nullable Runnable completion)
