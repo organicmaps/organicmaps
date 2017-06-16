@@ -833,6 +833,18 @@ public class RoutingController
       build();
   }
 
+  void searchPoi()
+  {
+    if (mStartPoint == null)
+    {
+      searchPoi(1);
+      return;
+    }
+
+    if (mEndPoint == null)
+      searchPoi(2);
+  }
+
   void searchPoi(int slotId)
   {
     mLogger.d(TAG, "searchPoi: " + slotId);
