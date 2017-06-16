@@ -72,10 +72,6 @@ set(
   osrm_data_facade.hpp
   osrm_engine.cpp
   osrm_engine.hpp
-  osrm_helpers.cpp
-  osrm_helpers.hpp
-  osrm_path_segment_factory.cpp
-  osrm_path_segment_factory.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
   restriction_loader.cpp

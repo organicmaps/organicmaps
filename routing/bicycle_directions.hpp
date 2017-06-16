@@ -4,10 +4,10 @@
 #include "routing/loaded_path_segment.hpp"
 #include "routing/turn_candidate.hpp"
 
+#include "indexer/index.hpp"
+
 #include <map>
 #include <memory>
-
-class Index;
 
 namespace routing
 {

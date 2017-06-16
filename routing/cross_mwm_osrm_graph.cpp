@@ -1,6 +1,5 @@
 #include "routing/cross_mwm_osrm_graph.hpp"
 #include "routing/cross_mwm_road_graph.hpp"
-#include "routing/osrm_path_segment_factory.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -102,6 +101,8 @@ void AddSegmentEdge(NumMwmIds const & numMwmIds, OsrmFtSegMapping const & segMap
   // without connectors works as AStar.
   // Most of routes don't use leaps, therefore it is important to keep AStar performance.
   double constexpr kAstarHeuristicFactor = 100000;
+  //// Osrm multiples seconds to 10, so we need to divide it back.
+  double constexpr kOSRMWeightToSecondsMultiplier = 0.1;
   edges.emplace_back(segment,
                      osrmEdge.GetWeight() * kOSRMWeightToSecondsMultiplier * kAstarHeuristicFactor);
 }

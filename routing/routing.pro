@@ -42,8 +42,6 @@ SOURCES += \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_engine.cpp \
-    osrm_helpers.cpp \
-    osrm_path_segment_factory.cpp \
     pedestrian_directions.cpp \
     road_access.cpp \
     road_access_serialization.cpp \
@@ -103,8 +101,6 @@ HEADERS += \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \
     osrm_engine.hpp \
-    osrm_helpers.hpp \
-    osrm_path_segment_factory.hpp \
     pedestrian_directions.hpp \
     restriction_loader.hpp \
     restrictions_serialization.hpp \

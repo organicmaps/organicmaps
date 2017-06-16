@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/osrm_helpers.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/road_point.hpp"
 #include "routing/turns.hpp"
@@ -19,10 +18,6 @@ class Index;
 
 namespace routing
 {
-struct RoutingMapping;
-struct RawPathData;
-struct FeatureGraphNode;
-
 /*!
  * \brief The LoadedPathSegment struct is a representation of a single node path.
  * It unpacks and stores information about path and road type flags.

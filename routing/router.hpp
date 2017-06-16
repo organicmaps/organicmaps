@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 
 #include "geometry/point2d.hpp"

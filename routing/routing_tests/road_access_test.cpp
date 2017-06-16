@@ -16,7 +16,7 @@ using namespace routing;
 using namespace routing_test;
 using namespace std;
 
-using Edge = TestIndexGraphTopology::Edge;
+using TestEdge = TestIndexGraphTopology::Edge;
 
 namespace
 {
@@ -85,7 +85,7 @@ UNIT_TEST(RoadAccess_WayBlocked)
   graph.AddDirectedEdge(2, 3, 1.0);
 
   double const expectedWeight = 0.0;
-  vector<Edge> const expectedEdges = {};
+  vector<TestEdge> const expectedEdges = {};
 
   graph.BlockEdge(1, 2);
 
@@ -105,7 +105,7 @@ UNIT_TEST(RoadAccess_BarrierBypassing)
   graph.AddDirectedEdge(4, 5, 1.0);
 
   double expectedWeight;
-  vector<Edge> expectedEdges;
+  vector<TestEdge> expectedEdges;
 
   expectedWeight = 3.0;
   expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
