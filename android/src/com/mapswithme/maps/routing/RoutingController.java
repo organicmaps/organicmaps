@@ -179,6 +179,13 @@ public class RoutingController
       return;
     }
 
+    if (mLastResultCode == ResultCodesHelper.CANCELLED)
+    {
+      setBuildState(BuildState.NONE);
+      updatePlan();
+      return;
+    }
+
     if (!ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
     {
       setBuildState(BuildState.ERROR);
@@ -276,13 +283,6 @@ public class RoutingController
   private void build()
   {
     Framework.nativeRemoveRoute();
-
-    RouteMarkData[] routePoints = Framework.nativeGetRoutePoints();
-    if (routePoints.length < 2)
-    {
-      setBuildState(BuildState.NONE);
-      return;
-    }
 
     mLogger.d(TAG, "build");
     mUberRequestHandled = false;
