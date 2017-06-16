@@ -1,145 +1,162 @@
+require 'fileutils'
+
 module Twine
   module Formatters
     class Abstract
-      attr_accessor :strings
+      attr_accessor :twine_file
       attr_accessor :options
 
-      def self.can_handle_directory?(path)
-        return false
+      def initialize
+        @twine_file = TwineFile.new
+        @options = {}
       end
 
-      def initialize(strings, options)
-        @strings = strings
-        @options = options
+      def format_name
+        raise NotImplementedError.new("You must implement format_name in your formatter class.")
       end
 
-      def iosify_substitutions(str)
-        # use "@" instead of "s" for substituting strings
-        str.gsub!(/%([0-9\$]*)s/, '%\1@')
-        return str
+      def extension
+        raise NotImplementedError.new("You must implement extension in your formatter class.")
       end
 
-      def androidify_substitutions(str)
-        # 1) use "s" instead of "@" for substituting strings
-        str.gsub!(/%([0-9\$]*)@/, '%\1s')
-
-        # 1a) escape strings that begin with a lone "@"
-        str.sub!(/^@ /, '\\@ ')
-
-        # 2) if there is more than one substitution in a string, make sure they are numbered
-        substituteCount = 0
-        startFound = false
-        str.each_char do |c|
-          if startFound
-            if c == "%"
-              # ignore as this is a literal %
-            elsif c.match(/\d/)
-              # leave the string alone if it already has numbered substitutions
-              return str
-            else
-              substituteCount += 1
-            end
-            startFound = false
-          elsif c == "%"
-            startFound = true
-          end
-        end
-
-        if substituteCount > 1
-          currentSub = 1
-          startFound = false
-          newstr = ""
-          str.each_char do |c|
-            if startFound
-              if !(c == "%")
-                newstr = newstr + "#{currentSub}$"
-                currentSub += 1
-              end
-              startFound = false
-            elsif c == "%"
-              startFound = true
-            end
-            newstr = newstr + c
-          end
-          return newstr
-        else
-          return str
-        end
-      end
-      
-      def set_translation_for_key(key, lang, value)
-        if @strings.strings_map.include?(key)
-          @strings.strings_map[key].translations[lang] = value
-        elsif @options[:consume_all]
-          STDERR.puts "Adding new string '#{key}' to strings data file."
-          arr = @strings.sections.select { |s| s.name == 'Uncategorized' }
-          current_section = arr ? arr[0] : nil
-          if !current_section
-            current_section = StringsSection.new('Uncategorized')
-            @strings.sections.insert(0, current_section)
-          end
-          current_row = StringsRow.new(key)
-          current_section.rows << current_row
-          
-          if @options[:tags] && @options[:tags].length > 0
-              current_row.tags = @options[:tags]            
-          end
-          
-          @strings.strings_map[key] = current_row
-          @strings.strings_map[key].translations[lang] = value
-        else
-          STDERR.puts "Warning: '#{key}' not found in strings data file."
-        end
-        if !@strings.language_codes.include?(lang)
-          @strings.add_language_code(lang)
-        end
-      end
-
-      def set_comment_for_key(key, comment)
-        if @strings.strings_map.include?(key)
-          @strings.strings_map[key].comment = comment
-        end
+      def can_handle_directory?(path)
+        Dir.entries(path).any? { |item| /^.+#{Regexp.escape(extension)}$/.match(item) }
       end
 
       def default_file_name
         raise NotImplementedError.new("You must implement default_file_name in your formatter class.")
       end
 
+      def set_translation_for_key(key, lang, value)
+        value = value.gsub("\n", "\\n")
+
+        if @twine_file.definitions_by_key.include?(key)
+          definition = @twine_file.definitions_by_key[key]
+          reference = @twine_file.definitions_by_key[definition.reference_key] if definition.reference_key
+
+          if !reference or value != reference.translations[lang]
+            definition.translations[lang] = value
+          end
+        elsif @options[:consume_all]
+          Twine::stderr.puts "Adding new definition '#{key}' to twine file."
+          current_section = @twine_file.sections.find { |s| s.name == 'Uncategorized' }
+          unless current_section
+            current_section = TwineSection.new('Uncategorized')
+            @twine_file.sections.insert(0, current_section)
+          end
+          current_definition = TwineDefinition.new(key)
+          current_section.definitions << current_definition
+          
+          if @options[:tags] && @options[:tags].length > 0
+            current_definition.tags = @options[:tags]            
+          end
+          
+          @twine_file.definitions_by_key[key] = current_definition
+          @twine_file.definitions_by_key[key].translations[lang] = value
+        else
+          Twine::stderr.puts "Warning: '#{key}' not found in twine file."
+        end
+        if !@twine_file.language_codes.include?(lang)
+          @twine_file.add_language_code(lang)
+        end
+      end
+
+      def set_comment_for_key(key, comment)
+        return unless @options[:consume_comments]
+        
+        if @twine_file.definitions_by_key.include?(key)
+          definition = @twine_file.definitions_by_key[key]
+          
+          reference = @twine_file.definitions_by_key[definition.reference_key] if definition.reference_key
+
+          if !reference or comment != reference.raw_comment
+            definition.comment = comment
+          end
+        end
+      end
+
       def determine_language_given_path(path)
         raise NotImplementedError.new("You must implement determine_language_given_path in your formatter class.")
       end
 
-      def read_file(path, lang)
-        raise NotImplementedError.new("You must implement read_file in your formatter class.")
+      def output_path_for_language(lang)
+        lang
       end
 
-      def write_file(path, lang)
-        raise NotImplementedError.new("You must implement write_file in your formatter class.")
+      def read(io, lang)
+        raise NotImplementedError.new("You must implement read in your formatter class.")
       end
 
-      def write_all_files(path)
-        if !File.directory?(path)
-          raise Twine::Error.new("Directory does not exist: #{path}")
+      def format_file(lang)
+        output_processor = Processors::OutputProcessor.new(@twine_file, @options)
+        processed_twine_file = output_processor.process(lang)
+
+        return nil if processed_twine_file.definitions_by_key.empty?
+
+        header = format_header(lang)
+        result = ""
+        result += header + "\n" if header
+        result += format_sections(processed_twine_file, lang)
+      end
+
+      def format_header(lang)
+      end
+
+      def format_sections(twine_file, lang)
+        sections = twine_file.sections.map { |section| format_section(section, lang) }
+        sections.compact.join("\n")
+      end
+
+      def format_section_header(section)
+      end
+
+      def should_include_definition(definition, lang)
+        return !definition.translation_for_lang(lang).nil?
+      end
+
+      def format_section(section, lang)
+        definitions = section.definitions.select { |definition| should_include_definition(definition, lang) }
+        return if definitions.empty?
+
+        result = ""
+
+        if section.name && section.name.length > 0
+          section_header = format_section_header(section)
+          result += "\n#{section_header}" if section_header
         end
 
-        file_name = @options[:file_name] || default_file_name
-        langs_written = []
-        Dir.foreach(path) do |item|
-          if item == "." or item == ".."
-            next
-          end
-          item = File.join(path, item)
-          if File.directory?(item)
-            lang = determine_language_given_path(item)
-            if lang
-              write_file(File.join(item, file_name), lang)
-              langs_written << lang
-            end
-          end
-        end
-        if langs_written.empty?
-          raise Twine::Error.new("Failed to generate any files: No languages found at #{path}")
-        end
+        definitions.map! { |definition| format_definition(definition, lang) }
+        definitions.compact! # remove nil definitions
+        definitions.map! { |definition| "\n#{definition}" }  # prepend newline
+        result += definitions.join
+      end
+
+      def format_definition(definition, lang)
+        [format_comment(definition, lang), format_key_value(definition, lang)].compact.join
+      end
+
+      def format_comment(definition, lang)
+      end
+
+      def format_key_value(definition, lang)
+        value = definition.translation_for_lang(lang)
+        key_value_pattern % { key: format_key(definition.key.dup), value: format_value(value.dup) }
+      end
+
+      def key_value_pattern
+        raise NotImplementedError.new("You must implement key_value_pattern in your formatter class.")
+      end
+
+      def format_key(key)
+        key
+      end
+
+      def format_value(value)
+        value
+      end
+
+      def escape_quotes(text)
+        text.gsub('"', '\\\\"')
       end
     end
   end

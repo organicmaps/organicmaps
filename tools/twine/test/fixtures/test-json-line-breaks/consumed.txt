@@ -1,5 +1,0 @@
-[[Line Break Strings]]
-	[line_breaking]
-		en = This\nstring\ncontains\nline\nbreaks
-		tags = tag1
-		fr = This\nstring\nalso\ncontains\nline\nbreaks

@@ -1,0 +1,31 @@
+diff -r twine-0.10.1/lib/twine/formatters/android.rb twine/lib/twine/formatters/android.rb
+9a10,17
+>       LANG_CODES = Hash[
+>         'zh' => 'zh-Hans',
+>         'zh-CN' => 'zh-Hans',
+>         'zh-HK' => 'zh-Hant',
+>         'en-GB' => 'en-GB',
+>         'in' => 'id'
+>       ]
+> 
+36c44,47
+<             return match[1].sub('-r', '-') if match
+---
+>             if match
+>               lang = match[1].sub('-r', '-')
+>               return LANG_CODES.fetch(lang, lang)
+>             end
+diff -r twine-0.10.1/lib/twine/formatters/jquery.rb twine/lib/twine/formatters/jquery.rb
+19c19
+<           match = /^((.+)-)?([^-]+)\.json$/.match(segment)
+---
+>           match = /^(.+)\.json$/.match(segment)
+21c21
+<             return match[3]
+---
+>             return match[1]
+diff -r twine-0.10.1/lib/twine/placeholders.rb twine/lib/twine/placeholders.rb
+8c8
+<     PLACEHOLDER_TYPES = '[diufFeEgGxXoscpaA]'
+---
+>     PLACEHOLDER_TYPES = '[diufFeEgGxXoscpaAq]'

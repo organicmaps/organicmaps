@@ -1,318 +1,325 @@
 require 'tmpdir'
+require 'fileutils'
 
 Twine::Plugin.new # Initialize plugins first in Runner.
 
 module Twine
-  VALID_COMMANDS = ['generate-string-file', 'generate-all-string-files', 'consume-string-file', 'consume-all-string-files', 'generate-loc-drop', 'consume-loc-drop', 'generate-report', 'validate-strings-file']
-
   class Runner
-    def initialize(args)
-      @options = {}
-      @args = args
-    end
-
     def self.run(args)
-      new(args).run
+      options = CLI.parse(args)
+      
+      twine_file = TwineFile.new
+      twine_file.read options[:twine_file]
+      runner = new(options, twine_file)
+
+      case options[:command]
+      when 'generate-localization-file'
+        runner.generate_localization_file
+      when 'generate-all-localization-files'
+        runner.generate_all_localization_files
+      when 'consume-localization-file'
+        runner.consume_localization_file
+      when 'consume-all-localization-files'
+        runner.consume_all_localization_files
+      when 'generate-localization-archive'
+        runner.generate_localization_archive
+      when 'consume-localization-archive'
+        runner.consume_localization_archive
+      when 'validate-twine-file'
+        runner.validate_twine_file
+      end
     end
 
-    def run
-      # Parse all CLI arguments.
-      CLI::parse_args(@args, @options)
-      read_strings_data
-      execute_command
+    def initialize(options = {}, twine_file = TwineFile.new)
+      @options = options
+      @twine_file = twine_file
     end
 
-    def read_strings_data
-      @strings = StringsFile.new
-      @strings.read @options[:strings_file]
-    end
-
-    def write_strings_data(path)
+    def write_twine_data(path)
       if @options[:developer_language]
-        @strings.set_developer_language_code(@options[:developer_language])
+        @twine_file.set_developer_language_code(@options[:developer_language])
       end
-      @strings.write(path)
+      @twine_file.write(path)
     end
 
-    def execute_command
-      case @options[:command]
-      when 'generate-string-file'
-        generate_string_file
-      when 'generate-all-string-files'
-        generate_all_string_files
-      when 'consume-string-file'
-        consume_string_file
-      when 'consume-all-string-files'
-        consume_all_string_files
-      when 'generate-loc-drop'
-        generate_loc_drop
-      when 'consume-loc-drop'
-        consume_loc_drop
-      when 'generate-report'
-        generate_report
-      when 'validate-strings-file'
-        validate_strings_file
-      end
-    end
+    def generate_localization_file
+      validate_twine_file if @options[:validate]
 
-    def generate_string_file
       lang = nil
-      if @options[:languages]
-        lang = @options[:languages][0]
-      end
+      lang = @options[:languages][0] if @options[:languages]
 
-      read_write_string_file(@options[:output_path], false, lang)
+      formatter, lang = prepare_read_write(@options[:output_path], lang)
+      output = formatter.format_file(lang)
+
+      raise Twine::Error.new "Nothing to generate! The resulting file would not contain any translations." unless output
+
+      IO.write(@options[:output_path], output, encoding: output_encoding)
     end
 
-    def generate_all_string_files
+    def generate_all_localization_files
+      validate_twine_file if @options[:validate]
+
       if !File.directory?(@options[:output_path])
-        raise Twine::Error.new("Directory does not exist: #{@options[:output_path]}")
-      end
-
-      format = @options[:format]
-      if !format
-        format = determine_format_given_directory(@options[:output_path])
-      end
-      if !format
-        raise Twine::Error.new "Could not determine format given the contents of #{@options[:output_path]}"
-      end
-
-      formatter = formatter_for_format(format)
-
-      formatter.write_all_files(@options[:output_path])
-    end
-
-    def consume_string_file
-      lang = nil
-      if @options[:languages]
-        lang = @options[:languages][0]
-      end
-
-      read_write_string_file(@options[:input_path], true, lang)
-      output_path = @options[:output_path] || @options[:strings_file]
-      write_strings_data(output_path)
-    end
-
-    def consume_all_string_files
-      if !File.directory?(@options[:input_path])
-        raise Twine::Error.new("Directory does not exist: #{@options[:output_path]}")
-      end
-
-      Dir.glob(File.join(@options[:input_path], "**/*")) do |item|
-        if File.file?(item)
-          begin
-            read_write_string_file(item, true, nil)
-          rescue Twine::Error => e
-            STDERR.puts "#{e.message}"
-          end
+        if @options[:create_folders]
+          FileUtils.mkdir_p(@options[:output_path])
+        else
+          raise Twine::Error.new("Directory does not exist: #{@options[:output_path]}")
         end
       end
 
-      output_path = @options[:output_path] || @options[:strings_file]
-      write_strings_data(output_path)
-    end
-
-    def read_write_string_file(path, is_read, lang)
-      if is_read && !File.file?(path)
-        raise Twine::Error.new("File does not exist: #{path}")
+      formatter_for_directory = find_formatter { |f| f.can_handle_directory?(@options[:output_path]) }
+      formatter = formatter_for_format(@options[:format]) || formatter_for_directory
+      
+      unless formatter
+        raise Twine::Error.new "Could not determine format given the contents of #{@options[:output_path]}"
       end
 
-      format = @options[:format]
-      if !format
-        format = determine_format_given_path(path)
-      end
-      if !format
-        raise Twine::Error.new "Unable to determine format of #{path}"
-      end
+      file_name = @options[:file_name] || formatter.default_file_name
+      if @options[:create_folders]
+        @twine_file.language_codes.each do |lang|
+          output_path = File.join(@options[:output_path], formatter.output_path_for_language(lang))
 
-      formatter = formatter_for_format(format)
+          FileUtils.mkdir_p(output_path)
 
-      if !lang
-        lang = determine_language_given_path(path)
-      end
-      if !lang
-        lang = formatter.determine_language_given_path(path)
-      end
-      if !lang
-        raise Twine::Error.new "Unable to determine language for #{path}"
-      end
+          file_path = File.join(output_path, file_name)
 
-      if !@strings.language_codes.include? lang
-        @strings.language_codes << lang
-      end
+          output = formatter.format_file(lang)
+          unless output
+            Twine::stderr.puts "Skipping file at path #{file_path} since it would not contain any translations."
+            next
+          end
 
-      if is_read
-        formatter.read_file(path, lang)
+          IO.write(file_path, output, encoding: output_encoding)
+        end
       else
-        formatter.write_file(path, lang)
+        language_found = false
+        Dir.foreach(@options[:output_path]) do |item|
+          next if item == "." or item == ".."
+
+          output_path = File.join(@options[:output_path], item)
+          next unless File.directory?(output_path)
+
+          lang = formatter.determine_language_given_path(output_path)
+          next unless lang
+
+          language_found = true
+
+          file_path = File.join(output_path, file_name)
+          output = formatter.format_file(lang)
+          unless output
+            Twine::stderr.puts "Skipping file at path #{file_path} since it would not contain any translations."
+            next
+          end
+
+          IO.write(file_path, output, encoding: output_encoding)
+        end
+
+        unless language_found
+          raise Twine::Error.new("Failed to generate any files: No languages found at #{@options[:output_path]}")
+        end
       end
+
     end
 
-    def generate_loc_drop
-      begin
-        require 'zip/zip'
-      rescue LoadError
-        raise Twine::Error.new "You must run 'gem install rubyzip' in order to create or consume localization drops."
-      end
+    def generate_localization_archive
+      validate_twine_file if @options[:validate]
+      
+      require_rubyzip
 
       if File.file?(@options[:output_path])
         File.delete(@options[:output_path])
       end
 
-      Dir.mktmpdir do |dir|
-        Zip::ZipFile.open(@options[:output_path], Zip::ZipFile::CREATE) do |zipfile|
+      Dir.mktmpdir do |temp_dir|
+        Zip::File.open(@options[:output_path], Zip::File::CREATE) do |zipfile|
           zipfile.mkdir('Locales')
 
           formatter = formatter_for_format(@options[:format])
-          @strings.language_codes.each do |lang|
+          @twine_file.language_codes.each do |lang|
             if @options[:languages] == nil || @options[:languages].length == 0 || @options[:languages].include?(lang)
-              file_name = lang + formatter.class::EXTENSION
-              real_path = File.join(dir, file_name)
+              file_name = lang + formatter.extension
+              temp_path = File.join(temp_dir, file_name)
               zip_path = File.join('Locales', file_name)
-              formatter.write_file(real_path, lang)
-              zipfile.add(zip_path, real_path)
+
+              output = formatter.format_file(lang)
+              unless output
+                Twine::stderr.puts "Skipping file #{file_name} since it would not contain any translations."
+                next
+              end
+              
+              IO.write(temp_path, output, encoding: output_encoding)
+              zipfile.add(zip_path, temp_path)
             end
           end
         end
       end
     end
 
-    def consume_loc_drop
+    def consume_localization_file
+      lang = nil
+      if @options[:languages]
+        lang = @options[:languages][0]
+      end
+
+      read_localization_file(@options[:input_path], lang)
+      output_path = @options[:output_path] || @options[:twine_file]
+      write_twine_data(output_path)
+    end
+
+    def consume_all_localization_files
+      if !File.directory?(@options[:input_path])
+        raise Twine::Error.new("Directory does not exist: #{@options[:input_path]}")
+      end
+
+      Dir.glob(File.join(@options[:input_path], "**/*")) do |item|
+        if File.file?(item)
+          begin
+            read_localization_file(item)
+          rescue Twine::Error => e
+            Twine::stderr.puts "#{e.message}"
+          end
+        end
+      end
+
+      output_path = @options[:output_path] || @options[:twine_file]
+      write_twine_data(output_path)
+    end
+
+    def consume_localization_archive
+      require_rubyzip
+
       if !File.file?(@options[:input_path])
         raise Twine::Error.new("File does not exist: #{@options[:input_path]}")
       end
 
-      begin
-        require 'zip/zip'
-      rescue LoadError
-        raise Twine::Error.new "You must run 'gem install rubyzip' in order to create or consume localization drops."
-      end
-
-      Dir.mktmpdir do |dir|
-        Zip::ZipFile.open(@options[:input_path]) do |zipfile|
+      Dir.mktmpdir do |temp_dir|
+        Zip::File.open(@options[:input_path]) do |zipfile|
           zipfile.each do |entry|
-            if !entry.name.end_with?'/' and !File.basename(entry.name).start_with?'.'
-              real_path = File.join(dir, entry.name)
-              FileUtils.mkdir_p(File.dirname(real_path))
-              zipfile.extract(entry.name, real_path)
-              begin
-                read_write_string_file(real_path, true, nil)
-              rescue Twine::Error => e
-                STDERR.puts "#{e.message}"
-              end
+            next if entry.name.end_with? '/' or File.basename(entry.name).start_with? '.'
+
+            real_path = File.join(temp_dir, entry.name)
+            FileUtils.mkdir_p(File.dirname(real_path))
+            zipfile.extract(entry.name, real_path)
+            begin
+              read_localization_file(real_path)
+            rescue Twine::Error => e
+              Twine::stderr.puts "#{e.message}"
             end
           end
         end
       end
 
-      output_path = @options[:output_path] || @options[:strings_file]
-      write_strings_data(output_path)
+      output_path = @options[:output_path] || @options[:twine_file]
+      write_twine_data(output_path)
     end
 
-    def generate_report
-      total_strings = 0
-      strings_per_lang = {}
-      @strings.language_codes.each do |code|
-        strings_per_lang[code] = 0
-      end
-
-      @strings.sections.each do |section|
-        section.rows.each do |row|
-          total_strings += 1
-
-          row.translations.each_key do |code|
-            strings_per_lang[code] += 1
-          end
-        end
-      end
-
-      # Print the report.
-      puts "Total number of strings = #{total_strings}"
-      @strings.language_codes.each do |code|
-        puts "#{code}: #{strings_per_lang[code]}"
-      end
-    end
-
-    def validate_strings_file
-      total_strings = 0
+    def validate_twine_file
+      total_definitions = 0
       all_keys = Set.new
       duplicate_keys = Set.new
       keys_without_tags = Set.new
-      errors = []
+      invalid_keys = Set.new
+      valid_key_regex = /^[A-Za-z0-9_]+$/
 
-      @strings.sections.each do |section|
-        section.rows.each do |row|
-          total_strings += 1
+      @twine_file.sections.each do |section|
+        section.definitions.each do |definition|
+          total_definitions += 1
 
-          if all_keys.include? row.key
-            duplicate_keys.add(row.key)
-          else
-            all_keys.add(row.key)
-          end
+          duplicate_keys.add(definition.key) if all_keys.include? definition.key
+          all_keys.add(definition.key)
 
-          if row.tags == nil || row.tags.length == 0
-            keys_without_tags.add(row.key)
-          end
+          keys_without_tags.add(definition.key) if definition.tags == nil or definition.tags.length == 0
+
+          invalid_keys << definition.key unless definition.key =~ valid_key_regex
         end
       end
 
-      if duplicate_keys.length > 0
-        error_body = duplicate_keys.to_a.join("\n  ")
-        errors << "Found duplicate string key(s):\n  #{error_body}"
+      errors = []
+      join_keys = lambda { |set| set.map { |k| "  " + k }.join("\n") }
+
+      unless duplicate_keys.empty?
+        errors << "Found duplicate key(s):\n#{join_keys.call(duplicate_keys)}"
       end
 
-      if keys_without_tags.length == total_strings
-        errors << "None of your strings have tags."
-      elsif keys_without_tags.length > 0
-        error_body = keys_without_tags.to_a.join("\n  ")
-        errors << "Found strings(s) without tags:\n  #{error_body}"
+      if @options[:pedantic]
+        if keys_without_tags.length == total_definitions
+          errors << "None of your definitions have tags."
+        elsif keys_without_tags.length > 0
+          errors << "Found definitions without tags:\n#{join_keys.call(keys_without_tags)}"
+        end
       end
 
-      if errors.length > 0
-        raise Twine::Error.new errors.join("\n\n")
+      unless invalid_keys.empty?
+        errors << "Found key(s) with invalid characters:\n#{join_keys.call(invalid_keys)}"
       end
 
-      puts "#{@options[:strings_file]} is valid."
+      raise Twine::Error.new errors.join("\n\n") unless errors.empty?
+
+      Twine::stdout.puts "#{@options[:twine_file]} is valid."
+    end
+
+    private
+
+    def output_encoding
+      @options[:encoding] || 'UTF-8'
+    end
+
+    def require_rubyzip
+      begin
+        require 'zip'
+      rescue LoadError
+        raise Twine::Error.new "You must run 'gem install rubyzip' in order to create or consume localization archives."
+      end
     end
 
     def determine_language_given_path(path)
       code = File.basename(path, File.extname(path))
-      if !@strings.language_codes.include? code
-        code = nil
-      end
-
-      code
-    end
-
-    def determine_format_given_path(path)
-      ext = File.extname(path)
-      Formatters.formatters.each do |formatter|
-        if formatter::EXTENSION == ext
-          return formatter::FORMAT_NAME
-        end
-      end
-
-      return
-    end
-
-    def determine_format_given_directory(directory)
-      Formatters.formatters.each do |formatter|
-        if formatter.can_handle_directory?(directory)
-          return formatter::FORMAT_NAME
-        end
-      end
-
-      return
+      return code if @twine_file.language_codes.include? code
     end
 
     def formatter_for_format(format)
-      Formatters.formatters.each do |formatter|
-        if formatter::FORMAT_NAME == format
-          return formatter.new(@strings, @options)
-        end
+      find_formatter { |f| f.format_name == format }
+    end
+
+    def find_formatter(&block)
+      formatter = Formatters.formatters.find &block
+      return nil unless formatter
+      formatter.twine_file = @twine_file
+      formatter.options = @options
+      formatter
+    end
+
+    def read_localization_file(path, lang = nil)
+      unless File.file?(path)
+        raise Twine::Error.new("File does not exist: #{path}")
       end
 
-      return
+      formatter, lang = prepare_read_write(path, lang)
+
+      external_encoding = @options[:encoding] || Twine::Encoding.encoding_for_path(path)
+
+      IO.open(IO.sysopen(path, 'rb'), 'rb', external_encoding: external_encoding, internal_encoding: 'UTF-8') do |io|
+        io.read(2) if Twine::Encoding.has_bom?(path)
+        formatter.read(io, lang)
+      end
+    end
+
+    def prepare_read_write(path, lang)
+      formatter_for_path = find_formatter { |f| f.extension == File.extname(path) }
+      formatter = formatter_for_format(@options[:format]) || formatter_for_path
+      
+      unless formatter
+        raise Twine::Error.new "Unable to determine format of #{path}"
+      end      
+
+      lang = lang || determine_language_given_path(path) || formatter.determine_language_given_path(path)
+      unless lang
+        raise Twine::Error.new "Unable to determine language for #{path}"
+      end
+
+      @twine_file.language_codes << lang unless @twine_file.language_codes.include? lang
+
+      return formatter, lang
     end
   end
 end
