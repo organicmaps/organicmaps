@@ -162,8 +162,10 @@ FrontendRenderer::FrontendRenderer(Params && params)
 
   m_myPositionController = make_unique_dp<MyPositionController>(std::move(params.m_myPositionParams));
 
+#ifndef OMIM_OS_IPHONE_SIMULATOR
   for (auto const & effect : params.m_enabledEffects)
     m_postprocessRenderer->SetEffectEnabled(effect, true /* enabled */);
+#endif
 
   StartThread();
 }
@@ -825,7 +827,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetPosteffectEnabled:
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
+#ifndef OMIM_OS_IPHONE_SIMULATOR
       m_postprocessRenderer->SetEffectEnabled(msg->GetEffect(), msg->IsEnabled());
+#endif
       break;
     }
 
@@ -1767,8 +1771,10 @@ void FrontendRenderer::OnContextCreate()
 
   m_postprocessRenderer->Init([context]() { context->setDefaultFramebuffer(); });
   m_postprocessRenderer->SetEnabled(m_apiVersion == dp::ApiVersion::OpenGLES3);
+#ifndef OMIM_OS_IPHONE_SIMULATOR
   if (dp::SupportManager::Instance().IsAntialiasingEnabledByDefault())
     m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
+#endif
 
   m_buildingsFramebuffer.reset(new dp::Framebuffer(gl_const::GLRGBA, false /* stencilEnabled */));
   m_buildingsFramebuffer->SetFramebufferFallback([this]()
