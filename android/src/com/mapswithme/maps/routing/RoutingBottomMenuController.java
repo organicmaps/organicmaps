@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -71,15 +72,42 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @Nullable
   private UberInfo.Product mUberProduct;
 
-  RoutingBottomMenuController(@NonNull Activity context,
-                              @NonNull View altitudeChartFrame,
-                              @NonNull View uberFrame,
-                              @NonNull TextView error,
-                              @NonNull Button start,
-                              @NonNull ImageView altitudeChart,
-                              @NonNull TextView altitudeDifference,
-                              @NonNull View numbersFrame,
-                              @NonNull View actionFrame)
+  @NonNull
+  static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame)
+  {
+    View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
+    View uberFrame = getViewById(activity, frame, R.id.uber_panel);
+    TextView error = (TextView) getViewById(activity, frame, R.id.error);
+    Button start = (Button) getViewById(activity, frame, R.id.start);
+    ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
+    TextView altitudeDifference = (TextView) getViewById(activity, frame, R.id.altitude_difference);
+    View numbersFrame = getViewById(activity, frame, R.id.numbers);
+    View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
+
+    return new RoutingBottomMenuController(activity, altitudeChartFrame,
+                                           uberFrame, error, start,
+                                           altitudeChart,
+                                           altitudeDifference,
+                                           numbersFrame, actionFrame);
+  }
+
+  @NonNull
+  private static View getViewById(@NonNull Activity activity, @NonNull View frame,
+                                  @IdRes int resourceId)
+  {
+    View view = frame.findViewById(resourceId);
+    return view == null ? activity.findViewById(resourceId) : view;
+  }
+
+  private RoutingBottomMenuController(@NonNull Activity context,
+                                      @NonNull View altitudeChartFrame,
+                                      @NonNull View uberFrame,
+                                      @NonNull TextView error,
+                                      @NonNull Button start,
+                                      @NonNull ImageView altitudeChart,
+                                      @NonNull TextView altitudeDifference,
+                                      @NonNull View numbersFrame,
+                                      @NonNull View actionFrame)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -147,7 +175,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mUberFrame);
   }
 
-  void needsStartPoint()
+  void showAddStartFrame()
   {
     UiUtils.show(mActionFrame, mActionButton);
     mActionMessage.setText(R.string.routing_add_start_point);
@@ -157,7 +185,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
   }
 
-  void needsFinishPoint()
+  void showAddFinishFrame()
   {
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);

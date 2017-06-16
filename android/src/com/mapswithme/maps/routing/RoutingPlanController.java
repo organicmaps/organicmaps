@@ -12,12 +12,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
@@ -153,20 +151,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
-
-    View altitudeChartFrame = getViewById(R.id.altitude_chart_panel);
-    View uberFrame = getViewById(R.id.uber_panel);
-    TextView error = (TextView) getViewById(R.id.error);
-    Button start = (Button) getViewById(R.id.start);
-    ImageView altitudeChart = (ImageView) getViewById(R.id.altitude_chart);
-    TextView altitudeDifference = (TextView) getViewById(R.id.altitude_difference);
-    View numbersFrame = getViewById(R.id.numbers);
-    View actionFrame = getViewById(R.id.routing_action_frame);
-    mRoutingBottomMenuController = new RoutingBottomMenuController(activity, altitudeChartFrame,
-                                                                   uberFrame, error, start,
-                                                                   altitudeChart,
-                                                                   altitudeDifference,
-                                                                   numbersFrame, actionFrame);
+    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame);
 
     mToggle.setImageDrawable(mToggleImage);
     mToggle.setOnClickListener(new View.OnClickListener()
@@ -429,15 +414,6 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     mRoutingBottomMenuController.showStartButton(show);
   }
 
-  @NonNull
-  private View getViewById(@IdRes int resourceId)
-  {
-    View view = mFrame.findViewById(resourceId);
-    if (view == null)
-      view = mActivity.findViewById(resourceId);
-    return view;
-  }
-
   void saveRoutingPanelState(@NonNull Bundle outState)
   {
     mRoutingBottomMenuController.saveRoutingPanelState(outState);
@@ -458,14 +434,14 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     mToggleListener = listener;
   }
 
-  public void needsStartPoint()
+  public void showAddStartFrame()
   {
-    mRoutingBottomMenuController.needsStartPoint();
+    mRoutingBottomMenuController.showAddStartFrame();
   }
 
-  public void needsFinishPoint()
+  public void showAddFinishFrame()
   {
-    mRoutingBottomMenuController.needsFinishPoint();
+    mRoutingBottomMenuController.showAddFinishFrame();
   }
 
   public void hideActionFrame()
