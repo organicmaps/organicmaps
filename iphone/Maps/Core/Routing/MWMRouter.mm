@@ -138,11 +138,6 @@ m2::PointD getMercator(MWMRoutePoint * p)
 
 - (MWMRouterType)type { return routerType(GetFramework().GetRoutingManager().GetRouter()); }
 
-- (BOOL)arePointsValidForRouting
-{
-  return self.startPoint.isValid && self.finishPoint.isValid && self.startPoint != self.finishPoint;
-}
-
 - (void)applyRoutePoints
 {
   auto & rm = GetFramework().GetRoutingManager();
@@ -254,41 +249,36 @@ m2::PointD getMercator(MWMRoutePoint * p)
 {
   [self clearAltitudeImagesData];
 
-  bool isP2P = false;
-  if (self.startPoint.isMyPosition)
+  auto & rm = GetFramework().GetRoutingManager();
+  auto points = rm.GetRoutePoints();
+  if (points.size() == 2)
   {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
-  }
-  else if (self.finishPoint.isMyPosition)
-  {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
-  }
-  else
-  {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
-    isP2P = true;
+    if (points.front().m_isMyPosition)
+    {
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
+    }
+    else if (points.back().m_isMyPosition)
+    {
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
+    }
+    else
+    {
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
+    }
   }
 
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   [mapViewControlsManager onRoutePrepare];
 
-  auto & rm = GetFramework().GetRoutingManager();
-  auto points = rm.GetRoutePoints();
-  if (points.size() < 2 || ![self arePointsValidForRouting])
-  {
-    rm.CloseRouting(false /* remove route points */);
-    return;
-  }
-  
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
-  rm.BuildRoute(0 /* timeoutSec */);
   [mapViewControlsManager onRouteRebuild];
+  rm.BuildRoute(0 /* timeoutSec */);
 }
 
 - (void)start

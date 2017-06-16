@@ -389,10 +389,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
   {
-    if (routePoints.empty() || routePoints.back().m_pointType != RouteMarkType::Finish)
-      CallRouteBuilded(IRouter::EndPointNotFound, storage::TCountriesVec());
-    else
-      CallRouteBuilded(IRouter::StartPointNotFound, storage::TCountriesVec());
+    CallRouteBuilded(IRouter::Cancelled, storage::TCountriesVec());
+    CloseRouting(false /* remove route points */);
     return;
   }
 
@@ -409,6 +407,21 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       return;
     }
     p.m_position = myPos;
+  }
+
+  // Check for equal points.
+  double const kEps = 1e-7;
+  for (size_t i = 0; i < routePoints.size(); i++)
+  {
+    for (size_t j = i + 1; j < routePoints.size(); j++)
+    {
+      if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, kEps))
+      {
+        CallRouteBuilded(IRouter::Cancelled, storage::TCountriesVec());
+        CloseRouting(false /* remove route points */);
+        return;
+      }
+    }
   }
 
   bool const isP2P = !routePoints.front().m_isMyPosition && !routePoints.back().m_isMyPosition;
