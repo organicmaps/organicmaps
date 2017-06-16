@@ -43,11 +43,13 @@ public:
   /// @param startPoint point to start routing
   /// @param direction start direction for routers with high cost of the turnarounds
   /// @param finalPoint target point for route
+  /// @param adjust adjust route to the previous one if possible
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
-                      m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
+                      m2::PointD const & finalPoint, bool adjust,
+                      TReadyCallback const & readyCallback,
                       RouterDelegate::TProgressCallback const & progressCallback,
                       uint32_t timeoutSec);
 
@@ -114,6 +116,7 @@ private:
   m2::PointD m_startPoint;
   m2::PointD m_finalPoint;
   m2::PointD m_startDirection;
+  bool m_adjust = false;
   shared_ptr<RouterDelegateProxy> m_delegate;
   shared_ptr<IOnlineFetcher> m_absentFetcher;
   shared_ptr<IRouter> m_router;

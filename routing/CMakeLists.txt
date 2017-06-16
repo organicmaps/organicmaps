@@ -106,8 +106,11 @@ set(
   routing_session.hpp
   routing_settings.hpp
   segment.hpp
+  segmented_route.cpp
+  segmented_route.hpp
   speed_camera.cpp
   speed_camera.hpp
+  traffic_stash.cpp
   traffic_stash.hpp
   transition_points.hpp
   turn_candidate.hpp

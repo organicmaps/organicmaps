@@ -147,6 +147,7 @@ bool RoadGraphRouter::CheckMapExistence(m2::PointD const & point, Route & route)
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
                                                     m2::PointD const & /* startDirection */,
                                                     m2::PointD const & finalPoint,
+                                                    bool /* adjust */,
                                                     RouterDelegate const & delegate, Route & route)
 {
   if (!CheckMapExistence(startPoint, route) || !CheckMapExistence(finalPoint, route))

@@ -147,7 +147,8 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
 }
 
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
-                                 m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
+                                 m2::PointD const & finalPoint, bool adjust,
+                                 TReadyCallback const & readyCallback,
                                  RouterDelegate::TProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
@@ -156,6 +157,7 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
   m_startPoint = startPoint;
   m_startDirection = direction;
   m_finalPoint = finalPoint;
+  m_adjust = adjust;
 
   ResetDelegate();
 
@@ -257,6 +259,7 @@ void AsyncRouter::CalculateRoute()
 {
   shared_ptr<RouterDelegateProxy> delegate;
   m2::PointD startPoint, finalPoint, startDirection;
+  bool adjust = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
   shared_ptr<IRouter> router;
 
@@ -275,6 +278,7 @@ void AsyncRouter::CalculateRoute()
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;
     startDirection = m_startDirection;
+    adjust = m_adjust;
     delegate = m_delegate;
     router = m_router;
     absentFetcher = m_absentFetcher;
@@ -294,7 +298,8 @@ void AsyncRouter::CalculateRoute()
       absentFetcher->GenerateRequest(startPoint, finalPoint);
 
     // Run basic request.
-    code = router->CalculateRoute(startPoint, startDirection, finalPoint, delegate->GetDelegate(), route);
+    code = router->CalculateRoute(startPoint, startDirection, finalPoint, adjust,
+                                  delegate->GetDelegate(), route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);

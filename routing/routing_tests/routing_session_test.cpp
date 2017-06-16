@@ -32,7 +32,7 @@ public:
   void ClearState() override {}
   ResultCode CalculateRoute(m2::PointD const & /* startPoint */,
                             m2::PointD const & /* startDirection */,
-                            m2::PointD const & /* finalPoint */,
+                            m2::PointD const & /* finalPoint */, bool adjust,
                             RouterDelegate const & /* delegate */, Route & route) override
   {
     ++m_buildCount;
@@ -218,7 +218,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   session.RebuildRoute(
       kTestRoute.front(),
       [&rebuildTimedSignal](Route const &, IRouter::ResultCode) { rebuildTimedSignal.Signal(); }, 0,
-      RoutingSession::State::RouteBuilding);
+      RoutingSession::State::RouteBuilding, false /* adjust */);
   TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
   TEST(session.IsFollowing(), ());
 }

@@ -8,6 +8,7 @@
 #include "routing/num_mwm_id.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_mapping.hpp"
+#include "routing/segmented_route.hpp"
 #include "routing/world_graph.hpp"
 
 #include "routing_common/vehicle_model.hpp"
@@ -40,7 +41,7 @@ public:
   virtual string GetName() const override { return m_name; }
   virtual IRouter::ResultCode CalculateRoute(m2::PointD const & startPoint,
                                              m2::PointD const & startDirection,
-                                             m2::PointD const & finalPoint,
+                                             m2::PointD const & finalPoint, bool adjust,
                                              RouterDelegate const & delegate,
                                              Route & route) override;
 
@@ -56,19 +57,27 @@ private:
   IRouter::ResultCode CalculateRoute(string const & startCountry, string const & finishCountry,
                                      bool forSingleMwm, m2::PointD const & startPoint,
                                      m2::PointD const & startDirection,
-                                     m2::PointD const & finalPoint, RouterDelegate const & delegate,
-                                     Route & route);
-  IRouter::ResultCode DoCalculateRoute(string const & startCountry, string const & finishCountry,
+                                     m2::PointD const & finalPoint, bool adjust,
+                                     RouterDelegate const & delegate, Route & route);
+  IRouter::ResultCode DoCalculateRoute(platform::CountryFile const & startCountry,
+                                       platform::CountryFile const & finishCountry,
                                        bool forSingleMwm, m2::PointD const & startPoint,
                                        m2::PointD const & startDirection,
                                        m2::PointD const & finalPoint,
                                        RouterDelegate const & delegate, Route & route);
+  IRouter::ResultCode AdjustRoute(platform::CountryFile const & startCountry,
+                                  m2::PointD const & startPoint, m2::PointD const & startDirection,
+                                  m2::PointD const & finalPoint, RouterDelegate const & delegate,
+                                  Route & route);
+  void AppendRemainingRoute(std::vector<Segment> & route) const;
+
+  WorldGraph MakeWorldGraph();
 
   /// \brief Finds closest edges which may be considered as start of finish of the route.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  bool FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
-                       bool isOutgoing, WorldGraph & worldGraph, Edge & closestEdge) const;
+  bool FindClosestSegment(platform::CountryFile const & file, m2::PointD const & point,
+                          bool isOutgoing, WorldGraph & worldGraph, Segment & closestSegment) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(vector<Segment> const & input,
@@ -76,8 +85,9 @@ private:
                                    WorldGraph::Mode prevMode,
                                    IndexGraphStarter & starter,
                                    vector<Segment> & output);
-  bool RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
-                    bool forSingleMwm, IndexGraphStarter & starter, Route & route) const;
+  IRouter::ResultCode RedressRoute(vector<Segment> const & segments,
+                                   RouterDelegate const & delegate, bool forSingleMwm,
+                                   IndexGraphStarter & starter, Route & route) const;
 
   bool AreMwmsNear(NumMwmId startId, NumMwmId finishId) const;
 
@@ -93,5 +103,6 @@ private:
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unique_ptr<IDirectionsEngine> m_directionsEngine;
+  SegmentedRoute m_lastRoute;
 };
 }  // namespace routing

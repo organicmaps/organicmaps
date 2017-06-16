@@ -46,6 +46,9 @@
 		0C5FEC6D1DDE19A40017688C /* index_graph_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5FEC6C1DDE19A40017688C /* index_graph_test.cpp */; };
 		0C62BFE61E8ADC3100055A79 /* coding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C62BFE51E8ADC3100055A79 /* coding.hpp */; };
 		0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0C8705041E0182F200BCAF71 /* route_point.hpp */; };
+		0CA683581EE04ADB004B7269 /* segmented_route.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CA683561EE04ADB004B7269 /* segmented_route.cpp */; };
+		0CA683591EE04ADB004B7269 /* segmented_route.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0CA683571EE04ADB004B7269 /* segmented_route.hpp */; };
+		0CA6835B1EE04AF3004B7269 /* traffic_stash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CA6835A1EE04AF3004B7269 /* traffic_stash.cpp */; };
 		0CF5E8AA1E8EA7A1001ED497 /* coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF5E8A91E8EA7A1001ED497 /* coding_test.cpp */; };
 		3462FDAD1DC1E5BF00906FD7 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDAC1DC1E5BF00906FD7 /* libopening_hours.a */; };
 		349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */; };
@@ -302,6 +305,9 @@
 		0C5FEC6C1DDE19A40017688C /* index_graph_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_graph_test.cpp; sourceTree = "<group>"; };
 		0C62BFE51E8ADC3100055A79 /* coding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = coding.hpp; sourceTree = "<group>"; };
 		0C8705041E0182F200BCAF71 /* route_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_point.hpp; sourceTree = "<group>"; };
+		0CA683561EE04ADB004B7269 /* segmented_route.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segmented_route.cpp; sourceTree = "<group>"; };
+		0CA683571EE04ADB004B7269 /* segmented_route.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segmented_route.hpp; sourceTree = "<group>"; };
+		0CA6835A1EE04AF3004B7269 /* traffic_stash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_stash.cpp; sourceTree = "<group>"; };
 		0CF5E8A91E8EA7A1001ED497 /* coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = coding_test.cpp; sourceTree = "<group>"; };
 		3462FDAC1DC1E5BF00906FD7 /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-build/xcode/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = restrictions_serialization.cpp; sourceTree = "<group>"; };
@@ -813,8 +819,11 @@
 				670EE55B1B6001E7001E8064 /* routing_session.hpp */,
 				670EE55C1B6001E7001E8064 /* routing_settings.hpp */,
 				0C470E6F1E0D4EB1005B824D /* segment.hpp */,
+				0CA683561EE04ADB004B7269 /* segmented_route.cpp */,
+				0CA683571EE04ADB004B7269 /* segmented_route.hpp */,
 				A1876BC41BB19C4300C9C743 /* speed_camera.cpp */,
 				A1876BC51BB19C4300C9C743 /* speed_camera.hpp */,
+				0CA6835A1EE04AF3004B7269 /* traffic_stash.cpp */,
 				0C090C831E4E275E00D52AFD /* traffic_stash.hpp */,
 				56099E271CC7C97D00A7772A /* turn_candidate.hpp */,
 				674F9BC61B0A580E00704FFA /* turns_generator.cpp */,
@@ -920,6 +929,7 @@
 				0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */,
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
 				56C4392D1E93E5DF00998E29 /* transition_points.hpp in Headers */,
+				0CA683591EE04ADB004B7269 /* segmented_route.hpp in Headers */,
 				0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */,
 				670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */,
 				0C12ED241E5C822A0080D0F4 /* index_router.hpp in Headers */,

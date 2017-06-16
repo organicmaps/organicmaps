@@ -1,11 +1,14 @@
 #pragma once
 
 #include "routing/num_mwm_id.hpp"
+#include "routing/segment.hpp"
 
 #include "traffic/traffic_cache.hpp"
 #include "traffic/traffic_info.hpp"
 
 #include "indexer/mwm_set.hpp"
+
+#include "base/assert.hpp"
 
 #include <unordered_map>
 
@@ -27,16 +30,10 @@ public:
   TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
     : m_source(source), m_numMwmIds(numMwmIds)
   {
+    CHECK(m_numMwmIds, ());
   }
 
-  traffic::TrafficInfo::Coloring const * Get(NumMwmId numMwmId) const
-  {
-    auto it = m_mwmToTraffic.find(numMwmId);
-    if (it == m_mwmToTraffic.cend())
-      return nullptr;
-
-    return it->second.get();
-  }
+  traffic::SpeedGroup GetSpeedGroup(Segment const & segment) const;
 
   void SetColoring(NumMwmId numMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring> coloring)
   {
@@ -49,16 +46,7 @@ public:
   }
 
 private:
-  void CopyTraffic()
-  {
-    std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> copy;
-    m_source.CopyTraffic(copy);
-    for (auto it : copy)
-    {
-      auto const numMwmId = m_numMwmIds->GetId(it.first.GetInfo()->GetLocalFile().GetCountryFile());
-      SetColoring(numMwmId, it.second);
-    }
-  }
+  void CopyTraffic();
 
   void Clear() { m_mwmToTraffic.clear(); }
 

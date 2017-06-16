@@ -72,14 +72,15 @@ public:
   /// @param startPoint point to start routing
   /// @param startDirection start direction for routers with high cost of the turnarounds
   /// @param finalPoint target point for route
+  /// @param adjust adjust route to the previous one if possible
   /// @param delegate callback functions and cancellation flag
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
   virtual ResultCode CalculateRoute(m2::PointD const & startPoint,
                                     m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, RouterDelegate const & delegate,
-                                    Route & route) = 0;
+                                    m2::PointD const & finalPoint, bool adjust,
+                                    RouterDelegate const & delegate, Route & route) = 0;
 };
 
 }  // namespace routing

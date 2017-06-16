@@ -56,7 +56,9 @@ SOURCES += \
     routing_helpers.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
+    segmented_route.cpp \
     speed_camera.cpp \
+    traffic_stash.cpp \
     turns.cpp \
     turns_generator.cpp \
     turns_notification_manager.cpp \
@@ -120,6 +122,7 @@ HEADERS += \
     routing_session.hpp \
     routing_settings.hpp \
     segment.hpp \
+    segmented_route.hpp \
     speed_camera.hpp \
     traffic_stash.hpp \
     transition_points.hpp \

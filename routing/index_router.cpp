@@ -38,22 +38,34 @@ size_t constexpr kMaxRoadCandidates = 6;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kDrawPointsPeriod = 10;
 
+// If user left the route within this range, adjust the route. Else full rebuild.
+double constexpr kAdjustRange = 5000.0;
+// Propagate astar wave for some distance to try to find a better return point.
+double constexpr kAdjustDistance = 2000.0;
+// Full rebuild if distance to finish is lesser.
+double const kMinDistanceToFinish = kAdjustDistance * 2.0;
+
+template <typename Graph>
+IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result)
+{
+  switch (result)
+  {
+  case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
+  case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
+  case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
+  }
+}
+
 template <typename Graph>
 IRouter::ResultCode FindPath(
-  typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
-  RouterDelegate const & delegate, Graph & graph,
-  typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
-  RoutingResult<typename Graph::TVertexType> & routingResult)
+    typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
+    RouterDelegate const & delegate, Graph & graph,
+    typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
+    RoutingResult<typename Graph::TVertexType> & routingResult)
 {
   AStarAlgorithm<Graph> algorithm;
-  auto const resultCode = algorithm.FindPathBidirectional(graph, start, finish, routingResult,
-                                                          delegate, onVisitedVertexCallback);
-  switch (resultCode)
-  {
-    case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
-    case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
-    case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
-  }
+  return ConvertResult<Graph>(algorithm.FindPathBidirectional(graph, start, finish, routingResult,
+                                                       delegate, onVisitedVertexCallback));
 }
 
 bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph)
@@ -121,6 +133,7 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
 {
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
+  CHECK(m_numMwmTree, ());
   CHECK(m_trafficStash, ());
   CHECK(m_vehicleModelFactory, ());
   CHECK(m_estimator, ());
@@ -129,7 +142,7 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
 
 IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
                                                 m2::PointD const & startDirection,
-                                                m2::PointD const & finalPoint,
+                                                m2::PointD const & finalPoint, bool adjust,
                                                 RouterDelegate const & delegate, Route & route)
 {
   if (!AllMwmsHaveRoutingIndex(m_index, route))
@@ -139,19 +152,30 @@ IRouter::ResultCode IndexRouter::CalculateRoute(m2::PointD const & startPoint,
   string const finishCountry = m_countryFileFn(finalPoint);
 
   return CalculateRoute(startCountry, finishCountry, false /* blockMwmBorders */, startPoint,
-                        startDirection, finalPoint, delegate, route);
+                        startDirection, finalPoint, adjust, delegate, route);
 }
 
 IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
                                                 string const & finishCountry, bool forSingleMwm,
                                                 m2::PointD const & startPoint,
                                                 m2::PointD const & startDirection,
-                                                m2::PointD const & finalPoint,
+                                                m2::PointD const & finalPoint, bool adjust,
                                                 RouterDelegate const & delegate, Route & route)
 {
   try
   {
-    return DoCalculateRoute(startCountry, finishCountry, forSingleMwm, startPoint, startDirection,
+    auto const startFile = platform::CountryFile(startCountry);
+    auto const finishFile = platform::CountryFile(finishCountry);
+
+    if (adjust && !m_lastRoute.IsEmpty() && finalPoint == m_lastRoute.GetFinish())
+    {
+      double const distanceToRoute = m_lastRoute.CalcDistance(startPoint);
+      double const distanceToFinish = MercatorBounds::DistanceOnEarth(startPoint, finalPoint);
+      if (distanceToRoute <= kAdjustRange && distanceToFinish >= kMinDistanceToFinish)
+        return AdjustRoute(startFile, startPoint, startDirection, finalPoint, delegate, route);
+    }
+
+    return DoCalculateRoute(startFile, finishFile, forSingleMwm, startPoint, startDirection,
                             finalPoint, delegate, route);
   }
   catch (RootException const & e)
@@ -162,54 +186,39 @@ IRouter::ResultCode IndexRouter::CalculateRoute(string const & startCountry,
   }
 }
 
-IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
-                                                  string const & finishCountry, bool forSingleMwm,
-                                                  m2::PointD const & startPoint,
+IRouter::ResultCode IndexRouter::DoCalculateRoute(platform::CountryFile const & startCountry,
+                                                  platform::CountryFile const & finishCountry,
+                                                  bool forSingleMwm, m2::PointD const & startPoint,
                                                   m2::PointD const & /* startDirection */,
                                                   m2::PointD const & finalPoint,
                                                   RouterDelegate const & delegate, Route & route)
 {
-  CHECK(m_numMwmTree, ());
-  auto const startFile = platform::CountryFile(startCountry);
-  auto const finishFile = platform::CountryFile(finishCountry);
+  m_lastRoute.Clear();
 
   TrafficStash::Guard guard(*m_trafficStash);
-  WorldGraph graph(
-      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
-                                 m_index, m_indexManager),
-      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
-      m_estimator);
+  WorldGraph graph = MakeWorldGraph();
 
-  bool const isStartMwmLoaded = m_index.IsLoaded(startFile);
-  bool const isFinishMwmLoaded = m_index.IsLoaded(finishFile);
+  bool const isStartMwmLoaded = m_index.IsLoaded(startCountry);
+  bool const isFinishMwmLoaded = m_index.IsLoaded(finishCountry);
   if (!isStartMwmLoaded)
-    route.AddAbsentCountry(startCountry);
+    route.AddAbsentCountry(startCountry.GetName());
   if (!isFinishMwmLoaded)
-    route.AddAbsentCountry(finishCountry);
+    route.AddAbsentCountry(finishCountry.GetName());
   if (!isStartMwmLoaded || !isFinishMwmLoaded)
     return IRouter::NeedMoreMaps;
 
-  Edge startEdge;
-  if (!FindClosestEdge(startFile, startPoint, true /* isOutgoing */, graph, startEdge))
+  Segment startSegment;
+  if (!FindClosestSegment(startCountry, startPoint, true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
 
-  Edge finishEdge;
-  if (!FindClosestEdge(finishFile, finalPoint, false /* isOutgoing */, graph, finishEdge))
+  Segment finishSegment;
+  if (!FindClosestSegment(finishCountry, finalPoint, false /* isOutgoing */, graph, finishSegment))
     return IRouter::EndPointNotFound;
-
-  IndexGraphStarter::FakeVertex const start(
-      Segment(m_numMwmIds->GetId(startFile), startEdge.GetFeatureId().m_index, startEdge.GetSegId(),
-              true /* forward */),
-      startPoint);
-  IndexGraphStarter::FakeVertex const finish(
-      Segment(m_numMwmIds->GetId(finishFile), finishEdge.GetFeatureId().m_index,
-              finishEdge.GetSegId(), true /* forward */),
-      finalPoint);
 
   WorldGraph::Mode mode = WorldGraph::Mode::SingleMwm;
   if (forSingleMwm)
     mode = WorldGraph::Mode::SingleMwm;
-  else if (AreMwmsNear(start.GetMwmId(), finish.GetMwmId()))
+  else if (AreMwmsNear(startSegment.GetMwmId(), finishSegment.GetMwmId()))
     mode = WorldGraph::Mode::LeapsIfPossible;
   else
     mode = WorldGraph::Mode::LeapsOnly;
@@ -217,7 +226,8 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
-  IndexGraphStarter starter(start, finish, graph);
+  IndexGraphStarter starter(IndexGraphStarter::FakeVertex(startSegment, startPoint),
+                            IndexGraphStarter::FakeVertex(finishSegment, finalPoint), graph);
 
   AStarProgress progress(0, 100);
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
@@ -249,16 +259,134 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(string const & startCountry,
 
   CHECK_GREATER_OR_EQUAL(segments.size(), routingResult.path.size(), ());
 
-  if (!RedressRoute(segments, delegate, forSingleMwm, starter, route))
-    return IRouter::InternalError;
-  if (delegate.IsCancelled())
-    return IRouter::Cancelled;
+  auto redressResult = RedressRoute(segments, delegate, forSingleMwm, starter, route);
+  if (redressResult != IRouter::NoError)
+    return redressResult;
+
+  m_lastRoute.Init(startPoint, finalPoint);
+  for (Segment const & segment : routingResult.path)
+    m_lastRoute.AddStep(segment, starter.GetPoint(segment, true /* front */));
+
   return IRouter::NoError;
 }
 
-bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD const & point,
-                                  bool isOutgoing, WorldGraph & worldGraph,
-                                  Edge & closestEdge) const
+IRouter::ResultCode IndexRouter::AdjustRoute(platform::CountryFile const & startCountry,
+                                             m2::PointD const & startPoint,
+                                             m2::PointD const & startDirection,
+                                             m2::PointD const & finalPoint,
+                                             RouterDelegate const & delegate, Route & route)
+{
+  my::Timer timer;
+  TrafficStash::Guard guard(*m_trafficStash);
+  WorldGraph graph = MakeWorldGraph();
+  graph.SetMode(WorldGraph::Mode::NoLeaps);
+
+  Segment startSegment;
+  if (!FindClosestSegment(startCountry, startPoint, true /* isOutgoing */, graph, startSegment))
+    return IRouter::StartPointNotFound;
+
+  IndexGraphStarter starter(
+      IndexGraphStarter::FakeVertex(startSegment, startPoint),
+      IndexGraphStarter::FakeVertex(m_lastRoute.GetFinishSegment(), finalPoint), graph);
+
+  AStarProgress progress(0, 100);
+  progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
+
+  uint32_t drawPointsStep = 0;
+  auto onVisitJunction = [&](Segment const & from, Segment const & /* to */) {
+    m2::PointD const & point = starter.GetPoint(from, true /* front */);
+    auto const lastValue = progress.GetLastValue();
+    auto const newValue = progress.GetProgressForDirectedAlgo(point);
+    if (newValue - lastValue > kProgressInterval)
+      delegate.OnProgress(newValue);
+    if (drawPointsStep % kDrawPointsPeriod == 0)
+      delegate.OnPointCheck(point);
+    ++drawPointsStep;
+  };
+
+  AStarAlgorithm<IndexGraphStarter> algorithm;
+  RoutingResult<Segment> routingResult;
+
+  auto const & steps = m_lastRoute.GetSteps();
+  set<Segment> routeSegmentsSet;
+  for (auto const & step : steps)
+  {
+    auto const & segment = step.GetSegment();
+    if (!IndexGraphStarter::IsFakeSegment(segment))
+      routeSegmentsSet.insert(segment);
+  }
+
+  double const requiredDistanceToFinish =
+      MercatorBounds::DistanceOnEarth(startPoint, finalPoint) - kAdjustDistance;
+  CHECK_GREATER(requiredDistanceToFinish, 0.0, ());
+
+  auto const isFinalVertex = [&](Segment const & vertex) {
+    if (vertex == starter.GetFinish())
+      return true;
+
+    return routeSegmentsSet.count(vertex) > 0 &&
+           MercatorBounds::DistanceOnEarth(
+               starter.GetPoint(vertex, true /* front */), finalPoint) <= requiredDistanceToFinish;
+  };
+
+  auto const code = ConvertResult<IndexGraphStarter>(
+      algorithm.FindPath(starter, starter.GetStart(), starter.GetFinish(), routingResult, delegate,
+                         onVisitJunction, isFinalVertex));
+  if (code != IRouter::NoError)
+    return code;
+
+  size_t const adjustingRouteSize = routingResult.path.size();
+  AppendRemainingRoute(routingResult.path);
+
+  auto const redressResult = RedressRoute(routingResult.path, delegate, false, starter, route);
+  if (redressResult != IRouter::NoError)
+    return redressResult;
+
+  LOG(LINFO, ("Adjust route, elapsed:", timer.ElapsedSeconds(), ", start:",
+              MercatorBounds::ToLatLon(startPoint), ", finish:",
+              MercatorBounds::ToLatLon(finalPoint), ", old route:", steps.size(), ", new route:",
+              routingResult.path.size(), ", adjust:", adjustingRouteSize));
+
+  return IRouter::NoError;
+}
+
+void IndexRouter::AppendRemainingRoute(vector<Segment> & route) const
+{
+  auto const steps = m_lastRoute.GetSteps();
+  Segment const joinSegment = route.back();
+
+  // Route to finish found, append is not needed.
+  if (IndexGraphStarter::IsFakeSegment(joinSegment))
+    return;
+
+  for (size_t i = 0; i < steps.size(); ++i)
+  {
+    if (steps[i].GetSegment() == joinSegment)
+    {
+      for (size_t j = i + 1; j < steps.size(); ++j)
+        route.push_back(steps[j].GetSegment());
+
+      return;
+    }
+  }
+
+  CHECK(false,
+        ("Can't find", joinSegment, ", m_routeSegments:", steps.size(), "path:", route.size()));
+}
+
+WorldGraph IndexRouter::MakeWorldGraph()
+{
+  WorldGraph graph(
+      make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
+                                 m_index, m_indexManager),
+      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      m_estimator);
+  return graph;
+}
+
+bool IndexRouter::FindClosestSegment(platform::CountryFile const & file, m2::PointD const & point,
+                                     bool isOutgoing, WorldGraph & worldGraph,
+                                     Segment & closestSegment) const
 {
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
@@ -294,7 +422,9 @@ bool IndexRouter::FindClosestEdge(platform::CountryFile const & file, m2::PointD
   if (minIndex == candidates.size())
     return false;
 
-  closestEdge = candidates[minIndex].first;
+  Edge const & closestEdge = candidates[minIndex].first;
+  closestSegment = Segment(m_numMwmIds->GetId(file), closestEdge.GetFeatureId().m_index,
+                           closestEdge.GetSegId(), true /* forward */);
   return true;
 }
 
@@ -358,8 +488,9 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
   return IRouter::NoError;
 }
 
-bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate const & delegate,
-                               bool forSingleMwm, IndexGraphStarter & starter, Route & route) const
+IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
+                                              RouterDelegate const & delegate, bool forSingleMwm,
+                                              IndexGraphStarter & starter, Route & route) const
 {
   vector<Junction> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
@@ -382,7 +513,7 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
   if (!route.IsValid())
   {
     LOG(LERROR, ("ReconstructRoute failed. Segments:", segments.size()));
-    return false;
+    return IRouter::InternalError;
   }
 
   Route::TTimes times;
@@ -397,7 +528,11 @@ bool IndexRouter::RedressRoute(vector<Segment> const & segments, RouterDelegate 
   }
 
   route.SetSectionTimes(move(times));
-  return true;
+
+  if (delegate.IsCancelled())
+    return IRouter::Cancelled;
+
+  return IRouter::NoError;
 }
 
 bool IndexRouter::AreMwmsNear(NumMwmId startId, NumMwmId finishId) const

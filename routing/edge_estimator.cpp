@@ -78,21 +78,12 @@ double CarEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry
 
   if (m_trafficStash)
   {
-    auto const * trafficColoring = m_trafficStash->Get(segment.GetMwmId());
-    if (trafficColoring)
-    {
-      auto const dir = segment.IsForward() ? TrafficInfo::RoadSegmentId::kForwardDirection
-                                           : TrafficInfo::RoadSegmentId::kReverseDirection;
-      auto const it = trafficColoring->find(
-          TrafficInfo::RoadSegmentId(segment.GetFeatureId(), segment.GetSegmentIdx(), dir));
-      SpeedGroup const speedGroup =
-          (it == trafficColoring->cend()) ? SpeedGroup::Unknown : it->second;
-      ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
-      double const trafficFactor = CalcTrafficFactor(speedGroup);
-      result *= trafficFactor;
-      if (speedGroup != SpeedGroup::Unknown && speedGroup != SpeedGroup::G5)
-        result *= kTimePenalty;
-    }
+    SpeedGroup const speedGroup = m_trafficStash->GetSpeedGroup(segment);
+    ASSERT_LESS(speedGroup, SpeedGroup::Count, ());
+    double const trafficFactor = CalcTrafficFactor(speedGroup);
+    result *= trafficFactor;
+    if (speedGroup != SpeedGroup::Unknown && speedGroup != SpeedGroup::G5)
+      result *= kTimePenalty;
   }
 
   return result;

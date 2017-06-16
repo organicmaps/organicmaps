@@ -66,6 +66,13 @@ public:
                      CheckForStop && checkForStop, AdjustEdgeWeight && adjustEdgeWeight,
                      PutToParents && putToParents, map<TVertexType, double> & bestDistance) const;
 
+  template <typename IsFinalVertex>
+  Result FindPath(TGraphType & graph, TVertexType const & startVertex,
+                  TVertexType const & finalVertex, RoutingResult<TVertexType> & result,
+                  my::Cancellable const & cancellable,
+                  TOnVisitedVertexCallback onVisitedVertexCallback,
+                  IsFinalVertex && isFinalVertex) const;
+
   Result FindPath(TGraphType & graph, TVertexType const & startVertex,
                   TVertexType const & finalVertex, RoutingResult<TVertexType> & result,
                   my::Cancellable const & cancellable = my::Cancellable(),
@@ -237,10 +244,11 @@ void AStarAlgorithm<TGraph>::PropagateWave(TGraphType & graph, TVertexType const
 // http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
 template <typename TGraph>
+template <typename IsFinalVertex>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     TGraphType & graph, TVertexType const & startVertex, TVertexType const & finalVertex,
     RoutingResult<TVertexType> & result, my::Cancellable const & cancellable,
-    TOnVisitedVertexCallback onVisitedVertexCallback) const
+    TOnVisitedVertexCallback onVisitedVertexCallback, IsFinalVertex && isFinalVertex) const
 {
   result.Clear();
   if (nullptr == onVisitedVertexCallback)
@@ -263,12 +271,11 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (steps % kVisitedVerticesPeriod == 0)
       onVisitedVertexCallback(vertex, finalVertex);
 
-    if (vertex == finalVertex)
+    if (isFinalVertex(vertex))
     {
       ReconstructPath(vertex, parents, result.path);
       result.distance = bestDistance[vertex] - graph.HeuristicCostEstimate(vertex, finalVertex) +
                         graph.HeuristicCostEstimate(startVertex, finalVertex);
-      ASSERT_EQUAL(graph.HeuristicCostEstimate(vertex, finalVertex), 0, ());
       resultCode = Result::OK;
       return true;
     }
@@ -290,6 +297,17 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
   PropagateWave(graph, startVertex, checkForStop, adjustEdgeWeight, putToParents, bestDistance);
   return resultCode;
+}
+
+template <typename TGraph>
+typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
+    TGraphType & graph, TVertexType const & startVertex, TVertexType const & finalVertex,
+    RoutingResult<TVertexType> & result, my::Cancellable const & cancellable,
+    TOnVisitedVertexCallback onVisitedVertexCallback) const
+{
+  auto const isFinalVertex = [&](TVertexType const & vertex) { return vertex == finalVertex; };
+  return FindPath(graph, startVertex, finalVertex, result, cancellable, onVisitedVertexCallback,
+                  isFinalVertex);
 }
 
 template <typename TGraph>

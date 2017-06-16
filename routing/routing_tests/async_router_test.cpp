@@ -30,8 +30,8 @@ public:
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint, RouterDelegate const & delegate,
-                            Route & route) override
+                            m2::PointD const & finalPoint, bool adjust,
+                            RouterDelegate const & delegate, Route & route) override
   {
     vector<m2::PointD> points({startPoint, finalPoint});
     route = Route("dummy", points.begin(), points.end());
@@ -97,8 +97,9 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   DummyResultCallback resultCallback(2 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
-                       nullptr /* progressCallback */, 0 /* timeoutSec */);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, false /* rebuild */,
+                       bind(ref(resultCallback), _1, _2), nullptr /* progressCallback */,
+                       0 /* timeoutSec */);
 
   resultCallback.WaitFinish();
 
@@ -118,8 +119,9 @@ UNIT_TEST(StandartAsyncFogTest)
   DummyResultCallback resultCallback(1 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, bind(ref(resultCallback), _1, _2),
-                       nullptr /* progressCallback */, 0 /* timeoutSec */);
+  async.CalculateRoute({1, 2}, {3, 4}, {5, 6}, false /* rebuild */,
+                       bind(ref(resultCallback), _1, _2), nullptr /* progressCallback */,
+                       0 /* timeoutSec */);
 
   resultCallback.WaitFinish();
 
