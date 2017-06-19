@@ -10,25 +10,30 @@ namespace ugc
 {
 Api::Api(Index const & index) : m_index(index) {}
 
-void Api::GetStaticUGC(FeatureID const & id, Callback callback)
+void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {
-  m_thread.Push([=]() { GetStaticUGCImpl(id, callback); });
+  m_thread.Push([=]() { GetUGCImpl(id, callback); });
 }
 
-void Api::GetDynamicUGC(FeatureID const & id, Callback callback)
+void Api::GetUGCUpdate(FeatureID const & id, UGCUpdateCallback callback)
 {
-  m_thread.Push([=]() { GetDynamicUGCImpl(id, callback); });
+  m_thread.Push([=]() { GetUGCUpdateImpl(id, callback); });
 }
 
-void Api::GetStaticUGCImpl(FeatureID const & /* id */, Callback callback)
+void Api::GetUGCImpl(FeatureID const & /* id */, UGCCallback callback)
 {
   // TODO (@y, @mgsergio): retrieve static UGC
-  GetPlatform().RunOnGuiThread(callback);
+  UGC ugc(Rating({}, {}), {}, {});
+  GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
 }
 
-void Api::GetDynamicUGCImpl(FeatureID const & /* id */, Callback callback)
+void Api::GetUGCUpdateImpl(FeatureID const & /* id */, UGCUpdateCallback callback)
 {
   // TODO (@y, @mgsergio): retrieve dynamic UGC
-  GetPlatform().RunOnGuiThread(callback);
+  UGCUpdate ugc(Rating({}, {}),
+                Attribute({}, {}),
+                ReviewAbuse({}, {}),
+                ReviewFeedback({}, {}));
+  GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
 }
 }  // namespace ugc
