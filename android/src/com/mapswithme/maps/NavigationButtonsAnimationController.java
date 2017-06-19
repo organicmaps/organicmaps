@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.mapswithme.maps.location.LocationHelper;
@@ -26,6 +27,9 @@ class NavigationButtonsAnimationController
   @NonNull
   private final View mMyPosition;
 
+  @Nullable
+  private final OnTranslationChangedListener mTranslationListener;
+
   private final float mMargin;
   private float mContentHeight;
   private float mMyPositionBottom;
@@ -41,7 +45,8 @@ class NavigationButtonsAnimationController
   private float mCurrentOffset;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
-                                       @NonNull View myPosition, @NonNull final View contentView)
+                                       @NonNull View myPosition, @NonNull final View contentView,
+                                       @Nullable OnTranslationChangedListener translationListener)
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
@@ -62,6 +67,7 @@ class NavigationButtonsAnimationController
         contentView.removeOnLayoutChangeListener(this);
       }
     });
+    mTranslationListener = translationListener;
   }
 
   private void checkZoomButtonsVisibility()
@@ -120,6 +126,8 @@ class NavigationButtonsAnimationController
         mZoomOut.setVisibility(View.INVISIBLE);
       }
     });
+    if (mTranslationListener != null)
+      mTranslationListener.onFadeOutZoomButtons();
   }
 
   private void fadeInZoom()
@@ -136,6 +144,8 @@ class NavigationButtonsAnimationController
       }
     });
     Animations.fadeInView(mZoomOut, null);
+    if (mTranslationListener != null)
+      mTranslationListener.onFadeInZoomButtons();
   }
 
   private void fadeOutMyPosition()
@@ -210,6 +220,8 @@ class NavigationButtonsAnimationController
     {
       fadeInMyPosition();
     }
+    if (mTranslationListener != null)
+      mTranslationListener.onTranslationChanged(translation);
   }
 
   private boolean isViewInsideLimits(@NonNull View view)
@@ -294,5 +306,14 @@ class NavigationButtonsAnimationController
   public void onRestoreState(@NonNull Bundle state)
   {
     mZoomVisible = state.getBoolean(STATE_VISIBLE, false);
+  }
+
+  interface OnTranslationChangedListener
+  {
+    void onTranslationChanged(float translation);
+
+    void onFadeInZoomButtons();
+
+    void onFadeOutZoomButtons();
   }
 }

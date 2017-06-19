@@ -26,6 +26,7 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.Animations;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -316,6 +317,29 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mSearchButtonFrame.getLayoutParams();
     params.setMargins(width, params.topMargin, params.rightMargin, params.bottomMargin);
     mSearchButtonFrame.requestLayout();
+  }
+
+  public void updateSearchButtonsTranslation(float translation)
+  {
+    mSearchButtonFrame.setTranslationY(translation);
+  }
+
+  public void fadeInSearchButtons()
+  {
+    UiUtils.show(mSearchButtonFrame);
+    Animations.fadeInView(mSearchButtonFrame, null);
+  }
+
+  public void fadeOutSearchButtons()
+  {
+    Animations.fadeOutView(mSearchButtonFrame, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mSearchButtonFrame.setVisibility(View.INVISIBLE);
+      }
+    });
   }
 
   public void show(boolean show)

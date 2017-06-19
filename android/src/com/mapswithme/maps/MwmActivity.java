@@ -118,7 +118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingPlanController.OnToggleListener,
                                  RoutingPlanController.SearchPoiTransitionListener,
                                  FloatingSearchToolbarController.VisibilityListener,
-                                 NativeSearchListener
+                                 NativeSearchListener, NavigationButtonsAnimationController.OnTranslationChangedListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -674,7 +674,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mTraffic = new TrafficButton(this, traffic);
     mTrafficButtonController = new TrafficButtonController(mTraffic, this);
     mNavAnimationController = new NavigationButtonsAnimationController(
-        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView());
+        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
   }
 
   public boolean closePlacePage()
@@ -2012,6 +2012,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     showLocationErrorDialog(intent);
+  }
+
+  @Override
+  public void onTranslationChanged(float translation)
+  {
+    if (mNavigationController != null)
+      mNavigationController.updateSearchButtonsTranslation(translation);
+  }
+
+  @Override
+  public void onFadeInZoomButtons()
+  {
+    if (mNavigationController != null)
+      mNavigationController.fadeInSearchButtons();
+  }
+
+  @Override
+  public void onFadeOutZoomButtons()
+  {
+    if (mNavigationController != null)
+      mNavigationController.fadeOutSearchButtons();
   }
 
   private void showLocationErrorDialog(@NonNull final Intent intent)
