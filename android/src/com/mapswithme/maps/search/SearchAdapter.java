@@ -220,7 +220,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     @Override
     void processClick(SearchResult result, int order)
     {
-      mSearchFragment.showSingleResultOnMap(result, order);
+      mSearchFragment.showSingleResultOnMap(order);
     }
   }
 

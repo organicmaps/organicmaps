@@ -182,13 +182,13 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
         @Override
         public void run()
         {
-          RoutingController.get().searchPoi(order);
+          RoutingController.get().searchPoi();
         }
       });
     }
     else
     {
-      RoutingController.get().searchPoi(order);
+      RoutingController.get().searchPoi();
     }
   }
 

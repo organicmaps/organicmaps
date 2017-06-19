@@ -60,8 +60,8 @@
   <ImageButton
     android:id="@+id/btn_search"
     style="@style/MwmWidget.SearchNavigationButton"
-    android:layout_width="64dp"
-    android:layout_height="64dp"
+    android:layout_width="@dimen/margin_quadruple"
+    android:layout_height="@dimen/margin_quadruple"
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
@@ -69,4 +69,19 @@
     android:background="?nav_background"
     android:src="@drawable/ic_menu_search"
     android:tint="@null"/>
+
+  <ImageButton
+    android:id="@+id/btn_bookmarks"
+    style="@style/MwmWidget.SearchNavigationButton"
+    android:layout_width="@dimen/margin_quadruple"
+    android:layout_height="@dimen/margin_quadruple"
+    android:layout_marginStart="@dimen/margin_eighth"
+    android:layout_marginLeft="@dimen/margin_eighth"
+    android:layout_above="@id/btn_search"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:background="?nav_background"
+    android:src="@drawable/ic_menu_bookmarks"
+    android:tint="@null"/>
+
 </RelativeLayout>

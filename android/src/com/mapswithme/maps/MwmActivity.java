@@ -118,7 +118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingPlanController.OnToggleListener,
                                  RoutingPlanController.SearchPoiTransitionListener,
                                  FloatingSearchToolbarController.VisibilityListener,
-                                 NativeSearchListener
+                                 NativeSearchListener, NavigationButtonsAnimationController.OnTranslationChangedListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -674,7 +674,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mTraffic = new TrafficButton(this, traffic);
     mTrafficButtonController = new TrafficButtonController(mTraffic, this);
     mNavAnimationController = new NavigationButtonsAnimationController(
-        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView());
+        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
   }
 
   public boolean closePlacePage()
@@ -1564,6 +1564,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
+        if (mNavigationController != null)
+        {
+          mNavigationController.showSearchButtons(RoutingController.get().isPlanning()
+                                                  || RoutingController.get().isBuilt());
+        }
+
         if (RoutingController.get().isNavigating())
         {
           if (mNavigationController != null)
@@ -1605,7 +1611,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
       if (showAddStartOrFinishFrame(controller, true))
+      {
+        if (completion != null)
+          completion.run();
         return;
+      }
 
       showLineFrame(false, new Runnable()
       {
@@ -1736,7 +1746,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
         showAddStartOrFinishFrame(RoutingController.get(), false);
-        adjustTraffic(UiUtils.dimen(R.dimen.panel_width), UiUtils.getStatusBarHeight(getApplicationContext()));
+        int width = UiUtils.dimen(R.dimen.panel_width);
+        adjustTraffic(width, UiUtils.getStatusBarHeight(getApplicationContext()));
+        if (mNavigationController != null)
+          mNavigationController.adjustSearchButtons(width);
       }
       else
       {
@@ -1755,9 +1768,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       if (mIsFragmentContainer)
+      {
         adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
+        if (mNavigationController != null)
+          mNavigationController.adjustSearchButtons(0);
+      }
       else
+      {
         mRoutingPlanInplaceController.show(false);
+      }
 
       closeAllFloatingPanels();
 
@@ -1993,6 +2012,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     showLocationErrorDialog(intent);
+  }
+
+  @Override
+  public void onTranslationChanged(float translation)
+  {
+    if (mNavigationController != null)
+      mNavigationController.updateSearchButtonsTranslation(translation);
+  }
+
+  @Override
+  public void onFadeInZoomButtons()
+  {
+    if (mNavigationController != null)
+      mNavigationController.fadeInSearchButtons();
+  }
+
+  @Override
+  public void onFadeOutZoomButtons()
+  {
+    if (mNavigationController != null)
+      mNavigationController.fadeOutSearchButtons();
   }
 
   private void showLocationErrorDialog(@NonNull final Intent intent)

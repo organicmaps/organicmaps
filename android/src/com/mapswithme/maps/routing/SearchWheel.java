@@ -218,6 +218,12 @@ class SearchWheel implements View.OnClickListener
     switch (v.getId())
     {
     case R.id.btn_search:
+      if (RoutingController.get().isPlanning())
+      {
+        RoutingController.get().searchPoi();
+        return;
+      }
+
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.getQuery()))
       {
         SearchEngine.cancelSearch();

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -43,7 +42,6 @@ import java.util.concurrent.TimeUnit;
 public class RoutingController
 {
   private static final String TAG = RoutingController.class.getSimpleName();
-  private static final int NO_SLOT = 0;
 
   private enum State
   {
@@ -89,7 +87,7 @@ public class RoutingController
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
-  private int mWaitingPoiPickSlot = NO_SLOT;
+  private boolean mWaitingPoiPick;
 
   @Nullable
   private MapObject mStartPoint;
@@ -523,7 +521,7 @@ public class RoutingController
     mStartPoint = null;
     mEndPoint = null;
     setPointsInternal();
-    mWaitingPoiPickSlot = NO_SLOT;
+    mWaitingPoiPick = false;
     mUberRequestHandled = false;
 
     setBuildState(BuildState.NONE);
@@ -611,7 +609,7 @@ public class RoutingController
 
   public boolean isWaitingPoiPick()
   {
-    return (mWaitingPoiPickSlot != NO_SLOT);
+    return mWaitingPoiPick;
   }
 
   public boolean isUberRequestHandled()
@@ -833,12 +831,11 @@ public class RoutingController
       build();
   }
 
-  void searchPoi(int slotId)
+  void searchPoi()
   {
-    mLogger.d(TAG, "searchPoi: " + slotId);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
-    mWaitingPoiPickSlot = slotId;
+    mWaitingPoiPick = true;
     if (mContainer != null)
     {
       mContainer.showSearch();
@@ -846,31 +843,24 @@ public class RoutingController
     }
   }
 
-  private void onPoiSelectedInternal(@Nullable MapObject point, int slot)
+  public void onPoiSelected(@Nullable MapObject point)
   {
-    if (point != null)
+    mWaitingPoiPick = false;
+
+    if (point != null && point.getMapObjectType() == MapObject.MY_POSITION)
     {
-      if (slot == 1)
+      if (mStartPoint == null)
         setStartPoint(point);
-      else
+      else if (mEndPoint == null)
         setEndPoint(point);
     }
 
-    if (mContainer == null)
-      return;
-
-    mContainer.updateMenu();
-    showRoutePlan();
-  }
-
-  public void onPoiSelected(@Nullable MapObject point)
-  {
-    int slot = mWaitingPoiPickSlot;
-    mWaitingPoiPickSlot = NO_SLOT;
-
-    onPoiSelectedInternal(point, slot);
     if (mContainer != null)
+    {
       mContainer.updatePoints();
+      mContainer.updateMenu();
+      showRoutePlan();
+    }
   }
 
   public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
