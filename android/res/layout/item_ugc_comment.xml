@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+  <View
+    android:id="@+id/v__divider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:background="?dividerHorizontal"/>
+
+  <TextView
+    android:id="@+id/tv__user_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_toLeftOf="@+id/tv__comment_date"
+    android:layout_toStartOf="@+id/tv__comment_date"
+    android:layout_below="@id/v__divider"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="Аleksey"/>
+
+  <TextView
+    android:id="@+id/tv__comment_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    android:textAppearance="@style/MwmTextAppearance.Body4"
+    tools:text="March 29, 2016"/>
+
+  <TextView
+    android:id="@+id/tv__review"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_below="@id/tv__user_name"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:text="Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly."/>
+
+  <ImageView
+    android:id="@+id/like"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:src="@android:drawable/star_on"
+    android:layout_below="@id/tv__review"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+  <TextView
+    android:id="@+id/like_count"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/like"
+    android:layout_toEndOf="@id/like"
+    android:layout_alignBottom="@id/like"
+    android:layout_marginLeft="@dimen/margin_quarter_plus"
+    android:layout_marginStart="@dimen/margin_quarter_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="2"/>
+
+  <ImageView
+    android:id="@+id/dislike"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_toRightOf="@id/like_count"
+    android:layout_toEndOf="@id/like_count"
+    android:src="@android:drawable/star_on"
+    android:layout_below="@id/tv__review"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+  <TextView
+    android:id="@+id/dislike_count"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/dislike"
+    android:layout_toEndOf="@id/dislike"
+    android:layout_alignBottom="@id/dislike"
+    android:layout_marginLeft="@dimen/margin_quarter_plus"
+    android:layout_marginStart="@dimen/margin_quarter_plus"
+    android:layout_toLeftOf="@+id/tv__original"
+    android:layout_toStartOf="@+id/tv__original"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="0"/>
+
+  <TextView
+    android:id="@+id/tv__original"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/MwmTextAppearance.Body4"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignBottom="@id/dislike_count"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:text="Show original"/>
+</RelativeLayout>

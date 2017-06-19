@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_hotel_rating"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:visibility="gone"
+  tools:visibility="visible">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="158dp"
+    android:padding="@dimen/margin_base"
+    android:gravity="center_horizontal"
+    android:background="?ppRatingBackground">
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:textColor="?ppRatingText"
+      tools:text="How was it? Tap to rate."/>
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:orientation="horizontal">
+      <ImageButton
+        android:id="@+id/one_star"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"/>
+      <ImageButton
+        android:id="@+id/two_stars"
+        android:layout_marginLeft="@dimen/margin_half"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+      <ImageButton
+        android:id="@+id/three_stars"
+        android:layout_marginLeft="@dimen/margin_half"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+      <ImageButton
+        android:id="@+id/four_stars"
+        android:layout_marginLeft="@dimen/margin_half"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_marginRight="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+      <ImageButton
+        android:id="@+id/five_stars"
+        android:layout_marginLeft="@dimen/margin_half"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    </LinearLayout>
+    <Button
+      android:id="@+id/write_review"
+      android:layout_width="match_parent"
+      android:layout_height="36dp"
+      android:textAllCaps="true"
+      android:text="Write a review"/>
+  </LinearLayout>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__place_ugc_review"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:listitem="@layout/item_ugc_comment"/>
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:background="?dividerHorizontal"/>
+  <TextView
+    android:id="@+id/tv__place_ugc_reviews_more"
+    style="@style/PlacePageMetadataText.Button"
+    android:height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="More reviews"/>
+  <include layout="@layout/divider_horizontal"/>
+</LinearLayout>
