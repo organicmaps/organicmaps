@@ -1,6 +1,7 @@
 #import "MWMPlacePageManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
 #import "CLLocation+Mercator.h"
+#import "MapViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
 #import "MWMCircularProgress.h"
@@ -16,8 +17,9 @@
 #import "MWMRouter.h"
 #import "MWMSideButtons.h"
 #import "MWMStorage.h"
+#import "MWMUGCReviewController.h"
+#import "MWMUGCReviewVM.h"
 #import "MWMViewController.h"
-#import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -25,6 +27,8 @@
 #include "geometry/point2d.hpp"
 
 #include "platform/measurement_utils.hpp"
+
+#include "ugc/api.hpp"
 
 extern NSString * const kBookmarkDeletedNotification;
 extern NSString * const kBookmarkCategoryDeletedNotification;
@@ -528,6 +532,18 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (auto u = url ?: self.data.sponsoredURL)
     [self.ownerViewController openUrl:u];
 }
+
+- (void)reviewOn:(NSInteger)starNumber
+{
+  GetFramework().GetUGCApi().GetUGCUpdate(self.data.featureId, [self, starNumber](ugc::UGCUpdate const & ugc) {
+    auto viewModel = self.data.reviewViewModel;
+    [viewModel setDefaultStarCount:starNumber];
+    auto controller = [MWMUGCReviewController instanceFromViewModel:viewModel];
+    [self.ownerViewController.navigationController pushViewController:controller animated:YES];
+  });
+}
+
+#pragma mark - On rotate
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

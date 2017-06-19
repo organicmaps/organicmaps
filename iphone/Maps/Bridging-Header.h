@@ -31,6 +31,7 @@
 #import "MWMSearchNoResults.h"
 #import "MWMSettings.h"
 #import "MWMTableViewCell.h"
+#import "MWMTextView.h"
 #import "MWMTypes.h"
 #import "MWMViewController.h"
 #import "Statistics.h"

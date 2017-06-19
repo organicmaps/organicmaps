@@ -16,15 +16,9 @@
   [self.tableView registerWithCellClass:[MWMPPFacilityCell class]];
 }
 
-- (void)setHotelName:(NSString *)name
-{
-  self.title = name;
-}
+- (void)setHotelName:(NSString *)name { self.title = name; }
 
-- (void)setFacilities:(std::vector<booking::HotelFacility> const &)facilities
-{
-  m_dataSource = facilities;
-}
+- (void)setFacilities:(std::vector<booking::HotelFacility> const &)facilities { m_dataSource = facilities; }
 
 #pragma mark - TableView
 

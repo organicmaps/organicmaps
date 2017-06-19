@@ -19,6 +19,7 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 - (void)showGalery;
 
 - (void)openLocalAdsURL;
+- (void)reviewOn:(NSInteger)starNumber;
 
 - (void)openViatorURL:(nullable NSURL *)url;
 

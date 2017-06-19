@@ -4,9 +4,15 @@
 
 #include "map/place_page_info.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 @class MWMPlacePageData;
+@class MWMUGCReviewVM;
+
+namespace ugc
+{
+struct Review;
+}
 
 namespace place_page
 {
@@ -21,6 +27,7 @@ enum class Sections
   Viator,
   Metainfo,
   Ad,
+  UGC,
   Buttons
 };
 
@@ -86,6 +93,13 @@ enum class AdRows
   Taxi
 };
 
+enum class UGCRow
+{
+  SelectImpression,
+  Comment,
+  ShowMore
+};
+
 enum class ButtonsRows
 {
   AddBusiness,
@@ -103,7 +117,7 @@ enum class OpeningHours
   Unknown
 };
 
-using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data);
+using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
 using BannerIsReady = void (^)();
 
 }  // namespace place_page
@@ -146,15 +160,19 @@ using BannerIsReady = void (^)();
 - (NSString *)sponsoredId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 - (NSString *)hotelDescription;
-- (std::vector<booking::HotelFacility> const &)facilities;
-- (std::vector<booking::HotelReview> const &)reviews;
-- (NSUInteger)numberOfReviews;
+- (vector<booking::HotelFacility> const &)facilities;
+- (vector<booking::HotelReview> const &)hotelReviews;
+- (NSUInteger)numberOfHotelReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
 // Viator
 - (void)fillOnlineViatorSection;
 - (NSArray<MWMViatorItemModel *> *)viatorItems;
+
+// UGC
+- (MWMUGCReviewVM *)reviewViewModel;
+- (std::vector<ugc::Review> const &)ugcReviews;
 
 // Route points
 - (RouteMarkType)routeMarkType;
@@ -187,9 +205,9 @@ using BannerIsReady = void (^)();
 - (std::vector<place_page::HotelDescriptionRow> const &)descriptionRows;
 - (std::vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
 - (std::vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
-- (std::vector<place_page::ViatorRow> const &)viatorRows;
 - (std::vector<place_page::MetainfoRows> const &)metainfoRows;
 - (std::vector<place_page::AdRows> const &)adRows;
+- (std::vector<place_page::UGCRow> const &)ugcRows;
 - (std::vector<place_page::ButtonsRows> const &)buttonsRows;
 
 // Table view metainfo rows

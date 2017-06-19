@@ -1,6 +1,7 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMBookmarkCell.h"
 #import "MWMCircularProgress.h"
+#import "MWMUGCCommentCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMPPReviewCell.h"
@@ -12,6 +13,8 @@
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
 #import "SwiftBridge.h"
+
+#include "ugc/types.hpp"
 
 #include "storage/storage.hpp"
 
@@ -102,6 +105,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
   [tv registerWithCellClass:[MWMPlacePageTaxiCell class]];
+  [tv registerWithCellClass:[MWMUGCSelectImpressionCell class]];
+  [tv registerWithCellClass:[MWMUGCCommentCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -119,12 +124,23 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   self.isPlacePageButtonsEnabled = YES;
   self.data = data;
 
-  data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d) {
+  data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
     if (![self.data isEqual:d])
       return;
 
-    [self.placePageView.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
+    auto tv = self.placePageView.tableView;
+    if (isSection) {
+      [tv insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
                                 withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else
+    {
+      NSMutableArray<NSIndexPath *> * indexPaths = [@[] mutableCopy];
+      for (auto i = 1; i < range.length + 1; i++)
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:range.location]];
+
+      [tv insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
   };
 
   data.bannerIsReadyCallback = ^{
@@ -324,6 +340,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::HotelDescription: return data.descriptionRows.size();
   case Sections::HotelFacilities: return data.hotelFacilitiesRows.size();
   case Sections::HotelReviews: return data.hotelReviewsRows.size();
+  case Sections::UGC: return data.ugcRows.size();
   }
 }
 
@@ -472,14 +489,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       Class cls = [MWMPPReviewHeaderCell class];
       auto c = static_cast<MWMPPReviewHeaderCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWith:data.bookingRating numberOfReviews:data.numberOfReviews];
+      [c configWith:data.bookingRating numberOfReviews:data.numberOfHotelReviews];
       return c;
     }
     case HotelReviewsRow::Regular:
     {
       Class cls = [MWMPPReviewCell class];
       auto c = static_cast<MWMPPReviewCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [c configWithReview:data.reviews[indexPath.row - 1]];
+      [c configWithReview:data.hotelReviews[indexPath.row - 1]];
       return c;
     }
     case HotelReviewsRow::ShowMore:
@@ -512,6 +529,34 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       [c configWithTitle:L(@"more_on_bookingcom") action:^{ [delegate book:YES];; } isInsetButton:NO];
       return c;
     }
+    }
+  }
+  case Sections::UGC:
+  {
+    auto const row = data.ugcRows[indexPath.row];
+    switch (row)
+    {
+      case UGCRow::SelectImpression:
+      {
+        Class cls = [MWMUGCSelectImpressionCell class];
+        auto c = static_cast<MWMUGCSelectImpressionCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithDelegate:delegate];
+        return c;
+      }
+      case UGCRow::Comment:
+      {
+        Class cls = [MWMUGCCommentCell class];
+        auto c = static_cast<MWMUGCCommentCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithReview:data.ugcReviews[indexPath.row - 1]];
+        return c;
+      }
+      case UGCRow::ShowMore:
+      {
+        Class cls = [MWMPlacePageButtonCell class];
+        auto c = static_cast<MWMPlacePageButtonCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+        [c configWithTitle:L(@"ugc_more_reviews") action:^{} isInsetButton:NO];
+        return c;
+      }
     }
   }
   }
