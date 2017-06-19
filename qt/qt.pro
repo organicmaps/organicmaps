@@ -1,8 +1,8 @@
 # Main application in qt.
 ROOT_DIR = ..
 
-DEPENDENCIES = qt_common map drape_frontend routing search storage tracking traffic routing_common \
-               indexer drape partners_api local_ads platform editor geometry \
+DEPENDENCIES = qt_common map drape_frontend openlr routing search storage tracking traffic routing_common \
+               ugc indexer drape partners_api local_ads platform editor geometry \
                coding base freetype expat gflags jansson protobuf osrm stats_client \
                minizip succinct pugixml oauthcpp stb_image sdf_image icu
 

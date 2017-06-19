@@ -27,7 +27,7 @@ CONFIG(map_designer_standalone) {
   CONFIG += map_designer
 }
 
-SUBDIRS = 3party base coding geometry editor indexer routing routing_common search openlr
+SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common search openlr
 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage map

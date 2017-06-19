@@ -1,7 +1,7 @@
 # mapshot binary
 
 ROOT_DIR = ..
-DEPENDENCIES = map drape_frontend routing search storage tracking traffic routing_common indexer \
+DEPENDENCIES = map drape_frontend routing search storage tracking traffic routing_common ugc indexer \
                drape partners_api local_ads platform editor geometry coding base \
                freetype expat gflags jansson protobuf osrm stats_client minizip succinct \
                pugixml opening_hours stb_image sdf_image icu

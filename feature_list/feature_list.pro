@@ -1,7 +1,7 @@
 # Feature List Tool
 
 ROOT_DIR = ..
-DEPENDENCIES = map traffic search_tests_support search search_quality storage indexer platform editor geometry \
+DEPENDENCIES = map traffic search_tests_support search search_quality storage ugc indexer platform editor geometry \
                coding base jansson protobuf stats_client succinct opening_hours pugixml icu
 
 include($$ROOT_DIR/common.pri)
