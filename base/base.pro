@@ -33,6 +33,7 @@ SOURCES += \
     timegm.cpp \
     timer.cpp \
     uni_string_dfa.cpp \
+    worker_thread.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -91,3 +92,4 @@ HEADERS += \
     timegm.hpp \
     timer.hpp \
     uni_string_dfa.hpp \
+    worker_thread.hpp \

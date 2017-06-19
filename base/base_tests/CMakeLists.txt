@@ -35,6 +35,7 @@ set(
   timegm_test.cpp
   timer_test.cpp
   uni_string_dfa_test.cpp
+  worker_thread_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

@@ -22,6 +22,8 @@ set(
   get_time.hpp
   gmtime.cpp
   gmtime.hpp
+  internal/message.cpp
+  internal/message.hpp
   levenshtein_dfa.cpp
   levenshtein_dfa.hpp
   limited_priority_queue.hpp
@@ -72,14 +74,14 @@ set(
   threaded_container.cpp
   threaded_container.hpp
   threaded_list.hpp
-  internal/message.cpp
-  internal/message.hpp
   timegm.cpp
   timegm.hpp
   timer.cpp
   timer.hpp
   uni_string_dfa.cpp
   uni_string_dfa.hpp
+  worker_thread.cpp
+  worker_thread.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})
