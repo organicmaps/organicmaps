@@ -1,0 +1,198 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6150E221EF90040000B955D /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E1F1EF90040000B955D /* api.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F6F8E3A21EF83D7600F2DE8F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F6150E1F1EF90040000B955D /* api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api.cpp; sourceTree = "<group>"; };
+		F6150E201EF90040000B955D /* api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api.hpp; sourceTree = "<group>"; };
+		F6150E211EF90040000B955D /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		F6F8E3A41EF83D7600F2DE8F /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6F8E3B81EF83DF200F2DE8F /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		F6F8E3B91EF83DF200F2DE8F /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6F8E3A11EF83D7600F2DE8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6F8E39B1EF83D7600F2DE8F = {
+			isa = PBXGroup;
+			children = (
+				F6F8E3B81EF83DF200F2DE8F /* common-debug.xcconfig */,
+				F6F8E3B91EF83DF200F2DE8F /* common-release.xcconfig */,
+				F6F8E3A61EF83D7600F2DE8F /* ugc */,
+				F6F8E3A51EF83D7600F2DE8F /* Products */,
+				F6F8E3B31EF83DB600F2DE8F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F6F8E3A51EF83D7600F2DE8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6F8E3A41EF83D7600F2DE8F /* libugc.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6F8E3A61EF83D7600F2DE8F /* ugc */ = {
+			isa = PBXGroup;
+			children = (
+				F6150E1F1EF90040000B955D /* api.cpp */,
+				F6150E201EF90040000B955D /* api.hpp */,
+				F6150E211EF90040000B955D /* types.hpp */,
+			);
+			name = ugc;
+			path = ../../ugc;
+			sourceTree = "<group>";
+		};
+		F6F8E3B31EF83DB600F2DE8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6F8E3A31EF83D7600F2DE8F /* ugc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6F8E3AD1EF83D7600F2DE8F /* Build configuration list for PBXNativeTarget "ugc" */;
+			buildPhases = (
+				F6F8E3A01EF83D7600F2DE8F /* Sources */,
+				F6F8E3A11EF83D7600F2DE8F /* Frameworks */,
+				F6F8E3A21EF83D7600F2DE8F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ugc;
+			productName = ugc;
+			productReference = F6F8E3A41EF83D7600F2DE8F /* libugc.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6F8E39C1EF83D7600F2DE8F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = v.mikhaylenko;
+				TargetAttributes = {
+					F6F8E3A31EF83D7600F2DE8F = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F6F8E39F1EF83D7600F2DE8F /* Build configuration list for PBXProject "ugc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6F8E39B1EF83D7600F2DE8F;
+			productRefGroup = F6F8E3A51EF83D7600F2DE8F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6F8E3A31EF83D7600F2DE8F /* ugc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6F8E3A01EF83D7600F2DE8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6150E221EF90040000B955D /* api.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F6F8E3AB1EF83D7600F2DE8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		F6F8E3AC1EF83D7600F2DE8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		F6F8E3AE1EF83D7600F2DE8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6F8E3B81EF83DF200F2DE8F /* common-debug.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F6F8E3AF1EF83D7600F2DE8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6F8E3B91EF83DF200F2DE8F /* common-release.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6F8E39F1EF83D7600F2DE8F /* Build configuration list for PBXProject "ugc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6F8E3AB1EF83D7600F2DE8F /* Debug */,
+				F6F8E3AC1EF83D7600F2DE8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6F8E3AD1EF83D7600F2DE8F /* Build configuration list for PBXNativeTarget "ugc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6F8E3AE1EF83D7600F2DE8F /* Debug */,
+				F6F8E3AF1EF83D7600F2DE8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6F8E39C1EF83D7600F2DE8F /* Project object */;
+}

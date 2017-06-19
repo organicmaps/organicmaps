@@ -308,6 +308,9 @@
       location = "container:qtMapsMe/qtMapsMe.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:ugc/ugc.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:../iphone/Maps/Maps.xcodeproj">
    </FileRef>
 </Workspace>
