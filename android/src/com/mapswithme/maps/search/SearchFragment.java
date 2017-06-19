@@ -25,8 +25,6 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.ads.Banner;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -462,15 +460,10 @@ public class SearchFragment extends BaseMwmFragment
     return false;
   }
 
-  private void processSelected(SearchResult result)
+  private void processSelected()
   {
     if (mFromRoutePlan)
-    {
-      //noinspection ConstantConditions
-      final MapObject point = new MapObject("", 0L, 0, MapObject.SEARCH, result.name, "",
-          result.description.featureType, "", result.lat, result.lon, "", null, false, "", null, null);
-      RoutingController.get().onPoiSelected(point);
-    }
+      RoutingController.get().onPoiSelected(null);
 
     mToolbarController.deactivate();
 
@@ -478,16 +471,14 @@ public class SearchFragment extends BaseMwmFragment
       Utils.navigateToParent(getActivity());
   }
 
-  void showSingleResultOnMap(SearchResult result, int resultIndex)
+  void showSingleResultOnMap(int resultIndex)
   {
     final String query = getQuery();
     SearchRecents.add(query);
     SearchEngine.cancelApiCall();
 
-    if (!mFromRoutePlan)
-      SearchEngine.showResult(resultIndex);
-
-    processSelected(result);
+    SearchEngine.showResult(resultIndex);
+    processSelected();
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
   }

@@ -1611,7 +1611,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
       if (showAddStartOrFinishFrame(controller, true))
+      {
+        if (completion != null)
+          completion.run();
         return;
+      }
 
       showLineFrame(false, new Runnable()
       {
