@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -308,6 +309,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   public void showSearchButtons(boolean show)
   {
     UiUtils.showIf(show, mSearchButtonFrame);
+  }
+
+  public void adjustSearchButtons(int width)
+  {
+    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mSearchButtonFrame.getLayoutParams();
+    params.setMargins(width, params.topMargin, params.rightMargin, params.bottomMargin);
+    mSearchButtonFrame.requestLayout();
   }
 
   public void show(boolean show)

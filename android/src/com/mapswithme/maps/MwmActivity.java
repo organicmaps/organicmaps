@@ -1746,7 +1746,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
         showAddStartOrFinishFrame(RoutingController.get(), false);
-        adjustTraffic(UiUtils.dimen(R.dimen.panel_width), UiUtils.getStatusBarHeight(getApplicationContext()));
+        int width = UiUtils.dimen(R.dimen.panel_width);
+        adjustTraffic(width, UiUtils.getStatusBarHeight(getApplicationContext()));
+        if (mNavigationController != null)
+          mNavigationController.adjustSearchButtons(width);
       }
       else
       {
@@ -1765,9 +1768,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       if (mIsFragmentContainer)
+      {
         adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
+        if (mNavigationController != null)
+          mNavigationController.adjustSearchButtons(0);
+      }
       else
+      {
         mRoutingPlanInplaceController.show(false);
+      }
 
       closeAllFloatingPanels();
 
