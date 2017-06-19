@@ -32,6 +32,7 @@ omim_link_libraries(
   storage
   tracking
   drape
+  ugc
   indexer
   partners_api
   local_ads

@@ -322,6 +322,7 @@ add_subdirectory(tracking)
 add_subdirectory(traffic)
 add_subdirectory(partners_api)
 add_subdirectory(local_ads)
+add_subdirectory(ugc)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(openlr)

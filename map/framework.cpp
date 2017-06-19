@@ -363,6 +363,7 @@ void Framework::Migrate(bool keepDownloaded)
   m_model.Clear();
   GetStorage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
+  InitUGC();
   InitSearchEngine();
   InitCityFinder();
   InitTaxiEngine();
@@ -1451,6 +1452,13 @@ void Framework::InitCountryInfoGetter()
 
   m_infoGetter = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   m_infoGetter->InitAffiliationsInfo(&m_storage.GetAffiliations());
+}
+
+void Framework::InitUGC()
+{
+  ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
+
+  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex());
 }
 
 void Framework::InitSearchEngine()

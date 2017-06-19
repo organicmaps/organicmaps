@@ -21,6 +21,8 @@
 
 #include "drape/oglcontextfactory.hpp"
 
+#include "ugc/api.hpp"
+
 #include "indexer/data_header.hpp"
 #include "indexer/index_helpers.hpp"
 #include "indexer/map_style.hpp"
@@ -155,6 +157,8 @@ protected:
   // m_model::FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+
+  unique_ptr<ugc::Api> m_ugcApi;
 
   unique_ptr<search::Engine> m_searchEngine;
 
@@ -305,6 +309,8 @@ public:
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   Index const & GetIndex() const { return m_model.GetIndex(); }
+
+  ugc::Api & GetUGCApi() { return *m_ugcApi; }
 
   search::Engine & GetSearchEngine() { return *m_searchEngine; }
   search::Engine const & GetSearchEngine() const { return *m_searchEngine; }
@@ -524,6 +530,7 @@ private:
   };
 
   void InitCountryInfoGetter();
+  void InitUGC();
   void InitSearchEngine();
 
   DisplacementModeManager m_displacementModeManager;

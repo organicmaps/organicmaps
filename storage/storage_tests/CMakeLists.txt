@@ -33,6 +33,7 @@ omim_link_libraries(
   search
   routing
   routing_common
+  ugc
   indexer
   platform_tests_support
   osrm

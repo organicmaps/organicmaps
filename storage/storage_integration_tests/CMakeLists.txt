@@ -27,6 +27,7 @@ omim_link_libraries(
   storage
   tracking
   traffic
+  ugc
   indexer
   drape
   partners_api
