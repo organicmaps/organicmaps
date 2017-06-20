@@ -14,64 +14,128 @@
     android:layout_height="158dp"
     android:padding="@dimen/margin_base"
     android:gravity="center_horizontal"
-    android:background="?ppRatingBackground">
+    android:background="?cardBackground">
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:textColor="?ppRatingText"
-      tools:text="How was it? Tap to rate."/>
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textStyle="bold"
+      tools:text="Tap to rate &amp; review this place"/>
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginBottom="@dimen/margin_half"
       android:orientation="horizontal">
-      <ImageButton
-        android:id="@+id/one_star"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginRight="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_half"/>
-      <ImageButton
-        android:id="@+id/two_stars"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:gravity="center_horizontal">
+        <ImageView
+          android:id="@+id/iv__horrible"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_rating_horrible_normal_light"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_icon_title"
+          android:textColor="?secondary"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="Horrible"/>
+      </LinearLayout>
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_marginStart="@dimen/margin_half"
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
-      <ImageButton
-        android:id="@+id/three_stars"
+        android:gravity="center_horizontal">
+        <ImageView
+          android:id="@+id/iv__bad"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_rating_bad_normal_light"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_icon_title"
+          android:textColor="?secondary"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="Bad"/>
+      </LinearLayout>
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_marginStart="@dimen/margin_half"
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
-      <ImageButton
-        android:id="@+id/four_stars"
+        android:gravity="center_horizontal">
+        <ImageView
+          android:id="@+id/iv__normal"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_rating_avarage_normal_light"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_icon_title"
+          android:textColor="?secondary"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="Normal"/>
+      </LinearLayout>
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_marginStart="@dimen/margin_half"
         android:layout_marginRight="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_half"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
-      <ImageButton
-        android:id="@+id/five_stars"
+        android:gravity="center_horizontal">
+        <ImageView
+          android:id="@+id/iv__good"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_rating_good_normal_light"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_icon_title"
+          android:textColor="?secondary"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="Good"/>
+      </LinearLayout>
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/margin_half"
         android:layout_marginStart="@dimen/margin_half"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        android:gravity="center_horizontal">
+        <ImageView
+          android:id="@+id/iv__excellent"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_rating_exellent_normal_light"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_icon_title"
+          android:textColor="?secondary"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="Excellent"/>
+      </LinearLayout>
     </LinearLayout>
-    <Button
-      android:id="@+id/write_review"
-      android:layout_width="match_parent"
-      android:layout_height="36dp"
-      android:textAllCaps="true"
-      android:text="Write a review"/>
   </LinearLayout>
-
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv__place_ugc_review"
     android:layout_width="match_parent"
