@@ -54,7 +54,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
       data.Set(RegionData::Type::RD_TIMEZONE, timezone);
 
     bool allow_housenames;
-    FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames, false);
+    FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);
     if (allow_housenames)
       data.Set(RegionData::Type::RD_ALLOW_HOUSENAMES, "y");
 
