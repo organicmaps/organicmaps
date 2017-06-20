@@ -272,3 +272,9 @@ TPrimitive ReadPrimitiveFromSource(TSource & source)
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }
+
+template <typename TPrimitive, typename TSource>
+void ReadPrimitiveFromSource(TSource & source, TPrimitive & primitive)
+{
+  primitive = ReadPrimitiveFromSource<TPrimitive, TSource>(source);
+}
