@@ -51,7 +51,7 @@
     android:layout_marginBottom="@dimen/margin_base"
     android:layout_below="@id/tv__user_name"
     android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
-    android:visibility="gone"
+    android:visibility="visible"
     tools:visibility="visible"
     tools:text="Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly."/>
 </RelativeLayout>
