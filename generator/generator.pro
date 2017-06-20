@@ -51,6 +51,7 @@ SOURCES += \
     tesselator.cpp \
     towns_dumper.cpp \
     traffic_generator.cpp \
+    ugc_db.cpp \
     unpack_mwm.cpp \
     utils.cpp \
     viator_dataset.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     tesselator.hpp \
     towns_dumper.hpp \
     traffic_generator.hpp \
+    ugc_db.hpp \
     unpack_mwm.hpp \
     utils.hpp \
     viator_dataset.hpp \
