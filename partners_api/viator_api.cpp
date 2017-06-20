@@ -25,7 +25,7 @@ using namespace viator;
 std::string const kApiUrl = "https://viatorapi.viator.com";
 std::string const kWebUrl = "https://www.partner.viator.com";
 
-int8_t GetLang(string const & lang)
+int8_t GetLang(std::string const & lang)
 {
   return StringUtf8Multilang::GetLangIndex(lang);
 }
@@ -60,7 +60,7 @@ IdsMap kAccountIds =
 
 std::string GetId(IdsMap const & from)
 {
-  int8_t lang = GetLang(languages::GetCurrentNorm());
+  int8_t const lang = GetLang(languages::GetCurrentNorm());
 
   auto const it = from.find(lang);
 
@@ -81,7 +81,8 @@ std::string GetAccountId()
   return GetId(kAccountIds);
 }
 
-bool RunSimpleHttpRequest(string const & url, std::string const & bodyData, string & result)
+bool RunSimpleHttpRequest(std::string const & url, std::string const & bodyData,
+                          std::string & result)
 {
   HttpClient request(url);
   request.SetHttpMethod("POST");
@@ -124,10 +125,9 @@ bool CheckAnswer(my::Json const & root)
     std::string errorMessage;
     FromJSONObject(root.get(), "errorMessageText", errorMessage);
     LOG(LWARNING, ("Viator retrieved unsuccessfull status, error message:", errorMessage));
-    return false;
   }
 
-  return true;
+  return success;
 }
 
 bool CheckDataArray(json_t const * data)
@@ -175,8 +175,8 @@ void MakeProducts(std::string const & src, std::vector<Product> & products)
 namespace viator
 {
 // static
-bool RawApi::GetTopProducts(string const & destId, string const & currency, int count,
-                            string & result)
+bool RawApi::GetTopProducts(std::string const & destId, std::string const & currency, int count,
+                            std::string & result)
 {
   int dest = 0;
   CHECK(strings::to_int(destId, dest), ());

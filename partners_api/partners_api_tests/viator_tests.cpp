@@ -57,7 +57,7 @@ UNIT_TEST(Viator_SortProducts)
     {"10", 7.0, 0, "", 1.0, "", "", "", ""}
   };
 
-  for (size_t i = 0 ; i < 1000; ++i)
+  for (size_t i = 0; i < 1000; ++i)
   {
     std::shuffle(products.begin(), products.end(), std::minstd_rand(std::minstd_rand::default_seed));
     viator::SortProducts(products);
