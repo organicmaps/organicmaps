@@ -1,5 +1,7 @@
 #include "generator/ugc_db.hpp"
 
+#include "base/macros.hpp"
+
 namespace generator
 {
 UGCDB::UGCDB(std::string const & /*path */)

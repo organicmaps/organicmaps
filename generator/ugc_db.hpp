@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/exception.hpp"
+#include "base/macros.hpp"
 
 #include <cstdint>
 #include <string>
@@ -19,6 +20,6 @@ class UGCDB
 {
 public:
   UGCDB(std::string const & path);
-  bool Get(osm::Id const & id, std::vector<uint8_t> & blob);
+  WARN_UNUSED_RESULT bool Get(osm::Id const & id, std::vector<uint8_t> & blob);
 };
 }  // namespace generator
