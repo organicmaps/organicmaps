@@ -29,6 +29,7 @@ Rating GetTestRating()
 }
 
 MemWriter<Buffer> MakeSink(Buffer & buffer) { return MemWriter<Buffer>(buffer); }
+
 ReaderSource<MemReader> MakeSource(Buffer const & buffer)
 {
   MemReader reader(buffer.data(), buffer.size());
@@ -37,7 +38,7 @@ ReaderSource<MemReader> MakeSource(Buffer const & buffer)
 
 UNIT_TEST(SerDes_Rating)
 {
-  auto const expectedRating = GetTestRating();
+  auto expectedRating = GetTestRating();
   TEST_EQUAL(expectedRating, expectedRating, ());
 
   HeaderV0 header;
@@ -46,14 +47,16 @@ UNIT_TEST(SerDes_Rating)
 
   {
     auto sink = MakeSink(buffer);
-    Ser(sink, header)(expectedRating);
+    Ser ser(sink, header);
+    ser(expectedRating);
   }
 
   Rating actualRating({} /* ratings */, {} /* aggValue */);
 
   {
     auto source = MakeSource(buffer);
-    Des(source, header)(actualRating);
+    Des des(source, header);
+    des(actualRating);
   }
 
   TEST_EQUAL(expectedRating, actualRating, ());
@@ -61,7 +64,7 @@ UNIT_TEST(SerDes_Rating)
 
 UNIT_TEST(SerDes_UGC)
 {
-  auto const expectedUGC = Api::MakeTestUGC1();
+  auto expectedUGC = Api::MakeTestUGC1();
   TEST_EQUAL(expectedUGC, expectedUGC, ());
 
   HeaderV0 header;
@@ -70,13 +73,15 @@ UNIT_TEST(SerDes_UGC)
 
   {
     auto sink = MakeSink(buffer);
-    Ser(sink, header)(expectedUGC);
+    Ser ser(sink, header);
+    ser(expectedUGC);
   }
 
   UGC actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
   {
     auto source = MakeSource(buffer);
-    Des(source, header)(actualUGC);
+    Des des(source, header);
+    des(actualUGC);
   }
 
   TEST_EQUAL(expectedUGC, actualUGC, ());

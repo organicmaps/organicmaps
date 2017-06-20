@@ -28,63 +28,33 @@ class Serializer
 public:
   Serializer(Sink & sink, HeaderV0 const & header) : m_sink(sink), m_header(header) {}
 
-  void operator()(uint8_t const d) { WriteToSink(m_sink, d); }
-  void operator()(uint32_t const d) { WriteToSink(m_sink, d); }
-  void operator()(uint64_t const d) { WriteToSink(m_sink, d); }
-  void operator()(std::string const & s) { utils::WriteString(m_sink, s); }
+  void operator()(uint8_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
+  void operator()(uint32_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
+  void operator()(uint64_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
+  void operator()(std::string const & s, char const * /* name */ = nullptr)
+  {
+    utils::WriteString(m_sink, s);
+  }
 
-  void SerRating(float const f)
+  void VisitRating(float const f, char const * /* name */ = nullptr)
   {
     CHECK_GREATER_OR_EQUAL(f, 0.0, ());
     auto const d = static_cast<uint32_t>(round(f * 10));
-    SerVarUint(d);
+    VisitVarUint(d);
   }
 
   template <typename T>
-  void SerVarUint(T const & t)
+  void VisitVarUint(T const & t, char const * /* name */ = nullptr)
   {
     WriteVarUint(m_sink, t);
   }
 
-  template <typename T>
-  void operator()(vector<T> const & vs)
+  void operator()(Time const & t, char const * /* name */ = nullptr)
   {
-    SerVarUint(static_cast<uint32_t>(vs.size()));
-    for (auto const & v : vs)
-      (*this)(v);
+    VisitVarUint(ToDaysSinceEpoch(t));
   }
 
-  void operator()(RatingRecord const & ratingRecord)
-  {
-    (*this)(ratingRecord.m_key);
-    SerRating(ratingRecord.m_value);
-  }
-
-  void operator()(Rating const & rating)
-  {
-    (*this)(rating.m_ratings);
-    SerRating(rating.m_aggValue);
-  }
-
-  void operator()(UID const & uid)
-  {
-    (*this)(uid.m_hi);
-    (*this)(uid.m_lo);
-  }
-
-  void operator()(Author const & author)
-  {
-    (*this)(author.m_uid);
-    (*this)(author.m_name);
-  }
-
-  void operator()(Text const & text)
-  {
-    (*this)(text.m_lang);
-    (*this)(text.m_text);
-  }
-
-  void operator()(Sentiment sentiment)
+  void operator()(Sentiment sentiment, char const * /* name */ = nullptr)
   {
     switch (sentiment)
     {
@@ -93,27 +63,18 @@ public:
     }
   }
 
-  void operator()(Review const & review)
+  template <typename T>
+  void operator()(vector<T> const & vs, char const * /* name */ = nullptr)
   {
-    (*this)(review.m_id);
-    (*this)(review.m_text);
-    (*this)(review.m_author);
-    SerRating(review.m_rating);
-    (*this)(review.m_sentiment);
-    SerVarUint(review.DaysSinceEpoch());
+    VisitVarUint(static_cast<uint32_t>(vs.size()));
+    for (auto const & v : vs)
+      (*this)(v);
   }
 
-  void operator()(Attribute const & attribute)
+  template <typename R>
+  void operator()(R const & r, char const * /* name */ = nullptr)
   {
-    (*this)(attribute.m_key);
-    (*this)(attribute.m_value);
-  }
-
-  void operator()(UGC const & ugc)
-  {
-    (*this)(ugc.m_rating);
-    (*this)(ugc.m_reviews);
-    (*this)(ugc.m_attributes);
+    r.Visit(*this);
   }
 
 private:
@@ -127,20 +88,31 @@ class DeserializerV0
 public:
   DeserializerV0(Source & source, HeaderV0 const & header) : m_source(source), m_header(header) {}
 
-  void operator()(uint8_t & d) { ReadPrimitiveFromSource(m_source, d); }
-  void operator()(uint32_t & d) { ReadPrimitiveFromSource(m_source, d); }
-  void operator()(uint64_t & d) { ReadPrimitiveFromSource(m_source, d); }
-  void operator()(std::string & s) { utils::ReadString(m_source, s); }
-
-  void DesRating(float & f)
+  void operator()(uint8_t & d, char const * /* name */ = nullptr)
   {
-    uint32_t d = 0;
-    DesVarUint(d);
+    ReadPrimitiveFromSource(m_source, d);
+  }
+  void operator()(uint32_t & d, char const * /* name */ = nullptr)
+  {
+    ReadPrimitiveFromSource(m_source, d);
+  }
+  void operator()(uint64_t & d, char const * /* name */ = nullptr)
+  {
+    ReadPrimitiveFromSource(m_source, d);
+  }
+  void operator()(std::string & s, char const * /* name */ = nullptr)
+  {
+    utils::ReadString(m_source, s);
+  }
+
+  void VisitRating(float & f, char const * /* name */ = nullptr)
+  {
+    auto const d = DesVarUint<uint32_t>();
     f = static_cast<float>(d) / 10;
   }
 
   template <typename T>
-  void DesVarUint(T & t)
+  void VisitVarUint(T & t, char const * /* name */ = nullptr)
   {
     t = ReadVarUint<T, Source>(m_source);
   }
@@ -151,46 +123,12 @@ public:
     return ReadVarUint<T, Source>(m_source);
   }
 
-  void operator()(RatingRecord & ratingRecord)
+  void operator()(Time & t, char const * /* name */ = nullptr)
   {
-    (*this)(ratingRecord.m_key);
-    DesRating(ratingRecord.m_value);
+    t = FromDaysSinceEpoch(DesVarUint<uint32_t>());
   }
 
-  template <typename T>
-  void operator()(vector<T> & vs)
-  {
-    auto const size = DesVarUint<uint32_t>();
-    vs.resize(size);
-    for (auto & v : vs)
-      (*this)(v);
-  }
-
-  void operator()(Rating & rating)
-  {
-    (*this)(rating.m_ratings);
-    DesRating(rating.m_aggValue);
-  }
-
-  void operator()(UID & uid)
-  {
-    (*this)(uid.m_hi);
-    (*this)(uid.m_lo);
-  }
-
-  void operator()(Author & author)
-  {
-    (*this)(author.m_uid);
-    (*this)(author.m_name);
-  }
-
-  void operator()(Text & text)
-  {
-    (*this)(text.m_lang);
-    (*this)(text.m_text);
-  }
-
-  void operator()(Sentiment & sentiment)
+  void operator()(Sentiment & sentiment, char const * /* name */ = nullptr)
   {
     uint8_t s = 0;
     (*this)(s);
@@ -202,27 +140,19 @@ public:
     }
   }
 
-  void operator()(Review & review)
+  template <typename T>
+  void operator()(vector<T> & vs, char const * /* name */ = nullptr)
   {
-    (*this)(review.m_id);
-    (*this)(review.m_text);
-    (*this)(review.m_author);
-    DesRating(review.m_rating);
-    (*this)(review.m_sentiment);
-    review.SetDaysSinceEpoch(DesVarUint<uint32_t>());
+    auto const size = DesVarUint<uint32_t>();
+    vs.resize(size);
+    for (auto & v : vs)
+      (*this)(v);
   }
 
-  void operator()(Attribute & attribute)
+  template <typename R>
+  void operator()(R & r, char const * /* name */ = nullptr)
   {
-    (*this)(attribute.m_key);
-    (*this)(attribute.m_value);
-  }
-
-  void operator()(UGC & ugc)
-  {
-    (*this)(ugc.m_rating);
-    (*this)(ugc.m_reviews);
-    (*this)(ugc.m_attributes);
+    r.Visit(*this);
   }
 
 private:
