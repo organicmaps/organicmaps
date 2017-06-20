@@ -22,6 +22,9 @@ public:
   void GetUGC(FeatureID const & id, UGCCallback callback);
   void GetUGCUpdate(FeatureID const & id, UGCUpdateCallback callback);
 
+  static UGC MakeTestUGC1();
+  static UGC MakeTestUGC2();
+
 private:
   void GetUGCImpl(FeatureID const & id, UGCCallback callback);
   void GetUGCUpdateImpl(FeatureID const & id, UGCUpdateCallback callback);
