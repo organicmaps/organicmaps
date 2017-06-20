@@ -26,20 +26,8 @@ public class RoutingPlanFragment extends BaseMwmFragment
     View res = inflater.inflate(R.layout.fragment_routing, container, false);
 
     mPlanController = new RoutingPlanController(res, getActivity());
-    updatePoints();
 
     return res;
-  }
-
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
-  {
-    mPlanController.disableToggle();
-  }
-
-  public void updatePoints()
-  {
-    mPlanController.updatePoints();
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)

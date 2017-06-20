@@ -10,12 +10,6 @@
   android:clipToPadding="false">
   <FrameLayout android:layout_width="match_parent"
                android:layout_height="wrap_content">
-    <include
-      layout="@layout/routing_plan_slots"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="?attr/actionBarSize"
-      android:clickable="true"/>
 
     <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
@@ -135,15 +129,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/toggle"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="center"
-            tools:src="@drawable/ic_down" />
       </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

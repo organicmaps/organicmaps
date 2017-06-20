@@ -121,11 +121,6 @@
 
   <!-- Routing-->
   <color name="bg_routing_progress">#1F000000</color>
-  <color name="routing_slot_background">#FFFFFFFF</color>
-  <color name="routing_slot_background_night">@color/bg_panel_night</color>
-  <color name="routing_slot_background_pressed">#FFF0F0F0</color>
-  <color name="routing_slot_background_pressed_night">@color/bg_window_night</color>
-  <color name="routing_slot_shadow">#3D000000</color>
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_button_activated_tint">@color/bg_statusbar</color>
   <color name="routing_button_activated_tint_night">@color/bg_statusbar_night</color>

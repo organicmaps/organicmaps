@@ -39,9 +39,6 @@
     <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open</item>
     <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed</item>
 
-    <item name="routingSlot">@drawable/routing_slot_background</item>
-    <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
-    <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
 
@@ -146,9 +143,6 @@
     <item name="ppPreviewHeadOpen">@drawable/bg_place_page_head_open_night</item>
     <item name="ppPreviewHeadClosed">@drawable/bg_place_page_head_closed_night</item>
 
-    <item name="routingSlot">@drawable/routing_slot_background_night</item>
-    <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
-    <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
 
