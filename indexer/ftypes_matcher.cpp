@@ -500,6 +500,17 @@ IsInvisibleIndexedChecker const & IsInvisibleIndexedChecker::Instance()
   return instance;
 }
 
+IsViatorChecker::IsViatorChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"sponsored", "viator"}));
+}
+
+IsViatorChecker const & IsViatorChecker::Instance()
+{
+  static IsViatorChecker const inst;
+  return inst;
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();

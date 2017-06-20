@@ -30,7 +30,8 @@ enum class SponsoredType
   None,
   Booking,
   Opentable,
-  Geochat
+  Geochat,
+  Viator
 };
 
 enum class LocalAdsStatus

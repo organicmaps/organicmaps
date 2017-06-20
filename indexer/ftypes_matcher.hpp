@@ -225,6 +225,14 @@ public:
   static IsInvisibleIndexedChecker const & Instance();
 };
 
+class IsViatorChecker : public BaseChecker
+{
+  IsViatorChecker();
+
+public:
+  static IsViatorChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };

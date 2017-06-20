@@ -510,6 +510,14 @@ uber::Api * Framework::GetUberApi(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
+viator::Api * Framework::GetViatorApi(platform::NetworkPolicy const & policy)
+{
+  if (policy.CanUse())
+    return m_viatorApi.get();
+
+  return nullptr;
+}
+
 void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
                                uint32_t pxWidth, uint32_t pxHeight,
                                df::watch::FrameSymbols const & symbols,
@@ -878,6 +886,12 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     auto const & url = opentable::Api::GetBookTableUrl(sponsoredId);
     info.m_sponsoredUrl = url;
     info.m_sponsoredDescriptionUrl = url;
+  }
+  else if (ftypes::IsViatorChecker::Instance()(ft))
+  {
+    info.m_sponsoredType = SponsoredType::Viator;
+    auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId, info.GetDefaultName());
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {

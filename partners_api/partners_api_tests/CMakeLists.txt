@@ -10,6 +10,7 @@ set(
   mopub_tests.cpp
   rb_tests.cpp
   uber_tests.cpp
+  viator_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

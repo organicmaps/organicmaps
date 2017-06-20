@@ -32,3 +32,4 @@ SOURCES += \
     mopub_tests.cpp \
     rb_tests.cpp \
     uber_tests.cpp \
+    viator_tests.cpp \
