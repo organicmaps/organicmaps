@@ -10,15 +10,17 @@
 
 namespace ugc
 {
+using TranslationKey = std::string;
+
 struct RatingRecord
 {
-  RatingRecord(std::string const & key, float const value)
+  RatingRecord(TranslationKey const & key, float const value)
     : m_key(key)
     , m_value(value)
   {
   }
 
-  std::string m_key;
+  TranslationKey m_key;
   float m_value;
 };
 
@@ -93,23 +95,22 @@ struct Review
 
   Text m_text;
   Author m_author;
-  // A rating of a review itself. It is accumulated from other users likes or dislakes.
+  // A rating of a review itself. It is accumulated from other users
+  // likes or dislakes.
   float m_rating;
-  // A positive/negative evaluation given to a place by a user.
+  // A positive/negative evaluation given to a place by an author.
   bool m_evaluation;
   std::chrono::time_point<std::chrono::system_clock> m_time;
 };
 
 struct Attribute
 {
-  Attribute(std::string const & key, std::string const & value)
-    : m_key(key)
-    , m_value(value)
+  Attribute(TranslationKey const & key, TranslationKey const & value) : m_key(key), m_value(value)
   {
   }
 
-  std::string m_key;
-  std::string m_value;
+  TranslationKey m_key;
+  TranslationKey m_value;
 };
 
 // struct Media
@@ -151,8 +152,7 @@ struct ReviewAbuse
 {
   ReviewAbuse(std::string const & reason,
               std::chrono::time_point<std::chrono::system_clock> const & time)
-    : m_reason(reason)
-    , m_time(time)
+    : m_reason(reason), m_time(time)
   {
   }
 
