@@ -276,5 +276,9 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     openlr_tests.subdir = openlr/openlr_tests
     openlr_tests.depends = $$SUBDIRS platform_tests_support
     SUBDIRS *= openlr_tests
+
+    ugc_tests.subdir = ugc/ugc_tests
+    ugc_tests.depends = ugc indexer platform coding geometry base
+    SUBDIRS *= ugc_tests
   } # !no-tests
 } # !gtool
