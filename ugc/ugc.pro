@@ -10,6 +10,7 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += \
     api.hpp \
+    serdes.hpp \
     types.hpp \
 
 SOURCES += \

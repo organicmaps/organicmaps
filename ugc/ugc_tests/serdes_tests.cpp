@@ -44,12 +44,11 @@ UGC GetTestUGC()
   vector<Review> reviews;
   reviews.emplace_back(20 /* id */, Text("Damn good coffee", StringUtf8Multilang::kEnglishCode),
                        Author(UID(987654321 /* hi */, 123456789 /* lo */), "Cole"),
-                       5.0 /* rating */, Review::Sentiment::Positive,
-                       Review::Time(FromDays(10)));
+                       5.0 /* rating */, Sentiment::Positive, Time(FromDays(10)));
   reviews.emplace_back(67812 /* id */,
                        Text("Clean place, reasonably priced", StringUtf8Multilang::kDefaultCode),
                        Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */,
-                       Review::Sentiment::Positive, Review::Time(FromDays(1)));
+                       Sentiment::Positive, Time(FromDays(1)));
 
   vector<Attribute> attributes;
   attributes.emplace_back("best-drink", "Coffee");

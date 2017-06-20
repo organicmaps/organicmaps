@@ -16,6 +16,22 @@
 namespace ugc
 {
 using TranslationKey = std::string;
+using Time = std::chrono::time_point<std::chrono::system_clock>;
+
+enum class Sentiment
+{
+  Positive,
+  Negative
+};
+
+inline std::string DebugPrint(Sentiment const & sentiment)
+{
+  switch (sentiment)
+  {
+  case Sentiment::Positive: return "Positive";
+  case Sentiment::Negative: return "Negative";
+  }
+}
 
 struct RatingRecord
 {
@@ -54,7 +70,7 @@ struct Rating
   friend std::string DebugPrint(Rating const & rating)
   {
     std::ostringstream os;
-    os << "Rating [ ratings:" << DebugPrint(rating.m_ratings) << ", aggValue:" << rating.m_aggValue
+    os << "Rating [ ratings:" << ::DebugPrint(rating.m_ratings) << ", aggValue:" << rating.m_aggValue
        << " ]";
     return os.str();
   }
@@ -123,13 +139,6 @@ struct Text
 struct Review
 {
   using ReviewId = uint32_t;
-  using Time = std::chrono::time_point<std::chrono::system_clock>;
-
-  enum class Sentiment
-  {
-    Positive,
-    Negative
-  };
 
   Review() = default;
   Review(ReviewId id, Text const & text, Author const & author, float const rating,
@@ -154,15 +163,6 @@ struct Review
   {
     auto const hours = std::chrono::hours(days * 24);
     m_time = Time(hours);
-  }
-
-  friend std::string DebugPrint(Sentiment const sentiment)
-  {
-    switch (sentiment)
-    {
-    case Sentiment::Positive: return "Positive";
-    case Sentiment::Negative: return "Negative";
-    }
   }
 
   friend std::string DebugPrint(Review const & review)
@@ -231,8 +231,8 @@ struct UGC
     std::ostringstream os;
     os << "UGC [ ";
     os << "rating:" << DebugPrint(ugc.m_rating) << ", ";
-    os << "reviews:" << DebugPrint(ugc.m_reviews) << ", ";
-    os << "attributes:" << DebugPrint(ugc.m_attributes) << " ]";
+    os << "reviews:" << ::DebugPrint(ugc.m_reviews) << ", ";
+    os << "attributes:" << ::DebugPrint(ugc.m_attributes) << " ]";
     return os.str();
   }
 
@@ -243,26 +243,21 @@ struct UGC
 
 struct ReviewFeedback
 {
-  ReviewFeedback(bool const evaluation,
-                 std::chrono::time_point<std::chrono::system_clock> const time)
-    : m_evaluation(evaluation), m_time(time)
+  ReviewFeedback(Sentiment const sentiment, Time const & time)
+    : m_sentiment(sentiment), m_time(time)
   {
   }
 
-  bool m_evaluation;
-  std::chrono::time_point<std::chrono::system_clock> m_time;
+  Sentiment m_sentiment;
+  Time m_time;
 };
 
 struct ReviewAbuse
 {
-  ReviewAbuse(std::string const & reason,
-              std::chrono::time_point<std::chrono::system_clock> const & time)
-    : m_reason(reason), m_time(time)
-  {
-  }
+  ReviewAbuse(std::string const & reason, Time const & time) : m_reason(reason), m_time(time) {}
 
   std::string m_reason;
-  std::chrono::time_point<std::chrono::system_clock> m_time;
+  Time m_time;
 };
 
 struct UGCUpdate

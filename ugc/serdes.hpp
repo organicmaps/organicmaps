@@ -49,7 +49,7 @@ public:
   template <typename T>
   void operator()(vector<T> const & vs)
   {
-    SerVarUint(vs.size());
+    SerVarUint(static_cast<uint32_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
   }
@@ -84,12 +84,12 @@ public:
     (*this)(text.m_text);
   }
 
-  void operator()(Review::Sentiment sentiment)
+  void operator()(Sentiment sentiment)
   {
     switch (sentiment)
     {
-    case Review::Sentiment::Negative: return (*this)(static_cast<uint8_t>(0));
-    case Review::Sentiment::Positive: return (*this)(static_cast<uint8_t>(1));
+    case Sentiment::Negative: return (*this)(static_cast<uint8_t>(0));
+    case Sentiment::Positive: return (*this)(static_cast<uint8_t>(1));
     }
   }
 
@@ -160,7 +160,7 @@ public:
   template <typename T>
   void operator()(vector<T> & vs)
   {
-    auto const size = DesVarUint<size_t>();
+    auto const size = DesVarUint<uint32_t>();
     vs.resize(size);
     for (auto & v : vs)
       (*this)(v);
@@ -190,14 +190,14 @@ public:
     (*this)(text.m_text);
   }
 
-  void operator()(Review::Sentiment & sentiment)
+  void operator()(Sentiment & sentiment)
   {
     uint8_t s = 0;
     (*this)(s);
     switch (s)
     {
-    case 0: sentiment = Review::Sentiment::Negative; break;
-    case 1: sentiment = Review::Sentiment::Positive; break;
+    case 0: sentiment = Sentiment::Negative; break;
+    case 1: sentiment = Sentiment::Positive; break;
     default: CHECK(false, ("Can't parse sentiment from:", static_cast<int>(s))); break;
     }
   }
