@@ -27,6 +27,13 @@
 		3462FDAA1DC1E32C00906FD7 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD9E1DC1E28D00906FD7 /* libsearch.a */; };
 		3462FDAB1DC1E33400906FD7 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDA01DC1E29E00906FD7 /* libsuccinct.a */; };
 		34F558571DBF3CD800A4FC11 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F558561DBF3CD800A4FC11 /* libstdc++.tbd */; };
+		670E7BBC1EF9832200A8E9ED /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBB1EF9832200A8E9ED /* libicu.a */; };
+		670E7BBE1EF9839C00A8E9ED /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBD1EF9839C00A8E9ED /* librouting_common.a */; };
+		670E7BC01EF983A400A8E9ED /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBF1EF983A400A8E9ED /* libtraffic.a */; };
+		670E7BC21EF9853500A8E9ED /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBB1EF9832200A8E9ED /* libicu.a */; };
+		670E7BC31EF9853C00A8E9ED /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBD1EF9839C00A8E9ED /* librouting_common.a */; };
+		670E7BC51EF9860100A8E9ED /* ugc_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7BC41EF9860100A8E9ED /* ugc_test.cpp */; };
+		670E7BC71EF992F600A8E9ED /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BC61EF992F600A8E9ED /* libsqlite3.tbd */; };
 		670F291B1BA6CE4F00F2ABF4 /* check_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */; };
 		670F291C1BA6CEE400F2ABF4 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AB92C61B73D03500AB5194 /* libmap.a */; };
 		670F88791CE4CA81003F68BA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F88781CE4CA81003F68BA /* libopening_hours.a */; };
@@ -104,7 +111,6 @@
 		6796247D1D1012F500AE4E3C /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796247C1D1012F500AE4E3C /* libopening_hours.a */; };
 		6796247E1D10130A00AE4E3C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 677E2A091CAAC771001DC42A /* libz.tbd */; };
 		6796249F1D1013AD00AE4E3C /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6796249E1D1013AD00AE4E3C /* libsearch_tests_support.a */; };
-		679624B41D102D3300AE4E3C /* booking_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679624B31D102D3300AE4E3C /* booking_test.cpp */; };
 		679624B51D11773A00AE4E3C /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AB92C61B73D03500AB5194 /* libmap.a */; };
 		679624C01D11775300AE4E3C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B61D11775300AE4E3C /* libapi.a */; };
 		679624C11D11775300AE4E3C /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B71D11775300AE4E3C /* libdrape_frontend.a */; };
@@ -193,6 +199,11 @@
 		34F558531DBF3ACC00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558541DBF3ACC00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34F558561DBF3CD800A4FC11 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		670E7BBB1EF9832200A8E9ED /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
+		670E7BBD1EF9839C00A8E9ED /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/librouting_common.a"; sourceTree = "<group>"; };
+		670E7BBF1EF983A400A8E9ED /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libtraffic.a"; sourceTree = "<group>"; };
+		670E7BC41EF9860100A8E9ED /* ugc_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugc_test.cpp; sourceTree = "<group>"; };
+		670E7BC61EF992F600A8E9ED /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		670F88781CE4CA81003F68BA /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Release/libopening_hours.a"; sourceTree = "<group>"; };
 		6719DD5D1B95AB0F0018166F /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		671F58B71B86109B0032311E /* intermediate_data_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intermediate_data_test.cpp; sourceTree = "<group>"; };
@@ -263,6 +274,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670E7BC71EF992F600A8E9ED /* libsqlite3.tbd in Frameworks */,
+				670E7BC31EF9853C00A8E9ED /* librouting_common.a in Frameworks */,
+				670E7BC21EF9853500A8E9ED /* libicu.a in Frameworks */,
 				3462FDA11DC1E29E00906FD7 /* libsuccinct.a in Frameworks */,
 				3462FD9F1DC1E28D00906FD7 /* libsearch.a in Frameworks */,
 				3462FD9A1DC1E24400906FD7 /* libjansson.a in Frameworks */,
@@ -322,6 +336,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				670E7BC01EF983A400A8E9ED /* libtraffic.a in Frameworks */,
+				670E7BBE1EF9839C00A8E9ED /* librouting_common.a in Frameworks */,
+				670E7BBC1EF9832200A8E9ED /* libicu.a in Frameworks */,
 				3462FD971DC1E1FC00906FD7 /* liboauthcpp.a in Frameworks */,
 				3462FD951DC1E1EF00906FD7 /* libpugixml.a in Frameworks */,
 				3462FD931DC1E1DD00906FD7 /* libeditor.a in Frameworks */,
@@ -405,6 +422,10 @@
 		34F558551DBF3CD800A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				670E7BC61EF992F600A8E9ED /* libsqlite3.tbd */,
+				670E7BBF1EF983A400A8E9ED /* libtraffic.a */,
+				670E7BBD1EF9839C00A8E9ED /* librouting_common.a */,
+				670E7BBB1EF9832200A8E9ED /* libicu.a */,
 				3462FDA81DC1E31E00906FD7 /* libprotobuf.a */,
 				3462FDA61DC1E30B00906FD7 /* libopening_hours.a */,
 				3462FDA01DC1E29E00906FD7 /* libsuccinct.a */,
@@ -440,6 +461,7 @@
 				67AB92B41B738DE800AB5194 /* source_data.hpp */,
 				671F58B71B86109B0032311E /* intermediate_data_test.cpp */,
 				679624B31D102D3300AE4E3C /* booking_test.cpp */,
+				670E7BC41EF9860100A8E9ED /* ugc_test.cpp */,
 			);
 			name = generator_tests;
 			path = ../../generator/generator_tests;
@@ -658,13 +680,13 @@
 				67AB92D91B75158300AB5194 /* osm_o5m_source_test.cpp in Sources */,
 				67AB92D61B75157700AB5194 /* tesselator_test.cpp in Sources */,
 				6726C2411A4C2D9F005EEA39 /* testingmain.cpp in Sources */,
+				670E7BC51EF9860100A8E9ED /* ugc_test.cpp in Sources */,
 				67AB92D21B75156B00AB5194 /* feature_merger_test.cpp in Sources */,
 				67AB92C31B73C29000AB5194 /* source_to_element_test.cpp in Sources */,
 				67AB92D31B75156E00AB5194 /* osm_id_test.cpp in Sources */,
 				677792521C1B2E9700EC9499 /* metadata_parser_test.cpp in Sources */,
 				67AB92D11B75156700AB5194 /* feature_builder_test.cpp in Sources */,
 				67AB92C21B73C27300AB5194 /* source_data.cpp in Sources */,
-				679624B41D102D3300AE4E3C /* booking_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

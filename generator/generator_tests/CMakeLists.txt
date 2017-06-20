@@ -23,6 +23,7 @@ set(
   tesselator_test.cpp
   triangles_tree_coding_test.cpp
   types_helper.hpp
+  ugc_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

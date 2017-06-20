@@ -91,6 +91,8 @@ set(SRC
   traffic_generator.hpp
   ugc_db.cpp
   ugc_db.hpp
+  ugc_translator.cpp
+  ugc_translator.hpp
   unpack_mwm.cpp
   unpack_mwm.hpp
   utils.cpp

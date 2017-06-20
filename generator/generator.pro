@@ -52,6 +52,7 @@ SOURCES += \
     towns_dumper.cpp \
     traffic_generator.cpp \
     ugc_db.cpp \
+    ugc_translator.cpp \
     unpack_mwm.cpp \
     utils.cpp \
     viator_dataset.cpp \
@@ -104,6 +105,7 @@ HEADERS += \
     towns_dumper.hpp \
     traffic_generator.hpp \
     ugc_db.hpp \
+    ugc_translator.hpp \
     unpack_mwm.hpp \
     utils.hpp \
     viator_dataset.hpp \

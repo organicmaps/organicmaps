@@ -1,15 +1,98 @@
 #include "generator/ugc_db.hpp"
 
+#include "base/logging.hpp"
 #include "base/macros.hpp"
+
+#include <iostream>
+
+namespace {
+  struct Results
+  {
+    size_t counter = 0;
+    std::stringstream values;
+  };
+}  // namespace
 
 namespace generator
 {
-UGCDB::UGCDB(std::string const & /*path */)
-{  // TODO (@syershov): implement this
+
+static int callback(void * results_ptr, int argc, char **argv, char **azColName)
+{
+  Results & results = *reinterpret_cast<Results *>(results_ptr);
+  for(size_t i=0; i<argc; i++)
+  {
+    if (results.counter++)
+      results.values << ",";
+
+    results.values << (argv[i] ? argv[i] : "{}");
+  }
+  return 0;
 }
 
-bool UGCDB::Get(osm::Id const & /* id */, std::vector<uint8_t> & /* blob */)
-{  // TODO (@syershov): implement this
-  return false;
+UGCDB::UGCDB(std::string const & path)
+{
+  int rc;
+
+  rc = sqlite3_open(path.c_str(), &m_db);
+  if(rc)
+  {
+    LOG(LERROR, ("Can't open database:", sqlite3_errmsg(m_db)));
+    sqlite3_close(m_db);
+    m_db = nullptr;
+    return;
+  }
 }
+
+UGCDB::~UGCDB()
+{
+  if(m_db)
+    sqlite3_close(m_db);
+}
+
+bool UGCDB::Get(osm::Id const & id, std::vector<uint8_t> & blob)
+{
+  if(!m_db)
+    return false;
+
+  char *zErrMsg = 0;
+  std::stringstream cmd;
+  Results results;
+  results.values << "[";
+  cmd << "SELECT data FROM agg WHERE id=" << id.OsmId() << ";";
+//  Leaves comment for debug purposes
+//  std::cout << cmd.str() << std::endl;
+  auto rc = sqlite3_exec(m_db, cmd.str().c_str(), callback, &results, &zErrMsg);
+  if (rc != SQLITE_OK)
+  {
+    LOG(LERROR, ("SQL error:", zErrMsg));
+    sqlite3_free(zErrMsg);
+    return false;
+  }
+  results.values << "]";
+
+  return ValueToBlob(results.values.str(), blob);
+}
+
+bool UGCDB::Exec(std::string const & statement)
+{
+  if(!m_db)
+    return false;
+
+  char *zErrMsg = 0;
+  auto rc = sqlite3_exec(m_db, statement.c_str(), nullptr, nullptr, &zErrMsg);
+  if( rc!=SQLITE_OK ){
+    LOG(LERROR, ("SQL error:", zErrMsg));
+    sqlite3_free(zErrMsg);
+    return false;
+  }
+  return true;
+}
+
+
+bool UGCDB::ValueToBlob(std::string const & src, std::vector<uint8_t> & blob)
+{
+  blob.assign(src.cbegin(), src.cend());
+  return true;
+}
+
 }  // namespace generator

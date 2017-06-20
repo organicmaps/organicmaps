@@ -36,6 +36,8 @@ class Json
 public:
   DECLARE_EXCEPTION(Exception, RootException);
 
+  explicit Json(std::string const & s) : Json(s.c_str()) {}
+
   explicit Json(char const * s)
   {
     json_error_t jsonError;
