@@ -495,6 +495,7 @@ place_page::Info & Framework::GetPlacePageInfo()
 {
   return m_info;
 }
+
 void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
                                        string const & hotelId, string const & currencyCode,
                                        booking::GetMinPriceCallback const & callback)

@@ -271,25 +271,28 @@ struct UGC
 
 struct ReviewFeedback
 {
+  ReviewFeedback() = default;
   ReviewFeedback(Sentiment const sentiment, Time const & time)
     : m_sentiment(sentiment), m_time(time)
   {
   }
 
-  Sentiment m_sentiment;
-  Time m_time;
+  Sentiment m_sentiment{};
+  Time m_time{};
 };
 
 struct ReviewAbuse
 {
+  ReviewAbuse() = default;
   ReviewAbuse(std::string const & reason, Time const & time) : m_reason(reason), m_time(time) {}
 
-  std::string m_reason;
-  Time m_time;
+  std::string m_reason{};
+  Time m_time{};
 };
 
 struct UGCUpdate
 {
+  UGCUpdate() = default;
   UGCUpdate(Rating ratings, Attribute attribute, ReviewAbuse abuses, ReviewFeedback feedbacks)
     : m_ratings(ratings), m_attribute(attribute), m_abuses(abuses), m_feedbacks(feedbacks)
   {

@@ -1459,7 +1459,8 @@ void Framework::InitCountryInfoGetter()
 void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
-  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex());
+
+  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex(), "FILENAME_PLACEHOLDER");
 }
 
 void Framework::InitSearchEngine()

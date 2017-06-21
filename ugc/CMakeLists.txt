@@ -5,6 +5,8 @@ set(
   api.cpp
   api.hpp
   serdes.hpp
+  storage.cpp
+  storage.hpp
   types.hpp
 )
 

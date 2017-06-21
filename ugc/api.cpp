@@ -1,15 +1,12 @@
 #include "ugc/api.hpp"
 
-#include "indexer/feature_decl.hpp"
-
 #include "platform/platform.hpp"
 
 #include <chrono>
 
 using namespace std;
+using namespace ugc;
 
-namespace ugc
-{
 namespace
 {
 chrono::hours FromDays(uint32_t days)
@@ -18,16 +15,23 @@ chrono::hours FromDays(uint32_t days)
 }
 }  // namespace
 
-Api::Api(Index const & index) : m_index(index) {}
+namespace ugc
+{
+Api::Api(Index const & index, std::string const & filename) : m_index(index), m_storage(filename) {}
 
 void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {
-  m_thread.Push([=]() { GetUGCImpl(id, callback); });
+  m_thread.Push([=] { GetUGCImpl(id, callback); });
 }
 
 void Api::GetUGCUpdate(FeatureID const & id, UGCUpdateCallback callback)
 {
-  m_thread.Push([=]() { GetUGCUpdateImpl(id, callback); });
+  m_thread.Push([=] { GetUGCUpdateImpl(id, callback); });
+}
+
+void Api::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
+{
+  m_thread.Push([=] { SetUGCUpdate(id, ugc); });
 }
 
 // static
@@ -86,7 +90,7 @@ void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
     ugc = MakeTestUGC1();
   else if (r == 2)
     ugc = MakeTestUGC2();
-    
+
   GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
 }
 
@@ -98,5 +102,10 @@ void Api::GetUGCUpdateImpl(FeatureID const & /* id */, UGCUpdateCallback callbac
                 ReviewAbuse({}, {}),
                 ReviewFeedback({}, {}));
   GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
+}
+
+void Api::SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc)
+{
+  m_storage.SetUGCUpdate(id, ugc);
 }
 }  // namespace ugc
