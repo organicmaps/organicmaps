@@ -6,15 +6,12 @@
 
 namespace generator
 {
-UGCTranslator::UGCTranslator()
-  : m_dbRatings(":memory:")
-  , m_dbReviews(":memory:")
-{}
+UGCTranslator::UGCTranslator() : m_dbRatings(":memory:"), m_dbReviews(":memory:") {}
 
 UGCTranslator::UGCTranslator(std::string const & path)
-  : m_dbRatings(path + ".ratings")
-  , m_dbReviews(path + ".reviews")
-{}
+  : m_dbRatings(path + ".ratings"), m_dbReviews(path + ".reviews")
+{
+}
 
 bool UGCTranslator::TranslateUGC(osm::Id const & id, ugc::UGC & ugc)
 {
@@ -35,7 +32,6 @@ void UGCTranslator::CreateReviews(std::string const & data)
   UNUSED_VALUE(rc);
 }
 
-
 bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & rating)
 {
   std::vector<uint8_t> blob;
@@ -47,7 +43,7 @@ bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & 
   my::Json jsonRoot(result);
 
   size_t size = json_array_size(jsonRoot.get());
-  for (size_t i=0; i<size; ++i)
+  for (size_t i = 0; i < size; ++i)
   {
     json_t * el = json_array_get(jsonRoot.get(), i);
     double ratingValue = 0;
@@ -56,7 +52,7 @@ bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & 
     FromJSONObject(el, "value", ratingValue);
     FromJSONObject(el, "criterion_id", translationKeyId);
 
-    std::stringstream translationKey;
+    std::ostringstream translationKey;
     translationKey << "TranslationKey" << translationKeyId;
     rating.m_ratings.emplace_back(translationKey.str(), static_cast<float>(ratingValue));
   }
@@ -64,13 +60,12 @@ bool UGCTranslator::TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & 
   return true;
 }
 
-
 bool UGCTranslator::TranslateReview(UGCDB & db, osm::Id const id, std::vector<ugc::Review> & review)
 {
   return true;
 }
 
-//bool UGCTranslator::TranslateAttribute(UGCDB & db, osm::Id const id, ugc::Attribute & attribute)
+// bool UGCTranslator::TranslateAttribute(UGCDB & db, osm::Id const id, ugc::Attribute & attribute)
 //{
 //  return false;
 //}

@@ -6,8 +6,7 @@
 
 #include "ugc/types.hpp"
 
-
-std::string database(R"LLL(
+std::string g_database(R"LLL(
    PRAGMA foreign_keys=OFF;
    BEGIN TRANSACTION;
    CREATE TABLE agg (id bigint, data blob);
@@ -28,7 +27,7 @@ std::string database(R"LLL(
 UNIT_TEST(UGC_SmokeTest)
 {
   generator::UGCDB db(":memory:");
-  bool create = db.Exec(database);
+  bool create = db.Exec(g_database);
   TEST(create, ("Can't open database"));
   osm::Id id = osm::Id(1);
   std::vector<uint8_t> blob;
@@ -41,7 +40,7 @@ UNIT_TEST(UGC_SmokeTest)
 UNIT_TEST(UGC_TranslateRatingTest)
 {
   generator::UGCTranslator tr;
-  tr.CreateRatings(database);
+  tr.CreateRatings(g_database);
   osm::Id id = osm::Id(6);
 
   ugc::UGC ugc;

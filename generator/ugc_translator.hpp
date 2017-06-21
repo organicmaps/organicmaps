@@ -17,11 +17,12 @@ public:
   // For testing only
   void CreateRatings(std::string const & data);
   void CreateReviews(std::string const & data);
+  
 private:
   bool TranslateRating(UGCDB & db, osm::Id const id, ugc::Rating & rating);
   bool TranslateReview(UGCDB & db, osm::Id const id, std::vector<ugc::Review> & review);
 //  bool TranslateAttribute(UGCDB & db, osm::Id const id, ugc::Attribute & attribute);
-private:
+
   UGCDB m_dbRatings;
   UGCDB m_dbReviews;
 };
