@@ -4,7 +4,10 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.FeatureId;
+
 import java.io.Serializable;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
@@ -61,7 +64,7 @@ public class UGC implements Serializable
     mListener = listener;
   }
 
-  public static native void requestUGC();
+  public static native void requestUGC(FeatureId fid);
 
   public static void onUGCReceived(@NonNull UGC ugc)
   {

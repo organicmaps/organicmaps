@@ -38,6 +38,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mapswithme.maps.FeatureId;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -1147,8 +1148,10 @@ public class PlacePageView extends RelativeLayout
       if (mMapObject.getFeatureIndex() == 218028)
       {
         UGC.setListener(this);
-        // TODO: need to use full FeatureID here.
-        UGC.requestUGC();
+        // TODO (@y): replace three fields in the MapObject by FeatureId.
+        FeatureId fid = new FeatureId(
+            mMapObject.getMwmName(), mMapObject.getMwmVersion(), mMapObject.getFeatureIndex());
+        UGC.requestUGC(fid);
         refreshViews(policy);
         return;
       }
