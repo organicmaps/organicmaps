@@ -560,6 +560,17 @@ uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::Lat
   return uber::Api::GetRideRequestLinks(productId, from, to);
 }
 
+void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,
+                                      std::string const & currency,
+                                      viator::GetTop5ProductsCallback const & callback)
+{
+  auto const viatorApi = m_work.GetViatorApi(ToNativeNetworkPolicy(env, policy));
+  if (!viatorApi)
+    return;
+
+  viatorApi->GetTop5Products(destId, currency, callback);
+}
+
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();

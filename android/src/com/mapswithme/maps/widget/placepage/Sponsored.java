@@ -25,9 +25,10 @@ public final class Sponsored
   public static final int TYPE_BOOKING = 1;
   public static final int TYPE_OPENTABLE = 2;
   public static final int TYPE_GEOCHAT = 3;
+  public static final int TYPE_VIATOR = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_GEOCHAT})
+  @IntDef({TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_GEOCHAT, TYPE_VIATOR})
   @interface SponsoredType {}
 
   private static class Price

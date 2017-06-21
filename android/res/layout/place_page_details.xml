@@ -17,6 +17,8 @@
       android:layout_height="1dp"
       android:layout_marginBottom="@dimen/margin_half"/>
 
+    <include layout="@layout/place_page_viator"/>
+
     <include
       layout="@layout/divider_horizontal"/>
 

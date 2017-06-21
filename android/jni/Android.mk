@@ -116,6 +116,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/util/statistics/PushwooshHelper.cpp \
 	com/mapswithme/util/LoggerFactory.cpp \
 	com/mapswithme/util/NetworkPolicy.cpp \
+	com/mapswithme/maps/viator/Viator.cpp \
 
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz

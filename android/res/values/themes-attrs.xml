@@ -84,6 +84,8 @@
     <attr name="localAdSearchResBackground" format="color"/>
 
     <attr name="tagBackground" format="reference"/>
+
+    <attr name="viatorMore" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

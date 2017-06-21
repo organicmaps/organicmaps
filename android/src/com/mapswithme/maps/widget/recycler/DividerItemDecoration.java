@@ -18,6 +18,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
   @NonNull
   private final Drawable mDivider;
   private int mOrientation;
+  private final boolean mUsePaddingOnBorders;
 
   /**
    * Sole constructor. Takes in a {@link Drawable} to be used as the interior
@@ -28,6 +29,20 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
   public DividerItemDecoration(@NonNull Drawable divider)
   {
     mDivider = divider;
+    mUsePaddingOnBorders = false;
+  }
+
+  /**
+   * Sole constructor. Takes in a {@link Drawable} to be used as the interior
+   * divider.
+   *
+   * @param divider A divider {@code Drawable} to be drawn on the RecyclerView
+   * @param usePaddingOnBorders A flag to use padding on borders
+   */
+  public DividerItemDecoration(@NonNull Drawable divider, boolean usePaddingOnBorders)
+  {
+    mDivider = divider;
+    mUsePaddingOnBorders = usePaddingOnBorders;
   }
 
   /**
@@ -61,14 +76,23 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
   {
     super.getItemOffsets(outRect, view, parent, state);
 
-    if (parent.getChildAdapterPosition(view) == 0)
+    if (!mUsePaddingOnBorders && parent.getChildAdapterPosition(view) == 0)
       return;
 
+    boolean isLastItem = parent.getChildAdapterPosition(view) == parent.getChildCount() - 1;
     mOrientation = ((LinearLayoutManager) parent.getLayoutManager()).getOrientation();
     if (mOrientation == LinearLayoutManager.HORIZONTAL)
+    {
       outRect.left = mDivider.getIntrinsicWidth();
+      if (isLastItem && !mUsePaddingOnBorders)
+        outRect.right = mDivider.getIntrinsicWidth();
+    }
     else if (mOrientation == LinearLayoutManager.VERTICAL)
+    {
       outRect.top = mDivider.getIntrinsicHeight();
+      if (isLastItem && !mUsePaddingOnBorders)
+        outRect.bottom = mDivider.getIntrinsicHeight();
+    }
   }
 
   /**

@@ -101,6 +101,8 @@
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 
     <item name="tagBackground">@drawable/bg_tag</item>
+
+    <item name="viatorMore">@drawable/ic_viator_more</item>
   </style>
 
   <!-- Night theme -->
@@ -204,5 +206,7 @@
     <item name="localAdSearchResBackground">@color/search_local_ads_customer_result_night</item>
 
     <item name="tagBackground">@drawable/bg_tag_night</item>
+
+    <item name="viatorMore">@drawable/ic_viator_more_night</item>
   </style>
 </resources>

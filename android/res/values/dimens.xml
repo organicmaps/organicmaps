@@ -198,4 +198,10 @@
   <dimen name="permissions_details_width">@dimen/match_parent</dimen>
   <dimen name="permissions_details_icon_size">40dp</dimen>
   <dimen name="info_page_image_size">240dp</dimen>
+
+  <!-- Viator-->
+  <dimen name="viator_product_height">208dp</dimen>
+  <dimen name="viator_product_width">160dp</dimen>
+  <dimen name="viator_product_image_height">100dp</dimen>
+  <dimen name="viator_height">284dp</dimen>
 </resources>

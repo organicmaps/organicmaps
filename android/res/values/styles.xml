@@ -235,6 +235,14 @@
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
 
+  <style name="MwmWidget.RatingBarSmall" parent="android:Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/rating_bar_small</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar_small</item>
+    <item name="android:minHeight">12dp</item>
+    <item name="android:maxHeight">12dp</item>
+    <item name="android:isIndicator">true</item>
+  </style>
+
   <style name="MwmWidget.Counter">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>

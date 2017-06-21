@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_viator"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/viator_height"
+  android:orientation="vertical"
+  android:clipToPadding="false"
+  android:minHeight="@dimen/placepage_hotel_gallery_height"
+  android:visibility="gone"
+  tools:background="#20FF0000"
+  tools:visibility="visible">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:fontFamily="@string/robotoMedium"
+      android:text="Attractions and tours"
+      tools:targetApi="jelly_bean"/>
+    <TextView
+      android:id="@+id/btn__viator_more"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:fontFamily="@string/robotoMedium"
+      android:textColor="?colorAccent"
+      android:textAllCaps="true"
+      android:text="@string/placepage_more_button"
+      android:background="?clickableBackground"
+      tools:targetApi="jelly_bean"/>
+  </RelativeLayout>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__viator_products"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    tools:listitem="@layout/item_viator_product"/>
+</LinearLayout>

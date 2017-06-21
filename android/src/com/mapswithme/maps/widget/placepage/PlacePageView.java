@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -64,6 +65,9 @@ import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.viator.Viator;
+import com.mapswithme.maps.viator.ViatorAdapter;
+import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.LineCountTextView;
@@ -111,7 +115,9 @@ public class PlacePageView extends RelativeLayout
                NearbyAdapter.OnItemClickListener,
                BottomPlacePageAnimationController.OnBannerOpenListener,
                EditBookmarkFragment.EditBookmarkListener,
-               BannerController.BannerListener
+               BannerController.BannerListener,
+               Viator.ViatorListener,
+               ViatorAdapter.ItemSelectedListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -181,6 +187,8 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
   private View mHotelMore;
+  private View mViatorView;
+  private RecyclerView mRvViatorProducts;
   @Nullable
   BannerController mBannerController;
 
@@ -402,6 +410,8 @@ public class PlacePageView extends RelativeLayout
     initHotelNearbyView();
     initHotelRatingView();
 
+    initViatorView();
+
     View bannerView = findViewById(R.id.banner);
     if (bannerView != null)
     {
@@ -599,6 +609,7 @@ public class PlacePageView extends RelativeLayout
 
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
+    Viator.setViatorListener(this);
   }
 
   private void initHotelRatingView()
@@ -791,6 +802,47 @@ public class PlacePageView extends RelativeLayout
     mReviewAdapter.setItems(new ArrayList<Review>());
     mHotelRating.setText("");
     mHotelRatingBase.setText("");
+  }
+
+  @Override
+  public void onViatorProductsReceived(@NonNull String destId, @NonNull ViatorProduct[] products)
+  {
+    if (mSponsored != null)
+      updateViatorView(products, mSponsored.getUrl());
+  }
+
+  private void initViatorView()
+  {
+    mViatorView = findViewById(R.id.ll__place_viator);
+    mRvViatorProducts = (RecyclerView) mViatorView.findViewById(R.id.rv__viator_products);
+    mRvViatorProducts.setLayoutManager(new LinearLayoutManager(getContext(),
+                                                               LinearLayoutManager.HORIZONTAL,
+                                                               false));
+    Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_half);
+    mRvViatorProducts.addItemDecoration(new DividerItemDecoration(divider, true));
+    mViatorView.findViewById(R.id.btn__viator_more).setOnClickListener(this);
+  }
+
+  private void updateViatorView(@NonNull ViatorProduct[] products, @NonNull String cityUrl)
+  {
+    UiUtils.showIf(products.length > 0, mViatorView);
+    mRvViatorProducts.setAdapter(new ViatorAdapter(products, cityUrl, this));
+  }
+
+  private void hideViatorViews()
+  {
+    UiUtils.hide(mViatorView);
+  }
+
+  private void clearViatorViews()
+  {
+    mRvViatorProducts.setAdapter(new ViatorAdapter(new ViatorProduct[]{}, "", null));
+  }
+
+  @Override
+  public void onViatorItemSelected(@NonNull String url)
+  {
+    Utils.openUrl(getContext(), url);
   }
 
   @Override
@@ -1065,14 +1117,20 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject != null)
     {
       clearHotelViews();
+      clearViatorViews();
       if (mSponsored != null)
       {
         mSponsored.updateId(mMapObject);
         mSponsoredPrice = mSponsored.getPrice();
 
         String currencyCode = Utils.getCurrencyCode();
-        if (mSponsored.getType() == Sponsored.TYPE_BOOKING && mSponsored.getId() != null && !TextUtils.isEmpty(currencyCode))
-          Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+        if (mSponsored.getId() != null && !TextUtils.isEmpty(currencyCode))
+        {
+          if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
+            Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+          else if (mSponsored.getType() == Sponsored.TYPE_VIATOR)
+            Viator.nativeRequestViatorProducts(policy, mSponsored.getId(), currencyCode);
+        }
         Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
       }
 
@@ -1225,6 +1283,7 @@ public class PlacePageView extends RelativeLayout
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mapObject.getMetadata(Metadata.MetadataType.FMD_URL)
                                                        : website, mWebsite, mTvWebsite);
       hideHotelViews();
+      hideViatorViews();
     }
     else
     {
@@ -1674,6 +1733,10 @@ public class PlacePageView extends RelativeLayout
                                         Framework.ROUTER_TYPE_TAXI);
         hide();
         Framework.nativeDeactivatePopup();
+        break;
+      case R.id.btn__viator_more:
+        if (mSponsored != null)
+          Utils.openUrl(getContext(), mSponsored.getUrl());
         break;
     }
   }
