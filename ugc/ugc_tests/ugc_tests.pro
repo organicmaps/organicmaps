@@ -6,7 +6,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = ugc indexer platform coding geometry base
+DEPENDENCIES = ugc indexer platform coding geometry base stats_client
+
+macx-* {
+  LIBS *= "-framework IOKit" "-framework SystemConfiguration"
+}
 
 include($$ROOT_DIR/common.pri)
 
