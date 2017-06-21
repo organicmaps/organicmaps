@@ -107,13 +107,13 @@ public class UGC implements Serializable
     private final String mText;
     @NonNull
     private final String mAuthor;
-    private final long mTime;
+    private final long mDaysAgo;
 
-    private Review(@NonNull String text, @NonNull String author, long time)
+    private Review(@NonNull String text, @NonNull String author, long daysAgo)
     {
       mText = text;
       mAuthor = author;
-      mTime = time;
+      mDaysAgo = daysAgo;
     }
 
     @NonNull
@@ -128,9 +128,9 @@ public class UGC implements Serializable
       return mAuthor;
     }
 
-    public long getTime()
+    public long getDaysAgo()
     {
-      return mTime;
+      return mDaysAgo;
     }
   }
 

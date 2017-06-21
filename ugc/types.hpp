@@ -56,6 +56,14 @@ inline Time FromDaysSinceEpoch(uint32_t days)
   return Time(hours);
 }
 
+inline uint32_t DaysAgo(Time const & time)
+{
+  auto const now = std::chrono::system_clock::now();
+  if (now < time)
+    return 0;
+  return std::chrono::duration_cast<std::chrono::hours>(now - time).count() / 24;
+}
+
 struct RatingRecord
 {
   RatingRecord() = default;

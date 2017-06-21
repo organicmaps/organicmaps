@@ -113,7 +113,7 @@ private:
     jni::TScopedLocalRef text(env, jni::ToJavaString(env, review.m_text.m_text));
     jni::TScopedLocalRef author(env, jni::ToJavaString(env, review.m_author.m_name));
     jobject result = env->NewObject(m_reviewClass, m_reviewCtor, text.get(), author.get(),
-                                    ugc::ToDaysSinceEpoch(review.m_time));
+                                    static_cast<jlong>(ugc::DaysAgo(review.m_time)));
     ASSERT(result, ());
     return result;
   }

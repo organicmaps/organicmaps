@@ -9,9 +9,9 @@ using namespace ugc;
 
 namespace
 {
-chrono::hours FromDays(uint32_t days)
+Time FromDaysAgo(uint32_t days)
 {
-  return std::chrono::hours(days * 24);
+  return std::chrono::system_clock::now() - std::chrono::hours(days * 24);
 }
 }  // namespace
 
@@ -46,11 +46,11 @@ UGC Api::MakeTestUGC1()
   vector<Review> reviews;
   reviews.emplace_back(20 /* id */, Text("Damn good coffee", StringUtf8Multilang::kEnglishCode),
                        Author(UID(987654321 /* hi */, 123456789 /* lo */), "Cole"),
-                       5.0 /* rating */, Sentiment::Positive, Time(FromDays(10)));
+                       5.0 /* rating */, Sentiment::Positive, FromDaysAgo(10));
   reviews.emplace_back(67812 /* id */,
                        Text("Clean place, reasonably priced", StringUtf8Multilang::kDefaultCode),
                        Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */,
-                       Sentiment::Positive, Time(FromDays(1)));
+                       Sentiment::Positive, FromDaysAgo(1));
 
   vector<Attribute> attributes;
   attributes.emplace_back("best-drink", "Coffee");
@@ -71,7 +71,7 @@ UGC Api::MakeTestUGC2()
   reviews.emplace_back(119 /* id */,
                        Text("This pie's so good it is a crime", StringUtf8Multilang::kDefaultCode),
                        Author(UID(0 /* hi */, 315 /* lo */), "Cooper"), 5.0 /* rating */,
-                       Sentiment::Positive, Time(FromDays(1)));
+                       Sentiment::Positive, FromDaysAgo(1));
 
   vector<Attribute> attributes;
   attributes.emplace_back("best-drink", "Coffee");

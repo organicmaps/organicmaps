@@ -73,8 +73,7 @@ public class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
     {
       UiUtils.showIf(isShowDivider, mDivider);
       mAuthor.setText(review.getAuthor());
-      Date date = new Date(review.getTime());
-      mCommentDate.setText(DateFormat.getMediumDateFormat(mCommentDate.getContext()).format(date));
+      mCommentDate.setText(review.getDaysAgo() + " days ago");
       mReview.setText(review.getText());
     }
   }
