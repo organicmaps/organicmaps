@@ -86,11 +86,11 @@ void Api::GetUGCImpl(FeatureID const & id, UGCCallback callback)
   UGC ugc(Rating({}, {}), {}, {});
 
   auto const r = id.m_index % 3;
-  if (r == 1)
-    ugc = MakeTestUGC1();
-  else if (r == 2)
-    ugc = MakeTestUGC2();
-
+//  if (r == 1)
+  ugc = MakeTestUGC1();
+//  else
+//    ugc = MakeTestUGC2();
+    
   GetPlatform().RunOnGuiThread([ugc, callback] { callback(ugc); });
 }
 

@@ -4,16 +4,15 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.util.concurrency.UiThread;
-
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class UGC
+//TODO: make it Parcelable instead of Serializable
+public class UGC implements Serializable
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ RATING_HORRIBLE, RATING_BAD, RATING_NORMAL, RATING_GOOD, RATING_EXCELLENT })
@@ -43,13 +42,13 @@ public class UGC
   }
 
   @NonNull
-  List<Rating> getRatings()
+  public List<Rating> getRatings()
   {
     return Collections.synchronizedList(Arrays.asList(mRatings));
   }
 
   @Nullable
-  List<Review> getReviews()
+  public List<Review> getReviews()
   {
     if (mReviews == null)
       return null;
@@ -66,7 +65,8 @@ public class UGC
 
   public static void onUGCReceived(@NonNull UGC ugc)
   {
-    // TODO: implement this
+    if (mListener != null)
+      mListener.onUGCReceived(ugc);
   }
 
   public static class Rating
@@ -128,8 +128,6 @@ public class UGC
 
   public interface UGCListener
   {
-    void onUGCReviewsObtained(@NonNull List<Review> reviews);
-
-    void onUGCRatingsObtained(@NonNull List<Rating> ratings);
+    void onUGCReceived(@NonNull UGC ugc);
   }
 }
