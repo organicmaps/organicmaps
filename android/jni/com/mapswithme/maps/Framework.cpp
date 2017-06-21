@@ -275,6 +275,8 @@ Storage & Framework::GetStorage()
   return m_work.GetStorage();
 }
 
+Index const & Framework::GetIndex() { return m_work.GetIndex(); }
+
 void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
@@ -578,15 +580,9 @@ void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string 
   viatorApi->GetTop5Products(destId, currency, callback);
 }
 
-void Framework::RequestUGC(ugc::Api::UGCCallback const & ugcCallback)
+void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback)
 {
-  auto const & info = GetPlacePageInfo();
-  if (!info.IsFeature())
-  {
-    ugcCallback(ugc::UGC{});
-    return;
-  }
-  m_work.GetUGCApi().GetUGC(info.GetID(), ugcCallback);
+  m_work.GetUGCApi().GetUGC(fid, ugcCallback);
 }
 
 int Framework::ToDoAfterUpdate() const

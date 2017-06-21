@@ -15,7 +15,7 @@ namespace
 class FeatureIdBuilder
 {
 public:
-  bool Build(JNIEnv * env, jobject obj, FeatureID & fid)
+  FeatureID Build(JNIEnv * env, jobject obj)
   {
     Init(env);
 
@@ -27,8 +27,9 @@ public:
     auto const version = static_cast<int64_t>(jversion);
     auto const index = static_cast<uint32_t>(jindex);
 
-    // TODO (@y): combine countryName version and index to featureId.
-    return false;
+    auto const & ix = g_framework->GetIndex();
+    auto const id = ix.GetMwmIdByCountryFile(platform::CountryFile(countryName));
+    return FeatureID(id, index);
   }
 
 private:
@@ -157,10 +158,8 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_mapswithme_maps_ugc_UGC_requestUGC(JNIEnv * env, jclass /* clazz */,
                                                                    jobject featureId)
 {
-  FeatureID fid;
-  g_builder.Build(env, featureId, fid);
-
-  g_framework->RequestUGC([&](ugc::UGC const & ugc) {
+  auto const fid = g_builder.Build(env, featureId);
+  g_framework->RequestUGC(fid, [&](ugc::UGC const & ugc) {
     JNIEnv * e = jni::GetEnv();
     g_bridge.OnResult(e, ugc);
   });
