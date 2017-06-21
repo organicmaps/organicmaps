@@ -8,6 +8,7 @@ DEPENDENCIES = generator_tests_support platform_tests_support generator drape_fr
                search storage ugc indexer drape map traffic routing_common platform editor geometry \
                coding base freetype expat jansson protobuf osrm stats_client \
                minizip succinct pugixml tess2 gflags oauthcpp stb_image sdf_image icu
+LIBS *= -lsqlite3
 
 
 include($$ROOT_DIR/common.pri)
