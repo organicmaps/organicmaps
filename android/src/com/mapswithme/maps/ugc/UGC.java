@@ -57,30 +57,16 @@ public class UGC
     return Collections.synchronizedList(Arrays.asList(mReviews));
   }
 
-  //TODO: remove static
-  public static void requestUGC(@NonNull String featureId)
-  {
-    //TODO: mock implementation
-    final List<Review> reviews = new ArrayList<>();
-    reviews.add(new Review("Great cafe! Fish is the best:)", "Derick Naef", System.currentTimeMillis()));
-    reviews.add(new Review("Good! Very good store! Never been here before!!!!!!!!!!!!!!!!!! :((( Fish is the best:)",
-                           "Katie Colins", System.currentTimeMillis()));
-    reviews.add(new Review("Horrible service that I've ever obtained in Russia! Smell and waitress are crazy!",
-                           "Jam Fox", System.currentTimeMillis()));
-    if (mListener != null)
-      UiThread.runLater(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          mListener.onUGCReviewsObtained(reviews);
-        }
-      }, 500);
-  }
-
   public static void setListener(@Nullable UGCListener listener)
   {
     mListener = listener;
+  }
+
+  public static native void requestUGC();
+
+  public static void onUGCReceived(@NonNull UGC ugc)
+  {
+    // TODO: implement this
   }
 
   public static class Rating

@@ -577,13 +577,15 @@ void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string 
   viatorApi->GetTop5Products(destId, currency, callback);
 }
 
-void Framework::RequestUGC(JNIEnv * env, ugc::Api::UGCCallback const & ugcCallback)
+void Framework::RequestUGC(ugc::Api::UGCCallback const & ugcCallback)
 {
-  ugc::Api & ugcApi = m_work.GetUGCApi();
-
-  auto const & info = g_framework->GetPlacePageInfo();
-
-  ugcApi.GetUGC(info.GetID(), ugcCallback);
+  auto const & info = GetPlacePageInfo();
+  if (!info.IsFeature())
+  {
+    ugcCallback(ugc::UGC{});
+    return;
+  }
+  m_work.GetUGCApi().GetUGC(info.GetID(), ugcCallback);
 }
 
 int Framework::ToDoAfterUpdate() const

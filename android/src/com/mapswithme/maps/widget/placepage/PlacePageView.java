@@ -1151,7 +1151,8 @@ public class PlacePageView extends RelativeLayout
       if (mMapObject.getFeatureIndex() == 162716)
       {
         UGC.setListener(this);
-        UGC.requestUGC("162716");
+        // TODO: need to use full FeatureID here.
+        UGC.requestUGC();
         refreshViews(policy);
         return;
       }

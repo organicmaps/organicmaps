@@ -5,6 +5,8 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include "ugc/api.hpp"
+
 #include "search/result.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
@@ -194,7 +196,7 @@ namespace android
                                std::string const & currency,
                                viator::GetTop5ProductsCallback const & callback);
 
-    void RequestUGC(JNIEnv * env, ugc::Api::UGCCallback const & ugcCallback);
+    void RequestUGC(ugc::Api::UGCCallback const & ugcCallback);
 
     int ToDoAfterUpdate() const;
 
