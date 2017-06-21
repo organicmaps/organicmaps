@@ -21,6 +21,8 @@ set(
   rb_ads.hpp
   uber_api.cpp
   uber_api.hpp
+  viator_api.cpp
+  viator_api.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

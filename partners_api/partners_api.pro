@@ -17,6 +17,7 @@ SOURCES += \
     opentable_api.cpp \
     rb_ads.cpp \
     uber_api.cpp \
+    viator_api.cpp \
 
 HEADERS += \
     ads_base.hpp \
@@ -28,3 +29,4 @@ HEADERS += \
     opentable_api.hpp \
     rb_ads.hpp \
     uber_api.hpp \
+    viator_api.hpp \

@@ -45,6 +45,7 @@
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/uber_api.hpp"
+#include "partners_api/viator_api.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -180,6 +181,7 @@ protected:
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
   unique_ptr<uber::Api> m_uberApi = make_unique<uber::Api>();
+  unique_ptr<viator::Api> m_viatorApi = make_unique<viator::Api>();
 
   df::DrapeApi m_drapeApi;
 
@@ -221,6 +223,7 @@ public:
   booking::Api * GetBookingApi(platform::NetworkPolicy const & policy);
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
   uber::Api * GetUberApi(platform::NetworkPolicy const & policy);
+  viator::Api * GetViatorApi(platform::NetworkPolicy const & policy);
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
