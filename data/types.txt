@@ -1154,3 +1154,4 @@ historic|fort
 shop|coffee
 shop|tea
 sponsored|tinkoff
+sponsored|viator

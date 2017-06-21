@@ -826,6 +826,7 @@ world  +
         booking  -
         opentable  -
         tinkoff  -
+        viator  -
         {}
     sport  +
         american_football  -
