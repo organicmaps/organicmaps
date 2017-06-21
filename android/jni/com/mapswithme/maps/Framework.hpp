@@ -194,6 +194,8 @@ namespace android
                                std::string const & currency,
                                viator::GetTop5ProductsCallback const & callback);
 
+    void RequestUGC(JNIEnv * env, ugc::Api::UGCCallback const & ugcCallback);
+
     int ToDoAfterUpdate() const;
 
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
