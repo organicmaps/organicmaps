@@ -16,14 +16,16 @@ public class UGCEditorActivity extends BaseToolbarActivity
   private static final String EXTRA_FEATURE_INDEX = "extra_feature_index";
   static final String EXTRA_UGC = "extra_ugc";
   static final String EXTRA_TITLE = "extra_title";
+  static final String EXTRA_AVG_RATING = "extra_avg_rating";
 
   public static void start(@NonNull Activity activity, @NonNull String title,
-                           int featureIndex, @NonNull UGC ugc)
+                           int featureIndex, @NonNull UGC ugc, @UGC.UGCRating int rating)
   {
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     i.putExtra(EXTRA_FEATURE_INDEX, featureIndex);
     i.putExtra(EXTRA_UGC, ugc);
     i.putExtra(EXTRA_TITLE, title);
+    i.putExtra(EXTRA_AVG_RATING, rating);
     activity.startActivity(i);
   }
 

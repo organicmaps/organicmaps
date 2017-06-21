@@ -76,7 +76,7 @@ public class UGC implements Serializable
   {
     @NonNull
     private final String mName;
-    private final float mValue;
+    private float mValue;
 
     private Rating(@NonNull String name, float value)
     {
@@ -93,6 +93,11 @@ public class UGC implements Serializable
     public String getName()
     {
       return mName;
+    }
+
+    public void setValue(float value)
+    {
+      mValue = value;
     }
   }
 

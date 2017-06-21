@@ -278,7 +278,7 @@ public class PlacePageView extends RelativeLayout
       return;
 
     UGCEditorActivity.start(getActivity(), mMapObject.getTitle(), mMapObject.getFeatureIndex(),
-                            mUgc);
+                            mUgc, rating);
   }
 
   @Override

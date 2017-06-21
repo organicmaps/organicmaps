@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class UGCEditorFragment extends BaseMwmFragment
 {
@@ -32,7 +34,22 @@ public class UGCEditorFragment extends BaseMwmFragment
 
     //TODO: use parcelable instead of seriliazable
     UGC ugc = (UGC) getActivity().getIntent().getSerializableExtra(UGCEditorActivity.EXTRA_UGC);
-    mUGCRatingAdapter.setItems(ugc.getRatings());
+    List<UGC.Rating> avgRatings = new ArrayList<>(ugc.getRatings());
+    for (UGC.Rating rating: avgRatings)
+      rating.setValue(getActivity().getIntent().getIntExtra(UGCEditorActivity.EXTRA_AVG_RATING, 3));
+    mUGCRatingAdapter.setItems(avgRatings);
+
+    View submit = root.findViewById(R.id.submit);
+    submit.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        getActivity().finish();
+      }
+    });
     return root;
+
+
   }
 }
