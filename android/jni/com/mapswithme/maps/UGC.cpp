@@ -80,10 +80,10 @@ private:
       return;
     m_ugcClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC");
     m_ugcCtor = jni::GetConstructorID(
-        env, m_ratingClass,
+        env, m_ugcClass,
         "([Lcom/mapswithme/maps/ugc/UGC$Rating;F[Lcom/mapswithme/maps/ugc/UGC$Review;)V");
-    m_onResult =
-        jni::GetMethodID(env, m_ugcClass, "onUGCReceived", "([Lcom/mapswithme/maps/ugc/UGC;)V");
+    m_onResult = jni::GetStaticMethodID(env, m_ugcClass, "onUGCReceived",
+                                        "(Lcom/mapswithme/maps/ugc/UGC;)V");
 
     m_ratingClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/ugc/UGC$Rating");
     m_ratingCtor = jni::GetConstructorID(env, m_ratingClass, "(Ljava/lang/String;F)V");
