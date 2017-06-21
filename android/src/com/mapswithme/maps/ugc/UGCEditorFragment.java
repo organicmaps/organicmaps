@@ -29,6 +29,10 @@ public class UGCEditorFragment extends BaseMwmFragment
     rvRatingView.setNestedScrollingEnabled(false);
     rvRatingView.setHasFixedSize(false);
     rvRatingView.setAdapter(mUGCRatingAdapter);
+
+    //TODO: use parcelable instead of seriliazable
+    UGC ugc = (UGC) getActivity().getIntent().getSerializableExtra(UGCEditorActivity.EXTRA_UGC);
+    mUGCRatingAdapter.setItems(ugc.getRatings());
     return root;
   }
 }

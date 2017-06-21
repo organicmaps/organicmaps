@@ -69,7 +69,7 @@ public class UGC implements Serializable
       mListener.onUGCReceived(ugc);
   }
 
-  public static class Rating
+  public static class Rating implements Serializable
   {
     @NonNull
     private final String mName;
@@ -93,7 +93,7 @@ public class UGC implements Serializable
     }
   }
 
-  public static class Review
+  public static class Review implements Serializable
   {
     @NonNull
     private final String mText;

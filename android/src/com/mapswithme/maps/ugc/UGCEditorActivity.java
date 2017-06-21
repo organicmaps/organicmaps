@@ -14,15 +14,15 @@ import com.mapswithme.util.ThemeUtils;
 public class UGCEditorActivity extends BaseToolbarActivity
 {
   private static final String EXTRA_FEATURE_INDEX = "extra_feature_index";
-  private static final String EXTRA_RATING = "extra_rating";
-  private static final String EXTRA_TITLE = "extra_title";
+  static final String EXTRA_UGC = "extra_ugc";
+  static final String EXTRA_TITLE = "extra_title";
 
   public static void start(@NonNull Activity activity, @NonNull String title,
-                           int featureIndex, @UGC.UGCRating int rating)
+                           int featureIndex, @NonNull UGC ugc)
   {
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     i.putExtra(EXTRA_FEATURE_INDEX, featureIndex);
-    i.putExtra(EXTRA_RATING, rating);
+    i.putExtra(EXTRA_UGC, ugc);
     i.putExtra(EXTRA_TITLE, title);
     activity.startActivity(i);
   }
