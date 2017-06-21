@@ -38,14 +38,14 @@ public class UgcAverageRatingController implements View.OnClickListener
       case R.id.iv__normal:
         mListener.onRatingChanged(UGC.RATING_NORMAL);
         break;
-      case R.id.good:
+      case R.id.iv__good:
         mListener.onRatingChanged(UGC.RATING_GOOD);
         break;
-      case R.id.excellent:
+      case R.id.iv__excellent:
         mListener.onRatingChanged(UGC.RATING_EXCELLENT);
         break;
       default:
-        throw new AssertionError("Unknown rating view!");
+        throw new AssertionError("Unknown rating view:");
     }
   }
 

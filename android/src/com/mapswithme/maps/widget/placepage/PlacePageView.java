@@ -289,7 +289,8 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject == null)
       return;
 
-    UGCEditorActivity.start(getActivity(), mMapObject.getFeatureIndex(), rating);
+    UGCEditorActivity.start(getActivity(), mMapObject.getTitle(), mMapObject.getFeatureIndex(),
+                            rating);
   }
 
   public enum State

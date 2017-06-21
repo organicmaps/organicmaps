@@ -2,26 +2,36 @@ package com.mapswithme.maps.ugc;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.util.ThemeUtils;
 
-public class UGCEditorActivity extends BaseMwmFragmentActivity
+public class UGCEditorActivity extends BaseToolbarActivity
 {
   private static final String EXTRA_FEATURE_INDEX = "extra_feature_index";
   private static final String EXTRA_RATING = "extra_rating";
+  private static final String EXTRA_TITLE = "extra_title";
 
-  public static void start(@NonNull Activity activity, int featureIndex, @UGC.UGCRating int rating)
+  public static void start(@NonNull Activity activity, @NonNull String title,
+                           int featureIndex, @UGC.UGCRating int rating)
   {
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     i.putExtra(EXTRA_FEATURE_INDEX, featureIndex);
     i.putExtra(EXTRA_RATING, rating);
+    i.putExtra(EXTRA_TITLE, title);
     activity.startActivity(i);
-    activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
+  }
+
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    getToolbar().setTitle(getIntent().getStringExtra(EXTRA_TITLE));
   }
 
   @Override
@@ -35,17 +45,5 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
   protected Class<? extends Fragment> getFragmentClass()
   {
     return UGCEditorFragment.class;
-  }
-
-  @Override
-  protected boolean useTransparentStatusBar()
-  {
-    return false;
-  }
-
-  @Override
-  protected boolean useColorStatusBar()
-  {
-    return true;
   }
 }

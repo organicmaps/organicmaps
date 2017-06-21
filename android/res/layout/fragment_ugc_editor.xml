@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:background="?cardBackground"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__ratings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:listitem="@layout/item_ugc_rating"/>
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:background="?dividerHorizontal"/>
+  <LinearLayout
+    android:padding="@dimen/margin_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+      android:text="What is the best food in Sorochani?"
+      />
+  </LinearLayout>
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
+  <EditText
+    android:id="@+id/et_review"
+    android:layout_width="match_parent"
+    android:layout_height="152dp"
+    android:gravity="top"
+    android:inputType="textMultiLine"
+    android:maxLength="400"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:hint="Write a review, if possible in English"/>
+  <Button
+    android:id="@+id/submit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/MwmWidget.Button.Start"
+    android:text="Submit"
+    android:textAllCaps="true"/>
+</LinearLayout>
