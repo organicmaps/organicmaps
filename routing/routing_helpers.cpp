@@ -29,8 +29,8 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<Junction> junctions;
   // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
-  vector<Segment> trafficSegs;
-  engine.Generate(graph, path, cancellable, times, turnsDir, junctions, trafficSegs);
+  vector<Segment> segments;
+  engine.Generate(graph, path, cancellable, times, turnsDir, junctions, segments);
 
   if (cancellable.IsCancelled())
     return;
@@ -43,7 +43,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   }
 
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
-  // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |trafficSegs|.
+  // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |segments|.
   // It's not correct and should be fixed. It's necessary to work corrrectly with such routes.
 
   vector<m2::PointD> routeGeometry;
@@ -61,10 +61,10 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   }
 
   vector<traffic::SpeedGroup> traffic;
-  if (trafficStash && !trafficSegs.empty())
+  if (trafficStash && !segments.empty())
   {
-    traffic.reserve(trafficSegs.size());
-    for (Segment const & seg : trafficSegs)
+    traffic.reserve(segments.size());
+    for (Segment const & seg : segments)
     {
       traffic::TrafficInfo::RoadSegmentId roadSegment(
           seg.GetFeatureId(), seg.GetSegmentIdx(),
@@ -80,7 +80,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
       }
       traffic.push_back(segTraffic);
     }
-    CHECK_EQUAL(trafficSegs.size(), traffic.size(), ());
+    CHECK_EQUAL(segments.size(), traffic.size(), ());
   }
 
   route.SetTraffic(move(traffic));

@@ -42,8 +42,6 @@ public:
 
   RoadPoint GetRoadPoint(bool front) const { return RoadPoint(m_featureId, GetPointId(front)); }
 
-  bool IsValid() const { return m_mwmId == kFakeNumMwmId; }
-
   bool operator<(Segment const & seg) const
   {
     if (m_featureId != seg.m_featureId)
