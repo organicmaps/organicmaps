@@ -550,6 +550,7 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
 Junction Route::GetJunction(size_t pointIdx) const
 {
   CHECK(IsValid(), ());
+  CHECK_LESS(pointIdx,  m_poly.GetPolyline().GetSize(), ());
   if (!m_altitudes.empty())
     CHECK_EQUAL(m_altitudes.size(), m_poly.GetPolyline().GetSize(), ());
 
