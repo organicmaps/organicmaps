@@ -1143,4 +1143,5 @@
 	<string name="routing_add_start_point">Add start point to plan a route.</string>
 	<string name="routing_add_finish_point">Add finish to plan a route.</string>
 	<string name="use">Use</string>
+	<string name="viator_title">Attractions and tours</string>
 </resources>
