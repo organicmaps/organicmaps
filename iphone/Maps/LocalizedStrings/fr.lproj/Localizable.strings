@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponible";
 
 /* Country queued for download */
-"downloader_queued" = "en file d'attente";
+"downloader_queued" = "En file d'attente";
 
 "downloader_near_me_subtitle" = "Près de moi";
 
@@ -1514,7 +1514,7 @@
 
 "placepage_call_button" = "Appeler";
 
-"placepage_edit_bookmark_button" = "Éditer les signets";
+"placepage_edit_bookmark_button" = "Éditer le signet";
 
 "placepage_bookmark_name_hint" = "Nom du signet";
 

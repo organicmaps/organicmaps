@@ -756,7 +756,7 @@
  "languages": ["en", "sw"]
 },
 "Ukraine": {
- "languages": ["uk", "ru"]
+ "languages": ["uk"]
 },
 "United Arab Emirates": {
  "languages": ["ar"]

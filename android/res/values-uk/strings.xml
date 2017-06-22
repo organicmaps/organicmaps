@@ -423,7 +423,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">в черзі</string>
+	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
@@ -1094,5 +1094,5 @@
 	<string name="prefs_languages_information_off">Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –&gt; Мова та введення –&gt; Мовлення –&gt; Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
 	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
-	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\\\&#39;єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
+	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\&#39;єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
 </resources>

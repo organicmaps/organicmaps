@@ -319,7 +319,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Διαθέσιμη</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">στην ουρά</string>
+	<string name="downloader_queued">Στην ουρά</string>
 	<string name="downloader_near_me_subtitle">Κοντά μου</string>
 	<string name="downloader_status_maps">Χάρτες</string>
 	<string name="downloader_download_all_button">Λήψη όλων</string>

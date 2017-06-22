@@ -430,7 +430,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponible</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">en file d\&#39;attente</string>
+	<string name="downloader_queued">En file d\&#39;attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
@@ -879,7 +879,7 @@
 	<string name="placepage_more_button">Plus</string>
 	<string name="book_button">Réserver</string>
 	<string name="placepage_call_button">Appeler</string>
-	<string name="placepage_edit_bookmark_button">Éditer les signets</string>
+	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
 	<string name="placepage_bookmark_name_hint">Nom du signet</string>
 	<string name="placepage_personal_notes_hint">Remarques personnelles</string>
 	<string name="placepage_delete_bookmark_button">Supprimer signet</string>

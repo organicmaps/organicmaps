@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Tersedia";
 
 /* Country queued for download */
-"downloader_queued" = "telah diantrekan";
+"downloader_queued" = "Telah diantrekan";
 
 "downloader_near_me_subtitle" = "Dekat saya";
 

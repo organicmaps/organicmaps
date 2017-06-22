@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Доступні";
 
 /* Country queued for download */
-"downloader_queued" = "в черзі";
+"downloader_queued" = "В черзі";
 
 "downloader_near_me_subtitle" = "Поблизу";
 
@@ -1931,7 +1931,7 @@
 
 "whatsnew_transliteration_title" = "Транслітерація латинськими літерами";
 
-"whatsnew_transliteration_message" = "Якщо для вулиці чи об\\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.";
+"whatsnew_transliteration_message" = "Якщо для вулиці чи об'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.";
 
 "learn_more" = "Learn more";
 
