@@ -350,28 +350,13 @@ dp::Anchor GetShieldAnchor(uint8_t shieldIndex, uint8_t shieldCount)
   return dp::Center;
 }
 
-m2::PointF GetShieldOffset(dp::Anchor anchor)
+m2::PointF GetShieldOffset(dp::Anchor anchor, double borderWidth, double borderHeight)
 {
   m2::PointF offset(0.0f, 0.0f);
   if (anchor & dp::Left)
-    offset.x = 2.0f;
+    offset.x = static_cast<float>(borderWidth);
   else if (anchor & dp::Right)
-    offset.x = -2.0f;
-
-  if (anchor & dp::Top)
-    offset.y = 2.0f;
-  else if (anchor & dp::Bottom)
-    offset.y = -2.0f;
-  return offset;
-}
-
-m2::PointF GetShieldTextOffset(dp::Anchor anchor, double bordrWidth, double borderHeight)
-{
-  m2::PointF offset(0.0f, 0.0f);
-  if (anchor & dp::Left)
-    offset.x = static_cast<float>(bordrWidth);
-  else if (anchor & dp::Right)
-    offset.x = -static_cast<float>(bordrWidth);
+    offset.x = -static_cast<float>(borderWidth);
 
   if (anchor & dp::Top)
     offset.y = static_cast<float>(borderHeight);
@@ -938,10 +923,10 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   double const mainScale = df::VisualParams::Instance().GetVisualScale();
   double const fontScale = df::VisualParams::Instance().GetFontScale();
   auto const anchor = GetShieldAnchor(shieldIndex, shieldCount);
-  m2::PointF const shieldOffset = GetShieldOffset(anchor);
+  m2::PointF const shieldOffset = GetShieldOffset(anchor, 2.0, 2.0);
   double const borderWidth = 5.0 * mainScale;
   double const borderHeight = 1.5 * mainScale;
-  m2::PointF const shieldTextOffset = GetShieldTextOffset(anchor, borderWidth, borderHeight);
+  m2::PointF const shieldTextOffset = GetShieldOffset(anchor, borderWidth, borderHeight);
 
   // Text properties.
   dp::FontDecl baseFont;
@@ -1013,8 +998,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     texMng->GetSymbolRegion(poiParams.m_symbolName, region);
     float const symBorderWidth = (region.GetPixelSize().x - textLayout.GetPixelLength()) * 0.5f;
     float const symBorderHeight = (region.GetPixelSize().y - textLayout.GetPixelHeight()) * 0.5f;
-    textParams.m_primaryOffset = shieldOffset + GetShieldTextOffset(anchor, symBorderWidth,
-                                                                    symBorderHeight);
+    textParams.m_primaryOffset = shieldOffset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
     shieldPixelSize = m2::PointD(symBorderWidth, symBorderHeight);
 
     if (!symbolName.empty() && !shield.m_additionalText.empty() &&

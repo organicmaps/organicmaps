@@ -136,7 +136,7 @@ void ReadMetalineTask::Do()
       featurePoints.reserve(5);
       ft.ForEachPoint([&featurePoints](m2::PointD const & pt)
       {
-        if (!featurePoints.back().EqualDxDy(pt, kPointEqualityEps))
+        if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, kPointEqualityEps))
           featurePoints.push_back(pt);
       }, scales::GetUpperScale());
       if (featurePoints.size() < 2)
