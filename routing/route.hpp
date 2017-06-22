@@ -19,6 +19,7 @@
 
 #include <limits>
 #include <string>
+#include <vector>
 
 namespace location
 {
@@ -72,6 +73,21 @@ public:
     /// ETA from the route beginning in seconds to reach the farthest from the route beginning end of |m_segment|.
     double const m_timeFromBeginningS = 0.0;
     traffic::SpeedGroup const m_traffic = traffic::SpeedGroup::Unknown;
+  };
+
+  struct SubrouteAttrs
+  {
+    SubrouteAttrs(Junction const & start, Junction const & finish)
+      : m_start(start), m_finish(finish)
+    {
+    }
+
+    Junction GetStart() const { return m_start; }
+    Junction GetFinish() const { return m_finish; }
+
+  private:
+    Junction m_start;
+    Junction m_finish;
   };
 
   /// \brief For every subroute some attributes are kept the following stucture.
@@ -203,7 +219,9 @@ public:
   /// intermediate points.
   /// Note. SegmentInfo::m_segment is filled with default Segment instance.
   /// Note. SegmentInfo::m_streetName is filled with an empty string.
-  void GetSubrouteInfo(size_t segmentIdx, vector<SegmentInfo> & info) const;
+  void GetSubrouteInfo(size_t segmentIdx, std::vector<SegmentInfo> & segments) const;
+
+  void GetSubrouteAttrs(size_t segmentIdx, SubrouteAttrs & info) const;
 
   /// \returns Subroute settings by |segmentIdx|.
   // @TODO(bykoianko) This method should return SubrouteSettings by reference. Now it returns by value
@@ -225,6 +243,8 @@ private:
   TStreets::const_iterator GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const;
   void AppendTraffic(Route const & route);
 
+  Junction GetJunction(size_t pointInx) const;
+
   string m_router;
   RoutingSettings m_routingSettings;
   string m_name;
@@ -245,5 +265,4 @@ private:
   // Subroute
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;
 };
-
 } // namespace routing

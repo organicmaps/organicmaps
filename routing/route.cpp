@@ -470,11 +470,11 @@ void Route::AppendRoute(Route const & route)
 // This implementation is valid for one subroute which is equal to the route.
 size_t Route::GetSubrouteCount() const { return IsValid() ? 1 : 0; }
 
-void Route::GetSubrouteInfo(size_t segmentIdx, vector<Route::SegmentInfo> & info) const
+void Route::GetSubrouteInfo(size_t segmentIdx, std::vector<SegmentInfo> & segments) const
 {
   CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
   CHECK(IsValid(), ());
-  info.clear();
+  segments.clear();
 
   vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
   size_t const polySz = m_poly.GetPolyline().GetSize();
@@ -503,7 +503,8 @@ void Route::GetSubrouteInfo(size_t segmentIdx, vector<Route::SegmentInfo> & info
   size_t timeIdx = (m_times[0].first ? 1 : 0);
   double distFromBeginningMeters = 0.0;
   double distFromBeginningMerc = 0.0;
-  info.reserve(polySz - 1);
+  segments.reserve(polySz - 1);
+
   for (size_t i = 1; i < points.size(); ++i)
   {
     TurnItem turn;
@@ -520,13 +521,18 @@ void Route::GetSubrouteInfo(size_t segmentIdx, vector<Route::SegmentInfo> & info
     distFromBeginningMeters += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
     distFromBeginningMerc += points[i - 1].Length(points[i]);
 
-    info.emplace_back(
-        Segment(), turn,
-        Junction(points[i], m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[i]),
-        string(), distFromBeginningMeters,
-        distFromBeginningMerc, m_times[timeIdx - 1].second,
-        m_traffic.empty() ? SpeedGroup::Unknown : m_traffic[i - 1]);
+    segments.emplace_back(Segment(), turn, GetJunction(i), string(), distFromBeginningMeters,
+                          distFromBeginningMerc, m_times[timeIdx - 1].second,
+                          m_traffic.empty() ? SpeedGroup::Unknown : m_traffic[i - 1]);
   }
+}
+
+void Route::GetSubrouteAttrs(size_t segmentIdx, SubrouteAttrs & attrs) const
+{
+  CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
+  CHECK(IsValid(), ());
+
+  attrs = SubrouteAttrs(GetJunction(0), GetJunction(m_poly.GetPolyline().GetSize() - 1));
 }
 
 Route::SubrouteSettings const Route::GetSubrouteSettings(size_t segmentIdx) const
@@ -539,6 +545,17 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
 {
   CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
   m_subrouteUid = subrouteUid;
+}
+
+Junction Route::GetJunction(size_t pointInx) const
+{
+  CHECK(IsValid(), ());
+  if (!m_altitudes.empty())
+    CHECK_EQUAL(m_altitudes.size(), m_poly.GetPolyline().GetSize(), ());
+
+  vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
+  return Junction(points[pointInx],
+                  m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[pointInx]);
 }
 
 string DebugPrint(Route const & r)
