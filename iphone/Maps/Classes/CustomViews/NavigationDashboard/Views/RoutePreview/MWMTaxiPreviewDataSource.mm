@@ -8,7 +8,7 @@
 
 #include "geometry/mercator.hpp"
 
-#include "partners_api/uber_api.hpp"
+#include "partners_api/taxi_provider.hpp"
 
 namespace
 {
@@ -56,7 +56,7 @@ CGFloat const kPageControlHeight = 6;
 
 @end
 
-using namespace uber;
+using namespace taxi;
 
 @interface MWMTaxiPreviewDataSource() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
@@ -110,18 +110,18 @@ using namespace uber;
   cv.pageControl.hidden = YES;
 
   network_policy::CallPartnersApi(
-      [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
-        auto const api = GetFramework().GetUberApi(canUseNetwork);
-        if (!api)
-        {
+      [self, completion, failure](platform::NetworkPolicy const &canUseNetwork) {
+        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+        if (!engine) {
           failure(L(@"dialog_taxi_error"));
           return;
         }
 
-        auto success = [self, completion](vector<Product> const & products,
+        auto success = [self, completion](taxi::ProvidersContainer const &providers,
                                           uint64_t const requestId) {
           if (self->m_requestId != requestId)
             return;
+          auto const &products = providers[0].GetProducts();
           runAsyncOnMainQueue([self, completion, products] {
 
             self->m_products = products;
@@ -136,18 +136,26 @@ using namespace uber;
           });
 
         };
-        auto error = [self, failure](uber::ErrorCode const code, uint64_t const requestId) {
+        auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const requestId) {
           if (self->m_requestId != requestId)
             return;
-          runAsyncOnMainQueue(^{
-            switch (code)
-            {
-            case uber::ErrorCode::NoProducts: failure(L(@"taxi_not_found")); break;
-            case uber::ErrorCode::RemoteError: failure(L(@"dialog_taxi_error")); break;
-            }
-          });
+// Dummy, must be changed by IOS developer
+//          runAsyncOnMainQueue(^{
+//            switch (code)
+//            {
+//              case taxi::ErrorCode::NoProducts:
+//                failure(L(@"taxi_not_found"));
+//                break;
+//              case taxi::ErrorCode::RemoteError:
+//                failure(L(@"dialog_taxi_error"));
+//                break;
+//            }
+//          });
         };
-        m_requestId = api->GetAvailableProducts(m_from, m_to, success, error);
+
+        auto const mercatorPoint = MercatorBounds::FromLatLon(m_from);
+        auto const topmostCountryIds = GetFramework().GetTopmostCountries(mercatorPoint);
+        m_requestId = engine->GetAvailableProducts(m_from, m_to, topmostCountryIds, success, error);
       },
       true /* force */);
 }
@@ -167,7 +175,18 @@ using namespace uber;
 
   auto const index = [self.collectionView indexPathsForVisibleItems].firstObject.row;
   auto const productId = m_products[index].m_productId;
-  auto const links = Api::GetRideRequestLinks(productId, m_from, m_to);
+  RideRequestLinks links;
+  network_policy::CallPartnersApi(
+      [self, &productId, &links](platform::NetworkPolicy const &canUseNetwork) {
+        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+        if (!engine) {
+          // Dummy, should be implemented
+          return;
+        }
+
+        links = engine->GetRideRequestLinks(taxi::Provider::Type::Uber, productId, m_from, m_to);
+      },
+      true /* force */);
 
   return [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str()) :
                                                      @(links.m_universalLink.c_str())];

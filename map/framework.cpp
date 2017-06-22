@@ -501,10 +501,10 @@ booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & po
   return nullptr;
 }
 
-uber::Api * Framework::GetUberApi(platform::NetworkPolicy const & policy)
+taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
 {
   if (policy.CanUse())
-    return m_uberApi.get();
+    return m_taxiEngine.get();
 
   return nullptr;
 }
@@ -3181,6 +3181,14 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
 bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
 {
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
+}
+
+storage::TCountriesVec Framework::GetTopmostCountries(m2::PointD point) const
+{
+  auto const countryId = m_infoGetter->GetRegionCountryId(point);
+  storage::TCountriesVec topmostCountryIds;
+  GetStorage().GetTopmostNodesFor(countryId, topmostCountryIds);
+  return topmostCountryIds;
 }
 
 namespace

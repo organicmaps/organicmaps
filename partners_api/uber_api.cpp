@@ -47,18 +47,18 @@ bool CheckUberAnswer(json_t const * answer)
   return true;
 }
 
-bool IsIncomplete(uber::Product const & p)
+bool IsIncomplete(taxi::Product const & p)
 {
   return p.m_name.empty() || p.m_productId.empty() || p.m_time.empty() || p.m_price.empty();
 }
 
-void FillProducts(json_t const * time, json_t const * price, vector<uber::Product> & products)
+void FillProducts(json_t const * time, json_t const * price, vector<taxi::Product> & products)
 {
   // Fill data from time.
   auto const timeSize = json_array_size(time);
   for (size_t i = 0; i < timeSize; ++i)
   {
-    uber::Product product;
+    taxi::Product product;
     int64_t estimatedTime = 0;
     auto const item = json_array_get(time, i);
     FromJSONObject(item, "display_name", product.m_name);
@@ -75,7 +75,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
     auto const item = json_array_get(price, i);
 
     FromJSONObject(item, "display_name", name);
-    auto const it = find_if(products.begin(), products.end(), [&name](uber::Product const & product)
+    auto const it = find_if(products.begin(), products.end(), [&name](taxi::Product const & product)
     {
       return product.m_name == name;
     });
@@ -95,7 +95,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<uber::Produc
   products.erase(remove_if(products.begin(), products.end(), IsIncomplete), products.end());
 }
 
-void MakeFromJson(char const * times, char const * prices, vector<uber::Product> & products)
+void MakeFromJson(char const * times, char const * prices, vector<taxi::Product> & products)
 {
   products.clear();
   try
@@ -125,6 +125,8 @@ string GetUberURL()
 }
 }  // namespace
 
+namespace taxi
+{
 namespace uber
 {
 // static
@@ -191,9 +193,9 @@ void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
 }
 
 void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
-                                ErrorCallback const & errorFn)
+                                ErrorProviderCallback const & errorFn)
 {
-  vector<uber::Product> products;
+  vector<Product> products;
   {
     lock_guard<mutex> lock(m_mutex);
 
@@ -207,13 +209,14 @@ void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const
   }
 
   if (products.empty())
-    errorFn(ErrorCode::NoProducts, requestId);
+    errorFn(ErrorCode::NoProducts);
   else
-    successFn(products, requestId);
+    successFn(products);
 }
 
-uint64_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                   ProductsCallback const & successFn, ErrorCallback const & errorFn)
+void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
+                               ProductsCallback const & successFn,
+                               ErrorProviderCallback const & errorFn)
 {
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
@@ -225,7 +228,7 @@ uint64_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & t
     string result;
     if (!RawApi::GetEstimatedTime(from, result))
     {
-      errorFn(ErrorCode::RemoteError, reqId);
+      errorFn(ErrorCode::RemoteError);
       return;
     }
 
@@ -238,20 +241,17 @@ uint64_t Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & t
     string result;
     if (!RawApi::GetEstimatedPrice(from, to, result))
     {
-      errorFn(ErrorCode::RemoteError, reqId);
+      errorFn(ErrorCode::RemoteError);
       return;
     }
 
     maker->SetPrices(reqId, result);
     maker->MakeProducts(reqId, successFn, errorFn);
   }).detach();
-
-  return reqId;
 }
 
-// static
 RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon const & from,
-                                          ms::LatLon const & to)
+                                          ms::LatLon const & to) const
 {
   stringstream url;
   url << fixed << setprecision(6)
@@ -266,13 +266,5 @@ void SetUberUrlForTesting(string const & url)
 {
   g_uberUrlForTesting = url;
 }
-
-string DebugPrint(ErrorCode error)
-{
-  switch (error)
-  {
-    case ErrorCode::NoProducts: return "NoProducts";
-    case ErrorCode::RemoteError: return "RemoteError";
-  }
-}
 }  // namespace uber
+}  // namespace taxi

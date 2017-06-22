@@ -916,8 +916,8 @@ public class RoutingController
     if (mStartPoint == null || mEndPoint == null)
       return null;
 
-    return Uber.nativeGetUberLinks(productId, mStartPoint.getLat(), mStartPoint.getLon(),
-                                   mEndPoint.getLat(), mEndPoint.getLon());
+    return Uber.nativeGetUberLinks(NetworkPolicy.newInstance(true), productId, mStartPoint.getLat(),
+        mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   /**

@@ -1,7 +1,7 @@
 #include "../Framework.hpp"
 
 #include "../../core/jni_helper.hpp"
-#include "partners_api/uber_api.hpp"
+#include "partners_api/taxi_provider.hpp"
 
 namespace
 {
@@ -48,7 +48,7 @@ void PrepareClassRefs(JNIEnv * env)
       jni::GetConstructorID(env, g_uberLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 }
 
-void OnUberInfoReceived(vector<uber::Product> const & products, uint64_t const requestId)
+void OnUberInfoReceived(taxi::ProvidersContainer const & products, uint64_t const requestId)
 {
   GetPlatform().RunOnGuiThread([=]() {
     if (g_lastRequestId != requestId)
@@ -59,7 +59,8 @@ void OnUberInfoReceived(vector<uber::Product> const & products, uint64_t const r
     JNIEnv * env = jni::GetEnv();
 
     auto const uberProducts = jni::ToJavaArray(
-        env, g_productClass, products, [](JNIEnv * env, uber::Product const & item) {
+        env, g_productClass, products[0].GetProducts(),
+        [](JNIEnv * env, taxi::Product const & item) {
           return env->NewObject(
               g_productClass, g_productConstructor, jni::ToJavaString(env, item.m_productId),
               jni::ToJavaString(env, item.m_name), jni::ToJavaString(env, item.m_time),
@@ -72,12 +73,13 @@ void OnUberInfoReceived(vector<uber::Product> const & products, uint64_t const r
   });
 }
 
-void OnUberError(uber::ErrorCode const code, uint64_t const requestId)
+void OnUberError(taxi::ErrorsContainer const & errors, uint64_t const requestId)
 {
   GetPlatform().RunOnGuiThread([=]() {
     if (g_lastRequestId != requestId)
       return;
-
+// Dummy, must be changed by android developer.
+/*
     JNIEnv * env = jni::GetEnv();
 
     static jclass const errCodeClass = env->FindClass("com/mapswithme/maps/uber/Uber$ErrorCode");
@@ -87,7 +89,8 @@ void OnUberError(uber::ErrorCode const code, uint64_t const requestId)
         env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
 
     env->CallVoidMethod(routingControllerInstance, g_uberErrorCallbackMethod,
-                        jni::ToJavaString(env, uber::DebugPrint(code)));
+                        jni::ToJavaString(env, taxi::DebugPrint(code)));
+*/
   });
 }
 }  // namespace
@@ -108,16 +111,16 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
 }
 
 JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(
-    JNIEnv * env, jclass clazz, jstring productId, jdouble srcLat, jdouble srcLon, jdouble dstLat,
-    jdouble dstLon)
+    JNIEnv * env, jclass clazz, jobject policy, jstring productId, jdouble srcLat, jdouble srcLon,
+    jdouble dstLat, jdouble dstLon)
 {
   PrepareClassRefs(env);
 
   ms::LatLon const from(srcLat, srcLon);
   ms::LatLon const to(dstLat, dstLon);
 
-  uber::RideRequestLinks const links =
-      android::Framework::GetUberLinks(jni::ToNativeString(env, productId), from, to);
+  taxi::RideRequestLinks const links =
+      g_framework->GetUberLinks(env, policy, jni::ToNativeString(env, productId), from, to);
   return env->NewObject(g_uberLinksClass, g_uberLinksConstructor,
                         jni::ToJavaString(env, links.m_deepLink),
                         jni::ToJavaString(env, links.m_universalLink));

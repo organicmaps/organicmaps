@@ -31,5 +31,7 @@ SOURCES += \
     facebook_tests.cpp \
     mopub_tests.cpp \
     rb_tests.cpp \
+    taxi_engine_tests.cpp \
     uber_tests.cpp \
     viator_tests.cpp \
+    yandex_tests.cpp \

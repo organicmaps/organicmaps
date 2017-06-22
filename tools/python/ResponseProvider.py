@@ -143,6 +143,7 @@ class ResponseProvider:
                 "/partners/price": self.partners_price,
                 "/booking/min_price": self.partners_minprice,
                 "/booking/min_price.getHotelAvailability": self.partners_minprice,
+                "/partners/taxi_info": self.partners_yandex_taxi_info,
             }[url]()
         except:
             return self.test_404()
@@ -220,6 +221,9 @@ class ResponseProvider:
 
     def partners_minprice(self):
         return Payload(jsons.PARTNERS_MINPRICE)
+
+    def partners_yandex_taxi_info(self):
+        return Payload(jsons.PARTNERS_TAXI_INFO)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")

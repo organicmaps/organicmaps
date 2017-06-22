@@ -1,7 +1,7 @@
 #import "MWMTaxiPreviewCell.h"
 #import "SwiftBridge.h"
 
-#include "partners_api/uber_api.hpp"
+#include "partners_api/taxi_provider.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -22,7 +22,7 @@
   [self.icon layoutIfNeeded];
 }
 
-- (void)configWithProduct:(uber::Product const &)product;
+- (void)configWithProduct:(taxi::Product const &)product;
 {
   self.product.text = @(product.m_name.c_str());
   NSTimeInterval time;

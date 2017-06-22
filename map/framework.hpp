@@ -44,7 +44,7 @@
 #include "tracking/reporter.hpp"
 
 #include "partners_api/booking_api.hpp"
-#include "partners_api/uber_api.hpp"
+#include "partners_api/taxi_engine.hpp"
 #include "partners_api/viator_api.hpp"
 
 #include "platform/country_defines.hpp"
@@ -180,8 +180,8 @@ protected:
   BookmarkManager m_bmManager;
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
-  unique_ptr<uber::Api> m_uberApi = make_unique<uber::Api>();
   unique_ptr<viator::Api> m_viatorApi = make_unique<viator::Api>();
+  unique_ptr<taxi::Engine> m_taxiEngine = make_unique<taxi::Engine>();
 
   df::DrapeApi m_drapeApi;
 
@@ -222,8 +222,8 @@ public:
   /// Get access to booking api helpers
   booking::Api * GetBookingApi(platform::NetworkPolicy const & policy);
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
-  uber::Api * GetUberApi(platform::NetworkPolicy const & policy);
   viator::Api * GetViatorApi(platform::NetworkPolicy const & policy);
+  taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
@@ -831,6 +831,7 @@ private:
 
 public:
   bool OriginalFeatureHasDefaultName(FeatureID const & fid) const;
+  storage::TCountriesVec GetTopmostCountries(m2::PointD point) const;
 
 private:
   std::unique_ptr<CityFinder> m_cityFinder;

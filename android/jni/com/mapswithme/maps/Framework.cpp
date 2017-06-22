@@ -545,19 +545,27 @@ void Framework::EnableDownloadOn3g()
 }
 uint64_t Framework::RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                         ms::LatLon const & to,
-                                        uber::ProductsCallback const & callback,
-                                        uber::ErrorCallback const & errorCallback)
+                                        taxi::SuccessfullCallback const & callback,
+                                        taxi::ErrorCallback const & errorCallback)
 {
-  auto const uberApi = m_work.GetUberApi(ToNativeNetworkPolicy(env, policy));
-  if (!uberApi)
+  auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
+  if (!taxiEngine)
     return 0;
 
-  return uberApi->GetAvailableProducts(from, to, callback, errorCallback);
+  auto const mercatorPoint = MercatorBounds::FromLatLon(from);
+  auto const topmostCountryIds = m_work.GetTopmostCountries(mercatorPoint);
+  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, callback, errorCallback);
 }
 
-uber::RideRequestLinks Framework::GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to)
+taxi::RideRequestLinks Framework::GetUberLinks(JNIEnv * env, jobject policy,
+                                               string const & productId, ms::LatLon const & from,
+                                               ms::LatLon const & to)
 {
-  return uber::Api::GetRideRequestLinks(productId, from, to);
+  auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
+  if (!taxiEngine)
+    return {};
+
+  return taxiEngine->GetRideRequestLinks(taxi::Provider::Type::Uber, productId, from, to);
 }
 
 void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,

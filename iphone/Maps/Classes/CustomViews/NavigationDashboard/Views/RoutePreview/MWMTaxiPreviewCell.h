@@ -1,10 +1,9 @@
-namespace uber
-{
-  struct Product;
+namespace taxi {
+struct Product;
 }  // namespace uber;
 
 @interface MWMTaxiPreviewCell : UICollectionViewCell
 
-- (void)configWithProduct:(uber::Product const &)product;
+- (void)configWithProduct:(taxi::Product const &)product;
 
 @end

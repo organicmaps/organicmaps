@@ -1,5 +1,7 @@
 #pragma once
 
+#include "partners_api/taxi_base.hpp"
+
 #include "std/function.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
@@ -17,6 +19,8 @@ namespace downloader
 class HttpRequest;
 }
 
+namespace taxi
+{
 namespace uber
 {
 // Uber api wrapper based on synchronous http requests.
@@ -42,27 +46,6 @@ public:
   static bool GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result);
 };
 
-struct Product
-{
-  string m_productId;
-  string m_name;
-  string m_time;
-  string m_price;     // for some currencies this field contains symbol of currency but not always
-  string m_currency;  // currency can be empty, for ex. when m_price equal to Metered
-};
-/// @products - vector of available products for requested route, cannot be empty.
-/// @requestId - identificator which was provided to GetAvailableProducts to identify request.
-using ProductsCallback = function<void(vector<Product> const & products, uint64_t const requestId)>;
-
-enum class ErrorCode
-{
-  NoProducts,
-  RemoteError
-};
-
-/// Callback which is called when an errors occurs.
-using ErrorCallback = function<void(ErrorCode const code, uint64_t const requestId)>;
-
 /// Class which used for making products from http requests results.
 class ProductMaker
 {
@@ -71,7 +54,7 @@ public:
   void SetTimes(uint64_t const requestId, string const & times);
   void SetPrices(uint64_t const requestId, string const & prices);
   void MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
-                    ErrorCallback const & errorFn);
+                    ErrorProviderCallback const & errorFn);
 
 private:
   uint64_t m_requestId = 0;
@@ -80,22 +63,17 @@ private:
   mutex m_mutex;
 };
 
-struct RideRequestLinks
-{
-  string m_deepLink;
-  string m_universalLink;
-};
-
-class Api
+class Api : public ApiBase
 {
 public:
-  /// Requests list of available products from Uber. Returns request identificator immediately.
-  uint64_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                ProductsCallback const & successFn, ErrorCallback const & errorFn);
+  /// Requests list of available products from Uber. Returns request identifier immediately.
+  void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
+                            ProductsCallback const & successFn,
+                            ErrorProviderCallback const & errorFn) override;
 
   /// Returns link which allows you to launch the Uber app.
-  static RideRequestLinks GetRideRequestLinks(string const & productId, ms::LatLon const & from,
-                                              ms::LatLon const & to);
+  RideRequestLinks GetRideRequestLinks(string const & productId, ms::LatLon const & from,
+                                       ms::LatLon const & to) const override;
 
 private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
@@ -103,5 +81,5 @@ private:
 };
 
 void SetUberUrlForTesting(string const & url);
-string DebugPrint(ErrorCode error);
 }  // namespace uber
+}  // namespace taxi

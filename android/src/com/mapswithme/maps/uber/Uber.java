@@ -10,8 +10,8 @@ public class Uber
                                                       double srcLon, double dstLat, double dstLon);
 
   @NonNull
-  public static native UberLinks nativeGetUberLinks(@NonNull String productId, double srcLon, double srcLat,
-                                                    double dstLat, double dstLon);
+  public static native UberLinks nativeGetUberLinks(@NonNull NetworkPolicy policy,
+      @NonNull String productId, double srcLon, double srcLat, double dstLat, double dstLon);
 
   public enum ErrorCode
   {

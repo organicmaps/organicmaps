@@ -208,3 +208,43 @@ PARTNERS_MINPRICE = """
     }
 ]
 """
+
+PARTNERS_TAXI_INFO = """
+{
+  "currency": "RUB",
+  "distance": 6888.846981748964,
+  "options": [
+    {
+      "class": "econom",
+      "min_price": 129,
+      "price": 344,
+      "waiting_time": 527.8793726078095
+    },
+    {
+      "class": "business",
+      "min_price": 239,
+      "price": 504,
+      "waiting_time": 76.37023611385494
+    },
+    {
+      "class": "comfortplus",
+      "min_price": 239,
+      "price": 557,
+      "waiting_time": 99.0058955445591
+    },
+    {
+      "class": "minivan",
+      "min_price": 239,
+      "price": 532,
+      "waiting_time": 322.77413167989687
+    },
+    {
+      "class": "vip",
+      "min_price": 359,
+      "price": 799,
+      "waiting_time": 223.34814145904883
+    }
+  ],
+  "time": 1057.7440430297368
+}
+"""
