@@ -39,16 +39,16 @@ using namespace place_page;
 {
   Info m_info;
 
-  vector<Sections> m_sections;
-  vector<PreviewRows> m_previewRows;
-  vector<ViatorRow> m_viatorRows;
-  vector<MetainfoRows> m_metainfoRows;
-  vector<AdRows> m_adRows;
-  vector<ButtonsRows> m_buttonsRows;
-  vector<HotelPhotosRow> m_hotelPhotosRows;
-  vector<HotelDescriptionRow> m_hotelDescriptionRows;
-  vector<HotelFacilitiesRow> m_hotelFacilitiesRows;
-  vector<HotelReviewsRow> m_hotelReviewsRows;
+  std::vector<Sections> m_sections;
+  std::vector<PreviewRows> m_previewRows;
+  std::vector<ViatorRow> m_viatorRows;
+  std::vector<MetainfoRows> m_metainfoRows;
+  std::vector<AdRows> m_adRows;
+  std::vector<ButtonsRows> m_buttonsRows;
+  std::vector<HotelPhotosRow> m_hotelPhotosRows;
+  std::vector<HotelDescriptionRow> m_hotelDescriptionRows;
+  std::vector<HotelFacilitiesRow> m_hotelFacilitiesRows;
+  std::vector<HotelReviewsRow> m_hotelReviewsRows;
 
   booking::HotelInfo m_hotelInfo;
   std::vector<viator::Product> m_viatorProducts;
@@ -216,24 +216,24 @@ using namespace place_page;
     std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
     std::string const viatorId = [self sponsoredId].UTF8String;
 
-    api->GetTop5Products(
-        viatorId, currency, [viatorId, self](std::string const & destId,
-                                             std::vector<viator::Product> const & products) {
-          if (viatorId != destId)
-            return;
-          dispatch_async(dispatch_get_main_queue(), [products, self] {
-            m_viatorProducts = products;
+    api->GetTop5Products(viatorId, currency,
+      [viatorId, self](std::string const & destId, std::vector<viator::Product> const & products)
+      {
+        if (viatorId != destId)
+          return;
+        dispatch_async(dispatch_get_main_queue(), [products, self] {
+          m_viatorProducts = products;
 
-            auto & sections = self->m_sections;
-            auto const begin = sections.begin();
-            auto const end = sections.end();
+          auto & sections = self->m_sections;
+          auto const begin = sections.begin();
+          auto const end = sections.end();
 
-            sections.insert(find(begin, end, Sections::Preview) + 1, Sections::Viator);
-            m_viatorRows.emplace_back(ViatorRow::Regular);
+          sections.insert(find(begin, end, Sections::Preview) + 1, Sections::Viator);
+          m_viatorRows.emplace_back(ViatorRow::Regular);
 
-            self.sectionsAreReadyCallback({1, 1}, self);
-          });
+          self.sectionsAreReadyCallback({1, 1}, self);
         });
+      });
   });
 }
 
@@ -251,7 +251,7 @@ using namespace place_page;
     if (!api)
       return;
 
-    string const hotelId = self.sponsoredId.UTF8String;
+    std::string const hotelId = self.sponsoredId.UTF8String;
     api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
                       [hotelId, self](booking::HotelInfo const & hotelInfo)
     {
@@ -362,8 +362,9 @@ using namespace place_page;
 
 - (void)dealloc
 {
-  if (self.nativeAd)
-    [[MWMBannersCache cache] bannerIsOutOfScreenWithCoreBanner:self.nativeAd];
+  auto nativeAd = self.nativeAd;
+  if (nativeAd)
+    [[MWMBannersCache cache] bannerIsOutOfScreenWithCoreBanner:nativeAd];
 }
 
 #pragma mark - Getters
@@ -442,10 +443,10 @@ using namespace place_page;
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
-  string const currency = self.currencyFormatter.currencyCode.UTF8String;
+  std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
 
-  auto const func = [self, label, currency](string const & hotelId, string const & minPrice,
-                                            string const & priceCurrency) {
+  auto const func = [self, label, currency](std::string const & hotelId, std::string const & minPrice,
+                                            std::string const & priceCurrency) {
     if (currency != priceCurrency)
       return;
 
@@ -492,8 +493,8 @@ using namespace place_page;
 }
 
 - (NSString *)hotelDescription { return @(m_hotelInfo.m_description.c_str()); }
-- (vector<booking::HotelFacility> const &)facilities { return m_hotelInfo.m_facilities; }
-- (vector<booking::HotelReview> const &)reviews { return m_hotelInfo.m_reviews; }
+- (std::vector<booking::HotelFacility> const &)facilities { return m_hotelInfo.m_facilities; }
+- (std::vector<booking::HotelReview> const &)reviews { return m_hotelInfo.m_reviews; }
 - (NSUInteger)numberOfReviews { return m_hotelInfo.m_scoreCount; }
 - (NSURL *)URLToAllReviews { return [NSURL URLWithString:@(m_info.GetSponsoredReviewUrl().c_str())]; }
 - (NSArray<MWMGalleryItemModel *> *)photos
@@ -598,22 +599,21 @@ using namespace place_page;
 - (int8_t)intermediateIndex { return m_info.m_intermediateIndex; }
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
-- (vector<Sections> const &)sections { return m_sections; }
-- (vector<PreviewRows> const &)previewRows { return m_previewRows; }
-- (vector<place_page::ViatorRow> const &)viatorRows { return m_viatorRows; }
-- (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
-- (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
-- (vector<AdRows> const &)adRows { return m_adRows; }
-- (vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
-- (vector<HotelPhotosRow> const &)photosRows { return m_hotelPhotosRows; }
-- (vector<HotelDescriptionRow> const &)descriptionRows { return m_hotelDescriptionRows; }
-- (vector<HotelFacilitiesRow> const &)hotelFacilitiesRows { return m_hotelFacilitiesRows; }
-- (vector<HotelReviewsRow> const &)hotelReviewsRows { return m_hotelReviewsRows; }
+- (std::vector<Sections> const &)sections { return m_sections; }
+- (std::vector<PreviewRows> const &)previewRows { return m_previewRows; }
+- (std::vector<place_page::ViatorRow> const &)viatorRows { return m_viatorRows; }
+- (std::vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
+- (std::vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
+- (std::vector<AdRows> const &)adRows { return m_adRows; }
+- (std::vector<ButtonsRows> const &)buttonsRows { return m_buttonsRows; }
+- (std::vector<HotelPhotosRow> const &)photosRows { return m_hotelPhotosRows; }
+- (std::vector<HotelDescriptionRow> const &)descriptionRows { return m_hotelDescriptionRows; }
+- (std::vector<HotelFacilitiesRow> const &)hotelFacilitiesRows { return m_hotelFacilitiesRows; }
+- (std::vector<HotelReviewsRow> const &)hotelReviewsRows { return m_hotelReviewsRows; }
 - (NSString *)stringForRow:(MetainfoRows)row
 {
   switch (row)
   {
-  
   case MetainfoRows::ExtendedOpeningHours: return nil;
   case MetainfoRows::OpeningHours: return @(m_info.GetOpeningHours().c_str());
   case MetainfoRows::Phone: return @(m_info.GetPhone().c_str());

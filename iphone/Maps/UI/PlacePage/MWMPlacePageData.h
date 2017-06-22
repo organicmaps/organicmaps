@@ -146,8 +146,8 @@ using BannerIsReady = void (^)();
 - (NSString *)sponsoredId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 - (NSString *)hotelDescription;
-- (vector<booking::HotelFacility> const &)facilities;
-- (vector<booking::HotelReview> const &)reviews;
+- (std::vector<booking::HotelFacility> const &)facilities;
+- (std::vector<booking::HotelReview> const &)reviews;
 - (NSUInteger)numberOfReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
@@ -178,16 +178,16 @@ using BannerIsReady = void (^)();
 - (void)logLocalAdsEvent:(local_ads::EventType)type;
 
 // Table view's data
-- (vector<place_page::Sections> const &)sections;
-- (vector<place_page::PreviewRows> const &)previewRows;
-- (vector<place_page::HotelPhotosRow> const &)photosRows;
-- (vector<place_page::HotelDescriptionRow> const &)descriptionRows;
-- (vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
-- (vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
-- (vector<place_page::ViatorRow> const &)viatorRows;
-- (vector<place_page::MetainfoRows> const &)metainfoRows;
-- (vector<place_page::AdRows> const &)adRows;
-- (vector<place_page::ButtonsRows> const &)buttonsRows;
+- (std::vector<place_page::Sections> const &)sections;
+- (std::vector<place_page::PreviewRows> const &)previewRows;
+- (std::vector<place_page::HotelPhotosRow> const &)photosRows;
+- (std::vector<place_page::HotelDescriptionRow> const &)descriptionRows;
+- (std::vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
+- (std::vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
+- (std::vector<place_page::ViatorRow> const &)viatorRows;
+- (std::vector<place_page::MetainfoRows> const &)metainfoRows;
+- (std::vector<place_page::AdRows> const &)adRows;
+- (std::vector<place_page::ButtonsRows> const &)buttonsRows;
 
 // Table view metainfo rows
 - (NSString *)stringForRow:(place_page::MetainfoRows)row;

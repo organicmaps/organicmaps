@@ -518,8 +518,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)openViatorURL:(nullable NSURL *)url
 {
-  auto u = url ? url : self.data.sponsoredURL;
-  if (u)
+  if (auto u = url ?: self.data.sponsoredURL)
     [self.ownerViewController openUrl:u];
 }
 
