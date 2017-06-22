@@ -5,9 +5,13 @@
 
 #include "drape/constants.hpp"
 
+namespace dp
+{
+class OverlayHandle;
+}  // namespace dp
+
 namespace df
 {
-
 class PoiSymbolShape : public MapShape
 {
 public:
@@ -20,6 +24,7 @@ public:
 
 private:
   uint64_t GetOverlayPriority() const;
+  drape_ptr<dp::OverlayHandle> CreateOverlayHandle(m2::PointF const & pixelSize) const;
 
   m2::PointD const m_pt;
   PoiSymbolViewParams const m_params;
@@ -28,6 +33,5 @@ private:
   m2::PointI const m_tileCoords;
   uint32_t const m_textIndex;
 };
-
-} // namespace df
+}  // namespace df
 

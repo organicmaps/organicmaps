@@ -8,11 +8,14 @@
 
 #include "drape/pointers.hpp"
 
+#include "indexer/road_shields_parser.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include <array>
 #include <functional>
+#include <map>
 #include <string>
 #include <unordered_set>
 
@@ -71,5 +74,7 @@ private:
 
   std::array<TMapShapes, df::MapShapeTypeCount> m_mapShapes;
   bool m_wasCancelled;
+
+  GeneratedRoadShields m_generatedRoadShields;
 };
 }  // namespace df

@@ -57,9 +57,10 @@ public:
 
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
 
-  TextureFormat GetFormat() const;
-  uint32_t GetWidth() const;
-  uint32_t GetHeight() const;
+  virtual TextureFormat GetFormat() const;
+  virtual uint32_t GetWidth() const;
+  virtual uint32_t GetHeight() const;
+
   float GetS(uint32_t x) const;
   float GetT(uint32_t y) const;
   int32_t GetID() const;
@@ -75,7 +76,6 @@ protected:
   void Destroy();
   bool AllocateTexture(ref_ptr<HWTextureAllocator> allocator);
 
-private:
   drape_ptr<HWTexture> m_hwTexture;
 };
 }  // namespace dp

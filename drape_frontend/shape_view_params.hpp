@@ -34,6 +34,8 @@ struct PoiSymbolViewParams : CommonViewParams
   bool m_hasArea = false;
   bool m_prioritized = false;
   bool m_obsoleteInEditor = false;
+  dp::Anchor m_anchor = dp::Center;
+  m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
 };
 
 struct AreaViewParams : CommonViewParams
@@ -84,7 +86,8 @@ struct PathTextViewParams : CommonViewParams
 {
   FeatureID m_featureID;
   dp::FontDecl m_textFont;
-  string m_text;
+  std::string m_mainText;
+  std::string m_auxText;
   float m_baseGtoPScale = 1.0f;
 };
 
@@ -106,11 +109,13 @@ struct ColoredSymbolViewParams : CommonViewParams
 
   FeatureID m_featureID;
   Shape m_shape = Shape::Circle;
+  dp::Anchor m_anchor = dp::Center;
   dp::Color m_color;
   dp::Color m_outlineColor;
   float m_radiusInPixels = 0.0f;
   m2::PointF m_sizeInPixels = m2::PointF(0.0f, 0.0f);
   float m_outlineWidth = 0.0f;
+  m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
 };
 
 } // namespace df

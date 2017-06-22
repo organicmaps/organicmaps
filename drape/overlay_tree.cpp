@@ -146,7 +146,14 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 
   // Skip not-ready handles.
   if (!handle->Update(modelView))
+  {
+    handle->SetReady(false);
     return;
+  }
+  else
+  {
+    handle->SetReady(true);
+  }
 
   // Clip handles which are out of screen.
   double const kScreenRectScale = 1.2;

@@ -7,7 +7,6 @@
 
 namespace df
 {
-
 class ColoredSymbolShape : public MapShape
 {
 public:
@@ -28,5 +27,4 @@ private:
   bool const m_specialDisplacementMode;
   uint16_t const m_specialModePriority;
 };
-
-} //  namespace df
+}  // namespace df

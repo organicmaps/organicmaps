@@ -131,7 +131,9 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
         continue;
 
       DebugRectRenderer::Instance().DrawRect(screen, rect, handle->IsVisible() ?
-                                             dp::Color::Green() : dp::Color::Red());
+                                             dp::Color::Green() :
+                                             (handle->IsReady() ? dp::Color::Red() :
+                                                                  dp::Color::Yellow()));
     }
   }
 }

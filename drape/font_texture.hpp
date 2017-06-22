@@ -153,8 +153,7 @@ public:
     : m_index(size, glyphMng)
   {
     TBase::TextureParams params{size, TextureFormat::ALPHA, gl_const::GLLinear, true /* m_usePixelBuffer */};
-    vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
-    TBase::Init(allocator, make_ref(&m_index), params, make_ref(initData.data()));
+    TBase::Init(allocator, make_ref(&m_index), params);
   }
 
   ~FontTexture() { TBase::Reset(); }

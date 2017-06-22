@@ -199,11 +199,13 @@ uint64_t OverlayHandle::GetPriorityInFollowingMode() const
   return GetPriority();
 }
 SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-                           m2::PointD const & pxSize, uint64_t priority, bool isBound,
-                           string const & debugStr, bool isBillboard)
+                           m2::PointD const & pxSize, m2::PointD const & pxOffset,
+                           uint64_t priority, bool isBound, string const & debugStr,
+                           bool isBillboard)
   : TBase(id, anchor, priority, isBillboard)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
+  , m_pxOffset(pxOffset)
   , m_isBound(isBound)
 #ifdef DEBUG_OVERLAYS_OUTPUT
   , m_debugStr(debugStr)
@@ -215,8 +217,8 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen, bool perspective
   if (perspective)
     return GetPixelRectPerspective(screen);
 
-  m2::PointD const pxPivot = screen.GtoP(m_gbPivot);
-  m2::RectD  result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
+  m2::PointD const pxPivot = screen.GtoP(m_gbPivot) + m_pxOffset;
+  m2::RectD result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
   m2::PointD offset(0.0, 0.0);
 
   if (m_anchor & dp::Left)

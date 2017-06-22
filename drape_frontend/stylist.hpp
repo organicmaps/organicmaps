@@ -49,7 +49,6 @@ struct CaptionDescription
   string const & GetMainText() const;
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
-  string GetPathName() const;
   bool IsNameExists() const;
 
 private:

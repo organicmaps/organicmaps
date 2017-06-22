@@ -6,18 +6,14 @@
 #include "drape/glsl_func.hpp"
 #include "drape/overlay_handle.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/iterator.hpp"
-#include "std/numeric.hpp"
-
+#include <algorithm>
+#include <iterator>
+#include <numeric>
 
 namespace df
 {
-
 namespace
 {
-
 float const kValidSplineTurn = 0.96f;
 
 class TextGeometryGenerator
@@ -27,17 +23,17 @@ public:
                         gpu::TTextStaticVertexBuffer & buffer)
     : m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
     , m_buffer(buffer)
-  {
-  }
+  {}
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
     m2::RectF const & mask = glyph.GetTexRect();
 
-    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.emplace_back(gpu::TextStaticVertex(m_colorCoord, glsl::ToVec2(mask.RightBottom())));
+    using TSV = gpu::TextStaticVertex;
+    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.emplace_back(TSV(m_colorCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
@@ -50,7 +46,8 @@ class StraightTextGeometryGenerator : public TParentGenerator
 {
 public:
   template<typename... TParentGeneratorParams>
-  StraightTextGeometryGenerator(glsl::vec4 const & pivot, glsl::vec2 const & pixelOffset, float textRatio,
+  StraightTextGeometryGenerator(glsl::vec4 const & pivot,
+                                glsl::vec2 const & pixelOffset, float textRatio,
                                 gpu::TTextDynamicVertexBuffer & dynBuffer,
                                 TParentGeneratorParams & ... parentGeneratorParams)
     : TParentGenerator(parentGeneratorParams...)
@@ -78,10 +75,11 @@ public:
       m_penPosition.x -= (xOffset + dp::kSdfBorder * m_textRatio);
     }
 
-    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
-    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
-    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
-    m_buffer.emplace_back(gpu::TextDynamicVertex(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
+    using TDV = gpu::TextDynamicVertex;
+    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(xOffset, bottomVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(xOffset, upVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, bottomVector)));
+    m_buffer.emplace_back(TDV(m_pivot, m_penPosition + glsl::vec2(pixelSize.x + xOffset, upVector)));
     m_penPosition += glsl::vec2(glyph.GetAdvanceX() * m_textRatio, glyph.GetAdvanceY() * m_textRatio);
 
     TParentGenerator::operator()(glyph);
@@ -104,16 +102,16 @@ public:
     : m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
     , m_outlineCoord(glsl::ToVec2(outline.GetTexRect().Center()))
     , m_buffer(buffer)
-  {
-  }
+  {}
 
   void operator() (dp::TextureManager::GlyphRegion const & glyph)
   {
+    using TOSV = gpu::TextOutlinedStaticVertex;
     m2::RectF const & mask = glyph.GetTexRect();
-    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
-    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
-    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
-    m_buffer.emplace_back(gpu::TextOutlinedStaticVertex(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
+    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop())));
+    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftBottom())));
+    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightTop())));
+    m_buffer.emplace_back(TOSV(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.RightBottom())));
   }
 
 protected:
@@ -122,9 +120,7 @@ protected:
   gpu::TTextOutlinedStaticVertexBuffer & m_buffer;
 };
 
-///Old code
-void SplitText(strings::UniString & visText,
-               buffer_vector<size_t, 2> & delimIndexes)
+void SplitText(strings::UniString & visText, buffer_vector<size_t, 2> & delimIndexes)
 {
   char const * delims = " \n\t";
   size_t count = visText.size();
@@ -132,30 +128,30 @@ void SplitText(strings::UniString & visText,
   {
     // split on two parts
     typedef strings::UniString::iterator TIter;
-    TIter const iMiddle = visText.begin() + count/2;
+    auto const iMiddle = visText.begin() + count / 2;
 
     size_t const delimsSize = strlen(delims);
 
     // find next delimeter after middle [m, e)
-    TIter iNext = find_first_of(iMiddle,
-                                visText.end(),
-                                delims, delims + delimsSize);
+    auto iNext = std::find_first_of(iMiddle,
+                                    visText.end(),
+                                    delims, delims + delimsSize);
 
     // find last delimeter before middle [b, m)
-    TIter iPrev = find_first_of(reverse_iterator<TIter>(iMiddle),
-                                reverse_iterator<TIter>(visText.begin()),
-                                delims, delims + delimsSize).base();
+    auto iPrev = std::find_first_of(std::reverse_iterator<TIter>(iMiddle),
+                                    std::reverse_iterator<TIter>(visText.begin()),
+                                    delims, delims + delimsSize).base();
     // don't do split like this:
     //     xxxx
     // xxxxxxxxxxxx
-    if (4 * distance(visText.begin(), iPrev) <= static_cast<long>(count))
+    if (4 * std::distance(visText.begin(), iPrev) <= static_cast<long>(count))
       iPrev = visText.end();
     else
       --iPrev;
 
     // get closest delimiter to the middle
     if (iNext == visText.end() ||
-        (iPrev != visText.end() && distance(iPrev, iMiddle) < distance(iMiddle, iNext)))
+        (iPrev != visText.end() && std::distance(iPrev, iMiddle) < std::distance(iMiddle, iNext)))
     {
       iNext = iPrev;
     }
@@ -167,7 +163,7 @@ void SplitText(strings::UniString & visText,
       TIter delimSymbol = iNext;
       TIter secondPart = iNext + 1;
 
-      delimIndexes.push_back(distance(visText.begin(), delimSymbol));
+      delimIndexes.push_back(static_cast<size_t>(std::distance(visText.begin(), delimSymbol)));
 
       if (secondPart != visText.end())
       {
@@ -176,7 +172,6 @@ void SplitText(strings::UniString & visText,
         visText = result;
         delimIndexes.push_back(visText.size());
       }
-
       return;
     }
   }
@@ -189,8 +184,7 @@ class XLayouter
 public:
   XLayouter(dp::Anchor anchor)
     : m_anchor(anchor)
-  {
-  }
+  {}
 
   float operator()(float currentLength, float maxLength)
   {
@@ -284,16 +278,17 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
 
   pixelSize = m2::PointF(maxLength, summaryHeight);
 }
-
-} // namespace
+}  // namespace
 
 void TextLayout::Init(strings::UniString const & text, float fontSize, bool isSdf,
                       ref_ptr<dp::TextureManager> textures)
 {
   m_text = text;
-  double const fontScale = VisualParams::Instance().GetFontScale();
-  m_textSizeRatio = isSdf ? (fontSize * fontScale / VisualParams::Instance().GetGlyphBaseSize()) : 1.0;
-  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize : fontSize * fontScale;
+  float const fontScale = static_cast<float>(VisualParams::Instance().GetFontScale());
+  float const baseSize = static_cast<float>(VisualParams::Instance().GetGlyphBaseSize());
+  m_textSizeRatio = isSdf ? (fontSize * fontScale / baseSize) : 1.0f;
+  m_fixedHeight = isSdf ? dp::GlyphManager::kDynamicGlyphSize
+                        : static_cast<int>(fontSize * fontScale);
   textures->GetGlyphRegions(text, m_fixedHeight, m_metrics);
 }
 
@@ -318,15 +313,17 @@ uint32_t TextLayout::GetGlyphCount() const
 
 float TextLayout::GetPixelLength() const
 {
-  return m_textSizeRatio * accumulate(m_metrics.begin(), m_metrics.end(), 0.0, [](double const & v, GlyphRegion const & glyph)
+  return m_textSizeRatio * std::accumulate(m_metrics.begin(), m_metrics.end(), 0.0f,
+                                           [](double const & v, GlyphRegion const & glyph) -> float
   {
-    return v + glyph.GetAdvanceX();
+    return static_cast<float>(v) + glyph.GetAdvanceX();
   });
 }
 
 float TextLayout::GetPixelHeight() const
 {
-  return m_fixedHeight > 0 ? m_fixedHeight : m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
+  return m_fixedHeight > 0 ? m_fixedHeight
+                           : m_textSizeRatio * VisualParams::Instance().GetGlyphBaseSize();
 }
 
 strings::UniString const & TextLayout::GetText() const
@@ -401,21 +398,23 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
                                          gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const
 {
   TextOutlinedGeometryGenerator gen(colorRegion, outlineRegion, staticBuffer);
-  for_each(m_metrics.begin(), m_metrics.end(), gen);
+  std::for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 
 void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                                          gpu::TTextStaticVertexBuffer & staticBuffer) const
 {
   TextGeometryGenerator gen(colorRegion, staticBuffer);
-  for_each(m_metrics.begin(), m_metrics.end(), gen);
+  std::for_each(m_metrics.begin(), m_metrics.end(), gen);
 }
 
 bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, float depth,
                                           m2::PointD const & globalPivot,
                                           gpu::TTextDynamicVertexBuffer & buffer) const
 {
-  float const halfLength = 0.5 * GetPixelLength();
+  using TDV = gpu::TextDynamicVertex;
+
+  float const halfLength = 0.5f * GetPixelLength();
 
   m2::Spline::iterator beginIter = iter;
   beginIter.Advance(-halfLength);
@@ -424,7 +423,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   if (beginIter.BeginAgain() || endIter.BeginAgain())
     return false;
 
-  float const halfFontSize = 0.5 * GetPixelHeight();
+  float const halfFontSize = 0.5f * GetPixelHeight();
   float advanceSign = 1.0f;
   m2::Spline::iterator penIter = beginIter;
   if (beginIter.m_pos.x > endIter.m_pos.x)
@@ -436,7 +435,8 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   glsl::vec2 pxPivot = glsl::ToVec2(iter.m_pos);
   buffer.resize(4 * m_metrics.size());
 
-  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth, 0.0f);
+  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter,
+                                                               kShapeCoordScalar)), depth, 0.0f);
   for (size_t i = 0; i < m_metrics.size(); ++i)
   {
     GlyphRegion const & g = m_metrics[i];
@@ -457,10 +457,10 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
 
     size_t baseIndex = 4 * i;
 
-    buffer[baseIndex + 0] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * xOffset);
-    buffer[baseIndex + 1] = gpu::TextDynamicVertex(pivot, formingVector + normal * upVector + tangent * xOffset);
-    buffer[baseIndex + 2] = gpu::TextDynamicVertex(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
-    buffer[baseIndex + 3] = gpu::TextDynamicVertex(pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 0] = TDV(pivot, formingVector + normal * bottomVector + tangent * xOffset);
+    buffer[baseIndex + 1] = TDV(pivot, formingVector + normal * upVector + tangent * xOffset);
+    buffer[baseIndex + 2] = TDV(pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset));
+    buffer[baseIndex + 3] = TDV(pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset));
 
     float const xAdvance = g.GetAdvanceX() * m_textSizeRatio;
     glsl::vec2 currentTangent = glsl::ToVec2(penIter.m_dir);
@@ -469,19 +469,18 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     if (dotProduct < kValidSplineTurn)
       return false;
   }
-
   return true;
 }
 
 float PathTextLayout::CalculateTextLength(float textPixelLength)
 {
-  //we leave a little space on either side of the text that would
-  //remove the comparison for equality of spline portions
+  // We leave a little space on each side of the text.
   float const kTextBorder = 4.0f;
   return kTextBorder + textPixelLength;
 }
 
-bool PathTextLayout::CalculatePerspectivePosition(float splineLength, float textPixelLength, float & offset)
+bool PathTextLayout::CalculatePerspectivePosition(float splineLength, float textPixelLength,
+                                                  float & offset)
 {
   float const textLength = CalculateTextLength(textPixelLength);
   if (textLength > splineLength * 2.0f)
@@ -491,26 +490,27 @@ bool PathTextLayout::CalculatePerspectivePosition(float splineLength, float text
   return true;
 }
 
-void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLength,
-                                       float splineScaleToPixel, float textPixelLength)
+void PathTextLayout::CalculatePositions(float splineLength, float splineScaleToPixel,
+                                        float textPixelLength, std::vector<float> & offsets)
 {
   float const textLength = CalculateTextLength(textPixelLength);
 
-  // on next readable scale m_scaleGtoP will be twice
+  // On the next scale m_scaleGtoP will be twice.
   if (textLength > splineLength * 2.0f * splineScaleToPixel)
     return;
 
   float const kPathLengthScalar = 0.75;
   float const pathLength = kPathLengthScalar * splineScaleToPixel * splineLength;
 
-  float const etalonEmpty = max(300 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  float const etalonEmpty = std::max(300.0f * vs, textLength);
   float const minPeriodSize = etalonEmpty + textLength;
-  float const twoTextAndEmpty = minPeriodSize + textLength;
+  float const twoTextsAndEmpty = minPeriodSize + textLength;
 
-  if (pathLength < twoTextAndEmpty)
+  if (pathLength < twoTextsAndEmpty)
   {
-    // if we can't place 2 text and empty part on path
-    // we place only one text on center of path
+    // If we can't place 2 texts and empty part along the path,
+    // we place only one text at the center of the path.
     offsets.push_back(splineLength * 0.5f);
   }
   else
@@ -518,18 +518,17 @@ void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLen
     double const textCount = max(floor(static_cast<double>(pathLength / minPeriodSize)), 1.0);
     double const glbTextLen = splineLength / textCount;
     for (double offset = 0.5 * glbTextLen; offset < splineLength; offset += glbTextLen)
-      offsets.push_back(offset);
+      offsets.push_back(static_cast<float>(offset));
   }
 }
 
 SharedTextLayout::SharedTextLayout(PathTextLayout * layout)
   : m_layout(layout)
-{
-}
+{}
 
 bool SharedTextLayout::IsNull() const
 {
-  return m_layout == NULL;
+  return m_layout == nullptr;
 }
 
 void SharedTextLayout::Reset(PathTextLayout * layout)
@@ -551,5 +550,4 @@ PathTextLayout const * SharedTextLayout::operator->() const
 {
   return m_layout.get();
 }
-
-} // namespace df
+}  // namespace df

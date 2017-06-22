@@ -3,15 +3,12 @@
 #include "base/shared_buffer_manager.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
-
-#include "std/function.hpp"
+#include <string>
+#include <vector>
+#include <functional>
 
 namespace dp
 {
-
 uint32_t constexpr kSdfBorder = 4;
 
 struct UnicodeBlock;
@@ -23,11 +20,11 @@ public:
 
   struct Params
   {
-    string m_uniBlocks;
-    string m_whitelist;
-    string m_blacklist;
+    std::string m_uniBlocks;
+    std::string m_whitelist;
+    std::string m_blacklist;
 
-    vector<string> m_fonts;
+    std::vector<std::string> m_fonts;
 
     uint32_t m_baseGlyphHeight = 22;
     uint32_t m_sdfScale = 4;
@@ -85,7 +82,7 @@ public:
   void MarkGlyphReady(Glyph const & glyph);
   bool AreGlyphsReady(strings::UniString const & str, int fixedSize) const;
 
-  typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
+  using TUniBlockCallback = std::function<void(strings::UniChar start, strings::UniChar end)>;
   void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
 
   Glyph GetInvalidGlyph(int fixedSize) const;
@@ -102,5 +99,4 @@ private:
   struct Impl;
   Impl * m_impl;
 };
-
-}
+}  // namespace dp

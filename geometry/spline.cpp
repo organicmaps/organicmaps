@@ -92,6 +92,14 @@ bool Spline::IsValid() const
   return m_position.size() > 1;
 }
 
+Spline::iterator Spline::GetPoint(double step) const
+{
+  iterator it;
+  it.Attach(*this);
+  it.Advance(step);
+  return it;
+}
+
 Spline const & Spline::operator = (Spline const & spl)
 {
   if(&spl != this)
