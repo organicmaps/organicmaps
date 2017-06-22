@@ -4,6 +4,7 @@
 #include "platform/preferred_languages.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
+#include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
 #include "base/thread.hpp"
@@ -12,7 +13,6 @@
 #include <set>
 #include <sstream>
 #include <unordered_map>
-#include <vector>
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -198,7 +198,7 @@ std::string Api::GetCityUrl(std::string const & destId, std::string const & name
   // destination id.
   ost << kWebUrl << "/" << languages::GetCurrentNorm() << "/" << GetAccountId() << "/" << name
       << "/d" << destId << "-ttd?activities=all";
-  return ost.str();
+  return UrlEncode(ost.str());
 }
 
 void Api::GetTop5Products(std::string const & destId, std::string const & currency,
