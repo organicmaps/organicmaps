@@ -24578,3 +24578,6 @@
 
   [use]
     en = Use
+
+  [viator_title]
+    en = Attractions and tours
