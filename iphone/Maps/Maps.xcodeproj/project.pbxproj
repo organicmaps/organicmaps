@@ -378,6 +378,9 @@
 		34ABA62C1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
 		34ABA6301C2D58F300FE1BEC /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
+		34AC8FBA1EFBAD1900E7F910 /* ViatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */; };
+		34AC8FBB1EFBAD1900E7F910 /* ViatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */; };
+		34AC8FBC1EFBAD1900E7F910 /* ViatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */; };
 		34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.mm */; };
 		34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.mm */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
@@ -479,6 +482,18 @@
 		34ED298A1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298B1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
 		34ED298C1E3BB9B40054D003 /* RoutePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED29891E3BB9B40054D003 /* RoutePoint.swift */; };
+		34EE259D1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
+		34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
+		34EE259F1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
+		34EE25A11EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */; };
+		34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */; };
+		34EE25A31EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */; };
+		34EE25A51EFA6AD400F870AB /* ViatorElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A41EFA6AD400F870AB /* ViatorElement.xib */; };
+		34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A41EFA6AD400F870AB /* ViatorElement.xib */; };
+		34EE25A71EFA6AD400F870AB /* ViatorElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A41EFA6AD400F870AB /* ViatorElement.xib */; };
+		34EE25A91EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
+		34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
+		34EE25AB1EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		34F4072B1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
 		34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
@@ -1803,6 +1818,7 @@
 		34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputPasswordValidator.mm; sourceTree = "<group>"; };
 		34ABA62E1C2D58F300FE1BEC /* MWMInputEmailValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMInputEmailValidator.h; sourceTree = "<group>"; };
 		34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputEmailValidator.mm; sourceTree = "<group>"; };
+		34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViatorElement.swift; sourceTree = "<group>"; };
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMailViewController.mm; sourceTree = "<group>"; };
 		34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsManager.h; sourceTree = "<group>"; };
@@ -1857,6 +1873,10 @@
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
 		34ED29891E3BB9B40054D003 /* RoutePoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePoint.swift; sourceTree = "<group>"; };
+		34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPViatorCarouselCell.swift; sourceTree = "<group>"; };
+		34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPViatorCarouselCell.xib; sourceTree = "<group>"; };
+		34EE25A41EFA6AD400F870AB /* ViatorElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViatorElement.xib; sourceTree = "<group>"; };
+		34EE25A81EFA726400F870AB /* ViatorItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViatorItemModel.swift; sourceTree = "<group>"; };
 		34F4071D1E9E1AFF00E57AC0 /* Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		34F4071E1E9E1AFF00E57AC0 /* BannersCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannersCache.swift; sourceTree = "<group>"; };
 		34F4071F1E9E1AFF00E57AC0 /* BannerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerType.swift; sourceTree = "<group>"; };
@@ -3310,6 +3330,18 @@
 			path = RoutePreview;
 			sourceTree = "<group>";
 		};
+		34EE259B1EFA681000F870AB /* ViatorCells */ = {
+			isa = PBXGroup;
+			children = (
+				34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */,
+				34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */,
+				34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */,
+				34EE25A41EFA6AD400F870AB /* ViatorElement.xib */,
+				34EE25A81EFA726400F870AB /* ViatorItemModel.swift */,
+			);
+			path = ViatorCells;
+			sourceTree = "<group>";
+		};
 		34F4071C1E9E1AFF00E57AC0 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
@@ -3913,6 +3945,7 @@
 		F6E2FCA81E097B9F0083EBEC /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				34EE259B1EFA681000F870AB /* ViatorCells */,
 				346DB81C1E5C4F6700E3123E /* Gallery */,
 				F68224981E5B0FE100BC1C18 /* BookingCells */,
 				F6E2FCA91E097B9F0083EBEC /* BookmarkCell */,
@@ -4467,6 +4500,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34EE25A11EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */,
 				4554B6EA1E55F02B0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				4554B6EB1E55F02B0084017F /* drules_proto_vehicle_dark.bin in Resources */,
@@ -4513,6 +4547,7 @@
 				F653CE181C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
+				34EE25A51EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				F6E2FE631E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				F6E2FD941E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				F6B97B291CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */,
@@ -4637,6 +4672,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
@@ -4683,6 +4719,7 @@
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				F6E2FE641E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
+				34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				F6E2FD951E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				F6B97B2A1CD0CB170009B612 /* MWMBookmarkNameCell.xib in Resources */,
 				F6E2FD9B1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
@@ -4807,6 +4844,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34EE25A31EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				849CF6041DE842290024A8A5 /* 01_dejavusans.ttf in Resources */,
 				849CF6051DE842290024A8A5 /* 02_droidsans-fallback.ttf in Resources */,
 				849CF6091DE842290024A8A5 /* 03_jomolhari-id-a3d.ttf in Resources */,
@@ -4853,6 +4891,7 @@
 				849CF6621DE842290024A8A5 /* MWMAPIBarView.xib in Resources */,
 				F6E2FE651E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				F6E2FD961E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
+				34EE25A71EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				849CF6521DE842290024A8A5 /* MWMBookmarkNameCell.xib in Resources */,
 				F6E2FD9C1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
 				349D1AD31E2E325B004A2006 /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
@@ -5151,6 +5190,7 @@
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
 				349D1ABB1E2D05EF004A2006 /* SearchBar.swift in Sources */,
+				34AC8FBA1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FD791E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
 				F6E2FF3E1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDDF1E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
@@ -5364,6 +5404,7 @@
 				F69CE8D51E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6E2FF5F1E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2A1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
+				34EE259D1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				340475641E081A4600C92850 /* MWMRouter.mm in Sources */,
 				3454D7D61E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
@@ -5379,6 +5420,7 @@
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C121E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
 				F68FCB8A1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */,
+				34EE25A91EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				3454D7D91E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
 				F6E2FD9D1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				F6E2FE091E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
@@ -5447,6 +5489,7 @@
 				6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */,
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7A1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
+				34AC8FBB1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
 				6741A9C01BF340DE002C974C /* MWMTextView.mm in Sources */,
@@ -5660,6 +5703,7 @@
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
+				34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
@@ -5675,6 +5719,7 @@
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F68FCB8B1DA7BD20007CC7D7 /* MWMTaxiPreviewCell.mm in Sources */,
+				34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
@@ -5743,6 +5788,7 @@
 				3404757F1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				349D1ABD1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7B1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
+				34AC8FBC1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FF401E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				849CF6A41DE842290024A8A5 /* MWMRateAlert.mm in Sources */,
 				F6E2FDE11E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
@@ -5956,6 +6002,7 @@
 				F69CE8D71E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6E2FF611E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2C1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
+				34EE259F1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				849CF75C1DE842290024A8A5 /* MWMNavigationView.mm in Sources */,
 				849CF7601DE842290024A8A5 /* MWMStopButton.mm in Sources */,
 				346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
@@ -5971,6 +6018,7 @@
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C141E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
 				3454D7DE1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
+				34EE25AB1EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				849CF7671DE842290024A8A5 /* CircleView.mm in Sources */,
 				F6E2FD9F1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				F6E2FE0B1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,

@@ -300,23 +300,35 @@
 
 - (void)openUrl:(NSURL *)url
 {
+  if (!url)
+  {
+    NSAssert(false, @"URL is nil!");
+    auto urlString = url.absoluteString;
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:0
+                                      userInfo:@{
+                                        @"Trying to open nil url" : @YES
+                                      }];
+    [[Crashlytics sharedInstance] recordError:err];
+    return;
+  }
   NSString * scheme = url.scheme;
   if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
   {
     NSAssert(false, @"Incorrect url's scheme!");
-    NSString * urlString = url.absoluteString;
-    NSError * err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                               code:0
-                                           userInfo:@{
-                                             @"Trying to open incorrect url" : urlString
-                                           }];
+    auto urlString = url.absoluteString;
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:0
+                                      userInfo:@{
+                                        @"Trying to open incorrect url" : urlString
+                                      }];
     [[Crashlytics sharedInstance] recordError:err];
     return;
   }
 
   if (isIOS8)
   {
-    UIApplication * app = [UIApplication sharedApplication];
+    auto app = [UIApplication sharedApplication];
     if ([app canOpenURL:url])
       [app openURL:url];
     return;

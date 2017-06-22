@@ -516,6 +516,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [data logLocalAdsEvent:local_ads::EventType::OpenInfo];
 }
 
+- (void)openViatorURL:(nullable NSURL *)url
+{
+  auto u = url ? url : self.data.sponsoredURL;
+  if (u)
+    [self.ownerViewController openUrl:u];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

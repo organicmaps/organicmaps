@@ -98,6 +98,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMBookmarkCell class]];
   [tv registerWithCellClass:[MWMPPHotelDescriptionCell class]];
   [tv registerWithCellClass:[MWMPPHotelCarouselCell class]];
+  [tv registerWithCellClass:[MWMPPViatorCarouselCell class]];
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
@@ -143,6 +144,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   dispatch_async(dispatch_get_main_queue(), ^{
     [data fillOnlineBookingSections];
+    [data fillOnlineViatorSection];
   });
 }
 
@@ -315,6 +317,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   {
   case Sections::Bookmark: return 1;
   case Sections::Preview: return data.previewRows.size();
+  case Sections::Viator: return data.viatorRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
   case Sections::Ad: return data.adRows.size();
   case Sections::Buttons: return data.buttonsRows.size();
@@ -417,6 +420,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     else
       [c setEnabled:YES];
 
+    return c;
+  }
+  case Sections::Viator:
+  {
+    Class cls = [MWMPPViatorCarouselCell class];
+    auto c = static_cast<MWMPPViatorCarouselCell *>(
+        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    [c configWith:data.viatorItems delegate:delegate];
     return c;
   }
   case Sections::HotelPhotos:

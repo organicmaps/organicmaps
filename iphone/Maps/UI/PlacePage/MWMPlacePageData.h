@@ -18,6 +18,7 @@ enum class Sections
   HotelDescription,
   HotelFacilities,
   HotelReviews,
+  Viator,
   Metainfo,
   Ad,
   Buttons
@@ -57,6 +58,11 @@ enum class HotelReviewsRow
   Header,
   Regular,
   ShowMore
+};
+
+enum class ViatorRow
+{
+  Regular
 };
 
 enum class MetainfoRows
@@ -104,6 +110,7 @@ using BannerIsReady = void (^)();
 
 
 @class MWMGalleryItemModel;
+@class MWMViatorItemModel;
 @protocol MWMBanner;
 
 /// ViewModel for place page.
@@ -145,6 +152,10 @@ using BannerIsReady = void (^)();
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
+// Viator
+- (void)fillOnlineViatorSection;
+- (NSArray<MWMViatorItemModel *> *)viatorItems;
+
 // Route points
 - (RouteMarkType)routeMarkType;
 - (int8_t)intermediateIndex;
@@ -173,6 +184,7 @@ using BannerIsReady = void (^)();
 - (vector<place_page::HotelDescriptionRow> const &)descriptionRows;
 - (vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
 - (vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
+- (vector<place_page::ViatorRow> const &)viatorRows;
 - (vector<place_page::MetainfoRows> const &)metainfoRows;
 - (vector<place_page::AdRows> const &)adRows;
 - (vector<place_page::ButtonsRows> const &)buttonsRows;
@@ -186,6 +198,7 @@ using BannerIsReady = void (^)();
 - (BOOL)isApi;
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
+- (BOOL)isViator;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;

@@ -1,4 +1,4 @@
-typedef UIView * (^MWMPlacePageButtonsDismissBlock)(NSInteger);
+typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 
 @protocol MWMPlacePageButtonsProtocol<NSObject>
 
@@ -11,10 +11,13 @@ typedef UIView * (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 - (void)showAllReviews;
 - (void)showAllFacilities;
 - (void)showPhotoAtIndex:(NSInteger)index
-           referenceView:(UIView *)referenceView
-           referenceViewWhenDismissingHandler:(MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
+                         referenceView:(nullable UIView *)referenceView
+    referenceViewWhenDismissingHandler:
+        (nonnull MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
 - (void)showGalery;
 
 - (void)openLocalAdsURL;
+
+- (void)openViatorURL:(nullable NSURL *)url;
 
 @end

@@ -30,6 +30,8 @@ using namespace place_page;
 @property(copy, nonatomic) NSString * cachedMinPrice;
 @property(nonatomic) id<MWMBanner> nativeAd;
 @property(copy, nonatomic) NSArray<MWMGalleryItemModel *> * photos;
+@property(copy, nonatomic) NSArray<MWMViatorItemModel *> * viatorItems;
+@property(nonatomic) NSNumberFormatter * currencyFormatter;
 
 @end
 
@@ -39,6 +41,7 @@ using namespace place_page;
 
   vector<Sections> m_sections;
   vector<PreviewRows> m_previewRows;
+  vector<ViatorRow> m_viatorRows;
   vector<MetainfoRows> m_metainfoRows;
   vector<AdRows> m_adRows;
   vector<ButtonsRows> m_buttonsRows;
@@ -48,6 +51,7 @@ using namespace place_page;
   vector<HotelReviewsRow> m_hotelReviewsRows;
 
   booking::HotelInfo m_hotelInfo;
+  std::vector<viator::Product> m_viatorProducts;
 }
 
 - (instancetype)initWithPlacePageInfo:(Info const &)info
@@ -196,6 +200,43 @@ using namespace place_page;
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
 }
 
+- (void)fillOnlineViatorSection
+{
+  if (!self.isViator)
+    return;
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return;
+
+  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
+    auto api = GetFramework().GetViatorApi(canUseNetwork);
+    if (!api)
+      return;
+
+    std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
+    std::string const viatorId = [self sponsoredId].UTF8String;
+
+    api->GetTop5Products(
+        viatorId, currency, [viatorId, self](std::string const & destId,
+                                             std::vector<viator::Product> const & products) {
+          if (viatorId != destId)
+            return;
+          dispatch_async(dispatch_get_main_queue(), [products, self] {
+            m_viatorProducts = products;
+
+            auto & sections = self->m_sections;
+            auto const begin = sections.begin();
+            auto const end = sections.end();
+
+            sections.insert(find(begin, end, Sections::Preview) + 1, Sections::Viator);
+            m_viatorRows.emplace_back(ViatorRow::Regular);
+
+            self.sectionsAreReadyCallback({1, 1}, self);
+          });
+        });
+  });
+}
+
 - (void)fillOnlineBookingSections
 {
   if (!self.isBooking)
@@ -214,7 +255,6 @@ using namespace place_page;
     api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
                       [hotelId, self](booking::HotelInfo const & hotelInfo)
     {
-
       if (hotelId != hotelInfo.m_hotelId)
         return;
 
@@ -359,8 +399,15 @@ using namespace place_page;
 - (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
 - (NSURL *)sponsoredURL
 {
-  return m_info.IsSponsored() ? [NSURL URLWithString:@(m_info.GetSponsoredUrl().c_str())]
-                                   : nil;
+  if (m_info.IsSponsored())
+  {
+    auto urlString = [@(m_info.GetSponsoredUrl().c_str())
+        stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet
+                                                               .URLQueryAllowedCharacterSet];
+    auto url = [NSURL URLWithString:urlString];
+    return url;
+  }
+  return nil;
 }
 
 - (NSURL *)sponsoredDescriptionURL
@@ -395,18 +442,10 @@ using namespace place_page;
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
-  NSNumberFormatter * currencyFormatter = [[NSNumberFormatter alloc] init];
-  if (currencyFormatter.currencyCode.length != 3)
-    currencyFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+  string const currency = self.currencyFormatter.currencyCode.UTF8String;
 
-  currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
-  currencyFormatter.maximumFractionDigits = 0;
-
-  string const currency = currencyFormatter.currencyCode.UTF8String;
-
-  auto const func = [self, label, currency, currencyFormatter](string const & hotelId,
-                                                               string const & minPrice,
-                                                               string const & priceCurrency) {
+  auto const func = [self, label, currency](string const & hotelId, string const & minPrice,
+                                            string const & priceCurrency) {
     if (currency != priceCurrency)
       return;
 
@@ -418,7 +457,7 @@ using namespace place_page;
                              stringByReplacingOccurrencesOfString:@"."
                                                        withString:decimalFormatter
                                                                       .decimalSeparator]];
-    NSString * currencyString = [currencyFormatter stringFromNumber:currencyNumber];
+    NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
 
     NSString * pattern =
         [L(@"place_page_starting_from") stringByReplacingOccurrencesOfString:@"%s"
@@ -436,6 +475,20 @@ using namespace place_page;
         if (api)
           api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
   });
+}
+
+- (NSNumberFormatter *)currencyFormatter
+{
+  if (!_currencyFormatter)
+  {
+    _currencyFormatter = [[NSNumberFormatter alloc] init];
+    if (_currencyFormatter.currencyCode.length != 3)
+      _currencyFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+
+    _currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    _currencyFormatter.maximumFractionDigits = 0;
+  }
+  return _currencyFormatter;
 }
 
 - (NSString *)hotelDescription { return @(m_hotelInfo.m_description.c_str()); }
@@ -462,6 +515,30 @@ using namespace place_page;
 
   self.photos = res;
   return _photos;
+}
+
+- (NSArray<MWMViatorItemModel *> *)viatorItems
+{
+  if (!_viatorItems)
+  {
+    NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
+    for (auto const & p : m_viatorProducts)
+    {
+      auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
+      auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
+      if (!imageURL || !pageURL)
+        continue;
+      auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
+                                                       pageURL:pageURL
+                                                         title:@(p.m_title.c_str())
+                                                        rating:p.m_rating
+                                                      duration:@(p.m_duration.c_str())
+                                                         price:@(p.m_priceFormatted.c_str())];
+      [items addObject:item];
+    }
+    self.viatorItems = items;
+  }
+  return _viatorItems;
 }
 
 #pragma mark - Bookmark
@@ -523,6 +600,7 @@ using namespace place_page;
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (vector<Sections> const &)sections { return m_sections; }
 - (vector<PreviewRows> const &)previewRows { return m_previewRows; }
+- (vector<place_page::ViatorRow> const &)viatorRows { return m_viatorRows; }
 - (vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (vector<AdRows> const &)adRows { return m_adRows; }
@@ -563,6 +641,7 @@ using namespace place_page;
 - (BOOL)isApi { return m_info.HasApiUrl(); }
 - (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
 - (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
+- (BOOL)isViator { return m_info.m_sponsoredType == SponsoredType::Viator; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.m_bookmarkDescription); }
