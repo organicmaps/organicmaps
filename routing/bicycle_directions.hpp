@@ -60,8 +60,5 @@ private:
   Index const & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<Index::FeaturesLoaderGuard> m_loader;
-  // If |m_generateTrafficSegs| is set to true |LoadedPathSegment::m_trafficSeg| is filled
-  // and not otherwise.
-  bool const m_generateTrafficSegs;
 };
 }  // namespace routing

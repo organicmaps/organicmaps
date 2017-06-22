@@ -146,7 +146,7 @@ namespace routing
 BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
                                                  std::shared_ptr<NumMwmIds> numMwmIds,
                                                  bool generateTrafficSegs)
-  : m_index(index), m_numMwmIds(numMwmIds), m_generateTrafficSegs(generateTrafficSegs)
+  : m_index(index), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
 }
@@ -353,7 +353,9 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       startSegId = inSegId;
 
     prevJunctions.push_back(prevJunction);
-    if (m_generateTrafficSegs && !inEdge.IsFake())
+    if (inEdge.IsFake())
+      prevSegments.push_back(Segment()); // Fake segment
+    else
       prevSegments.push_back(GetSegment(inFeatureId, inSegId, inIsForward));
 
     if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
@@ -385,7 +387,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     // It leads to preventing pushing item to |prevSegments|. So if there's no enough items in |prevSegments|
     // |pathSegment.m_trafficSegs| should be empty.
     // Note. For the time being BicycleDirectionsEngine is used for turn generation for bicycle and car routes.
-    if (m_generateTrafficSegs && prevSegments.size() + 1 == prevJunctionSize)
+    if (prevSegments.size() + 1 == prevJunctionSize)
       pathSegment.m_trafficSegs = std::move(prevSegments);
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));
