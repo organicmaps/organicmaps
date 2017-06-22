@@ -12,6 +12,7 @@
 #include <set>
 #include <sstream>
 #include <unordered_map>
+#include <vector>
 
 #include "3party/jansson/myjansson.hpp"
 
