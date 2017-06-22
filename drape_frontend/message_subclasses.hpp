@@ -695,6 +695,7 @@ public:
 
   Type GetType() const override { return Message::FlushRouteArrows; }
 
+  bool IsGLContextDependent() const override { return true; }
   drape_ptr<RouteArrowsData> && AcceptRouteArrowsData() { return std::move(m_routeArrowsData); }
 
 private:
@@ -1231,6 +1232,7 @@ public:
   {}
 
   Type GetType() const override { return Message::SetPostprocessStaticTextures; }
+  bool IsGLContextDependent() const override { return true; }
 
   drape_ptr<PostprocessStaticTextures> && AcceptTextures() { return std::move(m_textures); }
 
