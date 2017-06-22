@@ -57,7 +57,6 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.routing.RoutingPlanController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
@@ -115,10 +114,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  CustomNavigateUpListener,
                                  RoutingController.Container,
                                  LocationHelper.UiCallback,
-                                 RoutingPlanController.OnToggleListener,
-                                 RoutingPlanController.SearchPoiTransitionListener,
                                  FloatingSearchToolbarController.VisibilityListener,
-                                 NativeSearchListener, NavigationButtonsAnimationController.OnTranslationChangedListener
+                                 NativeSearchListener,
+                                 NavigationButtonsAnimationController.OnTranslationChangedListener,
+                                 RoutingPlanInplaceController.RoutingPlanListener
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -523,9 +522,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!mIsFragmentContainer)
     {
-      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
-      mRoutingPlanInplaceController.setOnToggleListener(this);
-      mRoutingPlanInplaceController.setPoiTransitionListener(this);
+      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this, this);
       removeCurrentFragment(false);
     }
 
@@ -1731,13 +1728,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onRoutingPlanStartAnimate(boolean show)
+  {
+    if (mNavAnimationController == null)
+      return;
+
+    mNavAnimationController.setTopLimit(!show ? 0 : mRoutingPlanInplaceController.getHeight());
+    mNavAnimationController.setBottomLimit(!show ? 0 : getCurrentMenu().getFrame().getHeight());
+    adjustCompassAndTraffic(!show ? UiUtils.getStatusBarHeight(getApplicationContext())
+                                  : mRoutingPlanInplaceController.getHeight());
+  }
+
+  @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
-    if (mNavAnimationController != null && !mIsFragmentContainer)
-    {
-      mNavAnimationController.setBottomLimit(!show ? 0 : getCurrentMenu().getFrame().getHeight());
-      mNavAnimationController.slide(show, getCurrentMenu().getFrame().getHeight());
-    }
     if (show)
     {
       mSearchController.hide();
@@ -1756,20 +1760,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mRoutingPlanInplaceController.show(true);
         if (completionListener != null)
           completionListener.run();
-
-        int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
-        if (routingPlanPanelHeight > 0)
-        {
-          adjustCompassAndTraffic(routingPlanPanelHeight);
-          setNavButtonsTopLimit(routingPlanPanelHeight);
-        }
       }
     }
     else
     {
       if (mIsFragmentContainer)
       {
-        adjustTraffic(0, UiUtils.getStatusBarHeight(getApplicationContext()));
+        adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
+        setNavButtonsTopLimit(0);
         if (mNavigationController != null)
           mNavigationController.adjustSearchButtons(0);
       }
@@ -1782,9 +1780,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (completionListener != null)
         completionListener.run();
-
-      adjustCompassAndTraffic(UiUtils.getStatusBarHeight(getApplicationContext()));
-      setNavButtonsTopLimit(0);
 
       updateSearchBar();
     }
@@ -1802,17 +1797,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void adjustTraffic(int offsetX, int offsetY)
   {
     mTraffic.setOffset(offsetX, offsetY);
-  }
-
-  @Override
-  public void onToggle(boolean state)
-  {
-    if (mNavAnimationController == null)
-      return;
-
-    int routingPlanPanelHeight = mRoutingPlanInplaceController.getHeight();
-    adjustCompassAndTraffic(routingPlanPanelHeight);
-    setNavButtonsTopLimit(routingPlanPanelHeight + UiUtils.dimen(R.dimen.compass_height));
   }
 
   @Override
@@ -1866,21 +1850,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void updatePoints()
-  {
-    if (mIsFragmentContainer)
-    {
-      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-      if (fragment != null)
-        fragment.updatePoints();
-    }
-    else
-    {
-      mRoutingPlanInplaceController.updatePoints();
-    }
-  }
-
-  @Override
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     if (mIsFragmentContainer)
@@ -1893,13 +1862,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mRoutingPlanInplaceController.updateBuildProgress(progress, router);
     }
-  }
-
-  @Override
-  public void animateSearchPoiTransition(@NonNull final Rect startRect,
-                                         @Nullable final Runnable runnable)
-  {
-    Animations.riseTransition(mRootView, startRect, runnable);
   }
 
   @Override
@@ -2024,14 +1986,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onFadeInZoomButtons()
   {
-    if (mNavigationController != null)
+    if (mNavigationController != null
+        && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating()))
       mNavigationController.fadeInSearchButtons();
   }
 
   @Override
   public void onFadeOutZoomButtons()
   {
-    if (mNavigationController != null)
+    if (mNavigationController != null
+        && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating()))
       mNavigationController.fadeOutSearchButtons();
   }
 

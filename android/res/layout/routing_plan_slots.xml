@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge>
-  <include layout="@layout/routing_plan_slots_vertical"/>
-</merge>

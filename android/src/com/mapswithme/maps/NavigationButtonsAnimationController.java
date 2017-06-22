@@ -17,7 +17,7 @@ import com.mapswithme.util.UiUtils;
 
 class NavigationButtonsAnimationController
 {
-  private static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+  private static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
   private static final String STATE_VISIBLE = "state_visible";
 
   @NonNull

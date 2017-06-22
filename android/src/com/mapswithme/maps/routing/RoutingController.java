@@ -66,7 +66,6 @@ public class RoutingController
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloaded);
     void updateMenu();
-    void updatePoints();
     void onUberInfoReceived(@NonNull UberInfo info);
     void onUberError(@NonNull Uber.ErrorCode code);
     void onNavigationCancelled();
@@ -268,7 +267,6 @@ public class RoutingController
 
       mContainer.showNavigation(isNavigating());
       mContainer.updateMenu();
-      mContainer.updatePoints();
     }
     processRoutingEvent();
   }
@@ -686,8 +684,6 @@ public class RoutingController
     {
       if (isWaitingPoiPick())
         showRoutePlan();
-
-      mContainer.updatePoints();
     }
 
     if (mStartPoint != null && mEndPoint != null)
@@ -702,9 +698,6 @@ public class RoutingController
     if (my == null)
     {
       mLogger.d(TAG, "setStartFromMyPosition: no my position - skip");
-
-      if (mContainer != null)
-        mContainer.updatePoints();
 
       setPointsInternal();
       return false;
@@ -857,7 +850,6 @@ public class RoutingController
 
     if (mContainer != null)
     {
-      mContainer.updatePoints();
       mContainer.updateMenu();
       showRoutePlan();
     }

@@ -8,6 +8,4 @@
   <integer name="anim_location_pending_item">50</integer>
   <integer name="anim_spinner_pending_item">50</integer>
   <integer name="anim_traffic_loading_item">900</integer>
-  <integer name="anim_slots_swap">@integer/anim_default</integer>
-  <integer name="anim_slots_toggle">@integer/anim_default</integer>
 </resources>

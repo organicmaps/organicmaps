@@ -1,19 +1,13 @@
 package com.mapswithme.maps.routing;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -22,7 +16,6 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.uber.Uber;
 import com.mapswithme.maps.uber.UberInfo;
-import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -30,13 +23,11 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-public class RoutingPlanController extends ToolbarController implements SlotFrame.SlotClickListener
+public class RoutingPlanController extends ToolbarController
 {
-  static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_toggle);
+  static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
 
   protected final View mFrame;
-  private final ImageView mToggle;
-  private final SlotFrame mSlotFrame;
   private final RadioGroup mRouterTypes;
   private final WheelProgressView mProgressVehicle;
   private final WheelProgressView mProgressPedestrian;
@@ -46,27 +37,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
   @NonNull
   private final RoutingBottomMenuController mRoutingBottomMenuController;
 
-  private final RotateDrawable mToggleImage = new RotateDrawable(R.drawable.ic_down);
   int mFrameHeight;
-  private int mToolbarHeight;
-  private boolean mOpen;
-
-  @Nullable
-  private OnToggleListener mToggleListener;
-
-  @Nullable
-  private  SearchPoiTransitionListener mPoiTransitionListener;
-
-  public interface OnToggleListener
-  {
-    void onToggle(boolean state);
-  }
-
-  public interface SearchPoiTransitionListener
-  {
-    void animateSearchPoiTransition(@NonNull final Rect startRect,
-                                    @Nullable final Runnable runnable);
-  }
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -96,9 +67,6 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     super(root, activity);
     mFrame = root;
 
-    mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
-    mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
-    mSlotFrame.setSlotClickListener(this);
     mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
 
     setupRouterButton(R.id.vehicle, R.drawable.ic_car, new View.OnClickListener()
@@ -152,16 +120,6 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame);
-
-    mToggle.setImageDrawable(mToggleImage);
-    mToggle.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        toggleSlots();
-      }
-    });
   }
 
   @Override
@@ -172,51 +130,13 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
     RoutingController.get().cancel();
   }
 
-  @Override
-  public void onSlotClicked(final int order, @NonNull Rect rect)
-  {
-    if (mPoiTransitionListener != null)
-    {
-      mPoiTransitionListener.animateSearchPoiTransition(rect, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          RoutingController.get().searchPoi();
-        }
-      });
-    }
-    else
-    {
-      RoutingController.get().searchPoi();
-    }
-  }
-
-  public void setPoiTransitionListener(@Nullable SearchPoiTransitionListener poiTransitionListener)
-  {
-    mPoiTransitionListener = poiTransitionListener;
-  }
-
   boolean checkFrameHeight()
   {
     if (mFrameHeight > 0)
       return true;
 
-    mFrameHeight = mSlotFrame.getHeight();
-    mToolbarHeight = mToolbar.getHeight();
+    mFrameHeight = mFrame.getHeight();
     return (mFrameHeight > 0);
-  }
-
-  private void animateSlotFrame(int offset)
-  {
-    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mSlotFrame.getLayoutParams();
-    lp.topMargin = (mToolbarHeight - offset);
-    mSlotFrame.setLayoutParams(lp);
-  }
-
-  public void updatePoints()
-  {
-    mSlotFrame.update();
   }
 
   private void updateProgressLabels()
@@ -292,87 +212,9 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
       progressView.setProgress(progress);
   }
 
-  private void toggleSlots()
-  {
-    AlohaHelper.logClick(AlohaHelper.ROUTING_TOGGLE);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TOGGLE);
-    showSlots(!mOpen, true);
-  }
-
-  void showSlots(final boolean show, final boolean animate)
-  {
-    if (!checkFrameHeight())
-    {
-      mFrame.post(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          showSlots(show, animate);
-        }
-      });
-      return;
-    }
-
-    mOpen = show;
-
-    if (animate)
-    {
-      ValueAnimator animator = ValueAnimator.ofFloat(mOpen ? 1.0f : 0, mOpen ? 0 : 1.0f);
-      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-      {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation)
-        {
-          float fraction = (float)animation.getAnimatedValue();
-          animateSlotFrame((int)(fraction * mFrameHeight));
-          mToggleImage.setAngle((1.0f - fraction) * 180.0f);
-        }
-      });
-      animator.addListener(new UiUtils.SimpleAnimatorListener() {
-        @Override
-        public void onAnimationEnd(Animator animation)
-        {
-          if (mToggleListener != null)
-            mToggleListener.onToggle(mOpen);
-        }
-      });
-
-      animator.setDuration(ANIM_TOGGLE);
-      animator.start();
-      mSlotFrame.fadeSlots(!mOpen);
-    }
-    else
-    {
-      animateSlotFrame(mOpen ? 0 : mFrameHeight);
-      mToggleImage.setAngle(mOpen ? 180.0f : 0.0f);
-      mSlotFrame.unfadeSlots();
-      mSlotFrame.post(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          if (mToggleListener != null)
-            mToggleListener.onToggle(mOpen);
-        }
-      });
-    }
-  }
-
   private boolean isTaxiRouterType()
   {
     return RoutingController.get().isTaxiRouterType();
-  }
-
-  void disableToggle()
-  {
-    UiUtils.hide(mToggle);
-    showSlots(true, false);
-  }
-
-  public boolean isOpen()
-  {
-    return mOpen;
   }
 
   public void showUberInfo(@NonNull UberInfo info)
@@ -426,12 +268,7 @@ public class RoutingPlanController extends ToolbarController implements SlotFram
 
   public int getHeight()
   {
-    return mFrame.getHeight();
-  }
-
-  public void setOnToggleListener(@Nullable OnToggleListener listener)
-  {
-    mToggleListener = listener;
+    return mFrameHeight;
   }
 
   public void showAddStartFrame()
