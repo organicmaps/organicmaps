@@ -27,7 +27,8 @@
 namespace ugc
 {
 using TranslationKey = std::string;
-using Time = std::chrono::time_point<std::chrono::system_clock>;
+using Clock = std::chrono::system_clock;
+using Time = std::chrono::time_point<Clock>;
 
 enum class Sentiment
 {

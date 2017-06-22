@@ -8,25 +8,27 @@
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
+#include "base/exception.hpp"
+
 #include <cmath>
 #include <cstdint>
 
 namespace ugc
 {
+DECLARE_EXCEPTION(SerDesException, RootException);
+DECLARE_EXCEPTION(BadBlob, SerDesException);
+
 enum class Version : uint8_t
 {
-  V0
-};
-
-struct HeaderV0
-{
+  V0,
+  Latest = V0
 };
 
 template <typename Sink>
 class Serializer
 {
 public:
-  Serializer(Sink & sink, HeaderV0 const & header) : m_sink(sink), m_header(header) {}
+  Serializer(Sink & sink) : m_sink(sink) {}
 
   void operator()(uint8_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
   void operator()(uint32_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
@@ -79,14 +81,13 @@ public:
 
 private:
   Sink & m_sink;
-  HeaderV0 const m_header;
 };
 
 template <typename Source>
 class DeserializerV0
 {
 public:
-  DeserializerV0(Source & source, HeaderV0 const & header) : m_source(source), m_header(header) {}
+  DeserializerV0(Source & source) : m_source(source) {}
 
   void operator()(uint8_t & d, char const * /* name */ = nullptr)
   {
@@ -157,6 +158,28 @@ public:
 
 private:
   Source & m_source;
-  HeaderV0 const m_header;
 };
+
+template <typename Sink>
+void Serialize(Sink & sink, UGC const & ugc)
+{
+  WriteToSink(sink, static_cast<uint8_t>(Version::Latest));
+  Serializer<Sink> ser(sink);
+  ser(ugc);
+}
+
+template <typename Source>
+void Deserialize(Source & source, UGC & ugc)
+{
+  uint8_t version = 0;
+  ReadPrimitiveFromSource(source, version);
+  if (version == static_cast<uint8_t>(Version::V0))
+  {
+    DeserializerV0<Source> des(source);
+    des(ugc);
+    return;
+  }
+
+  MYTHROW(BadBlob, ("Unknown data version:", static_cast<int>(version)));
+}
 }  // namespace ugc

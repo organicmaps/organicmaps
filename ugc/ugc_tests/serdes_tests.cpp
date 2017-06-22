@@ -38,16 +38,14 @@ ReaderSource<MemReader> MakeSource(Buffer const & buffer)
 
 UNIT_TEST(SerDes_Rating)
 {
-  auto expectedRating = GetTestRating();
+  auto const expectedRating = GetTestRating();
   TEST_EQUAL(expectedRating, expectedRating, ());
-
-  HeaderV0 header;
 
   Buffer buffer;
 
   {
     auto sink = MakeSink(buffer);
-    Ser ser(sink, header);
+    Ser ser(sink);
     ser(expectedRating);
   }
 
@@ -55,7 +53,7 @@ UNIT_TEST(SerDes_Rating)
 
   {
     auto source = MakeSource(buffer);
-    Des des(source, header);
+    Des des(source);
     des(actualRating);
   }
 
@@ -64,24 +62,22 @@ UNIT_TEST(SerDes_Rating)
 
 UNIT_TEST(SerDes_UGC)
 {
-  auto expectedUGC = Api::MakeTestUGC1();
+  // Time must be in whole days to prevent lose of precision during
+  // serialization/deserialization.
+  auto const expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100)));
   TEST_EQUAL(expectedUGC, expectedUGC, ());
-
-  HeaderV0 header;
 
   Buffer buffer;
 
   {
     auto sink = MakeSink(buffer);
-    Ser ser(sink, header);
-    ser(expectedUGC);
+    Serialize(sink, expectedUGC);
   }
 
   UGC actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
   {
     auto source = MakeSource(buffer);
-    Des des(source, header);
-    des(actualUGC);
+    Deserialize(source, actualUGC);
   }
 
   TEST_EQUAL(expectedUGC, actualUGC, ());
