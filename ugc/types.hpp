@@ -61,7 +61,8 @@ inline uint32_t DaysAgo(Time const & time)
   auto const now = std::chrono::system_clock::now();
   if (now < time)
     return 0;
-  return std::chrono::duration_cast<std::chrono::hours>(now - time).count() / 24;
+  auto const h = std::chrono::duration_cast<std::chrono::hours>(now - time).count() / 24;
+  return static_cast<uint32_t>(h);
 }
 
 struct RatingRecord
