@@ -264,8 +264,8 @@ void PostprocessRenderer::BeginFrame()
   ASSERT(m_staticTextures != nullptr, ());
   if (m_staticTextures->m_smaaSearchTexture == nullptr ||
       m_staticTextures->m_smaaAreaTexture == nullptr ||
-      m_staticTextures->m_smaaAreaTexture->GetID() < 0 ||
-      m_staticTextures->m_smaaSearchTexture->GetID() < 0)
+      m_staticTextures->m_smaaAreaTexture->GetID() == 0 ||
+      m_staticTextures->m_smaaSearchTexture->GetID() == 0)
   {
     SetEffectEnabled(Effect::Antialiasing, false);
   }
@@ -289,10 +289,10 @@ void PostprocessRenderer::EndFrame(ref_ptr<dp::GpuProgramManager> gpuProgramMana
     wasPostEffect = true;
 
     ASSERT(m_staticTextures->m_smaaAreaTexture != nullptr, ());
-    ASSERT_GREATER_OR_EQUAL(m_staticTextures->m_smaaAreaTexture->GetID(), 0, ());
+    ASSERT_GREATER(m_staticTextures->m_smaaAreaTexture->GetID(), 0, ());
 
     ASSERT(m_staticTextures->m_smaaSearchTexture != nullptr, ());
-    ASSERT_GREATER_OR_EQUAL(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
+    ASSERT_GREATER(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
 
     GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     GLFunctions::glEnable(gl_const::GLStencilTest);
@@ -322,8 +322,8 @@ void PostprocessRenderer::EndFrame(ref_ptr<dp::GpuProgramManager> gpuProgramMana
       ASSERT(dynamic_cast<BlendingWeightRendererContext *>(m_bwRendererContext.get()) != nullptr, ());
       auto context = static_cast<BlendingWeightRendererContext *>(m_bwRendererContext.get());
       context->SetParams(m_edgesFramebuffer->GetTextureId(),
-                         static_cast<uint32_t>(m_staticTextures->m_smaaAreaTexture->GetID()),
-                         static_cast<uint32_t>(m_staticTextures->m_smaaSearchTexture->GetID()),
+                         m_staticTextures->m_smaaAreaTexture->GetID(),
+                         m_staticTextures->m_smaaSearchTexture->GetID(),
                          m_width, m_height);
       m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_bwRendererContext));
     }
