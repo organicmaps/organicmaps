@@ -296,6 +296,11 @@ public class PlacePageView extends RelativeLayout
     return UiUtils.isViewTouched(event, mHotelGallery);
   }
 
+  public boolean isTouchViator(@NonNull MotionEvent event)
+  {
+    return UiUtils.isViewTouched(event, mRvViatorProducts);
+  }
+
   public void onActivityResume()
   {
     if (mBannerController != null)

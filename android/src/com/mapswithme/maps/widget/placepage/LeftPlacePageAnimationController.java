@@ -28,7 +28,7 @@ class LeftPlacePageAnimationController extends BasePlacePageAnimationController
   @Override
   protected boolean onInterceptTouchEvent(MotionEvent event)
   {
-    if (mPlacePage.isTouchGallery(event))
+    if (mPlacePage.isTouchGallery(event) || mPlacePage.isTouchViator(event))
       return false;
 
     switch (event.getAction())

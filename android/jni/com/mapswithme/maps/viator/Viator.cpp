@@ -30,12 +30,9 @@ void PrepareClassRefs(JNIEnv * env)
 void OnViatorProductsReceived(std::string const & destId,
                               std::vector<viator::Product> const & products)
 {
-  LOG(LINFO, ("Received Viator products for id = ", destId));
   GetPlatform().RunOnGuiThread([=]() {
     if (g_lastRequestId != destId)
       return;
-
-    CHECK(!products.empty(), ("List of the products cannot be empty"));
 
     JNIEnv * env = jni::GetEnv();
 
