@@ -75,15 +75,16 @@ public:
     traffic::SpeedGroup const m_traffic = traffic::SpeedGroup::Unknown;
   };
 
-  struct SubrouteAttrs
+  class SubrouteAttrs final
   {
+  public:
     SubrouteAttrs(Junction const & start, Junction const & finish)
       : m_start(start), m_finish(finish)
     {
     }
 
-    Junction GetStart() const { return m_start; }
-    Junction GetFinish() const { return m_finish; }
+    Junction const & GetStart() const { return m_start; }
+    Junction const & GetFinish() const { return m_finish; }
 
   private:
     Junction m_start;
@@ -243,7 +244,7 @@ private:
   TStreets::const_iterator GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const;
   void AppendTraffic(Route const & route);
 
-  Junction GetJunction(size_t pointInx) const;
+  Junction GetJunction(size_t pointIdx) const;
 
   string m_router;
   RoutingSettings m_routingSettings;

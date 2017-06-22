@@ -476,7 +476,7 @@ void Route::GetSubrouteInfo(size_t segmentIdx, std::vector<SegmentInfo> & segmen
   CHECK(IsValid(), ());
   segments.clear();
 
-  vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
+  auto const & points = m_poly.GetPolyline().GetPoints();
   size_t const polySz = m_poly.GetPolyline().GetSize();
 
   CHECK(!m_turns.empty(), ());
@@ -547,15 +547,15 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
   m_subrouteUid = subrouteUid;
 }
 
-Junction Route::GetJunction(size_t pointInx) const
+Junction Route::GetJunction(size_t pointIdx) const
 {
   CHECK(IsValid(), ());
   if (!m_altitudes.empty())
     CHECK_EQUAL(m_altitudes.size(), m_poly.GetPolyline().GetSize(), ());
 
-  vector<m2::PointD> const & points = m_poly.GetPolyline().GetPoints();
-  return Junction(points[pointInx],
-                  m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[pointInx]);
+  auto const & points = m_poly.GetPolyline().GetPoints();
+  return Junction(points[pointIdx],
+                  m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[pointIdx]);
 }
 
 string DebugPrint(Route const & r)
