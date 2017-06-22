@@ -28,17 +28,22 @@ UNIT_TEST(Viator_GetTop5Products)
 {
   viator::Api api;
   std::string const kSofia = "5630";
+  std::string resultId;
+  std::vector<viator::Product> resultProducts;
 
-  api.GetTop5Products(
-      kSofia, "",
-      [kSofia](std::string const & destId, std::vector<viator::Product> const & products) {
-        TEST_EQUAL(destId, kSofia, ());
-        TEST(!products.empty(), ());
+  api.GetTop5Products(kSofia, "",
+                      [&resultId, &resultProducts](std::string const & destId,
+                                                   std::vector<viator::Product> const & products) {
+                        resultId = destId;
+                        resultProducts = products;
 
-        testing::StopEventLoop();
-      });
+                        testing::StopEventLoop();
+                      });
 
   testing::RunEventLoop();
+
+  TEST_EQUAL(resultId, kSofia, ());
+  TEST(!resultProducts.empty(), ());
 }
 
 UNIT_TEST(Viator_SortProducts)

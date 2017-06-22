@@ -115,22 +115,7 @@ std::string MakeUrl(std::string const & apiMethod)
   return os.str();
 }
 
-bool CheckAnswer(my::Json const & root)
-{
-  bool success;
-  FromJSONObjectOptionalField(root.get(), "success", success, false);
-
-  if (!success)
-  {
-    std::string errorMessage;
-    FromJSONObject(root.get(), "errorMessageText", errorMessage);
-    LOG(LWARNING, ("Viator retrieved unsuccessfull status, error message:", errorMessage));
-  }
-
-  return success;
-}
-
-bool CheckDataArray(json_t const * data)
+bool CheckJsonArray(json_t const * data)
 {
   if (data == nullptr)
     return false;
@@ -144,13 +129,32 @@ bool CheckDataArray(json_t const * data)
   return true;
 }
 
+bool CheckAnswer(my::Json const & root)
+{
+  bool success;
+  FromJSONObjectOptionalField(root.get(), "success", success, false);
+
+  if (!success)
+  {
+    std::string errorMessage = "Unknown error.";
+    auto const errorMessageArray = json_object_get(root.get(), "errorMessageText");
+
+    if (CheckJsonArray(errorMessageArray))
+      FromJSON(json_array_get(errorMessageArray, 0), errorMessage);
+
+    LOG(LWARNING, ("Viator retrieved unsuccessfull status, error message:", errorMessage));
+  }
+
+  return success;
+}
+
 void MakeProducts(std::string const & src, std::vector<Product> & products)
 {
   products.clear();
 
   my::Json root(src.c_str());
   auto const data = json_object_get(root.get(), "data");
-  if (!CheckAnswer(root) || !CheckDataArray(data))
+  if (!CheckAnswer(root) || !CheckJsonArray(data))
     return;
 
   auto const dataSize = json_array_size(data);
