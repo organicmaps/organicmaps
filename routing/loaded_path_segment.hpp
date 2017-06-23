@@ -31,7 +31,7 @@ struct LoadedPathSegment
   TEdgeWeight m_weight; /*!< Time in seconds to pass the segment. */
   UniNodeId m_nodeId;   /*!< May be either NodeID for OSRM route or
                              mwm id, feature id, segment id and direction for A*. */
-  vector<Segment> m_trafficSegs; /*!< Traffic segments for |m_path|. */
+  vector<Segment> m_segments; /*!< Traffic segments for |m_path|. */
   ftypes::HighwayClass m_highwayClass;
   bool m_onRoundabout;
   bool m_isLink;
@@ -44,7 +44,7 @@ struct LoadedPathSegment
     m_name.clear();
     m_weight = 0;
     m_nodeId.Clear();
-    m_trafficSegs.clear();
+    m_segments.clear();
     m_highwayClass = ftypes::HighwayClass::Undefined;
     m_onRoundabout = false;
     m_isLink = false;

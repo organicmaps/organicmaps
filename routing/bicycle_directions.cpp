@@ -212,7 +212,7 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
                      segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
   // In case of bicycle routing |m_pathSegments| may have an empty
-  // |LoadedPathSegment::m_trafficSegs| fields. In that case |segments| is empty
+  // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty
   // so size of |segments| is not equal to size of |routeEdges|.
   if (!segments.empty())
     CHECK_EQUAL(segments.size(), routeEdges.size(), ());
@@ -367,15 +367,10 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     pathSegment.m_path = std::move(prevJunctions);
     // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
 
-    // For LoadedPathSegment instances which contain fake feature id(s), |LoadedPathSegment::m_trafficSegs|
-    // should be empty because there's no traffic information for fake features.
-    // Traffic information is not supported for bicycle routes as well.
-    // Method BicycleDirectionsEngine::GetSegment() returns false for fake features and for bicycle routes.
-    // It leads to preventing pushing item to |prevSegments|. So if there's no enough items in |prevSegments|
-    // |pathSegment.m_trafficSegs| should be empty.
-    // Note. For the time being BicycleDirectionsEngine is used for turn generation for bicycle and car routes.
-    if (prevSegments.size() + 1 == prevJunctionSize)
-      pathSegment.m_trafficSegs = std::move(prevSegments);
+    // |prevSegments| contains segments which corresponds to road edges between joints. In case of a fake edge
+    // a fake segment is created.
+    CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
+    pathSegment.m_segments = std::move(prevSegments);
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));
     ASSERT(it.second, ());

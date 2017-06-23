@@ -336,8 +336,8 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                           ? loadedSegmentIt->m_path.cbegin()
                                           : loadedSegmentIt->m_path.cbegin() + 1,
                      loadedSegmentIt->m_path.cend());
-    segments.insert(segments.end(), loadedSegmentIt->m_trafficSegs.cbegin(),
-                    loadedSegmentIt->m_trafficSegs.cend());
+    segments.insert(segments.end(), loadedSegmentIt->m_segments.cbegin(),
+                    loadedSegmentIt->m_segments.cend());
   }
 
   // Path found. Points will be replaced by start and end edges junctions.
