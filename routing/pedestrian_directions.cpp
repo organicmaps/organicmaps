@@ -38,7 +38,7 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           my::Cancellable const & cancellable,
                                           Route::TTimes & times, Route::TTurns & turns,
                                           vector<Junction> & routeGeometry,
-                                          vector<Segment> & segments)
+                                          vector<Segment> & /* segments */)
 {
   times.clear();
   turns.clear();

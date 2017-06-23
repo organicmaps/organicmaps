@@ -1,9 +1,10 @@
 #include "routing/bicycle_directions.hpp"
-#include "routing/routing_helpers.hpp"
+
 #include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_exceptions.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
@@ -341,9 +342,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       startSegId = inSegId;
 
     prevJunctions.push_back(prevJunction);
-    Segment segment;
-    EdgeToSegment(*m_numMwmIds, inEdge, segment);
-    prevSegments.push_back(segment);
+    prevSegments.push_back(ConvertEdgeToSegment(*m_numMwmIds, inEdge));
 
     if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
                  inFeatureId.IsValid()))

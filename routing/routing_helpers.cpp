@@ -86,16 +86,14 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   route.SetTraffic(move(traffic));
 }
 
-void EdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge, Segment & segment)
+Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
 {
   if (edge.IsFake())
-  {
-    segment = Segment();
-    return;
-  }
+    return Segment();
+
 
   NumMwmId const numMwmId =
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-  segment = Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
 }  // namespace rouing

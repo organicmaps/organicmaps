@@ -36,7 +36,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
 
 /// \brief Converts |edge| to |segment|.
 /// \returns false if mwm of |edge| is not alive.
-void EdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge, Segment & segment);
+Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,
