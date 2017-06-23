@@ -63,6 +63,58 @@ namespace
     TEST_EQUAL(expectedRating, actualRating, ());
   }
 
+  UNIT_TEST(SerDes_Json_Reviews)
+  {
+    auto expectedUGC = Api::MakeTestUGC1().m_reviews;
+    TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+    HeaderV0 header;
+
+    Buffer buffer;
+
+    {
+      auto sink = MakeSink(buffer);
+      Ser ser(sink, header);
+      ser(expectedUGC);
+      ser.Flush();
+    }
+
+    std::vector<Review> actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
+    {
+      auto source = MakeSource(buffer);
+      Des des(source, header);
+      des(actualUGC);
+    }
+
+    TEST_EQUAL(expectedUGC, actualUGC, ());
+  }
+
+  UNIT_TEST(SerDes_Json_Attributes)
+  {
+    auto expectedUGC = Api::MakeTestUGC1().m_attributes;
+    TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+    HeaderV0 header;
+
+    Buffer buffer;
+
+    {
+      auto sink = MakeSink(buffer);
+      Ser ser(sink, header);
+      ser(expectedUGC);
+      ser.Flush();
+    }
+
+    std::vector<Attribute> actualUGC({} /* rating */, {} /* reviews */, {} /* attributes */);
+    {
+      auto source = MakeSource(buffer);
+      Des des(source, header);
+      des(actualUGC);
+    }
+
+    TEST_EQUAL(expectedUGC, actualUGC, ());
+  }
+
   UNIT_TEST(SerDes_Json_UGC)
   {
     auto expectedUGC = Api::MakeTestUGC1();
