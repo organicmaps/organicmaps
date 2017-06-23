@@ -18,6 +18,7 @@ char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
 char const * const Info::kEmptyRatingSymbol = "-";
 char const * const Info::kPricingSymbol = "$";
+char const * const kWheelchairSymbol = u8"\u267F";
 
 bool Info::IsFeature() const { return m_featureID.IsValid(); }
 bool Info::IsBookmark() const { return m_bac.IsValid(); }
@@ -129,6 +130,10 @@ string Info::GetSubtitle() const
     values.push_back(kMountainSymbol + eleStr);
   if (HasWifi())
     values.push_back(m_localizedWifiString);
+
+  // Wheelchair
+  if (GetWheelchairType() == wheelchair::Type::Yes)
+    values.push_back(kWheelchairSymbol);
 
   return strings::JoinStrings(values, kSubtitleSeparator);
 }
