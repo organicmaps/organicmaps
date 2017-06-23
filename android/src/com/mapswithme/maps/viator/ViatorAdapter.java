@@ -46,7 +46,8 @@ public final class ViatorAdapter extends RecyclerView.Adapter<ViatorAdapter.View
   {
     mItems = new ArrayList<>();
     mListener = listener;
-    int size = items.length > MAX_ITEMS ? MAX_ITEMS : items.length;
+    boolean showMoreItem = items.length >= MAX_ITEMS;
+    int size = showMoreItem ? MAX_ITEMS : items.length;
     for (int i = 0; i < size; i++)
     {
       ViatorProduct product = items[i];
@@ -54,7 +55,8 @@ public final class ViatorAdapter extends RecyclerView.Adapter<ViatorAdapter.View
                           product.getDuration(), product.getRating(), product.getPriceFormatted(),
                           product.getPageUrl()));
     }
-    mItems.add(new Item(TYPE_MORE, null, MORE, null, 0.0, null, cityUrl));
+    if (showMoreItem)
+      mItems.add(new Item(TYPE_MORE, null, MORE, null, 0.0, null, cityUrl));
   }
 
   @Override
@@ -168,10 +170,8 @@ public final class ViatorAdapter extends RecyclerView.Adapter<ViatorAdapter.View
              .into(mImage);
       }
 
-      UiUtils.visibleIf(item.mDuration != null, mDuration);
-      mDuration.setText(item.mDuration);
-      UiUtils.visibleIf(item.mPrice != null, mPrice);
-      mPrice.setText(item.mPrice);
+      UiUtils.setTextAndHideIfEmpty(mDuration, item.mDuration);
+      UiUtils.setTextAndHideIfEmpty(mPrice, item.mPrice);
       mRating.setRating((float) item.mRating);
     }
   }

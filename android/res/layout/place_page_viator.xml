@@ -28,7 +28,11 @@
     <TextView
       android:id="@+id/btn__viator_more"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
+      android:paddingLeft="@dimen/margin_half"
+      android:paddingRight="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
       android:layout_centerVertical="true"
       android:layout_alignParentRight="true"
       android:layout_alignParentEnd="true"
@@ -38,6 +42,7 @@
       android:textAllCaps="true"
       android:text="@string/placepage_more_button"
       android:background="?clickableBackground"
+      android:gravity="center"
       tools:targetApi="jelly_bean"/>
   </RelativeLayout>
 

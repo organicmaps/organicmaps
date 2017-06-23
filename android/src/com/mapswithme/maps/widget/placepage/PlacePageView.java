@@ -291,14 +291,10 @@ public class PlacePageView extends RelativeLayout
 
   public ViewGroup GetPreview() { return mPreview; }
 
-  public boolean isTouchGallery(@NonNull MotionEvent event)
+  public boolean isHorizontalScrollAreaTouched(@NonNull MotionEvent event)
   {
-    return UiUtils.isViewTouched(event, mHotelGallery);
-  }
-
-  public boolean isTouchViator(@NonNull MotionEvent event)
-  {
-    return UiUtils.isViewTouched(event, mRvViatorProducts);
+    return UiUtils.isViewTouched(event, mHotelGallery)
+           || UiUtils.isViewTouched(event, mRvViatorProducts);
   }
 
   public void onActivityResume()
