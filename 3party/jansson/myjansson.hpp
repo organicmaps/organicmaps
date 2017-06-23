@@ -36,9 +36,11 @@ class Json
 public:
   DECLARE_EXCEPTION(Exception, RootException);
 
-  explicit Json(std::string const & s) : Json(s.c_str()) {}
+  Json() = default;
+  explicit Json(std::string const & s) { Attach(s.c_str()); }
+  explicit Json(char const * s) { Attach(s); }
 
-  explicit Json(char const * s)
+  void Attach(char const * s)
   {
     json_error_t jsonError;
     m_handle.AttachNew(json_loads(s, 0, &jsonError));
