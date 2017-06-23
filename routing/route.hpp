@@ -78,6 +78,7 @@ public:
   class SubrouteAttrs final
   {
   public:
+    SubrouteAttrs() = default;
     SubrouteAttrs(Junction const & start, Junction const & finish)
       : m_start(start), m_finish(finish)
     {

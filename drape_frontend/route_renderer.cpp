@@ -56,6 +56,8 @@ uint32_t const kPreviewPointsCount = 512;
 double const kPreviewAnimationSpeed = 3.0;
 double const kPreviewAnimationScale = 0.3;
 
+double const kInvalidDistance = -1.0;
+
 void InterpolateByZoom(drape_ptr<Subroute> const & subroute, ScreenBase const & screen,
                        float & halfWidth, double & zoom)
 {
@@ -236,7 +238,7 @@ dp::Color GetOutlineColor(drape_ptr<Subroute> const & subroute)
 }  // namespace
 
 RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest)
-  : m_distanceFromBegin(0.0)
+  : m_distanceFromBegin(kInvalidDistance)
   , m_followingEnabled(false)
   , m_previewPointsRequest(std::move(previewPointsRequest))
   , m_waitForPreviewRenderData(false)
@@ -265,8 +267,10 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallb
     }
 
     // Calculate arrow borders.
-    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, routeData,
-                                                 m_followingEnabled ? m_distanceFromBegin : -1.0f);
+    double dist = kInvalidDistance;
+    if (m_followingEnabled)
+      dist = m_distanceFromBegin - routeData->m_subroute->m_baseDistance;
+    auto newArrowBorders = CalculateArrowBorders(screen, halfWidth, routeData, dist);
     if (newArrowBorders.empty())
     {
       // Clear arrows.
@@ -383,7 +387,9 @@ void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
 
   float const currentHalfWidth = m_routeAdditional[routeData->m_subrouteId].m_currentHalfWidth;
   float const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
-  float const dist = m_followingEnabled ? static_cast<float>(m_distanceFromBegin) : -1.0f;
+  float dist = static_cast<float>(kInvalidDistance);
+  if (m_followingEnabled)
+    dist = static_cast<float>(m_distanceFromBegin - routeData->m_subroute->m_baseDistance);
 
   dp::GLState const & state = routeData->m_renderProperty.m_state;
   auto const & subroute = routeData->m_subroute;
@@ -561,7 +567,7 @@ void RouteRenderer::ClearRouteData()
 void RouteRenderer::Clear()
 {
   ClearRouteData();
-  m_distanceFromBegin = 0.0;
+  m_distanceFromBegin = kInvalidDistance;
 }
 
 void RouteRenderer::ClearGLDependentResources()

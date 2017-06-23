@@ -63,14 +63,16 @@ struct Subroute
   df::ColorConstant m_color;
   std::vector<double> m_turns;
   std::vector<traffic::SpeedGroup> m_traffic;
+  double m_baseDistance = 0.0;
   df::RoutePattern m_pattern;
 
   Subroute() = default;
   Subroute(m2::PolylineD const & polyline, df::ColorConstant color,
            std::vector<double> const & turns,
            std::vector<traffic::SpeedGroup> const & traffic,
-           df::RoutePattern pattern = df::RoutePattern())
-    : m_polyline(polyline), m_color(color), m_turns(turns), m_traffic(traffic), m_pattern(pattern)
+           double baseDistance, df::RoutePattern pattern = df::RoutePattern())
+    : m_polyline(polyline), m_color(color), m_turns(turns), m_traffic(traffic)
+    , m_baseDistance(baseDistance), m_pattern(pattern)
   {}
 };
 

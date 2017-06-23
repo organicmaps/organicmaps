@@ -40,6 +40,35 @@ namespace
 char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
+
+void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> const & segments,
+                                    std::vector<double> & turns)
+{
+  using namespace routing::turns;
+  turns.clear();
+  turns.reserve(segments.size());
+  for (auto const & s : segments)
+  {
+    auto const & t = s.m_turn;
+    // We do not render some of turn directions.
+    if (t.m_turn == TurnDirection::NoTurn || t.m_turn == TurnDirection::StartAtEndOfStreet ||
+        t.m_turn == TurnDirection::StayOnRoundAbout || t.m_turn == TurnDirection::TakeTheExit ||
+        t.m_turn == TurnDirection::ReachedYourDestination || t.m_turn == TurnDirection::Count)
+    {
+      continue;
+    }
+    turns.push_back(s.m_distFromBeginningMerc);
+  }
+}
+
+void FillTrafficForRendering(std::vector<routing::Route::SegmentInfo> const & segments,
+                             std::vector<traffic::SpeedGroup> & traffic)
+{
+  traffic.clear();
+  traffic.reserve(segments.size());
+  for (auto const & s : segments)
+    traffic.push_back(s.m_traffic);
+}
 }  // namespace
 
 namespace marketing
@@ -126,7 +155,6 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCod
   if (code != IRouter::NoError)
     return;
 
-  RemoveRoute(false /* deactivateFollowing */);
   InsertRoute(route);
   CallRouteBuilded(code, storage::TCountriesVec());
 }
@@ -210,12 +238,12 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
 
 void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
-  if (m_drapeEngine != nullptr)
-  {
-    for (auto const & subrouteId : m_drapeSubroutes)
-      m_drapeEngine->RemoveSubroute(subrouteId, deactivateFollowing);
-    m_drapeSubroutes.clear();
-  }
+  if (m_drapeEngine == nullptr)
+    return;
+
+  for (auto const & subrouteId : m_drapeSubroutes)
+    m_drapeEngine->RemoveSubroute(subrouteId, deactivateFollowing);
+  m_drapeSubroutes.clear();
 }
 
 void RoutingManager::InsertRoute(routing::Route const & route)
@@ -223,43 +251,71 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   if (m_drapeEngine == nullptr)
     return;
 
-  if (route.GetPoly().GetSize() < 2)
-  {
-    LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));
-    return;
-  }
+  // TODO: Now we always update whole route, so we need to remove previous one.
+  RemoveRoute(false /* deactivateFollowing */);
 
-  auto subroute = make_unique_dp<df::Subroute>();
-  subroute->m_polyline = route.GetPoly();
-  switch (m_currentRouterType)
+  std::vector<Route::SegmentInfo> segments;
+  std::vector<m2::PointD> points;
+  double distance = 0.0;
+  for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); subrouteIndex++)
   {
-    case RouterType::Vehicle:
-      subroute->m_routeType = df::RouteType::Car;
-      subroute->m_color = df::kRouteColor;
-      subroute->m_traffic = route.GetTraffic();
-      route.GetTurnsDistances(subroute->m_turns);
-      break;
-    case RouterType::Pedestrian:
-      subroute->m_routeType = df::RouteType::Pedestrian;
-      subroute->m_color = df::kRoutePedestrian;
-      subroute->m_pattern = df::RoutePattern(4.0, 2.0);
-      break;
-    case RouterType::Bicycle:
-      subroute->m_routeType = df::RouteType::Bicycle;
-      subroute->m_color = df::kRouteBicycle;
-      subroute->m_pattern = df::RoutePattern(8.0, 2.0);
-      route.GetTurnsDistances(subroute->m_turns);
-      break;
-    case RouterType::Taxi:
-      subroute->m_routeType = df::RouteType::Taxi;
-      subroute->m_color = df::kRouteColor;
-      subroute->m_traffic = route.GetTraffic();
-      route.GetTurnsDistances(subroute->m_turns);
-      break;
-    default: ASSERT(false, ("Unknown router type"));
-  }
+    route.GetSubrouteInfo(subrouteIndex, segments);
+    Route::SubrouteAttrs attrs;
+    route.GetSubrouteAttrs(subrouteIndex, attrs);
 
-  m_drapeSubroutes.push_back(m_drapeEngine->AddSubroute(std::move(subroute)));
+    // Fill points.
+    double const currentBaseDistance = distance;
+    points.clear();
+    points.reserve(segments.size() + 1);
+    points.push_back(attrs.GetStart().GetPoint());
+    for (auto const & s : segments)
+    {
+      points.push_back(s.m_junction.GetPoint());
+      distance += s.m_distFromBeginningMerc;
+    }
+    if (points.size() < 2)
+    {
+      LOG(LWARNING, ("Invalid subroute - only", points.size(), "point(s)."));
+      continue;
+    }
+
+    auto subroute = make_unique_dp<df::Subroute>();
+    subroute->m_polyline = m2::PolylineD(points);
+    subroute->m_baseDistance = currentBaseDistance;
+    switch (m_currentRouterType)
+    {
+      case RouterType::Vehicle:
+        subroute->m_routeType = df::RouteType::Car;
+        subroute->m_color = df::kRouteColor;
+        FillTrafficForRendering(segments, subroute->m_traffic);
+        FillTurnsDistancesForRendering(segments, subroute->m_turns);
+        break;
+      case RouterType::Pedestrian:
+        subroute->m_routeType = df::RouteType::Pedestrian;
+        subroute->m_color = df::kRoutePedestrian;
+        subroute->m_pattern = df::RoutePattern(4.0, 2.0);
+        break;
+      case RouterType::Bicycle:
+        subroute->m_routeType = df::RouteType::Bicycle;
+        subroute->m_color = df::kRouteBicycle;
+        subroute->m_pattern = df::RoutePattern(8.0, 2.0);
+        FillTurnsDistancesForRendering(segments, subroute->m_turns);
+        break;
+      case RouterType::Taxi:
+        subroute->m_routeType = df::RouteType::Taxi;
+        subroute->m_color = df::kRouteColor;
+        FillTrafficForRendering(segments, subroute->m_traffic);
+        FillTurnsDistancesForRendering(segments, subroute->m_turns);
+        break;
+      default: ASSERT(false, ("Unknown router type"));
+    }
+
+    auto const subrouteId = m_drapeEngine->AddSubroute(std::move(subroute));
+    m_drapeSubroutes.push_back(subrouteId);
+
+    // TODO: we will send subrouteId to routing subsystem when we can partly update route.
+    //route.SetSubrouteUid(subrouteIndex, static_cast<routing::SubrouteUid>(subrouteId));
+  }
 }
 
 void RoutingManager::FollowRoute()
