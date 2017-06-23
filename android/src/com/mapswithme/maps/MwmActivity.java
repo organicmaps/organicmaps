@@ -1778,6 +1778,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       closeAllFloatingPanels();
 
+      if (mNavigationController != null)
+        mNavigationController.resetSearchWheel();
+
       if (completionListener != null)
         completionListener.run();
 
@@ -1919,6 +1922,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRemovedStop()
   {
     closePlacePage();
+  }
+
+  @Override
+  public void onBuiltRoute()
+  {
+    if (!RoutingController.get().isPlanning())
+      return;
+
+    if (mNavigationController != null)
+      mNavigationController.resetSearchWheel();
   }
 
   private void updateSearchBar()

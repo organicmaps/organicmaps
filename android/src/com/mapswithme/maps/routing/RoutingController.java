@@ -72,6 +72,7 @@ public class RoutingController
     void onNavigationStarted();
     void onAddedStop();
     void onRemovedStop();
+    void onBuiltRoute();
 
     /**
      * @param progress progress to be displayed.
@@ -130,6 +131,8 @@ public class RoutingController
             mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
             setBuildState(BuildState.BUILT);
             mLastBuildProgress = 100;
+            if (mContainer != null)
+              mContainer.onBuiltRoute();
           }
 
           processRoutingEvent();
@@ -822,18 +825,6 @@ public class RoutingController
 
     if (mStartPoint != null && mEndPoint != null)
       build();
-  }
-
-  void searchPoi()
-  {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SEARCH_POINT);
-    AlohaHelper.logClick(AlohaHelper.ROUTING_SEARCH_POINT);
-    mWaitingPoiPick = true;
-    if (mContainer != null)
-    {
-      mContainer.showSearch();
-      mContainer.updateMenu();
-    }
   }
 
   public void onPoiSelected(@Nullable MapObject point)

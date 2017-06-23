@@ -349,6 +349,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     mNavMenu.show(show);
   }
 
+  public void resetSearchWheel()
+  {
+    mSearchWheel.reset();
+  }
+
   public NavMenu getNavMenu()
   {
     return mNavMenu;
