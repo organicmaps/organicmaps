@@ -601,72 +601,71 @@ private:
   bool & m_hasPosition;
 };
 
-class AddRouteSegmentMessage : public Message
+class AddSubrouteMessage : public Message
 {
 public:
-  AddRouteSegmentMessage(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment)
-    : AddRouteSegmentMessage(segmentId, std::move(segment), -1 /* invalid recache id */)
+  AddSubrouteMessage(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute)
+    : AddSubrouteMessage(subrouteId, std::move(subroute), -1 /* invalid recache id */)
   {}
 
-  AddRouteSegmentMessage(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment,
-                         int recacheId)
-    : m_segmentId(segmentId)
-    , m_segment(std::move(segment))
+  AddSubrouteMessage(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute, int recacheId)
+    : m_subrouteId(subrouteId)
+    , m_subroute(std::move(subroute))
     , m_recacheId(recacheId)
   {}
 
-  Type GetType() const override { return Message::AddRouteSegment; }
+  Type GetType() const override { return Message::AddSubroute; }
 
-  dp::DrapeID GetSegmentId() const { return m_segmentId; };
-  drape_ptr<RouteSegment> && GetRouteSegment() { return std::move(m_segment); }
+  dp::DrapeID GetSubrouteId() const { return m_subrouteId; };
+  drape_ptr<Subroute> && GetSubroute() { return std::move(m_subroute); }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
-  dp::DrapeID m_segmentId;
-  drape_ptr<RouteSegment> m_segment;
+  dp::DrapeID m_subrouteId;
+  drape_ptr<Subroute> m_subroute;
   int const m_recacheId;
 };
 
 class CacheRouteArrowsMessage : public Message
 {
 public:
-  CacheRouteArrowsMessage(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders)
-    : CacheRouteArrowsMessage(segmentId, borders, -1 /* invalid recache id */)
+  CacheRouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders)
+    : CacheRouteArrowsMessage(subrouteId, borders, -1 /* invalid recache id */)
   {}
 
-  CacheRouteArrowsMessage(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders,
+  CacheRouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
                           int recacheId)
-    : m_segmentId(segmentId)
+    : m_subrouteId(subrouteId)
     , m_borders(borders)
     , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::CacheRouteArrows; }
-  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
   std::vector<ArrowBorders> const & GetBorders() const { return m_borders; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
-  dp::DrapeID m_segmentId;
+  dp::DrapeID m_subrouteId;
   std::vector<ArrowBorders> m_borders;
   int const m_recacheId;
 };
 
-class RemoveRouteSegmentMessage : public Message
+class RemoveSubrouteMessage : public Message
 {
 public:
-  RemoveRouteSegmentMessage(dp::DrapeID segmentId, bool deactivateFollowing)
-    : m_segmentId(segmentId)
+  RemoveSubrouteMessage(dp::DrapeID segmentId, bool deactivateFollowing)
+    : m_subrouteId(segmentId)
     , m_deactivateFollowing(deactivateFollowing)
   {}
 
-  Type GetType() const override { return Message::RemoveRouteSegment; }
+  Type GetType() const override { return Message::RemoveSubroute; }
 
-  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  dp::DrapeID GetSegmentId() const { return m_subrouteId; }
   bool NeedDeactivateFollowing() const { return m_deactivateFollowing; }
 
 private:
-  dp::DrapeID m_segmentId;
+  dp::DrapeID m_subrouteId;
   bool m_deactivateFollowing;
 };
 
@@ -746,21 +745,21 @@ private:
   bool m_needRemoveAll;
 };
 
-class SetRouteSegmentVisibilityMessage : public Message
+class SetSubrouteVisibilityMessage : public Message
 {
 public:
-  SetRouteSegmentVisibilityMessage(dp::DrapeID segmentId, bool isVisible)
-    : m_segmentId(segmentId)
+  SetSubrouteVisibilityMessage(dp::DrapeID subrouteId, bool isVisible)
+    : m_subrouteId(subrouteId)
     , m_isVisible(isVisible)
   {}
 
-  Type GetType() const override { return Message::SetRouteSegmentVisibility; }
+  Type GetType() const override { return Message::SetSubrouteVisibility; }
 
-  dp::DrapeID GetSegmentId() const { return m_segmentId; }
+  dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
   bool IsVisible() const { return m_isVisible; }
 
 private:
-  dp::DrapeID m_segmentId;
+  dp::DrapeID m_subrouteId;
   bool m_isVisible;
 };
 

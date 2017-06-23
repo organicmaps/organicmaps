@@ -56,7 +56,7 @@ struct RoutePattern
   {}
 };
 
-struct RouteSegment
+struct Subroute
 {
   df::RouteType m_routeType;
   m2::PolylineD m_polyline;
@@ -65,11 +65,11 @@ struct RouteSegment
   std::vector<traffic::SpeedGroup> m_traffic;
   df::RoutePattern m_pattern;
 
-  RouteSegment() = default;
-  RouteSegment(m2::PolylineD const & polyline, df::ColorConstant color,
-               std::vector<double> const & turns,
-               std::vector<traffic::SpeedGroup> const & traffic,
-               df::RoutePattern pattern = df::RoutePattern())
+  Subroute() = default;
+  Subroute(m2::PolylineD const & polyline, df::ColorConstant color,
+           std::vector<double> const & turns,
+           std::vector<traffic::SpeedGroup> const & traffic,
+           df::RoutePattern pattern = df::RoutePattern())
     : m_polyline(polyline), m_color(color), m_turns(turns), m_traffic(traffic), m_pattern(pattern)
   {}
 };
@@ -83,7 +83,7 @@ struct RouteRenderProperty
 
 struct BaseRouteData
 {
-  dp::DrapeID m_segmentId = 0;
+  dp::DrapeID m_subrouteId = 0;
   m2::PointD m_pivot = m2::PointD(0.0, 0.0);
   int m_recacheId = -1;
   RouteRenderProperty m_renderProperty;
@@ -91,7 +91,7 @@ struct BaseRouteData
 
 struct RouteData : public BaseRouteData
 {
-  drape_ptr<RouteSegment> m_segment;
+  drape_ptr<Subroute> m_subroute;
   double m_length = 0.0;
 };
 

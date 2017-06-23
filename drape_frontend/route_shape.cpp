@@ -398,8 +398,8 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
 void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData)
 {
   std::vector<glsl::vec4> segmentsColors;
-  segmentsColors.reserve(routeData.m_segment->m_traffic.size());
-  for (auto speedGroup : routeData.m_segment->m_traffic)
+  segmentsColors.reserve(routeData.m_subroute->m_traffic.size());
+  for (auto speedGroup : routeData.m_subroute->m_traffic)
   {
     speedGroup = TrafficGenerator::CheckColorsSimplification(speedGroup);
     auto const colorConstant = TrafficGenerator::GetColorBySpeedGroup(speedGroup, true /* route */);
@@ -412,10 +412,10 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
 
   TGeometryBuffer geometry;
   TGeometryBuffer joinsGeometry;
-  PrepareGeometry(routeData.m_segment->m_polyline.GetPoints(), routeData.m_pivot, segmentsColors,
+  PrepareGeometry(routeData.m_subroute->m_polyline.GetPoints(), routeData.m_pivot, segmentsColors,
                   geometry, joinsGeometry, routeData.m_length);
 
-  dp::GLState state = dp::GLState(routeData.m_segment->m_pattern.m_isDashed ?
+  dp::GLState state = dp::GLState(routeData.m_subroute->m_pattern.m_isDashed ?
                                   gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
                                   dp::GLState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());

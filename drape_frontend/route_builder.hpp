@@ -25,10 +25,10 @@ public:
   RouteBuilder(TFlushRouteFn const & flushRouteFn,
                TFlushRouteArrowsFn const & flushRouteArrowsFn);
 
-  void Build(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment,
+  void Build(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute,
              ref_ptr<dp::TextureManager> textures, int recacheId);
 
-  void BuildArrows(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders,
+  void BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
                    ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void ClearRouteCache();

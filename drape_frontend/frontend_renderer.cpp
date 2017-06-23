@@ -510,9 +510,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RemoveRouteSegment:
+  case Message::RemoveSubroute:
     {
-      ref_ptr<RemoveRouteSegmentMessage> msg = message;
+      ref_ptr<RemoveSubrouteMessage> msg = message;
       if (msg->NeedDeactivateFollowing())
       {
         m_routeRenderer->SetFollowingEnabled(false);
@@ -577,10 +577,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetRouteSegmentVisibility:
+  case Message::SetSubrouteVisibility:
     {
-      ref_ptr<SetRouteSegmentVisibilityMessage> const msg = message;
-      m_routeRenderer->SetRouteSegmentVisibility(msg->GetSegmentId(), msg->IsVisible());
+      ref_ptr<SetSubrouteVisibilityMessage> const msg = message;
+      m_routeRenderer->SetSubrouteVisibility(msg->GetSubrouteId(), msg->IsVisible());
       break;
     }
 
@@ -857,9 +857,9 @@ void FrontendRenderer::UpdateGLResources()
 
   for (auto const & routeData : m_routeRenderer->GetRouteData())
   {
-    auto msg = make_unique_dp<AddRouteSegmentMessage>(routeData->m_segmentId,
-                                                      std::move(routeData->m_segment),
-                                                      m_lastRecacheRouteId);
+    auto msg = make_unique_dp<AddSubrouteMessage>(routeData->m_subrouteId,
+                                                  std::move(routeData->m_subroute),
+                                                  m_lastRecacheRouteId);
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg),
                               MessagePriority::Normal);
   }

@@ -10,16 +10,16 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
   , m_flushRouteArrowsFn(flushRouteArrowsFn)
 {}
 
-void RouteBuilder::Build(dp::DrapeID segmentId, drape_ptr<RouteSegment> && segment,
+void RouteBuilder::Build(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute,
                          ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   drape_ptr<RouteData> routeData = make_unique_dp<RouteData>();
-  routeData->m_segmentId = segmentId;
-  routeData->m_segment = std::move(segment);
-  routeData->m_pivot = routeData->m_segment->m_polyline.GetLimitRect().Center();
+  routeData->m_subrouteId = subrouteId;
+  routeData->m_subroute = std::move(subroute);
+  routeData->m_pivot = routeData->m_subroute->m_polyline.GetLimitRect().Center();
   routeData->m_recacheId = recacheId;
   RouteShape::CacheRoute(textures, *routeData.get());
-  m_routeCache.insert(std::make_pair(segmentId, routeData->m_segment->m_polyline));
+  m_routeCache.insert(std::make_pair(subrouteId, routeData->m_subroute->m_polyline));
 
   // Flush route geometry.
   GLFunctions::glFlush();
@@ -33,15 +33,15 @@ void RouteBuilder::ClearRouteCache()
   m_routeCache.clear();
 }
 
-void RouteBuilder::BuildArrows(dp::DrapeID segmentId, std::vector<ArrowBorders> const & borders,
+void RouteBuilder::BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
                                ref_ptr<dp::TextureManager> textures, int recacheId)
 {
-  auto it = m_routeCache.find(segmentId);
+  auto it = m_routeCache.find(subrouteId);
   if (it == m_routeCache.end())
     return;
 
   drape_ptr<RouteArrowsData> routeArrowsData = make_unique_dp<RouteArrowsData>();
-  routeArrowsData->m_segmentId = segmentId;
+  routeArrowsData->m_subrouteId = subrouteId;
   routeArrowsData->m_pivot = it->second.GetLimitRect().Center();
   routeArrowsData->m_recacheId = recacheId;
   RouteShape::CacheRouteArrows(textures, it->second, borders, *routeArrowsData.get());

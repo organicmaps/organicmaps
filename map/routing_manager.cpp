@@ -212,8 +212,8 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
 {
   if (m_drapeEngine != nullptr)
   {
-    for (auto const & segmentId : m_drapeSubroutes)
-      m_drapeEngine->RemoveRouteSegment(segmentId, deactivateFollowing);
+    for (auto const & subrouteId : m_drapeSubroutes)
+      m_drapeEngine->RemoveSubroute(subrouteId, deactivateFollowing);
     m_drapeSubroutes.clear();
   }
 }
@@ -229,37 +229,37 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     return;
   }
 
-  auto segment = make_unique_dp<df::RouteSegment>();
-  segment->m_polyline = route.GetPoly();
+  auto subroute = make_unique_dp<df::Subroute>();
+  subroute->m_polyline = route.GetPoly();
   switch (m_currentRouterType)
   {
     case RouterType::Vehicle:
-      segment->m_routeType = df::RouteType::Car;
-      segment->m_color = df::kRouteColor;
-      segment->m_traffic = route.GetTraffic();
-      route.GetTurnsDistances(segment->m_turns);
+      subroute->m_routeType = df::RouteType::Car;
+      subroute->m_color = df::kRouteColor;
+      subroute->m_traffic = route.GetTraffic();
+      route.GetTurnsDistances(subroute->m_turns);
       break;
     case RouterType::Pedestrian:
-      segment->m_routeType = df::RouteType::Pedestrian;
-      segment->m_color = df::kRoutePedestrian;
-      segment->m_pattern = df::RoutePattern(4.0, 2.0);
+      subroute->m_routeType = df::RouteType::Pedestrian;
+      subroute->m_color = df::kRoutePedestrian;
+      subroute->m_pattern = df::RoutePattern(4.0, 2.0);
       break;
     case RouterType::Bicycle:
-      segment->m_routeType = df::RouteType::Bicycle;
-      segment->m_color = df::kRouteBicycle;
-      segment->m_pattern = df::RoutePattern(8.0, 2.0);
-      route.GetTurnsDistances(segment->m_turns);
+      subroute->m_routeType = df::RouteType::Bicycle;
+      subroute->m_color = df::kRouteBicycle;
+      subroute->m_pattern = df::RoutePattern(8.0, 2.0);
+      route.GetTurnsDistances(subroute->m_turns);
       break;
     case RouterType::Taxi:
-      segment->m_routeType = df::RouteType::Taxi;
-      segment->m_color = df::kRouteColor;
-      segment->m_traffic = route.GetTraffic();
-      route.GetTurnsDistances(segment->m_turns);
+      subroute->m_routeType = df::RouteType::Taxi;
+      subroute->m_color = df::kRouteColor;
+      subroute->m_traffic = route.GetTraffic();
+      route.GetTurnsDistances(subroute->m_turns);
       break;
     default: ASSERT(false, ("Unknown router type"));
   }
 
-  m_drapeSubroutes.push_back(m_drapeEngine->AddRouteSegment(std::move(segment)));
+  m_drapeSubroutes.push_back(m_drapeEngine->AddSubroute(std::move(subroute)));
 }
 
 void RoutingManager::FollowRoute()

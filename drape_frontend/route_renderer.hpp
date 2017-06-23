@@ -45,7 +45,7 @@ public:
   void AddRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
   std::vector<drape_ptr<RouteData>> const & GetRouteData() const;
 
-  void RemoveRouteData(dp::DrapeID segmentId);
+  void RemoveRouteData(dp::DrapeID subrouteId);
 
   void AddRouteArrowsData(drape_ptr<RouteArrowsData> && routeArrowsData,
                           ref_ptr<dp::GpuProgramManager> mng);
@@ -66,7 +66,7 @@ public:
   void RemovePreviewSegment(dp::DrapeID id);
   void RemoveAllPreviewSegments();
 
-  void SetRouteSegmentVisibility(dp::DrapeID id, bool isVisible);
+  void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
 
 private:
   struct RouteAdditional
@@ -79,7 +79,7 @@ private:
   void RenderRouteData(drape_ptr<RouteData> const & routeData, ScreenBase const & screen,
                        bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
                        dp::UniformValuesStorage const & commonUniforms);
-  void RenderRouteArrowData(dp::DrapeID segmentId, RouteAdditional const & routeAdditional,
+  void RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional const & routeAdditional,
                             ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms);
   void RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
@@ -91,7 +91,7 @@ private:
   std::vector<drape_ptr<RouteData>> m_routeData;
   std::unordered_map<dp::DrapeID, RouteAdditional> m_routeAdditional;
   bool m_followingEnabled;
-  std::unordered_set<dp::DrapeID> m_hiddenSegments;
+  std::unordered_set<dp::DrapeID> m_hiddenSubroutes;
 
   PreviewPointsRequestCallback m_previewPointsRequest;
   std::vector<drape_ptr<CirclesPackRenderData>> m_previewRenderData;

@@ -421,19 +421,19 @@ bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
   return hasPosition;
 }
 
-dp::DrapeID DrapeEngine::AddRouteSegment(drape_ptr<RouteSegment> && segment)
+dp::DrapeID DrapeEngine::AddSubroute(drape_ptr<Subroute> && subroute)
 {
   dp::DrapeID const id = GenerateDrapeID();
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddRouteSegmentMessage>(id, std::move(segment)),
+                                  make_unique_dp<AddSubrouteMessage>(id, std::move(subroute)),
                                   MessagePriority::Normal);
   return id;
 }
 
-void DrapeEngine::RemoveRouteSegment(dp::DrapeID segmentId, bool deactivateFollowing)
+void DrapeEngine::RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<RemoveRouteSegmentMessage>(segmentId, deactivateFollowing),
+                                  make_unique_dp<RemoveSubrouteMessage>(subrouteId, deactivateFollowing),
                                   MessagePriority::Normal);
 }
 
@@ -444,10 +444,10 @@ void DrapeEngine::DeactivateRouteFollowing()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetRouteSegmentVisibility(dp::DrapeID segmentId, bool isVisible)
+void DrapeEngine::SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetRouteSegmentVisibilityMessage>(segmentId, isVisible),
+                                  make_unique_dp<SetSubrouteVisibilityMessage>(subrouteId, isVisible),
                                   MessagePriority::Normal);
 }
 

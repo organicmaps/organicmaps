@@ -269,10 +269,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AddRouteSegment:
+  case Message::AddSubroute:
     {
-      ref_ptr<AddRouteSegmentMessage> msg = message;
-      m_routeBuilder->Build(msg->GetSegmentId(), msg->GetRouteSegment(), m_texMng,
+      ref_ptr<AddSubrouteMessage> msg = message;
+      m_routeBuilder->Build(msg->GetSubrouteId(), msg->GetSubroute(), m_texMng,
                             msg->GetRecacheId());
       break;
     }
@@ -280,19 +280,19 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::CacheRouteArrows:
     {
       ref_ptr<CacheRouteArrowsMessage> msg = message;
-      m_routeBuilder->BuildArrows(msg->GetSegmentId(), msg->GetBorders(), m_texMng,
+      m_routeBuilder->BuildArrows(msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
                                   msg->GetRecacheId());
       break;
     }
 
-  case Message::RemoveRouteSegment:
+  case Message::RemoveSubroute:
     {
-      ref_ptr<RemoveRouteSegmentMessage> msg = message;
+      ref_ptr<RemoveSubrouteMessage> msg = message;
       m_routeBuilder->ClearRouteCache();
       // We have to resend the message to FR, because it guaranties that
-      // RemoveRouteSegment will be processed after FlushRouteMessage.
+      // RemoveSubroute will be processed after FlushRouteMessage.
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<RemoveRouteSegmentMessage>(
+                                make_unique_dp<RemoveSubrouteMessage>(
                                   msg->GetSegmentId(), msg->NeedDeactivateFollowing()),
                                 MessagePriority::Normal);
       break;
