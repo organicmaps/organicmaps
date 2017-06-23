@@ -3,7 +3,6 @@
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/tile_key.hpp"
-#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/macros.hpp"

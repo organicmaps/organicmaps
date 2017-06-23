@@ -77,84 +77,7 @@ struct UserPointVertex : gpu::BaseVertex
 };
 
 using UPV = UserPointVertex;
-
-void CacheUserPoints(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures,
-                     TUserMarkShapes & outShapes)
-{
-  size_t markCount = provider->GetUserPointCount();
-  if (markCount == 0)
-    return;
-
-  int const kZoomLevel = 10;
-  map<TileKey, vector<UserPointMark const *>> marks;
-  for (size_t i = 0; i < markCount; ++i)
-  {
-    UserPointMark const * userMark = provider->GetUserPointMark(i);
-    if (!userMark->IsVisible())
-      continue;
-    TileKey const tileKey = GetTileKeyByPoint(userMark->GetPivot(), kZoomLevel);
-    marks[tileKey].push_back(userMark);
-  }
-
-  for (auto it = marks.begin(); it != marks.end(); ++it)
-  {
-    TileKey const & key = it->first;
-    m2::PointD const tileCenter = key.GetGlobalRect().Center();
-
-    sort(it->second.begin(), it->second.end(), [](UserPointMark const * v1, UserPointMark const * v2)
-    {
-      return v1->GetPivot().y < v2->GetPivot().y;
-    });
-
-    dp::TextureManager::SymbolRegion region;
-
-    uint32_t const vertexCount = static_cast<uint32_t>(it->second.size()) * dp::Batcher::VertexPerQuad;
-    uint32_t const indicesCount = static_cast<uint32_t>(it->second.size()) * dp::Batcher::IndexPerQuad;
-    buffer_vector<UPV, 128> buffer;
-    buffer.reserve(vertexCount);
-
-    for (size_t i = 0; i < it->second.size(); ++i)
-    {
-      UserPointMark const * pointMark = it->second[i];
-      textures->GetSymbolRegion(pointMark->GetSymbolName(), region);
-      m2::RectF const & texRect = region.GetTexRect();
-      m2::PointF const pxSize = region.GetPixelSize();
-      dp::Anchor const anchor = pointMark->GetAnchor();
-      m2::PointD const pt = MapShape::ConvertToLocal(pointMark->GetPivot(), tileCenter, kShapeCoordScalar);
-      glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), pointMark->GetDepth());
-      bool const runAnim = pointMark->RunCreationAnim();
-
-      glsl::vec2 left, right, up, down;
-      AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
-      AlignVertical(pxSize.y * 0.5f, anchor, up, down);
-
-      m2::PointD const pixelOffset = pointMark->GetPixelOffset();
-      glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
-
-      buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
-      buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
-      buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
-      buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
-    }
-
-    dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
-    state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
-    state.SetColorTexture(region.GetTexture());
-    state.SetTextureFilter(gl_const::GLNearest);
-
-    uint32_t const kMaxSize = 65000;
-    dp::Batcher batcher(min(indicesCount, kMaxSize), min(vertexCount, kMaxSize));
-    dp::SessionGuard guard(batcher, [&key, &outShapes](dp::GLState const & state,
-                                                       drape_ptr<dp::RenderBucket> && b)
-    {
-      outShapes.emplace_back(UserMarkShape(state, move(b), key));
-    });
-    dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
-    attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
-    batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
-  }
-}
-
+/*
 void CacheUserLines(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures,
                     TUserMarkShapes & outShapes)
 {
@@ -186,7 +109,7 @@ void CacheUserLines(UserMarksProvider const * provider, ref_ptr<dp::TextureManag
     dp::SessionGuard guard(batcher, [&key, &outShapes](dp::GLState const & state,
                                                        drape_ptr<dp::RenderBucket> && b)
     {
-      outShapes.emplace_back(UserMarkShape(state, move(b), key));
+      outShapes.emplace_back(UserMarksRenderData(state, move(b), key));
     });
     for (auto const & lineData : it->second)
     {
@@ -209,15 +132,77 @@ void CacheUserLines(UserMarksProvider const * provider, ref_ptr<dp::TextureManag
     }
   }
 }
-
+*/
 } // namespace
 
-TUserMarkShapes CacheUserMarks(UserMarksProvider const * provider, ref_ptr<dp::TextureManager> textures)
+// static
+void UserMarkShape::Draw(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                         UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
+                         TUserMarksRenderData & renderData)
 {
-  TUserMarkShapes shapes;
-  CacheUserPoints(provider, textures, shapes);
-  CacheUserLines(provider, textures, shapes);
-  return shapes;
+  uint32_t const vertexCount = static_cast<uint32_t>(indexes.size()) * dp::Batcher::VertexPerQuad;
+  uint32_t const indicesCount = static_cast<uint32_t>(indexes.size()) * dp::Batcher::IndexPerQuad;
+  buffer_vector<UPV, 128> buffer;
+  buffer.reserve(vertexCount);
+
+  // TODO: Sort once on render params receiving.
+  MarkIndexesCollection sortedIndexes = indexes;
+  sort(sortedIndexes.begin(), sortedIndexes.end(), [&renderParams](uint32_t ind1, uint32_t ind2)
+  {
+    return renderParams[ind1].m_pivot.y > renderParams[ind2].m_pivot.y;
+  });
+
+  dp::TextureManager::SymbolRegion region;
+  for (auto const markIndex : sortedIndexes)
+  {
+    UserMarkRenderParams const & renderInfo = renderParams[markIndex];
+    if (!renderInfo.m_isVisible)
+      continue;
+    textures->GetSymbolRegion(renderInfo.m_symbolName, region);
+    m2::RectF const & texRect = region.GetTexRect();
+    m2::PointF const pxSize = region.GetPixelSize();
+    dp::Anchor const anchor = renderInfo.m_anchor;
+    m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileKey.GetGlobalRect().Center(), kShapeCoordScalar);
+    glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
+    bool const runAnim = renderInfo.m_runCreationAnim;
+
+    glsl::vec2 left, right, up, down;
+    AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
+    AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+
+    m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
+    glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+
+    buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
+    buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
+    buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
+    buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+  }
+
+  dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
+  state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
+  state.SetColorTexture(region.GetTexture());
+  state.SetTextureFilter(gl_const::GLNearest);
+
+  uint32_t const kMaxSize = 65000;
+  dp::Batcher batcher(min(indicesCount, kMaxSize), min(vertexCount, kMaxSize));
+  dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::GLState const & state,
+                                                         drape_ptr<dp::RenderBucket> && b)
+  {
+    renderData.emplace_back(UserMarkRenderData(state, move(b), tileKey));
+  });
+
+  dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
+  attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+
+  batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+}
+
+// static
+void UserLineShape::Draw(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                         UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
+                         TUserMarksRenderData & renderData)
+{
 }
 
 } // namespace df

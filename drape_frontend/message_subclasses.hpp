@@ -16,6 +16,7 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
@@ -237,62 +238,47 @@ private:
 class UpdateUserMarkLayerMessage : public BaseUserMarkLayerMessage
 {
 public:
-  UpdateUserMarkLayerMessage(size_t layerId, UserMarksProvider * provider)
+  UpdateUserMarkLayerMessage(size_t layerId, drape_ptr<UserMarksRenderCollection> && renderParams)
     : BaseUserMarkLayerMessage(layerId)
-    , m_provider(provider)
-  {
-    m_provider->IncrementCounter();
-  }
+    , m_renderParams(std::move(renderParams))
+  {}
 
   ~UpdateUserMarkLayerMessage() override
-  {
-    ASSERT(m_inProcess == false, ());
-    m_provider->DecrementCounter();
-    if (m_provider->IsPendingOnDelete() && m_provider->CanBeDeleted())
-      delete m_provider;
-  }
+  {}
 
   Type GetType() const override { return Message::UpdateUserMarkLayer; }
 
-  UserMarksProvider const * StartProcess()
-  {
-    m_provider->BeginRead();
-#ifdef DEBUG
-    m_inProcess = true;
-#endif
-    return m_provider;
-  }
-
-  void EndProcess()
-  {
-#ifdef DEBUG
-    m_inProcess = false;
-#endif
-    m_provider->EndRead();
-  }
+  drape_ptr<UserMarksRenderCollection> && AcceptRenderParams() { return std::move(m_renderParams); }
 
 private:
-  UserMarksProvider * m_provider;
-#ifdef DEBUG
-  bool m_inProcess;
-#endif
+  drape_ptr<UserMarksRenderCollection> m_renderParams;
 };
 
 class FlushUserMarksMessage : public BaseUserMarkLayerMessage
 {
 public:
-  FlushUserMarksMessage(size_t layerId, TUserMarkShapes && shapes)
+  FlushUserMarksMessage(size_t layerId, TUserMarksRenderData && renderData)
     : BaseUserMarkLayerMessage(layerId)
-    , m_shapes(move(shapes))
+    , m_renderData(move(renderData))
   {}
 
   Type GetType() const override { return Message::FlushUserMarks; }
   bool IsGLContextDependent() const override { return true; }
 
-  TUserMarkShapes & GetShapes() { return m_shapes; }
+  TUserMarksRenderData && AcceptRenderData() { return std::move(m_renderData); }
 
 private:
-  TUserMarkShapes m_shapes;
+  TUserMarksRenderData m_renderData;
+};
+
+class InvalidateUserMarksMessage : public BaseUserMarkLayerMessage
+{
+public:
+  InvalidateUserMarksMessage(size_t layerId)
+    : BaseUserMarkLayerMessage(layerId)
+  {}
+
+  Type GetType() const override { return Message::InvalidateUserMarks; }
 };
 
 class GuiLayerRecachedMessage : public Message

@@ -9,6 +9,7 @@
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/user_mark_generator.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/viewport.hpp"
@@ -95,6 +96,7 @@ private:
   void FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
 
   void FlushTrafficRenderData(TrafficRenderData && renderData);
+  void FlushUserMarksRenderData(GroupID groupId, TUserMarksRenderData && renderData);
 
   void CleanupOverlays(TileKey const & tileKey);
 
@@ -103,6 +105,7 @@ private:
   drape_ptr<ReadManager> m_readManager;
   drape_ptr<RouteBuilder> m_routeBuilder;
   drape_ptr<TrafficGenerator> m_trafficGenerator;
+  drape_ptr<UserMarkGenerator> m_userMarkGenerator;
   drape_ptr<DrapeApiBuilder> m_drapeApiBuilder;
   gui::LayerCacher m_guiCacher;
 

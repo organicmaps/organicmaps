@@ -114,7 +114,6 @@ SOURCES += \
     watch/geometry_processors.cpp \
     watch/feature_processor.cpp \
     watch/default_font.cpp \
-    user_mark_builder.cpp \
     user_mark_generator.cpp
 
 HEADERS += \
@@ -237,7 +236,6 @@ HEADERS += \
     watch/brush_info.hpp \
     watch/geometry_processors.hpp \
     watch/feature_processor.hpp \
-    user_mark_builder.hpp \
     user_mark_generator.hpp
 
 OTHER_FILES += \

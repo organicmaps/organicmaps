@@ -298,13 +298,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushUserMarksMessage> msg = message;
       size_t const layerId = msg->GetLayerId();
-      for (UserMarkShape & shape : msg->GetShapes())
+      TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
+      for (UserMarkRenderData & renderData : marksRenderData)
       {
-        PrepareBucket(shape.m_state, shape.m_bucket);
-        auto program = m_gpuProgramManager->GetProgram(shape.m_state.GetProgramIndex());
-        auto program3d = m_gpuProgramManager->GetProgram(shape.m_state.GetProgram3dIndex());
-        auto group = make_unique_dp<UserMarkRenderGroup>(layerId, shape.m_state, shape.m_tileKey,
-                                                         std::move(shape.m_bucket));
+        PrepareBucket(renderData.m_state, renderData.m_bucket);
+        auto program = m_gpuProgramManager->GetProgram(renderData.m_state.GetProgramIndex());
+        auto program3d = m_gpuProgramManager->GetProgram(renderData.m_state.GetProgram3dIndex());
+        auto group = make_unique_dp<UserMarkRenderGroup>(layerId, renderData.m_state, renderData.m_tileKey,
+                                                         std::move(renderData.m_bucket));
         m_userMarkRenderGroups.push_back(std::move(group));
         m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
       }
@@ -1302,7 +1303,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
   for (auto const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
-    if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end())
+    //if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end())
     {
       if (!group->CanBeClipped() || screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
         RenderSingleGroup(modelView, make_ref(group));

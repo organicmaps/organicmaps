@@ -209,8 +209,23 @@ void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
 
 void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provider)
 {
+  auto renderCollection = make_unique_dp<UserMarksRenderCollection>();
+  renderCollection->reserve(provider->GetUserPointCount());
+  for (size_t i = 0, sz = provider->GetUserPointCount(); i < sz; ++i)
+  {
+    UserPointMark const * mark = provider->GetUserPointMark(i);
+    UserMarkRenderParams renderInfo;
+    renderInfo.m_anchor = mark->GetAnchor();
+    renderInfo.m_depth = mark->GetDepth();
+    renderInfo.m_isVisible = mark->IsVisible();
+    renderInfo.m_pivot = mark->GetPivot();
+    renderInfo.m_pixelOffset = mark->GetPixelOffset();
+    renderInfo.m_runCreationAnim = mark->RunCreationAnim();
+    renderInfo.m_symbolName = mark->GetSymbolName();
+    renderCollection->emplace_back(std::move(renderInfo));
+  }
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId, provider),
+                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId, std::move(renderCollection)),
                                   MessagePriority::Normal);
 }
 

@@ -32,6 +32,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
                                               params.m_allow3dBuildings, params.m_trafficEnabled))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
+  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1, _2)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
   , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
@@ -167,6 +168,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<TileReadEndMessage> msg = message;
       m_batchersPool->ReleaseBatcher(msg->GetKey());
+      m_userMarkGenerator->GenerateUserMarksGeometry(msg->GetKey(), m_texMng);
       break;
     }
 
@@ -251,21 +253,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateUserMarkLayer:
     {
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
-
-      UserMarksProvider const * marksProvider = msg->StartProcess();
-      if (marksProvider->IsDirty())
-      {
-        size_t const layerId = msg->GetLayerId();
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ClearUserMarkLayerMessage>(layerId),
-                                  MessagePriority::Normal);
-
-        TUserMarkShapes shapes = CacheUserMarks(marksProvider, m_texMng);
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FlushUserMarksMessage>(layerId, move(shapes)),
-                                  MessagePriority::Normal);
-      }
-      msg->EndProcess();
+      size_t const layerId = msg->GetLayerId();
+      m_userMarkGenerator->SetUserMarks(static_cast<GroupID>(layerId), msg->AcceptRenderParams());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<InvalidateUserMarksMessage>(layerId),
+                                MessagePriority::Normal);
       break;
     }
 
@@ -576,6 +568,13 @@ void BackendRenderer::FlushTrafficRenderData(TrafficRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<FlushTrafficDataMessage>(move(renderData)),
+                            MessagePriority::Normal);
+}
+
+void BackendRenderer::FlushUserMarksRenderData(GroupID groupId, TUserMarksRenderData && renderData)
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FlushUserMarksMessage>(groupId, std::move(renderData)),
                             MessagePriority::Normal);
 }
 
