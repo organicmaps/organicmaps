@@ -50,6 +50,7 @@ void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> con
   for (auto const & s : segments)
   {
     auto const & t = s.m_turn;
+    CHECK_NOT_EQUAL(t.m_turn, TurnDirection::Count, ());
     // We do not render some of turn directions.
     if (t.m_turn == TurnDirection::NoTurn || t.m_turn == TurnDirection::StartAtEndOfStreet ||
         t.m_turn == TurnDirection::StayOnRoundAbout || t.m_turn == TurnDirection::TakeTheExit ||
@@ -257,7 +258,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   std::vector<Route::SegmentInfo> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
-  for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); subrouteIndex++)
+  for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
     Route::SubrouteAttrs attrs;
@@ -275,7 +276,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     }
     if (points.size() < 2)
     {
-      LOG(LWARNING, ("Invalid subroute - only", points.size(), "point(s)."));
+      LOG(LWARNING, ("Invalid subroute. Points number =", points.size()));
       continue;
     }
 
