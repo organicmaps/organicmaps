@@ -143,10 +143,8 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 
 namespace routing
 {
-BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
-                                                 std::shared_ptr<NumMwmIds> numMwmIds,
-                                                 bool generateTrafficSegs)
-  : m_index(index), m_numMwmIds(numMwmIds), m_generateTrafficSegs(generateTrafficSegs)
+BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds)
+  : m_index(index), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
 }
@@ -154,14 +152,14 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
 void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                        my::Cancellable const & cancellable, Route::TTimes & times,
                                        Route::TTurns & turns, vector<Junction> & routeGeometry,
-                                       vector<Segment> & trafficSegs)
+                                       vector<Segment> & segments)
 {
   times.clear();
   turns.clear();
   routeGeometry.clear();
   m_adjacentEdges.clear();
   m_pathSegments.clear();
-  trafficSegs.clear();
+  segments.clear();
 
   size_t const pathSize = path.size();
   if (pathSize == 0)
@@ -210,13 +208,13 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   Route::TStreets streetNames;
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, dummyTimes, streetNames,
-                     trafficSegs);
+                     segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
   // In case of bicycle routing |m_pathSegments| may have an empty
-  // |LoadedPathSegment::m_trafficSegs| fields. In that case |trafficSegs| is empty
-  // so size of |trafficSegs| is not equal to size of |routeEdges|.
-  if (!trafficSegs.empty())
-    CHECK_EQUAL(trafficSegs.size(), routeEdges.size(), ());
+  // |LoadedPathSegment::m_trafficSegs| fields. In that case |segments| is empty
+  // so size of |segments| is not equal to size of |routeEdges|.
+  if (!segments.empty())
+    CHECK_EQUAL(segments.size(), routeEdges.size(), ());
 }
 
 Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
@@ -353,7 +351,9 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       startSegId = inSegId;
 
     prevJunctions.push_back(prevJunction);
-    if (m_generateTrafficSegs && !inEdge.IsFake())
+    if (inEdge.IsFake())
+      prevSegments.push_back(Segment()); // Fake segment
+    else
       prevSegments.push_back(GetSegment(inFeatureId, inSegId, inIsForward));
 
     if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
@@ -385,7 +385,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     // It leads to preventing pushing item to |prevSegments|. So if there's no enough items in |prevSegments|
     // |pathSegment.m_trafficSegs| should be empty.
     // Note. For the time being BicycleDirectionsEngine is used for turn generation for bicycle and car routes.
-    if (m_generateTrafficSegs && prevSegments.size() + 1 == prevJunctionSize)
+    if (prevSegments.size() + 1 == prevJunctionSize)
       pathSegment.m_trafficSegs = std::move(prevSegments);
 
     auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));

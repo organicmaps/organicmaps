@@ -24,14 +24,12 @@ public:
 
   using AdjacentEdgesMap = std::map<UniNodeId, AdjacentEdges>;
 
-  BicycleDirectionsEngine(Index const & index,
-                          std::shared_ptr<NumMwmIds> numMwmIds,
-                          bool generateTrafficSegs);
+  BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
   void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                 my::Cancellable const & cancellable, Route::TTimes & times, Route::TTurns & turns,
-                vector<Junction> & routeGeometry, vector<Segment> & trafficSegs) override;
+                vector<Junction> & routeGeometry, vector<Segment> & segments) override;
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
@@ -60,8 +58,5 @@ private:
   Index const & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<Index::FeaturesLoaderGuard> m_loader;
-  // If |m_generateTrafficSegs| is set to true |LoadedPathSegment::m_trafficSeg| is filled
-  // and not otherwise.
-  bool const m_generateTrafficSegs;
 };
 }  // namespace routing
