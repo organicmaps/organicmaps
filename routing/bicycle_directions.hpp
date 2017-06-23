@@ -24,9 +24,7 @@ public:
 
   using AdjacentEdgesMap = std::map<UniNodeId, AdjacentEdges>;
 
-  BicycleDirectionsEngine(Index const & index,
-                          std::shared_ptr<NumMwmIds> numMwmIds,
-                          bool generateTrafficSegs);
+  BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
   void Generate(RoadGraphBase const & graph, vector<Junction> const & path,

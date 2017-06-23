@@ -423,7 +423,7 @@ unique_ptr<IndexRouter> IndexRouter::CreateCarRouter(TCountryFileFn const & coun
   auto vehicleModelFactory = make_shared<CarModelFactory>();
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
-  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index, numMwmIds, true /* generateTrafficSegs */);
+  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index, numMwmIds);
 
   double maxSpeed = 0.0;
   numMwmIds->ForEachId([&](NumMwmId id) {

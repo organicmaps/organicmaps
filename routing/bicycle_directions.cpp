@@ -143,9 +143,7 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 
 namespace routing
 {
-BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index,
-                                                 std::shared_ptr<NumMwmIds> numMwmIds,
-                                                 bool generateTrafficSegs)
+BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds)
   : m_index(index), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
