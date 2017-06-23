@@ -31,6 +31,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   Route::TStreets streetNames;
   vector<Segment> segments;
   engine.Generate(graph, path, cancellable, times, turnsDir, junctions, segments);
+  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   if (cancellable.IsCancelled())
     return;

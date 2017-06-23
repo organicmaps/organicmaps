@@ -1,5 +1,6 @@
 #include "routing/pedestrian_directions.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/road_graph.hpp"
 
 #include "indexer/classificator.hpp"
@@ -26,10 +27,11 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
 namespace routing
 {
 
-PedestrianDirectionsEngine::PedestrianDirectionsEngine()
+PedestrianDirectionsEngine::PedestrianDirectionsEngine(std::shared_ptr<NumMwmIds> numMwmIds)
   : m_typeSteps(classif().GetTypeByPath({"highway", "steps"}))
   , m_typeLiftGate(classif().GetTypeByPath({"barrier", "lift_gate"}))
   , m_typeGate(classif().GetTypeByPath({"barrier", "gate"}))
+  , m_numMwmIds(numMwmIds)
 {
 }
 
@@ -38,11 +40,12 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           my::Cancellable const & cancellable,
                                           Route::TTimes & times, Route::TTurns & turns,
                                           vector<Junction> & routeGeometry,
-                                          vector<Segment> & /* segments */)
+                                          vector<Segment> & segments)
 {
   times.clear();
   turns.clear();
   routeGeometry.clear();
+  segments.clear();
 
   if (path.size() <= 1)
     return;
@@ -53,12 +56,17 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
     LOG(LDEBUG, ("Couldn't reconstruct path."));
+    routeEdges.clear();
     // use only "arrival" direction
     turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
     return;
   }
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
+
+  for (Edge const & e : routeEdges)
+    segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
+
   routeGeometry = path;
 }
 

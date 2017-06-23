@@ -223,11 +223,13 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   return IRouter::RouteNotFound;
 }
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn)
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
+                                                TCountryFileFn const & countryFileFn,
+                                                shared_ptr<NumMwmIds> numMwmIds)
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
+  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine(numMwmIds));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-pedestrian", index, countryFileFn, IRoadGraph::Mode::IgnoreOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
@@ -236,11 +238,11 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn co
 
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
                                                              TCountryFileFn const & countryFileFn,
-                                                             shared_ptr<NumMwmIds> /* numMwmIds */)
+                                                             shared_ptr<NumMwmIds> numMwmIds)
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine());
+  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine(numMwmIds));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-pedestrian", index, countryFileFn, IRoadGraph::Mode::IgnoreOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
