@@ -258,7 +258,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        vector<Junction> & junctions,
                                        Route::TTurns & turnsDir, Route::TTimes & times,
                                        Route::TStreets & streets,
-                                       vector<Segment> & trafficSegs)
+                                       vector<Segment> & segments)
 {
   double estimatedTime = 0;
 
@@ -273,7 +273,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
   // Annotate turns.
   size_t skipTurnSegments = 0;
   auto const & loadedSegments = result.GetSegments();
-  trafficSegs.reserve(loadedSegments.size());
+  segments.reserve(loadedSegments.size());
   for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend();
        ++loadedSegmentIt)
   {
@@ -336,8 +336,8 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                           ? loadedSegmentIt->m_path.cbegin()
                                           : loadedSegmentIt->m_path.cbegin() + 1,
                      loadedSegmentIt->m_path.cend());
-    trafficSegs.insert(trafficSegs.end(), loadedSegmentIt->m_trafficSegs.cbegin(),
-                       loadedSegmentIt->m_trafficSegs.cend());
+    segments.insert(segments.end(), loadedSegmentIt->m_trafficSegs.cbegin(),
+                    loadedSegmentIt->m_trafficSegs.cend());
   }
 
   // Path found. Points will be replaced by start and end edges junctions.

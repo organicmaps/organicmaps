@@ -47,8 +47,6 @@ private:
                                            IRoadGraph::TEdgeVector const & routeEdges,
                                            my::Cancellable const & cancellable);
 
-  Segment GetSegment(FeatureID const & featureId, uint32_t segId, bool forward) const;
-
   void GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
                 bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
                 IRoadGraph::TEdgeVector & ingoing);

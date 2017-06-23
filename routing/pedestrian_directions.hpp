@@ -13,7 +13,7 @@ public:
   // IDirectionsEngine override:
   void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                 my::Cancellable const & cancellable, Route::TTimes & times, Route::TTurns & turns,
-                vector<Junction> & routeGeometry, vector<Segment> & /* segments */) override;
+                vector<Junction> & routeGeometry, vector<Segment> & segments) override;
 
 private:
   void CalculateTurns(RoadGraphBase const & graph, vector<Edge> const & routeEdges,

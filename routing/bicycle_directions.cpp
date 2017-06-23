@@ -1,4 +1,5 @@
 #include "routing/bicycle_directions.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
@@ -293,16 +294,6 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
   }
 }
 
-Segment BicycleDirectionsEngine::GetSegment(FeatureID const & featureId, uint32_t segId, bool forward) const
-{
-  auto info = featureId.m_mwmId.GetInfo();
-  if (!info)
-    MYTHROW(RoutingException, ("Mwm:", featureId.m_mwmId, "is not alive."));
-
-  NumMwmId const numMwmId = m_numMwmIds->GetId(info->GetLocalFile().GetCountryFile());
-  return Segment(numMwmId, featureId.m_index, segId, forward);
-}
-
 void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
                                        bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,
                                        IRoadGraph::TEdgeVector & ingoing)
@@ -345,16 +336,14 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     // It happens for example near starts and a finishes.
     FeatureID const & inFeatureId = inEdge.GetFeatureId();
     uint32_t const inSegId = inEdge.GetSegId();
-    bool const inIsForward = inEdge.IsForward();
 
     if (startSegId == kInvalidSegId)
       startSegId = inSegId;
 
     prevJunctions.push_back(prevJunction);
-    if (inEdge.IsFake())
-      prevSegments.push_back(Segment()); // Fake segment
-    else
-      prevSegments.push_back(GetSegment(inFeatureId, inSegId, inIsForward));
+    Segment segment;
+    EdgeToSegment(*m_numMwmIds, inEdge, segment);
+    prevSegments.push_back(segment);
 
     if (!IsJoint(ingoingEdges, outgoingEdges, inEdge, routeEdges[i], isCurrJunctionFinish,
                  inFeatureId.IsValid()))
