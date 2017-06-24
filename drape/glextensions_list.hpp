@@ -15,7 +15,6 @@ public:
   enum ExtensionName
   {
     VertexArrayObject,
-    TextureNPOT,
     MapBuffer,
     UintIndices,
     MapBufferRange

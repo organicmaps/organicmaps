@@ -10,7 +10,6 @@ namespace dp
 GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
 {
 #if defined(OMIM_OS_MOBILE)
-  CheckExtension(TextureNPOT, "GL_OES_texture_npot");
   if (apiVersion == dp::ApiVersion::OpenGLES2)
   {
 #ifdef OMIM_OS_ANDROID
@@ -39,7 +38,6 @@ GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
     SetExtension(UintIndices, true);
   }
 #elif defined(OMIM_OS_WINDOWS)
-  m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
   SetExtension(MapBuffer, true);
   SetExtension(UintIndices, true);
   if (apiVersion == dp::ApiVersion::OpenGLES2)
@@ -53,7 +51,6 @@ GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
     SetExtension(MapBufferRange, true);
   }
 #else
-  CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
   SetExtension(MapBuffer, true);
   SetExtension(UintIndices, true);
   if (apiVersion == dp::ApiVersion::OpenGLES2)

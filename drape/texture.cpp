@@ -67,8 +67,7 @@ float Texture::GetT(uint32_t y) const
 
 uint32_t Texture::GetID() const
 {
-  if (m_hwTexture == nullptr)
-    return 0;
+  ASSERT(m_hwTexture != nullptr, ());
   return m_hwTexture->GetID();
 }
 

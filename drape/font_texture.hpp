@@ -147,7 +147,7 @@ private:
 
 class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
 {
-  typedef DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph> TBase;
+  using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>;
 public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng)
@@ -156,7 +156,7 @@ public:
     TBase::Init(allocator, make_ref(&m_index), params);
   }
 
-  ~FontTexture() { TBase::Reset(); }
+  ~FontTexture() override { TBase::Reset(); }
 
   bool HasEnoughSpace(uint32_t newKeysCount) const override
   {
