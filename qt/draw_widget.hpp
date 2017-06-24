@@ -72,6 +72,11 @@ public:
 
   void SetSelectionMode(bool mode);
 
+  RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
+  void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
+  void FollowRoute();
+  void ClearRoute();
+
   static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
 protected:
@@ -105,5 +110,6 @@ private:
   storage::TCountryId m_countryId;
 
   bool m_selectionMode = false;
+  RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 };
 }  // namespace qt

@@ -603,6 +603,7 @@ public:
   /// @name Manipulating with model view
   //@{
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
+  inline m2::PointD P3dtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(m_currentModelView.P3dtoP(p)); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
   inline m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
 

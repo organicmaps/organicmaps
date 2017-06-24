@@ -22,29 +22,17 @@
 #include "std/target_os.hpp"
 
 #include <QtGui/QCloseEvent>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QAction>
-  #include <QtGui/QDesktopWidget>
-  #include <QtGui/QDockWidget>
-  #include <QtGui/QMenu>
-  #include <QtGui/QMenuBar>
-  #include <QtGui/QToolBar>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QLabel>
-#else
-  #include <QtWidgets/QAction>
-  #include <QtWidgets/QDesktopWidget>
-  #include <QtWidgets/QDockWidget>
-  #include <QtWidgets/QMenu>
-  #include <QtWidgets/QMenuBar>
-  #include <QtWidgets/QToolBar>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QLabel>
-#endif
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
@@ -58,7 +46,6 @@
 #include <QtCore/QFile>
 
 #endif // NO_DOWNLOADER
-
 
 namespace
 {
@@ -331,6 +318,46 @@ void MainWindow::CreateNavigationBar()
                                                 this, SLOT(OnTrafficEnabled()));
     m_trafficEnableAction->setCheckable(true);
     m_trafficEnableAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
+    pToolBar->addSeparator();
+
+    m_selectStartRoutePoint = new QAction(QIcon(":/navig64/point-start.png"),
+                                          tr("Start point"), this);
+    connect(m_selectStartRoutePoint, SIGNAL(triggered()), this, SLOT(OnStartPointSelected()));
+
+    m_selectFinishRoutePoint = new QAction(QIcon(":/navig64/point-finish.png"),
+                                           tr("Finish point"), this);
+    connect(m_selectFinishRoutePoint, SIGNAL(triggered()), this, SLOT(OnFinishPointSelected()));
+
+    m_selectIntermediateRoutePoint = new QAction(QIcon(":/navig64/point-intermediate.png"),
+                                                 tr("Intermediate point"), this);
+    connect(m_selectIntermediateRoutePoint, SIGNAL(triggered()), this, SLOT(OnIntermediatePointSelected()));
+
+    auto routePointsMenu = new QMenu();
+    routePointsMenu->addAction(m_selectStartRoutePoint);
+    routePointsMenu->addAction(m_selectFinishRoutePoint);
+    routePointsMenu->addAction(m_selectIntermediateRoutePoint);
+    m_routePointsToolButton = new QToolButton();
+    m_routePointsToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+    m_routePointsToolButton->setMenu(routePointsMenu);
+    switch (m_pDrawWidget->GetRoutePointAddMode())
+    {
+    case RouteMarkType::Start:
+      m_routePointsToolButton->setIcon(m_selectStartRoutePoint->icon());
+      break;
+    case RouteMarkType::Finish:
+      m_routePointsToolButton->setIcon(m_selectFinishRoutePoint->icon());
+      break;
+    case RouteMarkType::Intermediate:
+      m_routePointsToolButton->setIcon(m_selectIntermediateRoutePoint->icon());
+      break;
+    }
+    pToolBar->addWidget(m_routePointsToolButton);
+    auto routingAction = pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"),
+                                             this, SLOT(OnFollowRoute()));
+    routingAction->setToolTip(tr("Follow route"));
+    auto clearAction = pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"),
+                                           this, SLOT(OnClearRoute()));
+    clearAction->setToolTip(tr("Clear route"));
     pToolBar->addSeparator();
 
     // TODO(AlexZ): Replace icon.
@@ -681,6 +708,34 @@ void MainWindow::OnQuitTrafficMode()
   m_saveTrafficSampleAction->setEnabled(false);
   DestroyTrafficPanel();
   m_trafficMode = nullptr;
+}
+
+void MainWindow::OnStartPointSelected()
+{
+  m_routePointsToolButton->setIcon(m_selectStartRoutePoint->icon());
+  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Start);
+}
+
+void MainWindow::OnFinishPointSelected()
+{
+  m_routePointsToolButton->setIcon(m_selectFinishRoutePoint->icon());
+  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Finish);
+}
+
+void MainWindow::OnIntermediatePointSelected()
+{
+  m_routePointsToolButton->setIcon(m_selectIntermediateRoutePoint->icon());
+  m_pDrawWidget->SetRoutePointAddMode(RouteMarkType::Intermediate);
+}
+
+void MainWindow::OnFollowRoute()
+{
+  m_pDrawWidget->FollowRoute();
+}
+
+void MainWindow::OnClearRoute()
+{
+  m_pDrawWidget->ClearRoute();
 }
 
 // static
