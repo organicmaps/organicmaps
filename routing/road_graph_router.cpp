@@ -24,11 +24,13 @@
 
 #include "geometry/distance.hpp"
 
+#include "base/assert.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/queue.hpp"
 #include "std/set.hpp"
 
-#include "base/assert.hpp"
+#include <utility>
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -229,7 +231,8 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine(numMwmIds));
+  unique_ptr<IDirectionsEngine> directionsEngine(
+      new PedestrianDirectionsEngine(std::move(numMwmIds)));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-pedestrian", index, countryFileFn, IRoadGraph::Mode::IgnoreOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));
@@ -242,7 +245,8 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
 {
   unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<IDirectionsEngine> directionsEngine(new PedestrianDirectionsEngine(numMwmIds));
+  unique_ptr<IDirectionsEngine> directionsEngine(
+      new PedestrianDirectionsEngine(std::move(numMwmIds)));
   unique_ptr<IRouter> router(new RoadGraphRouter(
       "astar-bidirectional-pedestrian", index, countryFileFn, IRoadGraph::Mode::IgnoreOnewayTag,
       move(vehicleModelFactory), move(algorithm), move(directionsEngine)));

@@ -7,8 +7,12 @@
 
 #include "routing_common/pedestrian_model.hpp"
 
-#include "std/set.hpp"
-#include "std/string.hpp"
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+
+using namespace std;
 
 namespace
 {
@@ -41,7 +45,8 @@ protected:
   unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
     shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
-    unique_ptr<routing::IDirectionsEngine> engine(new routing::PedestrianDirectionsEngine(numMwmIds));
+    unique_ptr<routing::IDirectionsEngine> engine(
+        new routing::PedestrianDirectionsEngine(move(numMwmIds)));
     return engine;
   }
 
