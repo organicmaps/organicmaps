@@ -7,6 +7,8 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "base/macros.hpp"
+
 #include "std/cstdint.hpp"
 #include "std/function.hpp"
 
@@ -52,23 +54,21 @@ public:
   virtual bool HasEnoughSpace(uint32_t /*newKeysCount*/) const { return true; }
   using Params = HWTexture::Params;
 
-  void Create(Params const & params);
-  void Create(Params const & params, ref_ptr<void> data);
-
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
-
   virtual TextureFormat GetFormat() const;
   virtual uint32_t GetWidth() const;
   virtual uint32_t GetHeight() const;
+  virtual float GetS(uint32_t x) const;
+  virtual float GetT(uint32_t y) const;
+  virtual uint32_t GetID() const;
 
-  float GetS(uint32_t x) const;
-  float GetT(uint32_t y) const;
-  uint32_t GetID() const;
-
-  void Bind() const;
+  virtual void Bind() const;
 
   // Texture must be bound before calling this method.
-  void SetFilter(glConst filter);
+  virtual void SetFilter(glConst filter);
+
+  void Create(Params const & params);
+  void Create(Params const & params, ref_ptr<void> data);
+  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
 
   static uint32_t GetMaxTextureSize();
 
@@ -77,5 +77,7 @@ protected:
   bool AllocateTexture(ref_ptr<HWTextureAllocator> allocator);
 
   drape_ptr<HWTexture> m_hwTexture;
+
+  DISALLOW_COPY_AND_MOVE(Texture);
 };
 }  // namespace dp

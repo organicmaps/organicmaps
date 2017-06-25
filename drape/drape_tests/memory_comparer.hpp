@@ -16,7 +16,7 @@ struct MemoryComparer
   MemoryComparer(void * memory, int size) : m_mem(memory), m_size(size) {}
   void cmpSubBuffer(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/) const
   {
-    TEST_EQUAL(size, m_size, ());
+    TEST_EQUAL(size, static_cast<uint32_t>(m_size), ());
     TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
   }
 
@@ -39,7 +39,7 @@ struct MemoryComparer
 
     ASSERT(gl_const::GL8BitOnChannel == pixelFormat, ());
 
-    TEST_EQUAL(m_size, width * height * channelCount, ());
+    TEST_EQUAL(static_cast<uint32_t>(m_size), width * height * channelCount, ());
     uint8_t * member = (uint8_t *)m_mem;
     uint8_t * input = (uint8_t *)data;
 
