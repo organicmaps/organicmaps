@@ -18,12 +18,14 @@
 
 #include "std/algorithm.hpp"
 
+#include <functional>
+
+using namespace std::placeholders;
+
 namespace df
 {
-
 namespace
 {
-
 // Values of the following arrays are based on traffic-arrow texture.
 static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
 {{

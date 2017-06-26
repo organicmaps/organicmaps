@@ -47,17 +47,35 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
                          bool allow3dBuildings, bool trafficEnabled)
   : m_commutator(commutator)
   , m_model(model)
-  , m_pool(make_unique_dp<threads::ThreadPool>(kReadingThreadsCount,
-                                               std::bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
   , m_displacementMode(dp::displacement::kDefaultMode)
   , m_modeChanged(false)
-  , myPool(64, ReadMWMTaskFactory(m_model))
+  , m_tasksPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
-{}
+{
+  Start();
+}
+
+void ReadManager::Start()
+{
+  if (m_pool != nullptr)
+    return;
+
+  using namespace std::placeholders;
+  m_pool = make_unique_dp<threads::ThreadPool>(kReadingThreadsCount,
+                                               std::bind(&ReadManager::OnTaskFinished, this, _1));
+}
+
+void ReadManager::Stop()
+{
+  InvalidateAll();
+  if (m_pool != nullptr)
+    m_pool->Stop();
+  m_pool.reset();
+}
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
@@ -91,7 +109,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   }
 
   t->Reset();
-  myPool.Return(t);
+  m_tasksPool.Return(t);
 }
 
 void ReadManager::UpdateCoverage(ScreenBase const & screen,
@@ -169,20 +187,9 @@ void ReadManager::InvalidateAll()
 {
   for (auto const & info : m_tileInfos)
     CancelTileInfo(info);
-
   m_tileInfos.clear();
 
   m_modeChanged = true;
-}
-
-void ReadManager::Stop()
-{
-  for (auto const & info : m_tileInfos)
-    CancelTileInfo(info);
-  m_tileInfos.clear();
-
-  m_pool->Stop();
-  m_pool.reset();
 }
 
 bool ReadManager::CheckTileKey(TileKey const & tileKey) const
@@ -206,6 +213,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                          ref_ptr<dp::TextureManager> texMng,
                                          ref_ptr<MetalineManager> metalineMng)
 {
+  ASSERT(m_pool != nullptr, ());
   auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
                                                m_commutator, texMng, metalineMng,
                                                m_customSymbolsContext,
@@ -213,7 +221,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                                m_trafficEnabled, m_displacementMode);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
-  ReadMWMTask * task = myPool.Get();
+  ReadMWMTask * task = m_tasksPool.Get();
 
   task->Init(tileInfo);
   {

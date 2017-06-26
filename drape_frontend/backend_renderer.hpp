@@ -118,5 +118,4 @@ private:
   bool m_isTeardowned;
 #endif
 };
-
-} // namespace df
+}  // namespace df

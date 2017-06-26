@@ -489,13 +489,14 @@ void BackendRenderer::OnContextCreate()
 
   GLFunctions::Init(m_apiVersion);
 
+  m_readManager->Start();
   InitGLDependentResource();
 }
 
 void BackendRenderer::OnContextDestroy()
 {
   LOG(LINFO, ("On context destroy."));
-  m_readManager->InvalidateAll();
+  m_readManager->Stop();
   m_batchersPool.reset();
   m_texMng->Release();
   m_overlays.clear();
@@ -560,7 +561,8 @@ void BackendRenderer::RecacheMapShapes()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
 }
 
-void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
+void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state,
+                                    drape_ptr<dp::RenderBucket> && buffer)
 {
   GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,

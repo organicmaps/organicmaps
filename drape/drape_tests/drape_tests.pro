@@ -38,6 +38,7 @@ SOURCES += \
     glyph_mng_tests.cpp \
     glyph_packer_test.cpp \
     img.cpp \
+    object_pool_tests.cpp \
     pointers_tests.cpp \
     static_texture_tests.cpp \
     stipple_pen_tests.cpp \

@@ -37,12 +37,14 @@ public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
               bool allow3dBuildings, bool trafficEnabled);
 
+  void Start();
+  void Stop();
+
   void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng,
                       ref_ptr<MetalineManager> metalineMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();
-  void Stop();
 
   bool CheckTileKey(TileKey const & tileKey) const;
   void Allow3dBuildings(bool allow3dBuildings);
@@ -86,7 +88,7 @@ private:
   using TTileSet = std::set<std::shared_ptr<TileInfo>, LessByTileInfo>;
   TTileSet m_tileInfos;
 
-  ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
+  dp::ObjectPool<ReadMWMTask, ReadMWMTaskFactory> m_tasksPool;
 
   int m_counter;
   std::mutex m_finishedTilesMutex;
