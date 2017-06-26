@@ -1,6 +1,6 @@
-#include "../Framework.hpp"
+#include "android/jni/com/mapswithme/maps/Framework.hpp"
 
-#include "../../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 #include "partners_api/viator_api.hpp"
 
 namespace
@@ -9,7 +9,7 @@ jclass g_viatorClass;
 jclass g_viatorProductClass;
 jmethodID g_viatorProductConstructor;
 jmethodID g_viatorCallback;
-std::string g_lastRequestId;
+std::string g_lastDestId;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -31,7 +31,7 @@ void OnViatorProductsReceived(std::string const & destId,
                               std::vector<viator::Product> const & products)
 {
   GetPlatform().RunOnGuiThread([=]() {
-    if (g_lastRequestId != destId)
+    if (g_lastDestId != destId)
       return;
 
     JNIEnv * env = jni::GetEnv();
@@ -65,8 +65,8 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_viator_Viator_nativeRequestViato
 {
   PrepareClassRefs(env);
 
-  g_lastRequestId = jni::ToNativeString(env, destId);
-  g_framework->RequestViatorProducts(env, policy, g_lastRequestId,
-                                     jni::ToNativeString(env, currency), &OnViatorProductsReceived);
+  g_lastDestId = jni::ToNativeString(env, destId);
+  g_framework->RequestViatorProducts(env, policy, g_lastDestId, jni::ToNativeString(env, currency),
+                                     &OnViatorProductsReceived);
 }
 }  // extern "C"
