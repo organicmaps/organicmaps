@@ -13,7 +13,8 @@ namespace base
 {
 // This class represents a simple worker thread with a queue of tasks.
 //
-// *NOTE* This class is not thread-safe.
+// *NOTE* This class IS thread-safe, but it must be destroyed on the
+// same thread it was created.
 class WorkerThread
 {
 public:
@@ -28,18 +29,22 @@ public:
   WorkerThread();
   ~WorkerThread();
 
+  // Pushes task to the end of the thread's queue. Returns false when
+  // the thread is shut down.
   template <typename T>
-  void Push(T && t)
+  bool Push(T && t)
   {
-    ASSERT(m_checker.CalledOnOriginalThread(), ());
-    CHECK(!m_shutdown, ());
-
     std::lock_guard<std::mutex> lk(m_mu);
+    if (m_shutdown)
+      return false;
     m_queue.emplace(std::forward<T>(t));
     m_cv.notify_one();
+    return true;
   }
 
-  void Shutdown(Exit e);
+  // Sends a signal to the thread to shut down. Returns false when the
+  // thread was shut down previously.
+  bool Shutdown(Exit e);
 
 private:
   void ProcessTasks();

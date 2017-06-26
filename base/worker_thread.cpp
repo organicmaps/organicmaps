@@ -18,6 +18,8 @@ WorkerThread::~WorkerThread()
 
 void WorkerThread::ProcessTasks()
 {
+  queue<Task> pending;
+
   unique_lock<mutex> lk(m_mu, defer_lock);
 
   while (true)
@@ -33,17 +35,11 @@ void WorkerThread::ProcessTasks()
         switch (m_exit)
         {
         case Exit::ExecPending:
-        {
-          while (!m_queue.empty())
-          {
-            m_queue.front()();
-            m_queue.pop();
-          }
+          CHECK(pending.empty(), ());
+          m_queue.swap(pending);
           break;
-        }
         case Exit::SkipPending: break;
         }
-
         break;
       }
 
@@ -55,19 +51,22 @@ void WorkerThread::ProcessTasks()
 
     task();
   }
+
+  while (!pending.empty())
+  {
+    pending.front()();
+    pending.pop();
+  }
 }
 
-void WorkerThread::Shutdown(Exit e)
+bool WorkerThread::Shutdown(Exit e)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
-
-  if (m_shutdown)
-    return;
-
-  CHECK(!m_shutdown, ());
   lock_guard<mutex> lk(m_mu);
+  if (m_shutdown)
+    return false;
   m_shutdown = true;
   m_exit = e;
   m_cv.notify_one();
+  return true;
 }
 }  // namespace base

@@ -18,12 +18,12 @@ UNIT_TEST(WorkerThread_Smoke)
 
   {
     WorkerThread thread;
-    thread.Shutdown(WorkerThread::Exit::SkipPending);
+    TEST(thread.Shutdown(WorkerThread::Exit::SkipPending), ());
   }
 
   {
     WorkerThread thread;
-    thread.Shutdown(WorkerThread::Exit::ExecPending);
+    TEST(thread.Shutdown(WorkerThread::Exit::ExecPending), ());
   }
 }
 
@@ -36,14 +36,14 @@ UNIT_TEST(WorkerThread_SimpleSync)
   bool done = false;
 
   WorkerThread thread;
-  thread.Push([&value]() { ++value; });
-  thread.Push([&value]() { value *= 2; });
-  thread.Push([&value]() { value = value * value * value; });
-  thread.Push([&]() {
+  TEST(thread.Push([&value]() { ++value; }), ());
+  TEST(thread.Push([&value]() { value *= 2; }), ());
+  TEST(thread.Push([&value]() { value = value * value * value; }), ());
+  TEST(thread.Push([&]() {
     lock_guard<mutex> lk(mu);
     done = true;
     cv.notify_one();
-  });
+  }), ());
 
   {
     unique_lock<mutex> lk(mu);
@@ -58,12 +58,12 @@ UNIT_TEST(WorkerThread_SimpleFlush)
   int value = 0;
   {
     WorkerThread thread;
-    thread.Push([&value]() { ++value; });
-    thread.Push([&value]() {
+    TEST(thread.Push([&value]() { ++value; }), ());
+    TEST(thread.Push([&value]() {
       for (int i = 0; i < 10; ++i)
         value *= 2;
-    });
-    thread.Shutdown(WorkerThread::Exit::ExecPending);
+    }), ());
+    TEST(thread.Shutdown(WorkerThread::Exit::ExecPending), ());
   }
   TEST_EQUAL(value, 1024, ());
 }
