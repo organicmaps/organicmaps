@@ -1945,6 +1945,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavMyPosition != null)
       mNavMyPosition.update(newMode);
+
+    RoutingController controller = RoutingController.get();
+    if (controller.isPlanning())
+      showAddStartOrFinishFrame(controller, true);
   }
 
   @Override
