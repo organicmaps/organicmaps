@@ -5,9 +5,10 @@
 
 #include "base/matrix.hpp"
 
+#include <string>
+
 namespace df
 {
-
 struct TileKey
 {
   TileKey();
@@ -46,6 +47,5 @@ struct TileKeyStrictComparator
   }
 };
 
-string DebugPrint(TileKey const & key);
-
-} // namespace df
+std::string DebugPrint(TileKey const & key);
+}  // namespace df

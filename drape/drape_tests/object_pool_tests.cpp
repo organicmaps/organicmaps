@@ -19,12 +19,12 @@ public:
   ~vec2() { m_counter--; }
 };
 
-int vec2::m_counter;
+int vec2::m_counter = 0;
 
 UNIT_TEST(ObjectPoolFilling)
 {
   vec2::vec2Factory factory;
-  ObjectPool<vec2, vec2::vec2Factory> pool(1, factory);
+  dp::ObjectPool<vec2, vec2::vec2Factory> pool(1, factory);
   vec2 *pt1, *pt2, *pt3;
   pt1 = pool.Get();
   pool.Return(pt1);
@@ -40,7 +40,7 @@ UNIT_TEST(ObjectPoolClearing_1)
 {
   vec2::m_counter = 0;
   vec2::vec2Factory factory;
-  ObjectPool<vec2, vec2::vec2Factory> *pool = new ObjectPool<vec2, vec2::vec2Factory>(1, factory);
+  auto pool = new dp::ObjectPool<vec2, vec2::vec2Factory>(1, factory);
   vec2 *pt1, *pt2, *pt3;
   pt1 = pool->Get();
   pool->Return(pt1);
@@ -59,7 +59,7 @@ UNIT_TEST(ObjectPoolClearing_2)
 {
   vec2::m_counter = 0;
   vec2::vec2Factory factory;
-  ObjectPool<vec2, vec2::vec2Factory> *pool = new ObjectPool<vec2, vec2::vec2Factory>(100, factory);
+  auto pool = new dp::ObjectPool<vec2, vec2::vec2Factory>(100, factory);
   vec2 *pt1, *pt2, *pt3;
   pt1 = pool->Get();
   pool->Return(pt1);

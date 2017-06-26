@@ -35,7 +35,6 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   compile_shaders_test.cpp \
   navigator_test.cpp \
-  object_pool_tests.cpp \
   shader_def_for_tests.cpp \
   user_event_stream_tests.cpp \
 

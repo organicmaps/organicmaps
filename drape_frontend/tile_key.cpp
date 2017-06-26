@@ -7,9 +7,10 @@
 
 #include "geometry/mercator.hpp"
 
+#include <sstream>
+
 namespace df
 {
-
 TileKey::TileKey()
   : m_x(-1), m_y(-1),
     m_zoomLevel(-1),
@@ -92,12 +93,11 @@ math::Matrix<float, 4, 4> TileKey::GetTileBasedModelView(ScreenBase const & scre
   return screen.GetModelView(GetGlobalRect().Center(), kShapeCoordScalar);
 }
 
-string DebugPrint(TileKey const & key)
+std::string DebugPrint(TileKey const & key)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
       << key.m_zoomLevel << ", gen = " << key.m_generation << "]";
   return out.str();
 }
-
-} //namespace df
+}  // namespace df

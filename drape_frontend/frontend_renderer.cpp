@@ -36,6 +36,8 @@
 #include <cmath>
 #include <chrono>
 
+using namespace std::placeholders;
+
 namespace df
 {
 namespace

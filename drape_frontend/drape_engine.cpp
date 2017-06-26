@@ -9,6 +9,8 @@
 
 #include "platform/settings.hpp"
 
+using namespace std::placeholders;
+
 namespace df
 {
 DrapeEngine::DrapeEngine(Params && params)
@@ -20,7 +22,7 @@ DrapeEngine::DrapeEngine(Params && params)
   df::VisualParams::Instance().SetFontScale(params.m_fontsScaleFactor);
 
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
-  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
+  guiSubsystem.SetLocalizator(std::bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
@@ -63,7 +65,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                         params.m_hints,
                                         params.m_isRoutingActive,
                                         params.m_isAutozoomEnabled,
-                                        bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
+                                        std::bind(&DrapeEngine::MyPositionModeChanged, this, _1, _2));
 
   FrontendRenderer::Params frParams(params.m_apiVersion,
                                     make_ref(m_threadCommutator),
@@ -71,9 +73,9 @@ DrapeEngine::DrapeEngine(Params && params)
                                     make_ref(m_textureManager),
                                     std::move(mpParams),
                                     m_viewport,
-                                    bind(&DrapeEngine::ModelViewChanged, this, _1),
-                                    bind(&DrapeEngine::TapEvent, this, _1),
-                                    bind(&DrapeEngine::UserPositionChanged, this, _1),
+                                    std::bind(&DrapeEngine::ModelViewChanged, this, _1),
+                                    std::bind(&DrapeEngine::TapEvent, this, _1),
+                                    std::bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,

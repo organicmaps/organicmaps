@@ -15,6 +15,8 @@
 
 #include <functional>
 
+using namespace std::placeholders;
+
 namespace df
 {
 TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext)

@@ -3,9 +3,10 @@
 
 #include "std/utility.hpp"
 
+#include <functional>
+
 namespace df
 {
-
 BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params)
   : m_apiVersion(params.m_apiVersion)
   , m_commutator(params.m_commutator)
@@ -107,7 +108,8 @@ void BaseRenderer::CheckRenderingEnabled()
 
     if (m_wasContextReset)
     {
-      EnableMessageFiltering(bind(&BaseRenderer::FilterGLContextDependentMessage, this, _1));
+      using namespace std::placeholders;
+      EnableMessageFiltering(std::bind(&BaseRenderer::FilterGLContextDependentMessage, this, _1));
       OnContextDestroy();
     }
     else
@@ -169,5 +171,4 @@ bool BaseRenderer::CanReceiveMessages()
   threads::IRoutine * routine = m_selfThread.GetRoutine();
   return routine != nullptr && !routine->IsCancelled();
 }
-
-} // namespace df
+}  // namespace df

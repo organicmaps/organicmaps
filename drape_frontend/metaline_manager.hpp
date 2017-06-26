@@ -27,7 +27,7 @@ public:
 private:
   void OnTaskFinished(threads::IRoutine * task);
 
-  using TasksPool = ObjectPool<ReadMetalineTask, ReadMetalineTaskFactory>;
+  using TasksPool = dp::ObjectPool<ReadMetalineTask, ReadMetalineTaskFactory>;
 
   MapDataProvider & m_model;
 

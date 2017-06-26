@@ -29,6 +29,7 @@ set(
   img.cpp
   img.hpp
   memory_comparer.hpp
+  object_pool_tests.cpp
   pointers_tests.cpp
   static_texture_tests.cpp
   stipple_pen_tests.cpp
