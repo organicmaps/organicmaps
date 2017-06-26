@@ -71,6 +71,7 @@ public:
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   std::vector<RouteMarkPoint *> GetRoutePoints();
   bool RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void RemoveIntermediateRoutePoints();
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType destType, int8_t destIntermediateIndex);
 

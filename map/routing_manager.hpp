@@ -164,7 +164,9 @@ public:
   void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
   void AddRoutePoint(RouteMarkData && markData);
+  std::vector<RouteMarkData> GetRoutePoints() const;
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void RemoveIntermediateRoutePoints();
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
   void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
@@ -209,8 +211,6 @@ public:
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height, std::vector<uint8_t> & imageRGBAData,
                                   int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;
-
-  std::vector<RouteMarkData> GetRoutePoints() const;
 
 private:
   void InsertRoute(routing::Route const & route);

@@ -457,6 +457,11 @@ public class RoutingController
       mContainer.onRemovedStop();
   }
 
+  public void removeIntermediatePoints()
+  {
+    Framework.nativeRemoveIntermediateRoutePoints();
+  }
+
   public boolean isStopPointAllowed()
   {
     return Framework.nativeCouldAddIntermediatePoint();

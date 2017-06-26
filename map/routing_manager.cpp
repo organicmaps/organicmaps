@@ -417,6 +417,14 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateInd
   routePoints.RemoveRoutePoint(type, intermediateIndex);
 }
 
+void RoutingManager::RemoveIntermediateRoutePoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  routePoints.RemoveIntermediateRoutePoints();
+}
+
 void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                                     RouteMarkType targetType, int8_t targetIntermediateIndex)
 {

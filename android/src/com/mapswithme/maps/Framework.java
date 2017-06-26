@@ -278,8 +278,12 @@ public class Framework
                                                 @RoutePointInfo.RouteMarkType int markType,
                                                 int intermediateIndex, boolean isMyPosition,
                                                 double lat, double lon);
+
   public static native void nativeRemoveRoutePoint(@RoutePointInfo.RouteMarkType int markType,
                                                    int intermediateIndex);
+
+  public static native void nativeRemoveIntermediateRoutePoints();
+
   public static native boolean nativeCouldAddIntermediatePoint();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();

@@ -143,6 +143,18 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
   return true;
 }
 
+void RoutePointsLayout::RemoveIntermediateRoutePoints()
+{
+  for (size_t i = 0; i < m_routeMarks.GetUserMarkCount();)
+  {
+    RouteMarkPoint const * mark = static_cast<RouteMarkPoint const *>(m_routeMarks.GetUserMark(i));
+    if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
+      m_routeMarks.DeleteUserMark(i);
+    else
+      ++i;
+  }
+}
+
 bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                                        RouteMarkType destType, int8_t destIntermediateIndex)
 {

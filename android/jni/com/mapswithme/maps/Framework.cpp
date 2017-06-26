@@ -1181,6 +1181,12 @@ Java_com_mapswithme_maps_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass,
                                               static_cast<int8_t>(intermediateIndex));
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
+{
+  frm()->GetRoutingManager().RemoveIntermediateRoutePoints();
+}
+
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
