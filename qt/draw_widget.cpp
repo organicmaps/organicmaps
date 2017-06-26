@@ -327,8 +327,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
-  std::vector<RouteMarkData> points = routingManager.GetRoutePoints();
-  auto const pointsCount = points.size();
+  auto const pointsCount = routingManager.GetRoutePoints().size();
 
   // Check if limit of intermediate points is reached.
   if (m_routePointAddMode == RouteMarkType::Intermediate && !routingManager.CouldAddIntermediatePoint())
