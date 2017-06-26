@@ -6,7 +6,6 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
-#import "MWMRoutePoint.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
@@ -21,8 +20,6 @@
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
-
-#include "MWMRoutePoint.h"
 
 #include "storage/storage_helpers.hpp"
 
@@ -152,10 +149,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   [Statistics logEvent:kStatEventName(kStatSearch, kStatCancel)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
-  MapsAppDelegate * a = MapsAppDelegate.theApp;
-  MWMRoutingPlaneMode const m = a.routingPlaneMode;
-  if (m == MWMRoutingPlaneModeSearchDestination || m == MWMRoutingPlaneModeSearchSource)
-    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
 }
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
@@ -196,42 +189,10 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   [MWMSearch searchQuery:text forInputLocale:inputLocale];
 }
 
-- (void)tapMyPositionFromHistory
-{
-  MapsAppDelegate * a = MapsAppDelegate.theApp;
-  auto p = routePoint([MWMLocationManager lastLocation].mercator);
-  if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
-    [[MWMRouter router] buildFromPoint:p bestRouter:YES];
-  else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)
-    [[MWMRouter router] buildToPoint:p bestRouter:YES];
-  else
-    NSAssert(false, @"Incorrect state for process my position tap");
-  if (!IPAD)
-    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
-  self.state = MWMSearchManagerStateHidden;
-}
-
 - (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
-  MapsAppDelegate * a = MapsAppDelegate.theApp;
-  MWMRoutingPlaneMode const m = a.routingPlaneMode;
-  if (m == MWMRoutingPlaneModeSearchSource)
-  {
-    auto p = routePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
-    [[MWMRouter router] buildFromPoint:p bestRouter:YES];
-  }
-  else if (m == MWMRoutingPlaneModeSearchDestination)
-  {
-    auto p = routePoint(result.GetFeatureCenter(), @(result.GetString().c_str()));
-    [[MWMRouter router] buildToPoint:p bestRouter:YES];
-  }
-  else
-  {
-    [MWMSearch showResult:result];
-  }
-  if (!IPAD && a.routingPlaneMode != MWMRoutingPlaneModeNone)
-    a.routingPlaneMode = MWMRoutingPlaneModePlacePage;
+  [MWMSearch showResult:result];
   self.state = MWMSearchManagerStateHidden;
 }
 
@@ -319,14 +280,15 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   [self animateConstraints:^{
     self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
   }];
-  [self viewHidden:[MWMRouter isRoutingActive]];
+  auto const navigationManagerState = [MWMNavigationDashboardManager manager].state;
+  [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];
 
   GetFramework().DeactivateMapSelection(true);
   [self.searchTextField resignFirstResponder];
 
-  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateNavigation)
+  if (navigationManagerState == MWMNavigationDashboardStateNavigation)
   {
     self.searchTextField.text = @"";
     [self.tabbedController resetSelectedTab];

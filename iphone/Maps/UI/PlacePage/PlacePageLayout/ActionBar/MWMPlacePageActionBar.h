@@ -31,7 +31,6 @@
 - (void)setDownloadingState:(MWMCircularProgressState)state;
 
 - (UIView *)shareAnchor;
-- (BOOL)isPrepareRouteMode;
 
 - (instancetype)init __attribute__((unavailable("call actionBarForPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("call actionBarForPlacePage: instead")));

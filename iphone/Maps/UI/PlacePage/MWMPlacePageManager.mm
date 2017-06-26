@@ -7,12 +7,12 @@
 #import "MWMEditBookmarkController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
-#import "MWMLocationManager.h"
 #import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
-#import "MWMRoutePoint.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSideButtons.h"
 #import "MWMStorage.h"
@@ -262,7 +262,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatSource}];
-  [[MWMRouter router] buildFromPoint:self.target bestRouter:YES];
+  [MWMRouter buildFromPoint:[self routePointWithType:MWMRoutePointTypeStart] bestRouter:YES];
   [self close];
 }
 
@@ -270,30 +270,29 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
-  [[MWMRouter router] buildToPoint:self.target bestRouter:YES];
+  [MWMRouter buildToPoint:[self routePointWithType:MWMRoutePointTypeFinish] bestRouter:YES];
   [self close];
 }
 
 - (void)addStop
 {
-  [[MWMRouter router] addIntermediatePointAndRebuild:self.target
-                                   intermediateIndex:0];
+  [MWMRouter addIntermediatePointAndRebuild:[self routePointWithType:MWMRoutePointTypeIntermediate]
+                          intermediateIndex:0];
   [self shouldClose];
 }
 
 - (void)removeStop
 {
-  auto router = [MWMRouter router];
   switch (self.data.routeMarkType)
   {
   case RouteMarkType::Start:
-    [router removeStartPointAndRebuild:self.data.intermediateIndex];
+    [MWMRouter removeStartPointAndRebuild:self.data.intermediateIndex];
     break;
   case RouteMarkType::Finish:
-    [router removeFinishPointAndRebuild:self.data.intermediateIndex];
+    [MWMRouter removeFinishPointAndRebuild:self.data.intermediateIndex];
     break;
   case RouteMarkType::Intermediate:
-    [router removeIntermediatePointAndRebuild:self.data.intermediateIndex];
+    [MWMRouter removeIntermediatePointAndRebuild:self.data.intermediateIndex];
     break;
   }
   [self shouldClose];
@@ -306,17 +305,20 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : kStatUber, kStatTags : data.statisticsTags}];
-  auto router = [MWMRouter router];
-  router.type = MWMRouterTypeTaxi;
-  [router buildToPoint:self.target bestRouter:NO];
+  [MWMRouter setType:MWMRouterTypeTaxi];
+  [MWMRouter buildToPoint:[self routePointWithType:MWMRoutePointTypeFinish] bestRouter:NO];
   [self close];
 }
 
-- (MWMRoutePoint *)target
+- (MWMRoutePoint *)routePointWithType:(MWMRoutePointType)type
 {
   auto data = self.data;
   if (!data)
-    return zeroRoutePoint();
+    return nil;
+
+  if (data.isMyPosition)
+    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type];
+
   NSString * name = nil;
   if (data.title.length > 0)
     name = data.title;
@@ -329,8 +331,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   else
     name = L(@"placepage_unknown_place");
 
-  m2::PointD const & org = data.mercator;
-  return data.isMyPosition ? routePoint(org) : routePoint(org, name);
+  return [[MWMRoutePoint alloc] initWithPoint:data.mercator type:type];
 }
 
 - (void)share

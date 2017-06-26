@@ -23,7 +23,7 @@ using namespace routing::turns;
   _progress = info.m_completionPercent;
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (lastLocation && f.GetRoutingManager().GetRouter() == routing::RouterType::Pedestrian)
+  if (lastLocation && [MWMRouter type] == MWMRouterTypePedestrian)
   {
     _isPedestrian = YES;
     string distance;
@@ -78,7 +78,7 @@ using namespace routing::turns;
 
 UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
 {
-  if (GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Pedestrian)
+  if ([MWMRouter type] == MWMRouterTypePedestrian)
     return [UIImage imageNamed:@"ic_direction"];
 
   NSString * imageName;

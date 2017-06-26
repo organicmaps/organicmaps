@@ -1,6 +1,7 @@
 #import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMCommon.h"
+#import "MWMRouter.h"
 #import "Statistics.h"
 
 #include "LocaleTranslator.h"
@@ -153,7 +154,7 @@ vector<pair<string, string>> availableLanguages()
   if (active && ![self isValid])
     [self createSynthesizer];
   [self setAudioSessionActive:active];
-  GetFramework().GetRoutingManager().EnableTurnNotifications(active ? true : false);
+  [MWMRouter enableTurnNotifications:active];
   runAsyncOnMainQueue(^{
     [[NSNotificationCenter defaultCenter]
         postNotificationName:[[self class] ttsStatusNotificationKey]
@@ -164,10 +165,7 @@ vector<pair<string, string>> availableLanguages()
 
 - (BOOL)active
 {
-  return [[self class] isTTSEnabled] &&
-                 GetFramework().GetRoutingManager().AreTurnNotificationsEnabled()
-             ? YES
-             : NO;
+  return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled];
 }
 
 + (NSString *)savedLanguage
@@ -225,7 +223,7 @@ vector<pair<string, string>> availableLanguages()
       LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTextToSpeech "
                    "is invalid."));
     else
-      GetFramework().GetRoutingManager().SetTurnNotificationsLocale(twineLang);
+      [MWMRouter setTurnNotificationsLocale:@(twineLang.c_str())];
   }
   else
   {
@@ -245,18 +243,12 @@ vector<pair<string, string>> availableLanguages()
 
 - (void)playTurnNotifications
 {
-  auto & routingManager = GetFramework().GetRoutingManager();
-  if (!routingManager.IsRoutingActive())
+  if (![MWMRouter isRoutingActive] || ![self isValid])
     return;
 
-  vector<string> notifications;
-  routingManager.GenerateTurnNotifications(notifications);
-
-  if (![self isValid])
-    return;
-
-  for (auto const & text : notifications)
-    [self speakOneString:@(text.c_str())];
+  NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
+  for (NSString * notification in turnNotifications)
+    [self speakOneString:notification];
 }
 
 - (BOOL)setAudioSessionActive:(BOOL)audioSessionActive

@@ -91,7 +91,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   return self;
 }
 
-#pragma mark - MWMFrameworkRouteBuildingObserver
+#pragma mark - MWMFrameworkRouteBuilderObserver
 
 - (void)registerRouteBuilderListener
 {

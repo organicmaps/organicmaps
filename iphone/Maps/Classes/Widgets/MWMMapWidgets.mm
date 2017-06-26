@@ -41,7 +41,7 @@
   [self layoutWidgets];
 }
 
-- (void)layoutWidgets
+- (void)doLayoutWidgets
 {
   if (m_skin == nullptr)
     return;
@@ -59,9 +59,12 @@
       {
       case gui::WIDGET_RULER:
       case gui::WIDGET_COPYRIGHT:
-        pivot -= m2::PointF(0.0, ([MapViewController controller].view.height - self.bottomBound) *
-                                     self.visualScale);
+      {
+        auto const vs = self.visualScale;
+        pivot -= m2::PointF(-self.leftBound * vs,
+                            ([MapViewController controller].view.height - self.bottomBound) * vs);
         break;
+      }
       case gui::WIDGET_COMPASS:
       case gui::WIDGET_SCALE_LABEL:
       case gui::WIDGET_CHOOSE_POSITION_MARK: break;
@@ -70,6 +73,13 @@
     });
   }
   GetFramework().SetWidgetLayout(move(layout));
+}
+
+- (void)layoutWidgets
+{
+  auto doLayoutWidgets = @selector(doLayoutWidgets);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:doLayoutWidgets object:nil];
+  [self performSelector:doLayoutWidgets withObject:nil afterDelay:0];
 }
 
 #pragma mark - Properties

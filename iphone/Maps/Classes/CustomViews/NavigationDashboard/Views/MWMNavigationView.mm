@@ -34,19 +34,20 @@
 - (void)remove { self.isVisible = NO; }
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         if (!CGRectEqualToRect(self.frame, self.defaultFrame))
           self.frame = self.defaultFrame;
         CGFloat const sbHeight = statusBarHeight();
         self.statusbarBackground.frame = CGRectMake(0.0, -sbHeight, self.width, sbHeight);
-        [self.delegate navigationDashBoardDidUpdate];
       }
       completion:^(BOOL finished) {
-        if (!self.isVisible)
+        if (self.isVisible)
+          [self.delegate navigationDashBoardDidUpdate];
+        else
           [self removeFromSuperview];
       }];
-  [super layoutSubviews];
 }
 
 #pragma mark - Properties

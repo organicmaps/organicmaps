@@ -63,7 +63,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 - (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (void)resetSelectedTab
 {
-  if (GetFramework().GetLastSearchQueries().empty() && !self.historyManager.isRouteSearchMode)
+  if (GetFramework().GetLastSearchQueries().empty())
     self.selectedButtonTag = 1;
   else
     self.selectedButtonTag =

@@ -1,9 +1,11 @@
 #import "MWMNavigationDashboardManager.h"
 #import <AudioToolbox/AudioServices.h>
+#import <Crashlytics/Crashlytics.h>
 #import "MWMCommon.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationInfoView.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
@@ -65,7 +67,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (void)updateFollowingInfo:(location::FollowingInfo const &)info
 {
-  if (GetFramework().GetRoutingManager().IsRouteFinished())
+  if ([MWMRouter isRouteFinished])
   {
     [MWMRouter stopRouting];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
@@ -82,7 +84,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     return;
 
   [self.routePreview stateError];
-  [self.routePreview router:[MWMRouter router].type setState:MWMCircularProgressStateFailed];
+  [self.routePreview router:[MWMRouter type] setState:MWMCircularProgressStateFailed];
 }
 
 - (void)updateDashboard
@@ -93,11 +95,29 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     [infoDisplay updateNavigationInfo:self.entity];
 }
 
+#pragma mark - MWMNavigationInfoView
+
+- (IBAction)addLocationRoutePoint
+{
+  if (![MWMRouter startPoint])
+  {
+    [MWMRouter
+        buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
+            bestRouter:NO];
+  }
+  else if (![MWMRouter finishPoint])
+  {
+    [MWMRouter
+        buildToPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeFinish]
+          bestRouter:NO];
+  }
+}
+
 #pragma mark - MWMRoutePreview
 
 - (void)setRouteBuilderProgress:(CGFloat)progress
 {
-  [self.routePreview router:[MWMRouter router].type setProgress:progress / 100.];
+  [self.routePreview router:[MWMRouter type] setProgress:progress / 100.];
 }
 
 #pragma mark - MWMNavigationDashboard
@@ -131,24 +151,23 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 {
   [self.routePreview remove];
   self.routePreview = nil;
-  [self.navigationInfoView remove];
+  self.navigationInfoView.state = MWMNavigationInfoViewStateHidden;
   self.navigationInfoView = nil;
 }
 
 - (void)showStatePrepare
 {
-  [self.navigationInfoView remove];
-  self.navigationInfoView = nil;
+  self.navigationInfoView.state = MWMNavigationInfoViewStatePrepare;
   [self.routePreview addToView:self.ownerView];
   [self.routePreview statePrepare];
-  [self.routePreview selectRouter:[MWMRouter router].type];
+  [self.routePreview selectRouter:[MWMRouter type]];
+  [self setMenuState:MWMBottomMenuStateHidden];
 }
 
 - (void)showStatePlanning
 {
   [self showStatePrepare];
-  [self setMenuState:MWMBottomMenuStatePlanning];
-  [self.routePreview router:[MWMRouter router].type setState:MWMCircularProgressStateSpinner];
+  [self.routePreview router:[MWMRouter type] setState:MWMCircularProgressStateSpinner];
   [self setRouteBuilderProgress:0.];
   if (![MWMRouter isTaxi])
     return;
@@ -160,10 +179,9 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     [self setMenuErrorStateWithErrorMessage:errorMessage];
   };
 
-  auto r = [MWMRouter router];
-  auto const & start = r.startPoint;
-  auto const & finish = r.finishPoint;
-  if (start.isValid && finish.isValid)
+  auto pFrom = [MWMRouter startPoint];
+  auto pTo = [MWMRouter finishPoint];
+  if (pFrom && pTo)
   {
     if (!Platform::IsConnected())
     {
@@ -171,16 +189,26 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
       showError(L(@"dialog_taxi_offline"));
       return;
     }
-    [self.taxiDataSource requestTaxiFrom:start to:finish completion:^
-    {
-      [self setMenuState:MWMBottomMenuStateGo];
-      [self.routePreview stateReady];
-      [self setRouteBuilderProgress:100.];
-    }
-    failure:^(NSString * errorMessage)
-    {
-      showError(errorMessage);
-    }];
+    [self.taxiDataSource requestTaxiFrom:pFrom
+        to:pTo
+        completion:^{
+          [self setMenuState:MWMBottomMenuStateGo];
+          [self.routePreview stateReady];
+          [self setRouteBuilderProgress:100.];
+        }
+        failure:^(NSString * errorMessage) {
+          showError(errorMessage);
+        }];
+  }
+  else
+  {
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:5
+                                      userInfo:@{
+                                        @"Description" : @"Invalid number of taxi route points",
+                                        @"Count" : @([MWMRouter pointsCount])
+                                      }];
+    [[Crashlytics sharedInstance] recordError:err];
   }
 }
 
@@ -198,7 +226,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [self setMenuState:MWMBottomMenuStateRouting];
   [self.routePreview remove];
   self.routePreview = nil;
-  [self.navigationInfoView addToView:self.ownerView];
+  self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
   [MWMMapViewControlsManager manager].searchHidden = YES;
 }
 
@@ -209,6 +237,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [startButton setTitle:t forState:UIControlStateDisabled];
 }
 
+- (void)onRoutePointsUpdated { [self.navigationInfoView onRoutePointsUpdated]; }
 - (void)setMenuErrorStateWithErrorMessage:(NSString *)message
 {
   [self.delegate setRoutingErrorMessage:message];
@@ -274,7 +303,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     self.navigationInfoView.leftBound = leftBound;
 }
 
-- (CGFloat)leftHeight
+- (CGFloat)leftTop
 {
   switch (self.state)
   {
@@ -288,7 +317,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   }
 }
 
-- (CGFloat)rightHeight
+- (CGFloat)rightTop
 {
   switch (self.state)
   {
@@ -302,6 +331,35 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   }
 }
 
+- (CGFloat)bottom
+{
+  auto ov = self.ownerView;
+  switch (self.state)
+  {
+  case MWMNavigationDashboardStateHidden: return ov.height;
+  case MWMNavigationDashboardStatePlanning:
+  case MWMNavigationDashboardStateReady:
+  case MWMNavigationDashboardStateError:
+  case MWMNavigationDashboardStatePrepare:
+  case MWMNavigationDashboardStateNavigation:
+    return IPAD ? ov.height : self.navigationInfoView.bottom;
+  }
+}
+
+- (CGFloat)left
+{
+  switch (self.state)
+  {
+  case MWMNavigationDashboardStateHidden: return 0.0;
+  case MWMNavigationDashboardStatePlanning:
+  case MWMNavigationDashboardStateReady:
+  case MWMNavigationDashboardStateError:
+  case MWMNavigationDashboardStatePrepare:
+  case MWMNavigationDashboardStateNavigation:
+    return self.leftBound + (IPAD ? 0 : self.navigationInfoView.left);
+  }
+}
+
 - (void)addInfoDisplay:(TInfoDisplay)infoDisplay { [self.infoDisplays addObject:infoDisplay]; }
 - (NSString *)startButtonTitle
 {
@@ -309,6 +367,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     return L(@"p2p_start");
   return self.taxiDataSource.isTaxiInstalled ? L(@"taxi_order") : L(@"install_app");
 }
+
 #pragma mark - Properties
 
 - (MWMRoutePreview *)routePreview
@@ -330,6 +389,8 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   if (!_navigationInfoView)
   {
     [NSBundle.mainBundle loadNibNamed:kNavigationInfoViewXibName owner:self options:nil];
+    _navigationInfoView.state = MWMNavigationInfoViewStateHidden;
+    _navigationInfoView.ownerView = self.ownerView;
     [self addInfoDisplay:_navigationInfoView];
   }
   return _navigationInfoView;

@@ -11,6 +11,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
+#import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
 #include "geometry/angles.hpp"
@@ -69,6 +70,7 @@ BOOL defaultOrientation(CGSize const & size)
 
 @property(weak, nonatomic) IBOutlet UIView * searchButtonsView;
 @property(weak, nonatomic) IBOutlet MWMButton * searchMainButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
@@ -81,6 +83,9 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet MWMButton * searchATMButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsTopOffset;
 
+@property(weak, nonatomic) IBOutlet MWMNavigationAddPointToastView * toastView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * toastViewHideOffset;
+
 @property(nonatomic, readwrite) NavigationSearchState searchState;
 @property(nonatomic) BOOL isVisible;
 
@@ -90,18 +95,6 @@ BOOL defaultOrientation(CGSize const & size)
 
 @implementation MWMNavigationInfoView
 
-- (void)addToView:(UIView *)superview
-{
-  self.isVisible = YES;
-  [self setSearchState:NavigationSearchState::MinimizedNormal animated:NO];
-  self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
-  NSAssert(superview != nil, @"Superview can't be nil");
-  if ([superview.subviews containsObject:self])
-    return;
-  [superview insertSubview:self atIndex:0];
-}
-
-- (void)remove { self.isVisible = NO; }
 - (void)layoutSubviews
 {
   [super layoutSubviews];
@@ -111,14 +104,37 @@ BOOL defaultOrientation(CGSize const & size)
     [[MWMMapViewControlsManager manager] navigationDashBoardDidUpdate];
     [self setNeedsLayout];
   }
-
-  if (!self.isVisible)
-    [self removeFromSuperview];
 }
 
 - (CGFloat)leftHeight { return self.turnsView.maxY; }
 - (CGFloat)rightHeight { return self.streetNameView.hidden ? 0 : self.streetNameView.maxY; }
+- (CGFloat)bottom { return self.toastView.minY; }
+- (CGFloat)left
+{
+  auto sv = self.superview;
+  BOOL const isLandscape = sv.width > sv.height;
+  return isLandscape ? self.searchMainButton.maxX : 0;
+}
+
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
+- (void)onRoutePointsUpdated
+{
+  if (![MWMRouter startPoint])
+  {
+    [self.toastView configWithText:L(@"planning_route_need_start") withActionButton:YES];
+    [self setToastViewHidden:NO];
+  }
+  else if (![MWMRouter finishPoint])
+  {
+    [self.toastView configWithText:L(@"planning_route_need_finish") withActionButton:NO];
+    [self setToastViewHidden:NO];
+  }
+  else
+  {
+    [self setToastViewHidden:YES];
+  }
+}
+
 #pragma mark - Search
 
 - (IBAction)searchMainButtonTouchUpInside
@@ -130,7 +146,14 @@ BOOL defaultOrientation(CGSize const & size)
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
     break;
   case NavigationSearchState::MinimizedNormal:
-    [self setSearchState:NavigationSearchState::Maximized animated:YES];
+    if (self.state == MWMNavigationInfoViewStatePrepare)
+    {
+      [MWMMapViewControlsManager manager].searchHidden = NO;
+    }
+    else
+    {
+      [self setSearchState:NavigationSearchState::Maximized animated:YES];
+    }
     break;
   case NavigationSearchState::MinimizedSearch:
   case NavigationSearchState::MinimizedGas:
@@ -167,15 +190,19 @@ BOOL defaultOrientation(CGSize const & size)
     body(NavigationSearchState::MinimizedATM);
 }
 
+- (IBAction)bookmarksButtonTouchUpInside { [[MapViewController controller] openBookmarks]; }
 - (void)collapseSearchOnTimer
 {
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
 }
+
 #pragma mark - MWMNavigationDashboardInfoProtocol
 
 - (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
 {
   self.navigationInfo = info;
+  if (self.state != MWMNavigationInfoViewStateNavigation)
+    return;
   if (info.streetName.length != 0)
   {
     self.streetNameView.hidden = NO;
@@ -374,14 +401,48 @@ BOOL defaultOrientation(CGSize const & size)
   self.searchMainButton.imageName = kSearchStateButtonImageNames.at(searchState);
 }
 
+- (void)setState:(MWMNavigationInfoViewState)state
+{
+  _state = state;
+  switch (state)
+  {
+  case MWMNavigationInfoViewStateHidden: self.isVisible = NO; break;
+  case MWMNavigationInfoViewStateNavigation:
+    self.isVisible = YES;
+    if ([MWMRouter type] == MWMRouterTypePedestrian)
+      [MWMLocationManager addObserver:self];
+    else
+      [MWMLocationManager removeObserver:self];
+    break;
+  case MWMNavigationInfoViewStatePrepare:
+    self.isVisible = YES;
+    self.streetNameView.hidden = YES;
+    self.turnsView.hidden = YES;
+    break;
+  }
+}
+
 - (void)setIsVisible:(BOOL)isVisible
 {
-  _isVisible = isVisible;
   [self setNeedsLayout];
-  if (isVisible && [MWMRouter router].type == MWMRouterTypePedestrian)
-    [MWMLocationManager addObserver:self];
+  if (_isVisible == isVisible)
+    return;
+  _isVisible = isVisible;
+  if (isVisible)
+  {
+    self.bookmarksButton.imageName = @"ic_routing_bookmark";
+    [self setSearchState:NavigationSearchState::MinimizedNormal animated:NO];
+    self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
+    UIView * sv = self.ownerView;
+    NSAssert(sv != nil, @"Superview can't be nil");
+    if ([sv.subviews containsObject:self])
+      return;
+    [sv insertSubview:self atIndex:0];
+  }
   else
-    [MWMLocationManager removeObserver:self];
+  {
+    [self removeFromSuperview];
+  }
 }
 
 - (CGRect)defaultFrame
@@ -401,6 +462,17 @@ BOOL defaultOrientation(CGSize const & size)
 {
   _leftBound = MAX(leftBound, 0.0);
   [self setNeedsLayout];
+}
+
+- (void)setToastViewHidden:(BOOL)hidden
+{
+  [self setNeedsLayout];
+  self.toastViewHideOffset.priority =
+      hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     [self layoutIfNeeded];
+                   }];
 }
 
 @end

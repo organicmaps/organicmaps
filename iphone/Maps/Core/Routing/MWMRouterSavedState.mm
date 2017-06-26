@@ -1,5 +1,5 @@
 #import "MWMRouterSavedState.h"
-#import "MWMRoutePoint.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 
 #include "Framework.h"
@@ -37,7 +37,7 @@ static NSString * const kETAKey = @"eta";
       if (endPointData && eta)
       {
         [endPointData getBytes:&point length:size];
-        _restorePoint = routePoint(point, @"Destination");
+        _restorePoint = [[MWMRoutePoint alloc] initWithPoint:point type:MWMRoutePointTypeFinish];
         if ([eta compare:[NSDate date]] == NSOrderedDescending)
           _forceStateChange = MWMRouterForceStateChange::Rebuild;
       }
@@ -49,7 +49,7 @@ static NSString * const kETAKey = @"eta";
 + (void)store
 {
   Framework & f = GetFramework();
-  if (!f.GetRoutingManager().IsOnRoute())
+  if (![MWMRouter isOnRoute])
     return;
   location::FollowingInfo routeInfo;
   f.GetRoutingManager().GetRouteFollowingInfo(routeInfo);
@@ -75,7 +75,7 @@ static NSString * const kETAKey = @"eta";
 
 + (void)restore
 {
-  if (GetFramework().GetRoutingManager().IsRoutingActive())
+  if ([MWMRouter isRoutingActive])
     return;
   if ([MWMRouterSavedState state].forceStateChange == MWMRouterForceStateChange::None)
     [self remove];

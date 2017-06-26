@@ -9,13 +9,6 @@
 @class MapViewController;
 @class LocationManager;
 
-typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
-  MWMRoutingPlaneModeNone,
-  MWMRoutingPlaneModePlacePage,
-  MWMRoutingPlaneModeSearchSource,
-  MWMRoutingPlaneModeSearchDestination
-};
-
 @interface MapsAppDelegate
     : UIResponder<UIApplicationDelegate, UIAlertViewDelegate, DownloadIndicatorProtocol>
 {
@@ -26,7 +19,6 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
 }
 
 @property(nonatomic) UIWindow * window;
-@property(nonatomic) MWMRoutingPlaneMode routingPlaneMode;
 
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;

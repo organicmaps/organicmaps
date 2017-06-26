@@ -12,17 +12,26 @@ enum class NavigationSearchState
   MinimizedATM
 };
 
+typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
+  MWMNavigationInfoViewStateHidden,
+  MWMNavigationInfoViewStatePrepare,
+  MWMNavigationInfoViewStateNavigation
+};
+
 @interface MWMNavigationInfoView : UIView<MWMNavigationDashboardInfoProtocol>
 
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
 @property(nonatomic, readonly) CGFloat leftHeight;
 @property(nonatomic, readonly) CGFloat rightHeight;
+@property(nonatomic, readonly) CGFloat bottom;
+@property(nonatomic, readonly) CGFloat left;
 @property(nonatomic, readonly) NavigationSearchState searchState;
-
-- (void)addToView:(UIView *)superview;
-- (void)remove;
+@property(nonatomic) MWMNavigationInfoViewState state;
+@property(weak, nonatomic) UIView * ownerView;
 
 - (void)setMapSearch;
+
+- (void)onRoutePointsUpdated;
 
 @end

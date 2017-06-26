@@ -5,6 +5,7 @@
 #import "MWMController.h"
 #import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
+#import "MWMRouter.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
 
@@ -123,11 +124,10 @@ BOOL keepRunningInBackground()
   if (needGPSForTrackRecorder)
     return YES;
 
-  auto const & routingManager = GetFramework().GetRoutingManager();
-  bool const isRouteBuilt = routingManager.IsRouteBuilt();
-  bool const isRouteFinished = routingManager.IsRouteFinished();
-  bool const isRouteRebuildingOnly = routingManager.IsRouteRebuildingOnly();
-  bool const needGPSForRouting = ((isRouteBuilt || isRouteRebuildingOnly) && !isRouteFinished);
+  auto const isRouteBuilt = [MWMRouter isRouteBuilt];
+  auto const isRouteFinished = [MWMRouter isRouteFinished];
+  auto const isRouteRebuildingOnly = [MWMRouter isRouteRebuildingOnly];
+  auto const needGPSForRouting = ((isRouteBuilt || isRouteRebuildingOnly) && !isRouteFinished);
   if (needGPSForRouting)
     return YES;
 
@@ -333,15 +333,14 @@ void setPermissionRequested()
   [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
   auto const & f = GetFramework();
-  if (f.GetRoutingManager().IsRoutingActive())
+  if ([MWMRouter isRoutingActive])
   {
-    switch (f.GetRoutingManager().GetRouter())
+    switch ([MWMRouter type])
     {
-    case routing::RouterType::Vehicle: manager.geoMode = GeoMode::VehicleRouting; break;
-    case routing::RouterType::Pedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
-    case routing::RouterType::Bicycle: manager.geoMode = GeoMode::BicycleRouting; break;
-    case routing::RouterType::Taxi: break;
-    case routing::RouterType::Count: NSAssert(false, @"Incorrect state"); break;
+    case MWMRouterTypeVehicle: manager.geoMode = GeoMode::VehicleRouting; break;
+    case MWMRouterTypePedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
+    case MWMRouterTypeBicycle: manager.geoMode = GeoMode::BicycleRouting; break;
+    case MWMRouterTypeTaxi: break;
     }
   }
   else

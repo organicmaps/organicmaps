@@ -6,6 +6,5 @@
 @property (weak, nonatomic) id<MWMSearchTabbedViewProtocol> delegate;
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell;
-- (BOOL)isRouteSearchMode;
 
 @end

@@ -9,13 +9,14 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMCommon.h"
 #import "MWMController.h"
+#import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPushNotifications.h"
-#import "MWMRoutePoint.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMRouterSavedState.h"
 #import "MWMSearch+CoreSpotlight.h"
@@ -235,14 +236,29 @@ using namespace osm_auth_ios;
     case ParsedMapApi::ParsingResult::Route:
     {
       auto const parsedData = f.GetParsedRoutingData();
-      f.GetRoutingManager().SetRouter(parsedData.m_type);
+      MWMRouter.type = routerType(parsedData.m_type);
       auto const points = parsedData.m_points;
-      auto const & p1 = points[0];
-      auto const & p2 = points[1];
+      if (points.size() == 2)
+      {
+        auto p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
+                                                                type:MWMRoutePointTypeStart];
+        auto p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
+                                                                type:MWMRoutePointTypeFinish];
+        [MWMRouter buildFromPoint:p1 toPoint:p2 bestRouter:NO];
+      }
+      else
+      {
+#ifdef OMIM_PRODUCTION
+        auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                              code:5
+                                          userInfo:@{
+                                            @"Description" : @"Invalid number of route points",
+                                            @"URL" : m_mwmURL
+                                          }];
+        [[Crashlytics sharedInstance] recordError:err];
+#endif
+      }
 
-      [[MWMRouter router] buildFromPoint:routePoint(p1.m_org, @(p1.m_name.c_str()))
-                                 toPoint:routePoint(p2.m_org, @(p2.m_name.c_str()))
-                              bestRouter:NO];
       [self showMap];
       [self.mapViewController showAPIBar];
       break;
@@ -857,12 +873,6 @@ using namespace osm_auth_ios;
       updateInfo.m_numberOfMwmFilesToUpdate;
 }
 
-- (void)setRoutingPlaneMode:(MWMRoutingPlaneMode)routingPlaneMode
-{
-  _routingPlaneMode = routingPlaneMode;
-  [self.mapViewController updateStatusBarStyle];
-}
-
 #pragma mark - MWMFrameworkStorageObserver
 
 - (void)processCountryEvent:(storage::TCountryId const &)countryId
@@ -945,7 +955,7 @@ using namespace osm_auth_ios;
 
 - (void)showAlert:(BOOL)isRate
 {
-  if (!Platform::IsConnected() || GetFramework().GetRoutingManager().IsRoutingActive())
+  if (!Platform::IsConnected() || [MWMRouter isRoutingActive])
     return;
 
   if (isRate)

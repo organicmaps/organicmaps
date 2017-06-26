@@ -185,11 +185,11 @@ CGFloat constexpr kAdditionalHeight = 20.;
   if (![MWMRouter hasRouteAltitude])
     return;
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
-                                       completion:^(UIImage * image, NSString * altitudeElevation) {
-                                         self.heightProfileImage.image = image;
-                                         self.elevationHeight.text = altitudeElevation;
-                                       }];
+    [MWMRouter routeAltitudeImageForSize:self.heightProfileImage.frame.size
+                              completion:^(UIImage * image, NSString * altitudeElevation) {
+                                self.heightProfileImage.image = image;
+                                self.elevationHeight.text = altitudeElevation;
+                              }];
   });
 }
 
@@ -218,7 +218,6 @@ CGFloat constexpr kAdditionalHeight = 20.;
   [super layoutSubviews];
   [self setupActualHeight];
   [self.delegate routePreviewDidChangeFrame:self.frame];
-  [super layoutSubviews];
 }
 
 - (void)router:(MWMRouterType)routerType setState:(MWMCircularProgressState)state
@@ -247,9 +246,8 @@ CGFloat constexpr kAdditionalHeight = 20.;
       continue;
     auto const routerType = prg.first;
     [self selectRouter:routerType];
-    MWMRouter * router = [MWMRouter router];
-    router.type = routerType;
-    [router rebuildWithBestRouter:NO];
+    [MWMRouter setType:routerType];
+    [MWMRouter rebuildWithBestRouter:NO];
     switch (routerType)
     {
     case MWMRouterTypeVehicle:

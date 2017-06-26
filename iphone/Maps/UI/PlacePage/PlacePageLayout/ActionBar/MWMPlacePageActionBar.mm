@@ -1,7 +1,8 @@
 #import "MWMPlacePageActionBar.h"
-#import "MWMCommon.h"
 #import "MWMActionBarButton.h"
+#import "MWMCommon.h"
 #import "MWMPlacePageProtocol.h"
+#import "MWMRouter.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
@@ -19,7 +20,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
 @property(weak, nonatomic) IBOutlet UIImageView * separator;
-@property(nonatomic) BOOL isPrepareRouteMode;
 
 @property(weak, nonatomic) id<MWMActionBarSharedData> data;
 @property(weak, nonatomic) id<MWMActionBarProtocol> delegate;
@@ -39,7 +39,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)configureWithData:(id<MWMActionBarSharedData>)data
 {
   self.data = data;
-  self.isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
   self.isBookmark = data.isBookmark;
   [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
@@ -61,10 +60,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
   BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
   BOOL const isApi = data.isApi;
-  BOOL const isP2P = self.isPrepareRouteMode;
+  BOOL const isP2P = [MWMRouter isRoutingActive];
   BOOL const isMyPosition = data.isMyPosition;
   BOOL const isRoutePoint = data.isRoutePoint;
-  BOOL const isNeedToAddIntermediatePoint = GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
+  BOOL const isNeedToAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
 
   EButton sponsoredButton = EButton::BookingSearch;
   if (isBooking)

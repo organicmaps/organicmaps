@@ -1,7 +1,6 @@
 #import "MWMTaxiPreviewDataSource.h"
 #import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMRoutePoint.h"
 #import "MWMTaxiPreviewCell.h"
 #import "SwiftBridge.h"
 
@@ -104,8 +103,8 @@ using namespace uber;
 {
   NSAssert(completion && failure, @"Completion and failure blocks must be not nil!");
   m_products.clear();
-  m_from = routePointLatLon(from);
-  m_to = routePointLatLon(to);
+  m_from = ms::LatLon(from.latitude, from.longitude);
+  m_to = ms::LatLon(to.latitude, to.longitude);
   auto cv = self.collectionView;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;

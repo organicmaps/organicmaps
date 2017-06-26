@@ -49,6 +49,7 @@
 - (void)onRouteReady;
 - (void)onRouteStart;
 - (void)onRouteStop;
+- (void)onRoutePointsUpdated;
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
 

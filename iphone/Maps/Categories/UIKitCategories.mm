@@ -303,7 +303,6 @@
   if (!url)
   {
     NSAssert(false, @"URL is nil!");
-    auto urlString = url.absoluteString;
     auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                           code:0
                                       userInfo:@{

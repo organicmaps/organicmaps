@@ -3,7 +3,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
   MWMBottomMenuStateInactive,
   MWMBottomMenuStateActive,
   MWMBottomMenuStateCompact,
-  MWMBottomMenuStatePlanning,
   MWMBottomMenuStateGo,
   MWMBottomMenuStateRoutingError,
   MWMBottomMenuStateRouting,

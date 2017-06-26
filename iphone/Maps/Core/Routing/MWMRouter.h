@@ -1,40 +1,49 @@
-@class MWMRoutePoint;
+#import "MWMRoutePoint.h"
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 @interface MWMRouter : NSObject
 
-+ (MWMRouter *)router;
-
-+ (BOOL)hasRouteAltitude;
 + (BOOL)isTaxi;
++ (BOOL)isRoutingActive;
++ (BOOL)isRouteBuilt;
++ (BOOL)isRouteFinished;
++ (BOOL)isRouteRebuildingOnly;
++ (BOOL)isOnRoute;
+
++ (BOOL)canAddIntermediatePoint;
+
 + (void)startRouting;
 + (void)stopRouting;
-+ (BOOL)isRoutingActive;
 
-@property(nonatomic, readonly) MWMRoutePoint * startPoint;
-@property(nonatomic, readonly) MWMRoutePoint * finishPoint;
-@property(nonatomic) MWMRouterType type;
++ (NSArray<MWMRoutePoint *> *)points;
++ (NSInteger)pointsCount;
++ (MWMRoutePoint *)startPoint;
++ (MWMRoutePoint *)finishPoint;
 
-- (void)swapPointsAndRebuild;
-- (void)removeStartPointAndRebuild:(int)intermediateIndex;
-- (void)removeFinishPointAndRebuild:(int)intermediateIndex;
-- (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point intermediateIndex:(int)intermediateIndex;
-- (void)removeIntermediatePointAndRebuild:(int)intermediateIndex;
-- (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
-- (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
-- (void)buildFromPoint:(MWMRoutePoint *)start
-               toPoint:(MWMRoutePoint *)finish
++ (void)setType:(MWMRouterType)type;
++ (MWMRouterType)type;
+
++ (void)disableFollowMode;
+
++ (void)enableTurnNotifications:(BOOL)active;
++ (BOOL)areTurnNotificationsEnabled;
++ (void)setTurnNotificationsLocale:(NSString *)locale;
++ (NSArray<NSString *> *)turnNotifications;
+
++ (void)removeStartPointAndRebuild:(int8_t)intermediateIndex;
++ (void)removeFinishPointAndRebuild:(int8_t)intermediateIndex;
++ (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point
+                     intermediateIndex:(int8_t)intermediateIndex;
++ (void)removeIntermediatePointAndRebuild:(int8_t)intermediateIndex;
++ (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
++ (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
++ (void)buildFromPoint:(MWMRoutePoint *)startPoint
+               toPoint:(MWMRoutePoint *)finishPoint
             bestRouter:(BOOL)bestRouter;
-- (void)rebuildWithBestRouter:(BOOL)bestRouter;
-- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
++ (void)rebuildWithBestRouter:(BOOL)bestRouter;
 
-- (instancetype)init __attribute__((unavailable("call +router instead")));
-- (instancetype)copy __attribute__((unavailable("call +router instead")));
-- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
-+ (instancetype)alloc __attribute__((unavailable("call +router instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-    __attribute__((unavailable("call +router instead")));
-+ (instancetype) new __attribute__((unavailable("call +router instead")));
++ (BOOL)hasRouteAltitude;
++ (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
 
 @end

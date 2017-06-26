@@ -1,5 +1,6 @@
-#import "MWMCommon.h"
 #import "MWMStorage.h"
+#import "MWMCommon.h"
+#import "MWMRouter.h"
 
 #include "Framework.h"
 
@@ -50,13 +51,13 @@ using namespace storage;
 
 + (void)deleteNode:(TCountryId const &)countryId
 {
-  auto & f = GetFramework();
-  if (f.GetRoutingManager().IsRoutingActive())
+  if ([MWMRouter isRoutingActive])
   {
     [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
     return;
   }
 
+  auto & f = GetFramework();
   if (f.HasUnsavedEdits(countryId))
   {
     [[MWMAlertViewController activeAlertController]

@@ -89,38 +89,44 @@ CGFloat const kButtonsBottomOffset = 6;
                    }];
 }
 
+- (void)doAnimate
+{
+  [self layoutYPosition];
+
+  CGFloat const spaceLeft = self.bottomBound - self.topBound -
+                            (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight() : 0.0);
+  BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
+  BOOL const willZoomHide = (self.location.maxY > spaceLeft);
+  if (willZoomHide)
+  {
+    if (!isZoomHidden)
+      [self fadeZoomButtonsShow:NO];
+  }
+  else
+  {
+    if (isZoomHidden)
+      [self fadeZoomButtonsShow:YES];
+  }
+  BOOL const isLocationHidden = self.location.alpha == 0.0;
+  BOOL const willLocationHide = (self.location.height > spaceLeft);
+  if (willLocationHide)
+  {
+    if (!isLocationHidden)
+      [self fadeLocationButtonShow:NO];
+  }
+  else
+  {
+    if (isLocationHidden)
+      [self fadeLocationButtonShow:YES];
+  }
+  [self setNeedsLayout];
+}
+
 - (void)animate
 {
-  runAsyncOnMainQueue(^{
-    [self layoutYPosition];
-
-    CGFloat const spaceLeft = self.bottomBound - self.topBound -
-                              (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight() : 0.0);
-    BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
-    BOOL const willZoomHide = (self.location.maxY > spaceLeft);
-    if (willZoomHide)
-    {
-      if (!isZoomHidden)
-        [self fadeZoomButtonsShow:NO];
-    }
-    else
-    {
-      if (isZoomHidden)
-        [self fadeZoomButtonsShow:YES];
-    }
-    BOOL const isLocationHidden = self.location.alpha == 0.0;
-    BOOL const willLocationHide = (self.location.height > spaceLeft);
-    if (willLocationHide)
-    {
-      if (!isLocationHidden)
-        [self fadeLocationButtonShow:NO];
-    }
-    else
-    {
-      if (isLocationHidden)
-        [self fadeLocationButtonShow:YES];
-    }
-  });
+  auto doAnimate = @selector(doAnimate);
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:doAnimate object:nil];
+  [self performSelector:doAnimate withObject:nil afterDelay:0];
 }
 
 #pragma mark - Properties

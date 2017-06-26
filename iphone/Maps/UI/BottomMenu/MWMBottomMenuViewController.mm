@@ -287,11 +287,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)ttsButtonStatusChanged:(NSNotification *)notification
 {
-  auto const & f = GetFramework();
-  if (!f.GetRoutingManager().IsRoutingActive())
+  if (![MWMRouter isRoutingActive])
     return;
-  BOOL const isPedestrianRouting =
-      f.GetRoutingManager().GetRouter() == routing::RouterType::Pedestrian;
+  BOOL const isPedestrianRouting = [MWMRouter type] == MWMRouterTypePedestrian;
   MWMButton * ttsButton = self.ttsSoundButton;
   ttsButton.hidden = isPedestrianRouting || ![MWMTextToSpeech isTTSEnabled];
   if (!ttsButton.hidden)
@@ -429,18 +427,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   self.state = self.restoreState;
   BOOL const isSelected = !sender.isSelected;
   sender.selected = isSelected;
-  MapsAppDelegate * theApp = [MapsAppDelegate theApp];
   if (isSelected)
-  {
     [[MWMMapViewControlsManager manager] onRoutePrepare];
-  }
   else
-  {
-    if (theApp.routingPlaneMode == MWMRoutingPlaneModeSearchDestination ||
-        theApp.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
-      self.controller.controlsManager.searchHidden = YES;
     [MWMRouter stopRouting];
-  }
 }
 
 - (IBAction)searchButtonTouchUpInside
@@ -466,7 +456,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   {
   case MWMBottomMenuStateHidden: NSAssert(false, @"Incorrect state"); break;
   case MWMBottomMenuStateInactive:
-  case MWMBottomMenuStatePlanning:
   case MWMBottomMenuStateGo:
   case MWMBottomMenuStateRoutingError:
     [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
@@ -572,11 +561,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     view.state = self.restoreState = state;
     return;
   }
-  if (IPAD && (state == MWMBottomMenuStatePlanning || state == MWMBottomMenuStateGo))
+  if (IPAD && state == MWMBottomMenuStateGo)
     return;
   if (view.state == MWMBottomMenuStateCompact &&
-      (state == MWMBottomMenuStatePlanning || state == MWMBottomMenuStateGo ||
-       state == MWMBottomMenuStateRouting))
+      (state == MWMBottomMenuStateGo || state == MWMBottomMenuStateRouting))
     self.restoreState = state;
   else
     view.state = state;
