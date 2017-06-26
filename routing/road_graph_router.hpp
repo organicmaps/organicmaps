@@ -51,7 +51,9 @@ private:
   unique_ptr<IDirectionsEngine> const m_directionsEngine;
 };
 
-unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index, TCountryFileFn const & countryFileFn);
+unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
+                                                TCountryFileFn const & countryFileFn,
+                                                shared_ptr<NumMwmIds> numMwmIds);
 unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
                                                              TCountryFileFn const & countryFileFn,
                                                              shared_ptr<NumMwmIds> /* numMwmIds */);

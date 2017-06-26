@@ -3,6 +3,10 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "base/stl_helpers.hpp"
+
+#include <algorithm>
+
 namespace routing
 {
 using namespace traffic;
@@ -31,6 +35,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   Route::TStreets streetNames;
   vector<Segment> segments;
   engine.Generate(graph, path, cancellable, times, turnsDir, junctions, segments);
+  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   if (cancellable.IsCancelled())
     return;
@@ -41,6 +46,9 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
     LOG(LERROR, ("Internal error happened while turn generation."));
     return;
   }
+
+  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
+  CHECK(std::is_sorted(turnsDir.cbegin(), turnsDir.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
 
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |segments|.
