@@ -54,7 +54,7 @@ void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> con
     // We do not render some of turn directions.
     if (t.m_turn == TurnDirection::NoTurn || t.m_turn == TurnDirection::StartAtEndOfStreet ||
         t.m_turn == TurnDirection::StayOnRoundAbout || t.m_turn == TurnDirection::TakeTheExit ||
-        t.m_turn == TurnDirection::ReachedYourDestination || t.m_turn == TurnDirection::Count)
+        t.m_turn == TurnDirection::ReachedYourDestination)
     {
       continue;
     }
