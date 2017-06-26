@@ -41,6 +41,7 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Junction> const & path,
                                           my::Cancellable const & cancellable,
                                           Route::TTimes & times, Route::TTurns & turns,
+                                          Route::TStreets & /* streetNames */,
                                           vector<Junction> & routeGeometry,
                                           vector<Segment> & segments)
 {
@@ -68,7 +69,7 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   segments.reserve(routeEdges.size());
   for (Edge const & e : routeEdges)
     segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
-
+  
   routeGeometry = path;
 }
 

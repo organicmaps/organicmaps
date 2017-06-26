@@ -153,11 +153,12 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, std::share
 
 void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                        my::Cancellable const & cancellable, Route::TTimes & times,
-                                       Route::TTurns & turns, vector<Junction> & routeGeometry,
-                                       vector<Segment> & segments)
+                                       Route::TTurns & turns, Route::TStreets & streetNames,
+                                       vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
   times.clear();
   turns.clear();
+  streetNames.clear();
   routeGeometry.clear();
   m_adjacentEdges.clear();
   m_pathSegments.clear();
@@ -207,7 +208,6 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
   Route::TTimes dummyTimes;
-  Route::TStreets streetNames;
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, dummyTimes, streetNames,
                      segments);

@@ -31,10 +31,9 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   Route::TTimes times;
   Route::TTurns turnsDir;
   vector<Junction> junctions;
-  // @TODO(bykoianko) streetNames is not filled in Generate(). It should be done.
   Route::TStreets streetNames;
   vector<Segment> segments;
-  engine.Generate(graph, path, cancellable, times, turnsDir, junctions, segments);
+  engine.Generate(graph, path, cancellable, times, turnsDir, streetNames, junctions, segments);
   CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   if (cancellable.IsCancelled())
@@ -49,6 +48,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
 
   CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
   CHECK(std::is_sorted(turnsDir.cbegin(), turnsDir.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
+  CHECK(std::is_sorted(streetNames.cbegin(), streetNames.cend(), my::LessBy(&Route::TStreetItem::first)), ());
 
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |segments|.

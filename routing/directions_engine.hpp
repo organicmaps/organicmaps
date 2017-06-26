@@ -20,8 +20,8 @@ public:
 
   virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTimes & times,
-                        Route::TTurns & turns, vector<Junction> & routeGeometry,
-                        vector<Segment> & segments) = 0;
+                        Route::TTurns & turns, Route::TStreets & streetNames,
+                        vector<Junction> & routeGeometry, vector<Segment> & segments) = 0;
 
 protected:
   /// \brief constructs route based on |graph| and |path|. Fills |routeEdges| with the route.
