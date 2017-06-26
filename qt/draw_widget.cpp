@@ -304,7 +304,7 @@ void DrawWidget::SetMapStyle(MapStyle mapStyle)
 void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 {
   m_emulatingLocation = true;
-  m2::PointD const point = m_framework.PtoG(pt);
+  m2::PointD const point = m_framework.P3dtoG(pt);
 
   location::GpsInfo info;
   info.m_latitude = MercatorBounds::YToLat(point.y);
@@ -327,24 +327,41 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 {
   auto & routingManager = m_framework.GetRoutingManager();
-  if (routingManager.IsRoutingActive())
-  {
-    routingManager.CloseRouting(true /* remove route points */);
-  }
-  else
+  auto const pointsCount = routingManager.GetRoutePoints().size();
+
+  // Check if limit of intermediate points is reached.
+  if (m_routePointAddMode == RouteMarkType::Intermediate && !routingManager.CouldAddIntermediatePoint())
+    routingManager.RemoveRoutePoint(RouteMarkType::Intermediate, 0);
+
+  // Insert implicit start point.
+  if (m_routePointAddMode == RouteMarkType::Finish && pointsCount == 0)
   {
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
     startPoint.m_isMyPosition = true;
     routingManager.AddRoutePoint(std::move(startPoint));
-
-    RouteMarkData endPoint;
-    endPoint.m_pointType = RouteMarkType::Finish;
-    endPoint.m_position = m_framework.PtoG(pt);
-    routingManager.AddRoutePoint(std::move(endPoint));
-
-    routingManager.BuildRoute(0 /* timeoutSec */);
   }
+
+  RouteMarkData point;
+  point.m_pointType = m_routePointAddMode;
+  point.m_isMyPosition = false;
+  point.m_position = m_framework.P3dtoG(pt);
+  routingManager.AddRoutePoint(std::move(point));
+
+  if (routingManager.GetRoutePoints().size() >= 2)
+    routingManager.BuildRoute(0 /* timeoutSec */);
+}
+
+void DrawWidget::FollowRoute()
+{
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.IsRoutingActive() && !routingManager.IsRoutingFollowing())
+    routingManager.FollowRoute();
+}
+
+void DrawWidget::ClearRoute()
+{
+  m_framework.GetRoutingManager().CloseRouting(true /* remove route points */);
 }
 
 void DrawWidget::ShowPlacePage(place_page::Info const & info)
