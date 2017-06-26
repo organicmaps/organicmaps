@@ -16,7 +16,6 @@
 		670E7BA31EF980A600A8E9ED /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BA21EF980A600A8E9ED /* libz.tbd */; };
 		670E7BA51EF980B300A8E9ED /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BA41EF980B300A8E9ED /* libcoding.a */; };
 		670E7BCC1EFA66DD00A8E9ED /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6F8E3A41EF83D7600F2DE8F /* libugc.a */; };
-		670E7BCE1EFA6B4100A8E9ED /* serdes_json_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7BCD1EFA6B4100A8E9ED /* serdes_json_test.cpp */; };
 		670E7BD31EFA774800A8E9ED /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BD21EFA774800A8E9ED /* libjansson.a */; };
 		F6150E221EF90040000B955D /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E1F1EF90040000B955D /* api.cpp */; };
 		F6150E5D1EFAAB45000B955D /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E5B1EFAAB45000B955D /* storage.cpp */; };
@@ -45,7 +44,6 @@
 		670E7BA21EF980A600A8E9ED /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		670E7BA41EF980B300A8E9ED /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libcoding.a"; sourceTree = "<group>"; };
 		670E7BA61EF980E900A8E9ED /* serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
-		670E7BCD1EFA6B4100A8E9ED /* serdes_json_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_json_test.cpp; sourceTree = "<group>"; };
 		670E7BD01EFA6D7400A8E9ED /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
 		670E7BD21EFA774800A8E9ED /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libjansson.a"; sourceTree = "<group>"; };
 		F6150E1F1EF90040000B955D /* api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api.cpp; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 			children = (
 				670E7B961EF97D0E00A8E9ED /* testingmain.cpp */,
 				670E7B941EF97CE700A8E9ED /* serdes_tests.cpp */,
-				670E7BCD1EFA6B4100A8E9ED /* serdes_json_test.cpp */,
 			);
 			name = ugc_tests;
 			path = ../../ugc/ugc_tests;
@@ -121,7 +118,6 @@
 			children = (
 				F6150E5B1EFAAB45000B955D /* storage.cpp */,
 				F6150E5C1EFAAB45000B955D /* storage.hpp */,
-				670E7BA61EF980E900A8E9ED /* serdes.hpp */,
 				F6150E1F1EF90040000B955D /* api.cpp */,
 				F6150E201EF90040000B955D /* api.hpp */,
 				670E7BD01EFA6D7400A8E9ED /* serdes_json.hpp */,
@@ -238,7 +234,6 @@
 			files = (
 				670E7B981EF97D1000A8E9ED /* serdes_tests.cpp in Sources */,
 				670E7B991EF97D1600A8E9ED /* testingmain.cpp in Sources */,
-				670E7BCE1EFA6B4100A8E9ED /* serdes_json_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,10 +37,11 @@ public:
   DECLARE_EXCEPTION(Exception, RootException);
 
   Json() = default;
-  explicit Json(std::string const & s) { Attach(s.c_str()); }
-  explicit Json(char const * s) { Attach(s); }
+  explicit Json(std::string const & s) { ParseFrom(s); }
+  explicit Json(char const * s) { ParseFrom(s); }
 
-  void Attach(char const * s)
+  void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
+  void ParseFrom(char const * s)
   {
     json_error_t jsonError;
     m_handle.AttachNew(json_loads(s, 0, &jsonError));

@@ -2,6 +2,7 @@
 
 #include "ugc/api.hpp"
 #include "ugc/serdes.hpp"
+#include "ugc/serdes_json.hpp"
 #include "ugc/types.hpp"
 
 #include "coding/reader.hpp"
@@ -16,8 +17,11 @@ using namespace ugc;
 namespace
 {
 using Buffer = vector<uint8_t>;
-using Ser = Serializer<MemWriter<Buffer>>;
-using Des = DeserializerV0<ReaderSource<MemReader>>;
+using ToBin = Serializer<MemWriter<Buffer>>;
+using FromBin = DeserializerV0<ReaderSource<MemReader>>;
+using ToJson = SerializerJson<MemWriter<Buffer>>;
+using FromJson = DeserializerJsonV0<ReaderSource<MemReader>>;
+
 
 Rating GetTestRating()
 {
@@ -36,28 +40,64 @@ ReaderSource<MemReader> MakeSource(Buffer const & buffer)
   return ReaderSource<MemReader>(reader);
 }
 
+template<typename Object, typename Serializator, typename Deserializator>
+void MakeTest(Object const & src)
+{
+  Buffer buffer;
+  Object trg;
+
+  {
+    auto sink = MakeSink(buffer);
+    Serializator ser(sink);
+    ser(src);
+  }
+
+  {
+    auto source = MakeSource(buffer);
+    Deserializator des(source);
+    des(trg);
+  }
+  TEST_EQUAL(src, trg, ());
+}
+
 UNIT_TEST(SerDes_Rating)
 {
   auto const expectedRating = GetTestRating();
   TEST_EQUAL(expectedRating, expectedRating, ());
 
-  Buffer buffer;
+  MakeTest<Rating, ToBin, FromBin>(expectedRating);
+}
 
-  {
-    auto sink = MakeSink(buffer);
-    Ser ser(sink);
-    ser(expectedRating);
-  }
+UNIT_TEST(SerDes_Json_Rating)
+{
+  auto const expectedRating = GetTestRating();
+  TEST_EQUAL(expectedRating, expectedRating, ());
 
-  Rating actualRating({} /* ratings */, {} /* aggValue */);
+  MakeTest<Rating, ToJson, FromJson>(expectedRating);
+}
 
-  {
-    auto source = MakeSource(buffer);
-    Des des(source);
-    des(actualRating);
-  }
+UNIT_TEST(SerDes_Json_Reviews)
+{
+  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_reviews;
+  TEST_EQUAL(expectedUGC, expectedUGC, ());
 
-  TEST_EQUAL(expectedRating, actualRating, ());
+  MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
+}
+
+UNIT_TEST(SerDes_Json_Attributes)
+{
+  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100))).m_attributes;
+  TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+  MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
+}
+
+UNIT_TEST(SerDes_Json_UGC)
+{
+  auto expectedUGC = Api::MakeTestUGC1(Time(chrono::hours(24 * 100)));
+  TEST_EQUAL(expectedUGC, expectedUGC, ());
+
+  MakeTest<decltype(expectedUGC), ToJson, FromJson>(expectedUGC);
 }
 
 UNIT_TEST(SerDes_UGC)

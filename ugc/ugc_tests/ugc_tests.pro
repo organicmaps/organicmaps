@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = ugc jansson indexer platform coding geometry base stats_client
+DEPENDENCIES = ugc indexer platform coding geometry base jansson stats_client
 
 macx-* {
   LIBS *= "-framework IOKit" "-framework SystemConfiguration"
@@ -19,4 +19,3 @@ QT *= core
 SOURCES += \
   ../../testing/testingmain.cpp \
   serdes_tests.cpp \
-  serdes_json_tests.cpp \
