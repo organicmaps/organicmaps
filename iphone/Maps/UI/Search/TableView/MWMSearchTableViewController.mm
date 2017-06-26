@@ -161,9 +161,6 @@
 
 - (void)onSearchResultsUpdated
 {
-  if (!IPAD && [MWMSearch isSearchOnMap])
-    return;
-
   [self reloadData];
 }
 
