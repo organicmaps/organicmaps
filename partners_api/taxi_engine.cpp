@@ -22,14 +22,18 @@ Iter FindByProviderType(taxi::Provider::Type type, Iter first, Iter last)
 
 namespace taxi
 {
+// ResultMaker ------------------------------------------------------------------------------------
 void ResultMaker::Reset(uint64_t requestId, size_t requestsCount,
-                        SuccessfullCallback const & successCallback,
+                        SuccessfulCallback const & successCallback,
                         ErrorCallback const & errorCallback)
 {
+  ASSERT(successCallback, ());
+  ASSERT(errorCallback, ());
+
   std::lock_guard<std::mutex> lock(m_mutex);
 
   m_requestId = requestId;
-  m_requestsCount = static_cast<uint8_t>(requestsCount);
+  m_requestsCount = static_cast<int8_t>(requestsCount);
   m_successCallback = successCallback;
   m_errorCallback = errorCallback;
   m_providers.clear();
@@ -73,7 +77,7 @@ void ResultMaker::ProcessError(uint64_t requestId, Provider::Type type, ErrorCod
 
 void ResultMaker::MakeResult(uint64_t requestId) const
 {
-  SuccessfullCallback successCallback;
+  SuccessfulCallback successCallback;
   ErrorCallback errorCallback;
   ProvidersContainer providers;
   ErrorsContainer errors;
@@ -102,6 +106,7 @@ void ResultMaker::DecrementRequestCount()
   --m_requestsCount;
 }
 
+// Engine -----------------------------------------------------------------------------------------
 Engine::Engine()
 {
   m_enabledCountries = {{Provider::Type::Yandex, {"Russian Federation"}}};
@@ -114,18 +119,21 @@ Engine::Engine()
 /// Requests list of available products. Returns request identificator immediately.
 uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                       storage::TCountriesVec const & countryIds,
-                                      SuccessfullCallback const & successFn,
-                                      ErrorCallback const & failFn)
+                                      SuccessfulCallback const & successFn,
+                                      ErrorCallback const & errorFn)
 {
+  ASSERT(successFn, ());
+  ASSERT(errorFn, ());
+
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
 
-  maker->Reset(reqId, m_apis.size(), successFn, failFn);
+  maker->Reset(reqId, m_apis.size(), successFn, errorFn);
   for (auto const & api : m_apis)
   {
     auto type = api.m_type;
 
-    if (IsCountryDisabled(type, countryIds) || !IsCountryEnabled(type, countryIds))
+    if (IsAllCountriesDisabled(type, countryIds) || !IsAnyCountryEnabled(type, countryIds))
     {
       maker->DecrementRequestCount(reqId);
       maker->MakeResult(reqId);
@@ -161,7 +169,8 @@ RideRequestLinks Engine::GetRideRequestLinks(Provider::Type type, std::string co
   return it->m_api->GetRideRequestLinks(productId, from, to);
 }
 
-bool Engine::IsCountryDisabled(Provider::Type type, storage::TCountriesVec const & countryIds) const
+bool Engine::IsAllCountriesDisabled(Provider::Type type,
+                                    storage::TCountriesVec const & countryIds) const
 {
   auto const it =
       FindByProviderType(type, m_disabledCountries.cbegin(), m_disabledCountries.cend());
@@ -182,7 +191,8 @@ bool Engine::IsCountryDisabled(Provider::Type type, storage::TCountriesVec const
   return isCountryDisabled;
 }
 
-bool Engine::IsCountryEnabled(Provider::Type type, storage::TCountriesVec const & countryIds) const
+bool Engine::IsAnyCountryEnabled(Provider::Type type,
+                                 storage::TCountriesVec const & countryIds) const
 {
   auto const it = FindByProviderType(type, m_enabledCountries.cbegin(), m_enabledCountries.cend());
 

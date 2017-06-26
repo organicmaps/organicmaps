@@ -182,10 +182,10 @@ namespace android
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
 
-    uint64_t RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
-                                 ms::LatLon const & to, taxi::SuccessfullCallback const & callback,
+    uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
+                                 ms::LatLon const & to, taxi::SuccessfulCallback const & callback,
                                  taxi::ErrorCallback const & errorCallback);
-    taxi::RideRequestLinks GetUberLinks(JNIEnv * env, jobject policy, std::string const & productId,
+    taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, std::string const & productId,
                                         ms::LatLon const & from, ms::LatLon const & to);
 
     void RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,

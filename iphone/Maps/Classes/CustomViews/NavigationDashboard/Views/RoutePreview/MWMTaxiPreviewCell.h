@@ -1,6 +1,7 @@
-namespace taxi {
+namespace taxi
+{
 struct Product;
-}  // namespace uber;
+}  // namespace taxi;
 
 @interface MWMTaxiPreviewCell : UICollectionViewCell
 

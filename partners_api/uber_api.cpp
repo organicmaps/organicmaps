@@ -32,7 +32,7 @@ bool RunSimpleHttpRequest(string const & url, string & result)
   return false;
 }
 
-bool CheckUberAnswer(json_t const * answer)
+bool CheckUberResponse(json_t const * answer)
 {
   if (answer == nullptr)
     return false;
@@ -104,7 +104,7 @@ void MakeFromJson(char const * times, char const * prices, vector<taxi::Product>
     my::Json pricesRoot(prices);
     auto const timesArray = json_object_get(timesRoot.get(), "times");
     auto const pricesArray = json_object_get(pricesRoot.get(), "prices");
-    if (CheckUberAnswer(timesArray) && CheckUberAnswer(pricesArray))
+    if (CheckUberResponse(timesArray) && CheckUberResponse(pricesArray))
     {
       FillProducts(timesArray, pricesArray, products);
     }
@@ -195,6 +195,9 @@ void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
 void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
                                 ErrorProviderCallback const & errorFn)
 {
+  ASSERT(successFn, ());
+  ASSERT(errorFn, ());
+
   vector<Product> products;
   {
     lock_guard<mutex> lock(m_mutex);
@@ -218,6 +221,9 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                ProductsCallback const & successFn,
                                ErrorProviderCallback const & errorFn)
 {
+  ASSERT(successFn, ());
+  ASSERT(errorFn, ());
+
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
 

@@ -131,10 +131,7 @@ UNIT_TEST(Uber_ProductMaker)
   string times;
   string prices;
 
-  auto const errorCallback = [](ErrorCode const code)
-  {
-    TEST(false, ());
-  };
+  auto const errorCallback = [](ErrorCode const code) { TEST(false, ()); };
 
   TEST(uber::RawApi::GetEstimatedTime(from, times), ());
   TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());

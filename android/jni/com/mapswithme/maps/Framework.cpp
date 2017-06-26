@@ -543,21 +543,22 @@ void Framework::EnableDownloadOn3g()
 {
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
-uint64_t Framework::RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
+uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                         ms::LatLon const & to,
-                                        taxi::SuccessfullCallback const & callback,
+                                        taxi::SuccessfulCallback const & callback,
                                         taxi::ErrorCallback const & errorCallback)
 {
   auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
   if (!taxiEngine)
     return 0;
 
-  auto const mercatorPoint = MercatorBounds::FromLatLon(from);
-  auto const topmostCountryIds = m_work.GetTopmostCountries(mercatorPoint);
-  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, callback, errorCallback);
+  // TODO Dummy, must be changed by android developer.
+  //  auto const topmostCountryIds = m_work.GetTopmostCountries(from);
+  //  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, callback, errorCallback);
+  return 0;
 }
 
-taxi::RideRequestLinks Framework::GetUberLinks(JNIEnv * env, jobject policy,
+taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy,
                                                string const & productId, ms::LatLon const & from,
                                                ms::LatLon const & to)
 {
@@ -565,7 +566,9 @@ taxi::RideRequestLinks Framework::GetUberLinks(JNIEnv * env, jobject policy,
   if (!taxiEngine)
     return {};
 
-  return taxiEngine->GetRideRequestLinks(taxi::Provider::Type::Uber, productId, from, to);
+  // TODO Dummy, must be changed by android developer.
+  //  return taxiEngine->GetRideRequestLinks(productId, from, to);
+  return {};
 }
 
 void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,

@@ -3183,8 +3183,9 @@ bool Framework::OriginalFeatureHasDefaultName(FeatureID const & fid) const
   return osm::Editor::Instance().OriginalFeatureHasDefaultName(fid);
 }
 
-storage::TCountriesVec Framework::GetTopmostCountries(m2::PointD point) const
+storage::TCountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) const
 {
+  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
   auto const countryId = m_infoGetter->GetRegionCountryId(point);
   storage::TCountriesVec topmostCountryIds;
   GetStorage().GetTopmostNodesFor(countryId, topmostCountryIds);

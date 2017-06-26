@@ -23,7 +23,7 @@ namespace taxi
 {
 namespace uber
 {
-// Uber api wrapper based on synchronous http requests.
+/// Uber api wrapper based on synchronous http requests.
 class RawApi
 {
 public:
@@ -66,7 +66,8 @@ private:
 class Api : public ApiBase
 {
 public:
-  /// Requests list of available products from Uber. Returns request identifier immediately.
+  // ApiBase overrides:
+  /// Requests list of available products from Uber.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                             ProductsCallback const & successFn,
                             ErrorProviderCallback const & errorFn) override;

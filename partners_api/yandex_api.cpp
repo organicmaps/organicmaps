@@ -20,7 +20,7 @@ namespace
 std::string const kTaxiInfoUrl = "https://taxi-routeinfo.taxi.yandex.net";
 std::string g_yandexUrlForTesting = "";
 
-bool RunSimpleHttpRequest(string const & url, string & result)
+bool RunSimpleHttpRequest(std::string const & url, std::string & result)
 {
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", "application/json");
@@ -33,7 +33,7 @@ bool RunSimpleHttpRequest(string const & url, string & result)
   return false;
 }
 
-bool CheckYandexAnswer(json_t const * answer)
+bool CheckYandexResponse(json_t const * answer)
 {
   if (answer == nullptr)
     return false;
@@ -47,7 +47,7 @@ bool CheckYandexAnswer(json_t const * answer)
   return true;
 }
 
-string GetYandexURL()
+std::string GetYandexURL()
 {
   if (!g_yandexUrlForTesting.empty())
     return g_yandexUrlForTesting;
@@ -62,7 +62,7 @@ namespace yandex
 {
 bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result)
 {
-  std::stringstream url;
+  std::ostringstream url;
   url << std::fixed << std::setprecision(6) << GetYandexURL()
       << "/taxi_info?clid=" << YANDEX_CLIENT_ID << "&apikey=" << YANDEX_API_KEY
       << "&rll=" << from.lon << "," << from.lat << "~" << to.lon << "," << to.lat
@@ -71,14 +71,17 @@ bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::st
   return RunSimpleHttpRequest(url.str(), result);
 }
 
-/// Requests list of available products from Yandex. Returns request identificator immediately.
+/// Requests list of available products from Yandex.
 void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                ProductsCallback const & successFn,
                                ErrorProviderCallback const & errorFn)
 {
+  ASSERT(successFn, ());
+  ASSERT(errorFn, ());
+
   threads::SimpleThread([from, to, successFn, errorFn]()
   {
-    string result;
+    std::string result;
     if (!RawApi::GetTaxiInfo(from, to, result))
     {
       errorFn(ErrorCode::RemoteError);
@@ -105,7 +108,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 }
 
 /// Returns link which allows you to launch the Yandex app.
-RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon const & from,
+RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                           ms::LatLon const & to) const
 {
   std::ostringstream deepLink;
@@ -122,10 +125,10 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
 
   my::Json root(src.c_str());
   auto const productsArray = json_object_get(root.get(), "options");
-  if (!CheckYandexAnswer(productsArray))
+  if (!CheckYandexResponse(productsArray))
     return;
 
-  string currency;
+  std::string currency;
   FromJSONObject(root.get(), "currency", currency);
 
   auto const productsSize = json_array_size(productsArray);

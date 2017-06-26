@@ -13,16 +13,19 @@ namespace taxi
 {
 namespace yandex
 {
+/// Yandex api wrapper based on synchronous http requests.
 class RawApi
 {
 public:
   static bool GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result);
 };
 
+/// Class which used for making products from http requests results.
 class Api : public ApiBase
 {
 public:
-  /// Requests list of available products from Yandex. Returns request identifier immediately.
+  // ApiBase overrides:
+  /// Requests list of available products from Yandex.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                             ProductsCallback const & successFn,
                             ErrorProviderCallback const & errorFn) override;

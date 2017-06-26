@@ -19,10 +19,16 @@ set(
   opentable_api.hpp
   rb_ads.cpp
   rb_ads.hpp
+  taxi_base.hpp
+  taxi_engine.cpp
+  taxi_engine.hpp
+  taxi_provider.hpp
   uber_api.cpp
   uber_api.hpp
   viator_api.cpp
   viator_api.hpp
+  yandex_api.cpp
+  yandex_api.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/assert.hpp"
+
 #include <string>
 #include <vector>
 
@@ -30,8 +32,16 @@ public:
 
   Type GetType() const { return m_type; }
   std::vector<Product> const & GetProducts() const { return m_products; }
-  Product const & operator[](size_t i) const { return m_products[i]; }
-  Product & operator[](size_t i) { return m_products[i]; }
+  Product const & operator[](size_t i) const
+  {
+    ASSERT_LESS(i, m_products.size(), ());
+    return m_products[i];
+  }
+  Product & operator[](size_t i)
+  {
+    ASSERT_LESS(i, m_products.size(), ());
+    return m_products[i];
+  }
 
   Iter begin() { return m_products.begin(); }
   Iter end() { return m_products.end(); }
@@ -68,5 +78,19 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Uber: return "Uber";
   case Provider::Type::Yandex: return "Yandex";
   }
+}
+
+inline std::string DebugPrint(ErrorCode code)
+{
+  switch (code)
+  {
+  case ErrorCode::NoProducts: return "NoProducts";
+  case ErrorCode::RemoteError: return "RemoteError";
+  }
+}
+
+inline std::string DebugPrint(ProviderError error)
+{
+  return "[" + DebugPrint(error.m_type) + ", " + DebugPrint(error.m_code) + "]";
 }
 }  // namespace taxi

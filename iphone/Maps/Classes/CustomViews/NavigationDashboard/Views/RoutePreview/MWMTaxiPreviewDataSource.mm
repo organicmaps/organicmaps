@@ -109,55 +109,57 @@ using namespace taxi;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;
 
-  network_policy::CallPartnersApi(
-      [self, completion, failure](platform::NetworkPolicy const &canUseNetwork) {
-        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
-        if (!engine) {
-          failure(L(@"dialog_taxi_error"));
-          return;
-        }
-
-        auto success = [self, completion](taxi::ProvidersContainer const &providers,
-                                          uint64_t const requestId) {
-          if (self->m_requestId != requestId)
-            return;
-          auto const &products = providers[0].GetProducts();
-          runAsyncOnMainQueue([self, completion, products] {
-
-            self->m_products = products;
-            auto cv = self.collectionView;
-            cv.hidden = NO;
-            cv.pageControl.hidden = NO;
-            cv.numberOfPages = self->m_products.size();
-            [cv reloadData];
-            cv.contentOffset = {};
-            cv.currentPage = 0;
-            completion();
-          });
-
-        };
-        auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const requestId) {
-          if (self->m_requestId != requestId)
-            return;
-// Dummy, must be changed by IOS developer
-//          runAsyncOnMainQueue(^{
-//            switch (code)
-//            {
-//              case taxi::ErrorCode::NoProducts:
-//                failure(L(@"taxi_not_found"));
-//                break;
-//              case taxi::ErrorCode::RemoteError:
-//                failure(L(@"dialog_taxi_error"));
-//                break;
-//            }
-//          });
-        };
-
-        auto const mercatorPoint = MercatorBounds::FromLatLon(m_from);
-        auto const topmostCountryIds = GetFramework().GetTopmostCountries(mercatorPoint);
-        m_requestId = engine->GetAvailableProducts(m_from, m_to, topmostCountryIds, success, error);
-      },
-      true /* force */);
+  // TODO Dummy, must be changed by IOS developer.
+  //  network_policy::CallPartnersApi(
+  //      [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
+  //        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+  //        if (!engine) {
+  //          failure(L(@"dialog_taxi_error"));
+  //          return;
+  //        }
+  //
+  //        auto success = [self, completion](taxi::ProvidersContainer const & providers,
+  //                                          uint64_t const requestId) {
+  //          if (self->m_requestId != requestId)
+  //            return;
+  //          auto const & products = providers.GetProducts();
+  //          runAsyncOnMainQueue([self, completion, products] {
+  //
+  //            self->m_products = products;
+  //            auto cv = self.collectionView;
+  //            cv.hidden = NO;
+  //            cv.pageControl.hidden = NO;
+  //            cv.numberOfPages = self->m_products.size();
+  //            [cv reloadData];
+  //            cv.contentOffset = {};
+  //            cv.currentPage = 0;
+  //            completion();
+  //          });
+  //
+  //        };
+  //        auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const
+  //        requestId) {
+  //          if (self->m_requestId != requestId)
+  //            return;
+  //
+  //          runAsyncOnMainQueue(^{
+  //            switch (code)
+  //            {
+  //              case taxi::ErrorCode::NoProducts:
+  //                failure(L(@"taxi_not_found"));
+  //                break;
+  //              case taxi::ErrorCode::RemoteError:
+  //                failure(L(@"dialog_taxi_error"));
+  //                break;
+  //            }
+  //          });
+  //        };
+  //
+  //        auto const topmostCountryIds = GetFramework().GetTopmostCountries(m_from);
+  //        m_requestId = engine->GetAvailableProducts(m_from, m_to, topmostCountryIds, success,
+  //        error);
+  //      },
+  //      true /* force */);
 }
 
 - (BOOL)isTaxiInstalled
@@ -176,17 +178,18 @@ using namespace taxi;
   auto const index = [self.collectionView indexPathsForVisibleItems].firstObject.row;
   auto const productId = m_products[index].m_productId;
   RideRequestLinks links;
-  network_policy::CallPartnersApi(
-      [self, &productId, &links](platform::NetworkPolicy const &canUseNetwork) {
-        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
-        if (!engine) {
-          // Dummy, should be implemented
-          return;
-        }
-
-        links = engine->GetRideRequestLinks(taxi::Provider::Type::Uber, productId, m_from, m_to);
-      },
-      true /* force */);
+  // TODO Dummy, must be changed by IOS developer.
+  //  network_policy::CallPartnersApi(
+  //      [self](platform::NetworkPolicy const & canUseNetwork) {
+  //        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+  //        if (!engine) {
+  //          // TODO Dummy, should be implemented
+  //          return;
+  //        }
+  //
+  //        links = engine->GetRideRequestLinks(productId, m_from, m_to);
+  //      },
+  //      true /* force */);
 
   return [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str()) :
                                                      @(links.m_universalLink.c_str())];

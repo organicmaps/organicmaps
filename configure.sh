@@ -80,6 +80,9 @@ else
 #define VIATOR_ACCOUNT_ID_NL ""
 #define VIATOR_ACCOUNT_ID_SV ""
 #define VIATOR_ACCOUNT_ID_JA ""
+#define YANDEX_CLIENT_ID ""
+#define YANDEX_API_KEY ""
+#define YANDEX_BASE_URL ""
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"

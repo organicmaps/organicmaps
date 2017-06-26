@@ -27,7 +27,7 @@ std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLo
   maker.SetPrices(reqId, prices);
   maker.MakeProducts(
       reqId, [&uberProducts](vector<taxi::Product> const & products) { uberProducts = products; },
-      [](taxi::ErrorCode const code) { TEST(false, ()); });
+      [](taxi::ErrorCode const code) { TEST(false, (code)); });
 
   return uberProducts;
 }
@@ -103,9 +103,10 @@ UNIT_TEST(TaxiEngine_ResultMaker)
     providers = products;
   };
 
-  auto const successNotPossibleCallback = [&reqId, &providers](
-                                              taxi::ProvidersContainer const & products,
-                                              uint64_t const requestId) { TEST(false, ()); };
+  auto const successNotPossibleCallback =
+      [&reqId, &providers](taxi::ProvidersContainer const & products, uint64_t const requestId) {
+        TEST(false, ("successNotPossibleCallback", requestId));
+      };
 
   auto const errorCallback = [&reqId, &errors](taxi::ErrorsContainer const e,
                                                uint64_t const requestId) {
@@ -114,8 +115,12 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   };
 
   auto const errorNotPossibleCallback = [&reqId](taxi::ErrorsContainer const errors,
-                                                 uint64_t const requestId) { TEST(false, ()); };
+                                                 uint64_t const requestId) {
+    TEST(false, ("errorNotPossibleCallback", requestId, errors));
+  };
 
+  // Try to image what products1 and products2 are lists of products for different taxi providers.
+  // Only product id is important for us, all other fields are empty.
   std::vector<taxi::Product> products1 =
   {
     {"1", "", "", "", ""},

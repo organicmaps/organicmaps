@@ -40,14 +40,8 @@ public:
   virtual RideRequestLinks GetRideRequestLinks(std::string const & productId,
                                                ms::LatLon const & from,
                                                ms::LatLon const & to) const = 0;
-};
 
-inline std::string DebugPrint(ErrorCode error)
-{
-  switch (error)
-  {
-  case ErrorCode::NoProducts: return "NoProducts";
-  case ErrorCode::RemoteError: return "RemoteError";
-  }
-}
+private:
+  std::string const m_baseUrl;
+};
 }  // namespace taxi
