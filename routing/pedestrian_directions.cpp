@@ -42,8 +42,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Junction> const & path,
                                           my::Cancellable const & cancellable,
-                                          Route::TTimes & /* times */, Route::TTurns & turns,
-                                          Route::TStreets & streetNames,
+                                          Route::TTurns & turns, Route::TStreets & streetNames,
                                           vector<Junction> & routeGeometry,
                                           vector<Segment> & segments)
 {

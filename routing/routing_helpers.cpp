@@ -30,14 +30,13 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   }
 
   CHECK_EQUAL(path.size(), times.size(), ());
-
-  Route::TTimes dummyTimes;
+  
   Route::TTurns turnsDir;
   vector<Junction> junctions;
   Route::TStreets streetNames;
   vector<Segment> segments;
-  // @TODO It's necessary to remove |dummyTimes| from Generate() and MakeTurnAnnotation() methods..
-  engine.Generate(graph, path, cancellable, dummyTimes, turnsDir, streetNames, junctions, segments);
+
+  engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments);
   CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   if (cancellable.IsCancelled())

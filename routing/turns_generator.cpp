@@ -255,19 +255,11 @@ bool TurnInfo::IsSegmentsValid() const
 
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        RouterDelegate const & delegate,
-                                       vector<Junction> & junctions,
-                                       Route::TTurns & turnsDir, Route::TTimes & times,
-                                       Route::TStreets & streets,
-                                       vector<Segment> & segments)
+                                       vector<Junction> & junctions, Route::TTurns & turnsDir,
+                                       Route::TStreets & streets, vector<Segment> & segments)
 {
-  double estimatedTime = 0;
-
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
-
-#ifdef DEBUG
-  size_t lastIdx = 0;
-#endif
-
+  
   if (delegate.IsCancelled())
     return IRouter::Cancelled;
   // Annotate turns.
@@ -278,9 +270,6 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
        ++loadedSegmentIt)
   {
     CHECK(loadedSegmentIt->IsValid(), ());
-
-    // ETA information.
-    double const nodeTimeSeconds = loadedSegmentIt->m_weight;
 
     // Street names. I put empty names too, to avoid freezing old street name while riding on
     // unnamed street.
@@ -300,17 +289,6 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
       if (turnItem.m_turn == turns::TurnDirection::NoTurn)
         turns::GetTurnDirection(result, turnInfo, turnItem);
 
-#ifdef DEBUG
-      double distMeters = 0.0;
-      for (size_t k = lastIdx + 1; k < junctions.size(); ++k)
-        distMeters += MercatorBounds::DistanceOnEarth(junctions[k - 1].GetPoint(), junctions[k].GetPoint());
-      LOG(LDEBUG, ("Speed:", 3.6 * distMeters / nodeTimeSeconds, "kmph; Dist:", distMeters, "Time:",
-                   nodeTimeSeconds, "s", lastIdx, "e", junctions.size(), "source:",
-                   turnItem.m_sourceName, "target:", turnItem.m_targetName));
-      lastIdx = junctions.size();
-#endif
-      times.push_back(Route::TTimeItem(junctions.size(), estimatedTime));
-
       //  Lane information.
       if (turnItem.m_turn != turns::TurnDirection::NoTurn)
       {
@@ -319,7 +297,6 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
       }
     }
 
-    estimatedTime += nodeTimeSeconds;
     if (skipTurnSegments > 0)
       --skipTurnSegments;
 
@@ -350,7 +327,6 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
-  times.push_back(Route::TTimeItem(junctions.size() - 1, estimatedTime));
   turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(junctions.size()) - 1, turns::TurnDirection::ReachedYourDestination));
   turns::FixupTurns(junctions, turnsDir);
 
@@ -360,24 +336,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
     LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
                  t.m_targetName, "exit:", t.m_exitNum));
   }
-
-  size_t last = 0;
-  double lastTime = 0;
-  for (Route::TTimeItem & t : times)
-  {
-    double dist = 0;
-    for (size_t i = last + 1; i <= t.first; ++i)
-      dist += MercatorBounds::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
-
-    double time = t.second - lastTime;
-
-    LOG(LDEBUG, ("distance:", dist, "start:", last, "end:", t.first, "Time:", time, "Speed:",
-                 3.6 * dist / time));
-    last = t.first;
-    lastTime = t.second;
-  }
 #endif
-  LOG(LDEBUG, ("Estimated time:", estimatedTime, "s"));
   return IRouter::ResultCode::NoError;
 }
 

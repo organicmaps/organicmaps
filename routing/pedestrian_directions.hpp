@@ -14,10 +14,10 @@ public:
   PedestrianDirectionsEngine(std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
-  void Generate(RoadGraphBase const & graph, std::vector<Junction> const & path,
-                my::Cancellable const & cancellable, Route::TTimes & times, Route::TTurns & turns,
-                Route::TStreets & streetNames, std::vector<Junction> & routeGeometry,
-                std::vector<Segment> & segments) override;
+  void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+                my::Cancellable const & cancellable, Route::TTurns & turns,
+                Route::TStreets & streetNames, vector<Junction> & routeGeometry,
+                vector<Segment> & segments) override;
 
 private:
   void CalculateTurns(RoadGraphBase const & graph, std::vector<Edge> const & routeEdges,

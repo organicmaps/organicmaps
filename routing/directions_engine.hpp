@@ -18,10 +18,10 @@ class IDirectionsEngine
 public:
   virtual ~IDirectionsEngine() = default;
 
-  virtual void Generate(RoadGraphBase const & graph, std::vector<Junction> const & path,
-                        my::Cancellable const & cancellable, Route::TTimes & times,
-                        Route::TTurns & turns, Route::TStreets & streetNames,
-                        std::vector<Junction> & routeGeometry, std::vector<Segment> & segments) = 0;
+  virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+                        my::Cancellable const & cancellable, Route::TTurns & turns,
+                        Route::TStreets & streetNames, vector<Junction> & routeGeometry,
+                        vector<Segment> & segments) = 0;
 
 protected:
   /// \brief constructs route based on |graph| and |path|. Fills |routeEdges| with the route.

@@ -41,16 +41,13 @@ using TGetIndexFunction = function<size_t(pair<size_t, size_t>)>;
  * \param delegate Routing callbacks delegate.
  * \param points Storage for unpacked points of the path.
  * \param turnsDir output turns annotation storage.
- * \param times output times annotation storage.
  * \param streets output street names along the path.
  * \param traffic road traffic information.
  * \return routing operation result code.
  */
 IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
-                                       RouterDelegate const & delegate,
-                                       vector<Junction> & points,
-                                       Route::TTurns & turnsDir, Route::TTimes & times,
-                                       Route::TStreets & streets,
+                                       RouterDelegate const & delegate, vector<Junction> & points,
+                                       Route::TTurns & turnsDir, Route::TStreets & streets,
                                        vector<Segment> & segments);
 
 /*!

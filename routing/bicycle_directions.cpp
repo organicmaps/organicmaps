@@ -153,11 +153,10 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr
 }
 
 void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
-                                       my::Cancellable const & cancellable, Route::TTimes & times,
-                                       Route::TTurns & turns, Route::TStreets & streetNames,
+                                       my::Cancellable const & cancellable, Route::TTurns & turns,
+                                       Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
-  times.clear();
   turns.clear();
   streetNames.clear();
   routeGeometry.clear();
@@ -202,10 +201,8 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
 
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
-  Route::TTimes dummyTimes;
 
-  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, dummyTimes, streetNames,
-                     segments);
+  MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, streetNames, segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
   // In case of bicycle routing |m_pathSegments| may have an empty
   // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty
