@@ -32,11 +32,15 @@ bool IsRoad(TTypes const & types)
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, bool hasAltitude,
-                      vector<Junction> & path, Route & route);
+                      vector<Junction> const & path, Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
 /// \returns false if mwm of |edge| is not alive.
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
+
+/// \brief Fills |times| according to max speed at |graph| and |path|.
+void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const & path,
+                            Route::TTimes & times);
 
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,

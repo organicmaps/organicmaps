@@ -6,15 +6,22 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <vector>
+
+namespace
+{
+double constexpr KMPH2MPS = 1000.0 / (60 * 60);
+}  // namespace
 
 namespace routing
 {
+using namespace std;
 using namespace traffic;
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, bool hasAltitude,
-                      vector<Junction> & path, Route & route)
+                      vector<Junction> const & path, Route::TTimes && times, Route & route)
 {
   if (path.empty())
   {
@@ -22,18 +29,15 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
     return;
   }
 
-  // By some reason there're two adjacent positions on a road with
-  // the same end-points. This could happen, for example, when
-  // direction on a road was changed.  But it doesn't matter since
-  // this code reconstructs only geometry of a route.
-  path.erase(unique(path.begin(), path.end()), path.end());
+  CHECK_EQUAL(path.size(), times.size(), ());
 
-  Route::TTimes times;
+  Route::TTimes dummyTimes;
   Route::TTurns turnsDir;
   vector<Junction> junctions;
   Route::TStreets streetNames;
   vector<Segment> segments;
-  engine.Generate(graph, path, cancellable, times, turnsDir, streetNames, junctions, segments);
+  // @TODO It's necessary to remove |dummyTimes| from Generate() and MakeTurnAnnotation() methods..
+  engine.Generate(graph, path, cancellable, dummyTimes, turnsDir, streetNames, junctions, segments);
   CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   if (cancellable.IsCancelled())
@@ -90,4 +94,39 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
       numMwmIds.GetId(edge.GetFeatureId().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
-}  // namespace rouing
+
+void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const & path,
+                            Route::TTimes & times)
+{
+  times.clear();
+  if (path.size() < 1)
+    return;
+
+  // graph.GetMaxSpeedKMPH() below is used on purpose.
+  // The idea is while pedestrian (bicycle) routing ways for pedestrians (cyclists) are preferred.
+  // At the same time routing along big roads is still possible but if there's
+  // a pedestrian (bicycle) alternative it's prefered. To implement it a small speed
+  // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
+  // the most likely a pedestrian (a cyclist) will go along big roads with average
+  // speed (graph.GetMaxSpeedKMPH()).
+  double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
+
+  times.reserve(path.size());
+
+  double trackTimeSec = 0.0;
+  times.emplace_back(0, trackTimeSec);
+
+  m2::PointD prev = path[0].GetPoint();
+  for (size_t i = 1; i < path.size(); ++i)
+  {
+    m2::PointD const & curr = path[i].GetPoint();
+
+    double const lengthM = MercatorBounds::DistanceOnEarth(prev, curr);
+    trackTimeSec += lengthM / speedMPS;
+
+    times.emplace_back(i, trackTimeSec);
+
+    prev = curr;
+  }
+}
+}  // namespace routing

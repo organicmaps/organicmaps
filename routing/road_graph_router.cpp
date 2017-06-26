@@ -203,9 +203,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT_EQUAL(result.path.back(), finalPos, ());
     ASSERT_GREATER(result.distance, 0., ());
 
+    Route::TTimes times;
+    CalculateMaxSpeedTimes(*m_roadGraph, result.path, times);
+
     CHECK(m_directionsEngine, ());
-    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr, delegate, true /* hasAltitude */,
-                     result.path, route);
+    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr, delegate, true, result.path,
+                     std::move(times), route);
   }
 
   m_roadGraph->ResetFakes();

@@ -29,8 +29,5 @@ protected:
   /// was cancelled and in case of extremely short paths of 0 or 1 point. Returns true otherwise.
   bool ReconstructPath(RoadGraphBase const & graph, std::vector<Junction> const & path,
                        std::vector<Edge> & routeEdges, my::Cancellable const & cancellable) const;
-
-  void CalculateTimes(RoadGraphBase const & graph, std::vector<Junction> const & path,
-                      Route::TTimes & times) const;
 };
 }  // namespace routing

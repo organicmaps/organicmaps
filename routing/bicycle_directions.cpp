@@ -182,12 +182,6 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
     return;
   }
 
-  // @TODO(bykoianko) This method should be removed. Generally speaking it's wrong to calculate ETA
-  // based on max speed as it's done in CalculateTimes(). We'll get a better result and better code
-  // if to used ETA calculated in MakeTurnAnnotation(). To do that it's necessary to fill
-  // LoadedPathSegment::m_weight in FillPathSegmentsAndAdjacentEdgesMap().
-  CalculateTimes(graph, path, times);
-
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {

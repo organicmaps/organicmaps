@@ -32,8 +32,8 @@ void IndexRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & ed
 double IndexRoadGraph::GetMaxSpeedKMPH() const
 {
   // Value doesn't matter.
-  // It used in IDirectionsEngine::CalculateTimes only.
-  // But SingleMwmRouter::RedressRoute overwrites time values.
+  // It is used in CalculateMaxSpeedTimes only.
+  // Then SingleMwmRouter::RedressRoute overwrites time values.
   //
   // TODO: remove this stub after transfering Bicycle and Pedestrian to index routing.
   return 0.0;

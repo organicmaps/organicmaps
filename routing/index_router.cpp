@@ -472,17 +472,7 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
   if (!forSingleMwm)
     starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
-
-  CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate,
-                   false /* hasAltitude */, junctions, route);
-
-  if (!route.IsValid())
-  {
-    LOG(LERROR, ("ReconstructRoute failed. Segments:", segments.size()));
-    return IRouter::InternalError;
-  }
-
+  
   Route::TTimes times;
   times.reserve(segments.size());
   double time = 0.0;
@@ -493,8 +483,16 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     times.emplace_back(static_cast<uint32_t>(i), time);
     time += starter.CalcSegmentWeight(segments[i]);
   }
+  
+  CHECK(m_directionsEngine, ());
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, false /* hasAltitude */, junctions,
+                   std::move(times), route);
 
-  route.SetSectionTimes(move(times));
+  if (!route.IsValid())
+  {
+    LOG(LERROR, ("ReconstructRoute failed. Segments:", segments.size()));
+    return IRouter::InternalError;
+  }
 
   if (delegate.IsCancelled())
     return IRouter::Cancelled;

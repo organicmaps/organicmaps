@@ -4,48 +4,8 @@
 
 #include "base/assert.hpp"
 
-namespace
-{
-double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-}  // namespace
-
 namespace routing
 {
-void IDirectionsEngine::CalculateTimes(RoadGraphBase const & graph, vector<Junction> const & path,
-                                       Route::TTimes & times) const
-{
-  times.clear();
-  if (path.size() < 1)
-    return;
-
-  // graph.GetMaxSpeedKMPH() below is used on purpose.
-  // The idea is while pedestrian (bicycle) routing ways for pedestrians (cyclists) are preferred.
-  // At the same time routing along big roads is still possible but if there's
-  // a pedestrian (bicycle) alternative it's prefered. To implement it a small speed
-  // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
-  // the most likely a pedestrian (a cyclist) will go along big roads with average
-  // speed (graph.GetMaxSpeedKMPH()).
-  double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
-
-  times.reserve(path.size());
-
-  double trackTimeSec = 0.0;
-  times.emplace_back(0, trackTimeSec);
-
-  m2::PointD prev = path[0].GetPoint();
-  for (size_t i = 1; i < path.size(); ++i)
-  {
-    m2::PointD const & curr = path[i].GetPoint();
-
-    double const lengthM = MercatorBounds::DistanceOnEarth(prev, curr);
-    trackTimeSec += lengthM / speedMPS;
-
-    times.emplace_back(i, trackTimeSec);
-
-    prev = curr;
-  }
-}
-
 bool IDirectionsEngine::ReconstructPath(RoadGraphBase const & graph, vector<Junction> const & path,
                                         vector<Edge> & routeEdges,
                                         my::Cancellable const & cancellable) const
