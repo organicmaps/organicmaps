@@ -29,8 +29,8 @@ public:
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
-  m2::PointD GetJunctionPoint(Segment const & segment, bool front) const;
   Junction GetJunction(Segment const & segment, bool front) const;
+  Junction GetJunction(m2::PointD const & point) const;
   vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   Index & m_index;

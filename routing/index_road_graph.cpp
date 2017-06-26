@@ -90,28 +90,36 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
     if (!handle.IsAlive())
       MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-    edges.emplace_back(FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId()),
-                       segment.IsForward(), segment.GetSegmentIdx(),
+    auto featureId = FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId());
+    if (!isOutgoing && m_starter.FitsStart(segment))
+    {
+      edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
+                         GetJunction(m_starter.GetStartVertex().GetPoint()),
+                         GetJunction(segment, true /* front */));
+    }
+
+    if (isOutgoing && m_starter.FitsFinish(segment))
+    {
+      edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
+                         GetJunction(segment, false /* front */),
+                         GetJunction(m_starter.GetFinishVertex().GetPoint()));
+    }
+
+    edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
                        GetJunction(segment, false /* front */),
                        GetJunction(segment, true /* front */));
   }
 }
 
-m2::PointD IndexRoadGraph::GetJunctionPoint(Segment const & segment, bool front) const
+Junction IndexRoadGraph::GetJunction(m2::PointD const & point) const
 {
-  if (!front && m_starter.FitsStart(segment))
-    return m_starter.GetStartVertex().GetPoint();
-
-  if (front && m_starter.FitsFinish(segment))
-    return m_starter.GetFinishVertex().GetPoint();
-
-  return m_starter.GetPoint(segment, front);
+  // TODO: Use real altitudes for pedestrian and bicycle routing.
+  return Junction(point, feature::kDefaultAltitudeMeters);
 }
 
 Junction IndexRoadGraph::GetJunction(Segment const & segment, bool front) const
 {
-  // TODO: Use real altitudes for pedestrian and bicycle routing.
-  return Junction(GetJunctionPoint(segment, front), feature::kDefaultAltitudeMeters);
+  return GetJunction(m_starter.GetPoint(segment, front));
 }
 
 vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,

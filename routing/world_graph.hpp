@@ -27,7 +27,6 @@ public:
 
   enum class Mode
   {
-    SingleMwm,  // Mode for building a route within single mwm.
     LeapsOnly,  // Mode for building a cross mwm route containing only leaps. In case of start and
                 // finish they (start and finish) will be connected with all transition segments of
                 // their mwm with leap (fake) edges.
@@ -77,7 +76,7 @@ private:
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::vector<Segment> m_twins;
-  Mode m_mode = Mode::SingleMwm;
+  Mode m_mode = Mode::NoLeaps;
 };
 
 std::string DebugPrint(WorldGraph::Mode mode);

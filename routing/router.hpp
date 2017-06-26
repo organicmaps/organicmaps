@@ -55,7 +55,8 @@ public:
     RouteNotFound = 8,
     NeedMoreMaps = 9,
     InternalError = 10,
-    FileTooOld = 11
+    FileTooOld = 11,
+    IntermediatePointNotFound = 12,
   };
 
   virtual ~IRouter() {}

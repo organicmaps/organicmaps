@@ -28,8 +28,8 @@ public:
     {
     }
 
-    FakeVertex(Segment const & segment, m2::PointD const & point)
-      : m_segment(segment), m_point(point)
+    FakeVertex(Segment const & segment, m2::PointD const & point, bool strictForward)
+      : m_segment(segment), m_point(point), m_strictForward(strictForward)
     {
     }
 
@@ -48,14 +48,17 @@ public:
     {
       return segment.GetMwmId() == m_segment.GetMwmId() &&
              segment.GetFeatureId() == m_segment.GetFeatureId() &&
-             segment.GetSegmentIdx() == m_segment.GetSegmentIdx();
+             segment.GetSegmentIdx() == m_segment.GetSegmentIdx() &&
+             (!m_strictForward || segment.IsForward() == m_segment.IsForward());
     }
 
     uint32_t GetSegmentIdxForTesting() const { return m_segment.GetSegmentIdx(); }
+    bool GetStrictForward() const { return m_strictForward; }
 
   private:
     Segment m_segment;
-    m2::PointD const m_point;
+    m2::PointD m_point;
+    bool m_strictForward = false;
   };
 
   static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
@@ -76,7 +79,10 @@ public:
   bool FitsStart(Segment const & s) const { return m_start.Fits(s); }
   bool FitsFinish(Segment const & s) const { return m_finish.Fits(s); }
 
+  static void CheckValidRoute(vector<Segment> const &segments);
   static size_t GetRouteNumPoints(vector<Segment> const & route);
+  static vector<Segment>::const_iterator GetNonFakeStart(vector<Segment> const & segments);
+  static vector<Segment>::const_iterator GetNonFakeFinish(vector<Segment> const & segments);
   m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
 
   void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);

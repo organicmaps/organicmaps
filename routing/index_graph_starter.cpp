@@ -22,12 +22,15 @@ namespace routing
 Segment constexpr IndexGraphStarter::kStartFakeSegment;
 Segment constexpr IndexGraphStarter::kFinishFakeSegment;
 
-IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph)
+IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish,
+                                     WorldGraph & graph)
   : m_graph(graph)
   , m_start(start.GetSegment(),
-            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph))
+            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph),
+            start.GetStrictForward())
   , m_finish(finish.GetSegment(),
-             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph))
+             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph),
+             finish.GetStrictForward())
 {
 }
 
@@ -43,14 +46,36 @@ m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool fro
 }
 
 // static
-size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
+void IndexGraphStarter::CheckValidRoute(vector<Segment> const &segments)
 {
   // Valid route contains at least 3 segments:
   // start fake, finish fake and at least one normal nearest segment.
   CHECK_GREATER_OR_EQUAL(segments.size(), 3, ());
+  CHECK_EQUAL(segments.front(), kStartFakeSegment, ());
+  CHECK_EQUAL(segments.back(), kFinishFakeSegment, ());
+}
 
-  // -2 for fake start and finish.
-  // +1 for front point of first segment.
+// static
+vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeStart(vector<Segment> const & segments)
+{
+  CheckValidRoute(segments);
+  // See CheckValidRoute comment.
+  return segments.begin() + 1;
+}
+
+// static
+vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeFinish(
+    vector<Segment> const & segments)
+{
+  CheckValidRoute(segments);
+  // See CheckValidRoute comment.
+  return segments.end() - 2;
+}
+
+// static
+size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
+{
+  CheckValidRoute(segments);
   return segments.size() - 1;
 }
 
@@ -98,10 +123,17 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
 void IndexGraphStarter::GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
                                              vector<SegmentEdge> & edges)
 {
-  GetFakeToNormalEdge(fakeVertex, true /* forward */, edges);
+  if (fakeVertex.GetStrictForward())
+  {
+    GetFakeToNormalEdge(fakeVertex, fakeVertex.GetSegment().IsForward(), edges);
+  }
+  else
+  {
+    GetFakeToNormalEdge(fakeVertex, true /* forward */, edges);
 
-  if (!m_graph.GetRoadGeometry(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId()).IsOneWay())
-    GetFakeToNormalEdge(fakeVertex, false /* forward */, edges);
+    if (!m_graph.GetRoadGeometry(fakeVertex.GetMwmId(), fakeVertex.GetFeatureId()).IsOneWay())
+      GetFakeToNormalEdge(fakeVertex, false /* forward */, edges);
+  }
 }
 
 void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
@@ -129,11 +161,11 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
     return;
   }
 
-  if (!fakeVertex.Fits(segment))
-    return;
-
-  edges.emplace_back(fakeSegment,
-                     m_graph.GetEstimator().CalcLeapWeight(pointFrom, fakeVertex.GetPoint()));
+  if (fakeVertex.Fits(segment))
+  {
+    edges.emplace_back(fakeSegment,
+                       m_graph.GetEstimator().CalcLeapWeight(pointFrom, fakeVertex.GetPoint()));
+  }
 }
 
 void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,

@@ -52,9 +52,13 @@ public:
                                                  Index & index);
 
 private:
-  IRouter::ResultCode DoCalculateRoute(bool forSingleMwm, Checkpoints const &checkpoints,
+  IRouter::ResultCode DoCalculateRoute(Checkpoints const & checkpoints,
                                        m2::PointD const & startDirection,
                                        RouterDelegate const & delegate, Route & route);
+  IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
+                                        Segment const & startSegment,
+                                        RouterDelegate const & delegate, WorldGraph & graph,
+                                        vector<Segment> & subroute);
   IRouter::ResultCode AdjustRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                                   m2::PointD const & finalPoint, RouterDelegate const & delegate,
                                   Route & route);
@@ -64,8 +68,8 @@ private:
   /// \brief Finds closest edges which may be considered as start of finish of the route.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  bool FindClosestSegment(platform::CountryFile const & file, m2::PointD const & point,
-                          bool isOutgoing, WorldGraph & worldGraph, Segment & closestSegment) const;
+  bool FindClosestSegment(m2::PointD const & point, bool isOutgoing, WorldGraph & worldGraph,
+                          Segment & closestSegment) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(vector<Segment> const & input,
@@ -74,8 +78,8 @@ private:
                                    IndexGraphStarter & starter,
                                    vector<Segment> & output);
   IRouter::ResultCode RedressRoute(vector<Segment> const & segments,
-                                   RouterDelegate const & delegate, bool forSingleMwm,
-                                   IndexGraphStarter & starter, Route & route) const;
+                                   RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                   Route & route) const;
 
   bool AreMwmsNear(NumMwmId startId, NumMwmId finishId) const;
 

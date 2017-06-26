@@ -31,6 +31,7 @@ string ToString(IRouter::ResultCode code)
   case IRouter::InternalError: return "InternalError";
   case IRouter::NeedMoreMaps: return "NeedMoreMaps";
   case IRouter::FileTooOld: return "FileTooOld";
+  case IRouter::IntermediatePointNotFound: return "IntermediatePointNotFound";
   }
   ASSERT(false, ());
   return "Routing result code case error.";
@@ -216,6 +217,9 @@ void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
     case IRouter::FileTooOld:
       LOG(LINFO, ("File too old"));
       break;
+    case IRouter::IntermediatePointNotFound:
+      LOG(LWARNING, ("Can't find intermediate point node"));
+      break;
   }
 }
 
@@ -290,8 +294,7 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
-    LOG(LDEBUG, ("Calculating the route from", checkpoints.GetStart(), "to",
-                 checkpoints.GetFinish(), "startDirection", startDirection));
+    LOG(LINFO, ("Calculating the route,", checkpoints, "startDirection", startDirection));
 
     if (absentFetcher)
       absentFetcher->GenerateRequest(checkpoints.GetStart(), checkpoints.GetFinish());
