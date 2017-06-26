@@ -2,7 +2,6 @@ package com.mapswithme.maps.routing;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -220,7 +219,10 @@ class SearchWheel implements View.OnClickListener
     case R.id.btn_search:
       if (RoutingController.get().isPlanning())
       {
-        RoutingController.get().searchPoi();
+        if (TextUtils.isEmpty(SearchEngine.getQuery()))
+          showSearchInParent();
+        else
+          reset();
         return;
       }
 
