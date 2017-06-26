@@ -11,7 +11,7 @@
 
 namespace taxi
 {
-using SuccessfulCallback =
+using SuccessCallback =
     std::function<void(ProvidersContainer const & products, uint64_t const requestId)>;
 
 using ErrorCallback = std::function<void(ErrorsContainer const & errors, uint64_t const requestId)>;
@@ -22,7 +22,7 @@ using ErrorCallback = std::function<void(ErrorsContainer const & errors, uint64_
 class ResultMaker
 {
 public:
-  void Reset(uint64_t requestId, size_t requestsCount, SuccessfulCallback const & successCallback,
+  void Reset(uint64_t requestId, size_t requestsCount, SuccessCallback const & successCallback,
              ErrorCallback const & errorCallback);
   /// Reduces number of requests outstanding.
   void DecrementRequestCount(uint64_t requestId);
@@ -39,9 +39,11 @@ private:
 
   mutable std::mutex m_mutex;
   uint64_t m_requestId = 0;
-  SuccessfulCallback m_successCallback;
+  SuccessCallback m_successCallback;
   ErrorCallback m_errorCallback;
 
+  // The number of the number of unfinished requests to the taxi providers.
+  // The maximum possible amount of requests is equal to the number of supported taxi providers.
   int8_t m_requestsCount = 0;
   ErrorsContainer m_errors;
   ProvidersContainer m_providers;
@@ -61,15 +63,15 @@ public:
   /// Requests list of available products. Returns request identificator immediately.
   uint64_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                 storage::TCountriesVec const & countryIds,
-                                SuccessfulCallback const & successFn,
-                                ErrorCallback const & errorFn);
+                                SuccessCallback const & successFn, ErrorCallback const & errorFn);
 
   /// Returns link which allows you to launch some taxi app.
   RideRequestLinks GetRideRequestLinks(Provider::Type type, std::string const & productId,
                                        ms::LatLon const & from, ms::LatLon const & to) const;
 
 private:
-  bool IsAllCountriesDisabled(Provider::Type type, storage::TCountriesVec const & countryIds) const;
+  bool AreAllCountriesDisabled(Provider::Type type,
+                               storage::TCountriesVec const & countryIds) const;
   bool IsAnyCountryEnabled(Provider::Type type, storage::TCountriesVec const & countryIds) const;
 
   template <typename ApiType>

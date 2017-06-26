@@ -903,8 +903,8 @@ public class RoutingController
 
     mUberPlanning = true;
 
-    Uber.nativeRequestUberProducts(NetworkPolicy.newInstance(true), mStartPoint.getLat(),
-                                   mStartPoint.getLon(),
+    Uber.nativeRequestUberProducts(NetworkPolicy.newInstance(true /* canUse */),
+                                   mStartPoint.getLat(), mStartPoint.getLon(),
                                    mEndPoint.getLat(), mEndPoint.getLon());
     if (mContainer != null)
       mContainer.updateBuildProgress(0, mLastRouterType);
@@ -916,8 +916,9 @@ public class RoutingController
     if (mStartPoint == null || mEndPoint == null)
       return null;
 
-    return Uber.nativeGetUberLinks(NetworkPolicy.newInstance(true), productId, mStartPoint.getLat(),
-        mStartPoint.getLon(), mEndPoint.getLat(), mEndPoint.getLon());
+    return Uber.nativeGetUberLinks(NetworkPolicy.newInstance(true /* canUse */), productId,
+                                   mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(),
+                                   mEndPoint.getLon());
   }
 
   /**

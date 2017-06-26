@@ -545,8 +545,8 @@ void Framework::EnableDownloadOn3g()
 }
 uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                         ms::LatLon const & to,
-                                        taxi::SuccessfulCallback const & callback,
-                                        taxi::ErrorCallback const & errorCallback)
+                                        taxi::SuccessCallback const & onSuccess,
+                                        taxi::ErrorCallback const & onError)
 {
   auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
   if (!taxiEngine)

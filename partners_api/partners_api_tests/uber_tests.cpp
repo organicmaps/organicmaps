@@ -192,7 +192,7 @@ UNIT_TEST(Uber_GetRideRequestLinks)
   ms::LatLon const from(55.796918, 37.537859);
   ms::LatLon const to(55.758213, 37.616093);
 
-  auto const links = api.GetRideRequestLinks("", from, to);
+  auto const links = api.GetRideRequestLinks("" /* productId */, from, to);
 
   TEST(!links.m_deepLink.empty(), ());
   TEST(!links.m_universalLink.empty(), ());

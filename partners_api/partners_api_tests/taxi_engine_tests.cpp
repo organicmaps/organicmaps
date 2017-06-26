@@ -57,40 +57,57 @@ taxi::ProvidersContainer GetProvidersSynchronous(ms::LatLon const & from, ms::La
   return providers;
 }
 
-void CompareProviders(taxi::ProvidersContainer const & providersContainer,
-                      taxi::ProvidersContainer const & synchronousProviders)
+bool CompareProviders(taxi::ProvidersContainer const & lhs, taxi::ProvidersContainer const & rhs)
 {
-  TEST_EQUAL(synchronousProviders.size(), providersContainer.size(), ());
+  TEST_EQUAL(rhs.size(), lhs.size(), ());
 
-  for (auto const & sp : synchronousProviders)
+  auto const Match = [](taxi::Provider const & lhs, taxi::Provider const & rhs) -> bool {
+    if (lhs.GetType() != rhs.GetType())
+      return false;
+
+    auto const & lps = lhs.GetProducts();
+    auto const & rps = rhs.GetProducts();
+
+    TEST_EQUAL(lps.size(), rps.size(), ());
+
+    for (auto const & lp : lps)
+    {
+      auto const it = std::find_if(rps.cbegin(), rps.cend(), [&lp](taxi::Product const & rp) {
+        return lp.m_productId == rp.m_productId && lp.m_name == rp.m_name &&
+               lp.m_price == rp.m_price;
+      });
+
+      if (it == rps.cend())
+        return false;
+    }
+
+    return true;
+  };
+
+  auto const m = lhs.size();
+
+  vector<bool> used(m);
+  // TODO (@y) Change it to algorithm, based on bipartite graphs.
+  for (auto const & rItem : rhs)
   {
-    auto const it = std::find_if(
-        providersContainer.cbegin(), providersContainer.cend(), [&sp](taxi::Provider const & p) {
-          if (p.GetType() != sp.GetType())
-            return false;
+    bool isMatched = false;
+    for (size_t i = 0; i < m; ++i)
+    {
+      if (used[i])
+        continue;
 
-          auto const & spp = sp.GetProducts();
-          auto const & pp = p.GetProducts();
+      if (Match(rItem, lhs[i]))
+      {
+        used[i] = true;
+        isMatched = true;
+        break;
+      }
+    }
 
-          TEST_EQUAL(spp.size(), pp.size(), ());
-
-          for (auto const & sprod : spp)
-          {
-            auto const prodIt =
-                std::find_if(pp.cbegin(), pp.cend(), [&sprod](taxi::Product const & prod) {
-                  return sprod.m_productId == prod.m_productId && sprod.m_name == prod.m_name &&
-                         sprod.m_price == prod.m_price;
-                });
-
-            if (prodIt == pp.cend())
-              return false;
-          }
-
-          return true;
-        });
-
-    TEST(it != providersContainer.cend(), ());
+    if (!isMatched)
+      return false;
   }
+  return true;
 }
 
 UNIT_TEST(TaxiEngine_ResultMaker)
@@ -222,8 +239,8 @@ UNIT_TEST(TaxiEngine_Smoke)
   taxi::ProvidersContainer const synchronousProviders = GetProvidersSynchronous(from, to, kTesturl);
 
   {
-    taxi::Engine engine({{taxi::Provider::Type::Uber, kTesturl},
-                         {taxi::Provider::Type::Yandex, kTesturl}});
+    taxi::Engine engine(
+        {{taxi::Provider::Type::Uber, kTesturl}, {taxi::Provider::Type::Yandex, kTesturl}});
     {
       lock_guard<mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(
@@ -251,6 +268,6 @@ UNIT_TEST(TaxiEngine_Smoke)
 
   testing::RunEventLoop();
 
-  CompareProviders(providersContainer, synchronousProviders);
+  TEST(CompareProviders(providersContainer, synchronousProviders), ());
 }
 }  // namespace

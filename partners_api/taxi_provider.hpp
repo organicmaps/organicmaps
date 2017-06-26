@@ -91,6 +91,6 @@ inline std::string DebugPrint(ErrorCode code)
 
 inline std::string DebugPrint(ProviderError error)
 {
-  return "[" + DebugPrint(error.m_type) + ", " + DebugPrint(error.m_code) + "]";
+  return "ProviderError [" + DebugPrint(error.m_type) + ", " + DebugPrint(error.m_code) + "]";
 }
 }  // namespace taxi

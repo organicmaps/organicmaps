@@ -24,7 +24,7 @@ namespace taxi
 {
 // ResultMaker ------------------------------------------------------------------------------------
 void ResultMaker::Reset(uint64_t requestId, size_t requestsCount,
-                        SuccessfulCallback const & successCallback,
+                        SuccessCallback const & successCallback,
                         ErrorCallback const & errorCallback)
 {
   ASSERT(successCallback, ());
@@ -77,7 +77,7 @@ void ResultMaker::ProcessError(uint64_t requestId, Provider::Type type, ErrorCod
 
 void ResultMaker::MakeResult(uint64_t requestId) const
 {
-  SuccessfulCallback successCallback;
+  SuccessCallback successCallback;
   ErrorCallback errorCallback;
   ProvidersContainer providers;
   ErrorsContainer errors;
@@ -119,7 +119,7 @@ Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 /// Requests list of available products. Returns request identificator immediately.
 uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
                                       storage::TCountriesVec const & countryIds,
-                                      SuccessfulCallback const & successFn,
+                                      SuccessCallback const & successFn,
                                       ErrorCallback const & errorFn)
 {
   ASSERT(successFn, ());
@@ -133,7 +133,7 @@ uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const 
   {
     auto type = api.m_type;
 
-    if (IsAllCountriesDisabled(type, countryIds) || !IsAnyCountryEnabled(type, countryIds))
+    if (AreAllCountriesDisabled(type, countryIds) || !IsAnyCountryEnabled(type, countryIds))
     {
       maker->DecrementRequestCount(reqId);
       maker->MakeResult(reqId);
@@ -169,8 +169,8 @@ RideRequestLinks Engine::GetRideRequestLinks(Provider::Type type, std::string co
   return it->m_api->GetRideRequestLinks(productId, from, to);
 }
 
-bool Engine::IsAllCountriesDisabled(Provider::Type type,
-                                    storage::TCountriesVec const & countryIds) const
+bool Engine::AreAllCountriesDisabled(Provider::Type type,
+                                     storage::TCountriesVec const & countryIds) const
 {
   auto const it =
       FindByProviderType(type, m_disabledCountries.cbegin(), m_disabledCountries.cend());

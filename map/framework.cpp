@@ -487,6 +487,7 @@ Framework::~Framework()
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
 {
+  ASSERT(m_bookingApi, ());
   if (policy.CanUse())
     return m_bookingApi.get();
 
@@ -495,6 +496,7 @@ booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
 
 booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & policy) const
 {
+  ASSERT(m_bookingApi, ());
   if (policy.CanUse())
     return m_bookingApi.get();
 
@@ -503,6 +505,7 @@ booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & po
 
 taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
 {
+  ASSERT(m_taxiEngine, ());
   if (policy.CanUse())
     return m_taxiEngine.get();
 
@@ -511,6 +514,7 @@ taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
 
 viator::Api * Framework::GetViatorApi(platform::NetworkPolicy const & policy)
 {
+  ASSERT(m_viatorApi, ());
   if (policy.CanUse())
     return m_viatorApi.get();
 
