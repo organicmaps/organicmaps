@@ -181,35 +181,24 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
   auto pFrom = [MWMRouter startPoint];
   auto pTo = [MWMRouter finishPoint];
-  if (pFrom && pTo)
+  if (!pFrom || !pTo)
+    return;
+  if (!Platform::IsConnected())
   {
-    if (!Platform::IsConnected())
-    {
-      [[MapViewController controller].alertController presentNoConnectionAlert];
-      showError(L(@"dialog_taxi_offline"));
-      return;
-    }
-    [self.taxiDataSource requestTaxiFrom:pFrom
-        to:pTo
-        completion:^{
-          [self setMenuState:MWMBottomMenuStateGo];
-          [self.routePreview stateReady];
-          [self setRouteBuilderProgress:100.];
-        }
-        failure:^(NSString * errorMessage) {
-          showError(errorMessage);
-        }];
+    [[MapViewController controller].alertController presentNoConnectionAlert];
+    showError(L(@"dialog_taxi_offline"));
+    return;
   }
-  else
-  {
-    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                          code:5
-                                      userInfo:@{
-                                        @"Description" : @"Invalid number of taxi route points",
-                                        @"Count" : @([MWMRouter pointsCount])
-                                      }];
-    [[Crashlytics sharedInstance] recordError:err];
-  }
+  [self.taxiDataSource requestTaxiFrom:pFrom
+                                    to:pTo
+                            completion:^{
+                              [self setMenuState:MWMBottomMenuStateGo];
+                              [self.routePreview stateReady];
+                              [self setRouteBuilderProgress:100.];
+                            }
+                               failure:^(NSString * errorMessage) {
+                                 showError(errorMessage);
+                               }];
 }
 
 - (void)showStateReady

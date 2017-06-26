@@ -122,7 +122,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   return [points copy];
 }
 
-+ (NSInteger)routePointsCount { return GetFramework().GetRoutingManager().GetRoutePoints().size(); }
++ (NSInteger)pointsCount { return GetFramework().GetRoutingManager().GetRoutePoints().size(); }
 + (MWMRoutePoint *)startPoint
 {
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
@@ -147,7 +147,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (BOOL)canAddIntermediatePoint
 {
-  return GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
+  return GetFramework().GetRoutingManager().CouldAddIntermediatePoint() && ![MWMRouter isTaxi];
 }
 
 - (instancetype)initRouter
@@ -168,6 +168,16 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   if (type == self.type)
     return;
+  if (type == MWMRouterTypeTaxi)
+  {
+    auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
+    for (auto const & point : routePoints)
+    {
+      if (point.m_pointType != RouteMarkType::Intermediate)
+        continue;
+      [self removePoint:RouteMarkType::Intermediate intermediateIndex:point.m_intermediateIndex];
+    }
+  }
   [self doStop:NO];
   GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
@@ -176,12 +186,12 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 + (void)disableFollowMode { GetFramework().GetRoutingManager().DisableFollowMode(); }
 + (void)enableTurnNotifications:(BOOL)active
 {
-  GetFramework().GetRoutingManager().EnableTurnNotifications(active ? true : false);
+  GetFramework().GetRoutingManager().EnableTurnNotifications(active);
 }
 
 + (BOOL)areTurnNotificationsEnabled
 {
-  return GetFramework().GetRoutingManager().AreTurnNotificationsEnabled() ? YES : NO;
+  return GetFramework().GetRoutingManager().AreTurnNotificationsEnabled();
 }
 
 + (void)setTurnNotificationsLocale:(NSString *)locale
