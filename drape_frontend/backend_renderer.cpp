@@ -250,11 +250,32 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::ChangeUserMarkLayerVisibility:
+    {
+      ref_ptr<ChangeUserMarkLayerVisibilityMessage> msg = message;
+      m_userMarkGenerator->SetGroupVisibility(static_cast<GroupID>(msg->GetLayerId()), msg->IsVisible());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<InvalidateUserMarksMessage>(msg->GetLayerId()),
+                                MessagePriority::Normal);
+      break;
+    }
+
   case Message::UpdateUserMarkLayer:
     {
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
       size_t const layerId = msg->GetLayerId();
       m_userMarkGenerator->SetUserMarks(static_cast<GroupID>(layerId), msg->AcceptRenderParams());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<InvalidateUserMarksMessage>(layerId),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::ClearUserMarkLayer:
+    {
+      ref_ptr<ClearUserMarkLayerMessage> msg = message;
+      size_t const layerId = msg->GetLayerId();
+      m_userMarkGenerator->ClearUserMarks(static_cast<GroupID>(layerId));
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<InvalidateUserMarksMessage>(layerId),
                                 MessagePriority::Normal);

@@ -91,27 +91,21 @@ public:
   bool m_pendingOnDeleteFound = false;
 };
 
-class UserMarkRenderGroup : public BaseRenderGroup
+class UserMarkRenderGroup : public RenderGroup
 {
-  using TBase = BaseRenderGroup;
+  using TBase = RenderGroup;
 
 public:
-  UserMarkRenderGroup(size_t layerId, dp::GLState const & state, TileKey const & tileKey,
-                      drape_ptr<dp::RenderBucket> && bucket);
+  UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey);
   ~UserMarkRenderGroup() override;
 
   void UpdateAnimation() override;
-  void Render(ScreenBase const & screen) override;
-
-  size_t GetLayerId() const;
 
   bool CanBeClipped() const;
 
 private:
-  drape_ptr<dp::RenderBucket> m_renderBucket;
   unique_ptr<OpacityAnimation> m_animation;
   ValueMapping<float> m_mapping;
-  size_t m_layerId;
 };
 
 } // namespace df

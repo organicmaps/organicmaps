@@ -202,6 +202,7 @@ private:
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
   void EndUpdateOverlayTree();
 
+  template<typename TRenderGroup>
   void AddToRenderGroup(dp::GLState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
 
@@ -239,6 +240,7 @@ private:
       Geometry2dID,
       OverlayID,
       Geometry3dID,
+      UserMarkID,
       LayerCountID
     };
 
@@ -251,8 +253,6 @@ private:
   };
 
   std::array<RenderLayer, RenderLayer::LayerCountID> m_layers;
-  std::vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
-  std::unordered_set<size_t> m_userMarkVisibility;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;

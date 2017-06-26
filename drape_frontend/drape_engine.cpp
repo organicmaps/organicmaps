@@ -195,14 +195,14 @@ void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
 
 void DrapeEngine::ClearUserMarksLayer(size_t layerId)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<ClearUserMarkLayerMessage>(layerId),
                                   MessagePriority::Normal);
 }
 
 void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<ChangeUserMarkLayerVisibilityMessage>(layerId, isVisible),
                                   MessagePriority::Normal);
 }

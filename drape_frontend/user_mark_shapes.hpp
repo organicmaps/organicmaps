@@ -58,19 +58,12 @@ struct UserMarkRenderData
 
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
-class UserMarkShape
-{
-public:
-  static void Draw(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                   UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
-                   TUserMarksRenderData & renderData);
-};
+void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
+                    TUserMarksRenderData & renderData);
 
-class UserLineShape
-{
-public:
-  static void Draw(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures, UserLinesRenderCollection const & renderParams,
-                   LineIndexesCollection const & indexes, TUserMarksRenderData & renderData);
-};
+void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
+                    TUserMarksRenderData & renderData);
 
 } // namespace df

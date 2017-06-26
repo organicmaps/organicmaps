@@ -228,7 +228,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
       {
         PrepareBucket(state, bucket);
-        AddToRenderGroup(state, std::move(bucket), key);
+        AddToRenderGroup<RenderGroup>(state, std::move(bucket), key);
       }
       break;
     }
@@ -243,8 +243,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
             CheckTileGenerations(overlayRenderData.m_tileKey))
         {
           PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
-          AddToRenderGroup(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket),
-                           overlayRenderData.m_tileKey);
+          AddToRenderGroup<RenderGroup>(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket),
+                                        overlayRenderData.m_tileKey);
         }
       }
       UpdateCanBeDeletedStatus();
@@ -297,44 +297,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FlushUserMarks:
     {
       ref_ptr<FlushUserMarksMessage> msg = message;
-      size_t const layerId = msg->GetLayerId();
       TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
-      for (UserMarkRenderData & renderData : marksRenderData)
+      for (auto & renderData : marksRenderData)
       {
-        PrepareBucket(renderData.m_state, renderData.m_bucket);
-        auto program = m_gpuProgramManager->GetProgram(renderData.m_state.GetProgramIndex());
-        auto program3d = m_gpuProgramManager->GetProgram(renderData.m_state.GetProgram3dIndex());
-        auto group = make_unique_dp<UserMarkRenderGroup>(layerId, renderData.m_state, renderData.m_tileKey,
-                                                         std::move(renderData.m_bucket));
-        m_userMarkRenderGroups.push_back(std::move(group));
-        m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+        if (renderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
+            CheckTileGenerations(renderData.m_tileKey))
+        {
+          PrepareBucket(renderData.m_state, renderData.m_bucket);
+          AddToRenderGroup<UserMarkRenderGroup>(renderData.m_state, std::move(renderData.m_bucket),
+                                                renderData.m_tileKey);
+        }
       }
-      break;
-    }
-
-  case Message::ClearUserMarkLayer:
-    {
-      ref_ptr<ClearUserMarkLayerMessage> msg = message;
-      size_t const layerId = msg->GetLayerId();
-      auto const functor = [&layerId](drape_ptr<UserMarkRenderGroup> const & g)
-      {
-        return g->GetLayerId() == layerId;
-      };
-
-      auto const iter = std::remove_if(m_userMarkRenderGroups.begin(),
-                                       m_userMarkRenderGroups.end(),
-                                       functor);
-      m_userMarkRenderGroups.erase(iter, m_userMarkRenderGroups.end());
-      break;
-    }
-
-  case Message::ChangeUserMarkLayerVisibility:
-    {
-      ref_ptr<ChangeUserMarkLayerVisibilityMessage> msg = message;
-      if (msg->IsVisible())
-        m_userMarkVisibility.insert(msg->GetLayerId());
-      else
-        m_userMarkVisibility.erase(msg->GetLayerId());
       break;
     }
 
@@ -774,6 +747,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetSimplifiedTrafficColors:
   case Message::SetDisplacementMode:
   case Message::UpdateMetalines:
+  case Message::InvalidateUserMarks:
     {
       m_forceUpdateScene = true;
       break;
@@ -978,6 +952,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   RefreshPivotTransform(screen);
 }
 
+template<typename TRenderGroup>
 void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
                                         drape_ptr<dp::RenderBucket> && renderBucket,
                                         TileKey const & newTile)
@@ -995,7 +970,7 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
     }
   }
 
-  drape_ptr<RenderGroup> group = make_unique_dp<RenderGroup>(state, newTile);
+  drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
   ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
   ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
   group->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
@@ -1297,17 +1272,12 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 {
-  double const kExtension = 1.1;
-  m2::RectD screenRect = modelView.ClipRect();
-  screenRect.Scale(kExtension);
-  for (auto const & group : m_userMarkRenderGroups)
+  RenderLayer & userMarks = m_layers[RenderLayer::UserMarkID];
+  for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
   {
-    ASSERT(group.get() != nullptr, ());
-    //if (m_userMarkVisibility.find(group->GetLayerId()) != m_userMarkVisibility.end())
-    {
-      if (!group->CanBeClipped() || screenRect.IsIntersect(group->GetTileKey().GetGlobalRect()))
-        RenderSingleGroup(modelView, make_ref(group));
-    }
+    // TODO: Remove after user lines complete realization.
+    //if (!group->CanBeClipped())
+      RenderSingleGroup(modelView, make_ref(group));
   }
 }
 
@@ -1711,7 +1681,6 @@ void FrontendRenderer::OnContextDestroy()
   m_overlayTree->SetSelectedFeature(FeatureID());
   m_overlayTree->Clear();
 
-  m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
   m_selectionShape.reset();
   m_buildingsFramebuffer.reset();
@@ -1897,7 +1866,6 @@ void FrontendRenderer::ReleaseResources()
   for (RenderLayer & layer : m_layers)
     layer.m_renderGroups.clear();
 
-  m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
   m_myPositionController.reset();
   m_selectionShape.release();
@@ -2047,6 +2015,9 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
 {
   if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
     return OverlayID;
+
+  if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
+    return UserMarkID;
 
   if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||
       state.GetProgram3dIndex() == gpu::AREA_3D_OUTLINE_PROGRAM)

@@ -100,6 +100,7 @@ SOURCES += \
     traffic_generator.cpp \
     traffic_renderer.cpp \
     user_event_stream.cpp \
+    user_mark_generator.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
     visual_params.cpp \
@@ -114,7 +115,6 @@ SOURCES += \
     watch/geometry_processors.cpp \
     watch/feature_processor.cpp \
     watch/default_font.cpp \
-    user_mark_generator.cpp
 
 HEADERS += \
     animation/animation.hpp \
@@ -213,6 +213,7 @@ HEADERS += \
     traffic_generator.hpp \
     traffic_renderer.hpp \
     user_event_stream.hpp \
+    user_mark_generator.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
     visual_params.hpp \
@@ -236,7 +237,6 @@ HEADERS += \
     watch/brush_info.hpp \
     watch/geometry_processors.hpp \
     watch/feature_processor.hpp \
-    user_mark_generator.hpp
 
 OTHER_FILES += \
     shaders/area.vsh.glsl \

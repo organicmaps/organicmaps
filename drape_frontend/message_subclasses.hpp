@@ -16,7 +16,6 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
-#include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
@@ -243,9 +242,6 @@ public:
     , m_renderParams(std::move(renderParams))
   {}
 
-  ~UpdateUserMarkLayerMessage() override
-  {}
-
   Type GetType() const override { return Message::UpdateUserMarkLayer; }
 
   drape_ptr<UserMarksRenderCollection> && AcceptRenderParams() { return std::move(m_renderParams); }
@@ -259,7 +255,7 @@ class FlushUserMarksMessage : public BaseUserMarkLayerMessage
 public:
   FlushUserMarksMessage(size_t layerId, TUserMarksRenderData && renderData)
     : BaseUserMarkLayerMessage(layerId)
-    , m_renderData(move(renderData))
+    , m_renderData(std::move(renderData))
   {}
 
   Type GetType() const override { return Message::FlushUserMarks; }

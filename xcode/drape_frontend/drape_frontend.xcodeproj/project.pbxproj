@@ -216,6 +216,8 @@
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
 		BBD8F8791E96A51A00BAEB72 /* drape_hints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */; };
+		BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */; };
+		BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */; };
 		EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */; };
 		EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */; };
 		EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */; };
@@ -496,6 +498,8 @@
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
 		BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_hints.hpp; sourceTree = "<group>"; };
+		BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_generator.cpp; sourceTree = "<group>"; };
+		BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_generator.hpp; sourceTree = "<group>"; };
 		EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metaline_manager.cpp; sourceTree = "<group>"; };
 		EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metaline_manager.hpp; sourceTree = "<group>"; };
 		EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = read_metaline_task.cpp; sourceTree = "<group>"; };
@@ -741,6 +745,8 @@
 				670947861BDF9BE0005014C0 /* tile_utils.hpp */,
 				670947871BDF9BE0005014C0 /* user_event_stream.cpp */,
 				670947881BDF9BE0005014C0 /* user_event_stream.hpp */,
+				BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */,
+				BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */,
 				670947891BDF9BE0005014C0 /* user_mark_shapes.cpp */,
 				6709478A1BDF9BE0005014C0 /* user_mark_shapes.hpp */,
 				6709478B1BDF9BE0005014C0 /* user_marks_provider.cpp */,
@@ -953,6 +959,7 @@
 				452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */,
 				670948771BDF9C7F005014C0 /* glyph_cache_impl.hpp in Headers */,
 				670947A11BDF9BE1005014C0 /* message_subclasses.hpp in Headers */,
+				BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */,
 				670947C51BDF9BE1005014C0 /* text_handle.hpp in Headers */,
 				670947D71BDF9BE1005014C0 /* user_event_stream.hpp in Headers */,
 				6709479E1BDF9BE1005014C0 /* message_acceptor.hpp in Headers */,
@@ -1051,6 +1058,7 @@
 				56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */,
 				67E91C751BDFC85E005CEE88 /* feature_processor.cpp in Sources */,
 				6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */,
+				BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */,
 				670E393A1C46C59000E9C0A6 /* batch_merge_helper.cpp in Sources */,
 				452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */,
 				451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */,

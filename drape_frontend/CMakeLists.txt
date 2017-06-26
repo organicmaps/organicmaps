@@ -204,6 +204,8 @@ set(
   traffic_renderer.hpp
   user_event_stream.cpp
   user_event_stream.hpp
+  user_mark_generator.cpp
+  user_mark_generator.hpp
   user_mark_shapes.cpp
   user_mark_shapes.hpp
   user_marks_provider.cpp
