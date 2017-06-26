@@ -2013,7 +2013,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavigationController != null
         && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating()))
-      mNavigationController.fadeOutSearchButtons();
+    {
+      if (UiUtils.isLandscape(this))
+        mTraffic.hide();
+      else
+        mNavigationController.fadeOutSearchButtons();
+    }
   }
 
   private void showLocationErrorDialog(@NonNull final Intent intent)
