@@ -121,8 +121,15 @@ BOOL defaultOrientation(CGSize const & size)
 {
   if (![MWMRouter startPoint])
   {
-    [self.toastView configWithText:L(@"planning_route_need_start") withActionButton:YES];
-    [self setToastViewHidden:NO];
+    if ([MWMLocationManager lastLocation])
+    {
+      [self.toastView configWithText:L(@"planning_route_need_start") withActionButton:YES];
+      [self setToastViewHidden:NO];
+    }
+    else
+    {
+      [self setToastViewHidden:YES];
+    }
   }
   else if (![MWMRouter finishPoint])
   {
