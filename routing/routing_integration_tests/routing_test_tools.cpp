@@ -132,8 +132,8 @@ namespace integration
   public:
     OsrmRouterComponents(vector<LocalCountryFile> const & localFiles)
       : IRouterComponents(localFiles)
-      , m_indexRouter(move(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter,
-                                           m_trafficCache, localFiles)))
+      , m_indexRouter(CreateCarRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
+                                      localFiles))
     {
     }
 
