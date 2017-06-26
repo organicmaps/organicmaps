@@ -152,7 +152,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showUberInfo(@NonNull UberInfo info)
   {
-    UiUtils.hide(mError, mAltitudeChartFrame);
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
 
     final List<UberInfo.Product> products = info.getProducts();
     mUberInfo = info;
