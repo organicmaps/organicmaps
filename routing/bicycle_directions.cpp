@@ -27,6 +27,7 @@ namespace
 {
 using namespace routing;
 using namespace routing::turns;
+using namespace std;
 using namespace traffic;
 
 class RoutingResult : public IRoutingResult
@@ -145,7 +146,7 @@ bool IsJoint(IRoadGraph::TEdgeVector const & ingoingEdges,
 
 namespace routing
 {
-BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds)
+BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr<NumMwmIds> numMwmIds)
   : m_index(index), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
@@ -314,7 +315,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
   CHECK_GREATER(pathSize, 1, ());
   CHECK_EQUAL(routeEdges.size(), pathSize - 1, ());
   // Filling |m_adjacentEdges|.
-  auto constexpr kInvalidSegId = std::numeric_limits<uint32_t>::max();
+  auto constexpr kInvalidSegId = numeric_limits<uint32_t>::max();
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
   uint32_t startSegId = kInvalidSegId;
   vector<Junction> prevJunctions;
@@ -363,18 +364,18 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     LoadedPathSegment pathSegment(UniNodeId::Type::Mwm);
     LoadPathAttributes(uniNodeId.GetFeature(), pathSegment);
     pathSegment.m_nodeId = uniNodeId;
-    pathSegment.m_path = std::move(prevJunctions);
+    pathSegment.m_path = move(prevJunctions);
     // @TODO(bykoianko) |pathSegment.m_weight| should be filled here.
 
     // |prevSegments| contains segments which corresponds to road edges between joints. In case of a fake edge
     // a fake segment is created.
     CHECK_EQUAL(prevSegments.size() + 1, prevJunctionSize, ());
-    pathSegment.m_segments = std::move(prevSegments);
+    pathSegment.m_segments = move(prevSegments);
 
-    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, std::move(adjacentEdges)));
+    auto const it = m_adjacentEdges.insert(make_pair(uniNodeId, move(adjacentEdges)));
     ASSERT(it.second, ());
     UNUSED_VALUE(it);
-    m_pathSegments.push_back(std::move(pathSegment));
+    m_pathSegments.push_back(move(pathSegment));
 
     prevJunctions.clear();
     prevSegments.clear();

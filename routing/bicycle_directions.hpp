@@ -28,10 +28,10 @@ public:
   BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
-  void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+  void Generate(RoadGraphBase const & graph, std::vector<Junction> const & path,
                 my::Cancellable const & cancellable, Route::TTimes & times, Route::TTurns & turns,
-                Route::TStreets & streetNames, vector<Junction> & routeGeometry,
-                vector<Segment> & segments) override;
+                Route::TStreets & streetNames, std::vector<Junction> & routeGeometry,
+                std::vector<Segment> & segments) override;
 
 private:
   Index::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
@@ -45,7 +45,7 @@ private:
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
   void FillPathSegmentsAndAdjacentEdgesMap(RoadGraphBase const & graph,
-                                           vector<Junction> const & path,
+                                           std::vector<Junction> const & path,
                                            IRoadGraph::TEdgeVector const & routeEdges,
                                            my::Cancellable const & cancellable);
 

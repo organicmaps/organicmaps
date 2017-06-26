@@ -12,6 +12,8 @@
 
 #include <utility>
 
+using namespace std;
+
 namespace
 {
 bool HasType(uint32_t type, feature::TypesHolder const & types)
@@ -29,11 +31,11 @@ bool HasType(uint32_t type, feature::TypesHolder const & types)
 namespace routing
 {
 
-PedestrianDirectionsEngine::PedestrianDirectionsEngine(std::shared_ptr<NumMwmIds> numMwmIds)
+PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> numMwmIds)
   : m_typeSteps(classif().GetTypeByPath({"highway", "steps"}))
   , m_typeLiftGate(classif().GetTypeByPath({"barrier", "lift_gate"}))
   , m_typeGate(classif().GetTypeByPath({"barrier", "gate"}))
-  , m_numMwmIds(std::move(numMwmIds))
+  , m_numMwmIds(move(numMwmIds))
 {
 }
 

@@ -9,7 +9,7 @@
 
 #include "base/cancellable.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace routing
 {
@@ -18,19 +18,19 @@ class IDirectionsEngine
 public:
   virtual ~IDirectionsEngine() = default;
 
-  virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+  virtual void Generate(RoadGraphBase const & graph, std::vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTimes & times,
                         Route::TTurns & turns, Route::TStreets & streetNames,
-                        vector<Junction> & routeGeometry, vector<Segment> & segments) = 0;
+                        std::vector<Junction> & routeGeometry, std::vector<Segment> & segments) = 0;
 
 protected:
   /// \brief constructs route based on |graph| and |path|. Fills |routeEdges| with the route.
   /// \returns false in case of any errors while reconstruction, if reconstruction process
   /// was cancelled and in case of extremely short paths of 0 or 1 point. Returns true otherwise.
-  bool ReconstructPath(RoadGraphBase const & graph, vector<Junction> const & path,
-                       vector<Edge> & routeEdges, my::Cancellable const & cancellable) const;
+  bool ReconstructPath(RoadGraphBase const & graph, std::vector<Junction> const & path,
+                       std::vector<Edge> & routeEdges, my::Cancellable const & cancellable) const;
 
-  void CalculateTimes(RoadGraphBase const & graph, vector<Junction> const & path,
+  void CalculateTimes(RoadGraphBase const & graph, std::vector<Junction> const & path,
                       Route::TTimes & times) const;
 };
 }  // namespace routing
