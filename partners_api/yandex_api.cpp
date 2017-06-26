@@ -17,9 +17,6 @@
 
 namespace
 {
-std::string const kTaxiInfoUrl = "https://taxi-routeinfo.taxi.yandex.net";
-std::string g_yandexUrlForTesting = "";
-
 bool RunSimpleHttpRequest(std::string const & url, std::string & result)
 {
   platform::HttpClient request(url);
@@ -46,27 +43,19 @@ bool CheckYandexResponse(json_t const * answer)
 
   return true;
 }
-
-std::string GetYandexURL()
-{
-  if (!g_yandexUrlForTesting.empty())
-    return g_yandexUrlForTesting;
-
-  return kTaxiInfoUrl;
-}
 }  // namespace
 
 namespace taxi
 {
 namespace yandex
 {
-bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result)
+bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result,
+                         std::string const & baseUrl /* = kTaxiInfoUrl */)
 {
   std::ostringstream url;
-  url << std::fixed << std::setprecision(6) << GetYandexURL()
-      << "/taxi_info?clid=" << YANDEX_CLIENT_ID << "&apikey=" << YANDEX_API_KEY
-      << "&rll=" << from.lon << "," << from.lat << "~" << to.lon << "," << to.lat
-      << "&class=econom,business,comfortplus,minivan,vip";
+  url << std::fixed << std::setprecision(6) << baseUrl << "/taxi_info?clid=" << YANDEX_CLIENT_ID
+      << "&apikey=" << YANDEX_API_KEY << "&rll=" << from.lon << "," << from.lat << "~" << to.lon
+      << "," << to.lat << "&class=econom,business,comfortplus,minivan,vip";
 
   return RunSimpleHttpRequest(url.str(), result);
 }
@@ -79,10 +68,12 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   ASSERT(successFn, ());
   ASSERT(errorFn, ());
 
-  threads::SimpleThread([from, to, successFn, errorFn]()
+  auto const baseUrl = m_baseUrl;
+
+  threads::SimpleThread([from, to, baseUrl, successFn, errorFn]()
   {
     std::string result;
-    if (!RawApi::GetTaxiInfo(from, to, result))
+    if (!RawApi::GetTaxiInfo(from, to, result, baseUrl))
     {
       errorFn(ErrorCode::RemoteError);
       return;
@@ -152,11 +143,6 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     product.m_currency = currency;
     products.push_back(move(product));
   }
-}
-
-void SetYandexUrlForTesting(std::string const & url)
-{
-  g_yandexUrlForTesting = url;
 }
 }  // namespace yandex
 }  // namespace taxi

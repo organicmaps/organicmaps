@@ -107,13 +107,13 @@ void ResultMaker::DecrementRequestCount()
 }
 
 // Engine -----------------------------------------------------------------------------------------
-Engine::Engine()
+Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   m_enabledCountries = {{Provider::Type::Yandex, {"Russian Federation"}}};
   m_disabledCountries = {{Provider::Type::Uber, {"Russian Federation"}}};
 
-  m_apis.emplace_back(Provider::Type::Yandex, my::make_unique<yandex::Api>());
-  m_apis.emplace_back(Provider::Type::Uber, my::make_unique<uber::Api>());
+  AddApi<yandex::Api>(urls, Provider::Type::Yandex);
+  AddApi<uber::Api>(urls, Provider::Type::Uber);
 }
 
 /// Requests list of available products. Returns request identificator immediately.
@@ -209,5 +209,19 @@ bool Engine::IsAnyCountryEnabled(Provider::Type type,
   }
 
   return false;
+}
+
+template <typename ApiType>
+void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type)
+{
+  auto const it = std::find_if(urls.cbegin(), urls.cend(), [type](ProviderUrl const & item)
+  {
+    return item.m_type == type;
+  });
+
+  if (it != urls.cend())
+    m_apis.emplace_back(type, my::make_unique<ApiType>(it->m_url));
+  else
+    m_apis.emplace_back(type, my::make_unique<ApiType>());
 }
 }  // namespace taxi

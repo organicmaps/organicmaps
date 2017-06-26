@@ -18,9 +18,6 @@ using namespace platform;
 
 namespace
 {
-string const kUberEstimatesUrl = "https://api.uber.com/v1/estimates";
-string g_uberUrlForTesting = "";
-
 bool RunSimpleHttpRequest(string const & url, string & result)
 {
   HttpClient request(url);
@@ -115,14 +112,6 @@ void MakeFromJson(char const * times, char const * prices, vector<taxi::Product>
     products.clear();
   }
 }
-
-string GetUberURL()
-{
-  if (!g_uberUrlForTesting.empty())
-    return g_uberUrlForTesting;
-
-  return kUberEstimatesUrl;
-}
 }  // namespace
 
 namespace taxi
@@ -130,33 +119,33 @@ namespace taxi
 namespace uber
 {
 // static
-bool RawApi::GetProducts(ms::LatLon const & pos, string & result)
+bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
+                         std::string const & baseUrl /* = kProductsUrl */)
 {
-  stringstream url;
-  url << fixed << setprecision(6)
-      << "https://api.uber.com/v1/products?server_token=" << UBER_SERVER_TOKEN
+  ostringstream url;
+  url << fixed << setprecision(6) << baseUrl << "?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.lat << "&longitude=" << pos.lon;
 
   return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
-bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result)
+bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
+                              std::string const & baseUrl /* = kEstimatesUrl */)
 {
-  stringstream url;
-  url << fixed << setprecision(6)
-      << GetUberURL() << "/time?server_token=" << UBER_SERVER_TOKEN
+  ostringstream url;
+  url << fixed << setprecision(6) << baseUrl << "/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
   return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
-bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result)
+bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result,
+                               std::string const & baseUrl /* = kEstimatesUrl */)
 {
-  stringstream url;
-  url << fixed << setprecision(6)
-      << GetUberURL() << "/price?server_token=" << UBER_SERVER_TOKEN
+  ostringstream url;
+  url << fixed << setprecision(6) << baseUrl << "/price?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
@@ -226,13 +215,14 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
+  auto const baseUrl = m_baseUrl;
 
   maker->Reset(reqId);
 
-  threads::SimpleThread([maker, from, reqId, successFn, errorFn]()
+  threads::SimpleThread([maker, from, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
-    if (!RawApi::GetEstimatedTime(from, result))
+    if (!RawApi::GetEstimatedTime(from, result, baseUrl))
     {
       errorFn(ErrorCode::RemoteError);
       return;
@@ -242,10 +232,10 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     maker->MakeProducts(reqId, successFn, errorFn);
   }).detach();
 
-  threads::SimpleThread([maker, from, to, reqId, successFn, errorFn]()
+  threads::SimpleThread([maker, from, to, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
-    if (!RawApi::GetEstimatedPrice(from, to, result))
+    if (!RawApi::GetEstimatedPrice(from, to, result, baseUrl))
     {
       errorFn(ErrorCode::RemoteError);
       return;
@@ -266,11 +256,6 @@ RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon c
       << "&dropoff[latitude]=" << to.lat << "&dropoff[longitude]=" << to.lon;
 
   return {"uber://" + url.str(), "https://m.uber.com/ul" + url.str()};
-}
-
-void SetUberUrlForTesting(string const & url)
-{
-  g_uberUrlForTesting = url;
 }
 }  // namespace uber
 }  // namespace taxi

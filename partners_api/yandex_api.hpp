@@ -13,17 +13,20 @@ namespace taxi
 {
 namespace yandex
 {
+std::string const kTaxiInfoUrl = "https://taxi-routeinfo.taxi.yandex.net";
 /// Yandex api wrapper based on synchronous http requests.
 class RawApi
 {
 public:
-  static bool GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result);
+  static bool GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result,
+                          std::string const & url = kTaxiInfoUrl);
 };
 
 /// Class which used for making products from http requests results.
 class Api : public ApiBase
 {
 public:
+  explicit Api(std::string const & baseUrl = kTaxiInfoUrl) : m_baseUrl(baseUrl) {}
   // ApiBase overrides:
   /// Requests list of available products from Yandex.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
@@ -33,9 +36,11 @@ public:
   /// Returns link which allows you to launch the Yandex app.
   RideRequestLinks GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                        ms::LatLon const & to) const override;
+
+private:
+  std::string const m_baseUrl;
 };
 
 void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products);
-void SetYandexUrlForTesting(std::string const & url);
 }  // namespace yandex
 }  // namespace taxi

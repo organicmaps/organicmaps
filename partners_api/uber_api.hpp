@@ -23,6 +23,8 @@ namespace taxi
 {
 namespace uber
 {
+string const kEstimatesUrl = "https://api.uber.com/v1/estimates";
+string const kProductsUrl = "https://api.uber.com/v1/products";
 /// Uber api wrapper based on synchronous http requests.
 class RawApi
 {
@@ -31,19 +33,22 @@ public:
   /// otherwise returns false. The response contains the display name and other details about each
   /// product, and lists the products in the proper display order. This endpoint does not reflect
   /// real-time availability of the products.
-  static bool GetProducts(ms::LatLon const & pos, string & result);
+  static bool GetProducts(ms::LatLon const & pos, string & result,
+                          std::string const & url = kProductsUrl);
   /// Returns true when http request was executed successfully and response copied into @result,
   /// otherwise returns false. The response contains ETAs for all products currently available
   /// at a given location, with the ETA for each product expressed as integers in seconds. If a
   /// product returned from GetProducts is not returned from this endpoint for a given
   /// latitude/longitude pair then there are currently none of that product available to request.
   /// Call this endpoint every minute to provide the most accurate, up-to-date ETAs.
-  static bool GetEstimatedTime(ms::LatLon const & pos, string & result);
+  static bool GetEstimatedTime(ms::LatLon const & pos, string & result,
+                               std::string const & url = kEstimatesUrl);
   /// Returns true when http request was executed successfully and response copied into @result,
   /// otherwise returns false. The response contains an estimated price range for each product
   /// offered at a given location. The price estimate is provided as a formatted string with the
   /// full price range and the localized currency symbol.
-  static bool GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result);
+  static bool GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result,
+                                std::string const & url = kEstimatesUrl);
 };
 
 /// Class which used for making products from http requests results.
@@ -66,6 +71,7 @@ private:
 class Api : public ApiBase
 {
 public:
+  explicit Api(std::string const & baseUrl = kEstimatesUrl) : m_baseUrl(baseUrl) {}
   // ApiBase overrides:
   /// Requests list of available products from Uber.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
@@ -79,6 +85,7 @@ public:
 private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
   uint64_t m_requestId = 0;
+  string const m_baseUrl;
 };
 
 void SetUberUrlForTesting(string const & url);

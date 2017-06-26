@@ -4,8 +4,6 @@
 
 #include "geometry/latlon.hpp"
 
-#include "base/scope_guard.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/atomic.hpp"
 #include "std/mutex.hpp"
@@ -167,12 +165,9 @@ UNIT_TEST(Uber_ProductMaker)
 
 UNIT_TEST(Uber_GetAvailableProducts)
 {
-  taxi::uber::Api api;
+  taxi::uber::Api api("http://localhost:34568/partners");
   ms::LatLon const from(55.796918, 37.537859);
   ms::LatLon const to(55.758213, 37.616093);
-
-  taxi::uber::SetUberUrlForTesting("http://localhost:34568/partners");
-  MY_SCOPE_GUARD(cleanup, []() { taxi::uber::SetUberUrlForTesting(""); });
 
   std::vector<taxi::Product> resultProducts;
 
@@ -181,7 +176,10 @@ UNIT_TEST(Uber_GetAvailableProducts)
                              resultProducts = products;
                              testing::StopEventLoop();
                            },
-                           [](taxi::ErrorCode const code) { TEST(false, ()); });
+                           [](taxi::ErrorCode const code) {
+                             LOG(LWARNING, (code));
+                             testing::StopEventLoop();
+                           });
 
   testing::RunEventLoop();
 

@@ -10,13 +10,14 @@
 
 namespace
 {
-std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to)
+std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                              std::string const & url)
 {
   std::string times;
   std::string prices;
 
-  TEST(taxi::uber::RawApi::GetEstimatedTime(from, times), ());
-  TEST(taxi::uber::RawApi::GetEstimatedPrice(from, to, prices), ());
+  TEST(taxi::uber::RawApi::GetEstimatedTime(from, times, url), ());
+  TEST(taxi::uber::RawApi::GetEstimatedPrice(from, to, prices, url), ());
 
   size_t reqId = 0;
   taxi::uber::ProductMaker maker;
@@ -32,24 +33,26 @@ std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLo
   return uberProducts;
 }
 
-std::vector<taxi::Product> GetYandexSynchronous(ms::LatLon const & from, ms::LatLon const & to)
+std::vector<taxi::Product> GetYandexSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                                std::string const & url)
 {
   std::string yandexAnswer;
   std::vector<taxi::Product> yandexProducts;
 
-  TEST(taxi::yandex::RawApi::GetTaxiInfo(from, to, yandexAnswer), ());
+  TEST(taxi::yandex::RawApi::GetTaxiInfo(from, to, yandexAnswer, url), ());
 
   taxi::yandex::MakeFromJson(yandexAnswer, yandexProducts);
 
   return yandexProducts;
 }
 
-taxi::ProvidersContainer GetProvidersSynchronous(ms::LatLon const & from, ms::LatLon const & to)
+taxi::ProvidersContainer GetProvidersSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                                 std::string const & url)
 {
   taxi::ProvidersContainer providers;
 
-  providers.emplace_back(taxi::Provider::Type::Uber, GetUberSynchronous(from, to));
-  providers.emplace_back(taxi::Provider::Type::Yandex, GetYandexSynchronous(from, to));
+  providers.emplace_back(taxi::Provider::Type::Uber, GetUberSynchronous(from, to, url));
+  providers.emplace_back(taxi::Provider::Type::Yandex, GetYandexSynchronous(from, to, url));
 
   return providers;
 }
@@ -189,12 +192,7 @@ UNIT_TEST(TaxiEngine_Smoke)
   taxi::ProvidersContainer providersContainer;
   ms::LatLon const from(38.897724, -77.036531);
   ms::LatLon const to(38.862416, -76.883316);
-
-  taxi::uber::SetUberUrlForTesting("http://localhost:34568/partners");
-  taxi::yandex::SetYandexUrlForTesting("http://localhost:34568/partners");
-
-  MY_SCOPE_GUARD(cleanupUber, []() { taxi::uber::SetUberUrlForTesting(""); });
-  MY_SCOPE_GUARD(cleanupYandex, []() { taxi::yandex::SetYandexUrlForTesting(""); });
+  std::string const kTesturl = "http://localhost:34568/partners";
 
   auto const errorCallback = [](taxi::ErrorsContainer const & errors, uint64_t const requestId) {
     TEST(false, ());
@@ -221,11 +219,11 @@ UNIT_TEST(TaxiEngine_Smoke)
     testing::StopEventLoop();
   };
 
-  taxi::ProvidersContainer const synchronousProviders = GetProvidersSynchronous(from, to);
+  taxi::ProvidersContainer const synchronousProviders = GetProvidersSynchronous(from, to, kTesturl);
 
   {
-    taxi::Engine engine;
-
+    taxi::Engine engine({{taxi::Provider::Type::Uber, kTesturl},
+                         {taxi::Provider::Type::Yandex, kTesturl}});
     {
       lock_guard<mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(

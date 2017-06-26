@@ -47,10 +47,16 @@ private:
   ProvidersContainer m_providers;
 };
 
+struct ProviderUrl
+{
+  Provider::Type m_type;
+  std::string m_url;
+};
+
 class Engine final
 {
 public:
-  Engine();
+  explicit Engine(std::vector<ProviderUrl> urls = {});
 
   /// Requests list of available products. Returns request identificator immediately.
   uint64_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
@@ -65,6 +71,9 @@ public:
 private:
   bool IsAllCountriesDisabled(Provider::Type type, storage::TCountriesVec const & countryIds) const;
   bool IsAnyCountryEnabled(Provider::Type type, storage::TCountriesVec const & countryIds) const;
+
+  template <typename ApiType>
+  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type);
 
   using ApiPtr = std::unique_ptr<ApiBase>;
 
