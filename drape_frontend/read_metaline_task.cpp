@@ -108,6 +108,9 @@ void ReadMetalineTask::Do()
   auto metalines = ReadMetalinesFromFile(m_mwmId);
   for (auto const & metaline : metalines)
   {
+    if (IsCancelled())
+      return;
+
     bool failed = false;
     for (auto const & fid : metaline.m_features)
     {

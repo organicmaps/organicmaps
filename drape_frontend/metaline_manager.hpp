@@ -20,6 +20,9 @@ public:
   MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
   ~MetalineManager();
 
+  void Start();
+  void Stop();
+
   void Update(std::set<MwmSet::MwmId> const & mwms);
 
   m2::SharedSpline GetMetaline(FeatureID const & fid) const;

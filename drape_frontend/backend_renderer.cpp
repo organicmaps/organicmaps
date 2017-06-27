@@ -490,6 +490,7 @@ void BackendRenderer::OnContextCreate()
   GLFunctions::Init(m_apiVersion);
 
   m_readManager->Start();
+  m_metalineManager->Start();
   InitGLDependentResource();
 }
 
@@ -498,6 +499,7 @@ void BackendRenderer::OnContextDestroy()
   LOG(LINFO, ("On context destroy."));
   m_readManager->Stop();
   m_batchersPool.reset();
+  m_metalineManager->Stop();
   m_texMng->Release();
   m_overlays.clear();
   m_trafficGenerator->ClearGLDependentResources();

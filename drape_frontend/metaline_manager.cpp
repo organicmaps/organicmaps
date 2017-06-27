@@ -13,14 +13,31 @@ namespace df
 MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
   : m_model(model)
   , m_tasksPool(4, ReadMetalineTaskFactory(m_model))
-  , m_threadsPool(make_unique_dp<threads::ThreadPool>(2, std::bind(&MetalineManager::OnTaskFinished,
-                                                                   this, std::placeholders::_1)))
   , m_commutator(commutator)
-{}
+{
+  Start();
+}
 
 MetalineManager::~MetalineManager()
 {
-  m_threadsPool->Stop();
+  Stop();
+}
+
+void MetalineManager::Start()
+{
+  if (m_threadsPool != nullptr)
+    return;
+
+  using namespace std::placeholders;
+  uint8_t constexpr kThreadsCount = 2;
+  m_threadsPool = make_unique_dp<threads::ThreadPool>(
+      kThreadsCount, std::bind(&MetalineManager::OnTaskFinished, this, _1));
+}
+
+void MetalineManager::Stop()
+{
+  if (m_threadsPool != nullptr)
+    m_threadsPool->Stop();
   m_threadsPool.reset();
 }
 
