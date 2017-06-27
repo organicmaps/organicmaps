@@ -5,47 +5,47 @@
 
 namespace
 {
-jclass g_uberClass;
+jclass g_taxiClass;
 jclass g_productClass;
 jclass g_routingControllerClass;
-jclass g_uberInfoClass;
-jmethodID g_uberInfoConstructor;
+jclass g_taxiInfoClass;
+jmethodID g_taxiInfoConstructor;
 jobject g_routingControllerInstance;
 jmethodID g_productConstructor;
 jmethodID g_routingControllerGetMethod;
-jmethodID g_uberInfoCallbackMethod;
-jmethodID g_uberErrorCallbackMethod;
-jclass g_uberLinksClass;
-jmethodID g_uberLinksConstructor;
+jmethodID g_taxiInfoCallbackMethod;
+jmethodID g_taxiErrorCallbackMethod;
+jclass g_taxiLinksClass;
+jmethodID g_taxiLinksConstructor;
 uint64_t g_lastRequestId;
 
 void PrepareClassRefs(JNIEnv * env)
 {
-  if (g_uberClass)
+  if (g_taxiClass)
     return;
 
-  g_uberClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberInfo");
-  g_productClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberInfo$Product");
+  g_taxiClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfo");
+  g_productClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfo$Product");
   g_routingControllerClass =
       jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingController");
   g_productConstructor = jni::GetConstructorID(
       env, g_productClass,
       "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-  g_uberInfoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberInfo");
+  g_taxiInfoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfo");
   g_routingControllerGetMethod = jni::GetStaticMethodID(
       env, g_routingControllerClass, "get", "()Lcom/mapswithme/maps/routing/RoutingController;");
   g_routingControllerInstance =
       env->CallStaticObjectMethod(g_routingControllerClass, g_routingControllerGetMethod);
-  g_uberInfoCallbackMethod =
-      jni::GetMethodID(env, g_routingControllerInstance, "onUberInfoReceived",
-                       "(Lcom/mapswithme/maps/uber/UberInfo;)V");
-  g_uberErrorCallbackMethod = jni::GetMethodID(env, g_routingControllerInstance,
-                                               "onUberError", "(Ljava/lang/String;)V");
-  g_uberInfoConstructor = jni::GetConstructorID(env, g_uberInfoClass,
-                                                "([Lcom/mapswithme/maps/uber/UberInfo$Product;)V");
-  g_uberLinksClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/uber/UberLinks");
-  g_uberLinksConstructor =
-      jni::GetConstructorID(env, g_uberLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+  g_taxiInfoCallbackMethod =
+      jni::GetMethodID(env, g_routingControllerInstance, "onTaxiInfoReceived",
+                       "(Lcom/mapswithme/maps/taxi/TaxiInfo;)V");
+  g_taxiErrorCallbackMethod = jni::GetMethodID(env, g_routingControllerInstance,
+                                               "onTaxiError", "(Ljava/lang/String;)V");
+  g_taxiInfoConstructor = jni::GetConstructorID(env, g_taxiInfoClass,
+                                                "([Lcom/mapswithme/maps/taxi/TaxiInfo$Product;)V");
+  g_taxiLinksClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiLinks");
+  g_taxiLinksConstructor =
+      jni::GetConstructorID(env, g_taxiLinksClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 }
 
 void OnTaxiInfoReceived(taxi::ProvidersContainer const & products, uint64_t const requestId)
@@ -99,7 +99,7 @@ void OnTaxiError(taxi::ErrorsContainer const & errors, uint64_t const requestId)
 
 extern "C" {
 
-JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProducts(
+JNIEXPORT void JNICALL Java_com_mapswithme_maps_taxi_Taxi_nativeRequestTaxiProducts(
     JNIEnv * env, jclass clazz, jobject policy, jdouble srcLat, jdouble srcLon, jdouble dstLat,
     jdouble dstLon)
 {
@@ -112,7 +112,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_uber_Uber_nativeRequestUberProdu
       g_framework->RequestTaxiProducts(env, policy, from, to, &OnTaxiInfoReceived, &OnTaxiError);
 }
 
-JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(
+JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_taxi_Taxi_nativeGetUberLinks(
     JNIEnv * env, jclass clazz, jobject policy, jstring productId, jdouble srcLat, jdouble srcLon,
     jdouble dstLat, jdouble dstLon)
 {
@@ -123,7 +123,7 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_uber_Uber_nativeGetUberLinks(
 
   taxi::RideRequestLinks const links =
       g_framework->GetTaxiLinks(env, policy, jni::ToNativeString(env, productId), from, to);
-  return env->NewObject(g_uberLinksClass, g_uberLinksConstructor,
+  return env->NewObject(g_taxiLinksClass, g_taxiLinksConstructor,
                         jni::ToJavaString(env, links.m_deepLink),
                         jni::ToJavaString(env, links.m_universalLink));
 }

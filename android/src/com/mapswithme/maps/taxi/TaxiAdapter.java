@@ -1,4 +1,4 @@
-package com.mapswithme.maps.uber;
+package com.mapswithme.maps.taxi;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,14 +13,14 @@ import com.mapswithme.maps.routing.RoutingController;
 
 import java.util.List;
 
-public class UberAdapter extends PagerAdapter
+public class TaxiAdapter extends PagerAdapter
 {
   @NonNull
   private final Context mContext;
   @NonNull
-  private final List<UberInfo.Product> mProducts;
+  private final List<TaxiInfo.Product> mProducts;
 
-  public UberAdapter(@NonNull Context context, @NonNull List<UberInfo.Product> products)
+  public TaxiAdapter(@NonNull Context context, @NonNull List<TaxiInfo.Product> products)
   {
     mContext = context;
     mProducts = products;
@@ -41,9 +41,9 @@ public class UberAdapter extends PagerAdapter
   @Override
   public Object instantiateItem(ViewGroup container, int position)
   {
-    UberInfo.Product product = mProducts.get(position);
+    TaxiInfo.Product product = mProducts.get(position);
 
-    View v = LayoutInflater.from(mContext).inflate(R.layout.uber_pager_item, container, false);
+    View v = LayoutInflater.from(mContext).inflate(R.layout.taxi_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
     name.setText(product.getName());
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);

@@ -523,7 +523,7 @@ public enum Statistics
                         @Nullable Location location, boolean isUberInstalled)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, "Uber");
+    params.add(Statistics.EventParam.PROVIDER, "Taxi");
 
     params.add(Statistics.EventParam.FROM_LAT, from != null ? String.valueOf(from.getLat()) : "N/A")
           .add(Statistics.EventParam.FROM_LON, from != null ? String.valueOf(from.getLon()) : "N/A");

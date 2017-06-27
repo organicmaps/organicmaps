@@ -29,7 +29,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
-import com.mapswithme.maps.uber.UberLinks;
+import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -297,7 +297,7 @@ public class Utils
     }
   }
 
-  public static void launchUber(@NonNull Activity context, @NonNull UberLinks links)
+  public static void launchUber(@NonNull Activity context, @NonNull TaxiLinks links)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     if (isUberInstalled(context))
@@ -307,7 +307,7 @@ public class Utils
       intent.setData(Uri.parse(links.getDeepLink()));
     } else
     {
-      // No Uber app! Open mobile website.
+      // No Taxi app! Open mobile website.
       intent.setData(Uri.parse(links.getUniversalLink()));
     }
     context.startActivity(intent);

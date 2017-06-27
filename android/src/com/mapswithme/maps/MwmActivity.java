@@ -72,11 +72,11 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.taxi.Taxi;
+import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.traffic.widget.TrafficButton;
 import com.mapswithme.maps.traffic.widget.TrafficButtonController;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -1611,7 +1611,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController controller = RoutingController.get();
 
-    if (controller.isBuilt() || controller.isUberRequestHandled())
+    if (controller.isBuilt() || controller.isTaxiRequestHandled())
     {
       showLineFrame();
 
@@ -1883,32 +1883,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onUberInfoReceived(@NonNull UberInfo info)
+  public void onTaxiInfoReceived(@NonNull TaxiInfo info)
   {
     if (mIsFragmentContainer)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
-        fragment.showUberInfo(info);
+        fragment.showTaxiInfo(info);
     }
     else
     {
-      mRoutingPlanInplaceController.showUberInfo(info);
+      mRoutingPlanInplaceController.showTaxiInfo(info);
     }
   }
 
   @Override
-  public void onUberError(@NonNull Uber.ErrorCode code)
+  public void onTaxiError(@NonNull Taxi.ErrorCode code)
   {
     if (mIsFragmentContainer)
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
-        fragment.showUberError(code);
+        fragment.showTaxiError(code);
     }
     else
     {
-      mRoutingPlanInplaceController.showUberError(code);
+      mRoutingPlanInplaceController.showTaxiError(code);
     }
   }
 

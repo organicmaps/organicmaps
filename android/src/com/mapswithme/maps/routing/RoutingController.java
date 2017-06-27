@@ -21,9 +21,9 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
-import com.mapswithme.maps.uber.UberLinks;
+import com.mapswithme.maps.taxi.Taxi;
+import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
@@ -66,8 +66,8 @@ public class RoutingController
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloaded);
     void updateMenu();
-    void onUberInfoReceived(@NonNull UberInfo info);
-    void onUberError(@NonNull Uber.ErrorCode code);
+    void onTaxiInfoReceived(@NonNull TaxiInfo info);
+    void onTaxiError(@NonNull Taxi.ErrorCode code);
     void onNavigationCancelled();
     void onNavigationStarted();
     void onAddedStop();
@@ -104,8 +104,8 @@ public class RoutingController
   private String[] mLastMissingMaps;
   @Nullable
   private RoutingInfo mCachedRoutingInfo;
-  private boolean mUberRequestHandled;
-  private boolean mUberPlanning;
+  private boolean mTaxiRequestHandled;
+  private boolean mTaxiPlanning;
   private boolean mInternetConnected;
 
   @SuppressWarnings("FieldCanBeLocal")
@@ -220,7 +220,7 @@ public class RoutingController
 
   private void updateProgress()
   {
-    if (isUberPlanning())
+    if (isTaxiPlanning())
       return;
 
     if (mContainer != null)
@@ -265,7 +265,7 @@ public class RoutingController
 
     if (mContainer != null)
     {
-      if (isUberPlanning())
+      if (isTaxiPlanning())
         mContainer.updateBuildProgress(0, mLastRouterType);
 
       mContainer.showNavigation(isNavigating());
@@ -284,7 +284,7 @@ public class RoutingController
     Framework.nativeRemoveRoute();
 
     mLogger.d(TAG, "build");
-    mUberRequestHandled = false;
+    mTaxiRequestHandled = false;
     mLastBuildProgress = 0;
     mInternetConnected = ConnectionState.isConnected();
 
@@ -293,11 +293,11 @@ public class RoutingController
       removeIntermediatePoints();
       if (!mInternetConnected)
       {
-        completeUberRequest();
+        completeTaxiRequest();
         return;
       }
       if (mContainer != null)
-        requestUberInfo();
+        requestTaxiInfo();
     }
 
     setBuildState(BuildState.BUILDING);
@@ -311,9 +311,9 @@ public class RoutingController
     Framework.nativeBuildRoute();
   }
 
-  private void completeUberRequest()
+  private void completeTaxiRequest()
   {
-    mUberRequestHandled = true;
+    mTaxiRequestHandled = true;
     if (mContainer != null)
     {
       mContainer.updateBuildProgress(100, mLastRouterType);
@@ -529,7 +529,7 @@ public class RoutingController
     mEndPoint = null;
     setPointsInternal();
     mWaitingPoiPick = false;
-    mUberRequestHandled = false;
+    mTaxiRequestHandled = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -573,9 +573,9 @@ public class RoutingController
     return mState == State.PREPARE;
   }
 
-  boolean isUberPlanning()
+  boolean isTaxiPlanning()
   {
-    return isTaxiRouterType() && mUberPlanning;
+    return isTaxiRouterType() && mTaxiPlanning;
   }
 
   boolean isTaxiRouterType()
@@ -619,9 +619,9 @@ public class RoutingController
     return mWaitingPoiPick;
   }
 
-  public boolean isUberRequestHandled()
+  public boolean isTaxiRequestHandled()
   {
-    return mUberRequestHandled;
+    return mTaxiRequestHandled;
   }
 
   boolean isInternetConnected()
@@ -825,7 +825,7 @@ public class RoutingController
   {
     mLogger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 
-    // Repeating tap on Uber icon should trigger the route building always,
+    // Repeating tap on Taxi icon should trigger the route building always,
     // because it may be "No internet connection, try later" case
     if (router == mLastRouterType && !isTaxiRouterType())
       return;
@@ -896,14 +896,14 @@ public class RoutingController
     return true;
   }
 
-  private void requestUberInfo()
+  private void requestTaxiInfo()
   {
     if (mStartPoint == null || mEndPoint == null)
       throw new AssertionError("Start and end points must be set to make a taxi request!");
 
-    mUberPlanning = true;
+    mTaxiPlanning = true;
 
-    Uber.nativeRequestUberProducts(NetworkPolicy.newInstance(true /* canUse */),
+    Taxi.nativeRequestTaxiProducts(NetworkPolicy.newInstance(true /* canUse */),
                                    mStartPoint.getLat(), mStartPoint.getLon(),
                                    mEndPoint.getLat(), mEndPoint.getLon());
     if (mContainer != null)
@@ -911,46 +911,46 @@ public class RoutingController
   }
 
   @Nullable
-  UberLinks getUberLink(@NonNull String productId)
+  TaxiLinks getTaxiLink(@NonNull String productId)
   {
     if (mStartPoint == null || mEndPoint == null)
       return null;
 
-    return Uber.nativeGetUberLinks(NetworkPolicy.newInstance(true /* canUse */), productId,
+    return Taxi.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */), productId,
                                    mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(),
                                    mEndPoint.getLon());
   }
 
   /**
    * Called from the native code
-   * @param info this object contains information about Uber products
+   * @param info this object contains information about Taxi products
    */
   @MainThread
-  private void onUberInfoReceived(@NonNull UberInfo info)
+  private void onTaxiInfoReceived(@NonNull TaxiInfo info)
   {
-    mUberPlanning = false;
-    mLogger.d(TAG, "onUberInfoReceived uberInfo = " + info);
+    mTaxiPlanning = false;
+    mLogger.d(TAG, "onTaxiInfoReceived uberInfo = " + info);
     if (isTaxiRouterType() && mContainer != null)
     {
-      mContainer.onUberInfoReceived(info);
-      completeUberRequest();
+      mContainer.onTaxiInfoReceived(info);
+      completeTaxiRequest();
     }
   }
 
   /**
    * Called from the native code
-   * @param errorCode must match the one of the values in {@link com.mapswithme.maps.uber.Uber.ErrorCode}
+   * @param errorCode must match the one of the values in {@link Taxi.ErrorCode}
    */
   @MainThread
-  private void onUberError(@NonNull String errorCode)
+  private void onTaxiError(@NonNull String errorCode)
   {
-    mUberPlanning = false;
-    Uber.ErrorCode code = Uber.ErrorCode.valueOf(errorCode);
-    mLogger.e(TAG, "onUberError error = " + code);
+    mTaxiPlanning = false;
+    Taxi.ErrorCode code = Taxi.ErrorCode.valueOf(errorCode);
+    mLogger.e(TAG, "onTaxiError error = " + code);
     if (isTaxiRouterType() && mContainer != null)
     {
-      mContainer.onUberError(code);
-      completeUberRequest();
+      mContainer.onTaxiError(code);
+      completeTaxiRequest();
     }
   }
 }

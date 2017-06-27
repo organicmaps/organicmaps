@@ -1,4 +1,4 @@
-package com.mapswithme.maps.uber;
+package com.mapswithme.maps.taxi;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,32 +8,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UberInfo implements Parcelable
+public class TaxiInfo implements Parcelable
 {
-  public static final Parcelable.Creator<UberInfo> CREATOR = new Parcelable.Creator<UberInfo>()
+  public static final Parcelable.Creator<TaxiInfo> CREATOR = new Parcelable.Creator<TaxiInfo>()
   {
     @Override
-    public UberInfo createFromParcel(Parcel source)
+    public TaxiInfo createFromParcel(Parcel source)
     {
-      return new UberInfo(source);
+      return new TaxiInfo(source);
     }
 
     @Override
-    public UberInfo[] newArray(int size)
+    public TaxiInfo[] newArray(int size)
     {
-      return new UberInfo[size];
+      return new TaxiInfo[size];
     }
   };
 
   @NonNull
   private final List<Product> mProducts;
 
-  private UberInfo(@NonNull Product[] products)
+  private TaxiInfo(@NonNull Product[] products)
   {
     mProducts = new ArrayList<>(Arrays.asList(products));
   }
 
-  private UberInfo(@NonNull Parcel parcel)
+  private TaxiInfo(@NonNull Parcel parcel)
   {
     List<Product> products = new ArrayList<>();
     parcel.readTypedList(products, Product.CREATOR);
@@ -49,7 +49,7 @@ public class UberInfo implements Parcelable
   @Override
   public String toString()
   {
-    return "UberInfo{" +
+    return "TaxiInfo{" +
            "mProducts=" + mProducts +
            '}';
   }

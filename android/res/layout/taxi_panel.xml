@@ -2,7 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/uber_panel"
+  android:id="@+id/taxi_panel"
   android:paddingLeft="@dimen/margin_base"
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"

@@ -14,7 +14,7 @@
     android:layout_height="wrap_content"/>
 
   <include
-    layout="@layout/uber_panel"
+    layout="@layout/taxi_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 

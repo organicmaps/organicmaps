@@ -24,9 +24,9 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.uber.UberAdapter;
-import com.mapswithme.maps.uber.UberInfo;
-import com.mapswithme.maps.uber.UberLinks;
+import com.mapswithme.maps.taxi.TaxiAdapter;
+import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -47,7 +47,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @NonNull
   private final View mAltitudeChartFrame;
   @NonNull
-  private final View mUberFrame;
+  private final View mTaxiFrame;
   @NonNull
   private final TextView mError;
   @NonNull
@@ -68,15 +68,15 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final ImageView mActionIcon;
 
   @Nullable
-  private UberInfo mUberInfo;
+  private TaxiInfo mTaxiInfo;
   @Nullable
-  private UberInfo.Product mUberProduct;
+  private TaxiInfo.Product mTaxiProduct;
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame)
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
-    View uberFrame = getViewById(activity, frame, R.id.uber_panel);
+    View taxiFrame = getViewById(activity, frame, R.id.taxi_panel);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
     ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
@@ -85,7 +85,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
     return new RoutingBottomMenuController(activity, altitudeChartFrame,
-                                           uberFrame, error, start,
+                                           taxiFrame, error, start,
                                            altitudeChart,
                                            altitudeDifference,
                                            numbersFrame, actionFrame);
@@ -101,7 +101,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private RoutingBottomMenuController(@NonNull Activity context,
                                       @NonNull View altitudeChartFrame,
-                                      @NonNull View uberFrame,
+                                      @NonNull View taxiFrame,
                                       @NonNull TextView error,
                                       @NonNull Button start,
                                       @NonNull ImageView altitudeChart,
@@ -111,7 +111,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
-    mUberFrame = uberFrame;
+    mTaxiFrame = taxiFrame;
     mError = error;
     mStart = start;
     mAltitudeChart = altitudeChart;
@@ -130,12 +130,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
         return !(UiUtils.isVisible(mActionButton) && UiUtils.isViewTouched(event, mActionButton));
       }
     });
-    UiUtils.hide(mAltitudeChartFrame, mUberFrame, mActionFrame);
+    UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
   }
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mUberFrame, mActionFrame);
+    UiUtils.hide(mError, mTaxiFrame, mActionFrame);
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -150,29 +150,29 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mAltitudeChartFrame);
   }
 
-  void showUberInfo(@NonNull UberInfo info)
+  void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
 
-    final List<UberInfo.Product> products = info.getProducts();
-    mUberInfo = info;
-    mUberProduct = products.get(0);
-    final PagerAdapter adapter = new UberAdapter(mContext, products);
-    DotPager pager = new DotPager.Builder(mContext, (ViewPager) mUberFrame.findViewById(R.id.pager),
+    final List<TaxiInfo.Product> products = info.getProducts();
+    mTaxiInfo = info;
+    mTaxiProduct = products.get(0);
+    final PagerAdapter adapter = new TaxiAdapter(mContext, products);
+    DotPager pager = new DotPager.Builder(mContext, (ViewPager) mTaxiFrame.findViewById(R.id.pager),
                                           adapter)
-        .setIndicatorContainer((ViewGroup) mUberFrame.findViewById(R.id.indicator))
+        .setIndicatorContainer((ViewGroup) mTaxiFrame.findViewById(R.id.indicator))
         .setPageChangedListener(new DotPager.OnPageChangedListener()
         {
           @Override
           public void onPageChanged(int position)
           {
-            mUberProduct = products.get(position);
+            mTaxiProduct = products.get(position);
           }
         }).build();
     pager.show();
 
     setStartButton();
-    UiUtils.show(mUberFrame);
+    UiUtils.show(mTaxiFrame);
   }
 
   void showAddStartFrame()
@@ -209,20 +209,21 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (RoutingController.get().isTaxiRouterType())
     {
-      final boolean isUberInstalled = Utils.isUberInstalled(mContext);
-      mStart.setText(isUberInstalled ? R.string.taxi_order : R.string.install_app);
+      // TODO: add getting the link by provider (Yandex, Uber)
+      final boolean isTaxiInstalled = Utils.isUberInstalled(mContext);
+      mStart.setText(isTaxiInstalled ? R.string.taxi_order : R.string.install_app);
       mStart.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          if (mUberProduct != null)
+          if (mTaxiProduct != null)
           {
-            UberLinks links = RoutingController.get().getUberLink(mUberProduct.getProductId());
+            TaxiLinks links = RoutingController.get().getTaxiLink(mTaxiProduct.getProductId());
             if (links != null)
             {
               Utils.launchUber(mContext, links);
-              trackUberStatistics(isUberInstalled);
+              trackUberStatistics(isTaxiInstalled);
             }
           }
         }
@@ -253,7 +254,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showError(@StringRes int message)
   {
-    UiUtils.hide(mUberFrame, mAltitudeChartFrame);
+    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
     showStartButton(false);
@@ -267,7 +268,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void saveRoutingPanelState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, UiUtils.isVisible(mAltitudeChartFrame));
-    outState.putParcelable(STATE_TAXI_INFO, mUberInfo);
+    outState.putParcelable(STATE_TAXI_INFO, mTaxiInfo);
   }
 
   void restoreRoutingPanelState(@NonNull Bundle state)
@@ -275,9 +276,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
       showAltitudeChartAndRoutingDetails();
 
-    UberInfo info = state.getParcelable(STATE_TAXI_INFO);
+    TaxiInfo info = state.getParcelable(STATE_TAXI_INFO);
     if (info != null)
-      showUberInfo(info);
+      showTaxiInfo(info);
   }
 
   private void showRouteAltitudeChart()

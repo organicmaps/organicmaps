@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.taxi.Taxi;
+import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 
@@ -35,14 +35,14 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.updateBuildProgress(progress, router);
   }
 
-  public void showUberInfo(@NonNull UberInfo info)
+  public void showTaxiInfo(@NonNull TaxiInfo info)
   {
-    mPlanController.showUberInfo(info);
+    mPlanController.showTaxiInfo(info);
   }
 
-  public void showUberError(@NonNull Uber.ErrorCode code)
+  public void showTaxiError(@NonNull Taxi.ErrorCode code)
   {
-    mPlanController.showUberError(code);
+    mPlanController.showTaxiError(code);
   }
 
   public void showStartButton(boolean show)

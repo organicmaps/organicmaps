@@ -14,8 +14,8 @@ import android.widget.RadioGroup;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.uber.Uber;
-import com.mapswithme.maps.uber.UberInfo;
+import com.mapswithme.maps.taxi.Taxi;
+import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -189,7 +189,7 @@ public class RoutingPlanController extends ToolbarController
 
     updateProgressLabels();
 
-    if (RoutingController.get().isUberRequestHandled())
+    if (RoutingController.get().isTaxiRequestHandled())
     {
       if (!RoutingController.get().isInternetConnected())
       {
@@ -200,7 +200,7 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
-    if (!RoutingController.get().isBuilding() && !RoutingController.get().isUberPlanning())
+    if (!RoutingController.get().isBuilding() && !RoutingController.get().isTaxiPlanning())
     {
       button.complete();
       return;
@@ -217,12 +217,12 @@ public class RoutingPlanController extends ToolbarController
     return RoutingController.get().isTaxiRouterType();
   }
 
-  public void showUberInfo(@NonNull UberInfo info)
+  public void showTaxiInfo(@NonNull TaxiInfo info)
   {
-    mRoutingBottomMenuController.showUberInfo(info);
+    mRoutingBottomMenuController.showTaxiInfo(info);
   }
 
-  public void showUberError(@NonNull Uber.ErrorCode code)
+  public void showTaxiError(@NonNull Taxi.ErrorCode code)
   {
     switch (code)
     {
