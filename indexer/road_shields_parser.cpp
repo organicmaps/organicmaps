@@ -87,7 +87,7 @@ public:
     }
 
     // Minimum length for the network tag is 4 (US:I).
-    if (network.size() > 4)
+    if (network.size() >= 4)
     {
       strings::AsciiToLower(network);
 
@@ -111,11 +111,17 @@ public:
     std::vector<std::string> shieldsRawTests = strings::Tokenize(m_baseRoadNumber, ";");
     for (std::string const & rawText : shieldsRawTests)
     {
+      RoadShield shield;
       auto slashPos = rawText.find('/');
-      RoadShield shield = slashPos == std::string::npos
-                              ? ParseRoadShield(rawText)
-                              : RoadShield{FindNetworkShield(rawText.substr(0, slashPos)),
-                                           rawText.substr(slashPos + 1)};
+      if (slashPos == std::string::npos)
+      {
+        shield = ParseRoadShield(rawText);
+      }
+      else
+      {
+        shield = ParseRoadShield(rawText.substr(slashPos + 1));
+        shield.m_type = FindNetworkShield(rawText.substr(0, slashPos));
+      }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
         result.insert(std::move(shield));
     }
