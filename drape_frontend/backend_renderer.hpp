@@ -96,7 +96,7 @@ private:
   void FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
 
   void FlushTrafficRenderData(TrafficRenderData && renderData);
-  void FlushUserMarksRenderData(GroupID groupId, TUserMarksRenderData && renderData);
+  void FlushUserMarksRenderData(TUserMarksRenderData && renderData);
 
   void CleanupOverlays(TileKey const & tileKey);
 

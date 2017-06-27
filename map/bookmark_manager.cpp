@@ -20,7 +20,7 @@
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
 {
-  m_userMarkLayers.reserve(3);
+  m_userMarkLayers.reserve(4);
   m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0 /* activePinDepth */, m_framework));
   m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0 /* activePinDepth */, m_framework));
   m_userMarkLayers.push_back(new DebugUserMarkContainer(0.0 /* debugDepth */, m_framework));

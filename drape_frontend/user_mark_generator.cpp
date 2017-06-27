@@ -1,9 +1,13 @@
 #include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
+#include "drape/batcher.hpp"
+
 #include "geometry/rect_intersect.hpp"
 
 #include "indexer/scales.hpp"
+
+#include <algorithm>
 
 namespace df
 {
@@ -158,22 +162,34 @@ void UserMarkGenerator::SetGroupVisibility(GroupID groupId, bool isVisible)
 
 void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures)
 {
-  MarksIndex::const_iterator itTile = m_marksIndex.find(tileKey);
+  MarksIndex::const_iterator itTile = m_marksIndex.find(TileKey(tileKey.m_x,
+                                                                tileKey.m_y,
+                                                                min(tileKey.m_zoomLevel, scales::GetUpperScale())));
   if (itTile == m_marksIndex.end())
     return;
 
-  MarkIndexesGroups & indexesGroups = *itTile->second;
-  for (auto & groupPair : indexesGroups)
+  TUserMarksRenderData renderData;
   {
-    GroupID groupId = groupPair.first;
+    uint32_t const kMaxSize = 65000;
+    dp::Batcher batcher(kMaxSize, kMaxSize);
+    dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::GLState const & state,
+                                                           drape_ptr<dp::RenderBucket> && b)
+    {
+      renderData.emplace_back(state, std::move(b), tileKey);
+    });
 
-    if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
-      continue;
+    MarkIndexesGroups & indexesGroups = *itTile->second;
+    for (auto & groupPair : indexesGroups)
+    {
+      GroupID groupId = groupPair.first;
 
-    TUserMarksRenderData renderData;
-    CacheUserMarks(tileKey, textures, *m_marks[groupId], groupPair.second->m_markIndexes, renderData);
-    CacheUserLines(tileKey, textures, *m_lines[groupId], groupPair.second->m_lineIndexes, renderData);
-    m_flushFn(groupId, std::move(renderData));
+      if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
+        continue;
+
+      CacheUserMarks(tileKey, textures, *m_marks[groupId], groupPair.second->m_markIndexes, batcher);
+      CacheUserLines(tileKey, textures, *m_lines[groupId], groupPair.second->m_lineIndexes, batcher);
+    }
   }
+  m_flushFn(std::move(renderData));
 }
 }  // namespace df

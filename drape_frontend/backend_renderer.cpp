@@ -32,7 +32,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
                                               params.m_allow3dBuildings, params.m_trafficEnabled))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
-  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1, _2)))
+  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
   , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
@@ -593,10 +593,10 @@ void BackendRenderer::FlushTrafficRenderData(TrafficRenderData && renderData)
                             MessagePriority::Normal);
 }
 
-void BackendRenderer::FlushUserMarksRenderData(GroupID groupId, TUserMarksRenderData && renderData)
+void BackendRenderer::FlushUserMarksRenderData(TUserMarksRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushUserMarksMessage>(groupId, std::move(renderData)),
+                            make_unique_dp<FlushUserMarksMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 

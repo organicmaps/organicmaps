@@ -2,8 +2,7 @@
 
 #include "tile_key.hpp"
 
-#include "drape/glstate.hpp"
-#include "drape/render_bucket.hpp"
+#include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "geometry/spline.hpp"
@@ -69,10 +68,10 @@ using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
-                    TUserMarksRenderData & renderData);
+                    dp::Batcher & batcher);
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
-                    TUserMarksRenderData & renderData);
+                    dp::Batcher & batcher);
 
 } // namespace df

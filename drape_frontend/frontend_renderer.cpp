@@ -1147,7 +1147,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderTrafficAndRouteLayer(modelView);
   }
 
-  // After this line we do not use (almost) depth buffer.
   GLFunctions::glDisable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
 
@@ -1272,9 +1271,12 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 {
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  GLFunctions::glClear(gl_const::GLDepthBit);
   RenderLayer & userMarks = m_layers[RenderLayer::UserMarkID];
   for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)

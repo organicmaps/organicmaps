@@ -254,12 +254,11 @@ private:
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
 };
 
-class FlushUserMarksMessage : public BaseUserMarkLayerMessage
+class FlushUserMarksMessage : public Message
 {
 public:
-  FlushUserMarksMessage(size_t layerId, TUserMarksRenderData && renderData)
-    : BaseUserMarkLayerMessage(layerId)
-    , m_renderData(std::move(renderData))
+  FlushUserMarksMessage(TUserMarksRenderData && renderData)
+    : m_renderData(std::move(renderData))
   {}
 
   Type GetType() const override { return Message::FlushUserMarks; }

@@ -81,24 +81,15 @@ struct UserPointVertex : gpu::BaseVertex
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
-                    TUserMarksRenderData & renderData)
+                    dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
-
   uint32_t const vertexCount = static_cast<uint32_t>(indexes.size()) * dp::Batcher::VertexPerQuad;
-  uint32_t const indicesCount = static_cast<uint32_t>(indexes.size()) * dp::Batcher::IndexPerQuad;
   buffer_vector<UPV, 128> buffer;
   buffer.reserve(vertexCount);
 
-  // TODO: Sort once on render params receiving.
-  MarkIndexesCollection sortedIndexes = indexes;
-  sort(sortedIndexes.begin(), sortedIndexes.end(), [&renderParams](uint32_t ind1, uint32_t ind2)
-  {
-    return renderParams[ind1].m_pivot.y > renderParams[ind2].m_pivot.y;
-  });
-
   dp::TextureManager::SymbolRegion region;
-  for (auto const markIndex : sortedIndexes)
+  for (auto const markIndex : indexes)
   {
     UserMarkRenderParams const & renderInfo = renderParams[markIndex];
     if (!renderInfo.m_isVisible)
@@ -129,14 +120,6 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   state.SetColorTexture(region.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
 
-  uint32_t const kMaxSize = 65000;
-  dp::Batcher batcher(min(indicesCount, kMaxSize), min(vertexCount, kMaxSize));
-  dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::GLState const & state,
-                                                         drape_ptr<dp::RenderBucket> && b)
-  {
-    renderData.emplace_back(UserMarkRenderData(state, move(b), tileKey));
-  });
-
   dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
   attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
@@ -145,19 +128,11 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
-                    TUserMarksRenderData & renderData)
+                    dp::Batcher & batcher)
 {
-  uint32_t const kBatchSize = 5000;
   for (auto lineIndex : indexes)
   {
     UserLineRenderParams const & renderInfo = renderParams[lineIndex];
-
-    dp::Batcher batcher(kBatchSize, kBatchSize);
-    dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::GLState const & state,
-                                                       drape_ptr<dp::RenderBucket> && b)
-    {
-      renderData.emplace_back(UserMarkRenderData(state, move(b), tileKey));
-    });
 
     std::vector<m2::SharedSpline> const splines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), renderInfo.m_spline);
     for (auto const & spline : splines)

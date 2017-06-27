@@ -28,7 +28,7 @@ using MarksIndex = std::map<TileKey, drape_ptr<MarkIndexesGroups>>;
 class UserMarkGenerator
 {
 public:
-  using TFlushFn = function<void(GroupID, TUserMarksRenderData && renderData)>;
+  using TFlushFn = function<void(TUserMarksRenderData && renderData)>;
 
   UserMarkGenerator(TFlushFn const & flushFn);
 

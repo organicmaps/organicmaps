@@ -235,9 +235,9 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
     renderInfo.m_layers.reserve(mark->GetLayerCount());
     for (size_t layerIndex = 0, sz = mark->GetLayerCount(); layerIndex < sz; ++layerIndex)
     {
-      renderInfo.m_layers.emplace_back(LineLayer(mark->GetColor(layerIndex),
-                                                 mark->GetWidth(layerIndex),
-                                                 mark->GetLayerDepth(layerIndex)));
+      renderInfo.m_layers.emplace_back(mark->GetColor(layerIndex),
+                                       mark->GetWidth(layerIndex),
+                                       mark->GetLayerDepth(layerIndex));
     }
     linesRenderCollection->emplace_back(std::move(renderInfo));
   }
