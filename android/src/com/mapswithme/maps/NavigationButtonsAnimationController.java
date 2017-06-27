@@ -310,7 +310,7 @@ class NavigationButtonsAnimationController
     mZoomVisible = state.getBoolean(STATE_VISIBLE, false);
   }
 
-  boolean isCollideWithCompass(int compassOffset)
+  boolean isConflictWithCompass(int compassOffset)
   {
     int zoomTop = mZoomIn.getTop();
     return zoomTop != 0 && zoomTop <= compassOffset + mCompassHeight;

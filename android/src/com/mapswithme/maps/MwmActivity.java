@@ -1522,8 +1522,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     int resultOffset = offsetY;
-    if (mNavAnimationController != null && mNavAnimationController.isCollideWithCompass(offsetY))
-      resultOffset = -offsetY;
+    //If the compass is covered by navigation buttons, we move it beyond the visible screen
+    if (mNavAnimationController != null && mNavAnimationController.isConflictWithCompass(offsetY))
+    {
+      int halfHeight = (int)(UiUtils.dimen(R.dimen.compass_height) * 0.5f);
+      int margin = UiUtils.dimen(R.dimen.margin_compass_top)
+                   + UiUtils.dimen(R.dimen.nav_frame_padding);
+      resultOffset = -(offsetY + halfHeight + margin);
+    }
 
     mMapFragment.setupCompass(resultOffset, true);
 
