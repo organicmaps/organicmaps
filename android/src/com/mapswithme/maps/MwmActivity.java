@@ -1521,7 +1521,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
-    mMapFragment.setupCompass(offsetY, true);
+    int resultOffset = offsetY;
+    if (mNavAnimationController != null && mNavAnimationController.isCollideWithCompass(offsetY))
+      resultOffset = -offsetY;
+
+    mMapFragment.setupCompass(resultOffset, true);
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)

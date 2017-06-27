@@ -96,9 +96,12 @@ public class MapFragment extends BaseMwmFragment
 
   void setupCompass(int offsetY, boolean forceRedraw)
   {
+    int navPadding = UiUtils.dimen(R.dimen.nav_frame_padding);
+    int marginX = UiUtils.dimen(R.dimen.margin_compass) + navPadding;
+    int marginY = UiUtils.dimen(R.dimen.margin_compass_top) + navPadding;
     nativeSetupWidget(WIDGET_COMPASS,
-                      mWidth - UiUtils.dimen(R.dimen.margin_compass),
-                      offsetY + UiUtils.dimen(R.dimen.margin_compass_top),
+                      mWidth - marginX,
+                      offsetY + marginY,
                       ANCHOR_CENTER);
     if (forceRedraw && mContextCreated)
       nativeApplyWidgets();

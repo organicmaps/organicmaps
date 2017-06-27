@@ -61,8 +61,8 @@
   <dimen name="direction_frame_min_height">36dp</dimen>
 
   <!-- map widgets -->
-  <dimen name="margin_compass">34dp</dimen>
-  <dimen name="margin_compass_top">28dp</dimen>
+  <dimen name="margin_compass">32dp</dimen>
+  <dimen name="margin_compass_top">26dp</dimen>
   <dimen name="margin_ruler_left">10dp</dimen>
   <dimen name="margin_ruler_bottom">58dp</dimen>
   <dimen name="compass_height">40dp</dimen>

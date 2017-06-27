@@ -5,9 +5,10 @@
   android:id="@+id/search_button_frame"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/nav_frame_padding"
+  android:clipToPadding="false"
   android:theme="?navButtonsTheme"
-  tools:background="@color/bg_primary"
-  tools:showIn="@layout/activity_map">
+  tools:background="@color/bg_primary">
 
   <Space
     android:id="@id/anchor_center"
@@ -27,8 +28,6 @@
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
     android:layout_marginTop="@dimen/nav_zoom_top"
-    android:layout_marginStart="@dimen/margin_eighth"
-    android:layout_marginLeft="@dimen/margin_eighth"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:background="?nav_background"
@@ -43,8 +42,8 @@
     android:layout_alignParentStart="true"
     android:layout_marginTop="-68dp"
     android:layout_below="@id/btn_bookmarks"
-    android:layout_marginLeft="-70dp"
-    android:layout_marginStart="-70dp"
+    android:layout_marginLeft="-68dp"
+    android:layout_marginStart="-68dp"
     android:background="?searchLayoutBackground"
     android:visibility="invisible"
     tools:visibility="visible">
@@ -103,8 +102,6 @@
     style="@style/MwmWidget.SearchNavigationButton"
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
-    android:layout_marginStart="@dimen/margin_eighth"
-    android:layout_marginLeft="@dimen/margin_eighth"
     android:layout_below="@id/btn_bookmarks"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"

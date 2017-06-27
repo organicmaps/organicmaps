@@ -43,6 +43,7 @@ class NavigationButtonsAnimationController
   private float mBottomLimit;
 
   private float mCurrentOffset;
+  private float mCompassHeight;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @NonNull final View contentView,
@@ -56,6 +57,7 @@ class NavigationButtonsAnimationController
     Resources res = mZoomIn.getResources();
     mMargin = res.getDimension(R.dimen.margin_base_plus);
     mBottomLimit = res.getDimension(R.dimen.menu_line_height);
+    mCompassHeight = res.getDimension(R.dimen.compass_height);
     calculateLimitTranslations();
     contentView.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
     {
@@ -306,6 +308,12 @@ class NavigationButtonsAnimationController
   public void onRestoreState(@NonNull Bundle state)
   {
     mZoomVisible = state.getBoolean(STATE_VISIBLE, false);
+  }
+
+  boolean isCollideWithCompass(int compassOffset)
+  {
+    int zoomTop = mZoomIn.getTop();
+    return zoomTop != 0 && zoomTop <= compassOffset + mCompassHeight;
   }
 
   interface OnTranslationChangedListener
