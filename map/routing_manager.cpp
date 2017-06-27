@@ -674,6 +674,10 @@ void RoutingManager::SetRouter(RouterType type)
   if (m_currentRouterType == type)
     return;
 
+  // Hide preview.
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllRoutePreviewSegments();
+
   SetLastUsedRouter(type);
   SetRouterImpl(type);
 }
