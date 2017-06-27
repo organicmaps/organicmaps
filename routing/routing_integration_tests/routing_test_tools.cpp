@@ -245,7 +245,7 @@ namespace integration
     shared_ptr<Route> route(new Route("mapsme"));
     IRouter::ResultCode result =
         router->CalculateRoute(Checkpoints(startPoint, finalPoint), startDirection,
-                               false /* adjust */, delegate, *route.get());
+                               false /* adjust */, delegate, *route);
     ASSERT(route, ());
     return TRouteResult(route, result);
   }

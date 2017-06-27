@@ -96,7 +96,8 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   DummyResultCallback resultCallback(2 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, false, bind(ref(resultCallback), _1, _2), nullptr, 0);
+  async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
+                       bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   resultCallback.WaitFinish();
 
@@ -116,7 +117,8 @@ UNIT_TEST(StandartAsyncFogTest)
   DummyResultCallback resultCallback(1 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
-  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, false, bind(ref(resultCallback), _1, _2), nullptr, 0);
+  async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
+                       bind(ref(resultCallback), _1, _2), nullptr, 0);
 
   resultCallback.WaitFinish();
 

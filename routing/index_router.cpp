@@ -161,7 +161,7 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
       double const distanceToFinish = MercatorBounds::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
-        auto code = AdjustRoute(startPoint, startDirection, finalPoint, delegate, route);
+        auto const code = AdjustRoute(startPoint, startDirection, finalPoint, delegate, route);
         if (code != IRouter::RouteNotFound)
           return code;
 

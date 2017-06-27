@@ -297,11 +297,8 @@ void AsyncRouter::CalculateRoute()
       absentFetcher->GenerateRequest(checkpoints.GetStart(), checkpoints.GetFinish());
 
     // Run basic request.
-    code = router->CalculateRoute(checkpoints,
-                                  startDirection,
-                                  adjustToPrevRoute,
-                                  delegate->GetDelegate(),
-                                  route);
+    code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
+                                  delegate->GetDelegate(), route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);

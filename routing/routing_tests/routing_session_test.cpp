@@ -30,11 +30,9 @@ public:
   }
   string GetName() const override { return "dummy"; }
   void ClearState() override {}
-  ResultCode CalculateRoute(Checkpoints const &,
-                              m2::PointD const &,
-                              bool adjust,
-                              RouterDelegate const &,
-                              Route &route) override
+  ResultCode CalculateRoute(Checkpoints const & /* checkpoints */,
+                            m2::PointD const & /* startDirection */, bool /* adjust */,
+                            RouterDelegate const & /* delegate */, Route & route) override
   {
     ++m_buildCount;
     route = m_route;

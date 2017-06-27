@@ -144,11 +144,9 @@ bool RoadGraphRouter::CheckMapExistence(m2::PointD const & point, Route & route)
   return true;
 }
 
-IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const &checkpoints,
-                                           m2::PointD const &,
-                                           bool,
-                                           RouterDelegate const &delegate,
-                                           Route &route)
+IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const & checkpoints,
+                                                    m2::PointD const &, bool,
+                                                    RouterDelegate const & delegate, Route & route)
 {
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
