@@ -7,7 +7,7 @@
 #include "LocaleTranslator.h"
 
 #include "Framework.h"
-#include "sound/tts/languages.hpp"
+#include "platform/languages.hpp"
 
 using namespace locale_translator;
 
