@@ -6,6 +6,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <iomanip>
@@ -22,22 +23,22 @@ BookingHotel::BookingHotel(std::string const & src)
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
 
-  CHECK(strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
+  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
   // TODO(mgsergio): Use ms::LatLon.
-  CHECK(strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
-  CHECK(strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
 
   m_name = rec[FieldIndex(Fields::Name)];
   m_address = rec[FieldIndex(Fields::Address)];
 
-  CHECK(strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
-  CHECK(strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
-  CHECK(strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
-  CHECK(strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
+  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
+  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
 
   m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 
-  CHECK(strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
+  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
 
   m_translations = rec[FieldIndex(Fields::Translations)];
 }

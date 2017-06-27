@@ -5,7 +5,6 @@
 #include "base/newtype.hpp"
 
 #include <functional>
-#include <iostream>
 #include <string>
 
 class FeatureBuilder1;

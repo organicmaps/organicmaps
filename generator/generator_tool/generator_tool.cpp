@@ -87,7 +87,6 @@ DEFINE_string(booking_reference_path, "", "Path to mwm dataset for booking addre
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(opentable_reference_path, "", "Path to mwm dataset for opentable addresses matching.");
 DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
-DEFINE_string(viator_reference_path, "", "Path to mwm dataset for viator cities matching.");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");

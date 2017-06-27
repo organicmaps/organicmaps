@@ -13,7 +13,7 @@ void LoadIndex(Index & index)
   Platform & platform = GetPlatform();
   platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
                                                   -1 /* latestVersion */, localFiles);
-  for (platform::LocalCountryFile const & localFile : localFiles)
+  for (auto const & localFile : localFiles)
   {
     LOG(LINFO, ("Found mwm:", localFile));
     try

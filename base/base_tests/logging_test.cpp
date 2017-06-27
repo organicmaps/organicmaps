@@ -18,6 +18,13 @@ namespace
     g_SomeFunctionCalled = true;
     return 3;
   }
+
+  bool g_NegativeFunctionCalled;
+  bool NegativeFunction()
+  {
+    g_NegativeFunctionCalled = true;
+    return false;
+  }
 }
 
 UNIT_TEST(Logging_Level)
@@ -42,4 +49,15 @@ UNIT_TEST(NullMessage)
 {
   char const * ptr = 0;
   LOG(LINFO, ("Null message test", ptr));
+}
+
+UNIT_TEST(Logging_ConditionalLog)
+{
+  g_SomeFunctionCalled = false;
+  CLOG(LINFO, SomeFunction(), ("This should not pass"));
+  TEST(g_SomeFunctionCalled, ());
+
+  g_NegativeFunctionCalled = false;
+  CLOG(LWARNING, NegativeFunction(), ("This should pass"));
+  TEST(g_NegativeFunctionCalled, ());
 }

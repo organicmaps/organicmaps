@@ -38,9 +38,9 @@ ViatorCity::ViatorCity(std::string const & src)
   CHECK_EQUAL(rec.size(), FieldsCount(),
               ("Error parsing viator cities, line:", boost::replace_all_copy(src, "\t", "\\t")));
 
-  CHECK(strings::to_uint(rec[FieldIndex(TsvFields::Id)], m_id.Get()), ());
-  CHECK(strings::to_double(rec[FieldIndex(TsvFields::Latitude)], m_latLon.lat), ());
-  CHECK(strings::to_double(rec[FieldIndex(TsvFields::Longtitude)], m_latLon.lon), ());
+  CLOG(LERROR, strings::to_uint(rec[FieldIndex(TsvFields::Id)], m_id.Get()), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(TsvFields::Latitude)], m_latLon.lat), ());
+  CLOG(LERROR, strings::to_double(rec[FieldIndex(TsvFields::Longtitude)], m_latLon.lon), ());
 
   m_name = rec[FieldIndex(TsvFields::Name)];
 }
@@ -83,10 +83,9 @@ ViatorCity::ObjectId ViatorDataset::FindMatchingObjectId(FeatureBuilder1 const &
       return objId;
   }
 
-  if (!nearbyIds.empty())
-    LOG(LWARNING, ("Viator city matching failed! "
-                   "OSM city:", name, "OSM point:", fb.GetKeyPoint(),
-                   "Viator cities:", nearbyIds));
+  CLOG(LWARNING, nearbyIds.empty(),
+       ("Viator city matching failed! OSM city:", name, "OSM point:", fb.GetKeyPoint(),
+        "Viator cities:", nearbyIds));
 
   return ViatorCity::InvalidObjectId();
 }

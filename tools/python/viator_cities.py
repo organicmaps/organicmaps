@@ -14,11 +14,9 @@ class ViatorApi(object):
         self.apikey = apikey
 
     def get_locations(self):
-        url = 'http://viatorapi.viator.com/service/taxonomy/locations?apiKey=' + self.apikey
+        url = 'https://viatorapi.viator.com/service/taxonomy/locations?apiKey=' + self.apikey
         stream = urllib2.urlopen(url)
-        payload = stream.read()
-        locations = json.loads(payload)
-        return locations
+        return json.load(stream)
 
 
 def check_errors(locations):

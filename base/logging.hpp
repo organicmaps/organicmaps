@@ -87,3 +87,11 @@ using ::my::LCRITICAL;
     if ((level) >= ::my::g_LogLevel)                                    \
       ::my::LogMessage(level, my::SrcPoint(), ::my::impl::Message msg); \
   } while (false)
+
+// Conditional log. Logs @msg with level @level in case when @X returns false.
+#define CLOG(level, X, msg)                                         \
+  do                                                                \
+  {                                                                 \
+    if (!X)                                                         \
+      LOG(level, (SRC(), "CLOG(" #X ")", ::my::impl::Message msg)); \
+  } while (false)
