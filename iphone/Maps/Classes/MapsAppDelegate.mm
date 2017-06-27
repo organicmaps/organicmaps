@@ -18,7 +18,6 @@
 #import "MWMPushNotifications.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMRouterSavedState.h"
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 #import "MWMStorage.h"
@@ -561,7 +560,6 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
-  [MWMRouterSavedState store];
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
   if ([AppInfo sharedInfo].isMetalDriver)
@@ -618,7 +616,6 @@ using namespace osm_auth_ios;
     GetFramework().OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
   }
   [MWMLocationManager applicationDidBecomeActive];
-  [MWMRouterSavedState restore];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));

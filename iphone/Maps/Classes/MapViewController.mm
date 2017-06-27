@@ -22,7 +22,6 @@
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
-#import "MWMRouterSavedState.h"
 #import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
