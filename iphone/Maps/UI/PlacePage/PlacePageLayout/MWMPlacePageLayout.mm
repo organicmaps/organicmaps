@@ -9,7 +9,6 @@
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayoutImpl.h"
 #import "MWMPlacePageRegularCell.h"
-#import "MWMPlacePageTaxiCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
 #import "SwiftBridge.h"
@@ -102,7 +101,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
-  [tv registerWithCellClass:[MWMPlacePageTaxiCell class]];
+  [tv registerWithCellClass:[PlacePageTaxiCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -391,10 +390,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
   case Sections::Ad:
   {
-    Class cls = [MWMPlacePageTaxiCell class];
-    auto c = static_cast<MWMPlacePageTaxiCell *>(
-                                                 [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    c.delegate = delegate;
+    Class cls = [PlacePageTaxiCell class];
+    auto c = static_cast<PlacePageTaxiCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    [c configWithType:PlacePageTaxiCellTypeTaxi delegate:delegate];
     return c;
   }
   case Sections::Buttons:
