@@ -207,8 +207,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     CalculateMaxSpeedTimes(*m_roadGraph, result.path, times);
 
     CHECK(m_directionsEngine, ());
-    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr, delegate, true, result.path,
-                     std::move(times), route);
+    ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr /* trafficStash */, delegate,
+                     true /* hasAltitude */, result.path, std::move(times), route);
   }
 
   m_roadGraph->ResetFakes();

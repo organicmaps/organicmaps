@@ -30,7 +30,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   }
 
   CHECK_EQUAL(path.size(), times.size(), ());
-  
+
   Route::TTurns turnsDir;
   vector<Junction> junctions;
   Route::TStreets streetNames;
@@ -98,7 +98,7 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
                             Route::TTimes & times)
 {
   times.clear();
-  if (path.size() < 1)
+  if (path.empty())
     return;
 
   // graph.GetMaxSpeedKMPH() below is used on purpose.
@@ -109,23 +109,21 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
   // the most likely a pedestrian (a cyclist) will go along big roads with average
   // speed (graph.GetMaxSpeedKMPH()).
   double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
+  CHECK_GREATER(speedMPS, 0.0, ());
 
   times.reserve(path.size());
 
   double trackTimeSec = 0.0;
   times.emplace_back(0, trackTimeSec);
 
-  m2::PointD prev = path[0].GetPoint();
   for (size_t i = 1; i < path.size(); ++i)
   {
-    m2::PointD const & curr = path[i].GetPoint();
-
-    double const lengthM = MercatorBounds::DistanceOnEarth(prev, curr);
+    double const lengthM =
+        MercatorBounds::DistanceOnEarth(path[i - 1].GetPoint(), path[i].GetPoint());
     trackTimeSec += lengthM / speedMPS;
 
     times.emplace_back(i, trackTimeSec);
-
-    prev = curr;
   }
+  CHECK_EQUAL(times.size(), path.size(), ());
 }
 }  // namespace routing

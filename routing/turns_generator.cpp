@@ -259,7 +259,7 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
                                        Route::TStreets & streets, vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
-  
+
   if (delegate.IsCancelled())
     return IRouter::Cancelled;
   // Annotate turns.
