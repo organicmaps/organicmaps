@@ -65324,6 +65324,12 @@ cont {
 }
 colors {
   value {
+    name: "DefaultTrackColor"
+    color: 2004720
+    x: 0
+    y: 0
+  }
+  value {
     name: "RoadShieldWhiteText"
     color: 12039862
     x: 0

@@ -64551,37 +64551,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-ditch-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
   name: "waterway-dock"
   element {
     scale: 0
@@ -64764,37 +64733,6 @@ cont {
         dd: 1.0
       }
       priority: 1970
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "waterway-drain-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
@@ -65047,93 +64985,83 @@ cont {
 cont {
   name: "waterway-river-tunnel"
   element {
-    scale: 10
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 11
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 12
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 13
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 14
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 15
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 16
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 17
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
   element {
     scale: 18
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
+    path_text {
+      primary {
+        height: 9
+        color: 4495803
+      }
+      priority: 16921
     }
   }
 }

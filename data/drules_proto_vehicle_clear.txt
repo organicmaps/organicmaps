@@ -39588,51 +39588,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-ditch-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
   name: "waterway-dock"
   element {
     scale: 0
@@ -39777,51 +39732,6 @@ cont {
 }
 cont {
   name: "waterway-drain"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "waterway-drain-tunnel"
   element {
     scale: 17
     lines {
@@ -40112,24 +40022,7 @@ cont {
 cont {
   name: "waterway-river-tunnel"
   element {
-    scale: 10
-    lines {
-      width: 1.0
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 11
-    lines {
-      width: 1.2
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 9
@@ -40140,13 +40033,6 @@ cont {
   }
   element {
     scale: 12
-    lines {
-      width: 1.2
-      color: 3584191
-      priority: 1921
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 9
@@ -40157,13 +40043,6 @@ cont {
   }
   element {
     scale: 13
-    lines {
-      width: 1.6
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 9
@@ -40174,13 +40053,6 @@ cont {
   }
   element {
     scale: 14
-    lines {
-      width: 1.8
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 9
@@ -40191,13 +40063,6 @@ cont {
   }
   element {
     scale: 15
-    lines {
-      width: 2.2
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     path_text {
       primary {
         height: 11
@@ -40208,13 +40073,6 @@ cont {
   }
   element {
     scale: 16
-    lines {
-      width: 2.2
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
     path_text {
       primary {
         height: 11
@@ -40225,13 +40083,6 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 2.2
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
     path_text {
       primary {
         height: 11
@@ -40242,13 +40093,6 @@ cont {
   }
   element {
     scale: 18
-    lines {
-      width: 2.2
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
     path_text {
       primary {
         height: 11
@@ -40259,13 +40103,6 @@ cont {
   }
   element {
     scale: 19
-    lines {
-      width: 2.2
-      color: 3584191
-      priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
     path_text {
       primary {
         height: 11
@@ -40605,6 +40442,12 @@ cont {
   }
 }
 colors {
+  value {
+    name: "DefaultTrackColor"
+    color: 2004720
+    x: 0
+    y: 0
+  }
   value {
     name: "RoadShieldWhiteText"
     color: 16777215
