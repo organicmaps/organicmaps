@@ -87,9 +87,6 @@
 		340475641E081A4600C92850 /* MWMRouter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475361E081A4600C92850 /* MWMRouter.mm */; };
 		340475651E081A4600C92850 /* MWMRouter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475361E081A4600C92850 /* MWMRouter.mm */; };
 		340475661E081A4600C92850 /* MWMRouter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475361E081A4600C92850 /* MWMRouter.mm */; };
-		340475671E081A4600C92850 /* MWMRouterSavedState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475381E081A4600C92850 /* MWMRouterSavedState.mm */; };
-		340475681E081A4600C92850 /* MWMRouterSavedState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475381E081A4600C92850 /* MWMRouterSavedState.mm */; };
-		340475691E081A4600C92850 /* MWMRouterSavedState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475381E081A4600C92850 /* MWMRouterSavedState.mm */; };
 		3404756A1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404753B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm */; };
 		3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404753B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm */; };
 		3404756C1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404753B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm */; };
@@ -1628,8 +1625,6 @@
 		340475321E081A4600C92850 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		340475351E081A4600C92850 /* MWMRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouter.h; sourceTree = "<group>"; };
 		340475361E081A4600C92850 /* MWMRouter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouter.mm; sourceTree = "<group>"; };
-		340475371E081A4600C92850 /* MWMRouterSavedState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterSavedState.h; sourceTree = "<group>"; };
-		340475381E081A4600C92850 /* MWMRouterSavedState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterSavedState.mm; sourceTree = "<group>"; };
 		3404753A1E081A4600C92850 /* MWMSearch+CoreSpotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMSearch+CoreSpotlight.h"; sourceTree = "<group>"; };
 		3404753B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMSearch+CoreSpotlight.mm"; sourceTree = "<group>"; };
 		3404753C1E081A4600C92850 /* MWMSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearch.h; sourceTree = "<group>"; };
@@ -2827,8 +2822,6 @@
 				34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */,
 				340475351E081A4600C92850 /* MWMRouter.h */,
 				340475361E081A4600C92850 /* MWMRouter.mm */,
-				340475371E081A4600C92850 /* MWMRouterSavedState.h */,
-				340475381E081A4600C92850 /* MWMRouterSavedState.mm */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -5187,7 +5180,6 @@
 				F6E2FDDF1E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
 				F6E2FDB51E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				F6E2FDC71E097BA00083EBEC /* MWMEditorNotesFooter.mm in Sources */,
-				340475671E081A4600C92850 /* MWMRouterSavedState.mm in Sources */,
 				F6E2FD641E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
 				3454D7C41E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
 				F6E2FF2C1E097BA00083EBEC /* MWMSearchCell.mm in Sources */,
@@ -5487,7 +5479,6 @@
 				F6E2FDB61E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				F6E2FDC81E097BA00083EBEC /* MWMEditorNotesFooter.mm in Sources */,
 				F6E2FD651E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
-				340475681E081A4600C92850 /* MWMRouterSavedState.mm in Sources */,
 				F6E2FF2D1E097BA00083EBEC /* MWMSearchCell.mm in Sources */,
 				3454D7C51E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
 				3454D7E61E07F045004AF2AD /* UIView+RuntimeAttributes.mm in Sources */,
@@ -5869,7 +5860,6 @@
 				340475511E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				349D1ADF1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */,
 				849CF6E71DE842290024A8A5 /* MWMSearchNoResultsAlert.mm in Sources */,
-				340475691E081A4600C92850 /* MWMRouterSavedState.mm in Sources */,
 				3454D7E41E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
 				849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */,
 				34F407421E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,

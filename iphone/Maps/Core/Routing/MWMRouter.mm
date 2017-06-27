@@ -12,7 +12,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMRouterSavedState.h"
 #import "MWMSearch.h"
 #import "MWMSettings.h"
 #import "MWMStorage.h"
@@ -113,7 +112,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 + (BOOL)isRouteFinished { return GetFramework().GetRoutingManager().IsRouteFinished(); }
 + (BOOL)isRouteRebuildingOnly { return GetFramework().GetRoutingManager().IsRouteRebuildingOnly(); }
 + (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsOnRoute(); }
-+ (NSArray<MWMRoutePoint *> *)routePoints
++ (NSArray<MWMRoutePoint *> *)points
 {
   NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
@@ -345,7 +344,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];
-        [MWMRouterSavedState store];
         [MWMThemeManager setAutoUpdates:YES];
       }
       else
@@ -404,7 +402,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
   [self clearAltitudeImagesData];
   GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
-  [MWMRouterSavedState remove];
   [MWMThemeManager setAutoUpdates:NO];
   [MapsAppDelegate.theApp showAlertIfRequired];
 }
@@ -480,24 +477,13 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   auto const & routingManager = GetFramework().GetRoutingManager();
-  if (routingManager.IsRoutingActive())
-  {
-    auto tts = [MWMTextToSpeech tts];
-    if (routingManager.IsOnRoute() && tts.active)
-      [tts playTurnNotifications];
+  if (!routingManager.IsRoutingActive())
+    return;
+  auto tts = [MWMTextToSpeech tts];
+  if (routingManager.IsOnRoute() && tts.active)
+    [tts playTurnNotifications];
 
-    [self updateFollowingInfo];
-  }
-  else
-  {
-    auto state = [MWMRouterSavedState state];
-    if (state.forceStateChange == MWMRouterForceStateChange::Rebuild)
-    {
-      state.forceStateChange = MWMRouterForceStateChange::Start;
-      [MWMRouter setType:routerType(GetFramework().GetRoutingManager().GetLastUsedRouter())];
-      [MWMRouter buildToPoint:state.restorePoint bestRouter:NO];
-    }
-  }
+  [self updateFollowingInfo];
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
@@ -505,7 +491,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
 {
-  MWMRouterSavedState * state = [MWMRouterSavedState state];
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
   {
@@ -513,10 +498,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   {
     auto & f = GetFramework();
     f.DeactivateMapSelection(true);
-    if (state.forceStateChange == MWMRouterForceStateChange::Start)
-      [MWMRouter start];
-    else
-      [mapViewControlsManager onRouteReady];
+    [mapViewControlsManager onRouteReady];
     [self updateFollowingInfo];
     if (![MWMRouter isTaxi])
       [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
@@ -544,7 +526,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     [mapViewControlsManager onRouteError];
     break;
   }
-  state.forceStateChange = MWMRouterForceStateChange::None;
 }
 
 - (void)processRouteBuilderProgress:(CGFloat)progress
