@@ -672,6 +672,8 @@ public class RoutingController
       Framework.nativeAddRoutePoint("", RoutePointInfo.ROUTE_MARK_START, 0,
                                     MapObject.isOfType(MapObject.MY_POSITION, mStartPoint),
                                     mStartPoint.getLat(), mStartPoint.getLon());
+      if (mContainer != null)
+        mContainer.updateMenu();
     }
 
     if (mEndPoint == null)
@@ -683,6 +685,8 @@ public class RoutingController
       Framework.nativeAddRoutePoint("", RoutePointInfo.ROUTE_MARK_FINISH, 0,
                                     MapObject.isOfType(MapObject.MY_POSITION, mEndPoint),
                                     mEndPoint.getLat(), mEndPoint.getLon());
+      if (mContainer != null)
+        mContainer.updateMenu();
     }
   }
 

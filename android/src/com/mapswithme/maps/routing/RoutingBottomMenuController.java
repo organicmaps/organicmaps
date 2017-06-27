@@ -177,12 +177,20 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddStartFrame()
   {
-    UiUtils.show(mActionFrame, mActionButton);
+    UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
-    Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_my_location);
-    int colorAccent = ContextCompat.getColor(mContext,
-                                             UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
-    mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
+    if (LocationHelper.INSTANCE.getMyPosition() != null)
+    {
+      UiUtils.show(mActionButton);
+      Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_my_location);
+      int colorAccent = ContextCompat.getColor(mContext,
+                                               UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
+      mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
+    }
+    else
+    {
+      UiUtils.hide(mActionButton);
+    }
   }
 
   void showAddFinishFrame()
