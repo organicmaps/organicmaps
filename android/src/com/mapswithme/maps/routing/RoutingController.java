@@ -290,6 +290,7 @@ public class RoutingController
 
     if (isTaxiRouterType())
     {
+      removeIntermediatePoints();
       if (!mInternetConnected)
       {
         completeUberRequest();
@@ -464,7 +465,7 @@ public class RoutingController
 
   public boolean isStopPointAllowed()
   {
-    return Framework.nativeCouldAddIntermediatePoint();
+    return Framework.nativeCouldAddIntermediatePoint() && !isTaxiRouterType();
   }
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
