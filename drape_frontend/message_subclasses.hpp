@@ -237,17 +237,21 @@ private:
 class UpdateUserMarkLayerMessage : public BaseUserMarkLayerMessage
 {
 public:
-  UpdateUserMarkLayerMessage(size_t layerId, drape_ptr<UserMarksRenderCollection> && renderParams)
+  UpdateUserMarkLayerMessage(size_t layerId, drape_ptr<UserMarksRenderCollection> && marksRenderParams,
+                             drape_ptr<UserLinesRenderCollection> && linesRenderParams)
     : BaseUserMarkLayerMessage(layerId)
-    , m_renderParams(std::move(renderParams))
+    , m_marksRenderParams(std::move(marksRenderParams))
+    , m_linesRenderParams(std::move(linesRenderParams))
   {}
 
   Type GetType() const override { return Message::UpdateUserMarkLayer; }
 
-  drape_ptr<UserMarksRenderCollection> && AcceptRenderParams() { return std::move(m_renderParams); }
+  drape_ptr<UserMarksRenderCollection> && AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
+  drape_ptr<UserLinesRenderCollection> && AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
 
 private:
-  drape_ptr<UserMarksRenderCollection> m_renderParams;
+  drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
+  drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
 };
 
 class FlushUserMarksMessage : public BaseUserMarkLayerMessage

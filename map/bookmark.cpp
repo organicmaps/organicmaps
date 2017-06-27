@@ -181,7 +181,8 @@ namespace
   string const kStyleUrl = "styleUrl";
   string const kPair = "Pair";
 
-  dp::Color const kDefaultTrackColor = dp::Extract(0xFF33CCFF);
+  dp::Color const kDefaultTrackColor = dp::Extract(0xFF1E96F0);
+  float const kDefaultTrackWidth = 15.0f;
 
   string PointToString(m2::PointD const & org)
   {
@@ -410,7 +411,7 @@ namespace
           else if (GEOMETRY_TYPE_LINE == m_geometryType)
           {
             Track::Params params;
-            params.m_colors.push_back({ 5.0f, m_trackColor });
+            params.m_colors.push_back({ kDefaultTrackWidth, m_trackColor });
             params.m_name = m_name;
 
             /// @todo Add description, style, timestamp

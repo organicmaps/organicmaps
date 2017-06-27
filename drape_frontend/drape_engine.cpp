@@ -209,11 +209,11 @@ void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
 
 void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provider)
 {
-  auto renderCollection = make_unique_dp<UserMarksRenderCollection>();
-  renderCollection->reserve(provider->GetUserPointCount());
-  for (size_t i = 0, sz = provider->GetUserPointCount(); i < sz; ++i)
+  auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
+  marksRenderCollection->reserve(provider->GetUserPointCount());
+  for (size_t pointIndex = 0, sz = provider->GetUserPointCount(); pointIndex < sz; ++pointIndex)
   {
-    UserPointMark const * mark = provider->GetUserPointMark(i);
+    UserPointMark const * mark = provider->GetUserPointMark(pointIndex);
     UserMarkRenderParams renderInfo;
     renderInfo.m_anchor = mark->GetAnchor();
     renderInfo.m_depth = mark->GetDepth();
@@ -222,10 +222,29 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
     renderInfo.m_pixelOffset = mark->GetPixelOffset();
     renderInfo.m_runCreationAnim = mark->RunCreationAnim();
     renderInfo.m_symbolName = mark->GetSymbolName();
-    renderCollection->emplace_back(std::move(renderInfo));
+    marksRenderCollection->emplace_back(std::move(renderInfo));
+  }
+
+  auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
+  linesRenderCollection->reserve(provider->GetUserLineCount());
+  for (size_t lineIndex = 0, sz = provider->GetUserLineCount(); lineIndex < sz; ++lineIndex)
+  {
+    UserLineMark const * mark = provider->GetUserLineMark(lineIndex);
+    UserLineRenderParams renderInfo;
+    renderInfo.m_spline = m2::SharedSpline(mark->GetPoints());
+    renderInfo.m_layers.reserve(mark->GetLayerCount());
+    for (size_t layerIndex = 0, sz = mark->GetLayerCount(); layerIndex < sz; ++layerIndex)
+    {
+      renderInfo.m_layers.emplace_back(LineLayer(mark->GetColor(layerIndex),
+                                                 mark->GetWidth(layerIndex),
+                                                 mark->GetLayerDepth(layerIndex)));
+    }
+    linesRenderCollection->emplace_back(std::move(renderInfo));
   }
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId, std::move(renderCollection)),
+                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId,
+                                                                             std::move(marksRenderCollection),
+                                                                             std::move(linesRenderCollection)),
                                   MessagePriority::Normal);
 }
 

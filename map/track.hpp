@@ -43,10 +43,7 @@ public:
   dp::Color const & GetColor(size_t layerIndex) const override;
   float GetWidth(size_t layerIndex) const override;
   float GetLayerDepth(size_t layerIndex) const override;
-
-  /// Line geometry enumeration
-  size_t GetPointCount() const override;
-  m2::PointD const & GetPoint(size_t pointIndex) const override;
+  std::vector<m2::PointD> const & GetPoints() const override;
 
 private:
   PolylineD m_polyline;

@@ -1274,11 +1274,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 {
   RenderLayer & userMarks = m_layers[RenderLayer::UserMarkID];
   for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
-  {
-    // TODO: Remove after user lines complete realization.
-    //if (!group->CanBeClipped())
-      RenderSingleGroup(modelView, make_ref(group));
-  }
+    RenderSingleGroup(modelView, make_ref(group));
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)

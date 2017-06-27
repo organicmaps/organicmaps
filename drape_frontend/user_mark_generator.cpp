@@ -1,6 +1,8 @@
 #include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
+#include "geometry/rect_intersect.hpp"
+
 #include "indexer/scales.hpp"
 
 namespace df
@@ -47,9 +49,10 @@ void UserMarkGenerator::UpdateMarksIndex(uint32_t groupId)
   UserMarksRenderCollection & marks = *m_marks[groupId];
   for (size_t markIndex = 0; markIndex < marks.size(); ++markIndex)
   {
-    for (int zoomLevel = 1; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
+    UserMarkRenderParams const & params = marks[markIndex];
+    for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
     {
-      TileKey const tileKey = GetTileKeyByPoint(marks[markIndex].m_pivot, zoomLevel);
+      TileKey const tileKey = GetTileKeyByPoint(params.m_pivot, zoomLevel);
       ref_ptr<IndexesCollection> groupIndexes = GetIndexesCollection(tileKey, groupId);
       groupIndexes->m_markIndexes.push_back(static_cast<uint32_t>(markIndex));
     }
@@ -73,19 +76,19 @@ void UserMarkGenerator::UpdateLinesIndex(uint32_t groupId)
   UserLinesRenderCollection & lines = *m_lines[groupId];
   for (size_t lineIndex = 0; lineIndex < lines.size(); ++lineIndex)
   {
-    for (int zoomLevel = 1; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
+    UserLineRenderParams const & params = lines[lineIndex];
+    m2::RectD rect;
+    for (m2::PointD const & point : params.m_spline->GetPath())
+      rect.Add(point);
+
+    for (int zoomLevel = params.m_minZoom; zoomLevel <= scales::GetUpperScale(); ++zoomLevel)
     {
-      // TODO: Calculate tiles for the line properly.
-      std::set<TileKey> tiles;
-      for (size_t i = 0, sz = lines[lineIndex].m_points.size(); i < sz; ++i)
+      CalcTilesCoverage(rect, zoomLevel, [&](int tileX, int tileY)
       {
-        tiles.insert(GetTileKeyByPoint(lines[lineIndex].m_points[i], zoomLevel));
-      }
-      for (auto const & tileKey : tiles)
-      {
+        TileKey const tileKey(tileX, tileY, zoomLevel);
         ref_ptr<IndexesCollection> groupIndexes = GetIndexesCollection(tileKey, groupId);
         groupIndexes->m_lineIndexes.push_back(static_cast<uint32_t>(lineIndex));
-      }
+      });
     }
   }
 
@@ -163,15 +166,13 @@ void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_p
   for (auto & groupPair : indexesGroups)
   {
     GroupID groupId = groupPair.first;
-    UserMarksRenderCollection const & renderParams = *m_marks[groupId];
-    MarkIndexesCollection const & indexes = groupPair.second->m_markIndexes;
 
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
 
     TUserMarksRenderData renderData;
-    CacheUserMarks(tileKey, textures, renderParams, indexes, renderData);
-
+    CacheUserMarks(tileKey, textures, *m_marks[groupId], groupPair.second->m_markIndexes, renderData);
+    CacheUserLines(tileKey, textures, *m_lines[groupId], groupPair.second->m_lineIndexes, renderData);
     m_flushFn(groupId, std::move(renderData));
   }
 }

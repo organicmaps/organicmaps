@@ -101,7 +101,7 @@ public:
 
   void UpdateAnimation() override;
 
-  bool CanBeClipped() const;
+  bool IsUserPoint() const;
 
 private:
   unique_ptr<OpacityAnimation> m_animation;

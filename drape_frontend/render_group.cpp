@@ -223,7 +223,7 @@ void UserMarkRenderGroup::UpdateAnimation()
   m_uniforms.SetFloatValue("u_interpolationT", m_mapping.GetValue(t));
 }
 
-bool UserMarkRenderGroup::CanBeClipped() const
+bool UserMarkRenderGroup::IsUserPoint() const
 {
   return m_state.GetProgramIndex() != gpu::LINE_PROGRAM;
 }
