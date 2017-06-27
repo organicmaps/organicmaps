@@ -70,4 +70,5 @@ colors
   PoiHotelTextOutline-opacity: 0.6;
   PoiDeletedMask-color: #FFFFFF;
   PoiDeletedMask-opacity: 0.3;
+  DefaultTrackColor-color: #1E96F0;
 }

@@ -15,6 +15,8 @@
 #include "drape/drape_global.hpp"
 #include "drape/color.hpp"
 
+#include "drape_frontend/color_constants.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/stl_add.hpp"
@@ -181,7 +183,7 @@ namespace
   string const kStyleUrl = "styleUrl";
   string const kPair = "Pair";
 
-  dp::Color const kDefaultTrackColor = dp::Extract(0xFF1E96F0);
+  string const kDefaultTrackColor = "DefaultTrackColor";
   float const kDefaultTrackWidth = 15.0f;
 
   string PointToString(m2::PointD const & org)
@@ -245,7 +247,7 @@ namespace
       m_scale = -1.0;
       m_timeStamp = my::INVALID_TIME_STAMP;
 
-      m_trackColor = kDefaultTrackColor;
+      m_trackColor = df::GetColorConstant(kDefaultTrackColor);
       m_styleId.clear();
       m_mapStyleId.clear();
       m_styleUrlKey.clear();
@@ -427,7 +429,7 @@ namespace
           if (!m_styleId.empty())
           {
             m_styleUrl2Color[m_styleId] = m_trackColor;
-            m_trackColor = kDefaultTrackColor;
+            m_trackColor = df::GetColorConstant(kDefaultTrackColor);
           }
         }
       }
