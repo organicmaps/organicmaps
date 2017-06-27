@@ -43,7 +43,7 @@ public class LoggerFactory
   @NonNull
   @GuardedBy("this")
   private final EnumMap<Type, BaseLogger> mLoggers = new EnumMap<>(Type.class);
-  private final static String CORE_TAG = "Core";
+  private final static String CORE_TAG = "MapsmeCore";
   @Nullable
   @GuardedBy("this")
   private ExecutorService mFileLoggerExecutor;
