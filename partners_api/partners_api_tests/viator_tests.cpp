@@ -44,6 +44,49 @@ UNIT_TEST(Viator_GetTop5Products)
 
   TEST_EQUAL(resultId, kSofia, ());
   TEST(!resultProducts.empty(), ());
+
+  for (auto const & p : resultProducts)
+    TEST_EQUAL(p.m_currency, "USD", ());
+
+  resultId.clear();
+  resultProducts.clear();
+
+  api.GetTop5Products(kSofia, "RUB",
+                      [&resultId, &resultProducts](std::string const & destId,
+                                                   std::vector<viator::Product> const & products) {
+                        resultId = destId;
+                        resultProducts = products;
+
+                        testing::StopEventLoop();
+                      });
+
+  testing::RunEventLoop();
+
+  TEST_EQUAL(resultId, kSofia, ());
+  TEST(!resultProducts.empty(), ());
+
+  for (auto const & p : resultProducts)
+    TEST_EQUAL(p.m_currency, "USD", ());
+
+  resultId.clear();
+  resultProducts.clear();
+
+  api.GetTop5Products(kSofia, "GBP",
+                      [&resultId, &resultProducts](std::string const & destId,
+                                                   std::vector<viator::Product> const & products) {
+                        resultId = destId;
+                        resultProducts = products;
+
+                        testing::StopEventLoop();
+                      });
+
+  testing::RunEventLoop();
+
+  TEST_EQUAL(resultId, kSofia, ());
+  TEST(!resultProducts.empty(), ());
+
+  for (auto const & p : resultProducts)
+    TEST_EQUAL(p.m_currency, "GBP", ());
 }
 
 UNIT_TEST(Viator_SortProducts)

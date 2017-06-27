@@ -13,6 +13,7 @@
 #include <set>
 #include <sstream>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -33,7 +34,7 @@ int8_t GetLang(std::string const & lang)
 
 using IdsMap = std::unordered_map<int8_t, std::string>;
 
-IdsMap kApiKeys =
+IdsMap const kApiKeys =
 {
   {GetLang("en"), VIATOR_API_KEY_EN},
   {GetLang("de"), VIATOR_API_KEY_DE},
@@ -46,7 +47,7 @@ IdsMap kApiKeys =
   {GetLang("ja"), VIATOR_API_KEY_JA}
 };
 
-IdsMap kAccountIds =
+IdsMap const kAccountIds =
 {
   {GetLang("en"), VIATOR_ACCOUNT_ID_EN},
   {GetLang("de"), VIATOR_ACCOUNT_ID_DE},
@@ -57,6 +58,11 @@ IdsMap kAccountIds =
   {GetLang("nl"), VIATOR_ACCOUNT_ID_NL},
   {GetLang("sv"), VIATOR_ACCOUNT_ID_SV},
   {GetLang("ja"), VIATOR_ACCOUNT_ID_JA}
+};
+
+std::unordered_set<std::string> const kSupportedCurrencies =
+{
+  "USD", "GBP", "EUR", "AUD", "CAD", "NZD", "SGD", "HKD"
 };
 
 std::string GetId(IdsMap const & from)
@@ -184,7 +190,7 @@ bool RawApi::GetTopProducts(std::string const & destId, std::string const & curr
                             std::string & result)
 {
   int dest = 0;
-  CHECK(strings::to_int(destId, dest), ());
+  VERIFY(strings::to_int(destId, dest), ());
 
   return RunSimpleHttpRequest(MakeUrl("/service/search/products"),
                               MakeSearchProductsRequest(dest, currency, count), result);
@@ -196,15 +202,16 @@ std::string Api::GetCityUrl(std::string const & destId, std::string const & name
   std::ostringstream ost;
   // The final language and city name will be calculated automatically based on account id and
   // destination id.
-  ost << kWebUrl << "/" << languages::GetCurrentNorm() << "/" << GetAccountId() << "/" << name
-      << "/d" << destId << "-ttd?activities=all";
-  return UrlEncode(ost.str());
+  ost << kWebUrl << "/" << languages::GetCurrentNorm() << "/" << GetAccountId() << "/"
+      << UrlEncode(name) << "/d" << destId << "-ttd?activities=all";
+  return ost.str();
 }
 
 void Api::GetTop5Products(std::string const & destId, std::string const & currency,
                           GetTop5ProductsCallback const & fn) const
 {
-  std::string curr = currency.empty() ? "USD" : currency;
+  std::string curr =
+      kSupportedCurrencies.find(currency) == kSupportedCurrencies.cend() ? "USD" : currency;
 
   threads::SimpleThread([destId, curr, fn]()
   {
