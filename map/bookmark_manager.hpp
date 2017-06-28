@@ -3,8 +3,8 @@
 #include "map/bookmark.hpp"
 #include "map/user_mark_container.hpp"
 
-#include "std/function.hpp"
-#include "std/unique_ptr.hpp"
+#include <functional>
+#include <memory>
 
 
 class Framework;
@@ -33,7 +33,7 @@ public:
   BookmarkManager(Framework & f);
   ~BookmarkManager();
 
-  void ClearItems();
+  void ClearCategories();
 
   void PrepareToShutdown();
 

@@ -32,7 +32,7 @@ BookmarkManager::~BookmarkManager()
 {
   m_userMarkLayers.clear();
 
-  ClearItems();
+  ClearCategories();
 }
 
 namespace
@@ -53,14 +53,14 @@ void BookmarkManager::LoadState()
   UNUSED_VALUE(settings::Get(BOOKMARK_TYPE, m_lastType));
 }
 
-void BookmarkManager::ClearItems()
+void BookmarkManager::ClearCategories()
 {
   m_categories.clear();
 }
 
 void BookmarkManager::LoadBookmarks()
 {
-  ClearItems();
+  ClearCategories();
 
   string const dir = GetPlatform().SettingsDir();
 
