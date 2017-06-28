@@ -60,6 +60,8 @@ UNIT_TEST(Skew_Classic)
 {
   char const * s = "mississippi";
   size_t const n = strlen(s);
+  TEST_EQUAL(n, 11, ());
+
   vector<size_t> pos(n);
   Skew(n, reinterpret_cast<const uint8_t *>(s), pos.data());
 
