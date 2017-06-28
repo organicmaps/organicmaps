@@ -1,0 +1,105 @@
+package com.mapswithme.maps.taxi;
+
+import android.support.annotation.IntDef;
+import android.support.annotation.MainThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.concurrency.UiThread;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
+@MainThread
+public class TaxiManager
+{
+  static final int PROVIDER_UBER = 0;
+  public static final int PROVIDER_YANDEX = 1;
+
+  public static final TaxiManager INSTANCE = new TaxiManager();
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ PROVIDER_UBER, PROVIDER_YANDEX })
+  @interface TaxiType {}
+
+  @NonNull
+  private final List<TaxiInfo> mProviders = new ArrayList<>();
+  @NonNull
+  private final List<TaxiInfoError> mErrors = new ArrayList<>();
+  @Nullable
+  private TaxiListener mListener;
+
+  private TaxiManager()
+  {
+
+  }
+
+  // Called from JNI.
+  @MainThread
+  void onTaxiProvidersReceived(@NonNull TaxiInfo[] providers)
+  {
+    if (!UiThread.currentThreadIsUi())
+      throw new AssertionError("Must be called from UI thread!");
+
+    if (providers.length == 0)
+      throw new AssertionError("Taxi provider array must be non-empty!");
+
+    mProviders.clear();
+    mProviders.addAll(Arrays.asList(providers));
+
+    if (mListener != null)
+    {
+      // Taxi provider list must contain only one element until we implement taxi aggregator feature.
+      mListener.onTaxiProviderReceived(mProviders.get(0));
+    }
+  }
+
+  // Called from JNI.
+  @MainThread
+  void onTaxiErrorsReceived(@NonNull TaxiInfoError[] errors)
+  {
+    if (!UiThread.currentThreadIsUi())
+      throw new AssertionError("Must be called from UI thread!");
+
+    if (errors.length == 0)
+      throw new AssertionError("Taxi error array must be non-empty!");
+
+    mErrors.clear();
+    mErrors.addAll(Arrays.asList(errors));
+
+    if (mListener != null)
+    {
+      // Taxi error list must contain only one element until we implement taxi aggregator feature.
+      mListener.onTaxiErrorReceived(mErrors.get(0));
+    }
+  }
+
+  public void setTaxiListener(@Nullable TaxiListener listener)
+  {
+    mListener = listener;
+  }
+
+  public native void nativeRequestTaxiProducts(@NonNull NetworkPolicy policy, double srcLat,
+                                                      double srcLon, double dstLat, double dstLon);
+
+  @NonNull
+  public native TaxiLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, @TaxiType int type,
+                                             @NonNull String productId, double srcLon,
+                                             double srcLat, double dstLat, double dstLon);
+
+  public enum ErrorCode
+  {
+    NoProducts, RemoteError
+  }
+
+  public interface TaxiListener
+  {
+    void onTaxiProviderReceived(@NonNull TaxiInfo provider);
+    void onTaxiErrorReceived(@NonNull TaxiInfoError error);
+  }
+}

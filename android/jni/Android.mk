@@ -96,7 +96,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/maps/sound/tts.cpp \
 	com/mapswithme/maps/Sponsored.cpp \
-	com/mapswithme/maps/taxi/Taxi.cpp \
+	com/mapswithme/maps/taxi/TaxiManager.cpp \
 	com/mapswithme/maps/TrackRecorder.cpp \
 	com/mapswithme/maps/TrafficState.cpp \
 	com/mapswithme/maps/UserMarkHelper.cpp \

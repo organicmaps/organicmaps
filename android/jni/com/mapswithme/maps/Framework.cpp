@@ -552,13 +552,11 @@ uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon
   if (!taxiEngine)
     return 0;
 
-  // TODO Dummy, must be changed by android developer.
-  //  auto const topmostCountryIds = m_work.GetTopmostCountries(from);
-  //  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, callback, errorCallback);
-  return 0;
+  auto const topmostCountryIds = m_work.GetTopmostCountries(from);
+  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, onSuccess, onError);
 }
 
-taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy,
+taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
                                                string const & productId, ms::LatLon const & from,
                                                ms::LatLon const & to)
 {
@@ -566,9 +564,7 @@ taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy,
   if (!taxiEngine)
     return {};
 
-  // TODO Dummy, must be changed by android developer.
-  //  return taxiEngine->GetRideRequestLinks(productId, from, to);
-  return {};
+  return taxiEngine->GetRideRequestLinks(type, productId, from, to);
 }
 
 void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,

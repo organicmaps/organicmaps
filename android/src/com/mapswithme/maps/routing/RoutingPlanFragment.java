@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.taxi.Taxi;
-import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiManager;
 
 public class RoutingPlanFragment extends BaseMwmFragment
                               implements OnBackPressListener
@@ -40,7 +40,7 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.showTaxiInfo(info);
   }
 
-  public void showTaxiError(@NonNull Taxi.ErrorCode code)
+  public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
   {
     mPlanController.showTaxiError(code);
   }

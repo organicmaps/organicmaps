@@ -21,9 +21,10 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.taxi.Taxi;
 import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiLinks;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
@@ -39,7 +40,7 @@ import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 @android.support.annotation.UiThread
-public class RoutingController
+public class RoutingController implements TaxiManager.TaxiListener
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -67,7 +68,7 @@ public class RoutingController
     void showDownloader(boolean openDownloaded);
     void updateMenu();
     void onTaxiInfoReceived(@NonNull TaxiInfo info);
-    void onTaxiError(@NonNull Taxi.ErrorCode code);
+    void onTaxiError(@NonNull TaxiManager.ErrorCode code);
     void onNavigationCancelled();
     void onNavigationStarted();
     void onAddedStop();
@@ -249,6 +250,7 @@ public class RoutingController
   {
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
+    TaxiManager.INSTANCE.setTaxiListener(this);
   }
 
   public void detach()
@@ -903,7 +905,7 @@ public class RoutingController
 
     mTaxiPlanning = true;
 
-    Taxi.nativeRequestTaxiProducts(NetworkPolicy.newInstance(true /* canUse */),
+    TaxiManager.INSTANCE.nativeRequestTaxiProducts(NetworkPolicy.newInstance(true /* canUse */),
                                    mStartPoint.getLat(), mStartPoint.getLon(),
                                    mEndPoint.getLat(), mEndPoint.getLon());
     if (mContainer != null)
@@ -916,40 +918,33 @@ public class RoutingController
     if (mStartPoint == null || mEndPoint == null)
       return null;
 
-    return Taxi.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */), productId,
-                                   mStartPoint.getLat(), mStartPoint.getLon(), mEndPoint.getLat(),
-                                   mEndPoint.getLon());
+    //TODO: implement getting provider type by product id.
+    return TaxiManager.INSTANCE.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */),
+                                                   TaxiManager.PROVIDER_YANDEX, productId,
+                                                   mStartPoint.getLat(), mStartPoint.getLon(),
+                                                   mEndPoint.getLat(), mEndPoint.getLon());
   }
 
-  /**
-   * Called from the native code
-   * @param info this object contains information about Taxi products
-   */
-  @MainThread
-  private void onTaxiInfoReceived(@NonNull TaxiInfo info)
+  @Override
+  public void onTaxiProviderReceived(@NonNull TaxiInfo provider)
   {
     mTaxiPlanning = false;
-    mLogger.d(TAG, "onTaxiInfoReceived uberInfo = " + info);
+    mLogger.d(TAG, "onTaxiInfoReceived provider = " + provider);
     if (isTaxiRouterType() && mContainer != null)
     {
-      mContainer.onTaxiInfoReceived(info);
+      mContainer.onTaxiInfoReceived(provider);
       completeTaxiRequest();
     }
   }
 
-  /**
-   * Called from the native code
-   * @param errorCode must match the one of the values in {@link Taxi.ErrorCode}
-   */
-  @MainThread
-  private void onTaxiError(@NonNull String errorCode)
+  @Override
+  public void onTaxiErrorReceived(@NonNull TaxiInfoError error)
   {
     mTaxiPlanning = false;
-    Taxi.ErrorCode code = Taxi.ErrorCode.valueOf(errorCode);
-    mLogger.e(TAG, "onTaxiError error = " + code);
+    mLogger.e(TAG, "onTaxiError error = " + error);
     if (isTaxiRouterType() && mContainer != null)
     {
-      mContainer.onTaxiError(code);
+      mContainer.onTaxiError(error.getCode());
       completeTaxiRequest();
     }
   }

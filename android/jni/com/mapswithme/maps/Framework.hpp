@@ -186,8 +186,9 @@ namespace android
     uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                  ms::LatLon const & to, taxi::SuccessCallback const & onSuccess,
                                  taxi::ErrorCallback const & onError);
-    taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, std::string const & productId,
-                                        ms::LatLon const & from, ms::LatLon const & to);
+    taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
+                                        std::string const & productId, ms::LatLon const & from,
+                                        ms::LatLon const & to);
 
     void RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,
                                std::string const & currency,

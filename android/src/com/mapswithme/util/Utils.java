@@ -299,17 +299,18 @@ public class Utils
 
   public static void launchUber(@NonNull Activity context, @NonNull TaxiLinks links)
   {
+    //TODO: handle type of taxi merely
     final Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (isUberInstalled(context))
+/*    if (isUberInstalled(context))
     {
 
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
       intent.setData(Uri.parse(links.getDeepLink()));
-    } else
+/*    } else
     {
       // No Taxi app! Open mobile website.
       intent.setData(Uri.parse(links.getUniversalLink()));
-    }
+    }*/
     context.startActivity(intent);
   }
 

@@ -72,8 +72,8 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.taxi.Taxi;
 import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.traffic.widget.TrafficButton;
 import com.mapswithme.maps.traffic.widget.TrafficButtonController;
@@ -1898,7 +1898,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onTaxiError(@NonNull Taxi.ErrorCode code)
+  public void onTaxiError(@NonNull TaxiManager.ErrorCode code)
   {
     if (mIsFragmentContainer)
     {

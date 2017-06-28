@@ -220,6 +220,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
           if (mTaxiProduct != null)
           {
             TaxiLinks links = RoutingController.get().getTaxiLink(mTaxiProduct.getProductId());
+            //TODO: check product type and launch corresponding application
             if (links != null)
             {
               Utils.launchUber(mContext, links);

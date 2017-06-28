@@ -104,6 +104,13 @@ jmethodID GetStaticMethodID(JNIEnv * env, jclass clazz, char const * name, char 
   return mid;
 }
 
+jfieldID GetStaticFieldID(JNIEnv * env, jclass clazz, char const * name, char const * signature)
+{
+  jfieldID fid = env->GetStaticFieldID(clazz, name, signature);
+  ASSERT(fid, ("Can't get static field ID", name, signature, DescribeException()));
+  return fid;
+}
+
 jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * signature)
 {
   jmethodID const ctorID = env->GetMethodID(clazz, "<init>", signature);

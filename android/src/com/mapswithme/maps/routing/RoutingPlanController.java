@@ -14,8 +14,8 @@ import android.widget.RadioGroup;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.taxi.Taxi;
 import com.mapswithme.maps.taxi.TaxiInfo;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -222,7 +222,7 @@ public class RoutingPlanController extends ToolbarController
     mRoutingBottomMenuController.showTaxiInfo(info);
   }
 
-  public void showTaxiError(@NonNull Taxi.ErrorCode code)
+  public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
   {
     switch (code)
     {

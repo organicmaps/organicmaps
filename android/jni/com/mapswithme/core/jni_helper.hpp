@@ -30,6 +30,7 @@ JavaVM * GetJVM();
 jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * name, char const * signature);
 jmethodID GetStaticMethodID(JNIEnv * env, jclass clazz, char const * name, char const * signature);
 jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * signature);
+jfieldID GetStaticFieldID(JNIEnv * env, jclass clazz, char const * name, char const * signature);
 
 // Result value should be DeleteGlobalRef`ed by caller
 jclass GetGlobalClassRef(JNIEnv * env, char const * s);
