@@ -90,15 +90,10 @@
         android:id="@+id/edit_top_space"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_base"/>
-
-      <include layout="@layout/divider_horizontal"
-               android:layout_width="match_parent"
-               android:layout_height="1dp"/>
-
       <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/shadow_top"
+        android:src="@drawable/shadow_card"
         android:scaleType="fitXY"/>
     </FrameLayout>
 
