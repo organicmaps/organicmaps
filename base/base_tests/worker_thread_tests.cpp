@@ -77,9 +77,9 @@ UNIT_TEST(WorkerThread_PushFromPendingTask)
   auto f = p.get_future();
 
   WorkerThread thread;
-  bool const rv = thread.Push([&]() {
+  bool const rv = thread.Push([&f, &thread]() {
     f.get();
-    bool const rv = thread.Push([&]() { TEST(false, ("This task should not be executed")); });
+    bool const rv = thread.Push([]() { TEST(false, ("This task should not be executed")); });
     TEST(!rv, ());
   });
   TEST(rv, ());
