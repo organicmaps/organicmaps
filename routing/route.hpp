@@ -33,6 +33,51 @@ namespace routing
 using SubrouteUid = uint64_t;
 SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 
+/// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
+/// For every Segment is kept some attributes in the structure SegmentInfo.
+class RouteSegment final
+{
+public:
+  RouteSegment(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
+               std::string const & street, double distFromBeginningMeters, double distFromBeginningMerc,
+               double timeFromBeginningS, traffic::SpeedGroup traffic)
+    : m_segment(segment)
+    , m_turn(turn)
+    , m_junction(junction)
+    , m_street(street)
+    , m_distFromBeginningMeters(distFromBeginningMeters)
+    , m_distFromBeginningMerc(distFromBeginningMerc)
+    , m_timeFromBeginningS(timeFromBeginningS)
+    , m_traffic(traffic)
+  {
+  }
+
+  Segment const & GetSegment() const { return m_segment; }
+  turns::TurnItem const & GetTurn() const { return m_turn; }
+  Junction const & GetJunction() const { return m_junction; }
+  std::string const GetStreet() const { return m_street; }
+  double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
+  double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
+  double GetTimeFromBeginningS() const { return m_timeFromBeginningS; }
+  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
+
+private:
+  Segment m_segment;
+  /// Turn (maneuver) information for the turn next to the |m_segment| if any.
+  /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
+  turns::TurnItem m_turn;
+  Junction m_junction; ///< The front point of segment.
+  /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
+  std::string m_street;
+  /// Distance from the route beginning to the farthest end of |m_segment| in meters.
+  double m_distFromBeginningMeters = 0.0;
+  /// Distance from the route beginning to the farthest end of |m_segment| in mercator.
+  double m_distFromBeginningMerc = 0.0;
+  /// ETA from the route beginning in seconds to reach the farthest from the route beginning end of |m_segment|.
+  double m_timeFromBeginningS = 0.0;
+  traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
+};
+
 class Route
 {
 public:
@@ -41,40 +86,6 @@ public:
   using TTimes = vector<TTimeItem>;
   using TStreetItem = pair<uint32_t, string>;
   using TStreets = vector<TStreetItem>;
-
-  /// \brief The route is composed of one or several subroutes. Every subroute is composed of segments.
-  /// For every Segment is kept some attributes in the structure SegmentInfo.
-  struct SegmentInfo final
-  {
-    SegmentInfo(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
-                std::string const & street, double distFromBeginningMeters, double distFromBeginningMerc,
-                double timeFromBeginningS, traffic::SpeedGroup traffic)
-      : m_segment(segment)
-      , m_turn(turn)
-      , m_junction(junction)
-      , m_street(street)
-      , m_distFromBeginningMeters(distFromBeginningMeters)
-      , m_distFromBeginningMerc(distFromBeginningMerc)
-      , m_timeFromBeginningS(timeFromBeginningS)
-      , m_traffic(traffic)
-    {
-    }
-
-    Segment const m_segment;
-    /// Turn (maneuver) information for the turn next to the |m_segment| if any.
-    /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
-    turns::TurnItem const m_turn;
-    Junction const m_junction; ///< The front point of segment.
-    /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
-    std::string const m_street;
-    /// Distance from the route beginning to the farthest end of |m_segment| in meters.
-    double const m_distFromBeginningMeters = 0.0;
-    /// Distance from the route beginning to the farthest end of |m_segment| in mercator.
-    double const m_distFromBeginningMerc = 0.0;
-    /// ETA from the route beginning in seconds to reach the farthest from the route beginning end of |m_segment|.
-    double const m_timeFromBeginningS = 0.0;
-    traffic::SpeedGroup const m_traffic = traffic::SpeedGroup::Unknown;
-  };
 
   class SubrouteAttrs final
   {
@@ -136,7 +147,9 @@ public:
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
   inline void SetTraffic(vector<traffic::SpeedGroup> && v) { m_traffic = move(v); }
-  inline void SetSegmentInfo(vector<SegmentInfo> && v) {m_segmentInfo = std::move(v);}
+
+  template <class SI>
+  void SetRouteSegments(SI && v) { m_routeSegments = std::forward<SI>(v); }
 
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
@@ -212,7 +225,7 @@ public:
   /// intermediate points.
   /// Note. SegmentInfo::m_segment is filled with default Segment instance.
   /// Note. SegmentInfo::m_streetName is filled with an empty string.
-  void GetSubrouteInfo(size_t segmentIdx, std::vector<SegmentInfo> & segments) const;
+  void GetSubrouteInfo(size_t segmentIdx, std::vector<RouteSegment> & segments) const;
 
   void GetSubrouteAttrs(size_t segmentIdx, SubrouteAttrs & info) const;
 
@@ -252,7 +265,7 @@ private:
   feature::TAltitudes m_altitudes;
   vector<traffic::SpeedGroup> m_traffic;
 
-  std::vector<SegmentInfo> m_segmentInfo;
+  std::vector<RouteSegment> m_routeSegments;
 
   mutable double m_currentTime;
 

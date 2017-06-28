@@ -30,9 +30,9 @@ bool IsRoad(TTypes const & types)
 }
 
 void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
-                     Route::TTurns const & turnDirs, Route::TStreets const & streets,
+                     Route::TTurns const & turns, Route::TStreets const & streets,
                      Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
-                     vector<Route::SegmentInfo> & segmentInfo);
+                     vector<RouteSegment> & routeSegment);
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,

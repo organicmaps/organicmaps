@@ -29,12 +29,12 @@ UNIT_TEST(FillSegmentInfoSmokeTest)
   Route::TStreets const streets = {};
   Route::TTimes const times = {{0 /* point index */, 0.0 /* time in seconds */}, {1, 1.0}};
 
-  vector<Route::SegmentInfo> segmentInfo;
+  vector<RouteSegment> segmentInfo;
   FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, segmentInfo);
 
   TEST_EQUAL(segmentInfo.size(), 1, ());
-  TEST_EQUAL(segmentInfo[0].m_turn.m_turn, TurnDirection::ReachedYourDestination, ());
-  TEST(segmentInfo[0].m_street.empty(), ());
+  TEST_EQUAL(segmentInfo[0].GetTurn().m_turn, TurnDirection::ReachedYourDestination, ());
+  TEST(segmentInfo[0].GetStreet().empty(), ());
 }
 
 UNIT_TEST(FillSegmentInfoTest)
@@ -51,16 +51,16 @@ UNIT_TEST(FillSegmentInfoTest)
   Route::TTimes const times = {
       {0 /* point index */, 0.0 /* time in seconds */}, {1, 1.0}, {2, 2.0}};
 
-  vector<Route::SegmentInfo> segmentInfo;
+  vector<RouteSegment> segmentInfo;
   FillSegmentInfo(segments, junctions, turnDirs, streets, times, nullptr, segmentInfo);
 
   TEST_EQUAL(segmentInfo.size(), 2, ());
-  TEST_EQUAL(segmentInfo[0].m_turn.m_turn, TurnDirection::TurnRight, ());
-  TEST_EQUAL(segmentInfo[0].m_street, string("first"), ());
-  TEST_EQUAL(segmentInfo[0].m_segment, segments[0], ());
+  TEST_EQUAL(segmentInfo[0].GetTurn().m_turn, TurnDirection::TurnRight, ());
+  TEST_EQUAL(segmentInfo[0].GetStreet(), string("first"), ());
+  TEST_EQUAL(segmentInfo[0].GetSegment(), segments[0], ());
 
-  TEST_EQUAL(segmentInfo[1].m_turn.m_turn, TurnDirection::ReachedYourDestination, ());
-  TEST_EQUAL(segmentInfo[1].m_street, string("second"), ());
-  TEST_EQUAL(segmentInfo[1].m_segment, segments[1], ());
+  TEST_EQUAL(segmentInfo[1].GetTurn().m_turn, TurnDirection::ReachedYourDestination, ());
+  TEST_EQUAL(segmentInfo[1].GetStreet(), string("second"), ());
+  TEST_EQUAL(segmentInfo[1].GetSegment(), segments[1], ());
 }
 }  // namespace routing_test

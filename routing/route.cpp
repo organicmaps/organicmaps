@@ -343,7 +343,7 @@ void Route::Update()
 // This implementation is valid for one subroute which is equal to the route.
 size_t Route::GetSubrouteCount() const { return IsValid() ? 1 : 0; }
 
-void Route::GetSubrouteInfo(size_t segmentIdx, std::vector<SegmentInfo> & segments) const
+void Route::GetSubrouteInfo(size_t segmentIdx, std::vector<RouteSegment> & segments) const
 {
   CHECK_LESS(segmentIdx, GetSubrouteCount(), ());
   CHECK(IsValid(), ());

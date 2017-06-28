@@ -41,7 +41,7 @@ char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
 
-void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> const & segments,
+void FillTurnsDistancesForRendering(std::vector<routing::RouteSegment> const & segments,
                                     std::vector<double> & turns)
 {
   using namespace routing::turns;
@@ -49,7 +49,7 @@ void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> con
   turns.reserve(segments.size());
   for (auto const & s : segments)
   {
-    auto const & t = s.m_turn;
+    auto const & t = s.GetTurn();
     CHECK_NOT_EQUAL(t.m_turn, TurnDirection::Count, ());
     // We do not render some of turn directions.
     if (t.m_turn == TurnDirection::NoTurn || t.m_turn == TurnDirection::StartAtEndOfStreet ||
@@ -58,17 +58,17 @@ void FillTurnsDistancesForRendering(std::vector<routing::Route::SegmentInfo> con
     {
       continue;
     }
-    turns.push_back(s.m_distFromBeginningMerc);
+    turns.push_back(s.GetDistFromBeginningMerc());
   }
 }
 
-void FillTrafficForRendering(std::vector<routing::Route::SegmentInfo> const & segments,
+void FillTrafficForRendering(std::vector<routing::RouteSegment> const & segments,
                              std::vector<traffic::SpeedGroup> & traffic)
 {
   traffic.clear();
   traffic.reserve(segments.size());
   for (auto const & s : segments)
-    traffic.push_back(s.m_traffic);
+    traffic.push_back(s.GetTraffic());
 }
 }  // namespace
 
@@ -255,7 +255,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
-  std::vector<Route::SegmentInfo> segments;
+  std::vector<RouteSegment> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
   for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
@@ -271,8 +271,8 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     points.push_back(attrs.GetStart().GetPoint());
     for (auto const & s : segments)
     {
-      points.push_back(s.m_junction.GetPoint());
-      distance += s.m_distFromBeginningMerc;
+      points.push_back(s.GetJunction().GetPoint());
+      distance += s.GetDistFromBeginningMerc();
     }
     if (points.size() < 2)
     {

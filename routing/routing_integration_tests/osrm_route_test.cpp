@@ -289,7 +289,7 @@ namespace
 
     Route const & route = *routeResult.first;
     TEST_EQUAL(route.GetSubrouteCount(), 1, ());
-    vector<Route::SegmentInfo> info;
+    vector<RouteSegment> info;
     route.GetSubrouteInfo(0, info);
     TEST_EQUAL(info.size(), 336, ());
   }

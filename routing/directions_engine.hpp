@@ -20,7 +20,7 @@ public:
 
   // @TODO(bykoianko) After fields |m_turns|, |m_times|, |m_streets| and |m_traffic|
   // will be removed from class Route the method Generate() should fill
-  // vector<SegmentInfo> instead of |turns|, |streetNames|, |routeGeometry| and |segments|.
+  // vector<RouteSegment> instead of corresponding arguments.
   virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTurns & turns,
                         Route::TStreets & streetNames, vector<Junction> & routeGeometry,

@@ -21,32 +21,38 @@ using namespace std;
 using namespace traffic;
 
 void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
-                     Route::TTurns const & turnDirs, Route::TStreets const & streets,
+                     Route::TTurns const & turns, Route::TStreets const & streets,
                      Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
-                     vector<Route::SegmentInfo> & segmentInfo)
+                     vector<RouteSegment> & routeSegment)
 {
   CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
-  CHECK(!turnDirs.empty(), ());
+  CHECK(!turns.empty(), ());
   CHECK(!times.empty(), ());
 
-  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
-  CHECK(std::is_sorted(turnDirs.cbegin(), turnDirs.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
+  CHECK(std::is_sorted(turns.cbegin(), turns.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
   CHECK(std::is_sorted(streets.cbegin(), streets.cend(), my::LessBy(&Route::TStreetItem::first)), ());
+  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
 
-  segmentInfo.clear();
+  CHECK_LESS(turns.back().m_index, junctions.size(), ());
+  if (!streets.empty())
+    CHECK_LESS(streets.back().first, junctions.size(), ());
+  CHECK_LESS(times.back().first, junctions.size(), ());
+
+
+  routeSegment.clear();
   if (segments.empty())
     return;
 
-  segmentInfo.reserve(segments.size());
-  // Note. |turnDirs|, |streets| and |times| have point()|junctions| based index.
+  routeSegment.reserve(segments.size());
+  // Note. |turns|, |streets| and |times| have point based index.
   // On the other hand turns, street names and times are considered for further end of |segments| after conversion
   // to |segmentInfo|. It means that street, turn and time information of zero point will be lost after
   // conversion to |segmentInfo|.
-  size_t turnIdx = turnDirs[0].m_index != 0 ? 0 : 1;
-  size_t streetIdx = (!streets.empty() && streets[0].first != 0) != 0 ? 0 : 1;
+  size_t turnIdx = turns[0].m_index != 0 ? 0 : 1;
+  size_t streetIdx = (!streets.empty() && streets[0].first != 0) ? 0 : 1;
   size_t timeIdx = times[0].first != 0 ? 0 : 1;
-  double distFromBeginningMeters = 0.0;
-  double distFromBeginningMerc = 0.0;
+  double routeLengthMeters = 0.0;
+  double routeLengthMerc = 0.0;
   double timeFromBeginningS = 0.0;
 
   for (size_t i = 0; i < segments.size(); ++i)
@@ -54,16 +60,18 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
     size_t const segmentEndPointIdx = i + 1;
 
     turns::TurnItem curTurn;
-    if (turnIdx != turnDirs.size() && turnDirs[turnIdx].m_index == segmentEndPointIdx)
+    CHECK_LESS_OR_EQUAL(turnIdx, turns.size(), ());
+    if (turnIdx != turns.size() && turns[turnIdx].m_index == segmentEndPointIdx)
     {
-      curTurn = turnDirs[turnIdx];
-      if (turnIdx + 1 < turnDirs.size())
+      curTurn = turns[turnIdx];
+      if (turnIdx + 1 < turns.size())
         ++turnIdx;
     }
 
     string curStreet;
     if (!streets.empty())
     {
+      CHECK_LESS_OR_EQUAL(streetIdx, streets.size(), ());
       if (streetIdx != streets.size() && streets[streetIdx].first == segmentEndPointIdx)
       {
         curStreet = streets[streetIdx].second;
@@ -72,19 +80,21 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
       }
     }
 
-    if (timeIdx != times.size() && times[timeIdx].first <= segmentEndPointIdx)
+    CHECK_LESS_OR_EQUAL(timeIdx, times.size(), ());
+    if (timeIdx != times.size() && times[timeIdx].first == segmentEndPointIdx)
     {
       timeFromBeginningS = times[timeIdx].second;
-      ++timeIdx;
+      if (timeIdx + 1 < times.size())
+        ++timeIdx;
     }
 
-    distFromBeginningMeters +=
+    routeLengthMeters +=
       MercatorBounds::DistanceOnEarth(junctions[i].GetPoint(), junctions[i + 1].GetPoint());
-    distFromBeginningMerc += junctions[i].GetPoint().Length(junctions[i + 1].GetPoint());
+    routeLengthMerc += junctions[i].GetPoint().Length(junctions[i + 1].GetPoint());
 
-    segmentInfo.emplace_back(
-        segments[i], curTurn, junctions[i + 1], curStreet, distFromBeginningMeters,
-        distFromBeginningMerc, timeFromBeginningS,
+    routeSegment.emplace_back(
+        segments[i], curTurn, junctions[i + 1], curStreet, routeLengthMeters,
+        routeLengthMerc, timeFromBeginningS,
         trafficStash ? trafficStash->GetSpeedGroup(segments[i]) : traffic::SpeedGroup::Unknown);
   }
 }
@@ -121,10 +131,10 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
     return;
   }
 
-  vector<Route::SegmentInfo> segmentInfo;
+  vector<RouteSegment> segmentInfo;
   FillSegmentInfo(segments, junctions, turnsDir, streetNames, times, trafficStash, segmentInfo);
   CHECK_EQUAL(segmentInfo.size(), segments.size(), ());
-  route.SetSegmentInfo(move(segmentInfo));
+  route.SetRouteSegments(move(segmentInfo));
 
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |segments|.

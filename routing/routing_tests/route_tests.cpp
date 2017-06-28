@@ -33,14 +33,14 @@ location::GpsInfo GetGps(double x, double y)
   return info;
 }
 
-void TestSegmentInfo(Route::SegmentInfo const & segmentInfo, turns::TurnDirection turn,
+void TestSegmentInfo(RouteSegment const & segmentInfo, turns::TurnDirection turn,
                      double distFromBeginningMerc, traffic::SpeedGroup speedGroup,
                      double timeFromBeginningS)
 {
-  TEST_EQUAL(segmentInfo.m_turn.m_turn, turn, ());
-  TEST_EQUAL(segmentInfo.m_distFromBeginningMerc, distFromBeginningMerc, ());
-  TEST_EQUAL(segmentInfo.m_traffic, speedGroup, ());
-  TEST_EQUAL(segmentInfo.m_timeFromBeginningS, timeFromBeginningS, ());
+  TEST_EQUAL(segmentInfo.GetTurn().m_turn, turn, ());
+  TEST_EQUAL(segmentInfo.GetDistFromBeginningMerc(), distFromBeginningMerc, ());
+  TEST_EQUAL(segmentInfo.GetTraffic(), speedGroup, ());
+  TEST_EQUAL(segmentInfo.GetTimeFromBeginningS(), timeFromBeginningS, ());
 }
 }  // namespace
 
@@ -212,7 +212,7 @@ UNIT_TEST(GetSubrouteInfoTest)
   route.SetSectionTimes(move(times));
 
   TEST_EQUAL(route.GetSubrouteCount(), 1, ());
-  vector<Route::SegmentInfo> info;
+  vector<RouteSegment> info;
   route.GetSubrouteInfo(0, info);
   TEST_EQUAL(info.size(), 4, ());
 
