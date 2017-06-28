@@ -19,6 +19,7 @@
 
 #include <limits>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace location
@@ -135,6 +136,7 @@ public:
   inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
   inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
   inline void SetTraffic(vector<traffic::SpeedGroup> && v) { m_traffic = move(v); }
+  inline void SetSegmentInfo(vector<SegmentInfo> && v) {m_segmentInfo = std::move(v);}
 
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
@@ -147,8 +149,6 @@ public:
   feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
   vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
   vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
-  /// \returns distance to all turns in mercator.
-  void GetTurnsDistances(vector<double> & distances) const;
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
   double GetTotalDistanceMeters() const;
@@ -251,6 +251,8 @@ private:
   TStreets m_streets;
   feature::TAltitudes m_altitudes;
   vector<traffic::SpeedGroup> m_traffic;
+
+  std::vector<SegmentInfo> m_segmentInfo;
 
   mutable double m_currentTime;
 

@@ -75,33 +75,6 @@ double Route::GetCurrentDistanceFromBeginMeters() const
   return m_poly.GetDistanceFromBeginM();
 }
 
-void Route::GetTurnsDistances(vector<double> & distances) const
-{
-  distances.clear();
-  if (!m_poly.IsValid())
-    return;
-
-  double mercatorDistance = 0.0;
-  auto const & polyline = m_poly.GetPolyline();
-  for (auto currentTurn = m_turns.begin(); currentTurn != m_turns.end(); ++currentTurn)
-  {
-    // Skip turns at side points of the polyline geometry. We can't display them properly.
-    if (currentTurn->m_index == 0 || currentTurn->m_index == (polyline.GetSize() - 1))
-      continue;
-
-    uint32_t formerTurnIndex = 0;
-    if (currentTurn != m_turns.begin())
-      formerTurnIndex = (currentTurn - 1)->m_index;
-
-    //TODO (ldragunov) Extract CalculateMercatorDistance higher to avoid including turns generator.
-    double const mercatorDistanceBetweenTurns =
-      CalculateMercatorDistanceAlongPath(formerTurnIndex,  currentTurn->m_index, polyline.GetPoints());
-    mercatorDistance += mercatorDistanceBetweenTurns;
-
-    distances.push_back(mercatorDistance);
-   }
-}
-
 double Route::GetCurrentDistanceToEndMeters() const
 {
   if (!m_poly.IsValid())

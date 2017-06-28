@@ -1,11 +1,13 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/road_point.hpp"
+#include "routing/segment.hpp"
 
 #include "traffic/traffic_info.hpp"
 
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <utility>
 #include <vector>
 
 namespace
@@ -17,6 +19,75 @@ namespace routing
 {
 using namespace std;
 using namespace traffic;
+
+void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
+                     Route::TTurns const & turnDirs, Route::TStreets const & streets,
+                     Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
+                     vector<Route::SegmentInfo> & segmentInfo)
+{
+  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
+  CHECK(!turnDirs.empty(), ());
+  CHECK(!times.empty(), ());
+
+  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
+  CHECK(std::is_sorted(turnDirs.cbegin(), turnDirs.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
+  CHECK(std::is_sorted(streets.cbegin(), streets.cend(), my::LessBy(&Route::TStreetItem::first)), ());
+
+  segmentInfo.clear();
+  if (segments.empty())
+    return;
+
+  segmentInfo.reserve(segments.size());
+  // Note. |turnDirs|, |streets| and |times| have point()|junctions| based index.
+  // On the other hand turns, street names and times are considered for further end of |segments| after conversion
+  // to |segmentInfo|. It means that street, turn and time information of zero point will be lost after
+  // conversion to |segmentInfo|.
+  size_t turnIdx = turnDirs[0].m_index != 0 ? 0 : 1;
+  size_t streetIdx = (!streets.empty() && streets[0].first != 0) != 0 ? 0 : 1;
+  size_t timeIdx = times[0].first != 0 ? 0 : 1;
+  double distFromBeginningMeters = 0.0;
+  double distFromBeginningMerc = 0.0;
+  double timeFromBeginningS = 0.0;
+
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    size_t const segmentEndPointIdx = i + 1;
+
+    turns::TurnItem curTurn;
+    if (turnIdx != turnDirs.size() && turnDirs[turnIdx].m_index == segmentEndPointIdx)
+    {
+      curTurn = turnDirs[turnIdx];
+      if (turnIdx + 1 < turnDirs.size())
+        ++turnIdx;
+    }
+
+    string curStreet;
+    if (!streets.empty())
+    {
+      if (streetIdx != streets.size() && streets[streetIdx].first == segmentEndPointIdx)
+      {
+        curStreet = streets[streetIdx].second;
+        if (streetIdx + 1 < streets.size())
+          ++streetIdx;
+      }
+    }
+
+    if (timeIdx != times.size() && times[timeIdx].first <= segmentEndPointIdx)
+    {
+      timeFromBeginningS = times[timeIdx].second;
+      ++timeIdx;
+    }
+
+    distFromBeginningMeters +=
+      MercatorBounds::DistanceOnEarth(junctions[i].GetPoint(), junctions[i + 1].GetPoint());
+    distFromBeginningMerc += junctions[i].GetPoint().Length(junctions[i + 1].GetPoint());
+
+    segmentInfo.emplace_back(
+        segments[i], curTurn, junctions[i + 1], curStreet, distFromBeginningMeters,
+        distFromBeginningMerc, timeFromBeginningS,
+        trafficStash ? trafficStash->GetSpeedGroup(segments[i]) : traffic::SpeedGroup::Unknown);
+  }
+}
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
@@ -37,7 +108,8 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<Segment> segments;
 
   engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments);
-  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
+  CHECK_EQUAL(path.size(), junctions.size(), ());
+
 
   if (cancellable.IsCancelled())
     return;
@@ -49,13 +121,14 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
     return;
   }
 
-  CHECK(std::is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
-  CHECK(std::is_sorted(turnsDir.cbegin(), turnsDir.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
-  CHECK(std::is_sorted(streetNames.cbegin(), streetNames.cend(), my::LessBy(&Route::TStreetItem::first)), ());
+  vector<Route::SegmentInfo> segmentInfo;
+  FillSegmentInfo(segments, junctions, turnsDir, streetNames, times, trafficStash, segmentInfo);
+  CHECK_EQUAL(segmentInfo.size(), segments.size(), ());
+  route.SetSegmentInfo(move(segmentInfo));
 
   // @TODO(bykoianko) If the start and the finish of a route lies on the same road segment
   // engine->Generate() fills with empty vectors |times|, |turnsDir|, |junctions| and |segments|.
-  // It's not correct and should be fixed. It's necessary to work corrrectly with such routes.
+  // It's not correct and should be fixed. It's necessary to work correctly with such routes.
 
   vector<m2::PointD> routeGeometry;
   JunctionsToPoints(junctions, routeGeometry);

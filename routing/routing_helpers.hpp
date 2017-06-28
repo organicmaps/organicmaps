@@ -29,6 +29,11 @@ bool IsRoad(TTypes const & types)
          BicycleModel::AllLimitsInstance().HasRoadType(types);
 }
 
+void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
+                     Route::TTurns const & turnDirs, Route::TStreets const & streets,
+                     Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
+                     vector<Route::SegmentInfo> & segmentInfo);
+
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       my::Cancellable const & cancellable, bool hasAltitude,
