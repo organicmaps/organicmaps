@@ -188,6 +188,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private Dialog mLocationErrorDialog;
 
+  private boolean mRestoreRoutingPlanFragmentNeeded;
+  @Nullable
+  private Bundle mSaveState;
+
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
   {
@@ -968,7 +972,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
       if (fragment != null)
+      {
         fragment.restoreRoutingPanelState(savedInstanceState);
+      }
+      else if (RoutingController.get().isPlanning())
+      {
+        mRestoreRoutingPlanFragmentNeeded = true;
+        mSaveState = savedInstanceState;
+      }
     }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
@@ -1765,6 +1776,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
+        if (mRestoreRoutingPlanFragmentNeeded && mSaveState != null)
+        {
+          RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
+          if (fragment != null)
+            fragment.restoreRoutingPanelState(mSaveState);
+        }
         showAddStartOrFinishFrame(RoutingController.get(), false);
         int width = UiUtils.dimen(R.dimen.panel_width);
         adjustTraffic(width, UiUtils.getStatusBarHeight(getApplicationContext()));

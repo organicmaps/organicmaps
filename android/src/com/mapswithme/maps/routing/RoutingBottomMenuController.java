@@ -12,6 +12,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 {
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_TAXI_INFO = "taxi_info";
+  private static final String STATE_ERROR = "error";
 
   @NonNull
   private final Activity mContext;
@@ -72,6 +74,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private TaxiInfo mTaxiInfo;
   @Nullable
   private TaxiInfo.Product mTaxiProduct;
+
+  @StringRes
+  private int mErrorMessage;
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame)
@@ -137,6 +142,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showAltitudeChartAndRoutingDetails()
   {
     UiUtils.hide(mError, mTaxiFrame, mActionFrame);
+    mErrorMessage = 0;
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -154,6 +160,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
+    mErrorMessage = 0;
     UiUtils.showTaxiIcon((ImageView) mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
@@ -263,6 +270,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showError(@StringRes int message)
   {
+    mErrorMessage = message;
     UiUtils.hide(mTaxiFrame, mAltitudeChartFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
@@ -278,6 +286,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, UiUtils.isVisible(mAltitudeChartFrame));
     outState.putParcelable(STATE_TAXI_INFO, mTaxiInfo);
+    if (mErrorMessage > 0)
+      outState.putInt(STATE_ERROR, mErrorMessage);
   }
 
   void restoreRoutingPanelState(@NonNull Bundle state)
@@ -288,6 +298,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TaxiInfo info = state.getParcelable(STATE_TAXI_INFO);
     if (info != null)
       showTaxiInfo(info);
+
+    int error = state.getInt(STATE_ERROR);
+    if (error > 0)
+      showError(error);
   }
 
   private void showRouteAltitudeChart()
