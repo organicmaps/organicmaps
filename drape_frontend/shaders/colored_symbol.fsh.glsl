@@ -25,6 +25,8 @@ void main()
 
   lowp vec4 finalColor = color;
   finalColor.a = finalColor.a * u_opacity * (1.0 - alpha);
-  discardFragmentIfDepthEnabled(finalColor.a == 0.0);
+  if (finalColor.a == 0.0)
+    discard;
+
   gl_FragColor = finalColor;
 }

@@ -11,6 +11,7 @@ void main()
 {
   vec4 finalColor = texture2D(u_colorTex, v_colorTexCoords);
   finalColor.a *= u_opacity;
-  discardFragmentIfDepthEnabled(finalColor.a < 0.01);
+  if (finalColor.a < 0.01)
+    discard;
   gl_FragColor = finalColor;
 }

@@ -46,18 +46,3 @@ vec4 samsungGoogleNexusWorkaround(vec4 color)
   return color;
 #endif
 }
-
-// This function discards fragment in ES2 mode or writes maximum value to the depth buffer
-// in ES3. It helps to avoid 'discard' invocation in cases when usual depth buffer mode is in use.
-void discardFragmentIfDepthEnabled(bool needDiscard)
-{
-#ifdef GLES3
-  if (needDiscard)
-    gl_FragDepth = 1.0;
-  else
-    gl_FragDepth = gl_FragCoord.z;
-#else
-  if (needDiscard)
-    discard;
-#endif
-}
