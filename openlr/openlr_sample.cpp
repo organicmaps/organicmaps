@@ -26,16 +26,28 @@ void ParseMWMSegments(std::string const & line, uint32_t const lineNumber,
 
     uint32_t featureIndex;
     if (!strings::to_uint(segParts[1], featureIndex))
-      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse MWMSegment", seg, "line:", lineNumber));
+    {
+      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse feature index of MWMSegment: uint expected",
+                                            seg, "uint expected, got:", segParts[1],
+                                            "line:", lineNumber));
+    }
 
     uint32_t segId;
     if (!strings::to_uint(segParts[2], segId))
-      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse MWMSegment", seg, "line:", lineNumber));
+    {
+      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse segment id of MWMSegment:",
+                                            seg, "uint expected, got:", segParts[2],
+                                            "line:", lineNumber));
+    }
 
     bool const isForward = (segParts[3] == "fwd");
     double length = 0;
     if (!strings::to_double(segParts[4], length))
-      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse MWMSegment", seg, "line:", lineNumber));
+    {
+      MYTHROW(openlr::SamplePoolLoadError, ("Can't parse segment length of MWMSegment:",
+                                            seg, "double expected, got:", segParts[4],
+                                            "line:", lineNumber));
+    }
 
     segments.push_back({FeatureID(mwmId, featureIndex), segId, isForward, length});
   }
@@ -123,6 +135,12 @@ SamplePool LoadSamplePool(std::string const & fileName, Index const & index)
     ParseSampleItem(st.line, st.lineNumber, item, index);
     pool.push_back(item);
   }
+
+  if (sample.fail() && !sample.eof())
+    MYTHROW(SamplePoolLoadError, ("Can't read from file", fileName, strerror(errno)));
+
+  if (pool.empty())
+    MYTHROW(SamplePoolLoadError, ("No sample is read,", fileName, "probably empty"));
 
   return pool;
 }

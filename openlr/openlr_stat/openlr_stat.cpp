@@ -9,11 +9,13 @@
 
 #include "coding/file_name_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/cstdio.hpp"
-#include "std/vector.hpp"
-
 #include "3party/gflags/src/gflags/gflags.h"
+
+#include <cstdint>
+#include <cstdio>
+#include <vector>
+
+#include <sys/stat.h>
 
 DEFINE_string(input, "", "Path to OpenLR file.");
 DEFINE_string(output, "output.txt", "Path to output file");
@@ -30,13 +32,24 @@ namespace
 const int32_t kMinNumThreads = 1;
 const int32_t kMaxNumThreads = 128;
 
-void LoadIndexes(string const & pathToMWMFolder, vector<Index> & indexes)
+bool IsDirectory(std::string const & path)
 {
+  struct ::stat st;
+  stat(path.data(), &st);
+  return S_ISDIR(st.st_mode);
+}
+
+void LoadIndexes(std::string const & pathToMWMFolder, std::vector<Index> & indexes)
+{
+  CHECK(IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
+
   Platform::FilesList files;
-  Platform::GetFilesByRegExp(pathToMWMFolder, string(".*\\") + DATA_FILE_EXTENSION, files);
+  Platform::GetFilesByRegExp(pathToMWMFolder, std::string(".*\\") + DATA_FILE_EXTENSION, files);
+
+  CHECK(!files.empty(), (pathToMWMFolder, "Contains no .mwm files."));
 
   size_t const numIndexes = indexes.size();
-  vector<uint64_t> numCountries(numIndexes);
+  std::vector<uint64_t> numCountries(numIndexes);
 
   for (auto const & fileName : files)
   {
@@ -98,7 +111,7 @@ bool ValidateNumThreads(char const * flagname, int32_t value)
   return true;
 }
 
-bool ValidataMwmPath(char const * flagname, string const & value)
+bool ValidataMwmPath(char const * flagname, std::string const & value)
 {
   if (value.empty())
   {
@@ -124,7 +137,7 @@ int main(int argc, char * argv[])
 
   auto const numThreads = static_cast<uint32_t>(FLAGS_num_threads);
 
-  vector<Index> indexes(numThreads);
+  std::vector<Index> indexes(numThreads);
   LoadIndexes(FLAGS_mwms_path, indexes);
 
   OpenLRSimpleDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
