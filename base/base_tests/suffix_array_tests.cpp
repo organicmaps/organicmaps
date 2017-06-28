@@ -43,16 +43,24 @@ UNIT_TEST(Skew_Simple)
     TEST_EQUAL(pos[3], 0, ());
   }
 
+  for (size_t length = 0; length < 100; ++length)
   {
-    for (size_t length = 0; length < 100; ++length)
-    {
-      string const s(length, 'a');
-      vector<size_t> pos;
-      Skew(s, pos);
-      TEST_EQUAL(pos.size(), s.size(), ());
-      for (size_t i = 0; i < pos.size(); ++i)
-        TEST_EQUAL(pos[i], pos.size() - i - 1, ());
-    }
+    string const s(length, 'a');
+    vector<size_t> pos;
+    Skew(s, pos);
+    TEST_EQUAL(pos.size(), s.size(), ());
+    for (size_t i = 0; i < pos.size(); ++i)
+      TEST_EQUAL(pos[i], pos.size() - i - 1, ());
+  }
+
+  for (size_t length = 0; length < 100; ++length)
+  {
+    string const s(length, '\0');
+    vector<size_t> pos;
+    Skew(s, pos);
+    TEST_EQUAL(pos.size(), s.size(), ());
+    for (size_t i = 0; i < pos.size(); ++i)
+      TEST_EQUAL(pos[i], pos.size() - i - 1, ());
   }
 }
 

@@ -9,6 +9,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     base.cpp \
+    bwt.cpp \
     condition.cpp \
     deferred_task.cpp \
     exception.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     base.hpp \
     bits.hpp \
     buffer_vector.hpp \
+    bwt.hpp \
     cache.hpp \
     cancellable.hpp \
     checked_cast.hpp \

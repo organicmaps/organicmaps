@@ -17,6 +17,7 @@ SOURCES += \
   assert_test.cpp \
   bits_test.cpp \
   buffer_vector_test.cpp \
+  bwt_tests.cpp \
   cache_test.cpp \
   collection_cast_test.cpp \
   condition_test.cpp \
