@@ -39,7 +39,7 @@ void main()
   delta.xy = abs(L - vec2(Lleft, Ltop));
   vec2 edges = step(kThreshold, delta.xy);
   if (dot(edges, vec2(1.0, 1.0)) == 0.0)
-      discard;
+    discard;
 
   // Calculate right and bottom deltas.
   float Lright = dot(texture2D(u_colorTex, v_offset1.xy).rgb, kWeights);
