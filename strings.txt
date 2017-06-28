@@ -23555,6 +23555,12 @@
     el = Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.
     sk = Ťuknite na miesta, ak chcete do trasy pridať body.
 
+  [whatsnew_viator_title]
+    en = Viator title
+
+  [whatsnew_viator_message]
+    en = Viator message
+
   [whatsnew_driving_style_title]
     en = New Map Style for Driving
     ru = Новый автомобильный стиль карт
