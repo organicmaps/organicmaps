@@ -92,6 +92,6 @@ using ::my::LCRITICAL;
 #define CLOG(level, X, msg)                                         \
   do                                                                \
   {                                                                 \
-    if (!X)                                                         \
+    if (!(X))                                                         \
       LOG(level, (SRC(), "CLOG(" #X ")", ::my::impl::Message msg)); \
   } while (false)

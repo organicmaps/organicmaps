@@ -23,27 +23,27 @@ BookingHotel::BookingHotel(std::string const & src)
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing hotels.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
 
-  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
+  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
   // TODO(mgsergio): Use ms::LatLon.
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
 
   m_name = rec[FieldIndex(Fields::Name)];
   m_address = rec[FieldIndex(Fields::Address)];
 
-  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
-  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
+  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Stars)], m_stars), ());
+  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::PriceCategory)], m_priceCategory), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::RatingBooking)], m_ratingBooking), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::RatingUsers)], m_ratingUser), ());
 
   m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 
-  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
+  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Type)], m_type), ());
 
   m_translations = rec[FieldIndex(Fields::Translations)];
 }
 
-ostream & operator<<(ostream & s, BookingHotel const & h)
+std::ostream & operator<<(std::ostream & s, BookingHotel const & h)
 {
   s << std::fixed << std::setprecision(7);
   s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address

@@ -65,7 +65,7 @@ public:
       return;
 
     std::ifstream dataSource(dataPath);
-    if (!dataSource.is_open())
+    if (!dataSource)
     {
       LOG(LERROR, ("Error while opening", dataPath, ":", strerror(errno)));
       return;
@@ -82,7 +82,8 @@ public:
     for (std::string line; std::getline(src, line);)
     {
       Object object(line);
-      m_objects.emplace(object.m_id, object);
+      if (object.m_id != Object::InvalidObjectId())
+        m_objects.emplace(object.m_id, object);
     }
 
     // Try to get object address from existing MWMs.

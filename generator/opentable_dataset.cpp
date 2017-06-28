@@ -23,9 +23,9 @@ OpentableRestaurant::OpentableRestaurant(std::string const & src)
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing restaurants.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));
 
-  CLOG(LERROR, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
-  CLOG(LERROR, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
+  CLOG(LDEBUG, strings::to_uint(rec[FieldIndex(Fields::Id)], m_id.Get()), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Latitude)], m_latLon.lat), ());
+  CLOG(LDEBUG, strings::to_double(rec[FieldIndex(Fields::Longtitude)], m_latLon.lon), ());
 
   m_name = rec[FieldIndex(Fields::Name)];
   m_address = rec[FieldIndex(Fields::Address)];

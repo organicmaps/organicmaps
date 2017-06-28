@@ -19,11 +19,10 @@ namespace
     return 3;
   }
 
-  bool g_NegativeFunctionCalled;
-  bool NegativeFunction()
+  bool BoolFunction(bool result, bool & called)
   {
-    g_NegativeFunctionCalled = true;
-    return false;
+     called = true;
+     return result;
   }
 }
 
@@ -53,11 +52,11 @@ UNIT_TEST(NullMessage)
 
 UNIT_TEST(Logging_ConditionalLog)
 {
-  g_SomeFunctionCalled = false;
-  CLOG(LINFO, SomeFunction(), ("This should not pass"));
-  TEST(g_SomeFunctionCalled, ());
+  bool isCalled = false;
+  CLOG(LINFO, BoolFunction(true, isCalled), ("This should not be displayed"));
+  TEST(isCalled, ());
 
-  g_NegativeFunctionCalled = false;
-  CLOG(LWARNING, NegativeFunction(), ("This should pass"));
-  TEST(g_NegativeFunctionCalled, ());
+  isCalled = false;
+  CLOG(LWARNING, BoolFunction(false, isCalled), ("This should be displayed"));
+  TEST(isCalled, ());
 }

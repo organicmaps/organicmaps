@@ -161,7 +161,7 @@ std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
   {                                                                 \
     return my::newtype_default_output::SimpleDebugPrint(nt);        \
   }                                                                 \
-  inline ostream & operator<<(ostream & ost, NAME const & nt)       \
+  inline std::ostream & operator<<(std::ostream & ost, NAME const & nt)       \
   {                                                                 \
     return ost << my::newtype_default_output::SimpleDebugPrint(nt); \
   }

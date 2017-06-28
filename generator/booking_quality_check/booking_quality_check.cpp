@@ -239,7 +239,7 @@ void GenerateFactors(Dataset const & dataset,
 {
   for (auto const & item : sampleItems)
   {
-    auto const & object = dataset.GetObjectById(item.m_sponsoredId);
+    auto const & object = dataset.GetStorage().GetObjectById(item.m_sponsoredId);
     auto const & feature = features.at(item.m_osmId);
 
     auto const score = generator::sponsored_scoring::Match(object, feature);
@@ -290,14 +290,12 @@ void GenerateSample(Dataset const & dataset,
   for (auto osmId : elementIndexes)
   {
     auto const & fb = features.at(osmId);
-    auto const sponsoredIndexes = dataset.GetNearestObjects(
-        MercatorBounds::ToLatLon(fb.GetKeyPoint()),
-        Dataset::kMaxSelectedElements,
-        Dataset::kDistanceLimitInMeters);
+    auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(
+        MercatorBounds::ToLatLon(fb.GetKeyPoint()));
 
     for (auto const sponsoredId : sponsoredIndexes)
     {
-      auto const & object = dataset.GetObjectById(sponsoredId);
+      auto const & object = dataset.GetStorage().GetObjectById(sponsoredId);
       auto const score = sponsored_scoring::Match(object, fb);
 
       auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
@@ -356,7 +354,7 @@ void RunImpl(feature::GenerateInfo & info)
 {
   auto const & dataSetFilePath = GetDatasetFilePath<Dataset>(info);
   Dataset dataset(dataSetFilePath);
-  LOG_SHORT(LINFO, (dataset.Size(), "objects are loaded from a file:", dataSetFilePath));
+  LOG_SHORT(LINFO, (dataset.GetStorage().Size(), "objects are loaded from a file:", dataSetFilePath));
 
   map<osm::Id, FeatureBuilder1> features;
   GenerateFeatures(info, [&dataset, &features](feature::GenerateInfo const & /* info */)

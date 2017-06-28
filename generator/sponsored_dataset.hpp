@@ -36,6 +36,8 @@ public:
   // Creates objects and adds them to the map (MWM) via |fn|.
   void BuildOsmObjects(std::function<void(FeatureBuilder1 &)> const & fn) const;
 
+  SponsoredObjectStorage<Object> const & GetStorage() const { return m_storage; }
+
 private:
   void InitStorage();
 
