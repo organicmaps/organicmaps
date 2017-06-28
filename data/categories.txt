@@ -2625,8 +2625,39 @@ el:^Ενοικιάσεις ποδηλάτων|δίκυκλο|ποδήλατο|ε
 sk:2^Požičovňa bicyklov|bicykle|požičovňa
 sw:^Kodi ya baiskeli|baiskeli|kodi
 
-amenity-car_sharing|amenity-car_rental
-en:3^Car Rental|car|rental|sharing|U+1F697|U+1F698|U+1F699
+amenity-car_sharing
+en:^Car Sharing|car|sharing|U+1F697|U+1F698|U+1F699
+ru:^Каршеринг|аренда|машин
+ar:^مشاركة السيارة
+cs:^Sdílení aut
+da:^Delebiler
+de:^Carsharing
+el:^Κοινή χρήση αυτοκινήτου
+es:^Compartir coche
+fi:^Autojen yhteiskäyttö
+fr:^Car Sharing
+hu:^Gépjármű megosztása
+id:^Berbagi mobil
+it:^Car Sharing
+ja:^カーシェアリング
+ko:^카셰어링
+nb:^Kjøre sammen
+nl:^Autodelen
+pl:^Carsharing
+pt:^Partilha de carro
+ro:^Car Sharing
+sk:^Zdieľanie automobilov
+sv:^Samåkning
+sw:^Kushiriki Gari
+th:^การใช้รถร่วมกัน
+tr:^Araç Paylaşımı
+uk:^Каршерінг
+vi:^Chia sẻ Xe
+zh-Hans:^拼车点
+zh-Hant:^汽車共用
+
+amenity-car_rental
+en:3^Car Rental|car|rental|U+1F697|U+1F698|U+1F699
 ru:4^Прокат авто|3авто|3машина|прокат
 ar:^تأجير سيارات|سيارة
 cs:3^Půjčovna aut|auto|pronájem|nájemné
@@ -7959,3 +7990,809 @@ zh-Hans:^度假村
 zh-Hant:^度假酒店
 el:^Θέρετρο
 sk:^Rezort
+
+amenity-biergarten|@food
+en:^Biergarten
+ru:^Пивная под открытым небом
+ar:^متجر بيرة
+cs:^Hospoda se zahrádkou
+da:^Biergarten
+de:^Biergarten
+el:^Μπυραρία
+es:^Biergarten
+fi:^Biergarten
+fr:^Biergarten
+hu:^Sörkert
+id:^Biergarten
+it:^Biergarten
+ja:^ビアガーデン
+ko:^비어가르텐
+nb:^Uteservering
+nl:^Biergarten
+pl:^Ogródek piwny
+pt:^Biergarten
+ro:^Berărie
+sk:^Piváreň
+sv:^Ölservering
+sw:^Bustani ya Bia
+th:^ลานเบียร์
+tr:^Biergarten
+uk:^Пивна під відкритим небом
+vi:^Vườn bia
+zh-Hans:^啤酒花园
+zh-Hant:^啤酒花園
+
+amenity-driving_school
+en:^Driving School
+ru:^Автошкола
+ar:^مدرسة قيادة
+cs:^Autoškola
+da:^Køreskole
+de:^Fahrschule
+el:^Σχολή οδηγών
+es:^Autoescuela
+fi:^Autokoulu
+fr:^Auto-école
+hu:^Autósiskola
+id:^Sekolah Mengemudi
+it:^Scuola guida
+ja:^自動車教習所
+ko:^운전학원
+nb:^Kjøreskole
+nl:^Rijschool
+pl:^Szkoła jazdy
+pt:^Escola de condução
+ro:^Școală de șoferi
+sk:^Autoškola
+sv:^Körskola
+sw:^Shule ya Uendeshaji Gari
+th:^โรงเรียนสอนขับรถ
+tr:^Sürücü Kursu
+uk:^Автошкола
+vi:^Trường lái xe
+zh-Hans:^驾校
+zh-Hant:^駕訓班
+
+amenity-ice_cream|@food
+en:^Ice Cream Stand
+ru:^Мороженое
+ar:^كشك أيس كريم
+cs:^Stánek se zmrzlinou
+da:^Isbod
+de:^Eisstand
+el:^Παγωτατζίδικο
+es:^Heladería
+fi:^Jäätelökioski
+fr:^Stand de crème glacée
+hu:^Fagylaltárus
+id:^Kios Es Krim
+it:^Chiosco gelati
+ja:^アイスクリーム屋
+ko:^아이스크림 스탠드
+nb:^Iskrem
+nl:^Ijsstand
+pl:^Stoisko z lodami
+pt:^Banca de gelados
+ro:^Chioșc cu înghețată
+sk:^Zmrzlinový stánok
+sv:^Glasstånd
+sw:^Duka la Aiskrimu
+th:^แผงขายไอศกรีม
+tr:^Dondurma Standı
+uk:^Кіоск з морозивом
+vi:^Quầy kem
+zh-Hans:^冰淇淋摊
+zh-Hant:^冰淇淋攤
+
+amenity-internet_cafe
+en:^Internet Cafe
+ru:^Интернет-кафе
+ar:^مقهى إنترنت
+cs:^Internetová kavárna
+da:^Internetcafe
+de:^Internetcafé
+el:^Καφετέρια με Ίντερνετ
+es:^Locutorio
+fi:^Internetkahvila
+fr:^Internet café
+hu:^Internet kávézó
+id:^Kafe Internet
+it:^Internet Cafe
+ja:^インターネットカフェ
+ko:^인터넷 카페
+nb:^Internettkafé
+nl:^Internetcafe
+pl:^Kafejka internetowa
+pt:^Cibercafé
+ro:^Internet Cafe
+sk:^Internetová kaviareň
+sv:^Internetkafé
+sw:^Mkahawa wa Intaneti
+th:^อินเทอร์เน็ตคาเฟ่
+tr:^İnternet Cafe
+uk:^Інтернет-кафе
+vi:^Quán Internet
+zh-Hans:^网吧
+zh-Hant:^網路咖啡店
+
+amenity-motorcycle_parking
+en:^Motorcycle Parking
+ru:^Мотопарковка
+ar:^موقف دراجات نارية
+cs:^Parkování pro motocykly
+da:^Motorcykelparkering
+de:^Motorrad-Parkplatz
+el:^Χώρος στάθμευσης μοτοσικλετών
+es:^Aparcamiento de motos
+fi:^Moottoripyörien pysäköinti
+fr:^Parking moto
+hu:^Motorbicikli parkoló
+id:^Tempat Parkir Sepeda Motor
+it:^Parcheggio moto
+ja:^バイク駐輪場
+ko:^오토바이 주차
+nb:^Motorsykkelparkering
+nl:^Parking Motorfietsen
+pl:^Parking motocyklowy
+pt:^Estacionamento de motos
+ro:^Parcare de motociclete
+sk:^Parkovisko pre motocykle
+sv:^Motorcykelparkering
+sw:^Uegeshaji Pikipiki
+th:^ที่จอดรถมอเตอร์ไซค์
+tr:^Motosiklet Parkı
+uk:^Парковка для мотоциклів
+vi:^Bãi đỗ xe máy
+zh-Hans:^摩托车停车场
+zh-Hant:^機車停車格
+
+amenity-nursing_home
+en:^Nursing Home
+ru:^Ясли
+ar:^دار تمريض
+cs:^Dům s pečovatelskou službou
+da:^Plejehjem
+de:^Pflegeheim
+el:^Γηροκομείο
+es:^Residencia de ancianos
+fi:^Hoitokoti
+fr:^Maison de retraite
+hu:^Idősek otthona
+id:^Panti Jompo
+it:^Casa di riposo
+ja:^養護施設
+ko:^요양원
+nb:^Sykehjem
+nl:^Bejaardentehuis
+pl:^Dom opieki
+pt:^Casa de repouso
+ro:^Centru de îngrijire
+sk:^Ošetrovateľská služba
+sv:^Vårdhem
+sw:^Makazi ya Utunzaji
+th:^บ้านพักคนชรา
+tr:^Huzurevi
+uk:^Будинок для людей похилого віку
+vi:^Nhà dưỡng lão
+zh-Hans:^养老院
+zh-Hant:^養老院
+
+amenity-payment_terminal
+en:^Payment Terminal
+ru:^Терминал оплаты
+ar:^محطة دفع
+cs:^Platební terminál
+da:^Betalingsautomat
+de:^Bezahlterminal
+el:^Τερματικό πληρωμών
+es:^Terminal de pago
+fi:^Maksupääte
+fr:^Terminal de paiement
+hu:^Fizető terminál
+id:^Terminal Pembayaran
+it:^Terminale di pagamento
+ja:^決済端末
+ko:^결제 단말기
+nb:^Betalingsterminal
+nl:^Betaalautomaat
+pl:^Wpłatomat
+pt:^Terminal de pagamento
+ro:^Terminal de plăți
+sk:^Platobný terminál
+sv:^Betalningsterminal
+sw:^Kituo cha Malipo
+th:^จุดชำระเงิน
+tr:^Ödeme Noktası
+uk:^Платіжний термінал
+vi:^Thiết bị thanh toán
+zh-Hans:^支付终端
+zh-Hant:^付款終端
+
+amenity-shower
+en:^Shower
+ru:^Душ
+ar:^حمام
+cs:^Sprcha
+da:^Bruser
+de:^Dusche
+el:^Ντους
+es:^Ducha
+fi:^Suihku
+fr:^Douche
+hu:^Tusoló
+id:^Pancuran
+it:^Doccia
+ja:^シャワー
+ko:^샤워기
+nb:^Dusj
+nl:^Douche
+pl:^Prysznic
+pt:^Chuveiro
+ro:^Duș
+sk:^Sprcha
+sv:^Dusch
+sw:^Bafu
+th:^ฝักบัวอาบน้ำ
+tr:^Duş
+uk:^Душ
+vi:^Nhà tắm
+zh-Hans:^淋浴
+zh-Hant:^淋浴間
+
+amenity-water_point
+en:^Water Point
+ru:^Выдача питьевой воды
+ar:^نقطة مائية
+cs:^Vodní zdroj
+da:^Vandstation
+de:^Wasseranschluss
+el:^Παροχή νερού
+es:^Fuente de agua potable
+fi:^Vesipiste
+fr:^Point d’eau
+hu:^Vízvételi pont
+id:^Titik Air
+it:^Distributore acqua
+ja:^給水所
+ko:^상수도
+nb:^Vannpunkt
+nl:^Waterpunt
+pl:^Ujęcie wody
+pt:^Ponto de água
+ro:^Punct de alimentare cu apă
+sk:^Voda
+sv:^Vattenpost
+sw:^Kituo cha Maji
+th:^จุดเติมน้ำ
+tr:^Su Noktası
+uk:^Пункт постачання води
+vi:^Điểm cấp nước
+zh-Hans:^取水点
+zh-Hant:^飲水站
+
+emergency-defibrillator
+en:^Defibrillator
+ru:^Дефибриллятор
+ar:^مزيل الرجفان
+cs:^Defibrilátor
+da:^Hjertestarter
+de:^Defibrillator
+el:^Απινιδωτής
+es:^Desfibrilador
+fi:^Defibrillaattori
+fr:^Défibrillateur
+hu:^Defibrillátor
+id:^Defibrilator
+it:^Defibrillatore
+ja:^除細動器
+ko:^제세동기
+nb:^Hjertestarter
+nl:^Defibrillator
+pl:^Defibrylator
+pt:^Desfibrilador
+ro:^Defibrilator
+sk:^Defibrilátor
+sv:^Defibrillator
+sw:^Difaibrileta
+th:^เครื่องกระตุ้นหัวใจ
+tr:^Defibrilatör
+uk:^Дефібрилятор
+vi:^Máy khử rung tim
+zh-Hans:^除颤器
+zh-Hant:^心臟電擊器
+
+emergency-fire_hydrant
+en:^Fire Hydrant
+ru:^Гидрант
+ar:^صنبور الإطفاء
+cs:^Požární hydrant
+da:^Brandhane
+de:^Hydrant
+el:^Πυροσβεστικός κρουνός
+es:^Boca de incendio
+fi:^Paloposti
+fr:^Bouche d’incendie
+hu:^Tűzcsap
+id:^Keran Kebakaran
+it:^Idrante
+ja:^消火栓
+ko:^소화전
+nb:^Brannhydrant
+nl:^Brandkraan
+pl:^Hydrant
+pt:^Boca de Incêndios
+ro:^Hidrant
+sk:^Požiarny hydrant
+sv:^Brandpost
+sw:^Bomba la Kuzima Moto
+th:^หัวจ่ายน้ำดับเพลิง
+tr:^Yangın Söndürme Musluğu
+uk:^Пожежний кран
+vi:^Vòi chữa cháy
+zh-Hans:^消防栓
+zh-Hant:^消防栓
+
+leisure-fitness_station
+en:^Fitness Station
+ru:^Спортивные снаряды
+ar:^مركز لياقة
+cs:^Posilovna
+da:^Fitness-station
+de:^Fitnessstation
+el:^Γυμναστήριο
+es:^Gimnasio
+fi:^Kuntokeskus
+fr:^Station de fitness
+hu:^Fitness állomás
+id:^Stasiun Kebugaran
+it:^Centro fitness
+ja:^フィットネスステーション
+ko:^피트니스 센터
+nb:^Treningssenter
+nl:^Fitness-Station
+pl:^Stacja fitness
+pt:^Estação de Fitness
+ro:^Sală de fitness
+sk:^Fitness
+sv:^Fitnesstation
+sw:^Kituo cha Mazoezi
+th:^ศูนย์ฟิตเนส
+tr:^Fitness Salonu
+uk:^Фітнес-зал
+vi:^Trạm tập thể hình
+zh-Hans:^健身驿站
+zh-Hant:^健身房
+
+man_made-surveillance
+en:^Surveillance Camera
+ru:^Камера наблюдения
+ar:^كاميرا مراقبة
+cs:^Bezpečnostní kamera
+da:^Overvågningskamera
+de:^Überwachungskamera
+el:^Κάμερα παρακολούθησης
+es:^Cámara de vigilancia
+fi:^Valvontakamera
+fr:^Caméra de surveillance
+hu:^Térfigyelő kamera
+id:^Kamera Pengawas
+it:^Videocamera di sorveglianza
+ja:^監視カメラ
+ko:^감시 카메라
+nb:^Overvåkingskamera
+nl:^Bewakingscamera
+pl:^Kamera monitoringu
+pt:^Câmara de vigilância
+ro:^Cameră de supraveghere
+sk:^Bezpečnostná kamera
+sv:^Övervakningskamera
+sw:^Kamera za Usalama
+th:^กล้องวงจรปิด
+tr:^Güvenlik Kamerası
+uk:^Камера спостереження
+vi:^Camera giám sát
+zh-Hans:^监控摄像头
+zh-Hant:^監控攝影機
+
+man_made-water_tap
+en:^Water Tap
+ru:^Колонка с водой
+ar:^حنفية مياه
+cs:^Vodovodní kohoutek
+da:^Vandhane
+de:^Wasserhahn
+el:^Βρύση νερού
+es:^Toma de agua
+fi:^Vesihana
+fr:^Robinet d'eau
+hu:^Vízcsap
+id:^Keran Air
+it:^Rubinetto dell'acqua
+ja:^給水栓
+ko:^수도꼭지
+nb:^Vannkran
+nl:^Waterkraan
+pl:^Woda pitna
+pt:^Torneira de água
+ro:^Robinet cu apă
+sk:^Vodovodný kohútik
+sv:^Vattenkran
+sw:^Bomba la Maji
+th:^ก๊อกน้ำ
+tr:^Çeşme Suyu
+uk:^Водопровідний кран
+vi:^Vòi nước
+zh-Hans:^水龙头
+zh-Hant:^水龍頭
+
+office-insurance
+en:^Insurance Office
+ru:^Продажа страховок
+ar:^مكتب تأمين
+cs:^Pojišťovací kancelář
+da:^Forsikringskontor
+de:^Versicherungsbüro
+el:^Ασφαλιστικό γραφείο
+es:^Oficina de seguros
+fi:^Vakuutuslaitos
+fr:^Bureau d’assurance
+hu:^Biztosító iroda
+id:^Kantor Asuransi
+it:^Ufficio assicurazioni
+ja:^保険会社
+ko:^보험 사무실
+nb:^Forsikring
+nl:^Verzekeringskantoor
+pl:^Biuro ubezpieczeń
+pt:^Escritório de seguros
+ro:^Birou de asigurări
+sk:^Poisťovňa
+sv:^Försäkringskontor
+sw:^Ofisi ya Bima
+th:^สำนักงานประกันภัย
+tr:^Sigorta Acentası
+uk:^Офіс страхової компанії
+vi:^Văn phòng bảo hiểm
+zh-Hans:^保险机构
+zh-Hant:^保險公司
+
+office-ngo
+en:^NGO Office
+ru:^Офис НКО
+ar:^مكتب مؤسسة خيرية
+cs:^Kancelář nevládní organizace
+da:^NGO-kontor
+de:^Büro einer Nichtregierungsorganisation
+el:^Γραφείο ΜΚΟ
+es:^Oficina de ONG
+fi:^Valtioista riippumattoman järjestön toimisto
+fr:^Bureau ONG
+hu:^Civil szervezet irodája
+id:^Kantor LSM
+it:^Sede ONG
+ja:^NGO 事務局
+ko:^NGO 사무실
+nb:^NGO-kontor
+nl:^NGO-kantoor
+pl:^Biuro organizacji pozarządowej
+pt:^Escritório de ONG
+ro:^Birou ONG
+sk:^Sídlo mimovládnej organizácie
+sv:^Kontor för icke-statlig organisation
+sw:^Ofisi ya NGO
+th:^สำนักงานองค์กรพัฒนาเอกชน
+tr:^STK Binası
+uk:^Офіс громадської організації
+vi:^Văn phòng NGO
+zh-Hans:^非政府组织办公室
+zh-Hant:^非政府組織辦公室
+
+shop-erotic|@shop
+en:^Erotic Shop
+ru:^Секс-шоп
+ar:^متجر منتجات جنسية
+cs:^Obchod s erotickými pomůckami
+da:^Erotisk butik
+de:^Erotikladen
+el:^Κατάστημα ερωτικών ειδών
+es:^Sex Shop
+fi:^Erotiikkaliike
+fr:^Boutique érotique
+hu:^Erotikus bolt
+id:^Toko Erotik
+it:^Sexy Shop
+ja:^アダルトショップ
+ko:^성인용품 가게
+nb:^Erotisk butikk
+nl:^Erotiekwinkel
+pl:^Sex shop
+pt:^Sex Shop
+ro:^Magazin erotic
+sk:^Erotický obchod
+sv:^Erotisk butik
+sw:^Duka la Nyenzo za Kimapenzi
+th:^ร้านเฉพาะผู้ใหญ่
+tr:^Erotik Ürünler Mağazası
+uk:^Секс-шоп
+vi:^Cửa hàng người lớn
+zh-Hans:^成人用品店
+zh-Hant:^情趣用品店
+
+shop-funeral_directors
+en:^Funeral Directors
+ru:^Ритуальные услуги
+ar:^منظموا الجنازات
+cs:^Pohřební služba
+da:^Bedemand
+de:^Bestattungsinstitut
+el:^Γραφεία τελετών
+es:^Funeraria
+fi:^Hautausurakoitsija
+fr:^Pompes funèbres
+hu:^Temetkezési vállalkozó
+id:^Direktur Pemakaman
+it:^Pompe funebri
+ja:^葬儀屋
+ko:^장의사
+nb:^Begravelsebyrå
+nl:^Begrafenisondernemer
+pl:^Celebranci pogrzebowi
+pt:^Funerária
+ro:^Pompe funebre
+sk:^Pohrebníctvo
+sv:^Begravningsentreprenörer
+sw:^Wapangaji Mazishi
+th:^สัปเหร่อ
+tr:^Cenaze Levazımcısı
+uk:^Ритуальна служба
+vi:^Tổ chức tang lễ
+zh-Hans:^殡仪馆
+zh-Hant:^葬儀社
+
+shop-massage
+en:^Massage Parlour
+ru:^Массажный салон
+ar:^قاعة تدليك
+cs:^Masážní salon
+da:^Massageklinik
+de:^Massagesalon
+el:^Αίθουσα μασάζ
+es:^Salón de masajes
+fi:^Hierontahuone
+fr:^Salon de massage
+hu:^Masszázs szalon
+id:^Tempat Pijat
+it:^Centro massaggi
+ja:^マッサージパーラー
+ko:^안마 시술소
+nb:^Massasjesalong
+nl:^Massagesalon
+pl:^Salon masażu
+pt:^Centro de massagens
+ro:^Salon de masaj
+sk:^Masážny salón
+sv:^Massagesalong
+sw:^Kituo cha Kuchua
+th:^สถานอาบอบนวด
+tr:^Masaj Salonu
+uk:^Масажний кабінет
+vi:^Quán massage
+zh-Hans:^按摩院
+zh-Hant:^按摩館
+
+shop-motorcycle|@shop
+en:^Motorcycle Shop
+ru:^Магазин мотоциклов
+ar:^متجر دراجات نارية
+cs:^Prodejna motocyklů
+da:^Motorcykelforhandler
+de:^Motorradladen
+el:^Κατάστημα μοτοσυκλετών
+es:^Tienda de motos
+fi:^Moottoripyöräliike
+fr:^Magasin de motos
+hu:^Motorkerékpár üzlet
+id:^Toko Sepeda Motor
+it:^Negozio di moto
+ja:^バイクショップ
+ko:^오토바이 가게
+nb:^Motorsykkelforretning
+nl:^Motorzaak
+pl:^Salon motocyklowy
+pt:^Loja de Motos
+ro:^Magazin moto
+sk:^Obchod s motocyklami
+sv:^Motorcykelaffär
+sw:^Duka la Pikipiki
+th:^ร้านรถมอเตอร์ไซค์
+tr:^Motosiklet Dükkanı
+uk:^Магазин мотоциклів
+vi:^Cửa hàng xe máy
+zh-Hans:^摩托车商店
+zh-Hant:^機車行
+
+shop-newsagent|@shop
+en:^Newspaper Stand
+ru:^Газетный киоск
+ar:^كشك الجرائد
+cs:^Novinový stánek
+da:^Avis-kiosk
+de:^Zeitungsstand
+el:^Περίπτερο εφημερίδων
+es:^Venta de periódicos
+fi:^Lehtikioski
+fr:^Kiosque à journaux
+hu:^Újságárus
+id:^Kios Surat Kabar
+it:^Edicola
+ja:^新聞販売店
+ko:^신문 가판대
+nb:^Aviskiosk
+nl:^Kiosk
+pl:^Stoisko z prasą
+pt:^Banca de jornais
+ro:^Chioșc cu ziare
+sk:^Novinový stánok
+sv:^Tidningsstånd
+sw:^Duka la Gazeti
+th:^แผงขายหนังสือพิมพ์
+tr:^Gazete Standı
+uk:^Газетний кіоск
+vi:^Quầy báo
+zh-Hans:^报刊亭
+zh-Hant:^報攤
+
+shop-pawnbroker
+en:^Pawnbroker
+ru:^Ломбард
+ar:^سمسار تسليف
+cs:^Zastavárna
+da:^Pantelåner
+de:^Pfandleihe
+el:^Ενεχυροδανειστήριο
+es:^Casa de empeños
+fi:^Panttilainaamo
+fr:^Prêteur sur gages
+hu:^Zálogház
+id:^Rumah Gadai
+it:^Pegni
+ja:^質屋
+ko:^전당포
+nb:^Pantelåner
+nl:^Pandjesbaas
+pl:^Lombard
+pt:^Casa de penhores
+ro:^Amanet
+sk:^Záložňa
+sv:^Pantbank
+sw:^Mtoaji Mikopo kwa Vitu
+th:^ผู้รับจำนำ
+tr:^Tefeci
+uk:^Ломбард
+vi:^Cầm đồ
+zh-Hans:^典当行
+zh-Hant:^當舖
+
+shop-stationery|@shop
+en:^Stationery Shop
+ru:^Канцелярский магазин
+ar:^متجر قرطاسية
+cs:^Papírnictví
+da:^Kontorartikler
+de:^Schreibwarenladen
+el:^Κατάστημα γραφικής ύλης
+es:^Papelería
+fi:^Kirjoitustarvikekauppa
+fr:^Papeterie
+hu:^Írószer bolt
+id:^Toko Alat Tulis
+it:^Cartoleria
+ja:^文房具店
+ko:^문방구
+nb:^Bokhandel
+nl:^Kantoorboekhandel
+pl:^Artykuły papiernicze
+pt:^Papelaria
+ro:^Magazin de papetărie
+sk:^Papiernictvo
+sv:^Pappershandel
+sw:^Duka la Vitabu
+th:^ร้านขายเครื่องเขียน
+tr:^Kırtasiye Dükkanı
+uk:^Магазин канцелярських товарів
+vi:^Cửa hàng văn phòng phẩm
+zh-Hans:^文具店
+zh-Hant:^文具用品店
+
+shop-tattoo
+en:^Tattoo Parlour
+ru:^Тату-салон
+ar:^قاعة رسم الوشم
+cs:^Tetovací salon
+da:^Tatovør
+de:^Tattoo-Studio
+el:^Τατουάζ
+es:^Tatuajes
+fi:^Tatuointiliike
+fr:^Salon de tatouage
+hu:^Tetováló szalon
+id:^Tempat Tato
+it:^Studio tatuaggi
+ja:^タトゥーパーラー
+ko:^문신 시술소
+nb:^Tatovør
+nl:^Tattoosalon
+pl:^Salon tatuażu
+pt:^Estúdio de tatuagens
+ro:^Salon de tatuaje
+sk:^Tetovací salón
+sv:^Tatuerare
+sw:^Kituo cha Tattoo
+th:^ร้านสัก
+tr:^Dövme Salonu
+uk:^Тату-салон
+vi:^Tiệm xăm
+zh-Hans:^纹身店
+zh-Hant:^刺青店
+
+shop-variety_store|@shop
+en:^Variety Store
+ru:^Магазин полезных мелочей
+ar:^متجر متنوع\n
+cs:^Smíšené zboží
+da:^Småtingsbutik
+de:^Billigladen
+el:^Ψιλικατζίδικο
+es:^«Todo a cien»
+fi:^Halpakauppa
+fr:^Bazar
+hu:^Vegyeskereskedés
+id:^Toko Kelontong
+it:^Negozio di accessori
+ja:^雑貨店
+ko:^잡화점
+nb:^Billigbutikk
+nl:^Bazaar
+pl:^Sklep z różnościami
+pt:^Loja dos 300
+ro:^Magazin universal
+sk:^Rozličný tovar
+sv:^Diverseaffär
+sw:^Duka la Vitu Mbalimbali
+th:^ร้านค้าปลีกอิสระ
+tr:^Ucuz Ürünler Mağazası
+uk:^Магазин господарських товарів
+vi:^Cửa hàng tiện lợi
+zh-Hans:^杂货店
+zh-Hant:^雜貨店
+
+tourism-wilderness_hut|@hotel
+en:^Wilderness Hut
+ru:^Хижина в лесу
+ar:^كوخ برية
+cs:^Chata v divočině
+da:^Vildmarkshytte
+de:^Wildnishütte
+el:^Καλύβα
+es:^Cabaña
+fi:^Autiotupa
+fr:^Cabane sauvage
+hu:^Kunyhó a vadonban
+id:^Pondok Alam Liar
+it:^Rifugio
+ja:^無人小屋
+ko:^황야 오두막
+nb:^Villmarkshytte
+nl:^Wildernishut
+pl:^Gajówka
+pt:^Cabana
+ro:^Adăpost
+sk:^Chata
+sv:^Vildmarksstuga
+sw:^Kibanda cha Mwituni
+th:^กระท่อมกลางป่า
+tr:^Vahşi Doğa Kulübesi
+uk:^Хибара
+vi:^Nhà tạm trú
+zh-Hans:^荒野小屋
+zh-Hant:^山屋
