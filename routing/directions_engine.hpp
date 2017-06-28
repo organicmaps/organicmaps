@@ -18,8 +18,8 @@ class IDirectionsEngine
 public:
   virtual ~IDirectionsEngine() = default;
 
-  // @TODO(bykoianko) After fields |m_turns|, |m_times|, |m_streets| and |m_traffic|
-  // will be removed from class Route the method Generate() should fill
+  // @TODO(bykoianko) When fields |m_turns|, |m_times|, |m_streets| and |m_traffic|
+  // are removed from class Route the method Generate() should fill
   // vector<RouteSegment> instead of corresponding arguments.
   virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTurns & turns,

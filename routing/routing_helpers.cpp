@@ -38,7 +38,6 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
     CHECK_LESS(streets.back().first, junctions.size(), ());
   CHECK_LESS(times.back().first, junctions.size(), ());
 
-
   routeSegment.clear();
   if (segments.empty())
     return;

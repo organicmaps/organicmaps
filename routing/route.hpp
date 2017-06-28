@@ -55,7 +55,7 @@ public:
   Segment const & GetSegment() const { return m_segment; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
   Junction const & GetJunction() const { return m_junction; }
-  std::string const GetStreet() const { return m_street; }
+  std::string const & GetStreet() const { return m_street; }
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
   double GetTimeFromBeginningS() const { return m_timeFromBeginningS; }
@@ -66,7 +66,7 @@ private:
   /// Turn (maneuver) information for the turn next to the |m_segment| if any.
   /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
   turns::TurnItem m_turn;
-  Junction m_junction; ///< The front point of segment.
+  Junction m_junction; ///< The front junction of segment.
   /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
   std::string m_street;
   /// Distance from the route beginning to the farthest end of |m_segment| in meters.
