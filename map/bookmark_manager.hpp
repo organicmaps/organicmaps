@@ -12,14 +12,19 @@ class PaintEvent;
 
 class BookmarkManager : private noncopyable
 {
-  vector<BookmarkCategory *> m_categories;
+  using CategoriesCollection = std::vector<unique_ptr<BookmarkCategory>>;
+  using CategoryIter = CategoriesCollection::iterator;
+
+  using UserMarkLayers = std::vector<unique_ptr<UserMarkContainer>>;
+
+  CategoriesCollection m_categories;
+
   string m_lastCategoryUrl;
   string m_lastType;
 
   Framework & m_framework;
 
-  vector<UserMarkContainer *> m_userMarkLayers;
-  typedef vector<BookmarkCategory *>::iterator CategoryIter;
+  UserMarkLayers m_userMarkLayers;
 
   void SaveState() const;
   void LoadState();

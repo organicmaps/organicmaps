@@ -2,7 +2,6 @@
 
 df::UserMarksProvider::UserMarksProvider()
   : m_pendingOnDelete(false)
-  , m_counter(0)
 {
 }
 
@@ -16,18 +15,6 @@ void df::UserMarksProvider::ResetDirty()
   m_isDirty = false;
 }
 
-void df::UserMarksProvider::IncrementCounter()
-{
-  ASSERT(m_pendingOnDelete == false, ());
-  ++m_counter;
-}
-
-void df::UserMarksProvider::DecrementCounter()
-{
-  ASSERT(m_counter > 0, ());
-  --m_counter;
-}
-
 bool df::UserMarksProvider::IsPendingOnDelete()
 {
   return m_pendingOnDelete;
@@ -39,32 +26,7 @@ void df::UserMarksProvider::DeleteLater()
   m_pendingOnDelete = true;
 }
 
-bool df::UserMarksProvider::CanBeDeleted()
-{
-  return m_counter == 0;
-}
-
-void df::UserMarksProvider::BeginWrite()
-{
-  Lock();
-}
-
 void df::UserMarksProvider::SetDirty()
 {
   m_isDirty = true;
-}
-
-void df::UserMarksProvider::EndWrite()
-{
-  Unlock();
-}
-
-void df::UserMarksProvider::Lock()
-{
-  m_mutex.Lock();
-}
-
-void df::UserMarksProvider::Unlock()
-{
-  m_mutex.Unlock();
 }

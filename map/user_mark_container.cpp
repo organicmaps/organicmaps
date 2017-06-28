@@ -114,13 +114,11 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 
 UserMarksController & UserMarkContainer::RequestController()
 {
-  BeginWrite();
   return *this;
 }
 
 void UserMarkContainer::ReleaseController()
 {
-  MY_SCOPE_GUARD(endWriteGuard, [this]{ EndWrite(); });
   ref_ptr<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
   if (engine == nullptr)
     return;

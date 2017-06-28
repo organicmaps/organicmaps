@@ -21,16 +21,15 @@ BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
 {
   m_userMarkLayers.reserve(4);
-  m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0 /* activePinDepth */, m_framework));
-  m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0 /* activePinDepth */, m_framework));
-  m_userMarkLayers.push_back(new DebugUserMarkContainer(0.0 /* debugDepth */, m_framework));
-  m_userMarkLayers.push_back(new RouteUserMarkContainer(0.0 /* activePinDepth */, m_framework));
+  m_userMarkLayers.emplace_back(new SearchUserMarkContainer(0.0 /* activePinDepth */, m_framework));
+  m_userMarkLayers.emplace_back(new ApiUserMarkContainer(0.0 /* activePinDepth */, m_framework));
+  m_userMarkLayers.emplace_back(new DebugUserMarkContainer(0.0 /* debugDepth */, m_framework));
+  m_userMarkLayers.emplace_back(new RouteUserMarkContainer(0.0 /* activePinDepth */, m_framework));
   UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
 }
 
 BookmarkManager::~BookmarkManager()
 {
-  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), DeleteFunctor());
   m_userMarkLayers.clear();
 
   ClearItems();
@@ -56,7 +55,6 @@ void BookmarkManager::LoadState()
 
 void BookmarkManager::ClearItems()
 {
-  for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
   m_categories.clear();
 }
 
@@ -76,9 +74,9 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(string const & filePath)
 {
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath, m_framework);
+  unique_ptr<BookmarkCategory> cat(BookmarkCategory::CreateFromKMLFile(filePath, m_framework));
   if (cat)
-    m_categories.push_back(cat);
+    m_categories.emplace_back(std::move(cat));
 }
 
 void BookmarkManager::InitBookmarks()
@@ -94,16 +92,16 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
   bm.SetTimeStamp(time(0));
   bm.SetScale(m_framework.GetDrawScale());
 
-  BookmarkCategory * pCat = m_categories[categoryIndex];
+  BookmarkCategory & cat = *m_categories[categoryIndex];
 
-  BookmarkCategory::Guard guard(*pCat);
+  BookmarkCategory::Guard guard(cat);
   Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.CreateUserMark(ptOrg));
   bookmark->SetData(bm);
   bookmark->SetCreationAnimationShown(false);
   guard.m_controller.SetIsVisible(true);
-  pCat->SaveToKMLFile();
+  cat.SaveToKMLFile();
 
-  m_lastCategoryUrl = pCat->GetFileName();
+  m_lastCategoryUrl = cat.GetFileName();
   m_lastType = bm.GetType();
   SaveState();
 
@@ -115,8 +113,7 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
 {
   BookmarkData data;
   m2::PointD ptOrg;
-  
-  // guard must be released before AddBookmark to prevent deadlock
+
   {
     BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
     BookmarkCategory::Guard guard(*cat);
@@ -133,10 +130,10 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
 
 void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
-  BookmarkCategory * cat = m_categories[catIndex];
-  BookmarkCategory::Guard guard(*cat);
+  BookmarkCategory & cat = *m_categories[catIndex];
+  BookmarkCategory::Guard guard(cat);
   static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bmIndex))->SetData(bm);
-  cat->SaveToKMLFile();
+  cat.SaveToKMLFile();
 
   m_lastType = bm.GetType();
   SaveState();
@@ -163,24 +160,21 @@ string BookmarkManager::LastEditedBMType() const
 
 BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
 {
-  return (index < m_categories.size() ? m_categories[index] : 0);
+  return (index < m_categories.size() ? m_categories[index].get() : 0);
 }
 
 size_t BookmarkManager::CreateBmCategory(string const & name)
 {
-  m_categories.push_back(new BookmarkCategory(name, m_framework));
-  return (m_categories.size()-1);
+  m_categories.emplace_back(new BookmarkCategory(name, m_framework));
+  return (m_categories.size() - 1);
 }
 
-void BookmarkManager::DeleteBmCategory(CategoryIter i)
+void BookmarkManager::DeleteBmCategory(CategoryIter it)
 {
-  BookmarkCategory * cat = *i;
-  m_categories.erase(i);
-  cat->DeleteLater();
-  FileWriter::DeleteFileX(cat->GetFileName());
-
-  if (cat->CanBeDeleted())
-    delete cat;
+  BookmarkCategory & cat = *it->get();
+  cat.DeleteLater();
+  FileWriter::DeleteFileX(cat.GetFileName());
+  m_categories.erase(it);
 }
 
 bool BookmarkManager::DeleteBmCategory(size_t index)
@@ -235,7 +229,10 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   finder(FindUserMarksContainer(UserMarkType::ROUTING_MARK));
   finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
   finder(FindUserMarksContainer(UserMarkType::API_MARK));
-  for_each(m_categories.begin(), m_categories.end(), ref(finder));
+  for (auto & cat : m_categories)
+  {
+    finder(cat.get());
+  }
 
   return finder.GetFindedMark();
 }
@@ -257,22 +254,24 @@ void BookmarkManager::UserMarksReleaseController(UserMarksController & controlle
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType type) const
 {
-  auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(), [&type](UserMarkContainer const * cont)
+  auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
+                            [&type](unique_ptr<UserMarkContainer> const & cont)
   {
     return cont->GetType() == type;
   });
   ASSERT(iter != m_userMarkLayers.end(), ());
-  return *iter;
+  return iter->get();
 }
 
 UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
 {
-  auto iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(), [&type](UserMarkContainer * cont)
+  auto iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(),
+                      [&type](unique_ptr<UserMarkContainer> const & cont)
   {
     return cont->GetType() == type;
   });
   ASSERT(iter != m_userMarkLayers.end(), ());
-  return *iter;
+  return iter->get();
 }
 
 UserMarkControllerGuard::UserMarkControllerGuard(BookmarkManager & mng, UserMarkType type)
