@@ -20,14 +20,12 @@ void WorkerThread::ProcessTasks()
 {
   queue<Task> pending;
 
-  unique_lock<mutex> lk(m_mu, defer_lock);
-
   while (true)
   {
     Task task;
 
     {
-      lk.lock();
+      unique_lock<mutex> lk(m_mu);
       m_cv.wait(lk, [this]() { return m_shutdown || !m_queue.empty(); });
 
       if (m_shutdown)
@@ -46,7 +44,6 @@ void WorkerThread::ProcessTasks()
       CHECK(!m_queue.empty(), ());
       task = move(m_queue.front());
       m_queue.pop();
-      lk.unlock();
     }
 
     task();
