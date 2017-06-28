@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Saatavilla";
 
 /* Country queued for download */
-"downloader_queued" = "Jonossa";
+"downloader_queued" = "jonossa";
 
 "downloader_near_me_subtitle" = "Lähelläni";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Reittipisteet reitillä";
 
 "whatsnew_waypoints_message" = "Lisää reittiisi reittipisteitä napauttamalla paikkoja.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Uusi karttatyyli ajettaessa";
 

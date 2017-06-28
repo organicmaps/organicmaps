@@ -426,7 +426,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Dostupné</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">Ve frontě</string>
+	<string name="downloader_queued">ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>

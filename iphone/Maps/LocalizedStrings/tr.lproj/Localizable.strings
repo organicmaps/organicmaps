@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Mevcut";
 
 /* Country queued for download */
-"downloader_queued" = "Sıraya alındı";
+"downloader_queued" = "sıraya alındı";
 
 "downloader_near_me_subtitle" = "Yakınlarımda";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Güzergâhtaki Yol Noktaları";
 
 "whatsnew_waypoints_message" = "Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Sürüş İçin Yeni Harita Stili";
 

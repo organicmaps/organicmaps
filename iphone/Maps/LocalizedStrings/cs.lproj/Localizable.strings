@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Dostupné";
 
 /* Country queued for download */
-"downloader_queued" = "Ve frontě";
+"downloader_queued" = "ve frontě";
 
 "downloader_near_me_subtitle" = "Poblíž mě";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Body průjezdu na trase";
 
 "whatsnew_waypoints_message" = "Klepněte na místo a přidejte bod průjezdu.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Nový styl mapy pro vozidla";
 

@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "경로에 중간 지점을 추가할 위치를 탭하세요.";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "운전을 위한 새로운 지도 스타일";
 
 "whatsnew_driving_style_message" = "자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.";

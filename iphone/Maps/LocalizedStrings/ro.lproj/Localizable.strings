@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponibil";
 
 /* Country queued for download */
-"downloader_queued" = "În lista de așteptare";
+"downloader_queued" = "în lista de așteptare";
 
 "downloader_near_me_subtitle" = "Aproape de mine";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Puncte de schimbare a direcției de pe traseu";
 
 "whatsnew_waypoints_message" = "Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Un nou stil de hartă pentru condus";
 

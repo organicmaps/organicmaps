@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Elérhető";
 
 /* Country queued for download */
-"downloader_queued" = "Várólistás";
+"downloader_queued" = "várólistás";
 
 "downloader_near_me_subtitle" = "A közelemben";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Iránypontok az útvonaltervezésben";
 
 "whatsnew_waypoints_message" = "Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Új térképstílus vezetéshez";
 

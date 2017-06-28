@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Tilgængelige";
 
 /* Country queued for download */
-"downloader_queued" = "I kø";
+"downloader_queued" = "i kø";
 
 "downloader_near_me_subtitle" = "I nærheden";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Vejpunkter i ruteføring";
 
 "whatsnew_waypoints_message" = "Tryk på positioner for at føje vejsteder til din rute.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Nyt kortformat til kørsel";
 

@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Đã có";
 
 /* Country queued for download */
-"downloader_queued" = "Đã xếp hàng chờ";
+"downloader_queued" = "đã xếp hàng chờ";
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Điểm tọa độ trong Lộ trình";
 
 "whatsnew_waypoints_message" = "Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Phong cách Bản đồ Mới cho Lái xe";
 

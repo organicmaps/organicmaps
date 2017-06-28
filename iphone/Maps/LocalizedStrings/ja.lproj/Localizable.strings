@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
 
 "whatsnew_driving_style_message" = "カーナビゲーションモードの使用がより簡単になりました。";

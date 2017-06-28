@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Tersedia";
 
 /* Country queued for download */
-"downloader_queued" = "Telah diantrekan";
+"downloader_queued" = "telah diantrekan";
 
 "downloader_near_me_subtitle" = "Dekat saya";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Titik Koordinat dalam Pembuatan Rute";
 
 "whatsnew_waypoints_message" = "Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Model Peta Baru untuk Berkendara";
 

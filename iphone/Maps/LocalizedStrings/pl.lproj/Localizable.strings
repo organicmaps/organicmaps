@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Dostępne";
 
 /* Country queued for download */
-"downloader_queued" = "W kolejce";
+"downloader_queued" = "w kolejce";
 
 "downloader_near_me_subtitle" = "Blisko mnie";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Punkty nawigacyjne w trasowaniu";
 
 "whatsnew_waypoints_message" = "Naciśnij punkt nawigacyjny, aby dodać go do trasy.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Nowy styl mapy dla jazdy";
 

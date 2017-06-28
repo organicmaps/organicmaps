@@ -420,7 +420,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Elérhető</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">Várólistás</string>
+	<string name="downloader_queued">várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>

@@ -417,7 +417,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponibil</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">În lista de așteptare</string>
+	<string name="downloader_queued">în lista de așteptare</string>
 	<string name="downloader_near_me_subtitle">Aproape de mine</string>
 	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descărcați toate</string>

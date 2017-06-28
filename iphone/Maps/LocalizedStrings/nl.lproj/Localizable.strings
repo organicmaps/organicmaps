@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Beschikbaar";
 
 /* Country queued for download */
-"downloader_queued" = "In de wachtrij";
+"downloader_queued" = "in de wachtrij";
 
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Tussenstops in Route";
 
 "whatsnew_waypoints_message" = "Tap op plaatsen om tussenstops toe te voegen aan uw route.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Nieuwe Kaartstijl voor het Rijden";
 

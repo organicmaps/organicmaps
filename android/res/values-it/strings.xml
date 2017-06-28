@@ -418,7 +418,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponibile</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">In coda</string>
+	<string name="downloader_queued">in coda</string>
 	<string name="downloader_near_me_subtitle">Vicino a me</string>
 	<string name="downloader_status_maps">Mappe</string>
 	<string name="downloader_download_all_button">Scarica tutte</string>

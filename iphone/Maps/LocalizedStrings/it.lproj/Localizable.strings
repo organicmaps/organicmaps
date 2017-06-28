@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponibile";
 
 /* Country queued for download */
-"downloader_queued" = "In coda";
+"downloader_queued" = "in coda";
 
 "downloader_near_me_subtitle" = "Vicino a me";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Waypoint di percorso";
 
 "whatsnew_waypoints_message" = "Tocca i luoghi e aggiungi waypoint al tuo percorso.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Nuovo stile di mappa per la guida";
 

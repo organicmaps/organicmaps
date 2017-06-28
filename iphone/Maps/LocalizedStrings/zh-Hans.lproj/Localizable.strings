@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "点按地点即可向您的路线添加路径点。";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "新的驾驶地图样式";
 
 "whatsnew_driving_style_message" = "汽车导航模式更加易用。";

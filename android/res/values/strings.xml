@@ -439,7 +439,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Available</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">Queued</string>
+	<string name="downloader_queued">queued</string>
 	<string name="downloader_near_me_subtitle">Near me</string>
 	<string name="downloader_status_maps">Maps</string>
 	<string name="downloader_download_all_button">Download All</string>
@@ -1105,6 +1105,8 @@
 	<string name="whatsnew_smaller_mwm_message">Maps require up to 20% less storage.</string>
 	<string name="whatsnew_waypoints_title">Waypoints in Routing</string>
 	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
+	<string name="whatsnew_viator_title">Viator title</string>
+	<string name="whatsnew_viator_message">Viator message</string>
 	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
 	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
 	<string name="more_on_bookingcom">More on Booking.com</string>

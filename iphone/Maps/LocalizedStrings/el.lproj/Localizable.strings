@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Διαθέσιμη";
 
 /* Country queued for download */
-"downloader_queued" = "Στην ουρά";
+"downloader_queued" = "στην ουρά";
 
 "downloader_near_me_subtitle" = "Κοντά μου";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Ενδιάμεσα σημεία στη διαδρομή";
 
 "whatsnew_waypoints_message" = "Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Νέο στυλ χάρτη για την οδήγηση";
 

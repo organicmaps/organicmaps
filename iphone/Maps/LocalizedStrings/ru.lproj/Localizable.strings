@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Доступные";
 
 /* Country queued for download */
-"downloader_queued" = "В очереди";
+"downloader_queued" = "в очереди";
 
 "downloader_near_me_subtitle" = "Возле меня";
 
@@ -1867,6 +1867,10 @@
 "whatsnew_waypoints_title" = "Маршруты с промежуточными точками";
 
 "whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
+
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
 
 "whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
 

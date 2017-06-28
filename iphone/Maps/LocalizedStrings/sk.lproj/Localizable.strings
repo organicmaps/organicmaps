@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "Ťuknite na miesta, ak chcete do trasy pridať body.";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "Nový štýl máp pre jazdu";
 
 "whatsnew_driving_style_message" = "Režim navigácie v aute sa zjednodušil.";

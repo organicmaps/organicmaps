@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "Pulse sobre los lugares para añadir puntos de referencia a su ruta.";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "Nuevo estilo de mapa para la conducción";
 
 "whatsnew_driving_style_message" = "Modo de navegación más fácil de usar.";

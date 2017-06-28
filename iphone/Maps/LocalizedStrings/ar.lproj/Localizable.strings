@@ -1868,6 +1868,10 @@
 
 "whatsnew_waypoints_message" = "المس الأماكن لإضافة نقاط طريق إلى المسار.";
 
+"whatsnew_viator_title" = "Viator title";
+
+"whatsnew_viator_message" = "Viator message";
+
 "whatsnew_driving_style_title" = "نمط خريطة جديد للقيادة";
 
 "whatsnew_driving_style_message" = "وضع التنقل بالسيارة أصبح سهل الاستخدام.";
