@@ -3,6 +3,7 @@
 #include "base/worker_thread.hpp"
 
 #include <condition_variable>
+#include <future>
 #include <mutex>
 
 using namespace base;
@@ -66,5 +67,23 @@ UNIT_TEST(WorkerThread_SimpleFlush)
     TEST(thread.Shutdown(WorkerThread::Exit::ExecPending), ());
   }
   TEST_EQUAL(value, 1024, ());
+}
+
+UNIT_TEST(WorkerThread_PushFromPendingTask)
+{
+  // promise - future pair is used as a socketpair here to pass a
+  // signal from the main thread to the worker thread.
+  promise<void> p;
+  auto f = p.get_future();
+
+  WorkerThread thread;
+  bool const rv = thread.Push([&f, &thread]() {
+    f.get();
+    bool const rv = thread.Push([]() { TEST(false, ("This task should not be executed")); });
+    TEST(!rv, ());
+  });
+  TEST(rv, ());
+  thread.Shutdown(WorkerThread::Exit::ExecPending);
+  p.set_value();
 }
 }  // namespace
