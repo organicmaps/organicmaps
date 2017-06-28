@@ -43,7 +43,7 @@ namespace tree
         }
       }
 
-      ASSERT ( i <= 64, ("too many features at level = ", name) );
+      ASSERT ( i <= 128, ("too many features at level = ", name) );
     }
 
     return true;
