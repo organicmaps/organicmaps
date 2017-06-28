@@ -20,6 +20,6 @@ void main()
   vec4 offset = vec4(normal, 0.0, 0.0) * projection;
   vec4 projectedPivot = pivot * projection;
   gl_Position = applyBillboardPivotTransform(projectedPivot, pivotTransform, 0.0, offset.xy);
-  gl_Position.z = smoothstep(0.1, 0.9, projectedPivot.y / projectedPivot.w * 0.5 + 0.5);
+  gl_Position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
   v_colorTexCoords = a_colorTexCoords;
 }
