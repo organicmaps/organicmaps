@@ -42,13 +42,13 @@ struct RoadShield
 
   inline bool operator<(RoadShield const & other) const
   {
-    if (m_type == other.m_type)
+    if (m_additionalText == other.m_additionalText)
     {
-      if (m_name == other.m_name)
-        return m_additionalText < other.m_additionalText;
-      return m_name < other.m_name;
+      if (m_type == other.m_type)
+        return m_name < other.m_name;
+      return m_type < other.m_type;
     }
-    return m_type < other.m_type;
+    return m_additionalText < other.m_additionalText;
   }
 };
 

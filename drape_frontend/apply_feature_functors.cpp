@@ -364,6 +364,25 @@ m2::PointF GetShieldOffset(dp::Anchor anchor, double borderWidth, double borderH
     offset.y = -static_cast<float>(borderHeight);
   return offset;
 }
+
+void CalculateRoadShieldPositions(std::vector<float> const & offsets,
+                                  m2::SharedSpline const & spline,
+                                  std::vector<m2::PointD> & shieldPositions)
+{
+  ASSERT(!offsets.empty(), ());
+  if (offsets.size() == 1)
+  {
+    shieldPositions.push_back(spline->GetPoint(0.5 * spline->GetLength()).m_pos);
+  }
+  else
+  {
+    for (size_t i = 0; i + 1 < offsets.size(); i++)
+    {
+      double const p = 0.5 * (offsets[i] + offsets[i + 1]);
+      shieldPositions.push_back(spline->GetPoint(p).m_pos);
+    }
+  }
+}
 }  // namespace
 
 BaseApplyFeature::BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
@@ -954,6 +973,8 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_limitedText = true;
   textParams.m_limits = shieldPixelSize * 0.9;
 
+  bool needAdditionalText = false;
+
   if (IsColoredRoadShield(shield))
   {
     // Generated symbol properties.
@@ -975,6 +996,9 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_sizeInPixels = shieldPixelSize;
     symbolParams.m_outlineWidth = GetRoadShieldOutlineWidth(symbolParams.m_outlineWidth, shield);
     symbolParams.m_color = GetRoadShieldColor(symbolParams.m_color, shield);
+
+    needAdditionalText = !shield.m_additionalText.empty() &&
+                         (anchor & dp::Top || anchor & dp::Center);
   }
 
   // Image symbol properties.
@@ -992,37 +1016,40 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_prioritized = false;
     poiParams.m_obsoleteInEditor = false;
     poiParams.m_anchor = anchor;
-    poiParams.m_offset = shieldOffset;
+    poiParams.m_offset = GetShieldOffset(anchor, 0.5, 0.5);
 
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(poiParams.m_symbolName, region);
     float const symBorderWidth = (region.GetPixelSize().x - textLayout.GetPixelLength()) * 0.5f;
     float const symBorderHeight = (region.GetPixelSize().y - textLayout.GetPixelHeight()) * 0.5f;
-    textParams.m_primaryOffset = shieldOffset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
-    shieldPixelSize = m2::PointD(symBorderWidth, symBorderHeight);
+    textParams.m_primaryOffset = poiParams.m_offset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
+    shieldPixelSize = region.GetPixelSize();
 
-    if (!symbolName.empty() && !shield.m_additionalText.empty() &&
-        (anchor & dp::Top || anchor & dp::Center))
-    {
-      textParams.m_secondaryText = shield.m_additionalText;
-      textParams.m_secondaryTextFont = textParams.m_primaryTextFont;
-      textParams.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
-      textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
-      textParams.m_secondaryTextFont.m_size *= 0.9f;
-      textParams.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
-    }
+    needAdditionalText = !symbolName.empty() && !shield.m_additionalText.empty() &&
+                         (anchor & dp::Top || anchor & dp::Center);
+  }
+
+  if (needAdditionalText)
+  {
+    textParams.m_secondaryText = shield.m_additionalText;
+    textParams.m_secondaryTextFont = textParams.m_primaryTextFont;
+    textParams.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
+    textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
+    textParams.m_secondaryTextFont.m_size *= 0.9f;
+    textParams.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
   }
 }
 
 bool ApplyLineFeatureAdditional::CheckShieldsNearby(m2::PointD const & shieldPos,
                                                     m2::PointD const & shieldPixelSize,
+                                                    uint32_t minDistanceInPixels,
                                                     std::vector<m2::RectD> & shields)
 {
   // Here we calculate extended rect to skip the same shields nearby.
-  static double const kExtension = 5.0;
-  m2::PointD const shieldMercatorHalfSize = shieldPixelSize / m_currentScaleGtoP * 0.5;
+  m2::PointD const skippingArea(2 * minDistanceInPixels, 2 * minDistanceInPixels);
+  m2::PointD const extendedPixelSize = shieldPixelSize + skippingArea;
+  m2::PointD const shieldMercatorHalfSize = extendedPixelSize / m_currentScaleGtoP * 0.5;
   m2::RectD shieldRect(shieldPos - shieldMercatorHalfSize, shieldPos + shieldMercatorHalfSize);
-  shieldRect.Scale(kExtension);
   for (auto const & r : shields)
   {
     if (r.IsIntersect(shieldRect))
@@ -1038,6 +1065,8 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
 {
   if (m_clippedSplines.empty())
     return;
+
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
   std::vector<m2::PointD> shieldPositions;
   if (m_shieldRule != nullptr && !roadShields.empty())
@@ -1067,30 +1096,35 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
         continue;
 
       if (m_shieldRule != nullptr && !roadShields.empty())
-      {
-        auto const & offsets = shape->GetOffsets();
-        ASSERT(!offsets.empty(), ());
-        if (offsets.size() == 1)
-        {
-          shieldPositions.push_back(spline->GetPoint(0.5 * spline->GetLength()).m_pos);
-        }
-        else
-        {
-          for (size_t i = 0; i + 1 < offsets.size(); i++)
-          {
-            double const p = 0.5 * (offsets[i] + offsets[i + 1]);
-            shieldPositions.push_back(spline->GetPoint(p).m_pos);
-          }
-        }
-      }
+        CalculateRoadShieldPositions(shape->GetOffsets(), spline, shieldPositions);
 
       m_insertShape(std::move(shape));
       baseTextIndex += kPathTextBaseTextStep;
     }
   }
+  else if (m_shieldRule != nullptr && !roadShields.empty())
+  {
+    for (auto const & spline : m_clippedSplines)
+    {
+      float const pixelLength = 300.0f * vs;
+      std::vector<float> offsets;
+      PathTextLayout::CalculatePositions(static_cast<float>(spline->GetLength()),
+                                         m_currentScaleGtoP, pixelLength, offsets);
+      if (!offsets.empty())
+        CalculateRoadShieldPositions(offsets, spline, shieldPositions);
+    }
+  }
 
   if (shieldPositions.empty())
     return;
+
+  ASSERT(m_shieldRule != nullptr, ());
+  int constexpr kDefaultMinDistance = 50;
+  int minDistance = m_shieldRule->has_min_distance() ? m_shieldRule->min_distance()
+                                                     : kDefaultMinDistance;
+  if (minDistance < 0)
+    minDistance = kDefaultMinDistance;
+  uint32_t const scaledMinDistance = static_cast<uint32_t>(vs * minDistance);
 
   uint8_t shieldIndex = 0;
   for (ftypes::RoadShield const & shield : roadShields)
@@ -1107,7 +1141,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     uint32_t textIndex = kShieldBaseTextIndex * (++shieldIndex);
     for (auto const & shieldPos : shieldPositions)
     {
-      if (!CheckShieldsNearby(shieldPos, shieldPixelSize, generatedShieldRects))
+      if (!CheckShieldsNearby(shieldPos, shieldPixelSize, scaledMinDistance, generatedShieldRects))
         continue;
 
       m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, true /* hasPOI */,

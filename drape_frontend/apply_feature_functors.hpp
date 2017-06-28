@@ -196,6 +196,7 @@ private:
                                 m2::PointD & shieldPixelSize);
   bool CheckShieldsNearby(m2::PointD const & shieldPos,
                           m2::PointD const & shieldPixelSize,
+                          uint32_t minDistanceInPixels,
                           std::vector<m2::RectD> & shields);
 
   std::vector<m2::SharedSpline> m_clippedSplines;
