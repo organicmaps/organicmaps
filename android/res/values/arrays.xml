@@ -29,18 +29,18 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whatsnew_driving_style</item>
-    <item>@drawable/img_whatsnew_transliteration</item>
+    <item>@drawable/img_wn_intermediate_point</item>
+    <item>@drawable/img_wn_viator</item>
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whatsnew_driving_style_title</item>
-    <item>@string/whatsnew_transliteration_title</item>
+    <item>@string/whatsnew_waypoints_title</item>
+    <item>@string/whatsnew_viator_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_driving_style_message</item>
-    <item>@string/whatsnew_transliteration_message</item>
+    <item>@string/whatsnew_waypoints_message</item>
+    <item>@string/whatsnew_viator_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
