@@ -66,7 +66,8 @@ private:
   /// Turn (maneuver) information for the turn next to the |m_segment| if any.
   /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
   turns::TurnItem m_turn;
-  Junction m_junction; ///< The front junction of segment.
+  /// The furthest point of the segment from the beginning of the route along the route.
+  Junction m_junction;
   /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
   std::string m_street;
   /// Distance from the route beginning to the farthest end of |m_segment| in meters.
