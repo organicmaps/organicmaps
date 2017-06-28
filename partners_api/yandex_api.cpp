@@ -55,7 +55,7 @@ bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::st
   std::ostringstream url;
   url << std::fixed << std::setprecision(6) << baseUrl << "/taxi_info?clid=" << YANDEX_CLIENT_ID
       << "&apikey=" << YANDEX_API_KEY << "&rll=" << from.lon << "," << from.lat << "~" << to.lon
-      << "," << to.lat << "&class=econom,business,comfortplus,minivan,vip";
+      << "," << to.lat << "&class=econom";
 
   return RunSimpleHttpRequest(url.str(), result);
 }
