@@ -521,7 +521,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)update
 {
-  if (self.data)
+  auto data = self.data;
+  if (data)
     [self.placePageView.tableView refresh];
 }
 

@@ -114,15 +114,16 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)handleBookmarkDeleting:(NSNotification *)notification
 {
-  NSAssert(self.data && self.layout, @"It must be openned place page!");
-  if (!self.data.isBookmark)
+  auto data = self.data;
+  NSAssert(data && self.layout, @"It must be openned place page!");
+  if (!data.isBookmark)
     return;
 
   auto value = static_cast<NSValue *>(notification.object);
   auto deletedBac = BookmarkAndCategory();
   [value getValue:&deletedBac];
   NSAssert(deletedBac.IsValid(), @"Place page must have valid bookmark and category.");
-  auto bac = self.data.bac;
+  auto bac = data.bac;
   if (bac.m_bookmarkIndex != deletedBac.m_bookmarkIndex || bac.m_categoryIndex != deletedBac.m_categoryIndex)
     return;
 
@@ -131,12 +132,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)handleBookmarkCategoryDeleting:(NSNotification *)notification
 {
-  NSAssert(self.data && self.layout, @"It must be openned place page!");
-  if (!self.data.isBookmark)
+  auto data = self.data;
+  NSAssert(data && self.layout, @"It must be openned place page!");
+  if (!data.isBookmark)
     return;
 
   auto deletedIndex = static_cast<NSNumber *>(notification.object).integerValue;
-  auto index = self.data.bac.m_categoryIndex;
+  auto index = data.bac.m_categoryIndex;
   if (index != deletedIndex)
     return;
 
@@ -283,16 +285,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)removeStop
 {
-  switch (self.data.routeMarkType)
+  auto data = self.data;
+  switch (data.routeMarkType)
   {
-  case RouteMarkType::Start:
-    [MWMRouter removeStartPointAndRebuild:self.data.intermediateIndex];
-    break;
-  case RouteMarkType::Finish:
-    [MWMRouter removeFinishPointAndRebuild:self.data.intermediateIndex];
-    break;
+  case RouteMarkType::Start: [MWMRouter removeStartPointAndRebuild:data.intermediateIndex]; break;
+  case RouteMarkType::Finish: [MWMRouter removeFinishPointAndRebuild:data.intermediateIndex]; break;
   case RouteMarkType::Intermediate:
-    [MWMRouter removeIntermediatePointAndRebuild:self.data.intermediateIndex];
+    [MWMRouter removeIntermediatePointAndRebuild:data.intermediateIndex];
     break;
   }
   [self shouldClose];
@@ -473,7 +472,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!data)
     return;
   logSponsoredEvent(self.data, kStatPlacePageHotelGallery);
-  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
+  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:data.photos];
   auto initialPhoto = galleryModel.items[index];
   auto photoVC = [[MWMPhotosViewController alloc] initWithPhotos:galleryModel
                                                     initialPhoto:initialPhoto
@@ -491,7 +490,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!data)
     return;
   logSponsoredEvent(self.data, kStatPlacePageHotelGallery);
-  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:self.data.photos];
+  auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:data.photos];
   auto galleryVc = [MWMGalleryViewController instanceWithModel:galleryModel];
   [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
 }

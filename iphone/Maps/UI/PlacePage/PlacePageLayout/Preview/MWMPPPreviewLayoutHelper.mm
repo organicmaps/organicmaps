@@ -308,7 +308,10 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
 - (void)setSpeedAndAltitude:(NSString *)speedAndAltitude
 {
-  if ([speedAndAltitude isEqualToString:_speedAndAltitude] || !self.data.isMyPosition)
+  auto data = self.data;
+  if (!data)
+    return;
+  if ([speedAndAltitude isEqualToString:_speedAndAltitude] || !data.isMyPosition)
     return;
 
   _speedAndAltitude = speedAndAltitude;
@@ -317,7 +320,10 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
 - (void)insertRowAtTheEnd
 {
-  auto const & previewRows = self.data.previewRows;
+  auto data = self.data;
+  if (!data)
+    return;
+  auto const & previewRows = data.previewRows;
   auto const size = previewRows.size();
   self.lastCellIsBanner = previewRows.back() == place_page::PreviewRows::Banner;
   self.lastCellIndexPath =
@@ -348,7 +354,8 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   if (IPAD)
     return;
 
-  if (!self.data)
+  auto data = self.data;
+  if (!data)
     return;
 
   [self.tableView update:^{
