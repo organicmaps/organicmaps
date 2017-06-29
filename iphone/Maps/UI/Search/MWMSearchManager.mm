@@ -412,6 +412,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
                                                     userInfo:@{
                                                       kSearchStateKey : @(state)
                                                     }];
+  if (_state == MWMSearchManagerStateHidden)
+    [self endSearch];
   _state = state;
   [self updateTopController];
   switch (state)
