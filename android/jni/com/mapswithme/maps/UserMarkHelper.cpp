@@ -116,8 +116,9 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         env->NewObject(g_bookmarkClazz, ctorId, jMwmName.get(), info.GetID().GetMwmVersion(),
                        info.GetID().m_index, static_cast<jint>(info.m_bac.m_categoryIndex),
                        static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
-                       jSecondaryTitle.get(), jbanners.get(), info.IsReachableByTaxi(),
-                       jBookingSearchUrl.get(), localAdInfo.get(), routingPointInfo.get());
+                       jSecondaryTitle.get(), jbanners.get(),
+                       !info.ReachableByTaxiProviders().empty(), jBookingSearchUrl.get(),
+                       localAdInfo.get(), routingPointInfo.get());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
@@ -135,7 +136,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetID().m_index, kMyPosition, info.GetTitle(),
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), {}, "", jbanners.get(),
-                           info.IsReachableByTaxi(), info.GetBookingSearchUrl(),
+                           !info.ReachableByTaxiProviders().empty(), info.GetBookingSearchUrl(),
                            localAdInfo.get(), routingPointInfo.get());
   }
 
@@ -145,16 +146,16 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetID().m_index, kApiPoint, info.GetTitle(),
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(),
-                           jbanners.get(), info.IsReachableByTaxi(), info.GetBookingSearchUrl(),
-                           localAdInfo.get(), routingPointInfo.get());
+                           jbanners.get(), !info.ReachableByTaxiProviders().empty(),
+                           info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
   }
 
   return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
                          info.GetID().m_index, kPoi, info.GetTitle(), info.GetSecondaryTitle(),
                          info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
-                         info.IsReachableByTaxi(), info.GetBookingSearchUrl(), localAdInfo.get(),
-                         routingPointInfo.get());
+                         !info.ReachableByTaxiProviders().empty(), info.GetBookingSearchUrl(),
+                         localAdInfo.get(), routingPointInfo.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)

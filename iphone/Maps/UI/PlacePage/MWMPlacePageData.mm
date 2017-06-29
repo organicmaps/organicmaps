@@ -86,7 +86,7 @@ using namespace place_page;
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
 
-  if (m_info.IsReachableByTaxi())
+  if (!m_info.ReachableByTaxiProviders().empty())
   {
     m_sections.push_back(Sections::Ad);
     m_adRows.push_back(AdRows::Taxi);
