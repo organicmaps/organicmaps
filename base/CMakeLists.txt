@@ -63,6 +63,8 @@ set(
   string_utils.hpp
   strings_bundle.cpp
   strings_bundle.hpp
+  suffix_array.cpp
+  suffix_array.hpp
   sunrise_sunset.cpp
   sunrise_sunset.hpp
   thread.cpp

@@ -38,6 +38,7 @@ SOURCES += \
   stl_helpers_test.cpp \
   string_format_test.cpp \
   string_utils_test.cpp \
+  suffix_array_tests.cpp \
   sunrise_sunset_test.cpp \
   thread_pool_tests.cpp \
   threaded_list_test.cpp \
