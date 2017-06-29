@@ -125,13 +125,13 @@ node|z10-[place=archipelago],
 node|z10-[place=island],
 area|z10-[place=archipelago],
 area|z10-[place=island]
-{font-size: 18;text-color: @district_label;}
+{font-size: 8;text-color: @district_label;}
 
 node|z12-[place=archipelago],
 node|z12-[place=island],
 area|z12-[place=archipelago],
 area|z12-[place=island]
-{font-size: 14;text-color: @district_label;}
+{font-size: 9;text-color: @district_label;}
 
 node|z14-[place=archipelago],
 node|z14-[place=island],
