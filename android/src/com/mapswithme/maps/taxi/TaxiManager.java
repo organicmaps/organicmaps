@@ -5,6 +5,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -14,18 +15,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 @MainThread
 public class TaxiManager
 {
-  static final int PROVIDER_UBER = 0;
+  public static final int PROVIDER_UBER = 0;
   public static final int PROVIDER_YANDEX = 1;
 
   public static final TaxiManager INSTANCE = new TaxiManager();
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ PROVIDER_UBER, PROVIDER_YANDEX })
-  @interface TaxiType {}
+  public @interface TaxiType {}
 
   @NonNull
   private final List<TaxiInfo> mProviders = new ArrayList<>();
@@ -77,6 +77,19 @@ public class TaxiManager
       // Taxi error list must contain only one element until we implement taxi aggregator feature.
       mListener.onTaxiErrorReceived(mErrors.get(0));
     }
+  }
+
+  @Nullable
+  public static TaxiLinks getTaxiLink(@NonNull String productId, @TaxiType int type,
+                        @Nullable MapObject startPoint, @Nullable MapObject endPoint)
+  {
+    if (startPoint == null || endPoint == null)
+      return null;
+
+    return TaxiManager.INSTANCE.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */),
+                                                   type, productId, startPoint.getLat(),
+                                                   startPoint.getLon(), endPoint.getLat(),
+                                                   endPoint.getLon());
   }
 
   public void setTaxiListener(@Nullable TaxiListener listener)

@@ -45,6 +45,12 @@ public class TaxiInfo implements Parcelable
     mProducts = products;
   }
 
+  @TaxiManager.TaxiType
+  public int getType()
+  {
+    return mType;
+  }
+
   @NonNull
   public List<Product> getProducts()
   {

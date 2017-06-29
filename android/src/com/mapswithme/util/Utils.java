@@ -30,6 +30,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.taxi.TaxiLinks;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -284,12 +285,12 @@ public class Utils
     return installationId;
   }
 
-  public static boolean isUberInstalled(@NonNull Activity context)
+  private static boolean isAppInstalled(@NonNull Activity context, @NonNull String packageName)
   {
     try
     {
       PackageManager pm = context.getPackageManager();
-      pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
       return true;
     } catch (PackageManager.NameNotFoundException e)
     {
@@ -297,20 +298,54 @@ public class Utils
     }
   }
 
-  public static void launchUber(@NonNull Activity context, @NonNull TaxiLinks links)
+  public static boolean isTaxiAppInstalled(@NonNull Activity context, @TaxiManager.TaxiType int type)
   {
-    //TODO: handle type of taxi merely
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
-/*    if (isUberInstalled(context))
+    switch (type)
     {
+      case TaxiManager.PROVIDER_UBER:
+        return Utils.isAppInstalled(context, "com.ubercab");
+      case TaxiManager.PROVIDER_YANDEX:
+        return Utils.isAppInstalled(context, "ru.yandex.taxi");
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
 
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
+  public static void launchTaxiApp(@NonNull Activity context, @NonNull TaxiLinks links,
+                                   @TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        launchUber(context, links, isTaxiAppInstalled(context, type));
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        launchYandexTaxi(context, links);
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
+
+  private static void launchUber(@NonNull Activity context, @NonNull TaxiLinks links, boolean isAppInstalled)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (isAppInstalled)
+    {
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.setData(Uri.parse(links.getDeepLink()));
-/*    } else
+    } else
     {
       // No Taxi app! Open mobile website.
       intent.setData(Uri.parse(links.getUniversalLink()));
-    }*/
+    }
+    context.startActivity(intent);
+  }
+
+  private static void launchYandexTaxi(@NonNull Activity context, @NonNull TaxiLinks links)
+  {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(links.getDeepLink()));
     context.startActivity(intent);
   }
 

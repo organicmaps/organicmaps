@@ -27,6 +27,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiAdapter;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiLinks;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -207,26 +208,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void setStartButton()
   {
-    if (RoutingController.get().isTaxiRouterType())
+    if (RoutingController.get().isTaxiRouterType() && mTaxiInfo != null)
     {
-      // TODO: add getting the link by provider (Yandex, Uber)
-      final boolean isTaxiInstalled = Utils.isUberInstalled(mContext);
-      mStart.setText(isTaxiInstalled ? R.string.taxi_order : R.string.install_app);
+      mStart.setText(Utils.isTaxiAppInstalled(mContext, mTaxiInfo.getType())
+                     ? R.string.taxi_order : R.string.install_app);
       mStart.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          if (mTaxiProduct != null)
-          {
-            TaxiLinks links = RoutingController.get().getTaxiLink(mTaxiProduct.getProductId());
-            //TODO: check product type and launch corresponding application
-            if (links != null)
-            {
-              Utils.launchUber(mContext, links);
-              trackUberStatistics(isTaxiInstalled);
-            }
-          }
+          handleTaxiClick();
         }
       });
     } else
@@ -251,6 +242,23 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     UiUtils.updateAccentButton(mStart);
     showStartButton(true);
+  }
+
+  private void handleTaxiClick()
+  {
+    if (mTaxiProduct == null || mTaxiInfo == null)
+      return;
+
+    boolean isTaxiInstalled = Utils.isTaxiAppInstalled(mContext, mTaxiInfo.getType());
+    MapObject startPoint = RoutingController.get().getStartPoint();
+    MapObject endPoint = RoutingController.get().getEndPoint();
+    TaxiLinks links = TaxiManager.getTaxiLink(mTaxiProduct.getProductId(), mTaxiInfo.getType(),
+                                              startPoint, endPoint);
+    if (links != null)
+    {
+      Utils.launchTaxiApp(mContext, links, mTaxiInfo.getType());
+      trackTaxiStatistics(mTaxiInfo.getType(), isTaxiInstalled);
+    }
   }
 
   void showError(@StringRes int message)
@@ -336,12 +344,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     }
   }
 
-  private static void trackUberStatistics(boolean isUberInstalled)
+  private static void trackTaxiStatistics(@TaxiManager.TaxiType int type, boolean isTaxiAppInstalled)
   {
     MapObject from = RoutingController.get().getStartPoint();
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Statistics.INSTANCE.trackUber(from, to, location, isUberInstalled);
+    Statistics.INSTANCE.trackTaxi(from, to, location, type, isTaxiAppInstalled);
   }
 
   @Override

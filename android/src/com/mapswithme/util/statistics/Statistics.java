@@ -26,6 +26,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.BatteryState;
 import com.mapswithme.util.Config;
@@ -519,11 +520,11 @@ public enum Statistics
     trackEvent(EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, type.name));
   }
 
-  public void trackUber(@Nullable MapObject from, @Nullable MapObject to,
-                        @Nullable Location location, boolean isUberInstalled)
+  public void trackTaxi(@Nullable MapObject from, @Nullable MapObject to,
+                        @Nullable Location location, @TaxiManager.TaxiType int type, boolean isAppInstalled)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, "Taxi");
+    params.add(Statistics.EventParam.PROVIDER, type == TaxiManager.PROVIDER_YANDEX ? "Yandex" : "Uber");
 
     params.add(Statistics.EventParam.FROM_LAT, from != null ? String.valueOf(from.getLat()) : "N/A")
           .add(Statistics.EventParam.FROM_LON, from != null ? String.valueOf(from.getLon()) : "N/A");
@@ -531,7 +532,7 @@ public enum Statistics
     params.add(Statistics.EventParam.TO_LAT, to != null ? String.valueOf(to.getLat()) : "N/A")
           .add(Statistics.EventParam.TO_LON, to != null ? String.valueOf(to.getLon()) : "N/A");
 
-    String event = isUberInstalled ? Statistics.EventName.ROUTING_TAXI_ORDER
+    String event = isAppInstalled ? Statistics.EventName.ROUTING_TAXI_ORDER
                                    : Statistics.EventName.ROUTING_TAXI_INSTALL;
     trackEvent(event, location, params.get());
   }

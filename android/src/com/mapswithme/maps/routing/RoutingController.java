@@ -23,7 +23,6 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
-import com.mapswithme.maps.taxi.TaxiLinks;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
@@ -910,19 +909,6 @@ public class RoutingController implements TaxiManager.TaxiListener
                                    mEndPoint.getLat(), mEndPoint.getLon());
     if (mContainer != null)
       mContainer.updateBuildProgress(0, mLastRouterType);
-  }
-
-  @Nullable
-  TaxiLinks getTaxiLink(@NonNull String productId)
-  {
-    if (mStartPoint == null || mEndPoint == null)
-      return null;
-
-    //TODO: implement getting provider type by product id.
-    return TaxiManager.INSTANCE.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */),
-                                                   TaxiManager.PROVIDER_YANDEX, productId,
-                                                   mStartPoint.getLat(), mStartPoint.getLon(),
-                                                   mEndPoint.getLat(), mEndPoint.getLon());
   }
 
   @Override
