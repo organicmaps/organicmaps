@@ -158,7 +158,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
     mTaxiProduct = products.get(0);
-    final PagerAdapter adapter = new TaxiAdapter(mContext, products);
+    final PagerAdapter adapter = new TaxiAdapter(mContext, mTaxiInfo.getType(), products);
     DotPager pager = new DotPager.Builder(mContext, (ViewPager) mTaxiFrame.findViewById(R.id.pager),
                                           adapter)
         .setIndicatorContainer((ViewGroup) mTaxiFrame.findViewById(R.id.indicator))

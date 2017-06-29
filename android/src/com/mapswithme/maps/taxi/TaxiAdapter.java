@@ -19,10 +19,14 @@ public class TaxiAdapter extends PagerAdapter
   private final Context mContext;
   @NonNull
   private final List<TaxiInfo.Product> mProducts;
+  @TaxiManager.TaxiType
+  private final int mType;
 
-  public TaxiAdapter(@NonNull Context context, @NonNull List<TaxiInfo.Product> products)
+  public TaxiAdapter(@NonNull Context context, @TaxiManager.TaxiType int type,
+                     @NonNull List<TaxiInfo.Product> products)
   {
     mContext = context;
+    mType = type;
     mProducts = products;
   }
 
@@ -45,7 +49,12 @@ public class TaxiAdapter extends PagerAdapter
 
     View v = LayoutInflater.from(mContext).inflate(R.layout.taxi_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
-    name.setText(product.getName());
+    // We ignore all Yandex.Taxi product names until they do support of passing product parameters
+    // to their app vie deeplink.
+    if (mType == TaxiManager.PROVIDER_YANDEX)
+      name.setText(R.string.yandex_taxi_title);
+    else
+      name.setText(product.getName());
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);
     int time = Integer.parseInt(product.getTime());
     CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time, R.dimen.text_size_body_3);
