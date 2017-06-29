@@ -13,10 +13,9 @@
   android:layout_weight="1"
   android:layout_height="wrap_content">
   <ImageView
-    android:id="@+id/icon"
+    android:id="@+id/iv__logo"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/ic_logo_uber"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"/>
