@@ -184,7 +184,7 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
-  maker.DecrementRequestCount(reqId);
+  maker.ProcessError(reqId, taxi::Provider::Type::Uber, taxi::ErrorCode::NoProvider);
   maker.MakeResult(reqId);
 
   TEST_EQUAL(providers.size(), 2, ());

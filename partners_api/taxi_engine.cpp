@@ -42,16 +42,6 @@ void ResultMaker::Reset(uint64_t requestId, size_t requestsCount,
   m_errors.clear();
 }
 
-void ResultMaker::DecrementRequestCount(uint64_t requestId)
-{
-  std::lock_guard<std::mutex> lock(m_mutex);
-
-  if (m_requestId != requestId)
-    return;
-
-  DecrementRequestCount();
-}
-
 void ResultMaker::ProcessProducts(uint64_t requestId, Provider::Type type,
                                   std::vector<Product> const & products)
 {
@@ -136,7 +126,7 @@ uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const 
 
     if (!IsAvailableAtPos(type, from))
     {
-      maker->DecrementRequestCount(reqId);
+      maker->ProcessError(reqId, type, ErrorCode::NoProvider);
       maker->MakeResult(reqId);
       continue;
     }

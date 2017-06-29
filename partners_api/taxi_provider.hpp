@@ -58,7 +58,8 @@ using ProvidersContainer = std::vector<Provider>;
 enum class ErrorCode
 {
   NoProducts,
-  RemoteError
+  RemoteError,
+  NoProvider
 };
 
 struct ProviderError
@@ -86,6 +87,7 @@ inline std::string DebugPrint(ErrorCode code)
   {
   case ErrorCode::NoProducts: return "NoProducts";
   case ErrorCode::RemoteError: return "RemoteError";
+  case ErrorCode::NoProvider: return "NoProvider";
   }
 }
 
