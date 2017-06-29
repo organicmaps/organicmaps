@@ -968,7 +968,7 @@ void registerCellsForTableView(vector<MWMPlacePageCellType> const & cells, UITab
               kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage)
             }
                 atLocation:location];
-      GetFramework().CreateNote(m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
+      GetFramework().CreateNote(self->m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self backTap];
       [self showDropDown];

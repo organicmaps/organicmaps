@@ -332,7 +332,6 @@ void setPermissionRequested()
   MWMLocationManager * manager = [self manager];
   [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
-  auto const & f = GetFramework();
   if ([MWMRouter isRoutingActive])
   {
     switch ([MWMRouter type])
