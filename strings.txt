@@ -24568,6 +24568,10 @@
     sk = Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.
     sw = Ikiwa mtaa au kipengee hakina jina kwa lugha yako, kitaandikwa kwa herufi za alfabeti ya Kilatini.
 
+ [yandex_taxi_title]
+    en = Yandex.Taxi
+    ru = Яндекс.Такси
+
   [learn_more]
     en = Learn more
     ru = Узнать больше
