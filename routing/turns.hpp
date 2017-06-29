@@ -183,7 +183,7 @@ struct TurnItem
            m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
-  uint32_t m_index;               /*!< Index of point on polyline (number of segment + 1). */
+  uint32_t m_index;               /*!< Index of point on route polyline (number of segment + 1). */
   TurnDirection m_turn;           /*!< The turn instruction of the TurnItem */
   vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
   uint32_t m_exitNum;             /*!< Number of exit on roundabout. */
