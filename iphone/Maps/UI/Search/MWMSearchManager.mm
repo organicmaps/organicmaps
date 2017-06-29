@@ -175,6 +175,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+  textField.text = [[textField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet] stringByAppendingString:@" "];
+  [self textFieldTextDidChange:textField];
   [textField resignFirstResponder];
   return YES;
 }
