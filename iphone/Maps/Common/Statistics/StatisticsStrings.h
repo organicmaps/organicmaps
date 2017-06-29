@@ -179,6 +179,7 @@ static NSString * const kStatPlacePageHotelGallery = @"PlacePage_Hotel_Gallery_o
 static NSString * const kStatPlacePageHotelReviews = @"PlacePage_Hotel_Reviews_land";
 static NSString * const kStatPlacePageHotelSearch = @"Search.Booking.Com";
 static NSString * const kStatPlacePageNonBuilding = @"placepage_nonbuilding";
+static NSString * const kStatPlacePageOwnershipButtonClick = @"Placepage_OwnershipButton_click";
 static NSString * const kStatPlacePageRestaurantBook = @"Placepage_Restaurant_book";
 static NSString * const kStatPlacePageTaxiClick = @"Placepage_Taxi_click";
 static NSString * const kStatPointToPoint = @"Point to point";
