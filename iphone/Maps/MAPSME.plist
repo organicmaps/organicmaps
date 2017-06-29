@@ -100,6 +100,7 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 		<string>uber</string>
+		<string>yandextaxi</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
