@@ -14,8 +14,8 @@ extern NSString * const kLocaleUsedInSupportEmails = @"en_gb";
 
 namespace
 {
-NSString * const kCommonReportActionTitle = L(@"leave_a_review");
-NSString * const kBugReportActionTitle = L(@"something_is_not_working");
+NSString * const kCommonReportActionTitle = L(@"feedback_general");
+NSString * const kBugReportActionTitle = L(@"report_a_bug");
 NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kiOSEmail = @"ios@maps.me";
 }
