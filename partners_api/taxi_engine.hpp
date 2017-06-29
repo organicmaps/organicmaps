@@ -1,7 +1,5 @@
 #pragma once
 
-#include "storage/index.hpp"
-
 #include "partners_api/taxi_base.hpp"
 
 #include <cstdint>
@@ -15,6 +13,15 @@ using SuccessCallback =
     std::function<void(ProvidersContainer const & products, uint64_t const requestId)>;
 
 using ErrorCallback = std::function<void(ErrorsContainer const & errors, uint64_t const requestId)>;
+
+class Delegate
+{
+public:
+  virtual ~Delegate() = default;
+
+  virtual storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) = 0;
+  virtual std::string GetCityName(ms::LatLon const & latlon) = 0;
+};
 
 /// This class is used to collect replies from all taxi apis and to call callback when all replies
 /// are collected. The methods are called in callbacks on different threads, so synchronization is
@@ -60,48 +67,35 @@ class Engine final
 public:
   explicit Engine(std::vector<ProviderUrl> urls = {});
 
+  void SetDelegate(std::unique_ptr<Delegate> delegate);
+
   /// Requests list of available products. Returns request identificator immediately.
   uint64_t GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
-                                storage::TCountriesVec const & countryIds,
                                 SuccessCallback const & successFn, ErrorCallback const & errorFn);
 
   /// Returns link which allows you to launch some taxi app.
   RideRequestLinks GetRideRequestLinks(Provider::Type type, std::string const & productId,
                                        ms::LatLon const & from, ms::LatLon const & to) const;
 
+  std::vector<Provider::Type> GetProvidersAtPos(ms::LatLon const & pos) const;
+
 private:
-  bool AreAllCountriesDisabled(Provider::Type type,
-                               storage::TCountriesVec const & countryIds) const;
-  bool IsAnyCountryEnabled(Provider::Type type, storage::TCountriesVec const & countryIds) const;
+  bool IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const;
+  bool AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & latlon) const;
+  bool IsAnyCountryEnabled(Provider::Type type, ms::LatLon const & latlon) const;
 
   template <typename ApiType>
-  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type);
+  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type, Countries const & enabled,
+              Countries const & disabled);
 
-  using ApiPtr = std::unique_ptr<ApiBase>;
-
-  struct ApiContainerItem
-  {
-    ApiContainerItem(Provider::Type type, ApiPtr && api) : m_type(type), m_api(std::move(api)) {}
-
-    Provider::Type m_type;
-    ApiPtr m_api;
-  };
-
-  struct SupportedCountriesItem
-  {
-    Provider::Type m_type;
-    storage::TCountriesVec m_countries;
-  };
-
-  std::vector<ApiContainerItem> m_apis;
-
-  std::vector<SupportedCountriesItem> m_enabledCountries;
-  std::vector<SupportedCountriesItem> m_disabledCountries;
+  std::vector<ApiItem> m_apis;
 
   // Id for currently processed request.
   uint64_t m_requestId = 0;
   // Use single instance of maker for all requests, for this reason,
   // all outdated requests will be ignored.
   std::shared_ptr<ResultMaker> m_maker = std::make_shared<ResultMaker>();
+
+  std::unique_ptr<Delegate> m_delegate;
 };
 }  // namespace taxi

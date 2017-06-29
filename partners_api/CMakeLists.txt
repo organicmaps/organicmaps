@@ -19,9 +19,13 @@ set(
   opentable_api.hpp
   rb_ads.cpp
   rb_ads.hpp
+  taxi_base.cpp
   taxi_base.hpp
+  taxi_countries.cpp
+  taxi_countries.hpp
   taxi_engine.cpp
   taxi_engine.hpp
+  taxi_places.hpp 
   taxi_provider.hpp
   uber_api.cpp
   uber_api.hpp

@@ -71,7 +71,7 @@ private:
 class Api : public ApiBase
 {
 public:
-  explicit Api(std::string const & baseUrl = kEstimatesUrl) : m_baseUrl(baseUrl) {}
+  explicit Api(std::string const & baseUrl = kEstimatesUrl) : ApiBase(baseUrl) {}
   // ApiBase overrides:
   /// Requests list of available products from Uber.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
@@ -85,7 +85,6 @@ public:
 private:
   shared_ptr<ProductMaker> m_maker = make_shared<ProductMaker>();
   uint64_t m_requestId = 0;
-  string const m_baseUrl;
 };
 
 void SetUberUrlForTesting(string const & url);

@@ -6,10 +6,18 @@
 
 #include "geometry/latlon.hpp"
 
-#include "base/scope_guard.hpp"
+#include "base/stl_add.hpp"
 
 namespace
 {
+class TaxiDelegateForTrsting : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override { return {"Belarus"}; }
+
+  std::string GetCityName(ms::LatLon const & latlon) override { return "Minsk"; }
+};
+
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
                                               std::string const & url)
 {
@@ -46,13 +54,24 @@ std::vector<taxi::Product> GetYandexSynchronous(ms::LatLon const & from, ms::Lat
   return yandexProducts;
 }
 
-taxi::ProvidersContainer GetProvidersSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
+                                                 ms::LatLon const & from, ms::LatLon const & to,
                                                  std::string const & url)
 {
   taxi::ProvidersContainer providers;
 
-  providers.emplace_back(taxi::Provider::Type::Uber, GetUberSynchronous(from, to, url));
-  providers.emplace_back(taxi::Provider::Type::Yandex, GetYandexSynchronous(from, to, url));
+  for (auto const provider : engine.GetProvidersAtPos(from))
+  {
+    switch (provider)
+    {
+    case taxi::Provider::Type::Uber:
+      providers.emplace_back(taxi::Provider::Type::Uber, GetUberSynchronous(from, to, url));
+      break;
+    case taxi::Provider::Type::Yandex:
+      providers.emplace_back(taxi::Provider::Type::Yandex, GetYandexSynchronous(from, to, url));
+      break;
+    }
+  }
 
   return providers;
 }
@@ -236,33 +255,36 @@ UNIT_TEST(TaxiEngine_Smoke)
     testing::StopEventLoop();
   };
 
-  taxi::ProvidersContainer const synchronousProviders = GetProvidersSynchronous(from, to, kTesturl);
+  taxi::Engine engine(
+      {{taxi::Provider::Type::Uber, kTesturl}, {taxi::Provider::Type::Yandex, kTesturl}});
+
+  engine.SetDelegate(my::make_unique<TaxiDelegateForTrsting>());
+
+  taxi::ProvidersContainer const synchronousProviders =
+      GetProvidersSynchronous(engine, from, to, kTesturl);
 
   {
-    taxi::Engine engine(
-        {{taxi::Provider::Type::Uber, kTesturl}, {taxi::Provider::Type::Yandex, kTesturl}});
     {
       lock_guard<mutex> lock(resultsMutex);
-      reqId = engine.GetAvailableProducts(
-          ms::LatLon(55.753960, 37.624513), ms::LatLon(55.765866, 37.661270),
-          {"Brazil", "Russian Federation"}, standardCallback, errorPossibleCallback);
+      reqId = engine.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
+                                          ms::LatLon(55.765866, 37.661270), standardCallback,
+                                          errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
-      reqId = engine.GetAvailableProducts(
-          ms::LatLon(59.922445, 30.367201), ms::LatLon(59.943675, 30.361123),
-          {"Brazil", "Russian Federation"}, standardCallback, errorPossibleCallback);
+      reqId = engine.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
+                                          ms::LatLon(59.943675, 30.361123), standardCallback,
+                                          errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
-      reqId = engine.GetAvailableProducts(
-          ms::LatLon(52.509621, 13.450067), ms::LatLon(52.510811, 13.409490),
-          {"Brazil", "Russian Federation"}, standardCallback, errorPossibleCallback);
+      reqId = engine.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
+                                          ms::LatLon(52.510811, 13.409490), standardCallback,
+                                          errorPossibleCallback);
     }
     {
       lock_guard<mutex> lock(resultsMutex);
-      reqId = engine.GetAvailableProducts(from, to, {"Brazil", "Russian Federation"}, lastCallback,
-                                          errorCallback);
+      reqId = engine.GetAvailableProducts(from, to, lastCallback, errorCallback);
     }
   }
 

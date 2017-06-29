@@ -49,6 +49,8 @@ namespace taxi
 {
 namespace yandex
 {
+Countries const kEnabledCountries = {{{}}};
+
 bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::string & result,
                          std::string const & baseUrl /* = kTaxiInfoUrl */)
 {

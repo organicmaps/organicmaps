@@ -26,7 +26,7 @@ public:
 class Api : public ApiBase
 {
 public:
-  explicit Api(std::string const & baseUrl = kTaxiInfoUrl) : m_baseUrl(baseUrl) {}
+  explicit Api(std::string const & baseUrl = kTaxiInfoUrl) : ApiBase(baseUrl) {}
   // ApiBase overrides:
   /// Requests list of available products from Yandex.
   void GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
@@ -36,9 +36,6 @@ public:
   /// Returns link which allows you to launch the Yandex app.
   RideRequestLinks GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                        ms::LatLon const & to) const override;
-
-private:
-  std::string const m_baseUrl;
 };
 
 void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products);

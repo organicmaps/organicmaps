@@ -1,5 +1,6 @@
 #pragma once
 
+#include "partners_api/taxi_countries.hpp"
 #include "partners_api/taxi_provider.hpp"
 
 #include <functional>
@@ -29,6 +30,7 @@ struct RideRequestLinks
 class ApiBase
 {
 public:
+  ApiBase(std::string const & baseUrl) : m_baseUrl(baseUrl) {}
   virtual ~ApiBase() = default;
 
   /// Requests list of available products. Returns request identificator immediately.
@@ -41,7 +43,31 @@ public:
                                                ms::LatLon const & from,
                                                ms::LatLon const & to) const = 0;
 
-private:
+protected:
   std::string const m_baseUrl;
+};
+
+using ApiPtr = std::unique_ptr<ApiBase>;
+
+struct ApiItem
+{
+  ApiItem(Provider::Type type, ApiPtr && api, Countries const & enabled, Countries const & disabled)
+    : m_type(type)
+    , m_api(std::move(api))
+    , m_enabledCountries(enabled)
+    , m_disabledCountries(disabled)
+  {
+  }
+
+  bool AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
+                               std::string const & city) const;
+  bool IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
+                           std::string const & city) const;
+
+  Provider::Type m_type;
+  ApiPtr m_api;
+
+  Countries m_enabledCountries;
+  Countries m_disabledCountries;
 };
 }  // namespace taxi

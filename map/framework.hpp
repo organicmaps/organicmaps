@@ -181,7 +181,6 @@ protected:
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
   unique_ptr<viator::Api> m_viatorApi = make_unique<viator::Api>();
-  unique_ptr<taxi::Engine> m_taxiEngine = make_unique<taxi::Engine>();
 
   df::DrapeApi m_drapeApi;
 
@@ -836,4 +835,10 @@ public:
 private:
   std::unique_ptr<search::CityFinder> m_cityFinder;
   unique_ptr<ads::Engine> m_adsEngine;
+  // The order matters here: storage::CountryInfoGetter and
+  // search::CityFinder must be initialized before
+  // taxi::Engine and, therefore, destroyed after taxi::Engine.
+  unique_ptr<taxi::Engine> m_taxiEngine;
+
+  void InitTaxiEngine();
 };

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "map/bookmark.hpp"
+
+#include "partners_api/taxi_provider.hpp"
+
 #include "map/routing_mark.hpp"
 
 #include "storage/index.hpp"
@@ -102,7 +105,7 @@ public:
   bool HasBanner() const;
   vector<ads::Banner> GetBanners() const;
 
-  bool IsReachableByTaxi() const;
+  std::vector<taxi::Provider::Type> ReachableByTaxiProviders() const;
 
   void SetMercator(m2::PointD const & mercator);
 
@@ -169,5 +172,7 @@ public:
 
   LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
   string m_localAdsUrl;
+
+  std::vector<taxi::Provider::Type> m_reachableByProviders;
 };
 }  // namespace place_page

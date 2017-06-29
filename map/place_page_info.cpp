@@ -215,9 +215,12 @@ vector<ads::Banner> Info::GetBanners() const
   return m_adsEngine->GetBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
 
-bool Info::IsReachableByTaxi() const
+std::vector<taxi::Provider::Type> Info::ReachableByTaxiProviders() const
 {
-  return IsReachableByTaxiChecker::Instance()(m_types);
+  if (!IsReachableByTaxiChecker::Instance()(m_types))
+    return {};
+
+  return m_reachableByProviders;
 }
 
 void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }

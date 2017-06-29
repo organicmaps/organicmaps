@@ -5,6 +5,7 @@
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/mwm_tree.hpp"
+#include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 
 #include "defines.hpp"
@@ -354,6 +355,7 @@ void Framework::Migrate(bool keepDownloaded)
   m_selectedFeature = FeatureID();
   m_searchEngine.reset();
   m_infoGetter.reset();
+  m_taxiEngine.reset();
   TCountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
@@ -362,6 +364,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
+  InitTaxiEngine();
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -475,6 +478,7 @@ Framework::Framework(FrameworkParams const & params)
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
+  InitTaxiEngine();
 }
 
 Framework::~Framework()
@@ -921,6 +925,10 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   {
     info.m_localAdsStatus = place_page::LocalAdsStatus::NotAvailable;
   }
+
+  auto const latlon = MercatorBounds::ToLatLon(feature::GetCenter(ft));
+  ASSERT(m_taxiEngine, ());
+  info.m_reachableByProviders = m_taxiEngine->GetProvidersAtPos(latlon);
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
@@ -3294,4 +3302,16 @@ void Framework::RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> 
 {
   m_storage.ForEachCountryFile(
       [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
+}
+
+void Framework::InitTaxiEngine()
+{
+  ASSERT(!m_taxiEngine, ());
+  ASSERT(m_infoGetter, ());
+  ASSERT(m_cityFinder, ());
+
+  m_taxiEngine = my::make_unique<taxi::Engine>();
+
+  m_taxiEngine->SetDelegate(
+      my::make_unique<TaxiDelegate>(GetStorage(), *m_infoGetter, *m_cityFinder));
 }

@@ -16,6 +16,8 @@ SOURCES += \
     mopub_ads.cpp \
     opentable_api.cpp \
     rb_ads.cpp \
+    taxi_base.cpp \
+    taxi_countries.cpp \
     taxi_engine.cpp \
     uber_api.cpp \
     viator_api.cpp \
@@ -31,7 +33,9 @@ HEADERS += \
     opentable_api.hpp \
     rb_ads.hpp \
     taxi_base.hpp \
+    taxi_countries.hpp \
     taxi_engine.hpp \
+    taxi_places.hpp \
     taxi_provider.hpp \
     uber_api.hpp \
     viator_api.cpp \
