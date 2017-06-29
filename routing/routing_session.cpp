@@ -44,7 +44,7 @@ size_t constexpr kSpeedCameraLookAheadCount = 50;
 
 double constexpr kCompletionPercentAccuracy = 5;
 
-uint32_t constexpr kMinimumETASec = 60;
+double constexpr kMinimumETASec = 60.0;
 }  // namespace
 
 namespace routing
@@ -299,7 +299,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   {
     info = FollowingInfo();
     formatDistFn(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
-    info.m_time = max(kMinimumETASec, m_route->GetCurrentTimeToEndSec());
+    info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
     return;
   }
 
@@ -318,7 +318,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
 
   info.m_exitNum = turn.m_exitNum;
-  info.m_time = max(kMinimumETASec, m_route->GetCurrentTimeToEndSec());
+  info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
   m_route->GetCurrentStreetName(info.m_sourceName);
   m_route->GetStreetNameAfterIdx(turn.m_index, info.m_targetName);
   info.m_completionPercent = GetCompletionPercent();
@@ -461,18 +461,8 @@ traffic::SpeedGroup RoutingSession::MatchTraffic(
 
   size_t const index = routeMatchingInfo.GetIndexInRoute();
   threads::MutexGuard guard(m_routingSessionMutex);
-  vector<traffic::SpeedGroup> const & traffic = m_route->GetTraffic();
 
-  if (traffic.empty())
-    return SpeedGroup::Unknown;
-
-  if (index >= traffic.size())
-  {
-    LOG(LERROR, ("Invalid index", index, "in RouteMatchingInfo, traffic.size():", traffic.size()));
-    return SpeedGroup::Unknown;
-  }
-
-  return traffic[index];
+  return m_route->GetTraffic(index);
 }
 
 bool RoutingSession::DisableFollowMode()
@@ -620,7 +610,7 @@ bool RoutingSession::HasRouteAltitudeImpl() const
 {
   ASSERT(m_route, ());
 
-  return m_route->GetAltitudes().size() == m_route->GetSegDistanceMeters().size() + 1;
+  return m_route->HaveAltitudes();
 }
 
 bool RoutingSession::HasRouteAltitude() const
@@ -639,7 +629,8 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
     return false;
 
   routeSegDistanceM = m_route->GetSegDistanceMeters();
-  routeAltitudesM.assign(m_route->GetAltitudes().cbegin(), m_route->GetAltitudes().cend());
+  feature::TAltitudes altitudes;
+  m_route->GetAltitudes(routeAltitudesM);
   return true;
 }
 

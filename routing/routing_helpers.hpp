@@ -36,8 +36,8 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
-                      my::Cancellable const & cancellable, bool hasAltitude,
-                      vector<Junction> const & path, Route::TTimes && times, Route & route);
+                      my::Cancellable const & cancellable, vector<Junction> const & path,
+                      Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
 /// \returns false if mwm of |edge| is not alive.

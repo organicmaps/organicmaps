@@ -26,12 +26,6 @@ public:
     Update();
   }
 
-  void PopBack()
-  {
-    m_poly.PopBack();
-    Update();
-  }
-
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
@@ -39,10 +33,11 @@ public:
   double GetTotalDistanceM() const;
   double GetDistanceFromBeginM() const;
   double GetDistanceToEndM() const;
-  double GetMercatorDistanceFromBegin() const;
+  double GetDistFromCurPointToRoutePointMerc() const;
+  double GetDistFromCurPointToRoutePointMeters() const;
 
   /*! \brief Return next navigation point for direction widgets.
-   *  Returns first geomety point from the polyline after your location if it is farther then
+   *  Returns first geometry point from the polyline after your location if it is farther then
    *  toleranceM.
    */
   void GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const;

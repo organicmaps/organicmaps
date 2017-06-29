@@ -399,7 +399,8 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
@@ -418,7 +419,8 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
@@ -437,7 +439,8 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
@@ -456,7 +459,8 @@ UNIT_TEST(RussiaMoscowTrubnikovPereulok30Ac1LiftGate)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 2, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::LiftGate, ());
@@ -474,7 +478,8 @@ UNIT_TEST(RussiaMoscowKhlebnyyLane15c1Gate)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 2, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Gate, ());
@@ -492,7 +497,8 @@ UNIT_TEST(RussiaMoscowKhlebnyyLane19LiftGateAndGate)
   IRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, IRouter::NoError, ());
 
-  auto const & t = route.GetTurns();
+  vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::LiftGate, ());

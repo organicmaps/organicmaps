@@ -253,7 +253,9 @@ namespace integration
   void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   {
     // We use -1 for ignoring the "ReachedYourDestination" turn record.
-    TEST_EQUAL(route.GetTurns().size() - 1, expectedTurnCount, ());
+    vector<turns::TurnItem> turns;
+    route.GetTurnsForTesting(turns);
+    TEST_EQUAL(turns.size() - 1, expectedTurnCount, ());
   }
 
   void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
@@ -268,7 +270,7 @@ namespace integration
     string streetName;
     double distance;
     turns::TurnItem turn;
-    TEST(route.GetCurrentTurn(distance, turn), ());
+    route.GetCurrentTurn(distance, turn);
     route.GetStreetNameAfterIdx(turn.m_index, streetName);
     TEST_EQUAL(streetName, expectedStreetName, ());
   }
@@ -343,7 +345,8 @@ namespace integration
 
   TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   {
-    Route::TTurns const & turns = route.GetTurns();
+    vector<turns::TurnItem> turns;
+    route.GetTurnsForTesting(turns);
     if (turnNumber >= turns.size())
       return TestTurn();
 

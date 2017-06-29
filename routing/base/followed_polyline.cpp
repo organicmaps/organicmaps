@@ -166,18 +166,20 @@ Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
   return res;
 }
 
-double FollowedPolyline::GetMercatorDistanceFromBegin() const
+double FollowedPolyline::GetDistFromCurPointToRoutePointMerc() const
 {
-  double distance = 0.0;
-  if (m_current.IsValid())
-  {
-    for (size_t i = 1; i <= m_current.m_ind; i++)
-      distance += m_poly.GetPoint(i).Length(m_poly.GetPoint(i - 1));
+  if (!m_current.IsValid())
+    return 0.0;
 
-    distance += m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
-  }
+  return m_poly.GetPoint(m_current.m_ind).Length(m_current.m_pt);
+}
 
-  return distance;
+double FollowedPolyline::GetDistFromCurPointToRoutePointMeters() const
+{
+  if (!m_current.IsValid())
+    return 0.0;
+
+  return MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt);
 }
 
 void FollowedPolyline::GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const

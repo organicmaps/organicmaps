@@ -148,7 +148,6 @@ public:
   Route(string const & router, TIter beg, TIter end)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
   {
-    Update();
   }
 
   Route(string const & router, vector<m2::PointD> const & points, string const & name = string());
@@ -161,35 +160,39 @@ public:
       FollowedPolyline().Swap(m_poly);
     else
       FollowedPolyline(beg, end).Swap(m_poly);
-    Update();
   }
 
-  inline void SetTurnInstructions(TTurns && v) { m_turns = move(v); }
-  inline void SetSectionTimes(TTimes && v) { m_times = move(v); }
-  inline void SetStreetNames(TStreets && v) { m_streets = move(v); }
-  inline void SetAltitudes(feature::TAltitudes && v) { m_altitudes = move(v); }
-  inline void SetTraffic(vector<traffic::SpeedGroup> && v) { m_traffic = move(v); }
-
   template <class SI>
-  void SetRouteSegments(SI && v) { m_routeSegments = std::forward<SI>(v); }
+  void SetRouteSegments(SI && v)
+  {
+    m_routeSegments = std::forward<SI>(v);
+
+    m_haveAltitudes = true;
+    for (auto const & s : m_routeSegments)
+    {
+      if (s.GetJunction().GetAltitude() == feature::kInvalidAltitude)
+        m_haveAltitudes = false;
+    }
+  }
 
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 
   template <class V>
   void SetSubroteAttrs(V && subroutes) { m_subrouteAttrs = std::forward<V>(subroutes); }
 
-  uint32_t GetTotalTimeSec() const;
-  uint32_t GetCurrentTimeToEndSec() const;
+  /// \returns estimated time for the whole route.
+  double GetTotalTimeSec() const;
+  /// \returns estimated time to reach the route end.
+  double GetCurrentTimeToEndSec() const;
 
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
-  TTurns const & GetTurns() const { return m_turns; }
-  feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
-  vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
+  
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
+
   vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
@@ -201,22 +204,19 @@ public:
   /// \brief GetCurrentTurn returns information about the nearest turn.
   /// \param distanceToTurnMeters is a distance from current position to the nearest turn.
   /// \param turn is information about the nearest turn.
-  bool GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   /// \brief Returns a name of a street where the user rides at this moment.
-  void GetCurrentStreetName(string &) const;
+  void GetCurrentStreetName(string & name) const;
 
   /// \brief Returns a name of a street next to idx point of the path. Function avoids short unnamed links.
-  void GetStreetNameAfterIdx(uint32_t idx, string &) const;
+  void GetStreetNameAfterIdx(uint32_t idx, string & name) const;
 
-  /// @return true if GetNextTurn() returns a valid result in parameters, false otherwise.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
   /// \param turn is information about the second turn.
-  /// @return true if its parameters are filled with correct result.
   /// \note All parameters are filled while a GetNextTurn function call.
   bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
   /// \brief Extract information about zero, one or two nearest turns depending on current position.
-  /// @return true if its parameter is filled with correct result. (At least with one element.)
   bool GetNextTurns(vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
@@ -235,7 +235,6 @@ public:
   inline void SetRoutingSettings(RoutingSettings const & routingSettings)
   {
     m_routingSettings = routingSettings;
-    Update();
   }
 
   // Subroute interface.
@@ -268,35 +267,37 @@ public:
   /// after the route is removed.
   void SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid);
 
+  void GetAltitudes(feature::TAltitudes & altitudes) const;
+  bool HaveAltitudes() const { return m_haveAltitudes; }
+  traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
+
+  void GetTurnsForTesting(vector<turns::TurnItem> & turns) const;
+
 private:
   friend string DebugPrint(Route const & r);
 
-  /// Call this fucnction when geometry have changed.
-  void Update();
   double GetPolySegAngle(size_t ind) const;
-  TTurns::const_iterator GetCurrentTurn() const;
-  TStreets::const_iterator GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const;
+  void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
+  size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;
 
-  Junction GetJunction(size_t pointIdx) const;
+  /// \returns Estimated time to pass the route segment with |segIdx|.
+  double GetTimeToPassSegS(size_t segIdx) const;
+  /// \returns Length of the route segment with |segIdx| in meters.
+  double GetSegLenMeters(size_t segIdx) const;
+  /// \returns ETA to the last passed route point in seconds.
+  double GetETAToLastPassedPointS() const;
 
   string m_router;
   RoutingSettings m_routingSettings;
   string m_name;
 
   FollowedPolyline m_poly;
-  FollowedPolyline m_simplifiedPoly;
 
   set<string> m_absentCountries;
-
-  TTurns m_turns;
-  TTimes m_times;
-  TStreets m_streets;
-  feature::TAltitudes m_altitudes;
-  vector<traffic::SpeedGroup> m_traffic;
-
   std::vector<RouteSegment> m_routeSegments;
-
-  mutable double m_currentTime;
+  // |m_haveAltitudes| == true if all route points have altitude information.
+  // |m_haveAltitudes| == false if at least one of route points don't have altitude information.
+  bool m_haveAltitudes = false;
 
   // Subroute
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;

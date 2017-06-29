@@ -37,7 +37,6 @@ Route::Route(string const & router, vector<m2::PointD> const & points, string co
   : m_router(router), m_routingSettings(GetCarRoutingSettings()),
     m_name(name), m_poly(points.begin(), points.end())
 {
-  Update();
 }
 
 void Route::Swap(Route & rhs)
@@ -45,15 +44,8 @@ void Route::Swap(Route & rhs)
   m_router.swap(rhs.m_router);
   swap(m_routingSettings, rhs.m_routingSettings);
   m_poly.Swap(rhs.m_poly);
-  m_simplifiedPoly.Swap(rhs.m_simplifiedPoly);
   m_name.swap(rhs.m_name);
-  swap(m_currentTime, rhs.m_currentTime);
-  swap(m_turns, rhs.m_turns);
-  swap(m_times, rhs.m_times);
-  swap(m_streets, rhs.m_streets);
   m_absentCountries.swap(rhs.m_absentCountries);
-  m_altitudes.swap(rhs.m_altitudes);
-  m_traffic.swap(rhs.m_traffic);
   m_routeSegments.swap(rhs.m_routeSegments);
   m_subrouteAttrs.swap(rhs.m_subrouteAttrs);
 }
@@ -86,156 +78,137 @@ double Route::GetCurrentDistanceToEndMeters() const
 
 double Route::GetMercatorDistanceFromBegin() const
 {
-  //TODO Maybe better to return FollowedRoute and user will call GetMercatorDistance etc. by itself
-  return m_poly.GetMercatorDistanceFromBegin();
-}
-
-uint32_t Route::GetTotalTimeSec() const
-{
-  return m_times.empty() ? 0 : m_times.back().second;
-}
-
-uint32_t Route::GetCurrentTimeToEndSec() const
-{
-  size_t const polySz = m_poly.GetPolyline().GetSize();
-  if (m_times.empty() || polySz == 0)
-  {
-    ASSERT(!m_times.empty(), ());
-    ASSERT(polySz != 0, ());
-    return 0;
-  }
-
-  TTimes::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_poly.GetCurrentIter().m_ind,
-                                         [](size_t v, Route::TTimeItem const & item) { return v < item.first; });
-
-  if (it == m_times.end())
+  auto const & curIter = m_poly.GetCurrentIter();
+  if (!IsValid() || !curIter.IsValid())
     return 0;
 
-  size_t idx = distance(m_times.begin(), it);
-  double time = (*it).second;
-  if (idx > 0)
-    time -= m_times[idx - 1].second;
-
-  auto distFn = [&](size_t start, size_t end)
-  {
-    return m_poly.GetDistanceM(m_poly.GetIterToIndex(start), m_poly.GetIterToIndex(end));
-  };
-
-  ASSERT_LESS(m_times[idx].first, polySz, ());
-  double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first);
-
-  if (!my::AlmostEqualULPs(dist, 0.))
-  {
-    double const distRemain = distFn(m_poly.GetCurrentIter().m_ind, m_times[idx].first) -
-                                     MercatorBounds::DistanceOnEarth(m_poly.GetCurrentIter().m_pt,
-                                     m_poly.GetPolyline().GetPoint(m_poly.GetCurrentIter().m_ind));
-    return (uint32_t)((GetTotalTimeSec() - (*it).second) + (double)time * (distRemain / dist));
-  }
-  else
-    return (uint32_t)((GetTotalTimeSec() - (*it).second));
+  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
+  double const distMerc =
+      curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
+  return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
 }
 
-Route::TTurns::const_iterator Route::GetCurrentTurn() const
+double Route::GetTotalTimeSec() const
 {
-  ASSERT(!m_turns.empty(), ());
+  return m_routeSegments.empty() ? 0 : m_routeSegments.back().GetTimeFromBeginningS();
+}
 
-  TurnItem t;
-  t.m_index = static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind);
-  return upper_bound(m_turns.cbegin(), m_turns.cend(), t,
-         [](TurnItem const & lhs, TurnItem const & rhs)
-         {
-           return lhs.m_index < rhs.m_index;
-         });
+double Route::GetCurrentTimeToEndSec() const
+{
+  auto const & curIter = m_poly.GetCurrentIter();
+  if (!IsValid() || !curIter.IsValid())
+    return 0.0;
+
+  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
+  double const etaToLastPassedPointS = GetETAToLastPassedPointS();
+  double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
+  double const totalTimeS = GetTotalTimeSec();
+  // Note. If a segment is short it does not make any sence to take into account time needed
+  // to path its part.
+  if (my::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
+    return totalTimeS - etaToLastPassedPointS;
+
+  double const curSegTimeS = GetTimeToPassSegS(curIter.m_ind);
+  CHECK_GREATER(curSegTimeS, 0, ("Route can't contain segments with infinite speed."));
+
+  double const curSegSpeedMPerS = curSegLenMeters / curSegTimeS;
+  CHECK_GREATER(curSegSpeedMPerS, 0, ("Route can't contain segments with zero speed."));
+  return totalTimeS - (etaToLastPassedPointS +
+                       m_poly.GetDistFromCurPointToRoutePointMeters() / curSegSpeedMPerS);
 }
 
 void Route::GetCurrentStreetName(string & name) const
 {
-  auto it = GetCurrentStreetNameIterAfter(m_poly.GetCurrentIter());
-  if (it == m_streets.cend())
-    name.clear();
-  else
-    name = it->second;
+  name.clear();
+  GetStreetNameAfterIdx(static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind), name);
 }
 
 void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
 {
   name.clear();
-  auto polyIter = m_poly.GetIterToIndex(idx);
-  auto it = GetCurrentStreetNameIterAfter(polyIter);
-  if (it == m_streets.cend())
+  auto const iterIdx = m_poly.GetIterToIndex(idx);
+  if (!IsValid() || !iterIdx.IsValid())
     return;
-  for (;it != m_streets.cend(); ++it)
-    if (!it->second.empty())
+
+  size_t i = idx;
+  for (; i < m_poly.GetPolyline().GetSize(); ++i)
+  {
+    // Note. curIter.m_ind == 0 means route iter at zero point. No corresponding route segments at
+    // |m_routeSegments| in this case. |name| should be cleared.
+    if (i == 0)
+      continue;
+
+    string const n = m_routeSegments[ConvertPointIdxToSegmentIdx(i)].GetStreet();
+    if (!n.empty())
     {
-      if (m_poly.GetDistanceM(polyIter, m_poly.GetIterToIndex(max(it->first, static_cast<uint32_t>(polyIter.m_ind)))) < kSteetNameLinkMeters)
-        name = it->second;
+      name = n;
       return;
     }
+    auto const furtherIter = m_poly.GetIterToIndex(i);
+    CHECK(furtherIter.IsValid(), ());
+    if (m_poly.GetDistanceM(iterIdx, furtherIter) > kSteetNameLinkMeters)
+      return;
+  }
 }
 
-Route::TStreets::const_iterator Route::GetCurrentStreetNameIterAfter(FollowedPolyline::Iter iter) const
+size_t Route::ConvertPointIdxToSegmentIdx(size_t pointIdx) const
 {
-  // m_streets empty for pedestrian router.
-  if (m_streets.empty())
-  {
-    return m_streets.cend();
-  }
-
-  TStreets::const_iterator curIter = m_streets.cbegin();
-  TStreets::const_iterator prevIter = curIter;
-  curIter++;
-
-  while (curIter->first < iter.m_ind)
-  {
-    ++prevIter;
-    ++curIter;
-    if (curIter == m_streets.cend())
-      return curIter;
-  }
-  return curIter->first == iter.m_ind ? curIter : prevIter;
+  CHECK_GREATER(pointIdx, 0, ());
+  // Note. |pointIdx| is an index at |m_poly|. Properties of the point gets a segment at |m_routeSegments|
+  // which precedes the point. So to get segment index it's needed to subtract one.
+  CHECK_LESS(pointIdx, m_routeSegments.size() + 1, ());
+  return pointIdx - 1;
 }
 
-bool Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
+void Route::GetClosestTurn(size_t segIdx, TurnItem & turn) const
 {
-  auto it = GetCurrentTurn();
-  if (it == m_turns.end())
-  {
-    ASSERT(false, ());
-    return false;
-  }
+  CHECK_LESS(segIdx, m_routeSegments.size(), ());
 
-  size_t const segIdx = (*it).m_index;
-  turn = (*it);
+  for (size_t i = segIdx; i < m_routeSegments.size(); ++i)
+  {
+    if (m_routeSegments[i].GetTurn().m_turn != TurnDirection::NoTurn ||
+        m_routeSegments[i].GetTurn().m_pedestrianTurn != PedestrianDirection::None)
+    {
+      turn = m_routeSegments[i].GetTurn();
+      return;
+    }
+  }
+  CHECK(false, ("Last turn should be TurnDirection::ReachedYourDestination."));
+  return;
+}
+
+void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
+{
+  // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at the polyline.
+  GetClosestTurn(m_poly.GetCurrentIter().m_ind, turn);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
-                                             m_poly.GetIterToIndex(segIdx));
-  return true;
+                                             m_poly.GetIterToIndex(turn.m_index));
 }
 
 bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
-  auto it = GetCurrentTurn();
-  auto const turnsEnd = m_turns.end();
-  ASSERT(it != turnsEnd, ());
-
-  if (it == turnsEnd || (it + 1) == turnsEnd)
+  TurnItem curTurn;
+  GetClosestTurn(m_poly.GetCurrentIter().m_ind, curTurn);
+  if (curTurn.m_turn == TurnDirection::ReachedYourDestination)
   {
     turn = TurnItem();
-    distanceToTurnMeters = 0;
     return false;
   }
 
-  it += 1;
-  turn = *it;
+  // Note. curTurn.m_index is index of |curTurn| at polyline |m_poly| starting from zero point.
+  // So index of the turn at |m_routeSegments| is |curTurn.m_index| - 1.
+  // To find the next turn next turn after |curTurn.m_index| - 1 should be used.
+  CHECK_LESS(curTurn.m_index, m_routeSegments.size(), ());
+  GetClosestTurn(curTurn.m_index, turn);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
-                                             m_poly.GetIterToIndex(it->m_index));
+                                             m_poly.GetIterToIndex(turn.m_index));
   return true;
 }
 
 bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
 {
   TurnItemDist currentTurn;
-  if (!GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem))
-    return false;
+  GetCurrentTurn(currentTurn.m_distMeters, currentTurn.m_turnItem);
 
   turns.clear();
   turns.emplace_back(move(currentTurn));
@@ -248,30 +221,15 @@ bool Route::GetNextTurns(vector<TurnItemDist> & turns) const
 
 void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 {
-  if (m_routingSettings.m_keepPedestrianInfo && m_simplifiedPoly.IsValid())
-    m_simplifiedPoly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
-  else
-    m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
+  m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
 {
-  double predictDistance = -1.0;
-  if (m_currentTime > 0.0 && info.HasSpeed())
-  {
-    /// @todo Need to distinguish GPS and WiFi locations.
-    /// They may have different time metrics in case of incorrect system time on a device.
-    double const deltaT = info.m_timestamp - m_currentTime;
-    if (deltaT > 0.0 && deltaT < kLocationTimeThreshold)
-      predictDistance = info.m_speed * deltaT;
-  }
-
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  FollowedPolyline::Iter const res = m_poly.UpdateProjectionByPrediction(rect, predictDistance);
-  if (m_simplifiedPoly.IsValid())
-    m_simplifiedPoly.UpdateProjectionByPrediction(rect, predictDistance);
+  FollowedPolyline::Iter const res = m_poly.UpdateProjectionByPrediction(rect, -1.0 /* predictDistance */);
   return res.IsValid();
 }
 
@@ -315,27 +273,6 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
   }
 }
 
-void Route::Update()
-{
-  if (!m_poly.IsValid())
-    return;
-  if (m_routingSettings.m_keepPedestrianInfo)
-  {
-    vector<m2::PointD> points;
-    auto distFn = m2::DistanceToLineSquare<m2::PointD>();
-    // TODO (ldargunov) Rewrite dist f to distance in meters and avoid 0.00000 constants.
-    SimplifyNearOptimal(20, m_poly.GetPolyline().Begin(), m_poly.GetPolyline().End(), 0.00000001, distFn,
-                        MakeBackInsertFunctor(points));
-    FollowedPolyline(points.begin(), points.end()).Swap(m_simplifiedPoly);
-  }
-  else
-  {
-    // Free memory if we don't need simplified geometry.
-    FollowedPolyline().Swap(m_simplifiedPoly);
-  }
-  m_currentTime = 0.0;
-}
-
 size_t Route::GetSubrouteCount() const { return m_subrouteAttrs.size(); }
 
 void Route::GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const
@@ -377,16 +314,54 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
   m_subrouteUid = subrouteUid;
 }
 
-Junction Route::GetJunction(size_t pointIdx) const
+void Route::GetAltitudes(feature::TAltitudes & altitudes) const
+{
+  altitudes.clear();
+  for (auto const & s : m_routeSegments)
+    altitudes.push_back(s.GetJunction().GetAltitude());
+}
+
+traffic::SpeedGroup Route::GetTraffic(size_t segmentIdx) const
+{
+  CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
+  return m_routeSegments[segmentIdx].GetTraffic();
+}
+
+void Route::GetTurnsForTesting(vector<turns::TurnItem> & turns) const
+{
+  turns.clear();
+  for (auto const & s : m_routeSegments)
+  {
+    if (s.GetTurn().m_turn != turns::TurnDirection::NoTurn ||
+        s.GetTurn().m_pedestrianTurn != turns::PedestrianDirection::None)
+    {
+      turns.push_back(s.GetTurn());
+    }
+  }
+}
+
+double Route::GetTimeToPassSegS(size_t segIdx) const
+{
+  CHECK_LESS(segIdx, m_routeSegments.size(), ());
+  return m_routeSegments[segIdx].GetTimeFromBeginningS() -
+         (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetTimeFromBeginningS());
+}
+
+double Route::GetSegLenMeters(size_t segIdx) const
+{
+  CHECK_LESS(segIdx, m_routeSegments.size(), ());
+  return m_routeSegments[segIdx].GetDistFromBeginningMeters() -
+         (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetDistFromBeginningMeters());
+}
+
+double Route::GetETAToLastPassedPointS() const
 {
   CHECK(IsValid(), ());
-  CHECK_LESS(pointIdx,  m_poly.GetPolyline().GetSize(), ());
-  if (!m_altitudes.empty())
-    CHECK_EQUAL(m_altitudes.size(), m_poly.GetPolyline().GetSize(), ());
+  auto const & curIter = m_poly.GetCurrentIter();
+  CHECK(curIter.IsValid(), ());
+  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  auto const & points = m_poly.GetPolyline().GetPoints();
-  return Junction(points[pointIdx],
-                  m_altitudes.empty() ? feature::kInvalidAltitude : m_altitudes[pointIdx]);
+  return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningS();
 }
 
 string DebugPrint(Route const & r)
