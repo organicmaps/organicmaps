@@ -28,8 +28,7 @@ void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLe
   IndexGraph & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
-  CHECK(m_crossMwmGraph, ());
-  if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
+  if (m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, edges);
 }
 

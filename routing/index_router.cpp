@@ -111,7 +111,13 @@ bool AllMwmsHaveRoutingIndex(Index & index, Route & route)
   return result;
 }
 
-pair<float, float> CalcProgressRange(Checkpoints const & checkpoints, size_t subrouteIdx)
+struct ProgressRange final
+{
+  float const startValue;
+  float const stopValue;
+};
+
+ProgressRange CalcProgressRange(Checkpoints const & checkpoints, size_t subrouteIdx)
 {
   double fullDistance = 0.0;
   double startDistance = 0.0;
@@ -129,8 +135,8 @@ pair<float, float> CalcProgressRange(Checkpoints const & checkpoints, size_t sub
   }
 
   CHECK_GREATER(fullDistance, 0.0, ());
-  return make_pair(static_cast<float>(startDistance / fullDistance * 100.0),
-                   static_cast<float>(finishDistance / fullDistance * 100.0));
+  return {static_cast<float>(startDistance / fullDistance * 100.0),
+          static_cast<float>(finishDistance / fullDistance * 100.0)};
 }
 }  // namespace
 
@@ -231,7 +237,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   if (!FindClosestSegment(checkpoints.GetStart(), true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
 
-  for (size_t i = checkpoints.GetArrivedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
+  for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
   {
     vector<Segment> subroute;
     auto const result = CalculateSubroute(checkpoints, i, startSegment, delegate, graph, subroute);
@@ -293,11 +299,11 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
 
   IndexGraphStarter starter(
       IndexGraphStarter::FakeVertex(startSegment, startPoint,
-                                    subrouteIdx != checkpoints.GetArrivedIdx()),
+                                    subrouteIdx != checkpoints.GetPassedIdx()),
       IndexGraphStarter::FakeVertex(finishSegment, finishPoint, false /* strictForward */), graph);
 
   auto const progressRange = CalcProgressRange(checkpoints, subrouteIdx);
-  AStarProgress progress(progressRange.first, progressRange.second);
+  AStarProgress progress(progressRange.startValue, progressRange.stopValue);
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   uint32_t visitCount = 0;
@@ -346,6 +352,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(m2::PointD const & startPoint,
     return IRouter::StartPointNotFound;
 
   auto const & steps = m_lastRoute->GetSteps();
+  CHECK(!steps.empty(), ());
 
   IndexGraphStarter starter(
       IndexGraphStarter::FakeVertex(startSegment, startPoint, false /* strictForward */),

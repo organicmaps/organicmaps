@@ -9,6 +9,8 @@
 
 #include "geometry/mercator.hpp"
 
+using namespace std;
+
 namespace routing
 {
 
@@ -33,8 +35,10 @@ string ToString(IRouter::ResultCode code)
   case IRouter::FileTooOld: return "FileTooOld";
   case IRouter::IntermediatePointNotFound: return "IntermediatePointNotFound";
   }
-  ASSERT(false, ());
-  return "Routing result code case error.";
+
+  string const result = "Unknown IRouter::ResultCode:" + to_string(static_cast<int>(code));
+  ASSERT(false, (result));
+  return result;
 }
 
 map<string, string> PrepareStatisticsData(string const & routerName,

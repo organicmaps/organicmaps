@@ -16,6 +16,7 @@ SOURCES += \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
+    checkpoints.cpp \
     cross_mwm_connector.cpp \
     cross_mwm_connector_serialization.cpp \
     cross_mwm_graph.cpp \

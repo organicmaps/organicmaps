@@ -5,6 +5,7 @@
 namespace
 {
 using namespace routing;
+using namespace std;
 
 m2::PointD CalcProjectionToSegment(Segment const & segment, m2::PointD const & point,
                                    WorldGraph & graph)

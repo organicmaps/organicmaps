@@ -90,7 +90,7 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
     if (!handle.IsAlive())
       MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-    auto featureId = FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId());
+    auto featureId = FeatureID(handle.GetId(), segment.GetFeatureId());
     if (!isOutgoing && m_starter.FitsStart(segment))
     {
       edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),

@@ -57,7 +57,10 @@ public:
 
   private:
     Segment m_segment;
-    m2::PointD m_point;
+    m2::PointD m_point = m2::PointD::Zero();
+    // This flag specifies which fake edges should be placed from the fake vertex.
+    // true: place exactly one fake edge to the m_segment with indicated m_forward.
+    // false: place two fake edges to the m_segment with both directions.
     bool m_strictForward = false;
   };
 
