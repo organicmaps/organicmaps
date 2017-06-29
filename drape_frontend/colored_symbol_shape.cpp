@@ -39,15 +39,12 @@ glsl::vec2 ShiftNormal(glsl::vec2 const & n, ColoredSymbolViewParams const & par
 }  // namespace
 
 ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
-                                       TileKey const & tileKey, uint32_t textIndex, bool needOverlay,
-                                       bool specialDisplacementMode, uint16_t specialModePriority)
+                                       TileKey const & tileKey, uint32_t textIndex, bool needOverlay)
   : m_point(mercatorPt)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
   , m_needOverlay(needOverlay)
-  , m_specialDisplacementMode(specialDisplacementMode)
-  , m_specialModePriority(specialModePriority)
 {}
 
 void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
@@ -238,7 +235,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
                                          m_params.m_offset, GetOverlayPriority(), true /* isBound */,
                                          debugName, true /* isBillboard */) : nullptr;
 
-  dp::GLState state(gpu::COLORED_SYMBOL_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
   state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
   state.SetColorTexture(colorRegion.GetTexture());
   state.SetDepthFunction(gl_const::GLLess);
@@ -251,8 +248,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
   // Special displacement mode.
-  if (m_specialDisplacementMode)
-    return dp::CalculateSpecialModePriority(m_specialModePriority);
+  if (m_params.m_specialDisplacementMode)
+    return dp::CalculateSpecialModePriority(m_params.m_specialModePriority);
 
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }

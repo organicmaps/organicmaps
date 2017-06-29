@@ -69,12 +69,18 @@ void StyleReader::SetCurrentStyle(MapStyle mapStyle)
   m_mapStyle = mapStyle;
 }
 
-MapStyle StyleReader::GetCurrentStyle()
+MapStyle StyleReader::GetCurrentStyle() const
 {
   return m_mapStyle;
 }
 
-ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
+bool StyleReader::IsCarNavigationStyle() const
+{
+  return m_mapStyle == MapStyle::MapStyleVehicleClear ||
+         m_mapStyle == MapStyle::MapStyleVehicleDark;
+}
+
+ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 {
   std::string rulesFile =
       std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
@@ -88,7 +94,7 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader()
 }
 
 ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
-                                                 std::string const & density)
+                                                 std::string const & density) const
 {
   std::string const resourceDir =
       std::string("resources-") + density + GetStyleResourcesSuffix(GetCurrentStyle());
@@ -102,7 +108,7 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
   return GetPlatform().GetReader(resFile);
 }
 
-ReaderPtr<Reader> StyleReader::GetDefaultResourceReader(std::string const & file)
+ReaderPtr<Reader> StyleReader::GetDefaultResourceReader(std::string const & file) const
 {
   return GetPlatform().GetReader(my::JoinFoldersToPath("resources-default", file));
 }

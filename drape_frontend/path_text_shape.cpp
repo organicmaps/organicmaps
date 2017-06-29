@@ -27,7 +27,7 @@ public:
   PathTextHandle(dp::OverlayID const & id, m2::SharedSpline const & spl,
                  df::SharedTextLayout const & layout,
                  float mercatorOffset, float depth, uint32_t textIndex,
-                 uint64_t priority, uint64_t priorityFollowingMode, int fixedHeight,
+                 uint64_t priority, int fixedHeight,
                  ref_ptr<dp::TextureManager> textureManager,
                  bool isBillboard)
     : TextHandle(id, layout->GetText(), dp::Center, priority, fixedHeight,
@@ -37,7 +37,6 @@ public:
     , m_textIndex(textIndex)
     , m_globalOffset(mercatorOffset)
     , m_depth(depth)
-    , m_priorityFollowingMode(priorityFollowingMode)
   {
 
     m2::Spline::iterator centerPointIter = m_spline.CreateIterator();
@@ -68,7 +67,7 @@ public:
         pos = screen.GtoP(pos);
         if (!screen.PixelRect().IsPointInside(pos))
         {
-          if ((foundOffset = CalculatePerspectiveOffsets(pixelSpline, pixelOffset)))
+          if ((foundOffset = CalculatePerspectiveOffsets(pixelSpline, m_textIndex, pixelOffset)))
             break;
 
           pixelSpline = m2::Spline(m_spline->GetSize());
@@ -78,7 +77,7 @@ public:
       }
 
       // We aren't able to place the only label anywhere.
-      if (!foundOffset && !CalculatePerspectiveOffsets(pixelSpline, pixelOffset))
+      if (!foundOffset && !CalculatePerspectiveOffsets(pixelSpline, m_textIndex, pixelOffset))
         return false;
 
       centerPointIter.Attach(pixelSpline);
@@ -175,25 +174,21 @@ public:
     return false;
   }
 
-  uint64_t GetPriorityInFollowingMode() const override
-  {
-    return m_priorityFollowingMode;
-  }
-
   bool HasLinearFeatureShape() const override
   {
     return true;
   }
 
 private:
-  bool CalculatePerspectiveOffsets(const m2::Spline & pixelSpline, float & pixelOffset) const
+  bool CalculatePerspectiveOffsets(m2::Spline const & pixelSpline, uint32_t textIndex,
+                                   float & pixelOffset) const
   {
     if (pixelSpline.GetSize() < 2)
       return false;
 
     float offset = 0.0f;
     if (!df::PathTextLayout::CalculatePerspectivePosition(static_cast<float>(pixelSpline.GetLength()),
-                                                          m_layout->GetPixelLength(), offset))
+                                                          m_layout->GetPixelLength(), textIndex, offset))
     {
       return false;
     }
@@ -209,7 +204,6 @@ private:
   m2::PointD m_globalPivot;
   float const m_globalOffset;
   float const m_depth;
-  uint64_t const m_priorityFollowingMode;
 };
 }  // namespace
 
@@ -245,16 +239,19 @@ bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
   return !m_offsets.empty();
 }
 
-uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, size_t textLength,
-                                           bool followingMode) const
+uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, size_t textLength) const
 {
   // Overlay priority for path text shapes considers length of the text and index of text.
   // Greater text length has more priority, because smaller texts have more chances to be shown along the road.
   // [6 bytes - standard overlay priority][1 byte - length][1 byte - path text index].
+
+  // Special displacement mode.
+  if (m_params.m_specialDisplacementMode)
+    return dp::CalculateSpecialModePriority(m_params.m_specialModePriority);
+
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
-  uint64_t priority = dp::kPriorityMaskAll;
-  if (!followingMode)
-    priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank,
+                                                   m_params.m_depth);
   priority &= kMask;
   priority |= (static_cast<uint8_t>(textLength) << 8);
   priority |= static_cast<uint8_t>(textIndex);
@@ -343,12 +340,9 @@ drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(SharedTextLayout
 {
   dp::OverlayID const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords,
                                                 m_baseTextIndex + textIndex);
-  auto const priority = GetOverlayPriority(textIndex, layoutPtr->GetText().size(),
-                                           false /* followingMode */);
-  auto const followPriority = GetOverlayPriority(textIndex, layoutPtr->GetText().size(),
-                                                 true /* followingMode */);
+  auto const priority = GetOverlayPriority(textIndex, layoutPtr->GetText().size());
   return make_unique_dp<PathTextHandle>(overlayId, m_spline, layoutPtr, offset, m_params.m_depth,
-                                        textIndex, priority, followPriority, layoutPtr->GetFixedHeight(),
+                                        textIndex, priority, layoutPtr->GetFixedHeight(),
                                         textures, true /* isBillboard */);
 }
 

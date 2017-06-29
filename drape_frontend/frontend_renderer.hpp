@@ -149,6 +149,7 @@ private:
   void Render2dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
+  void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
 
@@ -241,6 +242,7 @@ private:
       OverlayID,
       Geometry3dID,
       UserMarkID,
+      NavigationID,
       LayerCountID
     };
 

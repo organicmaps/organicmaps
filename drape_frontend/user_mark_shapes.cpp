@@ -5,6 +5,7 @@
 #include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
@@ -130,6 +131,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
                     dp::Batcher & batcher)
 {
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   for (auto lineIndex : indexes)
   {
     UserLineRenderParams const & renderInfo = renderParams[lineIndex];
@@ -146,7 +148,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_join = dp::RoundJoin;
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
-        params.m_width = layer.m_width;
+        params.m_width = layer.m_width * vs;
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 

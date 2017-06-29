@@ -7,9 +7,11 @@
 #include "base/internal/message.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
+#include <sstream>
+
 namespace dp
 {
-
 struct OverlayHandle::OffsetNodeFinder
 {
 public:
@@ -89,10 +91,13 @@ bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle
   Rects const & ar2 = h->GetExtendedPixelShape(screen);
 
   for (size_t i = 0; i < ar1.size(); ++i)
+  {
     for (size_t j = 0; j < ar2.size(); ++j)
+    {
       if (ar1[i].IsIntersect(ar2[j]))
         return true;
-
+    }
+  }
   return false;
 }
 
@@ -121,8 +126,9 @@ bool OverlayHandle::HasDynamicAttributes() const
 void OverlayHandle::AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count)
 {
   ASSERT(binding.IsDynamic(), ());
-  ASSERT(find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(binding.GetID())) == m_offsets.end(), ());
-  m_offsets.insert(make_pair(binding, MutateRegion(offset, count)));
+  ASSERT(std::find_if(m_offsets.begin(), m_offsets.end(),
+                      OffsetNodeFinder(binding.GetID())) == m_offsets.end(), ());
+  m_offsets.insert(std::make_pair(binding, MutateRegion(offset, count)));
 }
 
 OverlayID const & OverlayHandle::GetOverlayID() const
@@ -137,7 +143,7 @@ uint64_t const & OverlayHandle::GetPriority() const
 
 OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID) const
 {
-  set<TOffsetNode>::const_iterator it = find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
+  auto const it = std::find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
   ASSERT(it != m_offsets.end(), ());
   return *it;
 }
@@ -194,13 +200,9 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
   return GetPerspectiveRect(GetPixelRect(screen, false), screen);
 }
 
-uint64_t OverlayHandle::GetPriorityInFollowingMode() const
-{
-  return GetPriority();
-}
 SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                            m2::PointD const & pxSize, m2::PointD const & pxOffset,
-                           uint64_t priority, bool isBound, string const & debugStr,
+                           uint64_t priority, bool isBound, std::string const & debugStr,
                            bool isBillboard)
   : TBase(id, anchor, priority, isBillboard)
   , m_gbPivot(gbPivot)
@@ -242,9 +244,9 @@ void SquareHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Re
 
 bool SquareHandle::IsBound() const { return m_isBound; }
 #ifdef DEBUG_OVERLAYS_OUTPUT
-string SquareHandle::GetOverlayDebugInfo()
+std::string SquareHandle::GetOverlayDebugInfo()
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "POI Priority(" << GetPriority() << ") "
       << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
       << m_debugStr;
@@ -259,7 +261,7 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
   // - Manual priority from styles (equals to the depth);
   // - Rank of the feature (the more the better);
   // [1 byte - zoom][4 bytes - priority][1 byte - rank][1 byte - reserved][1 byte - reserved].
-  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(max(minZoomLevel, 0));
+  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(std::max(minZoomLevel, 0));
 
   float const kMinDepth = -100000.0f;
   float const kMaxDepth = 100000.0f;
@@ -280,5 +282,4 @@ uint64_t CalculateSpecialModePriority(int specialPriority)
   priority |= specialPriority;
   return priority;
 }
-
-} // namespace dp
+}  // namespace dp

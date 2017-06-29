@@ -355,13 +355,38 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 void DrawWidget::FollowRoute()
 {
   auto & routingManager = m_framework.GetRoutingManager();
+
+  auto const points = routingManager.GetRoutePoints();
+  if (points.size() < 2)
+    return;
+  if (!points.front().m_isMyPosition && !points.back().m_isMyPosition)
+    return;
   if (routingManager.IsRoutingActive() && !routingManager.IsRoutingFollowing())
+  {
     routingManager.FollowRoute();
+    auto style = m_framework.GetMapStyle();
+    if (style == MapStyle::MapStyleClear)
+      SetMapStyle(MapStyle::MapStyleVehicleClear);
+    else if (style == MapStyle::MapStyleDark)
+      SetMapStyle(MapStyle::MapStyleVehicleDark);
+  }
 }
 
 void DrawWidget::ClearRoute()
 {
-  m_framework.GetRoutingManager().CloseRouting(true /* remove route points */);
+  auto & routingManager = m_framework.GetRoutingManager();
+
+  bool const wasActive = routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing();
+  routingManager.CloseRouting(true /* remove route points */);
+
+  if (wasActive)
+  {
+    auto style = m_framework.GetMapStyle();
+    if (style == MapStyle::MapStyleVehicleClear)
+      SetMapStyle(MapStyle::MapStyleClear);
+    else if (style == MapStyle::MapStyleVehicleDark)
+      SetMapStyle(MapStyle::MapStyleDark);
+  }
 }
 
 void DrawWidget::ShowPlacePage(place_page::Info const & info)

@@ -71,6 +71,11 @@ void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
     tree->Add(make_ref(overlayHandle));
 }
 
+bool RenderBucket::HasOverlayHandles() const
+{
+  return !m_overlay.empty();
+}
+
 void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)

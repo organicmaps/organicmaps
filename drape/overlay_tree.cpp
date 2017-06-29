@@ -17,9 +17,8 @@ namespace
 class HandleComparator
 {
 public:
-  HandleComparator(bool enableMask, bool followingMode)
-    : m_followingMode(followingMode)
-    , m_enableMask(enableMask)
+  HandleComparator(bool enableMask)
+    : m_enableMask(enableMask)
   {}
 
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
@@ -31,10 +30,8 @@ public:
   {
     uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
                                          dp::kPriorityMaskAll;
-    uint64_t const priorityLeft = (m_followingMode ? l->GetPriorityInFollowingMode() :
-                                                     l->GetPriority()) & mask;
-    uint64_t const priorityRight = (m_followingMode ? r->GetPriorityInFollowingMode() :
-                                                      r->GetPriority()) & mask;
+    uint64_t const priorityLeft = l->GetPriority() & mask;
+    uint64_t const priorityRight = r->GetPriority() & mask;
     if (priorityLeft > priorityRight)
       return true;
 
@@ -54,7 +51,6 @@ public:
   }
 
 private:
-  bool m_followingMode;
   bool m_enableMask;
 };
 
@@ -80,7 +76,6 @@ void StoreDisplacementInfo(ScreenBase const & modelView, int caseIndex,
 
 OverlayTree::OverlayTree()
   : m_frameCounter(kInvalidFrame)
-  , m_followingMode(false)
   , m_isDisplacementEnabled(true)
 {
   for (size_t i = 0; i < m_handles.size(); i++)
@@ -206,7 +201,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   }
 
   TOverlayContainer rivals;
-  HandleComparator comparator(true /* enableMask */, m_followingMode);
+  HandleComparator comparator(true /* enableMask */);
 
   // Find elements that already on OverlayTree and it's pixel rect
   // intersect with handle pixel rect ("Intersected elements").
@@ -300,7 +295,7 @@ void OverlayTree::EndOverlayPlacing()
   LOG(LINFO, ("- BEGIN OVERLAYS PLACING"));
 #endif
 
-  HandleComparator comparator(false /* enableMask */, m_followingMode);
+  HandleComparator comparator(false /* enableMask */);
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
@@ -425,11 +420,6 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
       }
     }
   });
-}
-
-void OverlayTree::SetFollowingMode(bool mode)
-{
-  m_followingMode = mode;
 }
 
 void OverlayTree::SetDisplacementEnabled(bool enabled)

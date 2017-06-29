@@ -37,6 +37,7 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
+  bool HasOverlayHandles() const;
   void RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
   void Render(bool drawAsLine);
 

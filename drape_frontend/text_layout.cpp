@@ -278,6 +278,13 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
 
   pixelSize = m2::PointF(maxLength, summaryHeight);
 }
+
+float GetTextMinPeriod(float pixelTextLength)
+{
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  float const etalonEmpty = std::max(300.0f * vs, pixelTextLength);
+  return etalonEmpty + pixelTextLength;
+}
 }  // namespace
 
 void TextLayout::Init(strings::UniString const & text, float fontSize, bool isSdf,
@@ -479,14 +486,14 @@ float PathTextLayout::CalculateTextLength(float textPixelLength)
   return kTextBorder + textPixelLength;
 }
 
-bool PathTextLayout::CalculatePerspectivePosition(float splineLength, float textPixelLength,
-                                                  float & offset)
+bool PathTextLayout::CalculatePerspectivePosition(float pixelSplineLength, float textPixelLength,
+                                                  uint32_t textIndex, float & offset)
 {
+  UNUSED_VALUE(textIndex);
   float const textLength = CalculateTextLength(textPixelLength);
-  if (textLength > splineLength * 2.0f)
+  if (textLength > pixelSplineLength * 2.0f)
     return false;
-
-  offset = splineLength * 0.5f;
+  offset = pixelSplineLength * 0.5f;
   return true;
 }
 
@@ -501,10 +508,7 @@ void PathTextLayout::CalculatePositions(float splineLength, float splineScaleToP
 
   float const kPathLengthScalar = 0.75;
   float const pathLength = kPathLengthScalar * splineScaleToPixel * splineLength;
-
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  float const etalonEmpty = std::max(300.0f * vs, textLength);
-  float const minPeriodSize = etalonEmpty + textLength;
+  float const minPeriodSize = GetTextMinPeriod(textLength);
   float const twoTextsAndEmpty = minPeriodSize + textLength;
 
   if (pathLength < twoTextsAndEmpty)
@@ -515,7 +519,7 @@ void PathTextLayout::CalculatePositions(float splineLength, float splineScaleToP
   }
   else
   {
-    double const textCount = max(floor(static_cast<double>(pathLength / minPeriodSize)), 1.0);
+    double const textCount = std::max(floor(static_cast<double>(pathLength / minPeriodSize)), 1.0);
     double const glbTextLen = splineLength / textCount;
     for (double offset = 0.5 * glbTextLen; offset < splineLength; offset += glbTextLen)
       offsets.push_back(static_cast<float>(offset));

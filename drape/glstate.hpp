@@ -40,6 +40,7 @@ public:
     GeometryLayer,
     OverlayLayer,
     UserMarkLayer,
+    NavigationLayer,
     Gui
   };
 

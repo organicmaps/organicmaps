@@ -66,7 +66,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()) },
   };
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXTURING_PROGRAM, params.m_depthLayer);
   state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
@@ -99,7 +99,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
   };
 
-  dp::GLState state(gpu::MASKED_TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  dp::GLState state(gpu::MASKED_TEXTURING_PROGRAM, params.m_depthLayer);
   state.SetProgram3dIndex(gpu::MASKED_TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
@@ -114,12 +114,9 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 namespace df
 {
 PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
-                               TileKey const & tileKey, uint32_t textIndex,
-                               bool specialDisplacementMode, uint16_t specialModePriority)
+                               TileKey const & tileKey, uint32_t textIndex)
   : m_pt(mercatorPt)
   , m_params(params)
-  , m_specialDisplacementMode(specialDisplacementMode)
-  , m_specialModePriority(specialModePriority)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_textIndex(textIndex)
 {}
@@ -168,8 +165,8 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if (m_specialDisplacementMode)
-    return dp::CalculateSpecialModePriority(m_specialModePriority);
+  if (m_params.m_specialDisplacementMode)
+    return dp::CalculateSpecialModePriority(m_params.m_specialModePriority);
 
   // Set up minimal priority for shapes which belong to areas.
   if (m_params.m_hasArea)

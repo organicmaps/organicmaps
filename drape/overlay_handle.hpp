@@ -15,11 +15,13 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/set.hpp"
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace dp
 {
-
 enum OverlayRank
 {
   OverlayRank0 = 0,
@@ -35,7 +37,6 @@ uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
 uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
                                       kPriorityMaskManual |
                                       kPriorityMaskRank;
-
 struct OverlayID
 {
   FeatureID m_featureId;
@@ -88,7 +89,7 @@ struct OverlayID
 class OverlayHandle
 {
 public:
-  typedef vector<m2::RectF> Rects;
+  using Rects = std::vector<m2::RectF>;
 
   OverlayHandle(OverlayID const & id, dp::Anchor anchor,
                 uint64_t priority, bool isBillboard);
@@ -129,7 +130,6 @@ public:
   uint64_t const & GetPriority() const;
 
   virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
-  virtual uint64_t GetPriorityInFollowingMode() const;
 
   virtual bool IsBound() const { return false; }
   virtual bool HasLinearFeatureShape() const { return false; }
@@ -145,7 +145,7 @@ public:
   bool IsReady() const { return m_isReady; }
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-  virtual string GetOverlayDebugInfo() { return ""; }
+  virtual std::string GetOverlayDebugInfo() { return ""; }
 #endif
 
 protected:
@@ -157,7 +157,7 @@ protected:
   double m_extendingSize;
   double m_pivotZ;
 
-  typedef pair<BindingInfo, MutateRegion> TOffsetNode;
+  using TOffsetNode = std::pair<BindingInfo, MutateRegion>;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
 
   m2::RectD GetPerspectiveRect(m2::RectD const & pixelRect, ScreenBase const & screen) const;
@@ -178,7 +178,7 @@ private:
 
   struct OffsetNodeFinder;
 
-  set<TOffsetNode, LessOffsetNode> m_offsets;
+  std::set<TOffsetNode, LessOffsetNode> m_offsets;
 
   bool m_enableCaching;
   mutable Rects m_extendedShapeCache;
@@ -196,7 +196,7 @@ class SquareHandle : public OverlayHandle
 public:
   SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                m2::PointD const & pxSize, m2::PointD const & pxOffset,
-               uint64_t priority, bool isBound, string const & debugStr,
+               uint64_t priority, bool isBound, std::string const & debugStr,
                bool isBillboard = false);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
@@ -204,7 +204,7 @@ public:
   bool IsBound() const override;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-  virtual string GetOverlayDebugInfo() override;
+  virtual std::string GetOverlayDebugInfo() override;
 #endif
 
 private:
@@ -214,11 +214,10 @@ private:
   bool m_isBound;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-  string m_debugStr;
+  std::string m_debugStr;
 #endif
 };
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);
 uint64_t CalculateSpecialModePriority(int specialPriority);
-
-} // namespace dp
+}  // namespace dp

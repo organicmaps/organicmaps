@@ -2,7 +2,6 @@
 
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/shader_def.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"

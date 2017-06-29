@@ -4,14 +4,13 @@
 #include "drape_frontend/animation/value_mapping.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "drape/pointers.hpp"
 #include "drape/glstate.hpp"
+#include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 
-#include "std/deque.hpp"
-#include "std/vector.hpp"
-#include "std/set.hpp"
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <vector>
+#include <string>
 
 class ScreenBase;
 namespace dp { class OverlayTree; }
@@ -24,7 +23,8 @@ class BaseRenderGroup
 public:
   BaseRenderGroup(dp::GLState const & state, TileKey const & tileKey)
     : m_state(state)
-    , m_tileKey(tileKey) {}
+    , m_tileKey(tileKey)
+  {}
 
   virtual ~BaseRenderGroup() {}
 
@@ -34,7 +34,6 @@ public:
   dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
-  bool IsOverlay() const;
 
   virtual void UpdateAnimation();
   virtual void Render(ScreenBase const & screen);
@@ -60,6 +59,7 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
+  bool HasOverlayHandles() const;
   void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
   void Render(ScreenBase const & screen) override;
 
@@ -73,15 +73,15 @@ public:
 
   bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
-  bool IsLess(RenderGroup const & other) const;
+  bool IsOverlay() const;
 
 private:
-  vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
+  std::vector<drape_ptr<dp::RenderBucket>> m_renderBuckets;
   mutable bool m_pendingOnDelete;
   mutable bool m_canBeDeleted;
 
 private:
-  friend string DebugPrint(RenderGroup const & group);
+  friend std::string DebugPrint(RenderGroup const & group);
 };
 
 class RenderGroupComparator
@@ -104,8 +104,7 @@ public:
   bool IsUserPoint() const;
 
 private:
-  unique_ptr<OpacityAnimation> m_animation;
+  std::unique_ptr<OpacityAnimation> m_animation;
   ValueMapping<float> m_mapping;
 };
-
-} // namespace df
+}  // namespace df

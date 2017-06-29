@@ -1,34 +1,43 @@
 #pragma once
 
-#include "drape/drape_global.hpp"
 #include "drape/color.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/glstate.hpp"
 #include "drape/stipple_pen_resource.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "geometry/point2d.hpp"
 
-#include "std/string.hpp"
+#include <cstdint>
+#include <limits>
+#include <string>
 
 namespace df
 {
-
 double const kShapeCoordScalar = 1000;
 int constexpr kBuildingOutlineSize = 16;
 
 struct CommonViewParams
 {
+  dp::GLState::DepthLayer m_depthLayer = dp::GLState::GeometryLayer;
   float m_depth = 0.0f;
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;
   m2::PointD m_tileCenter;
 };
 
-struct PoiSymbolViewParams : CommonViewParams
+struct CommonOverlayViewParams : public CommonViewParams
+{
+  bool m_specialDisplacementMode = false;
+  uint16_t m_specialModePriority = std::numeric_limits<uint16_t>::max();;
+};
+
+struct PoiSymbolViewParams : CommonOverlayViewParams
 {
   PoiSymbolViewParams(FeatureID const & id) : m_id(id) {}
 
   FeatureID m_id;
-  string m_symbolName;
+  std::string m_symbolName;
   uint32_t m_extendingSize;
   float m_posZ = 0.0f;
   bool m_hasArea = false;
@@ -60,15 +69,15 @@ struct LineViewParams : CommonViewParams
   int m_zoomLevel = -1;
 };
 
-struct TextViewParams : CommonViewParams
+struct TextViewParams : CommonOverlayViewParams
 {
   TextViewParams() {}
 
   FeatureID m_featureID;
   dp::FontDecl m_primaryTextFont;
-  string m_primaryText;
+  std::string m_primaryText;
   dp::FontDecl m_secondaryTextFont;
-  string m_secondaryText;
+  std::string m_secondaryText;
   dp::Anchor m_anchor;
   m2::PointF m_primaryOffset = m2::PointF(0.0f, 0.0f);
   m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
@@ -82,7 +91,7 @@ struct TextViewParams : CommonViewParams
   m2::PointF m_limits = m2::PointF(0.0f, 0.0f);
 };
 
-struct PathTextViewParams : CommonViewParams
+struct PathTextViewParams : CommonOverlayViewParams
 {
   FeatureID m_featureID;
   dp::FontDecl m_textFont;
@@ -94,13 +103,13 @@ struct PathTextViewParams : CommonViewParams
 struct PathSymbolViewParams : CommonViewParams
 {
   FeatureID m_featureID;
-  string m_symbolName;
+  std::string m_symbolName;
   float m_offset = 0.0f;
   float m_step = 0.0f;
   float m_baseGtoPScale = 1.0f;
 };
 
-struct ColoredSymbolViewParams : CommonViewParams
+struct ColoredSymbolViewParams : CommonOverlayViewParams
 {
   enum class Shape
   {
@@ -117,5 +126,4 @@ struct ColoredSymbolViewParams : CommonViewParams
   float m_outlineWidth = 0.0f;
   m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
 };
-
-} // namespace df
+}  // namespace df

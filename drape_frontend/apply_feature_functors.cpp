@@ -28,6 +28,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <limits>
 #include <mutex>
 #include <sstream>
 #include <unordered_map>
@@ -60,9 +61,8 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 int const kLineSimplifyLevelStart = 10;
 int const kLineSimplifyLevelEnd = 12;
 
-uint32_t const kPathTextBaseTextIndex = 0;
-uint32_t const kPathTextBaseTextStep = 100;
-uint32_t const kShieldBaseTextIndex = 1000;
+uint32_t const kPathTextBaseTextIndex = 128;
+uint32_t const kShieldBaseTextIndex = 0;
 
 #ifdef CALC_FILTERED_POINTS
 class LinesStat
@@ -243,6 +243,34 @@ uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
   if (strings::to_uint(s, result))
     return static_cast<uint16_t>(result);
   return 0;
+}
+
+uint16_t CalculateNavigationPoiPriority()
+{
+  // All navigation POI have maximum priority in navigation mode.
+  return std::numeric_limits<uint16_t>::max();
+}
+
+uint16_t CalculateNavigationRoadShieldPriority()
+{
+  // Road shields have less priority than navigation POI.
+  static uint16_t constexpr kMask = ~static_cast<uint16_t>(0xFF);
+  uint16_t priority = CalculateNavigationPoiPriority();
+  return priority & kMask;
+}
+
+uint16_t CalculateNavigationPathTextPriority(uint32_t textIndex)
+{
+  // Path texts have more priority than road shields in navigation mode.
+  static uint16_t constexpr kMask = ~static_cast<uint16_t>(0xFF);
+  uint16_t priority = CalculateNavigationPoiPriority();
+  priority &= kMask;
+
+  uint8_t constexpr kMaxTextIndex = std::numeric_limits<uint8_t>::max() - 1;
+  if (textIndex > kMaxTextIndex)
+    textIndex = kMaxTextIndex;
+  priority |= static_cast<uint8_t>(textIndex);
+  return priority;
 }
 
 bool IsSymbolRoadShield(ftypes::RoadShield const & shield)
@@ -452,13 +480,14 @@ void BaseApplyFeature::SetHotelData(HotelData && hotelData)
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                      FeatureID const & id, int minVisibleScale, uint8_t rank,
                                      CaptionDescription const & captions, float posZ,
-                                     int displacementMode)
+                                     int displacementMode, dp::GLState::DepthLayer depthLayer)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
   , m_createdByEditor(false)
   , m_obsoleteInEditor(false)
+  , m_depthLayer(depthLayer)
   , m_symbolDepth(dp::minDepth)
   , m_symbolRule(nullptr)
   , m_displacementMode(displacementMode)
@@ -497,27 +526,22 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     TextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
+    params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
 
-    bool specialDisplacementMode = false;
-    uint16_t specialModePriority = 0;
     if (m_displacementMode == dp::displacement::kHotelMode &&
         m_hotelData.m_isHotel && !params.m_primaryText.empty())
     {
-      specialDisplacementMode = true;
-      specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
-
       params.m_primaryOptional = false;
       params.m_primaryTextFont.m_size *= 1.2;
       params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
       params.m_secondaryTextFont = params.m_primaryTextFont;
       params.m_secondaryText = ExtractHotelInfo();
       params.m_secondaryOptional = false;
-
     }
 
     if (!params.m_primaryText.empty() || !params.m_secondaryText.empty())
@@ -537,6 +561,11 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     specialDisplacementMode = true;
     specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
   }
+  else if (m_depthLayer == dp::GLState::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
+  {
+    specialDisplacementMode = true;
+    specialModePriority = CalculateNavigationPoiPriority();
+  }
 
   bool const hasPOI = m_symbolRule != nullptr;
 
@@ -545,6 +574,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     PoiSymbolViewParams params(m_id);
     params.m_tileCenter = m_tileRect.Center();
     params.m_depth = static_cast<float>(m_symbolDepth);
+    params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
 
@@ -567,21 +597,22 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_hasArea = m_hasArea;
     params.m_prioritized = prioritized || m_createdByEditor;
     params.m_obsoleteInEditor = m_obsoleteInEditor;
+    params.m_specialDisplacementMode = specialDisplacementMode;
+    params.m_specialModePriority = specialModePriority;
 
-    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */,
-                                               specialDisplacementMode, specialModePriority));
+    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */));
 
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(params.m_symbolName, region);
     symbolSize = region.GetPixelSize();
   }
 
-  for (auto const & textParams : m_textParams)
+  for (auto textParams : m_textParams)
   {
+    textParams.m_specialDisplacementMode = specialDisplacementMode;
+    textParams.m_specialModePriority = specialModePriority;
     m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey,
-                                            hasPOI, symbolSize, 0 /* textIndex */,
-                                            true /* affectedByZoomPriority */,
-                                            specialDisplacementMode, specialModePriority));
+                                            hasPOI, symbolSize, 0 /* textIndex */));
   }
 }
 
@@ -589,7 +620,8 @@ ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, dp::displacement::kDefaultMode)
+  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ,
+          dp::displacement::kDefaultMode, dp::GLState::GeometryLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -953,6 +985,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depth = m_depth;
+  textParams.m_depthLayer = dp::GLState::OverlayLayer;
   textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
   textParams.m_anchor = anchor;
@@ -981,6 +1014,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_featureID = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depth = m_depth;
+    symbolParams.m_depthLayer = dp::GLState::OverlayLayer;
     symbolParams.m_minVisibleScale = m_minVisibleScale;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
@@ -1007,6 +1041,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     std::string symbolName = GetRoadShieldSymbolName(shield, fontScale);
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_depth;
+    poiParams.m_depthLayer = dp::GLState::OverlayLayer;
     poiParams.m_minVisibleScale = m_minVisibleScale;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
@@ -1037,6 +1072,15 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
     textParams.m_secondaryTextFont.m_size *= 0.9f;
     textParams.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
+  }
+
+  // Special priority for road shields in navigation style.
+  if (GetStyleReader().IsCarNavigationStyle())
+  {
+    textParams.m_specialDisplacementMode = poiParams.m_specialDisplacementMode
+      = symbolParams.m_specialDisplacementMode = true;
+    textParams.m_specialModePriority = poiParams.m_specialModePriority
+      = symbolParams.m_specialModePriority = CalculateNavigationRoadShieldPriority();
   }
 }
 
@@ -1086,11 +1130,17 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
+    bool const navigationEnabled = GetStyleReader().IsCarNavigationStyle();
+    if (navigationEnabled)
+      params.m_specialDisplacementMode = true;
 
-    uint32_t baseTextIndex = kPathTextBaseTextIndex;
+    uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
     {
-      auto shape = make_unique_dp<PathTextShape>(spline, params, m_tileKey, baseTextIndex);
+      PathTextViewParams p = params;
+      if (navigationEnabled)
+        p.m_specialModePriority = CalculateNavigationPathTextPriority(textIndex);
+      auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndex);
 
       if (!shape->CalculateLayout(texMng))
         continue;
@@ -1099,7 +1149,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
         CalculateRoadShieldPositions(shape->GetOffsets(), spline, shieldPositions);
 
       m_insertShape(std::move(shape));
-      baseTextIndex += kPathTextBaseTextStep;
+      textIndex++;
     }
   }
   else if (m_shieldRule != nullptr && !roadShields.empty())
@@ -1127,6 +1177,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   uint32_t const scaledMinDistance = static_cast<uint32_t>(vs * minDistance);
 
   uint8_t shieldIndex = 0;
+  uint32_t textIndex = kShieldBaseTextIndex;
   for (ftypes::RoadShield const & shield : roadShields)
   {
     TextViewParams textParams;
@@ -1138,27 +1189,20 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
 
     auto & generatedShieldRects = generatedRoadShields[shield];
     generatedShieldRects.reserve(10);
-    uint32_t textIndex = kShieldBaseTextIndex * (++shieldIndex);
     for (auto const & shieldPos : shieldPositions)
     {
       if (!CheckShieldsNearby(shieldPos, shieldPixelSize, scaledMinDistance, generatedShieldRects))
         continue;
 
       m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, true /* hasPOI */,
-                                              m2::PointF(0.0f, 0.0f) /* symbolSize */, textIndex,
-                                              false /* affectedByZoomPriority */));
+                                              m2::PointF(0.0f, 0.0f) /* symbolSize */, textIndex));
       if (IsColoredRoadShield(shield))
-      {
-        m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams,
-                                                         m_tileKey, textIndex));
-      }
+        m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex));
       else if (IsSymbolRoadShield(shield))
-      {
-        m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams,
-                                                     m_tileKey, textIndex));
-      }
+        m_insertShape(make_unique_dp<PoiSymbolShape>(shieldPos, poiParams, m_tileKey, textIndex));
       textIndex++;
     }
+    shieldIndex++;
   }
 }
 }  // namespace df

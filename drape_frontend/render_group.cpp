@@ -9,11 +9,11 @@
 
 #include "base/stl_add.hpp"
 
-#include "std/bind.hpp"
+#include <sstream>
+#include <utility>
 
 namespace df
 {
-
 void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::GpuProgram> shader3d,
                                       ref_ptr<dp::UniformValuesStorage> generalUniforms)
 {
@@ -38,17 +38,11 @@ void BaseRenderGroup::Render(const ScreenBase & screen)
   dp::ApplyUniforms(*(m_generalUniforms.get()), shader);
 }
 
-bool BaseRenderGroup::IsOverlay() const
-{
-  return m_state.GetDepthLayer() == dp::GLState::OverlayLayer;
-}
-
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
   , m_canBeDeleted(false)
-{
-}
+{}
 
 RenderGroup::~RenderGroup()
 {
@@ -74,6 +68,16 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
     renderBucket->CollectOverlayHandles(tree);
 }
 
+bool RenderGroup::HasOverlayHandles() const
+{
+  for (auto & renderBucket : m_renderBuckets)
+  {
+    if (renderBucket->HasOverlayHandles())
+      return true;
+  }
+  return false;
+}
+
 void RenderGroup::RemoveOverlay(ref_ptr<dp::OverlayTree> tree)
 {
   for (auto & renderBucket : m_renderBuckets)
@@ -97,7 +101,7 @@ void RenderGroup::Render(ScreenBase const & screen)
   int const programIndex = m_state.GetProgramIndex();
   int const program3dIndex = m_state.GetProgram3dIndex();
 
-  if (m_state.GetDepthLayer() == dp::GLState::OverlayLayer)
+  if (IsOverlay())
   {
     if (programIndex == gpu::COLORED_SYMBOL_PROGRAM ||
         programIndex == gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM)
@@ -145,12 +149,13 @@ void RenderGroup::Render(ScreenBase const & screen)
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 {
-  m_renderBuckets.push_back(move(bucket));
+  m_renderBuckets.push_back(std::move(bucket));
 }
 
-bool RenderGroup::IsLess(RenderGroup const & other) const
+bool RenderGroup::IsOverlay() const
 {
-  return m_state < other.m_state;
+  return (m_state.GetDepthLayer() == dp::GLState::OverlayLayer) ||
+         (m_state.GetDepthLayer() == dp::GLState::NavigationLayer && HasOverlayHandles());
 }
 
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
@@ -193,11 +198,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 
     return lState < rState;
   }
-
-  if (rCanBeDeleted)
-    return true;
-
-  return false;
+  return rCanBeDeleted;
 }
 
 UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
@@ -218,7 +219,7 @@ void UserMarkRenderGroup::UpdateAnimation()
   BaseRenderGroup::UpdateAnimation();
   float t = 1.0;
   if (m_animation)
-    t = m_animation->GetOpacity();
+    t = static_cast<float>(m_animation->GetOpacity());
 
   m_uniforms.SetFloatValue("u_interpolationT", m_mapping.GetValue(t));
 }
@@ -228,11 +229,10 @@ bool UserMarkRenderGroup::IsUserPoint() const
   return m_state.GetProgramIndex() != gpu::LINE_PROGRAM;
 }
 
-string DebugPrint(RenderGroup const & group)
+std::string DebugPrint(RenderGroup const & group)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << DebugPrint(group.GetTileKey());
   return out.str();
 }
-
-} // namespace df
+}  // namespace df

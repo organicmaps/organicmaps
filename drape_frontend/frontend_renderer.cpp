@@ -22,8 +22,9 @@
 #include "drape/utils/projection.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/drawing_rules.hpp"
+#include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
 
 #include "geometry/any_rect2d.hpp"
 
@@ -495,7 +496,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_routeRenderer->Clear();
         ++m_lastRecacheRouteId;
         m_myPositionController->DeactivateRouting();
-        m_overlayTree->SetFollowingMode(false);
         if (m_enablePerspectiveInNavigation)
           DisablePerspective();
       }
@@ -527,7 +527,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::DeactivateRouteFollowing:
     {
       m_myPositionController->DeactivateRouting();
-      m_overlayTree->SetFollowingMode(false);
       if (m_enablePerspectiveInNavigation)
         DisablePerspective();
       break;
@@ -865,8 +864,6 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
 
   if (m_enablePerspectiveInNavigation)
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
-
-  m_overlayTree->SetFollowingMode(true);
 
   m_routeRenderer->SetFollowingEnabled(true);
 }
@@ -1253,6 +1250,19 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+
+  if (GetStyleReader().IsCarNavigationStyle())
+    RenderNavigationOverlayLayer(modelView);
+}
+
+void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
+{
+  RenderLayer & navOverlayLayer = m_layers[RenderLayer::NavigationID];
+  for (auto & group : navOverlayLayer.m_renderGroups)
+  {
+    if (group->HasOverlayHandles())
+      RenderSingleGroup(modelView, make_ref(group));
+  }
 }
 
 void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
@@ -1281,11 +1291,16 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
-  RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
-  overlay.Sort(make_ref(m_overlayTree));
+  static std::vector<RenderLayer::RenderLayerID> layers = {RenderLayer::OverlayID,
+                                                           RenderLayer::NavigationID};
   BeginUpdateOverlayTree(modelView);
-  for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
-    UpdateOverlayTree(modelView, group);
+  for (auto const & layerId : layers)
+  {
+    RenderLayer & overlay = m_layers[layerId];
+    overlay.Sort(make_ref(m_overlayTree));
+    for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+      UpdateOverlayTree(modelView, group);
+  }
   EndUpdateOverlayTree();
 }
 
@@ -2013,9 +2028,10 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
 {
   if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
     return OverlayID;
-
-  if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
+  else if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
     return UserMarkID;
+  else if (state.GetDepthLayer() == dp::GLState::NavigationLayer)
+    return NavigationID;
 
   if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||
       state.GetProgram3dIndex() == gpu::AREA_3D_OUTLINE_PROGRAM)

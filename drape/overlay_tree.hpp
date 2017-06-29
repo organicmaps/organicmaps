@@ -62,7 +62,6 @@ public:
   void Select(m2::RectD const & rect, TOverlayContainer & result) const;
   void Select(m2::PointD const & glbPoint, TOverlayContainer & result) const;
 
-  void SetFollowingMode(bool mode);
   void SetDisplacementEnabled(bool enabled);
 
   void SetSelectedFeature(FeatureID const & featureID);
@@ -95,7 +94,6 @@ private:
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   HandlesCache m_handlesCache;
-  bool m_followingMode;
 
   bool m_isDisplacementEnabled;
 
