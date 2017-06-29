@@ -21,7 +21,6 @@ using namespace routing::turns;
   _targetDistance = @(info.m_distToTarget.c_str());
   _targetUnits = @(info.m_targetUnitsSuffix.c_str());
   _progress = info.m_completionPercent;
-  auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (lastLocation && [MWMRouter type] == MWMRouterTypePedestrian)
   {
