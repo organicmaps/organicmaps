@@ -8,7 +8,7 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
     didSet {
       guard #available(iOS 10, *) else {
         if (frame.size.height < 1 /* minimal correct height */) {
-          frame.size.height = collectionViewHeight.constant
+          frame.size.height = max(collectionViewHeight.constant, 1)
           tableView?.refresh()
         }
         return
