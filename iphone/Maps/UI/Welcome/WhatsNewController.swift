@@ -3,19 +3,14 @@ import UIKit
 final class WhatsNewController: MWMViewController, WelcomeProtocol {
 
   static var welcomeConfigs: [WelcomeConfig] = [
-//    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_1"),
-//                  title: "whatsnew_improved_search",
-//                  text: "whatsnew_improved_search_text",
-//                  buttonTitle: "whats_new_next_button",
-//                  buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_whatsnew_driving_style"),
-                  title: "whatsnew_driving_style_title",
-                  text: "whatsnew_driving_style_message",
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_wn_intermediate_point"),
+                  title: "whatsnew_intermediate_point_title",
+                  text: "whatsnew_intermediate_point_message",
                   buttonTitle: "whats_new_next_button",
                   buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "img_whatsnew_transliteration"),
-                  title: "whatsnew_transliteration_title",
-                  text: "whatsnew_transliteration_message",
+    WelcomeConfig(image:  #imageLiteral(resourceName: "img_wn_viator"),
+                  title: "whatsnew_viator_title",
+                  text: "whatsnew_viator_message",
                   buttonTitle: "done",
                   buttonAction: #selector(close))
   ]
