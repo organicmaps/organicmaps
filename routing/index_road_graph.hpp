@@ -26,16 +26,20 @@ public:
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(Junction const & junction,
                                 feature::TypesHolder & types) const override;
+  virtual bool IsRouteEdgesImplemented() const override;
+  virtual void GetRouteEdges(TEdgeVector & edges) const override;
+
 
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
+  m2::PointD GetJunctionPoint(Segment const & segment, bool front) const;
   Junction GetJunction(Segment const & segment, bool front) const;
-  Junction GetJunction(m2::PointD const & point) const;
   vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   Index & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
   IndexGraphStarter & m_starter;
+  vector<Segment> m_segments;
   map<Junction, vector<Segment>> m_beginToSegment;
   map<Junction, vector<Segment>> m_endToSegment;
 };

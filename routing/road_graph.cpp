@@ -272,4 +272,14 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
 
   return ri;
 }
+// RoadGraphBase ------------------------------------------------------------------
+bool RoadGraphBase::IsRouteEdgesImplemented() const
+{
+  return false;
+}
+
+void RoadGraphBase::GetRouteEdges(TEdgeVector & routeEdges) const
+{
+  NOTIMPLEMENTED()
+}
 }  // namespace routing

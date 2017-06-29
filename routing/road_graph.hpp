@@ -118,6 +118,10 @@ public:
 
   /// @return Types for specified junction
   virtual void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const = 0;
+
+  virtual bool IsRouteEdgesImplemented() const;
+
+  virtual void GetRouteEdges(TEdgeVector & routeEdges) const;
 };
 
 class IRoadGraph : public RoadGraphBase
