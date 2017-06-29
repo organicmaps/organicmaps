@@ -45793,7 +45793,7 @@ cont {
     scale: 10
     caption {
       primary {
-        height: 18
+        height: 8
         color: 8355711
       }
       priority: 15000
@@ -45803,7 +45803,7 @@ cont {
     scale: 11
     caption {
       primary {
-        height: 18
+        height: 8
         color: 8355711
       }
       priority: 15000
@@ -45813,7 +45813,7 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 14
+        height: 9
         color: 8355711
       }
       priority: 15000
@@ -45823,7 +45823,7 @@ cont {
     scale: 13
     caption {
       primary {
-        height: 14
+        height: 9
         color: 8355711
       }
       priority: 15000
