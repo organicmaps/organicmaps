@@ -1,5 +1,6 @@
 #import "MWMPlacePageRegularCell.h"
 #import "MWMCommon.h"
+#import "MWMLocationManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -155,9 +156,18 @@
   case MetainfoRows::Operator:
   case MetainfoRows::OpeningHours:
   case MetainfoRows::Address:
-  case MetainfoRows::Internet:
+  case MetainfoRows::Internet: break;
   case MetainfoRows::LocalAdsCustomer: 
-  case MetainfoRows::LocalAdsCandidate: break;
+  case MetainfoRows::LocalAdsCandidate:
+    auto const & feature = data.featureId;
+    [Statistics logEvent:kStatPlacePageOwnershipButtonClick
+          withParameters:@{
+                           @"mwm_name" : @(feature.GetMwmName().c_str()),
+                           @"mwm_version" : @(feature.GetMwmVersion()),
+                           @"feature_id" : @(feature.m_index)
+                           }
+              atLocation:[MWMLocationManager lastLocation]];
+    break;
   }
 }
 
