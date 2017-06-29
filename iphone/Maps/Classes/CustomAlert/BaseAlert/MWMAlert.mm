@@ -79,7 +79,7 @@
   case routing::IRouter::Cancelled:
   case routing::IRouter::NoError:
   case routing::IRouter::NeedMoreMaps: return nil;
-  case routing::IRouter::IntermediatePointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
+  case routing::IRouter::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
   }
 }
 

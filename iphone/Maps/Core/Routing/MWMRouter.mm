@@ -522,6 +522,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   case routing::IRouter::NoCurrentPosition:
   case routing::IRouter::PointsInDifferentMWM:
   case routing::IRouter::InternalError:
+  case routing::IRouter::IntermediatePointNotFound: 
     [[MWMAlertViewController activeAlertController] presentAlert:code];
     [mapViewControlsManager onRouteError];
     break;

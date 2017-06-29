@@ -6,6 +6,7 @@
 + (instancetype)routeFileNotExistAlert;
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;
++ (instancetype)intermediatePointNotFoundAlert;
 + (instancetype)internalRoutingErrorAlert;
 + (instancetype)incorrectFeauturePositionAlert;
 + (instancetype)internalErrorAlert;

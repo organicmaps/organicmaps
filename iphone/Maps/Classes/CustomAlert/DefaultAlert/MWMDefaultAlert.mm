@@ -147,6 +147,16 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Start Point Not Found Alert"];
 }
 
++ (instancetype)intermediatePointNotFoundAlert
+{
+  return [self defaultAlertWithTitle:L(@"dialog_routing_change_intermediate")
+                             message:L(@"dialog_routing_intermediate_not_determined")
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"Intermediate Point Not Found Alert"];
+}
+
 + (instancetype)internalRoutingErrorAlert
 {
   NSString * message =
