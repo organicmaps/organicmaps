@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

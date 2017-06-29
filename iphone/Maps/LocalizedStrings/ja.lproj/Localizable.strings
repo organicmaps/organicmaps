@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

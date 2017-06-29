@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

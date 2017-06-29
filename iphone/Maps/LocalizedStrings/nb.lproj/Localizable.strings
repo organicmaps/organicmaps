@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

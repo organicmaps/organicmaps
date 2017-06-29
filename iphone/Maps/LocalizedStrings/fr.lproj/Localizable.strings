@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l'écrire.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

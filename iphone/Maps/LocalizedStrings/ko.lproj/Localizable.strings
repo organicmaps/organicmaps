@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

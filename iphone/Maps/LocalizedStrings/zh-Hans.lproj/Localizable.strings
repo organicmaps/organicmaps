@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

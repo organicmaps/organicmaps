@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Si una calle o un objeto no tiene nombre en su idioma, se escribirá con el alfabeto latino.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

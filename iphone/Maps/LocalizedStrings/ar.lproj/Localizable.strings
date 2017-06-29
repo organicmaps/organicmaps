@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

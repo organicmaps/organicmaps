@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

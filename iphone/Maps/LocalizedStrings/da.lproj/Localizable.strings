@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

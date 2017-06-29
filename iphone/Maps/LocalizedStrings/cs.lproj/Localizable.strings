@@ -1939,6 +1939,8 @@
 
 "whatsnew_transliteration_message" = "Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.";
 
+"yandex_taxi_title" = "Yandex.Taxi";
+
 "learn_more" = "Learn more";
 
 "exit" = "Exit";

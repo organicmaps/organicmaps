@@ -1111,6 +1111,7 @@
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
 	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
+	<string name="yandex_taxi_title">Яндекс.Такси</string>
 	<string name="learn_more">Узнать больше</string>
 	<string name="exit">Выход</string>
 </resources>
