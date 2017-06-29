@@ -473,12 +473,17 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)setToastViewHidden:(BOOL)hidden
 {
+  if (!hidden)
+    self.toastView.hidden = NO;
   [self setNeedsLayout];
   self.toastViewHideOffset.priority =
       hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
                      [self layoutIfNeeded];
+                   } completion:^(BOOL finished) {
+                     if (hidden)
+                       self.toastView.hidden = YES;
                    }];
 }
 
