@@ -2,6 +2,8 @@
 
 #include "fabric_logging.hpp"
 
+#include "base/assert.hpp"
+
 namespace platform
 {
   void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
@@ -14,6 +16,7 @@ namespace platform
   case LWARNING: recordType.assign("WARN "); break;
   case LERROR: recordType.assign("ERROR "); break;
   case LCRITICAL: recordType.assign("FATAL "); break;
+  case NUM_LOG_LEVELS: CHECK(false, ()); break;
   }
 
   std::string const srcString = recordType + DebugPrint(srcPoint) + " " + msg + "\n";

@@ -70,6 +70,7 @@ using ::my::LINFO;
 using ::my::LWARNING;
 using ::my::LERROR;
 using ::my::LCRITICAL;
+using ::my::NUM_LOG_LEVELS;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));
