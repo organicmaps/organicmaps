@@ -17,28 +17,21 @@ public:
 
   Checkpoints(m2::PointD const & start, m2::PointD const & finish) : m_points({start, finish}) {}
 
-  Checkpoints(size_t passedIdx, std::vector<m2::PointD> && points)
-    : m_points(std::move(points)), m_passedIdx(passedIdx)
+  Checkpoints(std::vector<m2::PointD> && points) : m_points(std::move(points))
   {
-    CheckValid();
+    CHECK_GREATER_OR_EQUAL(m_points.size(), 2,
+                           ("Checkpoints should at least contain start and finish"));
   }
 
-  m2::PointD const & GetStart() const
-  {
-    CheckValid();
-    return m_points.front();
-  }
+  m2::PointD const & GetStart() const { return m_points.front(); }
+  m2::PointD const & GetFinish() const { return m_points.back(); }
+  std::vector<m2::PointD> const & GetPoints() const { return m_points; }
+  size_t GetPassedIdx() const { return m_passedIdx; }
 
-  m2::PointD const & GetFinish() const
+  void SetPointFrom(m2::PointD const & point)
   {
-    CheckValid();
-    return m_points.back();
-  }
-
-  void SetStart(m2::PointD const & start)
-  {
-    CheckValid();
-    m_points.front() = start;
+    CHECK_LESS(m_passedIdx, m_points.size(), ());
+    m_points[m_passedIdx] = point;
   }
 
   m2::PointD const & GetPoint(size_t pointIdx) const
@@ -47,36 +40,23 @@ public:
     return m_points[pointIdx];
   }
 
-  std::vector<m2::PointD> const & GetPoints() const
-  {
-    CheckValid();
-    return m_points;
-  }
+  m2::PointD const & GetPointFrom() const { return GetPoint(m_passedIdx); }
+  m2::PointD const & GetPointTo() const { return GetPoint(m_passedIdx + 1); }
 
-  size_t GetNumSubroutes() const
-  {
-    CheckValid();
-    return m_points.size() - 1;
-  }
+  size_t GetNumSubroutes() const { return m_points.size() - 1; }
+  size_t GetNumRemainingSubroutes() const { return GetNumSubroutes() - m_passedIdx; }
 
-  size_t GetPassedIdx() const { return m_passedIdx; }
+  bool IsFinished() const { return m_passedIdx >= GetNumSubroutes(); }
 
   void PassNextPoint()
   {
+    CHECK(!IsFinished(), ());
     ++m_passedIdx;
-    CheckValid();
-  }
-
-  void CheckValid() const
-  {
-    CHECK_GREATER_OR_EQUAL(m_points.size(), 2,
-                           ("Checkpoints should at least contain start and finish"));
-    CHECK_LESS(m_passedIdx, m_points.size(), ());
   }
 
 private:
   // m_points contains start, finish and intermediate points.
-  std::vector<m2::PointD> m_points;
+  std::vector<m2::PointD> m_points = {m2::PointD::Zero(), m2::PointD::Zero()};
   // m_passedIdx is the index of the checkpoint by which the user passed by.
   // By default, user has passed 0, it is start point.
   size_t m_passedIdx = 0;

@@ -59,9 +59,9 @@ private:
                                         Segment const & startSegment,
                                         RouterDelegate const & delegate, WorldGraph & graph,
                                         vector<Segment> & subroute);
-  IRouter::ResultCode AdjustRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                  m2::PointD const & finalPoint, RouterDelegate const & delegate,
-                                  Route & route);
+  IRouter::ResultCode AdjustRoute(Checkpoints const & checkpoints,
+                                  m2::PointD const & startDirection,
+                                  RouterDelegate const & delegate, Route & route);
 
   WorldGraph MakeWorldGraph();
 

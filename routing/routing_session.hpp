@@ -199,6 +199,7 @@ private:
 
   bool HasRouteAltitudeImpl() const;
   double GetCompletionPercent() const;
+  void PassCheckpoints();
 
 private:
   unique_ptr<AsyncRouter> m_router;

@@ -85,14 +85,13 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                                   TReadyCallback const & readyCallback, uint32_t timeoutSec,
                                   State routeRebuildingState, bool adjustToPrevRoute)
 {
-  ASSERT(m_router != nullptr, ());
-  m_checkpoints.CheckValid();
+  CHECK(m_router, ());
   RemoveRoute();
   SetState(routeRebuildingState);
   m_routingRebuildCount++;
   m_lastCompletionPercent = 0;
 
-  m_checkpoints.SetStart(startPoint);
+  m_checkpoints.SetPointFrom(startPoint);
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(m_checkpoints, startPoint - m_lastGoodPosition, adjustToPrevRoute,
@@ -201,11 +200,12 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
 
-    if (m_route->IsCurrentOnEnd())
+    PassCheckpoints();
+
+    if (m_checkpoints.IsFinished())
     {
       m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
       SetState(RouteFinished);
-      m_checkpointCallback(m_checkpoints.GetPoints().size() - 1);
 
       alohalytics::TStringMap params = {{"router", m_route->GetRouterId()},
                                         {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
@@ -233,6 +233,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
         }
       }
     }
+
     m_lastGoodPosition = m_userCurrentPosition;
   }
   else
@@ -371,6 +372,16 @@ double RoutingSession::GetCompletionPercent() const
     m_lastCompletionPercent = percent;
   }
   return percent;
+}
+
+void RoutingSession::PassCheckpoints()
+{
+  while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
+  {
+    m_checkpoints.PassNextPoint();
+    LOG(LINFO, ("Pass checkpoint, ", m_checkpoints));
+    m_checkpointCallback(m_checkpoints.GetPassedIdx());
+  }
 }
 
 void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotifications)

@@ -11,8 +11,9 @@
 
 namespace routing
 {
-SegmentedRoute::SegmentedRoute(m2::PointD const & start, m2::PointD const & finish)
-  : m_start(start), m_finish(finish)
+SegmentedRoute::SegmentedRoute(m2::PointD const & start, m2::PointD const & finish,
+                               std::vector<Route::SubrouteAttrs> const & subroutes)
+  : m_start(start), m_finish(finish), m_subroutes(subroutes)
 {
 }
 
@@ -25,5 +26,11 @@ double SegmentedRoute::CalcDistance(m2::PointD const & point) const
     result = std::min(result, MercatorBounds::DistanceOnEarth(point, step.GetPoint()));
 
   return result;
+}
+
+Route::SubrouteAttrs const & SegmentedRoute::GetSubroute(size_t i) const
+{
+  CHECK_LESS(i, m_subroutes.size(), ());
+  return m_subroutes[i];
 }
 }  // namespace routing
