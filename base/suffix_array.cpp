@@ -60,6 +60,8 @@ struct SkewWrapper
     return 0;
   }
 
+  size_t MaxValue() const { return static_cast<size_t>(numeric_limits<uint8_t>::max()) + 1; }
+
   size_t const m_n;
   uint8_t const * const m_s;
 };
@@ -241,8 +243,8 @@ namespace base
 {
 void Skew(size_t n, uint8_t const * s, size_t * sa)
 {
-  auto const maxValue = static_cast<size_t>(numeric_limits<uint8_t>::max());
-  RawSkew(n, maxValue, SkewWrapper(n, s), sa);
+  SkewWrapper wrapper(n, s);
+  RawSkew(n, wrapper.MaxValue(), wrapper, sa);
 }
 
 void Skew(string const & s, vector<size_t> & sa)

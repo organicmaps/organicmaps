@@ -29,6 +29,7 @@ class FirstColumn
 public:
   FirstColumn(size_t n, uint8_t const * s) : m_n(n), m_starts({})
   {
+    m_starts.fill(0);
     for (size_t i = 0; i < n; ++i)
       ++m_starts[s[i]];
 

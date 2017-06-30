@@ -3,6 +3,7 @@
 #include "base/bwt.hpp"
 
 #include <algorithm>
+#include <random>
 #include <string>
 
 using namespace base;
@@ -63,5 +64,27 @@ UNIT_TEST(RevBWT_Smoke)
     string const s(i, 'a' + (i % 3));
     TEST_EQUAL(s, RevRevBWT(s), ());
   }
+}
+
+UNIT_TEST(RevBWT_AllBytes)
+{
+  int kSeed = 42;
+  int kMin = 1;
+  int kMax = 10;
+
+  mt19937 engine(kSeed);
+  uniform_int_distribution<int> uid(kMin, kMax);
+
+  string s;
+  for (size_t i = 0; i < 256; ++i)
+  {
+    auto const count = uid(engine);
+    ASSERT_GREATER_OR_EQUAL(count, kMin, ());
+    ASSERT_LESS_OR_EQUAL(count, kMax, ());
+    for (int j = 0; j < count; ++j)
+      s.push_back(static_cast<uint8_t>(i));
+  }
+  shuffle(s.begin(), s.end(), engine);
+  TEST_EQUAL(s, RevRevBWT(s), ());
 }
 }  // namespace
