@@ -6,20 +6,14 @@ df::UserMarksProvider::UserMarksProvider()
 {
 }
 
-void df::UserMarksProvider::BeginRead()
-{
-  Lock();
-}
-
 bool df::UserMarksProvider::IsDirty() const
 {
   return m_isDirty;
 }
 
-void df::UserMarksProvider::EndRead()
+void df::UserMarksProvider::ResetDirty()
 {
   m_isDirty = false;
-  Unlock();
 }
 
 void df::UserMarksProvider::IncrementCounter()

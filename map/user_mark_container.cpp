@@ -134,6 +134,7 @@ void UserMarkContainer::ReleaseController()
       engine->ClearUserMarksLayer(layerId);
     else
       engine->UpdateUserMarksLayer(layerId, this);
+    ResetDirty();
   }
 }
 

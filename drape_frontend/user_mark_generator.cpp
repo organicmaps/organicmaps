@@ -26,19 +26,19 @@ void UserMarkGenerator::ClearUserMarks(GroupID groupId)
   UpdateLinesIndex(groupId);
 }
 
-void UserMarkGenerator::SetUserMarks(uint32_t groupId, drape_ptr<UserMarksRenderCollection> && marks)
+void UserMarkGenerator::SetUserMarks(GroupID groupId, drape_ptr<UserMarksRenderCollection> && marks)
 {
-  m_marks.insert(std::make_pair(groupId, std::move(marks)));
+  m_marks[groupId] = std::move(marks);
   UpdateMarksIndex(groupId);
 }
 
-void UserMarkGenerator::SetUserLines(uint32_t groupId, drape_ptr<UserLinesRenderCollection> && lines)
+void UserMarkGenerator::SetUserLines(GroupID groupId, drape_ptr<UserLinesRenderCollection> && lines)
 {
-  m_lines.insert(std::make_pair(groupId, std::move(lines)));
+  m_lines[groupId] = std::move(lines);
   UpdateLinesIndex(groupId);
 }
 
-void UserMarkGenerator::UpdateMarksIndex(uint32_t groupId)
+void UserMarkGenerator::UpdateMarksIndex(GroupID groupId)
 {
   for (auto & tileGroups : m_marksIndex)
   {
@@ -65,7 +65,7 @@ void UserMarkGenerator::UpdateMarksIndex(uint32_t groupId)
   CleanIndex();
 }
 
-void UserMarkGenerator::UpdateLinesIndex(uint32_t groupId)
+void UserMarkGenerator::UpdateLinesIndex(GroupID groupId)
 {
   for (auto & tileGroups : m_marksIndex)
   {

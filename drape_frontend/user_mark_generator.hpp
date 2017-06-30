@@ -12,7 +12,7 @@
 
 namespace df
 {
-using GroupID = uint32_t;
+using GroupID = size_t;
 using MarkGroups = std::map<GroupID, drape_ptr<UserMarksRenderCollection>>;
 using LineGroups = std::map<GroupID, drape_ptr<UserLinesRenderCollection>>;
 
