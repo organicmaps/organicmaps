@@ -39,6 +39,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
@@ -396,6 +397,32 @@ public class Utils
       LOGGER.e(TAG, "Failed to obtain a currency for locale: " + locale, e);
       return null;
     }
+  }
+
+  @NonNull
+  public static String formatCurrencyString(@NonNull String price, @NonNull String currencyCode)
+  {
+    String text;
+    try
+    {
+      float value = Float.valueOf(price);
+      Locale locale = Locale.getDefault();
+      Currency currency = Utils.getCurrencyForLocale(locale);
+      // If the currency cannot be obtained for the default locale we will use Locale.US.
+      if (currency == null)
+        locale = Locale.US;
+      NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+      if (!TextUtils.isEmpty(currencyCode))
+        formatter.setCurrency(Currency.getInstance(currencyCode));
+      return formatter.format(value);
+    }
+    catch (Throwable e)
+    {
+      LOGGER.e(TAG, "Failed to format string for price = " + price
+                    + " and currencyCode = " + currencyCode, e);
+      text = (price + " " + currencyCode);
+    }
+    return text;
   }
 
   private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener

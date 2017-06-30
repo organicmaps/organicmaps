@@ -90,12 +90,10 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
@@ -680,7 +678,7 @@ public class PlacePageView extends RelativeLayout
     if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
       return;
 
-    String text = formatCurrencyString(price, currencyCode);
+    String text = Utils.formatCurrencyString(price, currencyCode);
 
     mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     if (mMapObject == null)
@@ -689,29 +687,6 @@ public class PlacePageView extends RelativeLayout
       return;
     }
     refreshPreview(mMapObject, NetworkPolicy.newInstance(true));
-  }
-
-  @NonNull
-  private String formatCurrencyString(@NonNull String price, @NonNull String currencyCode)
-  {
-    String text;
-    try
-    {
-      float value = Float.valueOf(price);
-      Locale locale = Locale.getDefault();
-      Currency currency = Utils.getCurrencyForLocale(locale);
-      // If the currency cannot be obtained for the default locale we will use Locale.US.
-      if (currency == null)
-        locale = Locale.US;
-      text = NumberFormat.getCurrencyInstance(locale).format(value);
-    }
-    catch (Throwable e)
-    {
-      LOGGER.e(TAG, "Failed to format string for price = " + price
-                    + " and currencyCode = " + currencyCode, e);
-      text = (price + " " + currencyCode);
-    }
-    return text;
   }
 
   @Override

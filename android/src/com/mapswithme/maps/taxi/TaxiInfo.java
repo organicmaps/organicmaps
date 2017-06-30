@@ -104,13 +104,17 @@ public class TaxiInfo implements Parcelable
     private final String mTime;
     @NonNull
     private final String mPrice;
+    @NonNull
+    private final String mCurrency;
 
-    private Product(@NonNull String productId, @NonNull String name, @NonNull String time, @NonNull String price)
+    private Product(@NonNull String productId, @NonNull String name, @NonNull String time,
+                    @NonNull String price, @NonNull String currency)
     {
       mProductId = productId;
       mName = name;
       mTime = time;
       mPrice = price;
+      mCurrency = currency;
     }
 
     private Product(@NonNull Parcel parcel)
@@ -119,6 +123,7 @@ public class TaxiInfo implements Parcelable
       mName = parcel.readString();
       mTime = parcel.readString();
       mPrice = parcel.readString();
+      mCurrency = parcel.readString();
     }
 
     @NonNull
@@ -145,6 +150,12 @@ public class TaxiInfo implements Parcelable
       return mPrice;
     }
 
+    @NonNull
+    public String getCurrency()
+    {
+      return mCurrency;
+    }
+
     @Override
     public String toString()
     {
@@ -153,6 +164,7 @@ public class TaxiInfo implements Parcelable
              ", mName='" + mName + '\'' +
              ", mTime='" + mTime + '\'' +
              ", mPrice='" + mPrice + '\'' +
+             ", mCurrency='" + mCurrency + '\'' +
              '}';
     }
 
@@ -169,6 +181,7 @@ public class TaxiInfo implements Parcelable
       dest.writeString(mName);
       dest.writeString(mTime);
       dest.writeString(mPrice);
+      dest.writeString(mCurrency);
     }
   }
 }

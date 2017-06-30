@@ -31,7 +31,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_productClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfo$Product");
   g_productConstructor = jni::GetConstructorID(
       env, g_productClass,
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
   g_taxiInfoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfo");
   g_taxiInfoErrorClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/taxi/TaxiInfoError");
   g_taxiManagerInstanceField = jni::GetStaticFieldID(
@@ -66,8 +66,9 @@ void OnTaxiInfoReceived(taxi::ProvidersContainer const & providers, uint64_t con
         jni::TScopedLocalRef jName(env, jni::ToJavaString(env, item.m_name));
         jni::TScopedLocalRef jTime(env, jni::ToJavaString(env, item.m_time));
         jni::TScopedLocalRef jPrice(env, jni::ToJavaString(env, item.m_price));
+        jni::TScopedLocalRef jCurrency(env, jni::ToJavaString(env, item.m_currency));
         return env->NewObject(g_productClass, g_productConstructor, jProductId.get(), jName.get(),
-                              jTime.get(), jPrice.get());
+                              jTime.get(), jPrice.get(), jCurrency.get());
       };
 
     auto const providerBuilder = [productBuilder](JNIEnv * env, taxi::Provider const & item)
@@ -101,7 +102,7 @@ void OnTaxiError(taxi::ErrorsContainer const & errors, uint64_t const requestId)
     auto const errorBuilder = [](JNIEnv * env, taxi::ProviderError const & error)
       {
         jni::TScopedLocalRef jErrorCode(env, jni::ToJavaString(env, taxi::DebugPrint(error.m_code)));
-        return env->NewObject(g_taxiInfoErrorClass, g_taxiInfoConstructor, error.m_type,
+        return env->NewObject(g_taxiInfoErrorClass, g_taxiInfoErrorConstructor, error.m_type,
                               jErrorCode.get());
       };
 
