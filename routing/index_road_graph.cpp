@@ -74,6 +74,7 @@ bool IndexRoadGraph::IsRouteEdgesImplemented() const
 void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
 {
   edges.clear();
+  edges.reserve(m_segments.size());
 
   for (Segment const & segment : m_segments)
   {

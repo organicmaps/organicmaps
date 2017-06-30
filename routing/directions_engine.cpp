@@ -14,14 +14,14 @@ bool IDirectionsEngine::ReconstructPath(RoadGraphBase const & graph, vector<Junc
   if (path.size() <= 1)
     return false;
 
-  routeEdges.reserve(path.size() - 1);
-
   if (graph.IsRouteEdgesImplemented())
   {
     graph.GetRouteEdges(routeEdges);
     ASSERT_EQUAL(routeEdges.size() + 1, path.size(), ());
     return true;
   }
+
+  routeEdges.reserve(path.size() - 1);
 
   Junction curr = path[0];
   vector<Edge> currEdges;
