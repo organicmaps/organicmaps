@@ -840,5 +840,6 @@ private:
   // taxi::Engine and, therefore, destroyed after taxi::Engine.
   unique_ptr<taxi::Engine> m_taxiEngine;
 
+  void InitCityFinder();
   void InitTaxiEngine();
 };

@@ -356,6 +356,7 @@ void Framework::Migrate(bool keepDownloaded)
   m_searchEngine.reset();
   m_infoGetter.reset();
   m_taxiEngine.reset();
+  m_cityFinder.reset();
   TCountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
@@ -363,8 +364,9 @@ void Framework::Migrate(bool keepDownloaded)
   GetStorage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
   InitSearchEngine();
-  RegisterAllMaps();
+  InitCityFinder();
   InitTaxiEngine();
+  RegisterAllMaps();
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
   if (m_drapeEngine && m_isRenderingEnabled)
@@ -430,14 +432,19 @@ Framework::Framework(FrameworkParams const & params)
 
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
 
-  // To avoid possible races - init country info getter once in constructor.
+  // To avoid possible races - init country info getter in constructor.
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
 
-  // To avoid possible races - init search engine once in constructor.
+  // To avoid possible races - init search engine in constructor.
   InitSearchEngine();
   LOG(LDEBUG, ("Search engine initialized"));
 
+  InitCityFinder();
+  InitTaxiEngine();
+
+  // All members which re-initialize in Migrate() method should be initialized before RegisterAllMaps().
+  // Migrate() can be called from RegisterAllMaps().
   RegisterAllMaps();
   LOG(LDEBUG, ("Maps initialized"));
 
@@ -472,13 +479,10 @@ Framework::Framework(FrameworkParams const & params)
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
 
-  m_cityFinder = make_unique<search::CityFinder>(m_model.GetIndex());
-
   m_adsEngine = make_unique<ads::Engine>();
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
-  InitTaxiEngine();
 }
 
 Framework::~Framework()
@@ -3302,6 +3306,13 @@ void Framework::RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> 
 {
   m_storage.ForEachCountryFile(
       [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });
+}
+
+void Framework::InitCityFinder()
+{
+  ASSERT(!m_cityFinder, ());
+
+  m_cityFinder = make_unique<search::CityFinder>(m_model.GetIndex());
 }
 
 void Framework::InitTaxiEngine()
