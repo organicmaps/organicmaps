@@ -33,7 +33,7 @@ void RadixSort(size_t numKeys, size_t const * keys, size_t numValues, Values con
   {
     auto const value = values[keys[i]];
     ASSERT_LESS(value, count.size(), ());
-    ++count[values[keys[i]]];
+    ++count[value];
   }
   for (size_t i = 1; i < numValues; ++i)
     count[i] += count[i - 1];

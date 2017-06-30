@@ -6,6 +6,7 @@ set(
   SRC
   base64_test.cpp
   bit_streams_test.cpp
+  bwt_coder_tests.cpp
   coder_test.hpp
   coder_util_test.cpp
   compressed_bit_vector_test.cpp

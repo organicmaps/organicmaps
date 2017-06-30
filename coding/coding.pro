@@ -40,6 +40,7 @@ HEADERS += \
     base64.hpp \
     bit_streams.hpp \
     buffer_reader.hpp \
+    bwt_coder.hpp \
     byte_stream.hpp \
     coder.hpp \
     coder_util.hpp \

@@ -18,6 +18,7 @@ SOURCES += \
     levenshtein_dfa.cpp \
     logging.cpp \
     lower_case.cpp \
+    move_to_front.cpp \
     normalize_unicode.cpp \
     pprof.cpp \
     random.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     math.hpp \
     matrix.hpp \
     mem_trie.hpp \
+    move_to_front.hpp \
     mutex.hpp \
     newtype.hpp \
     observer_list.hpp \

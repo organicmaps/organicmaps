@@ -28,6 +28,7 @@ SOURCES += \
   math_test.cpp \
   matrix_test.cpp \
   mem_trie_test.cpp \
+  move_to_front_tests.cpp \
   observer_list_test.cpp \
   range_iterator_test.cpp \
   ref_counted_tests.cpp \

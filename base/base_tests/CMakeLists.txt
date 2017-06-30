@@ -17,6 +17,7 @@ set(
   math_test.cpp
   matrix_test.cpp
   mem_trie_test.cpp
+  move_to_front_tests.cpp
   newtype_test.cpp
   observer_list_test.cpp
   range_iterator_test.cpp

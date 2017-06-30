@@ -15,6 +15,7 @@ DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
 SOURCES += ../../testing/testingmain.cpp \
     base64_test.cpp \
     bit_streams_test.cpp \
+    bwt_coder_tests.cpp \
     coder_util_test.cpp \
     compressed_bit_vector_test.cpp \
     dd_vector_test.cpp \
