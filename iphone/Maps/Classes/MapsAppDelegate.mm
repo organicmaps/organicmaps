@@ -362,8 +362,6 @@ using namespace osm_auth_ios;
   InitLocalizedStrings();
   [MWMThemeManager invalidate];
 
-  GetFramework().EnterForeground();
-
   [self commonInit];
 
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
@@ -523,7 +521,6 @@ using namespace osm_auth_ios;
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
-  GetFramework().EnterBackground();
   if (m_activeDownloadsCounter)
   {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
@@ -560,25 +557,26 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
+  auto & f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
   if ([AppInfo sharedInfo].isMetalDriver)
   {
-    GetFramework().SetRenderingDisabled(true);
-    GetFramework().OnDestroyGLContext();
+    f.SetRenderingDisabled(true);
+    f.OnDestroyGLContext();
   }
   else
   {
-    GetFramework().SetRenderingDisabled(false);
+    f.SetRenderingDisabled(false);
   }
   [MWMLocationManager applicationWillResignActive];
+  f.EnterBackground();
   LOG(LINFO, ("applicationWillResignActive - end"));
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   LOG(LINFO, ("applicationWillEnterForeground - begin"));
-  GetFramework().EnterForeground();
   if (!GpsTracker::Instance().IsEnabled())
     return;
 
@@ -604,16 +602,18 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
   NSLog(@"Pushwoosh token: %@", [MWMPushNotifications pushToken]);
+  auto & f = GetFramework();
+  f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
   [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];
-  GetFramework().SetRenderingEnabled();
+  f.SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
   if ([AppInfo sharedInfo].isMetalDriver)
   {
     m2::PointU const size = ((EAGLView *)self.mapViewController.view).pixelSize;
-    GetFramework().OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
+    f.OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
   }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
