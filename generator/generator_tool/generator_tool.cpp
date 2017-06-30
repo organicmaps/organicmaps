@@ -229,12 +229,15 @@ int main(int argc, char ** argv)
       if (!feature::BuildOffsetsTable(datFile))
         continue;
 
-      std::string const metalinesFilename =
-          genInfo.GetIntermediateFileName(METALINES_FILENAME, "" /* extension */);
+      if (mapType == feature::DataHeader::country)
+      {
+        std::string const metalinesFilename =
+            genInfo.GetIntermediateFileName(METALINES_FILENAME, "" /* extension */);
 
-      LOG(LINFO, ("Processing metalines from", metalinesFilename));
-      if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
-        LOG(LCRITICAL, ("Error generating metalines section."));
+        LOG(LINFO, ("Processing metalines from", metalinesFilename));
+        if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
+          LOG(LCRITICAL, ("Error generating metalines section."));
+      }
     }
 
     if (FLAGS_generate_index)
