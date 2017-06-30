@@ -1,7 +1,7 @@
 #import "MWMTaxiPreviewDataSource.h"
 #import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "SwiftBridge.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -61,7 +61,7 @@ using namespace taxi;
 
 @property(weak, nonatomic) MWMTaxiCollectionView * collectionView;
 @property(nonatomic) BOOL isNeedToConstructURLs;
-@property(nonatomic) MWMRoutePreviewTaxiCellType type;
+@property(nonatomic, readwrite) MWMRoutePreviewTaxiCellType type;
 
 @end
 
@@ -117,11 +117,22 @@ using namespace taxi;
             auto const type = provider.GetType();
             runAsyncOnMainQueue([self, completion, products, type] {
               self->m_products = products;
+              NSString * provider = nil;
               switch (type)
               {
-              case taxi::Provider::Type::Uber: self.type = MWMRoutePreviewTaxiCellTypeUber; break;
-              case taxi::Provider::Type::Yandex: self.type = MWMRoutePreviewTaxiCellTypeYandex; break;
+              case taxi::Provider::Type::Uber:
+                self.type = MWMRoutePreviewTaxiCellTypeUber;
+                provider = kStatUber;
+                break;
+              case taxi::Provider::Type::Yandex:
+                self.type = MWMRoutePreviewTaxiCellTypeYandex;
+                provider = kStatYandex;
+                break;
               }
+              [Statistics logEvent:kStatRoutingBuildTaxi
+                    withParameters:@{
+                      @"provider" : provider
+                    }];
               auto cv = self.collectionView;
               cv.hidden = NO;
               cv.pageControl.hidden = products.size() == 1;
@@ -144,18 +155,23 @@ using namespace taxi;
             }
             auto const & errorCode = errors.front().m_code;
             runAsyncOnMainQueue(^{
+              NSString * error = nil;
               switch (errorCode)
               {
-                case taxi::ErrorCode::NoProducts:
-                  failure(L(@"taxi_not_found"));
-                  break;
-                case taxi::ErrorCode::RemoteError:
-                  failure(L(@"dialog_taxi_error"));
-                  break;
-                case taxi::ErrorCode::NoProvider:
-                  failure(L(@"taxi_no_provider"));
-                  break;
+              case taxi::ErrorCode::NoProducts:
+                error = @"No products (Taxi is in the city, but no offers)";
+                failure(L(@"taxi_not_found"));
+                break;
+              case taxi::ErrorCode::RemoteError:
+                error = @"Server error (The taxi server responded with an error)";
+                failure(L(@"dialog_taxi_error"));
+                break;
+              case taxi::ErrorCode::NoProvider:
+                error = @"No providers (Taxi isn't in the city)";
+                failure(L(@"taxi_no_provider"));
+                break;
               }
+              [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{ @"error" : error }];
             });
           };
   

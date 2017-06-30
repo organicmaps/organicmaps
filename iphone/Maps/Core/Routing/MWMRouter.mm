@@ -79,9 +79,17 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
     auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
+    NSString * provider = nil;
+    switch (taxiDataSource.type)
+    {
+    case MWMRoutePreviewTaxiCellTypeTaxi: provider = kStatUnknown; break;
+    case MWMRoutePreviewTaxiCellTypeUber: provider = kStatUber; break;
+    case MWMRoutePreviewTaxiCellTypeYandex: provider = kStatYandex; break;
+    }
+
     [Statistics logEvent:eventName
           withParameters:@{
-            kStatProvider : kStatUber,
+            kStatProvider : provider,
             kStatFromLocation : makeLocationEventValue(p1.latitude, p1.longitude),
             kStatToLocation : makeLocationEventValue(p2.latitude, p2.longitude)
           }

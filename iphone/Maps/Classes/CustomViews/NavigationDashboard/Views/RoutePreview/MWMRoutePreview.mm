@@ -264,8 +264,8 @@ CGFloat constexpr kAdditionalHeight = 20.;
       break;
     case MWMRouterTypeTaxi:
       [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatUber}];
-        break;
+            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatTaxi}];
+      break;
     }
   }
 }

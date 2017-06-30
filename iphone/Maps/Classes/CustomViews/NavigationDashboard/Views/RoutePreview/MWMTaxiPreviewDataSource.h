@@ -1,3 +1,5 @@
+#import "SwiftBridge.h"
+
 @class MWMRoutePoint;
 
 @interface MWMTaxiCollectionView : UICollectionView
@@ -8,6 +10,8 @@
 @end
 
 @interface MWMTaxiPreviewDataSource : NSObject
+
+@property(nonatomic, readonly) MWMRoutePreviewTaxiCellType type;
 
 - (instancetype)initWithCollectionView:(MWMTaxiCollectionView *)collectionView;
 

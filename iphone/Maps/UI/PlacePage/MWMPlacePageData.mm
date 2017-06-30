@@ -86,10 +86,19 @@ using namespace place_page;
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
 
-  if (![self taxiProviders].empty())
+  auto const & taxiProviders = [self taxiProviders];
+  if (!taxiProviders.empty())
   {
     m_sections.push_back(Sections::Ad);
     m_adRows.push_back(AdRows::Taxi);
+
+    NSString * provider = nil;
+    switch (taxiProviders.front())
+    {
+    case taxi::Provider::Uber: provider = kStatUber; break;
+    case taxi::Provider::Yandex: provider = kStatYandex; break;
+    }
+    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
   }
 
   // There is at least one of these buttons.
