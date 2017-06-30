@@ -943,9 +943,9 @@ area|z18-[amenity=charging_station]
 {icon-image: charging-station-xl.svg;font-size: 14.75;}
 
 node|z13[highway=speed_camera]
-{icon-image: speedcam-l.svg; z-index: 75000;}
+{icon-image: speedcam-s.svg; z-index: 75000;}
 node|z14[highway=speed_camera]
-{icon-image: speedcam-l.svg; z-index: 75000;}
+{icon-image: speedcam-m.svg; z-index: 75000;}
 node|z15[highway=speed_camera]
 {icon-image: speedcam-l.svg; z-index: 75000;}
 node|z16-[highway=speed_camera]

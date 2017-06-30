@@ -191,7 +191,6 @@ node[amenity=shelter],
 area[amenity=shelter],
 node[highway=rest_area],
 area[highway=rest_area],
-node[highway=speed_camera],
 node[amenity=school],
 area[amenity=school],
 node[amenity=bicycle_rental],
@@ -2679,11 +2678,6 @@ area|z17[amenity=charging_station]
 node|z18-[amenity=charging_station],
 area|z18-[amenity=charging_station]
 {icon-image: charging-station-l.svg;font-size: 11;}
-
-node|z16[highway=speed_camera]
-{icon-image: speedcam-m.svg;}
-node|z17-[highway=speed_camera]
-{icon-image: speedcam-l.svg;}
 
 node|z17[amenity=car_wash],
 area|z17[amenity=car_wash]
