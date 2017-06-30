@@ -205,6 +205,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     {
       m_passedDistanceOnRouteMeters += m_route->GetTotalDistanceMeters();
       SetState(RouteFinished);
+      m_checkpointCallback(m_checkpoints.GetPoints().size() - 1);
 
       alohalytics::TStringMap params = {{"router", m_route->GetRouterId()},
                                         {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
@@ -502,6 +503,11 @@ void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback
 void RoutingSession::SetProgressCallback(TProgressCallback const & progressCallback)
 {
   m_progressCallback = progressCallback;
+}
+
+void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpointCallback)
+{
+  m_checkpointCallback = checkpointCallback;
 }
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)

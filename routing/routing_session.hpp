@@ -77,6 +77,7 @@ public:
 
   typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallback;
   typedef function<void(float)> TProgressCallback;
+  typedef function<void(size_t passedCheckpointIdx)> CheckpointCallback;
 
   RoutingSession();
 
@@ -148,6 +149,7 @@ public:
   void SetReadyCallbacks(TReadyCallback const & buildReadyCallback,
                          TReadyCallback const & rebuildReadyCallback);
   void SetProgressCallback(TProgressCallback const & progressCallback);
+  void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
 
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable);
@@ -230,6 +232,7 @@ private:
   TReadyCallback m_buildReadyCallback;
   TReadyCallback m_rebuildReadyCallback;
   TProgressCallback m_progressCallback;
+  CheckpointCallback m_checkpointCallback;
 
   // Statistics parameters
   // Passed distance on route including reroutes

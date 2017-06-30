@@ -104,6 +104,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
       [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
+
+  m_routingSession.SetCheckpointCallback(
+      [this](size_t passedCheckpointIdx) { /* TODO insert reaction here */ });
 }
 
 void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
