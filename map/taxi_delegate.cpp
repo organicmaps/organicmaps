@@ -1,6 +1,6 @@
 #include "map/taxi_delegate.hpp"
 
-#include "map/city_finder.hpp"
+#include "search/city_finder.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -11,7 +11,7 @@
 #include "geometry/mercator.hpp"
 
 TaxiDelegate::TaxiDelegate(storage::Storage const & st, storage::CountryInfoGetter const & ig,
-                           CityFinder & cf)
+                           search::CityFinder & cf)
   : m_storage(st), m_infoGetter(ig), m_cityFinder(cf)
 {
 }

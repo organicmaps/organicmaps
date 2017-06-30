@@ -833,7 +833,7 @@ public:
   storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
 
 private:
-  std::unique_ptr<search::CityFinder> m_cityFinder;
+  unique_ptr<search::CityFinder> m_cityFinder;
   unique_ptr<ads::Engine> m_adsEngine;
   // The order matters here: storage::CountryInfoGetter and
   // search::CityFinder must be initialized before
