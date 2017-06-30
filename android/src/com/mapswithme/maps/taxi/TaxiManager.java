@@ -107,7 +107,7 @@ public class TaxiManager
 
   public enum ErrorCode
   {
-    NoProducts, RemoteError
+    NoProducts, RemoteError, NoProvider
   }
 
   public interface TaxiListener

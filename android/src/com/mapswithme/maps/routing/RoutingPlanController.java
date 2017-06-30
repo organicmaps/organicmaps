@@ -232,6 +232,9 @@ public class RoutingPlanController extends ToolbarController
       case RemoteError:
         showError(R.string.dialog_taxi_error);
         break;
+      case NoProvider:
+        showError(R.string.taxi_no_provider);
+        break;
       default:
         throw new AssertionError("Unsupported uber error: " + code);
     }
