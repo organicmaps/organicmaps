@@ -263,6 +263,8 @@ UNIT_TEST(TaxiEngine_Smoke)
   taxi::ProvidersContainer const synchronousProviders =
       GetProvidersSynchronous(engine, from, to, kTesturl);
 
+  TEST(!synchronousProviders.empty(), ());
+
   {
     {
       lock_guard<mutex> lock(resultsMutex);
@@ -290,6 +292,7 @@ UNIT_TEST(TaxiEngine_Smoke)
 
   testing::RunEventLoop();
 
+  TEST(!providersContainer.empty(), ());
   TEST(CompareProviders(providersContainer, synchronousProviders), ());
 }
 }  // namespace
