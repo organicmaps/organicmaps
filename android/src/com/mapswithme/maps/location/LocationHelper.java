@@ -216,7 +216,7 @@ public enum LocationHelper
     if (mMyPosition == null)
       mMyPosition = new MapObject("", 0L, 0, MapObject.MY_POSITION, "", "", "", "",
                                   mSavedLocation.getLatitude(), mSavedLocation.getLongitude(), "",
-                                  null, false, "", null, null);
+                                  null, null, "", null, null);
 
     return mMyPosition;
   }

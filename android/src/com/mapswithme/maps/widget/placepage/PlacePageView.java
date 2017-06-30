@@ -1304,7 +1304,7 @@ public class PlacePageView extends RelativeLayout
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
 
-    boolean showTaxiOffer = mapObject.isReachableByTaxi() &&
+    boolean showTaxiOffer = mapObject.getReachableByTaxiTypes() != null  &&
                             LocationHelper.INSTANCE.getMyPosition() != null &&
                             ConnectionState.isConnected();
 
@@ -1328,6 +1328,8 @@ public class PlacePageView extends RelativeLayout
       refreshLocalAdInfo(mapObject);
     }
   }
+
+
 
   private void hideHotelViews()
   {

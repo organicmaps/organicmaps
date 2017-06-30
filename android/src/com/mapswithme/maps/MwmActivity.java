@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -1482,10 +1483,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         final RoutePoint to = data.mPoints[1];
         RoutingController.get().prepare(new MapObject("", 0L, 0, MapObject.API_POINT, from.mName,
                                                       "", "", "", from.mLat, from.mLon, "", null,
-                                                      false, "", null, null),
+                                                      null, "", null, null),
                                         new MapObject("", 0L, 0, MapObject.API_POINT, to.mName,
                                                       "", "", "", to.mLat, to.mLon, "", null,
-                                                      false, "", null, null));
+                                                      null, "", null, null));
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
@@ -2185,7 +2186,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       return new MapObject("", 0L, 0, MapObject.API_POINT, "",
                            "", "", "", lat, lon, "", null,
-                           false, "", null, null);
+                           null, "", null, null);
     }
 
     BuildRouteTask(double latTo, double lonTo)

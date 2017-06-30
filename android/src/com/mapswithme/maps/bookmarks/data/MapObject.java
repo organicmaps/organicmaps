@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
+import com.mapswithme.maps.taxi.TaxiManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -49,7 +50,8 @@ public class MapObject implements Parcelable
   private String mApiId;
   @Nullable
   private List<Banner> mBanners;
-  private boolean mReachableByTaxi;
+  @Nullable
+  private List<Integer> mReachableByTaxiTypes;
   @Nullable
   private String mBookingSearchUrl;
   @Nullable
@@ -60,19 +62,19 @@ public class MapObject implements Parcelable
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, String apiId,
-                   @Nullable Banner[] banners, boolean reachableByTaxi,
+                   @Nullable Banner[] banners, @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {
     this(mwmName, mwmVersion, featureIndex, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         reachableByTaxi, bookingSearchUrl, localAdInfo, routePointInfo);
+         types, bookingSearchUrl, localAdInfo, routePointInfo);
   }
 
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
-                   String apiId, @Nullable Banner[] banners, boolean reachableByTaxi,
+                   String apiId, @Nullable Banner[] banners, @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {
@@ -88,12 +90,17 @@ public class MapObject implements Parcelable
     mLon = lon;
     mMetadata = metadata;
     mApiId = apiId;
-    mReachableByTaxi = reachableByTaxi;
     mBookingSearchUrl = bookingSearchUrl;
     mLocalAdInfo = localAdInfo;
     mRoutePointInfo = routePointInfo;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
+    if (taxiTypes != null)
+    {
+      mReachableByTaxiTypes = new ArrayList<>();
+      for (int type: taxiTypes)
+        mReachableByTaxiTypes.add(type);
+    }
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -112,19 +119,29 @@ public class MapObject implements Parcelable
          (Metadata) source.readParcelable(Metadata.class.getClassLoader()),
          source.readString(), // ApiId;
          null, // mBanners
-         source.readByte() != 0, // ReachableByTaxi
+         null, // mReachableByTaxiTypes
          source.readString(), // BookingSearchUrl
          (LocalAdInfo) source.readParcelable(LocalAdInfo.class.getClassLoader()), // LocalAdInfo
          (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader())); // RoutePointInfo
     mBanners = readBanners(source);
+    mReachableByTaxiTypes = readTaxiTypes(source);
+
   }
 
   @Nullable
-  private List<Banner> readBanners(Parcel source)
+  private List<Banner> readBanners(@NonNull Parcel source)
   {
     List<Banner> banners = new ArrayList<>();
     source.readTypedList(banners, Banner.CREATOR);
     return banners.isEmpty() ? null : banners;
+  }
+
+  @NonNull
+  private List<Integer> readTaxiTypes(@NonNull Parcel source)
+  {
+    List<Integer> types = new ArrayList<>();
+    source.readList(types, Integer.class.getClassLoader());
+    return types;
   }
 
   /**
@@ -198,9 +215,10 @@ public class MapObject implements Parcelable
     return mBanners;
   }
 
-  public boolean isReachableByTaxi()
+  @Nullable
+  public List<Integer> getReachableByTaxiTypes()
   {
-    return mReachableByTaxi;
+    return mReachableByTaxiTypes;
   }
 
   public void setLat(double lat)
@@ -310,11 +328,11 @@ public class MapObject implements Parcelable
     dest.writeDouble(mLon);
     dest.writeParcelable(mMetadata, 0);
     dest.writeString(mApiId);
-    dest.writeByte((byte) (mReachableByTaxi ? 1 : 0));
     dest.writeString(mBookingSearchUrl);
     dest.writeParcelable(mLocalAdInfo, 0);
     dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeTypedList(mBanners);
+    dest.writeList(mReachableByTaxiTypes);
   }
 
   @Override

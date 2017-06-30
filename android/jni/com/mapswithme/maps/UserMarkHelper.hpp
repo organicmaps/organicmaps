@@ -32,6 +32,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners);
 
+jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, vector<taxi::Provider::Type> const & types);
+
 jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
 
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);

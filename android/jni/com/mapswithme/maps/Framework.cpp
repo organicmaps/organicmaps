@@ -552,8 +552,7 @@ uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon
   if (!taxiEngine)
     return 0;
 
-  auto const topmostCountryIds = m_work.GetTopmostCountries(from);
-  return taxiEngine->GetAvailableProducts(from, to, topmostCountryIds, onSuccess, onError);
+  return taxiEngine->GetAvailableProducts(from, to, onSuccess, onError);
 }
 
 taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
