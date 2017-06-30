@@ -242,16 +242,21 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   return _deviceName;
 }
 
-- (BOOL)isMetalDriver
+- (MWMOpenGLDriver)openGLDriver
 {
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString * machine = @(systemInfo.machine);
   if (kDeviceNamesBeforeMetalDriver[machine] != nil)
-    return NO;
+    return MWMOpenGLDriverRegular;
   if (kDeviceNamesWithiOS10MetalDriver[machine] != nil)
-    return !isIOSVersionLessThan(10);
-  return YES;
+  {
+    if (isIOSVersionLessThan(10))
+      return MWMOpenGLDriverRegular;
+    else if (isIOSVersionLessThan(@"10.3"))
+      return MWMOpenGLDriverMetalPre103;
+  }
+  return MWMOpenGLDriverMetal;
 }
 
 @end

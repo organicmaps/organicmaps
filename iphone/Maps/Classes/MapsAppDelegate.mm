@@ -560,7 +560,7 @@ using namespace osm_auth_ios;
   auto & f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].isMetalDriver)
+  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
   {
     f.SetRenderingDisabled(true);
     f.OnDestroyGLContext();
@@ -610,7 +610,7 @@ using namespace osm_auth_ios;
   f.SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].isMetalDriver)
+  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
   {
     m2::PointU const size = ((EAGLView *)self.mapViewController.view).pixelSize;
     f.OnRecoverGLContext(static_cast<int>(size.x), static_cast<int>(size.y));
