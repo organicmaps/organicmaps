@@ -1,11 +1,4 @@
 @objc
-enum PlacePageTaxiCellType: Int {
-  case taxi
-  case uber
-  case yandex
-}
-
-@objc
 final class PlacePageTaxiCell: MWMTableViewCell {
 
   @IBOutlet private weak var icon: UIImageView!
@@ -29,9 +22,11 @@ final class PlacePageTaxiCell: MWMTableViewCell {
   }
 
   private weak var delegate: MWMPlacePageButtonsProtocol!
+  private var type: MWMPlacePageTaxiProvider!
 
-  func config(type: PlacePageTaxiCellType, delegate: MWMPlacePageButtonsProtocol) {
+  func config(type: MWMPlacePageTaxiProvider, delegate: MWMPlacePageButtonsProtocol) {
     self.delegate = delegate
+    self.type = type
     switch type {
     case .taxi:
       icon.image = #imageLiteral(resourceName: "icTaxiTaxi")
@@ -41,11 +36,11 @@ final class PlacePageTaxiCell: MWMTableViewCell {
       title.text = L("taxi_uber")
     case .yandex:
       icon.image = #imageLiteral(resourceName: "icTaxiYandex")
-      title.text = L("taxi_yandex")
+      title.text = L("yandex_taxi_title")
     }
   }
 
   @IBAction func orderAction() {
-    delegate.taxiTo()
+    delegate.orderTaxi(type)
   }
 }

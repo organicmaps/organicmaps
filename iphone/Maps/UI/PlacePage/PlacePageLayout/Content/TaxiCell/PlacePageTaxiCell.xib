@@ -43,7 +43,6 @@
                         <state key="normal" title="Order"/>
                         <connections>
                             <action selector="orderAction" destination="16z-3Y-tuS" eventType="touchUpInside" id="aaO-oV-60G"/>
-                            <action selector="orderTaxi" destination="16z-3Y-tuS" eventType="touchUpInside" id="Yhy-5a-CZU"/>
                         </connections>
                     </button>
                 </subviews>

@@ -1,7 +1,6 @@
 #import "MWMTaxiPreviewDataSource.h"
 #import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMTaxiPreviewCell.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -9,12 +8,6 @@
 #include "geometry/mercator.hpp"
 
 #include "partners_api/taxi_provider.hpp"
-
-namespace
-{
-CGFloat const kPageControlHeight = 6;
-
-}  // namespace
 
 @interface MWMTaxiCollectionView ()
 
@@ -38,10 +31,9 @@ CGFloat const kPageControlHeight = 6;
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.pageControl.height = kPageControlHeight;
-  self.pageControl.width = self.width;
-  self.pageControl.maxY = self.height - kPageControlHeight;
-  self.pageControl.midX = self.center.x;
+  self.pageControl.height = 8;
+  self.pageControl.minY = 4;
+  self.pageControl.midX = self.superview.superview.center.x;
 }
 
 - (UIPageControl *)pageControl
@@ -49,6 +41,7 @@ CGFloat const kPageControlHeight = 6;
   if (!_pageControl)
   {
     _pageControl = [[UIPageControl alloc] init];
+    _pageControl.backgroundColor = [UIColor clearColor];
     [self.superview addSubview:_pageControl];
   }
   return _pageControl;
@@ -68,6 +61,7 @@ using namespace taxi;
 
 @property(weak, nonatomic) MWMTaxiCollectionView * collectionView;
 @property(nonatomic) BOOL isNeedToConstructURLs;
+@property(nonatomic) RoutePreviewTaxiCellType type;
 
 @end
 
@@ -83,17 +77,9 @@ using namespace taxi;
     collectionView.delegate = self;
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    [collectionView registerWithCellClass:[MWMTaxiPreviewCell class]];
+    [collectionView registerWithCellClass:[RoutePreviewTaxiCell class]];
   }
   return self;
-}
-
-- (void)dealloc
-{
-  MWMTaxiCollectionView * cv = self.collectionView;
-  cv.dataSource = nil;
-  cv.delegate = nil;
-  self.collectionView = nil;
 }
 
 - (void)requestTaxiFrom:(MWMRoutePoint *)from
@@ -109,90 +95,116 @@ using namespace taxi;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;
 
-  // TODO Dummy, must be changed by IOS developer.
-  //  network_policy::CallPartnersApi(
-  //      [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
-  //        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
-  //        if (!engine) {
-  //          failure(L(@"dialog_taxi_error"));
-  //          return;
-  //        }
-  //
-  //        auto success = [self, completion](taxi::ProvidersContainer const & providers,
-  //                                          uint64_t const requestId) {
-  //          if (self->m_requestId != requestId)
-  //            return;
-  //          auto const & products = providers.GetProducts();
-  //          runAsyncOnMainQueue([self, completion, products] {
-  //
-  //            self->m_products = products;
-  //            auto cv = self.collectionView;
-  //            cv.hidden = NO;
-  //            cv.pageControl.hidden = NO;
-  //            cv.numberOfPages = self->m_products.size();
-  //            [cv reloadData];
-  //            cv.contentOffset = {};
-  //            cv.currentPage = 0;
-  //            completion();
-  //          });
-  //
-  //        };
-  //        auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const
-  //        requestId) {
-  //          if (self->m_requestId != requestId)
-  //            return;
-  //
-  //          runAsyncOnMainQueue(^{
-  //            switch (code)
-  //            {
-  //              case taxi::ErrorCode::NoProducts:
-  //                failure(L(@"taxi_not_found"));
-  //                break;
-  //              case taxi::ErrorCode::RemoteError:
-  //                failure(L(@"dialog_taxi_error"));
-  //                break;
-  //            }
-  //          });
-  //        };
-  //
-  //        auto const topmostCountryIds = GetFramework().GetTopmostCountries(m_from);
-  //        m_requestId = engine->GetAvailableProducts(m_from, m_to, topmostCountryIds, success,
-  //        error);
-  //      },
-  //      true /* force */);
+    network_policy::CallPartnersApi(
+        [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
+          auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+          if (!engine) {
+            failure(L(@"dialog_taxi_error"));
+            return;
+          }
+  
+          auto success = [self, completion](taxi::ProvidersContainer const & providers,
+                                            uint64_t const requestId) {
+            if (self->m_requestId != requestId)
+              return;
+            if (providers.empty())
+            {
+              NSCAssert(false, @"Providers container is empty");
+              return;
+            }
+            auto const & provider = providers.front();
+            auto const & products = provider.GetProducts();
+            auto const type = provider.GetType();
+            runAsyncOnMainQueue([self, completion, products, type] {
+              self->m_products = products;
+              switch (type)
+              {
+              case taxi::Provider::Type::Uber:
+                self.type = RoutePreviewTaxiCellTypeUber;
+                break;
+              case taxi::Provider::Type::Yandex:
+                self.type = RoutePreviewTaxiCellTypeYandex;
+                break;
+              }
+              auto cv = self.collectionView;
+              cv.hidden = NO;
+              cv.pageControl.hidden = products.size() == 1;
+              cv.numberOfPages = products.size();
+              cv.contentOffset = {};
+              cv.currentPage = 0;
+              [cv reloadData];
+              completion();
+            });
+  
+          };
+          auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const
+          requestId) {
+            if (self->m_requestId != requestId)
+              return;
+            if (errors.empty())
+            {
+              NSCAssert(false, @"Errors container is empty");
+              return;
+            }
+            auto const & errorCode = errors.front().m_code;
+            runAsyncOnMainQueue(^{
+              switch (errorCode)
+              {
+                case taxi::ErrorCode::NoProducts:
+                  failure(L(@"taxi_not_found"));
+                  break;
+                case taxi::ErrorCode::RemoteError:
+                  failure(L(@"dialog_taxi_error"));
+                  break;
+                case taxi::ErrorCode::NoProvider:
+                  failure(L(@"taxi_no_provider"));
+                  break;
+              }
+            });
+          };
+  
+          m_requestId = engine->GetAvailableProducts(m_from, m_to, success, error);
+        });
 }
 
 - (BOOL)isTaxiInstalled
 {
-  // TODO(Vlad): Not the best solution, need to store url's scheme of product in the uber::Product
-  // instead of just "uber://".
-  NSURL * url = [NSURL URLWithString:@"uber://"];
+  NSURL * url;
+  switch (self.type)
+  {
+  case RoutePreviewTaxiCellTypeTaxi: return NO;
+  case RoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
+  case RoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
+  }
   return [[UIApplication sharedApplication] canOpenURL:url];
 }
 
-- (NSURL *)taxiURL;
+- (void)taxiURL:(MWMURLBlock)block
 {
   if (m_products.empty())
-    return nil;
+    return;
 
   auto const index = [self.collectionView indexPathsForVisibleItems].firstObject.row;
   auto const productId = m_products[index].m_productId;
-  RideRequestLinks links;
-  // TODO Dummy, must be changed by IOS developer.
-  //  network_policy::CallPartnersApi(
-  //      [self](platform::NetworkPolicy const & canUseNetwork) {
-  //        auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
-  //        if (!engine) {
-  //          // TODO Dummy, should be implemented
-  //          return;
-  //        }
-  //
-  //        links = engine->GetRideRequestLinks(productId, m_from, m_to);
-  //      },
-  //      true /* force */);
+  network_policy::CallPartnersApi(
+    [self, productId, block](platform::NetworkPolicy const & canUseNetwork)
+    {
+      auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+      if (!engine)
+        return;
+      Provider::Type type;
+      switch (self.type)
+      {
+        case RoutePreviewTaxiCellTypeTaxi: return;
+        case RoutePreviewTaxiCellTypeUber: type = Provider::Type::Uber; break;
+        case RoutePreviewTaxiCellTypeYandex: type = Provider::Type::Yandex;  break;
+      }
 
-  return [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str()) :
-                                                     @(links.m_universalLink.c_str())];
+      auto links = engine->GetRideRequestLinks(type, productId, m_from, m_to);
+      auto url = [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str()) :
+                  @(links.m_universalLink.c_str())];
+      block(url);
+    });
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -204,10 +216,15 @@ using namespace taxi;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class cls = [MWMTaxiPreviewCell class];
-  auto cell = static_cast<MWMTaxiPreviewCell *>(
+  Class cls = [RoutePreviewTaxiCell class];
+  auto cell = static_cast<RoutePreviewTaxiCell *>(
       [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  [cell configWithProduct:m_products[indexPath.row]];
+  auto const & product = m_products[indexPath.row];
+  [cell configWithType:self.type
+                 title:@(product.m_name.c_str())
+                   eta:@(product.m_time.c_str())
+                 price:@(product.m_price.c_str())
+              currency:@(product.m_currency.c_str())];
 
   return cell;
 }

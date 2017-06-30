@@ -160,6 +160,9 @@ using BannerIsReady = void (^)();
 - (RouteMarkType)routeMarkType;
 - (int8_t)intermediateIndex;
 
+// Taxi
+- (std::vector<taxi::Provider::Type>)taxiProviders;
+
 // Banner
 - (id<MWMBanner>)nativeAd;
 

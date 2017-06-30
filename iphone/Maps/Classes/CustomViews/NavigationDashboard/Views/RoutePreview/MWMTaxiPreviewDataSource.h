@@ -16,7 +16,7 @@
              completion:(MWMVoidBlock)completion
                 failure:(MWMStringBlock)failure;
 
-- (NSURL *)taxiURL;
+- (void)taxiURL:(MWMURLBlock)block;
 - (BOOL)isTaxiInstalled;
 
 @end

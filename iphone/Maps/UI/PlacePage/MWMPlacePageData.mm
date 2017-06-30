@@ -86,7 +86,7 @@ using namespace place_page;
   m_sections.push_back(Sections::Metainfo);
   [self fillMetaInfoSection];
 
-  if (!m_info.ReachableByTaxiProviders().empty())
+  if (![self taxiProviders].empty())
   {
     m_sections.push_back(Sections::Ad);
     m_adRows.push_back(AdRows::Taxi);
@@ -591,6 +591,12 @@ using namespace place_page;
                                 std::chrono::steady_clock::now(), location.coordinate.latitude,
                                 location.coordinate.longitude, location.horizontalAccuracy);
   f.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
+}
+
+#pragma mark - Taxi
+- (std::vector<taxi::Provider::Type>)taxiProviders
+{
+  return m_info.ReachableByTaxiProviders();
 }
 
 #pragma mark - Getters

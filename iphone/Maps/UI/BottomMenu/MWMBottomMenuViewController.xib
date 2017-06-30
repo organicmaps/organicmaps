@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -95,10 +95,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xc-Kl-hAm">
-                                    <rect key="frame" x="154" y="12" width="54" height="24"/>
+                                    <rect key="frame" x="154" y="12" width="62" height="24"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="150" verticalHuggingPriority="150" horizontalCompressionResistancePriority="240" verticalCompressionResistancePriority="240" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-p6-hUf">
-                                            <rect key="frame" x="0.0" y="0.0" width="54" height="24"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="62" height="24"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -141,10 +141,11 @@
                                     </constraints>
                                 </view>
                                 <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="501" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go" customClass="MWMStartButton">
-                                    <rect key="frame" x="224" y="0.0" width="96" height="48"/>
+                                    <rect key="frame" x="228" y="8" width="80" height="32"/>
                                     <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="ZHw-Ha-INX"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="9LQ-Sj-W8f"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZHw-Ha-INX"/>
                                     </constraints>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                     <state key="normal" title="Start"/>
@@ -152,11 +153,14 @@
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="routingStartTouchUpInside" destination="-1" eventType="touchUpInside" id="MfT-Tr-kyw"/>
@@ -299,10 +303,10 @@
                                     </connections>
                                 </button>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYj-za-A2N" userLabel="Taxi View">
-                                    <rect key="frame" x="0.0" y="0.0" width="224" height="48"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="216" height="48"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pUj-hX-AzZ" customClass="MWMTaxiCollectionView">
-                                            <rect key="frame" x="0.0" y="0.0" width="224" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="216" height="48"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7nN-GY-zbW" customClass="MWMTaxiCollectionLayout">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -336,15 +340,14 @@
                                 <constraint firstItem="Z68-6z-5Ph" firstAttribute="centerX" secondItem="c75-ZF-hKn" secondAttribute="centerX" id="AcE-Sk-hhd"/>
                                 <constraint firstAttribute="bottom" secondItem="Z68-6z-5Ph" secondAttribute="bottom" id="BlR-TS-xJa"/>
                                 <constraint firstItem="nD5-wx-7Ui" firstAttribute="trailing" secondItem="4Xc-Kl-hAm" secondAttribute="trailing" priority="250" id="CRC-g9-WLM"/>
-                                <constraint firstAttribute="trailing" secondItem="pLD-sZ-ejH" secondAttribute="trailing" id="E7k-Dh-qE5"/>
+                                <constraint firstAttribute="trailing" secondItem="pLD-sZ-ejH" secondAttribute="trailing" constant="12" id="E7k-Dh-qE5"/>
                                 <constraint firstAttribute="bottom" secondItem="4Xc-Kl-hAm" secondAttribute="bottom" constant="12" id="IBg-Su-7fT"/>
                                 <constraint firstAttribute="bottom" secondItem="3oJ-Rv-JS7" secondAttribute="bottom" id="QSK-8y-lMm"/>
                                 <constraint firstAttribute="bottom" secondItem="mab-rl-ueg" secondAttribute="bottom" id="RM8-hF-4fE"/>
                                 <constraint firstItem="mab-rl-ueg" firstAttribute="width" secondItem="UhW-en-7qq" secondAttribute="width" id="RsJ-Zl-Sbw"/>
                                 <constraint firstItem="4Xc-Kl-hAm" firstAttribute="leading" secondItem="EQy-vz-gyi" secondAttribute="trailing" priority="500" constant="16" id="S6n-p8-BQM"/>
-                                <constraint firstAttribute="bottom" secondItem="pLD-sZ-ejH" secondAttribute="bottom" id="SWA-4d-AZp"/>
                                 <constraint firstItem="UhW-en-7qq" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="SX8-Al-kd6"/>
-                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="XO3-hI-QYl"/>
+                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="centerY" secondItem="c75-ZF-hKn" secondAttribute="centerY" id="WrY-b3-G79"/>
                                 <constraint firstItem="3oJ-Rv-JS7" firstAttribute="leading" secondItem="c75-ZF-hKn" secondAttribute="leading" id="Y2N-5d-l3x"/>
                                 <constraint firstItem="UhW-en-7qq" firstAttribute="leading" secondItem="c75-ZF-hKn" secondAttribute="leading" id="ZCC-xJ-5Vg"/>
                                 <constraint firstItem="4Xc-Kl-hAm" firstAttribute="top" secondItem="EQy-vz-gyi" secondAttribute="bottom" priority="250" constant="8" id="ZCb-We-WNy"/>
@@ -353,10 +356,10 @@
                                 <constraint firstItem="Z68-6z-5Ph" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="cpY-Wy-lyr"/>
                                 <constraint firstItem="EQy-vz-gyi" firstAttribute="leading" secondItem="c75-ZF-hKn" secondAttribute="leading" constant="16" id="fIE-wa-hE8"/>
                                 <constraint firstItem="EQy-vz-gyi" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" priority="250" constant="12" id="fOa-qL-A5d"/>
-                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="4Xc-Kl-hAm" secondAttribute="trailing" constant="16" id="h3c-E6-aX6"/>
+                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="4Xc-Kl-hAm" secondAttribute="trailing" constant="12" id="h3c-E6-aX6"/>
                                 <constraint firstItem="nD5-wx-7Ui" firstAttribute="centerY" secondItem="EQy-vz-gyi" secondAttribute="centerY" priority="250" id="h5a-LJ-T8H"/>
                                 <constraint firstItem="P9v-a6-EaA" firstAttribute="centerY" secondItem="7hO-Gk-BGJ" secondAttribute="centerY" priority="500" id="hEB-H2-4WJ"/>
-                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="iYj-za-A2N" secondAttribute="trailing" id="i2q-jR-ekX"/>
+                                <constraint firstItem="pLD-sZ-ejH" firstAttribute="leading" secondItem="iYj-za-A2N" secondAttribute="trailing" constant="12" id="i2q-jR-ekX"/>
                                 <constraint firstItem="4Xc-Kl-hAm" firstAttribute="leading" secondItem="c75-ZF-hKn" secondAttribute="leading" priority="250" constant="12" id="mac-YL-Cyx"/>
                                 <constraint firstItem="3oJ-Rv-JS7" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="plc-KQ-Bxg"/>
                                 <constraint firstItem="iYj-za-A2N" firstAttribute="top" secondItem="c75-ZF-hKn" secondAttribute="top" id="sel-y0-6g8"/>

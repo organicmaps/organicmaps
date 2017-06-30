@@ -252,6 +252,7 @@ static NSString * const kStatVehicle = @"Vehicle";
 static NSString * const kStatVisible = @"Visible";
 static NSString * const kStatWhatsNew = @"What's New";
 static NSString * const kStatWifi = @"wifi";
+static NSString * const kStatYandex = @"Yandex";
 static NSString * const kStatYes = @"Yes";
 static NSString * const kStatZoom = @"Zoom";
 static NSString * const kStatiPad = @"iPad";

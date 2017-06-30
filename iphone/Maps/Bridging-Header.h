@@ -24,6 +24,7 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMPlacePageButtonsProtocol.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
+#import "MWMPlacePageTaxiProvider.h"
 #import "MWMPushNotifications.h"
 #import "MWMRouter.h"
 #import "MWMSearchItemType.h"

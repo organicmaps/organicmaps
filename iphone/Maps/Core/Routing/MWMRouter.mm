@@ -98,7 +98,9 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     [[Crashlytics sharedInstance] recordError:err];
   }
 
-  [[UIApplication sharedApplication] openURL:taxiDataSource.taxiURL];
+  [taxiDataSource taxiURL:^(NSURL * url) {
+    [[UIApplication sharedApplication] openURL:url];
+  }];
 }
 
 + (void)stopRouting

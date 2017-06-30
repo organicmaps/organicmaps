@@ -392,7 +392,16 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   {
     Class cls = [PlacePageTaxiCell class];
     auto c = static_cast<PlacePageTaxiCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configWithType:PlacePageTaxiCellTypeTaxi delegate:delegate];
+    auto taxiProviders = [data taxiProviders];
+    NSAssert(!taxiProviders.empty(), @"TaxiProviders can not be empty");
+    auto const & provider = taxiProviders.front();
+    auto type = MWMPlacePageTaxiProviderTaxi;
+    switch (provider)
+    {
+    case taxi::Provider::Uber: type = MWMPlacePageTaxiProviderUber; break;
+    case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
+    }
+    [c configWithType:type delegate:delegate];
     return c;
   }
   case Sections::Buttons:

@@ -1,3 +1,5 @@
+#import "MWMPlacePageTaxiProvider.h"
+
 typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 
 @protocol MWMPlacePageButtonsProtocol<NSObject>
@@ -7,7 +9,7 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 - (void)addBusiness;
 - (void)book:(BOOL)isDescription;
 - (void)editBookmark;
-- (void)taxiTo;
+- (void)orderTaxi:(MWMPlacePageTaxiProvider)provider;
 - (void)showAllReviews;
 - (void)showAllFacilities;
 - (void)showPhotoAtIndex:(NSInteger)index

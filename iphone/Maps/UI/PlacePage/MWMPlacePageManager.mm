@@ -297,13 +297,20 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self shouldClose];
 }
 
-- (void)taxiTo
+- (void)orderTaxi:(MWMPlacePageTaxiProvider)provider
 {
   auto data = self.data;
   if (!data)
     return;
+  NSString * providerString = nil;
+  switch (provider)
+  {
+  case MWMPlacePageTaxiProviderTaxi: providerString = kStatUnknown;
+  case MWMPlacePageTaxiProviderUber: providerString = kStatUber;
+  case MWMPlacePageTaxiProviderYandex: providerString = kStatYandex;
+  }
   [Statistics logEvent:kStatPlacePageTaxiClick
-        withParameters:@{kStatProvider : kStatUber, kStatTags : data.statisticsTags}];
+        withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];
   [MWMRouter setType:MWMRouterTypeTaxi];
   [MWMRouter buildToPoint:[self routePointWithType:MWMRoutePointTypeFinish] bestRouter:NO];
   [self close];
