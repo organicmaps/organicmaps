@@ -132,7 +132,8 @@ void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
     m_onTrafficStateChangedFn(state);
 }
 
-bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch)
+bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
+                                  bool launchByDeepLink)
 {
   m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new AndroidOGLContextFactory(env, jSurface));
   AndroidOGLContextFactory const * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
@@ -152,8 +153,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_initialMyPositionState = m_currentMode;
   p.m_isChoosePositionMode = m_isChoosePositionMode;
   p.m_hints.m_isFirstLaunch = firstLaunch;
-  // TODO: Add initialization.
-  // p.m_hints.m_isLaunchByDeepLink = ...;
+  p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 

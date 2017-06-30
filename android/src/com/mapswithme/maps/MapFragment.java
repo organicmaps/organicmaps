@@ -24,6 +24,8 @@ public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
                                  SurfaceHolder.Callback
 {
+  public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
+
   // Should correspond to android::MultiTouchAction from Framework.cpp
   private static final int NATIVE_ACTION_UP = 0x01;
   private static final int NATIVE_ACTION_DOWN = 0x02;
@@ -55,6 +57,7 @@ public class MapFragment extends BaseMwmFragment
   private int mWidth;
   private boolean mRequireResize;
   private boolean mContextCreated;
+  private boolean mLaunchByDeepLink;
   private static boolean sWasCopyrightDisplayed;
 
   interface MapRenderingListener
@@ -171,7 +174,7 @@ public class MapFragment extends BaseMwmFragment
     final float exactDensityDpi = metrics.densityDpi;
 
     final boolean firstStart = SplashActivity.isFirstStart();
-    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart))
+    if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink))
     {
       reportUnsupported();
       return;
@@ -234,6 +237,9 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onCreate(b);
     setRetainInstance(true);
+    Bundle args = getArguments();
+    if (args != null)
+      mLaunchByDeepLink = args.getBoolean(ARG_LAUNCH_BY_DEEP_LINK);
   }
 
   @Override
@@ -308,7 +314,9 @@ public class MapFragment extends BaseMwmFragment
   static native void nativeScaleMinus();
   static native boolean nativeShowMapForUrl(String url);
   static native boolean nativeIsEngineCreated();
-  private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch);
+  private static native boolean nativeCreateEngine(Surface surface, int density,
+                                                   boolean firstLaunch,
+                                                   boolean isLaunchByDeepLink);
   private static native boolean nativeAttachSurface(Surface surface);
   private static native void nativeDetachSurface(boolean destroyContext);
   private static native void nativeSurfaceChanged(int w, int h);

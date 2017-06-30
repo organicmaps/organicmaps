@@ -444,6 +444,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     if (mMapTaskToForward != null)
     {
       intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
+      intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK,
+                      mMapTaskToForward instanceof OpenUrlTask);
       mMapTaskToForward = null;
     }
 

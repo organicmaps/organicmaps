@@ -120,6 +120,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  RoutingPlanInplaceController.RoutingPlanListener
 {
   public static final String EXTRA_TASK = "map_task";
+  public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
@@ -176,6 +177,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFullscreen;
   private boolean mIsFullscreenAnimating;
   private boolean mIsAppearMenuLater;
+  private boolean mIsLaunchByDeepLink;
 
   private FloatingSearchToolbarController mSearchController;
 
@@ -485,6 +487,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
+    mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews();
 
     Statistics.INSTANCE.trackConnectionState();
@@ -635,7 +638,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
     if (mMapFragment == null)
     {
-      mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
+      Bundle args = new Bundle();
+      args.putBoolean(MapFragment.ARG_LAUNCH_BY_DEEP_LINK, mIsLaunchByDeepLink);
+      mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), args);
       getSupportFragmentManager()
           .beginTransaction()
           .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())

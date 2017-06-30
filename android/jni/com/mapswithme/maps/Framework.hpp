@@ -78,7 +78,8 @@ namespace android
 
     void Invalidate();
 
-    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch);
+    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
+                           bool launchByDeepLink);
     bool IsDrapeEngineCreated();
 
     void DetachSurface(bool destroyContext);
