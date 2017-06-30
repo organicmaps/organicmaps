@@ -81,20 +81,24 @@ struct UserPointVertex : gpu::BaseVertex
 } // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIndexesCollection const & indexes, UserMarksRenderCollection & renderParams,
+                    MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
-  uint32_t const vertexCount = static_cast<uint32_t>(indexes.size()) * dp::Batcher::VertexPerQuad;
+  uint32_t const vertexCount = static_cast<uint32_t>(marksId.size()) * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
   buffer.reserve(vertexCount);
 
   dp::TextureManager::SymbolRegion region;
-  for (auto const markIndex : indexes)
+  for (auto const id : marksId)
   {
-    UserMarkRenderParams & renderInfo = renderParams[markIndex];
+    auto const it = renderParams.find(id);
+    ASSERT(it != renderParams.end(), ());
+
+    UserMarkRenderParams & renderInfo = *it->second.get();
     if (!renderInfo.m_isVisible)
       continue;
+
     textures->GetSymbolRegion(renderInfo.m_symbolName, region);
     m2::RectF const & texRect = region.GetTexRect();
     m2::PointF const pxSize = region.GetPixelSize();
@@ -130,7 +134,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIndexesCollection const & indexes, UserLinesRenderCollection & renderParams,
+                    LineIdCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -144,9 +148,11 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     sqrScale =  math::sqr(currentScaleGtoP);
   }
 
-  for (auto lineIndex : indexes)
+  for (auto id : linesId)
   {
-    UserLineRenderParams & renderInfo = renderParams[lineIndex];
+    auto const it = renderParams.find(id);
+    ASSERT(it != renderParams.end(), ());
+    UserLineRenderParams const & renderInfo = *it->second.get();
 
     m2::SharedSpline spline = renderInfo.m_spline;
     if (simplify)

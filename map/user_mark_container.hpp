@@ -71,6 +71,9 @@ public:
   size_t GetUserLineCount() const override;
   df::UserLineMark const * GetUserLineMark(size_t index) const override;
 
+  bool IsDirty() const override;
+  void AcceptChanges(std::vector<uint32_t> & removedMarks) override;
+
   float GetPointDepth() const;
 
   bool IsVisible() const;
@@ -89,6 +92,8 @@ protected:
   void SetIsVisible(bool isVisible) override;
   void Update() override;
 
+  void SetDirty();
+
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
   Framework & m_framework;
@@ -98,6 +103,8 @@ private:
   double m_layerDepth;
   TUserMarksList m_userMarks;
   UserMarkType m_type;
+  std::vector<uint32_t> m_removedMarks;
+  bool m_isDirty = false;
 };
 
 class SearchUserMarkContainer : public UserMarkContainer

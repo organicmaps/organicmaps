@@ -1,32 +1,40 @@
 #include "user_marks_provider.hpp"
 
-df::UserMarksProvider::UserMarksProvider()
+namespace
+{
+uint32_t GetNextUserMarkId()
+{
+  static uint32_t nextMarkId = 0;
+  return ++nextMarkId;
+}
+}  // namespace
+
+namespace df
+{
+UserPointMark::UserPointMark()
+  : m_id(GetNextUserMarkId())
+{
+}
+
+
+UserLineMark::UserLineMark()
+  : m_id(GetNextUserMarkId())
+{
+}
+
+UserMarksProvider::UserMarksProvider()
   : m_pendingOnDelete(false)
 {
 }
 
-bool df::UserMarksProvider::IsDirty() const
-{
-  return m_isDirty;
-}
-
-void df::UserMarksProvider::ResetDirty()
-{
-  m_isDirty = false;
-}
-
-bool df::UserMarksProvider::IsPendingOnDelete()
+bool UserMarksProvider::IsPendingOnDelete()
 {
   return m_pendingOnDelete;
 }
 
-void df::UserMarksProvider::DeleteLater()
+void UserMarksProvider::DeleteLater()
 {
   ASSERT(m_pendingOnDelete == false, ());
   m_pendingOnDelete = true;
 }
-
-void df::UserMarksProvider::SetDirty()
-{
-  m_isDirty = true;
-}
+}  // namespace df

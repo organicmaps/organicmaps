@@ -264,8 +264,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<UpdateUserMarkLayerMessage> msg = message;
       size_t const layerId = msg->GetLayerId();
-      m_userMarkGenerator->SetUserMarks(static_cast<GroupID>(layerId), msg->AcceptMarkRenderParams());
-      m_userMarkGenerator->SetUserLines(static_cast<GroupID>(layerId), msg->AcceptLineRenderParams());
+      m_userMarkGenerator->RemoveUserMarks(msg->AcceptRemovedIds());
+      m_userMarkGenerator->SetUserMarks(msg->AcceptMarkRenderParams());
+      m_userMarkGenerator->SetUserLines(msg->AcceptLineRenderParams());
+      m_userMarkGenerator->SetGroup(msg->GetLayerId(), msg->AcceptIds());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<InvalidateUserMarksMessage>(layerId),
                                 MessagePriority::Normal);
@@ -276,7 +278,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<ClearUserMarkLayerMessage> msg = message;
       size_t const layerId = msg->GetLayerId();
-      m_userMarkGenerator->ClearUserMarks(static_cast<GroupID>(layerId));
+      m_userMarkGenerator->RemoveGroup(static_cast<GroupID>(layerId));
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<InvalidateUserMarksMessage>(layerId),
                                 MessagePriority::Normal);

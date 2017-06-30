@@ -34,6 +34,9 @@ public:
 
   explicit Track(PolylineD const & polyline, Params const & p);
 
+  bool IsDirty() const override { return m_isDirty; }
+  void AcceptChanges() const override { m_isDirty = false; }
+
   string const & GetName() const;
   PolylineD const & GetPolyline() const { return m_polyline; }
   m2::RectD GetLimitRect() const;
@@ -48,4 +51,5 @@ public:
 private:
   PolylineD m_polyline;
   Params m_params;
+  mutable bool m_isDirty = true;
 };

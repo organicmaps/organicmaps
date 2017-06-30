@@ -35,6 +35,9 @@ public:
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~UserMark() {}
 
+  bool IsDirty() const override { return m_isDirty; }
+  void AcceptChanges() const override { m_isDirty = false; }
+
   // df::UserPointMark overrides.
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
@@ -47,8 +50,13 @@ public:
   virtual Type GetMarkType() const = 0;
 
 protected:
+  void SetDirty();
+
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
+
+private:
+  mutable bool m_isDirty = true;
 };
 
 enum SearchMarkType
@@ -70,13 +78,13 @@ public:
   UserMark::Type GetMarkType() const override;
 
   FeatureID const & GetFoundFeature() const { return m_foundFeatureID; }
-  void SetFoundFeature(FeatureID const & feature) { m_foundFeatureID = feature; }
+  void SetFoundFeature(FeatureID const & feature);
 
   string const & GetMatchedName() const { return m_matchedName; }
-  void SetMatchedName(string const & name) { m_matchedName = name; }
+  void SetMatchedName(string const & name);
 
   string const & GetCustomSymbol() const { return m_customSymbol; }
-  void SetCustomSymbol(string const & symbol) { m_customSymbol = symbol; }
+  void SetCustomSymbol(string const & symbol);
 
 protected:
   FeatureID m_foundFeatureID;

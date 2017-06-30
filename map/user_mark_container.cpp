@@ -131,13 +131,12 @@ void UserMarkContainer::ReleaseController()
 
   if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
   {
+    engine->UpdateUserMarksLayer(layerId, this);
     engine->ClearUserMarksLayer(layerId);
-    ResetDirty();
   }
   else if (IsVisible() && IsDrawable())
   {
     engine->UpdateUserMarksLayer(layerId, this);
-    ResetDirty();
   }
 }
 
@@ -233,22 +232,14 @@ void UserMarkContainer::Update()
   SetDirty();
 }
 
-namespace
+void UserMarkContainer::SetDirty()
 {
-
-template <class T> void DeleteItem(vector<T> & v, size_t i)
-{
-  if (i < v.size())
-  {
-    delete v[i];
-    v.erase(v.begin() + i);
-  }
-  else
-  {
-    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
-  }
+  m_isDirty = true;
 }
 
+bool UserMarkContainer::IsDirty() const
+{
+  return m_isDirty;
 }
 
 void UserMarkContainer::DeleteUserMark(size_t index)
@@ -256,9 +247,19 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   SetDirty();
   ASSERT_LESS(index, m_userMarks.size(), ());
   if (index < m_userMarks.size())
+  {
+    m_removedMarks.push_back(m_userMarks[index]->GetId());
     m_userMarks.erase(m_userMarks.begin() + index);
+  }
   else
     LOG(LWARNING, ("Trying to delete non-existing item at index", index));
+}
+
+void UserMarkContainer::AcceptChanges(std::vector<uint32_t> & removedMarks)
+{
+  removedMarks.swap(m_removedMarks);
+  m_removedMarks.clear();
+  m_isDirty = false;
 }
 
 SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)

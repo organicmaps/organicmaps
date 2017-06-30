@@ -8,6 +8,7 @@
 #include "geometry/spline.hpp"
 
 #include <memory>
+#include <unordered_map>
 
 namespace df
 {
@@ -44,11 +45,17 @@ struct UserLineRenderParams
   m2::SharedSpline m_spline;
 };
 
-using UserMarksRenderCollection = std::vector<UserMarkRenderParams>;
-using UserLinesRenderCollection = std::vector<UserLineRenderParams>;
+using UserMarksRenderCollection = std::unordered_map<uint32_t, drape_ptr<UserMarkRenderParams>>;
+using UserLinesRenderCollection = std::unordered_map<uint32_t, drape_ptr<UserLineRenderParams>>;
 
-using MarkIndexesCollection = std::vector<uint32_t>;
-using LineIndexesCollection = std::vector<uint32_t>;
+using MarkIdCollection = std::vector<uint32_t>;
+using LineIdCollection = std::vector<uint32_t>;
+
+struct IDCollection
+{
+  MarkIdCollection m_marksID;
+  LineIdCollection m_linesID;
+};
 
 struct UserMarkRenderData
 {
@@ -66,10 +73,10 @@ struct UserMarkRenderData
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIndexesCollection const & indexes, UserMarksRenderCollection & renderParams,
+                    MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher);
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIndexesCollection const & indexes, UserLinesRenderCollection & renderParams,
+                    LineIdCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher);
 }  // namespace df

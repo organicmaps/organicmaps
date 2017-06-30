@@ -210,19 +210,26 @@ void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
 void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provider)
 {
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
+  auto idCollection = make_unique_dp<IDCollection>();
+  IDCollection removedIdCollection;
   marksRenderCollection->reserve(provider->GetUserPointCount());
   for (size_t pointIndex = 0, sz = provider->GetUserPointCount(); pointIndex < sz; ++pointIndex)
   {
     UserPointMark const * mark = provider->GetUserPointMark(pointIndex);
-    UserMarkRenderParams renderInfo;
-    renderInfo.m_anchor = mark->GetAnchor();
-    renderInfo.m_depth = mark->GetDepth();
-    renderInfo.m_isVisible = mark->IsVisible();
-    renderInfo.m_pivot = mark->GetPivot();
-    renderInfo.m_pixelOffset = mark->GetPixelOffset();
-    renderInfo.m_runCreationAnim = mark->HasCreationAnimation();
-    renderInfo.m_symbolName = mark->GetSymbolName();
-    marksRenderCollection->emplace_back(std::move(renderInfo));
+    idCollection->m_marksID.push_back(mark->GetId());
+    if (mark->IsDirty())
+    {
+      auto renderInfo = make_unique_dp<UserMarkRenderParams>();
+      renderInfo->m_anchor = mark->GetAnchor();
+      renderInfo->m_depth = mark->GetDepth();
+      renderInfo->m_isVisible = mark->IsVisible();
+      renderInfo->m_pivot = mark->GetPivot();
+      renderInfo->m_pixelOffset = mark->GetPixelOffset();
+      renderInfo->m_runCreationAnim = mark->HasCreationAnimation();
+      renderInfo->m_symbolName = mark->GetSymbolName();
+      marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
+      mark->AcceptChanges();
+    }
   }
 
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
@@ -230,19 +237,27 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
   for (size_t lineIndex = 0, sz = provider->GetUserLineCount(); lineIndex < sz; ++lineIndex)
   {
     UserLineMark const * mark = provider->GetUserLineMark(lineIndex);
-    UserLineRenderParams renderInfo;
-    renderInfo.m_spline = m2::SharedSpline(mark->GetPoints());
-    renderInfo.m_layers.reserve(mark->GetLayerCount());
-    for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
+    idCollection->m_linesID.push_back(mark->GetId());
+    if (mark->IsDirty())
     {
-      renderInfo.m_layers.emplace_back(mark->GetColor(layerIndex),
-                                       mark->GetWidth(layerIndex),
-                                       mark->GetLayerDepth(layerIndex));
+      auto renderInfo = make_unique_dp<UserLineRenderParams>();
+      renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
+      renderInfo->m_layers.reserve(mark->GetLayerCount());
+      for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
+      {
+        renderInfo->m_layers.emplace_back(mark->GetColor(layerIndex),
+                                          mark->GetWidth(layerIndex),
+                                          mark->GetLayerDepth(layerIndex));
+      }
+      linesRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
+      mark->AcceptChanges();
     }
-    linesRenderCollection->emplace_back(std::move(renderInfo));
   }
+  provider->AcceptChanges(removedIdCollection.m_marksID);
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateUserMarkLayerMessage>(layerId,
+                                                                             std::move(idCollection),
+                                                                             std::move(removedIdCollection),
                                                                              std::move(marksRenderCollection),
                                                                              std::move(linesRenderCollection)),
                                   MessagePriority::Normal);

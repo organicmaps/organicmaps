@@ -43,6 +43,11 @@ UserMarkContainer const * UserMark::GetContainer() const
   return m_container;
 }
 
+void UserMark::SetDirty()
+{
+  m_isDirty = true;
+}
+
 ms::LatLon UserMark::GetLatLon() const
 {
   return MercatorBounds::ToLatLon(m_ptOrg);
@@ -63,6 +68,24 @@ UserMark::Type SearchMarkPoint::GetMarkType() const
   return UserMark::Type::SEARCH;
 }
 
+void SearchMarkPoint::SetFoundFeature(FeatureID const & feature)
+{
+  SetDirty();
+  m_foundFeatureID = feature;
+}
+
+void SearchMarkPoint::SetMatchedName(string const & name)
+{
+  SetDirty();
+  m_matchedName = name;
+}
+
+void SearchMarkPoint::SetCustomSymbol(string const & symbol)
+{
+  SetDirty();
+  m_customSymbol = symbol;
+}
+
 PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
   : SearchMarkPoint(m2::PointD::Zero(), container) {}
 
@@ -73,6 +96,7 @@ UserMark::Type PoiMarkPoint::GetMarkType() const
 
 void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
+  SetDirty();
   m_ptOrg = ptOrg;
 }
 

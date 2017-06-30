@@ -15,7 +15,14 @@ namespace df
 class UserPointMark
 {
 public:
+  UserPointMark();
   virtual ~UserPointMark() {}
+
+  virtual bool IsDirty() const = 0;
+  virtual void AcceptChanges() const = 0;
+
+  uint32_t GetId() const { return m_id; }
+
   virtual m2::PointD const & GetPivot() const = 0;
   virtual m2::PointD GetPixelOffset() const = 0;
   virtual std::string GetSymbolName() const  = 0;
@@ -23,18 +30,30 @@ public:
   virtual float GetDepth() const = 0;
   virtual bool HasCreationAnimation() const = 0;
   virtual bool IsVisible() const { return true; }
+
+private:
+  uint32_t m_id;
 };
 
 class UserLineMark
 {
 public:
+  UserLineMark();
   virtual ~UserLineMark() {}
+
+  virtual bool IsDirty() const = 0;
+  virtual void AcceptChanges() const = 0;
+
+  virtual uint32_t GetId() const { return m_id; }
 
   virtual size_t GetLayerCount() const = 0;
   virtual dp::Color const & GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;
   virtual float GetLayerDepth(size_t layerIndex) const = 0;
   virtual  std::vector<m2::PointD> const & GetPoints() const = 0;
+
+private:
+  uint32_t m_id;
 };
 
 class UserMarksProvider
@@ -43,7 +62,9 @@ public:
   UserMarksProvider();
   virtual ~UserMarksProvider() {}
 
-  bool IsDirty() const;
+  virtual bool IsDirty() const = 0;
+  virtual void AcceptChanges(std::vector<uint32_t> & removedMarks) = 0;
+
   virtual bool IsDrawable() const = 0;
 
   virtual size_t GetUserPointCount() const = 0;
@@ -57,12 +78,7 @@ public:
   bool IsPendingOnDelete();
   void DeleteLater();
 
-protected:
-  void SetDirty();
-  void ResetDirty();
-
 private:
-  bool m_isDirty = false;
   bool m_pendingOnDelete;
 };
 

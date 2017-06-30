@@ -237,21 +237,30 @@ private:
 class UpdateUserMarkLayerMessage : public BaseUserMarkLayerMessage
 {
 public:
-  UpdateUserMarkLayerMessage(size_t layerId, drape_ptr<UserMarksRenderCollection> && marksRenderParams,
+  UpdateUserMarkLayerMessage(size_t layerId,
+                             drape_ptr<IDCollection> && ids,
+                             IDCollection && removedIds,
+                             drape_ptr<UserMarksRenderCollection> && marksRenderParams,
                              drape_ptr<UserLinesRenderCollection> && linesRenderParams)
     : BaseUserMarkLayerMessage(layerId)
     , m_marksRenderParams(std::move(marksRenderParams))
     , m_linesRenderParams(std::move(linesRenderParams))
+    , m_ids(std::move(ids))
+    , m_removedIds(std::move(removedIds))
   {}
 
   Type GetType() const override { return Message::UpdateUserMarkLayer; }
 
   drape_ptr<UserMarksRenderCollection> && AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
   drape_ptr<UserLinesRenderCollection> && AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
+  drape_ptr<IDCollection> && AcceptIds() { return std::move(m_ids); }
+  IDCollection && AcceptRemovedIds() { return std::move(m_removedIds); }
 
 private:
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
+  drape_ptr<IDCollection> m_ids;
+  IDCollection m_removedIds;
 };
 
 class FlushUserMarksMessage : public Message

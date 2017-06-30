@@ -13,17 +13,9 @@
 namespace df
 {
 using GroupID = size_t;
-using MarkGroups = std::map<GroupID, drape_ptr<UserMarksRenderCollection>>;
-using LineGroups = std::map<GroupID, drape_ptr<UserLinesRenderCollection>>;
 
-struct IndexesCollection
-{
-  MarkIndexesCollection m_markIndexes;
-  LineIndexesCollection m_lineIndexes;
-};
-
-using MarkIndexesGroups = std::map<GroupID, drape_ptr<IndexesCollection>>;
-using MarksIndex = std::map<TileKey, drape_ptr<MarkIndexesGroups>>;
+using MarksIDGroups = std::map<GroupID, drape_ptr<IDCollection>>;
+using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 
 class UserMarkGenerator
 {
@@ -32,28 +24,30 @@ public:
 
   UserMarkGenerator(TFlushFn const & flushFn);
 
-  void SetUserMarks(GroupID groupId, drape_ptr<UserMarksRenderCollection> && marks);
-  void SetUserLines(GroupID groupId, drape_ptr<UserLinesRenderCollection> && lines);
+  void SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks);
+  void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
 
-  void ClearUserMarks(GroupID groupId);
+  void SetGroup(GroupID groupId, drape_ptr<IDCollection> && ids);
+  void RemoveGroup(GroupID groupId);
+  void RemoveUserMarks(IDCollection && ids);
 
   void SetGroupVisibility(GroupID groupId, bool isVisible);
 
   void GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures);
 
 private:
-  void UpdateMarksIndex(GroupID groupId);
-  void UpdateLinesIndex(GroupID groupId);
+  void UpdateIndex(GroupID groupId);
 
-  ref_ptr<IndexesCollection> GetIndexesCollection(TileKey const & tileKey, GroupID groupId);
+  ref_ptr<IDCollection> GetIdCollection(TileKey const & tileKey, GroupID groupId);
   void CleanIndex();
 
   std::unordered_set<GroupID> m_groupsVisibility;
+  MarksIDGroups m_groups;
 
-  MarkGroups m_marks;
-  LineGroups m_lines;
+  UserMarksRenderCollection m_marks;
+  UserLinesRenderCollection m_lines;
 
-  MarksIndex m_marksIndex;
+  MarksIndex m_index;
 
   TFlushFn m_flushFn;
 };
