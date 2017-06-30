@@ -1106,7 +1106,7 @@ public class PlacePageView extends RelativeLayout
           if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
             Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
           else if (mSponsored.getType() == Sponsored.TYPE_VIATOR)
-            Viator.nativeRequestViatorProducts(policy, mSponsored.getId(), currencyCode);
+            Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
         }
         Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
       }
