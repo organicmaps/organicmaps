@@ -101,7 +101,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
-  [tv registerWithCellClass:[PlacePageTaxiCell class]];
+  [tv registerWithCellClass:[MWMPlacePageTaxiCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -390,9 +390,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
   case Sections::Ad:
   {
-    Class cls = [PlacePageTaxiCell class];
-    auto c = static_cast<PlacePageTaxiCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto taxiProviders = [data taxiProviders];
+    Class cls = [MWMPlacePageTaxiCell class];
+    auto c = static_cast<MWMPlacePageTaxiCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+    auto const & taxiProviders = [data taxiProviders];
     NSAssert(!taxiProviders.empty(), @"TaxiProviders can not be empty");
     auto const & provider = taxiProviders.front();
     auto type = MWMPlacePageTaxiProviderTaxi;

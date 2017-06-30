@@ -1,4 +1,4 @@
-@objc
+@objc(MWMPlacePageTaxiCell)
 final class PlacePageTaxiCell: MWMTableViewCell {
 
   @IBOutlet private weak var icon: UIImageView!

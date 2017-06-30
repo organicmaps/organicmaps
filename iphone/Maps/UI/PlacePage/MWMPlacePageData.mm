@@ -594,7 +594,7 @@ using namespace place_page;
 }
 
 #pragma mark - Taxi
-- (std::vector<taxi::Provider::Type>)taxiProviders
+- (std::vector<taxi::Provider::Type> const &)taxiProviders
 {
   return m_info.ReachableByTaxiProviders();
 }

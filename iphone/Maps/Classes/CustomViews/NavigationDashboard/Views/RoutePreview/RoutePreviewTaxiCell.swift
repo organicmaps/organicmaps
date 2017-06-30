@@ -1,11 +1,11 @@
-@objc
+@objc(MWMRoutePreviewTaxiCellType)
 enum RoutePreviewTaxiCellType: Int {
   case taxi
   case uber
   case yandex
 }
 
-@objc
+@objc(MWMRoutePreviewTaxiCell)
 final class RoutePreviewTaxiCell: UICollectionViewCell {
 
   @IBOutlet private weak var icon: UIImageView!

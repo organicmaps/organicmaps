@@ -105,7 +105,7 @@ public:
   bool HasBanner() const;
   vector<ads::Banner> GetBanners() const;
 
-  std::vector<taxi::Provider::Type> ReachableByTaxiProviders() const;
+  std::vector<taxi::Provider::Type> const & ReachableByTaxiProviders() const;
 
   void SetMercator(m2::PointD const & mercator);
 

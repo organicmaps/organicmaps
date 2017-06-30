@@ -215,11 +215,8 @@ vector<ads::Banner> Info::GetBanners() const
   return m_adsEngine->GetBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
 
-std::vector<taxi::Provider::Type> Info::ReachableByTaxiProviders() const
+std::vector<taxi::Provider::Type> const & Info::ReachableByTaxiProviders() const
 {
-  if (!IsReachableByTaxiChecker::Instance()(m_types))
-    return {};
-
   return m_reachableByProviders;
 }
 

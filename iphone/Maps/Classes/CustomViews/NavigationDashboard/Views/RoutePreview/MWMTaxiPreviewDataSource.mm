@@ -61,7 +61,7 @@ using namespace taxi;
 
 @property(weak, nonatomic) MWMTaxiCollectionView * collectionView;
 @property(nonatomic) BOOL isNeedToConstructURLs;
-@property(nonatomic) RoutePreviewTaxiCellType type;
+@property(nonatomic) MWMRoutePreviewTaxiCellType type;
 
 @end
 
@@ -77,7 +77,7 @@ using namespace taxi;
     collectionView.delegate = self;
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    [collectionView registerWithCellClass:[RoutePreviewTaxiCell class]];
+    [collectionView registerWithCellClass:[MWMRoutePreviewTaxiCell class]];
   }
   return self;
 }
@@ -119,12 +119,8 @@ using namespace taxi;
               self->m_products = products;
               switch (type)
               {
-              case taxi::Provider::Type::Uber:
-                self.type = RoutePreviewTaxiCellTypeUber;
-                break;
-              case taxi::Provider::Type::Yandex:
-                self.type = RoutePreviewTaxiCellTypeYandex;
-                break;
+              case taxi::Provider::Type::Uber: self.type = MWMRoutePreviewTaxiCellTypeUber; break;
+              case taxi::Provider::Type::Yandex: self.type = MWMRoutePreviewTaxiCellTypeYandex; break;
               }
               auto cv = self.collectionView;
               cv.hidden = NO;
@@ -172,9 +168,9 @@ using namespace taxi;
   NSURL * url;
   switch (self.type)
   {
-  case RoutePreviewTaxiCellTypeTaxi: return NO;
-  case RoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
-  case RoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
+  case MWMRoutePreviewTaxiCellTypeTaxi: return NO;
+  case MWMRoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
+  case MWMRoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
   }
   return [[UIApplication sharedApplication] canOpenURL:url];
 }
@@ -195,9 +191,9 @@ using namespace taxi;
       Provider::Type type;
       switch (self.type)
       {
-        case RoutePreviewTaxiCellTypeTaxi: return;
-        case RoutePreviewTaxiCellTypeUber: type = Provider::Type::Uber; break;
-        case RoutePreviewTaxiCellTypeYandex: type = Provider::Type::Yandex;  break;
+        case MWMRoutePreviewTaxiCellTypeTaxi: return;
+        case MWMRoutePreviewTaxiCellTypeUber: type = Provider::Type::Uber; break;
+        case MWMRoutePreviewTaxiCellTypeYandex: type = Provider::Type::Yandex;  break;
       }
 
       auto links = engine->GetRideRequestLinks(type, productId, m_from, m_to);
@@ -216,8 +212,8 @@ using namespace taxi;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class cls = [RoutePreviewTaxiCell class];
-  auto cell = static_cast<RoutePreviewTaxiCell *>(
+  Class cls = [MWMRoutePreviewTaxiCell class];
+  auto cell = static_cast<MWMRoutePreviewTaxiCell *>(
       [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
   auto const & product = m_products[indexPath.row];
   [cell configWithType:self.type
