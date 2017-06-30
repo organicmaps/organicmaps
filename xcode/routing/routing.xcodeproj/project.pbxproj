@@ -411,7 +411,6 @@
 		6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
 		6742AD5B1C68C7F6009CB89E /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
 		6742AD611C68F747009CB89E /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-strings"; sourceTree = "<group>"; };
-		6742AD631C68F8B4009CB89E /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MAPSME.plist; path = ../../iphone/Maps/MAPSME.plist; sourceTree = "<group>"; };
 		674A28AF1B1605D2001A525C /* osrm_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_engine.cpp; sourceTree = "<group>"; };
 		674A28B01B1605D2001A525C /* osrm_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_engine.hpp; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
@@ -674,7 +673,6 @@
 		6742AD501C68BAC3009CB89E /* Support files */ = {
 			isa = PBXGroup;
 			children = (
-				6742AD631C68F8B4009CB89E /* MAPSME.plist */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";

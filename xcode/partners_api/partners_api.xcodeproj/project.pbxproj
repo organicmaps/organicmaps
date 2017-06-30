@@ -47,7 +47,6 @@
 		F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536461DA5213D0067EEA5 /* uber_tests.cpp */; };
 		F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B536691DA523060067EEA5 /* testingmain.cpp */; };
 		F6B5366C1DA523430067EEA5 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536341DA5209F0067EEA5 /* libpartners_api.a */; };
-		F6B5366F1DA523A70067EEA5 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6B5366D1DA523A70067EEA5 /* MAPSME.plist */; };
 		F6B536741DA523D60067EEA5 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536711DA523D60067EEA5 /* libbase.a */; };
 		F6B536751DA523D60067EEA5 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536721DA523D60067EEA5 /* libjansson.a */; };
 		F6B536761DA523D60067EEA5 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B536731DA523D60067EEA5 /* libplatform.a */; };
@@ -101,7 +100,6 @@
 		F6B536461DA5213D0067EEA5 /* uber_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uber_tests.cpp; sourceTree = "<group>"; };
 		F6B536501DA522BB0067EEA5 /* partners_api_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = partners_api_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B536691DA523060067EEA5 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
-		F6B5366D1DA523A70067EEA5 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MAPSME.plist; path = ../../iphone/Maps/MAPSME.plist; sourceTree = "<group>"; };
 		F6B536711DA523D60067EEA5 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		F6B536721DA523D60067EEA5 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		F6B536731DA523D60067EEA5 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 		F6B5366E1DA523A70067EEA5 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
-				F6B5366D1DA523A70067EEA5 /* MAPSME.plist */,
 			);
 			name = "Support files";
 			path = ../routing;
@@ -343,7 +340,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6B5366F1DA523A70067EEA5 /* MAPSME.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
