@@ -26,6 +26,7 @@ class ResultCodesHelper
   private static final int NEED_MORE_MAPS = 9;
   private static final int INTERNAL_ERROR = 10;
   private static final int FILE_TOO_OLD = 11;
+  private static final int INTERMEDIATE_POINT_NOT_FOUND = 12;
 
   static Pair<String, String> getDialogTitleSubtitle(int errorCode, int missingCount)
   {
@@ -61,6 +62,10 @@ class ResultCodesHelper
       titleRes = R.string.dialog_routing_change_end;
       messages.add(resources.getString(R.string.dialog_routing_end_not_determined));
       messages.add(resources.getString(R.string.dialog_routing_select_closer_end));
+      break;
+    case INTERMEDIATE_POINT_NOT_FOUND:
+      titleRes = R.string.dialog_routing_change_intermediate;
+      messages.add(resources.getString(R.string.dialog_routing_intermediate_not_determined));
       break;
     case DIFFERENT_MWM:
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
