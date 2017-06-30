@@ -39,15 +39,4 @@ UNIT_TEST(Yandex_GetAvailableProducts)
 
   TEST(!resultProducts.empty(), ());
 }
-
-UNIT_TEST(Yandex_GetRideRequestLinks)
-{
-  taxi::yandex::Api api;
-  ms::LatLon const from(55.796918, 37.537859);
-  ms::LatLon const to(55.758213, 37.616093);
-
-  auto const links = api.GetRideRequestLinks("", from, to);
-
-  TEST(!links.m_deepLink.empty(), ());
-}
 }  // namespace

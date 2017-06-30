@@ -7,13 +7,15 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 
-#include "3party/jansson/myjansson.hpp"
-
-#include "private.h"
+#include "std/target_os.hpp"
 
 #include <iomanip>
 #include <limits>
 #include <sstream>
+
+#include "3party/jansson/myjansson.hpp"
+
+#include "private.h"
 
 namespace
 {
@@ -105,9 +107,15 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
                                           ms::LatLon const & to) const
 {
   std::ostringstream deepLink;
-  deepLink << YANDEX_BASE_URL << "%3A%2F%2Froute%3Fstart-lat%3D" << from.lat << "%26start-lon%3D"
-           << from.lon << "%26end-lat%3D" << to.lat << "%26end-lon%3D" << to.lon
-           << "%26utm_source%3Dmapsme";
+
+#if defined(OMIM_OS_IPHONE)
+  deepLink << "https://3.redirect.appmetrica.yandex.com/route?start-lat=" << from.lat
+           << "&start-lon=" << from.lon << "&end-lat=" << to.lat << "&end-lon=" << to.lon
+           << "&utm_source=mapsme&appmetrica_tracking_id=" << YANDEX_TRACKING_ID;
+#elif defined(OMIM_OS_ANDROID)
+  deepLink << "https://redirect.appmetrica.yandex.com/serve/" << YANDEX_TRACKING_ID << "?startlat="
+           << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon;
+#endif
 
   return {deepLink.str(), ""};
 }
