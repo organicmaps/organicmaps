@@ -142,7 +142,7 @@
                                 </view>
                                 <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="501" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go" customClass="MWMStartButton">
                                     <rect key="frame" x="228" y="8" width="80" height="32"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="goButton"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeStartButton"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="9LQ-Sj-W8f"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZHw-Ha-INX"/>

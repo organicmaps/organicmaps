@@ -47,6 +47,7 @@
                 </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="hna-zw-Zor" userLabel="Search" customClass="MWMSearchTextField">
                     <rect key="frame" x="8" y="4" width="246" height="36"/>
+                    <accessibility key="accessibilityConfiguration" identifier="queryField"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                     <userDefinedRuntimeAttributes>
@@ -62,6 +63,7 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Hu-71-uqb">
                     <rect key="frame" x="254" y="0.0" width="66" height="44"/>
+                    <accessibility key="accessibilityConfiguration" identifier="cancelButton"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="66" id="vlY-Wi-Dvw"/>
                     </constraints>
@@ -190,6 +192,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalCompressionResistancePriority="400" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-gM-MgM">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="48"/>
+                            <accessibility key="accessibilityConfiguration" identifier="viewOnMapButton"/>
                             <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Search on map"/>
                             <userDefinedRuntimeAttributes>

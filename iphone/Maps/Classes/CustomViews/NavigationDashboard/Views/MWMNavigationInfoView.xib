@@ -34,6 +34,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OtJ-Fs-9VY">
                                 <rect key="frame" x="888" y="0.0" width="136" height="20"/>
+                                <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanelUseLocation"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="44" id="wLF-3Z-FaU"/>
                                 </constraints>
@@ -46,6 +47,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanel"/>
                         <constraints>
                             <constraint firstItem="OtJ-Fs-9VY" firstAttribute="top" secondItem="nT5-UU-d1c" secondAttribute="bottom" priority="250" id="3Rz-sS-o8e"/>
                             <constraint firstItem="OtJ-Fs-9VY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nT5-UU-d1c" secondAttribute="trailing" priority="500" constant="16" id="CTQ-m1-zpW"/>
@@ -227,6 +229,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">
                     <rect key="frame" x="6" y="687" width="56" height="56"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="56" id="IJq-4U-XHW"/>
                         <constraint firstAttribute="height" constant="56" id="cvr-aL-Qfk"/>

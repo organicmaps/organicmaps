@@ -30,6 +30,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4n-5I-PN3" userLabel="Back">
                             <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <accessibility key="accessibilityConfiguration" identifier="goBackButton"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="huq-Vr-EM5"/>
                                 <constraint firstAttribute="width" constant="44" id="zCn-K4-Ax9"/>
@@ -45,6 +46,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
                                     <rect key="frame" x="6" y="0.0" width="44" height="44"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeAuto"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="jDl-pu-eov" secondAttribute="height" multiplier="1:1" id="o1x-sd-13z"/>
                                     </constraints>
@@ -52,6 +54,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiM-fM-sSS" userLabel="Bicycle">
                                     <rect key="frame" x="66" y="0.0" width="44" height="44"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeBicycle"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="yiM-fM-sSS" secondAttribute="height" multiplier="1:1" id="rnk-51-Cjg"/>
                                     </constraints>
@@ -59,6 +62,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
                                     <rect key="frame" x="126" y="3" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routePedestrian"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="VhE-hA-Leo" secondAttribute="height" multiplier="1:1" id="V4H-0m-WCy"/>
                                     </constraints>
@@ -66,6 +70,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lw-K3R" userLabel="Taxi">
                                     <rect key="frame" x="180" y="3" width="38" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="routeTaxi"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="38" id="OgG-Kd-9xU"/>
                                         <constraint firstAttribute="height" constant="38" id="PHb-wf-Y8y"/>
