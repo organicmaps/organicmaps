@@ -10,7 +10,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
@@ -20,7 +19,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -39,10 +37,12 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.taxi.TaxiManager;
 
 public final class UiUtils
 {
@@ -487,6 +487,36 @@ public final class UiUtils
         parent.setTouchDelegate(new TouchDelegate(rect, view));
       }
     });
+  }
+
+  public static void showTaxiIcon(@NonNull ImageView logo, @TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        logo.setImageResource(R.drawable.ic_logo_uber);
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        logo.setImageResource(R.drawable.ic_logo_yandex_taxi);
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
+
+  public static void showTaxiTitle(@NonNull TextView title, @TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        title.setText(R.string.uber);
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        title.setText(R.string.yandex_taxi_title);
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
   }
 
   // utility class

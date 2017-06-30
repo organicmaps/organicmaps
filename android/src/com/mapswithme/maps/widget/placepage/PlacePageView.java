@@ -65,6 +65,7 @@ import com.mapswithme.maps.gallery.Image;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.viator.Viator;
 import com.mapswithme.maps.viator.ViatorAdapter;
 import com.mapswithme.maps.viator.ViatorProduct;
@@ -1304,11 +1305,7 @@ public class PlacePageView extends RelativeLayout
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
 
-    boolean showTaxiOffer = mapObject.getReachableByTaxiTypes() != null  &&
-                            LocationHelper.INSTANCE.getMyPosition() != null &&
-                            ConnectionState.isConnected();
-
-    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiDivider);
+    showTaxiOffer(mapObject);
 
     boolean inRouting = RoutingController.get().isNavigating() ||
                         RoutingController.get().isPlanning();
@@ -1329,7 +1326,25 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
+  private void showTaxiOffer(@NonNull MapObject mapObject)
+  {
+    List<Integer> taxiTypes = mapObject.getReachableByTaxiTypes();
 
+    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
+                            LocationHelper.INSTANCE.getMyPosition() != null &&
+                            ConnectionState.isConnected();
+    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiDivider);
+
+    if (!showTaxiOffer)
+      return;
+
+    List<Integer> types = mapObject.getReachableByTaxiTypes();
+    // At this moment we display only a one taxi provider at the same time.
+    @TaxiManager.TaxiType
+    int type = types.get(0);
+    UiUtils.showTaxiIcon((ImageView) mTaxi.findViewById(R.id.iv__place_page_taxi), type);
+    UiUtils.showTaxiTitle((TextView) mTaxi.findViewById(R.id.tv__place_page_taxi), type);
+  }
 
   private void hideHotelViews()
   {

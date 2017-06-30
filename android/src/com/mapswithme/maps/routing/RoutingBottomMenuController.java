@@ -154,7 +154,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
-    showTaxiIcon(info.getType());
+    UiUtils.showTaxiIcon((ImageView) mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
     mTaxiProduct = products.get(0);
@@ -174,22 +174,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     setStartButton();
     UiUtils.show(mTaxiFrame);
-  }
-
-  private void showTaxiIcon(@TaxiManager.TaxiType int type)
-  {
-    ImageView logo = (ImageView) mTaxiFrame.findViewById(R.id.iv__logo);
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        logo.setImageResource(R.drawable.ic_logo_uber);
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        logo.setImageResource(R.drawable.ic_logo_yandex_taxi);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
   }
 
   void showAddStartFrame()

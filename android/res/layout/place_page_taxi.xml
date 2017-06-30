@@ -12,10 +12,10 @@
   <ImageView
     android:id="@+id/iv__place_page_taxi"
     style="@style/PlacePageMetadataIcon"
+    android:tint="@null"
     android:layout_centerVertical="true"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:src="@drawable/ic_placepage_taxi"/>
+    android:layout_alignParentStart="true"/>
 
   <TextView
     android:id="@+id/tv__place_page_taxi"
