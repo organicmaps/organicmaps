@@ -42,8 +42,11 @@ public:
   void SetIntermediateIndex(int8_t index) { m_markData.m_intermediateIndex = index; }
   int8_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
 
-  void SetIsMyPosition(bool isMyPosition) { m_markData.m_isMyPosition = isMyPosition;}
+  void SetIsMyPosition(bool isMyPosition) { m_markData.m_isMyPosition = isMyPosition; }
   bool IsMyPosition() const { return m_markData.m_isMyPosition; }
+
+  void SetPassed(bool isPassed) { m_markData.m_isPassed = isPassed; }
+  bool IsPassed() const { return m_markData.m_isPassed; }
 
   RouteMarkData const & GetMarkData() const { return m_markData; }
   void SetMarkData(RouteMarkData && data) { m_markData = std::move(data); }
@@ -70,10 +73,12 @@ public:
   RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
   RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   std::vector<RouteMarkPoint *> GetRoutePoints();
+  size_t GetRoutePointsCount() const;
   bool RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   void RemoveIntermediateRoutePoints();
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType destType, int8_t destIntermediateIndex);
+  void PassRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
 
 private:
   using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;

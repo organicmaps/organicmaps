@@ -101,12 +101,25 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     guard.m_controller.CreateUserMark(pt);
 #endif
   });
+
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
       [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
 
-  m_routingSession.SetCheckpointCallback(
-      [this](size_t passedCheckpointIdx) { /* TODO insert reaction here */ });
+  m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
+  {
+    GetPlatform().RunOnGuiThread([this, passedCheckpointIdx]()
+    {
+      size_t const pointsCount = GetRoutePointsCount();
+      ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+      if (passedCheckpointIdx == 0)
+        OnRoutePointPassed(RouteMarkType::Start, 0);
+      else if (passedCheckpointIdx + 1 == pointsCount)
+        OnRoutePointPassed(RouteMarkType::Finish, 0);
+      else
+        OnRoutePointPassed(RouteMarkType::Intermediate, static_cast<int8_t>(passedCheckpointIdx - 1));
+    });
+  });
 }
 
 void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
@@ -161,6 +174,20 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCod
 
   InsertRoute(route);
   CallRouteBuilded(code, storage::TCountriesVec());
+}
+
+void RoutingManager::OnRoutePointPassed(RouteMarkType type, int8_t intermediateIndex)
+{
+  // Remove route point.
+  {
+    ASSERT(m_bmManager != nullptr, ());
+    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+    RoutePointsLayout routePoints(guard.m_controller);
+    routePoints.PassRoutePoint(type, intermediateIndex);
+  }
+
+  if (type == RouteMarkType::Finish)
+    RemoveRoute(false /* deactivateFollowing */);
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
@@ -245,8 +272,17 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   if (m_drapeEngine == nullptr)
     return;
 
-  for (auto const & subrouteId : m_drapeSubroutes)
-    m_drapeEngine->RemoveSubroute(subrouteId, deactivateFollowing);
+  std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
+  if (deactivateFollowing)
+  {
+    // Remove all subroutes.
+    m_drapeEngine->RemoveSubroute(dp::DrapeID(), true /* deactivateFollowing */);
+  }
+  else
+  {
+    for (auto const & subrouteId : m_drapeSubroutes)
+      m_drapeEngine->RemoveSubroute(subrouteId, false /* deactivateFollowing */);
+  }
   m_drapeSubroutes.clear();
 }
 
@@ -258,6 +294,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
+  std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
   std::vector<RouteSegment> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
@@ -341,9 +378,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
     m_drapeEngine->RemoveAllRoutePreviewSegments();
   
   if (m_routingSession.IsBuilt())
-  {
     m_routingSession.EmitCloseRoutingEvent();
-  }
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
 
@@ -387,6 +422,13 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePoints() const
   for (auto const & p : routePoints.GetRoutePoints())
     result.push_back(p->GetMarkData());
   return result;
+}
+
+size_t RoutingManager::GetRoutePointsCount() const
+{
+  UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
+  RoutePointsLayout routePoints(guard.m_controller);
+  return routePoints.GetRoutePointsCount();
 }
 
 bool RoutingManager::CouldAddIntermediatePoint() const

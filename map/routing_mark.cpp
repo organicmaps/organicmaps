@@ -172,6 +172,15 @@ bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t current
   return true;
 }
 
+void RoutePointsLayout::PassRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+{
+  RouteMarkPoint * point = GetRoutePoint(type, intermediateIndex);
+  if (point == nullptr)
+    return;
+  point->SetPassed(true);
+  point->SetIsVisible(false);
+}
+
 RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, int8_t intermediateIndex)
 {
   for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
@@ -219,6 +228,11 @@ std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
   if (finishPoint != nullptr)
     points.push_back(finishPoint);
   return points;
+}
+
+size_t RoutePointsLayout::GetRoutePointsCount() const
+{
+  return m_routeMarks.GetUserMarkCount();
 }
 
 void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)

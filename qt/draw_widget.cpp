@@ -112,6 +112,15 @@ void DrawWidget::RetryToDownloadCountry(storage::TCountryId const & countryId)
 
 void DrawWidget::PrepareShutdown()
 {
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing())
+  {
+    auto style = m_framework.GetMapStyle();
+    if (style == MapStyle::MapStyleVehicleClear)
+      m_framework.MarkMapStyle(MapStyle::MapStyleClear);
+    else if (style == MapStyle::MapStyleVehicleDark)
+      m_framework.MarkMapStyle(MapStyle::MapStyleDark);
+  }
 }
 
 void DrawWidget::UpdateAfterSettingsChanged()

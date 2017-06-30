@@ -16,6 +16,7 @@
 
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <utility>
 #include <vector>
@@ -165,6 +166,7 @@ public:
 
   void AddRoutePoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
+  size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   void RemoveIntermediateRoutePoints();
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
@@ -181,6 +183,7 @@ public:
                         storage::TCountriesVec const & absentCountries);
   void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
+  void OnRoutePointPassed(RouteMarkType type, int8_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo & info);
   void SetAllowSendingPoints(bool isAllowed)
   {
@@ -228,6 +231,7 @@ private:
   BookmarkManager * m_bmManager = nullptr;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
+  std::mutex m_drapeSubroutesMutex;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
