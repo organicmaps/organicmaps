@@ -175,7 +175,7 @@ std::vector<Provider::Type> Engine::GetProvidersAtPos(ms::LatLon const & pos) co
 
 bool Engine::IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const
 {
-  return !AreAllCountriesDisabled(type, pos) && IsAnyCountryEnabled(type, pos);
+  return !AreAllCountriesDisabled(type, pos) || IsAnyCountryEnabled(type, pos);
 }
 
 bool Engine::AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & latlon) const
