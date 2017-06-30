@@ -29,6 +29,9 @@
     hr = Blago udesno.
     sk = Mierne doprava.
     sw = Enda kulia kidogo.
+    fa = کمی به راست.
+    vi = Chếch sang phải.
+    uk = Правіше.
 
   [make_a_right_turn]
     en = Turn right.
@@ -59,6 +62,9 @@
     hr = Skrenite udesno.
     sk = Odbočte doprava.
     sw = Zunguka upande wa kulia.
+    fa = به راست بپیچید.
+    vi = Rẽ phải.
+    uk = Поверніть праворуч.
 
   [make_a_sharp_right_turn]
     en = Sharp right.
@@ -89,6 +95,9 @@
     hr = Oštro udesno.
     sk = Ostro doprava.
     sw = Fanya kulia mkali.
+    fa = منتها الیه سمت راست.
+    vi = Rẽ ngoặt bên phải.
+    uk = Різко вправо.
 
   [enter_the_roundabout]
     en = Enter the roundabout.
@@ -119,6 +128,9 @@
     hr = Uđite na zaobilaznicu.
     sk = Vojdite na kruhový objazd.
     sw = Ingia kwenye mzunguko.
+    fa = به میدان وارد شوید.
+    vi = Đi vào vòng xoay.
+    uk = В'їзд на кільцеву транспортну розв'язку.
 
   [leave_the_roundabout]
     en = Exit from the roundabout.
@@ -149,6 +161,9 @@
     hr = Napustite zaobilaznicu.
     sk = Výjazd z kruhového objazdu.
     sw = Toka kwenye mzunguko wa barabara.
+    fa = از میدان خارج شوید.
+    vi = Ra khỏi vòng xoay.
+    uk = З'їзд з кільцевої транспортної розв'язки.
 
   [make_a_slight_left_turn]
     en = Slight left.
@@ -179,6 +194,9 @@
     hr = Blago ulijevo.
     sk = Mierne doľava.
     sw = Enda kushoto kidogo.
+    fa = کمی به چپ.
+    vi = Chếch sang trái.
+    uk = Лівіше.
 
   [make_a_left_turn]
     en = Turn left.
@@ -209,6 +227,9 @@
     hr = Skrenite ulijevo.
     sk = Odbočte doľava.
     sw = Zunguka upande wa kushoto.
+    fa = به چپ بپیچید.
+    vi = Rẽ trái.
+    uk = Поверніть ліворуч.
 
   [make_a_sharp_left_turn]
     en = Sharp left.
@@ -239,6 +260,9 @@
     hr = Oštro ulijevo.
     sk = Ostro doľava.
     sw = Fanya kushoto mkali.
+    fa = منتها الیه سمت چپ.
+    vi = Rẽ ngoặt bên trái.
+    uk = Різкий поворот наліво.
 
   [make_a_u_turn]
     en = Make a u-turn.
@@ -269,6 +293,9 @@
     hr = Napravite poluzaokret.
     sk = Otočte sa o stoosemdesiat stupňov.
     sw = Geuka urudi ulikotoka.
+    fa = دور بزنید.
+    vi = Quay đầu.
+    uk = Зробіть розворот.
 
   [go_straight]
     en = Go straight.
@@ -299,6 +326,9 @@
     hr = Idite ravno.
     sk = Choďte rovno.
     sw = Pita kabisa.
+    fa = مستقیم بروید.
+    vi = Đi thẳng.
+    uk = Їдьте прямо.
 
   [destination]
     en = You’ll arrive.
@@ -329,6 +359,9 @@
     hr = Stižete.
     sk = Dorazíte.
     sw = Utawasili.
+    fa = شما خواهید رسید.
+    vi = Bạn sẽ đến.
+    uk = Ви прибудете.
 
   [you_have_reached_the_destination]
     en = You have arrived.
@@ -359,6 +392,9 @@
     hr = Stigli ste.
     sk = Dorazili ste do cieľa.
     sw = Umewasili mwisho wa safari.
+    fa =  شما رسیده اید.  
+    vi = Bạn đã đến.
+    uk = Ви прибули.
 
   [in_50_meters]
     en = In fifty meters
@@ -389,6 +425,9 @@
     hr = Za pedeset metara
     sk = Po päťdesiatich metroch
     sw = Kabla ya mita hamsini
+    fa =  در پنجاه متری
+    vi = Trong năm mươi mét nữa
+    uk = Через п'ятдесят метрів
 
   [in_100_meters]
     en = In one hundred meters
@@ -419,6 +458,9 @@
     hr = Za stotinu metara
     sk = Po sto metroch
     sw = Kabla ya mita mia moja
+    fa =  در صد متری
+    vi = Trong một trăm mét nữa
+    uk = Через сто метрів
 
   [in_200_meters]
     en = In two hundred meters
@@ -449,6 +491,9 @@
     hr = Za dvije stotine metara
     sk = Po dvesto metroch
     sw = Kabla ya mita mia mbili
+    fa =  در دویست و پنجاه متری
+    vi = Trong hai trăm mét nữa
+    uk = Через двісті метрів
 
   [in_250_meters]
     en = In two hundred and fifty meters
@@ -479,6 +524,9 @@
     hr = Za dvije stotine i pedeset metara
     sk = Po dvestopäťdesiatich metroch
     sw = Kabla ya mita mia mbili hamsini
+    fa = در دوصد و پنجاه متر
+    vi = Trong hai trăm năm mươi mét
+    uk = Через двісті п'ятдесят метрів
 
   [in_300_meters]
     en = In three hundred meters
@@ -509,6 +557,9 @@
     hr = Za tri stotine metara
     sk = Po tristo metroch
     sw = Kabla ya mita mia tatu
+    fa =  در سیصد متری
+    vi = Trong ba trăm mét nữa
+    uk = Через триста метрів
 
   [in_400_meters]
     en = In four hundred meters
@@ -539,6 +590,9 @@
     hr = Za četiri stotine metara
     sk = Po štyristo metroch
     sw = Kabla ya mita mia nne
+    fa =  در چهارصد متری
+    vi = Trong bốn trăm mét nữa
+    uk = Через чотириста метрів
 
   [in_500_meters]
     en = In five hundred meters
@@ -569,6 +623,9 @@
     hr = Za pet stotina metara
     sk = Po päťsto metroch
     sw = Kabla ya mita mia tano
+    fa =  در پانصد متری
+    vi = Trong năm trăm mét nữa
+    uk = Через п’ятсот метрів
 
   [in_600_meters]
     en = In six hundred meters
@@ -599,6 +656,9 @@
     hr = Za šest stotina metara
     sk = Po šesťsto metroch
     sw = Kabla ya mita mia sita
+    fa =  در ششصد متری
+    vi = Trong sáu trăm mét nữa
+    uk = Через шістсот метрів
 
   [in_700_meters]
     en = In seven hundred meters
@@ -629,6 +689,9 @@
     hr = Za sedam stotina metara
     sk = Po sedemsto metroch
     sw = Kabla ya mita mia saba
+    fa =  در هفتصد متری
+    vi = Trong bảy trăm mét nữa
+    uk = Через сімсот метрів
 
   [in_750_meters]
     en = In seven hundred and fifty meters
@@ -659,6 +722,9 @@
     hr = Za sedam stotina i pedeset metara
     sk = Po sedemstopäťdesiatich metroch
     sw = Kabla ya mita mia saba hamsini
+    fa =  در هفتصد و پنجاه متری
+    vi = Trong bảy trăm năm mươi mét nữa
+    uk = Через сімсот п'ятьдесят метрів
 
   [in_800_meters]
     en = In eight hundred meters
@@ -689,6 +755,9 @@
     hr = Za osam stotina metara
     sk = Po osemsto metroch
     sw = Kabla ya mita mia nane
+    fa =  در هشتصد متری
+    vi = Trong tám trăm mét nữa
+    uk = Через вісімсот метрів
 
   [in_900_meters]
     en = In nine hundred meters
@@ -719,6 +788,9 @@
     hr = Za devet stotina metara
     sk = Po deväťsto metroch
     sw = Kabla ya mita mia tisa
+    fa =  در نهصد متری
+    vi = Trong chín trăm mét nữa
+    uk = Через дев'ятсот метрів
 
   [in_1_kilometer]
     en = In one kilometer
@@ -749,6 +821,9 @@
     hr = Za jedan kilometar
     sk = Po jednom kilometri
     sw = Kabla ya kilomita moja
+    fa =  در یک کیلومتری
+    vi = Trong một kilômét nữa 
+    uk = Через однин кілометр
 
   [in_1_5_kilometers]
     en = In one and a half kilometers
@@ -779,6 +854,9 @@
     hr = Za jedan i pol kilometar
     sk = Po jeden a pol kilometri
     sw = Kabla ya kilomita moja na nusu
+    fa =  در یک و نیم کیلومتری
+    vi = Trong một kilômét rưỡi nữa
+    uk = Через півтора кілометра
 
   [in_2_kilometers]
     en = In two kilometers
@@ -809,6 +887,9 @@
     hr = Za dva kilometra
     sk = Po dvoch kilometroch
     sw = Kabla ya kilomita mbili
+    fa =  در دو کیلومتری
+    vi = Trong hai kilômét nữa
+    uk = Через два кілометри
 
   [in_2_5_kilometers]
     en = In two and a half kilometers
@@ -839,6 +920,9 @@
     hr = Za dva i pol kilometra
     sk = Po dva a pol kilometri
     sw = Kabla ya kilomita mbili na nusu
+    fa =  در دو و نیم کیلومتری
+    vi = Trong hai kilômét rưỡi nữa
+    uk = Через два з половиною кілометра
 
   [in_3_kilometers]
     en = In three kilometers
@@ -869,6 +953,9 @@
     hr = Za tri kilometra
     sk = Po troch kilometroch
     sw = Kabla ya kilomita tatu
+    fa =  در سه کیلومتری
+    vi = Trong ba kilômét nữa
+    uk = Через три кілометри
 
   [then]
     en = Then
@@ -899,6 +986,9 @@
     hr = Zatim
     sk = Potom
     sw = Kisha
+    fa =  سپس
+    vi = Sau đó
+    uk = Потім
 
   [take_the_1_exit]
     en = Take the first exit.
@@ -929,6 +1019,9 @@
     hr = Izađite na prvom izlazu.
     sk = Opustite kruhový objazd na prvom výjazde.
     sw = Ingia barabara ya kwanza ya kutoka.
+    fa =  اولین خروجی را داخل شوید
+    vi = Đi theo lối ra đầu tiên.
+    uk = Рухайтесь через перший з'їзд.
 
   [take_the_2_exit]
     en = Take the second exit.
@@ -959,6 +1052,9 @@
     hr = Izađite na drugom izlazu.
     sk = Opustite kruhový objazd na druhom výjazde.
     sw = Ingia barabara ya pili ya kutoka.
+    fa =  دومین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ hai.
+    uk = Рухайтесь через другий з'їзд.
 
   [take_the_3_exit]
     en = Take the third exit.
@@ -989,6 +1085,9 @@
     hr = Izađite na trećem izlazu.
     sk = Opustite kruhový objazd na treťom výjazde.
     sw = Ingia barabara ya tatu ya kutoka.
+    fa =  سومین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ ba.
+    uk = Рухайтесь через третій з'їзд.
 
   [take_the_4_exit]
     en = Take the fourth exit.
@@ -1019,6 +1118,9 @@
     hr = Izađite na četvrtom izlazu.
     sk = Opustite kruhový objazd na štvrtom výjazde.
     sw = Ingia barabara ya nne ya kutoka.
+    fa =  چهارمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ tư.
+    uk = Рухайтесь через четвертий з'їзд.
 
   [take_the_5_exit]
     en = Take the fifth exit.
@@ -1049,6 +1151,9 @@
     hr = Izađite na petom izlazu.
     sk = Opustite kruhový objazd na piatom výjazde.
     sw = Ingia barabara ya tano ya kutoka.
+    fa =  پنجمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ năm.
+    uk = Рухайтесь через п'ятий з'їзд.
 
   [take_the_6_exit]
     en = Take the sixth exit.
@@ -1079,6 +1184,9 @@
     hr = Izađite na šestom izlazu.
     sk = Opustite kruhový objazd na šiestom výjazde.
     sw = Ingia barabara ya sita ya kutoka.
+    fa =  ششمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ sáu.
+    uk = Рухайтесь через шостий з'їзд.
 
   [take_the_7_exit]
     en = Take the seventh exit.
@@ -1109,6 +1217,9 @@
     hr = Izađite na sedmom izlazu.
     sk = Opustite kruhový objazd na siedmom výjazde.
     sw = Ingia barabara ya saba ya kutoka.
+    fa =  هفتمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ bảy.
+    uk = Рухайтесь через сьомий з'їзд.
 
   [take_the_8_exit]
     en = Take the eighth exit.
@@ -1139,6 +1250,9 @@
     hr = Izađite na osmom izlazu.
     sk = Opustite kruhový objazd na ôsmom výjazde.
     sw = Ingia barabara ya nane ya kutoka.
+    fa =  هشتمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ tám.
+    uk = Рухайтесь через восьмий з'їзд.
 
   [take_the_9_exit]
     en = Take the ninth exit.
@@ -1169,6 +1283,9 @@
     hr = Izađite na devetom izlazu.
     sk = Opustite kruhový objazd na deviatom výjazde.
     sw = Ingia barabara ya tisa ya kutoka.
+    fa =  نهمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ chín.
+    uk = Рухайтесь через дев'ятий з'їзд.
 
   [take_the_10_exit]
     en = Take the tenth exit.
@@ -1199,6 +1316,9 @@
     hr = Izađite na desetom izlazu.
     sk = Opustite kruhový objazd na desiatom výjazde.
     sw = Ingia barabara ya kumi ya kutoka.
+    fa =  دهمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ mười.
+    uk = Рухайтесь через десятий з'їзд.
 
   [take_the_11_exit]
     en = Take the eleventh exit.
@@ -1229,6 +1349,9 @@
     hr = Izađite na jedanaestom izlazu.
     sk = Opustite kruhový objazd na jedenástom výjazde.
     sw = Ingia barabara ya kumi na moja ya kutoka.
+    fa =  یازدهمین خروجی را داخل شوید.
+    vi = Đi theo lối ra thứ mười một.
+    uk = Рухайтесь через одинадцятий з'їзд.
 
   [in_50_feet]
     en = In fifty feet
@@ -1259,6 +1382,9 @@
     hr = Za pedeset stopa
     sk = Po päťdesiatich stopách
     sw = Kabla ya futi hamsini
+    fa = در پنجاه قدمی
+    vi = Trong năm mươi feet nữa
+    uk = Через п'ятдесят футів
 
   [in_100_feet]
     en = In one hundred feet
@@ -1289,6 +1415,9 @@
     hr = Za stotinu stopa
     sk = Po sto stopách
     sw = Kabla ya futi mia moja
+    fa = در یک صد قدمی
+    vi = Trong một trăm feet nữa
+    uk = Через сто футів
 
   [in_200_feet]
     en = In two hundred feet
@@ -1319,6 +1448,9 @@
     hr = Za dvije stotine stopa
     sk = Po dvesto stopách
     sw = Kabla ya futi mia mbili
+    fa = در دویست قدمی
+    vi = Trong hai trăm feet nữa
+    uk = Через двісті футів
 
   [in_300_feet]
     en = In three hundred feet
@@ -1349,6 +1481,9 @@
     hr = Za tri stotine stopa
     sk = Po tristo stopách
     sw = Kabla ya futi mia tatu
+    fa = در سیصد قدمی
+    vi = Trong ba trăm feet nữa
+    uk = Через триста футів
 
   [in_400_feet]
     en = In four hundred feet
@@ -1379,6 +1514,9 @@
     hr = Za četiri stotine stopa
     sk = Po štyristo stopách
     sw = Kabla ya futi mia nne
+    fa = در چهارصد قدمی
+    vi = Trong bốn trăm feet nữa
+    uk = Через чотириста футів
 
   [in_500_feet]
     en = In five hundred feet
@@ -1409,6 +1547,9 @@
     hr = Za pet stotina stopa
     sk = Po päťsto stopách
     sw = Kabla ya futi mia tano
+    fa = در پانصد قدمی
+    vi = Trong năm trăm feet nữa
+    uk = Через п'ятсот футів
 
   [in_600_feet]
     en = In six hundred feet
@@ -1439,6 +1580,9 @@
     hr = Za šest stotina stopa
     sk = Po šesťsto stopách
     sw = Kabla ya futi mia sita
+    fa = در ششصد قدمی
+    vi = Trong sáu trăm feet nữa
+    uk = Через шістсот футів
 
   [in_700_feet]
     en = In seven hundred feet
@@ -1469,6 +1613,9 @@
     hr = Za sedam stotina stopa
     sk = Po sedemsto stopách
     sw = Kabla ya futi mia saba
+    fa = در هفتصد قدمی
+    vi = Trong bảy trăm feet nữa
+    uk = Через сімсот футів
 
   [in_800_feet]
     en = In eight hundred feet
@@ -1499,6 +1646,9 @@
     hr = Za osam stotina stopa
     sk = Po osemsto stopách
     sw = Kabla ya futi mia nane
+    fa = در هشتصد قدمی
+    vi = Trong tám trăm feet nữa
+    uk = Через вісімсот футів
 
   [in_900_feet]
     en = In nine hundred feet
@@ -1529,6 +1679,9 @@
     hr = Za devet stotina stopa
     sk = Po deväťsto stopách
     sw = Kabla ya futi mia tisa
+    fa = در نه صد قدمی
+    vi = Trong chín trăm feet nữa
+    uk = Через дев'ятсот футів
 
   [in_1000_feet]
     en = In one thousand feet
@@ -1559,6 +1712,9 @@
     hr = Za tisuću stopa
     sk = Po tisíc stopách
     sw = Kabla ya futi elfu moja
+    fa = در یک هزار قدمی
+    vi = Trong một ngàn feet nữa
+    uk = Через тисячу футів
 
   [in_1500_feet]
     en = In fifteen hundred feet
@@ -1589,6 +1745,9 @@
     hr = Za tisuću i pet stotina stopa
     sk = Po tisícpäťsto stopách
     sw = Kabla ya futi elfu moja na mia tano
+    fa = در یک هزار و پانصد قدمی
+    vi = Trong một ngàn năm trăm feet nữa
+    uk = Через півтори тисячі футів
 
   [in_2000_feet]
     en = In two thousand feet
@@ -1619,6 +1778,9 @@
     hr = Za dvije tisuće stopa
     sk = Po dvetisíc stopách
     sw = Kabla ya futi elfu mbili
+    fa = در دو هزار قدمی
+    vi = Trong hai ngàn feet nữa
+    uk = Через дві тисячі футів
 
   [in_2500_feet]
     en = In twenty five hundred feet
@@ -1649,6 +1811,9 @@
     hr = Za dvije tisuće i pet stotina stopa
     sk = Po dvetisícpäťsto stopách
     sw = Kabla ya futi elfu mbili na mia tano
+    fa = در پانصد و بیست قدمی
+    vi = Trong hai ngàn năm trăm feet nữa
+    uk = Через дві з половиною тисячі футів
 
   [in_3000_feet]
     en = In three thousand feet
@@ -1679,6 +1844,9 @@
     hr = Za tri tisuće stopa
     sk = Po tritisíc stopách
     sw = Kabla ya futi elfu tatu
+    fa = در سه هزار قدمی
+    vi = Trong ba ngàn feet nữa
+    uk = Через три тисячі футів
 
   [in_3500_feet]
     en = In thirty five hundred feet
@@ -1709,6 +1877,9 @@
     hr = Za tri tisuće i pet stotina stopa
     sk = Po tritisícpäťsto stopách
     sw = Kabla ya futi elfu tatu na mia tano
+    fa = در سه هزار و پانصد قدمی
+    vi = Trong ba ngàn năm trăm feet nữa
+    uk = Через три з половиною тисячі футів
 
   [in_4000_feet]
     en = In four thousand feet
@@ -1739,6 +1910,9 @@
     hr = Za četiri tisuće stopa
     sk = Po štyritisíc stopách
     sw = Kabla ya futi elfu nne
+    fa = در چهار هزار قدمی
+    vi = Trong bốn ngàn feet nữa
+    uk = Через чотири тисячі футів
 
   [in_4500_feet]
     en = In forty five hundred feet
@@ -1769,6 +1943,9 @@
     hr = Za četiri tisuće i pet stotina stopa
     sk = Po štyritisícpäťsto stopách
     sw = Kabla ya futi elfu nne na mia tano
+    fa = در چهار هزار و پانصد قدمی
+    vi = Trong bốn ngàn năm trăm feet nữa
+    uk = Через чотири з половиною тисячі футів
 
   [in_5000_feet]
     en = In five thousand feet
@@ -1799,6 +1976,9 @@
     hr = Za pet tisuća stopa
     sk = Po päťtisíc stopách
     sw = Kabla ya futi elfu tano
+    fa = در پنج هزار قدمی
+    vi = Trong năm ngàn feet nữa
+    uk = Через п'ять тисяч футів
 
   [in_1_mile]
     en = In one mile
@@ -1829,6 +2009,9 @@
     hr = Za jednu milju
     sk = Po jednej míli
     sw = Kabla ya maili moja
+    fa = در یک مایلی
+    vi = Trong một dặm nữa
+    uk = Через одну милю
 
   [in_1_5_miles]
     en = In one and a half miles
@@ -1859,6 +2042,9 @@
     hr = Za jednu i pol milju
     sk = Po jeden a pol míli
     sw = Kabla ya maili moja na nusu
+    fa = در یک و نیم مایلی
+    vi = Trong một dặm rưỡi nữa
+    uk = Через півтори милі
 
   [in_2_miles]
     en = In two miles
@@ -1889,3 +2075,6 @@
     hr = Za dvije milje
     sk = Po dvoch míľach
     sw = Kabla ya maili mbili
+    fa = در دو مایلی
+    vi = Trong hai dặm nữa
+    uk = Через дві милі
