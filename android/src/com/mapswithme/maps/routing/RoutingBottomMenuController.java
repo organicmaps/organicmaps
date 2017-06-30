@@ -349,7 +349,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     MapObject from = RoutingController.get().getStartPoint();
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Statistics.INSTANCE.trackTaxi(from, to, location, type, isTaxiAppInstalled);
+    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, type, isTaxiAppInstalled);
   }
 
   @Override

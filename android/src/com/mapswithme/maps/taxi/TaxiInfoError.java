@@ -21,6 +21,12 @@ public class TaxiInfoError
     return mCode;
   }
 
+  @TaxiManager.TaxiType
+  public int getType()
+  {
+    return mType;
+  }
+
   @Override
   public String toString()
   {

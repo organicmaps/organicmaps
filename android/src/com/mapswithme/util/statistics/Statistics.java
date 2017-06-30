@@ -26,6 +26,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.BatteryState;
@@ -192,6 +193,9 @@ public enum Statistics
     public static final String ROUTING_TTS_SWITCH = "Routing. Switch tts";
     public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
     public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
+    public static final String ROUTING_TAXI_SHOW_IN_PP = "Placepage_Taxi_show";
+    public static final String ROUTING_TAXI_CLICK_IN_PP = "Placepage_Taxi_click";
+    public static final String ROUTING_TAXI_ROUTE_BUILT = "Routing_Build_Taxi";
 
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
@@ -520,8 +524,8 @@ public enum Statistics
     trackEvent(EventName.EDITOR_AUTH_REQUEST, Statistics.params().add(Statistics.EventParam.TYPE, type.name));
   }
 
-  public void trackTaxi(@Nullable MapObject from, @Nullable MapObject to,
-                        @Nullable Location location, @TaxiManager.TaxiType int type, boolean isAppInstalled)
+  public void trackTaxiInRoutePlanning(@Nullable MapObject from, @Nullable MapObject to,
+                                       @Nullable Location location, @TaxiManager.TaxiType int type, boolean isAppInstalled)
   {
     Statistics.ParameterBuilder params = Statistics.params();
     params.add(Statistics.EventParam.PROVIDER, type == TaxiManager.PROVIDER_YANDEX ? "Yandex" : "Uber");
@@ -535,6 +539,23 @@ public enum Statistics
     String event = isAppInstalled ? Statistics.EventName.ROUTING_TAXI_ORDER
                                    : Statistics.EventName.ROUTING_TAXI_INSTALL;
     trackEvent(event, location, params.get());
+  }
+
+  public void trackTaxiEvent(@NonNull String eventName, @TaxiManager.TaxiType int type)
+  {
+    Statistics.ParameterBuilder params = Statistics.params();
+    params.add(Statistics.EventParam.PROVIDER,
+               type == TaxiManager.PROVIDER_YANDEX ? "Yandex" : "Uber");
+    trackEvent(eventName, params);
+  }
+
+  public void trackTaxiError(@NonNull TaxiInfoError error)
+  {
+    Statistics.ParameterBuilder params = Statistics.params();
+    params.add(Statistics.EventParam.PROVIDER,
+               error.getType() == TaxiManager.PROVIDER_YANDEX ? "Yandex" : "Uber");
+    params.add(ERROR_CODE, error.getCode().name());
+    trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }
 
   public void trackRestaurantEvent(@NonNull String eventName, @NonNull Sponsored restaurant,

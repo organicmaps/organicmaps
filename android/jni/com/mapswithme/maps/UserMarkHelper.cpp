@@ -46,7 +46,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
   // public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
   //                  @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
   //                  String subtitle, String address, double lat, double lon, String apiId,
-  //                  @Nullable Banner[] banners, @TaxiTapy int[] reachableByTaxiTypes,
+  //                  @Nullable Banner[] banners, @TaxiType int[] reachableByTaxiTypes,
   //                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
   //                  @Nullable RoutePointInfo routePointInfo)
   static jmethodID const ctorId =

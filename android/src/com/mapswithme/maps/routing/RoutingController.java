@@ -920,6 +920,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     {
       mContainer.onTaxiInfoReceived(provider);
       completeTaxiRequest();
+      Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_ROUTE_BUILT,
+                                         provider.getType());
     }
   }
 
@@ -932,6 +934,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     {
       mContainer.onTaxiError(error.getCode());
       completeTaxiRequest();
+      Statistics.INSTANCE.trackTaxiError(error);
     }
   }
 }

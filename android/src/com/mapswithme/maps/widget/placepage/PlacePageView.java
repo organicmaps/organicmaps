@@ -1319,6 +1319,7 @@ public class PlacePageView extends RelativeLayout
     int type = types.get(0);
     UiUtils.showTaxiIcon((ImageView) mTaxi.findViewById(R.id.iv__place_page_taxi), type);
     UiUtils.showTaxiTitle((TextView) mTaxi.findViewById(R.id.tv__place_page_taxi), type);
+    Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type);
   }
 
   private void hideHotelViews()
@@ -1726,6 +1727,16 @@ public class PlacePageView extends RelativeLayout
                                         Framework.ROUTER_TYPE_TAXI);
         hide();
         Framework.nativeDeactivatePopup();
+        if (mMapObject != null)
+        {
+          List<Integer> types = mMapObject.getReachableByTaxiTypes();
+          if (types != null && !types.isEmpty())
+          {
+            @TaxiManager.TaxiType
+            int type = types.get(0);
+            Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP, type);
+          }
+        }
         break;
       case R.id.btn__viator_more:
         if (mSponsored != null)
