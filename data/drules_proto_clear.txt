@@ -23651,41 +23651,6 @@ cont {
   }
 }
 cont {
-  name: "highway-speed_camera"
-  element {
-    scale: 16
-    symbol {
-      name: "speedcam-m"
-      apply_for_type: 1
-      priority: 16623
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "speedcam-l"
-      apply_for_type: 1
-      priority: 16623
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "speedcam-l"
-      apply_for_type: 1
-      priority: 16623
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "speedcam-l"
-      apply_for_type: 1
-      priority: 16623
-    }
-  }
-}
-cont {
   name: "highway-steps"
   element {
     scale: 16

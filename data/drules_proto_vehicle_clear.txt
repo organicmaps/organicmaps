@@ -13874,7 +13874,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "speedcam-l"
+      name: "speedcam-s"
       apply_for_type: 1
       priority: 16973
     }
@@ -13882,7 +13882,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "speedcam-l"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16973
     }

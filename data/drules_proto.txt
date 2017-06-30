@@ -23923,57 +23923,49 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "speedcam-m"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
   element {
     scale: 14
     symbol {
-      name: "speedcam-m"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
   element {
     scale: 15
     symbol {
-      name: "speedcam-m"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
   element {
     scale: 16
     symbol {
-      name: "speedcam-m"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
   element {
     scale: 17
     symbol {
-      name: "speedcam-l"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
   element {
     scale: 18
     symbol {
-      name: "speedcam-l"
+      name: "speedcam-s"
       apply_for_type: 1
-      priority: 16623
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "speedcam-l"
-      apply_for_type: 1
-      priority: 16623
+      priority: 16973
     }
   }
 }
