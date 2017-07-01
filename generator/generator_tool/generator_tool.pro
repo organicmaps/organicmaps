@@ -10,7 +10,7 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
 
 CONFIG += console warn_on
-!map_designer_standalone {
+!CONFIG(map_designer_standalone) {
   CONFIG -= app_bundle
 }
 TEMPLATE = app

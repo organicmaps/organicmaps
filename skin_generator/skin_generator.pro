@@ -2,7 +2,7 @@ TARGET = skin_generator
 TEMPLATE = app
 CONFIG += console
 
-!map_designer_standalone {
+!CONFIG(map_designer_standalone) {
   CONFIG -= app_bundle
 }
 

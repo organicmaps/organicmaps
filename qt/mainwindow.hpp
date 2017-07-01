@@ -125,12 +125,12 @@ protected Q_SLOTS:
   void OnClearRoute();
     
 #ifdef BUILD_DESIGNER
-    void OnBuildStyle();
-    void OnRecalculateGeomIndex();
-    void OnDebugStyle();
-    void OnGetStatistics();
-    void OnRunTests();
-    void OnBuildPhonePackage();
+  void OnBuildStyle();
+  void OnRecalculateGeomIndex();
+  void OnDebugStyle();
+  void OnGetStatistics();
+  void OnRunTests();
+  void OnBuildPhonePackage();
 #endif // BUILD_DESIGNER
 };
 }  // namespace qt

@@ -23,6 +23,10 @@ HEADERS += defines.hpp
   CONFIG *= desktop
 }
 
+CONFIG(map_designer_standalone) {
+  CONFIG += map_designer
+}
+
 SUBDIRS = 3party base coding geometry editor indexer routing routing_common search openlr
 
 !CONFIG(osrm) {

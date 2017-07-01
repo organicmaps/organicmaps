@@ -2,7 +2,7 @@ TARGET = style_tests
 TEMPLATE = app
 CONFIG += console warn_on
 
-!map_designer_standalone {
+!CONFIG(map_designer_standalone) {
   CONFIG -= app_bundle
 }
 
