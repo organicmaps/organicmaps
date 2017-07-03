@@ -107,7 +107,9 @@ CGFloat const kMinOffset = 1;
 - (void)onScreenResize:(CGSize const &)size
 {
   UIScrollView * sv = self.scrollView;
+  sv.delegate = nil;
   sv.frame = {{}, size};
+  sv.delegate = self;
   self.placePageView.minY = size.height;
   auto actionBar = self.actionBar;
   actionBar.frame = {{0., size.height - actionBar.height},
@@ -162,8 +164,8 @@ CGFloat const kMinOffset = 1;
 - (CGFloat)topContentOffset
 {
   auto const target = self.openContentOffset;
-  auto const ppView = self.placePageView;
-  return MIN(target, ppView.height);
+  auto const ppViewMaxY = self.placePageView.tableView.maxY;
+  return MIN(target, ppViewMaxY);
 }
 
 - (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView
