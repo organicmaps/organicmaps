@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Пожалуйста, выберите конечную точку маршрута ближе к дороге.";
 
+"dialog_routing_change_intermediate" = "Выберите другую промежуточную точку, пожалуйста";
+
+"dialog_routing_intermediate_not_determined" = "Промежуточная точка не обнаружена.";
+
 "dialog_routing_system_error" = "Системная ошибка";
 
 "dialog_routing_application_error" = "Не удалось проложить маршрут из-за ошибки приложения.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Не удалось найти такси поблизости";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Не удалось найти поставщика услуг такси поблизости";
 
 "install_app" = "Установить";
 

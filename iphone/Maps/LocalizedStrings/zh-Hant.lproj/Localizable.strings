@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "請選擇更接近道路的目的地。";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "系統錯誤";
 
 "dialog_routing_application_error" = "由於此錯誤，尚未建立路線。";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "無法在附近找到計程車";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "安裝";
 

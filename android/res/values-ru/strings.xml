@@ -600,6 +600,8 @@
 	<string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
 	<string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
 	<string name="dialog_routing_select_closer_end">Пожалуйста, выберите конечную точку маршрута ближе к дороге.</string>
+	<string name="dialog_routing_change_intermediate">Выберите другую промежуточную точку, пожалуйста</string>
+	<string name="dialog_routing_intermediate_not_determined">Промежуточная точка не обнаружена.</string>
 	<string name="dialog_routing_system_error">Системная ошибка</string>
 	<string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
 	<string name="dialog_routing_try_again">Попробуйте снова</string>
@@ -979,6 +981,8 @@
 	<string name="taxi_wait">Ожидание %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Не удалось найти такси поблизости</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Не удалось найти поставщика услуг такси поблизости</string>
 	<string name="install_app">Установить</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фильтр</string>

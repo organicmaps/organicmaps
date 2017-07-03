@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "도로와 가까운 목적지를 지정해주세요.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "시스템 오류";
 
 "dialog_routing_application_error" = "애플리케이션 오류로 인해 경로를 설정하지 못했습니다.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "근처에서 택시를 찾을 수 없음";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "설치";
 

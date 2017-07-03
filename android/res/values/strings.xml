@@ -602,6 +602,8 @@
 	<string name="dialog_routing_change_end">Adjust destination</string>
 	<string name="dialog_routing_end_not_determined">Route was not created. Unable to locate the destination.</string>
 	<string name="dialog_routing_select_closer_end">Please select a destination point located closer to a road.</string>
+	<string name="dialog_routing_change_intermediate">Please select another intermediate point</string>
+	<string name="dialog_routing_intermediate_not_determined">An intermediate point is not determined.</string>
 	<string name="dialog_routing_system_error">System error</string>
 	<string name="dialog_routing_application_error">Unable to create route due to an application error.</string>
 	<string name="dialog_routing_try_again">Please try again</string>
@@ -998,6 +1000,8 @@
 	<string name="taxi_wait">Expected in %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Couldn\'t find a taxi nearby</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Couldn’t find a taxi provider nearby</string>
 	<string name="install_app">Install</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>

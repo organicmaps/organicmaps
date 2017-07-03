@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Setaţi un punct de destinaţie mai aproape de un drum.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "Eroare sistem";
 
 "dialog_routing_application_error" = "Crearea traseului a eşuat din cauza unei erori a aplicaţiei.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Nu am găsit niciun taxi în apropiere ";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "Instalați";
 

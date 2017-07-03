@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Kérjük, válasszon egy úthoz közelebb eső célállomást.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "Rendszerhiba";
 
 "dialog_routing_application_error" = "Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Nem talált taxit a közelben";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "Telepítés";
 

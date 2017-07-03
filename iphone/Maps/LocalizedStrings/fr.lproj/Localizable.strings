@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Choisissez une destination à proximité d'une route.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "Erreur système";
 
 "dialog_routing_application_error" = "Impossible de créer l'itinéraire à cause d'une erreur dans l'application.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Impossible de trouver un taxi à proximité";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "Installer";
 

@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Hãy chọn điểm đến gần với một con đường hơn.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "Lỗi hệ thống";
 
 "dialog_routing_application_error" = "Không thể tạo tuyến đường do lỗi ứng dụng.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Không thể tìm thấy một taxi ở gần đây";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "Cài đặt";
 

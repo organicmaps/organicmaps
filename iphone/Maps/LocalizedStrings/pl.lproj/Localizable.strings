@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "Wybierz punkt docelowy położony bliżej drogi.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "Błąd systemowy";
 
 "dialog_routing_application_error" = "Nie można wyznaczyć trasy z powodu błędu aplikacji.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "Nie można znaleźć taksówki w pobliżu";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "Zainstaluj";
 

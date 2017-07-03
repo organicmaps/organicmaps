@@ -943,6 +943,10 @@
 
 "dialog_routing_select_closer_end" = "يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.";
 
+"dialog_routing_change_intermediate" = "Please select another intermediate point";
+
+"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+
 "dialog_routing_system_error" = "خطأ في النظام";
 
 "dialog_routing_application_error" = "تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.";
@@ -1681,6 +1685,9 @@
 
 /* When there are no available taxis nearby */
 "taxi_not_found" = "لا يمكن العثور على تاكسي قريب";
+
+/* When there are no available taxi providers nearby */
+"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
 
 "install_app" = "تثبيت";
 
