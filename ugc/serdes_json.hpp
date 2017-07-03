@@ -32,6 +32,11 @@ public:
     ToJSONObject(*m_json, name, s);
   }
 
+  void operator()(TranslationKey const & key, char const * name = nullptr)
+  {
+    (*this)(key.m_key, name);
+  }
+
   void operator()(Time const & t, char const * name = nullptr)
   {
     (*this)(ToDaysSinceEpoch(t), name);
@@ -109,6 +114,10 @@ public:
   void operator()(uint32_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
   void operator()(uint64_t & d, char const * name = nullptr) { FromJSONObject(m_json, name, d); }
   void operator()(std::string & s, char const * name = nullptr) { FromJSONObject(m_json, name, s); }
+  void operator()(TranslationKey & key, char const * name = nullptr)
+  {
+    (*this)(key.m_key, name);
+  }
   void operator()(Time & t, char const * name = nullptr)
   {
     uint32_t d = 0;

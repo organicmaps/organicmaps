@@ -51,6 +51,11 @@ public:
     WriteVarUint(m_sink, t);
   }
 
+  void operator()(TranslationKey const & key, char const * /* name */ = nullptr)
+  {
+    (*this)(key.m_key);
+  }
+
   void operator()(Time const & t, char const * /* name */ = nullptr)
   {
     VisitVarUint(ToDaysSinceEpoch(t));
@@ -123,6 +128,8 @@ public:
   {
     return ReadVarUint<T, Source>(m_source);
   }
+
+  void operator()(TranslationKey & key, char const * /* name */ = nullptr) { (*this)(key.m_key); }
 
   void operator()(Time & t, char const * /* name */ = nullptr)
   {

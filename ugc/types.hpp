@@ -26,9 +26,25 @@
 
 namespace ugc
 {
-using TranslationKey = std::string;
 using Clock = std::chrono::system_clock;
 using Time = std::chrono::time_point<Clock>;
+
+struct TranslationKey
+{
+  TranslationKey() = default;
+  TranslationKey(std::string const & key): m_key(key) {}
+  TranslationKey(char const * key): m_key(key) {}
+
+  bool operator==(TranslationKey const & rhs) const { return m_key == rhs.m_key; }
+  bool operator<(TranslationKey const & rhs) const { return m_key < rhs.m_key; }
+
+  friend std::string DebugPrint(TranslationKey const & key)
+  {
+    return "TranslationKey [ " + key.m_key + " ]";
+  }
+
+  std::string m_key;
+};
 
 enum class Sentiment
 {
@@ -81,7 +97,8 @@ struct RatingRecord
   friend std::string DebugPrint(RatingRecord const & ratingRecord)
   {
     std::ostringstream os;
-    os << "RatingRecord [ " << ratingRecord.m_key << " " << ratingRecord.m_value << " ]";
+    os << "RatingRecord [ " << DebugPrint(ratingRecord.m_key) << " " << ratingRecord.m_value
+       << " ]";
     return os.str();
   }
 
@@ -238,7 +255,8 @@ struct Attribute
   friend std::string DebugPrint(Attribute const & attribute)
   {
     std::ostringstream os;
-    os << "Attribute [ key:" << attribute.m_key << ", value:" << attribute.m_value << " ]";
+    os << "Attribute [ key:" << DebugPrint(attribute.m_key)
+       << ", value:" << DebugPrint(attribute.m_value) << " ]";
     return os.str();
   }
 
