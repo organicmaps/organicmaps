@@ -558,6 +558,13 @@ public enum Statistics
     trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }
 
+  public void trackNoTaxiProvidersError()
+  {
+    Statistics.ParameterBuilder params = Statistics.params();
+    params.add(ERROR_CODE, TaxiManager.ErrorCode.NoProviders.name());
+    trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
+  }
+
   public void trackRestaurantEvent(@NonNull String eventName, @NonNull Sponsored restaurant,
                                    @NonNull MapObject mapObject)
   {

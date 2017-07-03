@@ -937,4 +937,17 @@ public class RoutingController implements TaxiManager.TaxiListener
       Statistics.INSTANCE.trackTaxiError(error);
     }
   }
+
+  @Override
+  public void onNoTaxiProviders()
+  {
+    mTaxiPlanning = false;
+    mLogger.e(TAG, "onNoTaxiProviders");
+    if (isTaxiRouterType() && mContainer != null)
+    {
+      mContainer.onTaxiError(TaxiManager.ErrorCode.NoProviders);
+      completeTaxiRequest();
+      Statistics.INSTANCE.trackNoTaxiProvidersError();
+    }
+  }
 }

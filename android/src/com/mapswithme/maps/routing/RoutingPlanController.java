@@ -232,7 +232,7 @@ public class RoutingPlanController extends ToolbarController
       case RemoteError:
         showError(R.string.dialog_taxi_error);
         break;
-      case NoProvider:
+      case NoProviders:
         showError(R.string.taxi_no_providers);
         break;
       default:
