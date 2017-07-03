@@ -10939,6 +10939,16 @@
     he = בחר נקודת יעד הקרובה יותר לכביש כלשהו.
     sk = Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.
 
+  [dialog_routing_change_intermediate]
+    tags = ios, android
+    en = Please select another intermediate point
+    ru = Выберите другую промежуточную точку, пожалуйста
+
+  [dialog_routing_intermediate_not_determined]
+    tags = ios, android
+    en = An intermediate point is not determined.
+    ru = Промежуточная точка не обнаружена.
+
   [dialog_routing_system_error]
     tags = ios,android
     en = System error
@@ -21146,6 +21156,11 @@
     zh-Hant = 無法在附近找到計程車
     el = Δε βρέθηκε ταξί σε κοντινή απόσταση
     sk = V okolí sa nepodarilo nájsť žiaden taxík
+
+  [taxi_no_providers]
+    comment = When there are no available taxi providers nearby
+    en = Couldn’t find a taxi provider nearby
+    ru = Не удалось найти поставщика услуг такси поблизости
 
   [install_app]
     en = Install
