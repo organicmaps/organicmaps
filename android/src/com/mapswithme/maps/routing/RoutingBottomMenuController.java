@@ -75,9 +75,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @Nullable
   private TaxiInfo.Product mTaxiProduct;
 
-  @StringRes
-  private int mErrorMessage;
-
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame)
   {
@@ -142,7 +139,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showAltitudeChartAndRoutingDetails()
   {
     UiUtils.hide(mError, mTaxiFrame, mActionFrame);
-    mErrorMessage = 0;
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -160,7 +156,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
-    mErrorMessage = 0;
     UiUtils.showTaxiIcon((ImageView) mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
@@ -270,7 +265,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showError(@StringRes int message)
   {
-    mErrorMessage = message;
+    showError(mError.getContext().getString(message));
+  }
+
+  private void showError(@NonNull String message)
+  {
     UiUtils.hide(mTaxiFrame, mAltitudeChartFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
@@ -286,8 +285,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, UiUtils.isVisible(mAltitudeChartFrame));
     outState.putParcelable(STATE_TAXI_INFO, mTaxiInfo);
-    if (mErrorMessage > 0)
-      outState.putInt(STATE_ERROR, mErrorMessage);
+    if (UiUtils.isVisible(mError))
+      outState.putString(STATE_ERROR, mError.getText().toString());
   }
 
   void restoreRoutingPanelState(@NonNull Bundle state)
@@ -299,8 +298,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     if (info != null)
       showTaxiInfo(info);
 
-    int error = state.getInt(STATE_ERROR);
-    if (error > 0)
+    String error = state.getString(STATE_ERROR);
+    if (!TextUtils.isEmpty(error))
       showError(error);
   }
 

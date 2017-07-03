@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -190,7 +189,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
-  private Bundle mSaveState;
+  private Bundle mSavedForTabletState;
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
@@ -978,7 +977,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       else if (RoutingController.get().isPlanning())
       {
         mRestoreRoutingPlanFragmentNeeded = true;
-        mSaveState = savedInstanceState;
+        mSavedForTabletState = savedInstanceState;
       }
     }
 
@@ -1776,11 +1775,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mIsFragmentContainer)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
-        if (mRestoreRoutingPlanFragmentNeeded && mSaveState != null)
+        if (mRestoreRoutingPlanFragmentNeeded && mSavedForTabletState != null)
         {
           RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
           if (fragment != null)
-            fragment.restoreRoutingPanelState(mSaveState);
+            fragment.restoreRoutingPanelState(mSavedForTabletState);
         }
         showAddStartOrFinishFrame(RoutingController.get(), false);
         int width = UiUtils.dimen(R.dimen.panel_width);
