@@ -59,7 +59,6 @@ enum class ErrorCode
 {
   NoProducts,
   RemoteError,
-  NoProvider
 };
 
 struct ProviderError
@@ -87,7 +86,6 @@ inline std::string DebugPrint(ErrorCode code)
   {
   case ErrorCode::NoProducts: return "NoProducts";
   case ErrorCode::RemoteError: return "RemoteError";
-  case ErrorCode::NoProvider: return "NoProvider";
   }
 }
 

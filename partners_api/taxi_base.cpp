@@ -5,7 +5,7 @@ namespace taxi
 bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
                                       std::string const & city) const
 {
-  if (m_disabledCountries.IsEmpty())
+  if (m_disabledCountries.IsEmpty() || countryIds.empty())
     return false;
 
   bool isCountryDisabled = true;
@@ -18,7 +18,7 @@ bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
 bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
                                   std::string const & city) const
 {
-  if (m_enabledCountries.IsEmpty())
+  if (m_enabledCountries.IsEmpty() || countryIds.empty())
     return true;
 
   for (auto const & countryId : countryIds)

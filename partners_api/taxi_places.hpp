@@ -7,7 +7,13 @@ namespace taxi
 namespace places
 {
 // Places which are enabled for yandex taxi and in the same time are disabled for uber taxi.
-Countries const kPlaces = {
+Countries const kUberDisabledPlaces = {{{"Armenia", {}},
+                                        {"Belarus", {}},
+                                        {"Georgia Region", {}},
+                                        {"Kazakhstan", {}},
+                                        {"Russian Federation", {}}}};
+
+Countries const kYandexEnabledPlaces = {
     {{"Armenia", {"Yerevan"}},
      {"Belarus", {"Minsk"}},
      {"Georgia Region", {"Tbilisi"}},

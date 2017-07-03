@@ -31,6 +31,8 @@ class ResultMaker
 public:
   void Reset(uint64_t requestId, size_t requestsCount, SuccessCallback const & successCallback,
              ErrorCallback const & errorCallback);
+  /// Reduces number of requests outstanding.
+  void DecrementRequestCount(uint64_t requestId);
   /// Processes successful callback from taxi api.
   void ProcessProducts(uint64_t requestId, Provider::Type type,
                        std::vector<Product> const & products);

@@ -19,7 +19,7 @@ public:
   Countries(std::vector<Country> const & countries);
 
   bool IsEmpty() const;
-  bool Has(storage::TCountryId id, std::string const & city) const;
+  bool Has(storage::TCountryId const & id, std::string const & city) const;
 
 private:
   std::vector<Country> m_countries;

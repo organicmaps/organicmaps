@@ -42,6 +42,16 @@ void ResultMaker::Reset(uint64_t requestId, size_t requestsCount,
   m_errors.clear();
 }
 
+void ResultMaker::DecrementRequestCount(uint64_t requestId)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  if (m_requestId != requestId)
+    return;
+
+  DecrementRequestCount();
+}
+
 void ResultMaker::ProcessProducts(uint64_t requestId, Provider::Type type,
                                   std::vector<Product> const & products)
 {
@@ -86,10 +96,10 @@ void ResultMaker::MakeResult(uint64_t requestId) const
     errors = m_errors;
   }
 
-  if (providers.empty())
-    return errorCallback(errors, requestId);
+  if (!providers.empty() || (providers.empty() && errors.empty()))
+    return successCallback(providers, requestId);
 
-  return successCallback(providers, requestId);
+  return errorCallback(errors, requestId);
 }
 
 void ResultMaker::DecrementRequestCount()
@@ -101,8 +111,8 @@ void ResultMaker::DecrementRequestCount()
 // Engine -----------------------------------------------------------------------------------------
 Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
-  AddApi<yandex::Api>(urls, Provider::Type::Yandex, places::kPlaces, {{{}}});
-  AddApi<uber::Api>(urls, Provider::Type::Uber, {{{}}}, places::kPlaces);
+  AddApi<yandex::Api>(urls, Provider::Type::Yandex, places::kYandexEnabledPlaces, {{}});
+  AddApi<uber::Api>(urls, Provider::Type::Uber, {{}}, places::kUberDisabledPlaces);
 }
 
 void Engine::SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
@@ -126,7 +136,7 @@ uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const 
 
     if (!IsAvailableAtPos(type, from))
     {
-      maker->ProcessError(reqId, type, ErrorCode::NoProvider);
+      maker->DecrementRequestCount(reqId);
       maker->MakeResult(reqId);
       continue;
     }
@@ -175,7 +185,10 @@ std::vector<Provider::Type> Engine::GetProvidersAtPos(ms::LatLon const & pos) co
 
 bool Engine::IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const
 {
-  return !AreAllCountriesDisabled(type, pos) || IsAnyCountryEnabled(type, pos);
+  if (AreAllCountriesDisabled(type, pos))
+    return false;
+
+  return IsAnyCountryEnabled(type, pos);
 }
 
 bool Engine::AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & latlon) const

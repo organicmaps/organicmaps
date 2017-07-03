@@ -10,12 +10,42 @@
 
 namespace
 {
-class TaxiDelegateForTrsting : public taxi::Delegate
+class BelarusMinskDelegate : public taxi::Delegate
 {
 public:
   storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override { return {"Belarus"}; }
 
   std::string GetCityName(ms::LatLon const & latlon) override { return "Minsk"; }
+};
+
+class UkraineOdessaDelegate : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override { return {"Ukraine"}; }
+
+  std::string GetCityName(ms::LatLon const & latlon) override { return "Odessa"; }
+};
+
+class UsaDelegate : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override
+  {
+    return {"United States of America"};
+  }
+
+  std::string GetCityName(ms::LatLon const & latlon) override { return ""; }
+};
+
+class RussiaKonetsDelegate : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override
+  {
+    return {"Russian Federation"};
+  }
+
+  std::string GetCityName(ms::LatLon const & latlon) override { return "Konets"; }
 };
 
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
@@ -184,7 +214,7 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
-  maker.ProcessError(reqId, taxi::Provider::Type::Uber, taxi::ErrorCode::NoProvider);
+  maker.DecrementRequestCount(reqId);
   maker.MakeResult(reqId);
 
   TEST_EQUAL(providers.size(), 2, ());
@@ -218,6 +248,11 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   TEST_EQUAL(errors[0].m_code, taxi::ErrorCode::NoProducts, ());
   TEST_EQUAL(errors[1].m_type, taxi::Provider::Type::Yandex, ());
   TEST_EQUAL(errors[1].m_code, taxi::ErrorCode::RemoteError, ());
+
+  maker.Reset(reqId, 2, successCallback, errorNotPossibleCallback);
+  maker.DecrementRequestCount(reqId);
+  maker.DecrementRequestCount(reqId);
+  maker.MakeResult(reqId);
 }
 
 UNIT_TEST(TaxiEngine_Smoke)
@@ -258,7 +293,7 @@ UNIT_TEST(TaxiEngine_Smoke)
   taxi::Engine engine(
       {{taxi::Provider::Type::Uber, kTesturl}, {taxi::Provider::Type::Yandex, kTesturl}});
 
-  engine.SetDelegate(my::make_unique<TaxiDelegateForTrsting>());
+  engine.SetDelegate(my::make_unique<BelarusMinskDelegate>());
 
   taxi::ProvidersContainer const synchronousProviders =
       GetProvidersSynchronous(engine, from, to, kTesturl);
@@ -294,5 +329,32 @@ UNIT_TEST(TaxiEngine_Smoke)
 
   TEST(!providersContainer.empty(), ());
   TEST(CompareProviders(providersContainer, synchronousProviders), ());
+}
+
+UNIT_TEST(TaxiEngine_GetProvidersAtPos)
+{
+  taxi::Engine engine;
+  // Lat lon is no needed for this test.
+  ms::LatLon latlon(0.0, 0.0);
+  std::vector<taxi::Provider::Type> providers;
+
+  engine.SetDelegate(my::make_unique<BelarusMinskDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
+
+  engine.SetDelegate(my::make_unique<UkraineOdessaDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Uber, ());
+
+  engine.SetDelegate(my::make_unique<UsaDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Uber, ());
+
+  engine.SetDelegate(my::make_unique<RussiaKonetsDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST(providers.empty(), (providers));
 }
 }  // namespace
