@@ -155,8 +155,16 @@ using namespace taxi;
               NSCAssert(false, @"Errors container is empty");
               return;
             }
-            auto const & errorCode = errors.front().m_code;
+            auto const & error = errors.front();
+            auto const errorCode = error.m_code;
+            auto const type = error.m_type;
             runAsyncOnMainQueue(^{
+              NSString * provider = nil;
+              switch (type)
+              {
+              case taxi::Provider::Type::Uber: provider = kStatUber; break;
+              case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
+              }
               NSString * error = nil;
               switch (errorCode)
               {
@@ -169,7 +177,11 @@ using namespace taxi;
                 failure(L(@"dialog_taxi_error"));
                 break;
               }
-              [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{ @"error" : error }];
+              [Statistics logEvent:kStatRoutingBuildTaxi
+                    withParameters:@{
+                      @"provider" : provider,
+                      @"error" : error
+                    }];
             });
           };
   
