@@ -39245,6 +39245,31 @@ cont {
   }
 }
 cont {
+  name: "shop-motorcycle"
+  element {
+    scale: 17
+    symbol {
+      name: "motorcycle_shop-l"
+      priority: 16000
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motorcycle_shop-l"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motorcycle_shop-l"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "shop-supermarket"
   element {
     scale: 14
