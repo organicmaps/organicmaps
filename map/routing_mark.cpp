@@ -81,7 +81,9 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
       }
     }
   }
-  RouteMarkPoint * newPoint = static_cast<RouteMarkPoint *>(m_routeMarks.CreateUserMark(data.m_position));
+  auto userMark = m_routeMarks.CreateUserMark(data.m_position);
+  ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+  RouteMarkPoint * newPoint = static_cast<RouteMarkPoint *>(userMark);
   newPoint->SetMarkData(std::move(data));
 
   return newPoint;
@@ -93,7 +95,9 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
   size_t index = 0;
   for (size_t sz = m_routeMarks.GetUserMarkCount(); index < sz; ++index)
   {
-    RouteMarkPoint * mark = static_cast<RouteMarkPoint*>(m_routeMarks.GetUserMarkForEdit(index));
+    auto userMark = m_routeMarks.GetUserMarkForEdit(index);
+    ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+    RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(userMark);
     if (mark->GetRoutePointType() == type && mark->GetIntermediateIndex() == intermediateIndex)
     {
       point = mark;
@@ -147,7 +151,9 @@ void RoutePointsLayout::RemoveIntermediateRoutePoints()
 {
   for (size_t i = 0; i < m_routeMarks.GetUserMarkCount();)
   {
-    RouteMarkPoint const * mark = static_cast<RouteMarkPoint const *>(m_routeMarks.GetUserMark(i));
+    auto userMark = m_routeMarks.GetUserMark(i);
+    ASSERT(dynamic_cast<RouteMarkPoint const *>(userMark) != nullptr, ());
+    RouteMarkPoint const * mark = static_cast<RouteMarkPoint const *>(userMark);
     if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
       m_routeMarks.DeleteUserMark(i);
     else
@@ -185,7 +191,9 @@ RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, int8_t int
 {
   for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
   {
-    RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(m_routeMarks.GetUserMarkForEdit(i));
+    auto userMark = m_routeMarks.GetUserMarkForEdit(i);
+    ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+    RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(userMark);
     if (mark->GetRoutePointType() != type)
       continue;
 
@@ -210,8 +218,9 @@ std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
   RouteMarkPoint * finishPoint = nullptr;
   for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
   {
-    RouteMarkPoint * p = static_cast<RouteMarkPoint *>(m_routeMarks.GetUserMarkForEdit(i));
-    ASSERT(p != nullptr, ());
+    auto userMark = m_routeMarks.GetUserMarkForEdit(i);
+    ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+    RouteMarkPoint * p = static_cast<RouteMarkPoint *>(userMark);
     if (p->GetRoutePointType() == RouteMarkType::Start)
       startPoint = p;
     else if (p->GetRoutePointType() == RouteMarkType::Finish)
@@ -239,7 +248,9 @@ void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)
 {
   for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
   {
-    RouteMarkPoint * mark = static_cast<RouteMarkPoint*>(m_routeMarks.GetUserMarkForEdit(i));
+    auto userMark = m_routeMarks.GetUserMarkForEdit(i);
+    ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+    RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(userMark);
     if (mark->GetRoutePointType() == RouteMarkType::Intermediate)
       fn(mark);
   }
