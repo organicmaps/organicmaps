@@ -219,12 +219,16 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 
   for (auto const & checkpoint : checkpoints.GetPoints())
   {
-    auto const country = platform::CountryFile(m_countryFileFn(checkpoint));
-    // Note. In rare cases there's possibility when CountryInfoGetter returns an empty CountryFile.
-    // It happens when checkpoint is put at gaps between mwm.
-    if (country.GetName().empty())
+    string const countryName = m_countryFileFn(checkpoint);
+    if (countryName.empty())
+    {
+      LOG(LWARNING, ("For point", MercatorBounds::ToLatLon(checkpoint),
+                   "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint"
+                   "is put at gaps between mwm."));
       return IRouter::InternalError;
+    }
 
+    auto const country = platform::CountryFile(countryName);
     if (!m_index.IsLoaded(country))
       route.AddAbsentCountry(country.GetName());
   }
