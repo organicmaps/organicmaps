@@ -121,7 +121,7 @@ public class PlacePageView extends RelativeLayout
                EditBookmarkFragment.EditBookmarkListener,
                BannerController.BannerListener,
                Viator.ViatorListener,
-               ViatorAdapter.ItemSelectedListener
+               ViatorAdapter.ItemSelectedListener,
                UGC.UGCListener,
                UgcAverageRatingController.OnUgcRatingChangedListener
 {
@@ -193,6 +193,8 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
   private View mHotelMore;
+  private View mViatorView;
+  private RecyclerView mRvViatorProducts;
   private View mUgcView;
   private View mUgcRating;
   private View mUgcMoreReviews;

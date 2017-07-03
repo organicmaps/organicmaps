@@ -139,7 +139,7 @@ bool CheckJsonArray(json_t const * data)
 bool CheckAnswer(my::Json const & root)
 {
   bool success;
-  FromJSONObjectOptionalField(root.get(), "success", success, false);
+  FromJSONObjectOptionalField(root.get(), "success", success);
 
   if (!success)
   {

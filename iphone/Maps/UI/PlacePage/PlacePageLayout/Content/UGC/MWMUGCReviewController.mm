@@ -55,10 +55,10 @@
   {
   case Row::Detail:
   {
-    auto const & record = [self.viewModel recordForIndexPath:indexPath];
+    auto const & record = [vm recordForIndexPath:indexPath];
     Class cls = [MWMUGCSpecificReviewCell class];
     auto c = static_cast<MWMUGCSpecificReviewCell *>([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [c configWithSpecification:@(record.m_key.c_str())
+    [c configWithSpecification:@(record.m_key.m_key.c_str())
                           rate:static_cast<NSInteger>(record.m_value)
                    atIndexPath:indexPath
                       delegate:vm];

@@ -20,7 +20,7 @@ UNIT_TEST(Viator_GetTopProducts)
 
   my::Json root(result.c_str());
   bool success;
-  FromJSONObjectOptionalField(root.get(), "success", success, false);
+  FromJSONObjectOptionalField(root.get(), "success", success);
   TEST(success, ());
 }
 

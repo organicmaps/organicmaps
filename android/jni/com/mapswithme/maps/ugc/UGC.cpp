@@ -1,5 +1,5 @@
-#include "../core/jni_helper.hpp"
-#include "Framework.hpp"
+#include "../../core/jni_helper.hpp"
+#include "../Framework.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -102,7 +102,7 @@ private:
 
   jobject ToJavaRating(JNIEnv * env, ugc::RatingRecord const & ratingRecord)
   {
-    jni::TScopedLocalRef name(env, jni::ToJavaString(env, ratingRecord.m_key));
+    jni::TScopedLocalRef name(env, jni::ToJavaString(env, ratingRecord.m_key.m_key));
     jobject result = env->NewObject(m_ratingClass, m_ratingCtor, name.get(), ratingRecord.m_value);
     ASSERT(result, ());
     return result;
