@@ -62,7 +62,7 @@ public class MapObject implements Parcelable
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, String apiId,
-                   @Nullable Banner[] banners, @TaxiManager.TaxiType int[] types,
+                   @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {
@@ -74,7 +74,7 @@ public class MapObject implements Parcelable
   public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
                    @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
-                   String apiId, @Nullable Banner[] banners, @TaxiManager.TaxiType int[] taxiTypes,
+                   String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {

@@ -51,7 +51,7 @@ public class TaxiAdapter extends PagerAdapter
     View v = LayoutInflater.from(mContext).inflate(R.layout.taxi_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
     // We ignore all Yandex.Taxi product names until they do support of passing product parameters
-    // to their app vie deeplink.
+    // to their app via deeplink.
     if (mType == TaxiManager.PROVIDER_YANDEX)
       name.setText(R.string.yandex_taxi_title);
     else

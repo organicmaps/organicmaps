@@ -1,7 +1,6 @@
-#include "../Framework.hpp"
-
-#include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
+
 #include "partners_api/taxi_provider.hpp"
 
 namespace

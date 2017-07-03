@@ -167,7 +167,11 @@ jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
 
 jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, vector<taxi::Provider::Type> const & types)
 {
+  if (types.size() == 0)
+    return nullptr;
+
   jintArray result = env->NewIntArray(types.size());
+  ASSERT(result, ());
 
   jint tmp[types.size()];
   for (int i = 0; i < types.size(); i++)
