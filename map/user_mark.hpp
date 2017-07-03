@@ -40,7 +40,7 @@ public:
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
-  bool RunCreationAnim() const override;
+  bool HasCreationAnimation() const override;
 
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;

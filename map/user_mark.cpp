@@ -32,7 +32,7 @@ float UserMark::GetDepth() const
   return GetContainer()->GetPointDepth();
 }
 
-bool UserMark::RunCreationAnim() const
+bool UserMark::HasCreationAnimation() const
 {
   return false;
 }

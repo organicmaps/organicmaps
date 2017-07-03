@@ -162,9 +162,8 @@ void UserMarkGenerator::SetGroupVisibility(GroupID groupId, bool isVisible)
 
 void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures)
 {
-  MarksIndex::const_iterator itTile = m_marksIndex.find(TileKey(tileKey.m_x,
-                                                                tileKey.m_y,
-                                                                min(tileKey.m_zoomLevel, scales::GetUpperScale())));
+  auto const itTile = m_marksIndex.find(TileKey(tileKey.m_x, tileKey.m_y, std::min(tileKey.m_zoomLevel,
+                                                                                   scales::GetUpperScale())));
   if (itTile == m_marksIndex.end())
     return;
 
@@ -186,8 +185,8 @@ void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_p
       if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
         continue;
 
-      CacheUserMarks(tileKey, textures, *m_marks[groupId], groupPair.second->m_markIndexes, batcher);
-      CacheUserLines(tileKey, textures, *m_lines[groupId], groupPair.second->m_lineIndexes, batcher);
+      CacheUserMarks(tileKey, textures, groupPair.second->m_markIndexes, *m_marks[groupId], batcher);
+      CacheUserLines(tileKey, textures, groupPair.second->m_lineIndexes, *m_lines[groupId], batcher);
     }
   }
   m_flushFn(std::move(renderData));

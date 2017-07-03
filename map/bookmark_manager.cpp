@@ -99,7 +99,9 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
   BookmarkCategory * pCat = m_categories[categoryIndex];
 
   BookmarkCategory::Guard guard(*pCat);
-  static_cast<Bookmark *>(guard.m_controller.CreateUserMark(ptOrg))->SetData(bm);
+  Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.CreateUserMark(ptOrg));
+  bookmark->SetData(bm);
+  bookmark->SetCreationAnimationShown(false);
   guard.m_controller.SetIsVisible(true);
   pCat->SaveToKMLFile();
 

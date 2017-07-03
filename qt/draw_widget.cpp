@@ -170,7 +170,11 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
   }
   else if (IsRightButton(e))
   {
-    if (!m_selectionMode || IsCommandModifier(e))
+    if (IsAltModifier(e))
+    {
+      SubmitBookmark(pt);
+    }
+    else if (!m_selectionMode || IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
     }
@@ -359,6 +363,16 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
 
   if (routingManager.GetRoutePoints().size() >= 2)
     routingManager.BuildRoute(0 /* timeoutSec */);
+}
+
+void DrawWidget::SubmitBookmark(m2::PointD const & pt)
+{
+  size_t categoryIndex = 0;
+  auto category = m_framework.GetBookmarkManager().GetBmCategory(categoryIndex);
+  if (category == nullptr)
+    categoryIndex = m_framework.GetBookmarkManager().CreateBmCategory("Desktop_bookmarks");
+  BookmarkData data("", "placemark-red");
+  m_framework.GetBookmarkManager().AddBookmark(categoryIndex, m_framework.P3dtoG(pt), data);
 }
 
 void DrawWidget::FollowRoute()

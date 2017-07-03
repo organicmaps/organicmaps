@@ -94,6 +94,7 @@ protected:
 private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
   void SubmitRoutingPoint(m2::PointD const & pt);
+  void SubmitBookmark(m2::PointD const & pt);
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
   void ShowPlacePage(place_page::Info const & info);
 
@@ -103,8 +104,6 @@ private:
   QPoint m_rubberBandOrigin;
 
   bool m_emulatingLocation;
-
-  void InitRenderPolicy();
 
   TCurrentCountryChanged m_currentCountryChanged;
   storage::TCountryId m_countryId;

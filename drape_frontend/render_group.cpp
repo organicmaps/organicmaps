@@ -217,7 +217,7 @@ UserMarkRenderGroup::~UserMarkRenderGroup()
 void UserMarkRenderGroup::UpdateAnimation()
 {
   BaseRenderGroup::UpdateAnimation();
-  float t = 1.0;
+  float t = 1.0f;
   if (m_animation)
     t = static_cast<float>(m_animation->GetOpacity());
 

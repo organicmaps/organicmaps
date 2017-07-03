@@ -57,7 +57,7 @@ struct UserPointVertex : gpu::BaseVertex
     : m_position(pos)
     , m_normal(normal)
     , m_texCoord(texCoord)
-    , m_isAnim(isAnim ? 1.0 : -1.0)
+    , m_isAnim(isAnim ? 1.0f : -1.0f)
   {}
 
   static dp::BindingInfo GetBinding()
@@ -81,7 +81,7 @@ struct UserPointVertex : gpu::BaseVertex
 } // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
+                    MarkIndexesCollection const & indexes, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
@@ -92,16 +92,18 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   dp::TextureManager::SymbolRegion region;
   for (auto const markIndex : indexes)
   {
-    UserMarkRenderParams const & renderInfo = renderParams[markIndex];
+    UserMarkRenderParams & renderInfo = renderParams[markIndex];
     if (!renderInfo.m_isVisible)
       continue;
     textures->GetSymbolRegion(renderInfo.m_symbolName, region);
     m2::RectF const & texRect = region.GetTexRect();
     m2::PointF const pxSize = region.GetPixelSize();
     dp::Anchor const anchor = renderInfo.m_anchor;
-    m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileKey.GetGlobalRect().Center(), kShapeCoordScalar);
+    m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileKey.GetGlobalRect().Center(),
+                                                   kShapeCoordScalar);
     glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
     bool const runAnim = renderInfo.m_runCreationAnim;
+    renderInfo.m_runCreationAnim = false;
 
     glsl::vec2 left, right, up, down;
     AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
@@ -128,15 +130,15 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
+                    LineIndexesCollection const & indexes, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   for (auto lineIndex : indexes)
   {
-    UserLineRenderParams const & renderInfo = renderParams[lineIndex];
+    UserLineRenderParams & renderInfo = renderParams[lineIndex];
 
-    std::vector<m2::SharedSpline> const splines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), renderInfo.m_spline);
+    auto const splines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), renderInfo.m_spline);
     for (auto const & spline : splines)
     {
       for (auto const & layer : renderInfo.m_layers)

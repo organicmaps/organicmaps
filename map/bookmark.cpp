@@ -29,14 +29,14 @@
 
 Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
-  , m_runCreationAnim(true)
+  , m_hasCreationAnimation(false)
 {
 }
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
   , m_data(data)
-  , m_runCreationAnim(true)
+  , m_hasCreationAnimation(false)
 {
 }
 
@@ -65,11 +65,16 @@ UserMark::Type Bookmark::GetMarkType() const
   return UserMark::Type::BOOKMARK;
 }
 
-bool Bookmark::RunCreationAnim() const
+bool Bookmark::HasCreationAnimation() const
 {
-  bool result = m_runCreationAnim;
-  m_runCreationAnim = false;
+  bool const result = m_hasCreationAnimation;
+  m_hasCreationAnimation = false;
   return result;
+}
+
+void Bookmark::SetCreationAnimationShown(bool shown)
+{
+  m_hasCreationAnimation = !shown;
 }
 
 string const & Bookmark::GetName() const
@@ -408,7 +413,6 @@ namespace
           {
             Bookmark * bm = static_cast<Bookmark *>(m_controller.CreateUserMark(m_org));
             bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
-            bm->RunCreationAnim();
           }
           else if (GEOMETRY_TYPE_LINE == m_geometryType)
           {

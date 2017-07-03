@@ -220,7 +220,7 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
     renderInfo.m_isVisible = mark->IsVisible();
     renderInfo.m_pivot = mark->GetPivot();
     renderInfo.m_pixelOffset = mark->GetPixelOffset();
-    renderInfo.m_runCreationAnim = mark->RunCreationAnim();
+    renderInfo.m_runCreationAnim = mark->HasCreationAnimation();
     renderInfo.m_symbolName = mark->GetSymbolName();
     marksRenderCollection->emplace_back(std::move(renderInfo));
   }
@@ -233,7 +233,7 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
     UserLineRenderParams renderInfo;
     renderInfo.m_spline = m2::SharedSpline(mark->GetPoints());
     renderInfo.m_layers.reserve(mark->GetLayerCount());
-    for (size_t layerIndex = 0, sz = mark->GetLayerCount(); layerIndex < sz; ++layerIndex)
+    for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
     {
       renderInfo.m_layers.emplace_back(mark->GetColor(layerIndex),
                                        mark->GetWidth(layerIndex),

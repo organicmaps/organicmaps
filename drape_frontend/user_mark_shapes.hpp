@@ -11,7 +11,6 @@
 
 namespace df
 {
-
 struct UserMarkRenderParams
 {
   int m_minZoom = 1;
@@ -67,11 +66,10 @@ struct UserMarkRenderData
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    UserMarksRenderCollection const & renderParams, MarkIndexesCollection const & indexes,
+                    MarkIndexesCollection const & indexes, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher);
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    UserLinesRenderCollection const & renderParams, LineIndexesCollection const & indexes,
+                    LineIndexesCollection const & indexes, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher);
-
-} // namespace df
+}  // namespace df

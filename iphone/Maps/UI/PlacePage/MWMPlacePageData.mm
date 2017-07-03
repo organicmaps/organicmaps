@@ -348,7 +348,7 @@ using namespace place_page;
     NSAssert(category, @"Category can't be nullptr!");
     {
       BookmarkCategory::Guard guard(*category);
-      auto bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bookmarkIndex));
+      auto bookmark = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bookmarkIndex));
       f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
     }
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);

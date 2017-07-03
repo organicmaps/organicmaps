@@ -81,7 +81,8 @@ public:
   string GetSymbolName() const override;
 
   Type GetMarkType() const override;
-  bool RunCreationAnim() const override;
+  bool HasCreationAnimation() const override;
+  void SetCreationAnimationShown(bool shown);
 
   string const & GetName() const;
   void SetName(string const & name);
@@ -102,7 +103,7 @@ public:
 
 private:
   BookmarkData m_data;
-  mutable bool m_runCreationAnim;
+  mutable bool m_hasCreationAnimation;
 };
 
 class BookmarkCategory : public UserMarkContainer

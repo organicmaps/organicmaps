@@ -21,7 +21,7 @@ public:
   virtual std::string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
-  virtual bool RunCreationAnim() const = 0;
+  virtual bool HasCreationAnimation() const = 0;
   virtual bool IsVisible() const { return true; }
 };
 
