@@ -15,8 +15,6 @@
 #include <cstdio>
 #include <vector>
 
-#include <sys/stat.h>
-
 DEFINE_string(input, "", "Path to OpenLR file.");
 DEFINE_string(output, "output.txt", "Path to output file");
 DEFINE_string(mwms_path, "", "Path to a folder with mwms.");
@@ -32,16 +30,9 @@ namespace
 const int32_t kMinNumThreads = 1;
 const int32_t kMaxNumThreads = 128;
 
-bool IsDirectory(std::string const & path)
-{
-  struct ::stat st;
-  stat(path.data(), &st);
-  return S_ISDIR(st.st_mode);
-}
-
 void LoadIndexes(std::string const & pathToMWMFolder, std::vector<Index> & indexes)
 {
-  CHECK(IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
+  CHECK(Platform::IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
 
   Platform::FilesList files;
   Platform::GetFilesByRegExp(pathToMWMFolder, std::string(".*\\") + DATA_FILE_EXTENSION, files);

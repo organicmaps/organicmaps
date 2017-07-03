@@ -1,5 +1,5 @@
-#include "qt/traffic_panel.hpp"
-#include "qt/traffic_mode.hpp"
+#include "openlr/openlr_match_quality/assessment_tool/traffic_panel.hpp"
+#include "openlr/openlr_match_quality/assessment_tool/traffic_mode.hpp"
 
 #include <QtCore/QAbstractTableModel>
 #include <QtWidgets/QBoxLayout>

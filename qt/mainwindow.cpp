@@ -6,13 +6,6 @@
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/search_panel.hpp"
-#include "qt/traffic_mode.hpp"
-#include "qt/traffic_panel.hpp"
-#include "qt/trafficmodeinitdlg.h"
-
-#include "drape/debug_rect_renderer.hpp"
-
-#include "openlr/openlr_sample.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
@@ -58,60 +51,6 @@
 
 #endif // NO_DOWNLOADER
 
-namespace
-{
-// TODO(mgsergio): Consider getting rid of this class: just put everything
-// in TrafficMode.
-class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
-{
-public:
-  explicit TrafficDrawerDelegate(qt::DrawWidget & drawWidget)
-    : m_framework(drawWidget.GetFramework())
-    , m_drapeApi(m_framework.GetDrapeApi())
-  {
-  }
-
-  void SetViewportCenter(m2::PointD const & center) override
-  {
-    m_framework.SetViewportCenter(center);
-  }
-
-  void DrawDecodedSegments(DecodedSample const & sample, int const sampleIndex) override
-  {
-    CHECK(!sample.GetItems().empty(), ("Sample must not be empty."));
-    auto const & points = sample.GetPoints(sampleIndex);
-
-    LOG(LINFO, ("Decoded segment", points));
-    m_drapeApi.AddLine(NextLineId(),
-                       df::DrapeApiLineData(points, dp::Color(0, 0, 255, 255))
-                       .Width(3.0f).ShowPoints(true /* markPoints */));
-  }
-
-  void DrawEncodedSegment(openlr::LinearSegment const & segment) override
-  {
-    auto const & points = segment.GetMercatorPoints();
-
-    LOG(LINFO, ("Encoded segment", points));
-    m_drapeApi.AddLine(NextLineId(),
-                       df::DrapeApiLineData(points, dp::Color(255, 0, 0, 255))
-                       .Width(3.0f).ShowPoints(true /* markPoints */));
-  }
-
-  void Clear() override
-  {
-    m_drapeApi.Clear();
-  }
-
-private:
-  string NextLineId() { return strings::to_string(m_lineId++); }
-
-  uint32_t m_lineId = 0;
-
-  Framework & m_framework;
-  df::DrapeApi & m_drapeApi;
-};
-}  // namespace
-
 namespace qt
 {
 // Defined in osm_auth_dialog.cpp.
@@ -146,21 +85,6 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
 
   setWindowTitle(caption);
   setWindowIcon(QIcon(":/ui/logo.png"));
-
-  QMenu * trafficMarkup = new QMenu(tr("Traffic"), this);
-  menuBar()->addMenu(trafficMarkup);
-  trafficMarkup->addAction(tr("Open sample"), this, SLOT(OnOpenTrafficSample()));
-  m_saveTrafficSampleAction = trafficMarkup->addAction(tr("Save sample"), this,
-                                                       SLOT(OnSaveTrafficSample()));
-  m_saveTrafficSampleAction->setEnabled(false);
-
-  m_quitTrafficModeAction = new QAction(tr("Quit traffic mode"), this);
-  // On macOS actions with names started with quit or exit are treated specially,
-  // see QMenuBar documentation.
-  m_quitTrafficModeAction->setMenuRole(QAction::MenuRole::NoRole);
-  m_quitTrafficModeAction->setEnabled(false);
-  connect(m_quitTrafficModeAction, SIGNAL(triggered()), this, SLOT(OnQuitTrafficMode()));
-  trafficMarkup->addAction(m_quitTrafficModeAction);
 
 #ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);
@@ -856,24 +780,6 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
   }
 }
 
-void MainWindow::CreateTrafficPanel(string const & dataFilePath, string const & sampleFilePath)
-{
-  CreatePanelImpl(1, Qt::RightDockWidgetArea, tr("Traffic"), QKeySequence(), nullptr);
-
-  m_trafficMode = new TrafficMode(dataFilePath, sampleFilePath,
-                                  m_pDrawWidget->GetFramework().GetIndex(),
-                                  make_unique<TrafficDrawerDelegate>(*m_pDrawWidget));
-  m_Docks[1]->setWidget(new TrafficPanel(m_trafficMode, m_Docks[1]));
-  m_Docks[1]->adjustSize();
-}
-
-void MainWindow::DestroyTrafficPanel()
-{
-  removeDockWidget(m_Docks[1]);
-  delete m_Docks[1];
-  m_Docks[1] = nullptr;
-}
-
 void MainWindow::closeEvent(QCloseEvent * e)
 {
   m_pDrawWidget->PrepareShutdown();
@@ -895,40 +801,6 @@ void MainWindow::OnTrafficEnabled()
   bool const enabled = m_trafficEnableAction->isChecked();
   m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enabled);
   m_pDrawWidget->GetFramework().SaveTrafficEnabled(enabled);
-}
-
-void MainWindow::OnOpenTrafficSample()
-{
-  TrafficModeInitDlg dlg;
-  dlg.exec();
-  if (dlg.result() != QDialog::DialogCode::Accepted)
-    return;
-
-  LOG(LDEBUG, ("Traffic mode enabled"));
-  CreateTrafficPanel(dlg.GetDataFilePath(), dlg.GetSampleFilePath());
-  m_quitTrafficModeAction->setEnabled(true);
-  m_saveTrafficSampleAction->setEnabled(true);
-  m_Docks[1]->show();
-}
-
-void MainWindow::OnSaveTrafficSample()
-{
-  auto const & fileName = QFileDialog::getSaveFileName(this, tr("Save sample"));
-  if (fileName.isEmpty())
-    return;
-
-  if (!m_trafficMode->SaveSampleAs(fileName.toStdString()))
-    ;// TODO(mgsergio): Show error dlg;
-}
-
-void MainWindow::OnQuitTrafficMode()
-{
-  // If not saved, ask a user if he/she wants to save.
-  // OnSaveTrafficSample()
-  m_quitTrafficModeAction->setEnabled(false);
-  m_saveTrafficSampleAction->setEnabled(false);
-  DestroyTrafficPanel();
-  m_trafficMode = nullptr;
 }
 
 void MainWindow::OnStartPointSelected()

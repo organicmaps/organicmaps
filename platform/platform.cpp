@@ -178,6 +178,15 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
   }
 }
 
+// static
+bool Platform::IsDirectory(string const & directory)
+{
+  EFileType fileType;
+  if (GetFileType(directory, fileType) != ERR_OK)
+    return false;
+  return fileType == FILE_TYPE_DIRECTORY;
+}
+
 string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;

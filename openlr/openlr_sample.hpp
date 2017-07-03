@@ -14,7 +14,7 @@ class Index;
 namespace openlr
 {
 NEWTYPE(uint32_t, PartnerSegmentId);
-
+NEWTYPE_SIMPLE_OUTPUT(PartnerSegmentId);
 enum class ItemEvaluation
 {
   Unevaluated,

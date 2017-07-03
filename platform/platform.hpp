@@ -165,6 +165,7 @@ public:
                              TFilesWithType & outFiles);
 
   static bool IsDirectoryEmpty(string const & directory);
+  static bool IsDirectory(string const & directory);
 
   static EError GetFileType(string const & path, EFileType & type);
 

@@ -68,12 +68,6 @@ set(
   preferences_dialog.hpp
   search_panel.cpp
   search_panel.hpp
-  traffic_mode.cpp
-  traffic_mode.hpp
-  traffic_panel.cpp
-  traffic_panel.hpp
-  trafficmodeinitdlg.cpp
-  trafficmodeinitdlg.h
   update_dialog.cpp
   update_dialog.hpp
 )
@@ -113,7 +107,6 @@ omim_link_libraries(
   pugixml
   oauthcpp
   opening_hours
-  openlr
   stb_image
   sdf_image
   ${Qt5Gui_LIBRARIES}

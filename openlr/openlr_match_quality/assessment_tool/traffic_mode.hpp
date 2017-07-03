@@ -18,6 +18,8 @@ struct DecodedSample
 {
   DecodedSample(Index const & index, openlr::SamplePool const & sample);
 
+  bool Empty() const { return m_decodedItems.empty(); }
+
   openlr::SamplePool const & GetItems() const { return m_decodedItems; }
   std::vector<m2::PointD> GetPoints(size_t const index) const;
 

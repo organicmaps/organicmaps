@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plist>
+  <dict>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+
+    <key>NSHighResolutionCapable</key>
+    <string>True</string>
+  </dict>
+</plist>

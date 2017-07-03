@@ -156,12 +156,13 @@ std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
   struct NAME ## _tag;                          \
   using NAME = my::NewType<REPR, NAME ## _tag>
 
-#define NEWTYPE_SIMPLE_OUTPUT(NAME)                                 \
-  inline std::string DebugPrint(NAME const & nt)                    \
-  {                                                                 \
-    return my::newtype_default_output::SimpleDebugPrint(nt);        \
-  }                                                                 \
-  inline std::ostream & operator<<(std::ostream & ost, NAME const & nt)       \
-  {                                                                 \
-    return ost << my::newtype_default_output::SimpleDebugPrint(nt); \
+
+#define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \
+  inline std::string DebugPrint(NAME const & nt)                        \
+  {                                                                     \
+    return my::newtype_default_output::SimpleDebugPrint(nt);            \
+  }                                                                     \
+  inline std::ostream & operator<<(std::ostream & ost, NAME const & nt) \
+  {                                                                     \
+    return ost << my::newtype_default_output::SimpleDebugPrint(nt);     \
   }

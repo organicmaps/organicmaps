@@ -20,5 +20,6 @@ set(
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+add_subdirectory(openlr_match_quality)
 add_subdirectory(openlr_stat)
 omim_add_test_subdirectory(openlr_tests)

@@ -1,4 +1,4 @@
-#include "qt/trafficmodeinitdlg.h"
+#include "openlr/openlr_match_quality/assessment_tool/trafficmodeinitdlg.h"
 #include "ui_trafficmodeinitdlg.h"
 
 #include "platform/settings.hpp"

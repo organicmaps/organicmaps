@@ -1,4 +1,4 @@
-#include "qt/traffic_mode.hpp"
+#include "openlr/openlr_match_quality/assessment_tool/traffic_mode.hpp"
 
 #include "openlr/openlr_simple_parser.hpp"
 
@@ -10,6 +10,9 @@
 #include "3party/pugixml/src/pugixml.hpp"
 
 #include <QtCore/QItemSelection>
+
+#include <fstream>
+
 
 // DecodedSample -----------------------------------------------------------------------------------
 DecodedSample::DecodedSample(Index const & index, openlr::SamplePool const & sample)
@@ -80,7 +83,9 @@ TrafficMode::TrafficMode(std::string const & dataFileName, std::string const & s
   try
   {
     auto const & sample = openlr::LoadSamplePool(sampleFileName, index);
+    LOG(LINFO, ("Samples parsed:", sample.size()));
     m_decodedSample = make_unique<DecodedSample>(index, sample);
+    LOG(LINFO, (m_decodedSample->GetItems().size(), "samples are loaded"));
   }
   catch (openlr::SamplePoolLoadError const & e)
   {
@@ -106,7 +111,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName, std::string const & s
     CHECK(!segment.m_locationReference.m_points.empty(), ());
     m_partnerSegments[segment.m_segmentId] = segment;
   }
-
+  LOG(LINFO, (m_partnerSegments.size(), "segments are loaded"));
   m_valid = true;
 }
 
@@ -159,20 +164,24 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
 
 void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection const &)
 {
-  ASSERT(!selected.empty(), ("The selection should not be empty. RTFM for qt5."));
+  CHECK(!selected.empty(), ("The selection should not be empty. RTFM for qt5."));
+  CHECK(!m_decodedSample->Empty(), ("No samples are loaded, can't select."));
+
   auto const row = selected.front().top();
 
   // TODO(mgsergio): Use algo for center calculation.
   // Now viewport is set to the first point of the first segment.
-  auto const partnerSegmentId = m_decodedSample->m_decodedItems[row].m_partnerSegmentId;
+  auto & sampleItem = m_decodedSample->m_decodedItems[row];
+  auto const partnerSegmentId = sampleItem.m_partnerSegmentId;
+  LOG(LINFO, ("Partner segment id:", partnerSegmentId));
 
-  if (m_decodedSample->m_decodedItems[row].m_segments.empty())
+  if (sampleItem.m_segments.empty())
   {
     LOG(LERROR, ("Empty mwm segments for partner id", partnerSegmentId.Get()));
     return;
   }
 
-  auto const & firstSegment = m_decodedSample->m_decodedItems[row].m_segments[0];
+  auto const & firstSegment = sampleItem.m_segments[0];
   auto const & firstSegmentFeatureId = firstSegment.m_fid;
   auto const & firstSegmentFeature = m_decodedSample->m_points.at(firstSegmentFeatureId);
 

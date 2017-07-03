@@ -18,16 +18,18 @@ class QDockWidget;
 class QLabel;
 class QPushButton;
 class QToolButton;
-class TrafficMode;
 
 namespace search { class Result; }
 
 namespace qt
 {
+class DrawWidget;
+
 class MainWindow : public QMainWindow, location::LocationObserver
 {
-  DrawWidget * m_pDrawWidget = nullptr; // TODO(mgsergio): Make indexing more informative.
-  std::array<QDockWidget *, 2> m_Docks;
+  DrawWidget * m_pDrawWidget = nullptr;
+  // TODO(mgsergio): Make indexing more informative.
+  array<QDockWidget *, 1> m_Docks;
 
   QPushButton * m_downloadButton = nullptr;
   QPushButton * m_retryButton = nullptr;
@@ -37,17 +39,12 @@ class MainWindow : public QMainWindow, location::LocationObserver
 
   std::unique_ptr<location::LocationService> const m_locationService;
 
-  // This object is managed by Qt memory system.
-  TrafficMode * m_trafficMode = nullptr;
-
   QAction * m_pMyPositionAction = nullptr;
   QAction * m_pCreateFeatureAction = nullptr;
   QAction * m_selectionMode = nullptr;
   QAction * m_clearSelection = nullptr;
   QAction * m_pSearchAction = nullptr;
   QAction * m_trafficEnableAction = nullptr;
-  QAction * m_saveTrafficSampleAction = nullptr;
-  QAction * m_quitTrafficModeAction = nullptr;
   QToolButton * m_routePointsToolButton = nullptr;
   QAction * m_selectStartRoutePoint = nullptr;
   QAction * m_selectFinishRoutePoint = nullptr;
@@ -82,9 +79,6 @@ protected:
   void CreateSearchBarAndPanel();
   void CreateCountryStatusControls();
 
-  void CreateTrafficPanel(string const & dataFilePath, string const & sampleFilePath);
-  void DestroyTrafficPanel();
-
 #if defined(Q_WS_WIN)
   /// to handle menu messages
   bool winEvent(MSG * msg, long * result) override;
@@ -114,16 +108,12 @@ protected Q_SLOTS:
   void OnClearSelection();
 
   void OnTrafficEnabled();
-  void OnOpenTrafficSample();
-  void OnSaveTrafficSample();
-  void OnQuitTrafficMode();
-
   void OnStartPointSelected();
   void OnFinishPointSelected();
   void OnIntermediatePointSelected();
   void OnFollowRoute();
   void OnClearRoute();
-    
+
 #ifdef BUILD_DESIGNER
   void OnBuildStyle();
   void OnRecalculateGeomIndex();
