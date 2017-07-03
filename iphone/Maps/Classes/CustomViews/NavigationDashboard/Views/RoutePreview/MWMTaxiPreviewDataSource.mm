@@ -166,10 +166,6 @@ using namespace taxi;
                 error = @"Server error (The taxi server responded with an error)";
                 failure(L(@"dialog_taxi_error"));
                 break;
-              case taxi::ErrorCode::NoProvider:
-                error = @"No providers (Taxi isn't in the city)";
-                failure(L(@"taxi_no_provider"));
-                break;
               }
               [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{ @"error" : error }];
             });
