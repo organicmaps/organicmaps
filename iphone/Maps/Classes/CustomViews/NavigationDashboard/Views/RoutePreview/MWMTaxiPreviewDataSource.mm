@@ -103,13 +103,15 @@ using namespace taxi;
             return;
           }
   
-          auto success = [self, completion](taxi::ProvidersContainer const & providers,
+          auto success = [self, completion, failure](taxi::ProvidersContainer const & providers,
                                             uint64_t const requestId) {
             if (self->m_requestId != requestId)
               return;
             if (providers.empty())
             {
-              NSCAssert(false, @"Providers container is empty");
+              failure(L(@"taxi_no_providers"));
+              [Statistics logEvent:kStatRoutingBuildTaxi
+                    withParameters:@{ @"error" :  @"No providers (Taxi isn't in the city)" }];
               return;
             }
             auto const & provider = providers.front();
