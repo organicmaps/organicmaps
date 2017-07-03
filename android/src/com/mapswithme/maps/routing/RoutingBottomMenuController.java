@@ -180,6 +180,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddStartFrame()
   {
+    UiUtils.hide(mTaxiFrame, mError);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
     if (LocationHelper.INSTANCE.getMyPosition() != null)
@@ -198,6 +199,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddFinishFrame()
   {
+    UiUtils.hide(mTaxiFrame, mError);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);
     UiUtils.hide(mActionButton);

@@ -297,8 +297,9 @@ public class RoutingController implements TaxiManager.TaxiListener
         completeTaxiRequest();
         return;
       }
-      if (mContainer != null)
-        requestTaxiInfo();
+
+      if (mStartPoint != null && mEndPoint != null)
+        requestTaxiInfo(mStartPoint, mEndPoint);
     }
 
     setBuildState(BuildState.BUILDING);
@@ -897,16 +898,13 @@ public class RoutingController implements TaxiManager.TaxiListener
     return true;
   }
 
-  private void requestTaxiInfo()
+  private void requestTaxiInfo(@NonNull MapObject startPoint, @NonNull MapObject endPoint)
   {
-    if (mStartPoint == null || mEndPoint == null)
-      throw new AssertionError("Start and end points must be set to make a taxi request!");
-
     mTaxiPlanning = true;
 
     TaxiManager.INSTANCE.nativeRequestTaxiProducts(NetworkPolicy.newInstance(true /* canUse */),
-                                   mStartPoint.getLat(), mStartPoint.getLon(),
-                                   mEndPoint.getLat(), mEndPoint.getLon());
+                                   startPoint.getLat(), startPoint.getLon(),
+                                   endPoint.getLat(), endPoint.getLon());
     if (mContainer != null)
       mContainer.updateBuildProgress(0, mLastRouterType);
   }
