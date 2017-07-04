@@ -94,7 +94,7 @@ vector<m2::PointD> GetWaysOrRelationsGeometry(pugi::xml_document const & osmResp
 /// @param wayOrRelation - either way or relation to be compared agains ourGeometry;
 /// @param outGeometry - geometry of a FeatureType (ourGeometry must be sort-uniqued);
 double ScoreGeometry(pugi::xml_document const & osmResponse,
-                     pugi::xml_node const & wayOrRelation, vector<m2::PointD> ourGeometry)
+                     pugi::xml_node const & wayOrRelation, vector<m2::PointD> const & ourGeometry)
 {
   ASSERT(!ourGeometry.empty(), ("Our geometry cannot be empty"));
   int matched = 0;
