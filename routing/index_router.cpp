@@ -369,7 +369,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(m2::PointD const & startPoint,
                                     false /* strictForward */),
       graph);
 
-  AStarProgress progress(0, 100);
+  AStarProgress progress(0, 95);
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   vector<SegmentEdge> prevEdges;
