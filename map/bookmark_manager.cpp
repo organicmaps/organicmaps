@@ -230,10 +230,10 @@ UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect)
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
-  for_each(m_categories.begin(), m_categories.end(), ref(finder));
-  finder(FindUserMarksContainer(UserMarkType::API_MARK));
-  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
   finder(FindUserMarksContainer(UserMarkType::ROUTING_MARK));
+  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
+  finder(FindUserMarksContainer(UserMarkType::API_MARK));
+  for_each(m_categories.begin(), m_categories.end(), ref(finder));
 
   return finder.GetFindedMark();
 }

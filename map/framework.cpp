@@ -2524,7 +2524,8 @@ UserMark const * Framework::FindUserMarkInTapPosition(m2::PointD const & pt) con
   UserMark const * mark = m_bmManager.FindNearestUserMark(
     [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
     {
-      return (type == UserMarkType::BOOKMARK_MARK ? bmSearchRect : rect);
+      return (type == UserMarkType::BOOKMARK_MARK ||
+              type == UserMarkType::ROUTING_MARK) ? bmSearchRect : rect;
     });
   return mark;
 }
