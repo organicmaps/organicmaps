@@ -4,12 +4,15 @@
 #include "coding/varint.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
 #include "std/map.hpp"
 #include "std/queue.hpp"
+#include "std/type_traits.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 namespace coding
@@ -34,23 +37,38 @@ public:
 
     void Add(string const & s) { Add(s.begin(), s.end()); }
 
-    template <typename It>
-    void Add(It begin, It end)
+    template <typename T>
+    void Add(T const * begin, T const * const end)
     {
-      for (; begin != end; ++begin)
-        ++m_table[static_cast<uint32_t>(*begin)];
+      static_assert(is_integral<T>::value, "");
+      AddImpl(begin, end);
+    }
+
+    template <typename It>
+    void Add(It begin, It const end)
+    {
+      static_assert(is_integral<typename It::value_type>::value, "");
+      AddImpl(begin, end);
     }
 
     template <typename T>
     void Add(vector<T> const & v)
     {
       for (auto const & e : v)
-        Add(e);
+        Add(begin(e), end(e));
     }
 
     Table const & GetTable() const { return m_table; }
 
   private:
+    template <typename It>
+    void AddImpl(It begin, It const end)
+    {
+      static_assert(sizeof(*begin) <= 4, "");
+      for (; begin != end; ++begin)
+        ++m_table[static_cast<uint32_t>(*begin)];
+    }
+
     Table m_table;
   };
 
@@ -149,16 +167,18 @@ public:
   bool Encode(uint32_t symbol, Code & code) const;
   bool Decode(Code const & code, uint32_t & symbol) const;
 
+  template <typename TWriter, typename T>
+  uint32_t EncodeAndWrite(TWriter & writer, T const * begin, T const * end) const
+  {
+    static_assert(is_integral<T>::value, "");
+    return EncodeAndWriteImpl(writer, begin, end);
+  }
+
   template <typename TWriter, typename It>
   uint32_t EncodeAndWrite(TWriter & writer, It begin, It end) const
   {
-    size_t const d = distance(begin, end);
-    BitWriter<TWriter> bitWriter(writer);
-    WriteVarUint(writer, d);
-    uint32_t sz = 0;
-    for (; begin != end; ++begin)
-      sz += EncodeAndWrite(bitWriter, static_cast<uint32_t>(*begin));
-    return sz;
+    static_assert(is_integral<typename It::value_type>::value, "");
+    return EncodeAndWriteImpl(writer, begin, end);
   }
 
   template <typename TWriter>
@@ -176,13 +196,14 @@ public:
   }
 
   template <typename TSource, typename OutIt>
-  void ReadAndDecode(TSource & src, OutIt out) const
+  OutIt ReadAndDecode(TSource & src, OutIt out) const
   {
     BitReader<TSource> bitReader(src);
     size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
     vector<strings::UniChar> v(sz);
     for (size_t i = 0; i < sz; ++i)
       *out++ = ReadAndDecode(bitReader);
+    return out;
   }
 
   template <typename TSource>
@@ -234,6 +255,20 @@ private:
     }
     bitWriter.Write(code.bits, rem);
     return code.len;
+  }
+
+  template <typename TWriter, typename It>
+  uint32_t EncodeAndWriteImpl(TWriter & writer, It begin, It end) const
+  {
+    static_assert(sizeof(*begin) <= 4, "");
+
+    size_t const d = base::asserted_cast<size_t>(distance(begin, end));
+    BitWriter<TWriter> bitWriter(writer);
+    WriteVarUint(writer, d);
+    uint32_t sz = 0;
+    for (; begin != end; ++begin)
+      sz += EncodeAndWrite(bitWriter, static_cast<uint32_t>(*begin));
+    return sz;
   }
 
   template <typename TSource>

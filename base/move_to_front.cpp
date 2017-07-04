@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <numeric>
 
 using namespace std;
 
@@ -14,8 +15,7 @@ size_t constexpr MoveToFront::kNumBytes;
 
 MoveToFront::MoveToFront()
 {
-  for (size_t i = 0; i < kNumBytes; ++i)
-    m_order[i] = i;
+  iota(m_order.begin(), m_order.end(), 0);
 }
 
 uint8_t MoveToFront::Transform(uint8_t b)

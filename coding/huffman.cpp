@@ -61,12 +61,6 @@ void HuffmanCoder::DeleteHuffmanTree(Node * root)
 
 void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
 {
-  // One would need more than 2^32 symbols to build a code that long.
-  // On the other hand, 32 is short enough for our purposes, so do not
-  // try to shrink the trees beyond this threshold.
-
-  uint32_t const kMaxDepth = 32;
-
   priority_queue<Node *, vector<Node *>, NodeComparator> pq;
   for (auto const & e : freqs.GetTable())
     pq.push(new Node(e.first, e.second, true /* isLeaf */));
@@ -89,24 +83,27 @@ void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
     auto ab = new Node(a->symbol, a->freq + b->freq, false /* isLeaf */);
     ab->l = a;
     ab->r = b;
-    CHECK_LESS_OR_EQUAL(a->depth, kMaxDepth, ());
-    CHECK_LESS_OR_EQUAL(b->depth, kMaxDepth, ());
     pq.push(ab);
   }
 
   m_root = pq.top();
   pq.pop();
 
-  SetDepths(m_root, 0);
+  SetDepths(m_root, 0 /* depth */);
 }
 
 void HuffmanCoder::SetDepths(Node * root, uint32_t depth)
 {
+  // One would need more than 2^32 symbols to build a code that long.
+  // On the other hand, 32 is short enough for our purposes, so do not
+  // try to shrink the trees beyond this threshold.
+  uint32_t const kMaxDepth = 32;
+
   if (!root)
     return;
+  CHECK_LESS_OR_EQUAL(depth, kMaxDepth, ());
   root->depth = depth;
   SetDepths(root->l, depth + 1);
   SetDepths(root->r, depth + 1);
 }
-
 }  //  namespace coding

@@ -43,7 +43,7 @@ public:
   template <typename Sink>
   static void EncodeAndWriteBlock(Sink & sink, size_t n, uint8_t const * s)
   {
-    vector<uint8_t> bwtBuffer;
+    std::vector<uint8_t> bwtBuffer;
     EncodeAndWriteBlock(sink, n, s, bwtBuffer);
   }
 
@@ -59,14 +59,14 @@ public:
     WriteVarUint(sink, numBlocks);
     for (size_t i = 0; i < n; i += params.m_blockSize)
     {
-      auto const m = min(n - i, params.m_blockSize);
+      auto const m = std::min(n - i, params.m_blockSize);
       EncodeAndWriteBlock(sink, m, s + i, bwtBuffer);
     }
   }
 
   template <typename Source, typename OutIt>
-  static OutIt ReadAndDecodeBlock(Source & source, vector<uint8_t> & bwtBuffer,
-                                  vector<uint8_t> & revBuffer, OutIt it)
+  static OutIt ReadAndDecodeBlock(Source & source, std::vector<uint8_t> & bwtBuffer,
+                                  std::vector<uint8_t> & revBuffer, OutIt it)
   {
     auto const start = ReadVarUint<uint64_t, Source>(source);
 
@@ -95,8 +95,8 @@ public:
   template <typename Source, typename OutIt>
   static OutIt ReadAndDecodeBlock(Source & source, OutIt it)
   {
-    vector<uint8_t> bwtBuffer;
-    vector<uint8_t> revBuffer;
+    std::vector<uint8_t> bwtBuffer;
+    std::vector<uint8_t> revBuffer;
     return ReadAndDecodeBlock(source, bwtBuffer, revBuffer, it);
   }
 
