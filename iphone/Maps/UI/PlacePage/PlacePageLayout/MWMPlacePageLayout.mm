@@ -201,22 +201,39 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)reloadBookmarkSection:(BOOL)isBookmark
 {
+  auto data = self.data;
+  if (!data)
+    return;
   auto tv = self.placePageView.tableView;
-  NSIndexSet * set =
-      [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
-
-  if (isBookmark)
-  {
-    if (self.bookmarkCell)
-      [tv reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+  if (!tv)
+    return;
+  [tv update:^{
+    auto set =
+        [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
+    if (isBookmark)
+    {
+      if (self.bookmarkCell)
+        [tv reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+      else
+        [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     else
-      [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-  }
-  else
-  {
-    [tv deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-    self.bookmarkCell = nil;
-  }
+    {
+      [tv deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+      self.bookmarkCell = nil;
+    }
+
+    auto const & previewRows = data.previewRows;
+    auto const previewIT =
+        std::find(previewRows.cbegin(), previewRows.cend(), place_page::PreviewRows::Subtitle);
+    if (previewIT != previewRows.cend())
+    {
+      auto previewIP =
+          [NSIndexPath indexPathForRow:std::distance(previewRows.cbegin(), previewIT)
+                             inSection:static_cast<NSInteger>(place_page::Sections::Preview)];
+      [tv reloadRowsAtIndexPaths:@[ previewIP ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+  }];
 }
 
 #pragma mark - Downloader event
