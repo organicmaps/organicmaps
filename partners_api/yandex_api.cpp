@@ -119,7 +119,7 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
            << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon;
 #endif
 
-  return {deepLink.str(), ""};
+  return {deepLink.str(), deepLink.str()};
 }
 
 void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products)
