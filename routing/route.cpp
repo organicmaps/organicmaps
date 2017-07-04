@@ -55,7 +55,7 @@ void Route::Swap(Route & rhs)
   m_altitudes.swap(rhs.m_altitudes);
   m_traffic.swap(rhs.m_traffic);
   m_routeSegments.swap(rhs.m_routeSegments);
-  m_subroutes.swap(rhs.m_subroutes);
+  m_subrouteAttrs.swap(rhs.m_subrouteAttrs);
 }
 
 void Route::AddAbsentCountry(string const & name)
@@ -336,7 +336,7 @@ void Route::Update()
   m_currentTime = 0.0;
 }
 
-size_t Route::GetSubrouteCount() const { return m_subroutes.size(); }
+size_t Route::GetSubrouteCount() const { return m_subrouteAttrs.size(); }
 
 void Route::GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const
 {
@@ -352,8 +352,8 @@ void Route::GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segm
 Route::SubrouteAttrs const & Route::GetSubrouteAttrs(size_t subrouteIdx) const
 {
   CHECK(IsValid(), ());
-  CHECK_LESS(subrouteIdx, m_subroutes.size(), ());
-  return m_subroutes[subrouteIdx];
+  CHECK_LESS(subrouteIdx, m_subrouteAttrs.size(), ());
+  return m_subrouteAttrs[subrouteIdx];
 }
 
 Route::SubrouteSettings const Route::GetSubrouteSettings(size_t segmentIdx) const
@@ -366,9 +366,9 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
 {
   size_t const segmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx() - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
-  double const endDistance = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
-  double const passedDistance = m_poly.GetDistanceFromBeginM();
-  return endDistance - passedDistance < kOnEndToleranceM;
+  double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
+  double const passedDistanceMeters = m_poly.GetDistanceFromBeginM();
+  return lengthMeters - passedDistanceMeters < kOnEndToleranceM;
 }
 
 void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)

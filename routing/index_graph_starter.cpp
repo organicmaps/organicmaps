@@ -57,7 +57,7 @@ void IndexGraphStarter::CheckValidRoute(vector<Segment> const &segments)
 }
 
 // static
-vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeStart(vector<Segment> const & segments)
+vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeStartIt(vector<Segment> const & segments)
 {
   CheckValidRoute(segments);
   // See CheckValidRoute comment.
@@ -65,8 +65,7 @@ vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeStart(vector<Segmen
 }
 
 // static
-vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeFinish(
-    vector<Segment> const & segments)
+vector<Segment>::const_iterator IndexGraphStarter::GetNonFakeFinishIt(vector<Segment> const & segments)
 {
   CheckValidRoute(segments);
   // See CheckValidRoute comment.

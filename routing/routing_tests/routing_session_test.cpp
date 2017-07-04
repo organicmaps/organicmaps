@@ -2,6 +2,7 @@
 
 #include "routing/route.hpp"
 #include "routing/router.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
 #include "geometry/point2d.hpp"
@@ -41,6 +42,12 @@ public:
 };
 
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
+static vector<Segment> const kTestSegments({{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}});
+static Route::TTurns const kTestTurns = {
+    turns::TurnItem(3, turns::TurnDirection::ReachedYourDestination)};
+static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(2, 10),
+                                       Route::TTimeItem(3, 15)});
+
 static auto kRouteBuildingMaxDuration = seconds(30);
 
 class TimedSignal
@@ -69,6 +76,20 @@ private:
   condition_variable m_cv;
   bool m_flag;
 };
+
+void FillSubroutesInfo(Route & route)
+{
+  vector<Junction> junctions;
+  for (auto const & point : kTestRoute)
+    junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
+
+  vector<RouteSegment> segmentInfo;
+  FillSegmentInfo(kTestSegments, junctions, kTestTurns, {}, kTestTimes,
+                  nullptr /* trafficStash */, segmentInfo);
+  route.SetRouteSegments(move(segmentInfo));
+  route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
+      {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
+}
 
 UNIT_TEST(TestRouteBuilding)
 {
@@ -101,6 +122,8 @@ UNIT_TEST(TestRouteRebuilding)
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  FillSubroutesInfo(masterRoute);
+
   size_t counter = 0;
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
@@ -156,6 +179,8 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  FillSubroutesInfo(masterRoute);
+
   size_t counter = 0;
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
@@ -229,6 +254,8 @@ UNIT_TEST(TestFollowRoutePercentTest)
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  FillSubroutesInfo(masterRoute);
+
   size_t counter = 0;
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);

@@ -305,16 +305,15 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   std::vector<RouteSegment> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
-  for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
+  for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
-    auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
 
     // Fill points.
     double const currentBaseDistance = distance;
     points.clear();
     points.reserve(segments.size() + 1);
-    points.push_back(attrs.GetStart().GetPoint());
+    points.push_back(route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint());
     for (auto const & s : segments)
       points.push_back(s.GetJunction().GetPoint());
     if (points.size() < 2)

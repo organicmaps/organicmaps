@@ -173,7 +173,10 @@ public:
   template <class SI>
   void SetRouteSegments(SI && v) { m_routeSegments = std::forward<SI>(v); }
 
-  void SetSubrotes(std::vector<SubrouteAttrs> && subroutes) { m_subroutes = std::move(subroutes); }
+  void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
+
+  template <class V>
+  void SetSubroteAttrs(V && subroutes) { m_subrouteAttrs = std::forward<V>(subroutes); }
 
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
@@ -185,7 +188,8 @@ public:
   TTurns const & GetTurns() const { return m_turns; }
   feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
   vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
-  vector<SubrouteAttrs> const & GetSubroutes() const { return m_subroutes; }
+  size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
+  vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
   vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
@@ -296,6 +300,7 @@ private:
 
   // Subroute
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;
-  std::vector<SubrouteAttrs> m_subroutes;
+  size_t m_currentSubrouteIdx = 0;
+  std::vector<SubrouteAttrs> m_subrouteAttrs;
 };
 } // namespace routing

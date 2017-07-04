@@ -219,10 +219,11 @@ UNIT_TEST(GetSubrouteInfoTest)
     junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
 
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(kTestSegments, junctions, kTestTurns, kTestNames, kTestTimes, nullptr, segmentInfo);
+  FillSegmentInfo(kTestSegments, junctions, kTestTurns, kTestNames, kTestTimes,
+                  nullptr /* trafficStash */, segmentInfo);
   route.SetRouteSegments(move(segmentInfo));
-  route.SetSubrotes(
-      {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())});
+  route.SetSubroteAttrs(vector<Route::SubrouteAttrs>({Route::SubrouteAttrs(
+      junctions.front(), junctions.back(), 0 /* beginSegmentIdx */, kTestSegments.size())}));
 
   TEST_EQUAL(route.GetSubrouteCount(), 1, ());
   vector<RouteSegment> info;
