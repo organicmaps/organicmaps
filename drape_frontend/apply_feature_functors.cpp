@@ -619,7 +619,7 @@ ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ,
-          dp::displacement::kDefaultMode, dp::GLState::GeometryLayer)
+          dp::displacement::kDefaultMode, dp::GLState::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
