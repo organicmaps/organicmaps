@@ -138,13 +138,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
     for (NSLayoutConstraint * constraint in self.mainButtonConstraintsLeftToRight)
       constraint.priority = UILayoutPriorityFittingSizeLevel;
   }
-
-  self.p2pButton.exclusiveTouch = YES;
-  self.searchButton.exclusiveTouch = YES;
-  self.bookmarksButton.exclusiveTouch = YES;
-  self.menuButton.exclusiveTouch = YES;
-  self.goButton.exclusiveTouch = YES;
-  self.toggleInfoButton.exclusiveTouch = YES;
 }
 
 - (void)layoutSubviews

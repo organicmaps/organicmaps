@@ -744,6 +744,8 @@ using namespace osm_auth_ios;
 
 + (void)customizeAppearance
 {
+  [UIButton appearance].exclusiveTouch = YES;
+
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 
   UIBarButtonItem * barBtn = [UIBarButtonItem appearance];
