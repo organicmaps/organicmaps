@@ -189,7 +189,7 @@ namespace
   string const kPair = "Pair";
 
   string const kDefaultTrackColor = "DefaultTrackColor";
-  float const kDefaultTrackWidth = 15.0f;
+  float const kDefaultTrackWidth = 5.0f;
 
   string PointToString(m2::PointD const & org)
   {
