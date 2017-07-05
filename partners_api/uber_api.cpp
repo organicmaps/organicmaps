@@ -183,6 +183,16 @@ void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
   m_prices = make_unique<string>(prices);
 }
 
+void ProductMaker::SetError(uint64_t const requestId, taxi::ErrorCode code)
+{
+  lock_guard<mutex> lock(m_mutex);
+
+  if (requestId != m_requestId)
+    return;
+
+  m_error = make_unique<taxi::ErrorCode>(code);
+}
+
 void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
                                 ErrorProviderCallback const & errorFn)
 {
@@ -190,20 +200,28 @@ void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const
   ASSERT(errorFn, ());
 
   vector<Product> products;
+  unique_ptr<taxi::ErrorCode> error;
   {
     lock_guard<mutex> lock(m_mutex);
 
     if (requestId != m_requestId || !m_times || !m_prices)
       return;
 
-    if (!m_times->empty() && !m_prices->empty())
-      MakeFromJson(m_times->c_str(), m_prices->c_str(), products);
-    else
-      LOG(LWARNING, ("Time or price is empty, time:", *m_times, "; price:", *m_prices));
+    if (!m_error)
+    {
+      if (!m_times->empty() && !m_prices->empty())
+        MakeFromJson(m_times->c_str(), m_prices->c_str(), products);
+
+      if (products.empty())
+        m_error = my::make_unique<taxi::ErrorCode>(ErrorCode::NoProducts);
+    }
+
+    if (m_error)
+      error = my::make_unique<taxi::ErrorCode>(*m_error);
   }
 
-  if (products.empty())
-    errorFn(ErrorCode::NoProducts);
+  if (error)
+    errorFn(*error);
   else
     successFn(products);
 }
@@ -225,10 +243,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   {
     string result;
     if (!RawApi::GetEstimatedTime(from, result, baseUrl))
-    {
-      errorFn(ErrorCode::RemoteError);
-      return;
-    }
+      maker->SetError(reqId, ErrorCode::RemoteError);
 
     maker->SetTimes(reqId, result);
     maker->MakeProducts(reqId, successFn, errorFn);
@@ -238,10 +253,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   {
     string result;
     if (!RawApi::GetEstimatedPrice(from, to, result, baseUrl))
-    {
-      errorFn(ErrorCode::RemoteError);
-      return;
-    }
+      maker->SetError(reqId, ErrorCode::RemoteError);
 
     maker->SetPrices(reqId, result);
     maker->MakeProducts(reqId, successFn, errorFn);

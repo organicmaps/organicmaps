@@ -3,6 +3,8 @@
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
