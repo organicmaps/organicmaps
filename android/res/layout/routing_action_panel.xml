@@ -49,6 +49,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Button"
-      android:text="@string/use"/>
+      android:text="@string/button_use"/>
   </LinearLayout>
 </RelativeLayout>
