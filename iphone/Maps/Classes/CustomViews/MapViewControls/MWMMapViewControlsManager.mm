@@ -187,29 +187,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     }
   }
   [self.ownerController setNeedsStatusBarAppearanceUpdate];
-  if (!IPAD || (state != MWMSearchManagerStateDefault && state != MWMSearchManagerStateHidden))
-    return;
-  if (state == MWMSearchManagerStateHidden)
-  {
-    [UIView animateWithDuration:kDefaultAnimationDuration
-                     animations:^{
-                       self.navigationManager.routePreview.alpha = 1.;
-                     }];
-  }
-  else
-  {
-    [UIView animateWithDuration:kDefaultAnimationDuration
-        animations:^{
-          self.navigationManager.routePreview.alpha = 0.;
-        }
-        completion:^(BOOL finished) {
-          self.navigationManager.routePreview.alpha = 1.;
-          [self.navigationManager.routePreview removeFromSuperview];
-          [MWMRouter stopRouting];
-          self.navigationManager.state = MWMNavigationDashboardStateHidden;
-          self.menuController.p2pButton.selected = NO;
-        }];
-  }
 }
 
 - (void)searchFrameUpdated:(CGRect)frame
@@ -324,25 +301,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
   {
     CGFloat const bound = newFrame.origin.x + newFrame.size.width;
-    if (self.searchManager.state == MWMSearchManagerStateHidden)
-    {
-      CGFloat const leftBound = newFrame.origin.x + newFrame.size.width;
-      self.navigationManager.leftBound = leftBound;
-      self.placePageManager.leftBound = leftBound;
-      self.trafficButton.leftBound = leftBound;
-    }
-    else
-    {
-      [UIView animateWithDuration:kDefaultAnimationDuration
-          animations:^{
-            CGFloat const alpha = bound > 0 ? 0. : 1.;
-            for (UIView * view in self.searchManager.topViews)
-              view.alpha = alpha;
-          }
-          completion:^(BOOL finished) {
-            self.searchManager.state = MWMSearchManagerStateHidden;
-          }];
-    }
+    self.navigationManager.leftBound = bound;
+    self.placePageManager.leftBound = bound;
+    self.trafficButton.leftBound = bound;
   }
   else
   {
@@ -350,7 +311,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.placePageManager.topBound = bound;
     self.sideButtons.topBound = bound;
     self.trafficButton.topBound = bound;
-    return;
   }
 }
 

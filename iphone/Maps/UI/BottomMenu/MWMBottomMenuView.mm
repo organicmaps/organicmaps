@@ -729,7 +729,8 @@ CGFloat constexpr kTimeWidthRegular = 128;
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = MAX(leftBound, 0.0);
-  self.state = _leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
+  if ([MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStatePrepare)
+    self.state = _leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
   [self setNeedsLayout];
 }
 
