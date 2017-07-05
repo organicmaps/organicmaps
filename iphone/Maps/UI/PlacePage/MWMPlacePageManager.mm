@@ -229,6 +229,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   self.ownerViewController.visibleAreaBottomOffset = bound;
   [[MWMSideButtons buttons] setBottomBound:self.ownerViewController.view.height - bound];
+  [self.layout checkCellsVisible];
 }
 
 - (void)shouldDestroyLayout { self.layout = nil; }

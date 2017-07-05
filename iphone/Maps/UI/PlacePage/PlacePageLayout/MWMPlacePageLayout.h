@@ -44,6 +44,7 @@
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress;
 
+- (void)checkCellsVisible;
 #pragma mark - iPad only
 
 - (void)updateTopBound;

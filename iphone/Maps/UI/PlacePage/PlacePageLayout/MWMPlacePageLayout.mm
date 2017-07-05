@@ -12,6 +12,7 @@
 #import "MWMPlacePageRegularCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
+#import "MapViewController.h"
 #import "SwiftBridge.h"
 
 #include "ugc/types.hpp"
@@ -60,6 +61,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 @property(nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 @property(nonatomic) MWMOpeningHoursLayoutHelper * openingHoursLayoutHelper;
 @property(nonatomic) NSArray<NSIndexPath *> * buttonsSectionIndexPaths;
+
+@property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
 
 @end
 
@@ -157,6 +160,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   [self.placePageView.tableView reloadData];
   [self.layoutImpl onShow];
+  [self checkCellsVisible];
 
   dispatch_async(dispatch_get_main_queue(), ^{
     [data fillOnlineBookingSections];
@@ -454,6 +458,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
     }
     [c configWithType:type delegate:delegate];
+    self.taxiCell = c;
     return c;
   }
   case Sections::Buttons:
@@ -590,6 +595,45 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     }
   }
   }
+}
+
+- (void)checkCellsVisible
+{
+  auto data = self.data;
+  if (!data)
+    return;
+
+  auto const checkCell = ^(UITableViewCell * cell, MWMVoidBlock onHit) {
+    if (!cell)
+      return;
+    auto taxiBottom = CGPointMake(cell.width / 2, cell.height);
+    auto mainView = [MapViewController controller].view;
+    auto actionBar = self.actionBar;
+    BOOL const isInMainView =
+        [mainView pointInside:[cell convertPoint:taxiBottom toView:mainView] withEvent:nil];
+    BOOL const isInActionBar =
+        [actionBar pointInside:[cell convertPoint:taxiBottom toView:actionBar] withEvent:nil];
+    if (isInMainView && !isInActionBar)
+      onHit();
+  };
+
+  checkCell(self.taxiCell, ^{
+    self.taxiCell = nil;
+
+    auto const & taxiProviders = [data taxiProviders];
+    if (taxiProviders.empty())
+    {
+      NSAssert(NO, @"Taxi is shown but providers are empty.");
+      return;
+    }
+    NSString * provider = nil;
+    switch (taxiProviders.front())
+    {
+    case taxi::Provider::Uber: provider = kStatUber; break;
+    case taxi::Provider::Yandex: provider = kStatYandex; break;
+    }
+    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
+  });
 }
 
 #pragma mark - MWMPlacePageCellUpdateProtocol
