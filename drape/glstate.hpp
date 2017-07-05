@@ -38,6 +38,7 @@ public:
   {
     /// Do not change order
     GeometryLayer,
+    UserLineLayer,
     OverlayLayer,
     UserMarkLayer,
     NavigationLayer,

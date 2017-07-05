@@ -182,6 +182,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_join = dp::RoundJoin;
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
+        params.m_depthLayer = dp::GLState::UserLineLayer;
         params.m_width = layer.m_width * vs;
         params.m_minVisibleScale = 1;
         params.m_rank = 0;

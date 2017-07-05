@@ -151,6 +151,7 @@ private:
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView);
+  void RenderUserLinesLayer(ScreenBase const & modelView);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -239,6 +240,7 @@ private:
     enum RenderLayerID
     {
       Geometry2dID,
+      UserLineID,
       OverlayID,
       Geometry3dID,
       UserMarkID,

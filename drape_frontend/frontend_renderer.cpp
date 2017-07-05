@@ -1136,6 +1136,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit | gl_const::GLStencilBit);
 
   Render2dLayer(modelView);
+  RenderUserLinesLayer(modelView);
 
   if (m_buildingsFramebuffer->IsSupported())
   {
@@ -1291,6 +1292,15 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
   for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
   GLFunctions::glDisable(gl_const::GLDepthTest);
+}
+
+void FrontendRenderer::RenderUserLinesLayer(ScreenBase const & modelView)
+{
+  GLFunctions::glClear(gl_const::GLDepthBit);
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  RenderLayer & userLines = m_layers[RenderLayer::UserLineID];
+  for (drape_ptr<RenderGroup> & group : userLines.m_renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -2032,9 +2042,11 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
 {
   if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
     return OverlayID;
-  else if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
+  if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
     return UserMarkID;
-  else if (state.GetDepthLayer() == dp::GLState::NavigationLayer)
+  if (state.GetDepthLayer() == dp::GLState::UserLineLayer)
+    return UserLineID;
+  if (state.GetDepthLayer() == dp::GLState::NavigationLayer)
     return NavigationID;
 
   if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||
