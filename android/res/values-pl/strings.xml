@@ -1124,8 +1124,6 @@
 	<string name="settings_storage_available">dostępne %s</string>
 	<string name="toast_location_permission_denied">Odmowa dla aplikacji uprawnień do lokalizacji</string>
 	<string name="place_page_viator_title">Atrakcje i wycieczki</string>
-	<string name="planning_route_need_finish">Aby zaplanować trasę, dodaj punkt docelowy.</string>
-	<string name="planning_route_need_start">Aby zaplanować trasę, dodaj punkt początkowy.</string>
 	<string name="button_use">Użyj</string>
 	<string name="planning_route_manage_route">Zarządzaj trasą</string>
 	<string name="button_plan">Zaplanuj</string>

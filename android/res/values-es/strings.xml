@@ -1114,8 +1114,6 @@
 	<string name="settings_storage_available">%s disponible</string>
 	<string name="toast_location_permission_denied">A la aplicación se le ha denegado el permiso de acceso a la ubicación</string>
 	<string name="place_page_viator_title">Lugar de interés y visitas guiadas</string>
-	<string name="planning_route_need_finish">Agregar un destino para planificar una ruta.</string>
-	<string name="planning_route_need_start">Agregar un punto de inicio para planificar una ruta.</string>
 	<string name="button_use">Utilizar</string>
 	<string name="planning_route_manage_route">Administrar ruta</string>
 	<string name="button_plan">Planificar</string>

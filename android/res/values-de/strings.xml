@@ -1135,8 +1135,6 @@
 	<string name="settings_storage_available">%s verfügbar</string>
 	<string name="toast_location_permission_denied">App-Zugriff auf Standort verweigert</string>
 	<string name="place_page_viator_title">Attraktionen und Touren</string>
-	<string name="planning_route_need_finish">Fügen Sie ein Ziel hinzu, um eine Route zu planen.</string>
-	<string name="planning_route_need_start">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen.</string>
 	<string name="button_use">Nutzen</string>
 	<string name="planning_route_manage_route">Route verwalten</string>
 	<string name="button_plan">Planen</string>

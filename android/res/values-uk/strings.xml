@@ -1125,8 +1125,6 @@
 	<string name="settings_storage_available">Доступно: %s</string>
 	<string name="toast_location_permission_denied">Відмовлено у доступі до функції визначення геолокації</string>
 	<string name="place_page_viator_title">Визначні пам\'ятки та екскурсії</string>
-	<string name="planning_route_need_finish">Вкажіть місце призначення для побудови маршруту.</string>
-	<string name="planning_route_need_start">Вкажіть початкову точку для побудови маршруту.</string>
 	<string name="button_use">Використовувати</string>
 	<string name="planning_route_manage_route">Редагування маршруту</string>
 	<string name="button_plan">Прокласти маршрут</string>

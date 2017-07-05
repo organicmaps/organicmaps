@@ -1117,8 +1117,6 @@
 	<string name="settings_storage_available">%s disponibil</string>
 	<string name="toast_location_permission_denied">Permisiune de accesare a locației respinsă</string>
 	<string name="place_page_viator_title">Atracții și tururi</string>
-	<string name="planning_route_need_finish">Adăugați o destinație pentru a planifica un traseu.</string>
-	<string name="planning_route_need_start">Adăugați punctul de plecare pentru a planifica un traseu.</string>
 	<string name="button_use">Utilizare</string>
 	<string name="planning_route_manage_route">Administrare traseu</string>
 	<string name="button_plan">Planificare</string>

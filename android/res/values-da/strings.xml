@@ -1125,8 +1125,6 @@
 	<string name="settings_storage_available">%s tilgængelig</string>
 	<string name="toast_location_permission_denied">App-position tilladelse nægtet</string>
 	<string name="place_page_viator_title">Seværdigheder og ture</string>
-	<string name="planning_route_need_finish">Tilføje en destination for at planlægge en rute.</string>
-	<string name="planning_route_need_start">Tilføj startpunkt for at planlægge en rute.</string>
 	<string name="button_use">Brug</string>
 	<string name="planning_route_manage_route">Administrer rute</string>
 	<string name="button_plan">Planlæg</string>

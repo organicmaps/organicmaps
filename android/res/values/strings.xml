@@ -1170,8 +1170,6 @@
 	<string name="settings_storage_available">%s available</string>
 	<string name="toast_location_permission_denied">App location permission denied</string>
 	<string name="place_page_viator_title">Attractions and Tours</string>
-	<string name="planning_route_need_finish">Add a destination to plan a route.</string>
-	<string name="planning_route_need_start">Add start point to plan a route.</string>
 	<string name="button_use">Use</string>
 	<string name="planning_route_manage_route">Manage Route</string>
 	<string name="button_plan">Plan</string>

@@ -1117,8 +1117,6 @@
 	<string name="settings_storage_available">%s 사용 가능</string>
 	<string name="toast_location_permission_denied">앱 위치 권한 거부됨</string>
 	<string name="place_page_viator_title">관광 명소 및 투어</string>
-	<string name="planning_route_need_finish">경로 계획을 세우기 위한 목적지를 추가하세요.</string>
-	<string name="planning_route_need_start">경로 계획을 세우기 위한 시작 지점을 추가하세요.</string>
 	<string name="button_use">사용</string>
 	<string name="planning_route_manage_route">경로 관리</string>
 	<string name="button_plan">계획</string>

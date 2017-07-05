@@ -1127,8 +1127,6 @@
 	<string name="settings_storage_available">%s 可用</string>
 	<string name="toast_location_permission_denied">应用已拒绝地点获取权限</string>
 	<string name="place_page_viator_title">景点和游览</string>
-	<string name="planning_route_need_finish">添加终点以规划路线。</string>
-	<string name="planning_route_need_start">添加起点以规划路线。</string>
 	<string name="button_use">使用</string>
 	<string name="planning_route_manage_route">管理路线</string>
 	<string name="button_plan">规划</string>

@@ -1120,8 +1120,6 @@
 	<string name="settings_storage_available">%s disponibile</string>
 	<string name="toast_location_permission_denied">Autorizzazione a posizione app negata</string>
 	<string name="place_page_viator_title">Attrazioni e tour</string>
-	<string name="planning_route_need_finish">Aggiungi una destinazione per pianificare un percorso.</string>
-	<string name="planning_route_need_start">Aggiungi un punto di partenza per pianificare un percorso.</string>
 	<string name="button_use">Usa</string>
 	<string name="planning_route_manage_route">Gestisci percorso</string>
 	<string name="button_plan">Pianifica</string>

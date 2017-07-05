@@ -1134,8 +1134,6 @@
 	<string name="settings_storage_available">%s disponible</string>
 	<string name="toast_location_permission_denied">Autorisation de localisation refusée à l\'application</string>
 	<string name="place_page_viator_title">Attractions et visites</string>
-	<string name="planning_route_need_finish">Ajouter une destination pour planifier un itinéraire.</string>
-	<string name="planning_route_need_start">Ajouter un point de départ pour planifier un itinéraire.</string>
 	<string name="button_use">Utiliser</string>
 	<string name="planning_route_manage_route">Gérer l’itinéraire</string>
 	<string name="button_plan">Planifier</string>

@@ -1124,8 +1124,6 @@
 	<string name="settings_storage_available">K dispozícii %s</string>
 	<string name="toast_location_permission_denied">Zamietnutý prístup aplikácie k lokalite</string>
 	<string name="place_page_viator_title">Atrakcie a prehliadky</string>
-	<string name="planning_route_need_finish">Pridaním destinácie naplánujete trasu.</string>
-	<string name="planning_route_need_start">Pridaním počiatočného bodu začnite plánovať trasu.</string>
 	<string name="button_use">Použiť</string>
 	<string name="planning_route_manage_route">Spravovať trasu</string>
 	<string name="button_plan">Naplánovať</string>

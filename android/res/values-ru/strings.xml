@@ -1146,8 +1146,6 @@
 	<string name="settings_storage_available">%s доступно</string>
 	<string name="toast_location_permission_denied">Определение местоположения запрещено</string>
 	<string name="place_page_viator_title">Экскурсии и достопримечательности</string>
-	<string name="planning_route_need_finish">Для планирования маршрута добавьте финишную точку.</string>
-	<string name="planning_route_need_start">Для планирования маршрута добавьте стартовую точку.</string>
 	<string name="button_use">Использовать</string>
 	<string name="planning_route_manage_route">Изменить маршрут</string>
 	<string name="button_plan">Построить</string>

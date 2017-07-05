@@ -1995,10 +1995,6 @@
 
 "place_page_viator_title" = "Экскурсии и достопримечательности";
 
-"planning_route_need_finish" = "Для планирования маршрута добавьте финишную точку.";
-
-"planning_route_need_start" = "Для планирования маршрута добавьте стартовую точку.";
-
 "button_use" = "Использовать";
 
 "planning_route_manage_route" = "Изменить маршрут";

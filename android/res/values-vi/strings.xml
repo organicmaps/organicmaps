@@ -1121,8 +1121,6 @@
 	<string name="settings_storage_available">%s trống</string>
 	<string name="toast_location_permission_denied">Quyền định vị của ứng dụng bị từ chối</string>
 	<string name="place_page_viator_title">Các điểm tham quan và du lịch</string>
-	<string name="planning_route_need_finish">Bổ sung một điểm đến để lập kế hoạch lộ trình.</string>
-	<string name="planning_route_need_start">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình.</string>
 	<string name="button_use">Sử dụng</string>
 	<string name="planning_route_manage_route">Quản lý lộ trình</string>
 	<string name="button_plan">Kế hoạch</string>

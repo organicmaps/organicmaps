@@ -1121,8 +1121,6 @@
 	<string name="settings_storage_available">%s käytettävissä</string>
 	<string name="toast_location_permission_denied">Sovelluksen sijainnin käyttöoikeus evättiin</string>
 	<string name="place_page_viator_title">Nähtävyydet ja kierrokset</string>
-	<string name="planning_route_need_finish">Lisää kohde reitin suunnittelua varten.</string>
-	<string name="planning_route_need_start">Lisää alkupiste reitin suunnittelua varten.</string>
 	<string name="button_use">Käytä</string>
 	<string name="planning_route_manage_route">Hallitse reittiä</string>
 	<string name="button_plan">Suunnittele</string>

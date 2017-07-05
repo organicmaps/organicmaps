@@ -1995,10 +1995,6 @@
 
 "place_page_viator_title" = "Geziler ve turlar";
 
-"planning_route_need_finish" = "Güzergâhı planlamak için bir hedef konum ekleyin.";
-
-"planning_route_need_start" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin.";
-
 "button_use" = "Kullan";
 
 "planning_route_manage_route" = "Güzergâhı yönet";

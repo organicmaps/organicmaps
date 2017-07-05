@@ -885,8 +885,6 @@
 	<string name="settings_storage_available">%s διαθέσιμα</string>
 	<string name="toast_location_permission_denied">Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας</string>
 	<string name="place_page_viator_title">Αξιοθέατα και περιηγήσεις</string>
-	<string name="planning_route_need_finish">Προσθέστε προορισμό για να σχεδιάσετε μια διαδρομή.</string>
-	<string name="planning_route_need_start">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή.</string>
 	<string name="button_use">Χρήση</string>
 	<string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
 	<string name="button_plan">Σχέδιο</string>

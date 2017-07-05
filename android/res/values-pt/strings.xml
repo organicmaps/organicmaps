@@ -1124,8 +1124,6 @@
 	<string name="settings_storage_available">%s disponível</string>
 	<string name="toast_location_permission_denied">Permissão de localização da aplicação não autorizada</string>
 	<string name="place_page_viator_title">Atrações e passeios</string>
-	<string name="planning_route_need_finish">Adicionar destino para planear uma rota.</string>
-	<string name="planning_route_need_start">Adicionar ponto de partida para planear uma rota.</string>
 	<string name="button_use">Utilizar</string>
 	<string name="planning_route_manage_route">Gerir rota</string>
 	<string name="button_plan">Planear</string>

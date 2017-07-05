@@ -1121,8 +1121,6 @@
 	<string name="settings_storage_available">%s rendelkezésre áll</string>
 	<string name="toast_location_permission_denied">Alkalmazás helymeghatározási engedélye megtagadva</string>
 	<string name="place_page_viator_title">Látványosságok és kirándulások</string>
-	<string name="planning_route_need_finish">Adjon hozzá célpontot az útvonal megzetvezéséhez.</string>
-	<string name="planning_route_need_start">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.</string>
 	<string name="button_use">Használat</string>
 	<string name="planning_route_manage_route">Útvonal kezelése</string>
 	<string name="button_plan">Terv</string>

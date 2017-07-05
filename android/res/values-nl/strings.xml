@@ -1121,8 +1121,6 @@
 	<string name="settings_storage_available">%s beschikbaar</string>
 	<string name="toast_location_permission_denied">App toelating locatie geweigerd</string>
 	<string name="place_page_viator_title">Attracties en tours</string>
-	<string name="planning_route_need_finish">Voeg een bestemming toe om een route te plannen.</string>
-	<string name="planning_route_need_start">Voeg beginpunt toe om een route te plannen.</string>
 	<string name="button_use">Gebruiken</string>
 	<string name="planning_route_manage_route">Route beheren</string>
 	<string name="button_plan">Plannen</string>

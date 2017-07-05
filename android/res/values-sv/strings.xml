@@ -1125,8 +1125,6 @@
 	<string name="settings_storage_available">%s tillgängligt</string>
 	<string name="toast_location_permission_denied">Behörighet till appens plats nekades</string>
 	<string name="place_page_viator_title">Attraktioner och turer</string>
-	<string name="planning_route_need_finish">Lägg till en destination för att planera en rutt.</string>
-	<string name="planning_route_need_start">Lägg till startpunkt för att planera en rutt.</string>
 	<string name="button_use">Använd</string>
 	<string name="planning_route_manage_route">Hantera rutt</string>
 	<string name="button_plan">Planera</string>

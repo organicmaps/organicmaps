@@ -1127,8 +1127,6 @@
 	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>
 	<string name="toast_location_permission_denied">สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ</string>
 	<string name="place_page_viator_title">สถานที่ท่องเที่ยวและทัวร์</string>
-	<string name="planning_route_need_finish">เพิ่มจุดหมายปลายทางเพื่อวางแผนเส้นทาง</string>
-	<string name="planning_route_need_start">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="button_use">ใช้</string>
 	<string name="planning_route_manage_route">จัดการเส้นทาง</string>
 	<string name="button_plan">วางแผน</string>

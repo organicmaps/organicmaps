@@ -1120,8 +1120,6 @@
 	<string name="settings_storage_available">%s tersedia</string>
 	<string name="toast_location_permission_denied">Izin lokasi aplikasi ditolak</string>
 	<string name="place_page_viator_title">Objek wisata dan tur</string>
-	<string name="planning_route_need_finish">Tambahkan destinasi untuk merencanakan rute.</string>
-	<string name="planning_route_need_start">Tambahkan titik awal untuk merencanakan rute.</string>
 	<string name="button_use">Gunakan</string>
 	<string name="planning_route_manage_route">Kelola rute</string>
 	<string name="button_plan">Rencana</string>

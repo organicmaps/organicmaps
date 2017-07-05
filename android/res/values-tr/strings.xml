@@ -1127,8 +1127,6 @@
 	<string name="settings_storage_available">%s kullanılabilir</string>
 	<string name="toast_location_permission_denied">Uygulamanın konum bilgilerine erişim isteği reddedildi</string>
 	<string name="place_page_viator_title">Geziler ve turlar</string>
-	<string name="planning_route_need_finish">Güzergâhı planlamak için bir hedef konum ekleyin.</string>
-	<string name="planning_route_need_start">Güzergâhı planlamak için bir başlangıç noktası ekleyin.</string>
 	<string name="button_use">Kullan</string>
 	<string name="planning_route_manage_route">Güzergâhı yönet</string>
 	<string name="button_plan">Plan</string>
