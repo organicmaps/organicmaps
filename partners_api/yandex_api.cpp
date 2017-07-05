@@ -147,7 +147,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     if (time == 0.0)
       continue;
 
-    FromJSONObject(item, "class", product.m_name);
+    FromJSONObject(item, "class_name", product.m_name);
     FromJSONObject(item, "price", price);
 
     product.m_price = strings::to_string(price);
