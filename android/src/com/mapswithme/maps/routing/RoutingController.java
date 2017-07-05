@@ -442,6 +442,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
+
+    backToPlaningStateIfNavigating();
   }
 
   public void removeStop(@NonNull MapObject mapObject)
@@ -458,6 +460,23 @@ public class RoutingController implements TaxiManager.TaxiListener
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
+
+    backToPlaningStateIfNavigating();
+  }
+
+  private void backToPlaningStateIfNavigating()
+  {
+    if (!isNavigating())
+      return;
+
+    setState(State.PREPARE);
+    if (mContainer != null)
+    {
+      mContainer.showNavigation(false);
+      mContainer.showRoutePlan(true, null);
+      mContainer.updateMenu();
+      mContainer.onNavigationCancelled();
+    }
   }
 
   public void removeIntermediatePoints()
