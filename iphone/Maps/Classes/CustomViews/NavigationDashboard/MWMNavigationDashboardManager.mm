@@ -216,7 +216,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [self.routePreview remove];
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
-  [MWMMapViewControlsManager manager].searchHidden = YES;
 }
 
 - (void)updateStartButtonTitle:(UIButton *)startButton
