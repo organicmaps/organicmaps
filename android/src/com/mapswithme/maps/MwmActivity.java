@@ -1737,12 +1737,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showLineFrame(boolean show, @Nullable Runnable completion)
   {
     mMainMenu.showLineFrame(show, completion);
-    if (mIsFragmentContainer)
-    {
-      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-      if (fragment != null)
-        fragment.showStartButton(show);
-    }
   }
 
   private void setNavButtonsTopLimit(int limit)

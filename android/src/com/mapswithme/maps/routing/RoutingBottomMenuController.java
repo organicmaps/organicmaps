@@ -280,7 +280,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showStartButton(boolean show)
   {
-    UiUtils.showIf(show, mStart);
+    boolean result = show && (RoutingController.get().isBuilt()
+                              || RoutingController.get().isTaxiRouterType());
+    UiUtils.showIf(result, mStart);
   }
 
   void saveRoutingPanelState(@NonNull Bundle outState)
