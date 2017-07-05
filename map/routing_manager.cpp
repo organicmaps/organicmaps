@@ -111,7 +111,14 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     GetPlatform().RunOnGuiThread([this, passedCheckpointIdx]()
     {
       size_t const pointsCount = GetRoutePointsCount();
-      ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+
+      // TODO(@bykoianko). Since routing system may invoke callbacks from different threads and here
+      // we have to use gui thread, ASSERT is not correct. Uncomment it and delete condition after
+      // refactoring of threads usage in routing system.
+      //ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+      if (passedCheckpointIdx >= pointsCount)
+        return;
+
       if (passedCheckpointIdx == 0)
         OnRoutePointPassed(RouteMarkType::Start, 0);
       else if (passedCheckpointIdx + 1 == pointsCount)
@@ -310,15 +317,13 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     points.reserve(segments.size() + 1);
     points.push_back(attrs.GetStart().GetPoint());
     for (auto const & s : segments)
-    {
       points.push_back(s.GetJunction().GetPoint());
-      distance += s.GetDistFromBeginningMerc();
-    }
     if (points.size() < 2)
     {
       LOG(LWARNING, ("Invalid subroute. Points number =", points.size()));
       continue;
     }
+    distance = segments.back().GetDistFromBeginningMerc();
 
     auto subroute = make_unique_dp<df::Subroute>();
     subroute->m_polyline = m2::PolylineD(points);
