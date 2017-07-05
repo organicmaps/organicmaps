@@ -1,6 +1,7 @@
 #import "MWMRoutePreview.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
+#import "MWMLocationManager.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
@@ -8,6 +9,8 @@
 #import "SwiftBridge.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
+
+#include "platform/platform.hpp"
 
 namespace
 {
@@ -115,6 +118,9 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.taxiBox.hidden = YES;
+
+  if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
+    [self.taxi removeFromSuperview];
 }
 
 - (void)stateError

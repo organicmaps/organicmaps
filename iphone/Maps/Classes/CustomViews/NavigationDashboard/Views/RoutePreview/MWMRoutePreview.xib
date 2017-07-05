@@ -85,6 +85,7 @@
                                 <constraint firstAttribute="trailing" secondItem="15Q-ZN-NzE" secondAttribute="trailing" constant="6" id="WHK-N0-dCc"/>
                                 <constraint firstItem="FuO-c6-y9C" firstAttribute="leading" secondItem="cZF-Ha-2tB" secondAttribute="trailing" constant="16" id="Z6M-UV-6x2"/>
                                 <constraint firstItem="6D3-QF-6wm" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="vXO-6g-q4L"/>
+                                <constraint firstAttribute="trailing" secondItem="6D3-QF-6wm" secondAttribute="trailing" priority="750" constant="6" id="zmG-EZ-8Wk"/>
                                 <constraint firstItem="15Q-ZN-NzE" firstAttribute="centerY" secondItem="oQc-l8-sZH" secondAttribute="centerY" id="zvc-uG-Izm"/>
                             </constraints>
                         </view>

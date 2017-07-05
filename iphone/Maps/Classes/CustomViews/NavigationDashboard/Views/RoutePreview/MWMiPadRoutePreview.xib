@@ -87,6 +87,7 @@
                                 <constraint firstAttribute="bottom" secondItem="jDl-pu-eov" secondAttribute="bottom" id="Icg-Vj-GvT"/>
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="leading" secondItem="jDl-pu-eov" secondAttribute="trailing" constant="16" id="Ig8-ez-IpI"/>
                                 <constraint firstAttribute="bottom" secondItem="VhE-hA-Leo" secondAttribute="bottom" constant="3" id="Sod-o1-NpK"/>
+                                <constraint firstAttribute="trailing" secondItem="VhE-hA-Leo" secondAttribute="trailing" priority="750" constant="6" id="aI0-vF-pgT"/>
                                 <constraint firstItem="yiM-fM-sSS" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="f3J-LS-7YL"/>
                                 <constraint firstAttribute="bottom" secondItem="yiM-fM-sSS" secondAttribute="bottom" id="ipg-GT-aKH"/>
                                 <constraint firstItem="jDl-pu-eov" firstAttribute="top" secondItem="sXu-tl-a0m" secondAttribute="top" id="kzv-U2-zJG"/>
