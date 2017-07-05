@@ -33,6 +33,7 @@ import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -179,21 +180,15 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
     String tempPath = getTempPath();
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
-    File settingsFile = new File(settingsPath);
-    if (!settingsFile.exists())
-      if (!settingsFile.mkdirs())
-        throw new IllegalStateException("Can't create directories for: " + settingsPath);
-    File tempFile = new File(tempPath);
-    if (!tempFile.exists())
-      if (!tempFile.mkdirs())
-        throw new IllegalStateException("Can't create directories for: " + tempPath);
+    createPlatformDirectories(settingsPath, tempPath);
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
-    @SuppressWarnings("unused") Statistics s = Statistics.INSTANCE;
+    @SuppressWarnings("unused")
+    Statistics s = Statistics.INSTANCE;
 
     if (!isInstallationIdFound)
       setInstallationIdToCrashlytics();
@@ -202,6 +197,24 @@ public class MwmApplication extends Application
     TrackRecorder.init();
     Editor.init();
     mIsPlatformInitialized = true;
+  }
+
+  private void createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
+  {
+    createPlatformDirectory(settingsPath);
+    createPlatformDirectory(tempPath);
+  }
+
+  private void createPlatformDirectory(@NonNull String path)
+  {
+    File directory = new File(path);
+    if (!directory.exists() && !directory.mkdirs())
+    {
+      Throwable error = new IllegalStateException("Can't create directories for: " + path);
+      LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE)
+                            .e(TAG, "Can't create directories for: " + path, error);
+      CrashlyticsUtils.logException(error);
+    }
   }
 
   public void initNativeCore()
