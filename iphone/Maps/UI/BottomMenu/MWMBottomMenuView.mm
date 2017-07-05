@@ -310,12 +310,14 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateActive:
     self.downloadBadge.hidden = YES;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateCompact:
     if (!IPAD)
@@ -328,6 +330,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateGo:
   {
@@ -337,9 +340,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
     self.routingAdditionalView.hidden = YES;
-    BOOL const isNeedToShowTaxi = [MWMRouter isTaxi];
+    BOOL const isNeedToShowTaxi = [MWMRouter isTaxi] || IPAD;
     self.estimateLabel.hidden = isNeedToShowTaxi;
-    self.taxiContainer.hidden = !isNeedToShowTaxi || IPAD;
+    self.taxiContainer.hidden = !isNeedToShowTaxi;
     self.estimateLabel.hidden = NO;
     break;
   }
