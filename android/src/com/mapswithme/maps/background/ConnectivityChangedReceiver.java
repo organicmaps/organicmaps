@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.PermissionsUtils;
 
 import static com.mapswithme.maps.MwmApplication.prefs;
 
@@ -18,6 +19,9 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
+    if (!PermissionsUtils.isExternalStorageGranted())
+      return;
+
     MwmApplication.get().initNativePlatform();
     if (!ConnectionState.isWifiConnected()
         || MapManager.nativeNeedMigrate())

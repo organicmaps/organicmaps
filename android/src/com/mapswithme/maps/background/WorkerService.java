@@ -16,6 +16,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
 public class WorkerService extends IntentService
@@ -124,6 +125,9 @@ public class WorkerService extends IntentService
   @android.support.annotation.UiThread
   private static boolean processLocation()
   {
+    if (!PermissionsUtils.isExternalStorageGranted())
+      return false;
+
     MwmApplication.get().initNativePlatform();
     MwmApplication.get().initNativeCore();
 

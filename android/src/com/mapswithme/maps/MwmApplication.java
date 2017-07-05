@@ -2,8 +2,6 @@ package com.mapswithme.maps;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
@@ -181,15 +179,21 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
     String tempPath = getTempPath();
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
-    new File(settingsPath).mkdirs();
-    new File(tempPath).mkdirs();
+    File settingsFile = new File(settingsPath);
+    if (!settingsFile.exists())
+      if (!settingsFile.mkdirs())
+        throw new IllegalStateException("Can't create directories for: " + settingsPath);
+    File tempFile = new File(tempPath);
+    if (!tempFile.exists())
+      if (!tempFile.mkdirs())
+        throw new IllegalStateException("Can't create directories for: " + tempPath);
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
-    Statistics s = Statistics.INSTANCE;
+    @SuppressWarnings("unused") Statistics s = Statistics.INSTANCE;
 
     if (!isInstallationIdFound)
       setInstallationIdToCrashlytics();
