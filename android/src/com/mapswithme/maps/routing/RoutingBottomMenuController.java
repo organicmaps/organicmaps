@@ -272,7 +272,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   private void showError(@NonNull String message)
   {
-    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame);
+    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame, mActionFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
     showStartButton(false);
