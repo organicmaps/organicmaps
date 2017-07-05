@@ -134,8 +134,8 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  int const kLineSimplifyLevelStart = 15;
-  bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelStart;
+  int const kLineSimplifyLevelEnd = 15;
+  bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
   double sqrScale;
   if (simplify)
@@ -153,11 +153,11 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     {
       spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
 
-      static double minSegmentLength = math::sqr(4.0 * vs);
+      static double const kMinSegmentLength = math::sqr(4.0 * vs);
       m2::PointD lastAddedPoint;
       for (auto const & point : renderInfo.m_spline->GetPath())
       {
-        if ((spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < minSegmentLength) ||
+        if ((spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength) ||
             spline->IsPrelonging(point))
         {
           spline->ReplacePoint(point);
