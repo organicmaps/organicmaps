@@ -175,7 +175,7 @@ using namespace storage;
 {
   if (self.superview)
     return;
-  [self.controller.view insertSubview:self atIndex:0];
+  [self.controller.view addSubview:self];
   [MWMFrameworkListener addObserver:self];
 }
 
