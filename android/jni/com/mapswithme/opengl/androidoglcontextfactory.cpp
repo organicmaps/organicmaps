@@ -106,7 +106,7 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   // Check ES3 availability.
   bool availableES3 = IsSupportedRGB8(m_display, true /* es3 */);
   char osVersion[PROP_VALUE_MAX + 1];
-  if (__system_property_get("ro.build.version.sdk", osVersion) != 0)
+  if (availableES3 && __system_property_get("ro.build.version.sdk", osVersion) != 0)
   {
     int version;
     if (strings::to_int(std::string(osVersion), version))
