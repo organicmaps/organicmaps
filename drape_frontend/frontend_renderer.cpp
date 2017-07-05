@@ -1286,20 +1286,26 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 {
+  auto & renderGroups = m_layers[RenderLayer::UserMarkID].m_renderGroups;
+  if (renderGroups.empty())
+    return;
+
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
-  RenderLayer & userMarks = m_layers[RenderLayer::UserMarkID];
-  for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
+  for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderUserLinesLayer(ScreenBase const & modelView)
 {
+  auto & renderGroups = m_layers[RenderLayer::UserLineID].m_renderGroups;
+  if (renderGroups.empty())
+    return;
+
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  RenderLayer & userLines = m_layers[RenderLayer::UserLineID];
-  for (drape_ptr<RenderGroup> & group : userLines.m_renderGroups)
+  for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
 }
 
