@@ -123,7 +123,7 @@ BOOL defaultOrientation(CGSize const & size)
   {
     if ([MWMLocationManager lastLocation])
     {
-      [self.toastView configWithText:L(@"planning_route_need_start") withActionButton:YES];
+      [self.toastView configWithText:L(@"routing_add_start_point") withActionButton:YES];
       [self setToastViewHidden:NO];
     }
     else
@@ -133,7 +133,7 @@ BOOL defaultOrientation(CGSize const & size)
   }
   else if (![MWMRouter finishPoint])
   {
-    [self.toastView configWithText:L(@"planning_route_need_finish") withActionButton:NO];
+    [self.toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
     [self setToastViewHidden:NO];
   }
   else

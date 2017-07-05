@@ -33,7 +33,7 @@ final class PlacePageTaxiCell: MWMTableViewCell {
       title.text = L("taxi")
     case .uber:
       icon.image = #imageLiteral(resourceName: "icTaxiUber")
-      title.text = L("taxi_uber")
+      title.text = L("uber")
     case .yandex:
       icon.image = #imageLiteral(resourceName: "icTaxiYandex")
       title.text = L("yandex_taxi_title")
