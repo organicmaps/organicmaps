@@ -16,4 +16,6 @@
 - (void)setEnabled:(BOOL)enabled;
 - (BOOL)isEnabled;
 
+- (place_page::ButtonsRows)rowType;
+
 @end

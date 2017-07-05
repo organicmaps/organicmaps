@@ -59,6 +59,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 @property(nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 @property(nonatomic) MWMOpeningHoursLayoutHelper * openingHoursLayoutHelper;
+@property(nonatomic) NSArray<NSIndexPath *> * buttonsSectionIndexPaths;
 
 @end
 
@@ -121,7 +122,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 - (UIView *)shareAnchor { return self.actionBar.shareAnchor; }
 - (void)showWithData:(MWMPlacePageData *)data
 {
-  self.isPlacePageButtonsEnabled = YES;
+  self.buttonsSectionIndexPaths = nil;
   self.data = data;
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
@@ -178,6 +179,16 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [self.previewLayoutHelper setSpeedAndAltitude:speedAndAltitude];
 }
 
+- (void)setButtonsSectionEnabled:(BOOL)isEnabled
+{
+  [self.buttonsSectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * obj, NSUInteger idx, BOOL * stop) {
+    auto c = static_cast<MWMPlacePageButtonCell *>([self.placePageView.tableView cellForRowAtIndexPath:obj]);
+    // Hotel description button is always enabled.
+    if (c.rowType != place_page::ButtonsRows::HotelDescription)
+      c.enabled = isEnabled;
+  }];
+}
+
 - (MWMPlacePageActionBar *)actionBar
 {
   if (!_actionBar)
@@ -186,6 +197,27 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     self.layoutImpl.actionBar = _actionBar;
   }
   return _actionBar;
+}
+
+- (NSArray<NSIndexPath *> *)buttonsSectionIndexPaths
+{
+  if (!_buttonsSectionIndexPaths)
+  {
+    auto const & sections = self.data.sections;
+    auto tv = self.placePageView.tableView;
+
+    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
+    NSMutableArray<NSIndexPath *> * ip = @[].mutableCopy;
+    if (it != sections.end())
+    {
+      NSInteger const sectionNumber = distance(sections.begin(), it);
+      auto const numberOfRows = [tv numberOfRowsInSection:sectionNumber];
+      for (NSInteger i = 0; i < numberOfRows; i++)
+        [ip addObject:[NSIndexPath indexPathForRow:i inSection:sectionNumber]];
+    }
+    _buttonsSectionIndexPaths = ip.copy;
+  }
+  return _buttonsSectionIndexPaths;
 }
 
 - (void)close
@@ -245,20 +277,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     return;
 
   using namespace storage;
-  auto const & sections = data.sections;
+
   switch (status)
   {
   case NodeStatus::OnDiskOutOfDate:
   case NodeStatus::Undefined:
   {
-    self.isPlacePageButtonsEnabled = NO;
-    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-    if (it != sections.end())
-    {
-      [self.placePageView.tableView
-            reloadSections:[NSIndexSet indexSetWithIndex:distance(sections.begin(), it)]
-          withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    self.buttonsSectionEnabled = NO;
     self.actionBar.isAreaNotDownloaded = NO;
     break;
   }
@@ -282,21 +307,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
   case NodeStatus::OnDisk:
   {
-    self.isPlacePageButtonsEnabled = YES;
-    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-    if (it != sections.end())
-    {
-      [self.placePageView.tableView
-            reloadSections:[NSIndexSet indexSetWithIndex:distance(sections.begin(), it)]
-          withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    self.buttonsSectionEnabled = YES;
     self.actionBar.isAreaNotDownloaded = NO;
     break;
   }
   case NodeStatus::Partly:
   case NodeStatus::NotDownloaded:
   {
-    self.isPlacePageButtonsEnabled = NO;
+    self.buttonsSectionEnabled = NO;
     self.actionBar.isAreaNotDownloaded = YES;
     self.actionBar.downloadingState = MWMCircularProgressStateNormal;
     break;
@@ -455,11 +473,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
       }
     }];
-    
-    if (row != ButtonsRows::HotelDescription)
-      [c setEnabled:self.isPlacePageButtonsEnabled];
-    else
-      [c setEnabled:YES];
 
     return c;
   }
