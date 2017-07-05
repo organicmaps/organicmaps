@@ -25413,68 +25413,6 @@
     sk = Atrakcie a prehliadky
     sw = Vivutio na utalii
 
-  [planning_route_need_finish]
-    en = Add a destination to plan a route.
-    ru = Для планирования маршрута добавьте финишную точку.
-    ar = أضف وجهة لتخطيط المسار.
-    cs = Přidejte místo do plánu trasy.
-    da = Tilføje en destination for at planlægge en rute.
-    nl = Voeg een bestemming toe om een route te plannen.
-    fi = Lisää kohde reitin suunnittelua varten.
-    fr = Ajouter une destination pour planifier un itinéraire.
-    de = Fügen Sie ein Ziel hinzu, um eine Route zu planen.
-    hu = Adjon hozzá célpontot az útvonal megzetvezéséhez.
-    id = Tambahkan destinasi untuk merencanakan rute.
-    it = Aggiungi una destinazione per pianificare un percorso.
-    ja = ルートを計画するには目的地を追加してください。
-    ko = 경로 계획을 세우기 위한 목적지를 추가하세요.
-    nb = Angi destinasjon for å planlegge rute.
-    pl = Aby zaplanować trasę, dodaj punkt docelowy.
-    pt = Adicionar destino para planear uma rota.
-    ro = Adăugați o destinație pentru a planifica un traseu.
-    es = Agregar un destino para planificar una ruta.
-    sv = Lägg till en destination för att planera en rutt.
-    th = เพิ่มจุดหมายปลายทางเพื่อวางแผนเส้นทาง
-    tr = Güzergâhı planlamak için bir hedef konum ekleyin.
-    uk = Вкажіть місце призначення для побудови маршруту.
-    vi = Bổ sung một điểm đến để lập kế hoạch lộ trình.
-    zh-Hans = 添加终点以规划路线。
-    zh-Hant = 新增目的地以計劃路線。
-    el = Προσθέστε προορισμό για να σχεδιάσετε μια διαδρομή.
-    sk = Pridaním destinácie naplánujete trasu.
-    sw = Ongeza eneo unakoelekea ili kupanga njia ya kufuata.
-
-  [planning_route_need_start]
-    en = Add start point to plan a route.
-    ru = Для планирования маршрута добавьте стартовую точку.
-    ar = أضف نقطة البداية لتخطيط المسار.
-    cs = Zadejte výchozí bod pro plánování trasy.
-    da = Tilføj startpunkt for at planlægge en rute.
-    nl = Voeg beginpunt toe om een route te plannen.
-    fi = Lisää alkupiste reitin suunnittelua varten.
-    fr = Ajouter un point de départ pour planifier un itinéraire.
-    de = Fügen Sie einen Startpunkt hinzu, um eine Route zu planen.
-    hu = Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.
-    id = Tambahkan titik awal untuk merencanakan rute.
-    it = Aggiungi un punto di partenza per pianificare un percorso.
-    ja = ルートを計画するには出発地点を追加してください。
-    ko = 경로 계획을 세우기 위한 시작 지점을 추가하세요.
-    nb = Angi startpunkt for å planlegge rute.
-    pl = Aby zaplanować trasę, dodaj punkt początkowy.
-    pt = Adicionar ponto de partida para planear uma rota.
-    ro = Adăugați punctul de plecare pentru a planifica un traseu.
-    es = Agregar un punto de inicio para planificar una ruta.
-    sv = Lägg till startpunkt för att planera en rutt.
-    th = เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง
-    tr = Güzergâhı planlamak için bir başlangıç noktası ekleyin.
-    uk = Вкажіть початкову точку для побудови маршруту.
-    vi = Bổ sung điểm bắt đầu để lập kế hoạch lộ trình.
-    zh-Hans = 添加起点以规划路线。
-    zh-Hant = 新增起點以計劃路線。
-    el = Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή.
-    sk = Pridaním počiatočného bodu začnite plánovať trasu.
-    sw = Ongeza eneo la kuanzia ili kupanga njia ya kufuata.
-
   [button_use]
     en = Use
     ru = Использовать
