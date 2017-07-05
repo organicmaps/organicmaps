@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">การตั้งค่า</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">พื้นที่จัดเก็บแผนที่</string>
+	<string name="maps_storage">บันทึกแผนที่ไปยัง</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -337,7 +337,7 @@
 	<string name="duration_6_hours">6 ชั่วโมง</string>
 	<string name="duration_12_hours">12 ชั่วโมง</string>
 	<string name="duration_1_day">1 วัน</string>
-	<string name="recent_track_help_text">โปรดทราบ: การเปิดใช้งานฟังก์ชันนี้จะส่งผลให้มีการใช้งานแบตเตอรี่เพิ่มขึ้น</string>
+	<string name="recent_track_help_text">ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด</string>
 	<string name="pref_track_ios_caption">เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ</string>
 	<string name="pref_track_ios_subcaption">โปรดเลือกช่วงเวลาในการบันทึกการติดตาม</string>
 	<string name="placepage_distance">ระยะห่าง</string>
@@ -790,6 +790,9 @@
 	<string name="onboarding_notifications_title">เปิดการแจ้งเตือนการอัปเดต</string>
 	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
 	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
+	<string name="onboarding_permissions_title">อนุญาตให้ MAPS.ME เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง</string>
+	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
+	<string name="onboarding_welcome_title">ยินดีต้อนรับสู่ MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
@@ -942,7 +945,7 @@
 	<!-- Text in menu -->
 	<string name="blog">บล็อก</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">การรวบรวมสถิติการใช้งานจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น</string>
+	<string name="allow_statistics_hint">การเก็บรวบรวมสถิติการใช้งานแบบไม่ระบุตัวตนจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น</string>
 	<string name="general_settings">การตั้งค่าทั่วไป</string>
 	<string name="date">วันที่ %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1065,6 +1068,8 @@
 	<string name="whatsnew_smaller_mwm_message">แผนที่ใช้พื้นที่เก็บน้อยลง 20%</string>
 	<string name="whatsnew_waypoints_title">จุดกำหนดในเส้นทาง</string>
 	<string name="whatsnew_waypoints_message">แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ</string>
+	<string name="whatsnew_viator_title">จองทัวร์</string>
+	<string name="whatsnew_viator_message">เลือกทัวร์ยอดนิยมในเมืองท่องเที่ยวทั่วโลก</string>
 	<string name="whatsnew_driving_style_title">แผนที่รูปแบบใหม่สำหรับการขับขี่</string>
 	<string name="whatsnew_driving_style_message">โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น</string>
 	<string name="more_on_bookingcom">เพิ่มเติมบน Booking.com</string>
@@ -1097,4 +1102,42 @@
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="whatsnew_transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="whatsnew_transliteration_message">หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน</string>
+	<string name="learn_more">ศึกษาเพิ่มเติม</string>
+	<string name="exit">ออก</string>
+	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
+	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
+	<string name="onboarding_welcome_message">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว</string>
+	<string name="button_accept_and_continue">ตกลงและดำเนินการต่อไป</string>
+	<string name="button_learn_more">ศึกษาเพิ่มเติม</string>
+	<string name="onboarding_not_storage_permission_title">ให้สิทธิ์เข้าถึง</string>
+	<string name="onboarding_not_storage_permission_message">เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME</string>
+	<string name="button_exit">ออก</string>
+	<string name="onboarding_learn_more_title">MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">ที่เก็บข้อมูล</string>
+	<string name="onboarding_learn_more_storage_message">เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">ตำแหน่งที่ตั้ง</string>
+	<string name="onboarding_learn_more_location_message">เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง</string>
+	<string name="onboarding_learn_more_save_maps_message">คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า</string>
+	<string name="settings_device_memory">หน่วยความจำเครื่อง</string>
+	<string name="settings_card_memory">หน่วยความจำการ์ด</string>
+	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>
+	<string name="toast_location_permission_denied">สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ</string>
+	<string name="place_page_viator_title">สถานที่ท่องเที่ยวและทัวร์</string>
+	<string name="planning_route_need_finish">เพิ่มจุดหมายปลายทางเพื่อวางแผนเส้นทาง</string>
+	<string name="planning_route_need_start">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
+	<string name="button_use">ใช้</string>
+	<string name="planning_route_manage_route">จัดการเส้นทาง</string>
+	<string name="button_plan">วางแผน</string>
+	<string name="button_add">เพิ่ม</string>
+	<string name="placepage_remove_stop">เอาออก</string>
+	<string name="planning_route_remove_title">ลากมาที่นี่เพื่อเอาออก</string>
+	<string name="dialog_change_start_point_message">แทนที่จุดเริ่มต้นไปยังตำแหน่งปัจจุบันหรือไม่?</string>
+	<string name="button_replace">แทนที่</string>
+	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+	<string name="whatsnew_intermediate_point_title">จุดแวะพักเพิ่มเติม</string>
+	<string name="whatsnew_intermediate_point_message">วางแผนเส้นทางด้วยจุดแวะพักระหว่างทาง</string>
 </resources>

@@ -266,7 +266,7 @@
 "settings" = "Beállítások";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Térképek tárolása";
+"maps_storage" = "Térképek mentése ide:";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Válassza ki, hogy hova töltsük le a térképeket";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 nap";
 
-"recent_track_help_text" = "Fontos: a funkció bekapcsolásával megnövekedhet az akkumulátorhasználat.";
+"recent_track_help_text" = "Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.";
 
 "pref_track_ios_caption" = "A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Üdvözöljük a MAPS.ME alkalmazásban";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "A használati statisztika gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
+"allow_statistics_hint" = "A névtelen használati statisztikák gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
 
 "general_settings" = "Általános beállítások";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Foglaljon helyet egy utazásra";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Válasszon népszerű városnéző utakat a világ minden táján.";
 
 "whatsnew_driving_style_title" = "Új térképstílus vezetéshez";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Tudjon meg többet";
 
-"exit" = "Exit";
+"exit" = "Kilépés";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.";
+
+"button_accept_and_continue" = "Fogadja el, és folytassa";
+
+"button_learn_more" = "Tudjon meg többet";
+
+"onboarding_not_storage_permission_title" = "Hozzáférés biztosítása";
+
+"onboarding_not_storage_permission_message" = "Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.";
+
+"button_exit" = "Kilépés";
+
+"onboarding_learn_more_title" = "A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz: ";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Tárolás";
+
+"onboarding_learn_more_storage_message" = "A letöltött térképek offline használatához és könyvjelzők mentéséhez.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Helymeghatározás";
+
+"onboarding_learn_more_location_message" = "Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.";
+
+"onboarding_learn_more_save_maps_message" = "Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.";
+
+"settings_device_memory" = "Készülék memóriája";
+
+"settings_card_memory" = "Memóriakártya";
+
+"settings_storage_available" = "%s rendelkezésre áll";
+
+"toast_location_permission_denied" = "Alkalmazás helymeghatározási engedélye megtagadva";
+
+"place_page_viator_title" = "Látványosságok és kirándulások";
+
+"planning_route_need_finish" = "Adjon hozzá célpontot az útvonal megzetvezéséhez.";
+
+"planning_route_need_start" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.";
+
+"button_use" = "Használat";
+
+"planning_route_manage_route" = "Útvonal kezelése";
+
+"button_plan" = "Terv";
+
+"button_add" = "Hozzáad";
+
+"placepage_remove_stop" = "Eltávolítja";
+
+"planning_route_remove_title" = "Húzza ide az eltávolításhoz";
+
+"dialog_change_start_point_message" = "Kicseréli a kiindulási pontot az aktuális pozícióval?";
+
+"button_replace" = "Csere";
+
+"placepage_add_stop" = "Hozzáad megállót";
+
+"whatsnew_intermediate_point_title" = "További megálló";
+
+"whatsnew_intermediate_point_message" = "Útvonaltervezés egy közbenső ponttal.";

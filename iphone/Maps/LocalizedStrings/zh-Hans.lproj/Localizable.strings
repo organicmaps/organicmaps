@@ -266,7 +266,7 @@
 "settings" = "设置";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "地图存储";
+"maps_storage" = "将地图保存到";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "选取地图应该下载的位置";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1天";
 
-"recent_track_help_text" = "请注意：激活此功能会导致用电量增加。";
+"recent_track_help_text" = "它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。";
 
 "pref_track_ios_caption" = "近期轨迹显示您的行进道路。";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "为了使用导航和其他功能，我们需要访问您的地理位置信息.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "允许 MAPS.ME 访问存储空间和地点";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "欢迎使用 MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "博客";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "收集使用统计数据有助于我们改进应用。";
+"allow_statistics_hint" = "收集匿名使用统计数据有助于我们改进应用。";
 
 "general_settings" = "常规设置";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "点按地点即可向您的路线添加路径点。";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "预订游览";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "选择全世界旅游城市的热门游览。";
 
 "whatsnew_driving_style_title" = "新的驾驶地图样式";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "了解更多";
 
-"exit" = "Exit";
+"exit" = "退出";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "添加起点以规划路线。";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "添加终点以规划路线。";
 
-"use" = "Use";
+"onboarding_welcome_message" = "免费、快速、详细且完全离线的地图，并且带有精细导航功能。";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "启动应用程序即表明同意“使用条款”和“隐私政策”。";
+
+"button_accept_and_continue" = "接受并继续";
+
+"button_learn_more" = "了解更多";
+
+"onboarding_not_storage_permission_title" = "授予访问权限";
+
+"onboarding_not_storage_permission_message" = "更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。";
+
+"button_exit" = "退出";
+
+"onboarding_learn_more_title" = "MAPS.ME 需要以下访问权限";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "存储空间";
+
+"onboarding_learn_more_storage_message" = "保存并离线使用已下载的地图，保存书签。";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "地点";
+
+"onboarding_learn_more_location_message" = "查看您附近的地点和交通状况并使用导航。";
+
+"onboarding_learn_more_save_maps_message" = "您还可以在设置中更改已下载地图的目标存储位置。";
+
+"settings_device_memory" = "设备内存";
+
+"settings_card_memory" = "存储卡";
+
+"settings_storage_available" = "%s 可用";
+
+"toast_location_permission_denied" = "应用已拒绝地点获取权限";
+
+"place_page_viator_title" = "景点和游览";
+
+"planning_route_need_finish" = "添加终点以规划路线。";
+
+"planning_route_need_start" = "添加起点以规划路线。";
+
+"button_use" = "使用";
+
+"planning_route_manage_route" = "管理路线";
+
+"button_plan" = "规划";
+
+"button_add" = "添加";
+
+"placepage_remove_stop" = "移除";
+
+"planning_route_remove_title" = "拖动到此处以移除";
+
+"dialog_change_start_point_message" = "将起点替换为当前地点？";
+
+"button_replace" = "替换";
+
+"placepage_add_stop" = "添加经停点";
+
+"whatsnew_intermediate_point_title" = "其他经停点";
+
+"whatsnew_intermediate_point_message" = "规划带中间点的路线。";

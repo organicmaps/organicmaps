@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Stocare hărți</string>
+	<string name="maps_storage">Salvare hărți în</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selectați locul în care doriți să fie descărcate hărțile.</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 ore</string>
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 zi</string>
-	<string name="recent_track_help_text">Vă rugăm să rețineți: activarea acestei funcții determină un consum accelerat al bateriei.</string>
+	<string name="recent_track_help_text">Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.</string>
 	<string name="pref_track_ios_caption">Opțiunea Rută recentă vă afișează ruta folosită anterior.</string>
 	<string name="pref_track_ios_subcaption">Vă rugăm să selectați intervalul orar corespunzător salvării rutei.</string>
 	<string name="placepage_distance">Distanță</string>
@@ -781,6 +781,9 @@
 	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
 	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
+	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
+	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
+	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -932,7 +935,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.</string>
+	<string name="allow_statistics_hint">Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.</string>
 	<string name="general_settings">Setări generale</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1055,6 +1058,8 @@
 	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
 	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
 	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
+	<string name="whatsnew_viator_title">Rezervați un tur</string>
+	<string name="whatsnew_viator_message">Selectați dintre tururile populare din orașe turistice din întreaga lume.</string>
 	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
 	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
@@ -1087,4 +1092,42 @@
 	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
 	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
+	<string name="learn_more">Mai multe</string>
+	<string name="exit">Ieșire</string>
+	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu.</string>
+	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu.</string>
+	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.</string>
+	<string name="button_accept_and_continue">Acceptare și continuare</string>
+	<string name="button_learn_more">Aflați mai multe</string>
+	<string name="onboarding_not_storage_permission_title">Acordați acces</string>
+	<string name="onboarding_not_storage_permission_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.</string>
+	<string name="button_exit">Ieșire</string>
+	<string name="onboarding_learn_more_title">MAPS.ME necesită acces la</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Stocare</string>
+	<string name="onboarding_learn_more_storage_message">Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Locație</string>
+	<string name="onboarding_learn_more_location_message">Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.</string>
+	<string name="onboarding_learn_more_save_maps_message">Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.</string>
+	<string name="settings_device_memory">Memoria dispozitivului</string>
+	<string name="settings_card_memory">Card</string>
+	<string name="settings_storage_available">%s disponibil</string>
+	<string name="toast_location_permission_denied">Permisiune de accesare a locației respinsă</string>
+	<string name="place_page_viator_title">Atracții și tururi</string>
+	<string name="planning_route_need_finish">Adăugați o destinație pentru a planifica un traseu.</string>
+	<string name="planning_route_need_start">Adăugați punctul de plecare pentru a planifica un traseu.</string>
+	<string name="button_use">Utilizare</string>
+	<string name="planning_route_manage_route">Administrare traseu</string>
+	<string name="button_plan">Planificare</string>
+	<string name="button_add">Adăugare</string>
+	<string name="placepage_remove_stop">Eliminare</string>
+	<string name="planning_route_remove_title">Trageți aici pentru a elimina</string>
+	<string name="dialog_change_start_point_message">Înlocuiți punctul de plecare cu locația curentă?</string>
+	<string name="button_replace">Înlocuire</string>
+	<string name="placepage_add_stop">Adăugare oprire</string>
+	<string name="whatsnew_intermediate_point_title">Oprire suplimentară</string>
+	<string name="whatsnew_intermediate_point_message">Planificați o rută cu un punct intermediar.</string>
 </resources>

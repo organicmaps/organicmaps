@@ -266,7 +266,7 @@
 "settings" = "Pengaturan";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Penyimpanan Peta";
+"maps_storage" = "Simpan peta di";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Pilih tempat untuk menyimpan unduhan peta";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 hari";
 
-"recent_track_help_text" = "Harap perhatikan: mengaktifkan fungsi ini menyebabkan pemakaian baterai meningkat.";
+"recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
 
 "pref_track_ios_caption" = "Jalur terakhir menunjukkan jalur yang sudah Anda lalui.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Izinkan MAPS.ME mengakses penyimpanan dan lokasi";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Selamat datang di MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Pengumpulan statistik penggunaan akan membantu kami meningkatkan aplikasi.";
+"allow_statistics_hint" = "Mengumpulkan statistik penggunaan anonim membantu kami meningkatkan aplikasi ini.";
 
 "general_settings" = "Setelan umum";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Pesan tur";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Pilih wisata populer di kota-kota wisata seluruh dunia.";
 
 "whatsnew_driving_style_title" = "Model Peta Baru untuk Berkendara";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Pelajari selengkapnya";
 
-"exit" = "Exit";
+"exit" = "Keluar";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Dengan meluncurkan aplikasi ini, Anda menyetujui Syarat-Syarat Penggunaan dan Kebijakan Privasi.";
+
+"button_accept_and_continue" = "Terima dan lanjutkan";
+
+"button_learn_more" = "Pelajari selengkapnya";
+
+"onboarding_not_storage_permission_title" = "Berikan akses";
+
+"onboarding_not_storage_permission_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.";
+
+"button_exit" = "Keluar";
+
+"onboarding_learn_more_title" = "MAPS.ME membutuhkan akses ke";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Penyimpanan";
+
+"onboarding_learn_more_storage_message" = "Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Lokasi";
+
+"onboarding_learn_more_location_message" = "Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.";
+
+"onboarding_learn_more_save_maps_message" = "Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.";
+
+"settings_device_memory" = "Memori perangkat";
+
+"settings_card_memory" = "Memori kartu";
+
+"settings_storage_available" = "%s tersedia";
+
+"toast_location_permission_denied" = "Izin lokasi aplikasi ditolak";
+
+"place_page_viator_title" = "Objek wisata dan tur";
+
+"planning_route_need_finish" = "Tambahkan destinasi untuk merencanakan rute.";
+
+"planning_route_need_start" = "Tambahkan titik awal untuk merencanakan rute.";
+
+"button_use" = "Gunakan";
+
+"planning_route_manage_route" = "Kelola rute";
+
+"button_plan" = "Rencana";
+
+"button_add" = "Tambah";
+
+"placepage_remove_stop" = "Hapus";
+
+"planning_route_remove_title" = "Seret ke sini untuk menghapus";
+
+"dialog_change_start_point_message" = "Ganti titik awal ke lokasi saat ini?";
+
+"button_replace" = "Ganti";
+
+"placepage_add_stop" = "Tambah perhentian";
+
+"whatsnew_intermediate_point_title" = "Perhentian tambahan";
+
+"whatsnew_intermediate_point_message" = "Rencanakan rute dengan titik antara.";

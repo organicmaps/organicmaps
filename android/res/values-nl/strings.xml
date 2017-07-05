@@ -161,7 +161,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Kaarten bewaren</string>
+	<string name="maps_storage">Kaarten opslaan in</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecteer de map waar u de kaarten wilt opslaan</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 uur</string>
 	<string name="duration_12_hours">12 uur</string>
 	<string name="duration_1_day">1 dag</string>
-	<string name="recent_track_help_text">Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.</string>
+	<string name="recent_track_help_text">Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.</string>
 	<string name="pref_track_ios_caption">Recente route geeft uw gebruikte route weer.</string>
 	<string name="pref_track_ios_subcaption">Selecteer de tijdperiode voor het opslaan van route.</string>
 	<string name="placepage_distance">Afstand</string>
@@ -784,6 +784,9 @@
 	<string name="onboarding_notifications_title">Schakel update-meldingen in</string>
 	<string name="onboarding_location_title">Help ons om je te vinden</string>
 	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
+	<string name="onboarding_permissions_title">MAPS.ME toegang geven tot opslag en locatie</string>
+	<string name="onboarding_permissions_message">Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.</string>
+	<string name="onboarding_welcome_title">Welkom bij MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
@@ -936,7 +939,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Verzamelen van gebruiksstatistieken helpt ons de app te verbeteren.</string>
+	<string name="allow_statistics_hint">Het verzamelen van anonieme gebruiksstatistieken helpt ons de app verbeteren.</string>
 	<string name="general_settings">Algemene instellingen</string>
 	<string name="date">Datum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1059,6 +1062,8 @@
 	<string name="whatsnew_smaller_mwm_message">Kaarten vereisen tot 20% minder opslagruimte.</string>
 	<string name="whatsnew_waypoints_title">Tussenstops in Route</string>
 	<string name="whatsnew_waypoints_message">Tap op plaatsen om tussenstops toe te voegen aan uw route.</string>
+	<string name="whatsnew_viator_title">Boek een tour</string>
+	<string name="whatsnew_viator_message">Kies populaire tours in toeristische steden over de hele wereld.</string>
 	<string name="whatsnew_driving_style_title">Nieuwe Kaartstijl voor het Rijden</string>
 	<string name="whatsnew_driving_style_message">Modus autonavigatie is eenvoudiger te gebruiken.</string>
 	<string name="more_on_bookingcom">Meer op Booking.com</string>
@@ -1091,4 +1096,42 @@
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="whatsnew_transliteration_title">Transliteratie in het Latijn</string>
 	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>
+	<string name="learn_more">Meer informatie</string>
+	<string name="exit">Verlaten</string>
+	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen.</string>
+	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen.</string>
+	<string name="onboarding_welcome_message">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.</string>
+	<string name="button_accept_and_continue">Aanvaarden en doorgaan</string>
+	<string name="button_learn_more">Meer informatie</string>
+	<string name="onboarding_not_storage_permission_title">Toegang verlenen</string>
+	<string name="onboarding_not_storage_permission_message">Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.</string>
+	<string name="button_exit">Verlaten</string>
+	<string name="onboarding_learn_more_title">MAPS.ME heeft toegang nodig tot</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Opslag</string>
+	<string name="onboarding_learn_more_storage_message">Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Locatie</string>
+	<string name="onboarding_learn_more_location_message">Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.</string>
+	<string name="onboarding_learn_more_save_maps_message">U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.</string>
+	<string name="settings_device_memory">Apparaatgeheugen</string>
+	<string name="settings_card_memory">Kaartgeheugen</string>
+	<string name="settings_storage_available">%s beschikbaar</string>
+	<string name="toast_location_permission_denied">App toelating locatie geweigerd</string>
+	<string name="place_page_viator_title">Attracties en tours</string>
+	<string name="planning_route_need_finish">Voeg een bestemming toe om een route te plannen.</string>
+	<string name="planning_route_need_start">Voeg beginpunt toe om een route te plannen.</string>
+	<string name="button_use">Gebruiken</string>
+	<string name="planning_route_manage_route">Route beheren</string>
+	<string name="button_plan">Plannen</string>
+	<string name="button_add">Toevoegen</string>
+	<string name="placepage_remove_stop">Verwijderen</string>
+	<string name="planning_route_remove_title">Sleep hier om te verwijderen</string>
+	<string name="dialog_change_start_point_message">Het beginpunt vervangen met de huidige locatie?</string>
+	<string name="button_replace">Vervangen</string>
+	<string name="placepage_add_stop">Tussenstop toevoegen</string>
+	<string name="whatsnew_intermediate_point_title">Extra stop</string>
+	<string name="whatsnew_intermediate_point_message">Plan een route met een tussenstop.</string>
 </resources>

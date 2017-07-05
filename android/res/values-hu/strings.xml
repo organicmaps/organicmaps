@@ -162,7 +162,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Térképek tárolása</string>
+	<string name="maps_storage">Térképek mentése ide:</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Válassza ki, hogy hova töltsük le a térképeket</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -332,7 +332,7 @@
 	<string name="duration_6_hours">6 óra</string>
 	<string name="duration_12_hours">12 óra</string>
 	<string name="duration_1_day">1 nap</string>
-	<string name="recent_track_help_text">Fontos: a funkció bekapcsolásával megnövekedhet az akkumulátorhasználat.</string>
+	<string name="recent_track_help_text">Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.</string>
 	<string name="pref_track_ios_caption">A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.</string>
 	<string name="pref_track_ios_subcaption">Válaszd ki az útvonalak elmentésének időtartamát!</string>
 	<string name="placepage_distance">Távolság</string>
@@ -785,6 +785,9 @@
 	<string name="onboarding_notifications_title">Értesítések engedélyezése</string>
 	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
+	<string name="onboarding_permissions_title">Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
+	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
+	<string name="onboarding_welcome_title">Üdvözöljük a MAPS.ME alkalmazásban</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
@@ -936,7 +939,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">A használati statisztika gyűjtésével segít nekünk az alkalmazás tökéletesítésében.</string>
+	<string name="allow_statistics_hint">A névtelen használati statisztikák gyűjtésével segít nekünk az alkalmazás tökéletesítésében.</string>
 	<string name="general_settings">Általános beállítások</string>
 	<string name="date">Dátum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1059,6 +1062,8 @@
 	<string name="whatsnew_smaller_mwm_message">A térképek 20 %-kal kevesebb tárolóterületet igényelnek.</string>
 	<string name="whatsnew_waypoints_title">Iránypontok az útvonaltervezésben</string>
 	<string name="whatsnew_waypoints_message">Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.</string>
+	<string name="whatsnew_viator_title">Foglaljon helyet egy utazásra</string>
+	<string name="whatsnew_viator_message">Válasszon népszerű városnéző utakat a világ minden táján.</string>
 	<string name="whatsnew_driving_style_title">Új térképstílus vezetéshez</string>
 	<string name="whatsnew_driving_style_message">Az autós navigáció üzemmód használata egyszerűbb lett.</string>
 	<string name="more_on_bookingcom">Továbbiak a Booking.com-on</string>
@@ -1091,4 +1096,42 @@
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
 	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
+	<string name="learn_more">Tudjon meg többet</string>
+	<string name="exit">Kilépés</string>
+	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.</string>
+	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez.</string>
+	<string name="onboarding_welcome_message">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.</string>
+	<string name="button_accept_and_continue">Fogadja el, és folytassa</string>
+	<string name="button_learn_more">Tudjon meg többet</string>
+	<string name="onboarding_not_storage_permission_title">Hozzáférés biztosítása</string>
+	<string name="onboarding_not_storage_permission_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.</string>
+	<string name="button_exit">Kilépés</string>
+	<string name="onboarding_learn_more_title">A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Tárolás</string>
+	<string name="onboarding_learn_more_storage_message">A letöltött térképek offline használatához és könyvjelzők mentéséhez.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Helymeghatározás</string>
+	<string name="onboarding_learn_more_location_message">Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.</string>
+	<string name="onboarding_learn_more_save_maps_message">Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.</string>
+	<string name="settings_device_memory">Készülék memóriája</string>
+	<string name="settings_card_memory">Memóriakártya</string>
+	<string name="settings_storage_available">%s rendelkezésre áll</string>
+	<string name="toast_location_permission_denied">Alkalmazás helymeghatározási engedélye megtagadva</string>
+	<string name="place_page_viator_title">Látványosságok és kirándulások</string>
+	<string name="planning_route_need_finish">Adjon hozzá célpontot az útvonal megzetvezéséhez.</string>
+	<string name="planning_route_need_start">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.</string>
+	<string name="button_use">Használat</string>
+	<string name="planning_route_manage_route">Útvonal kezelése</string>
+	<string name="button_plan">Terv</string>
+	<string name="button_add">Hozzáad</string>
+	<string name="placepage_remove_stop">Eltávolítja</string>
+	<string name="planning_route_remove_title">Húzza ide az eltávolításhoz</string>
+	<string name="dialog_change_start_point_message">Kicseréli a kiindulási pontot az aktuális pozícióval?</string>
+	<string name="button_replace">Csere</string>
+	<string name="placepage_add_stop">Hozzáad megállót</string>
+	<string name="whatsnew_intermediate_point_title">További megálló</string>
+	<string name="whatsnew_intermediate_point_message">Útvonaltervezés egy közbenső ponttal.</string>
 </resources>

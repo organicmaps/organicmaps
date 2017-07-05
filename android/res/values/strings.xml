@@ -169,7 +169,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Settings</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Maps storage</string>
+	<string name="maps_storage">Save maps to</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Select the place where maps should be downloaded to</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -345,7 +345,7 @@
 	<string name="duration_6_hours">6 hours</string>
 	<string name="duration_12_hours">12 hours</string>
 	<string name="duration_1_day">1 day</string>
-	<string name="recent_track_help_text">Please note: activation of this function causes increased battery usage.</string>
+	<string name="recent_track_help_text">This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.</string>
 	<string name="pref_track_ios_caption">Recent track shows your traveled path.</string>
 	<string name="pref_track_ios_subcaption">Please select the time range of saving the track.</string>
 	<string name="placepage_distance">Distance</string>
@@ -976,7 +976,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Collecting usage statistics helps us improve the app.</string>
+	<string name="allow_statistics_hint">Collecting anonymous usage statistics helps us improve the app.</string>
 	<string name="general_settings">General settings</string>
 	<string name="date">Date %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1109,8 +1109,8 @@
 	<string name="whatsnew_smaller_mwm_message">Maps require up to 20% less storage.</string>
 	<string name="whatsnew_waypoints_title">Waypoints in Routing</string>
 	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
-	<string name="whatsnew_viator_title">Viator title</string>
-	<string name="whatsnew_viator_message">Viator message</string>
+	<string name="whatsnew_viator_title">Book a tour</string>
+	<string name="whatsnew_viator_message">Choose popular tours in tourist cities all over the world.</string>
 	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
 	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
 	<string name="more_on_bookingcom">More on Booking.com</string>
@@ -1147,8 +1147,40 @@
 	<string name="yandex_taxi_title">Yandex.Taxi</string>
 	<string name="learn_more">Learn more</string>
 	<string name="exit">Exit</string>
-	<string name="routing_add_start_point">Add start point to plan a route.</string>
-	<string name="routing_add_finish_point">Add finish to plan a route.</string>
-	<string name="use">Use</string>
-	<string name="viator_title">Attractions and tours</string>
+	<string name="routing_add_start_point">Add a starting point to plan a route.</string>
+	<string name="routing_add_finish_point">Add a destination to plan a route.</string>
+	<string name="onboarding_welcome_message">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">By launching the application, you agree to Terms of Use and Privacy Policy.</string>
+	<string name="button_accept_and_continue">Accept and continue</string>
+	<string name="button_learn_more">Learn more</string>
+	<string name="onboarding_not_storage_permission_title">Grant Access</string>
+	<string name="onboarding_not_storage_permission_message">Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.</string>
+	<string name="button_exit">Exit</string>
+	<string name="onboarding_learn_more_title">MAPS.ME needs access to</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Storage</string>
+	<string name="onboarding_learn_more_storage_message">To save and use downloaded maps offline and store bookmarks.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Location</string>
+	<string name="onboarding_learn_more_location_message">To see places and traffic near you and use navigation.</string>
+	<string name="onboarding_learn_more_save_maps_message">You can also change the location for downloaded maps in settings.</string>
+	<string name="settings_device_memory">Device memory</string>
+	<string name="settings_card_memory">Card memory</string>
+	<string name="settings_storage_available">%s available</string>
+	<string name="toast_location_permission_denied">App location permission denied</string>
+	<string name="place_page_viator_title">Attractions and Tours</string>
+	<string name="planning_route_need_finish">Add a destination to plan a route.</string>
+	<string name="planning_route_need_start">Add start point to plan a route.</string>
+	<string name="button_use">Use</string>
+	<string name="planning_route_manage_route">Manage Route</string>
+	<string name="button_plan">Plan</string>
+	<string name="button_add">Add</string>
+	<string name="placepage_remove_stop">Remove</string>
+	<string name="planning_route_remove_title">Drag here to remove</string>
+	<string name="dialog_change_start_point_message">Set the current location as the starting point?</string>
+	<string name="button_replace">Replace</string>
+	<string name="placepage_add_stop">Add Stop</string>
+	<string name="whatsnew_intermediate_point_title">Additional stop</string>
+	<string name="whatsnew_intermediate_point_message">Plan a route with an intermediate point.</string>
 </resources>

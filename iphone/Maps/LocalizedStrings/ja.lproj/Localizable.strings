@@ -266,7 +266,7 @@
 "settings" = "設定";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "マップ保存先";
+"maps_storage" = "地図の保存先";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "マップのダウンロード先を選択してください";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1日";
 
-"recent_track_help_text" = "ご注意：この機能を有効にすると電池の使用量が増加します。";
+"recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
 "pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME によるストレージと位置情報へのアクセスを許可する";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "MAPS.ME へようこそ";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "ブログ";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "収集した使用統計データは当社がアプリを改善するために役立ちます。";
+"allow_statistics_hint" = "収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。";
 
 "general_settings" = "一般設定";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "ツアーの予約";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "世界中の観光都市で人気のツアーを選択してください。";
 
 "whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "詳細情報";
 
-"exit" = "Exit";
+"exit" = "終了";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "ルートを計画するには出発地点を追加してください。";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "ルートを計画するには到着地点を追加してください。";
 
-"use" = "Use";
+"onboarding_welcome_message" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。";
+
+"button_accept_and_continue" = "同意して続ける";
+
+"button_learn_more" = "詳細情報";
+
+"onboarding_not_storage_permission_title" = "アクセス権の付与";
+
+"onboarding_not_storage_permission_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
+
+"button_exit" = "終了";
+
+"onboarding_learn_more_title" = "MAPS.ME がアクセス許可を必要とする項目";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "ストレージ";
+
+"onboarding_learn_more_storage_message" = "ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "位置情報";
+
+"onboarding_learn_more_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
+
+"onboarding_learn_more_save_maps_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
+
+"settings_device_memory" = "デバイスのメモリ";
+
+"settings_card_memory" = "カードのメモリ";
+
+"settings_storage_available" = "%s 使用可能";
+
+"toast_location_permission_denied" = "アプリの位置情報へのアクセスが拒否されました";
+
+"place_page_viator_title" = "観光地およびツアー";
+
+"planning_route_need_finish" = "ルートを計画するには目的地を追加してください。";
+
+"planning_route_need_start" = "ルートを計画するには出発地点を追加してください。";
+
+"button_use" = "使う";
+
+"planning_route_manage_route" = "ルートを管理";
+
+"button_plan" = "計画する";
+
+"button_add" = "追加";
+
+"placepage_remove_stop" = "削除";
+
+"planning_route_remove_title" = "ここにドラッグして削除";
+
+"dialog_change_start_point_message" = "出発地点を現在の場所に変更しますか？";
+
+"button_replace" = "変更する";
+
+"placepage_add_stop" = "停止地点を追加";
+
+"whatsnew_intermediate_point_title" = "その他の停止地点";
+
+"whatsnew_intermediate_point_message" = "中間地点のあるルートを計画します。";

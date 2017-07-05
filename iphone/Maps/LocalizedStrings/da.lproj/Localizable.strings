@@ -266,7 +266,7 @@
 "settings" = "Indstillinger";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Kort lager";
+"maps_storage" = "Gem kort på";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Vælg destination hvor dine kort skal downloades til";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 dag";
 
-"recent_track_help_text" = "Bemærk: aktivering af denne funktion medfører øget batteriforbrug.";
+"recent_track_help_text" = "Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.";
 
 "pref_track_ios_caption" = "Seneste spor viser din rejste vej.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Giv MAPS.ME adgang til lager og position";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Velkommen til MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Indsamling af anvendelsesstatistik hjælper os med at forbedre appen.";
+"allow_statistics_hint" = "Indsamling af anonym anvendelsesstatistik hjælper os med at forbedre appen.";
 
 "general_settings" = "Generelle indstillinger";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Tryk på positioner for at føje vejsteder til din rute.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Bestil en tur";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Vælg populære ture i turistbyer over hele verden.";
 
 "whatsnew_driving_style_title" = "Nyt kortformat til kørsel";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Flere oplysninger";
 
-"exit" = "Exit";
+"exit" = "Afslut";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Tilføj startpunkt for at planlægge en rute.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Tilføj slutpunkt for at planlægge en rute.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.";
+
+"button_accept_and_continue" = "Accepter og fortsæt";
+
+"button_learn_more" = "Flere oplysninger";
+
+"onboarding_not_storage_permission_title" = "Giv adgang";
+
+"onboarding_not_storage_permission_message" = "Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.";
+
+"button_exit" = "Afslut";
+
+"onboarding_learn_more_title" = "MAPS.ME skal have adgang til";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Lager";
+
+"onboarding_learn_more_storage_message" = "For at gemme og bruge hentede kort offline og gemme bogmærker.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Position";
+
+"onboarding_learn_more_location_message" = "For at se steder og trafik i nærheden af dig og benytte navigation.";
+
+"onboarding_learn_more_save_maps_message" = "Du kan også ændre placeringen af hentede kort i indstillingerne.";
+
+"settings_device_memory" = "Enhedens hukommelse";
+
+"settings_card_memory" = "Kortets hukommelse";
+
+"settings_storage_available" = "%s tilgængelig";
+
+"toast_location_permission_denied" = "App-position tilladelse nægtet";
+
+"place_page_viator_title" = "Seværdigheder og ture";
+
+"planning_route_need_finish" = "Tilføje en destination for at planlægge en rute.";
+
+"planning_route_need_start" = "Tilføj startpunkt for at planlægge en rute.";
+
+"button_use" = "Brug";
+
+"planning_route_manage_route" = "Administrer rute";
+
+"button_plan" = "Planlæg";
+
+"button_add" = "Tilføj";
+
+"placepage_remove_stop" = "Fjern";
+
+"planning_route_remove_title" = "Træk herhen for at fjerne";
+
+"dialog_change_start_point_message" = "Flyt startpunktet til den aktuelle placering?";
+
+"button_replace" = "Flyt";
+
+"placepage_add_stop" = "Tilføj stop";
+
+"whatsnew_intermediate_point_title" = "Ekstra stop";
+
+"whatsnew_intermediate_point_message" = "Planlæg en rute med et mellemliggende punkt.";

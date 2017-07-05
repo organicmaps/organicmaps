@@ -266,7 +266,7 @@
 "settings" = "Налаштування";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Пам'ять для карт";
+"maps_storage" = "Зберігати карти до";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Виберіть місце, куди повинні бути завантажені карти";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 день";
 
-"recent_track_help_text" = "Примітка: активація цієї функції спричиняє підвищене використання заряду акумулятора.";
+"recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.";
 
 "pref_track_ios_caption" = "Останній маршрут показує пройдену відстань.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Дозволити MAPS.ME доступ до сховища та функції визначення геолокації";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Вітаємо у MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Блог";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Збір статистичної інформації про використання допомагає нам вдосконалювати наш додаток.";
+"allow_statistics_hint" = "Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.";
 
 "general_settings" = "Загальні налаштування";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Додавання точок до маршруту одним дотиком.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Забронювати екскурсію";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "На ваш вибір — популярні екскурсії в різних куточках світу.";
 
 "whatsnew_driving_style_title" = "Новий дизайн карт для водіїв";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Докладніше";
 
-"exit" = "Exit";
+"exit" = "Вихід";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Вкажіть кінцеву точку для побудови маршруту.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.";
+
+"button_accept_and_continue" = "Прийняти та продовжити";
+
+"button_learn_more" = "Докладніше";
+
+"onboarding_not_storage_permission_title" = "Надати доступ";
+
+"onboarding_not_storage_permission_message" = "Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.";
+
+"button_exit" = "Вихід";
+
+"onboarding_learn_more_title" = "MAPS.ME необхідно надати доступ до";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Сховище";
+
+"onboarding_learn_more_storage_message" = "Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Функція визначення геолокації";
+
+"onboarding_learn_more_location_message" = "Для перегляду місцевості та трафіку, а також використання навігації.";
+
+"onboarding_learn_more_save_maps_message" = "Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.";
+
+"settings_device_memory" = "Вбудована пам'ять";
+
+"settings_card_memory" = "Карта пам'яті";
+
+"settings_storage_available" = "Доступно: %s";
+
+"toast_location_permission_denied" = "Відмовлено у доступі до функції визначення геолокації";
+
+"place_page_viator_title" = "Визначні пам'ятки та екскурсії";
+
+"planning_route_need_finish" = "Вкажіть місце призначення для побудови маршруту.";
+
+"planning_route_need_start" = "Вкажіть початкову точку для побудови маршруту.";
+
+"button_use" = "Використовувати";
+
+"planning_route_manage_route" = "Редагування маршруту";
+
+"button_plan" = "Прокласти маршрут";
+
+"button_add" = "Додати";
+
+"placepage_remove_stop" = "Видалити";
+
+"planning_route_remove_title" = "Перетягніть сюди, щоб видалити";
+
+"dialog_change_start_point_message" = "Змінити початкову точку на поточне місцезнаходження?";
+
+"button_replace" = "Змінити";
+
+"placepage_add_stop" = "Додати зупинку";
+
+"whatsnew_intermediate_point_title" = "Додаткова зупинка";
+
+"whatsnew_intermediate_point_message" = "Прокласти маршрут з додатковою зупинкою посередині маршруту.";

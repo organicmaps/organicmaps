@@ -266,7 +266,7 @@
 "settings" = "Instellingen";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Kaarten bewaren";
+"maps_storage" = "Kaarten opslaan in";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Selecteer de map waar u de kaarten wilt opslaan";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 dag";
 
-"recent_track_help_text" = "Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.";
+"recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
 
 "pref_track_ios_caption" = "Recente route geeft uw gebruikte route weer.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME toegang geven tot opslag en locatie";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Welkom bij MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Verzamelen van gebruiksstatistieken helpt ons de app te verbeteren.";
+"allow_statistics_hint" = "Het verzamelen van anonieme gebruiksstatistieken helpt ons de app verbeteren.";
 
 "general_settings" = "Algemene instellingen";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Tap op plaatsen om tussenstops toe te voegen aan uw route.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Boek een tour";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Kies populaire tours in toeristische steden over de hele wereld.";
 
 "whatsnew_driving_style_title" = "Nieuwe Kaartstijl voor het Rijden";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Meer informatie";
 
-"exit" = "Exit";
+"exit" = "Verlaten";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Voeg beginpunt toe om een route te plannen.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.";
+
+"button_accept_and_continue" = "Aanvaarden en doorgaan";
+
+"button_learn_more" = "Meer informatie";
+
+"onboarding_not_storage_permission_title" = "Toegang verlenen";
+
+"onboarding_not_storage_permission_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.";
+
+"button_exit" = "Verlaten";
+
+"onboarding_learn_more_title" = "MAPS.ME heeft toegang nodig tot";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Opslag";
+
+"onboarding_learn_more_storage_message" = "Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Locatie";
+
+"onboarding_learn_more_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
+
+"onboarding_learn_more_save_maps_message" = "U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.";
+
+"settings_device_memory" = "Apparaatgeheugen";
+
+"settings_card_memory" = "Kaartgeheugen";
+
+"settings_storage_available" = "%s beschikbaar";
+
+"toast_location_permission_denied" = "App toelating locatie geweigerd";
+
+"place_page_viator_title" = "Attracties en tours";
+
+"planning_route_need_finish" = "Voeg een bestemming toe om een route te plannen.";
+
+"planning_route_need_start" = "Voeg beginpunt toe om een route te plannen.";
+
+"button_use" = "Gebruiken";
+
+"planning_route_manage_route" = "Route beheren";
+
+"button_plan" = "Plannen";
+
+"button_add" = "Toevoegen";
+
+"placepage_remove_stop" = "Verwijderen";
+
+"planning_route_remove_title" = "Sleep hier om te verwijderen";
+
+"dialog_change_start_point_message" = "Het beginpunt vervangen met de huidige locatie?";
+
+"button_replace" = "Vervangen";
+
+"placepage_add_stop" = "Tussenstop toevoegen";
+
+"whatsnew_intermediate_point_title" = "Extra stop";
+
+"whatsnew_intermediate_point_message" = "Plan een route met een tussenstop.";

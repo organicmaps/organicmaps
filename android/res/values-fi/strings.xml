@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Asetukset</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Karttojen tallennus</string>
+	<string name="maps_storage">Tallenna kartat kohteeseen</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Valitse karttojen latauskohde</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 tuntia</string>
 	<string name="duration_12_hours">12 tuntia</string>
 	<string name="duration_1_day">1 päivä</string>
-	<string name="recent_track_help_text">Huomaa: kun aktivoit tämän toiminnon, akun kulutus kasvaa.</string>
+	<string name="recent_track_help_text">Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.</string>
 	<string name="pref_track_ios_caption">Viimeisin reitti näyttää kulkemasi matkan.</string>
 	<string name="pref_track_ios_subcaption">Valitse reitin tallennuksen aikaväli.</string>
 	<string name="placepage_distance">Etäisyys</string>
@@ -784,6 +784,9 @@
 	<string name="onboarding_notifications_title">Ota päivitysilmoitukset käyttöön</string>
 	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
+	<string name="onboarding_permissions_title">Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus</string>
+	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
+	<string name="onboarding_welcome_title">Tervetuloa käyttämään MAPS.ME:tä</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
@@ -936,7 +939,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blogi</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Käyttötilastojen kerääminen auttaa meitä parantamaan sovellusta.</string>
+	<string name="allow_statistics_hint">Anonyymien käyttötilastojen kerääminen auttaa meitä kehittämään sovellusta.</string>
 	<string name="general_settings">Yleiset asetukset</string>
 	<string name="date">Päivämäärä %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1059,6 +1062,8 @@
 	<string name="whatsnew_smaller_mwm_message">Kartat vaativat jopa 20 % vähemmän tilaa.</string>
 	<string name="whatsnew_waypoints_title">Reittipisteet reitillä</string>
 	<string name="whatsnew_waypoints_message">Lisää reittiisi reittipisteitä napauttamalla paikkoja.</string>
+	<string name="whatsnew_viator_title">Varaa kierros</string>
+	<string name="whatsnew_viator_message">Valitse suosittuja kierroksia turistikaupungeissa ympäri maailman.</string>
 	<string name="whatsnew_driving_style_title">Uusi karttatyyli ajettaessa</string>
 	<string name="whatsnew_driving_style_message">Auton navigointitila on helppokäyttöisempi.</string>
 	<string name="more_on_bookingcom">Lisää osoitteessa Booking.com</string>
@@ -1091,4 +1096,42 @@
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="whatsnew_transliteration_title">Translitterointi latinaksi</string>
 	<string name="whatsnew_transliteration_message">Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.</string>
+	<string name="learn_more">Lisätietoja</string>
+	<string name="exit">Poistu</string>
+	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten.</string>
+	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten.</string>
+	<string name="onboarding_welcome_message">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.</string>
+	<string name="button_accept_and_continue">Hyväksy ja jatka</string>
+	<string name="button_learn_more">Lisätietoja</string>
+	<string name="onboarding_not_storage_permission_title">Myönnä käyttöoikeus</string>
+	<string name="onboarding_not_storage_permission_message">Muuta laitteesi käyttöoikeusasetuksia. MAPS:ME:n käyttö edellyttää tallennustilan käyttöoikeutta.</string>
+	<string name="button_exit">Poistu</string>
+	<string name="onboarding_learn_more_title">MAPS.ME tarvitsee seuraavat käyttöoikeudet:</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Tallennustila</string>
+	<string name="onboarding_learn_more_storage_message">Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Sijainti</string>
+	<string name="onboarding_learn_more_location_message">Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.</string>
+	<string name="onboarding_learn_more_save_maps_message">Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.</string>
+	<string name="settings_device_memory">Laitteen muisti</string>
+	<string name="settings_card_memory">Muistkortti</string>
+	<string name="settings_storage_available">%s käytettävissä</string>
+	<string name="toast_location_permission_denied">Sovelluksen sijainnin käyttöoikeus evättiin</string>
+	<string name="place_page_viator_title">Nähtävyydet ja kierrokset</string>
+	<string name="planning_route_need_finish">Lisää kohde reitin suunnittelua varten.</string>
+	<string name="planning_route_need_start">Lisää alkupiste reitin suunnittelua varten.</string>
+	<string name="button_use">Käytä</string>
+	<string name="planning_route_manage_route">Hallitse reittiä</string>
+	<string name="button_plan">Suunnittele</string>
+	<string name="button_add">Lisää</string>
+	<string name="placepage_remove_stop">Poista</string>
+	<string name="planning_route_remove_title">Vedä tähän poistaaksesi</string>
+	<string name="dialog_change_start_point_message">Haluatko korvata alkupisteen nykyisellä sijainnilla?</string>
+	<string name="button_replace">Korvaa</string>
+	<string name="placepage_add_stop">Lisää pysähdys</string>
+	<string name="whatsnew_intermediate_point_title">Lisäpysähdys</string>
+	<string name="whatsnew_intermediate_point_message">Suunnittele reitti välipisteellä.</string>
 </resources>

@@ -266,7 +266,7 @@
 "settings" = "Ajustes";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Almacenamiento de mapas";
+"maps_storage" = "Guardar mapas en";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Seleccione el lugar donde deben descargarse los mapas";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 día";
 
-"recent_track_help_text" = "Nota: activar esta función aumenta el uso de la batería.";
+"recent_track_help_text" = "Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.";
 
 "pref_track_ios_caption" = "El trayecto reciente muestra tu recorrido de viaje.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Permita el acceso de MAPS.ME a los servicios de almacenamiento y ubicación";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Bienvenido a MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "La recopilación de estadísticas de uso nos ayuda a mejorar la aplicación.";
+"allow_statistics_hint" = "La recopilación de estadísticas de uso anónimas nos ayuda a mejorar la aplicación.";
 
 "general_settings" = "Ajustes generales";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Pulse sobre los lugares para añadir puntos de referencia a su ruta.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Reservar una visita guiada";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Elija visitas guiadas populares por ciudades turísticas en cualquier parte del mundo.";
 
 "whatsnew_driving_style_title" = "Nuevo estilo de mapa para la conducción";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Leer más";
 
-"exit" = "Exit";
+"exit" = "Salir";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Agregar un punto de inicio para planificar una ruta.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Agregar un destino para planificar una ruta.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Al iniciar la aplicación, usted acepta las Condiciones de uso y la Política de privacidad.";
+
+"button_accept_and_continue" = "Aceptar y continuar";
+
+"button_learn_more" = "Leer más";
+
+"onboarding_not_storage_permission_title" = "Otorgar acceso";
+
+"onboarding_not_storage_permission_message" = "Cambie la configuración de permisos en su dispositivo. MAPS.ME necesita tener acceso al almacenamiento.";
+
+"button_exit" = "Salir";
+
+"onboarding_learn_more_title" = "MAPS.ME necesita tener acceso a";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Almacenamiento";
+
+"onboarding_learn_more_storage_message" = "Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Ubicación";
+
+"onboarding_learn_more_location_message" = "Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.";
+
+"onboarding_learn_more_save_maps_message" = "También puede cambiar en los ajustes el destino para los mapas descargados.";
+
+"settings_device_memory" = "Memoria del dispositivo";
+
+"settings_card_memory" = "Tarjeta de memoria";
+
+"settings_storage_available" = "%s disponible";
+
+"toast_location_permission_denied" = "A la aplicación se le ha denegado el permiso de acceso a la ubicación";
+
+"place_page_viator_title" = "Lugar de interés y visitas guiadas";
+
+"planning_route_need_finish" = "Agregar un destino para planificar una ruta.";
+
+"planning_route_need_start" = "Agregar un punto de inicio para planificar una ruta.";
+
+"button_use" = "Utilizar";
+
+"planning_route_manage_route" = "Administrar ruta";
+
+"button_plan" = "Planificar";
+
+"button_add" = "Añadir";
+
+"placepage_remove_stop" = "Eliminar";
+
+"planning_route_remove_title" = "Arrastre aquí para eliminar";
+
+"dialog_change_start_point_message" = "¿Cambiar el punto de inicio por la ubicación actual?";
+
+"button_replace" = "Cambiar";
+
+"placepage_add_stop" = "Añadir parada";
+
+"whatsnew_intermediate_point_title" = "Parada adicional";
+
+"whatsnew_intermediate_point_message" = "Planifique una ruta con una parada intermedia.";

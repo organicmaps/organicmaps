@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Innstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Kartlagring</string>
+	<string name="maps_storage">Lagre kart på</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Velg hvor du vil at kartene skal lastes ned til</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 timer</string>
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
-	<string name="recent_track_help_text">Merk følgende: Aktivering av denne funksjonen forårsaker økt batteribruk.</string>
+	<string name="recent_track_help_text">Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.</string>
 	<string name="pref_track_ios_caption">Nylig rute viser ruten du har fulgt.</string>
 	<string name="pref_track_ios_subcaption">Velg en tidsperiode for rutelagring.</string>
 	<string name="placepage_distance">Avstand</string>
@@ -784,6 +784,9 @@
 	<string name="onboarding_notifications_title">Aktiver oppdateringsvarsler</string>
 	<string name="onboarding_location_title">Hjelp oss med å finne deg</string>
 	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
+	<string name="onboarding_permissions_title">Tillat MAPS.ME tilgang til minnet og plasseringen</string>
+	<string name="onboarding_permissions_message">Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.</string>
+	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
 	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
@@ -934,7 +937,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blogg</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Innsamling av brukerstatistikk hjelper oss til å forbedre appen.</string>
+	<string name="allow_statistics_hint">Anonyms innsamling av brukerstatistikk hjelper oss med å forbedre appen.</string>
 	<string name="general_settings">Generelle innstillinger</string>
 	<string name="date">Dato %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1057,6 +1060,8 @@
 	<string name="whatsnew_smaller_mwm_message">Kartene trenger opptil 20 % mindre lagringsplass.</string>
 	<string name="whatsnew_waypoints_title">Rutepunkter</string>
 	<string name="whatsnew_waypoints_message">Trykk på steder for å legge til rutepunkter.</string>
+	<string name="whatsnew_viator_title">Bestill omvisning</string>
+	<string name="whatsnew_viator_message">Velg populære omvisninger i turistbyer over hele verden.</string>
 	<string name="whatsnew_driving_style_title">Ny kartstil for bruk under kjøring</string>
 	<string name="whatsnew_driving_style_message">Modusen for bilnavigering er blitt enklere å bruke.</string>
 	<string name="more_on_bookingcom">Mer på Booking.com</string>
@@ -1089,4 +1094,42 @@
 	<string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
 	<string name="whatsnew_transliteration_title">Omskrivning til latin</string>
 	<string name="whatsnew_transliteration_message">Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.</string>
+	<string name="learn_more">Finn ut mer</string>
+	<string name="exit">Avslutt</string>
+	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute.</string>
+	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute.</string>
+	<string name="onboarding_welcome_message">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Ved å starte programmet samtykker du til brukervilkårene og reglene for personvern.</string>
+	<string name="button_accept_and_continue">Godta og fortsett</string>
+	<string name="button_learn_more">Finn ut mer</string>
+	<string name="onboarding_not_storage_permission_title">Gi tilgang</string>
+	<string name="onboarding_not_storage_permission_message">Endre innstillinger for tillatelser på enheten din. Det er nødvendig med tilgang til minnet for å kunne bruke MAPS.ME.</string>
+	<string name="button_exit">Avslutt</string>
+	<string name="onboarding_learn_more_title">MAPS.ME trenger tilgang til</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Minnet</string>
+	<string name="onboarding_learn_more_storage_message">For å lagre og bruke nedlastede kart offline og lagre bokmerker.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Plassering</string>
+	<string name="onboarding_learn_more_location_message">For å se steder og trafikk nær deg og bruke navigasjon.</string>
+	<string name="onboarding_learn_more_save_maps_message">Du kan også endre destinasjon for nedlastede kart under innstillinger.</string>
+	<string name="settings_device_memory">Enhetsminnet</string>
+	<string name="settings_card_memory">Minnekort</string>
+	<string name="settings_storage_available">%s tilgjengelig</string>
+	<string name="toast_location_permission_denied">App-plasseringstillatelse avvist</string>
+	<string name="place_page_viator_title">Attraksjoner og omvisninger</string>
+	<string name="planning_route_need_finish">Angi destinasjon for å planlegge rute.</string>
+	<string name="planning_route_need_start">Angi startpunkt for å planlegge rute.</string>
+	<string name="button_use">Bruk</string>
+	<string name="planning_route_manage_route">Administrere rute</string>
+	<string name="button_plan">Planlegge</string>
+	<string name="button_add">Angi</string>
+	<string name="placepage_remove_stop">Fjern</string>
+	<string name="planning_route_remove_title">Dra hit for å fjerne</string>
+	<string name="dialog_change_start_point_message">Plassére startpunkt til nåværende plassering?</string>
+	<string name="button_replace">Plassére</string>
+	<string name="placepage_add_stop">Angi stopp</string>
+	<string name="whatsnew_intermediate_point_title">Ekstra mellomstopp</string>
+	<string name="whatsnew_intermediate_point_message">Planlegg rute med mellomstopp.</string>
 </resources>

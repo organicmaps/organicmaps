@@ -266,7 +266,7 @@
 "settings" = "الإعدادات";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "تخزين الخرائط";
+"maps_storage" = "حفظ الخرائط إلى";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "اختر المكان الذي ينبغي تنزيل الخرائط  فيه.";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 يوم";
 
-"recent_track_help_text" = "يرجى ملاحظة الآتي: تفعيل هذه الوظيفة يسبب زيادة في استخدام البطارية.";
+"recent_track_help_text" = "يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.";
 
 "pref_track_ios_caption" = "يُظهر المسار الأخير مسار سفرك.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "السماح لـ MAPS.ME بالوصول إلى ذاكرة التخزين والموقع";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "مرحبًا بك في MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "المدونة";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.";
+"allow_statistics_hint" = "يساعدنا تجميع إحصاءات استخدام بدون التعرف على الهوية في تحسين التطبيق.";
 
 "general_settings" = "إعدادات عامة";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "المس الأماكن لإضافة نقاط طريق إلى المسار.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "حجز جولة";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "اختر جولات شائعة في المدن السياحية في كافة أنحاء العالم.";
 
 "whatsnew_driving_style_title" = "نمط خريطة جديد للقيادة";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "تعلم المزيد";
 
-"exit" = "Exit";
+"exit" = "خروج";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "أضف النهاية لتخطيط المسار.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.";
+
+"button_accept_and_continue" = "قبول ومتابعة";
+
+"button_learn_more" = "تعلم المزيد";
+
+"onboarding_not_storage_permission_title" = "منح حق الوصول";
+
+"onboarding_not_storage_permission_message" = "قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.";
+
+"button_exit" = "خروج";
+
+"onboarding_learn_more_title" = "MAPS.ME يحتاج إلى الوصول إلى";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "ذاكرة التخزين";
+
+"onboarding_learn_more_storage_message" = "لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "الموقع";
+
+"onboarding_learn_more_location_message" = "لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.";
+
+"onboarding_learn_more_save_maps_message" = "يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.";
+
+"settings_device_memory" = "ذاكرة الجهاز";
+
+"settings_card_memory" = "بطاقة الذاكرة";
+
+"settings_storage_available" = "%s متوفر";
+
+"toast_location_permission_denied" = "تم رفض إذن الموقع للتطبيق";
+
+"place_page_viator_title" = "معالم الجذب والجولات";
+
+"planning_route_need_finish" = "أضف وجهة لتخطيط المسار.";
+
+"planning_route_need_start" = "أضف نقطة البداية لتخطيط المسار.";
+
+"button_use" = "استخدام";
+
+"planning_route_manage_route" = "إدارة المسار";
+
+"button_plan" = "خطة";
+
+"button_add" = "إضافة";
+
+"placepage_remove_stop" = "إزالة";
+
+"planning_route_remove_title" = "اسحب هنا للإزالة";
+
+"dialog_change_start_point_message" = "استبدال نقطة البدء إلى الموقع الحالي؟";
+
+"button_replace" = "استبدال";
+
+"placepage_add_stop" = "إضافة نقطة توقف";
+
+"whatsnew_intermediate_point_title" = "نقطة توقف إضافية";
+
+"whatsnew_intermediate_point_message" = "خطط مسارًا مع نقطة وسيطة.";

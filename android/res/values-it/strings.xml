@@ -160,7 +160,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Cartella mappe</string>
+	<string name="maps_storage">Salva mappe in</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Seleziona il luogo in cui le mappe devono essere scaricate</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -330,7 +330,7 @@
 	<string name="duration_6_hours">6 ore</string>
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 giorno</string>
-	<string name="recent_track_help_text">Nota bene: l\'attivazione di questa funziona comporta un maggior consumo di batteria.</string>
+	<string name="recent_track_help_text">Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l\'attivazione di questa funzione incrementa l\'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell\'intervallo di tempo.</string>
 	<string name="pref_track_ios_caption">Il percorso recente mostra il tragitto effettuato.</string>
 	<string name="pref_track_ios_subcaption">Seleziona un intervallo temporale per la registrazione del percorso.</string>
 	<string name="placepage_distance">Distanza</string>
@@ -783,6 +783,9 @@
 	<string name="onboarding_notifications_title">Attiva notifiche di aggiornamento</string>
 	<string name="onboarding_location_title">Aiutaci a trovarti</string>
 	<string name="onboarding_location_message">Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.</string>
+	<string name="onboarding_permissions_title">Consenti a MAPS.ME di accedere a memoria e posizione</string>
+	<string name="onboarding_permissions_message">Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
+	<string name="onboarding_welcome_title">Benvenuto in MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
@@ -935,7 +938,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">L\'acquisizione dei dati sulle statistiche di utilizzo ci aiuta a migliorare la app.</string>
+	<string name="allow_statistics_hint">La raccolta di statistiche di utilizzo anonime ci aiuta a migliorare l\'app.</string>
 	<string name="general_settings">Impostazioni generali</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1058,6 +1061,8 @@
 	<string name="whatsnew_smaller_mwm_message">Maps richiede fino al 20% in meno di memoria.</string>
 	<string name="whatsnew_waypoints_title">Waypoint di percorso</string>
 	<string name="whatsnew_waypoints_message">Tocca i luoghi e aggiungi waypoint al tuo percorso.</string>
+	<string name="whatsnew_viator_title">Prenota un tour</string>
+	<string name="whatsnew_viator_message">Scegli i migliori tour nelle città turistiche di tutto il mondo.</string>
 	<string name="whatsnew_driving_style_title">Nuovo stile di mappa per la guida</string>
 	<string name="whatsnew_driving_style_message">Modalità di navigazione in auto più semplice da usare.</string>
 	<string name="more_on_bookingcom">Altro su Booking.com</string>
@@ -1090,4 +1095,42 @@
 	<string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
 	<string name="whatsnew_transliteration_title">Traslitterazione in latino</string>
 	<string name="whatsnew_transliteration_message">Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l\'alfabeto latino.</string>
+	<string name="learn_more">Ulteriori informazioni</string>
+	<string name="exit">Esci</string>
+	<string name="routing_add_start_point">Aggiungi un punto di partenza per pianificare un percorso.</string>
+	<string name="routing_add_finish_point">Aggiungi un punto di arrivo per pianificare un percorso.</string>
+	<string name="onboarding_welcome_message">Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Lanciando l\'applicazione, accetti i Termini di utilizzo e l\'Informativa sulla privacy.</string>
+	<string name="button_accept_and_continue">Accetta e continua</string>
+	<string name="button_learn_more">Ulteriori informazioni</string>
+	<string name="onboarding_not_storage_permission_title">Concedi l\'accesso</string>
+	<string name="onboarding_not_storage_permission_message">Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l\'accesso alla memoria per utilizzare MAPS.ME.</string>
+	<string name="button_exit">Esci</string>
+	<string name="onboarding_learn_more_title">MAPS.ME richiede l\'accesso a</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Memoria</string>
+	<string name="onboarding_learn_more_storage_message">Per salvare e utilizzare le mappe scaricate offline, come pure per salvare i preferiti.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Posizione</string>
+	<string name="onboarding_learn_more_location_message">Per vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
+	<string name="onboarding_learn_more_save_maps_message">Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.</string>
+	<string name="settings_device_memory">Memoria del dispositivo</string>
+	<string name="settings_card_memory">Scheda di memoria</string>
+	<string name="settings_storage_available">%s disponibile</string>
+	<string name="toast_location_permission_denied">Autorizzazione a posizione app negata</string>
+	<string name="place_page_viator_title">Attrazioni e tour</string>
+	<string name="planning_route_need_finish">Aggiungi una destinazione per pianificare un percorso.</string>
+	<string name="planning_route_need_start">Aggiungi un punto di partenza per pianificare un percorso.</string>
+	<string name="button_use">Usa</string>
+	<string name="planning_route_manage_route">Gestisci percorso</string>
+	<string name="button_plan">Pianifica</string>
+	<string name="button_add">Aggiungi</string>
+	<string name="placepage_remove_stop">Rimuovi</string>
+	<string name="planning_route_remove_title">Trascina qui per rimuovere</string>
+	<string name="dialog_change_start_point_message">Sostituire il punto di partenza con la posizione corrente?</string>
+	<string name="button_replace">Sostituisci</string>
+	<string name="placepage_add_stop">Aggiungi sosta</string>
+	<string name="whatsnew_intermediate_point_title">Ulteriore sosta</string>
+	<string name="whatsnew_intermediate_point_message">Pianifica un percorso con un punto intermedio.</string>
 </resources>

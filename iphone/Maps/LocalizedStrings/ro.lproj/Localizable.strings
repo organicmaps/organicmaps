@@ -266,7 +266,7 @@
 "settings" = "Setări";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Stocare hărți";
+"maps_storage" = "Salvare hărți în";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Selectați locul în care doriți să fie descărcate hărțile.";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 zi";
 
-"recent_track_help_text" = "Vă rugăm să rețineți: activarea acestei funcții determină un consum accelerat al bateriei.";
+"recent_track_help_text" = "Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.";
 
 "pref_track_ios_caption" = "Opțiunea Rută recentă vă afișează ruta folosită anterior.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Bun venit în MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.";
+"allow_statistics_hint" = "Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.";
 
 "general_settings" = "Setări generale";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Rezervați un tur";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Selectați dintre tururile populare din orașe turistice din întreaga lume.";
 
 "whatsnew_driving_style_title" = "Un nou stil de hartă pentru condus";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Mai multe";
 
-"exit" = "Exit";
+"exit" = "Ieșire";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Adăugați punctul de plecare pentru a planifica un traseu.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Adăugați punctul de sosire pentru a planifica un traseu.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.";
+
+"button_accept_and_continue" = "Acceptare și continuare";
+
+"button_learn_more" = "Aflați mai multe";
+
+"onboarding_not_storage_permission_title" = "Acordați acces";
+
+"onboarding_not_storage_permission_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.";
+
+"button_exit" = "Ieșire";
+
+"onboarding_learn_more_title" = "MAPS.ME necesită acces la";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Stocare";
+
+"onboarding_learn_more_storage_message" = "Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Locație";
+
+"onboarding_learn_more_location_message" = "Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.";
+
+"onboarding_learn_more_save_maps_message" = "Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.";
+
+"settings_device_memory" = "Memoria dispozitivului";
+
+"settings_card_memory" = "Card";
+
+"settings_storage_available" = "%s disponibil";
+
+"toast_location_permission_denied" = "Permisiune de accesare a locației respinsă";
+
+"place_page_viator_title" = "Atracții și tururi";
+
+"planning_route_need_finish" = "Adăugați o destinație pentru a planifica un traseu.";
+
+"planning_route_need_start" = "Adăugați punctul de plecare pentru a planifica un traseu.";
+
+"button_use" = "Utilizare";
+
+"planning_route_manage_route" = "Administrare traseu";
+
+"button_plan" = "Planificare";
+
+"button_add" = "Adăugare";
+
+"placepage_remove_stop" = "Eliminare";
+
+"planning_route_remove_title" = "Trageți aici pentru a elimina";
+
+"dialog_change_start_point_message" = "Înlocuiți punctul de plecare cu locația curentă?";
+
+"button_replace" = "Înlocuire";
+
+"placepage_add_stop" = "Adăugare oprire";
+
+"whatsnew_intermediate_point_title" = "Oprire suplimentară";
+
+"whatsnew_intermediate_point_message" = "Planificați o rută cu un punct intermediar.";

@@ -266,7 +266,7 @@
 "settings" = "Settings";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Maps storage";
+"maps_storage" = "Save maps to";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Select the place where maps should be downloaded to";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 day";
 
-"recent_track_help_text" = "Please note: activation of this function causes increased battery usage.";
+"recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
 
 "pref_track_ios_caption" = "Recent track shows your traveled path.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Collecting usage statistics helps us improve the app.";
+"allow_statistics_hint" = "Collecting anonymous usage statistics helps us improve the app.";
 
 "general_settings" = "General settings";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Book a tour";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Choose popular tours in tourist cities all over the world.";
 
 "whatsnew_driving_style_title" = "New Map Style for Driving";
 
@@ -1952,10 +1952,71 @@
 
 "exit" = "Exit";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Add a starting point to plan a route.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Add a destination to plan a route.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "By launching the application, you agree to Terms of Use and Privacy Policy.";
+
+"button_accept_and_continue" = "Accept and continue";
+
+"button_learn_more" = "Learn more";
+
+"onboarding_not_storage_permission_title" = "Grant Access";
+
+"onboarding_not_storage_permission_message" = "Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.";
+
+"button_exit" = "Exit";
+
+"onboarding_learn_more_title" = "MAPS.ME needs access to";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Storage";
+
+"onboarding_learn_more_storage_message" = "To save and use downloaded maps offline and store bookmarks.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Location";
+
+"onboarding_learn_more_location_message" = "To see places and traffic near you and use navigation.";
+
+"onboarding_learn_more_save_maps_message" = "You can also change the location for downloaded maps in settings.";
+
+"settings_device_memory" = "Device memory";
+
+"settings_card_memory" = "Card memory";
+
+"settings_storage_available" = "%s available";
+
+"toast_location_permission_denied" = "App location permission denied";
+
+"place_page_viator_title" = "Attractions and Tours";
+
+"planning_route_need_finish" = "Add a destination to plan a route.";
+
+"planning_route_need_start" = "Add start point to plan a route.";
+
+"button_use" = "Use";
+
+"planning_route_manage_route" = "Manage Route";
+
+"button_plan" = "Plan";
+
+"button_add" = "Add";
+
+"placepage_remove_stop" = "Remove";
+
+"planning_route_remove_title" = "Drag here to remove";
+
+"dialog_change_start_point_message" = "Set the current location as the starting point?";
+
+"button_replace" = "Replace";
+
+"placepage_add_stop" = "Add Stop";
+
+"whatsnew_intermediate_point_title" = "Additional stop";
+
+"whatsnew_intermediate_point_message" = "Plan a route with an intermediate point.";

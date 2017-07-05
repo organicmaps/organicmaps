@@ -162,7 +162,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">マップ保存先</string>
+	<string name="maps_storage">地図の保存先</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">マップのダウンロード先を選択してください</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -324,7 +324,7 @@
 	<string name="duration_6_hours">6時間</string>
 	<string name="duration_12_hours">12時間</string>
 	<string name="duration_1_day">1日</string>
-	<string name="recent_track_help_text">ご注意：この機能を有効にすると電池の使用量が増加します。</string>
+	<string name="recent_track_help_text">移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。</string>
 	<string name="pref_track_ios_caption">最近ルートは、使用した道のりを表示する機能です。</string>
 	<string name="pref_track_ios_subcaption">ルートを保存する期間を選択してください。</string>
 	<string name="placepage_distance">距離</string>
@@ -783,6 +783,9 @@
 	<string name="onboarding_notifications_title">アップデート通知を有効にする</string>
 	<string name="onboarding_location_title">現在地判定のお手伝い</string>
 	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
+	<string name="onboarding_permissions_title">MAPS.ME によるストレージと位置情報へのアクセスを許可する</string>
+	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
+	<string name="onboarding_welcome_title">MAPS.ME へようこそ</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
@@ -935,7 +938,7 @@
 	<!-- Text in menu -->
 	<string name="blog">ブログ</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">収集した使用統計データは当社がアプリを改善するために役立ちます。</string>
+	<string name="allow_statistics_hint">収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。</string>
 	<string name="general_settings">一般設定</string>
 	<string name="date">日付 %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1058,6 +1061,8 @@
 	<string name="whatsnew_smaller_mwm_message">地図が必要とするストレージ容量が最大で 20% 少なくなりました。</string>
 	<string name="whatsnew_waypoints_title">ルート上の経由地</string>
 	<string name="whatsnew_waypoints_message">場所をタップしてルートに経由地を追加します。</string>
+	<string name="whatsnew_viator_title">ツアーの予約</string>
+	<string name="whatsnew_viator_message">世界中の観光都市で人気のツアーを選択してください。</string>
 	<string name="whatsnew_driving_style_title">運転用の新しい地図のスタイル</string>
 	<string name="whatsnew_driving_style_message">カーナビゲーションモードの使用がより簡単になりました。</string>
 	<string name="more_on_bookingcom">さらに Booking.com で表示</string>
@@ -1090,4 +1095,42 @@
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="whatsnew_transliteration_title">ラテン文字への字訳</string>
 	<string name="whatsnew_transliteration_message">通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。</string>
+	<string name="learn_more">詳細情報</string>
+	<string name="exit">終了</string>
+	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください。</string>
+	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください。</string>
+	<string name="onboarding_welcome_message">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。</string>
+	<string name="button_accept_and_continue">同意して続ける</string>
+	<string name="button_learn_more">詳細情報</string>
+	<string name="onboarding_not_storage_permission_title">アクセス権の付与</string>
+	<string name="onboarding_not_storage_permission_message">お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。</string>
+	<string name="button_exit">終了</string>
+	<string name="onboarding_learn_more_title">MAPS.ME がアクセス許可を必要とする項目</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">ストレージ</string>
+	<string name="onboarding_learn_more_storage_message">ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">位置情報</string>
+	<string name="onboarding_learn_more_location_message">近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。</string>
+	<string name="onboarding_learn_more_save_maps_message">また、設定でダウンロードした地図の保存先を変更することもできます。</string>
+	<string name="settings_device_memory">デバイスのメモリ</string>
+	<string name="settings_card_memory">カードのメモリ</string>
+	<string name="settings_storage_available">%s 使用可能</string>
+	<string name="toast_location_permission_denied">アプリの位置情報へのアクセスが拒否されました</string>
+	<string name="place_page_viator_title">観光地およびツアー</string>
+	<string name="planning_route_need_finish">ルートを計画するには目的地を追加してください。</string>
+	<string name="planning_route_need_start">ルートを計画するには出発地点を追加してください。</string>
+	<string name="button_use">使う</string>
+	<string name="planning_route_manage_route">ルートを管理</string>
+	<string name="button_plan">計画する</string>
+	<string name="button_add">追加</string>
+	<string name="placepage_remove_stop">削除</string>
+	<string name="planning_route_remove_title">ここにドラッグして削除</string>
+	<string name="dialog_change_start_point_message">出発地点を現在の場所に変更しますか？</string>
+	<string name="button_replace">変更する</string>
+	<string name="placepage_add_stop">停止地点を追加</string>
+	<string name="whatsnew_intermediate_point_title">その他の停止地点</string>
+	<string name="whatsnew_intermediate_point_message">中間地点のあるルートを計画します。</string>
 </resources>

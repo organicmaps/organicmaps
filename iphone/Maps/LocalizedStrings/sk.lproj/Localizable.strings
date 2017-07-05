@@ -266,7 +266,7 @@
 "settings" = "Nastavenia";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Úložisko máp";
+"maps_storage" = "Uložiť mapy do";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Vyberte miesto, kam by mali byť mapy sťahované";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 deň";
 
-"recent_track_help_text" = "Upozornenie: aktivovanie tejto funkcie zvyšuje spotrebu energie.";
+"recent_track_help_text" = "Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.";
 
 "pref_track_ios_caption" = "Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Vitajte v aplikácii MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Zhromažďovanie štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.";
+"allow_statistics_hint" = "Zhromažďovanie anonymných štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.";
 
 "general_settings" = "Všeobecné nastavenia";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Ťuknite na miesta, ak chcete do trasy pridať body.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Rezervovať prehliadku";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Vyberte si obľúbené prehliadky po turistických mestách po celom svete.";
 
 "whatsnew_driving_style_title" = "Nový štýl máp pre jazdu";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Zistiť viac";
 
-"exit" = "Exit";
+"exit" = "Ukončiť";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Pridaním počiatočného bodu začnite plánovať trasu.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Pridaním cieľového bodu naplánujete trasu.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.";
+
+"button_accept_and_continue" = "Prijať a pokračovať";
+
+"button_learn_more" = "Zistiť viac";
+
+"onboarding_not_storage_permission_title" = "Prideliť prístup";
+
+"onboarding_not_storage_permission_message" = "Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.";
+
+"button_exit" = "Ukončiť";
+
+"onboarding_learn_more_title" = "Aplikácia MAPS.ME si vyžaduje prístup k";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Ukladací priestor";
+
+"onboarding_learn_more_storage_message" = "Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Poloha";
+
+"onboarding_learn_more_location_message" = "Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.";
+
+"onboarding_learn_more_save_maps_message" = "V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.";
+
+"settings_device_memory" = "Pamäť zariadenia";
+
+"settings_card_memory" = "Pamäť na karte";
+
+"settings_storage_available" = "K dispozícii %s";
+
+"toast_location_permission_denied" = "Zamietnutý prístup aplikácie k lokalite";
+
+"place_page_viator_title" = "Atrakcie a prehliadky";
+
+"planning_route_need_finish" = "Pridaním destinácie naplánujete trasu.";
+
+"planning_route_need_start" = "Pridaním počiatočného bodu začnite plánovať trasu.";
+
+"button_use" = "Použiť";
+
+"planning_route_manage_route" = "Spravovať trasu";
+
+"button_plan" = "Naplánovať";
+
+"button_add" = "Pridať";
+
+"placepage_remove_stop" = "Odstrániť";
+
+"planning_route_remove_title" = "Presunutím sem odstránite";
+
+"dialog_change_start_point_message" = "Nahradiť štart na aktuálnou polohou?";
+
+"button_replace" = "Nahradiť";
+
+"placepage_add_stop" = "Pridať zastávku";
+
+"whatsnew_intermediate_point_title" = "Ďalšie zastávky";
+
+"whatsnew_intermediate_point_message" = "Naplánujte si trasu s zastávkou.";

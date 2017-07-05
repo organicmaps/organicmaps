@@ -166,7 +166,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Paramètres</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Stockage des cartes</string>
+	<string name="maps_storage">Enregistrer les cartes dans</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes devraient être téléchargées</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -248,7 +248,7 @@
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
 	<string name="appStore_message">Nous espérons que vous appréciez l\'utilisation de MAPS.ME ! Si oui, veuillez évaluer l\'appli ou laisser une critique sur l\'App Store. Cela prend moins d\'une minute, mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
-	<string name="no_thanks">Hé, regarde mon épingle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</string>
+	<string name="no_thanks">Non, merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Hé, regarde mon épingle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -336,7 +336,7 @@
 	<string name="duration_6_hours">6 heures</string>
 	<string name="duration_12_hours">12 heures</string>
 	<string name="duration_1_day">1 jour</string>
-	<string name="recent_track_help_text">Notez bien : l\'activation de cette fonction entraîne une utilisation plus importante de la batterie.</string>
+	<string name="recent_track_help_text">Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.</string>
 	<string name="pref_track_ios_caption">L\'itinéraire récent indique votre chemin parcouru.</string>
 	<string name="pref_track_ios_subcaption">Veuillez sélectionner la période d\'enregistrement du parcours.</string>
 	<string name="placepage_distance">Distance</string>
@@ -797,6 +797,9 @@
 	<string name="onboarding_notifications_title">Activer les notifications de mise à jour</string>
 	<string name="onboarding_location_title">Aidez-nous à vous trouver</string>
 	<string name="onboarding_location_message">Pour utiliser la navigation et d\'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
+	<string name="onboarding_permissions_title">Autoriser MAPS.ME à accéder au stockage et à la localisation</string>
+	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
+	<string name="onboarding_welcome_title">Bienvenue sur MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
@@ -949,7 +952,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">La collecte des statistiques d’utilisation nous permet d’améliorer l’application.</string>
+	<string name="allow_statistics_hint">La collecte des statistiques d’utilisation anonymes nous permet d’améliorer l’application.</string>
 	<string name="general_settings">Paramètres généraux</string>
 	<string name="date">Date %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1072,6 +1075,8 @@
 	<string name="whatsnew_smaller_mwm_message">Les cartes nécessitent jusqu\'à 20 % d\'espace de stockage en moins.</string>
 	<string name="whatsnew_waypoints_title">Points de repère dans les itinéraires</string>
 	<string name="whatsnew_waypoints_message">Appuyez sur les lieux pour ajouter des points de repère à votre itinéraire.</string>
+	<string name="whatsnew_viator_title">Réserver une excursion</string>
+	<string name="whatsnew_viator_message">Choisissez des excursions populaires dans les villes touristiques du monde entier.</string>
 	<string name="whatsnew_driving_style_title">Nouveau style de carte pour la conduite</string>
 	<string name="whatsnew_driving_style_message">Mode de navigation en voiture plus facile à utiliser.</string>
 	<string name="more_on_bookingcom">Plus d\'infos sur Booking.com</string>
@@ -1104,4 +1109,42 @@
 	<string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
 	<string name="whatsnew_transliteration_title">Translittération en latin</string>
 	<string name="whatsnew_transliteration_message">Si une rue ou un objet n’a pas de nom dans votre langue, l’alphabet latin sera utilisé pour l\'écrire.</string>
+	<string name="learn_more">En savoir plus</string>
+	<string name="exit">Quitter</string>
+	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire.</string>
+	<string name="routing_add_finish_point">Ajouter un point d\'arriver pour planifier un itinéraire.</string>
+	<string name="onboarding_welcome_message">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">En lançant l’application, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.</string>
+	<string name="button_accept_and_continue">Accepter et continuer</string>
+	<string name="button_learn_more">En savoir plus</string>
+	<string name="onboarding_not_storage_permission_title">Autoriser l\'accès</string>
+	<string name="onboarding_not_storage_permission_message">Modifiez les paramètres d’autorisation dans votre appareil. Il est nécessaire d’accéder à un stockage pour utiliser MAPS.ME.</string>
+	<string name="button_exit">Quitter</string>
+	<string name="onboarding_learn_more_title">MAPS.ME doit avoir accès à</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Stockage</string>
+	<string name="onboarding_learn_more_storage_message">Pour enregistrer et utiliser les cartes téléchargées en hors ligne et enregistrer les signets.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Localisation</string>
+	<string name="onboarding_learn_more_location_message">Pour voir les lieux et le trafic près de vous et utiliser la navigation.</string>
+	<string name="onboarding_learn_more_save_maps_message">Vous pouvez également modifier la destination pour les cartes téléchargées dans les paramètres.</string>
+	<string name="settings_device_memory">Mémoire de l’appareil</string>
+	<string name="settings_card_memory">Mémoire carte</string>
+	<string name="settings_storage_available">%s disponible</string>
+	<string name="toast_location_permission_denied">Autorisation de localisation refusée à l\'application</string>
+	<string name="place_page_viator_title">Attractions et visites</string>
+	<string name="planning_route_need_finish">Ajouter une destination pour planifier un itinéraire.</string>
+	<string name="planning_route_need_start">Ajouter un point de départ pour planifier un itinéraire.</string>
+	<string name="button_use">Utiliser</string>
+	<string name="planning_route_manage_route">Gérer l’itinéraire</string>
+	<string name="button_plan">Planifier</string>
+	<string name="button_add">Ajouter</string>
+	<string name="placepage_remove_stop">Supprimer</string>
+	<string name="planning_route_remove_title">Faire glisser ici pour supprimer</string>
+	<string name="dialog_change_start_point_message">Remplacer le point de départ par l’emplacement actuel ?</string>
+	<string name="button_replace">Remplacer</string>
+	<string name="placepage_add_stop">Ajouter un arrêt</string>
+	<string name="whatsnew_intermediate_point_title">Arrêt supplémentaire</string>
+	<string name="whatsnew_intermediate_point_message">Planifiez un itinéraire avec un point intermédiaire.</string>
 </resources>

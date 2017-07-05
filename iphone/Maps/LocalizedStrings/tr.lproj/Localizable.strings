@@ -266,7 +266,7 @@
 "settings" = "Ayarlar";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Haritaları depolama";
+"maps_storage" = "Haritaları kaydet";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Haritaların indirileceği yeri seçin";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 gün";
 
-"recent_track_help_text" = "Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.";
+"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
 
 "pref_track_ios_caption" = "En son yol seyahat ettiğiniz yolları gösterir.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "MAPS.ME'ye Hoş Geldiniz";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.";
+"allow_statistics_hint" = "Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.";
 
 "general_settings" = "Genel ayarlar";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Tur rezervasyonu";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.";
 
 "whatsnew_driving_style_title" = "Sürüş İçin Yeni Harita Stili";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Daha fazla bilgi edinin";
 
-"exit" = "Exit";
+"exit" = "Çık";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Uygulamayı başlatarak, Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul etmiş sayılırsınız.";
+
+"button_accept_and_continue" = "Kabul et ve devam et";
+
+"button_learn_more" = "Daha fazla bilgi edinin";
+
+"onboarding_not_storage_permission_title" = "Erişime izin ver";
+
+"onboarding_not_storage_permission_message" = "Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME'yi kullanmak için depolama alanına erişim izni gerekiyor.";
+
+"button_exit" = "Çık";
+
+"onboarding_learn_more_title" = "MAPS.ME'nin şuraya erişmesi gerekiyor:";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Depolama Alanı";
+
+"onboarding_learn_more_storage_message" = "İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Konum";
+
+"onboarding_learn_more_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
+
+"onboarding_learn_more_save_maps_message" = "İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.";
+
+"settings_device_memory" = "Cihaz belleği";
+
+"settings_card_memory" = "Kart belleği";
+
+"settings_storage_available" = "%s kullanılabilir";
+
+"toast_location_permission_denied" = "Uygulamanın konum bilgilerine erişim isteği reddedildi";
+
+"place_page_viator_title" = "Geziler ve turlar";
+
+"planning_route_need_finish" = "Güzergâhı planlamak için bir hedef konum ekleyin.";
+
+"planning_route_need_start" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin.";
+
+"button_use" = "Kullan";
+
+"planning_route_manage_route" = "Güzergâhı yönet";
+
+"button_plan" = "Plan";
+
+"button_add" = "Ekle";
+
+"placepage_remove_stop" = "Kaldır";
+
+"planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
+
+"dialog_change_start_point_message" = "Başlangıç noktası mevcut konumla değiştirilsin mi?";
+
+"button_replace" = "Değiştir";
+
+"placepage_add_stop" = "Ara nokta ekle";
+
+"whatsnew_intermediate_point_title" = "Ek ara nokta";
+
+"whatsnew_intermediate_point_message" = "Güzergâhlarınızı ara noktalarla planlayın.";

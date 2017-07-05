@@ -165,7 +165,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Indstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Kort lager</string>
+	<string name="maps_storage">Gem kort på</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vælg destination hvor dine kort skal downloades til</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -335,7 +335,7 @@
 	<string name="duration_6_hours">6 timer</string>
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
-	<string name="recent_track_help_text">Bemærk: aktivering af denne funktion medfører øget batteriforbrug.</string>
+	<string name="recent_track_help_text">Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.</string>
 	<string name="pref_track_ios_caption">Seneste spor viser din rejste vej.</string>
 	<string name="pref_track_ios_subcaption">Vælg tidsinterval for at gemme sporet.</string>
 	<string name="placepage_distance">Afstand</string>
@@ -788,6 +788,9 @@
 	<string name="onboarding_notifications_title">Aktivér opdateringsnotifikationer</string>
 	<string name="onboarding_location_title">Hjælp os med at finde dig</string>
 	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
+	<string name="onboarding_permissions_title">Giv MAPS.ME adgang til lager og position</string>
+	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
+	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
@@ -940,7 +943,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Indsamling af anvendelsesstatistik hjælper os med at forbedre appen.</string>
+	<string name="allow_statistics_hint">Indsamling af anonym anvendelsesstatistik hjælper os med at forbedre appen.</string>
 	<string name="general_settings">Generelle indstillinger</string>
 	<string name="date">Dato %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1063,6 +1066,8 @@
 	<string name="whatsnew_smaller_mwm_message">Maps kræver op til 20% mindre lager.</string>
 	<string name="whatsnew_waypoints_title">Vejpunkter i ruteføring</string>
 	<string name="whatsnew_waypoints_message">Tryk på positioner for at føje vejsteder til din rute.</string>
+	<string name="whatsnew_viator_title">Bestil en tur</string>
+	<string name="whatsnew_viator_message">Vælg populære ture i turistbyer over hele verden.</string>
 	<string name="whatsnew_driving_style_title">Nyt kortformat til kørsel</string>
 	<string name="whatsnew_driving_style_message">Bilnavigationstilstand er blevet lettere at bruge.</string>
 	<string name="more_on_bookingcom">Mere på Booking.com</string>
@@ -1095,4 +1100,42 @@
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
 	<string name="whatsnew_transliteration_title">Translitteration til latinsk</string>
 	<string name="whatsnew_transliteration_message">Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.</string>
+	<string name="learn_more">Flere oplysninger</string>
+	<string name="exit">Afslut</string>
+	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute.</string>
+	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute.</string>
+	<string name="onboarding_welcome_message">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.</string>
+	<string name="button_accept_and_continue">Accepter og fortsæt</string>
+	<string name="button_learn_more">Flere oplysninger</string>
+	<string name="onboarding_not_storage_permission_title">Giv adgang</string>
+	<string name="onboarding_not_storage_permission_message">Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.</string>
+	<string name="button_exit">Afslut</string>
+	<string name="onboarding_learn_more_title">MAPS.ME skal have adgang til</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Lager</string>
+	<string name="onboarding_learn_more_storage_message">For at gemme og bruge hentede kort offline og gemme bogmærker.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Position</string>
+	<string name="onboarding_learn_more_location_message">For at se steder og trafik i nærheden af dig og benytte navigation.</string>
+	<string name="onboarding_learn_more_save_maps_message">Du kan også ændre placeringen af hentede kort i indstillingerne.</string>
+	<string name="settings_device_memory">Enhedens hukommelse</string>
+	<string name="settings_card_memory">Kortets hukommelse</string>
+	<string name="settings_storage_available">%s tilgængelig</string>
+	<string name="toast_location_permission_denied">App-position tilladelse nægtet</string>
+	<string name="place_page_viator_title">Seværdigheder og ture</string>
+	<string name="planning_route_need_finish">Tilføje en destination for at planlægge en rute.</string>
+	<string name="planning_route_need_start">Tilføj startpunkt for at planlægge en rute.</string>
+	<string name="button_use">Brug</string>
+	<string name="planning_route_manage_route">Administrer rute</string>
+	<string name="button_plan">Planlæg</string>
+	<string name="button_add">Tilføj</string>
+	<string name="placepage_remove_stop">Fjern</string>
+	<string name="planning_route_remove_title">Træk herhen for at fjerne</string>
+	<string name="dialog_change_start_point_message">Flyt startpunktet til den aktuelle placering?</string>
+	<string name="button_replace">Flyt</string>
+	<string name="placepage_add_stop">Tilføj stop</string>
+	<string name="whatsnew_intermediate_point_title">Ekstra stop</string>
+	<string name="whatsnew_intermediate_point_message">Planlæg en rute med et mellemliggende punkt.</string>
 </resources>

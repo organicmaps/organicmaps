@@ -162,7 +162,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Úložiště map</string>
+	<string name="maps_storage">Uložit mapy na</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -332,7 +332,7 @@
 	<string name="duration_6_hours">6 hodin</string>
 	<string name="duration_12_hours">12 hodin</string>
 	<string name="duration_1_day">1 den</string>
-	<string name="recent_track_help_text">Vezměte prosím na vědomí: aktivace této funkce způsobí zvýšení využití baterie.</string>
+	<string name="recent_track_help_text">To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.</string>
 	<string name="pref_track_ios_caption">Nedávná trasa zobrazuje cestu, po které jste cestovali.</string>
 	<string name="pref_track_ios_subcaption">Vyberte prosím časový rozsah uložené trasy.</string>
 	<string name="placepage_distance">Vzdálenost</string>
@@ -791,6 +791,9 @@
 	<string name="onboarding_notifications_title">Povolit upozornění na aktualizace</string>
 	<string name="onboarding_location_title">Pomozte nám vás najít</string>
 	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
+	<string name="onboarding_permissions_title">Povolte MAPS.ME přístup k úložišti a určení polohy</string>
+	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
+	<string name="onboarding_welcome_title">Vítá vás aplikace MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -943,7 +946,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Sběr statistických údajů o používání nám pomáhá aplikaci vylepšovat.</string>
+	<string name="allow_statistics_hint">Shromažďování anonymních statistik využívání nám pomáhá zlepšovat aplikaci.</string>
 	<string name="general_settings">Obecná nastavení</string>
 	<string name="date">Datum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1066,6 +1069,8 @@
 	<string name="whatsnew_smaller_mwm_message">Mapy vyžadují až o 20 % méně místa.</string>
 	<string name="whatsnew_waypoints_title">Body průjezdu na trase</string>
 	<string name="whatsnew_waypoints_message">Klepněte na místo a přidejte bod průjezdu.</string>
+	<string name="whatsnew_viator_title">Objednat výlet</string>
+	<string name="whatsnew_viator_message">Vyberte si oblíbené výlety v turistických městech po celém světě.</string>
 	<string name="whatsnew_driving_style_title">Nový styl mapy pro vozidla</string>
 	<string name="whatsnew_driving_style_message">Navigační režim pro auto ještě snadnější.</string>
 	<string name="more_on_bookingcom">Více na Booking.com</string>
@@ -1098,4 +1103,42 @@
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
 	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
+	<string name="learn_more">Zjistit více</string>
+	<string name="exit">Ukončit</string>
+	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy.</string>
+	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy.</string>
+	<string name="onboarding_welcome_message">Bezplatné, rychlé, podrobné a zcela offline mapy s navigací \"turn-by-turn\".</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Spuštěním aplikace souhlasíte s podmínkami použití a zásadami ochrany osobních údajů.</string>
+	<string name="button_accept_and_continue">Přijmout a pokračovat</string>
+	<string name="button_learn_more">Zjistit více</string>
+	<string name="onboarding_not_storage_permission_title">Povolit přístup</string>
+	<string name="onboarding_not_storage_permission_message">Změňte nastavení oprávnění ve vašem zařízení. MAPS.ME vyžaduje přístup k úložišti.</string>
+	<string name="button_exit">Ukončit</string>
+	<string name="onboarding_learn_more_title">MAPS.ME vyžaduje přístup k</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Úložišti</string>
+	<string name="onboarding_learn_more_storage_message">Umožní to stahování a používání offline map a ukládání záložek.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Určení polohy</string>
+	<string name="onboarding_learn_more_location_message">Umožní to zobrazení míst a dopravy ve vaší blízkosti a použití navigace.</string>
+	<string name="onboarding_learn_more_save_maps_message">Můžete také změnit cílové umístění pro stažené mapy v nastavení.</string>
+	<string name="settings_device_memory">Paměť zařízení</string>
+	<string name="settings_card_memory">Paměťovou kartu</string>
+	<string name="settings_storage_available">%s k dispozici</string>
+	<string name="toast_location_permission_denied">Povolení k určení polohy bylo zamítnuto</string>
+	<string name="place_page_viator_title">Atrakce a výlety</string>
+	<string name="planning_route_need_finish">Přidejte místo do plánu trasy.</string>
+	<string name="planning_route_need_start">Zadejte výchozí bod pro plánování trasy.</string>
+	<string name="button_use">Použít</string>
+	<string name="planning_route_manage_route">Spravovat trasu</string>
+	<string name="button_plan">Naplánovat</string>
+	<string name="button_add">Přidat</string>
+	<string name="placepage_remove_stop">Odstranit</string>
+	<string name="planning_route_remove_title">Pro odebrání přetáhněte sem</string>
+	<string name="dialog_change_start_point_message">Nastavit aktuální polohu jako výchozí bod?</string>
+	<string name="button_replace">Nastavit</string>
+	<string name="placepage_add_stop">Přidat zastávku</string>
+	<string name="whatsnew_intermediate_point_title">Další zastávka</string>
+	<string name="whatsnew_intermediate_point_message">Naplánujte trasu s průjezdním bodem.</string>
 </resources>

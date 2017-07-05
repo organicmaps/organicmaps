@@ -266,7 +266,7 @@
 "settings" = "Asetukset";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Karttojen tallennus";
+"maps_storage" = "Tallenna kartat kohteeseen";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Valitse karttojen latauskohde";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 päivä";
 
-"recent_track_help_text" = "Huomaa: kun aktivoit tämän toiminnon, akun kulutus kasvaa.";
+"recent_track_help_text" = "Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.";
 
 "pref_track_ios_caption" = "Viimeisin reitti näyttää kulkemasi matkan.";
 
@@ -1336,9 +1336,9 @@
 
 "onboarding_location_message" = "Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.";
 
 "onboarding_storage_permissions_title" = "Grant access";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
 
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
+"onboarding_welcome_title" = "Tervetuloa käyttämään MAPS.ME:tä";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
@@ -1646,7 +1646,7 @@
 "blog" = "Blogi";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Käyttötilastojen kerääminen auttaa meitä parantamaan sovellusta.";
+"allow_statistics_hint" = "Anonyymien käyttötilastojen kerääminen auttaa meitä kehittämään sovellusta.";
 
 "general_settings" = "Yleiset asetukset";
 
@@ -1877,9 +1877,9 @@
 
 "whatsnew_waypoints_message" = "Lisää reittiisi reittipisteitä napauttamalla paikkoja.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Varaa kierros";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Valitse suosittuja kierroksia turistikaupungeissa ympäri maailman.";
 
 "whatsnew_driving_style_title" = "Uusi karttatyyli ajettaessa";
 
@@ -1948,14 +1948,75 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Lisätietoja";
 
-"exit" = "Exit";
+"exit" = "Poistu";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten.";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten.";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.";
+
+"button_accept_and_continue" = "Hyväksy ja jatka";
+
+"button_learn_more" = "Lisätietoja";
+
+"onboarding_not_storage_permission_title" = "Myönnä käyttöoikeus";
+
+"onboarding_not_storage_permission_message" = "Muuta laitteesi käyttöoikeusasetuksia. MAPS:ME:n käyttö edellyttää tallennustilan käyttöoikeutta.";
+
+"button_exit" = "Poistu";
+
+"onboarding_learn_more_title" = "MAPS.ME tarvitsee seuraavat käyttöoikeudet:";
+
+/* Default permission's name from Android settings. */
+"onboarding_learn_more_storage" = "Tallennustila";
+
+"onboarding_learn_more_storage_message" = "Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.";
+
+/* Default permission's name from Android settings. */
+"onboarding_location" = "Sijainti";
+
+"onboarding_learn_more_location_message" = "Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.";
+
+"onboarding_learn_more_save_maps_message" = "Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.";
+
+"settings_device_memory" = "Laitteen muisti";
+
+"settings_card_memory" = "Muistkortti";
+
+"settings_storage_available" = "%s käytettävissä";
+
+"toast_location_permission_denied" = "Sovelluksen sijainnin käyttöoikeus evättiin";
+
+"place_page_viator_title" = "Nähtävyydet ja kierrokset";
+
+"planning_route_need_finish" = "Lisää kohde reitin suunnittelua varten.";
+
+"planning_route_need_start" = "Lisää alkupiste reitin suunnittelua varten.";
+
+"button_use" = "Käytä";
+
+"planning_route_manage_route" = "Hallitse reittiä";
+
+"button_plan" = "Suunnittele";
+
+"button_add" = "Lisää";
+
+"placepage_remove_stop" = "Poista";
+
+"planning_route_remove_title" = "Vedä tähän poistaaksesi";
+
+"dialog_change_start_point_message" = "Haluatko korvata alkupisteen nykyisellä sijainnilla?";
+
+"button_replace" = "Korvaa";
+
+"placepage_add_stop" = "Lisää pysähdys";
+
+"whatsnew_intermediate_point_title" = "Lisäpysähdys";
+
+"whatsnew_intermediate_point_message" = "Suunnittele reitti välipisteellä.";

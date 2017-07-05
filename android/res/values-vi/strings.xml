@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Thiết lập</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Lưu trữ bản đồ</string>
+	<string name="maps_storage">Lưu bản đồ vào</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Chọn vị trí nơi bản đồ sẽ được tải về</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 giờ</string>
 	<string name="duration_12_hours">12 giờ</string>
 	<string name="duration_1_day">1 ngày</string>
-	<string name="recent_track_help_text">Xin lưu ý: kích hoạt chức năng này làm tăng việc sử dụng pin.</string>
+	<string name="recent_track_help_text">Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.</string>
 	<string name="pref_track_ios_caption">Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.</string>
 	<string name="pref_track_ios_subcaption">Vui lòng chọn khoảng thời gian lưu dấu.</string>
 	<string name="placepage_distance">Khoảng cách</string>
@@ -784,6 +784,9 @@
 	<string name="onboarding_notifications_title">Cho phép thông báo cập nhật</string>
 	<string name="onboarding_location_title">Giúp chúng tôi tìm bạn</string>
 	<string name="onboarding_location_message">Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.</string>
+	<string name="onboarding_permissions_title">Cho phép MAPS.ME truy cập ổ lưu trữ và vị trí</string>
+	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
+	<string name="onboarding_welcome_title">Chào mừng đến với MAPS.ME</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
@@ -936,7 +939,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Việc thu thập số liệu sử dụng giúp chúng tôi cải thiện ứng dụng.</string>
+	<string name="allow_statistics_hint">Việc thu thập số liệu sử dụng ẩn danh giúp chúng tôi cải thiện ứng dụng.</string>
 	<string name="general_settings">Thiết lập chung</string>
 	<string name="date">Ngày %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1059,6 +1062,8 @@
 	<string name="whatsnew_smaller_mwm_message">Giảm đến 20% kích cỡ của các bản đồ.</string>
 	<string name="whatsnew_waypoints_title">Điểm tọa độ trong Lộ trình</string>
 	<string name="whatsnew_waypoints_message">Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.</string>
+	<string name="whatsnew_viator_title">Đặt tour du lịch</string>
+	<string name="whatsnew_viator_message">Chọn các tour phổ biến trong các thành phố du lịch trên toàn thế giới.</string>
 	<string name="whatsnew_driving_style_title">Phong cách Bản đồ Mới cho Lái xe</string>
 	<string name="whatsnew_driving_style_message">Chế độ điều hướng ô tô dễ sử dụng hơn.</string>
 	<string name="more_on_bookingcom">Xem thêm trên Booking.com</string>
@@ -1091,4 +1096,42 @@
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="whatsnew_transliteration_message">Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.</string>
+	<string name="learn_more">Tìm hiểu thêm</string>
+	<string name="exit">Lối ra</string>
+	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình.</string>
+	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình.</string>
+	<string name="onboarding_welcome_message">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Thông qua việc khởi chạy ứng dụng, bạn đồng ý với các Điều khoản Sử dụng và Chính sách Riêng tư.</string>
+	<string name="button_accept_and_continue">Chấp nhận và tiếp tục</string>
+	<string name="button_learn_more">Tìm hiểu thêm</string>
+	<string name="onboarding_not_storage_permission_title">Cho phép truy cập</string>
+	<string name="onboarding_not_storage_permission_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.</string>
+	<string name="button_exit">Thoát</string>
+	<string name="onboarding_learn_more_title">MAPS.ME cần quyền truy cập đến</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_learn_more_storage">Ổ lưu trữ</string>
+	<string name="onboarding_learn_more_storage_message">Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_location">Vị trí</string>
+	<string name="onboarding_learn_more_location_message">Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
+	<string name="onboarding_learn_more_save_maps_message">Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.</string>
+	<string name="settings_device_memory">Bộ nhớ thiết bị</string>
+	<string name="settings_card_memory">Bộ nhớ thẻ</string>
+	<string name="settings_storage_available">%s trống</string>
+	<string name="toast_location_permission_denied">Quyền định vị của ứng dụng bị từ chối</string>
+	<string name="place_page_viator_title">Các điểm tham quan và du lịch</string>
+	<string name="planning_route_need_finish">Bổ sung một điểm đến để lập kế hoạch lộ trình.</string>
+	<string name="planning_route_need_start">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình.</string>
+	<string name="button_use">Sử dụng</string>
+	<string name="planning_route_manage_route">Quản lý lộ trình</string>
+	<string name="button_plan">Kế hoạch</string>
+	<string name="button_add">Thêm</string>
+	<string name="placepage_remove_stop">Xóa</string>
+	<string name="planning_route_remove_title">Kéo vào đây để xóa</string>
+	<string name="dialog_change_start_point_message">Thay điểm bắt đầu cho vị trí hiện tại?</string>
+	<string name="button_replace">Thay thế</string>
+	<string name="placepage_add_stop">Thêm điểm dừng</string>
+	<string name="whatsnew_intermediate_point_title">Điểm dừng bổ sung</string>
+	<string name="whatsnew_intermediate_point_message">Lập một lộ trình với một điểm trung gian.</string>
 </resources>
