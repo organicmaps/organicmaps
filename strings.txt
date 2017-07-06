@@ -12537,14 +12537,6 @@
     el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
     sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
 
-  [p2p_add_stop]
-    tags = ios, android
-    en = Add stop
-
-  [p2p_remove_stop]
-    tags = ios, android
-    en = Remove stop
-
   [whats_new_next_button]
     tags = ios
     en = Next
