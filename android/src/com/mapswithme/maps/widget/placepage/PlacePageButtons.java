@@ -143,7 +143,7 @@ final class PlacePageButtons
       @Override
       int getTitle()
       {
-        return R.string.p2p_add_stop;
+        return R.string.placepage_add_stop;
       }
 
       @Override
@@ -158,7 +158,7 @@ final class PlacePageButtons
       @Override
       int getTitle()
       {
-        return R.string.p2p_remove_stop;
+        return R.string.placepage_remove_stop;
       }
 
       @Override
