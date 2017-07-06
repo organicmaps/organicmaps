@@ -2350,7 +2350,6 @@ void Framework::InvalidateUserMarks()
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
   {
     UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
-    guard.m_controller.Update();
   }
 }
 

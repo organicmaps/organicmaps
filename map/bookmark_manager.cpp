@@ -83,11 +83,9 @@ void BookmarkManager::LoadBookmark(string const & filePath)
 
 void BookmarkManager::InitBookmarks()
 {
-  for (auto it = m_categories.begin(); it != m_categories.end(); ++it)
+  for (auto & cat : m_categories)
   {
-    BookmarkCategory * cat = *it;
     BookmarkCategory::Guard guard(*cat);
-    guard.m_controller.Update();
   }
 }
 
