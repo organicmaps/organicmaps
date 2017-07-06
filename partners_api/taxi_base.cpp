@@ -1,7 +1,20 @@
 #include "partners_api/taxi_base.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+
+namespace
+{
+// The maximum supported distance in meters by default.
+double const kMaxSupportedDistance = 100000;
+}  // namespace
+
 namespace taxi
 {
+bool ApiBase::IsDistanceSupported(ms::LatLon const & from, ms::LatLon const & to) const
+{
+  return ms::DistanceOnEarth(from, to) <= kMaxSupportedDistance;
+}
+
 bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
                                       std::string const & city) const
 {

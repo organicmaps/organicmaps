@@ -233,6 +233,13 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   ASSERT(successFn, ());
   ASSERT(errorFn, ());
 
+  if (!IsDistanceSupported(from, to))
+  {
+    // TODO(a): Add ErrorCode::FarDistance and provide this error code.
+    errorFn(ErrorCode::NoProducts);
+    return;
+  }
+
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
   auto const baseUrl = m_baseUrl;
