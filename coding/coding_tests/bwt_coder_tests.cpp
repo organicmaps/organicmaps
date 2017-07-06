@@ -34,6 +34,26 @@ string EncodeDecode(BWTCoder::Params const & params, string const & s)
   return result;
 }
 
+string EncodeDecodeBlock(string const & s)
+{
+  vector<uint8_t> data;
+
+  {
+    MemWriter<decltype(data)> sink(data);
+    BWTCoder::EncodeAndWriteBlock(sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
+  }
+
+  string result;
+  {
+    MemReader reader(data.data(), data.size());
+    ReaderSource<MemReader> source(reader);
+
+    BWTCoder::ReadAndDecodeBlock(source, back_inserter(result));
+  }
+
+  return result;
+}
+
 UNIT_TEST(BWTEncoder_Smoke)
 {
   for (size_t blockSize = 1; blockSize < 100; ++blockSize)
@@ -42,12 +62,16 @@ UNIT_TEST(BWTEncoder_Smoke)
 
     params.m_blockSize = blockSize;
     string const s = "abracadabra";
+    TEST_EQUAL(s, EncodeDecodeBlock(s), ());
     TEST_EQUAL(s, EncodeDecode(params, s), (blockSize));
   }
 
   string const strings[] = {"", "mississippi", "again and again and again"};
   for (auto const & s : strings)
+  {
+    TEST_EQUAL(s, EncodeDecodeBlock(s), ());
     TEST_EQUAL(s, EncodeDecode(BWTCoder::Params{}, s), ());
+  }
 }
 
 UNIT_TEST(BWT_Large)

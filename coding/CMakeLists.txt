@@ -72,6 +72,7 @@ set(
   streams_common.hpp
   streams_sink.hpp
   succinct_mapper.hpp
+  text_storage.hpp
   traffic.cpp
   traffic.hpp
   transliteration.cpp
