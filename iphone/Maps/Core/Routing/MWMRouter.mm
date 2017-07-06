@@ -234,6 +234,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)addPoint:(MWMRoutePoint *)point
 {
+  if (!point)
+  {
+    NSAssert(NO, @"Point can not be nil");
+    return;
+  }
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
@@ -279,7 +284,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (!finishPoint)
     return;
   [self addPoint:finishPoint];
-  if (![self startPoint])
+  if (![self startPoint] && [MWMLocationManager lastLocation])
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]];
   [self rebuildWithBestRouter:bestRouter];
 }
