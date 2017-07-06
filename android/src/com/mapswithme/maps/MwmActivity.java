@@ -1665,6 +1665,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
                                             boolean showFrame)
   {
+    // S - start, F - finish, L - my position
+    // -S-F-L -> Start
+    // -S-F+L -> Finish
+    // -S+F-L -> Start
+    // -S+F+L -> Start + Use
+    // +S-F-L -> Finish
+    // +S-F+L -> Finish
+    // +S+F-L -> Hide
+    // +S+F+L -> Hide
+
+    MapObject myPosition = LocationHelper.INSTANCE.getMyPosition();
+
+    if (myPosition != null && !controller.hasEndPoint())
+    {
+      showAddFinishFrame();
+      if (showFrame)
+        showLineFrame();
+      return true;
+    }
     if (!controller.hasStartPoint())
     {
       showAddStartFrame();
