@@ -301,7 +301,7 @@ void AsyncRouter::CalculateRoute()
     LOG(LINFO, ("Calculating the route,", checkpoints, "startDirection", startDirection));
 
     if (absentFetcher)
-      absentFetcher->GenerateRequest(checkpoints.GetStart(), checkpoints.GetFinish());
+      absentFetcher->GenerateRequest(checkpoints);
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
