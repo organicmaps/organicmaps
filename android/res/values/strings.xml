@@ -665,8 +665,6 @@
 	<string name="p2p_to_here">Route to</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
-	<string name="p2p_add_stop">Add stop</string>
-	<string name="p2p_remove_stop">Remove stop</string>
 	<string name="whats_new_next_button">Next</string>
 	<string name="editor_time_add">Add Schedule</string>
 	<string name="editor_time_delete">Delete Schedule</string>

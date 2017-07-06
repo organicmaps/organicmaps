@@ -1059,10 +1059,6 @@
 
 "p2p_reroute_from_current" = "Ønsker du, at vi planlægger en rute fra din nuværende placering?";
 
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
-
 "whats_new_next_button" = "Næste";
 
 "editor_time_add" = "Tilføj tidsplan";

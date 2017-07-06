@@ -1059,10 +1059,6 @@
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
-
 "whats_new_next_button" = "Volgende";
 
 "editor_time_add" = "Schema toevoegen";

@@ -1059,10 +1059,6 @@
 
 "p2p_reroute_from_current" = "Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?";
 
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
-
 "whats_new_next_button" = "Suivant";
 
 "editor_time_add" = "Ajouter au planning";

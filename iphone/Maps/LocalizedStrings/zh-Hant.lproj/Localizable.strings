@@ -1059,10 +1059,6 @@
 
 "p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
 
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
-
 "whats_new_next_button" = "下一頁";
 
 "editor_time_add" = "新增排程";
