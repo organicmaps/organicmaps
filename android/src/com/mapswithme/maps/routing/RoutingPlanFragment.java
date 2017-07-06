@@ -45,11 +45,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.showTaxiError(code);
   }
 
-  public void showStartButton(boolean show)
-  {
-    mPlanController.showStartButton(show);
-  }
-
   @Override
   public boolean onBackPressed()
   {
