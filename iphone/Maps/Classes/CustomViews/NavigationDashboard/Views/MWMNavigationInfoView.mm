@@ -91,6 +91,8 @@ BOOL defaultOrientation(CGSize const & size)
 
 @property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
+@property(nonatomic) BOOL hasLocation;
+
 @end
 
 @implementation MWMNavigationInfoView
@@ -117,29 +119,47 @@ BOOL defaultOrientation(CGSize const & size)
 }
 
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
-- (void)onRoutePointsUpdated
+- (void)updateToastView
 {
-  if (![MWMRouter startPoint])
-  {
-    if ([MWMLocationManager lastLocation])
-    {
-      [self.toastView configWithText:L(@"routing_add_start_point") withActionButton:YES];
-      [self setToastViewHidden:NO];
-    }
-    else
-    {
-      [self setToastViewHidden:YES];
-    }
-  }
-  else if (![MWMRouter finishPoint])
-  {
-    [self.toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
-    [self setToastViewHidden:NO];
-  }
-  else
+  // -S-F-L -> Start
+  // -S-F+L -> Finish
+  // -S+F-L -> Start
+  // -S+F+L -> Start + Use
+  // +S-F-L -> Finish
+  // +S-F+L -> Finish
+  // +S+F-L -> Hide
+  // +S+F+L -> Hide
+
+  BOOL const hasStart = ([MWMRouter startPoint] != nil);
+  BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+  self.hasLocation = ([MWMLocationManager lastLocation] != nil);
+
+  if (hasStart && hasFinish)
   {
     [self setToastViewHidden:YES];
+    return;
   }
+
+  [self setToastViewHidden:NO];
+
+  auto toastView = self.toastView;
+
+  if (hasStart)
+  {
+    [toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
+    return;
+  }
+
+  if (hasFinish)
+  {
+    [toastView configWithText:L(@"routing_add_start_point") withActionButton:self.hasLocation];
+    return;
+  }
+
+  if (self.hasLocation)
+    [toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
+  else
+    [toastView configWithText:L(@"routing_add_start_point") withActionButton:NO];
 }
 
 #pragma mark - Search
@@ -302,6 +322,13 @@ BOOL defaultOrientation(CGSize const & size)
 }
 
 #pragma mark - MWMLocationObserver
+
+- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
+{
+  BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
+  if (self.hasLocation != hasLocation)
+    [self updateToastView];
+}
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info
 {

@@ -32,6 +32,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
 
 - (void)setMapSearch;
 
-- (void)onRoutePointsUpdated;
+- (void)updateToastView;
 
 @end

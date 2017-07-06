@@ -99,18 +99,12 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
 
 - (IBAction)addLocationRoutePoint
 {
-  if (![MWMRouter startPoint])
-  {
-    [MWMRouter
-        buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
-            bestRouter:NO];
-  }
-  else if (![MWMRouter finishPoint])
-  {
-    [MWMRouter
-        buildToPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeFinish]
+  NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
+  NSAssert([MWMLocationManager lastLocation],
+           @"Action button is active while my location is not available");
+  [MWMRouter
+      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
           bestRouter:NO];
-  }
 }
 
 #pragma mark - MWMRoutePreview
@@ -225,7 +219,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [startButton setTitle:t forState:UIControlStateDisabled];
 }
 
-- (void)onRoutePointsUpdated { [self.navigationInfoView onRoutePointsUpdated]; }
+- (void)onRoutePointsUpdated { [self.navigationInfoView updateToastView]; }
 - (void)setMenuErrorStateWithErrorMessage:(NSString *)message
 {
   [self.delegate setRoutingErrorMessage:message];
