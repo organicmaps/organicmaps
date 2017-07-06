@@ -128,6 +128,7 @@ zh-Hant:加油站
 el:Βενζίνη
 he:גז
 sk:3^Čerpacia stanica
+sw:Sheli
 
 @parking
 en:^Parking
@@ -632,7 +633,7 @@ zh-Hans:1^加油站|燃料
 zh-Hant:2^加氣站|汽油|加油|天然氣
 el:^Βενζινάδικο|καύσιμο|βενζίνη|πρατήριο
 sk:3^Benzínová pumpa
-sw:^Sheli|mafuta
+sw:mafuta
 
 shop-bakery|@shop
 en:3^Bakery|U+1F35E
@@ -744,6 +745,7 @@ zh-Hans:^便利店|商店
 zh-Hant:^便利商店|便利超商|購物
 el:^Ψιλικατζίδικο|κατάστημα
 sk:^Príležitostné potreby
+sw:^Duka
 
 shop-garden_centre|@shop
 en:^Garden Store|U+1F3EC|U+1F3EA|U+1F3E1
@@ -806,6 +808,7 @@ zh-Hans:^手机商店|商店
 zh-Hant:^手機專賣店|購物
 el:^Κινητά τηλέφωνα|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
 sk:^Mobilné telefóny
+sw:^Duka la simu
 
 shop-florist|@shop
 en:^Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
