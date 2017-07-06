@@ -208,7 +208,11 @@ namespace
     {
       m2::AnyRectD const & rect = m_rectHolder(container->GetType());
       if (UserMark const * p = container->FindMarkInRect(rect, m_d))
-        m_mark = p;
+      {
+        double const kEps = 1e-5;
+        if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
+          m_mark = p;
+      }
     }
 
     UserMark const * GetFindedMark() const { return m_mark; }

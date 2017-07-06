@@ -2520,11 +2520,18 @@ UserMark const * Framework::FindUserMarkInTapPosition(m2::PointD const & pt) con
   double const pxHeight = touchRadius + bmAddition;
   m_currentModelView.GetTouchRect(pt + m2::PointD(0, bmAddition),
                                   pxWidth, pxHeight, bmSearchRect);
+
+  m2::AnyRectD routingRect;
+  m_currentModelView.GetTouchRect(pt, touchRadius + bmAddition, routingRect);
+
   UserMark const * mark = m_bmManager.FindNearestUserMark(
-    [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
+    [&rect, &bmSearchRect, &routingRect](UserMarkType type) -> m2::AnyRectD const &
     {
-      return (type == UserMarkType::BOOKMARK_MARK ||
-              type == UserMarkType::ROUTING_MARK) ? bmSearchRect : rect;
+      if (type == UserMarkType::BOOKMARK_MARK)
+        return bmSearchRect;
+      if (type == UserMarkType::ROUTING_MARK)
+        return routingRect;
+      return rect;
     });
   return mark;
 }
