@@ -525,7 +525,6 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!url)
     return;
   [self.ownerViewController openUrl:url];
-  [data logLocalAdsEvent:local_ads::EventType::OpenInfo];
 }
 
 - (void)openViatorURL:(nullable NSURL *)url
