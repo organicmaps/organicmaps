@@ -101,6 +101,7 @@
 		<string>fbshareextension</string>
 		<string>uber</string>
 		<string>yandextaxi</string>
+		<string>tel</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
