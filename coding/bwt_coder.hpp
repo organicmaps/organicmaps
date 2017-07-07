@@ -85,7 +85,8 @@ public:
       mtf.Transform(b);
     }
 
-    CHECK_LESS(start, n, ());
+    if (n != 0)
+      CHECK_LESS(start, n, ());
 
     revBuffer.resize(n);
     base::RevBWT(n, static_cast<size_t>(start), bwtBuffer.data(), revBuffer.data());

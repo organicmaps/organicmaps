@@ -82,6 +82,7 @@ HEADERS += \
     streams_common.hpp \
     streams_sink.hpp \
     succinct_mapper.hpp \
+    text_storage.hpp \
     traffic.hpp \
     transliteration.hpp \
     uri.hpp \

@@ -32,6 +32,7 @@ set(
   reader_writer_ops_test.cpp
   simple_dense_coding_test.cpp
   succinct_mapper_test.cpp
+  text_storage_tests.cpp
   traffic_test.cpp
   uri_test.cpp
   url_encode_test.cpp
