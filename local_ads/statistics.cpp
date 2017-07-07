@@ -201,7 +201,7 @@ bool Statistics::RequestEvents(std::list<Event> & events, bool & needToSend)
 
   using namespace std::chrono;
   needToSend = m_isFirstSending || isTimeout ||
-    (steady_clock::now() > (m_lastSending + kSendingTimeout));
+    (std::chrono::steady_clock::now() > (m_lastSending + kSendingTimeout));
 
   events = std::move(m_events);
   m_events.clear();

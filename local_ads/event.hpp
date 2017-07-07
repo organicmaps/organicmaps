@@ -5,7 +5,8 @@
 
 namespace local_ads
 {
-using Timestamp = std::chrono::steady_clock::time_point;
+using Clock = std::chrono::system_clock;
+using Timestamp = Clock::time_point;
 
 enum class EventType
 {

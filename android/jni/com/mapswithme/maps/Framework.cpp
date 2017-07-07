@@ -599,7 +599,7 @@ void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double l
     return;
 
   local_ads::Event event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(), featureID.m_index,
-                         m_work.GetDrawScale(), std::chrono::steady_clock::now(), lat, lon, accuracy);
+                         m_work.GetDrawScale(), local_ads::Clock::now(), lat, lon, accuracy);
   m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
 }  // namespace android

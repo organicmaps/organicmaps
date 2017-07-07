@@ -663,7 +663,7 @@ using namespace place_page;
   auto location = [MWMLocationManager lastLocation];
   auto event = local_ads::Event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
                                 featureID.m_index, f.GetDrawScale(),
-                                std::chrono::steady_clock::now(), location.coordinate.latitude,
+                                local_ads::Clock::now(), location.coordinate.latitude,
                                 location.coordinate.longitude, location.horizontalAccuracy);
   f.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
