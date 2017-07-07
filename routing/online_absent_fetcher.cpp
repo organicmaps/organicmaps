@@ -17,6 +17,14 @@ using platform::LocalCountryFile;
 
 namespace routing
 {
+OnlineAbsentCountriesFetcher::OnlineAbsentCountriesFetcher(
+    TCountryFileFn const & countryFileFn, TCountryLocalFileFn const & countryLocalFileFn)
+  : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn)
+{
+  CHECK(m_countryFileFn, ());
+  CHECK(m_countryLocalFileFn, ());
+}
+
 void OnlineAbsentCountriesFetcher::GenerateRequest(Checkpoints const & checkpoints)
 {
   if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
@@ -53,8 +61,6 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   m_fetcherThread.reset();
 
   my::SortUnique(countries);
-  for (auto const & country : countries)
-    LOG(LINFO, ("Needs:", country));
 }
 
 bool OnlineAbsentCountriesFetcher::AllPointsInSameMwm(Checkpoints const & checkpoints) const

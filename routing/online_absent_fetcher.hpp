@@ -30,11 +30,7 @@ public:
 class OnlineAbsentCountriesFetcher : public IOnlineFetcher
 {
 public:
-  OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn,
-                               TCountryLocalFileFn const & countryLocalFileFn)
-    : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn)
-  {
-  }
+  OnlineAbsentCountriesFetcher(TCountryFileFn const &, TCountryLocalFileFn const &);
 
   // IOnlineFetcher overrides:
   void GenerateRequest(Checkpoints const &) override;

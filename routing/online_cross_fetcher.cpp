@@ -56,6 +56,7 @@ OnlineCrossFetcher::OnlineCrossFetcher(TCountryFileFn const & countryFileFn,
                                        string const & serverURL, Checkpoints const & checkpoints)
   : m_countryFileFn(countryFileFn), m_serverURL(serverURL), m_checkpoints(checkpoints)
 {
+  CHECK(m_countryFileFn, ());
 }
 
 void OnlineCrossFetcher::Do()
