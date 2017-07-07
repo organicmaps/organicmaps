@@ -151,12 +151,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   auto show = ^(place_page::Info const & info) {
     self.trafficButtonHidden = YES;
     [self.placePageManager show:info];
-    if (IPAD)
-    {
-      auto ownerView = self.ownerController.view;
-      [ownerView bringSubviewToFront:self.menuController.view];
-      [ownerView bringSubviewToFront:self.navigationManager.routePreview];
-    }
   };
 
   using namespace network_policy;

@@ -60,7 +60,7 @@ CGFloat const kBottomOffset = 60;
   actionBar.alpha = 0;
   ppView.alpha = 0;
   ppView.origin = {- kPlacePageWidth, self.topBound};
-  [self.ownerView addSubview:ppView];
+  [self.ownerView insertSubview:ppView atIndex:0];
 
   place_page_layout::animate(^{
     ppView.alpha = 1;
