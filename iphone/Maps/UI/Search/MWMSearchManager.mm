@@ -195,7 +195,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 - (void)processSearchWithResult:(search::Result const &)result
 {
   [MWMSearch showResult:result];
-  self.state = MWMSearchManagerStateHidden;
+  if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
+    self.state = MWMSearchManagerStateHidden;
 }
 
 #pragma mark - MWMFrameworkStorageObserver
