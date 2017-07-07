@@ -157,6 +157,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         mDetailsScroll.scrollTo(0, 0);
     }
     refreshToolbarVisibility();
+    notifyProgress();
   }
 
   /**

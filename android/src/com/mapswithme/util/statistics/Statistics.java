@@ -194,6 +194,7 @@ public enum Statistics
     public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
     public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
     public static final String ROUTING_TAXI_SHOW_IN_PP = "Placepage_Taxi_show";
+    public static final String ROUTING_TAXI_REAL_SHOW_IN_PP = "Placepage_Taxi_show_real";
     public static final String ROUTING_TAXI_CLICK_IN_PP = "Placepage_Taxi_click";
     public static final String ROUTING_TAXI_ROUTE_BUILT = "Routing_Build_Taxi";
 
