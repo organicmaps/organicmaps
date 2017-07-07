@@ -14,14 +14,17 @@
 
 namespace coding
 {
-// Writes set of strings in a format that allows to access blocks of
-// strings. The size of each block roughly equals to the |blockSize|,
+// Writes a set of strings in a format that allows to efficiently
+// access blocks of strings. This means that access of individual
+// strings may be inefficient, but access to a block of strings can be
+// performed in O(length of all strings in the block + log(number of
+// blocks)). The size of each block roughly equals to the |blockSize|,
 // because the whole number of strings is packed into a single block.
 //
 // Format description:
 // * first 8 bytes - little endian-encoded offset of the index section
 // * data section - represents a catenated sequence of BWT-compressed blocks with
-//   the sequence of individual string lengths in the block
+//   a sequence of individual string lengths in the block
 // * index section - represents a delta-encoded sequence of
 //   BWT-compressed blocks offsets intermixed with the number of
 //   strings inside each block.
@@ -183,7 +186,7 @@ public:
     auto const numBlocks = ReadVarUint<uint64_t, NonOwningReaderSource>(source);
     m_blocks.assign(numBlocks, {});
 
-    uint64_t prevOffset = 8;  // 8 bytes for the offset
+    uint64_t prevOffset = 8;  // 8 bytes for the offset of the data section
     for (uint64_t i = 0; i < numBlocks; ++i)
     {
       auto const delta = ReadVarUint<uint64_t, NonOwningReaderSource>(source);

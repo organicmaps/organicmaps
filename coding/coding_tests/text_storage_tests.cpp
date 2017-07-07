@@ -86,7 +86,8 @@ UNIT_TEST(TextStorage_Simple)
 UNIT_TEST(TextStorage_Empty)
 {
   vector<string> strings;
-  for (int i = 0; i < 1000; ++i) {
+  for (int i = 0; i < 1000; ++i)
+  {
     strings.emplace_back(string(1 /* size */, i % 256));
     for (int j = 0; j < 1000; ++j)
       strings.emplace_back();
