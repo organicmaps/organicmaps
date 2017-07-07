@@ -59,7 +59,8 @@ public class TaxiAdapter extends PagerAdapter
     TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);
     int time = Integer.parseInt(product.getTime());
     CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time, R.dimen.text_size_body_3);
-    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, waitTime + " • " + formatPrice(product)));
+    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, waitTime + " • ~"
+                                                                + formatPrice(product)));
     container.addView(v, 0);
     return v;
   }
