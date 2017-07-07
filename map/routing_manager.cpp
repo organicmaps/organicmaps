@@ -270,7 +270,7 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
 
-  m_routingSession.SetRouter(move(router), move(fetcher));
+  m_routingSession.SetRouter(std::move(router), std::move(fetcher));
   m_currentRouterType = type;
 }
 
@@ -438,6 +438,11 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 {
   if (!IsRoutingActive())
     return false;
+
+  // Now only car routing supports intermediate points.
+  if (m_currentRouterType != routing::RouterType::Vehicle)
+    return false;
+
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
   return guard.m_controller.GetUserMarkCount() <
          static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);

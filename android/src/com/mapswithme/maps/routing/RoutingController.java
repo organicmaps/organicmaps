@@ -289,9 +289,12 @@ public class RoutingController implements TaxiManager.TaxiListener
     mLastBuildProgress = 0;
     mInternetConnected = ConnectionState.isConnected();
 
+    // Now only car routing supports intermediate points.
+    if (!isVehicleRouterType())
+      removeIntermediatePoints();
+
     if (isTaxiRouterType())
     {
-      removeIntermediatePoints();
       if (!mInternetConnected)
       {
         completeTaxiRequest();

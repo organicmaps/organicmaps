@@ -177,16 +177,9 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   if (type == self.type)
     return;
-  if (type == MWMRouterTypeTaxi)
-  {
-    auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
-    for (auto const & point : routePoints)
-    {
-      if (point.m_pointType != RouteMarkType::Intermediate)
-        continue;
-      [self removePoint:RouteMarkType::Intermediate intermediateIndex:point.m_intermediateIndex];
-    }
-  }
+  // Now only car routing supports intermediate points.
+  if (type != MWMRouterTypeVehicle)
+    GetFramework().GetRoutingManager().RemoveIntermediateRoutePoints();
   [self doStop:NO];
   GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
