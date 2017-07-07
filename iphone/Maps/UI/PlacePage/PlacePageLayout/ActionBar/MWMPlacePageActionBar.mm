@@ -60,7 +60,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
   BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
   BOOL const isApi = data.isApi;
-  BOOL const isP2P = [MWMRouter isRoutingActive];
+  BOOL const isP2P =
+      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
   BOOL const isMyPosition = data.isMyPosition;
   BOOL const isRoutePoint = data.isRoutePoint;
   BOOL const isNeedToAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
