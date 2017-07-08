@@ -22,6 +22,8 @@
 #include "build_style/build_style.h"
 #include "build_style/build_statistics.h"
 #include "build_style/run_tests.h"
+
+#include "drape/debug_rect_renderer.hpp"
 #endif // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>

@@ -1,16 +1,17 @@
+syntax = "proto3";
 option optimize_for = LITE_RUNTIME;
 
 message DashDotProto
 {
   repeated double dd = 1;
-  optional double offset = 2;
+  double offset = 2;
 }
 
 message PathSymProto
 {
-  required string name = 1;
-  required double step = 2;
-  optional double offset = 3;
+  string name = 1;
+  double step = 2;
+  double offset = 3;
 }
 
 enum LineJoin
@@ -29,109 +30,109 @@ enum LineCap
 
 message LineRuleProto
 {
-  required double width = 1;
-  required uint32 color = 2;
-  optional DashDotProto dashdot = 3;
-  required int32 priority = 4;
-  optional PathSymProto pathsym = 5;
-  optional LineJoin join = 6;
-  optional LineCap cap = 7;
+  double width = 1;
+  uint32 color = 2;
+  DashDotProto dashdot = 3;
+  int32 priority = 4;
+  PathSymProto pathsym = 5;
+  LineJoin join = 6;
+  LineCap cap = 7;
 }
 
 message LineDefProto
 {
-  required double width = 1;
-  required uint32 color = 2;
-  optional DashDotProto dashdot = 3;
-  optional PathSymProto pathsym = 4;
-  optional LineJoin join = 6;
-  optional LineCap cap = 7;
+  double width = 1;
+  uint32 color = 2;
+  DashDotProto dashdot = 3;
+  PathSymProto pathsym = 4;
+  LineJoin join = 6;
+  LineCap cap = 7;
 }
 
 message AreaRuleProto
 {
-  required uint32 color = 1;
-  optional LineDefProto border = 2;
-  required int32 priority = 3;
+  uint32 color = 1;
+  LineDefProto border = 2;
+  int32 priority = 3;
 }
 
 message SymbolRuleProto
 {
-  required string name = 1;
-  optional int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
-  required int32 priority = 3;
-  optional int32 min_distance = 4;
+  string name = 1;
+  int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
+  int32 priority = 3;
+  int32 min_distance = 4;
 }
 
 message CaptionDefProto
 {
-  required int32 height = 1;
-  required uint32 color = 2;
-  optional uint32 stroke_color = 3;
-  optional int32 offset_x = 4;
-  optional int32 offset_y = 5;
-  optional string text = 6;
-  optional bool is_optional = 7;
+  int32 height = 1;
+  uint32 color = 2;
+  uint32 stroke_color = 3;
+  int32 offset_x = 4;
+  int32 offset_y = 5;
+  string text = 6;
+  bool is_optional = 7;
 }
 
 message CaptionRuleProto
 {
-  required CaptionDefProto primary = 1;
-  optional CaptionDefProto secondary = 2;
-  required int32 priority = 3;
+  CaptionDefProto primary = 1;
+  CaptionDefProto secondary = 2;
+  int32 priority = 3;
 }
 
 message CircleRuleProto
 {
-  required double radius = 1;
-  required uint32 color = 2;
-  optional LineDefProto border = 3;
-  required int32 priority = 4;
+  double radius = 1;
+  uint32 color = 2;
+  LineDefProto border = 3;
+  int32 priority = 4;
 }
 
 message PathTextRuleProto
 {
-  required CaptionDefProto primary = 1;
-  optional CaptionDefProto secondary = 2;
-  required int32 priority = 3;
+  CaptionDefProto primary = 1;
+  CaptionDefProto secondary = 2;
+  int32 priority = 3;
 }
 
 message ShieldRuleProto
 {
-  required int32 height = 1;
-  required uint32 color = 2;
-  optional uint32 stroke_color = 3;
-  required int32 priority = 4;
-  optional int32 min_distance = 5;
-  required uint32 text_color = 6;
-  optional uint32 text_stroke_color = 7;
+  int32 height = 1;
+  uint32 color = 2;
+  uint32 stroke_color = 3;
+  int32 priority = 4;
+  int32 min_distance = 5;
+  uint32 text_color = 6;
+  uint32 text_stroke_color = 7;
 }
 
 message DrawElementProto
 {
-  required int32 scale = 1;
+  int32 scale = 1;
   repeated LineRuleProto lines = 2;
-  optional AreaRuleProto area = 3;
-  optional SymbolRuleProto symbol = 4;
-  optional CaptionRuleProto caption = 5;
-  optional CircleRuleProto circle = 6;
-  optional PathTextRuleProto path_text = 7;
-  optional ShieldRuleProto shield = 8;
+  AreaRuleProto area = 3;
+  SymbolRuleProto symbol = 4;
+  CaptionRuleProto caption = 5;
+  CircleRuleProto circle = 6;
+  PathTextRuleProto path_text = 7;
+  ShieldRuleProto shield = 8;
   repeated string apply_if = 9;
 }
 
 message ClassifElementProto
 {
-  required string name = 1;
+  string name = 1;
   repeated DrawElementProto element = 2;
 }
 
 message ColorElementProto
 {
-  required string name = 1;
-  required uint32 color = 2;
-  optional float x = 3;
-  optional float y = 4;
+  string name = 1;
+  uint32 color = 2;
+  float x = 3;
+  float y = 4;
 }
 
 message ColorsElementProto
@@ -142,5 +143,5 @@ message ColorsElementProto
 message ContainerProto
 {
   repeated ClassifElementProto cont = 1;
-  optional ColorsElementProto colors = 2;
+  ColorsElementProto colors = 2;
 }

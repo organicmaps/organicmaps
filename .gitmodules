@@ -10,3 +10,6 @@
 [submodule "tools/macdeployqtfix"]
 	path = tools/macdeployqtfix
 	url = git://github.com/aurelien-rainone/macdeployqtfix.git
+[submodule "3party/protobuf/protobuf"]
+	path = 3party/protobuf/protobuf
+	url = git://github.com/mapsme/protobuf.git

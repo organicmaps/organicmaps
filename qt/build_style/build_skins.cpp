@@ -52,7 +52,11 @@ inline bool SkinCoorrectColor(SkinType s) { return std::get<2>(g_skinInfo[s]); }
 
 QString GetSkinGeneratorPath()
 {
-  return GetExternalPath("skin_generator", "skin_generator.app/Contents/MacOS", "");
+  QString path = GetExternalPath("skin_generator", "skin_generator.app/Contents/MacOS", "");
+  if (path.isEmpty())
+    path = GetExternalPath("skin_generator_tool", "skin_generator_tool.app/Contents/MacOS", "");
+  ASSERT(QFileInfo::exists(path), (path.toStdString()));
+  return path;
 }
 
 class RAII

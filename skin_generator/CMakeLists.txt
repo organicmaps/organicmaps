@@ -1,4 +1,4 @@
-project(skin_generator_cmake)
+project(skin_generator_tool)
 
 add_compile_options(
   "-std=c++11"
@@ -18,10 +18,10 @@ set(
   main.cpp
 )
 
-omim_add_executable(skin_generator ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
-  skin_generator
+  ${PROJECT_NAME}
   geometry
   coding
   base
@@ -34,3 +34,4 @@ omim_link_libraries(
   ${Qt5Svg_LIBRARIES}
   ${LIBZ}
 )
+

@@ -208,7 +208,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
       }
 
       if (keys[i].m_type == drule::caption)
-        hasCaptionWithoutOffset = !(pCap0->has_offset_y() || pCap0->has_offset_x());
+        hasCaptionWithoutOffset = (pCap0->offset_y() == 0 && pCap0->offset_x() == 0);
     }
   }
 

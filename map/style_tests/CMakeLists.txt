@@ -1,6 +1,6 @@
 project(style_tests)
 
-include_directories(${OMIM_ROOT}/3party/protobuf/src)
+include_directories(${OMIM_ROOT}/3party/protobuf/protobuf/src)
 
 set(
   SRC

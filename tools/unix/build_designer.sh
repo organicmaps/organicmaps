@@ -45,7 +45,7 @@ cp -r "$RELEASE_PATH/skin_generator.app" "$MAC_RESOURCES/skin_generator.app"
 cp -r "$RELEASE_PATH/generator_tool.app" "$MAC_RESOURCES/generator_tool.app"
 cp -r "$OMIM_PATH/tools/kothic" "$MAC_RESOURCES/kothic"
 cp "$OMIM_PATH/tools/python/stylesheet/drules_info.py" "$MAC_RESOURCES/kothic/src/drules_info.py"
-cp "$OMIM_PATH/protobuf/protobuf-2.6.1-py2.7.egg" "$MAC_RESOURCES/kothic"
+cp "$OMIM_PATH/3party/protobuf/protobuf-3.3.0-py2.7.egg" "$MAC_RESOURCES/kothic"
 cp "$OMIM_PATH/tools/python/recalculate_geom_index.py" "$MAC_RESOURCES/recalculate_geom_index.py"
 cp "$OMIM_PATH/tools/python/generate_styles_override.py" "$MAC_RESOURCES/generate_styles_override.py"
 

@@ -327,12 +327,7 @@ add_subdirectory(ugc)
 if (PLATFORM_DESKTOP)
   add_subdirectory(openlr)
   add_subdirectory(generator)
-  # TODO(rokuz): CMake can't create an executable with the same name as the name of
-  # the folder containing its source. This is because file system doesn't allow
-  # directories and files with same names.
-  # Designer tool wants it to be called 'skin_generator'. Either fix designer tool
-  # to make it more flexible or find the right configuration for skin_generator.
-  # add_subdirectory(skin_generator)
+  add_subdirectory(skin_generator)
 endif()
 
 omim_add_test_subdirectory(qt_tstfrm)

@@ -9,7 +9,7 @@ CMDRES = $$system(python $$PWD/../tools/autobuild/shader_preprocessor.py $$SHADE
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/protobuf/src
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 

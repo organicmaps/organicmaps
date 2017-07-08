@@ -12,7 +12,7 @@ execute_process(
 include_directories(
   .
   watch
-  ${OMIM_ROOT}/3party/protobuf/src
+  ${OMIM_ROOT}/3party/protobuf/protobuf/src
   ${OMIM_ROOT}/3party/expat/lib
   ${OMIM_ROOT}/3party/freetype/include
   ${OMIM_ROOT}/3party/glm

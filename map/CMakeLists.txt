@@ -1,7 +1,7 @@
 project(map)
 
 include_directories(
-  ${OMIM_ROOT}/3party/protobuf/src
+  ${OMIM_ROOT}/3party/protobuf/protobuf/src
   ${OMIM_ROOT}/3party/freetype/include
   ${OMIM_ROOT}/3party/jansson/src
   ${OMIM_ROOT}/3party/glm

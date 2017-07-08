@@ -61,6 +61,7 @@ omim_link_libraries(
   stats_client
   stb_image
   succinct
+  ugc
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )

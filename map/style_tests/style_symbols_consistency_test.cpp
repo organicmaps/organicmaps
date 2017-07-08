@@ -60,7 +60,7 @@ set<string> GetSymbolsSetFromDrawingRule()
   drule::rules().ForEachRule([&symbols](int, int, int, drule::BaseRule const * rule)
   {
     SymbolRuleProto const * const symbol = rule->GetSymbol();
-    if (nullptr != symbol && symbol->has_name())
+    if (nullptr != symbol && !symbol->name().empty())
       symbols.insert(symbol->name());
   });
   return symbols;

@@ -176,7 +176,7 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl & p
   params.m_color = ToDrapeColor(capRule->color());
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, capRule->height() * vs));
 
-  if (capRule->has_stroke_color())
+  if (capRule->stroke_color() != 0)
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
   else if (vs < df::VisualParams::kHdpiScale)
     params.m_isSdf = false;
@@ -187,8 +187,8 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
   double const vs = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(shieldRule->text_color());
   params.m_size = static_cast<float>(std::max(kMinVisibleFontSize, shieldRule->height() * vs));
-  if (shieldRule->has_text_stroke_color())
-   params.m_outlineColor = ToDrapeColor(shieldRule->text_stroke_color());
+  if (shieldRule->text_stroke_color() != 0)
+    params.m_outlineColor = ToDrapeColor(shieldRule->text_stroke_color());
 
   if (vs < df::VisualParams::kHdpiScale)
     params.m_isSdf = false;
@@ -196,21 +196,20 @@ void ShieldRuleProtoToFontDecl(ShieldRuleProto const * shieldRule, dp::FontDecl 
 
 dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 {
-  if (capRule->has_offset_y())
+  if (capRule->offset_y() != 0)
   {
     if (capRule->offset_y() > 0)
       return dp::Top;
     else
       return dp::Bottom;
   }
-  if (capRule->has_offset_x())
+  if (capRule->offset_x() != 0)
   {
     if (capRule->offset_x() > 0)
       return dp::Left;
     else
       return dp::Right;
   }
-
   return dp::Center;
 }
 
@@ -218,11 +217,11 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
 {
   double const vs = VisualParams::Instance().GetVisualScale();
   m2::PointF result(0, 0);
-  if (capRule != nullptr && capRule->has_offset_x())
+  if (capRule != nullptr)
+  {
     result.x = static_cast<float>(capRule->offset_x() * vs);
-  if (capRule != nullptr && capRule->has_offset_y())
     result.y = static_cast<float>(capRule->offset_y() * vs);
-
+  }
   return result;
 }
 
@@ -440,7 +439,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
   params.m_primaryOffset = GetOffset(primaryProto);
-  params.m_primaryOptional = primaryProto->has_is_optional() ? primaryProto->is_optional() : true;
+  params.m_primaryOptional = primaryProto->is_optional();
   params.m_secondaryOptional = true;
 
   if (secondaryProto)
@@ -450,7 +449,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
     params.m_secondaryText = m_captions.GetAuxText();
     params.m_secondaryTextFont = auxDecl;
-    params.m_secondaryOptional = secondaryProto->has_is_optional() ? secondaryProto->is_optional() : true;
+    params.m_secondaryOptional = secondaryProto->is_optional();
   }
 }
 
@@ -591,8 +590,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     }
 
     double const mainScale = df::VisualParams::Instance().GetVisualScale();
-    params.m_extendingSize = static_cast<uint32_t>(m_symbolRule->has_min_distance() ?
-                                                   mainScale * m_symbolRule->min_distance() : 0.0);
+    params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance());
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_prioritized = prioritized || m_createdByEditor;
@@ -1022,7 +1020,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
     symbolParams.m_radiusInPixels = static_cast<float>(2.5 * mainScale);
     symbolParams.m_color = ToDrapeColor(m_shieldRule->color());
-    if (m_shieldRule->has_stroke_color())
+    if (m_shieldRule->stroke_color() != 0)
     {
       symbolParams.m_outlineColor = ToDrapeColor(m_shieldRule->stroke_color());
       symbolParams.m_outlineWidth = static_cast<float>(1.0 * mainScale);
@@ -1170,8 +1168,8 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
 
   ASSERT(m_shieldRule != nullptr, ());
   int constexpr kDefaultMinDistance = 50;
-  int minDistance = m_shieldRule->has_min_distance() ? m_shieldRule->min_distance()
-                                                     : kDefaultMinDistance;
+  int minDistance = m_shieldRule->min_distance() != 0 ? m_shieldRule->min_distance()
+                                                      : kDefaultMinDistance;
   if (minDistance < 0)
     minDistance = kDefaultMinDistance;
   uint32_t const scaledMinDistance = static_cast<uint32_t>(vs * minDistance);

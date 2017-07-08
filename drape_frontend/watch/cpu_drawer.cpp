@@ -786,14 +786,14 @@ void CPUDrawer::Draw(FeatureData const & data)
         bool isN = ((pRule->GetType() & drule::way) != 0);
 
         dp::Anchor textPosition = dp::Center;
-        if (pRule->GetCaption(0)->has_offset_y())
+        if (pRule->GetCaption(0)->offset_y() != 0)
         {
           if (pRule->GetCaption(0)->offset_y() > 0)
             textPosition = dp::Bottom;
           else
             textPosition = dp::Top;
         }
-        if (pRule->GetCaption(0)->has_offset_x())
+        if (pRule->GetCaption(0)->offset_x() != 0)
         {
           if (pRule->GetCaption(0)->offset_x() > 0)
             textPosition = dp::Right;
