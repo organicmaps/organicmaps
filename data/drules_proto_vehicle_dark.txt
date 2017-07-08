@@ -3342,8 +3342,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3356,8 +3354,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3370,8 +3366,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3384,8 +3378,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -3401,8 +3393,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3415,8 +3405,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3429,8 +3417,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3443,8 +3429,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -3460,8 +3444,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3474,8 +3456,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3488,8 +3468,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3502,8 +3480,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -3701,8 +3677,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3715,8 +3689,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3729,8 +3701,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3743,8 +3713,6 @@ cont {
         dd: 1.0
       }
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -3866,7 +3834,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -3876,7 +3843,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -3886,7 +3852,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -3896,8 +3861,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3906,8 +3869,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3916,8 +3877,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -3926,8 +3885,6 @@ cont {
       width: 1.4
       color: 5000268
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -4072,7 +4029,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4086,7 +4042,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4100,7 +4055,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4114,8 +4068,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4128,8 +4080,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4142,8 +4092,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4156,8 +4104,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -4285,7 +4231,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4299,7 +4244,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4313,7 +4257,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -4327,8 +4270,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4341,8 +4282,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4355,8 +4294,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -4369,8 +4306,6 @@ cont {
         dd: 1.0
       }
       priority: 1263
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -5129,7 +5064,6 @@ cont {
         dd: 1.8
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5143,7 +5077,6 @@ cont {
         dd: 1.8
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5157,7 +5090,6 @@ cont {
         dd: 2.7
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5171,8 +5103,6 @@ cont {
         dd: 3.6
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -5185,8 +5115,6 @@ cont {
         dd: 4.5
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -5199,8 +5127,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -5213,8 +5139,6 @@ cont {
         dd: 6.2
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -5236,7 +5160,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5246,7 +5169,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5264,7 +5186,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5282,8 +5203,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5300,8 +5219,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5318,8 +5235,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5336,8 +5251,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5367,7 +5280,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5377,7 +5289,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5395,7 +5306,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5413,8 +5323,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5431,8 +5339,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5449,8 +5355,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5467,8 +5371,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5498,7 +5400,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -5508,7 +5409,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5526,7 +5426,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5542,21 +5441,17 @@ cont {
     scale: 16
     lines {
       width: 9.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5571,21 +5466,17 @@ cont {
     scale: 17
     lines {
       width: 12.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5600,21 +5491,17 @@ cont {
     scale: 18
     lines {
       width: 16.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5629,21 +5516,17 @@ cont {
     scale: 19
     lines {
       width: 18.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5771,7 +5654,6 @@ cont {
       width: 5.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5796,15 +5678,15 @@ cont {
     lines {
       width: 6.75
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5829,15 +5711,15 @@ cont {
     lines {
       width: 8.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -5862,16 +5744,15 @@ cont {
     lines {
       width: 12.05
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5895,16 +5776,15 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5928,16 +5808,15 @@ cont {
     lines {
       width: 28.7
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -5961,16 +5840,15 @@ cont {
     lines {
       width: 39.0
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -6106,21 +5984,22 @@ cont {
       width: 5.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6145,29 +6024,31 @@ cont {
     lines {
       width: 6.75
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.3
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6192,29 +6073,31 @@ cont {
     lines {
       width: 8.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6239,29 +6122,30 @@ cont {
     lines {
       width: 12.05
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 19.7
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.5
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6286,29 +6170,30 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 33.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 35.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6333,29 +6218,30 @@ cont {
     lines {
       width: 28.7
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 54.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 56.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6380,29 +6266,30 @@ cont {
     lines {
       width: 39.0
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 74.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 76.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6511,13 +6398,11 @@ cont {
     scale: 12
     lines {
       width: 5.0
-      color: 0
       dashdot {
         dd: 2.0
         dd: 2.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -6548,20 +6433,17 @@ cont {
     scale: 13
     lines {
       width: 7.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3677972
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6585,20 +6467,17 @@ cont {
     scale: 14
     lines {
       width: 6.75
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 3677972
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6622,20 +6501,17 @@ cont {
     scale: 15
     lines {
       width: 8.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6659,21 +6535,17 @@ cont {
     scale: 16
     lines {
       width: 12.05
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -6696,21 +6568,17 @@ cont {
     scale: 17
     lines {
       width: 18.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -6733,21 +6601,17 @@ cont {
     scale: 18
     lines {
       width: 28.7
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -6770,21 +6634,17 @@ cont {
     scale: 19
     lines {
       width: 39.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -6898,7 +6758,6 @@ cont {
       width: 2.8
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6923,15 +6782,15 @@ cont {
     lines {
       width: 4.27
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6956,15 +6815,15 @@ cont {
     lines {
       width: 6.6
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -6989,16 +6848,15 @@ cont {
     lines {
       width: 9.55
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7022,16 +6880,15 @@ cont {
     lines {
       width: 15.0
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7055,16 +6912,15 @@ cont {
     lines {
       width: 22.3
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7088,16 +6944,15 @@ cont {
     lines {
       width: 28.5
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7158,7 +7013,6 @@ cont {
       width: 2.8
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7183,29 +7037,31 @@ cont {
     lines {
       width: 4.27
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.74
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.54
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7230,29 +7086,31 @@ cont {
     lines {
       width: 6.6
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7277,29 +7135,30 @@ cont {
     lines {
       width: 9.55
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 15.9
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.7
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7324,29 +7183,30 @@ cont {
     lines {
       width: 15.0
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 27.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 29.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7371,29 +7231,30 @@ cont {
     lines {
       width: 22.3
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 42.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 44.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7418,29 +7279,30 @@ cont {
     lines {
       width: 28.5
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 54.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 56.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7500,20 +7362,17 @@ cont {
     scale: 13
     lines {
       width: 4.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 2.8
       color: 3677972
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7537,20 +7396,17 @@ cont {
     scale: 14
     lines {
       width: 4.27
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 3677972
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7574,20 +7430,17 @@ cont {
     scale: 15
     lines {
       width: 6.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -7611,21 +7464,17 @@ cont {
     scale: 16
     lines {
       width: 9.55
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7648,21 +7497,17 @@ cont {
     scale: 17
     lines {
       width: 15.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7685,21 +7530,17 @@ cont {
     scale: 18
     lines {
       width: 22.3
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -7722,21 +7563,17 @@ cont {
     scale: 19
     lines {
       width: 28.5
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -8138,7 +7975,6 @@ cont {
       width: 3.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8163,15 +7999,15 @@ cont {
     lines {
       width: 4.2
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8196,15 +8032,15 @@ cont {
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8229,16 +8065,15 @@ cont {
     lines {
       width: 8.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -8262,16 +8097,15 @@ cont {
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -8295,16 +8129,15 @@ cont {
     lines {
       width: 25.2
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -8328,16 +8161,15 @@ cont {
     lines {
       width: 32.6
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -8463,7 +8295,6 @@ cont {
       width: 3.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8488,29 +8319,31 @@ cont {
     lines {
       width: 4.2
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8535,29 +8368,31 @@ cont {
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8582,29 +8417,30 @@ cont {
     lines {
       width: 8.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8629,29 +8465,30 @@ cont {
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 29.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 31.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8676,29 +8513,30 @@ cont {
     lines {
       width: 25.2
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 48.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 50.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8723,29 +8561,30 @@ cont {
     lines {
       width: 32.6
       color: 855309
+      dashdot {
+      }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 62.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 64.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8872,7 +8711,6 @@ cont {
       width: 3.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8896,20 +8734,17 @@ cont {
     scale: 14
     lines {
       width: 4.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 4991515
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8933,20 +8768,17 @@ cont {
     scale: 15
     lines {
       width: 5.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -8970,21 +8802,17 @@ cont {
     scale: 16
     lines {
       width: 8.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9007,21 +8835,17 @@ cont {
     scale: 17
     lines {
       width: 15.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9044,21 +8868,17 @@ cont {
     scale: 18
     lines {
       width: 25.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9081,21 +8901,17 @@ cont {
     scale: 19
     lines {
       width: 32.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1525
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1526
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9166,15 +8982,15 @@ cont {
     lines {
       width: 4.2
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9199,15 +9015,15 @@ cont {
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9232,16 +9048,15 @@ cont {
     lines {
       width: 8.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9265,16 +9080,15 @@ cont {
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9298,16 +9112,15 @@ cont {
     lines {
       width: 25.2
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9331,16 +9144,15 @@ cont {
     lines {
       width: 32.6
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9411,29 +9223,31 @@ cont {
     lines {
       width: 4.2
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9458,29 +9272,31 @@ cont {
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9505,29 +9321,30 @@ cont {
     lines {
       width: 8.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9552,29 +9369,30 @@ cont {
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 29.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 31.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9599,29 +9417,30 @@ cont {
     lines {
       width: 25.2
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 48.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 50.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9646,29 +9465,30 @@ cont {
     lines {
       width: 32.6
       color: 855309
+      dashdot {
+      }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 62.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 64.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9739,20 +9559,17 @@ cont {
     scale: 14
     lines {
       width: 4.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.5
       color: 4991515
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9776,20 +9593,17 @@ cont {
     scale: 15
     lines {
       width: 5.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -9813,21 +9627,17 @@ cont {
     scale: 16
     lines {
       width: 8.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9850,21 +9660,17 @@ cont {
     scale: 17
     lines {
       width: 15.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9887,21 +9693,17 @@ cont {
     scale: 18
     lines {
       width: 25.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9924,21 +9726,17 @@ cont {
     scale: 19
     lines {
       width: 32.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1512
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 30.0
       color: 6173981
       priority: 1513
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -9970,7 +9768,6 @@ cont {
         dd: 1.8
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -9984,7 +9781,6 @@ cont {
         dd: 1.8
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -9998,7 +9794,6 @@ cont {
         dd: 2.7
       }
       priority: 1355
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -10012,8 +9807,6 @@ cont {
         dd: 3.6
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -10026,8 +9819,6 @@ cont {
         dd: 4.5
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -10040,8 +9831,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -10054,8 +9843,6 @@ cont {
         dd: 6.2
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -10103,7 +9890,6 @@ cont {
       width: 1.6
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10129,7 +9915,6 @@ cont {
       width: 2.2
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10154,15 +9939,15 @@ cont {
     lines {
       width: 5.7
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.8
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10187,16 +9972,15 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10220,16 +10004,15 @@ cont {
     lines {
       width: 14.5
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10253,16 +10036,15 @@ cont {
     lines {
       width: 18.8
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10286,16 +10068,15 @@ cont {
     lines {
       width: 24.2
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10359,7 +10140,6 @@ cont {
       width: 1.6
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10385,7 +10165,6 @@ cont {
       width: 2.2
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10410,15 +10189,15 @@ cont {
     lines {
       width: 5.7
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.8
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10443,16 +10222,15 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10476,16 +10254,15 @@ cont {
     lines {
       width: 14.5
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10509,16 +10286,15 @@ cont {
     lines {
       width: 18.8
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10542,16 +10318,15 @@ cont {
     lines {
       width: 24.2
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -10615,7 +10390,6 @@ cont {
       width: 1.6
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10641,21 +10415,22 @@ cont {
       width: 2.2
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10680,29 +10455,31 @@ cont {
     lines {
       width: 5.7
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.8
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10727,29 +10504,30 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10774,29 +10552,30 @@ cont {
     lines {
       width: 14.5
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 27.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 29.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10821,29 +10600,30 @@ cont {
     lines {
       width: 18.8
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 36.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 38.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10868,29 +10648,30 @@ cont {
     lines {
       width: 24.2
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 46.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 48.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10955,7 +10736,6 @@ cont {
       width: 1.6
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -10981,7 +10761,6 @@ cont {
       width: 2.2
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11006,15 +10785,15 @@ cont {
     lines {
       width: 5.7
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.8
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11038,21 +10817,17 @@ cont {
     scale: 16
     lines {
       width: 8.1
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11075,21 +10850,17 @@ cont {
     scale: 17
     lines {
       width: 14.5
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11112,21 +10883,17 @@ cont {
     scale: 18
     lines {
       width: 18.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11149,21 +10916,17 @@ cont {
     scale: 19
     lines {
       width: 24.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 22.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11201,7 +10964,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -11211,7 +10973,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11229,7 +10990,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11247,8 +11007,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11265,8 +11023,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11283,8 +11039,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11301,8 +11055,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11332,7 +11084,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -11342,7 +11093,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11360,7 +11110,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11378,8 +11127,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11396,8 +11143,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11414,8 +11159,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11432,8 +11175,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11463,7 +11204,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -11473,7 +11213,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11491,7 +11230,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11509,8 +11247,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11527,8 +11263,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11545,8 +11279,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11563,8 +11295,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11646,7 +11376,6 @@ cont {
       width: 2.9
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11671,15 +11400,15 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11704,15 +11433,15 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11737,16 +11466,15 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11770,16 +11498,15 @@ cont {
     lines {
       width: 12.3
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11803,16 +11530,15 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11836,16 +11562,15 @@ cont {
     lines {
       width: 26.6
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -11935,7 +11660,6 @@ cont {
       width: 2.9
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -11960,29 +11684,31 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12007,29 +11733,31 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12054,29 +11782,30 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 13.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12101,29 +11830,30 @@ cont {
     lines {
       width: 12.3
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 22.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12148,29 +11878,30 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 34.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12195,29 +11926,30 @@ cont {
     lines {
       width: 26.6
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 50.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 52.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12308,7 +12040,6 @@ cont {
       width: 2.9
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12333,15 +12064,15 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12366,15 +12097,15 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12398,21 +12129,17 @@ cont {
     scale: 16
     lines {
       width: 8.1
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12435,21 +12162,17 @@ cont {
     scale: 17
     lines {
       width: 12.3
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12472,21 +12195,17 @@ cont {
     scale: 18
     lines {
       width: 18.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 2828327
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12509,21 +12228,17 @@ cont {
     scale: 19
     lines {
       width: 26.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1499
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 2828327
       priority: 1500
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12550,15 +12265,15 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12567,15 +12282,15 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12584,16 +12299,15 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12609,16 +12323,15 @@ cont {
     lines {
       width: 12.3
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12634,16 +12347,15 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12659,16 +12371,15 @@ cont {
     lines {
       width: 26.6
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12687,29 +12398,31 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12718,29 +12431,31 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12749,29 +12464,30 @@ cont {
     lines {
       width: 8.1
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 13.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12788,29 +12504,30 @@ cont {
     lines {
       width: 12.3
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 22.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12827,29 +12544,30 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 34.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12866,29 +12584,30 @@ cont {
     lines {
       width: 26.6
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 50.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 52.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -12908,15 +12627,15 @@ cont {
     lines {
       width: 3.9
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12925,15 +12644,15 @@ cont {
     lines {
       width: 5.6
       color: 855309
+      dashdot {
+      }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -12941,21 +12660,17 @@ cont {
     scale: 16
     lines {
       width: 8.1
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12970,21 +12685,17 @@ cont {
     scale: 17
     lines {
       width: 12.3
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 3881273
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -12999,21 +12710,17 @@ cont {
     scale: 18
     lines {
       width: 18.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 2828327
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13028,21 +12735,17 @@ cont {
     scale: 19
     lines {
       width: 26.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1485
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 24.0
       color: 2828327
       priority: 1486
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13062,7 +12765,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13072,7 +12774,6 @@ cont {
       width: 1.6
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13082,8 +12783,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13100,8 +12799,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13118,8 +12815,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13136,8 +12831,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13157,7 +12850,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13167,7 +12859,6 @@ cont {
       width: 1.6
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13177,8 +12868,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13195,8 +12884,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13213,8 +12900,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13231,8 +12916,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13252,7 +12935,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13262,7 +12944,6 @@ cont {
       width: 1.6
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13272,8 +12953,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13290,8 +12969,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13308,8 +12985,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13326,8 +13001,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13347,7 +13020,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13357,8 +13029,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13375,8 +13045,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13393,8 +13061,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13411,8 +13077,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13432,7 +13096,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13442,8 +13105,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13460,8 +13121,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13478,8 +13137,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13496,8 +13153,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13517,7 +13172,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13527,8 +13181,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13545,8 +13197,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13563,8 +13213,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13581,8 +13229,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13602,7 +13248,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13612,8 +13257,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13630,8 +13273,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13648,8 +13289,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13666,8 +13305,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13687,7 +13324,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13697,7 +13333,6 @@ cont {
       width: 1.6
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13707,8 +13342,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13725,8 +13358,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13743,8 +13374,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13761,8 +13390,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13782,7 +13409,6 @@ cont {
       width: 1.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13792,7 +13418,6 @@ cont {
       width: 1.6
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -13802,8 +13427,6 @@ cont {
       width: 3.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13820,8 +13443,6 @@ cont {
       width: 6.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13838,8 +13459,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13856,8 +13475,6 @@ cont {
       width: 8.0
       color: 3354929
       priority: 1394
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -13972,7 +13589,6 @@ cont {
       width: 1.85
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -13998,7 +13614,6 @@ cont {
       width: 3.3
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14023,15 +13638,15 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14056,16 +13671,15 @@ cont {
     lines {
       width: 8.6
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14089,16 +13703,15 @@ cont {
     lines {
       width: 11.5
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14122,16 +13735,15 @@ cont {
     lines {
       width: 16.8
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14155,16 +13767,15 @@ cont {
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14228,7 +13839,6 @@ cont {
       width: 1.85
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14254,21 +13864,22 @@ cont {
       width: 3.3
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.4
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14293,29 +13904,31 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14340,29 +13953,30 @@ cont {
     lines {
       width: 8.6
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 15.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14387,29 +14001,30 @@ cont {
     lines {
       width: 11.5
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 21.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14434,29 +14049,30 @@ cont {
     lines {
       width: 16.8
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 32.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14481,29 +14097,30 @@ cont {
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 44.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 46.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14568,7 +14185,6 @@ cont {
       width: 1.85
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14594,7 +14210,6 @@ cont {
       width: 3.3
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14619,15 +14234,15 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1473
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -14651,21 +14266,17 @@ cont {
     scale: 16
     lines {
       width: 8.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14688,21 +14299,17 @@ cont {
     scale: 17
     lines {
       width: 11.5
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14725,21 +14332,17 @@ cont {
     scale: 18
     lines {
       width: 16.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14762,21 +14365,17 @@ cont {
     scale: 19
     lines {
       width: 23.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1472
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 2828327
       priority: 1473
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14803,15 +14402,15 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -14820,16 +14419,15 @@ cont {
     lines {
       width: 8.6
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -14837,16 +14435,15 @@ cont {
     lines {
       width: 11.5
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -14854,16 +14451,15 @@ cont {
     lines {
       width: 16.8
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14879,16 +14475,15 @@ cont {
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -14907,29 +14502,31 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -14938,29 +14535,30 @@ cont {
     lines {
       width: 8.6
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 15.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -14969,29 +14567,30 @@ cont {
     lines {
       width: 11.5
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 21.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -15000,29 +14599,30 @@ cont {
     lines {
       width: 16.8
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 32.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 34.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15039,29 +14639,30 @@ cont {
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 44.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 46.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15081,15 +14682,15 @@ cont {
     lines {
       width: 5.9
       color: 855309
+      dashdot {
+      }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3552308
       priority: 1460
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -15097,63 +14698,51 @@ cont {
     scale: 16
     lines {
       width: 8.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.5
       color: 2828327
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
     scale: 17
     lines {
       width: 11.5
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 2828327
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
     scale: 18
     lines {
       width: 16.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 15.0
       color: 2828327
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15168,21 +14757,17 @@ cont {
     scale: 19
     lines {
       width: 23.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1459
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 21.0
       color: 2828327
       priority: 1460
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15206,7 +14791,6 @@ cont {
         dd: 1.35
       }
       priority: 1381
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -15220,7 +14804,6 @@ cont {
         dd: 1.26
       }
       priority: 1381
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -15234,8 +14817,6 @@ cont {
         dd: 1.8
       }
       priority: 1381
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -15248,8 +14829,6 @@ cont {
         dd: 1.8
       }
       priority: 1381
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -15262,8 +14841,6 @@ cont {
         dd: 1.8
       }
       priority: 1381
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -15276,8 +14853,6 @@ cont {
         dd: 2.7
       }
       priority: 1381
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -15397,7 +14972,6 @@ cont {
       width: 5.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15422,15 +14996,15 @@ cont {
     lines {
       width: 6.75
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15455,15 +15029,15 @@ cont {
     lines {
       width: 8.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15488,16 +15062,15 @@ cont {
     lines {
       width: 12.05
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15521,16 +15094,15 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15554,16 +15126,15 @@ cont {
     lines {
       width: 28.7
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15587,16 +15158,15 @@ cont {
     lines {
       width: 39.0
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -15732,21 +15302,22 @@ cont {
       width: 5.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15771,29 +15342,31 @@ cont {
     lines {
       width: 6.75
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.5
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.3
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15818,29 +15391,31 @@ cont {
     lines {
       width: 8.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15865,29 +15440,30 @@ cont {
     lines {
       width: 12.05
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 19.7
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.5
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15912,29 +15488,30 @@ cont {
     lines {
       width: 18.2
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 33.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 35.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -15959,29 +15536,30 @@ cont {
     lines {
       width: 28.7
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 54.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 56.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16006,29 +15584,30 @@ cont {
     lines {
       width: 39.0
       color: 855309
+      dashdot {
+      }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 74.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 76.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16137,13 +15716,11 @@ cont {
     scale: 12
     lines {
       width: 5.0
-      color: 0
       dashdot {
         dd: 2.0
         dd: 2.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -16174,20 +15751,17 @@ cont {
     scale: 13
     lines {
       width: 7.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.0
       color: 3677972
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16211,20 +15785,17 @@ cont {
     scale: 14
     lines {
       width: 6.75
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.25
       color: 3677972
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16248,20 +15819,17 @@ cont {
     scale: 15
     lines {
       width: 8.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.5
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16285,21 +15853,17 @@ cont {
     scale: 16
     lines {
       width: 12.05
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 9.85
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16322,21 +15886,17 @@ cont {
     scale: 17
     lines {
       width: 18.2
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16359,21 +15919,17 @@ cont {
     scale: 18
     lines {
       width: 28.7
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16396,21 +15952,17 @@ cont {
     scale: 19
     lines {
       width: 39.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1551
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 4991513
       priority: 1552
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16471,7 +16023,6 @@ cont {
       width: 2.8
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16496,15 +16047,15 @@ cont {
     lines {
       width: 4.27
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16529,15 +16080,15 @@ cont {
     lines {
       width: 6.6
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16562,16 +16113,15 @@ cont {
     lines {
       width: 9.55
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16595,16 +16145,15 @@ cont {
     lines {
       width: 15.0
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16628,16 +16177,15 @@ cont {
     lines {
       width: 22.3
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16661,16 +16209,15 @@ cont {
     lines {
       width: 28.5
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -16731,7 +16278,6 @@ cont {
       width: 2.8
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16756,29 +16302,31 @@ cont {
     lines {
       width: 4.27
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 6.74
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.54
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16803,29 +16351,31 @@ cont {
     lines {
       width: 6.6
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16850,29 +16400,30 @@ cont {
     lines {
       width: 9.55
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 15.9
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.7
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16897,29 +16448,30 @@ cont {
     lines {
       width: 15.0
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 27.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 29.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16944,29 +16496,30 @@ cont {
     lines {
       width: 22.3
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 42.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 44.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -16991,29 +16544,30 @@ cont {
     lines {
       width: 28.5
       color: 855309
+      dashdot {
+      }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 54.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 56.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17073,20 +16627,17 @@ cont {
     scale: 13
     lines {
       width: 4.8
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 2.8
       color: 3677972
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17110,20 +16661,17 @@ cont {
     scale: 14
     lines {
       width: 4.27
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.37
       color: 3677972
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17147,20 +16695,17 @@ cont {
     scale: 15
     lines {
       width: 6.6
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.5
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17184,21 +16729,17 @@ cont {
     scale: 16
     lines {
       width: 9.55
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.95
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17221,21 +16762,17 @@ cont {
     scale: 17
     lines {
       width: 15.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 13.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17258,21 +16795,17 @@ cont {
     scale: 18
     lines {
       width: 22.3
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 20.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17295,21 +16828,17 @@ cont {
     scale: 19
     lines {
       width: 28.5
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1538
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 26.0
       color: 4991513
       priority: 1539
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17347,7 +16876,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -17357,7 +16885,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17375,7 +16902,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17393,8 +16919,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17411,8 +16935,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17429,8 +16951,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17447,8 +16967,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17478,7 +16996,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -17488,7 +17005,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17506,7 +17022,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17524,8 +17039,6 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17542,8 +17055,6 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17560,8 +17071,6 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17578,8 +17087,6 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17609,7 +17116,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -17619,21 +17125,22 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.9
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.7
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17651,21 +17158,22 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17683,21 +17191,21 @@ cont {
       width: 7.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17715,21 +17223,21 @@ cont {
       width: 10.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 21.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 23.2
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17747,21 +17255,21 @@ cont {
       width: 14.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 30.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 32.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17779,21 +17287,21 @@ cont {
       width: 16.0
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 34.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 36.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17824,7 +17332,6 @@ cont {
       width: 1.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -17834,7 +17341,6 @@ cont {
       width: 1.95
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17852,7 +17358,6 @@ cont {
       width: 3.5
       color: 3354929
       priority: 1447
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -17868,21 +17373,17 @@ cont {
     scale: 16
     lines {
       width: 9.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 7.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17897,21 +17398,17 @@ cont {
     scale: 17
     lines {
       width: 12.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 10.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17926,21 +17423,17 @@ cont {
     scale: 18
     lines {
       width: 16.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -17955,21 +17448,17 @@ cont {
     scale: 19
     lines {
       width: 18.0
-      color: 0
       dashdot {
         dd: 5.0
         dd: 5.0
       }
       priority: 1446
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 16.0
       color: 2828327
       priority: 1447
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -18092,8 +17581,6 @@ cont {
   element {
     scale: 15
     lines {
-      width: 0
-      color: 0
       priority: 1592
       pathsym {
         name: "arrow-xs"
@@ -18105,8 +17592,6 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0
-      color: 0
       priority: 1592
       pathsym {
         name: "arrow-s"
@@ -18118,8 +17603,6 @@ cont {
   element {
     scale: 17
     lines {
-      width: 0
-      color: 0
       priority: 1592
       pathsym {
         name: "arrow-s"
@@ -18131,8 +17614,6 @@ cont {
   element {
     scale: 18
     lines {
-      width: 0
-      color: 0
       priority: 1592
       pathsym {
         name: "arrow-m"
@@ -18144,8 +17625,6 @@ cont {
   element {
     scale: 19
     lines {
-      width: 0
-      color: 0
       priority: 1592
       pathsym {
         name: "arrow-m"
@@ -20060,7 +19539,6 @@ cont {
 cont {
   name: "landuse-salt_pond"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15790
@@ -22063,7 +21541,6 @@ cont {
 cont {
   name: "natural-coastline"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -16713
@@ -22206,7 +21683,6 @@ cont {
 cont {
   name: "natural-glacier"
   element {
-    scale: 0
     area {
       color: 1118481
       priority: -15987
@@ -22439,7 +21915,6 @@ cont {
 cont {
   name: "natural-lake"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15079
@@ -22742,7 +22217,6 @@ cont {
 cont {
   name: "natural-land"
   element {
-    scale: 0
     area {
       color: 328965
       priority: -16700
@@ -22885,7 +22359,6 @@ cont {
 cont {
   name: "natural-pond"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15790
@@ -23028,7 +22501,6 @@ cont {
 cont {
   name: "natural-salt_pond"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15790
@@ -23216,7 +22688,6 @@ cont {
 cont {
   name: "natural-water"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15079
@@ -29758,7 +29229,6 @@ cont {
         dd: 1.35
       }
       priority: 1000
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -29772,7 +29242,6 @@ cont {
         dd: 1.26
       }
       priority: 1000
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -29786,8 +29255,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29800,8 +29267,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29814,8 +29279,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29828,8 +29291,6 @@ cont {
         dd: 2.7
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -29845,7 +29306,6 @@ cont {
         dd: 1.35
       }
       priority: 1000
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -29859,7 +29319,6 @@ cont {
         dd: 1.26
       }
       priority: 1000
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -29873,8 +29332,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29887,8 +29344,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29901,8 +29356,6 @@ cont {
         dd: 1.8
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29915,8 +29368,6 @@ cont {
         dd: 2.7
       }
       priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -29932,8 +29383,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29946,8 +29395,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29960,8 +29407,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -29974,8 +29419,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -29991,14 +29434,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.6
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30012,14 +29453,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30033,14 +29472,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30054,14 +29491,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30078,8 +29513,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30092,8 +29525,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30106,8 +29537,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30120,8 +29549,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30137,8 +29564,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30151,8 +29576,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30165,8 +29588,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30179,8 +29600,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30196,8 +29615,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30210,8 +29627,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30224,8 +29639,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30238,8 +29651,6 @@ cont {
         dd: 5.4
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30441,7 +29852,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30451,7 +29861,6 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30461,7 +29870,6 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30471,8 +29879,6 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -30482,8 +29888,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30492,8 +29896,6 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -30503,8 +29905,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30513,8 +29913,6 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -30524,8 +29922,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30534,8 +29930,6 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -30545,8 +29939,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30558,7 +29950,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30568,14 +29959,14 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.3
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30585,14 +29976,14 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30602,21 +29993,21 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.4
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -30627,8 +30018,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30637,21 +30026,21 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 8.0
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -30662,8 +30051,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30672,21 +30059,21 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 10.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.0
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -30697,8 +30084,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30707,21 +30092,21 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.0
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.4
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -30732,8 +30117,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30745,7 +30128,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30759,14 +30141,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30780,14 +30160,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30801,15 +30179,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -30819,8 +30194,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30833,15 +30206,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -30851,8 +30221,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30865,15 +30233,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -30883,8 +30248,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30897,15 +30260,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -30915,8 +30275,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30928,7 +30286,6 @@ cont {
       width: 1.0
       color: 3354672
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30938,7 +30295,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -30948,8 +30304,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30958,8 +30312,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30968,8 +30320,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -30978,8 +30328,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -30991,7 +30339,6 @@ cont {
       width: 1.0
       color: 3354672
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31001,7 +30348,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31011,8 +30357,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31021,8 +30365,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31031,8 +30373,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31041,8 +30381,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31054,7 +30392,6 @@ cont {
       width: 1.0
       color: 3354672
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31064,7 +30401,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31074,8 +30410,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31084,8 +30418,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31094,8 +30426,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31104,8 +30434,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31117,7 +30445,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31127,8 +30454,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31137,8 +30462,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31147,8 +30470,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31157,8 +30478,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31170,7 +30489,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31180,8 +30498,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31190,8 +30506,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31200,8 +30514,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31210,8 +30522,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31223,7 +30533,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31233,8 +30542,6 @@ cont {
       width: 1.2
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31243,8 +30550,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31253,8 +30558,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31263,8 +30566,6 @@ cont {
       width: 2.0
       color: 1512724
       priority: 1565
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31280,8 +30581,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31294,8 +30593,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31308,8 +30605,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31322,8 +30617,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31339,14 +30632,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.6
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31360,14 +30651,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31381,14 +30670,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31402,14 +30689,12 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 6.0
-      color: 0
+      dashdot {
+      }
       priority: 999
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31426,8 +30711,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31440,8 +30723,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31454,8 +30735,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31468,8 +30747,6 @@ cont {
         dd: 6.3
       }
       priority: 1355
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31501,7 +30778,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31511,7 +30787,6 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31521,7 +30796,6 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31531,8 +30805,6 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -31542,8 +30814,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31552,8 +30822,6 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -31563,8 +30831,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31573,8 +30839,6 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -31584,8 +30848,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31594,8 +30856,6 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -31605,8 +30865,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31638,7 +30896,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31648,14 +30905,14 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.3
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31665,14 +30922,14 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31682,21 +30939,21 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.4
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -31707,8 +30964,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31717,21 +30972,21 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 8.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -31742,8 +30997,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31752,21 +31005,21 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 10.6
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.0
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -31777,8 +31030,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31787,21 +31038,21 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.0
       color: 1184274
+      dashdot {
+      }
       priority: 1341
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.4
       color: 855309
+      dashdot {
+      }
       priority: 1327
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -31812,8 +31063,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31845,7 +31094,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31855,7 +31103,6 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31865,7 +31112,6 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31875,8 +31121,6 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -31886,8 +31130,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31896,8 +31138,6 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -31907,8 +31147,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31917,8 +31155,6 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -31928,8 +31164,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -31938,8 +31172,6 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -31949,8 +31181,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -31982,7 +31212,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -31996,14 +31225,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -32017,14 +31244,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -32038,15 +31263,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -32056,8 +31278,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -32070,15 +31290,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -32088,8 +31305,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -32102,15 +31317,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -32120,8 +31332,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -32134,15 +31344,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -32152,8 +31359,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -38118,8 +37323,6 @@ cont {
       width: 0.85
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -38129,7 +37332,6 @@ cont {
         dd: 12.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38139,8 +37341,6 @@ cont {
       width: 1.5
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.0
@@ -38150,7 +37350,6 @@ cont {
         dd: 14.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38160,8 +37359,6 @@ cont {
       width: 1.8
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 4.3
@@ -38171,7 +37368,6 @@ cont {
         dd: 16.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38181,8 +37377,6 @@ cont {
       width: 2.0
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.0
@@ -38192,7 +37386,6 @@ cont {
         dd: 19.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38205,8 +37398,6 @@ cont {
       width: 0.85
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -38216,7 +37407,6 @@ cont {
         dd: 12.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38226,8 +37416,6 @@ cont {
       width: 1.5
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.0
@@ -38237,7 +37425,6 @@ cont {
         dd: 14.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38247,8 +37434,6 @@ cont {
       width: 1.8
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 4.3
@@ -38258,7 +37443,6 @@ cont {
         dd: 16.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38268,8 +37452,6 @@ cont {
       width: 2.0
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.0
@@ -38279,7 +37461,6 @@ cont {
         dd: 19.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38292,8 +37473,6 @@ cont {
       width: 0.85
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -38303,7 +37482,6 @@ cont {
         dd: 12.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38313,8 +37491,6 @@ cont {
       width: 1.5
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.0
@@ -38324,7 +37500,6 @@ cont {
         dd: 14.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38334,8 +37509,6 @@ cont {
       width: 1.8
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 4.3
@@ -38345,7 +37518,6 @@ cont {
         dd: 16.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38355,8 +37527,6 @@ cont {
       width: 2.0
       color: 6052945
       priority: 1592
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.0
@@ -38366,7 +37536,6 @@ cont {
         dd: 19.0
       }
       priority: 1565
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38471,7 +37640,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38481,7 +37649,6 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38491,7 +37658,6 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38501,8 +37667,6 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -38512,8 +37676,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38522,8 +37684,6 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -38533,8 +37693,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38543,8 +37701,6 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -38554,8 +37710,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38564,8 +37718,6 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -38575,8 +37727,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -38608,7 +37758,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38618,14 +37767,14 @@ cont {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.3
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38635,14 +37784,14 @@ cont {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38652,21 +37801,21 @@ cont {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.4
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -38677,8 +37826,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38687,21 +37834,21 @@ cont {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 7.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 8.0
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -38712,8 +37859,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38722,21 +37867,21 @@ cont {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 10.6
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 11.0
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -38747,8 +37892,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38757,21 +37900,21 @@ cont {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 14.0
       color: 1184274
+      dashdot {
+      }
       priority: 1104
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 14.4
       color: 855309
+      dashdot {
+      }
       priority: 1091
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
@@ -38782,8 +37925,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -38815,7 +37956,6 @@ cont {
       width: 0.9
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38829,14 +37969,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.15
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38850,14 +37988,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 1.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -38871,15 +38007,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 2.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 1.5
@@ -38889,8 +38022,6 @@ cont {
         dd: 4.5
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38903,15 +38034,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 3.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 2.4
@@ -38921,8 +38049,6 @@ cont {
         dd: 6.3
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38935,15 +38061,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 4.2
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 3.3
@@ -38953,8 +38076,6 @@ cont {
         dd: 8.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -38967,15 +38088,12 @@ cont {
         dd: 5.0
       }
       priority: 1420
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     lines {
       width: 5.8
       color: 3354672
       priority: 1421
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     lines {
       width: 5.0
@@ -38985,8 +38103,6 @@ cont {
         dd: 10.1
       }
       priority: 1434
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -39522,7 +38638,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -39532,8 +38647,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39542,8 +38655,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39552,8 +38663,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39562,8 +38671,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -39579,8 +38686,6 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39593,8 +38698,6 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39607,15 +38710,12 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
 cont {
   name: "waterway-dock"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15079
@@ -39767,8 +38867,6 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39781,8 +38879,6 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39795,8 +38891,6 @@ cont {
         dd: 1.0
       }
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -39808,8 +38902,6 @@ cont {
       width: 1.5
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39818,8 +38910,6 @@ cont {
       width: 1.5
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39828,8 +38918,6 @@ cont {
       width: 1.5
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -39838,8 +38926,6 @@ cont {
       width: 1.5
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -39930,7 +39016,6 @@ cont {
       width: 1.6
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -39947,7 +39032,6 @@ cont {
       width: 1.8
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -39964,7 +39048,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     path_text {
@@ -39981,8 +39064,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -39998,8 +39079,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -40015,8 +39094,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -40032,8 +39109,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -40140,7 +39215,6 @@ cont {
 cont {
   name: "waterway-riverbank"
   element {
-    scale: 0
     area {
       color: 8738
       priority: -15079
@@ -40271,7 +39345,6 @@ cont {
       width: 1.6
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     area {
@@ -40292,7 +39365,6 @@ cont {
       width: 1.8
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     area {
@@ -40313,7 +39385,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
     area {
@@ -40334,8 +39405,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     area {
       color: 8738
@@ -40355,8 +39424,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     area {
       color: 8738
@@ -40376,8 +39443,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     area {
       color: 8738
@@ -40397,8 +39462,6 @@ cont {
       width: 2.2
       color: 401446
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     area {
       color: 8738
@@ -40421,7 +39484,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
       cap: BUTTCAP
     }
   }
@@ -40431,8 +39493,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -40441,8 +39501,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -40451,8 +39509,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
   element {
@@ -40461,8 +39517,6 @@ cont {
       width: 1.0
       color: 855309
       priority: 1921
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -40470,247 +39524,164 @@ colors {
   value {
     name: "DefaultTrackColor"
     color: 2004720
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldWhiteText"
     color: 12039862
-    x: 0
-    y: 0
   }
   value {
     name: "TrackUnknownDistance"
     color: 9868950
-    x: 0
-    y: 0
   }
   value {
     name: "MyPositionAccuracy"
     color: 4043309055
-    x: 0
-    y: 0
   }
   value {
     name: "GuiText"
     color: 1308622847
-    x: 0
-    y: 0
   }
   value {
     name: "PoiHotelTextOutline"
     color: 1711276032
-    x: 0
-    y: 0
   }
   value {
     name: "PoiDeletedMask"
     color: 3019898879
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldUKYellowText"
     color: 11836942
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldBlueBackground"
     color: 2706568
-    x: 0
-    y: 0
   }
   value {
     name: "TrackHumanSpeed"
     color: 16750592
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficArrowDark"
     color: 1973790
-    x: 0
-    y: 0
   }
   value {
     name: "RoutePedestrian"
     color: 1308604747
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldOrangeBackground"
     color: 1272880
-    x: 0
-    y: 0
   }
   value {
     name: "Arrow3DOutline"
     color: 16777215
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldRedBackground"
     color: 10426903
-    x: 0
-    y: 0
   }
   value {
     name: "Arrow3DShadow"
     color: 3258727484
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldBlackText"
     color: 2171169
-    x: 0
-    y: 0
   }
   value {
     name: "Route"
     color: 34815
-    x: 0
-    y: 0
   }
   value {
     name: "RouteOutline"
     color: 352205
-    x: 0
-    y: 0
   }
   value {
     name: "TrackPlaneSpeed"
     color: 16774560
-    x: 0
-    y: 0
   }
   value {
     name: "TrackCarSpeed"
     color: 16763432
-    x: 0
-    y: 0
   }
   value {
     name: "RoutePreview"
     color: 3019898879
-    x: 0
-    y: 0
   }
   value {
     name: "Arrow3D"
     color: 4311295
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG3"
     color: 4287393810
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG2"
     color: 7542806
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG1"
     color: 7542806
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG0"
     color: 4985359
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficTempBlock"
     color: 2302755
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG5"
     color: 3629602
-    x: 0
-    y: 0
   }
   value {
     name: "Selection"
     color: 1548466662
-    x: 0
-    y: 0
   }
   value {
     name: "Arrow3DObsolete"
     color: 1216522952
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficUnknown"
-    color: 0
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficG4"
     color: 3629602
-    x: 0
-    y: 0
   }
   value {
     name: "RoadShieldGreenBackground"
     color: 1272880
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficArrowLight"
     color: 11184810
-    x: 0
-    y: 0
   }
   value {
     name: "RouteTrafficG1"
     color: 8327953
-    x: 0
-    y: 0
   }
   value {
     name: "RouteTrafficG0"
     color: 6164237
-    x: 0
-    y: 0
   }
   value {
     name: "RouteTrafficG3"
     color: 4288578070
-    x: 0
-    y: 0
   }
   value {
     name: "RouteTrafficG2"
     color: 8327953
-    x: 0
-    y: 0
   }
   value {
     name: "RouteBicycle"
     color: 1308576652
-    x: 0
-    y: 0
   }
   value {
     name: "TrafficOutline"
     color: 3684408
-    x: 0
-    y: 0
   }
 }
