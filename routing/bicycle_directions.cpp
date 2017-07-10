@@ -167,31 +167,22 @@ bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   segments.clear();
 
   size_t const pathSize = path.size();
-  auto emptyPathWorkaround = [&]()
-  {
-    turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
-    // There's one ingoing edge to the finish.
-    this->m_adjacentEdges[UniNodeId(UniNodeId::Type::Mwm)] = AdjacentEdges(1);
-  };
 
   if (pathSize == 1)
-  {
-    emptyPathWorkaround();
     return false;
-  }
 
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path."));
-    emptyPathWorkaround();
+    LOG(LINFO, ("Couldn't reconstruct path."));
     return false;
   }
+  
   if (routeEdges.empty())
-  {
-    emptyPathWorkaround();
     return false;
-  }
+
+  if (cancellable.IsCancelled())
+    return false;
 
   FillPathSegmentsAndAdjacentEdgesMap(graph, path, routeEdges, cancellable);
 

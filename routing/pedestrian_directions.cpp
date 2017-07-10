@@ -47,7 +47,7 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Segment> & segments)
 {
   CHECK(!path.empty(), ());
-  
+
   turns.clear();
   streetNames.clear();
   segments.clear();
@@ -57,9 +57,7 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path."));
-    // use only "arrival" direction
-    turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
+    LOG(LINFO, ("Couldn't reconstruct path."));
     return false;
   }
 
