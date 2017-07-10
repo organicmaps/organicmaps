@@ -117,9 +117,6 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   vector<Segment> segments;
 
   engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments);
-  CHECK_EQUAL(path.size(), junctions.size(), ());
-
-
   if (cancellable.IsCancelled())
     return;
 
@@ -129,6 +126,9 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
     LOG(LERROR, ("Internal error happened while turn generation."));
     return;
   }
+
+  CHECK_EQUAL(path.size(), junctions.size(),
+              ("Size of path:", path.size(), "size of junctions:", junctions.size()));
 
   vector<RouteSegment> segmentInfo;
   FillSegmentInfo(segments, junctions, turnsDir, streetNames, times, trafficStash, segmentInfo);

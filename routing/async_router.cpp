@@ -298,7 +298,8 @@ void AsyncRouter::CalculateRoute()
 
   try
   {
-    LOG(LINFO, ("Calculating the route,", checkpoints, "startDirection", startDirection));
+    LOG(LINFO, ("Calculating the route. checkpoints:", checkpoints, "startDirection:",
+                startDirection, "router name:", router->GetName()));
 
     if (absentFetcher)
       absentFetcher->GenerateRequest(checkpoints);
