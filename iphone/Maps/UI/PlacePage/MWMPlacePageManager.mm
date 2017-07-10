@@ -223,7 +223,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
                               progress:static_cast<CGFloat>(progress.first) / progress.second];
 }
 
-#pragma mark - MWMPlacePageLayout
+#pragma mark - MWMPlacePageLayoutDelegate
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound
 {
@@ -234,6 +234,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)shouldDestroyLayout { self.layout = nil; }
 - (void)shouldClose { GetFramework().DeactivateMapSelection(true); }
+- (BOOL)isExpandedOnShow { return self.data.isViator; }
 #pragma mark - MWMLocationObserver
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info

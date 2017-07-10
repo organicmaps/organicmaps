@@ -136,7 +136,8 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
-  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
+  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
+      ![self isViator])
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]

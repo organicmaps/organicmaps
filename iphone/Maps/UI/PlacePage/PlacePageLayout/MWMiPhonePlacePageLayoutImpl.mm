@@ -69,7 +69,7 @@ CGFloat const kMinOffset = 1;
 
 - (void)onShow
 {
-  self.state = State::Bottom;
+  self.state = [self.delegate isExpandedOnShow] ? State::Top : State::Bottom;
   auto scrollView = self.scrollView;
   
   scrollView.scrollEnabled = NO;

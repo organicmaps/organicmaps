@@ -6,6 +6,8 @@
 - (void)shouldDestroyLayout;
 - (void)shouldClose;
 
+- (BOOL)isExpandedOnShow;
+
 @end
 
 @protocol MWMPlacePageLayoutDataSource<NSObject>
