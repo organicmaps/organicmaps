@@ -221,11 +221,7 @@ node|z4-[place=city][capital=2]::int_name,
 node|z9-[place=city]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
-node|z4[sponsored=viator],
-{icon-image: viator-star-s.svg;}
-node|z5-[sponsored=viator],
-{icon-image: viator-star-m.svg;}
-node|z6-[sponsored=viator],
+node|z10-[sponsored=viator],
 {icon-image: viator-star-l.svg;}
 
 
