@@ -122,26 +122,29 @@ TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  ASSERT(!m_params.m_primaryText.empty(), ());
-  StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
-                                   m_params.m_primaryTextFont.m_size, m_params.m_primaryTextFont.m_isSdf,
-                                   textures, m_params.m_anchor);
+  auto const & titleDecl = m_params.m_titleDecl;
+  ASSERT(!titleDecl.m_primaryText.empty(), ());
+  StraightTextLayout primaryLayout(strings::MakeUniString(titleDecl.m_primaryText),
+                                   titleDecl.m_primaryTextFont.m_size,
+                                   titleDecl.m_primaryTextFont.m_isSdf,
+                                   textures,
+                                   titleDecl.m_anchor);
 
   if (m_params.m_limitedText && primaryLayout.GetPixelSize().y >= m_params.m_limits.y)
   {
-    float const newFontSize = m_params.m_primaryTextFont.m_size * m_params.m_limits.y / primaryLayout.GetPixelSize().y;
-    primaryLayout = StraightTextLayout(strings::MakeUniString(m_params.m_primaryText), newFontSize,
-                                       m_params.m_primaryTextFont.m_isSdf, textures, m_params.m_anchor);
+    float const newFontSize = titleDecl.m_primaryTextFont.m_size * m_params.m_limits.y / primaryLayout.GetPixelSize().y;
+    primaryLayout = StraightTextLayout(strings::MakeUniString(titleDecl.m_primaryText), newFontSize,
+                                       titleDecl.m_primaryTextFont.m_isSdf, textures, titleDecl.m_anchor);
   }
 
   drape_ptr<StraightTextLayout> secondaryLayout;
-  if (!m_params.m_secondaryText.empty())
+  if (!titleDecl.m_secondaryText.empty())
   {
-    secondaryLayout = make_unique_dp<StraightTextLayout>(strings::MakeUniString(m_params.m_secondaryText),
-                                                         m_params.m_secondaryTextFont.m_size,
-                                                         m_params.m_secondaryTextFont.m_isSdf,
+    secondaryLayout = make_unique_dp<StraightTextLayout>(strings::MakeUniString(titleDecl.m_secondaryText),
+                                                         titleDecl.m_secondaryTextFont.m_size,
+                                                         titleDecl.m_secondaryTextFont.m_isSdf,
                                                          textures,
-                                                         m_params.m_anchor);
+                                                         titleDecl.m_anchor);
   }
 
   glsl::vec2 primaryOffset(0.0f, 0.0f);
@@ -150,62 +153,62 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   float const halfSymbolW = m_symbolSize.x / 2.0f;
   float const halfSymbolH = m_symbolSize.y / 2.0f;
 
-  if (m_params.m_anchor & dp::Top)
+  if (titleDecl.m_anchor & dp::Top)
   {
     // In the case when the anchor is dp::Top the value of primary offset y > 0,
     // the text shape is below the POI.
-    primaryOffset.y = m_params.m_primaryOffset.y + halfSymbolH;
+    primaryOffset.y = titleDecl.m_primaryOffset.y + halfSymbolH;
     if (secondaryLayout != nullptr)
     {
-      secondaryOffset.y = m_params.m_primaryOffset.y + primaryLayout.GetPixelSize().y +
-          m_params.m_secondaryOffset.y + halfSymbolH;
+      secondaryOffset.y = titleDecl.m_primaryOffset.y + primaryLayout.GetPixelSize().y +
+          titleDecl.m_secondaryOffset.y + halfSymbolH;
     }
   }
-  else if (m_params.m_anchor & dp::Bottom)
+  else if (titleDecl.m_anchor & dp::Bottom)
   {
     // In the case when the anchor is dp::Bottom the value of primary offset y < 0,
     // the text shape is above the POI.
-    primaryOffset.y = m_params.m_primaryOffset.y - halfSymbolH;
+    primaryOffset.y = titleDecl.m_primaryOffset.y - halfSymbolH;
     if (secondaryLayout != nullptr)
     {
-      primaryOffset.y -= secondaryLayout->GetPixelSize().y + m_params.m_secondaryOffset.y;
-      secondaryOffset.y = m_params.m_primaryOffset.y - halfSymbolH;
+      primaryOffset.y -= secondaryLayout->GetPixelSize().y + titleDecl.m_secondaryOffset.y;
+      secondaryOffset.y = titleDecl.m_primaryOffset.y - halfSymbolH;
     }
   }
   else if (secondaryLayout != nullptr)
   {
     // In the case when the anchor is dp::Center there isn't primary offset y.
-    primaryOffset.y = -(primaryLayout.GetPixelSize().y + m_params.m_secondaryOffset.y) / 2.0f;
-    secondaryOffset.y = (secondaryLayout->GetPixelSize().y + m_params.m_secondaryOffset.y) / 2.0f;
+    primaryOffset.y = -(primaryLayout.GetPixelSize().y + titleDecl.m_secondaryOffset.y) / 2.0f;
+    secondaryOffset.y = (secondaryLayout->GetPixelSize().y + titleDecl.m_secondaryOffset.y) / 2.0f;
   }
 
-  if (m_params.m_anchor & dp::Left)
+  if (titleDecl.m_anchor & dp::Left)
   {
     // In the case when the anchor is dp::Left the value of primary offset x > 0,
     // the text shape is on the right from the POI.
-    primaryOffset.x = m_params.m_primaryOffset.x + halfSymbolW;
+    primaryOffset.x = titleDecl.m_primaryOffset.x + halfSymbolW;
     if (secondaryLayout != nullptr)
       secondaryOffset.x = primaryOffset.x;
   }
-  else if (m_params.m_anchor & dp::Right)
+  else if (titleDecl.m_anchor & dp::Right)
   {
     // In the case when the anchor is dp::Right the value of primary offset x < 0,
     // the text shape is on the left from the POI.
-    primaryOffset.x = m_params.m_primaryOffset.x - halfSymbolW;
+    primaryOffset.x = titleDecl.m_primaryOffset.x - halfSymbolW;
     if (secondaryLayout != nullptr)
       secondaryOffset.x = primaryOffset.x;
   }
 
   if (primaryLayout.GetGlyphCount() > 0)
   {
-    DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher,
-                  textures, true /* isPrimary */, m_params.m_primaryOptional);
+    DrawSubString(primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
+                  textures, true /* isPrimary */, titleDecl.m_primaryOptional);
   }
 
   if (secondaryLayout != nullptr && secondaryLayout->GetGlyphCount() > 0)
   {
-    DrawSubString(*secondaryLayout.get(), m_params.m_secondaryTextFont, secondaryOffset, batcher,
-                  textures, false /* isPrimary */, m_params.m_secondaryOptional);
+    DrawSubString(*secondaryLayout.get(), titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
+                  textures, false /* isPrimary */, titleDecl.m_secondaryOptional);
   }
 }
 
@@ -214,8 +217,8 @@ void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl co
                               ref_ptr<dp::TextureManager> textures,
                               bool isPrimary, bool isOptional) const
 {
-  dp::Color outlineColor = isPrimary ? m_params.m_primaryTextFont.m_outlineColor
-                                     : m_params.m_secondaryTextFont.m_outlineColor;
+  dp::Color outlineColor = isPrimary ? m_params.m_titleDecl.m_primaryTextFont.m_outlineColor
+                                     : m_params.m_titleDecl.m_secondaryTextFont.m_outlineColor;
 
   if (outlineColor == dp::Color::Transparent())
     DrawSubStringPlain(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
@@ -256,7 +259,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
                                                                            layout.GetText(),
-                                                                           m_params.m_anchor,
+                                                                           m_params.m_titleDecl.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset,
@@ -305,7 +308,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
                                                                            layout.GetText(),
-                                                                           m_params.m_anchor,
+                                                                           m_params.m_titleDecl.m_anchor,
                                                                            glsl::ToVec2(m_basePoint),
                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
                                                                            baseOffset,
@@ -347,7 +350,7 @@ uint64_t TextShape::GetOverlayPriority() const
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
   priority &= kMask;
-  priority |= (static_cast<uint8_t>(m_params.m_primaryText.size()) << 8);
+  priority |= (static_cast<uint8_t>(m_params.m_titleDecl.m_primaryText.size()) << 8);
   priority |= static_cast<uint8_t>(m_textIndex);
 
   return priority;

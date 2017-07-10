@@ -2,6 +2,8 @@
 
 #include "color.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/assert.hpp"
 
 #include <cstdint>
@@ -77,6 +79,19 @@ struct FontDecl
   Color m_outlineColor = Color::Transparent();
   float m_size = 0;
   bool m_isSdf = true;
+};
+
+struct TitleDecl
+{
+  dp::FontDecl m_primaryTextFont;
+  std::string m_primaryText;
+  dp::FontDecl m_secondaryTextFont;
+  std::string m_secondaryText;
+  dp::Anchor m_anchor = Center;
+  m2::PointF m_primaryOffset = m2::PointF(0.0f, 0.0f);
+  m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
+  bool m_primaryOptional = false;
+  bool m_secondaryOptional = false;
 };
 
 inline std::string DebugPrint(dp::ApiVersion apiVersion)

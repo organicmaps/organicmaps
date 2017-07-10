@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/drape_global.hpp"
+#include "drape/pointers.hpp"
 
 #include "geometry/polyline2d.hpp"
 
@@ -31,6 +32,9 @@ public:
   virtual bool HasCreationAnimation() const = 0;
   virtual bool IsVisible() const { return true; }
 
+  virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const { return nullptr; }
+  virtual uint16_t GetProirity() const { return 0; }
+
 private:
   uint32_t m_id;
 };
@@ -50,7 +54,7 @@ public:
   virtual dp::Color const & GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;
   virtual float GetLayerDepth(size_t layerIndex) const = 0;
-  virtual  std::vector<m2::PointD> const & GetPoints() const = 0;
+  virtual std::vector<m2::PointD> const & GetPoints() const = 0;
 
 private:
   uint32_t m_id;

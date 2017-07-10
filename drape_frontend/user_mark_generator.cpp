@@ -30,12 +30,14 @@ void UserMarkGenerator::SetGroup(GroupID groupId, drape_ptr<IDCollection> && ids
   UpdateIndex(groupId);
 }
 
-void UserMarkGenerator::RemoveUserMarks(IDCollection && ids)
+void UserMarkGenerator::RemoveUserMarks(drape_ptr<IDCollection> && ids)
 {
-   for (auto const & id : ids.m_marksID)
-     m_marks.erase(id);
-   for (auto const & id : ids.m_linesID)
-     m_lines.erase(id);
+  if (ids == nullptr)
+    return;
+  for (auto const & id : ids->m_marksID)
+   m_marks.erase(id);
+  for (auto const & id : ids->m_linesID)
+   m_lines.erase(id);
 }
 
 void UserMarkGenerator::SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks)

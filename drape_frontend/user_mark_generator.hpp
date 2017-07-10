@@ -29,7 +29,7 @@ public:
 
   void SetGroup(GroupID groupId, drape_ptr<IDCollection> && ids);
   void RemoveGroup(GroupID groupId);
-  void RemoveUserMarks(IDCollection && ids);
+  void RemoveUserMarks(drape_ptr<IDCollection> && ids);
 
   void SetGroupVisibility(GroupID groupId, bool isVisible);
 

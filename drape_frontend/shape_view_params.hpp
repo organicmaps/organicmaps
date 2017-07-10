@@ -74,15 +74,7 @@ struct TextViewParams : CommonOverlayViewParams
   TextViewParams() {}
 
   FeatureID m_featureID;
-  dp::FontDecl m_primaryTextFont;
-  std::string m_primaryText;
-  dp::FontDecl m_secondaryTextFont;
-  std::string m_secondaryText;
-  dp::Anchor m_anchor;
-  m2::PointF m_primaryOffset = m2::PointF(0.0f, 0.0f);
-  m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
-  bool m_primaryOptional = false;
-  bool m_secondaryOptional = false;
+  dp::TitleDecl m_titleDecl;
   bool m_hasArea = false;
   bool m_createdByEditor = false;
   uint32_t m_extendingSize = 0;

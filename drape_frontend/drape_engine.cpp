@@ -211,7 +211,7 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
 {
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
   auto idCollection = make_unique_dp<IDCollection>();
-  IDCollection removedIdCollection;
+  auto removedIdCollection = make_unique_dp<IDCollection>();
   marksRenderCollection->reserve(provider->GetUserPointCount());
   for (size_t pointIndex = 0, sz = provider->GetUserPointCount(); pointIndex < sz; ++pointIndex)
   {
@@ -227,6 +227,8 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
       renderInfo->m_pixelOffset = mark->GetPixelOffset();
       renderInfo->m_runCreationAnim = mark->HasCreationAnimation();
       renderInfo->m_symbolName = mark->GetSymbolName();
+      renderInfo->m_titleDecl = mark->GetTitleDecl();
+      renderInfo->m_priority = mark->GetProirity();
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();
     }
@@ -253,7 +255,7 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
       mark->AcceptChanges();
     }
   }
-  provider->AcceptChanges(removedIdCollection.m_marksID);
+  provider->AcceptChanges(removedIdCollection->m_marksID);
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<UpdateUserMarkLayerMessage>(layerId,
                                                                              std::move(idCollection),

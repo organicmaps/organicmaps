@@ -541,15 +541,15 @@ void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
 
   df::TextViewParams tp;
   tp.m_tileCenter = m_globalRect.Center();
-  tp.m_anchor = dp::Center;
+  tp.m_titleDecl.m_anchor = dp::Center;
   tp.m_depth = 20000;
   tp.m_depthLayer = dp::GLState::OverlayLayer;
-  tp.m_primaryText = strings::to_string(key.m_x) + " " +
-                     strings::to_string(key.m_y) + " " +
-                     strings::to_string(key.m_zoomLevel);
+  tp.m_titleDecl.m_primaryText = strings::to_string(key.m_x) + " " +
+                                 strings::to_string(key.m_y) + " " +
+                                 strings::to_string(key.m_zoomLevel);
 
-  tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
-  tp.m_primaryOffset = {0.f, 0.f};
+  tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
+  tp.m_titleDecl.m_primaryOffset = {0.f, 0.f};
   drape_ptr<TextShape> textShape = make_unique_dp<TextShape>(r.Center(), tp, key, false, 0, false);
   textShape->DisableDisplacing();
   insertShape(std::move(textShape));

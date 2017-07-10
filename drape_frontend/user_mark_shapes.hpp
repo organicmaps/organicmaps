@@ -19,6 +19,8 @@ struct UserMarkRenderParams
   m2::PointD m_pixelOffset = m2::PointD(0.0, 0.0);
   std::string m_symbolName;
   dp::Anchor m_anchor = dp::Center;
+  drape_ptr<dp::TitleDecl> m_titleDecl;
+  uint16_t m_priority;
   float m_depth = 0.0;
   bool m_runCreationAnim = false;
   bool m_isVisible = true;

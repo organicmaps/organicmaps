@@ -433,23 +433,26 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
-  params.m_anchor = GetAnchor(primaryProto);
   params.m_depth = depth;
   params.m_featureID = m_id;
-  params.m_primaryText = m_captions.GetMainText();
-  params.m_primaryTextFont = decl;
-  params.m_primaryOffset = GetOffset(primaryProto);
-  params.m_primaryOptional = primaryProto->is_optional();
-  params.m_secondaryOptional = true;
+
+  auto & titleDecl = params.m_titleDecl;
+  titleDecl.m_anchor = GetAnchor(primaryProto);
+  titleDecl.m_primaryText = m_captions.GetMainText();
+  titleDecl.m_primaryTextFont = decl;
+  titleDecl.m_primaryOffset = GetOffset(primaryProto);
+  titleDecl.m_primaryOptional = primaryProto->is_optional();
+  titleDecl.m_secondaryOptional = true;
+
 
   if (secondaryProto)
   {
     dp::FontDecl auxDecl;
     CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
 
-    params.m_secondaryText = m_captions.GetAuxText();
-    params.m_secondaryTextFont = auxDecl;
-    params.m_secondaryOptional = secondaryProto->is_optional();
+    titleDecl.m_secondaryText = m_captions.GetAuxText();
+    titleDecl.m_secondaryTextFont = auxDecl;
+    titleDecl.m_secondaryOptional = secondaryProto->is_optional();
   }
 }
 
@@ -532,18 +535,19 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
 
+    auto & titleDecl = params.m_titleDecl;
     if (m_displacementMode == dp::displacement::kHotelMode &&
-        m_hotelData.m_isHotel && !params.m_primaryText.empty())
+        m_hotelData.m_isHotel && !titleDecl.m_primaryText.empty())
     {
-      params.m_primaryOptional = false;
-      params.m_primaryTextFont.m_size *= 1.2;
-      params.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
-      params.m_secondaryTextFont = params.m_primaryTextFont;
-      params.m_secondaryText = ExtractHotelInfo();
-      params.m_secondaryOptional = false;
+      titleDecl.m_primaryOptional = false;
+      titleDecl.m_primaryTextFont.m_size *= 1.2;
+      titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
+      titleDecl.m_secondaryTextFont = titleDecl.m_primaryTextFont;
+      titleDecl.m_secondaryText = ExtractHotelInfo();
+      titleDecl.m_secondaryOptional = false;
     }
 
-    if (!params.m_primaryText.empty() || !params.m_secondaryText.empty())
+    if (!titleDecl.m_primaryText.empty() || !titleDecl.m_secondaryText.empty())
       m_textParams.push_back(params);
   }
 }
@@ -986,13 +990,13 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthLayer = dp::GLState::OverlayLayer;
   textParams.m_minVisibleScale = m_minVisibleScale;
   textParams.m_rank = m_rank;
-  textParams.m_anchor = anchor;
   textParams.m_featureID = m_id;
-  textParams.m_primaryText = roadNumber;
-  textParams.m_primaryTextFont = font;
-  textParams.m_primaryOffset = shieldOffset + shieldTextOffset;
-  textParams.m_primaryOptional = false;
-  textParams.m_secondaryOptional = false;
+  textParams.m_titleDecl.m_anchor = anchor;
+  textParams.m_titleDecl.m_primaryText = roadNumber;
+  textParams.m_titleDecl.m_primaryTextFont = font;
+  textParams.m_titleDecl.m_primaryOffset = shieldOffset + shieldTextOffset;
+  textParams.m_titleDecl.m_primaryOptional = false;
+  textParams.m_titleDecl.m_secondaryOptional = false;
   textParams.m_extendingSize = 0;
 
   TextLayout textLayout;
@@ -1055,7 +1059,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     texMng->GetSymbolRegion(poiParams.m_symbolName, region);
     float const symBorderWidth = (region.GetPixelSize().x - textLayout.GetPixelLength()) * 0.5f;
     float const symBorderHeight = (region.GetPixelSize().y - textLayout.GetPixelHeight()) * 0.5f;
-    textParams.m_primaryOffset = poiParams.m_offset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
+    textParams.m_titleDecl.m_primaryOffset = poiParams.m_offset + GetShieldOffset(anchor, symBorderWidth, symBorderHeight);
     shieldPixelSize = region.GetPixelSize();
 
     needAdditionalText = !symbolName.empty() && !shield.m_additionalText.empty() &&
@@ -1064,12 +1068,13 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
 
   if (needAdditionalText)
   {
-    textParams.m_secondaryText = shield.m_additionalText;
-    textParams.m_secondaryTextFont = textParams.m_primaryTextFont;
-    textParams.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
-    textParams.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
-    textParams.m_secondaryTextFont.m_size *= 0.9f;
-    textParams.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
+    auto & titleDecl = textParams.m_titleDecl;
+    titleDecl.m_secondaryText = shield.m_additionalText;
+    titleDecl.m_secondaryTextFont = titleDecl.m_primaryTextFont;
+    titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kRoadShieldBlackTextColor);
+    titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRoadShieldWhiteTextColor);
+    titleDecl.m_secondaryTextFont.m_size *= 0.9f;
+    titleDecl.m_secondaryOffset = m2::PointD(0.0f, 3.0 * mainScale);
   }
 
   // Special priority for road shields in navigation style.
