@@ -146,20 +146,31 @@ BOOL defaultOrientation(CGSize const & size)
 
   if (hasStart)
   {
-    [toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
+    [toastView configWithText:L(@"p2p_to") withLocationButton:NO];
     return;
   }
 
   if (hasFinish)
   {
-    [toastView configWithText:L(@"routing_add_start_point") withActionButton:self.hasLocation];
+    [toastView configWithText:L(@"p2p_from") withLocationButton:self.hasLocation];
     return;
   }
 
   if (self.hasLocation)
-    [toastView configWithText:L(@"routing_add_finish_point") withActionButton:NO];
+    [toastView configWithText:L(@"p2p_to") withLocationButton:NO];
   else
-    [toastView configWithText:L(@"routing_add_start_point") withActionButton:NO];
+    [toastView configWithText:L(@"p2p_from") withLocationButton:NO];
+}
+
+- (IBAction)openSearch { [MWMMapViewControlsManager manager].searchHidden = NO; }
+- (IBAction)addLocationRoutePoint
+{
+  NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
+  NSAssert([MWMLocationManager lastLocation],
+           @"Action button is active while my location is not available");
+  [MWMRouter
+      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
+          bestRouter:NO];
 }
 
 #pragma mark - Search

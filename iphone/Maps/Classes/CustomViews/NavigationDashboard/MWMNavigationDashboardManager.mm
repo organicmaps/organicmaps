@@ -95,18 +95,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     [infoDisplay updateNavigationInfo:self.entity];
 }
 
-#pragma mark - MWMNavigationInfoView
-
-- (IBAction)addLocationRoutePoint
-{
-  NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
-  NSAssert([MWMLocationManager lastLocation],
-           @"Action button is active while my location is not available");
-  [MWMRouter
-      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
-          bestRouter:NO];
-}
-
 #pragma mark - MWMRoutePreview
 
 - (void)setRouteBuilderProgress:(CGFloat)progress
