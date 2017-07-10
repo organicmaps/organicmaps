@@ -221,10 +221,19 @@ node|z4-[place=city][capital=2]::int_name,
 node|z9-[place=city]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
 
+node|z4[sponsored=viator],
+{icon-image: viator-star-s.svg;}
+node|z5-[sponsored=viator],
+{icon-image: viator-star-m.svg;}
+node|z6-[sponsored=viator],
+{icon-image: viator-star-l.svg;}
+
+
 node|z4[place=city][capital!=2][population>=1000000],
 {font-size: 9;text-halo-opacity: 0.7;}
 node|z4[place=city][capital!=2][population>=1000000]::int_name
 {font-size: 8;text-halo-opacity: 0.7;}
+
 node|z4[place=city][capital=2],
 {icon-image: star-s.svg;text-offset: 1;font-size: 10;}
 node|z4[place=city][capital=2]::int_name
