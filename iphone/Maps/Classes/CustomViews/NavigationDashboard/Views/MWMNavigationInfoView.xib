@@ -24,21 +24,29 @@
                     <rect key="frame" x="0.0" y="1366" width="1024" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OJ3-VB-hqA">
-                            <rect key="frame" x="0.0" y="0.0" width="870" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="971" height="48"/>
                             <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Button" image="ic_search"/>
+                            <state key="normal" title="Button" image="ic_search_toast"/>
                             <connections>
                                 <action selector="openSearch" destination="iN0-l3-epB" eventType="touchUpInside" id="rRN-4C-luO"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWX-NL-dy3">
+                            <rect key="frame" x="971" y="8" width="1" height="32"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="5sH-RH-vPb"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-Nu-aYU">
-                            <rect key="frame" x="886" y="0.0" width="138" height="48"/>
+                            <rect key="frame" x="972" y="0.0" width="52" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanelUseLocation"/>
-                            <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="2" maxY="0.0"/>
-                            <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="-4" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="4" maxY="0.0"/>
-                            <state key="normal" title="Использовать" image="ic_get_position"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="fh6-Nu-aYU" secondAttribute="height" multiplier="1:1" priority="750" id="Y41-YU-X4s"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                            <state key="normal" image="ic_get_position"/>
                             <connections>
                                 <action selector="addLocationRoutePoint" destination="iN0-l3-epB" eventType="touchUpInside" id="4bf-b1-JqQ"/>
                             </connections>
@@ -48,18 +56,20 @@
                     <constraints>
                         <constraint firstItem="OJ3-VB-hqA" firstAttribute="leading" secondItem="Tzc-l6-Vvt" secondAttribute="leading" id="Dhd-ED-QZD"/>
                         <constraint firstAttribute="height" constant="48" id="E4J-Rq-3CZ"/>
-                        <constraint firstAttribute="bottom" secondItem="fh6-Nu-aYU" secondAttribute="bottom" priority="750" id="LUb-gc-AdF"/>
-                        <constraint firstItem="fh6-Nu-aYU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OJ3-VB-hqA" secondAttribute="trailing" priority="500" constant="16" id="Vod-Uo-6oA"/>
+                        <constraint firstItem="fh6-Nu-aYU" firstAttribute="leading" secondItem="pWX-NL-dy3" secondAttribute="trailing" id="GWY-Hv-xMd"/>
+                        <constraint firstAttribute="bottom" secondItem="fh6-Nu-aYU" secondAttribute="bottom" id="LUb-gc-AdF"/>
+                        <constraint firstItem="pWX-NL-dy3" firstAttribute="top" secondItem="fh6-Nu-aYU" secondAttribute="top" constant="8" id="QuG-5X-6WM"/>
                         <constraint firstItem="OJ3-VB-hqA" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" id="dYq-JZ-UgV"/>
-                        <constraint firstItem="fh6-Nu-aYU" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" priority="500" id="kaA-3q-cFB"/>
+                        <constraint firstItem="fh6-Nu-aYU" firstAttribute="top" secondItem="Tzc-l6-Vvt" secondAttribute="top" id="kaA-3q-cFB"/>
+                        <constraint firstItem="pWX-NL-dy3" firstAttribute="leading" secondItem="OJ3-VB-hqA" secondAttribute="trailing" priority="750" id="ngH-HH-FLo"/>
                         <constraint firstAttribute="trailing" secondItem="fh6-Nu-aYU" secondAttribute="trailing" id="o3O-CY-AKb"/>
-                        <constraint firstAttribute="trailing" secondItem="OJ3-VB-hqA" secondAttribute="trailing" priority="250" constant="16" id="p1M-ky-BAG"/>
                         <constraint firstAttribute="bottom" secondItem="OJ3-VB-hqA" secondAttribute="bottom" priority="500" id="uNX-H8-11S"/>
+                        <constraint firstItem="pWX-NL-dy3" firstAttribute="bottom" secondItem="fh6-Nu-aYU" secondAttribute="bottom" constant="-8" id="whl-Po-qqC"/>
                     </constraints>
                     <connections>
                         <outlet property="actionButton" destination="OJ3-VB-hqA" id="MW0-KG-h24"/>
                         <outlet property="locationButton" destination="fh6-Nu-aYU" id="2dI-Ab-cCH"/>
-                        <outlet property="locationButtonHidden" destination="LUb-gc-AdF" id="SrD-Xc-uoC"/>
+                        <outlet property="separator" destination="pWX-NL-dy3" id="DC7-YE-KjK"/>
                     </connections>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-pG-Wkw" userLabel="Street name" customClass="SolidTouchView">
@@ -443,6 +453,6 @@
         <image name="ic_routing_parking_on" width="24" height="24"/>
         <image name="ic_routing_search_light" width="56" height="56"/>
         <image name="ic_routing_shop_on" width="24" height="24"/>
-        <image name="ic_search" width="28" height="28"/>
+        <image name="ic_search_toast" width="24" height="24"/>
     </resources>
 </document>
