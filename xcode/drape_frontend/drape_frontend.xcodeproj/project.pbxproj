@@ -1174,7 +1174,7 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
 					"$(OMIM_ROOT)/3party/freetype/include",
 				);
@@ -1193,7 +1193,7 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
 					"$(OMIM_ROOT)/3party/freetype/include",
 				);

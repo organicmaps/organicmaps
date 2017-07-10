@@ -1162,7 +1162,7 @@
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
 			name = Debug;
@@ -1173,7 +1173,7 @@
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/protobuf/src",
+					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
 			};
 			name = Release;
