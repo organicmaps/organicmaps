@@ -70,6 +70,7 @@ set(
   features_offsets_table.hpp
   features_vector.cpp
   features_vector.hpp
+  ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
   geometry_coding.cpp
@@ -128,7 +129,6 @@ set(
   types_mapping.cpp
   types_mapping.hpp
   unique_index.hpp
-  wheelchair.hpp
 )
 
 set(

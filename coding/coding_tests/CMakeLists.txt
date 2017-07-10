@@ -10,6 +10,7 @@ set(
   coder_test.hpp
   coder_util_test.cpp
   compressed_bit_vector_test.cpp
+  csv_reader_test.cpp
   dd_vector_test.cpp
   diff_test.cpp
   elias_coder_test.cpp
@@ -49,4 +50,4 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(${PROJECT_NAME} coding base geometry minizip succinct ${LIBZ})
+omim_link_libraries(${PROJECT_NAME} platform_tests_support platform coding base geometry minizip succinct stats_client ${Qt5Widgets_LIBRARIES} ${LIBZ})

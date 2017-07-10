@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <map>

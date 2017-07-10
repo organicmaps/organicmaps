@@ -65,6 +65,11 @@ public:
   bool ShouldShowAddBusiness() const;
   bool ShouldShowEditPlace() const;
 
+  bool ShouldShowUGC() const;
+  bool ShouldShowUGCRating() const;
+  bool ShouldShowUGCReviews() const;
+  bool ShouldShowUGCDetails() const;
+
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const;
 

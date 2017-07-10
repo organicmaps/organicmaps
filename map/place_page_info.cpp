@@ -42,6 +42,10 @@ bool Info::ShouldShowEditPlace() const
          !IsMyPosition() && IsFeature();
 }
 
+bool Info::ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_types); }
+bool Info::ShouldShowUGCRating() const { return ftraits::UGC::IsRatingAvailable(m_types); }
+bool Info::ShouldShowUGCReviews() const { return ftraits::UGC::IsReviewsAvailable(m_types); }
+bool Info::ShouldShowUGCDetails() const { return ftraits::UGC::IsDetailsAvailable(m_types); }
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
 
@@ -129,7 +133,7 @@ string Info::GetSubtitle() const
     values.push_back(m_localizedWifiString);
 
   // Wheelchair
-  if (GetWheelchairType() == wheelchair::Type::Yes)
+  if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
     values.push_back(kWheelchairSymbol);
 
   return strings::JoinStrings(values, kSubtitleSeparator);

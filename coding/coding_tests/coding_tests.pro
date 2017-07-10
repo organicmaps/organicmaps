@@ -6,7 +6,15 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 
-DEPENDENCIES = coding base geometry minizip succinct
+DEPENDENCIES = platform_tests_support platform coding base geometry minizip succinct stats_client
+
+macx-* {
+  QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework Cocoa" "-framework SystemConfiguration"
+}
+win32*|linux* {
+  QT *= network
+}
 
 include($$ROOT_DIR/common.pri)
 
@@ -18,6 +26,7 @@ SOURCES += ../../testing/testingmain.cpp \
     bwt_coder_tests.cpp \
     coder_util_test.cpp \
     compressed_bit_vector_test.cpp \
+    csv_reader_test.cpp \
     dd_vector_test.cpp \
     diff_test.cpp \
     elias_coder_test.cpp \

@@ -85,10 +85,6 @@ protected:
   /// Used in Android only to get corret GUI elements layout.
   bool m_isTablet;
 
-  /// Internal function to get full path for input file.
-  /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
-  string ReadPathForFile(string const & file, string searchScope = string()) const;
-
   /// Returns last system call error as EError.
   static EError ErrnoToError();
 
@@ -108,6 +104,8 @@ public:
   void SetWritableDirForTests(string const & path);
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
+  /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
+  string ReadPathForFile(string const & file, string searchScope = string()) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }

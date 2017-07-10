@@ -24,6 +24,7 @@ cp ../data/patterns.txt assets/
 cp ../data/types.txt assets/
 cp ../data/unicode_blocks.txt assets/
 cp ../data/opening_hours_how_to_edit.html assets/
+cp ../data/ugc_types.csv assets/
 
 cp -r ../data/resources-hdpi_dark/ assets/
 cp -r ../data/resources-hdpi_clear/ assets/

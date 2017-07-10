@@ -936,6 +936,7 @@
 		F63AF5121EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
 		F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
 		F63AF5141EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
+		F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F64324771EF81316009296F9 /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
 		F64324781EF81317009296F9 /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
 		F643247A1EF82AD9009296F9 /* UGCSelectImpressionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */; };
@@ -1044,6 +1045,8 @@
 		F6BD33841B6240F200F2CE18 /* MWMNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33831B6240F200F2CE18 /* MWMNavigationView.mm */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
 		F6C0E62D1EF80F9000A4EFAA /* MWMUGCCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6C0E62C1EF80F9000A4EFAA /* MWMUGCCommentCell.xib */; };
+		F6C269F61F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
+		F6C269F71F14D76F00EB6519 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
 		F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
 		F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
@@ -2113,6 +2116,7 @@
 		F63AF5091EA6213F00A1DB98 /* FilterRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRatingCell.swift; sourceTree = "<group>"; };
 		F63AF50D1EA6215100A1DB98 /* FilterPriceCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPriceCategoryCell.swift; sourceTree = "<group>"; };
 		F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHolderCell.swift; sourceTree = "<group>"; };
+		F642D1221F0F9D1D005E3C25 /* ugc_types.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = ugc_types.csv; path = ../../data/ugc_types.csv; sourceTree = "<group>"; };
 		F64324791EF82AD9009296F9 /* UGCSelectImpressionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCSelectImpressionCell.swift; sourceTree = "<group>"; };
 		F643247D1EF82B21009296F9 /* UGCSelectImpressionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCSelectImpressionCell.xib; sourceTree = "<group>"; };
 		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
@@ -4309,6 +4313,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F642D1221F0F9D1D005E3C25 /* ugc_types.csv */,
 				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
 				BB7626B41E8559980031D71C /* icudt57l.dat */,
 				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
@@ -4620,6 +4625,7 @@
 				F6E2FF501E097BA00083EBEC /* MWMAboutControllerHeader.xib in Resources */,
 				F6E2FE511E097BA00083EBEC /* MWMActionBarButton.xib in Resources */,
 				F653CE181C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib in Resources */,
+				F6C269F61F14D76F00EB6519 /* ugc_types.csv in Resources */,
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				34EE25A51EFA6AD400F870AB /* ViatorElement.xib in Resources */,
@@ -4752,6 +4758,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				F64324771EF81316009296F9 /* MWMUGCCommentCell.xib in Resources */,
@@ -4976,6 +4983,7 @@
 				849CF6641DE842290024A8A5 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				849CF67B1DE842290024A8A5 /* MWMAlertViewController.xib in Resources */,
 				849CF6621DE842290024A8A5 /* MWMAPIBarView.xib in Resources */,
+				F6C269F71F14D76F00EB6519 /* ugc_types.csv in Resources */,
 				F6E2FE651E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				F6E2FD961E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				34EE25A71EFA6AD400F870AB /* ViatorElement.xib in Resources */,

@@ -2,33 +2,36 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
-#include "indexer/wheelchair.hpp"
+#include "indexer/ftraits.hpp"
 
 UNIT_TEST(Wheelchair_GetType)
 {
   classificator::Load();
   Classificator const & c = classif();
 
+  using ftraits::Wheelchair;
+  using ftraits::WheelchairAvailability;
+
   feature::TypesHolder holder;
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "no"}));
-    TEST_EQUAL(wheelchair::Matcher::GetType(holder), wheelchair::Type::No, ());
+    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::No, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "yes"}));
-    TEST_EQUAL(wheelchair::Matcher::GetType(holder), wheelchair::Type::Yes, ());
+    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Yes, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"wheelchair", "limited"}));
-    TEST_EQUAL(wheelchair::Matcher::GetType(holder), wheelchair::Type::Limited, ());
+    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Limited, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(wheelchair::Matcher::GetType(holder), wheelchair::Type::No, ());
+    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::No, ());
   }
   {
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
     holder.Add(c.GetTypeByPath({"wheelchair", "yes"}));
-    TEST_EQUAL(wheelchair::Matcher::GetType(holder), wheelchair::Type::Yes, ());
+    TEST_EQUAL(Wheelchair::GetValue(holder), WheelchairAvailability::Yes, ());
   }
 }

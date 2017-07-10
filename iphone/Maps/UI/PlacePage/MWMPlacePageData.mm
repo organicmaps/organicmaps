@@ -110,8 +110,7 @@ using namespace place_page;
     [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
   }
 
-  // TODO: Implement IsUGCAvailableChecker.
-  if (false /* Is possible to leave review */)
+  if (m_info.ShouldShowUGC() /* Is possible to leave review */)
   {
     m_sections.push_back(Sections::UGC);
     [self fillUGCSection];

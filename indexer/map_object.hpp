@@ -3,7 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
-#include "indexer/wheelchair.hpp"
+#include "indexer/ftraits.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -89,7 +89,7 @@ public:
   string GetWikipediaLink() const;
   string GetFlats() const;
   string GetBuildingLevels() const;
-  wheelchair::Type GetWheelchairType() const;
+  ftraits::WheelchairAvailability GetWheelchairType() const;
 
   // TODO(Vlad, yunikkk): Use Props enum + getters instead of direct metadata access.
   // TODO: Remove this method.

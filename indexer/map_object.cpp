@@ -198,9 +198,9 @@ string MapObject::GetBuildingLevels() const
   return m_metadata.Get(feature::Metadata::FMD_BUILDING_LEVELS);
 }
 
-wheelchair::Type MapObject::GetWheelchairType() const
+ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
 {
-  return wheelchair::Matcher::GetType(m_types);
+  return ftraits::Wheelchair::GetValue(m_types);
 }
 
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }

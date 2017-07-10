@@ -97,6 +97,7 @@ HEADERS += \
     feature_visibility.hpp \
     features_offsets_table.hpp \
     features_vector.hpp \
+    ftraits.hpp \
     ftypes_mapping.hpp \
     ftypes_matcher.hpp \
     geometry_coding.hpp \
@@ -135,7 +136,6 @@ HEADERS += \
     trie_reader.hpp \
     types_mapping.hpp \
     unique_index.hpp \
-    wheelchair.hpp \
 
 OTHER_FILES += drules_struct.proto
 
