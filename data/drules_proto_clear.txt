@@ -60130,6 +60130,137 @@ cont {
   }
 }
 cont {
+  name: "sponsored-viator"
+  element {
+    scale: 4
+    symbol {
+      name: "viator-star-s"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 5
+    symbol {
+      name: "viator-star-m"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 6
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 7
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 8
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 9
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 10
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 11
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 12
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "sport-american_football"
   element {
     scale: 17
