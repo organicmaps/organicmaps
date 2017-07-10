@@ -14,6 +14,8 @@ macx-* {
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+
 QT *= core
 
 SOURCES += \

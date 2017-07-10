@@ -6723,6 +6723,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = Simulator;
@@ -6825,6 +6826,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = Debug;
@@ -6930,6 +6932,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = AdHoc;
@@ -7035,6 +7038,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = "Production Full";
@@ -7140,6 +7144,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = Release;
@@ -7246,6 +7251,7 @@
 					"-lsdf_image",
 					"-licu",
 					"-llocal_ads",
+					"-lugc",
 				);
 			};
 			name = "Simulator Release";
