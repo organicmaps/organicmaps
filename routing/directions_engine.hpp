@@ -23,8 +23,8 @@ public:
   // vector<RouteSegment> instead of corresponding arguments.
   /// \brief Generates all args which are passed by reference.
   /// \param path is points of the route. It should not be empty.
-  /// \note If |routeGeometry| is empty after a call fo the method it shows an error.
-  virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+  /// \returns true if fields passed by reference are filled correctly and falsed otherwise.
+  virtual bool Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTurns & turns,
                         Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                         vector<Segment> & segments) = 0;

@@ -28,7 +28,7 @@ public:
   BicycleDirectionsEngine(Index const & index, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
-  void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+  bool Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                 my::Cancellable const & cancellable, Route::TTurns & turns,
                 Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                 vector<Segment> & segments) override;

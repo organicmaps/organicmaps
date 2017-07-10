@@ -39,30 +39,28 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 {
 }
 
-void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
+bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Junction> const & path,
                                           my::Cancellable const & cancellable,
                                           Route::TTurns & turns, Route::TStreets & streetNames,
                                           vector<Junction> & routeGeometry,
                                           vector<Segment> & segments)
 {
+  CHECK(!path.empty(), ());
+  
   turns.clear();
   streetNames.clear();
   segments.clear();
 
   routeGeometry = path;
 
-  if (path.size() <= 1)
-    return;
-
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
     LOG(LDEBUG, ("Couldn't reconstruct path."));
-    routeGeometry.clear();
     // use only "arrival" direction
     turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
-    return;
+    return false;
   }
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
@@ -71,7 +69,7 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   for (Edge const & e : routeEdges)
     segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
   
-  
+  return true;
 }
 
 void PedestrianDirectionsEngine::CalculateTurns(RoadGraphBase const & graph,

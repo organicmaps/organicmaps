@@ -116,7 +116,9 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
   Route::TStreets streetNames;
   vector<Segment> segments;
 
-  engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments);
+  if (!engine.Generate(graph, path, cancellable, turnsDir, streetNames, junctions, segments))
+    return;
+
   if (cancellable.IsCancelled())
     return;
 

@@ -152,11 +152,13 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr
   CHECK(m_numMwmIds, ());
 }
 
-void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                        my::Cancellable const & cancellable, Route::TTurns & turns,
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
+  CHECK(!path.empty(), ());
+
   turns.clear();
   streetNames.clear();
   routeGeometry.clear();
@@ -165,9 +167,6 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   segments.clear();
 
   size_t const pathSize = path.size();
-  if (pathSize == 0)
-    return;
-
   auto emptyPathWorkaround = [&]()
   {
     turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
@@ -178,7 +177,7 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   if (pathSize == 1)
   {
     emptyPathWorkaround();
-    return;
+    return false;
   }
 
   IRoadGraph::TEdgeVector routeEdges;
@@ -186,18 +185,18 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   {
     LOG(LDEBUG, ("Couldn't reconstruct path."));
     emptyPathWorkaround();
-    return;
+    return false;
   }
   if (routeEdges.empty())
   {
     emptyPathWorkaround();
-    return;
+    return false;
   }
 
   FillPathSegmentsAndAdjacentEdgesMap(graph, path, routeEdges, cancellable);
 
   if (cancellable.IsCancelled())
-    return;
+    return false;
 
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
@@ -209,6 +208,7 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   // so size of |segments| is not equal to size of |routeEdges|.
   if (!segments.empty())
     CHECK_EQUAL(segments.size(), routeEdges.size(), ());
+  return true;
 }
 
 Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
