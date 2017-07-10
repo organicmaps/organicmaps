@@ -60218,54 +60218,6 @@ cont {
 cont {
   name: "sponsored-viator"
   element {
-    scale: 4
-    symbol {
-      name: "viator-star-s"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
-    scale: 5
-    symbol {
-      name: "viator-star-m"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
-    scale: 6
-    symbol {
-      name: "viator-star-l"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
-    scale: 7
-    symbol {
-      name: "viator-star-l"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
-    scale: 8
-    symbol {
-      name: "viator-star-l"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
-    scale: 9
-    symbol {
-      name: "viator-star-l"
-      apply_for_type: 1
-      priority: 16000
-    }
-  }
-  element {
     scale: 10
     symbol {
       name: "viator-star-l"
