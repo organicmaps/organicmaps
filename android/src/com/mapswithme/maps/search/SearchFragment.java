@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.annotation.CallSuper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +25,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -106,7 +107,7 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     protected boolean onStartSearchClick()
     {
-      if (!mFromRoutePlan)
+      if (!RoutingController.get().isWaitingPoiPick())
         showAllResultsOnMap();
       return true;
     }
@@ -178,7 +179,6 @@ public class SearchFragment extends BaseMwmFragment
   private String mInitialQuery;
   @Nullable
   private HotelsFilter mInitialHotelsFilter;
-  private boolean mFromRoutePlan;
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
   {
@@ -432,7 +432,6 @@ public class SearchFragment extends BaseMwmFragment
 
     mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
     mInitialHotelsFilter = arguments.getParcelable(SearchActivity.EXTRA_HOTELS_FILTER);
-    mFromRoutePlan = RoutingController.get().isWaitingPoiPick();
   }
 
   private void hideSearch()
@@ -460,10 +459,16 @@ public class SearchFragment extends BaseMwmFragment
     return false;
   }
 
-  private void processSelected()
+  private void processSelected(@NonNull SearchResult result)
   {
-    if (mFromRoutePlan)
-      RoutingController.get().onPoiSelected(null);
+    if (RoutingController.get().isWaitingPoiPick())
+    {
+      SearchResult.Description description = result.description;
+      final MapObject point = new MapObject("", 0L, 0, MapObject.SEARCH, result.name, "",
+                                            description != null ? description.featureType : "", "",
+                                            result.lat, result.lon, "", null, null, "", null, null);
+      RoutingController.get().onPoiSelected(point);
+    }
 
     mToolbarController.deactivate();
 
@@ -471,14 +476,16 @@ public class SearchFragment extends BaseMwmFragment
       Utils.navigateToParent(getActivity());
   }
 
-  void showSingleResultOnMap(int resultIndex)
+  void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
     SearchRecents.add(query);
     SearchEngine.cancelApiCall();
 
-    SearchEngine.showResult(resultIndex);
-    processSelected();
+    if (!RoutingController.get().isWaitingPoiPick())
+      SearchEngine.showResult(resultIndex);
+
+    processSelected(result);
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
   }
@@ -600,7 +607,7 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     mToolbarController.deactivate();
-    if (mFromRoutePlan)
+    if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
       final boolean isSearchActivity = getActivity() instanceof SearchActivity;

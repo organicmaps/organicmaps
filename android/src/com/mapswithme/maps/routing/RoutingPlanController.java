@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -62,7 +63,8 @@ public class RoutingPlanController extends ToolbarController
     return rb;
   }
 
-  RoutingPlanController(View root, Activity activity)
+  RoutingPlanController(View root, Activity activity,
+                        @Nullable RoutingBottomMenuListener listener)
   {
     super(root, activity);
     mFrame = root;
@@ -119,7 +121,7 @@ public class RoutingPlanController extends ToolbarController
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
-    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame);
+    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame, listener);
   }
 
   @Override

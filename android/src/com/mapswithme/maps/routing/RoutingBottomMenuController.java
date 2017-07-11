@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiAdapter;
@@ -75,8 +75,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
   @Nullable
   private TaxiInfo.Product mTaxiProduct;
 
+  @Nullable
+  private RoutingBottomMenuListener mListener;
+
   @NonNull
-  static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame)
+  static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,
+                                                 @Nullable RoutingBottomMenuListener listener)
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
     View taxiFrame = getViewById(activity, frame, R.id.taxi_panel);
@@ -87,11 +91,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View numbersFrame = getViewById(activity, frame, R.id.numbers);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame,
-                                           taxiFrame, error, start,
-                                           altitudeChart,
-                                           altitudeDifference,
-                                           numbersFrame, actionFrame);
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, taxiFrame, error, start,
+                                           altitudeChart, altitudeDifference, numbersFrame,
+                                           actionFrame, listener);
   }
 
   @NonNull
@@ -110,7 +112,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                       @NonNull ImageView altitudeChart,
                                       @NonNull TextView altitudeDifference,
                                       @NonNull View numbersFrame,
-                                      @NonNull View actionFrame)
+                                      @NonNull View actionFrame,
+                                      @Nullable RoutingBottomMenuListener listener)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -123,17 +126,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mActionFrame = actionFrame;
     mActionMessage = (TextView) actionFrame.findViewById(R.id.tv__message);
     mActionButton = actionFrame.findViewById(R.id.btn__my_position_use);
-    mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
     mActionButton.setOnClickListener(this);
-    mActionFrame.setOnTouchListener(new View.OnTouchListener()
-    {
-      @Override
-      public boolean onTouch(View v, MotionEvent event)
-      {
-        return !(UiUtils.isVisible(mActionButton) && UiUtils.isViewTouched(event, mActionButton));
-      }
-    });
+    View actionSearchButton = actionFrame.findViewById(R.id.btn__search_point);
+    actionSearchButton.setOnClickListener(this);
+    mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
     UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
+    mListener = listener;
   }
 
   void showAltitudeChartAndRoutingDetails()
@@ -183,6 +181,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mTaxiFrame, mError);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
+    mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_START);
     if (LocationHelper.INSTANCE.getMyPosition() != null)
     {
       UiUtils.show(mActionButton);
@@ -202,6 +201,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mTaxiFrame, mError);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);
+    mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_FINISH);
     UiUtils.hide(mActionButton);
   }
 
@@ -375,7 +375,16 @@ final class RoutingBottomMenuController implements View.OnClickListener
     switch (v.getId())
     {
       case R.id.btn__my_position_use:
-        RoutingController.get().setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+        if (mListener != null)
+          mListener.onUseMyPositionAsStart();
+        break;
+      case R.id.btn__search_point:
+        if (mListener != null)
+        {
+          @RoutePointInfo.RouteMarkType
+          int pointType = (Integer) mActionMessage.getTag();
+          mListener.onSearchRoutePoint(pointType);
+        }
         break;
     }
   }

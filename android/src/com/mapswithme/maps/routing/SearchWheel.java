@@ -211,6 +211,11 @@ class SearchWheel implements View.OnClickListener
                                                  R.attr.colorAccent));
   }
 
+  public boolean performClick()
+  {
+    return mSearchButton.performClick();
+  }
+
   @Override
   public void onClick(View v)
   {

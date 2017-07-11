@@ -139,6 +139,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     mSearchWheel.onResume();
   }
 
+  public boolean performSearchClick()
+  {
+    return mSearchWheel.performClick();
+  }
+
   private NavMenu createNavMenu()
   {
     return new NavMenu(mBottomFrame, new NavMenu.ItemClickListener<NavMenu.Item>()
