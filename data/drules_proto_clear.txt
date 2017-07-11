@@ -60138,6 +60138,18 @@ cont {
       apply_for_type: 1
       priority: 16970
     }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
   }
   element {
     scale: 11
@@ -60145,6 +60157,18 @@ cont {
       name: "viator-star-l"
       apply_for_type: 1
       priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
     }
   }
   element {
@@ -60154,6 +60178,18 @@ cont {
       apply_for_type: 1
       priority: 16970
     }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
   }
   element {
     scale: 13
@@ -60161,6 +60197,18 @@ cont {
       name: "viator-star-l"
       apply_for_type: 1
       priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
     }
   }
   element {
@@ -60170,6 +60218,18 @@ cont {
       apply_for_type: 1
       priority: 16970
     }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
   }
   element {
     scale: 15
@@ -60177,6 +60237,18 @@ cont {
       name: "viator-star-l"
       apply_for_type: 1
       priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
     }
   }
   element {
@@ -60186,6 +60258,18 @@ cont {
       apply_for_type: 1
       priority: 16970
     }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
   }
   element {
     scale: 17
@@ -60193,6 +60277,18 @@ cont {
       name: "viator-star-l"
       apply_for_type: 1
       priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
     }
   }
   element {
@@ -60202,6 +60298,18 @@ cont {
       apply_for_type: 1
       priority: 16970
     }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
   }
   element {
     scale: 19
@@ -60209,6 +60317,18 @@ cont {
       name: "viator-star-l"
       apply_for_type: 1
       priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
     }
   }
 }
