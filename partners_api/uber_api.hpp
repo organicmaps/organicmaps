@@ -23,8 +23,8 @@ namespace taxi
 {
 namespace uber
 {
-string const kEstimatesUrl = "https://api.uber.com/v1/estimates";
-string const kProductsUrl = "https://api.uber.com/v1/products";
+extern string const kEstimatesUrl;
+extern string const kProductsUrl;
 /// Uber api wrapper based on synchronous http requests.
 class RawApi
 {

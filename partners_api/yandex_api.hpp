@@ -13,7 +13,7 @@ namespace taxi
 {
 namespace yandex
 {
-std::string const kTaxiInfoUrl = "https://taxi-routeinfo.taxi.yandex.net";
+extern std::string const kTaxiInfoUrl;
 /// Yandex api wrapper based on synchronous http requests.
 class RawApi
 {

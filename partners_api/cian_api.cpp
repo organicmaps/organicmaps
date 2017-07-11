@@ -1,6 +1,6 @@
 #include "partners_api/cian_api.hpp"
+#include "partners_api/utils.hpp"
 
-#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -15,17 +15,6 @@ using namespace platform;
 
 namespace
 {
-bool RunSimpleHttpRequest(string const & url, string & result)
-{
-  HttpClient request(url);
-  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
-  {
-    result = request.ServerResponse();
-    return true;
-  }
-  return false;
-}
-
 void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
 {
   my::Json root(src.c_str());
@@ -39,9 +28,6 @@ void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
 
   size_t const clustersSize = json_array_size(clusters);
 
-  if (clustersSize == 0)
-    return;
-
   for (size_t i = 0; i < clustersSize; ++i)
   {
     auto cluster = json_array_get(clusters, i);
@@ -52,12 +38,12 @@ void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
     json_t * offers = json_object_get(cluster, "offers");
 
     if (offers == nullptr)
-      return;
+      continue;
 
     size_t const offersSize = json_array_size(offers);
 
     if (offersSize == 0)
-      return;
+      continue;
 
     for (size_t i = 0; i < offersSize; ++i)
     {
@@ -83,15 +69,17 @@ void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
 
 namespace cian
 {
+std::string const kBaseUrl = "https://api.cian.ru/rent-nearby/v1";
+
 // static
 bool RawApi::GetRentNearby(m2::RectD const & rect, std::string & result,
                            std::string const & baseUrl /* = kBaseUrl */)
 {
-  ostringstream url;
+  std::ostringstream url;
   url << baseUrl << "/get-offers-in-bbox/?bbox=" << rect.minX() << ',' << rect.maxY() << '~'
       << rect.maxX() << ',' << rect.minY();
 
-  return RunSimpleHttpRequest(url.str(), result);
+  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
 }
 
 Api::Api(std::string const & baseUrl /* = kBaseUrl */) : m_baseUrl(baseUrl) {}

@@ -1,6 +1,5 @@
 #include "partners_api/uber_api.hpp"
-
-#include "platform/http_client.hpp"
+#include "partners_api/utils.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -18,17 +17,6 @@ using namespace platform;
 
 namespace
 {
-bool RunSimpleHttpRequest(string const & url, string & result)
-{
-  HttpClient request(url);
-  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
-  {
-    result = request.ServerResponse();
-    return true;
-  }
-  return false;
-}
-
 bool CheckUberResponse(json_t const * answer)
 {
   if (answer == nullptr)
@@ -118,6 +106,9 @@ namespace taxi
 {
 namespace uber
 {
+string const kEstimatesUrl = "https://api.uber.com/v1/estimates";
+string const kProductsUrl = "https://api.uber.com/v1/products";
+
 // static
 bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
                          std::string const & baseUrl /* = kProductsUrl */)
@@ -126,7 +117,7 @@ bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
   url << fixed << setprecision(6) << baseUrl << "?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.lat << "&longitude=" << pos.lon;
 
-  return RunSimpleHttpRequest(url.str(), result);
+  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
@@ -137,7 +128,7 @@ bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
   url << fixed << setprecision(6) << baseUrl << "/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
-  return RunSimpleHttpRequest(url.str(), result);
+  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
@@ -149,7 +140,7 @@ bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, s
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
-  return RunSimpleHttpRequest(url.str(), result);
+  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
 }
 
 void ProductMaker::Reset(uint64_t const requestId)

@@ -40,5 +40,6 @@ HEADERS += \
     taxi_places.hpp \
     taxi_provider.hpp \
     uber_api.hpp \
+    utils.hpp \
     viator_api.cpp \
     yandex_api.hpp \

@@ -12,7 +12,7 @@
 
 namespace cian
 {
-std::string const kBaseUrl = "https://api.cian.ru/rent-nearby/v1";
+extern std::string const kBaseUrl;
 
 class RawApi
 {
@@ -38,12 +38,12 @@ struct RentPlace
   std::vector<RentOffer> m_offers;
 };
 
-using RentNearbyCallback =
-    std::function<void(std::vector<RentPlace> const & places, uint64_t const requestId)>;
-
 class Api
 {
 public:
+  using RentNearbyCallback =
+      std::function<void(std::vector<RentPlace> const & places, uint64_t const requestId)>;
+
   explicit Api(std::string const & baseUrl = kBaseUrl);
   virtual ~Api();
 
