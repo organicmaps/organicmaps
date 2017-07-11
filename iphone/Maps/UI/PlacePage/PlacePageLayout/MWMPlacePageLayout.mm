@@ -154,7 +154,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
   [self.previewLayoutHelper configWithData:data];
-  [self.openingHoursLayoutHelper configWithData:data];
+  auto const & metaInfo = data.metainfoRows;
+  auto const hasOpeningHours =
+      std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) != metaInfo.cend();
+  if (hasOpeningHours)
+    [self.openingHoursLayoutHelper configWithData:data];
   if ([self.layoutImpl respondsToSelector:@selector(setPreviewLayoutHelper:)])
     [self.layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
 
@@ -417,7 +421,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
     case MetainfoRows::OpeningHours:
     case MetainfoRows::ExtendedOpeningHours:
+    {
+      auto const & metaInfo = data.metainfoRows;
+      auto const hasOpeningHours = std::find(metaInfo.cbegin(), metaInfo.cend(),
+                                             MetainfoRows::OpeningHours) != metaInfo.cend();
+      NSAssert(hasOpeningHours, @"OpeningHours is not available");
       return [self.openingHoursLayoutHelper cellForRowAtIndexPath:indexPath];
+    }
     case MetainfoRows::Phone:
     case MetainfoRows::Address:
     case MetainfoRows::Website:
