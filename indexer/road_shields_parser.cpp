@@ -108,6 +108,7 @@ public:
   std::set<RoadShield> GetRoadShields() const
   {
     std::set<RoadShield> result;
+    std::set<RoadShield> defaultShields;
     std::vector<std::string> shieldsRawTests = strings::Tokenize(m_baseRoadNumber, ";");
     for (std::string const & rawText : shieldsRawTests)
     {
@@ -123,8 +124,17 @@ public:
         shield.m_type = FindNetworkShield(rawText.substr(0, slashPos));
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
+      {
+        if (shield.m_type != RoadShieldType::Default)
+        {
+          // Schedule deletion of a shield with the same text and default style, if present.
+          defaultShields.insert({RoadShieldType::Default, shield.m_name, shield.m_additionalText});
+        }
         result.insert(std::move(shield));
+      }
     }
+    for (RoadShield const & shield : defaultShields)
+      result.erase(shield);
     return result;
   }
 

@@ -168,7 +168,8 @@ protected:
         if (!ref.empty())
         {
           std::string const & network = e.GetTagValue("network");
-          if (!network.empty() && network.find('/') == std::string::npos)
+          // Not processing networks with more than 15 chars (see road_shields_parser.cpp).
+          if (!network.empty() && network.find('/') == std::string::npos && network.size() < 15)
             ref = network + '/' + ref;
           std::string const & refBase = m_current->GetTag("ref");
           if (!refBase.empty())
