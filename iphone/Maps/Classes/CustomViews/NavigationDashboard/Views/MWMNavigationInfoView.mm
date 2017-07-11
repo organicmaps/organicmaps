@@ -11,6 +11,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
@@ -162,12 +163,25 @@ BOOL defaultOrientation(CGSize const & size)
     [toastView configWithText:L(@"routing_add_start_point") withLocationButton:NO];
 }
 
-- (IBAction)openSearch { [MWMMapViewControlsManager manager].searchHidden = NO; }
+- (IBAction)openSearch
+{
+  [Statistics logEvent:kStatRoutingTooltipClicked];
+  [MWMMapViewControlsManager manager].searchHidden = NO;
+}
+
 - (IBAction)addLocationRoutePoint
 {
   NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
   NSAssert([MWMLocationManager lastLocation],
            @"Action button is active while my location is not available");
+
+  [Statistics logEvent:kStatRoutingAddPoint
+        withParameters:@{
+          kStatRoutingPointType : kStatRoutingPointTypeStart,
+          kStatRoutingPointValue : kStatRoutingPointValueMyPosition,
+          kStatRoutingPointMethod : kStatRoutingPointMethodPlanning,
+          kStatRoutingMode : kStatRoutingModePlanning
+        }];
   [MWMRouter
       buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
           bestRouter:NO];
@@ -177,6 +191,11 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (IBAction)searchMainButtonTouchUpInside
 {
+  BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
+  [Statistics logEvent:kStatRoutingSearchClicked
+        withParameters:@{
+          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+        }];
   switch (self.searchState)
   {
   case NavigationSearchState::Maximized:
@@ -228,7 +247,16 @@ BOOL defaultOrientation(CGSize const & size)
     body(NavigationSearchState::MinimizedATM);
 }
 
-- (IBAction)bookmarksButtonTouchUpInside { [[MapViewController controller] openBookmarks]; }
+- (IBAction)bookmarksButtonTouchUpInside
+{
+  BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
+  [Statistics logEvent:kStatRoutingBookmarksClicked
+        withParameters:@{
+          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+        }];
+  [[MapViewController controller] openBookmarks];
+}
+
 - (void)collapseSearchOnTimer
 {
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
