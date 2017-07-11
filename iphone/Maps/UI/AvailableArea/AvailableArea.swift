@@ -1,5 +1,7 @@
 class AvailableArea: UIView {
-  private let observeKeyPath = "sublayers"
+  private enum Const {
+    static let observeKeyPath = "sublayers"
+  }
 
   private var affectingViews = Set<UIView>()
 
@@ -15,16 +17,16 @@ class AvailableArea: UIView {
 
   private func subscribe() {
     guard let ol = superview?.layer else { return }
-    ol.addObserver(self, forKeyPath: observeKeyPath, options: .new, context: nil)
+    ol.addObserver(self, forKeyPath: Const.observeKeyPath, options: .new, context: nil)
   }
 
   private func unsubscribe() {
     guard let ol = superview?.layer else { return }
-    ol.removeObserver(self, forKeyPath: observeKeyPath)
+    ol.removeObserver(self, forKeyPath: Const.observeKeyPath)
   }
 
   override func observeValue(forKeyPath keyPath: String?, of _: Any?, change _: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
-    if keyPath == observeKeyPath {
+    if keyPath == Const.observeKeyPath {
       DispatchQueue.main.async {
         self.update()
       }
