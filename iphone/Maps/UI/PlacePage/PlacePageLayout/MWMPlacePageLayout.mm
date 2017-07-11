@@ -63,6 +63,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 @property(nonatomic) NSArray<NSIndexPath *> * buttonsSectionIndexPaths;
 
 @property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
+@property(weak, nonatomic) MWMPPViatorCarouselCell * viatorCell;
 
 @end
 
@@ -497,6 +498,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto c = static_cast<MWMPPViatorCarouselCell *>(
         [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     [c configWith:data.viatorItems delegate:delegate];
+    self.viatorCell = c;
     return c;
   }
   case Sections::HotelPhotos:
@@ -643,6 +645,18 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case taxi::Provider::Yandex: provider = kStatYandex; break;
     }
     [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
+  });
+
+  checkCell(self.viatorCell, ^{
+    self.viatorCell = nil;
+
+    auto viatorItems = data.viatorItems;
+    if (viatorItems.count == 0)
+    {
+      NSAssert(NO, @"Viator is shown but items are empty.");
+      return;
+    }
+    [Statistics logEvent:kStatPlacepageSponsoredShow];
   });
 }
 

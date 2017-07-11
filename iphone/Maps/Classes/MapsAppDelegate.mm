@@ -664,14 +664,14 @@ using namespace osm_auth_ios;
       [statistics application:application didFinishLaunchingWithOptions:launchOptions];
 
   NSString * connectionType;
-  NSString * network = kStatOff;
+  NSString * network = kStatOffline;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE: break;
   case Platform::EConnectionType::CONNECTION_WIFI:
-      connectionType = @"Wi-Fi";
-      network = kStatWifi;
-      break;
+    connectionType = @"Wi-Fi";
+    network = kStatWifi;
+    break;
   case Platform::EConnectionType::CONNECTION_WWAN:
     connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
     network = kStatMobile;

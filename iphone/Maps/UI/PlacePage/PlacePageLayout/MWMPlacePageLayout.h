@@ -7,6 +7,7 @@
 - (void)shouldClose;
 
 - (BOOL)isExpandedOnShow;
+- (void)onExpanded;
 
 @end
 

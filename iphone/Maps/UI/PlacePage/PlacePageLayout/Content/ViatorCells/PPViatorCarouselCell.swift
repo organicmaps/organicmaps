@@ -21,6 +21,9 @@ final class PPViatorCarouselCell: MWMTableViewCell {
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
 
   func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
+    if ds.isEmpty {
+      Statistics.logEvent(kStatPlacepageSponsoredError)
+    }
     dataSource = ds
     delegate = d
     collectionView.contentOffset = .zero
@@ -59,7 +62,9 @@ extension PPViatorCarouselCell: UICollectionViewDelegate, UICollectionViewDataSo
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let url: URL? = isLastCell(indexPath) ? nil : dataSource[indexPath.item].pageURL
+    let isMore = isLastCell(indexPath)
+    let url: URL? = isMore ? nil : dataSource[indexPath.item].pageURL
     delegate?.openViatorURL(url)
+    Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected)
   }
 }

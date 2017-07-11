@@ -67,6 +67,8 @@ CGFloat const kBottomOffset = 60;
     actionBar.alpha = 1;
     ppView.minX = self.leftBound;
   });
+
+  [self.delegate onExpanded];
 }
 
 - (void)onClose

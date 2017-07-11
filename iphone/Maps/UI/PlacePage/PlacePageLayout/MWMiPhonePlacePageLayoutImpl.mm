@@ -267,6 +267,8 @@ CGFloat const kMinOffset = 1;
   self.placePageView.anchorImage.transform = isTop ? CGAffineTransformMakeRotation(M_PI)
   : CGAffineTransformIdentity;
   [self.previewLayoutHelper layoutInOpenState:isTop];
+  if (isTop)
+    [self.delegate onExpanded];
 }
 
 #pragma mark - UITableViewDelegate
