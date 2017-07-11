@@ -423,9 +423,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case MetainfoRows::ExtendedOpeningHours:
     {
       auto const & metaInfo = data.metainfoRows;
-      auto const hasOpeningHours = std::find(metaInfo.cbegin(), metaInfo.cend(),
-                                             MetainfoRows::OpeningHours) != metaInfo.cend();
-      NSAssert(hasOpeningHours, @"OpeningHours is not available");
+      NSAssert(std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) !=
+                   metaInfo.cend(),
+               @"OpeningHours is not available");
       return [self.openingHoursLayoutHelper cellForRowAtIndexPath:indexPath];
     }
     case MetainfoRows::Phone:

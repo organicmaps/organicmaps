@@ -67,3 +67,8 @@ NSString * stringFromOpeningDays(editor::ui::TOpeningDays const & openingDays)
   joinSpanNames();
   return [spans componentsJoinedByString:@", "];
 }
+
+BOOL isEveryDay(editor::ui::TimeTable const & timeTable)
+{
+  return timeTable.GetOpeningDays().size() == 7;
+}

@@ -155,7 +155,7 @@ WeekDayView getWeekDayView()
   NSString * openTime;
   NSArray<NSString *> * breaks;
 
-  BOOL const everyDay = (timeTable.GetOpeningDays().size() == 7);
+  BOOL const everyDay = isEveryDay(timeTable);
   if (timeTable.IsTwentyFourHours())
   {
     label = everyDay ? L(@"twentyfour_seven") : L(@"editor_time_allday");
@@ -193,7 +193,7 @@ WeekDayView getWeekDayView()
   [wd setLabelText:stringFromOpeningDays(timeTable.GetOpeningDays()) isRed:NO];
   if (timeTable.IsTwentyFourHours())
   {
-    BOOL const everyDay = (timeTable.GetOpeningDays().size() == 7);
+    BOOL const everyDay = isEveryDay(timeTable);
     [wd setOpenTimeText:everyDay ? L(@"twentyfour_seven") : L(@"editor_time_allday")];
     [wd setBreaks:@[]];
   }
