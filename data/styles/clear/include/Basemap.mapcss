@@ -567,22 +567,15 @@ area|z15-[amenity=parking]
 
 /* 8.BUILDINGS */
 
-area|z12-[man_made=pier],
-area|z12-[man_made=breakwater],
-line|z14-[man_made=pier],
-line|z14-[man_made=breakwater],
-line|z14-[man_made=cutline]
-{fill-position: background;	fill-opacity: 1;}
-
 /* 8.1 Pier */
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
- {fill-color: @background;casing-color: @background;}
+{fill-position: background; fill-opacity: 1; fill-color: @background;casing-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
 line|z14-[man_made=cutline]
-{casing-width: 2;casing-color: @background;fill-color: @background;}
+{width: 2;color: @background;opacity: 1;}
 
 /* 8.2 Building */
 
