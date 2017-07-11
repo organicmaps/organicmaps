@@ -722,3 +722,6 @@ area|z15[aeroway=terminal]
 { text: name; font-size: 9; fill-opacity: 0.8; text-color: @building_label; text-position: center;}
 area|z16-[aeroway=terminal]
 {text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
+
+node|z10-[sponsored=viator],
+{icon-image: viator-star-l.svg;text-offset: 1; z-index: 17000;}
