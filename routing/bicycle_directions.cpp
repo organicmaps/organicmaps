@@ -157,18 +157,22 @@ bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
+  m_adjacentEdges.clear();
+  m_pathSegments.clear();
+  turns.clear();
+  streetNames.clear();
+  routeGeometry.clear();
+  segments.clear();
+  
   size_t const pathSize = path.size();
   // Note. According to Route::IsValid() method route of zero or one point is invalid.
   if (pathSize < 1)
     return false;
 
-  m_adjacentEdges.clear();
-  m_pathSegments.clear();
-
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LWARNING, ("Couldn't reconstruct path."));
+    LOG(LWARNING, ("Can't reconstruct path."));
     return false;
   }
 
@@ -185,11 +189,6 @@ bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
 
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
-
-  turns.clear();
-  streetNames.clear();
-  routeGeometry.clear();
-  segments.clear();
 
   MakeTurnAnnotation(resultGraph, delegate, routeGeometry, turns, streetNames, segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());

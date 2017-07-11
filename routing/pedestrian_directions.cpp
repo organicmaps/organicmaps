@@ -46,20 +46,19 @@ bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Junction> & routeGeometry,
                                           vector<Segment> & segments)
 {
+  turns.clear();
+  streetNames.clear();
+  segments.clear();
+  routeGeometry = path;
+
   // Note. According to Route::IsValid() method route of zero or one point is invalid.
   if (path.size() < 1)
     return false;
 
-  turns.clear();
-  streetNames.clear();
-  segments.clear();
-
-  routeGeometry = path;
-
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LWARNING, ("Couldn't reconstruct path."));
+    LOG(LWARNING, ("Can't reconstruct path."));
     return false;
   }
 
