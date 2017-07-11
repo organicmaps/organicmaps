@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Valitse lähempänä tietä oleva määränpää.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Välipisteen paikallistaminen ei onnistunut.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Siirrä välipistettä.";
 
 "dialog_routing_system_error" = "Järjestelmävirhe";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Tervetuloa käyttämään MAPS.ME:tä";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Käynnistämällä sovelluksen hyväksyt <a href=\"http://legal.my.com/us/maps/tou/\">käyttöehdot</a> ja <a href=\"https://legal.my.com/us/maps/privacy/\">tietosuojakäytännön</a>.";
 
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Läheltä ei löytynyt taksia";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taksi ei ole saatavilla täällä";
 
 "install_app" = "Asenna";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Arabian, kreikan ja romanian kieliä varten sinun täytyy mahdollisesti asentaa ylimääräinen tekstistä puheeksi -järjestelmä Google Playstä (koska Googlen tekstistä puheeksi -sovellus ei vielä tue näitä kieliä), kuten Vocalizer TTS tai SVOX Classic. Voit hallita tekstistä puheeksi -ominaisuuden asetuksia laitteellasi kohdassa Asetukset –> Kieli ja syöttötapa –> Puhe –> Tekstistä puheeksi -toisto. Täällä voit ladata uusia kielipaketteja tai valita haluamasi tekstistä puheeksi -ohjelman.";
+"prefs_languages_information_off" = "Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play Market, Samsung Apps). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.";
 
 "prefs_languages_information_off_link" = "Lisätietoja saat tästä oppaasta.";
 

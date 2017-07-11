@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Пожалуйста, выберите конечную точку маршрута ближе к дороге.";
 
-"dialog_routing_change_intermediate" = "Выберите другую промежуточную точку, пожалуйста";
+"dialog_routing_change_intermediate" = "Не определена промежуточная точка маршрута.";
 
-"dialog_routing_intermediate_not_determined" = "Промежуточная точка не обнаружена.";
+"dialog_routing_intermediate_not_determined" = "Пожалуйста, измените промежуточную точку маршрута.";
 
 "dialog_routing_system_error" = "Системная ошибка";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Добро пожаловать в MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"http://legal.my.com/us/maps/tou/\">Условиями использования</a> и <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Не удалось найти такси поблизости";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Не удалось найти поставщика услуг такси поблизости";
+"taxi_no_providers" = "Такси не доступно в данном регионе";
 
 "install_app" = "Установить";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.";
+"prefs_languages_information_off" = "Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.";
 
 "prefs_languages_information_off_link" = "Более подробная информация — в этом руководстве.";
 

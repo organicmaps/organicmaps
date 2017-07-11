@@ -600,8 +600,8 @@
 	<string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
 	<string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
 	<string name="dialog_routing_select_closer_end">Пожалуйста, выберите конечную точку маршрута ближе к дороге.</string>
-	<string name="dialog_routing_change_intermediate">Выберите другую промежуточную точку, пожалуйста</string>
-	<string name="dialog_routing_intermediate_not_determined">Промежуточная точка не обнаружена.</string>
+	<string name="dialog_routing_change_intermediate">Не определена промежуточная точка маршрута.</string>
+	<string name="dialog_routing_intermediate_not_determined">Пожалуйста, измените промежуточную точку маршрута.</string>
 	<string name="dialog_routing_system_error">Системная ошибка</string>
 	<string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
 	<string name="dialog_routing_try_again">Попробуйте снова</string>
@@ -807,6 +807,8 @@
 	<string name="onboarding_permissions_title">Предоставьте MAPS.ME доступ к памяти и местоположению.</string>
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
 	<string name="onboarding_welcome_title">Добро пожаловать в MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
+	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с &lt;a href=\"http://legal.my.com/us/maps/tou/\">Условиями использования&lt;/a> и &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
@@ -985,7 +987,7 @@
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Не удалось найти такси поблизости</string>
 	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Не удалось найти поставщика услуг такси поблизости</string>
+	<string name="taxi_no_providers">Такси не доступно в данном регионе</string>
 	<string name="install_app">Установить</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фильтр</string>
@@ -1116,7 +1118,7 @@
 	<string name="on">Вкл.</string>
 	<string name="off">Выкл.</string>
 	<string name="prefs_languages_information">Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.</string>
+	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
 	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>

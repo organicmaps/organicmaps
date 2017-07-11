@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Kérjük, válasszon egy úthoz közelebb eső célállomást.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Nem találja a köztes pontot.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Kérjük, állítsa be köztes pontját.";
 
 "dialog_routing_system_error" = "Rendszerhiba";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Üdvözöljük a MAPS.ME alkalmazásban";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"http://legal.my.com/us/maps/tou/\"> Felhasználási feltételeket</a> és <a href=\"https://legal.my.com/us/maps/privacy/\"> az Adatvédelmi szabályzatot</a>.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Nem talált taxit a közelben";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Itt nincs taxi";
 
 "install_app" = "Telepítés";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.";
+"prefs_languages_information_off" = "Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.";
 
 "prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
 

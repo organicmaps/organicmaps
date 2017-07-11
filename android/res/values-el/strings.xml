@@ -439,6 +439,8 @@
 	<string name="dialog_routing_change_end">Ρύθμιση προορισμού</string>
 	<string name="dialog_routing_end_not_determined">Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του προορισμού.</string>
 	<string name="dialog_routing_select_closer_end">Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.</string>
+	<string name="dialog_routing_change_intermediate">Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.</string>
+	<string name="dialog_routing_intermediate_not_determined">Ρυθμίστε το ενδιάμεσο σημείο.</string>
 	<string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
 	<string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.</string>
 	<string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
@@ -600,6 +602,8 @@
 	<string name="onboarding_permissions_title">Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
 	<string name="onboarding_welcome_title">Καλωσήρθατε στο MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
+	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href=\"http://legal.my.com/us/maps/tou/\">τους Όρους χρήσης&lt;/a> και &lt;a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
@@ -726,6 +730,8 @@
 	<string name="taxi_wait">Χρόνος αναμονής %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Δε βρέθηκε ταξί σε κοντινή απόσταση</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Δεν υπάρχει διαθέσιμο ταξί εδώ</string>
 	<string name="install_app">Εγκατάσταση</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Φίλτρο</string>
@@ -856,7 +862,7 @@
 	<string name="on">Ενεργ.</string>
 	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.</string>
+	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>

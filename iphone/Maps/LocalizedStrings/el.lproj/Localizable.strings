@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Ρυθμίστε το ενδιάμεσο σημείο.";
 
 "dialog_routing_system_error" = "Σφάλμα συστήματος";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Καλωσήρθατε στο MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"http://legal.my.com/us/maps/tou/\">τους Όρους χρήσης</a> και <a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Δε βρέθηκε ταξί σε κοντινή απόσταση";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Δεν υπάρχει διαθέσιμο ταξί εδώ";
 
 "install_app" = "Εγκατάσταση";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.";
+"prefs_languages_information_off" = "Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.";
 
 "prefs_languages_information_off_link" = "Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.";
 

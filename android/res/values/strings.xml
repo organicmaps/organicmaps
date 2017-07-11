@@ -602,8 +602,8 @@
 	<string name="dialog_routing_change_end">Adjust destination</string>
 	<string name="dialog_routing_end_not_determined">Route was not created. Unable to locate the destination.</string>
 	<string name="dialog_routing_select_closer_end">Please select a destination point located closer to a road.</string>
-	<string name="dialog_routing_change_intermediate">Please select another intermediate point</string>
-	<string name="dialog_routing_intermediate_not_determined">An intermediate point is not determined.</string>
+	<string name="dialog_routing_change_intermediate">Unable to locate the intermediate point.</string>
+	<string name="dialog_routing_intermediate_not_determined">Please adjust your intermediate point.</string>
 	<string name="dialog_routing_system_error">System error</string>
 	<string name="dialog_routing_application_error">Unable to create route due to an application error.</string>
 	<string name="dialog_routing_try_again">Please try again</string>
@@ -820,7 +820,7 @@
 	<string name="onboarding_detail_permissions_storage_path_message">You can also change a destination to save downloaded maps.</string>
 	<string name="onboarding_welcome_title">Welcome to MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
-	<string name="onboarding_welcome_second_subtitle">By launching the application, you agree to &lt;a href=\"http://legal.my.com/us/maps/tou/\">Terms&lt;/a> of Use and &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy&lt;/a>.</string>
+	<string name="onboarding_welcome_second_subtitle">By launching the application, you agree to &lt;a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use&lt;/a> and &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Change location</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
 	<string name="login_to_make_edits_visible">Log in so other users can see the changes that you have made</string>
@@ -999,7 +999,7 @@
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Couldn\'t find a taxi nearby</string>
 	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Couldn’t find a taxi provider nearby</string>
+	<string name="taxi_no_providers">Taxi is not available here</string>
 	<string name="install_app">Install</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1138,7 +1138,7 @@
 	<string name="on">On</string>
 	<string name="off">Off</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.</string>
+	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
 	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="whatsnew_transliteration_title">Transliteration into Latin</string>
 	<string name="whatsnew_transliteration_message">If a street or an object doesn\'t have a name in your language, it will be spelt using the Latin alphabet.</string>

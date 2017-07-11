@@ -582,6 +582,8 @@
 	<string name="dialog_routing_change_end">Endre bestemmelsessted</string>
 	<string name="dialog_routing_end_not_determined">Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.</string>
 	<string name="dialog_routing_select_closer_end">Velg et bestemmelsessted som er i nærheten av en vei.</string>
+	<string name="dialog_routing_change_intermediate">Kunne ikke finne mellomstopp.</string>
+	<string name="dialog_routing_intermediate_not_determined">Kontroller og juster mellomstopp.</string>
 	<string name="dialog_routing_system_error">Systemfeil</string>
 	<string name="dialog_routing_application_error">En applikasjonsfeil førte til at ruten ikke kunne opprettes.</string>
 	<string name="dialog_routing_try_again">Vennligst prøv igjen</string>
@@ -787,6 +789,8 @@
 	<string name="onboarding_permissions_title">Tillat MAPS.ME tilgang til minnet og plasseringen</string>
 	<string name="onboarding_permissions_message">Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.</string>
 	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
+	<string name="onboarding_welcome_second_subtitle">Når du starter programmet samtykker du til &lt;a href=\"http://legal.my.com/us/maps/tou/\">bruksvilkårene&lt;/a> og &lt;a href=\"https://legal.my.com/us/maps/privacy/\">reglene for personvern&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
 	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
@@ -960,6 +964,8 @@
 	<string name="taxi_wait">Forventet om %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Kunne ikke finne drosje i nærheten</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Drosje ikke tilgjengelig her</string>
 	<string name="install_app">Installer</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1090,7 +1096,7 @@
 	<string name="on">På</string>
 	<string name="off">Av</string>
 	<string name="prefs_languages_information">Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Du må installere ekstra TTS for arabisk, gresk og rumensk (siden Google TTS ikke støtter språkene ennå) fra Google Play, som for eksempel Vocalizer TTS eller SVOX Classics.\nFor å behandle innstillinger for talesyntese, gå til Innstillinger -> Språk og inndata -> Tale-> Tekst til tale. Her kan du laste ned flere språkpakker eller velg foretrukket tekst til tale-motor.</string>
+	<string name="prefs_languages_information_off">For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play Market, Samsung Apps).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.</string>
 	<string name="prefs_languages_information_off_link">Les denne veiledningen for mer informasjon.</string>
 	<string name="whatsnew_transliteration_title">Omskrivning til latin</string>
 	<string name="whatsnew_transliteration_message">Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.</string>

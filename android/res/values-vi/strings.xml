@@ -582,6 +582,8 @@
 	<string name="dialog_routing_change_end">Điều chỉnh điểm đến</string>
 	<string name="dialog_routing_end_not_determined">Tuyến đường chưa được tạo. Không thể xác định vị trí điểm đến.</string>
 	<string name="dialog_routing_select_closer_end">Hãy chọn điểm đến gần với một con đường hơn.</string>
+	<string name="dialog_routing_change_intermediate">Không thể định vị điểm trung gian.</string>
+	<string name="dialog_routing_intermediate_not_determined">Vui lòng điều chỉnh điểm trung gian của bạn.</string>
 	<string name="dialog_routing_system_error">Lỗi hệ thống</string>
 	<string name="dialog_routing_application_error">Không thể tạo tuyến đường do lỗi ứng dụng.</string>
 	<string name="dialog_routing_try_again">Vui lòng thử lại</string>
@@ -787,6 +789,8 @@
 	<string name="onboarding_permissions_title">Cho phép MAPS.ME truy cập ổ lưu trữ và vị trí</string>
 	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
 	<string name="onboarding_welcome_title">Chào mừng đến với MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
+	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với &lt;a href=\"http://legal.my.com/us/maps/tou/\">Điều khoản Sử dụng&lt;/a> và &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Chính sách Riêng tư&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
@@ -962,6 +966,8 @@
 	<string name="taxi_wait">Sẽ đến trong %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Không thể tìm thấy một taxi ở gần đây</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Không thể gọi taxi ở đây</string>
 	<string name="install_app">Cài đặt</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Bộ lọc</string>
@@ -1092,7 +1098,7 @@
 	<string name="on">Bật</string>
 	<string name="off">Tắt</string>
 	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Đối với tiếng Ả Rập, tiếng Hy Lạp và tiếng Rumani, bạn có thể cần cài đặt thêm TTS (bởi Google TTS chưa hỗ trợ các ngôn ngữ này) từ Google Play như Vocalizer TTS hoặc SVOX Classics.\nĐể quản lý các thiết lập tổng hợp giọng nói, trên thiết bị của bạn mở Cài đặt –> Ngôn ngữ và nhập liệu –> Giọng nói –> Đầu ra văn bản thành giọng nói. Ở đây bạn có thể tải về thêm các gói ngôn ngữ và lựa chọn công cụ chuyển văn bản thành giọng nói ưa thích.</string>
+	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play Market, Samsung Apps).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="whatsnew_transliteration_message">Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.</string>

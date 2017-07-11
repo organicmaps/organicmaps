@@ -582,6 +582,8 @@
 	<string name="dialog_routing_change_end">Andere bestemming kiezen</string>
 	<string name="dialog_routing_end_not_determined">Route samenstellen mislukt. Bestemming kan niet worden gevonden.</string>
 	<string name="dialog_routing_select_closer_end">Kies een bestemming die dichter bij een weg ligt.</string>
+	<string name="dialog_routing_change_intermediate">Kan de tussenstop niet vinden.</string>
+	<string name="dialog_routing_intermediate_not_determined">Gelieve uw tussenstop aan te passen.</string>
 	<string name="dialog_routing_system_error">Systeemfout</string>
 	<string name="dialog_routing_application_error">Route samenstellen mislukt door een applicatiefout.</string>
 	<string name="dialog_routing_try_again">Probeer het opnieuw</string>
@@ -787,6 +789,8 @@
 	<string name="onboarding_permissions_title">MAPS.ME toegang geven tot opslag en locatie</string>
 	<string name="onboarding_permissions_message">Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.</string>
 	<string name="onboarding_welcome_title">Welkom bij MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
+	<string name="onboarding_welcome_second_subtitle">Door de toepassing te starten, gaat u akkoord met de &lt;a href=\"http://legal.my.com/us/maps/tou/\">Gebruiksvoorwaarden&lt;/a> en het &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Privacybeleid&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
@@ -962,6 +966,8 @@
 	<string name="taxi_wait">Verwacht binnen %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Kon geen taxi vinden in de buurt</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taxi hier niet beschikbaar</string>
 	<string name="install_app">Installeer</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1092,7 +1098,7 @@
 	<string name="on">Aan</string>
 	<string name="off">Uit</string>
 	<string name="prefs_languages_information">We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.</string>
+	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="whatsnew_transliteration_title">Transliteratie in het Latijn</string>
 	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>

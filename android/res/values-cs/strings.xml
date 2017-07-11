@@ -589,6 +589,8 @@
 	<string name="dialog_routing_change_end">Upravit cíl</string>
 	<string name="dialog_routing_end_not_determined">Trasa nebyla vytvořena. Cíl se nepodařilo najít.</string>
 	<string name="dialog_routing_select_closer_end">Vyberte cílový bod blíže k silnici.</string>
+	<string name="dialog_routing_change_intermediate">Nelze najít mezilehlý bod.</string>
+	<string name="dialog_routing_intermediate_not_determined">Upravte mezilehlý bod.</string>
 	<string name="dialog_routing_system_error">Systémová chyba</string>
 	<string name="dialog_routing_application_error">Trasu se nepodařilo vytvořit z důvodu chyby aplikace.</string>
 	<string name="dialog_routing_try_again">Prosím, zkuste to znovu</string>
@@ -794,6 +796,8 @@
 	<string name="onboarding_permissions_title">Povolte MAPS.ME přístup k úložišti a určení polohy</string>
 	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
 	<string name="onboarding_welcome_title">Vítá vás aplikace MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.</string>
+	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s &lt;a href=\"http://legal.my.com/us/maps/tou/\"> Podmínkami použití&lt;/a> a &lt;a href=\"https://legal.my.com/us/maps/privacy/\"> Zásadami ochrany osobních údajů&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -969,6 +973,8 @@
 	<string name="taxi_wait">Očekávaný příjezd za %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Nelze najít taxi v okolí</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taxi zde není k dispozici</string>
 	<string name="install_app">Instalovat</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtr</string>
@@ -1099,7 +1105,7 @@
 	<string name="on">Zapnout</string>
 	<string name="off">Vypnout</string>
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –> Jazyk a vstupy –> Mluvené slovo –> Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.</string>
+	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
 	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>

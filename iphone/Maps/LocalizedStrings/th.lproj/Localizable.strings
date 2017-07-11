@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "กรุณาเลือกที่หมายที่ใกล้ถนนมากขึ้น";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "ไม่สามารถระบุจุดระหว่างทางได้";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "กรุณาปรับจุดระหว่างทางของคุณ";
 
 "dialog_routing_system_error" = "ระบบเกิดข้อผิดพลาด";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "ยินดีต้อนรับสู่ MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href=\"http://legal.my.com/us/maps/tou/\">เงื่อนไขการใช้งาน</a> และ <a href=\"https://legal.my.com/us/maps/privacy/\">นโยบายความเป็นส่วนตัว</a>";
 
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "ไม่พบแท็กซี่ในบริเวณใกล้เคียง";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "ไม่มีแท็กซี่ที่นี่";
 
 "install_app" = "ติดตั้ง";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "สำหรับภาษาอาหรับ กรีก และโรมาเนีย คุณอาจจำเป็นต้องติดตั้ง TTS (เนื่องจาก Google TTS ยังไม่ได้รองรับภาษาเหล่านี้) เพิ่มเติมจาก Google Play อย่างเช่น Vocalizer TTS หรือ SVOX Classics\nในการที่จะจัดการการตั้งค่าสำหรับการสังเคราะห์เสียงพูด เปิด การตั้งค่า –> ภาษาและอินพุต –> เสียงพูด –> เอาท์พุตการแปลงข้อความไปเป็นเสียงพูด บนเครื่องของคุณ ซึ่งคุณสามารถดาวน์โหลดชุดภาษาเพิ่มเติมหรือเลือกเอนจินการแปลงข้อความไปเป็นเสียงพูดที่ชอบได้";
+"prefs_languages_information_off" = "สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play Market, Samsung Apps)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้";
 
 "prefs_languages_information_off_link" = "สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้";
 

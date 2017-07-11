@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Lütfen yola daha yakın bir hedef noktası seçin.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Ara nokta bulunamadı.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Lütfen ara noktanızı ayarlayın.";
 
 "dialog_routing_system_error" = "Sistem hatası";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "MAPS.ME'ye Hoş Geldiniz";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Koşullarını</a> ve <a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Yakın hiç taksi bulunamadı";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Bu bölgede hiç taksi yok";
 
 "install_app" = "Kur";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Arapça, Yunanca ve Rumence dilleri için Google Play'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.";
+"prefs_languages_information_off" = "Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.";
 
 "prefs_languages_information_off_link" = "Daha fazla bilgi için lütfen bu kılavuzu inceleyin.";
 

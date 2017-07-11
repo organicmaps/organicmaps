@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Zastávku sa nepodarilo nájsť.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Upravte zastávku.";
 
 "dialog_routing_system_error" = "Systémová chyba";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Vitajte v aplikácii MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Spustením aplikácie súhlasíte s <a href=\"http://legal.my.com/us/maps/tou/\"> Podmienkami používania</a> a <a href=\"https://legal.my.com/us/maps/privacy/\"> Zásadami ochrany osobných údajov</a>.";
 
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "V okolí sa nepodarilo nájsť žiaden taxík";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxík to nie je k dispozícii";
 
 "install_app" = "Nainštalovať";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Pre arabčinu, gréčtinu a rumunčinu bude potrebné z obchodu Google Play nainštalovať dodatočné TTS (keďže Google tieto jazyky ešte nepodporuje) ako Vocalizer TTS alebo SVOX Classics. Ak chcete nastaviť nastavenia na syntézu reči, otvorte v zariadení Nastavenia -> Jazyk a vstup -> Reč -> Výstup textu na reč. Tam si môžete prevziať dodatočný jazykový balík alebo si vybrať preferovaný systém prevodu textu na reč.";
+"prefs_languages_information_off" = "Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Samsung Apps). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.";
 
 "prefs_languages_information_off_link" = "Viac informácií nájdete v tomto návode.";
 

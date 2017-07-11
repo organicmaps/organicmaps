@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Bitte wählen Sie einen Zielort in der Nähe einer Straße aus.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Zwischenstopp kann nicht gefunden werden.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Bitte passen Sie Ihren Zwischenstopp an.";
 
 "dialog_routing_system_error" = "Systemfehler";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Willkommen bei MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Durch das Starten der Anwendung stimmen Sie den <a href=\"http://legal.my.com/us/maps/tou/\">Nutzungsbedingungen</a> und der <a href=\"https://legal.my.com/us/maps/privacy/\">Datenschutzrichtlinie</a> zu.";
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Es konnte kein Taxi in der Nähe gefunden werden";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi ist hie nicht verfügbar";
 
 "install_app" = "Installieren";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das können Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren.";
 
-"prefs_languages_information_off" = "Für Arabisch, Griechisch und Rumänisch müssen Sie möglicherweise zusätzliche TTS-Systeme von Google Play herunterladen und installieren (denn Google-TTS unterstützt diese Sprachen bisher noch nicht), Sie können zum Beispiel Vocalizer TTS oder SVOX Classics verwenden. Um die Einstellungen für Sprachsynthese zu verwalten, gehen Sie auf Ihrem Gerät zu Einstellungen -> Sprache und Eingabe -> Sprache -> Text-to-Speech-Ausgabe. Hier können Sie zusätzliche Sprachpakete herunterladen oder das bevorzugte Versprachlichungsprogramm auswählen.";
+"prefs_languages_information_off" = "Für einige Sprachen müssen Sie einen anderen Sprachsynthesizer oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play Market, Samsung Apps). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Versprachlichungsprogramm auswählen.";
 
 "prefs_languages_information_off_link" = "Weitere Informationen finden Sie in dieser Anleitung.";
 

@@ -579,6 +579,8 @@
 	<string name="dialog_routing_change_end">Ajustaţi destinaţia finală</string>
 	<string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinaţiei a eşuat.</string>
 	<string name="dialog_routing_select_closer_end">Setaţi un punct de destinaţie mai aproape de un drum.</string>
+	<string name="dialog_routing_change_intermediate">Punctul intermediar nu poate fi localizat.</string>
+	<string name="dialog_routing_intermediate_not_determined">Ajustați punctul intermediar.</string>
 	<string name="dialog_routing_system_error">Eroare sistem</string>
 	<string name="dialog_routing_application_error">Crearea traseului a eşuat din cauza unei erori a aplicaţiei.</string>
 	<string name="dialog_routing_try_again">Încercaţi din nou</string>
@@ -784,6 +786,8 @@
 	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
+	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href=\"http://legal.my.com/us/maps/tou/\">Condițiile de utilizare&lt;/a> și &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -958,6 +962,8 @@
 	<string name="taxi_wait">Așteptat în %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Nu am găsit niciun taxi în apropiere\u0020</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Serviciul de taxi nu este disponibil aici</string>
 	<string name="install_app">Instalați</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrare</string>
@@ -1088,7 +1094,7 @@
 	<string name="on">Activat</string>
 	<string name="off">Dezactivat</string>
 	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.</string>
+	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.</string>
 	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
 	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>

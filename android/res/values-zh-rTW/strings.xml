@@ -590,6 +590,8 @@
 	<string name="dialog_routing_change_end">變更目的地</string>
 	<string name="dialog_routing_end_not_determined">未產生路線。無法定位目的地。</string>
 	<string name="dialog_routing_select_closer_end">請選擇更接近道路的目的地。</string>
+	<string name="dialog_routing_change_intermediate">找不到中途休息站。</string>
+	<string name="dialog_routing_intermediate_not_determined">請調整您的中途休息站。</string>
 	<string name="dialog_routing_system_error">系統錯誤</string>
 	<string name="dialog_routing_application_error">由於此錯誤，尚未建立路線。</string>
 	<string name="dialog_routing_try_again">請再試一次</string>
@@ -797,6 +799,8 @@
 	<string name="onboarding_permissions_title">允許 MAPS.ME 存儲和定位的權限</string>
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="onboarding_welcome_title">歡迎來到 MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
+	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 &lt;a href=\"http://legal.my.com/us/maps/tou/\">服務條款&lt;/a>和 &lt;a href=\"https://legal.my.com/us/maps/privacy/\">隱私權原則&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
@@ -972,6 +976,8 @@
 	<string name="taxi_wait">預計 %s 內到達</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">無法在附近找到計程車</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">此處不提供計程車服務</string>
 	<string name="install_app">安裝</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">篩選條件</string>
@@ -1102,7 +1108,7 @@
 	<string name="on">開</string>
 	<string name="off">關</string>
 	<string name="prefs_languages_information">我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">對於阿拉伯語、希臘語或羅馬尼亞語，必須從 Google Play 下載 Vocalizer TTS 或 SVOX Classics 等其他 TTS (因為 Google TTS 尚未支援這些語言)。\n若要管理語音合成的設定，請在您的裝置上開啟「設定 –> 語言和輸入 –> 語音 –> 文字轉語音輸出」。您可在此下載其他語言套件，或選擇偏好的文字轉語音引擎。</string>
+	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play Market, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
 	<string name="whatsnew_transliteration_title">音譯為拉丁文</string>
 	<string name="whatsnew_transliteration_message">若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。</string>

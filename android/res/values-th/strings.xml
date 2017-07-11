@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">ปรับที่หมาย</string>
 	<string name="dialog_routing_end_not_determined">ไม่มีการสร้างเส้นทาง ไม่สามารถหาที่หมายได้</string>
 	<string name="dialog_routing_select_closer_end">กรุณาเลือกที่หมายที่ใกล้ถนนมากขึ้น</string>
+	<string name="dialog_routing_change_intermediate">ไม่สามารถระบุจุดระหว่างทางได้</string>
+	<string name="dialog_routing_intermediate_not_determined">กรุณาปรับจุดระหว่างทางของคุณ</string>
 	<string name="dialog_routing_system_error">ระบบเกิดข้อผิดพลาด</string>
 	<string name="dialog_routing_application_error">ไม่สามารถสร้างเส้นทางได้เนื่องจากเกิดข้อผิดพลาดของแอปพลิเคชัน</string>
 	<string name="dialog_routing_try_again">กรุณาลองอีกครั้ง</string>
@@ -793,6 +795,8 @@
 	<string name="onboarding_permissions_title">อนุญาตให้ MAPS.ME เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง</string>
 	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
 	<string name="onboarding_welcome_title">ยินดีต้อนรับสู่ MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
+	<string name="onboarding_welcome_second_subtitle">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ &lt;a href=\"http://legal.my.com/us/maps/tou/\">เงื่อนไขการใช้งาน&lt;/a> และ &lt;a href=\"https://legal.my.com/us/maps/privacy/\">นโยบายความเป็นส่วนตัว&lt;/a></string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
@@ -968,6 +972,8 @@
 	<string name="taxi_wait">คาดว่าภายใน %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">ไม่พบแท็กซี่ในบริเวณใกล้เคียง</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">ไม่มีแท็กซี่ที่นี่</string>
 	<string name="install_app">ติดตั้ง</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">ตัวกรอง</string>
@@ -1098,7 +1104,7 @@
 	<string name="on">เปิด</string>
 	<string name="off">ปิด</string>
 	<string name="prefs_languages_information">เราใช้ระบบ TTS สำหรับคำแนะนำด้วยเสียงพูด เครื่องแอนดรอยด์จำนวนมากใช้งาน Google TTS คุณสามารถดาวน์โหลดหรืออัปเดตได้จาก Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">สำหรับภาษาอาหรับ กรีก และโรมาเนีย คุณอาจจำเป็นต้องติดตั้ง TTS (เนื่องจาก Google TTS ยังไม่ได้รองรับภาษาเหล่านี้) เพิ่มเติมจาก Google Play อย่างเช่น Vocalizer TTS หรือ SVOX Classics\nในการที่จะจัดการการตั้งค่าสำหรับการสังเคราะห์เสียงพูด เปิด การตั้งค่า –> ภาษาและอินพุต –> เสียงพูด –> เอาท์พุตการแปลงข้อความไปเป็นเสียงพูด บนเครื่องของคุณ ซึ่งคุณสามารถดาวน์โหลดชุดภาษาเพิ่มเติมหรือเลือกเอนจินการแปลงข้อความไปเป็นเสียงพูดที่ชอบได้</string>
+	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play Market, Samsung Apps)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="whatsnew_transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
 	<string name="whatsnew_transliteration_message">หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน</string>

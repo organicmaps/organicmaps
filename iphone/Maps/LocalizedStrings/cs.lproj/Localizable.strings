@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Vyberte cílový bod blíže k silnici.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Nelze najít mezilehlý bod.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Upravte mezilehlý bod.";
 
 "dialog_routing_system_error" = "Systémová chyba";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Vítá vás aplikace MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Spuštěním aplikace souhlasíte s <a href=\"http://legal.my.com/us/maps/tou/\"> Podmínkami použití</a> a <a href=\"https://legal.my.com/us/maps/privacy/\"> Zásadami ochrany osobních údajů</a>.";
 
 "dialog_incorrect_feature_position" = "Změnit umístění";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Nelze najít taxi v okolí";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi zde není k dispozici";
 
 "install_app" = "Instalovat";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –> Jazyk a vstupy –> Mluvené slovo –> Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.";
+"prefs_languages_information_off" = "U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.";
 
 "prefs_languages_information_off_link" = "Více informací najdete v tomto návodu.";
 

@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "道路に近い位置にある目的地を設定してください。";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "中間地点を見つけることができません。";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "中間地点を調整してください。";
 
 "dialog_routing_system_error" = "システムエラー";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "MAPS.ME へようこそ";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"http://legal.my.com/us/maps/tou/\">利用規約</a>および<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "近隣にタクシーは見つかりませんでした";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "ここには利用可能なタクシーがありません";
 
 "install_app" = "インストール";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。";
 
-"prefs_languages_information_off" = "アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –> [言語と入力] –> [音声] –> [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。";
+"prefs_languages_information_off" = "いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Samsung Apps) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。";
 
 "prefs_languages_information_off_link" = "詳細については、このガイドをご確認ください。";
 

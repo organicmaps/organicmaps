@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
 
 "dialog_routing_system_error" = "System error";
 
@@ -1356,7 +1356,7 @@
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a> and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
 
 "dialog_incorrect_feature_position" = "Change location";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Couldn't find a taxi nearby";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi is not available here";
 
 "install_app" = "Install";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.";
+"prefs_languages_information_off" = "For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
 
 "prefs_languages_information_off_link" = "For more information please check this guide.";
 

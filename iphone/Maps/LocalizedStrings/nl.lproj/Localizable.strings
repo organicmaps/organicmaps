@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Kies een bestemming die dichter bij een weg ligt.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Kan de tussenstop niet vinden.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Gelieve uw tussenstop aan te passen.";
 
 "dialog_routing_system_error" = "Systeemfout";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Welkom bij MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Door de toepassing te starten, gaat u akkoord met de <a href=\"http://legal.my.com/us/maps/tou/\">Gebruiksvoorwaarden</a> en het <a href=\"https://legal.my.com/us/maps/privacy/\">Privacybeleid</a>.";
 
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Kon geen taxi vinden in de buurt";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi hier niet beschikbaar";
 
 "install_app" = "Installeer";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.";
+"prefs_languages_information_off" = "Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.";
 
 "prefs_languages_information_off_link" = "Gelieve deze handleiding te lezen voor meer informatie.";
 

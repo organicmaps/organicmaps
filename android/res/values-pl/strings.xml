@@ -585,6 +585,8 @@
 	<string name="dialog_routing_change_end">Zmień punkt docelowy</string>
 	<string name="dialog_routing_end_not_determined">Nie wyznaczono trasy. Nie można zlokalizować punktu docelowego.</string>
 	<string name="dialog_routing_select_closer_end">Wybierz punkt docelowy położony bliżej drogi.</string>
+	<string name="dialog_routing_change_intermediate">Nie można zlokalizować punktu postoju.</string>
+	<string name="dialog_routing_intermediate_not_determined">Dokonaj korekty punktu postoju.</string>
 	<string name="dialog_routing_system_error">Błąd systemowy</string>
 	<string name="dialog_routing_application_error">Nie można wyznaczyć trasy z powodu błędu aplikacji.</string>
 	<string name="dialog_routing_try_again">Spróbuj ponownie</string>
@@ -790,6 +792,8 @@
 	<string name="onboarding_permissions_title">Zezwól MAPS.ME na dostęp do pamięci masowej i lokalizacji</string>
 	<string name="onboarding_permissions_message">Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.</string>
 	<string name="onboarding_welcome_title">Witaj w MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.</string>
+	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na &lt;a href=\"http://legal.my.com/us/maps/tou/\">warunki użytkowania&lt;/a> i &lt;a href=\"https://legal.my.com/us/maps/privacy/\">politykę prywatności&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
@@ -965,6 +969,8 @@
 	<string name="taxi_wait">Szacunkowo przybędzie za %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Nie można znaleźć taksówki w pobliżu</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taksówka niedostępna w tym miejscu</string>
 	<string name="install_app">Zainstaluj</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtr</string>
@@ -1095,7 +1101,7 @@
 	<string name="on">Wł.</string>
 	<string name="off">Wył.</string>
 	<string name="prefs_languages_information">Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Do obsługi języka arabskiego, greckiego i rumuńskiego koniecznie może być zainstalowanie dodatkowych systemów TTS (Google TTS nie obsługuje obecnie tych języków) z Google Play, takich jak Vocalizer TTS lub SVOX Classics. Aby zarządzać ustawieniami dla syntezy mowy, na swoim urządzeniu otwórz Ustawienia –> Język i wprowadzanie – > Mowa – > Wyjście tekstu na mowę. Tutaj można pobrać dodatkowe pakiety językowe lub wybrać preferowane silniki konwersji tekstu na mowę.</string>
+	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play Market, Samsung Apps). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
 	<string name="whatsnew_transliteration_title">Transkrypcja na alfabet łaciński</string>
 	<string name="whatsnew_transliteration_message">Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.</string>

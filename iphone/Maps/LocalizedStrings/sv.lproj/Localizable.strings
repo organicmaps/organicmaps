@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Välj en destinationspunkt närmare en väg.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Det går inte att hitta mellanliggande punkt.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Justera din mellanliggande punkt.";
 
 "dialog_routing_system_error" = "Systemfel";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Välkommen till MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"http://legal.my.com/us/maps/tou/\">användningsvillkoren</a> och <a href=\"https://legal.my.com/us/maps/privacy/\">sekretesspolicyn</a>.";
 
 "dialog_incorrect_feature_position" = "Ändra placering";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Hittade ingen taxi i närheten";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi är inte tillgängligt här";
 
 "install_app" = "Installera";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –> Språk och inmatning –> Tal –> Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.";
+"prefs_languages_information_off" = "För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.";
 
 "prefs_languages_information_off_link" = "Kolla in den här guiden för mer information.";
 

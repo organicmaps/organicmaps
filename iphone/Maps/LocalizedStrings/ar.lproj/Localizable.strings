@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "تعذر تحديد مكان النقطة الوسيطة.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "الرجاء ضبط النقطة الوسيطة الخاصة بك.";
 
 "dialog_routing_system_error" = "خطأ في النظام";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "مرحبًا بك في MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "من خلال إطلاق التطبيق، فإنك توافق على <a href=\"http://legal.my.com/us/maps/tou/\">شروط الاستخدام</a> و<a href=\"https://legal.my.com/us/maps/privacy/\">سياسة الخصوصية</a>.";
 
 "dialog_incorrect_feature_position" = "تغيير الموقع";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "لا يمكن العثور على تاكسي قريب";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "التاكسي غير متوفر هنا";
 
 "install_app" = "تثبيت";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.";
+"prefs_languages_information_off" = "بالنسبة لبعض اللغات، ستحتاج إلى تثبيت مازج صوت آخر أو حزمة لغة إضافية من متجر التطبيقات (سوق Google Play وSamsung Apps).\nافتح إعدادات الجهاز → اللغة والإدخال → الكلام→ إخراج النص إلى كلام.\nهنا يمكنك إدارة إعدادات مزج الكلام (على سبيل المثال، تنزيل حزمة اللغة للاستخدام بدون اتصال) وتحديد محرك نص إلى كلام آخر.";
 
 "prefs_languages_information_off_link" = "لمزيد من المعلومات الرجاء مراجعة هذا الدليل.";
 

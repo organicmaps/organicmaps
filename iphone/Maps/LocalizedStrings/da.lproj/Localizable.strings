@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Angiv en destination, der ligger tættere på en vej.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Kunne ikke lokalisere mellemliggende punkt.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Rediger det mellemliggende punkt.";
 
 "dialog_routing_system_error" = "Systemfejl";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Velkommen til MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Ved at åbne appen accepterer du vores <a href=\"http://legal.my.com/us/maps/tou/\">Vilkår for anvendelse</a> og <a href=\"https://legal.my.com/us/maps/privacy/\">Fortrolighedspolitik</a>.";
 
 "dialog_incorrect_feature_position" = "Skift lokation";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Kunne ikke finde en taxi i nærheden";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi ikke tilgængelig her";
 
 "install_app" = "Installer";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "I forbindelse med sprogene arabisk, græsk og rumænsk skal du installere yderligere TTS såsom som Vocalizer TTS eller SVOX Classics fra Google Play (eftersom Google TTS ikke understøtter disse sprog endnu). Hvis du vil administrere indstillinger for talesyntese på enheden, skal du åbne Indstillinger –> Sprog og input –> Tale –> Tekst til tale-output. Her kan du downloade yderligere sprogpakker eller vælge dit foretrukne tekst til tale-program.";
+"prefs_languages_information_off" = "For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.";
 
 "prefs_languages_information_off_link" = "Se denne vejledning for flere oplysninger.";
 

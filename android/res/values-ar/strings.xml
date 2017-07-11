@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">تعديل الوجهة</string>
 	<string name="dialog_routing_end_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.</string>
 	<string name="dialog_routing_select_closer_end">يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.</string>
+	<string name="dialog_routing_change_intermediate">تعذر تحديد مكان النقطة الوسيطة.</string>
+	<string name="dialog_routing_intermediate_not_determined">الرجاء ضبط النقطة الوسيطة الخاصة بك.</string>
 	<string name="dialog_routing_system_error">خطأ في النظام</string>
 	<string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
 	<string name="dialog_routing_try_again">برجاء إعادة المحاولة</string>
@@ -793,6 +795,8 @@
 	<string name="onboarding_permissions_title">السماح لـ MAPS.ME بالوصول إلى ذاكرة التخزين والموقع</string>
 	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
 	<string name="onboarding_welcome_title">مرحبًا بك في MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
+	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على &lt;a href=\"http://legal.my.com/us/maps/tou/\">شروط الاستخدام&lt;/a> و&lt;a href=\"https://legal.my.com/us/maps/privacy/\">سياسة الخصوصية&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -968,6 +972,8 @@
 	<string name="taxi_wait">متوقع في %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">لا يمكن العثور على تاكسي قريب</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">التاكسي غير متوفر هنا</string>
 	<string name="install_app">تثبيت</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">عامل التصفية</string>
@@ -1098,7 +1104,7 @@
 	<string name="on">تشغيل</string>
 	<string name="off">إيقاف</string>
 	<string name="prefs_languages_information">نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
+	<string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تثبيت مازج صوت آخر أو حزمة لغة إضافية من متجر التطبيقات (سوق Google Play وSamsung Apps).\nافتح إعدادات الجهاز → اللغة والإدخال → الكلام→ إخراج النص إلى كلام.\nهنا يمكنك إدارة إعدادات مزج الكلام (على سبيل المثال، تنزيل حزمة اللغة للاستخدام بدون اتصال) وتحديد محرك نص إلى كلام آخر.</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
 	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
 	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>

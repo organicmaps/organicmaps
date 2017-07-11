@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">Hedefinizi ayarlayın</string>
 	<string name="dialog_routing_end_not_determined">Güzergah oluşturulamadı. Hedef belirlenemiyor.</string>
 	<string name="dialog_routing_select_closer_end">Lütfen yola daha yakın bir hedef noktası seçin.</string>
+	<string name="dialog_routing_change_intermediate">Ara nokta bulunamadı.</string>
+	<string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
 	<string name="dialog_routing_system_error">Sistem hatası</string>
 	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle güzergah oluşturulamadı.</string>
 	<string name="dialog_routing_try_again">Lütfen daha sonra tekrar deneyin</string>
@@ -793,6 +795,8 @@
 	<string name="onboarding_permissions_title">MAPS.ME\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
 	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
 	<string name="onboarding_welcome_title">MAPS.ME\'ye Hoş Geldiniz</string>
+	<string name="onboarding_welcome_first_subtitle">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
+	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak &lt;a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Koşullarını&lt;/a> ve &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını&lt;/a> kabul etmiş sayılırsınız.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
@@ -968,6 +972,8 @@
 	<string name="taxi_wait">%s içinde bekleniyor</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Yakın hiç taksi bulunamadı</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Bu bölgede hiç taksi yok</string>
 	<string name="install_app">Kur</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtre</string>
@@ -1098,7 +1104,7 @@
 	<string name="on">Aç</string>
 	<string name="off">Kapat</string>
 	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor, Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Arapça, Yunanca ve Rumence dilleri için Google Play\'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
 	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>

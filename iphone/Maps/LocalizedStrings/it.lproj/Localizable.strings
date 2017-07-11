@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Seleziona un punto di destinazione più vicino a una strada.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Impossibile individuare un punto intermedio.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Regolare il punto intermedio.";
 
 "dialog_routing_system_error" = "Errore di sistema";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Benvenuto in MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Lanciando l'applicazione, accetti i <a href=\"http://legal.my.com/us/maps/tou/\">Termini di utilizzo</a> e l'<a href=\"https://legal.my.com/us/maps/privacy/\">Informativa sulla privacy</a>.";
 
 "dialog_incorrect_feature_position" = "Cambia posizione";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Impossibile trovare un taxi nelle vicinanze";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi non disponibile qui";
 
 "install_app" = "Installa";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Per l'arabo, il greco e il rumeno, potrebbe essere necessario installare un servizio TTS aggiuntivo (poiché Google TTS non supporta ancora queste lingue) da Google Play, ad esempio Vocalizer TTS o SVOX Classics.\nPer gestire le impostazioni di sintesi vocale, dal tuo dispositivo apri Impostazioni –> Lingua e input –> Riconoscimento vocale –> Output sintesi vocale. Qui puoi scaricare il language pack aggiuntivo o selezionare il tuo motore di sintesi vocale preferito.";
+"prefs_languages_information_off" = "Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall'app store (Google Play Market, Samsung Apps).\nApri le impostazioni del tuo dispositivo → Lingua e input → Riconoscimento vocale → Output sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare un language pack per l'utilizzo offline) e selezionare un altro motore di sintesi vocale.";
 
 "prefs_languages_information_off_link" = "Per maggiori informazioni, consulta questa guida.";
 

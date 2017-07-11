@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Wybierz punkt docelowy położony bliżej drogi.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Nie można zlokalizować punktu postoju.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Dokonaj korekty punktu postoju.";
 
 "dialog_routing_system_error" = "Błąd systemowy";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Witaj w MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href=\"http://legal.my.com/us/maps/tou/\">warunki użytkowania</a> i <a href=\"https://legal.my.com/us/maps/privacy/\">politykę prywatności</a>.";
 
 "dialog_incorrect_feature_position" = "Zmień lokalizację";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Nie można znaleźć taksówki w pobliżu";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taksówka niedostępna w tym miejscu";
 
 "install_app" = "Zainstaluj";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Do obsługi języka arabskiego, greckiego i rumuńskiego koniecznie może być zainstalowanie dodatkowych systemów TTS (Google TTS nie obsługuje obecnie tych języków) z Google Play, takich jak Vocalizer TTS lub SVOX Classics. Aby zarządzać ustawieniami dla syntezy mowy, na swoim urządzeniu otwórz Ustawienia –> Język i wprowadzanie – > Mowa – > Wyjście tekstu na mowę. Tutaj można pobrać dodatkowe pakiety językowe lub wybrać preferowane silniki konwersji tekstu na mowę.";
+"prefs_languages_information_off" = "W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play Market, Samsung Apps). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.";
 
 "prefs_languages_information_off_link" = "Aby uzyskać więcej informacji, sprawdź ten poradnik.";
 

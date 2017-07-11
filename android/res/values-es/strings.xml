@@ -575,6 +575,8 @@
 	<string name="dialog_routing_change_end">Ajustar destino</string>
 	<string name="dialog_routing_end_not_determined">La ruta no se creó. No se pudo encontrar el destino.</string>
 	<string name="dialog_routing_select_closer_end">Seleccione un punto de destino cercano a una carretera.</string>
+	<string name="dialog_routing_change_intermediate">No se ha podido ubicar la parada intermedia.</string>
+	<string name="dialog_routing_intermediate_not_determined">Por favor, ajuste la parada intermedia.</string>
 	<string name="dialog_routing_system_error">Error del sistema</string>
 	<string name="dialog_routing_application_error">No se pudo crear la ruta debido a un error en la aplicación.</string>
 	<string name="dialog_routing_try_again">Intentar nuevamente</string>
@@ -780,6 +782,8 @@
 	<string name="onboarding_permissions_title">Permita el acceso de MAPS.ME a los servicios de almacenamiento y ubicación</string>
 	<string name="onboarding_permissions_message">Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.</string>
 	<string name="onboarding_welcome_title">Bienvenido a MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.</string>
+	<string name="onboarding_welcome_second_subtitle">Al iniciar la aplicación, usted acepta los &lt;a href=\"http://legal.my.com/us/maps/tou/\">Términos de uso&lt;/a> y la &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Política de privacidad&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambiar ubicación</string>
 	<string name="message_invalid_feature_position">No se puede ubicar ningún objeto aquí</string>
 	<string name="login_to_make_edits_visible">Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.</string>
@@ -955,6 +959,8 @@
 	<string name="taxi_wait">Se espera en %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">No se puede encontrar un taxi cerca</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">El servicio de taxi no está disponible aquí</string>
 	<string name="install_app">Instalar</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrar</string>
@@ -1085,7 +1091,7 @@
 	<string name="on">Akt.</string>
 	<string name="off">Desact.</string>
 	<string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Para los idiomas árabe, griego y rumano, es posible que necesite instalar un TTS adicional (puesto que Google TTS aún no incluye estos idiomas) desde Google Play, como Vocalizer TTS o SVOX Classics.\nPara administrar los ajustes de síntesis del habla, abra los Ajustes de su dispositivo –> Idioma e introducción –> Voz –> Opciones texto a voz. En este menú puede descargar un paquete de idioma especial o seleccionar un motor existente de conversión de texto a voz.</string>
+	<string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play mercado, Samsung Apps). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
 	<string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
 	<string name="whatsnew_transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="whatsnew_transliteration_message">Si una calle o un objeto no tiene nombre en su idioma, se escribirá con el alfabeto latino.</string>

@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Setaţi un punct de destinaţie mai aproape de un drum.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Punctul intermediar nu poate fi localizat.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Ajustați punctul intermediar.";
 
 "dialog_routing_system_error" = "Eroare sistem";
 
@@ -1354,9 +1354,9 @@
 
 "onboarding_welcome_title" = "Bun venit în MAPS.ME";
 
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
+"onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"http://legal.my.com/us/maps/tou/\">Condițiile de utilizare</a> și <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
@@ -1683,7 +1683,7 @@
 "taxi_not_found" = "Nu am găsit niciun taxi în apropiere ";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Serviciul de taxi nu este disponibil aici";
 
 "install_app" = "Instalați";
 
@@ -1934,7 +1934,7 @@
 
 "prefs_languages_information" = "Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.";
+"prefs_languages_information_off" = "Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.";
 
 "prefs_languages_information_off_link" = "Consultați acest ghid pentru informații suplimentare.";
 

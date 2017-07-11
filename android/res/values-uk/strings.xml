@@ -586,6 +586,8 @@
 	<string name="dialog_routing_change_end">Змініть кінцеву точку маршруту</string>
 	<string name="dialog_routing_end_not_determined">Маршрут не побудовано. Не визначено кінцеву точку маршруту.</string>
 	<string name="dialog_routing_select_closer_end">Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.</string>
+	<string name="dialog_routing_change_intermediate">Не вдалося знайти місцерозташування проміжної точки.</string>
+	<string name="dialog_routing_intermediate_not_determined">Будь ласка, вкажіть місцерозташування проміжної точки вручну.</string>
 	<string name="dialog_routing_system_error">Системна помилка</string>
 	<string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
 	<string name="dialog_routing_try_again">Спробуйте знову</string>
@@ -791,6 +793,8 @@
 	<string name="onboarding_permissions_title">Дозволити MAPS.ME доступ до сховища та функції визначення геолокації</string>
 	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
 	<string name="onboarding_welcome_title">Вітаємо у MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
+	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з &lt;a href=\"http://legal.my.com/us/maps/tou/\">Умовами використання&lt;/a> та &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Політикою конфіденційності&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -966,6 +970,8 @@
 	<string name="taxi_wait">Очікується через %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Не вдалося знайти таксі поблизу</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Сервіс таксі недоступний у цій місцевості</string>
 	<string name="install_app">Встановити</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фільтр</string>
@@ -1096,7 +1102,7 @@
 	<string name="on">Увімкн.</string>
 	<string name="off">Вимкн.</string>
 	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –> Мова та введення –> Мовлення –> Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.</string>
+	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
 	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>

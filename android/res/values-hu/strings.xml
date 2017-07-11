@@ -583,6 +583,8 @@
 	<string name="dialog_routing_change_end">Pontosítsa célállomását</string>
 	<string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.</string>
 	<string name="dialog_routing_select_closer_end">Kérjük, válasszon egy úthoz közelebb eső célállomást.</string>
+	<string name="dialog_routing_change_intermediate">Nem találja a köztes pontot.</string>
+	<string name="dialog_routing_intermediate_not_determined">Kérjük, állítsa be köztes pontját.</string>
 	<string name="dialog_routing_system_error">Rendszerhiba</string>
 	<string name="dialog_routing_application_error">Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.</string>
 	<string name="dialog_routing_try_again">Kérjük, próbálja újra</string>
@@ -788,6 +790,8 @@
 	<string name="onboarding_permissions_title">Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
 	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
 	<string name="onboarding_welcome_title">Üdvözöljük a MAPS.ME alkalmazásban</string>
+	<string name="onboarding_welcome_first_subtitle">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
+	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a &lt;a href=\"http://legal.my.com/us/maps/tou/\"> Felhasználási feltételeket&lt;/a> és &lt;a href=\"https://legal.my.com/us/maps/privacy/\"> az Adatvédelmi szabályzatot&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
@@ -962,6 +966,8 @@
 	<string name="taxi_wait">Várható %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Nem talált taxit a közelben</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Itt nincs taxi</string>
 	<string name="install_app">Telepítés</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Szűrő</string>
@@ -1092,7 +1098,7 @@
 	<string name="on">Be</string>
 	<string name="off">Ki</string>
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.</string>
+	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
 	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
