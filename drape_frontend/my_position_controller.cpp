@@ -403,9 +403,6 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_lastGPSBearing.Reset();
   }
 
-  if (m_listener)
-    m_listener->PositionChanged(Position());
-
   if (m_isPositionAssigned && (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut)))
   {
     CreateAnim(oldPos, oldAzimut, screen);
@@ -425,10 +422,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
     {
       if (m_mode == location::Follow)
+      {
         ChangeModelView(m_position, kDoNotChangeZoom);
+      }
       else if (m_mode == location::FollowAndRotate)
+      {
         ChangeModelView(m_position, m_drawDirection,
-                        m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(), kDoNotChangeZoom);
+                        m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
+                        kDoNotChangeZoom);
+      }
     }
   }
   else if (m_mode == location::PendingPosition || m_mode == location::NotFollowNoPosition)
@@ -465,6 +467,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_positionIsObsolete = false;
   SetIsVisible(true);
 
+  if (m_listener != nullptr)
+    m_listener->PositionChanged(Position(), IsModeHasPosition());
+
   double const kEps = 1e-5;
   if (fabs(m_lastLocationTimestamp - info.m_timestamp) > kEps)
   {
@@ -479,6 +484,8 @@ void MyPositionController::LoseLocation()
   {
     ChangeMode(location::NotFollowNoPosition);
     SetIsVisible(false);
+    if (m_listener != nullptr)
+      m_listener->PositionChanged(Position(), false /* hasPosition */);
   }
 }
 

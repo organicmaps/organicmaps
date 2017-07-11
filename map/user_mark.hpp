@@ -101,10 +101,10 @@ public:
 
   UserMark::Type GetMarkType() const override;
 
-  void SetUserPosition(m2::PointD const & pt)
+  void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {
     SetPtOrg(pt);
-    m_hasPosition = true;
+    m_hasPosition = hasPosition;
   }
   bool HasPosition() const { return m_hasPosition; }
 

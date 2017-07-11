@@ -66,7 +66,7 @@ class FrontendRenderer : public BaseRenderer,
 public:
   using TModelViewChanged = std::function<void(ScreenBase const & screen)>;
   using TTapEventInfoFn = std::function<void(TapInfo const &)>;
-  using TUserPositionChangedFn = std::function<void(m2::PointD const & pt)>;
+  using TUserPositionChangedFn = std::function<void(m2::PointD const & pt, bool hasPosition)>;
 
   struct Params : BaseRenderer::Params
   {
@@ -113,7 +113,7 @@ public:
   void AddUserEvent(drape_ptr<UserEvent> && event);
 
   // MyPositionController::Listener
-  void PositionChanged(m2::PointD const & position) override;
+  void PositionChanged(m2::PointD const & position, bool hasPosition) override;
   void ChangeModelView(m2::PointD const & center, int zoomLevel,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;

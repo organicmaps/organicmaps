@@ -219,7 +219,7 @@ private:
 
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
-  void UserPositionChanged(m2::PointD const & position);
+  void UserPositionChanged(m2::PointD const & position, bool hasPosition);
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);

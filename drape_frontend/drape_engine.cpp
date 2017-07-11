@@ -75,7 +75,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     m_viewport,
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
-                                    std::bind(&DrapeEngine::UserPositionChanged, this, _1),
+                                    std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,
@@ -331,10 +331,10 @@ void DrapeEngine::TapEvent(TapInfo const & tapInfo)
     m_tapListener(tapInfo);
 }
 
-void DrapeEngine::UserPositionChanged(m2::PointD const & position)
+void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   if (m_userPositionChanged != nullptr)
-    m_userPositionChanged(position);
+    m_userPositionChanged(position, hasPosition);
 }
 
 void DrapeEngine::ResizeImpl(int w, int h)

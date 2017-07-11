@@ -1923,9 +1923,9 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
     CancelMessageWaiting();
 }
 
-void FrontendRenderer::PositionChanged(m2::PointD const & position)
+void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  m_userPositionChangedFn(position);
+  m_userPositionChangedFn(position, hasPosition);
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,

@@ -515,13 +515,13 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     if (!p.m_isMyPosition)
       continue;
 
-    m2::PointD myPos;
-    if (!m_drapeEngine->GetMyPosition(myPos))
+    MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
+    if (!myPosition->HasPosition())
     {
       CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
       return;
     }
-    p.m_position = myPos;
+    p.m_position = myPosition->GetPivot();
   }
 
   // Check for equal points.

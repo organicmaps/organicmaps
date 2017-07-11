@@ -271,10 +271,10 @@ LocalAdsManager & Framework::GetLocalAdsManager()
   return m_localAdsManager;
 }
 
-void Framework::OnUserPositionChanged(m2::PointD const & position)
+void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
-  myPosition->SetUserPosition(position);
+  myPosition->SetUserPosition(position, hasPosition);
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -1931,9 +1931,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       OnTapEvent({tapInfo, TapEvent::Source::User});
     });
   });
-  m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position)
+  m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position, bool hasPosition)
   {
-    GetPlatform().RunOnGuiThread([this, position](){ OnUserPositionChanged(position); });
+    GetPlatform().RunOnGuiThread([this, position, hasPosition](){
+      OnUserPositionChanged(position, hasPosition);
+    });
   });
 
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
