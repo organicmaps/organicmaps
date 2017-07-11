@@ -11,6 +11,8 @@ set(
   banner.hpp
   booking_api.cpp
   booking_api.hpp
+  cian_api.cpp
+  cian_api.hpp
   facebook_ads.cpp
   facebook_ads.hpp
   mopub_ads.cpp

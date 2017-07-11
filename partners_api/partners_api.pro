@@ -12,6 +12,7 @@ SOURCES += \
     ads_base.cpp \
     ads_engine.cpp \
     booking_api.cpp \
+    cian_api.cpp \
     facebook_ads.cpp \
     mopub_ads.cpp \
     opentable_api.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     ads_engine.hpp \
     banner.hpp \
     booking_api.hpp \
+    cian_api.hpp \
     facebook_ads.hpp \
     mopub_ads.hpp \
     opentable_api.hpp \

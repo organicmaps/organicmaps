@@ -1,3 +1,5 @@
+# coding=utf-8
+
 PARTNERS_PRICE = """
 {
     "prices": [
@@ -246,5 +248,170 @@ PARTNERS_TAXI_INFO = """
     }
   ],
   "time": 1057.7440430297368
+}
+"""
+
+PARTNERS_RENT_NEARBY = """
+{
+  "clusters": [
+    {
+      "lat": 55.80529,
+      "lng": 37.508274,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 50000,
+          "floorNumber": 8,
+          "floorsCount": 9,
+          "photosCount": 11,
+          "url": "https://cian.ru/rent/flat/159026341",
+          "address": "Ленинградский просп., 77К2"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 39999,
+          "floorNumber": 1,
+          "floorsCount": 12,
+          "photosCount": 13,
+          "url": "https://cian.ru/rent/flat/157827964",
+          "address": "Ленинградский просп., 77К2"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 58000,
+          "floorNumber": 6,
+          "floorsCount": 9,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/159523671",
+          "address": "Ленинградский просп., 77К2"
+        }
+      ],
+      "count": 3,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=26696"
+    },
+    {
+      "lat": 55.805776,
+      "lng": 37.50946,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 39000,
+          "floorNumber": 2,
+          "floorsCount": 9,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/158786442",
+          "address": "Ленинградский просп., 77А"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=2009028"
+    },
+    {
+      "lat": 55.808306,
+      "lng": 37.5008,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 50000,
+          "floorNumber": 6,
+          "floorsCount": 10,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/155419837",
+          "address": "Волоколамское ш., 6"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=1692086"
+    },
+    {
+      "lat": 55.805999,
+      "lng": 37.503738,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 70000,
+          "floorNumber": 4,
+          "floorsCount": 9,
+          "photosCount": 0,
+          "url": "https://cian.ru/rent/flat/159765700",
+          "address": "Волоколамское ш., 1кА"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=1009214"
+    },
+    {
+      "lat": 55.805361,
+      "lng": 37.507124,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 45000,
+          "floorNumber": 1,
+          "floorsCount": 9,
+          "photosCount": 6,
+          "url": "https://cian.ru/rent/flat/158673214",
+          "address": "Ленинградский просп., 77К3"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 48000,
+          "floorNumber": 5,
+          "floorsCount": 9,
+          "photosCount": 15,
+          "url": "https://cian.ru/rent/flat/158613232",
+          "address": "Ленинградский просп., 77К3"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 45000,
+          "floorNumber": 1,
+          "floorsCount": 9,
+          "photosCount": 7,
+          "url": "https://cian.ru/rent/flat/159035369",
+          "address": "Ленинградский просп., 77К3"
+        }
+      ],
+      "count": 3,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=26698"
+    },
+    {
+      "lat": 55.809226,
+      "lng": 37.504978,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 60000,
+          "floorNumber": 5,
+          "floorsCount": 8,
+          "photosCount": 37,
+          "url": "https://cian.ru/rent/flat/157212858",
+          "address": "Ленинградское ш., 3С1"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 35000,
+          "floorNumber": 6,
+          "floorsCount": 8,
+          "photosCount": 5,
+          "url": "https://cian.ru/rent/flat/158689565",
+          "address": "Ленинградское ш., 3С1"
+        }
+      ],
+      "count": 2,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=583624"
+    }
+  ]
 }
 """
