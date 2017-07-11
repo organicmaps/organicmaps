@@ -146,20 +146,20 @@ BOOL defaultOrientation(CGSize const & size)
 
   if (hasStart)
   {
-    [toastView configWithText:L(@"p2p_to") withLocationButton:NO];
+    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
     return;
   }
 
   if (hasFinish)
   {
-    [toastView configWithText:L(@"p2p_from") withLocationButton:self.hasLocation];
+    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:self.hasLocation];
     return;
   }
 
   if (self.hasLocation)
-    [toastView configWithText:L(@"p2p_to") withLocationButton:NO];
+    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
   else
-    [toastView configWithText:L(@"p2p_from") withLocationButton:NO];
+    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:NO];
 }
 
 - (IBAction)openSearch { [MWMMapViewControlsManager manager].searchHidden = NO; }
