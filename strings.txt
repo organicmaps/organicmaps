@@ -10939,7 +10939,7 @@
 
   [dialog_routing_change_intermediate]
     tags = ios,android
-    en = Unable to locate an intermediate point.
+    en = Unable to locate the intermediate point.
     ru = Не определена промежуточная точка маршрута.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     cs = Nelze najít mezilehlý bod.
@@ -21345,7 +21345,7 @@
   [taxi_no_providers]
     comment = When there are no available taxi providers nearby
     tags = ios,android
-    en = Taxi not available here
+    en = Taxi is not available here
     ru = Такси не доступно в данном регионе
     ar = التاكسي غير متوفر هنا
     cs = Taxi zde není k dispozici
