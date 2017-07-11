@@ -1102,8 +1102,8 @@
 	<string name="whatsnew_transliteration_message">Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.</string>
 	<string name="learn_more">Flere oplysninger</string>
 	<string name="exit">Afslut</string>
-	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute.</string>
-	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute.</string>
+	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
+	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>
 	<string name="onboarding_welcome_message">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.</string>

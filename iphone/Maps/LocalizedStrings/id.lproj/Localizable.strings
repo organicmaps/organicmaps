@@ -1948,9 +1948,9 @@
 
 "exit" = "Keluar";
 
-"routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute.";
+"routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute";
 
-"routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute.";
+"routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute";
 
 "onboarding_welcome_message" = "Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.";
 

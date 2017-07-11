@@ -1948,9 +1948,9 @@
 
 "exit" = "Beenden";
 
-"routing_add_start_point" = "Fügen Sie einen Startpunkt hinzu, um eine Route zu planen.";
+"routing_add_start_point" = "Fügen Sie einen Startpunkt hinzu, um eine Route zu planen";
 
-"routing_add_finish_point" = "Fügen Sie ein Ziel hinzu, um eine Route zu planen.";
+"routing_add_finish_point" = "Fügen Sie ein Ziel hinzu, um eine Route zu planen";
 
 "onboarding_welcome_message" = "Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.";
 

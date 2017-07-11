@@ -1123,8 +1123,8 @@
 	<string name="yandex_taxi_title">Яндекс.Такси</string>
 	<string name="learn_more">Узнать больше</string>
 	<string name="exit">Выход</string>
-	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут.</string>
-	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут.</string>
+	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
+	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
 	<string name="onboarding_welcome_message">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Запуская приложение, вы соглашаетесь с условиями использования и политикой конфиденциальности.</string>

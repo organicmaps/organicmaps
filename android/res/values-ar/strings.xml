@@ -1104,8 +1104,8 @@
 	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>
 	<string name="learn_more">تعلم المزيد</string>
 	<string name="exit">خروج</string>
-	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار.</string>
-	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار.</string>
+	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
+	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="onboarding_welcome_message">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.</string>

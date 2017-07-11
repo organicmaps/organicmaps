@@ -1948,9 +1948,9 @@
 
 "exit" = "Çık";
 
-"routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin.";
+"routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin";
 
-"routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin.";
+"routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
 
 "onboarding_welcome_message" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 

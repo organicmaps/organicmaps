@@ -1098,8 +1098,8 @@
 	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
 	<string name="learn_more">Tudjon meg többet</string>
 	<string name="exit">Kilépés</string>
-	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.</string>
-	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez.</string>
+	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
+	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
 	<string name="onboarding_welcome_message">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.</string>

@@ -1102,8 +1102,8 @@
 	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
 	<string name="learn_more">Докладніше</string>
 	<string name="exit">Вихід</string>
-	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту.</string>
-	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту.</string>
+	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
+	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="onboarding_welcome_message">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.</string>

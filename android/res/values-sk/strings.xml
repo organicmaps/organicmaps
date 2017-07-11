@@ -1101,8 +1101,8 @@
 	<string name="whatsnew_transliteration_message">Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.</string>
 	<string name="learn_more">Zistiť viac</string>
 	<string name="exit">Ukončiť</string>
-	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu.</string>
-	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu.</string>
+	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
+	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
 	<string name="onboarding_welcome_message">Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.</string>

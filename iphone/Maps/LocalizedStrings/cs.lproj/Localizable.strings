@@ -1948,9 +1948,9 @@
 
 "exit" = "Ukončit";
 
-"routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy.";
+"routing_add_start_point" = "Zadejte výchozí bod pro plánování trasy";
 
-"routing_add_finish_point" = "Zadejte cílový bod pro plánování trasy.";
+"routing_add_finish_point" = "Zadejte cílový bod pro plánování trasy";
 
 "onboarding_welcome_message" = "Bezplatné, rychlé, podrobné a zcela offline mapy s navigací \"turn-by-turn\".";
 

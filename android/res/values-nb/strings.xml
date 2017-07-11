@@ -1096,8 +1096,8 @@
 	<string name="whatsnew_transliteration_message">Hvis en gate eller et element ikke har et navn på ditt språk, vil det bli skrevet med det latinske alfabetet.</string>
 	<string name="learn_more">Finn ut mer</string>
 	<string name="exit">Avslutt</string>
-	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute.</string>
-	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute.</string>
+	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute</string>
+	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
 	<string name="onboarding_welcome_message">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Ved å starte programmet samtykker du til brukervilkårene og reglene for personvern.</string>

@@ -1101,8 +1101,8 @@
 	<string name="whatsnew_transliteration_message">Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.</string>
 	<string name="learn_more">Dowiedz się więcej</string>
 	<string name="exit">Wyjdź</string>
-	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy.</string>
-	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy.</string>
+	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
+	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
 	<string name="onboarding_welcome_message">Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Poprzez uruchomienie aplikacji wyrażasz zgodę na warunki użytkowania i politykę prywatności.</string>

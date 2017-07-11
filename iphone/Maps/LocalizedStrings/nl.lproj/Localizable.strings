@@ -1948,9 +1948,9 @@
 
 "exit" = "Verlaten";
 
-"routing_add_start_point" = "Voeg beginpunt toe om een route te plannen.";
+"routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 
-"routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen.";
+"routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
 
 "onboarding_welcome_message" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
 

@@ -1112,8 +1112,8 @@
 	<string name="whatsnew_transliteration_message">Wenn eine Straße oder ein Objekt in Ihrer Sprache keinen Namen hat, wird er mit lateinischen Buchstaben geschrieben.</string>
 	<string name="learn_more">Weitere Informationen</string>
 	<string name="exit">Beenden</string>
-	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen.</string>
-	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen.</string>
+	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
+	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="onboarding_welcome_message">Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Durch das Starten der App stimmen Sie den Nutzungsbedingungen und der Datenschutzrichtlinie zu.</string>

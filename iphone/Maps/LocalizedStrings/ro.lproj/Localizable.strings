@@ -1948,9 +1948,9 @@
 
 "exit" = "Ieșire";
 
-"routing_add_start_point" = "Adăugați punctul de plecare pentru a planifica un traseu.";
+"routing_add_start_point" = "Adăugați punctul de plecare pentru a planifica un traseu";
 
-"routing_add_finish_point" = "Adăugați punctul de sosire pentru a planifica un traseu.";
+"routing_add_finish_point" = "Adăugați punctul de sosire pentru a planifica un traseu";
 
 "onboarding_welcome_message" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 

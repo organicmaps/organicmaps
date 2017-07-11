@@ -1104,8 +1104,8 @@
 	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
 	<string name="exit">Çık</string>
-	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin.</string>
-	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin.</string>
+	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
+	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin</string>
 	<string name="onboarding_welcome_message">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Uygulamayı başlatarak, Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş sayılırsınız.</string>

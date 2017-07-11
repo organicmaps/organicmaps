@@ -1101,8 +1101,8 @@
 	<string name="whatsnew_transliteration_message">Se uma rua ou um objeto não tiver nome na sua língua, será utilizado o alfabeto latino.</string>
 	<string name="learn_more">Saber mais</string>
 	<string name="exit">Sair</string>
-	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota.</string>
-	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota.</string>
+	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota</string>
+	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
 	<string name="onboarding_welcome_message">Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Ao lançar a aplicação, o utilizador concorda com os Termos de Utilização e a Política de Privacidade.</string>

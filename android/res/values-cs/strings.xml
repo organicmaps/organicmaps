@@ -1105,8 +1105,8 @@
 	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
 	<string name="learn_more">Zjistit více</string>
 	<string name="exit">Ukončit</string>
-	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy.</string>
-	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy.</string>
+	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
+	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
 	<string name="onboarding_welcome_message">Bezplatné, rychlé, podrobné a zcela offline mapy s navigací \"turn-by-turn\".</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Spuštěním aplikace souhlasíte s podmínkami použití a zásadami ochrany osobních údajů.</string>

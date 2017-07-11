@@ -1102,8 +1102,8 @@
 	<string name="whatsnew_transliteration_message">Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.</string>
 	<string name="learn_more">Läs mer</string>
 	<string name="exit">Avsluta</string>
-	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt.</string>
-	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt.</string>
+	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
+	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
 	<string name="onboarding_welcome_message">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">När du startar applikationen godkänner du våra användningsvillkor och sekretesspolicy.</string>

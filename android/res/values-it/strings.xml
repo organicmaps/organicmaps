@@ -1097,8 +1097,8 @@
 	<string name="whatsnew_transliteration_message">Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l\'alfabeto latino.</string>
 	<string name="learn_more">Ulteriori informazioni</string>
 	<string name="exit">Esci</string>
-	<string name="routing_add_start_point">Aggiungi un punto di partenza per pianificare un percorso.</string>
-	<string name="routing_add_finish_point">Aggiungi un punto di arrivo per pianificare un percorso.</string>
+	<string name="routing_add_start_point">Aggiungi un punto di partenza per pianificare un percorso</string>
+	<string name="routing_add_finish_point">Aggiungi un punto di arrivo per pianificare un percorso</string>
 	<string name="onboarding_welcome_message">Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Lanciando l\'applicazione, accetti i Termini di utilizzo e l\'Informativa sulla privacy.</string>

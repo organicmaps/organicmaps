@@ -1948,9 +1948,9 @@
 
 "exit" = "Avslutt";
 
-"routing_add_start_point" = "Angi startpunkt for å planlegge rute.";
+"routing_add_start_point" = "Angi startpunkt for å planlegge rute";
 
-"routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute.";
+"routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute";
 
 "onboarding_welcome_message" = "Gratis, rask, detaljert og helt offline kart med rutenavigasjon.";
 

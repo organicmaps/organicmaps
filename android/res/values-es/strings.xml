@@ -1091,8 +1091,8 @@
 	<string name="whatsnew_transliteration_message">Si una calle o un objeto no tiene nombre en su idioma, se escribirá con el alfabeto latino.</string>
 	<string name="learn_more">Leer más</string>
 	<string name="exit">Salir</string>
-	<string name="routing_add_start_point">Agregar un punto de inicio para planificar una ruta.</string>
-	<string name="routing_add_finish_point">Agregar un destino para planificar una ruta.</string>
+	<string name="routing_add_start_point">Agregar un punto de inicio para planificar una ruta</string>
+	<string name="routing_add_finish_point">Agregar un destino para planificar una ruta</string>
 	<string name="onboarding_welcome_message">Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Al iniciar la aplicación, usted acepta las Condiciones de uso y la Política de privacidad.</string>

@@ -1145,8 +1145,8 @@
 	<string name="yandex_taxi_title">Yandex.Taxi</string>
 	<string name="learn_more">Learn more</string>
 	<string name="exit">Exit</string>
-	<string name="routing_add_start_point">Add a starting point to plan a route.</string>
-	<string name="routing_add_finish_point">Add a destination to plan a route.</string>
+	<string name="routing_add_start_point">Add a starting point to plan a route</string>
+	<string name="routing_add_finish_point">Add a destination to plan a route</string>
 	<string name="onboarding_welcome_message">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">By launching the application, you agree to Terms of Use and Privacy Policy.</string>

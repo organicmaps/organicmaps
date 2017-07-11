@@ -1948,9 +1948,9 @@
 
 "exit" = "خروج";
 
-"routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار.";
+"routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار";
 
-"routing_add_finish_point" = "أضف النهاية لتخطيط المسار.";
+"routing_add_finish_point" = "أضف النهاية لتخطيط المسار";
 
 "onboarding_welcome_message" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
 

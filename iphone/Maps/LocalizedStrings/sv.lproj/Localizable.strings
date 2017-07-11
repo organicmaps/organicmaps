@@ -1948,9 +1948,9 @@
 
 "exit" = "Avsluta";
 
-"routing_add_start_point" = "Lägg till startpunkt för att planera en rutt.";
+"routing_add_start_point" = "Lägg till startpunkt för att planera en rutt";
 
-"routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt.";
+"routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt";
 
 "onboarding_welcome_message" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
 

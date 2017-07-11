@@ -1094,8 +1094,8 @@
 	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
 	<string name="learn_more">Mai multe</string>
 	<string name="exit">Ieșire</string>
-	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu.</string>
-	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu.</string>
+	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
+	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
 	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.</string>

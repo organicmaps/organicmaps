@@ -1948,9 +1948,9 @@
 
 "exit" = "退出";
 
-"routing_add_start_point" = "新增起點以計劃路線。";
+"routing_add_start_point" = "新增起點以計劃路線";
 
-"routing_add_finish_point" = "新增終點以計劃路線。";
+"routing_add_finish_point" = "新增終點以計劃路線";
 
 "onboarding_welcome_message" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
 

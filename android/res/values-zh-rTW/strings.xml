@@ -1108,8 +1108,8 @@
 	<string name="whatsnew_transliteration_message">若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。</string>
 	<string name="learn_more">瞭解更多資訊</string>
 	<string name="exit">退出</string>
-	<string name="routing_add_start_point">新增起點以計劃路線。</string>
-	<string name="routing_add_finish_point">新增終點以計劃路線。</string>
+	<string name="routing_add_start_point">新增起點以計劃路線</string>
+	<string name="routing_add_finish_point">新增終點以計劃路線</string>
 	<string name="onboarding_welcome_message">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">啟動本應用程式，即表示您同意服務條款和隱私權原則。</string>

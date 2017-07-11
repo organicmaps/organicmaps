@@ -1948,9 +1948,9 @@
 
 "exit" = "Sair";
 
-"routing_add_start_point" = "Adicionar ponto de partida para planear uma rota.";
+"routing_add_start_point" = "Adicionar ponto de partida para planear uma rota";
 
-"routing_add_finish_point" = "Adicionar final da viagem para planear uma rota.";
+"routing_add_finish_point" = "Adicionar final da viagem para planear uma rota";
 
 "onboarding_welcome_message" = "Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.";
 

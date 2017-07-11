@@ -1098,8 +1098,8 @@
 	<string name="whatsnew_transliteration_message">Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.</string>
 	<string name="learn_more">Lisätietoja</string>
 	<string name="exit">Poistu</string>
-	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten.</string>
-	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten.</string>
+	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
+	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
 	<string name="onboarding_welcome_message">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.</string>

@@ -1104,8 +1104,8 @@
 	<string name="whatsnew_transliteration_message">如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。</string>
 	<string name="learn_more">了解更多</string>
 	<string name="exit">退出</string>
-	<string name="routing_add_start_point">添加起点以规划路线。</string>
-	<string name="routing_add_finish_point">添加终点以规划路线。</string>
+	<string name="routing_add_start_point">添加起点以规划路线</string>
+	<string name="routing_add_finish_point">添加终点以规划路线</string>
 	<string name="onboarding_welcome_message">免费、快速、详细且完全离线的地图，并且带有精细导航功能。</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">启动应用程序即表明同意“使用条款”和“隐私政策”。</string>

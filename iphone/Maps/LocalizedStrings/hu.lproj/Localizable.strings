@@ -1948,9 +1948,9 @@
 
 "exit" = "Kilépés";
 
-"routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez.";
+"routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
 
-"routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez.";
+"routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez";
 
 "onboarding_welcome_message" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 

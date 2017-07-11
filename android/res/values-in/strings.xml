@@ -1097,8 +1097,8 @@
 	<string name="whatsnew_transliteration_message">Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
 	<string name="exit">Keluar</string>
-	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute.</string>
-	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute.</string>
+	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
+	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
 	<string name="onboarding_welcome_message">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Dengan meluncurkan aplikasi ini, Anda menyetujui Syarat-Syarat Penggunaan dan Kebijakan Privasi.</string>

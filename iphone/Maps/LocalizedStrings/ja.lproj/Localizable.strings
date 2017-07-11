@@ -1948,9 +1948,9 @@
 
 "exit" = "終了";
 
-"routing_add_start_point" = "ルートを計画するには出発地点を追加してください。";
+"routing_add_start_point" = "ルートを計画するには出発地点を追加してください";
 
-"routing_add_finish_point" = "ルートを計画するには到着地点を追加してください。";
+"routing_add_finish_point" = "ルートを計画するには到着地点を追加してください";
 
 "onboarding_welcome_message" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 

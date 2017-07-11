@@ -1948,9 +1948,9 @@
 
 "exit" = "Exit";
 
-"routing_add_start_point" = "Add a starting point to plan a route.";
+"routing_add_start_point" = "Add a starting point to plan a route";
 
-"routing_add_finish_point" = "Add a destination to plan a route.";
+"routing_add_finish_point" = "Add a destination to plan a route";
 
 "onboarding_welcome_message" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 

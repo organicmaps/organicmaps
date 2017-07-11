@@ -1948,9 +1948,9 @@
 
 "exit" = "Poistu";
 
-"routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten.";
+"routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten";
 
-"routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten.";
+"routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
 
 "onboarding_welcome_message" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
 

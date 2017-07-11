@@ -1098,8 +1098,8 @@
 	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>
 	<string name="learn_more">Meer informatie</string>
 	<string name="exit">Verlaten</string>
-	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen.</string>
-	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen.</string>
+	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
+	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="onboarding_welcome_message">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
 	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
 	<string name="onboarding_welcome_agree">Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.</string>

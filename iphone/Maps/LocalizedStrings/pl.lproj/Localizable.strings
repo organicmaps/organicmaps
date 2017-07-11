@@ -1948,9 +1948,9 @@
 
 "exit" = "Wyjdź";
 
-"routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy.";
+"routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy";
 
-"routing_add_finish_point" = "Aby zaplanować trasę, dodaj punkt końcowy.";
+"routing_add_finish_point" = "Aby zaplanować trasę, dodaj punkt końcowy";
 
 "onboarding_welcome_message" = "Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.";
 

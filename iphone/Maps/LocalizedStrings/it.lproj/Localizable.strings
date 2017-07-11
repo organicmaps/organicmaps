@@ -1948,9 +1948,9 @@
 
 "exit" = "Esci";
 
-"routing_add_start_point" = "Aggiungi un punto di partenza per pianificare un percorso.";
+"routing_add_start_point" = "Aggiungi un punto di partenza per pianificare un percorso";
 
-"routing_add_finish_point" = "Aggiungi un punto di arrivo per pianificare un percorso.";
+"routing_add_finish_point" = "Aggiungi un punto di arrivo per pianificare un percorso";
 
 "onboarding_welcome_message" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
 
