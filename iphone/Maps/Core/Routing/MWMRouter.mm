@@ -347,8 +347,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       else
         [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
               withParameters:@{kStatValue : kStatPointToPoint}];
-
-      if (p1.isMyPosition)
+      
+      if (p1.isMyPosition && [MWMLocationManager lastLocation])
       {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];

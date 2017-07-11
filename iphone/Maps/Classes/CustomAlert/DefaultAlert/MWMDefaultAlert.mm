@@ -215,7 +215,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)noCurrentPositionAlert
 {
   NSString * message =
-      [NSString stringWithFormat:@"%@\n\n%@", L(@"common_current_location_unknown_dialog"),
+      [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"),
                                  L(@"dialog_routing_location_turn_wifi")];
   return [self defaultAlertWithTitle:L(@"dialog_routing_check_gps")
                              message:message
