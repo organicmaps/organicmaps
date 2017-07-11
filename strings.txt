@@ -10939,7 +10939,7 @@
 
   [dialog_routing_change_intermediate]
     tags = ios,android
-    en = Unable to locate intermediate point.
+    en = Unable to locate an intermediate point.
     ru = Не определена промежуточная точка маршрута.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     cs = Nelze najít mezilehlý bod.
@@ -16840,6 +16840,7 @@
 
   [onboarding_welcome_first_subtitle]
     en = Free, fast, detailed and entirely offline maps with turn-by-turn navigation.
+    ru = Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.
     ar = خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.
     cs = Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.
     da = Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.
@@ -16870,6 +16871,7 @@
 
   [onboarding_welcome_second_subtitle]
     en = By launching the application, you agree to <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a> and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
+    ru = Запуская приложение, вы соглашаетесь с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.
     ar = من خلال إطلاق التطبيق، فإنك توافق على <a href="http://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.
     cs = Spuštěním aplikace souhlasíte s <a href="http://legal.my.com/us/maps/tou/"> Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/"> Zásadami ochrany osobních údajů</a>.
     da = Ved at åbne appen accepterer du vores <a href="http://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.
@@ -24713,8 +24715,8 @@
     sw = Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
 
   [prefs_languages_information_off]
-    en = For some languages, you will need to install a other speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
-    ru = Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.
+    en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
+    ru = Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.
     ar = بالنسبة لبعض اللغات، ستحتاج إلى تثبيت مازج صوت آخر أو حزمة لغة إضافية من متجر التطبيقات (سوق Google Play وSamsung Apps).\nافتح إعدادات الجهاز → اللغة والإدخال → الكلام→ إخراج النص إلى كلام.\nهنا يمكنك إدارة إعدادات مزج الكلام (على سبيل المثال، تنزيل حزمة اللغة للاستخدام بدون اتصال) وتحديد محرك نص إلى كلام آخر.
     cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
     da = For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.
