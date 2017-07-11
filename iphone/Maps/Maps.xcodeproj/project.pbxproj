@@ -337,9 +337,6 @@
 		349B92701DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
 		349B92711DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
 		349B92721DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
-		349D1AB71E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
-		349D1AB81E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
-		349D1AB91E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
 		349D1ABB1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
 		349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
 		349D1ABD1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
@@ -496,6 +493,12 @@
 		34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776101F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776111F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776131F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
+		34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
+		34E776151F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
 		34EE259D1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
 		34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
 		34EE259F1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
@@ -1827,7 +1830,6 @@
 		349B926B1DF0518E007779DD /* MWMToast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMToast.mm; sourceTree = "<group>"; };
 		349B926F1DF0526D007779DD /* MWMToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMToast.xib; sourceTree = "<group>"; };
 		349C3AF11D33C6EE002AC7A9 /* MWMNavigationDashboardInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardInfoProtocol.h; sourceTree = "<group>"; };
-		349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		349D1ABA1E2D05EF004A2006 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		349D1AC31E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuCollectionViewCell.h; sourceTree = "<group>"; };
 		349D1AC41E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuCollectionViewCell.mm; sourceTree = "<group>"; };
@@ -1917,6 +1919,9 @@
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
+		34E7760E1F14B165003040B3 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
+		34E776121F14B17F003040B3 /* AvailableArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableArea.swift; sourceTree = "<group>"; };
+		34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAvailableAreaAffectDirection.h; sourceTree = "<group>"; };
 		34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPViatorCarouselCell.swift; sourceTree = "<group>"; };
 		34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPViatorCarouselCell.xib; sourceTree = "<group>"; };
 		34EE25A41EFA6AD400F870AB /* ViatorElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViatorElement.xib; sourceTree = "<group>"; };
@@ -3248,14 +3253,6 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		349D1AB51E2CB407004A2006 /* VisibleArea */ = {
-			isa = PBXGroup;
-			children = (
-				349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */,
-			);
-			path = VisibleArea;
-			sourceTree = "<group>";
-		};
 		349D1AC21E2E325B004A2006 /* BottomMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -3384,6 +3381,16 @@
 				3451F4F01F02935300A981F2 /* RoutePreviewTaxiCell.swift */,
 			);
 			path = RoutePreview;
+			sourceTree = "<group>";
+		};
+		34E7760D1F14B165003040B3 /* AvailableArea */ = {
+			isa = PBXGroup;
+			children = (
+				34E776121F14B17F003040B3 /* AvailableArea.swift */,
+				34E7760E1F14B165003040B3 /* VisibleArea.swift */,
+				34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */,
+			);
+			path = AvailableArea;
 			sourceTree = "<group>";
 		};
 		34EE259B1EFA681000F870AB /* ViatorCells */ = {
@@ -3734,6 +3741,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				34E7760D1F14B165003040B3 /* AvailableArea */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
 				F69018B51E9E5FEB00B3C10B /* Autoupdate */,
@@ -3746,7 +3754,6 @@
 				F6E2FCE11E097B9F0083EBEC /* Search */,
 				F6E2FD361E097BA00083EBEC /* Settings */,
 				340E1EE31E2F614400CE49BF /* Storyboard */,
-				349D1AB51E2CB407004A2006 /* VisibleArea */,
 				34943BB01E2620C600B14F84 /* Welcome */,
 			);
 			path = UI;
@@ -5356,7 +5363,6 @@
 				F6BD33811B62403B00F2CE18 /* MWMRoutePreview.mm in Sources */,
 				34D3B0351E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				F6E2FD8B1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
-				349D1AB71E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				F6E2FD701E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE4E1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
@@ -5370,6 +5376,7 @@
 				F6E2FEBD1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				3454D7DF1E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
+				34E776131F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				3486B50C1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEF91E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
 				F6E2FE421E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
@@ -5515,6 +5522,7 @@
 				3454D7D61E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
+				34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */,
 				F6E2FF171E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				3488B0191E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -5660,7 +5668,6 @@
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				6741A9DB1BF340DE002C974C /* MWMRoutePreview.mm in Sources */,
-				349D1AB81E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
@@ -5675,6 +5682,7 @@
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				F6E2FEFA1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
+				34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				F6664C131E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
 				F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
@@ -5820,6 +5828,7 @@
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
+				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -5967,7 +5976,6 @@
 				34D3B0371E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				849CF6D51DE842290024A8A5 /* MWMTableViewController.mm in Sources */,
 				F6E2FD8D1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
-				349D1AB91E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				849CF6D81DE842290024A8A5 /* MWMSegue.mm in Sources */,
 				F6E2FD721E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE501E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
@@ -5980,6 +5988,7 @@
 				849CF6DF1DE842290024A8A5 /* MWMAuthorizationCommon.mm in Sources */,
 				F6E2FEBF1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
+				34E776151F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				3454D7CF1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				3486B50E1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEFB1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
@@ -6125,6 +6134,7 @@
 				849CF7601DE842290024A8A5 /* MWMStopButton.mm in Sources */,
 				346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				849CF7611DE842290024A8A5 /* MWMMailViewController.mm in Sources */,
+				34E776111F14B165003040B3 /* VisibleArea.swift in Sources */,
 				F6E2FF191E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3488B01B1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,

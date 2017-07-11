@@ -14,6 +14,7 @@
 #import "private.h"
 
 #import "AppInfo.h"
+#import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"

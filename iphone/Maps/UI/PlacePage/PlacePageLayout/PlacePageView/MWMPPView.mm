@@ -99,9 +99,9 @@ CGFloat const kTableViewTopInset = -36;
 
 #pragma mark - VisibleArea
 
-- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+- (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections
 {
-  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionNone;
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
 }
 
 @end
