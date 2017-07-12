@@ -405,7 +405,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     MapObject my = LocationHelper.INSTANCE.getMyPosition();
 
-    if (my == null || MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
+    if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
     {
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
       AlohaHelper.logClick(AlohaHelper.ROUTING_START_SUGGEST_REBUILD);
