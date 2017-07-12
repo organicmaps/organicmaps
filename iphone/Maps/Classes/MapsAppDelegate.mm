@@ -700,8 +700,10 @@ using namespace osm_auth_ios;
           kStatConnection : connectionType
         }];
 
-  NSString * charging = kStatUnknown;
-  UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
+  auto device = [UIDevice currentDevice];
+  device.batteryMonitoringEnabled = YES;
+  auto charging = kStatUnknown;
+  auto const state = device.batteryState;
   if (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull)
     charging = kStatOn;
   else if (state == UIDeviceBatteryStateUnplugged)
