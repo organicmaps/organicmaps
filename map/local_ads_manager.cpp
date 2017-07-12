@@ -370,6 +370,7 @@ void LocalAdsManager::ThreadRoutine()
       {
         // Download campaign data from server.
         CampaignInfo info;
+        info.m_created = local_ads::Clock::now();
         if (!DownloadCampaign(mwm.first, info.m_data))
           continue;
 
