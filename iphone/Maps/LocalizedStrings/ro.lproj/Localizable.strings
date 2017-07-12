@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponibil";
 
 /* Country queued for download */
-"downloader_queued" = "în lista de așteptare";
+"downloader_queued" = "În lista de așteptare";
 
 "downloader_near_me_subtitle" = "Aproape de mine";
 

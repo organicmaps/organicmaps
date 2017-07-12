@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Verfügbar";
 
 /* Country queued for download */
-"downloader_queued" = "in der Warteschlange";
+"downloader_queued" = "In der Warteschlange";
 
 "downloader_near_me_subtitle" = "In meiner Nähe";
 

@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Saatavilla";
 
 /* Country queued for download */
-"downloader_queued" = "jonossa";
+"downloader_queued" = "Jonossa";
 
 "downloader_near_me_subtitle" = "Lähelläni";
 

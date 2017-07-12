@@ -423,7 +423,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Tilgængelige</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">i kø</string>
+	<string name="downloader_queued">I kø</string>
 	<string name="downloader_near_me_subtitle">I nærheden</string>
 	<string name="downloader_status_maps">Kort</string>
 	<string name="downloader_download_all_button">Download alle</string>

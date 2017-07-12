@@ -423,7 +423,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">в черзі</string>
+	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>

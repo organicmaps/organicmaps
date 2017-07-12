@@ -419,7 +419,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Tersedia</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">telah diantrekan</string>
+	<string name="downloader_queued">Telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
 	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>

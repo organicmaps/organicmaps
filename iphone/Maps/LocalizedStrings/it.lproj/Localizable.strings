@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponibile";
 
 /* Country queued for download */
-"downloader_queued" = "in coda";
+"downloader_queued" = "In coda";
 
 "downloader_near_me_subtitle" = "Vicino a me";
 

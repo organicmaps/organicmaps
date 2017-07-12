@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Tilgjengelig";
 
 /* Country queued for download */
-"downloader_queued" = "lagt i kø";
+"downloader_queued" = "Lagt i kø";
 
 "downloader_near_me_subtitle" = "I nærheten";
 
