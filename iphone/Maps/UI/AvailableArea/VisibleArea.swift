@@ -1,5 +1,5 @@
 final class VisibleArea: AvailableArea {
-  override func filterAffectingViews(_ other: UIView) -> Bool {
+  override func isAreaAffectingView(_ other: UIView) -> Bool {
     return !other.visibleAreaAffectDirections.isEmpty
   }
 
@@ -9,8 +9,8 @@ final class VisibleArea: AvailableArea {
     addConstraints(otherView: ov, directions: directions)
   }
 
-  override func notifyObserver(_ rect: CGRect) {
-    MWMFrameworkHelper.setVisibleViewport(rect)
+  override func notifyObserver() {
+    MWMFrameworkHelper.setVisibleViewport(frame)
   }
 }
 

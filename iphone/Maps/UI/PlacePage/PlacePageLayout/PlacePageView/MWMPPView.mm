@@ -54,7 +54,7 @@ CGFloat const kTableViewTopInset = -36;
       self.currentContentHeight = height;
       self.height = height + self.top.height;
       [self setNeedsLayout];
-      [self.delegate updateWithHeight:self.height];
+      [self.delegate updateLayout];
     }
     return;
   }

@@ -741,4 +741,11 @@ CGFloat constexpr kTimeWidthRegular = 128;
   _searchIsActive = self.searchButton.selected = searchIsActive;
 }
 
+#pragma mark - VisibleArea / PlacePageArea
+
+- (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsBottom : MWMAvailableAreaAffectDirectionsNone;
+}
+
 @end

@@ -86,9 +86,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto const Impl = IPAD ? [MWMiPadPlacePageLayoutImpl class] : [MWMiPhonePlacePageLayoutImpl class];
     _layoutImpl = [[Impl alloc] initOwnerView:view placePageView:_placePageView delegate:delegate];
 
-    if ([_layoutImpl respondsToSelector:@selector(setInitialTopBound:leftBound:)])
-      [_layoutImpl setInitialTopBound:dataSource.topBound leftBound:dataSource.leftBound];
-
     auto tableView = _placePageView.tableView;
     _previewLayoutHelper = [[MWMPPPreviewLayoutHelper alloc]
                                                      initWithTableView:tableView];
@@ -116,11 +113,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
     [tv registerWithCellClass:pair.second];
-}
-
-- (void)layoutWithSize:(CGSize const &)size
-{
-  [self.layoutImpl onScreenResize:size];
 }
 
 - (UIView *)shareAnchor { return self.actionBar.shareAnchor; }
@@ -331,30 +323,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
 }
 
-#pragma mark - iPad only
+#pragma mark - AvailableArea / PlacePageArea
 
-- (void)updateTopBound
-{
-  if (![self.layoutImpl respondsToSelector:@selector(updateLayoutWithTopBound:)])
-  {
-    NSAssert(!IPAD, @"iPad layout must implement updateLayoutWithTopBound:!");
-    return;
-  }
-
-  [self.layoutImpl updateLayoutWithTopBound:self.dataSource.topBound];
-}
-
-- (void)updateLeftBound
-{
-  if (![self.layoutImpl respondsToSelector:@selector(updateLayoutWithLeftBound:)])
-  {
-    NSAssert(!IPAD, @"iPad layout must implement updateLayoutWithLeftBound:!");
-    return;
-  }
-
-  [self.layoutImpl updateLayoutWithLeftBound:self.dataSource.leftBound];
-}
-
+- (void)updateAvailableArea:(CGRect)frame { [self.layoutImpl updateAvailableArea:frame]; }
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -678,18 +649,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 #pragma mark - MWMPlacePageViewUpdateProtocol
 
-- (void)updateWithHeight:(CGFloat)height
+- (void)updateLayout
 {
-  auto const sel = @selector(updatePlacePageHeight);
+  auto const sel = @selector(updateContentLayout);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:sel object:nil];
   [self performSelector:sel withObject:nil afterDelay:0.1];
 }
 
-- (void)updatePlacePageHeight
-{
-  [self.layoutImpl onUpdatePlacePageWithHeight:self.placePageView.tableView.contentSize.height];
-}
-
+- (void)updateContentLayout { [self.layoutImpl updateContentLayout]; }
 #pragma mark - Properties
 
 - (void)setData:(MWMPlacePageData *)data

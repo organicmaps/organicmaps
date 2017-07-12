@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -29,6 +29,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="cm_beta" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                            </view>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-Dy-Wou" customClass="VisibleArea" customModule="cm_beta" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
@@ -36,15 +40,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="awj-9E-eBS" secondAttribute="trailing" priority="100" id="6cS-mj-HcX"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="AW8-cN-xzE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="Kf4-GM-1aY"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="QQc-TF-hhE"/>
+                            <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="YBB-Wd-lq6"/>
                             <constraint firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" priority="100" id="ZFU-IG-uZh"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" priority="100" id="aOI-yX-CJY"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="awj-9E-eBS" secondAttribute="bottom" id="dNo-wc-hvO"/>
                             <constraint firstAttribute="trailing" secondItem="FFY-Dy-Wou" secondAttribute="trailing" priority="100" id="qdF-Ru-TYd"/>
+                            <constraint firstAttribute="topMargin" secondItem="awj-9E-eBS" secondAttribute="top" priority="100" id="xFF-Ic-RDu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                     <connections>
+                        <outlet property="placePageAreaKeyboard" destination="dNo-wc-hvO" id="WPJ-RF-gzS"/>
                         <outlet property="visibleAreaBottom" destination="ZFU-IG-uZh" id="Zmh-A4-yUm"/>
                         <outlet property="visibleAreaKeyboard" destination="QQc-TF-hhE" id="rzk-WW-ab6"/>
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>

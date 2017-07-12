@@ -35,14 +35,26 @@ class AvailableArea: UIView {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    notifyObserver(frame)
+    scheduleNotification()
+  }
+
+  private func newAffectingViews(view: UIView) -> Set<UIView> {
+    var views = Set<UIView>()
+    if isAreaAffectingView(view) {
+      views.insert(view)
+    }
+    view.subviews.forEach {
+      views.formUnion(newAffectingViews(view: $0))
+    }
+    return views
   }
 
   private func update() {
     guard let sv = superview else { return }
-    let newAVs = Set<UIView>(sv.subviews.filter(filterAffectingViews))
+    let newAVs = newAffectingViews(view: sv)
     newAVs.subtracting(affectingViews).forEach(addAffectingView)
     affectingViews = newAVs
+    scheduleNotification()
   }
 
   func addConstraints(otherView: UIView, directions: MWMAvailableAreaAffectDirections) {
@@ -60,14 +72,21 @@ class AvailableArea: UIView {
       .forEach(add)
   }
 
-  func filterAffectingViews(_ other: UIView) -> Bool {
+  @objc
+  private func scheduleNotification() {
+    let selector = #selector(notifyObserver)
+    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
+    perform(selector, with: nil, afterDelay: 0)
+  }
+
+  func isAreaAffectingView(_ other: UIView) -> Bool {
     return false
   }
 
   func addAffectingView(_ other: UIView) {
   }
 
-  func notifyObserver(_ rect: CGRect) {
+  func notifyObserver() {
   }
 }
 

@@ -129,7 +129,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.placePageManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [coordinator animateAlongsideTransition:^(
                    id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
@@ -296,13 +295,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     CGFloat const bound = newFrame.origin.x + newFrame.size.width;
     self.navigationManager.leftBound = bound;
-    self.placePageManager.leftBound = bound;
     self.trafficButton.leftBound = bound;
   }
   else
   {
     CGFloat const bound = newFrame.origin.y + newFrame.size.height;
-    self.placePageManager.topBound = bound;
     self.sideButtons.topBound = bound;
     self.trafficButton.topBound = bound;
   }
@@ -312,21 +309,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   auto nm = self.navigationManager;
   if (IPAD)
-  {
-    [self.placePageManager setTopBound:self.topBound + nm.leftTop];
-  }
-  else
-  {
-    auto const topBound = self.topBound + nm.rightTop;
-    auto const bottomBound = nm.bottom;
-    [self.sideButtons setTopBound:topBound];
-    [self.sideButtons setBottomBound:bottomBound];
-    [MWMMapWidgets widgetsManager].bottomBound = bottomBound;
-    [MWMMapWidgets widgetsManager].leftBound = nm.left;
-    BOOL const skipNavDashboardHeight =
-        self.navigationManager.state == MWMNavigationDashboardStateNavigation;
-    [self.placePageManager setTopBound:skipNavDashboardHeight ? self.topBound : topBound];
-  }
+    return;
+  auto const topBound = self.topBound + nm.rightTop;
+  auto const bottomBound = nm.bottom;
+  [self.sideButtons setTopBound:topBound];
+  [self.sideButtons setBottomBound:bottomBound];
+  [MWMMapWidgets widgetsManager].bottomBound = bottomBound;
+  [MWMMapWidgets widgetsManager].leftBound = nm.left;
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
@@ -511,7 +500,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     return;
   _topBound = topBound;
-  self.placePageManager.topBound = topBound;
   self.sideButtons.topBound = topBound;
   self.navigationManager.topBound = topBound;
   self.trafficButton.topBound = topBound;
@@ -523,8 +511,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   if ([MWMRouter isRoutingActive])
     return;
-  _leftBound = self.placePageManager.leftBound = self.navigationManager.leftBound =
-      self.menuController.leftBound = self.trafficButton.leftBound = leftBound;
+  _leftBound = self.navigationManager.leftBound = self.menuController.leftBound =
+      self.trafficButton.leftBound = leftBound;
 }
 
 - (BOOL)searchHidden { return self.searchManager.state == MWMSearchManagerStateHidden; }

@@ -605,25 +605,21 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
 
 - (void)reviewOn:(NSInteger)starNumber
 {
-  GetFramework().GetUGCApi().GetUGCUpdate(self.data.featureId, [self, starNumber](ugc::UGCUpdate const & ugc) {
-    auto viewModel = self.data.reviewViewModel;
-    [viewModel setDefaultStarCount:starNumber];
-    auto controller = [MWMUGCReviewController instanceFromViewModel:viewModel];
-    [self.ownerViewController.navigationController pushViewController:controller animated:YES];
-  });
+    GetFramework().GetUGCApi().GetUGCUpdate(self.data.featureId, [self, starNumber](ugc::UGCUpdate const & ugc) {
+        auto viewModel = self.data.reviewViewModel;
+        [viewModel setDefaultStarCount:starNumber];
+        auto controller = [MWMUGCReviewController instanceFromViewModel:viewModel];
+        [self.ownerViewController.navigationController pushViewController:controller animated:YES];
+    });
 }
 
-#pragma mark - On rotate
+#pragma mark - AvailableArea / PlacePageArea
 
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+- (void)updateAvailableArea:(CGRect)frame
 {
-  [coordinator
-      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.layout layoutWithSize:size];
-      }
-                      completion:^(id<UIViewControllerTransitionCoordinatorContext> context){
-                      }];
+  auto data = self.data;
+  if (data)
+    [self.layout updateAvailableArea:frame];
 }
 
 #pragma mark - MWMFeatureHolder
@@ -639,26 +635,4 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
 
 - (MapViewController *)ownerViewController { return [MapViewController controller]; }
 
-#pragma mark - Deprecated
-
-@synthesize leftBound = _leftBound;
-@synthesize topBound = _topBound;
-
-- (void)setTopBound:(CGFloat)topBound
-{
-  if (_topBound == topBound)
-    return;
-
-  _topBound = topBound;
-  [self.layout updateTopBound];
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  if (_leftBound == leftBound)
-    return;
-
-  _leftBound = leftBound;
-  [self.layout updateLeftBound];
-}
 @end

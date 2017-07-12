@@ -111,6 +111,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
 
 @end
 
@@ -596,7 +597,12 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - MWMKeyboard
 
-- (void)onKeyboardAnimation { self.visibleAreaKeyboard.constant = [MWMKeyboard keyboardHeight]; }
+- (void)onKeyboardAnimation
+{
+  auto const kbHeight = [MWMKeyboard keyboardHeight];
+  self.visibleAreaKeyboard.constant = kbHeight;
+  self.placePageAreaKeyboard.constant = kbHeight;
+}
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager

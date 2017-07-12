@@ -60,8 +60,10 @@ BOOL defaultOrientation(CGSize const & size)
 @interface MWMNavigationInfoView ()<MWMLocationObserver>
 
 @property(weak, nonatomic) IBOutlet UIView * streetNameView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * streetNameViewHideOffset;
 @property(weak, nonatomic) IBOutlet UILabel * streetNameLabel;
 @property(weak, nonatomic) IBOutlet UIView * turnsView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsViewHideOffset;
 @property(weak, nonatomic) IBOutlet UIImageView * nextTurnImageView;
 @property(weak, nonatomic) IBOutlet UILabel * roundTurnLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceToNextTurnLabel;
@@ -273,16 +275,16 @@ BOOL defaultOrientation(CGSize const & size)
     return;
   if (info.streetName.length != 0)
   {
-    self.streetNameView.hidden = NO;
+    [self setStreetNameVisible:YES];
     self.streetNameLabel.text = info.streetName;
   }
   else
   {
-    self.streetNameView.hidden = YES;
+    [self setStreetNameVisible:NO];
   }
   if (info.turnImage)
   {
-    self.turnsView.hidden = NO;
+    [self setTurnsViewVisible:YES];
     self.nextTurnImageView.image = info.turnImage;
     self.nextTurnImageView.mwm_coloring = MWMImageColoringWhite;
 
@@ -327,9 +329,8 @@ BOOL defaultOrientation(CGSize const & size)
   }
   else
   {
-    self.turnsView.hidden = YES;
+    [self setTurnsViewVisible:NO];
   }
-  self.hidden = self.streetNameView.hidden && self.turnsView.hidden;
   [self setNeedsLayout];
 }
 
@@ -491,10 +492,24 @@ BOOL defaultOrientation(CGSize const & size)
     break;
   case MWMNavigationInfoViewStatePrepare:
     self.isVisible = YES;
-    self.streetNameView.hidden = YES;
-    self.turnsView.hidden = YES;
+    [self setStreetNameVisible:NO];
+    [self setTurnsViewVisible:NO];
     break;
   }
+}
+
+- (void)setStreetNameVisible:(BOOL)isVisible
+{
+  self.streetNameView.hidden = !isVisible;
+  self.streetNameViewHideOffset.priority =
+      isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+}
+
+- (void)setTurnsViewVisible:(BOOL)isVisible
+{
+  self.turnsView.hidden = !isVisible;
+  self.turnsViewHideOffset.priority =
+      isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
 - (void)setIsVisible:(BOOL)isVisible

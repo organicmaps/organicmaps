@@ -318,4 +318,11 @@ CGFloat constexpr kAdditionalHeight = 20.;
   return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
 }
 
+#pragma mark - PlacePageArea
+
+- (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
 @end

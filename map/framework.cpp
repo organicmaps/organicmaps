@@ -922,7 +922,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   {
     info.m_sponsoredType = SponsoredType::Viator;
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId, info.GetDefaultName());
+    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId);
     info.m_isPreviewExtended = true;
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
