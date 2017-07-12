@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/drape_global.hpp"
+#include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/polyline2d.hpp"
@@ -29,11 +30,14 @@ public:
   virtual std::string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
+  virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
   virtual bool HasCreationAnimation() const = 0;
-  virtual bool IsVisible() const { return true; }
-
-  virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const { return nullptr; }
-  virtual uint16_t GetProirity() const { return 0; }
+  virtual bool IsVisible() const = 0;
+  virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
+  virtual uint16_t GetProirity() const = 0;
+  virtual bool SymbolHasPriority() const = 0;
+  virtual bool TitleHasPriority() const = 0;
+  virtual int GetMinZoom() const = 0;
 
 private:
   uint32_t m_id;
@@ -50,10 +54,12 @@ public:
 
   virtual uint32_t GetId() const { return m_id; }
 
+  virtual int GetMinZoom() const = 0;
+  virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
   virtual size_t GetLayerCount() const = 0;
   virtual dp::Color const & GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;
-  virtual float GetLayerDepth(size_t layerIndex) const = 0;
+  virtual float GetDepth(size_t layerIndex) const = 0;
   virtual std::vector<m2::PointD> const & GetPoints() const = 0;
 
 private:

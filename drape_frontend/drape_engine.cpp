@@ -222,12 +222,16 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
       auto renderInfo = make_unique_dp<UserMarkRenderParams>();
       renderInfo->m_anchor = mark->GetAnchor();
       renderInfo->m_depth = mark->GetDepth();
+      renderInfo->m_depthLayer = mark->GetDepthLayer();
+      renderInfo->m_minZoom = mark->GetMinZoom();
       renderInfo->m_isVisible = mark->IsVisible();
       renderInfo->m_pivot = mark->GetPivot();
       renderInfo->m_pixelOffset = mark->GetPixelOffset();
       renderInfo->m_runCreationAnim = mark->HasCreationAnimation();
       renderInfo->m_symbolName = mark->GetSymbolName();
       renderInfo->m_titleDecl = mark->GetTitleDecl();
+      renderInfo->m_symbolHasPriority = mark->SymbolHasPriority();
+      renderInfo->m_titleHasPriority = mark->TitleHasPriority();
       renderInfo->m_priority = mark->GetProirity();
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();
@@ -243,13 +247,15 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
     if (mark->IsDirty())
     {
       auto renderInfo = make_unique_dp<UserLineRenderParams>();
+      renderInfo->m_minZoom = mark->GetMinZoom();
+      renderInfo->m_depthLayer = mark->GetDepthLayer();
       renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
       renderInfo->m_layers.reserve(mark->GetLayerCount());
       for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
       {
         renderInfo->m_layers.emplace_back(mark->GetColor(layerIndex),
                                           mark->GetWidth(layerIndex),
-                                          mark->GetLayerDepth(layerIndex));
+                                          mark->GetDepth(layerIndex));
       }
       linesRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();

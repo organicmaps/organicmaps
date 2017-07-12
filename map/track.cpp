@@ -42,6 +42,11 @@ double Track::GetLengthMeters() const
   return res;
 }
 
+dp::GLState::DepthLayer Track::GetDepthLayer() const
+{
+  return dp::GLState::UserLineLayer;
+}
+
 size_t Track::GetLayerCount() const
 {
   return m_params.m_colors.size();
@@ -57,7 +62,7 @@ float Track::GetWidth(size_t layerIndex) const
   return m_params.m_colors[layerIndex].m_lineWidth;
 }
 
-float Track::GetLayerDepth(size_t layerIndex) const
+float Track::GetDepth(size_t layerIndex) const
 {
   return 0 + layerIndex * 10;
 }

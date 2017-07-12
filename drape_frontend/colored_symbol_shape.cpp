@@ -248,8 +248,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
   // Special displacement mode.
-  if (m_params.m_specialDisplacementMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialModePriority);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
+    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
 
   return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
 }

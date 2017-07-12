@@ -145,12 +145,33 @@ private:
   void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 
+  struct RenderLayer
+  {
+    enum RenderLayerID
+    {
+      Geometry2dID,
+      UserLineID,
+      OverlayID,
+      Geometry3dID,
+      UserMarkID,
+      NavigationID,
+      RoutingMarkID,
+      LayerCountID
+    };
+
+    static RenderLayerID GetLayerID(dp::GLState const & renderGroup);
+
+    std::vector<drape_ptr<RenderGroup>> m_renderGroups;
+    bool m_isDirty = false;
+
+    void Sort(ref_ptr<dp::OverlayTree> overlayTree);
+  };
   // Render part of scene
   void Render2dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
-  void RenderUserMarksLayer(ScreenBase const & modelView);
+  void RenderUserMarksLayer(ScreenBase const & modelView, RenderLayer::RenderLayerID layerId);
   void RenderUserLinesLayer(ScreenBase const & modelView);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
 
@@ -234,27 +255,6 @@ private:
   void CheckAndRunFirstLaunchAnimation();
 
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
-
-  struct RenderLayer
-  {
-    enum RenderLayerID
-    {
-      Geometry2dID,
-      UserLineID,
-      OverlayID,
-      Geometry3dID,
-      UserMarkID,
-      NavigationID,
-      LayerCountID
-    };
-
-    static RenderLayerID GetLayerID(dp::GLState const & renderGroup);
-
-    std::vector<drape_ptr<RenderGroup>> m_renderGroups;
-    bool m_isDirty = false;
-
-    void Sort(ref_ptr<dp::OverlayTree> overlayTree);
-  };
 
   std::array<RenderLayer, RenderLayer::LayerCountID> m_layers;
 

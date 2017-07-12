@@ -42,10 +42,12 @@ public:
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
 
+  int GetMinZoom() const override { return 1; }
+  dp::GLState::DepthLayer GetDepthLayer() const override;
   size_t GetLayerCount() const override;
   dp::Color const & GetColor(size_t layerIndex) const override;
   float GetWidth(size_t layerIndex) const override;
-  float GetLayerDepth(size_t layerIndex) const override;
+  float GetDepth(size_t layerIndex) const override;
   std::vector<m2::PointD> const & GetPoints() const override;
 
 private:

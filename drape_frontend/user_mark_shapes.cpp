@@ -2,14 +2,18 @@
 
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
+
+#include "indexer/feature_decl.hpp"
 
 #include "geometry/clipping.hpp"
 
@@ -87,9 +91,9 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   using UPV = UserPointVertex;
   uint32_t const vertexCount = static_cast<uint32_t>(marksId.size()) * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
-  buffer.reserve(vertexCount);
 
   dp::TextureManager::SymbolRegion region;
+  dp::GLState::DepthLayer depthLayer = dp::GLState::UserMarkLayer;
   for (auto const id : marksId)
   {
     auto const it = renderParams.find(id);
@@ -99,38 +103,83 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (!renderInfo.m_isVisible)
       continue;
 
-    textures->GetSymbolRegion(renderInfo.m_symbolName, region);
-    m2::RectF const & texRect = region.GetTexRect();
-    m2::PointF const pxSize = region.GetPixelSize();
-    dp::Anchor const anchor = renderInfo.m_anchor;
-    m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileKey.GetGlobalRect().Center(),
-                                                   kShapeCoordScalar);
-    glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
-    bool const runAnim = renderInfo.m_runCreationAnim;
-    renderInfo.m_runCreationAnim = false;
+    m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
+    depthLayer = renderInfo.m_depthLayer;
 
-    glsl::vec2 left, right, up, down;
-    AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
-    AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+    if (renderInfo.m_symbolHasPriority)
+    {
+      PoiSymbolViewParams params((FeatureID()));
+      params.m_depth = renderInfo.m_depth;
+      params.m_depthLayer = renderInfo.m_depthLayer;
+      params.m_minVisibleScale = renderInfo.m_minZoom;
+      params.m_specialDisplacement = SpecialDisplacement::UserMark;
+      params.m_specialPriority = renderInfo.m_priority;
+      PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
+                     0 /* textIndex */).Draw(&batcher, textures);
+    }
+    else
+    {
+      buffer.reserve(vertexCount);
 
-    m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
-    glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+      textures->GetSymbolRegion(renderInfo.m_symbolName, region);
+      m2::RectF const & texRect = region.GetTexRect();
+      m2::PointF const pxSize = region.GetPixelSize();
+      dp::Anchor const anchor = renderInfo.m_anchor;
+      m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
+                                                     kShapeCoordScalar);
+      glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
+      bool const runAnim = renderInfo.m_runCreationAnim;
+      renderInfo.m_runCreationAnim = false;
 
-    buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
-    buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
-    buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
-    buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+      glsl::vec2 left, right, up, down;
+      AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
+      AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+
+      m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
+      glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+
+      buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
+      buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
+      buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
+      buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+    }
+
+    if (renderInfo.m_titleDecl != nullptr && !renderInfo.m_titleDecl->m_primaryText.empty())
+    {
+      TextViewParams params;
+      params.m_tileCenter = tileCenter;
+      params.m_titleDecl = *renderInfo.m_titleDecl;
+      params.m_depth = renderInfo.m_depth;
+      params.m_depthLayer = renderInfo.m_depthLayer;
+      params.m_minVisibleScale = renderInfo.m_minZoom;
+      if (renderInfo.m_titleHasPriority)
+      {
+        params.m_specialDisplacement = SpecialDisplacement::UserMark;
+        params.m_specialPriority = renderInfo.m_priority;
+      }
+
+      dp::TextureManager::SymbolRegion region;
+      textures->GetSymbolRegion(renderInfo.m_symbolName, region);
+      m2::PointF const symbolSize = region.GetPixelSize();
+
+      TextShape(renderInfo.m_pivot, params, tileKey, false /* hasPOI */,
+                symbolSize, renderInfo.m_anchor,
+                0 /* textIndex */).Draw(&batcher, textures);
+    }
   }
 
-  dp::GLState state(gpu::BOOKMARK_PROGRAM, dp::GLState::UserMarkLayer);
-  state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
-  state.SetColorTexture(region.GetTexture());
-  state.SetTextureFilter(gl_const::GLNearest);
+  if (!buffer.empty())
+  {
+    dp::GLState state(gpu::BOOKMARK_PROGRAM, depthLayer);
+    state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
+    state.SetColorTexture(region.GetTexture());
+    state.SetTextureFilter(gl_const::GLNearest);
 
-  dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
-  attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+    dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
+    attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
-  batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+    batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+  }
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
@@ -188,7 +237,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_join = dp::RoundJoin;
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
-        params.m_depthLayer = dp::GLState::UserLineLayer;
+        params.m_depthLayer = renderInfo.m_depthLayer;
         params.m_width = layer.m_width * vs;
         params.m_minVisibleScale = 1;
         params.m_rank = 0;

@@ -110,13 +110,15 @@ private:
 }  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey, bool hasPOI, m2::PointF const & symbolSize,
+                     TileKey const & tileKey, bool hasPOI,
+                     m2::PointF const & symbolSize, dp::Anchor symbolAnchor,
                      uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
   , m_hasPOI(hasPOI)
   , m_symbolSize(symbolSize)
+  , m_symbolAnchor(symbolAnchor)
   , m_textIndex(textIndex)
 {}
 
@@ -197,6 +199,32 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     primaryOffset.x = titleDecl.m_primaryOffset.x - halfSymbolW;
     if (secondaryLayout != nullptr)
       secondaryOffset.x = primaryOffset.x;
+  }
+
+  if (m_symbolAnchor & dp::Top)
+  {
+    primaryOffset.y += halfSymbolH;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.y += halfSymbolH;
+  }
+  else if (m_symbolAnchor & dp::Bottom)
+  {
+    primaryOffset.y -= halfSymbolH;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.y -= halfSymbolH;
+  }
+
+  if (m_symbolAnchor & dp::Left)
+  {
+    primaryOffset.x += halfSymbolW;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.x += halfSymbolW;
+  }
+  else if (m_symbolAnchor & dp::Right)
+  {
+    primaryOffset.x -= halfSymbolW;
+    if (secondaryLayout != nullptr)
+      secondaryOffset.x -= halfSymbolW;
   }
 
   if (primaryLayout.GetGlyphCount() > 0)
@@ -337,8 +365,11 @@ uint64_t TextShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if (m_params.m_specialDisplacementMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialModePriority);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
+    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
   // Set up minimal priority for shapes which belong to areas
   if (m_params.m_hasArea)

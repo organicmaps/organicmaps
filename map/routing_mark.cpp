@@ -6,6 +6,11 @@ RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg,
                                UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {
+  m_titleDecl.m_anchor = dp::Top;
+  m_titleDecl.m_primaryTextFont.m_color = dp::Color::Black();
+  m_titleDecl.m_primaryTextFont.m_outlineColor = dp::Color::White();
+  m_titleDecl.m_primaryTextFont.m_size = 22;
+
   m_markData.m_position = ptOrg;
 }
 
@@ -14,6 +19,48 @@ dp::Anchor RouteMarkPoint::GetAnchor() const
   if (m_markData.m_pointType == RouteMarkType::Finish)
     return dp::Bottom;
   return dp::Center;
+}
+
+dp::GLState::DepthLayer RouteMarkPoint::GetDepthLayer() const
+{
+  return dp::GLState::RoutingMarkLayer;
+}
+
+void RouteMarkPoint::SetRoutePointType(RouteMarkType type)
+{
+  SetDirty();
+  m_markData.m_pointType = type;
+}
+
+void RouteMarkPoint::SetIntermediateIndex(int8_t index)
+{
+  SetDirty();
+  m_markData.m_intermediateIndex = index;
+}
+
+void RouteMarkPoint::SetIsMyPosition(bool isMyPosition)
+{
+  SetDirty();
+  m_markData.m_isMyPosition = isMyPosition;
+}
+
+void RouteMarkPoint::SetPassed(bool isPassed)
+{
+  SetDirty();
+  m_markData.m_isPassed = isPassed;
+}
+
+void RouteMarkPoint::SetMarkData(RouteMarkData && data)
+{
+  SetDirty();
+  m_markData = std::move(data);
+  m_titleDecl.m_primaryText = m_markData.m_name;
+}
+
+drape_ptr<dp::TitleDecl> RouteMarkPoint::GetTitleDecl() const
+{
+  drape_ptr<dp::TitleDecl> titleDecl = make_unique_dp<dp::TitleDecl>(m_titleDecl);
+  return titleDecl;
 }
 
 std::string RouteMarkPoint::GetSymbolName() const

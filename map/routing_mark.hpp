@@ -32,27 +32,34 @@ public:
   void SetIsVisible(bool isVisible) { m_markData.m_isVisible = isVisible; }
 
   dp::Anchor GetAnchor() const override;
+  dp::GLState::DepthLayer GetDepthLayer() const override;
 
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
 
   RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
-  void SetRoutePointType(RouteMarkType type) { m_markData.m_pointType = type; }
+  void SetRoutePointType(RouteMarkType type);
 
-  void SetIntermediateIndex(int8_t index) { m_markData.m_intermediateIndex = index; }
+  void SetIntermediateIndex(int8_t index);
   int8_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
 
-  void SetIsMyPosition(bool isMyPosition) { m_markData.m_isMyPosition = isMyPosition; }
+  void SetIsMyPosition(bool isMyPosition);
   bool IsMyPosition() const { return m_markData.m_isMyPosition; }
 
-  void SetPassed(bool isPassed) { m_markData.m_isPassed = isPassed; }
+  void SetPassed(bool isPassed);
   bool IsPassed() const { return m_markData.m_isPassed; }
 
   RouteMarkData const & GetMarkData() const { return m_markData; }
-  void SetMarkData(RouteMarkData && data) { m_markData = std::move(data); }
+  void SetMarkData(RouteMarkData && data);
+
+  drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
+
+  bool SymbolHasPriority() const override { return false; }
+  bool TitleHasPriority() const override { return true; }
 
 private:
   RouteMarkData m_markData;
+  dp::TitleDecl m_titleDecl;
 };
 
 class RouteUserMarkContainer : public UserMarkContainer

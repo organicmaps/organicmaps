@@ -26,10 +26,17 @@ struct CommonViewParams
   m2::PointD m_tileCenter;
 };
 
+enum class SpecialDisplacement
+{
+  None,
+  SpecialMode,
+  UserMark
+};
+
 struct CommonOverlayViewParams : public CommonViewParams
 {
-  bool m_specialDisplacementMode = false;
-  uint16_t m_specialModePriority = std::numeric_limits<uint16_t>::max();;
+  SpecialDisplacement m_specialDisplacement = SpecialDisplacement::None;
+  uint16_t m_specialPriority = std::numeric_limits<uint16_t>::max();
 };
 
 struct PoiSymbolViewParams : CommonOverlayViewParams

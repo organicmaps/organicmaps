@@ -42,6 +42,7 @@ public:
     OverlayLayer,
     UserMarkLayer,
     NavigationLayer,
+    RoutingMarkLayer,
     Gui
   };
 

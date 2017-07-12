@@ -35,15 +35,21 @@ public:
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~UserMark() {}
 
+  // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }
   void AcceptChanges() const override { m_isDirty = false; }
-
-  // df::UserPointMark overrides.
+  bool IsVisible() const override { return true; }
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
+  dp::GLState::DepthLayer GetDepthLayer() const override;
   bool HasCreationAnimation() const override;
+  drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
+  uint16_t GetProirity() const override { return 0xFFFF; }
+  bool SymbolHasPriority() const override { return false; }
+  bool TitleHasPriority() const override { return false; }
+  int GetMinZoom() const override { return 1; }
 
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;

@@ -274,12 +274,19 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
          static_cast<uint64_t>(0xFFFF);
 }
 
-uint64_t CalculateSpecialModePriority(int specialPriority)
+uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
 {
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::kPriorityMaskAll;
   priority &= kMask;
   priority |= specialPriority;
   return priority;
+}
+
+uint64_t CalculateUserMarkPriority(int minZoomLevel, uint16_t specialPriority)
+{
+  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(std::max(minZoomLevel, 0));
+  uint64_t priority = ~dp::kPriorityMaskZoomLevel;
+  return priority | (static_cast<uint64_t>(minZoom) << 56) | static_cast<uint64_t>(specialPriority);
 }
 }  // namespace dp

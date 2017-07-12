@@ -599,8 +599,9 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_hasArea = m_hasArea;
     params.m_prioritized = prioritized || m_createdByEditor;
     params.m_obsoleteInEditor = m_obsoleteInEditor;
-    params.m_specialDisplacementMode = specialDisplacementMode;
-    params.m_specialModePriority = specialModePriority;
+    params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
+                                                           : SpecialDisplacement::None;
+    params.m_specialPriority = specialModePriority;
 
     m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */));
 
@@ -611,10 +612,12 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
 
   for (auto textParams : m_textParams)
   {
-    textParams.m_specialDisplacementMode = specialDisplacementMode;
-    textParams.m_specialModePriority = specialModePriority;
+    textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
+                                                               : SpecialDisplacement::None;
+    textParams.m_specialPriority = specialModePriority;
     m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey,
-                                            hasPOI, symbolSize, 0 /* textIndex */));
+                                            hasPOI, symbolSize,
+                                            dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }
 }
 
@@ -1080,10 +1083,10 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   // Special priority for road shields in navigation style.
   if (GetStyleReader().IsCarNavigationStyle())
   {
-    textParams.m_specialDisplacementMode = poiParams.m_specialDisplacementMode
-      = symbolParams.m_specialDisplacementMode = true;
-    textParams.m_specialModePriority = poiParams.m_specialModePriority
-      = symbolParams.m_specialModePriority = CalculateNavigationRoadShieldPriority();
+    textParams.m_specialDisplacement = poiParams.m_specialDisplacement
+      = symbolParams.m_specialDisplacement = SpecialDisplacement::SpecialMode;
+    textParams.m_specialPriority = poiParams.m_specialPriority
+      = symbolParams.m_specialPriority = CalculateNavigationRoadShieldPriority();
   }
 }
 
@@ -1135,14 +1138,14 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_baseGtoPScale = m_currentScaleGtoP;
     bool const navigationEnabled = GetStyleReader().IsCarNavigationStyle();
     if (navigationEnabled)
-      params.m_specialDisplacementMode = true;
+      params.m_specialDisplacement = SpecialDisplacement::SpecialMode;
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)
     {
       PathTextViewParams p = params;
       if (navigationEnabled)
-        p.m_specialModePriority = CalculateNavigationPathTextPriority(textIndex);
+        p.m_specialPriority = CalculateNavigationPathTextPriority(textIndex);
       auto shape = make_unique_dp<PathTextShape>(spline, p, m_tileKey, textIndex);
 
       if (!shape->CalculateLayout(texMng))
@@ -1198,7 +1201,8 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
         continue;
 
       m_insertShape(make_unique_dp<TextShape>(shieldPos, textParams, m_tileKey, true /* hasPOI */,
-                                              m2::PointF(0.0f, 0.0f) /* symbolSize */, textIndex));
+                                              m2::PointF(0.0f, 0.0f) /* symbolSize */,
+                                              dp::Center /* symbolAnchor */, textIndex));
       if (IsColoredRoadShield(shield))
         m_insertShape(make_unique_dp<ColoredSymbolShape>(shieldPos, symbolParams, m_tileKey, textIndex));
       else if (IsSymbolRoadShield(shield))
