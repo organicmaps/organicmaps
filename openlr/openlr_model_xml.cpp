@@ -1,4 +1,4 @@
-#include "openlr/openlr_simple_parser.hpp"
+#include "openlr/openlr_model_xml.hpp"
 #include "openlr/openlr_model.hpp"
 
 #include "geometry/mercator.hpp"

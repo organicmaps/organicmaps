@@ -1,8 +1,8 @@
 #include "openlr/openlr_simple_decoder.hpp"
 
 #include "openlr/openlr_model.hpp"
+#include "openlr/openlr_model_xml.hpp"
 #include "openlr/openlr_sample.hpp"
-#include "openlr/openlr_simple_parser.hpp"
 #include "openlr/road_info_getter.hpp"
 #include "openlr/router.hpp"
 #include "openlr/way_point.hpp"

@@ -1,6 +1,6 @@
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_mode.hpp"
 
-#include "openlr/openlr_simple_parser.hpp"
+#include "openlr/openlr_model_xml.hpp"
 
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"

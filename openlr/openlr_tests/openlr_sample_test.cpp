@@ -2,7 +2,7 @@
 
 #include "openlr/openlr_model.hpp"
 #include "openlr/openlr_sample.hpp"
-#include "openlr/openlr_simple_parser.hpp"
+#include "openlr/openlr_model_xml.hpp"
 
 #include "indexer/index.hpp"
 
