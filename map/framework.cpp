@@ -357,6 +357,7 @@ void Framework::Migrate(bool keepDownloaded)
   m_infoGetter.reset();
   m_taxiEngine.reset();
   m_cityFinder.reset();
+  m_ugcApi.reset();
   TCountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
