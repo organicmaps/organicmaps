@@ -6423,33 +6423,34 @@ sk:^Pneuservis
 shop-chemist|@shop
 en:^Chemist Shop
 ru:^Бытовая химия
-ar:^صيدلية
+ar:^متجر كيماويات
 cs:^Drogerie
-da:^Materialist|Drugstore
+da:^Materialist
 nl:^Drogisterij
-fi:^Apteekki
+fi:^Kosmetiikkamyymälä
 fr:^Droguerie
 de:^Drogerie
 hu:^Drogéria
-id:^Toko bahan kimia
-it:^Farmacia
+id:^Toko Bahan Kimia
+it:^Negozio di detersivi
 ja:^化学薬品店
-ko:^화학자 상점
-nb:^Dagligvareforretning
+ko:^드럭 스토어
+nb:^Husholdningsartikler
 pl:^Drogeria
-pt:^Farmácia
+pt:^Drogaria
 pt-BR:^Drogaria|farmácia
 ro:^Mercerie
 es:^Droguería
-sv:^Apotek
-th:^ร้านขายผลิตภัณฑ์ทางเคมี
-tr:^Zincir eczane
+sv:^Hushållskemikalier
+th:^ร้านเคมีภัณฑ์
+tr:^Temizlik Ürünleri Mağazası
 uk:^Магазин побутової хімії
-vi:^Cửa hàng Dược phẩm
+vi:^Cửa hàng Hóa chất
 zh-Hans:^药妆店
 zh-Hant:^藥妝店
-el:^Φαρμακείο
+el:^Κατάστημα χημικών
 sk:^Drogéria
+sw:^Duka la Kemikali na Dawa za Nyumbani
 
 shop-pet|@shop
 en:^Petshop
