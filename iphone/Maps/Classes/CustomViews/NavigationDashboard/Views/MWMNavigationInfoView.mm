@@ -165,7 +165,9 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (IBAction)openSearch
 {
-  [Statistics logEvent:kStatRoutingTooltipClicked];
+  BOOL const isStart = ([MWMRouter startPoint] == nil);
+  auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
+  [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType : type}];
   [MWMMapViewControlsManager manager].searchHidden = NO;
 }
 
