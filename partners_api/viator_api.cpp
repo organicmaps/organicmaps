@@ -197,13 +197,13 @@ bool RawApi::GetTopProducts(std::string const & destId, std::string const & curr
 }
 
 // static
-std::string Api::GetCityUrl(std::string const & destId, std::string const & name)
+std::string Api::GetCityUrl(std::string const & destId)
 {
   std::ostringstream ost;
   // The final language and city name will be calculated automatically based on account id and
   // destination id.
-  ost << kWebUrl << "/" << languages::GetCurrentNorm() << "/" << GetAccountId() << "/"
-      << UrlEncode(name) << "/d" << destId << "-ttd?activities=all";
+  ost << kWebUrl << "/" << languages::GetCurrentNorm() << "/" << GetAccountId() << "/x/d" << destId
+      << "-ttd?activities=all";
   return ost.str();
 }
 
