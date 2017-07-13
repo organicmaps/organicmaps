@@ -560,8 +560,8 @@ public class PlacePageView extends RelativeLayout
         case ROUTE_TO:
           if (RoutingController.get().isPlanning())
           {
-            if (RoutingController.get().setEndPoint(mMapObject))
-              hide();
+            RoutingController.get().setEndPoint(mMapObject);
+            hide();
           }
           else
           {

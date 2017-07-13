@@ -420,10 +420,10 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (startPoint != null)
       trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_START, false, false, fromApi);
     if (endPoint != null)
-      trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_FINISH, false, false, fromApi);
+      trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, false, false, fromApi);
   }
 
-  private static void trackPointAdd(MapObject point, @RoutePointInfo.RouteMarkType int type,
+  private static void trackPointAdd(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
                           boolean isPlanning, boolean isNavigating, boolean fromApi)
   {
     boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
@@ -431,7 +431,7 @@ public class RoutingController implements TaxiManager.TaxiListener
                                           isMyPosition, fromApi);
   }
 
-  private static void trackPointRemove(MapObject point, @RoutePointInfo.RouteMarkType int type,
+  private static void trackPointRemove(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
                              boolean isPlanning, boolean isNavigating, boolean fromApi)
   {
     boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
@@ -842,8 +842,9 @@ public class RoutingController implements TaxiManager.TaxiListener
     startPoint = point;
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
-    trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_START, isPlanning(), isNavigating(),
-                  false);
+    if (startPoint != null)
+      trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_START, isPlanning(), isNavigating(),
+                    false);
     return true;
   }
 
@@ -897,8 +898,9 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     endPoint = point;
 
-    trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, isPlanning(), isNavigating(),
-                  false);
+    if (endPoint != null)
+      trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, isPlanning(), isNavigating(),
+                    false);
 
     if (startPoint == null)
       return setStartFromMyPosition();
