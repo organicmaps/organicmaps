@@ -40,6 +40,9 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_BOOKMARKS_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_SEARCH_CLICK;
+
 public class NavigationController implements TrafficManager.TrafficCallback, View.OnClickListener
 {
   private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
@@ -432,6 +435,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
       case R.id.btn_bookmarks:
         Context context = mFrame.getContext();
         context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
+        Statistics.INSTANCE.trackRoutingEvent(ROUTING_BOOKMARKS_CLICK,
+                                              RoutingController.get().isPlanning());
         break;
     }
   }

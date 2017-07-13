@@ -25,9 +25,9 @@ public class RoutePointInfo implements Parcelable
     }
   };
 
-  static final int ROUTE_MARK_START = 0;
-  static final int ROUTE_MARK_INTERMEDIATE = 1;
-  static final int ROUTE_MARK_FINISH = 2;
+  public static final int ROUTE_MARK_START = 0;
+  public static final int ROUTE_MARK_INTERMEDIATE = 1;
+  public static final int ROUTE_MARK_FINISH = 2;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ ROUTE_MARK_START, ROUTE_MARK_INTERMEDIATE, ROUTE_MARK_FINISH })

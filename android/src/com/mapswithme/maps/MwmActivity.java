@@ -1516,7 +1516,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                       null, "", null, null),
                                         new MapObject("", 0L, 0, MapObject.API_POINT, to.mName,
                                                       "", "", "", to.mLat, to.mLon, "", null,
-                                                      null, "", null, null));
+                                                      null, "", null, null),
+                                        true);
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
@@ -2157,6 +2158,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingController.get().waitForPoiPick(pointType);
       mNavigationController.performSearchClick();
+      Statistics.INSTANCE.trackRoutingTooltipEvent(pointType, true);
     }
   }
 
@@ -2300,16 +2302,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mLatFrom != null && mLonFrom != null && routerType >= 0)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo), routerType);
+                                        fromLatLon(mLatTo, mLonTo), routerType, true);
       }
       else if (mLatFrom != null && mLonFrom != null)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo));
+                                        fromLatLon(mLatTo, mLonTo), true);
       }
       else
       {
-        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo));
+        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo), true);
       }
       return true;
     }
