@@ -30,4 +30,6 @@ final class NavigationAddPointToastView: UIView {
       separator.isHidden = true
     }
   }
+
+  override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections { return .bottom }
 }

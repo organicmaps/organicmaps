@@ -176,7 +176,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
   if (self.state == MWMBottomMenuStateHidden)
     return;
   CGFloat const height = self.superview.height - self.mainButtonsHeight.constant;
-  [MWMMapWidgets widgetsManager].bottomBound = height;
   [MWMSideButtons buttons].bottomBound = height;
 }
 
@@ -741,11 +740,18 @@ CGFloat constexpr kTimeWidthRegular = 128;
   _searchIsActive = self.searchButton.selected = searchIsActive;
 }
 
-#pragma mark - VisibleArea / PlacePageArea
+#pragma mark - AvailableArea / PlacePageArea
 
 - (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
 {
   return IPAD ? MWMAvailableAreaAffectDirectionsBottom : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / WidgetsArea
+
+- (MWMAvailableAreaAffectDirections)widgetsAreaAffectDirections
+{
+  return MWMAvailableAreaAffectDirectionsBottom;
 }
 
 @end

@@ -22,6 +22,7 @@
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
+#import "MWMMapWidgetsHelper.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMPlacePageButtonsProtocol.h"
 #import "MWMPlacePageCellUpdateProtocol.h"

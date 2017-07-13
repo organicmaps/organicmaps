@@ -583,7 +583,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setLeftBound:(CGFloat)leftBound
 {
   ((MWMBottomMenuView *)self.view).leftBound = leftBound;
-  ((EAGLView *)self.controller.view).widgetsManager.leftBound = leftBound;
 }
 
 - (CGFloat)leftBound { return ((MWMBottomMenuView *)self.view).leftBound; }

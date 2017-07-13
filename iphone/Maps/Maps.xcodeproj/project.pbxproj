@@ -160,6 +160,12 @@
 		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
+		3444DFCC1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
@@ -1734,6 +1740,9 @@
 		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
+		3444DFCB1F1760B900E73099 /* WidgetsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
+		3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgetsHelper.h; sourceTree = "<group>"; };
+		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		344D63161E795A2D006F17CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -3409,6 +3418,7 @@
 				34E7760E1F14B165003040B3 /* VisibleArea.swift */,
 				34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */,
 				34E7761D1F14DB48003040B3 /* PlacePageArea.swift */,
+				3444DFCB1F1760B900E73099 /* WidgetsArea.swift */,
 			);
 			path = AvailableArea;
 			sourceTree = "<group>";
@@ -3492,6 +3502,8 @@
 				3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */,
 				3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */,
 				3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */,
+				3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */,
+				3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -5414,6 +5426,7 @@
 				340475581E081A4600C92850 /* WebViewController.mm in Sources */,
 				F6FEA82D1C58E89B007223CC /* MWMButton.mm in Sources */,
 				34F407401E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3C1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E471EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -5446,6 +5459,7 @@
 				340475551E081A4600C92850 /* Statistics.mm in Sources */,
 				F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F653CE161C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
+				3444DFCC1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE991E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03B1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				3454D7CD1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
@@ -5724,6 +5738,7 @@
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.mm in Sources */,
 				34F407411E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E481EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -5756,6 +5771,7 @@
 				346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				340475561E081A4600C92850 /* Statistics.mm in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
+				3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F6E2FE9A1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03C1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
@@ -6034,6 +6050,7 @@
 				3454D7E41E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
 				849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */,
 				34F407421E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3E1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E491EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -6066,6 +6083,7 @@
 				849CF6FB1DE842290024A8A5 /* BookmarksVC.mm in Sources */,
 				849CF6FC1DE842290024A8A5 /* MWMSideButtonsView.mm in Sources */,
 				3454D7C01E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
+				3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE9B1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03D1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				849CF7071DE842290024A8A5 /* LocaleTranslator.mm in Sources */,

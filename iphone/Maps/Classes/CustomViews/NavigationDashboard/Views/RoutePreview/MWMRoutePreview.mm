@@ -311,16 +311,23 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
 }
 
-#pragma mark - VisibleArea
+#pragma mark - AvailableArea / VisibleArea
 
 - (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections
 {
   return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
 }
 
-#pragma mark - PlacePageArea
+#pragma mark - AvailableArea / PlacePageArea
 
 - (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / WidgetsArea
+
+- (MWMAvailableAreaAffectDirections)widgetsAreaAffectDirections
 {
   return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
 }

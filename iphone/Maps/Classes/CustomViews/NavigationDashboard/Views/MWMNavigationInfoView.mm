@@ -433,9 +433,6 @@ BOOL defaultOrientation(CGSize const & size)
                                                  : kSearchButtonsViewHeightLandscape) /
             2;
         [self layoutIfNeeded];
-      }
-      completion:^(BOOL finished) {
-        [[MWMMapWidgets widgetsManager] layoutWidgets];
       }];
 }
 

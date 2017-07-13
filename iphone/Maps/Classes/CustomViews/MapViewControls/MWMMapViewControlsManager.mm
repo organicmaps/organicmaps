@@ -254,7 +254,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   self.trafficButtonHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
-  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
 }
 
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point
@@ -262,7 +261,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.trafficButtonHidden = YES;
   self.menuState = MWMBottomMenuStateHidden;
   MapViewController * ownerController = self.ownerController;
-  static_cast<EAGLView *>(ownerController.view).widgetsManager.fullScreen = YES;
   [self.placePageManager close];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
@@ -314,8 +312,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   auto const bottomBound = nm.bottom;
   [self.sideButtons setTopBound:topBound];
   [self.sideButtons setBottomBound:bottomBound];
-  [MWMMapWidgets widgetsManager].bottomBound = bottomBound;
-  [MWMMapWidgets widgetsManager].leftBound = nm.left;
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
@@ -452,8 +448,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtonsHidden = _sideButtonsHidden;
   self.trafficButtonHidden = _trafficButtonHidden;
   self.menuState = _menuState;
-  EAGLView * glView = (EAGLView *)self.ownerController.view;
-  glView.widgetsManager.fullScreen = hidden;
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden

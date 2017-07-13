@@ -79,15 +79,9 @@ class AvailableArea: UIView {
     perform(selector, with: nil, afterDelay: 0)
   }
 
-  func isAreaAffectingView(_ other: UIView) -> Bool {
-    return false
-  }
-
-  func addAffectingView(_ other: UIView) {
-  }
-
-  func notifyObserver() {
-  }
+  func isAreaAffectingView(_ other: UIView) -> Bool { return false }
+  func addAffectingView(_ other: UIView) {}
+  func notifyObserver() {}
 }
 
 extension MWMAvailableAreaAffectDirections: Hashable {
