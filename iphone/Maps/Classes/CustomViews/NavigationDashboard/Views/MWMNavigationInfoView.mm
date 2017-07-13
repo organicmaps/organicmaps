@@ -195,21 +195,18 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (IBAction)searchMainButtonTouchUpInside
 {
-  BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
-  [Statistics logEvent:kStatRoutingSearchClicked
-        withParameters:@{
-          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
-        }];
   switch (self.searchState)
   {
   case NavigationSearchState::Maximized:
     [MWMMapViewControlsManager manager].searchHidden = NO;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
+    [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModeOnRoute }];
     break;
   case NavigationSearchState::MinimizedNormal:
     if (self.state == MWMNavigationInfoViewStatePrepare)
     {
       [MWMMapViewControlsManager manager].searchHidden = NO;
+      [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModePlanning }];
     }
     else
     {
