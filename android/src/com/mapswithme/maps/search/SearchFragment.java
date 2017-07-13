@@ -606,18 +606,19 @@ public class SearchFragment extends BaseMwmFragment
       return true;
     }
 
+    boolean isSearchActivity = getActivity() instanceof SearchActivity;
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      final boolean isSearchActivity = getActivity() instanceof SearchActivity;
       if (isSearchActivity)
         closeSearch();
-      return true;
+      return !isSearchActivity;
     }
 
-    closeSearch();
-    return true;
+    if (isSearchActivity)
+      closeSearch();
+    return isSearchActivity;
   }
 
   private void closeSearch()
