@@ -1827,7 +1827,7 @@ void FrontendRenderer::Routine::Do()
 
     isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
-    isActiveFrame |= m_renderer.m_routeRenderer->UpdatePreview(modelView);
+    m_renderer.m_routeRenderer->UpdatePreview(modelView);
 
     m_renderer.RenderScene(modelView);
 

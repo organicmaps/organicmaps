@@ -285,7 +285,7 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallb
   }
 }
 
-bool RouteRenderer::UpdatePreview(ScreenBase const & screen)
+void RouteRenderer::UpdatePreview(ScreenBase const & screen)
 {
   // Check if there are preview render data.
   if (m_previewRenderData.empty() && !m_waitForPreviewRenderData)
@@ -294,21 +294,14 @@ bool RouteRenderer::UpdatePreview(ScreenBase const & screen)
     m_waitForPreviewRenderData = true;
   }
   if (m_waitForPreviewRenderData)
-    return false;
+    return;
 
-  float scale = 1.0f;
   float previewCircleRadius = 0.0;
   if (!m_previewSegments.empty())
   {
     ClearPreviewHandles();
     m_previewPivot = screen.GlobalRect().Center();
     previewCircleRadius = CalculateRadius(screen);
-
-    using namespace std::chrono;
-    auto dt = steady_clock::now() - m_showPreviewTimestamp;
-    double const seconds = duration_cast<duration<double>>(dt).count();
-    scale = static_cast<float>(1.0 + kPreviewAnimationScale *
-                                     abs(sin(kPreviewAnimationSpeed * seconds)));
   }
   double const currentScaleGtoP = 1.0 / screen.GetScale();
   double const radiusMercator = previewCircleRadius / currentScaleGtoP;
@@ -327,7 +320,7 @@ bool RouteRenderer::UpdatePreview(ScreenBase const & screen)
     double const distDelta = segmentLen / circlesCount;
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      float const r = scale * static_cast<float>(radiusMercator);
+      float const r = static_cast<float>(radiusMercator);
       m2::PointD const pt = polyline.GetPointByDistance(d);
       m2::RectD const circleRect(pt.x - r, pt.y - r, pt.x + r, pt.y + r);
       if (!screen.ClipRect().IsIntersect(circleRect))
@@ -340,14 +333,13 @@ bool RouteRenderer::UpdatePreview(ScreenBase const & screen)
         // There is no any available handle.
         m_previewPointsRequest(kPreviewPointsCount);
         m_waitForPreviewRenderData = true;
-        return true;
+        return;
       }
 
       m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_previewPivot, kShapeCoordScalar);
-      h->SetPoint(pointIndex, convertedPt, scale * previewCircleRadius, circleColor);
+      h->SetPoint(pointIndex, convertedPt, previewCircleRadius, circleColor);
     }
   }
-  return !m_previewSegments.empty();
 }
 
 void RouteRenderer::ClearPreviewHandles()
