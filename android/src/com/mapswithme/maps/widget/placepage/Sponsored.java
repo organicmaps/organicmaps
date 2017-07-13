@@ -29,7 +29,7 @@ public final class Sponsored
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_GEOCHAT, TYPE_VIATOR })
-  @interface SponsoredType {}
+  public @interface SponsoredType {}
 
   private static class Price
   {

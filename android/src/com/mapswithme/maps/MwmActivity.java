@@ -1413,7 +1413,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mPlacePage != null)
         mPlacePage.setMapObject(null, false, null);
       if (mPlacePageTracker != null)
-        mPlacePageTracker.onHide();
+        mPlacePageTracker.onHidden();
     }
   }
 
@@ -1427,6 +1427,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                              : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
                                    : AlohaHelper.PP_CLOSE);
+    if (mPlacePageTracker != null && isVisible)
+    {
+      mPlacePageTracker.onOpened();
+    }
   }
 
   @Override

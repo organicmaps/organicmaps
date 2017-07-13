@@ -52,10 +52,15 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERRO
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPEN;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
@@ -72,8 +77,10 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LA
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
 {
@@ -130,7 +137,11 @@ public enum Statistics
     public static final String PP_SPONSORED_DETAILS = "Placepage_Hotel_details";
     public static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
     public static final String PP_SPONSORED_OPENTABLE = "Placepage_Restaurant_book";
-    public static final String PP_SPONSORED_NONE = "Placepage_Sponsored_none";
+    public static final String PP_SPONSORED_OPEN = "Placepage_SponsoredGalleryPage_opened";
+    public static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
+    public static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
+    public static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
+    public static final String PP_SPONSOR_MORE_SELECTED = "Placepage_SponsoredGallery_MoreItem_selected";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
@@ -301,6 +312,7 @@ public enum Statistics
     static final String BANNER = "banner";
     static final String BANNER_STATE = "state";
     static final String ERROR_CODE = "error_code";
+    public static final String ERROR = "error";
     static final String ERROR_MESSAGE = "error_message";
     static final String MAP_DATA_SIZE = "map_data_size:";
     static final String BATTERY = "battery";
@@ -314,6 +326,8 @@ public enum Statistics
     public static final String BOOKING_COM = "Booking.Com";
     public static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     public static final String OPENTABLE = "OpenTable";
+    public static final String VIATOR = "Viator.Com";
+    public static final String GEOCHAT = "Geochat";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -673,6 +687,19 @@ public enum Statistics
         break;
     }
 
+    final String network = getConnectionState();
+
+    trackEvent(APPLICATION_COLD_STARTUP_INFO,
+               params()
+                   .add(BATTERY, state.getLevel())
+                   .add(CHARGING, charging)
+                   .add(NETWORK, network)
+                   .get());
+  }
+
+  @NonNull
+  private String getConnectionState()
+  {
     final String network;
     if (ConnectionState.isWifiConnected())
     {
@@ -681,7 +708,7 @@ public enum Statistics
     else if (ConnectionState.isMobileConnected())
     {
       if (ConnectionState.isInRoaming())
-        network = "roaming (android)";
+        network = "roaming";
       else
         network = "mobile";
     }
@@ -689,13 +716,52 @@ public enum Statistics
     {
       network = "off";
     }
+    return network;
+  }
 
-    trackEvent(APPLICATION_COLD_STARTUP_INFO,
-               params()
-                   .add(BATTERY, state.getLevel())
-                   .add(CHARGING, charging)
-                   .add(NETWORK, network)
-                   .get());
+  public void trackSponsoredOpenEvent(@Sponsored.SponsoredType int type)
+  {
+    Statistics.ParameterBuilder builder = Statistics.params();
+    builder.add(NETWORK, getConnectionState())
+           .add(PROVIDER, convertToSponsor(type));
+    trackEvent(PP_SPONSORED_OPEN, builder.get());
+  }
+
+  public void trackSponsoredGalleryShown(@Sponsored.SponsoredType int type)
+  {
+    trackEvent(PP_SPONSORED_SHOWN, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
+  }
+
+  public void trackSponsoredGalleryError(@Sponsored.SponsoredType int type)
+  {
+    trackEvent(PP_SPONSORED_ERROR, Statistics.params().add(PROVIDER, convertToSponsor(type))
+                                                   .add(ERROR, "N/A").get());
+  }
+
+  public void trackSponsoredGalleryItemSelected(@NonNull String eventName,
+                                                @Sponsored.SponsoredType int type)
+  {
+    trackEvent(eventName, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
+  }
+
+  @NonNull
+  private static String convertToSponsor(@Sponsored.SponsoredType int type)
+  {
+    switch (type)
+    {
+      case Sponsored.TYPE_BOOKING:
+        return BOOKING_COM;
+      case Sponsored.TYPE_VIATOR:
+        return VIATOR;
+      case Sponsored.TYPE_GEOCHAT:
+        return GEOCHAT;
+      case Sponsored.TYPE_OPENTABLE:
+        return OPENTABLE;
+      case Sponsored.TYPE_NONE:
+        return "N/A";
+      default:
+        throw new AssertionError("Unknown sponsor type: " + type);
+    }
   }
 
   public static ParameterBuilder params()
