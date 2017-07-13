@@ -60063,7 +60063,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "zero"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16757
     }
@@ -60091,7 +60091,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "zero"
+      name: "zero-icon"
       apply_for_type: 1
       priority: 16757
     }
