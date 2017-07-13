@@ -120,9 +120,9 @@ void ResultView::Init()
     auto * groupLayout = new QHBoxLayout(group /* parent */);
     group->setLayout(groupLayout);
 
-    m_irrelevant = CreateRatioButton("0", *groupLayout);
-    m_relevant = CreateRatioButton("+1", *groupLayout);
-    m_vital = CreateRatioButton("+2", *groupLayout);
+    m_irrelevant = CreateRatioButton("Irrelevant", *groupLayout);
+    m_relevant = CreateRatioButton("Relevant", *groupLayout);
+    m_vital = CreateRatioButton("Vital", *groupLayout);
 
     layout->addWidget(group);
   }
