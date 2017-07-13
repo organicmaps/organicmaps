@@ -122,7 +122,7 @@ void MainModel::OnSampleSelected(int index)
 
   auto & context = m_contexts[index];
   auto const & sample = context.m_sample;
-  m_view->ShowSample(index, sample, sample.m_posAvailable, context.HasChanges());
+  m_view->ShowSample(index, sample, sample.m_posAvailable, sample.m_pos, context.HasChanges());
 
   ResetSearch();
   auto const timestamp = m_queryTimestamp;

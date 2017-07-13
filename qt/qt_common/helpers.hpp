@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/location.hpp"
+
 #include <QtGui/QMouseEvent>
 
 namespace qt
@@ -24,5 +26,7 @@ struct Hotkey
   int m_key = 0;
   char const * m_slot = nullptr;
 };
+
+location::GpsInfo MakeGpsInfo(m2::PointD const & point);
 }  // namespace common
 }  // namespace qt

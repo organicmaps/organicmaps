@@ -1,5 +1,6 @@
 #include "search/search_quality/assessment_tool/sample_view.hpp"
 
+#include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/spinner.hpp"
 
 #include "map/bookmark_manager.hpp"
@@ -11,6 +12,8 @@
 #include "search/search_quality/assessment_tool/result_view.hpp"
 #include "search/search_quality/assessment_tool/results_view.hpp"
 #include "search/search_quality/sample.hpp"
+
+#include "platform/location.hpp"
 
 #include <QtGui/QStandardItem>
 #include <QtGui/QStandardItemModel>
@@ -150,7 +153,8 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   Clear();
 }
 
-void SampleView::SetContents(search::Sample const & sample, bool positionAvailable)
+void SampleView::SetContents(search::Sample const & sample, bool positionAvailable,
+                             m2::PointD const & position)
 {
   if (!sample.m_query.empty())
   {
@@ -172,6 +176,10 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
     m_relatedQueriesBox->show();
 
   ClearAllResults();
+  if (positionAvailable)
+    ShowUserPosition(position);
+  else
+    HideUserPosition();
 }
 
 void SampleView::OnSearchStarted() { m_spinner->Show(); }
@@ -264,6 +272,7 @@ void SampleView::Clear()
   m_relatedQueriesBox->hide();
 
   ClearAllResults();
+  HideUserPosition();
   OnSearchCompleted();
 }
 
@@ -284,3 +293,13 @@ void SampleView::SetEdits(ResultsView & results, Edits & edits)
 }
 
 void SampleView::OnRemoveNonFoundResult(int row) { m_nonFoundResultsEdits->Delete(row); }
+
+void SampleView::ShowUserPosition(m2::PointD const & position)
+{
+  m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(position));
+}
+
+void SampleView::HideUserPosition()
+{
+  m_framework.OnLocationError(location::EGPSIsOff);
+}

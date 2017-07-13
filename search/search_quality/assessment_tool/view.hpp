@@ -5,6 +5,7 @@
 #include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
+#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include <cstddef>
@@ -31,7 +32,7 @@ public:
   virtual void OnSearchStarted() = 0;
   virtual void OnSearchCompleted() = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample, bool positionAvailable,
-                          bool hasEdits) = 0;
+                          m2::PointD const & position, bool hasEdits) = 0;
 
   virtual void AddFoundResults(search::Results::ConstIter begin,
                                search::Results::ConstIter end) = 0;

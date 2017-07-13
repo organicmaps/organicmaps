@@ -28,7 +28,6 @@
 #include <QtWidgets/QMenu>
 
 #include <QtCore/QLocale>
-#include <QtCore/QDateTime>
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 
@@ -317,15 +316,8 @@ void DrawWidget::SetMapStyle(MapStyle mapStyle)
 void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 {
   m_emulatingLocation = true;
-  m2::PointD const point = m_framework.P3dtoG(pt);
-
-  location::GpsInfo info;
-  info.m_latitude = MercatorBounds::YToLat(point.y);
-  info.m_longitude = MercatorBounds::XToLon(point.x);
-  info.m_horizontalAccuracy = 10;
-  info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
-
-  m_framework.OnLocationUpdate(info);
+  auto const point = m_framework.P3dtoG(pt);
+  m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(point));
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {

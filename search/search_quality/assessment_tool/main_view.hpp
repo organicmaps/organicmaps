@@ -33,7 +33,7 @@ public:
   void OnSearchStarted() override;
   void OnSearchCompleted() override;
   void ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
-                  bool hasEdits) override;
+                  m2::PointD const & position, bool hasEdits) override;
 
   void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,

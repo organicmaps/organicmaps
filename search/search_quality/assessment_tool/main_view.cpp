@@ -82,11 +82,11 @@ void MainView::OnSearchCompleted()
 }
 
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, bool positionAvailable,
-                          bool hasEdits)
+                          m2::PointD const & position, bool hasEdits)
 {
   MoveViewportToRect(sample.m_viewport);
 
-  m_sampleView->SetContents(sample, positionAvailable);
+  m_sampleView->SetContents(sample, positionAvailable, position);
   m_sampleView->show();
 
   OnResultChanged(sampleIndex, ResultType::Found, Edits::Update::MakeAll());

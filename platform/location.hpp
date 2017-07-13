@@ -32,7 +32,8 @@ namespace location
     EAndroidNative,
     EGoogle,
     ETizen,
-    EPredictor
+    EPredictor,
+    EUser
   };
 
   /// Our structure ALWAYS has valid lat, lon and horizontal accuracy.
