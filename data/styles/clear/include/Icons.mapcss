@@ -1340,12 +1340,12 @@ area|z16-[tourism=caravan_site],
 node|z14[sponsored=booking][rating>=8]
 {icon-image: hotel-s.svg;icon-min-distance: 24;text: name; text-offset: 1;font-size: 10; text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8; z-index: 6000;}
 node|z14[sponsored=booking][rating<8]
-{icon-image: zero.svg; text: none;}
+{icon-image: zero-icon.svg; text: none;}
 
 node|z15[sponsored=booking][rating>=7]
 {icon-image: hotel-m.svg;icon-min-distance: 24;text: name; text-offset: 1;font-size: 10; text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z15[sponsored=booking][rating<7]
-{icon-image: zero.svg; text: none;} 
+{icon-image: zero-icon.svg; text: none;} 
 
 node|z16- [sponsored=booking] 
 {icon-image: hotel-l.svg;icon-min-distance: 24;text: name; text-offset: 1;font-size: 10; text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
