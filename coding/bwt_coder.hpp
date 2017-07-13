@@ -48,6 +48,12 @@ public:
   }
 
   template <typename Sink>
+  static void EncodeAndWriteBlock(Sink & sink, string const & s)
+  {
+    EncodeAndWriteBlock(sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
+  }
+
+  template <typename Sink>
   static void EncodeAndWrite(Params const & params, Sink & sink, size_t n, uint8_t const * s)
   {
     CHECK(params.m_blockSize != 0, ());

@@ -20,4 +20,5 @@ QT *= core
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  serdes_binary_tests.cpp \
   serdes_tests.cpp \

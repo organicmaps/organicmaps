@@ -5,9 +5,11 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 set(
   SRC
   serdes_tests.cpp
+  serdes_binary_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
+
 omim_link_libraries(
   ${PROJECT_NAME}
   ugc

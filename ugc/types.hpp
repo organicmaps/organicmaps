@@ -35,6 +35,8 @@ struct TranslationKey
   TranslationKey(std::string const & key): m_key(key) {}
   TranslationKey(char const * key): m_key(key) {}
 
+  DECLARE_VISITOR(visitor(m_key, "key"))
+
   bool operator==(TranslationKey const & rhs) const { return m_key == rhs.m_key; }
   bool operator<(TranslationKey const & rhs) const { return m_key < rhs.m_key; }
 
@@ -181,6 +183,7 @@ struct Text
   DECLARE_VISITOR(visitor(m_lang, "lang"), visitor(m_text, "text"));
 
   bool operator==(Text const & rhs) const { return m_lang == rhs.m_lang && m_text == rhs.m_text; }
+
   friend std::string DebugPrint(Text const & text)
   {
     std::ostringstream os;
@@ -273,7 +276,7 @@ struct UGC
   {
   }
 
-  DECLARE_VISITOR(visitor(m_rating, "rating"), visitor(m_reviews, "review"),
+  DECLARE_VISITOR(visitor(m_rating, "rating"), visitor(m_reviews, "reviews"),
                   visitor(m_attributes, "attributes"))
 
   bool operator==(UGC const & rhs) const

@@ -205,16 +205,29 @@ private:
   std::vector<BlockInfo> m_blocks;
 };
 
-template <typename Reader>
 class BlockedTextStorageReader
 {
 public:
-  explicit BlockedTextStorageReader(Reader & reader) : m_reader(reader) { m_index.Read(reader); }
-
-  size_t GetNumStrings() const { return m_index.GetNumStrings(); }
-
-  std::string ExtractString(size_t stringIx)
+  template <typename Reader>
+  void InitializeIfNeeded(Reader & reader)
   {
+    if (m_initialized)
+      return;
+    m_index.Read(reader);
+    m_initialized = true;
+  }
+
+  size_t GetNumStrings() const
+  {
+    CHECK(m_initialized, ());
+    return m_index.GetNumStrings();
+  }
+
+  template <typename Reader>
+  std::string ExtractString(Reader & reader, size_t stringIx)
+  {
+    InitializeIfNeeded(reader);
+
     auto const blockIx = m_index.GetBlockIx(stringIx);
     CHECK_LESS(blockIx, m_index.GetNumBlockInfos(), ());
 
@@ -227,7 +240,7 @@ public:
     auto & entry = m_cache[blockIx];
     if (!entry.m_valid)
     {
-      NonOwningReaderSource source(m_reader);
+      NonOwningReaderSource source(reader);
       source.Skip(bi.m_offset);
 
       entry.m_value.clear();
@@ -278,8 +291,26 @@ private:
     bool m_valid = false;
   };
 
-  Reader & m_reader;
   BlockedTextStorageIndex m_index;
   std::vector<CacheEntry> m_cache;
+  bool m_initialized = false;
+};
+
+template <typename Reader>
+class BlockedTextStorage
+{
+public:
+  explicit BlockedTextStorage(Reader & reader) : m_reader(reader)
+  {
+    m_storage.InitializeIfNeeded(m_reader);
+  }
+
+  size_t GetNumStrings() const { return m_storage.GetNumStrings(); }
+  std::string ExtractString(size_t stringIx) { return m_storage.ExtractString(m_reader, stringIx); }
+  void ClearCache() { m_storage.ClearCache(); }
+
+private:
+  BlockedTextStorageReader m_storage;
+  Reader & m_reader;
 };
 }  // namespace coding

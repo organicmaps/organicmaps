@@ -2,8 +2,8 @@
 
 #include "ugc/types.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/point_to_integer.hpp"
+#include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -35,7 +35,7 @@ public:
   void operator()(uint64_t const d, char const * /* name */ = nullptr) { WriteToSink(m_sink, d); }
   void operator()(std::string const & s, char const * /* name */ = nullptr)
   {
-    utils::WriteString(m_sink, s);
+    rw::Write(m_sink, s);
   }
 
   void VisitRating(float const f, char const * /* name */ = nullptr)
@@ -108,7 +108,7 @@ public:
   }
   void operator()(std::string & s, char const * /* name */ = nullptr)
   {
-    utils::ReadString(m_source, s);
+    rw::Read(m_source, s);
   }
 
   void VisitRating(float & f, char const * /* name */ = nullptr)
