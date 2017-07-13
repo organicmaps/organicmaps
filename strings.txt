@@ -2916,7 +2916,7 @@
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.
     ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
-    cs = Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME také umí importovat záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami otevřete např. z emailu, Dropboxu nebo webového odkazu v MAPS.ME.
     da = Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
     nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
     fi = Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä MAPS.ME:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.
@@ -5832,7 +5832,7 @@
     en = Recent track
     ru = Недавний путь
     ar = المسار الأخير
-    cs = Nedávné cesty
+    cs = Historie polohy
     da = Seneste sti
     nl = Recente route
     fi = Viimeisin reitti
@@ -7115,7 +7115,7 @@
     en = Subscribe to our newsletter
     ru = Подписаться на новости
     ar = أشترك في نشرتنا الإخبارية
-    cs = Přihlásit se k odběru novinek
+    cs = Přihlásit se k newsletteru
     da = Abonnér på vores nyheder
     nl = Aanmelden voor onze nieuwtjes
     fi = Tilaa uutiskirjeemme
@@ -8779,7 +8779,7 @@
     en = Use Google Play Services to determine your current location
     ru = Использовать Google Play Services для определения позиции
     ar = استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي
-    cs = Používat služby Google Play pro získání aktuální polohy
+    cs = Používat Služby Google Play pro získání aktuální polohy
     da = Anvend Google Play Services til at få din aktuelle placering
     nl = Gebruik de diensten van Google Play om uw huidige locatie te bepalen
     fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
@@ -9372,7 +9372,7 @@
     en = bookmark
     ru = метка
     ar = إشارة مرجعية
-    cs = záložka
+    cs = uložit
     da = bogmærke
     nl = markeren
     fi = kirjanmerkki
@@ -12416,7 +12416,7 @@
     en = Route from
     ru = Отсюда
     ar = من
-    cs = Z
+    cs = Trasa z
     da = Fra
     nl = Van
     fi = Lähtöpaikka
@@ -12441,14 +12441,14 @@
     zh-Hans = 从
     zh-Hant = 從
     el = Διαδρομή από
-    sk = Z
+    sk = Cesta z
 
   [p2p_to_here]
     tags = ios, android
     en = Route to
     ru = Сюда
     ar = الطريق إلى
-    cs = Cesta do
+    cs = Trasa do
     da = Rute til
     nl = Route naar
     fi = Reitin loppupiste
@@ -12480,7 +12480,7 @@
     en = Navigation is available only from your current location.
     ru = Навигация возможна только из текущего местоположения.
     ar = تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟
-    cs = Navigace je dostupná pouze z vašeho současného umístění.
+    cs = Navigovat lze pouze z současného umístění.
     da = Navigation er kun tilgængelig fra din nuværende lokalitet.
     nl = Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.
     fi = Navigointi onnistuu vain nykyisestä sijainnistasi.
@@ -12512,7 +12512,7 @@
     en = Do you want us to plan a route from your current location?
     ru = Хотите перестроить маршрут от вашего местоположения?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
-    cs = Chcete, abychom naplánovali trasu z vašeho současného umístění?
+    cs = Máme naplánovat trasu z vašeho současného umístění?
     da = Ønsker du, at vi planlægger en rute fra din nuværende placering?
     nl = Wilt u dat wij een route plannen vanaf uw huidige locatie?
     fi = Haluatko valita vaihtoehtoisen reitin?
@@ -19939,7 +19939,7 @@
     en = Save Bookmarks
     ru = Сохраняйте метки
     ar = حفظ الإشارات المرجعية
-    cs = Uložit oblíbené
+    cs = Uložte si své záložky
     da = Gem bogmærker
     nl = Bladwijzers opslaan
     fi = Tallenna Kirjanmerkit
@@ -19997,7 +19997,7 @@
     en = Import Bookmarks from email and web.
     ru = Импортируйте метки из почты и интернета.
     ar = جلب العلامات المرجعية من البريد الإلكتروني والإنترنت.
-    cs = Importovat oblíbené z emailu a webu.
+    cs = Importovat záložky z emailu a webu.
     da = Importer bogmærker fra email og web.
     nl = Importeer bladwijzers vanuit email en het internet.
     fi = Tuo kirjanmerkit sähköpostista ja webistä.
@@ -20115,7 +20115,7 @@
     en = Disable recording of your recently traveled route?
     ru = Выключить запись недавно пройденого пути?
     ar = تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟
-    cs = Zakázat záznam vaší nedávno ujeté trasy?
+    cs = Zakázat zaznamenávání vaší nedávno ujeté trasy?
     da = Vil du deaktivere gemningen af din seneste rejserute?
     nl = Vastleggen van uw onlangs afgelegde route uitschakelen?
     fi = Poistetaanko viimeisen matkareitin tallennus?
@@ -20634,7 +20634,7 @@
     en = MAPS.ME is an essential offline application for travelling. MAPS.ME is based on OpenStreetMap data and allows editing it.
     ru = MAPS.ME — незаменимое приложение для путешествий, работающее без подключения к интернету. MAPS.ME использует данные OpenStreetMap и позволяет их улучшать.
     ar = MAPS.ME هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج MAPS.ME على بيانات OpenStreetMap ويتيح تحريرها.
-    cs = MAPS.ME je zásadní offline aplikace k cestování. MAPS.ME je založen na datech z OpenStreetMap a umožňuje je upravovat.
+    cs = MAPS.ME je základní aplikace pro každého cestovatele. MAPS.ME je založena na datech z OpenStreetMap a umožňuje je upravovat.
     da = MAPS.ME er en essentiel offline-app for rejsende. MAPS.ME er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.
     nl = MAPS.ME is een essentiële offline applicatie om te reizen. MAPS.ME is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.
     fi = MAPS.ME on ehdoton offline-sovellus matkoja varten. MAPS.ME perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.
@@ -21930,7 +21930,7 @@
     en = Use mobile internet to show detailed information?
     ru = Загружать дополнительную информацию через мобильный интернет?
     ar = استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟
-    cs = Použít mobilní internet ke zobrazení podrobnějších informací?
+    cs = Použít mobilní data k zobrazení podrobnějších informací?
     da = Skal mobilt internet bruges til at vise detaljerede oplysninger?
     nl = Mobiel internet gebruiken om gedetailleerde informatie weer te geven?
     fi = Näytetäänkö lisätiedot mobiili-internetillä?
@@ -22050,7 +22050,7 @@
     en = Mobile Internet
     ru = Мобильный интернет
     ar = انترنت المحمول
-    cs = Mobilní Internet
+    cs = Mobilní data
     da = Mobilt internet
     nl = Mobiel Internet
     fi = Mobiili-internet
@@ -24230,7 +24230,7 @@
     en = Claim this business
     ru = Я владелец компании
     ar = مطالبة هذه الشركة
-    cs = Zaregistruj si tento podnik
+    cs = Nárokovat tento podnik
     da = Denne virksomhed tilhører mig
     nl = Dit bedrijf claimen
     fi = Ilmoittaudu yrityksen omistajaksi
@@ -24511,7 +24511,7 @@
     en = Transliteration into Latin
     ru = Латинская транслитерация
     ar = كتابة بالحروف اللاتينية
-    cs = Transliterace do latinky
+    cs = Přepis do latinky
     da = Translitteration til latinsk
     nl = Transliteratie in het Latijn
     fi = Translitterointi latinaksi

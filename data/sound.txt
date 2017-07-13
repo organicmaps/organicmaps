@@ -37,7 +37,7 @@
     en = Turn right.
     ru = Поверните направо.
     ar = انعطف يمينا.
-    cs = Otočte se doprava.
+    cs = Odbočte vpravo.
     da = Drej til højre.
     nl = Sla rechtsaf.
     fi = Käänny oikealle.
@@ -136,7 +136,7 @@
     en = Exit from the roundabout.
     ru = Сверните с кольца.
     ar = اخرج من الدوار.
-    cs = Vyjeďte z kruhového objezdu.
+    cs = Opusťte kruhový objezd.
     da = Forlad rundkørslen.
     nl = Verlaat de rotonde.
     fi = Poistu liikenneympyrästä.
@@ -202,7 +202,7 @@
     en = Turn left.
     ru = Поверните налево.
     ar = انعطف يسارا.
-    cs = Otočte se doleva.
+    cs = Odbočte vlevo.
     da = Drej til venstre.
     nl = Sla linksaf.
     fi = Käänny vasemmalle.
@@ -268,7 +268,7 @@
     en = Make a u-turn.
     ru = Развернитесь.
     ar = انعطف بدوران كامل.
-    cs = Otočte se o sto osmdesát stupňů.
+    cs = Otočte se do protisměru.
     da = Vend om.
     nl = Keer om.
     fi = Tee U-käännös.
@@ -334,7 +334,7 @@
     en = You’ll arrive.
     ru = Вы прибудете в пункт назначения.
     ar = سوف تصل.
-    cs = Přijedete.
+    cs = Přijedete do cíle.
     da = Ankommer du.
     nl = Arriveert u.
     fi = Olet perillä.
@@ -367,7 +367,7 @@
     en = You have arrived.
     ru = Вы прибыли в пункт назначения.
     ar = لقد وصلت.
-    cs = Jste na místě.
+    cs = Jste v cíli.
     da = Du er ankommet.
     nl = Bestemming bereikt.
     fi = Olet saapunut.
