@@ -25,10 +25,7 @@ bool Info::IsBookmark() const { return m_bac.IsValid(); }
 bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::IsRoutePoint() const { return m_isRoutePoint; }
 bool Info::IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
-bool Info::IsNotEditableSponsored() const
-{
-  return m_sponsoredType != SponsoredType::None && m_sponsoredType != SponsoredType::Opentable;
-}
+bool Info::IsNotEditableSponsored() const { return m_sponsoredType == SponsoredType::Booking; }
 
 bool Info::ShouldShowAddPlace() const
 {
@@ -201,6 +198,9 @@ bool Info::HasBanner() const
   if (!m_adsEngine)
     return false;
 
+  if (m_sponsoredType == SponsoredType::Cian)
+    return false;
+
   if (IsMyPosition())
     return false;
 
@@ -225,4 +225,5 @@ vector<string> Info::GetRawTypes() const { return m_types.ToObjectNames(); }
 string const & Info::GetBookingSearchUrl() const { return m_bookingSearchUrl; }
 LocalAdsStatus Info::GetLocalAdsStatus() const { return m_localAdsStatus; }
 string const & Info::GetLocalAdsUrl() const { return m_localAdsUrl; }
+bool Info::IsPreviewExtended() const { return m_isPreviewExtended; }
 }  // namespace place_page

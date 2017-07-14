@@ -515,6 +515,15 @@ booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & po
   return nullptr;
 }
 
+viator::Api * Framework::GetViatorApi(platform::NetworkPolicy const & policy)
+{
+  ASSERT(m_viatorApi, ());
+  if (policy.CanUse())
+    return m_viatorApi.get();
+
+  return nullptr;
+}
+
 taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
 {
   ASSERT(m_taxiEngine, ());
@@ -524,11 +533,11 @@ taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
-viator::Api * Framework::GetViatorApi(platform::NetworkPolicy const & policy)
+cian::Api * Framework::GetCianApi(platform::NetworkPolicy const & policy)
 {
-  ASSERT(m_viatorApi, ());
+  ASSERT(m_cianApi, ());
   if (policy.CanUse())
-    return m_viatorApi.get();
+    return m_cianApi.get();
 
   return nullptr;
 }
@@ -879,6 +888,13 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
+
+  ASSERT(m_cityFinder, ());
+  auto const city =
+      m_cityFinder->GetCityName(feature::GetCenter(ft), StringUtf8Multilang::kEnglishCode);
+  feature::TypesHolder buildingHolder;
+  buildingHolder.Assign(classif().GetTypeByPath({"building"}));
+
   info.SetFromFeatureType(ft);
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
@@ -907,11 +923,18 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.m_sponsoredType = SponsoredType::Viator;
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId, info.GetDefaultName());
+    info.m_isPreviewExtended = true;
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
     info.m_bookingSearchUrl = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
     LOG(LINFO, (info.m_bookingSearchUrl));
+  }
+  else if (cian::Api::IsCitySupported(city) &&
+           (buildingHolder.Equals({ft}) || ftypes::IsPublicTransportStopChecker::Instance()(ft)))
+  {
+    info.m_sponsoredType = SponsoredType::Cian;
+    info.m_isPreviewExtended = true;
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();

@@ -522,6 +522,18 @@ IsViatorChecker const & IsViatorChecker::Instance()
   return inst;
 }
 
+IsPublicTransportStopChecker::IsPublicTransportStopChecker()
+{
+  m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));
+  m_types.push_back(classif().GetTypeByPath({"railway", "tram_stop"}));
+}
+
+IsPublicTransportStopChecker const & IsPublicTransportStopChecker::Instance()
+{
+  static IsPublicTransportStopChecker const inst;
+  return inst;
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();

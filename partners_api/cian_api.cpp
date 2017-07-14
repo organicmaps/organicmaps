@@ -3,10 +3,12 @@
 
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
 
+#include <unordered_set>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
@@ -15,6 +17,14 @@ using namespace platform;
 
 namespace
 {
+// Length of the rect side.
+double const kSideLength = 4000.0;
+
+std::unordered_set<std::string> const kSupportedCities
+{
+  "Moscow"
+};
+
 void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
 {
   my::Json root(src.c_str());
@@ -89,10 +99,13 @@ Api::~Api()
   m_worker.Shutdown(base::WorkerThread::Exit::SkipPending);
 }
 
-uint64_t Api::GetRentNearby(m2::RectD const & rect, RentNearbyCallback const & cb)
+uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb)
 {
   auto const reqId = ++m_requestId;
   auto const baseUrl = m_baseUrl;
+
+  auto const point = MercatorBounds::FromLatLon(latlon);
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, kSideLength);
 
   m_worker.Push([reqId, rect, cb, baseUrl]() {
     std::string rawResult;
@@ -117,5 +130,11 @@ uint64_t Api::GetRentNearby(m2::RectD const & rect, RentNearbyCallback const & c
   });
 
   return reqId;
+}
+
+// static
+bool Api::IsCitySupported(std::string const & city)
+{
+  return kSupportedCities.find(city) != kSupportedCities.cend();
 }
 }  // namespace cian

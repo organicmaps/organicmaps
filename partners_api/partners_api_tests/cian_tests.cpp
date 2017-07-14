@@ -20,12 +20,12 @@ UNIT_TEST(Cian_GetRentNearbyRaw)
 UNIT_TEST(Cian_GetRentNearby)
 {
   cian::Api api("http://localhost:34568/partners");
-  m2::RectD rect(37.501365, 55.805666, 37.509873, 55.809183);
+  ms::LatLon latlon(37.501365, 55.805666);
 
   std::vector<cian::RentPlace> result;
   uint64_t reqId = 0;
-  reqId = api.GetRentNearby(rect, [&reqId, &result](std::vector<cian::RentPlace> const & places,
-                                                    uint64_t const requestId) {
+  reqId = api.GetRentNearby(latlon, [&reqId, &result](std::vector<cian::RentPlace> const & places,
+                                                      uint64_t const requestId) {
     TEST_EQUAL(reqId, requestId, ());
     result = places;
     testing::StopEventLoop();

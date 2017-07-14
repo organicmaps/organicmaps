@@ -34,7 +34,8 @@ enum class SponsoredType
   Booking,
   Opentable,
   Geochat,
-  Viator
+  Viator,
+  Cian
 };
 
 enum class LocalAdsStatus
@@ -117,6 +118,8 @@ public:
 
   string const & GetLocalAdsUrl() const;
 
+  bool IsPreviewExtended() const;
+
   /// Comes from API, shared links etc.
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
@@ -174,5 +177,7 @@ public:
   string m_localAdsUrl;
 
   std::vector<taxi::Provider::Type> m_reachableByProviders;
+
+  bool m_isPreviewExtended;
 };
 }  // namespace place_page

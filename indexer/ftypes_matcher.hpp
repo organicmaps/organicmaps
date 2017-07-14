@@ -241,6 +241,14 @@ public:
   static IsViatorChecker const & Instance();
 };
 
+class IsPublicTransportStopChecker : public BaseChecker
+{
+  IsPublicTransportStopChecker();
+
+public:
+  static IsPublicTransportStopChecker const & Instance();
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// COUNTRY < STATE < CITY < ...
 enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };
