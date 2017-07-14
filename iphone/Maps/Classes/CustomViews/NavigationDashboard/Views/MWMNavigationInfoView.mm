@@ -110,16 +110,6 @@ BOOL defaultOrientation(CGSize const & size)
   }
 }
 
-- (CGFloat)leftHeight { return self.turnsView.maxY; }
-- (CGFloat)rightHeight { return self.streetNameView.hidden ? 0 : self.streetNameView.maxY; }
-- (CGFloat)bottom { return self.toastView.minY; }
-- (CGFloat)left
-{
-  auto sv = self.superview;
-  BOOL const isLandscape = sv.width > sv.height;
-  return isLandscape ? self.searchMainButton.maxX : 0;
-}
-
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
 - (void)updateToastView
 {

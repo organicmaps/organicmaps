@@ -22,10 +22,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
 
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) CGFloat leftHeight;
-@property(nonatomic, readonly) CGFloat rightHeight;
-@property(nonatomic, readonly) CGFloat bottom;
-@property(nonatomic, readonly) CGFloat left;
 @property(nonatomic, readonly) NavigationSearchState searchState;
 @property(nonatomic) MWMNavigationInfoViewState state;
 @property(weak, nonatomic) UIView * ownerView;

@@ -51,7 +51,5 @@ struct HotelFacility;
 - (void)show:(place_page::Info const &)info;
 - (void)close;
 - (void)mwm_refreshUI;
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 
 @end

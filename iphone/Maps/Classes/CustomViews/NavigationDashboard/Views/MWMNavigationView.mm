@@ -84,12 +84,4 @@
   [self setNeedsLayout];
 }
 
-- (CGFloat)visibleHeight
-{
-  CGFloat height = self.contentView.height;
-  if ([self.statusbarBackground.superview isEqual:self])
-    height += self.statusbarBackground.height;
-  return height;
-}
-
 @end
