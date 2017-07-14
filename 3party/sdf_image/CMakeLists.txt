@@ -1,10 +1,8 @@
 project(sdf_image)
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(
-    "-Wno-shorten-64-to-32"
-  )
-endif()
+add_clang_compile_options(
+  "-Wno-shorten-64-to-32"
+)
 
 set(
   SRC

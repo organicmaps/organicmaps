@@ -18,7 +18,7 @@ public:
   using UGCCallback = std::function<void(UGC const &)>;
   using UGCUpdateCallback = std::function<void(UGCUpdate const &)>;
 
-  explicit Api(Index const & index, std::string const & filename);
+  explicit Api(std::string const & filename);
 
   void GetUGC(FeatureID const & id, UGCCallback callback);
   void GetUGCUpdate(FeatureID const & id, UGCUpdateCallback callback);

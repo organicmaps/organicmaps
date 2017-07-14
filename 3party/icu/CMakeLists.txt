@@ -10,11 +10,9 @@ add_definitions(
   -DU_ENABLE_DYLOAD=0
 )
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(
-    "-Wno-deprecated-declarations"
-  )
-endif()
+add_clang_compile_options(
+  "-Wno-deprecated-declarations"
+)
 
 set(CMAKE_PREFIX_PATH ./)
 

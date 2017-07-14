@@ -2,11 +2,9 @@ project(minizip)
 
 add_definitions(-DUSE_FILE32ZPI -DNOCRYPT)
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(
-    "-Wno-unused-value"
-  )
-endif()
+add_clang_compile_options(
+  "-Wno-unused-value"
+)
 
 set(
   SRC

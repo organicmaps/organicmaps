@@ -262,6 +262,14 @@ function(link_qt5_network target)
   )
 endfunction()
 
+function(add_clang_compile_options options)
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(
+        ${options}
+    )
+  endif()
+endfunction()
+
 # End of functions for subdirectories
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)

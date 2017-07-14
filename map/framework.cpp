@@ -1484,7 +1484,7 @@ void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
-  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex(), "FILENAME_PLACEHOLDER");
+  m_ugcApi = make_unique<ugc::Api>("FILENAME_PLACEHOLDER");
 }
 
 void Framework::InitSearchEngine()
