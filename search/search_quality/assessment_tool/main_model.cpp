@@ -212,8 +212,8 @@ void MainModel::OnShowPositionClicked()
   CHECK(m_selectedSample != kInvalidIndex, ());
   CHECK(m_selectedSample < m_contexts.Size(), ());
 
-  static int constexpr kViewportAroundPositionSizeM = 100;
-  static double constexpr kScale = 1.2;
+  static int constexpr kViewportAroundTopResultsSizeM = 100;
+  static double constexpr kViewportAroundTopResultsScale = 1.2;
   static size_t constexpr kMaxTopResults = 3;
 
   auto const & context = m_contexts[m_selectedSample];
@@ -237,10 +237,10 @@ void MainModel::OnShowPositionClicked()
 
   CHECK(!points.empty(), ());
   auto boundingBox = m2::ApplyCalculator(points, m2::CalculateBoundingBox());
-  boundingBox.Scale(kScale);
+  boundingBox.Scale(kViewportAroundTopResultsScale);
 
-  auto const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(boundingBox.Center(),
-                                                                     kViewportAroundPositionSizeM);
+  auto const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+      boundingBox.Center(), kViewportAroundTopResultsSizeM);
   m_view->MoveViewportToRect(m2::Add(boundingBox, minRect));
 }
 
