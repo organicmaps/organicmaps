@@ -13,7 +13,7 @@ bool Edits::Editor::Set(Relevance relevance)
   return m_parent.SetRelevance(m_index, relevance);
 }
 
-Edits::Relevance Edits::Editor::Get() const
+Edits::MaybeRelevance Edits::Editor::Get() const
 {
   return m_parent.Get(m_index).m_curr;
 }
@@ -38,7 +38,7 @@ void Edits::Apply()
   });
 }
 
-void Edits::Reset(std::vector<Relevance> const & relevances)
+void Edits::Reset(std::vector<MaybeRelevance> const & relevances)
 {
   WithObserver(Update::MakeAll(), [this, &relevances]() {
     m_entries.resize(relevances.size());
@@ -61,12 +61,14 @@ bool Edits::SetRelevance(size_t index, Relevance relevance)
 
     auto & entry = m_entries[index];
 
-    if (entry.m_curr != entry.m_orig && relevance == entry.m_orig)
+    MaybeRelevance const r(relevance);
+
+    if (entry.m_curr != entry.m_orig && r == entry.m_orig)
       --m_numEdits;
-    else if (entry.m_curr == entry.m_orig && relevance != entry.m_orig)
+    else if (entry.m_curr == entry.m_orig && r != entry.m_orig)
       ++m_numEdits;
 
-    entry.m_curr = relevance;
+    entry.m_curr = r;
     return entry.m_curr != entry.m_orig;
   });
 }
@@ -125,9 +127,9 @@ Edits::Entry const & Edits::GetEntry(size_t index) const
   return m_entries[index];
 }
 
-std::vector<Edits::Relevance> Edits::GetRelevances() const
+std::vector<Edits::MaybeRelevance> Edits::GetRelevances() const
 {
-  std::vector<Relevance> relevances(m_entries.size());
+  std::vector<MaybeRelevance> relevances(m_entries.size());
   for (size_t i = 0; i < m_entries.size(); ++i)
     relevances[i] = m_entries[i].m_curr;
   return relevances;

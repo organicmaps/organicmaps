@@ -53,22 +53,22 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     {
       auto const & entry = nonFoundEntries[k++];
       auto const deleted = entry.m_deleted;
-      auto const relevance = entry.m_curr;
-      if (!deleted && relevance != search::Sample::Result::Relevance::Irrelevant)
+      auto const & curr = entry.m_curr;
+      if (!deleted && !curr.m_unknown)
       {
         auto result = m_sample.m_results[i];
-        result.m_relevance = relevance;
+        result.m_relevance = curr.m_relevance;
         outResults.push_back(result);
       }
       continue;
     }
 
     // No need to keep irrelevant results.
-    if (foundEntries[j].m_curr == search::Sample::Result::Relevance::Irrelevant)
+    if (foundEntries[j].m_curr.m_unknown)
       continue;
 
     auto result = m_sample.m_results[i];
-    result.m_relevance = foundEntries[j].m_curr;
+    result.m_relevance = foundEntries[j].m_curr.m_relevance;
     outResults.push_back(move(result));
   }
 
@@ -83,7 +83,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
     }
 
     // No need to keep irrelevant results.
-    if (foundEntries[i].m_curr == search::Sample::Result::Relevance::Irrelevant)
+    if (foundEntries[i].m_curr.m_unknown)
       continue;
 
     auto const & result = m_foundResults[i];
@@ -93,7 +93,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     FeatureType ft;
     CHECK(loader.Load(result.GetFeatureID(), ft), ());
-    outResults.push_back(search::Sample::Result::Build(ft, foundEntries[i].m_curr));
+    outResults.push_back(search::Sample::Result::Build(ft, foundEntries[i].m_curr.m_relevance));
   }
 
   return outSample;

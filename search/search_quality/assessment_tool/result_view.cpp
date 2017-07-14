@@ -71,11 +71,15 @@ void ResultView::SetEditor(Edits::Editor && editor)
   m_relevant->setChecked(false);
   m_vital->setChecked(false);
 
-  switch (m_editor->Get())
+  auto const & r = m_editor->Get();
+  if (!r.m_unknown)
   {
-  case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
-  case Relevance::Relevant: m_relevant->setChecked(true); break;
-  case Relevance::Vital: m_vital->setChecked(true); break;
+    switch (r.m_relevance)
+    {
+      case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
+      case Relevance::Relevant: m_relevant->setChecked(true); break;
+      case Relevance::Vital: m_vital->setChecked(true); break;
+    }
   }
 
   setEnabled(true);

@@ -141,7 +141,7 @@ void MainModel::OnSampleSelected(int index)
     search::SearchParams params;
     sample.FillSearchParams(params);
     params.m_onResults = [this, index, sample, timestamp](search::Results const & results) {
-      vector<Relevance> relevances;
+      vector<Edits::MaybeRelevance> relevances;
       vector<size_t> goldenMatching;
       vector<size_t> actualMatching;
 
@@ -153,14 +153,14 @@ void MainModel::OnSampleSelected(int index)
 
         vector<search::Result> const actual(results.begin(), results.end());
         matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
-        relevances.assign(actual.size(), Relevance::Irrelevant);
+        relevances.resize(actual.size());
         for (size_t i = 0; i < goldenMatching.size(); ++i)
         {
           auto const j = goldenMatching[i];
           if (j != search::Matcher::kInvalidId)
           {
             CHECK_LESS(j, relevances.size(), ());
-            relevances[j] = sample.m_results[i].m_relevance;
+            relevances[j] = Edits::MaybeRelevance(sample.m_results[i].m_relevance);
           }
         }
       }
@@ -312,7 +312,7 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Updat
 }
 
 void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
-                          vector<Relevance> const & relevances,
+                          vector<Edits::MaybeRelevance> const & relevances,
                           vector<size_t> const & goldenMatching,
                           vector<size_t> const & actualMatching)
 {
@@ -338,7 +338,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
     context.m_actualMatching = actualMatching;
 
     {
-      vector<Relevance> relevances;
+      vector<Edits::MaybeRelevance> relevances;
 
       auto & nonFound = context.m_nonFoundResults;
       CHECK(nonFound.empty(), ());
@@ -348,7 +348,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
         if (j != search::Matcher::kInvalidId)
           continue;
         nonFound.push_back(context.m_sample.m_results[i]);
-        relevances.push_back(nonFound.back().m_relevance);
+        relevances.emplace_back(nonFound.back().m_relevance);
       }
       context.m_nonFoundResultsEdits.Reset(relevances);
     }
