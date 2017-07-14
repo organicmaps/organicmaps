@@ -109,6 +109,8 @@ CGFloat const kMinOffset = 1;
 
 - (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
   self.availableArea = frame;
 
   UIScrollView * sv = self.scrollView;

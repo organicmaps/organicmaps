@@ -613,5 +613,4 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                  forState:UIControlStateSelected | UIControlStateHighlighted];
 }
 
-- (CGFloat)mainStateHeight { return self.mainButtonsHeight.constant; }
 @end

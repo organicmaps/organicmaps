@@ -88,6 +88,8 @@ CGFloat const kBottomOffset = 36;
 
 - (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
   self.availableArea = frame;
   [self updateContentLayout];
   place_page_layout::animate(^{

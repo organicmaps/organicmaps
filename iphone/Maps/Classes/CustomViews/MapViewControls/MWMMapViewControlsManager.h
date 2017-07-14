@@ -3,7 +3,6 @@
 #import "MWMSearchManager.h"
 
 #include "map/user_mark.hpp"
-#include "platform/location.hpp"
 
 @class MapViewController;
 @protocol MWMFeatureHolder;
@@ -50,10 +49,6 @@
 - (void)onRouteStart;
 - (void)onRouteStop;
 - (void)onRoutePointsUpdated;
-
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
-
-- (void)navigationDashBoardDidUpdate;
 
 #pragma mark - MWMSearchManager
 

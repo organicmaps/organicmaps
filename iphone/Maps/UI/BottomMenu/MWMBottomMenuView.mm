@@ -165,18 +165,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
       completion:^(BOOL finished) {
         [self updateVisibility];
       }];
-  [self noftifyBottomBoundChange];
   [self updateFonts];
   [self updateHeightProfile];
   [super layoutSubviews];
-}
-
-- (void)noftifyBottomBoundChange
-{
-  if (self.state == MWMBottomMenuStateHidden)
-    return;
-  CGFloat const height = self.superview.height - self.mainButtonsHeight.constant;
-  [MWMSideButtons buttons].bottomBound = height;
 }
 
 - (void)updateAlphaAndColor
@@ -750,6 +741,13 @@ CGFloat constexpr kTimeWidthRegular = 128;
 #pragma mark - AvailableArea / WidgetsArea
 
 - (MWMAvailableAreaAffectDirections)widgetsAreaAffectDirections
+{
+  return MWMAvailableAreaAffectDirectionsBottom;
+}
+
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
 {
   return MWMAvailableAreaAffectDirectionsBottom;
 }

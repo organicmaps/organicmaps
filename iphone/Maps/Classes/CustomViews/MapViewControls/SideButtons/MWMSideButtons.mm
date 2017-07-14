@@ -49,7 +49,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 @property(nonatomic) BOOL zoomSwipeEnabled;
 @property(nonatomic, readonly) BOOL isZoomEnabled;
 
-@property(nonatomic) location::EMyPositionMode locationMode;
+@property(nonatomic) MWMMyPositionMode locationMode;
 
 @end
 
@@ -64,16 +64,13 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
     [[NSBundle mainBundle] loadNibNamed:kMWMSideButtonsViewNibName owner:self options:nil];
     [view addSubview:self.sideView];
     [self.sideView setNeedsLayout];
-    self.sideView.topBound = 0.0;
-    self.sideView.bottomBound = view.height;
     self.zoomSwipeEnabled = NO;
     self.zoomHidden = NO;
   }
   return self;
 }
 
-- (void)setTopBound:(CGFloat)bound { self.sideView.topBound = bound; }
-- (void)setBottomBound:(CGFloat)bound { self.sideView.bottomBound = bound; }
++ (void)updateAvailableArea:(CGRect)frame { [[self buttons].sideView updateAvailableArea:frame]; }
 - (void)zoomIn
 {
   [Statistics logEvent:kStatEventName(kStatZoom, kStatIn)];
@@ -95,32 +92,33 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
   [self refreshLocationButtonState:self.locationMode];
 }
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
+- (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
   [locBtn.imageView stopAnimating];
 
   NSArray<UIImage *> * images =
-      ^NSArray<UIImage *> *(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
+      ^NSArray<UIImage *> *(MWMMyPositionMode oldMode, MWMMyPositionMode newMode)
   {
     switch (newMode)
     {
-    case location::NotFollow:
-    case location::NotFollowNoPosition:
-      if (oldMode == location::FollowAndRotate)
+    case MWMMyPositionModeNotFollow:
+    case MWMMyPositionModeNotFollowNoPosition:
+      if (oldMode == MWMMyPositionModeFollowAndRotate)
         return animationImages(@"btn_follow_and_rotate_to_get_position", 3);
-      else if (oldMode == location::Follow)
+      else if (oldMode == MWMMyPositionModeFollow)
         return animationImages(@"btn_follow_to_get_position", 3);
       return nil;
-    case location::Follow:
-      if (oldMode == location::FollowAndRotate)
+    case MWMMyPositionModeFollow:
+      if (oldMode == MWMMyPositionModeFollowAndRotate)
         return animationImages(@"btn_follow_and_rotate_to_follow", 3);
-      else if (oldMode == location::NotFollow || oldMode == location::NotFollowNoPosition)
+      else if (oldMode == MWMMyPositionModeNotFollow ||
+               oldMode == MWMMyPositionModeNotFollowNoPosition)
         return animationImages(@"btn_get_position_to_follow", 3);
       return nil;
-    case location::PendingPosition: return nil;
-    case location::FollowAndRotate:
-      if (oldMode == location::Follow)
+    case MWMMyPositionModePendingPosition: return nil;
+    case MWMMyPositionModeFollowAndRotate:
+      if (oldMode == MWMMyPositionModeFollow)
         return animationImages(@"btn_follow_to_follow_and_rotate", 3);
       return nil;
     }
@@ -140,7 +138,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
 
 #pragma mark - Location button
 
-- (void)refreshLocationButtonState:(location::EMyPositionMode)state
+- (void)refreshLocationButtonState:(MWMMyPositionMode)state
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     if (self.locationButton.imageView.isAnimating)
@@ -152,7 +150,7 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
       MWMButton * locBtn = self.locationButton;
       switch (state)
       {
-      case location::PendingPosition:
+      case MWMMyPositionModePendingPosition:
       {
         NSArray<UIImage *> * images = animationImages(@"btn_pending", 12);
         locBtn.imageView.animationDuration = 1.2;
@@ -162,10 +160,10 @@ NSArray<UIImage *> * animationImages(NSString * animationTemplate, NSUInteger im
         [locBtn.imageView startAnimating];
         break;
       }
-      case location::NotFollow:
-      case location::NotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
-      case location::Follow: locBtn.imageName = @"btn_follow"; break;
-      case location::FollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
+      case MWMMyPositionModeNotFollow:
+      case MWMMyPositionModeNotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
+      case MWMMyPositionModeFollow: locBtn.imageName = @"btn_follow"; break;
+      case MWMMyPositionModeFollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
       }
     }
   });

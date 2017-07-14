@@ -166,6 +166,9 @@
 		3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
 		3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
 		3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFDD1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
+		3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
+		3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
@@ -1743,6 +1746,7 @@
 		3444DFCB1F1760B900E73099 /* WidgetsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
 		3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgetsHelper.h; sourceTree = "<group>"; };
 		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
+		3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideButtonsArea.swift; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		344D63161E795A2D006F17CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -3419,6 +3423,7 @@
 				34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */,
 				34E7761D1F14DB48003040B3 /* PlacePageArea.swift */,
 				3444DFCB1F1760B900E73099 /* WidgetsArea.swift */,
+				3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */,
 			);
 			path = AvailableArea;
 			sourceTree = "<group>";
@@ -5573,6 +5578,7 @@
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C121E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
+				3444DFDD1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4ED1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25A91EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				3454D7D91E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
@@ -5885,6 +5891,7 @@
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
+				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
@@ -6197,6 +6204,7 @@
 				849CF7651DE842290024A8A5 /* ColorPickerView.mm in Sources */,
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C141E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
+				3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3454D7DE1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
 				3451F4EF1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25AB1EFA726400F870AB /* ViatorItemModel.swift in Sources */,

@@ -106,7 +106,6 @@ BOOL defaultOrientation(CGSize const & size)
   if (!CGRectEqualToRect(self.frame, self.defaultFrame))
   {
     self.frame = self.defaultFrame;
-    [[MWMMapViewControlsManager manager] navigationDashBoardDidUpdate];
     [self setNeedsLayout];
   }
 }

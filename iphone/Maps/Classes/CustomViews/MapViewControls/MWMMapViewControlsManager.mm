@@ -104,13 +104,6 @@ extern NSString * const kAlohalyticsTapEventKey;
                                                   : UIStatusBarStyleDefault;
 }
 
-#pragma mark - My Position
-
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
-{
-  [self.sideButtons processMyPositionStateModeEvent:mode];
-}
-
 #pragma mark - Layout
 
 - (void)mwm_refreshUI
@@ -298,20 +291,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   else
   {
     CGFloat const bound = newFrame.origin.y + newFrame.size.height;
-    self.sideButtons.topBound = bound;
     self.trafficButton.topBound = bound;
   }
-}
-
-- (void)navigationDashBoardDidUpdate
-{
-  auto nm = self.navigationManager;
-  if (IPAD)
-    return;
-  auto const topBound = self.topBound + nm.rightTop;
-  auto const bottomBound = nm.bottom;
-  [self.sideButtons setTopBound:topBound];
-  [self.sideButtons setBottomBound:bottomBound];
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
@@ -383,7 +364,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
-  [self navigationDashBoardDidUpdate];
 }
 
 - (void)onRoutePointsUpdated { [self.navigationManager onRoutePointsUpdated]; }
@@ -494,7 +474,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     return;
   _topBound = topBound;
-  self.sideButtons.topBound = topBound;
   self.navigationManager.topBound = topBound;
   self.trafficButton.topBound = topBound;
 }

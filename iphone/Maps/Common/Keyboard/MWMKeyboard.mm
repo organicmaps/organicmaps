@@ -62,37 +62,44 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 #pragma mark - Notifications
 
-- (void)keyboardWillShow:(NSNotification *)notification
+- (void)onKeyboardWillAnimate
 {
-  for (TObserver observer in self.observers)
+  TObservers * observers = self.observers.copy;
+  for (TObserver observer in observers)
   {
     if ([observer respondsToSelector:@selector(onKeyboardWillAnimate)])
       [observer onKeyboardWillAnimate];
   }
+}
+
+- (void)onKeyboardAnimation
+{
+  TObservers * observers = self.observers.copy;
+  for (TObserver observer in observers)
+    [observer onKeyboardAnimation];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  [self onKeyboardWillAnimate];
   CGSize const keyboardSize =
       [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   self.keyboardHeight = MIN(keyboardSize.height, keyboardSize.width);
   NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
   [UIView animateWithDuration:rate.floatValue
                    animations:^{
-                     for (TObserver observer in self.observers)
-                       [observer onKeyboardAnimation];
+                     [self onKeyboardAnimation];
                    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-  for (TObserver observer in self.observers)
-  {
-    if ([observer respondsToSelector:@selector(onKeyboardWillAnimate)])
-      [observer onKeyboardWillAnimate];
-  }
+  [self onKeyboardWillAnimate];
   self.keyboardHeight = 0;
   NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
   [UIView animateWithDuration:rate.floatValue
                    animations:^{
-                     for (TObserver observer in self.observers)
-                       [observer onKeyboardAnimation];
+                     [self onKeyboardAnimation];
                    }];
 }
 

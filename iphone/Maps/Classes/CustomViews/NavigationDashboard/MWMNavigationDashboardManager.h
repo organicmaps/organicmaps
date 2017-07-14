@@ -39,10 +39,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @property(weak, nonatomic, readonly) id<MWMNavigationDashboardManagerProtocol> delegate;
 @property(nonatomic) CGFloat topBound;
 @property(nonatomic) CGFloat leftBound;
-@property(nonatomic, readonly) CGFloat leftTop;
-@property(nonatomic, readonly) CGFloat rightTop;
-@property(nonatomic, readonly) CGFloat bottom;
-@property(nonatomic, readonly) CGFloat left;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view

@@ -3,6 +3,8 @@ class AvailableArea: UIView {
     static let observeKeyPath = "sublayers"
   }
 
+  var deferNotification: Bool { return true }
+
   private var affectingViews = Set<UIView>()
 
   override func didMoveToSuperview() {
@@ -74,9 +76,13 @@ class AvailableArea: UIView {
 
   @objc
   private func scheduleNotification() {
-    let selector = #selector(notifyObserver)
-    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
-    perform(selector, with: nil, afterDelay: 0)
+    if deferNotification {
+      let selector = #selector(notifyObserver)
+      NSObject.cancelPreviousPerformRequests(withTarget: self, selector: selector, object: nil)
+      perform(selector, with: nil, afterDelay: 0)
+    } else {
+      notifyObserver()
+    }
   }
 
   func isAreaAffectingView(_ other: UIView) -> Bool { return false }

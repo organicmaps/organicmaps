@@ -258,8 +258,7 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound
 {
-  self.ownerViewController.visibleAreaBottomOffset = bound;
-  [[MWMSideButtons buttons] setBottomBound:self.ownerViewController.view.height - bound];
+  [self.ownerViewController setPlacePageTopBound:bound];
   [self.layout checkCellsVisible];
 }
 

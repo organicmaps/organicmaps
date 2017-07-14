@@ -104,4 +104,11 @@ CGFloat const kTableViewTopInset = -36;
   return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
 }
 
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsNone : MWMAvailableAreaAffectDirectionsBottom;
+}
+
 @end

@@ -46,6 +46,8 @@
 
 - (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
   self.availableArea = frame;
   if (m_skin == nullptr)
     return;
