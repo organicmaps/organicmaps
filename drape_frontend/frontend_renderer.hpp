@@ -293,6 +293,7 @@ private:
 
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
+  uint64_t m_maxUserMarksGeneration;
   int m_mergeBucketsCounter = 0;
 
   int m_lastRecacheRouteId = 0;
@@ -324,6 +325,7 @@ private:
   OverlaysShowStatsCallback m_overlaysShowStatsCallback;
 
   bool m_forceUpdateScene;
+  bool m_forceUpdateUserMarks;
 
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
 

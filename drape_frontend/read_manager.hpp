@@ -40,7 +40,8 @@ public:
   void Start();
   void Stop();
 
-  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
+  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
+                      bool forceUpdate, bool forceUpdateUserMarks,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng,
                       ref_ptr<MetalineManager> metalineMng);
   void Invalidate(TTilesCollection const & keyStorage);
@@ -93,6 +94,7 @@ private:
   int m_counter;
   std::mutex m_finishedTilesMutex;
   uint64_t m_generationCounter;
+  uint64_t m_userMarksGenerationCounter;
 
   using TTileInfoCollection = buffer_vector<std::shared_ptr<TileInfo>, 8>;
   TTilesCollection m_activeTiles;
@@ -102,6 +104,6 @@ private:
   void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);
   void IncreaseCounter(int value);
-  void CheckFinishedTiles(TTileInfoCollection const & requestedTiles);
+  void CheckFinishedTiles(TTileInfoCollection const & requestedTiles, bool forceUpdateUserMarks);
 };
 }  // namespace df

@@ -113,9 +113,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         ScreenBase screen;
         bool have3dBuildings;
         bool forceRequest;
-        m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest);
-        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, tiles, m_texMng,
-                                      make_ref(m_metalineManager));
+        bool forceUserMarksRequest;
+        m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest, forceUserMarksRequest);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, forceUserMarksRequest,
+                                      tiles, m_texMng, make_ref(m_metalineManager));
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -175,8 +176,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
+      if (msg->NeedForceUpdateUserMarks())
+      {
+        for (auto const & tileKey : msg->GetTiles())
+          m_userMarkGenerator->GenerateUserMarksGeometry(tileKey, m_texMng);
+      }
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles()),
+                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles(),
+                                                                      msg->NeedForceUpdateUserMarks()),
                                 MessagePriority::Normal);
       break;
     }

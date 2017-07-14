@@ -74,6 +74,7 @@ public:
   bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
   bool IsOverlay() const;
+  bool IsUserMark() const;
 
 private:
   std::vector<drape_ptr<dp::RenderBucket>> m_renderBuckets;

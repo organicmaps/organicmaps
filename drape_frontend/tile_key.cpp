@@ -23,10 +23,12 @@ TileKey::TileKey(int x, int y, int zoomLevel)
     m_generation(0)
 {}
 
-TileKey::TileKey(TileKey const & key, uint64_t generation)
-  : m_x(key.m_x), m_y(key.m_y),
-    m_zoomLevel(key.m_zoomLevel),
-    m_generation(generation)
+TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration)
+  : m_x(key.m_x)
+  , m_y(key.m_y)
+  , m_zoomLevel(key.m_zoomLevel)
+  , m_generation(generation)
+  , m_userMarksGeneration(userMarksGeneration)
 {}
 
 bool TileKey::operator <(TileKey const & other) const
@@ -49,6 +51,9 @@ bool TileKey::operator ==(TileKey const & other) const
 
 bool TileKey::LessStrict(TileKey const & other) const
 {
+  if (m_userMarksGeneration != other.m_userMarksGeneration)
+    return m_userMarksGeneration < other.m_userMarksGeneration;
+
   if (m_generation != other.m_generation)
     return m_generation < other.m_generation;
 
@@ -66,7 +71,8 @@ bool TileKey::EqualStrict(TileKey const & other) const
   return m_x == other.m_x &&
          m_y == other.m_y &&
          m_zoomLevel == other.m_zoomLevel &&
-         m_generation == other.m_generation;
+         m_generation == other.m_generation &&
+         m_userMarksGeneration == other.m_userMarksGeneration;
 }
 
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
@@ -97,7 +103,8 @@ std::string DebugPrint(TileKey const & key)
 {
   std::ostringstream out;
   out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
-      << key.m_zoomLevel << ", gen = " << key.m_generation << "]";
+      << key.m_zoomLevel << ", gen = " << key.m_generation
+      << ", user marks gen = " << key.m_userMarksGeneration << "]";
   return out.str();
 }
 }  // namespace df

@@ -158,6 +158,12 @@ bool RenderGroup::IsOverlay() const
          (m_state.GetDepthLayer() == dp::GLState::NavigationLayer && HasOverlayHandles());
 }
 
+bool RenderGroup::IsUserMark() const
+{
+  return m_state.GetDepthLayer() == dp::GLState::UserLineLayer ||
+      m_state.GetDepthLayer() == dp::GLState::UserMarkLayer;
+}
+
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
 {
   if (!IsPendingOnDelete())

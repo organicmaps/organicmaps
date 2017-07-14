@@ -55,6 +55,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_tasksPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
+  , m_userMarksGenerationCounter(0)
 {
   Start();
 }
@@ -103,7 +104,8 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
       TTilesCollection tiles;
       tiles.emplace(t->GetTileKey());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<FinishTileReadMessage>(std::move(tiles)),
+                                make_unique_dp<FinishTileReadMessage>(std::move(tiles),
+                                                                      false /* forceUpdateUserMarks */),
                                 MessagePriority::Normal);
     }
   }
@@ -112,8 +114,8 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   m_tasksPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen,
-                                 bool have3dBuildings, bool forceUpdate,
+void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
+                                 bool forceUpdate, bool forceUpdateUserMarks,
                                  TTilesCollection const & tiles,
                                  ref_ptr<dp::TextureManager> texMng,
                                  ref_ptr<MetalineManager> metalineMng)
@@ -130,7 +132,8 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen,
     m_tileInfos.clear();
 
     IncreaseCounter(static_cast<int>(tiles.size()));
-    m_generationCounter++;
+    ++m_generationCounter;
+    ++m_userMarksGenerationCounter;
 
     for (auto const & tileKey : tiles)
       PushTaskBackForTileKey(tileKey, texMng, metalineMng);
@@ -159,7 +162,9 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen,
                         std::back_inserter(readyTiles), LessCoverageCell());
 
     IncreaseCounter(static_cast<int>(newTiles.size()));
-    CheckFinishedTiles(readyTiles);
+    if (forceUpdateUserMarks)
+      ++m_userMarksGenerationCounter;
+    CheckFinishedTiles(readyTiles, forceUpdateUserMarks);
     for (auto const & tileKey : newTiles)
       PushTaskBackForTileKey(tileKey, texMng, metalineMng);
   }
@@ -214,7 +219,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
-  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
+  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
                                                m_commutator, texMng, metalineMng,
                                                m_customSymbolsContext,
                                                m_have3dBuildings && m_allow3dBuildings,
@@ -231,7 +236,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
   m_pool->PushBack(task);
 }
 
-void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
+void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles, bool forceUpdateUserMarks)
 {
   if (requestedTiles.empty())
     return;
@@ -243,13 +248,14 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
   for (auto const & tile : requestedTiles)
   {
     if (m_activeTiles.find(tile->GetTileKey()) == m_activeTiles.end())
-      finishedTiles.emplace(tile->GetTileKey());
+      finishedTiles.emplace(tile->GetTileKey(), m_generationCounter, m_userMarksGenerationCounter);
   }
 
   if (!finishedTiles.empty())
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<FinishTileReadMessage>(std::move(finishedTiles)),
+                              make_unique_dp<FinishTileReadMessage>(std::move(finishedTiles),
+                                                                    forceUpdateUserMarks),
                               MessagePriority::Normal);
   }
 }

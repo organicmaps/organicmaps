@@ -130,11 +130,13 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
+  , m_maxUserMarksGeneration(0)
   , m_needRestoreSize(false)
   , m_trafficEnabled(params.m_trafficEnabled)
   , m_overlaysTracker(new OverlaysTracker())
   , m_overlaysShowStatsCallback(std::move(params.m_overlaysShowStatsCallback))
   , m_forceUpdateScene(false)
+  , m_forceUpdateUserMarks(false)
   , m_postprocessRenderer(new PostprocessRenderer())
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
@@ -750,12 +752,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetSimplifiedTrafficColors:
   case Message::SetDisplacementMode:
   case Message::UpdateMetalines:
-  case Message::InvalidateUserMarks:
     {
       m_forceUpdateScene = true;
       break;
     }
-
+  case Message::InvalidateUserMarks:
+    {
+      auto removePredicate = [](drape_ptr<RenderGroup> const & group)
+      {
+        RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(group->GetState());
+        return id == RenderLayer::UserLineID || id == RenderLayer::UserMarkID;
+      };
+      RemoveRenderGroupsLater(removePredicate);
+      m_forceUpdateUserMarks = true;
+      break;
+    }
   case Message::FlushTrafficData:
     {
       if (!m_trafficEnabled)
@@ -851,7 +862,8 @@ void FrontendRenderer::UpdateGLResources()
   ScreenBase screen = m_userEventStream.GetCurrentScreen();
   m_lastReadedModelView = screen;
   m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
-                        m_forceUpdateScene, ResolveTileKeys(screen));
+                        m_forceUpdateScene, m_forceUpdateUserMarks,
+                        ResolveTileKeys(screen));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::UberHighSingleton);
@@ -916,7 +928,8 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
     // Request new tiles.
     m_lastReadedModelView = screen;
-    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), m_forceUpdateScene,
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(),
+                          m_forceUpdateScene, m_forceUpdateUserMarks,
                           ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
@@ -999,6 +1012,9 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
 
   if (tileKey.m_generation > m_maxGeneration)
     m_maxGeneration = tileKey.m_generation;
+
+  if (tileKey.m_userMarksGeneration > m_maxUserMarksGeneration)
+    m_maxUserMarksGeneration = tileKey.m_userMarksGeneration;
 
   auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
   {
@@ -1833,7 +1849,7 @@ void FrontendRenderer::Routine::Do()
 
     m_renderer.RenderScene(modelView);
 
-    if (modelViewChanged || m_renderer.m_forceUpdateScene)
+    if (modelViewChanged || m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks)
       m_renderer.UpdateScene(modelView);
 
     isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
@@ -1991,22 +2007,27 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   {
     uint32_t const kMaxGenerationRange = 5;
     TileKey const & key = group->GetTileKey();
+
     return (group->IsOverlay() && key.m_zoomLevel > m_currentZoomLevel) ||
-            (m_maxGeneration - key.m_generation > kMaxGenerationRange);
+           (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
+           (group->IsUserMark() &&
+            (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
   };
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  if (m_forceUpdateScene || m_lastReadedModelView != modelView)
+  if (m_forceUpdateScene || m_forceUpdateUserMarks || m_lastReadedModelView != modelView)
   {
     EmitModelViewChanged(modelView);
     m_lastReadedModelView = modelView;
-    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), m_forceUpdateScene,
+    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(),
+                          m_forceUpdateScene, m_forceUpdateUserMarks,
                           ResolveTileKeys(modelView));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
     m_forceUpdateScene = false;
+    m_forceUpdateUserMarks = false;
   }
 }
 

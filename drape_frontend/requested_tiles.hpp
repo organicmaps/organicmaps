@@ -14,9 +14,10 @@ class RequestedTiles
 public:
   RequestedTiles() = default;
   void Set(ScreenBase const & screen, bool have3dBuildings, bool forceRequest,
-           TTilesCollection && tiles);
+           bool forceUserMarksRequest, TTilesCollection && tiles);
   TTilesCollection GetTiles();
-  void GetParams(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest);
+  void GetParams(ScreenBase & screen, bool & have3dBuildings,
+                 bool & forceRequest, bool & forceUserMarksRequest);
   bool CheckTileKey(TileKey const & tileKey) const;
 
 private:
@@ -24,6 +25,7 @@ private:
   ScreenBase m_screen;
   bool m_have3dBuildings = false;
   bool m_forceRequest = false;
+  bool m_forceUserMarksRequest = false;
   mutable mutex m_mutex;
 };
 
