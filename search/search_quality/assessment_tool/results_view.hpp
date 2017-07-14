@@ -30,6 +30,7 @@ public:
   void Update(Edits::Update const & update);
 
   size_t Size() const { return m_results.size(); }
+  bool HasResultsWithPoints() const { return m_hasResultsWithPoints; }
 
   void Clear();
 
@@ -41,4 +42,5 @@ private:
   void AddImpl(Result const & result, bool hidden);
 
   std::vector<ResultView *> m_results;
+  bool m_hasResultsWithPoints = false;
 };

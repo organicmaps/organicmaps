@@ -167,7 +167,6 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
     m_langs->show();
   }
   m_showViewport->setEnabled(true);
-  m_showPosition->setEnabled(positionAvailable);
 
   m_relatedQueries->clear();
   for (auto const & query : sample.m_relatedQueries)
@@ -176,15 +175,41 @@ void SampleView::SetContents(search::Sample const & sample, bool positionAvailab
     m_relatedQueriesBox->show();
 
   ClearAllResults();
-  if (positionAvailable)
+  m_positionAvailable = positionAvailable;
+  if (m_positionAvailable)
     ShowUserPosition(position);
   else
     HideUserPosition();
 }
 
-void SampleView::OnSearchStarted() { m_spinner->Show(); }
+void SampleView::OnSearchStarted()
+{
+  m_spinner->Show();
+  m_showPosition->setEnabled(false);
+}
 
-void SampleView::OnSearchCompleted() { m_spinner->Hide(); }
+void SampleView::OnSearchCompleted()
+{
+  m_spinner->Hide();
+  auto const resultsAvailable = m_foundResults->HasResultsWithPoints();
+  if (m_positionAvailable)
+  {
+    if (resultsAvailable)
+      m_showPosition->setText(tr("Show position and top results"));
+    else
+      m_showPosition->setText(tr("Show position"));
+    m_showPosition->setEnabled(true);
+  }
+  else if (resultsAvailable)
+  {
+    m_showPosition->setText(tr("Show results"));
+    m_showPosition->setEnabled(true);
+  }
+  else
+  {
+    m_showPosition->setEnabled(false);
+  }
+}
 
 void SampleView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
@@ -273,6 +298,7 @@ void SampleView::Clear()
 
   ClearAllResults();
   HideUserPosition();
+  m_positionAvailable = false;
   OnSearchCompleted();
 }
 

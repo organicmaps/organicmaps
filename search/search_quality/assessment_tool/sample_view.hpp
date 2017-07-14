@@ -83,4 +83,6 @@ private:
 
   QMargins m_rightAreaMargins;
   QMargins m_defaultMargins;
+
+  bool m_positionAvailable = false;
 };

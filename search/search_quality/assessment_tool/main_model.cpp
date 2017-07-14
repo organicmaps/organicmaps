@@ -8,6 +8,7 @@
 
 #include "search/search_params.hpp"
 
+#include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -212,14 +213,35 @@ void MainModel::OnShowPositionClicked()
   CHECK(m_selectedSample < m_contexts.Size(), ());
 
   static int constexpr kViewportAroundPositionSizeM = 100;
+  static double constexpr kScale = 1.2;
+  static size_t constexpr kMaxTopResults = 3;
 
   auto const & context = m_contexts[m_selectedSample];
-  CHECK(context.m_sample.m_posAvailable, ());
 
-  auto const & position = context.m_sample.m_pos;
-  auto const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(position, kViewportAroundPositionSizeM);
-  m_view->MoveViewportToRect(rect);
+  vector<m2::PointD> points;
+  if (context.m_sample.m_posAvailable)
+    points.push_back(context.m_sample.m_pos);
+
+  size_t resultsAdded = 0;
+  for (auto const & result : context.m_foundResults)
+  {
+    if (!result.HasPoint())
+      continue;
+
+    if (resultsAdded == kMaxTopResults)
+      break;
+
+    points.push_back(result.GetFeatureCenter());
+    ++resultsAdded;
+  }
+
+  CHECK(!points.empty(), ());
+  auto boundingBox = m2::ApplyCalculator(points, m2::CalculateBoundingBox());
+  boundingBox.Scale(kScale);
+
+  auto const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(boundingBox.Center(),
+                                                                     kViewportAroundPositionSizeM);
+  m_view->MoveViewportToRect(m2::Add(boundingBox, minRect));
 }
 
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }

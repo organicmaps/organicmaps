@@ -1,5 +1,6 @@
 #include "search/search_quality/assessment_tool/results_view.hpp"
 
+#include "search/result.hpp"
 #include "search/search_quality/assessment_tool/result_view.hpp"
 
 #include "base/assert.hpp"
@@ -22,6 +23,8 @@ ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent) { setAlternati
 void ResultsView::Add(search::Result const & result)
 {
   AddImpl(result, false /* hidden */);
+  if (result.HasPoint())
+    m_hasResultsWithPoints = true;
 }
 
 void ResultsView::Add(search::Sample::Result const & result, Edits::Entry const & entry)
@@ -81,6 +84,7 @@ void ResultsView::Update(Edits::Update const & update)
 void ResultsView::Clear()
 {
   m_results.clear();
+  m_hasResultsWithPoints = false;
   clear();
 }
 

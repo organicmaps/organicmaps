@@ -344,7 +344,7 @@ void MainView::Open()
     return;
 
   auto const name = QFileDialog::getOpenFileName(this /* parent */, tr("Open samples..."),
-                                                 QString() /* dir */, tr(kJSON));
+                                                 QString() /* dir */, kJSON);
   auto const file = name.toStdString();
   if (file.empty())
     return;
@@ -357,7 +357,7 @@ void MainView::Save() { m_model->Save(); }
 void MainView::SaveAs()
 {
   auto const name = QFileDialog::getSaveFileName(this /* parent */, tr("Save samples as..."),
-                                                 QString() /* dir */, tr(kJSON));
+                                                 QString() /* dir */, kJSON);
   auto const file = name.toStdString();
   if (!file.empty())
     m_model->SaveAs(file);
