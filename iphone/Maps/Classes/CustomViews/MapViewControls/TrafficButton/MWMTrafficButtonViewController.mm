@@ -10,8 +10,7 @@
 
 namespace
 {
-CGFloat const kTopOffset = 26;
-CGFloat const kTopShiftedOffset = 6;
+CGFloat const kTopOffset = 6;
 
 NSArray<UIImage *> * imagesWithName(NSString * name)
 {
@@ -37,6 +36,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
+@property(nonatomic) CGRect availableArea;
 
 @end
 
@@ -97,31 +97,15 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   [self refreshLayout];
 }
 
-- (void)setTopBound:(CGFloat)topBound
-{
-  if (_topBound == topBound)
-    return;
-  _topBound = topBound;
-  [self refreshLayout];
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  if (_leftBound == leftBound)
-    return;
-  _leftBound = leftBound;
-  [self refreshLayout];
-}
-
 - (void)refreshLayout
 {
   runAsyncOnMainQueue(^{
-    CGFloat const topOffset = self.topBound > 0 ? self.topBound + kTopShiftedOffset : kTopOffset;
-    CGFloat const leftOffset =
-        self.hidden ? -self.view.width : self.leftBound + kViewControlsOffsetToBounds;
+    auto const availableArea = self.availableArea;
+    auto const leftOffset =
+        self.hidden ? -self.view.width : availableArea.origin.x + kViewControlsOffsetToBounds;
     UIView * ov = self.view.superview;
     [ov setNeedsLayout];
-    self.topOffset.constant = topOffset;
+    self.topOffset.constant = availableArea.origin.y + kTopOffset;
     self.leftOffset.constant = leftOffset;
     [UIView animateWithDuration:kDefaultAnimationDuration
                      animations:^{
@@ -172,12 +156,22 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     break;
   }
 }
+
 - (IBAction)buttonTouchUpInside
 {
   if ([MWMTrafficManager state] == TrafficManager::TrafficState::Disabled)
     [MWMTrafficManager enableTraffic:YES];
   else
     [MWMTrafficManager enableTraffic:NO];
+}
+
++ (void)updateAvailableArea:(CGRect)frame
+{
+  auto controller = [self controller];
+  if (CGRectEqualToRect(controller.availableArea, frame))
+    return;
+  controller.availableArea = frame;
+  [controller refreshLayout];
 }
 
 #pragma mark - MWMTrafficManagerObserver

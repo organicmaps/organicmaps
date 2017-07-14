@@ -339,4 +339,11 @@ CGFloat constexpr kAdditionalHeight = 20.;
   return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
 }
 
+#pragma mark - AvailableArea / TrafficButtonArea
+
+- (MWMAvailableAreaAffectDirections)trafficButtonAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
+}
+
 @end

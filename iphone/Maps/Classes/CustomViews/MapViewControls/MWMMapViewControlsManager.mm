@@ -283,16 +283,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)routePreviewDidChangeFrame:(CGRect)newFrame
 {
   if (IPAD)
-  {
-    CGFloat const bound = newFrame.origin.x + newFrame.size.width;
-    self.navigationManager.leftBound = bound;
-    self.trafficButton.leftBound = bound;
-  }
-  else
-  {
-    CGFloat const bound = newFrame.origin.y + newFrame.size.height;
-    self.trafficButton.topBound = bound;
-  }
+    self.navigationManager.leftBound = newFrame.origin.x + newFrame.size.width;
 }
 
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
@@ -475,7 +466,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   _topBound = topBound;
   self.navigationManager.topBound = topBound;
-  self.trafficButton.topBound = topBound;
 }
 
 - (void)setLeftBound:(CGFloat)leftBound
@@ -484,8 +474,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     return;
   if ([MWMRouter isRoutingActive])
     return;
-  _leftBound = self.navigationManager.leftBound = self.menuController.leftBound =
-      self.trafficButton.leftBound = leftBound;
+  _leftBound = self.navigationManager.leftBound = self.menuController.leftBound = leftBound;
 }
 
 - (BOOL)searchHidden { return self.searchManager.state == MWMSearchManagerStateHidden; }

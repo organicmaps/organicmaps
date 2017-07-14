@@ -577,6 +577,9 @@
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34F742331E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
+		34FE5A6E1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		34FE5A701F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
 		450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
@@ -2036,6 +2039,7 @@
 		34FB47581E3B928D00D94ED8 /* MWMCoreUnits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreUnits.h; sourceTree = "<group>"; };
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
+		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
@@ -3424,6 +3428,7 @@
 				34E7761D1F14DB48003040B3 /* PlacePageArea.swift */,
 				3444DFCB1F1760B900E73099 /* WidgetsArea.swift */,
 				3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */,
+				34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */,
 			);
 			path = AvailableArea;
 			sourceTree = "<group>";
@@ -5478,6 +5483,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				F6E2FF681E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34AC8FCE1EFC028600E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A6E1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				34ABA6301C2D58F300FE1BEC /* MWMInputEmailValidator.mm in Sources */,
 				F6E2FE9C1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				3454D7C71E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
@@ -5791,6 +5797,7 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				6741AA021BF340DE002C974C /* BookmarksRootVC.mm in Sources */,
 				34AC8FD31EFC02CC00E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				F6E2FE9D1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
@@ -6104,6 +6111,7 @@
 				F6E2FD6C1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				F6E2FF6A1E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34AC8FD41EFC02CC00E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A701F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				3454D7BA1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
 				F6E2FE9E1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				340475721E081A4600C92850 /* MWMSettings.mm in Sources */,
