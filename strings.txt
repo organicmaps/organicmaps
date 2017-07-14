@@ -16783,30 +16783,6 @@
     sk = Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.
     sw = Ili uweze kupakua ramani, kuona maeneo na trafiki karibu nawe na utumie urambazaji.
 
-  [onboarding_storage_permissions_title]
-    en = Grant access
-
-  [onboarding_storage_permissions_message]
-    en = Change permissions settings in your device. Needs a storage access to use MAPS.ME.
-
-  [onboarding_detail_permissions_title]
-    en = MAPS.ME needs access to
-
-  [onboarding_detail_permissions_storage_title]
-    en = Storage
-
-  [onboarding_detail_permissions_storage_message]
-    en = To save and use downloaded maps offline and save bookmarks.
-
-  [onboarding_detail_permissions_location_title]
-    en = Location
-
-  [onboarding_detail_permissions_location_message]
-    en = To see places and traffic near you and use navigation.
-
-  [onboarding_detail_permissions_storage_path_message]
-    en = You can also change a destination to save downloaded maps.
-
   [onboarding_welcome_title]
     en = Welcome to MAPS.ME
     ru = Добро пожаловать в MAPS.ME
@@ -25107,7 +25083,7 @@
     sk = Zistiť viac
     sw = Jua mengi zaidi
 
-  [onboarding_not_storage_permission_title]
+  [onboarding_storage_permissions_title]
     en = Grant Access
     ru = Предоставьте доступ
     ar = منح حق الوصول
@@ -25138,7 +25114,7 @@
     sk = Prideliť prístup
     sw = Ruhusu ufikiaji
 
-  [onboarding_not_storage_permission_message]
+  [onboarding_storage_permissions_message]
     en = Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.
     ru = Предоставьте MAPS.ME доступ к памяти в настройках вашего устройства, иначе использовать MAPS.ME будет невозможно.
     ar = قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.
@@ -25200,7 +25176,7 @@
     sk = Ukončiť
     sw = Toka
 
-  [onboarding_learn_more_title]
+  [onboarding_detail_permissions_title]
     en = MAPS.ME needs access to
     ru = MAPS.ME нужен доступ к
     ar = MAPS.ME يحتاج إلى الوصول إلى
@@ -25231,7 +25207,7 @@
     sk = Aplikácia MAPS.ME si vyžaduje prístup k
     sw = MAPS.ME inahitaji kufikia
 
-  [onboarding_learn_more_storage]
+  [onboarding_detail_permissions_storage_title]
     comment = Default permission's name from Android settings.
     en = Storage
     ru = Память
@@ -25263,7 +25239,7 @@
     sk = Ukladací priestor
     sw = Hifadhi
 
-  [onboarding_learn_more_storage_message]
+  [onboarding_detail_permissions_storage_message]
     en = To save and use downloaded maps offline and store bookmarks.
     ru = Чтобы сохранять и использовать скачанные карты и сохранять метки.
     ar = لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.
@@ -25294,7 +25270,7 @@
     sk = Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.
     sw = Ili kuhifadhi na kutumia ramani zilizopakuliwa ukiwa nje ya mtandao na ili kuhifadhi alamisho.
 
-  [onboarding_location]
+  [onboarding_detail_permissions_location_title]
     comment = Default permission's name from Android settings.
     en = Location
     ru = Местоположение
@@ -25326,7 +25302,7 @@
     sk = Poloha
     sw = Eneo
 
-  [onboarding_learn_more_location_message]
+  [onboarding_detail_permissions_location_message]
     en = To see places and traffic near you and use navigation.
     ru = Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.
     ar = لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.
@@ -25357,7 +25333,7 @@
     sk = Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.
     sw = Ili kuona maeneo na trafiki karibu nawe na ili utumie urambazaji.
 
-  [onboarding_learn_more_save_maps_message]
+  [onboarding_detail_permissions_storage_path_message]
     en = You can also change the location for downloaded maps in settings.
     ru = В настройках можно изменить место хранения загруженных карт.
     ar = يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.
