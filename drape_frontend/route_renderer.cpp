@@ -53,8 +53,6 @@ int const kArrowAppearingZoomLevel = 14;
 int const kInvalidGroup = -1;
 
 uint32_t const kPreviewPointsCount = 512;
-double const kPreviewAnimationSpeed = 3.0;
-double const kPreviewAnimationScale = 0.3;
 
 double const kInvalidDistance = -1.0;
 
