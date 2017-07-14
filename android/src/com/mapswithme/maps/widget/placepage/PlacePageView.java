@@ -1352,6 +1352,8 @@ public class PlacePageView extends RelativeLayout
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
+      if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
+        hideViatorViews();
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
