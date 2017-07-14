@@ -1115,17 +1115,17 @@
 	<string name="onboarding_welcome_agree">Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.</string>
 	<string name="button_accept_and_continue">Прийняти та продовжити</string>
 	<string name="button_learn_more">Докладніше</string>
-	<string name="onboarding_not_storage_permission_title">Надати доступ</string>
-	<string name="onboarding_not_storage_permission_message">Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.</string>
+	<string name="onboarding_storage_permissions_title">Надати доступ</string>
+	<string name="onboarding_storage_permissions_message">Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.</string>
 	<string name="button_exit">Вихід</string>
-	<string name="onboarding_learn_more_title">MAPS.ME необхідно надати доступ до</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME необхідно надати доступ до</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Сховище</string>
-	<string name="onboarding_learn_more_storage_message">Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.</string>
+	<string name="onboarding_detail_permissions_storage_title">Сховище</string>
+	<string name="onboarding_detail_permissions_storage_message">Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Функція визначення геолокації</string>
-	<string name="onboarding_learn_more_location_message">Для перегляду місцевості та трафіку, а також використання навігації.</string>
-	<string name="onboarding_learn_more_save_maps_message">Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.</string>
+	<string name="onboarding_detail_permissions_location_title">Функція визначення геолокації</string>
+	<string name="onboarding_detail_permissions_location_message">Для перегляду місцевості та трафіку, а також використання навігації.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.</string>
 	<string name="settings_device_memory">Вбудована пам\'ять</string>
 	<string name="settings_card_memory">Карта пам\'яті</string>
 	<string name="settings_storage_available">Доступно: %s</string>

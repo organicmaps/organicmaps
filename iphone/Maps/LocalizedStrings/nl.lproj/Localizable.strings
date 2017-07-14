@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Welkom bij MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Meer informatie";
 
-"onboarding_not_storage_permission_title" = "Toegang verlenen";
+"onboarding_storage_permissions_title" = "Toegang verlenen";
 
-"onboarding_not_storage_permission_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.";
+"onboarding_storage_permissions_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.";
 
 "button_exit" = "Verlaten";
 
-"onboarding_learn_more_title" = "MAPS.ME heeft toegang nodig tot";
+"onboarding_detail_permissions_title" = "MAPS.ME heeft toegang nodig tot";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Opslag";
+"onboarding_detail_permissions_storage_title" = "Opslag";
 
-"onboarding_learn_more_storage_message" = "Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.";
+"onboarding_detail_permissions_storage_message" = "Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Locatie";
+"onboarding_detail_permissions_location_title" = "Locatie";
 
-"onboarding_learn_more_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
+"onboarding_detail_permissions_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
 
-"onboarding_learn_more_save_maps_message" = "U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.";
+"onboarding_detail_permissions_storage_path_message" = "U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.";
 
 "settings_device_memory" = "Apparaatgeheugen";
 

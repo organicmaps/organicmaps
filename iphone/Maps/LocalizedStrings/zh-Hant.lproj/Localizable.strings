@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "歡迎來到 MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "瞭解更多資訊";
 
-"onboarding_not_storage_permission_title" = "授與存取權";
+"onboarding_storage_permissions_title" = "授與存取權";
 
-"onboarding_not_storage_permission_message" = "變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。";
+"onboarding_storage_permissions_message" = "變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。";
 
 "button_exit" = "退出";
 
-"onboarding_learn_more_title" = "MAPS.ME 需要下列存取權限：";
+"onboarding_detail_permissions_title" = "MAPS.ME 需要下列存取權限：";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "存儲空間";
+"onboarding_detail_permissions_storage_title" = "存儲空間";
 
-"onboarding_learn_more_storage_message" = "儲存和離線使用下載的地圖並儲存書籤。";
+"onboarding_detail_permissions_storage_message" = "儲存和離線使用下載的地圖並儲存書籤。";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "位置";
+"onboarding_detail_permissions_location_title" = "位置";
 
-"onboarding_learn_more_location_message" = "查看您附近的地點和交通，以及使用導航服務。";
+"onboarding_detail_permissions_location_message" = "查看您附近的地點和交通，以及使用導航服務。";
 
-"onboarding_learn_more_save_maps_message" = "在設定中，您還可變更下載的地圖之目的地。";
+"onboarding_detail_permissions_storage_path_message" = "在設定中，您還可變更下載的地圖之目的地。";
 
 "settings_device_memory" = "裝置記憶體";
 

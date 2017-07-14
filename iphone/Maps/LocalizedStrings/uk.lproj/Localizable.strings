@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Вітаємо у MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Докладніше";
 
-"onboarding_not_storage_permission_title" = "Надати доступ";
+"onboarding_storage_permissions_title" = "Надати доступ";
 
-"onboarding_not_storage_permission_message" = "Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.";
+"onboarding_storage_permissions_message" = "Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.";
 
 "button_exit" = "Вихід";
 
-"onboarding_learn_more_title" = "MAPS.ME необхідно надати доступ до";
+"onboarding_detail_permissions_title" = "MAPS.ME необхідно надати доступ до";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Сховище";
+"onboarding_detail_permissions_storage_title" = "Сховище";
 
-"onboarding_learn_more_storage_message" = "Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.";
+"onboarding_detail_permissions_storage_message" = "Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Функція визначення геолокації";
+"onboarding_detail_permissions_location_title" = "Функція визначення геолокації";
 
-"onboarding_learn_more_location_message" = "Для перегляду місцевості та трафіку, а також використання навігації.";
+"onboarding_detail_permissions_location_message" = "Для перегляду місцевості та трафіку, а також використання навігації.";
 
-"onboarding_learn_more_save_maps_message" = "Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.";
+"onboarding_detail_permissions_storage_path_message" = "Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.";
 
 "settings_device_memory" = "Вбудована пам'ять";
 

@@ -1117,17 +1117,17 @@
 	<string name="onboarding_welcome_agree">启动应用程序即表明同意“使用条款”和“隐私政策”。</string>
 	<string name="button_accept_and_continue">接受并继续</string>
 	<string name="button_learn_more">了解更多</string>
-	<string name="onboarding_not_storage_permission_title">授予访问权限</string>
-	<string name="onboarding_not_storage_permission_message">更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。</string>
+	<string name="onboarding_storage_permissions_title">授予访问权限</string>
+	<string name="onboarding_storage_permissions_message">更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。</string>
 	<string name="button_exit">退出</string>
-	<string name="onboarding_learn_more_title">MAPS.ME 需要以下访问权限</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME 需要以下访问权限</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">存储空间</string>
-	<string name="onboarding_learn_more_storage_message">保存并离线使用已下载的地图，保存书签。</string>
+	<string name="onboarding_detail_permissions_storage_title">存储空间</string>
+	<string name="onboarding_detail_permissions_storage_message">保存并离线使用已下载的地图，保存书签。</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">地点</string>
-	<string name="onboarding_learn_more_location_message">查看您附近的地点和交通状况并使用导航。</string>
-	<string name="onboarding_learn_more_save_maps_message">您还可以在设置中更改已下载地图的目标存储位置。</string>
+	<string name="onboarding_detail_permissions_location_title">地点</string>
+	<string name="onboarding_detail_permissions_location_message">查看您附近的地点和交通状况并使用导航。</string>
+	<string name="onboarding_detail_permissions_storage_path_message">您还可以在设置中更改已下载地图的目标存储位置。</string>
 	<string name="settings_device_memory">设备内存</string>
 	<string name="settings_card_memory">存储卡</string>
 	<string name="settings_storage_available">%s 可用</string>

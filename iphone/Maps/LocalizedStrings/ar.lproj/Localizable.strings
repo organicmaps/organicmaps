@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "مرحبًا بك في MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "تعلم المزيد";
 
-"onboarding_not_storage_permission_title" = "منح حق الوصول";
+"onboarding_storage_permissions_title" = "منح حق الوصول";
 
-"onboarding_not_storage_permission_message" = "قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.";
+"onboarding_storage_permissions_message" = "قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.";
 
 "button_exit" = "خروج";
 
-"onboarding_learn_more_title" = "MAPS.ME يحتاج إلى الوصول إلى";
+"onboarding_detail_permissions_title" = "MAPS.ME يحتاج إلى الوصول إلى";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "ذاكرة التخزين";
+"onboarding_detail_permissions_storage_title" = "ذاكرة التخزين";
 
-"onboarding_learn_more_storage_message" = "لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.";
+"onboarding_detail_permissions_storage_message" = "لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "الموقع";
+"onboarding_detail_permissions_location_title" = "الموقع";
 
-"onboarding_learn_more_location_message" = "لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.";
+"onboarding_detail_permissions_location_message" = "لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.";
 
-"onboarding_learn_more_save_maps_message" = "يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.";
+"onboarding_detail_permissions_storage_path_message" = "يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.";
 
 "settings_device_memory" = "ذاكرة الجهاز";
 

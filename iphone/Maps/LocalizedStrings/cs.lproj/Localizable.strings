@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Vítá vás aplikace MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Zjistit více";
 
-"onboarding_not_storage_permission_title" = "Povolit přístup";
+"onboarding_storage_permissions_title" = "Povolit přístup";
 
-"onboarding_not_storage_permission_message" = "Změňte nastavení oprávnění ve vašem zařízení. MAPS.ME vyžaduje přístup k úložišti.";
+"onboarding_storage_permissions_message" = "Změňte nastavení oprávnění ve vašem zařízení. MAPS.ME vyžaduje přístup k úložišti.";
 
 "button_exit" = "Ukončit";
 
-"onboarding_learn_more_title" = "MAPS.ME vyžaduje přístup k";
+"onboarding_detail_permissions_title" = "MAPS.ME vyžaduje přístup k";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Úložišti";
+"onboarding_detail_permissions_storage_title" = "Úložišti";
 
-"onboarding_learn_more_storage_message" = "Umožní to stahování a používání offline map a ukládání záložek.";
+"onboarding_detail_permissions_storage_message" = "Umožní to stahování a používání offline map a ukládání záložek.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Určení polohy";
+"onboarding_detail_permissions_location_title" = "Určení polohy";
 
-"onboarding_learn_more_location_message" = "Umožní to zobrazení míst a dopravy ve vaší blízkosti a použití navigace.";
+"onboarding_detail_permissions_location_message" = "Umožní to zobrazení míst a dopravy ve vaší blízkosti a použití navigace.";
 
-"onboarding_learn_more_save_maps_message" = "Můžete také změnit cílové umístění pro stažené mapy v nastavení.";
+"onboarding_detail_permissions_storage_path_message" = "Můžete také změnit cílové umístění pro stažené mapy v nastavení.";
 
 "settings_device_memory" = "Paměť zařízení";
 

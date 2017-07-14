@@ -1114,17 +1114,17 @@
 	<string name="onboarding_welcome_agree">Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.</string>
 	<string name="button_accept_and_continue">Prijať a pokračovať</string>
 	<string name="button_learn_more">Zistiť viac</string>
-	<string name="onboarding_not_storage_permission_title">Prideliť prístup</string>
-	<string name="onboarding_not_storage_permission_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.</string>
+	<string name="onboarding_storage_permissions_title">Prideliť prístup</string>
+	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.</string>
 	<string name="button_exit">Ukončiť</string>
-	<string name="onboarding_learn_more_title">Aplikácia MAPS.ME si vyžaduje prístup k</string>
+	<string name="onboarding_detail_permissions_title">Aplikácia MAPS.ME si vyžaduje prístup k</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Ukladací priestor</string>
-	<string name="onboarding_learn_more_storage_message">Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.</string>
+	<string name="onboarding_detail_permissions_storage_title">Ukladací priestor</string>
+	<string name="onboarding_detail_permissions_storage_message">Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Poloha</string>
-	<string name="onboarding_learn_more_location_message">Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.</string>
-	<string name="onboarding_learn_more_save_maps_message">V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.</string>
+	<string name="onboarding_detail_permissions_location_title">Poloha</string>
+	<string name="onboarding_detail_permissions_location_message">Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.</string>
 	<string name="settings_device_memory">Pamäť zariadenia</string>
 	<string name="settings_card_memory">Pamäť na karte</string>
 	<string name="settings_storage_available">K dispozícii %s</string>

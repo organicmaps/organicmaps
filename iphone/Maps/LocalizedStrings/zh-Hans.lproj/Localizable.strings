@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "欢迎使用 MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "免费、快速、详细且完全离线的地图，并且带有精细导航功能。";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "了解更多";
 
-"onboarding_not_storage_permission_title" = "授予访问权限";
+"onboarding_storage_permissions_title" = "授予访问权限";
 
-"onboarding_not_storage_permission_message" = "更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。";
+"onboarding_storage_permissions_message" = "更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。";
 
 "button_exit" = "退出";
 
-"onboarding_learn_more_title" = "MAPS.ME 需要以下访问权限";
+"onboarding_detail_permissions_title" = "MAPS.ME 需要以下访问权限";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "存储空间";
+"onboarding_detail_permissions_storage_title" = "存储空间";
 
-"onboarding_learn_more_storage_message" = "保存并离线使用已下载的地图，保存书签。";
+"onboarding_detail_permissions_storage_message" = "保存并离线使用已下载的地图，保存书签。";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "地点";
+"onboarding_detail_permissions_location_title" = "地点";
 
-"onboarding_learn_more_location_message" = "查看您附近的地点和交通状况并使用导航。";
+"onboarding_detail_permissions_location_message" = "查看您附近的地点和交通状况并使用导航。";
 
-"onboarding_learn_more_save_maps_message" = "您还可以在设置中更改已下载地图的目标存储位置。";
+"onboarding_detail_permissions_storage_path_message" = "您还可以在设置中更改已下载地图的目标存储位置。";
 
 "settings_device_memory" = "设备内存";
 

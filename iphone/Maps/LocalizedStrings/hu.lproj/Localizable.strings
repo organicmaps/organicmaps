@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Üdvözöljük a MAPS.ME alkalmazásban";
 
 "onboarding_welcome_first_subtitle" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Tudjon meg többet";
 
-"onboarding_not_storage_permission_title" = "Hozzáférés biztosítása";
+"onboarding_storage_permissions_title" = "Hozzáférés biztosítása";
 
-"onboarding_not_storage_permission_message" = "Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.";
+"onboarding_storage_permissions_message" = "Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.";
 
 "button_exit" = "Kilépés";
 
-"onboarding_learn_more_title" = "A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz: ";
+"onboarding_detail_permissions_title" = "A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz: ";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Tárolás";
+"onboarding_detail_permissions_storage_title" = "Tárolás";
 
-"onboarding_learn_more_storage_message" = "A letöltött térképek offline használatához és könyvjelzők mentéséhez.";
+"onboarding_detail_permissions_storage_message" = "A letöltött térképek offline használatához és könyvjelzők mentéséhez.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Helymeghatározás";
+"onboarding_detail_permissions_location_title" = "Helymeghatározás";
 
-"onboarding_learn_more_location_message" = "Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.";
+"onboarding_detail_permissions_location_message" = "Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.";
 
-"onboarding_learn_more_save_maps_message" = "Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.";
+"onboarding_detail_permissions_storage_path_message" = "Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.";
 
 "settings_device_memory" = "Készülék memóriája";
 

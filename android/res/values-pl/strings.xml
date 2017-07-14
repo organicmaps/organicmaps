@@ -1114,17 +1114,17 @@
 	<string name="onboarding_welcome_agree">Poprzez uruchomienie aplikacji wyrażasz zgodę na warunki użytkowania i politykę prywatności.</string>
 	<string name="button_accept_and_continue">Zaakceptuj i kontynuuj</string>
 	<string name="button_learn_more">Dowiedz się więcej</string>
-	<string name="onboarding_not_storage_permission_title">Udziel dostępu</string>
-	<string name="onboarding_not_storage_permission_message">Zmień ustawienia uprawnień w urządzeniu. Do korzystania z MAPS.ME wymagany jest dostęp do pamięci masowej.</string>
+	<string name="onboarding_storage_permissions_title">Udziel dostępu</string>
+	<string name="onboarding_storage_permissions_message">Zmień ustawienia uprawnień w urządzeniu. Do korzystania z MAPS.ME wymagany jest dostęp do pamięci masowej.</string>
 	<string name="button_exit">Wyjdź</string>
-	<string name="onboarding_learn_more_title">MAPY.ME wymaga dostępu do</string>
+	<string name="onboarding_detail_permissions_title">MAPY.ME wymaga dostępu do</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Pamięć masowa</string>
-	<string name="onboarding_learn_more_storage_message">Aby zapisywać zakładki i mapy oraz móc korzystać z pobranych map offline.</string>
+	<string name="onboarding_detail_permissions_storage_title">Pamięć masowa</string>
+	<string name="onboarding_detail_permissions_storage_message">Aby zapisywać zakładki i mapy oraz móc korzystać z pobranych map offline.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Lokalizacja</string>
-	<string name="onboarding_learn_more_location_message">Aby sprawdzać miejsca i ruch drogowy w twojej okolicy móc korzystać z nawigacji.</string>
-	<string name="onboarding_learn_more_save_maps_message">Miejsce docelowe zapisu pobranych map można również zmienić w ustawieniach.</string>
+	<string name="onboarding_detail_permissions_location_title">Lokalizacja</string>
+	<string name="onboarding_detail_permissions_location_message">Aby sprawdzać miejsca i ruch drogowy w twojej okolicy móc korzystać z nawigacji.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Miejsce docelowe zapisu pobranych map można również zmienić w ustawieniach.</string>
 	<string name="settings_device_memory">Pamięć urządzenia</string>
 	<string name="settings_card_memory">Pamięć na karcie</string>
 	<string name="settings_storage_available">dostępne %s</string>

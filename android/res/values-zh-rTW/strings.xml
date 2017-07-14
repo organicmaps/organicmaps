@@ -1121,17 +1121,17 @@
 	<string name="onboarding_welcome_agree">啟動本應用程式，即表示您同意服務條款和隱私權原則。</string>
 	<string name="button_accept_and_continue">接受並繼續</string>
 	<string name="button_learn_more">瞭解更多資訊</string>
-	<string name="onboarding_not_storage_permission_title">授與存取權</string>
-	<string name="onboarding_not_storage_permission_message">變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。</string>
+	<string name="onboarding_storage_permissions_title">授與存取權</string>
+	<string name="onboarding_storage_permissions_message">變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。</string>
 	<string name="button_exit">退出</string>
-	<string name="onboarding_learn_more_title">MAPS.ME 需要下列存取權限：</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME 需要下列存取權限：</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">存儲空間</string>
-	<string name="onboarding_learn_more_storage_message">儲存和離線使用下載的地圖並儲存書籤。</string>
+	<string name="onboarding_detail_permissions_storage_title">存儲空間</string>
+	<string name="onboarding_detail_permissions_storage_message">儲存和離線使用下載的地圖並儲存書籤。</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">位置</string>
-	<string name="onboarding_learn_more_location_message">查看您附近的地點和交通，以及使用導航服務。</string>
-	<string name="onboarding_learn_more_save_maps_message">在設定中，您還可變更下載的地圖之目的地。</string>
+	<string name="onboarding_detail_permissions_location_title">位置</string>
+	<string name="onboarding_detail_permissions_location_message">查看您附近的地點和交通，以及使用導航服務。</string>
+	<string name="onboarding_detail_permissions_storage_path_message">在設定中，您還可變更下載的地圖之目的地。</string>
 	<string name="settings_device_memory">裝置記憶體</string>
 	<string name="settings_card_memory">卡記憶體</string>
 	<string name="settings_storage_available">%s 可用</string>

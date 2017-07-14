@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Willkommen bei MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Weitere Informationen";
 
-"onboarding_not_storage_permission_title" = "Zugriff gewähren";
+"onboarding_storage_permissions_title" = "Zugriff gewähren";
 
-"onboarding_not_storage_permission_message" = "Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie MAPS.ME nutzen können.";
+"onboarding_storage_permissions_message" = "Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie MAPS.ME nutzen können.";
 
 "button_exit" = "Beenden";
 
-"onboarding_learn_more_title" = "MAPS.ME benötigt Zugriff auf";
+"onboarding_detail_permissions_title" = "MAPS.ME benötigt Zugriff auf";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Speicher";
+"onboarding_detail_permissions_storage_title" = "Speicher";
 
-"onboarding_learn_more_storage_message" = "Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.";
+"onboarding_detail_permissions_storage_message" = "Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Standort";
+"onboarding_detail_permissions_location_title" = "Standort";
 
-"onboarding_learn_more_location_message" = "Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.";
+"onboarding_detail_permissions_location_message" = "Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.";
 
-"onboarding_learn_more_save_maps_message" = "Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.";
+"onboarding_detail_permissions_storage_path_message" = "Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.";
 
 "settings_device_memory" = "Gerätespeicher";
 

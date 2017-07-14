@@ -1111,17 +1111,17 @@
 	<string name="onboarding_welcome_agree">Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.</string>
 	<string name="button_accept_and_continue">Fogadja el, és folytassa</string>
 	<string name="button_learn_more">Tudjon meg többet</string>
-	<string name="onboarding_not_storage_permission_title">Hozzáférés biztosítása</string>
-	<string name="onboarding_not_storage_permission_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.</string>
+	<string name="onboarding_storage_permissions_title">Hozzáférés biztosítása</string>
+	<string name="onboarding_storage_permissions_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.</string>
 	<string name="button_exit">Kilépés</string>
-	<string name="onboarding_learn_more_title">A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
+	<string name="onboarding_detail_permissions_title">A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Tárolás</string>
-	<string name="onboarding_learn_more_storage_message">A letöltött térképek offline használatához és könyvjelzők mentéséhez.</string>
+	<string name="onboarding_detail_permissions_storage_title">Tárolás</string>
+	<string name="onboarding_detail_permissions_storage_message">A letöltött térképek offline használatához és könyvjelzők mentéséhez.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Helymeghatározás</string>
-	<string name="onboarding_learn_more_location_message">Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.</string>
-	<string name="onboarding_learn_more_save_maps_message">Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.</string>
+	<string name="onboarding_detail_permissions_location_title">Helymeghatározás</string>
+	<string name="onboarding_detail_permissions_location_message">Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.</string>
 	<string name="settings_device_memory">Készülék memóriája</string>
 	<string name="settings_card_memory">Memóriakártya</string>
 	<string name="settings_storage_available">%s rendelkezésre áll</string>

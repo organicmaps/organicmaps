@@ -1115,17 +1115,17 @@
 	<string name="onboarding_welcome_agree">När du startar applikationen godkänner du våra användningsvillkor och sekretesspolicy.</string>
 	<string name="button_accept_and_continue">Godkänn och fortsätt</string>
 	<string name="button_learn_more">Läs mer</string>
-	<string name="onboarding_not_storage_permission_title">Bevilja åtkomst</string>
-	<string name="onboarding_not_storage_permission_message">Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Bevilja åtkomst</string>
+	<string name="onboarding_storage_permissions_message">Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.</string>
 	<string name="button_exit">Avsluta</string>
-	<string name="onboarding_learn_more_title">MAPS.ME behöver åtkomst till</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME behöver åtkomst till</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Lagring</string>
-	<string name="onboarding_learn_more_storage_message">För att spara och använda nedladdade kartor offline och spara bokmärken.</string>
+	<string name="onboarding_detail_permissions_storage_title">Lagring</string>
+	<string name="onboarding_detail_permissions_storage_message">För att spara och använda nedladdade kartor offline och spara bokmärken.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Plats</string>
-	<string name="onboarding_learn_more_location_message">För att visa platser och trafik i närheten och använda navigering.</string>
-	<string name="onboarding_learn_more_save_maps_message">Du kan även ändra destination för nedladdade kartor i inställningarna.</string>
+	<string name="onboarding_detail_permissions_location_title">Plats</string>
+	<string name="onboarding_detail_permissions_location_message">För att visa platser och trafik i närheten och använda navigering.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Du kan även ändra destination för nedladdade kartor i inställningarna.</string>
 	<string name="settings_device_memory">Enhetens minne</string>
 	<string name="settings_card_memory">Kortets minne</string>
 	<string name="settings_storage_available">%s tillgängligt</string>

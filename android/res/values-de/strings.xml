@@ -1125,17 +1125,17 @@
 	<string name="onboarding_welcome_agree">Durch das Starten der App stimmen Sie den Nutzungsbedingungen und der Datenschutzrichtlinie zu.</string>
 	<string name="button_accept_and_continue">Zustimmen und fortfahren</string>
 	<string name="button_learn_more">Weitere Informationen</string>
-	<string name="onboarding_not_storage_permission_title">Zugriff gewähren</string>
-	<string name="onboarding_not_storage_permission_message">Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie MAPS.ME nutzen können.</string>
+	<string name="onboarding_storage_permissions_title">Zugriff gewähren</string>
+	<string name="onboarding_storage_permissions_message">Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie MAPS.ME nutzen können.</string>
 	<string name="button_exit">Beenden</string>
-	<string name="onboarding_learn_more_title">MAPS.ME benötigt Zugriff auf</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME benötigt Zugriff auf</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Speicher</string>
-	<string name="onboarding_learn_more_storage_message">Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.</string>
+	<string name="onboarding_detail_permissions_storage_title">Speicher</string>
+	<string name="onboarding_detail_permissions_storage_message">Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Standort</string>
-	<string name="onboarding_learn_more_location_message">Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.</string>
-	<string name="onboarding_learn_more_save_maps_message">Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.</string>
+	<string name="onboarding_detail_permissions_location_title">Standort</string>
+	<string name="onboarding_detail_permissions_location_message">Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.</string>
 	<string name="settings_device_memory">Gerätespeicher</string>
 	<string name="settings_card_memory">Speicherkarte</string>
 	<string name="settings_storage_available">%s verfügbar</string>

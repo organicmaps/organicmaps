@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Benvenuto in MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Ulteriori informazioni";
 
-"onboarding_not_storage_permission_title" = "Concedi l'accesso";
+"onboarding_storage_permissions_title" = "Concedi l'accesso";
 
-"onboarding_not_storage_permission_message" = "Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l'accesso alla memoria per utilizzare MAPS.ME.";
+"onboarding_storage_permissions_message" = "Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l'accesso alla memoria per utilizzare MAPS.ME.";
 
 "button_exit" = "Esci";
 
-"onboarding_learn_more_title" = "MAPS.ME richiede l'accesso a";
+"onboarding_detail_permissions_title" = "MAPS.ME richiede l'accesso a";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Memoria";
+"onboarding_detail_permissions_storage_title" = "Memoria";
 
-"onboarding_learn_more_storage_message" = "Per salvare e utilizzare le mappe scaricate offline, come pure per salvare i preferiti.";
+"onboarding_detail_permissions_storage_message" = "Per salvare e utilizzare le mappe scaricate offline, come pure per salvare i preferiti.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Posizione";
+"onboarding_detail_permissions_location_title" = "Posizione";
 
-"onboarding_learn_more_location_message" = "Per vedere luoghi e traffico vicino a te e usare la funzione di navigazione.";
+"onboarding_detail_permissions_location_message" = "Per vedere luoghi e traffico vicino a te e usare la funzione di navigazione.";
 
-"onboarding_learn_more_save_maps_message" = "Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.";
+"onboarding_detail_permissions_storage_path_message" = "Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.";
 
 "settings_device_memory" = "Memoria del dispositivo";
 

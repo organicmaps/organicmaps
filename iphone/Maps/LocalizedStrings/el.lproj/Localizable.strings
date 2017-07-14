@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Καλωσήρθατε στο MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Μάθετε περισσότερα";
 
-"onboarding_not_storage_permission_title" = "Εκχώρηση άδειας";
+"onboarding_storage_permissions_title" = "Εκχώρηση άδειας";
 
-"onboarding_not_storage_permission_message" = "Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME";
+"onboarding_storage_permissions_message" = "Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME";
 
 "button_exit" = "Έξοδος";
 
-"onboarding_learn_more_title" = "Το MAPS.ME χρειάζεται πρόσβαση στο";
+"onboarding_detail_permissions_title" = "Το MAPS.ME χρειάζεται πρόσβαση στο";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Αποθηκευτικός χώρος";
+"onboarding_detail_permissions_storage_title" = "Αποθηκευτικός χώρος";
 
-"onboarding_learn_more_storage_message" = "Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.";
+"onboarding_detail_permissions_storage_message" = "Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Τοποθεσία";
+"onboarding_detail_permissions_location_title" = "Τοποθεσία";
 
-"onboarding_learn_more_location_message" = "Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.";
+"onboarding_detail_permissions_location_message" = "Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.";
 
-"onboarding_learn_more_save_maps_message" = "Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.";
+"onboarding_detail_permissions_storage_path_message" = "Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.";
 
 "settings_device_memory" = "Μνήμη συσκευής";
 

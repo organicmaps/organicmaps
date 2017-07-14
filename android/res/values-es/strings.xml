@@ -1104,17 +1104,17 @@
 	<string name="onboarding_welcome_agree">Al iniciar la aplicación, usted acepta las Condiciones de uso y la Política de privacidad.</string>
 	<string name="button_accept_and_continue">Aceptar y continuar</string>
 	<string name="button_learn_more">Leer más</string>
-	<string name="onboarding_not_storage_permission_title">Otorgar acceso</string>
-	<string name="onboarding_not_storage_permission_message">Cambie la configuración de permisos en su dispositivo. MAPS.ME necesita tener acceso al almacenamiento.</string>
+	<string name="onboarding_storage_permissions_title">Otorgar acceso</string>
+	<string name="onboarding_storage_permissions_message">Cambie la configuración de permisos en su dispositivo. MAPS.ME necesita tener acceso al almacenamiento.</string>
 	<string name="button_exit">Salir</string>
-	<string name="onboarding_learn_more_title">MAPS.ME necesita tener acceso a</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME necesita tener acceso a</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Almacenamiento</string>
-	<string name="onboarding_learn_more_storage_message">Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.</string>
+	<string name="onboarding_detail_permissions_storage_title">Almacenamiento</string>
+	<string name="onboarding_detail_permissions_storage_message">Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Ubicación</string>
-	<string name="onboarding_learn_more_location_message">Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.</string>
-	<string name="onboarding_learn_more_save_maps_message">También puede cambiar en los ajustes el destino para los mapas descargados.</string>
+	<string name="onboarding_detail_permissions_location_title">Ubicación</string>
+	<string name="onboarding_detail_permissions_location_message">Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">También puede cambiar en los ajustes el destino para los mapas descargados.</string>
 	<string name="settings_device_memory">Memoria del dispositivo</string>
 	<string name="settings_card_memory">Tarjeta de memoria</string>
 	<string name="settings_storage_available">%s disponible</string>

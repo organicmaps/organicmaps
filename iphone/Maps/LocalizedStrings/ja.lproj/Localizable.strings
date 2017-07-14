@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "MAPS.ME へようこそ";
 
 "onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "詳細情報";
 
-"onboarding_not_storage_permission_title" = "アクセス権の付与";
+"onboarding_storage_permissions_title" = "アクセス権の付与";
 
-"onboarding_not_storage_permission_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
+"onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
 
 "button_exit" = "終了";
 
-"onboarding_learn_more_title" = "MAPS.ME がアクセス許可を必要とする項目";
+"onboarding_detail_permissions_title" = "MAPS.ME がアクセス許可を必要とする項目";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "ストレージ";
+"onboarding_detail_permissions_storage_title" = "ストレージ";
 
-"onboarding_learn_more_storage_message" = "ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。";
+"onboarding_detail_permissions_storage_message" = "ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "位置情報";
+"onboarding_detail_permissions_location_title" = "位置情報";
 
-"onboarding_learn_more_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
+"onboarding_detail_permissions_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
 
-"onboarding_learn_more_save_maps_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
+"onboarding_detail_permissions_storage_path_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
 
 "settings_device_memory" = "デバイスのメモリ";
 

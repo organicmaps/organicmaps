@@ -875,17 +875,17 @@
 	<string name="onboarding_welcome_agree">Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.</string>
 	<string name="button_accept_and_continue">Αποδοχή και συνέχεια</string>
 	<string name="button_learn_more">Μάθετε περισσότερα</string>
-	<string name="onboarding_not_storage_permission_title">Εκχώρηση άδειας</string>
-	<string name="onboarding_not_storage_permission_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME</string>
+	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
+	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME</string>
 	<string name="button_exit">Έξοδος</string>
-	<string name="onboarding_learn_more_title">Το MAPS.ME χρειάζεται πρόσβαση στο</string>
+	<string name="onboarding_detail_permissions_title">Το MAPS.ME χρειάζεται πρόσβαση στο</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Αποθηκευτικός χώρος</string>
-	<string name="onboarding_learn_more_storage_message">Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.</string>
+	<string name="onboarding_detail_permissions_storage_title">Αποθηκευτικός χώρος</string>
+	<string name="onboarding_detail_permissions_storage_message">Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Τοποθεσία</string>
-	<string name="onboarding_learn_more_location_message">Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.</string>
-	<string name="onboarding_learn_more_save_maps_message">Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.</string>
+	<string name="onboarding_detail_permissions_location_title">Τοποθεσία</string>
+	<string name="onboarding_detail_permissions_location_message">Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.</string>
 	<string name="settings_device_memory">Μνήμη συσκευής</string>
 	<string name="settings_card_memory">Κάρτα μνήμης</string>
 	<string name="settings_storage_available">%s διαθέσιμα</string>

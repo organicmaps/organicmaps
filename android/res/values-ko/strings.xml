@@ -1107,17 +1107,17 @@
 	<string name="onboarding_welcome_agree">애플리케이션을 시작하면, 이용 약관 및 개인정보취급방침에 동의하는 것입니다.</string>
 	<string name="button_accept_and_continue">동의하고 계속 진행</string>
 	<string name="button_learn_more">자세히 알아보기</string>
-	<string name="onboarding_not_storage_permission_title">액세스 승인</string>
-	<string name="onboarding_not_storage_permission_message">장치에서 권한 설정을 변경하세요. MAPS.ME를 사용하려면 저장소 액세스가 필요합니다.</string>
+	<string name="onboarding_storage_permissions_title">액세스 승인</string>
+	<string name="onboarding_storage_permissions_message">장치에서 권한 설정을 변경하세요. MAPS.ME를 사용하려면 저장소 액세스가 필요합니다.</string>
 	<string name="button_exit">끝내기</string>
-	<string name="onboarding_learn_more_title">MAPS.ME에는 다음에 대한 액세스가 필요합니다:</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME에는 다음에 대한 액세스가 필요합니다:</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">저장소</string>
-	<string name="onboarding_learn_more_storage_message">오프라인으로 지도를 저장 및 사용하고 책갈피를 저장하기 위한 것입니다.</string>
+	<string name="onboarding_detail_permissions_storage_title">저장소</string>
+	<string name="onboarding_detail_permissions_storage_message">오프라인으로 지도를 저장 및 사용하고 책갈피를 저장하기 위한 것입니다.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">위치</string>
-	<string name="onboarding_learn_more_location_message">근처의 장소와 교통 상황을 보고 네비게이션을 사용하기 위한 것입니다.</string>
-	<string name="onboarding_learn_more_save_maps_message">설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.</string>
+	<string name="onboarding_detail_permissions_location_title">위치</string>
+	<string name="onboarding_detail_permissions_location_message">근처의 장소와 교통 상황을 보고 네비게이션을 사용하기 위한 것입니다.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.</string>
 	<string name="settings_device_memory">장치 메모리</string>
 	<string name="settings_card_memory">카드 메모리</string>
 	<string name="settings_storage_available">%s 사용 가능</string>

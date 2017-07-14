@@ -1117,17 +1117,17 @@
 	<string name="onboarding_welcome_agree">Uygulamayı başlatarak, Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş sayılırsınız.</string>
 	<string name="button_accept_and_continue">Kabul et ve devam et</string>
 	<string name="button_learn_more">Daha fazla bilgi edinin</string>
-	<string name="onboarding_not_storage_permission_title">Erişime izin ver</string>
-	<string name="onboarding_not_storage_permission_message">Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME\'yi kullanmak için depolama alanına erişim izni gerekiyor.</string>
+	<string name="onboarding_storage_permissions_title">Erişime izin ver</string>
+	<string name="onboarding_storage_permissions_message">Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME\'yi kullanmak için depolama alanına erişim izni gerekiyor.</string>
 	<string name="button_exit">Çık</string>
-	<string name="onboarding_learn_more_title">MAPS.ME\'nin şuraya erişmesi gerekiyor:</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME\'nin şuraya erişmesi gerekiyor:</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Depolama Alanı</string>
-	<string name="onboarding_learn_more_storage_message">İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.</string>
+	<string name="onboarding_detail_permissions_storage_title">Depolama Alanı</string>
+	<string name="onboarding_detail_permissions_storage_message">İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Konum</string>
-	<string name="onboarding_learn_more_location_message">Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.</string>
-	<string name="onboarding_learn_more_save_maps_message">İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.</string>
+	<string name="onboarding_detail_permissions_location_title">Konum</string>
+	<string name="onboarding_detail_permissions_location_message">Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.</string>
 	<string name="settings_device_memory">Cihaz belleği</string>
 	<string name="settings_card_memory">Kart belleği</string>
 	<string name="settings_storage_available">%s kullanılabilir</string>

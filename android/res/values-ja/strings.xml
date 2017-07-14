@@ -1110,17 +1110,17 @@
 	<string name="onboarding_welcome_agree">アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。</string>
 	<string name="button_accept_and_continue">同意して続ける</string>
 	<string name="button_learn_more">詳細情報</string>
-	<string name="onboarding_not_storage_permission_title">アクセス権の付与</string>
-	<string name="onboarding_not_storage_permission_message">お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。</string>
+	<string name="onboarding_storage_permissions_title">アクセス権の付与</string>
+	<string name="onboarding_storage_permissions_message">お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。</string>
 	<string name="button_exit">終了</string>
-	<string name="onboarding_learn_more_title">MAPS.ME がアクセス許可を必要とする項目</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME がアクセス許可を必要とする項目</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">ストレージ</string>
-	<string name="onboarding_learn_more_storage_message">ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。</string>
+	<string name="onboarding_detail_permissions_storage_title">ストレージ</string>
+	<string name="onboarding_detail_permissions_storage_message">ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">位置情報</string>
-	<string name="onboarding_learn_more_location_message">近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。</string>
-	<string name="onboarding_learn_more_save_maps_message">また、設定でダウンロードした地図の保存先を変更することもできます。</string>
+	<string name="onboarding_detail_permissions_location_title">位置情報</string>
+	<string name="onboarding_detail_permissions_location_message">近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。</string>
+	<string name="onboarding_detail_permissions_storage_path_message">また、設定でダウンロードした地図の保存先を変更することもできます。</string>
 	<string name="settings_device_memory">デバイスのメモリ</string>
 	<string name="settings_card_memory">カードのメモリ</string>
 	<string name="settings_storage_available">%s 使用可能</string>

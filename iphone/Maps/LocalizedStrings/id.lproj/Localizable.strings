@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Selamat datang di MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Pelajari selengkapnya";
 
-"onboarding_not_storage_permission_title" = "Berikan akses";
+"onboarding_storage_permissions_title" = "Berikan akses";
 
-"onboarding_not_storage_permission_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.";
+"onboarding_storage_permissions_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.";
 
 "button_exit" = "Keluar";
 
-"onboarding_learn_more_title" = "MAPS.ME membutuhkan akses ke";
+"onboarding_detail_permissions_title" = "MAPS.ME membutuhkan akses ke";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Penyimpanan";
+"onboarding_detail_permissions_storage_title" = "Penyimpanan";
 
-"onboarding_learn_more_storage_message" = "Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.";
+"onboarding_detail_permissions_storage_message" = "Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Lokasi";
+"onboarding_detail_permissions_location_title" = "Lokasi";
 
-"onboarding_learn_more_location_message" = "Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.";
+"onboarding_detail_permissions_location_message" = "Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.";
 
-"onboarding_learn_more_save_maps_message" = "Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.";
+"onboarding_detail_permissions_storage_path_message" = "Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.";
 
 "settings_device_memory" = "Memori perangkat";
 

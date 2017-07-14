@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Bun venit în MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Aflați mai multe";
 
-"onboarding_not_storage_permission_title" = "Acordați acces";
+"onboarding_storage_permissions_title" = "Acordați acces";
 
-"onboarding_not_storage_permission_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.";
+"onboarding_storage_permissions_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.";
 
 "button_exit" = "Ieșire";
 
-"onboarding_learn_more_title" = "MAPS.ME necesită acces la";
+"onboarding_detail_permissions_title" = "MAPS.ME necesită acces la";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Stocare";
+"onboarding_detail_permissions_storage_title" = "Stocare";
 
-"onboarding_learn_more_storage_message" = "Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.";
+"onboarding_detail_permissions_storage_message" = "Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Locație";
+"onboarding_detail_permissions_location_title" = "Locație";
 
-"onboarding_learn_more_location_message" = "Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.";
+"onboarding_detail_permissions_location_message" = "Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.";
 
-"onboarding_learn_more_save_maps_message" = "Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.";
+"onboarding_detail_permissions_storage_path_message" = "Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.";
 
 "settings_device_memory" = "Memoria dispozitivului";
 

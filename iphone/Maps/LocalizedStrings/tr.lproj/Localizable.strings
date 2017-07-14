@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "MAPS.ME'ye Hoş Geldiniz";
 
 "onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Daha fazla bilgi edinin";
 
-"onboarding_not_storage_permission_title" = "Erişime izin ver";
+"onboarding_storage_permissions_title" = "Erişime izin ver";
 
-"onboarding_not_storage_permission_message" = "Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME'yi kullanmak için depolama alanına erişim izni gerekiyor.";
+"onboarding_storage_permissions_message" = "Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME'yi kullanmak için depolama alanına erişim izni gerekiyor.";
 
 "button_exit" = "Çık";
 
-"onboarding_learn_more_title" = "MAPS.ME'nin şuraya erişmesi gerekiyor:";
+"onboarding_detail_permissions_title" = "MAPS.ME'nin şuraya erişmesi gerekiyor:";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Depolama Alanı";
+"onboarding_detail_permissions_storage_title" = "Depolama Alanı";
 
-"onboarding_learn_more_storage_message" = "İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.";
+"onboarding_detail_permissions_storage_message" = "İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Konum";
+"onboarding_detail_permissions_location_title" = "Konum";
 
-"onboarding_learn_more_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
+"onboarding_detail_permissions_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
 
-"onboarding_learn_more_save_maps_message" = "İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.";
+"onboarding_detail_permissions_storage_path_message" = "İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.";
 
 "settings_device_memory" = "Cihaz belleği";
 

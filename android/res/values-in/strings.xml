@@ -1110,17 +1110,17 @@
 	<string name="onboarding_welcome_agree">Dengan meluncurkan aplikasi ini, Anda menyetujui Syarat-Syarat Penggunaan dan Kebijakan Privasi.</string>
 	<string name="button_accept_and_continue">Terima dan lanjutkan</string>
 	<string name="button_learn_more">Pelajari selengkapnya</string>
-	<string name="onboarding_not_storage_permission_title">Berikan akses</string>
-	<string name="onboarding_not_storage_permission_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Berikan akses</string>
+	<string name="onboarding_storage_permissions_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.</string>
 	<string name="button_exit">Keluar</string>
-	<string name="onboarding_learn_more_title">MAPS.ME membutuhkan akses ke</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME membutuhkan akses ke</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Penyimpanan</string>
-	<string name="onboarding_learn_more_storage_message">Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.</string>
+	<string name="onboarding_detail_permissions_storage_title">Penyimpanan</string>
+	<string name="onboarding_detail_permissions_storage_message">Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Lokasi</string>
-	<string name="onboarding_learn_more_location_message">Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.</string>
-	<string name="onboarding_learn_more_save_maps_message">Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.</string>
+	<string name="onboarding_detail_permissions_location_title">Lokasi</string>
+	<string name="onboarding_detail_permissions_location_message">Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.</string>
 	<string name="settings_device_memory">Memori perangkat</string>
 	<string name="settings_card_memory">Memori kartu</string>
 	<string name="settings_storage_available">%s tersedia</string>

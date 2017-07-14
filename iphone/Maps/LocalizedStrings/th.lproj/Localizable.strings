@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "ยินดีต้อนรับสู่ MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "ศึกษาเพิ่มเติม";
 
-"onboarding_not_storage_permission_title" = "ให้สิทธิ์เข้าถึง";
+"onboarding_storage_permissions_title" = "ให้สิทธิ์เข้าถึง";
 
-"onboarding_not_storage_permission_message" = "เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME";
+"onboarding_storage_permissions_message" = "เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME";
 
 "button_exit" = "ออก";
 
-"onboarding_learn_more_title" = "MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง";
+"onboarding_detail_permissions_title" = "MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "ที่เก็บข้อมูล";
+"onboarding_detail_permissions_storage_title" = "ที่เก็บข้อมูล";
 
-"onboarding_learn_more_storage_message" = "เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก";
+"onboarding_detail_permissions_storage_message" = "เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "ตำแหน่งที่ตั้ง";
+"onboarding_detail_permissions_location_title" = "ตำแหน่งที่ตั้ง";
 
-"onboarding_learn_more_location_message" = "เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง";
+"onboarding_detail_permissions_location_message" = "เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง";
 
-"onboarding_learn_more_save_maps_message" = "คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า";
+"onboarding_detail_permissions_storage_path_message" = "คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า";
 
 "settings_device_memory" = "หน่วยความจำเครื่อง";
 

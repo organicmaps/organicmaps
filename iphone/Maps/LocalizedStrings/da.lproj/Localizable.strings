@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Velkommen til MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Flere oplysninger";
 
-"onboarding_not_storage_permission_title" = "Giv adgang";
+"onboarding_storage_permissions_title" = "Giv adgang";
 
-"onboarding_not_storage_permission_message" = "Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.";
+"onboarding_storage_permissions_message" = "Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.";
 
 "button_exit" = "Afslut";
 
-"onboarding_learn_more_title" = "MAPS.ME skal have adgang til";
+"onboarding_detail_permissions_title" = "MAPS.ME skal have adgang til";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Lager";
+"onboarding_detail_permissions_storage_title" = "Lager";
 
-"onboarding_learn_more_storage_message" = "For at gemme og bruge hentede kort offline og gemme bogmærker.";
+"onboarding_detail_permissions_storage_message" = "For at gemme og bruge hentede kort offline og gemme bogmærker.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Position";
+"onboarding_detail_permissions_location_title" = "Position";
 
-"onboarding_learn_more_location_message" = "For at se steder og trafik i nærheden af dig og benytte navigation.";
+"onboarding_detail_permissions_location_message" = "For at se steder og trafik i nærheden af dig og benytte navigation.";
 
-"onboarding_learn_more_save_maps_message" = "Du kan også ændre placeringen af hentede kort i indstillingerne.";
+"onboarding_detail_permissions_storage_path_message" = "Du kan også ændre placeringen af hentede kort i indstillingerne.";
 
 "settings_device_memory" = "Enhedens hukommelse";
 

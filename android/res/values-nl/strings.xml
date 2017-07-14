@@ -1111,17 +1111,17 @@
 	<string name="onboarding_welcome_agree">Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.</string>
 	<string name="button_accept_and_continue">Aanvaarden en doorgaan</string>
 	<string name="button_learn_more">Meer informatie</string>
-	<string name="onboarding_not_storage_permission_title">Toegang verlenen</string>
-	<string name="onboarding_not_storage_permission_message">Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Toegang verlenen</string>
+	<string name="onboarding_storage_permissions_message">Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.</string>
 	<string name="button_exit">Verlaten</string>
-	<string name="onboarding_learn_more_title">MAPS.ME heeft toegang nodig tot</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME heeft toegang nodig tot</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Opslag</string>
-	<string name="onboarding_learn_more_storage_message">Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.</string>
+	<string name="onboarding_detail_permissions_storage_title">Opslag</string>
+	<string name="onboarding_detail_permissions_storage_message">Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Locatie</string>
-	<string name="onboarding_learn_more_location_message">Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.</string>
-	<string name="onboarding_learn_more_save_maps_message">U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.</string>
+	<string name="onboarding_detail_permissions_location_title">Locatie</string>
+	<string name="onboarding_detail_permissions_location_message">Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.</string>
 	<string name="settings_device_memory">Apparaatgeheugen</string>
 	<string name="settings_card_memory">Kaartgeheugen</string>
 	<string name="settings_storage_available">%s beschikbaar</string>

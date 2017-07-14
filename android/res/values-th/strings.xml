@@ -1117,17 +1117,17 @@
 	<string name="onboarding_welcome_agree">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว</string>
 	<string name="button_accept_and_continue">ตกลงและดำเนินการต่อไป</string>
 	<string name="button_learn_more">ศึกษาเพิ่มเติม</string>
-	<string name="onboarding_not_storage_permission_title">ให้สิทธิ์เข้าถึง</string>
-	<string name="onboarding_not_storage_permission_message">เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME</string>
+	<string name="onboarding_storage_permissions_title">ให้สิทธิ์เข้าถึง</string>
+	<string name="onboarding_storage_permissions_message">เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME</string>
 	<string name="button_exit">ออก</string>
-	<string name="onboarding_learn_more_title">MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">ที่เก็บข้อมูล</string>
-	<string name="onboarding_learn_more_storage_message">เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก</string>
+	<string name="onboarding_detail_permissions_storage_title">ที่เก็บข้อมูล</string>
+	<string name="onboarding_detail_permissions_storage_message">เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">ตำแหน่งที่ตั้ง</string>
-	<string name="onboarding_learn_more_location_message">เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง</string>
-	<string name="onboarding_learn_more_save_maps_message">คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า</string>
+	<string name="onboarding_detail_permissions_location_title">ตำแหน่งที่ตั้ง</string>
+	<string name="onboarding_detail_permissions_location_message">เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง</string>
+	<string name="onboarding_detail_permissions_storage_path_message">คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า</string>
 	<string name="settings_device_memory">หน่วยความจำเครื่อง</string>
 	<string name="settings_card_memory">หน่วยความจำการ์ด</string>
 	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>

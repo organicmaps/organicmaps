@@ -1115,17 +1115,17 @@
 	<string name="onboarding_welcome_agree">Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.</string>
 	<string name="button_accept_and_continue">Accepter og fortsæt</string>
 	<string name="button_learn_more">Flere oplysninger</string>
-	<string name="onboarding_not_storage_permission_title">Giv adgang</string>
-	<string name="onboarding_not_storage_permission_message">Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.</string>
+	<string name="onboarding_storage_permissions_title">Giv adgang</string>
+	<string name="onboarding_storage_permissions_message">Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.</string>
 	<string name="button_exit">Afslut</string>
-	<string name="onboarding_learn_more_title">MAPS.ME skal have adgang til</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME skal have adgang til</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Lager</string>
-	<string name="onboarding_learn_more_storage_message">For at gemme og bruge hentede kort offline og gemme bogmærker.</string>
+	<string name="onboarding_detail_permissions_storage_title">Lager</string>
+	<string name="onboarding_detail_permissions_storage_message">For at gemme og bruge hentede kort offline og gemme bogmærker.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Position</string>
-	<string name="onboarding_learn_more_location_message">For at se steder og trafik i nærheden af dig og benytte navigation.</string>
-	<string name="onboarding_learn_more_save_maps_message">Du kan også ændre placeringen af hentede kort i indstillingerne.</string>
+	<string name="onboarding_detail_permissions_location_title">Position</string>
+	<string name="onboarding_detail_permissions_location_message">For at se steder og trafik i nærheden af dig og benytte navigation.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Du kan også ændre placeringen af hentede kort i indstillingerne.</string>
 	<string name="settings_device_memory">Enhedens hukommelse</string>
 	<string name="settings_card_memory">Kortets hukommelse</string>
 	<string name="settings_storage_available">%s tilgængelig</string>

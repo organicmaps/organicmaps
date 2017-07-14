@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Chào mừng đến với MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Tìm hiểu thêm";
 
-"onboarding_not_storage_permission_title" = "Cho phép truy cập";
+"onboarding_storage_permissions_title" = "Cho phép truy cập";
 
-"onboarding_not_storage_permission_message" = "Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.";
+"onboarding_storage_permissions_message" = "Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.";
 
 "button_exit" = "Thoát";
 
-"onboarding_learn_more_title" = "MAPS.ME cần quyền truy cập đến";
+"onboarding_detail_permissions_title" = "MAPS.ME cần quyền truy cập đến";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Ổ lưu trữ";
+"onboarding_detail_permissions_storage_title" = "Ổ lưu trữ";
 
-"onboarding_learn_more_storage_message" = "Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.";
+"onboarding_detail_permissions_storage_message" = "Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Vị trí";
+"onboarding_detail_permissions_location_title" = "Vị trí";
 
-"onboarding_learn_more_location_message" = "Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
+"onboarding_detail_permissions_location_message" = "Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
 
-"onboarding_learn_more_save_maps_message" = "Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.";
+"onboarding_detail_permissions_storage_path_message" = "Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.";
 
 "settings_device_memory" = "Bộ nhớ thiết bị";
 

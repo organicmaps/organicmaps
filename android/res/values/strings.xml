@@ -810,14 +810,6 @@
 	<string name="onboarding_location_message">In order for you to use navigation and the other app functions, MAPS.ME needs access to your geoposition.</string>
 	<string name="onboarding_permissions_title">Allow MAPS.ME access to storage and location</string>
 	<string name="onboarding_permissions_message">So you can download maps, see places and traffic near you and use navigation.</string>
-	<string name="onboarding_storage_permissions_title">Grant access</string>
-	<string name="onboarding_storage_permissions_message">Change permissions settings in your device. Needs a storage access to use MAPS.ME.</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME needs access to</string>
-	<string name="onboarding_detail_permissions_storage_title">Storage</string>
-	<string name="onboarding_detail_permissions_storage_message">To save and use downloaded maps offline and save bookmarks.</string>
-	<string name="onboarding_detail_permissions_location_title">Location</string>
-	<string name="onboarding_detail_permissions_location_message">To see places and traffic near you and use navigation.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">You can also change a destination to save downloaded maps.</string>
 	<string name="onboarding_welcome_title">Welcome to MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Free, fast, detailed and entirely offline maps with turn-by-turn navigation.</string>
 	<string name="onboarding_welcome_second_subtitle">By launching the application, you agree to &lt;a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use&lt;/a> and &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy&lt;/a>.</string>
@@ -1152,17 +1144,17 @@
 	<string name="onboarding_welcome_agree">By launching the application, you agree to Terms of Use and Privacy Policy.</string>
 	<string name="button_accept_and_continue">Accept and continue</string>
 	<string name="button_learn_more">Learn more</string>
-	<string name="onboarding_not_storage_permission_title">Grant Access</string>
-	<string name="onboarding_not_storage_permission_message">Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Grant Access</string>
+	<string name="onboarding_storage_permissions_message">Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.</string>
 	<string name="button_exit">Exit</string>
-	<string name="onboarding_learn_more_title">MAPS.ME needs access to</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME needs access to</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Storage</string>
-	<string name="onboarding_learn_more_storage_message">To save and use downloaded maps offline and store bookmarks.</string>
+	<string name="onboarding_detail_permissions_storage_title">Storage</string>
+	<string name="onboarding_detail_permissions_storage_message">To save and use downloaded maps offline and store bookmarks.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Location</string>
-	<string name="onboarding_learn_more_location_message">To see places and traffic near you and use navigation.</string>
-	<string name="onboarding_learn_more_save_maps_message">You can also change the location for downloaded maps in settings.</string>
+	<string name="onboarding_detail_permissions_location_title">Location</string>
+	<string name="onboarding_detail_permissions_location_message">To see places and traffic near you and use navigation.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">You can also change the location for downloaded maps in settings.</string>
 	<string name="settings_device_memory">Device memory</string>
 	<string name="settings_card_memory">Card memory</string>
 	<string name="settings_storage_available">%s available</string>

@@ -1117,17 +1117,17 @@
 	<string name="onboarding_welcome_agree">من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.</string>
 	<string name="button_accept_and_continue">قبول ومتابعة</string>
 	<string name="button_learn_more">تعلم المزيد</string>
-	<string name="onboarding_not_storage_permission_title">منح حق الوصول</string>
-	<string name="onboarding_not_storage_permission_message">قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">منح حق الوصول</string>
+	<string name="onboarding_storage_permissions_message">قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.</string>
 	<string name="button_exit">خروج</string>
-	<string name="onboarding_learn_more_title">MAPS.ME يحتاج إلى الوصول إلى</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME يحتاج إلى الوصول إلى</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">ذاكرة التخزين</string>
-	<string name="onboarding_learn_more_storage_message">لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.</string>
+	<string name="onboarding_detail_permissions_storage_title">ذاكرة التخزين</string>
+	<string name="onboarding_detail_permissions_storage_message">لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">الموقع</string>
-	<string name="onboarding_learn_more_location_message">لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.</string>
-	<string name="onboarding_learn_more_save_maps_message">يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.</string>
+	<string name="onboarding_detail_permissions_location_title">الموقع</string>
+	<string name="onboarding_detail_permissions_location_message">لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.</string>
 	<string name="settings_device_memory">ذاكرة الجهاز</string>
 	<string name="settings_card_memory">بطاقة الذاكرة</string>
 	<string name="settings_storage_available">%s متوفر</string>

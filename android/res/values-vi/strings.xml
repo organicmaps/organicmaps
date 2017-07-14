@@ -1111,17 +1111,17 @@
 	<string name="onboarding_welcome_agree">Thông qua việc khởi chạy ứng dụng, bạn đồng ý với các Điều khoản Sử dụng và Chính sách Riêng tư.</string>
 	<string name="button_accept_and_continue">Chấp nhận và tiếp tục</string>
 	<string name="button_learn_more">Tìm hiểu thêm</string>
-	<string name="onboarding_not_storage_permission_title">Cho phép truy cập</string>
-	<string name="onboarding_not_storage_permission_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Cho phép truy cập</string>
+	<string name="onboarding_storage_permissions_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.</string>
 	<string name="button_exit">Thoát</string>
-	<string name="onboarding_learn_more_title">MAPS.ME cần quyền truy cập đến</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME cần quyền truy cập đến</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Ổ lưu trữ</string>
-	<string name="onboarding_learn_more_storage_message">Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.</string>
+	<string name="onboarding_detail_permissions_storage_title">Ổ lưu trữ</string>
+	<string name="onboarding_detail_permissions_storage_message">Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Vị trí</string>
-	<string name="onboarding_learn_more_location_message">Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
-	<string name="onboarding_learn_more_save_maps_message">Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.</string>
+	<string name="onboarding_detail_permissions_location_title">Vị trí</string>
+	<string name="onboarding_detail_permissions_location_message">Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.</string>
 	<string name="settings_device_memory">Bộ nhớ thiết bị</string>
 	<string name="settings_card_memory">Bộ nhớ thẻ</string>
 	<string name="settings_storage_available">%s trống</string>

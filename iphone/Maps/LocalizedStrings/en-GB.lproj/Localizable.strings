@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Welcome to MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Learn more";
 
-"onboarding_not_storage_permission_title" = "Grant Access";
+"onboarding_storage_permissions_title" = "Grant Access";
 
-"onboarding_not_storage_permission_message" = "Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.";
+"onboarding_storage_permissions_message" = "Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.";
 
 "button_exit" = "Exit";
 
-"onboarding_learn_more_title" = "MAPS.ME needs access to";
+"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Storage";
+"onboarding_detail_permissions_storage_title" = "Storage";
 
-"onboarding_learn_more_storage_message" = "To save and use downloaded maps offline and store bookmarks.";
+"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and store bookmarks.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Location";
+"onboarding_detail_permissions_location_title" = "Location";
 
-"onboarding_learn_more_location_message" = "To see places and traffic near you and use navigation.";
+"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
 
-"onboarding_learn_more_save_maps_message" = "You can also change the location for downloaded maps in settings.";
+"onboarding_detail_permissions_storage_path_message" = "You can also change the location for downloaded maps in settings.";
 
 "settings_device_memory" = "Device memory";
 

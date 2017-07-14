@@ -1114,17 +1114,17 @@
 	<string name="onboarding_welcome_agree">Ao lançar a aplicação, o utilizador concorda com os Termos de Utilização e a Política de Privacidade.</string>
 	<string name="button_accept_and_continue">Aceitar e continuar</string>
 	<string name="button_learn_more">Saber mais</string>
-	<string name="onboarding_not_storage_permission_title">Conceder acesso</string>
-	<string name="onboarding_not_storage_permission_message">Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_title">Conceder acesso</string>
+	<string name="onboarding_storage_permissions_message">Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o MAPS.ME.</string>
 	<string name="button_exit">Sair</string>
-	<string name="onboarding_learn_more_title">O MAPS.ME precisa de aceder a</string>
+	<string name="onboarding_detail_permissions_title">O MAPS.ME precisa de aceder a</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_learn_more_storage">Armazenamento</string>
-	<string name="onboarding_learn_more_storage_message">Para guardar e utilizar mapas transferidos offline e guardar favoritos.</string>
+	<string name="onboarding_detail_permissions_storage_title">Armazenamento</string>
+	<string name="onboarding_detail_permissions_storage_message">Para guardar e utilizar mapas transferidos offline e guardar favoritos.</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_location">Localização</string>
-	<string name="onboarding_learn_more_location_message">Para ver locais e o trânsito perto de si e utilizar a navegação.</string>
-	<string name="onboarding_learn_more_save_maps_message">Também pode alterar o destino para os mapas transferidos nas configurações.</string>
+	<string name="onboarding_detail_permissions_location_title">Localização</string>
+	<string name="onboarding_detail_permissions_location_message">Para ver locais e o trânsito perto de si e utilizar a navegação.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Também pode alterar o destino para os mapas transferidos nas configurações.</string>
 	<string name="settings_device_memory">Memória do dispositivo</string>
 	<string name="settings_card_memory">Memória do cartão</string>
 	<string name="settings_storage_available">%s disponível</string>

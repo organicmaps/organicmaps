@@ -1336,22 +1336,6 @@
 
 "onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Välkommen till MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
@@ -1961,25 +1945,25 @@
 
 "button_learn_more" = "Läs mer";
 
-"onboarding_not_storage_permission_title" = "Bevilja åtkomst";
+"onboarding_storage_permissions_title" = "Bevilja åtkomst";
 
-"onboarding_not_storage_permission_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.";
+"onboarding_storage_permissions_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.";
 
 "button_exit" = "Avsluta";
 
-"onboarding_learn_more_title" = "MAPS.ME behöver åtkomst till";
+"onboarding_detail_permissions_title" = "MAPS.ME behöver åtkomst till";
 
 /* Default permission's name from Android settings. */
-"onboarding_learn_more_storage" = "Lagring";
+"onboarding_detail_permissions_storage_title" = "Lagring";
 
-"onboarding_learn_more_storage_message" = "För att spara och använda nedladdade kartor offline och spara bokmärken.";
+"onboarding_detail_permissions_storage_message" = "För att spara och använda nedladdade kartor offline och spara bokmärken.";
 
 /* Default permission's name from Android settings. */
-"onboarding_location" = "Plats";
+"onboarding_detail_permissions_location_title" = "Plats";
 
-"onboarding_learn_more_location_message" = "För att visa platser och trafik i närheten och använda navigering.";
+"onboarding_detail_permissions_location_message" = "För att visa platser och trafik i närheten och använda navigering.";
 
-"onboarding_learn_more_save_maps_message" = "Du kan även ändra destination för nedladdade kartor i inställningarna.";
+"onboarding_detail_permissions_storage_path_message" = "Du kan även ändra destination för nedladdade kartor i inställningarna.";
 
 "settings_device_memory" = "Enhetens minne";
 
