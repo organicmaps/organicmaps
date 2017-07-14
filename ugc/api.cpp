@@ -17,7 +17,7 @@ Time FromDaysAgo(Time time, uint32_t days)
 }
 }  // namespace
 
-Api::Api(Index const & index, std::string const & filename) : m_index(index), m_storage(filename) {}
+Api::Api(Index const & index, std::string const & filename) : m_storage(filename) {}
 
 void Api::GetUGC(FeatureID const & id, UGCCallback callback)
 {

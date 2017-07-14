@@ -34,7 +34,6 @@ private:
 
   void SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
 
-  Index const & m_index;
   base::WorkerThread m_thread;
   Storage m_storage;
 };
