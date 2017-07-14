@@ -26,6 +26,8 @@
 		3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */; };
 		3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
+		454649F11F2728CE00EF4064 /* local_ads_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454649EF1F2728CE00EF4064 /* local_ads_mark.cpp */; };
+		454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454649F01F2728CE00EF4064 /* local_ads_mark.hpp */; };
 		45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */; };
 		45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */; };
 		45D287671E966E3400587F05 /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D287661E966E3400587F05 /* liblocal_ads.a */; };
@@ -154,6 +156,8 @@
 		3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displayed_categories_modifiers.hpp; sourceTree = "<group>"; };
 		3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_ads_supported_types.cpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
+		454649EF1F2728CE00EF4064 /* local_ads_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_ads_mark.cpp; sourceTree = "<group>"; };
+		454649F01F2728CE00EF4064 /* local_ads_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local_ads_mark.hpp; sourceTree = "<group>"; };
 		45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = benchmark_tools.cpp; sourceTree = "<group>"; };
 		45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = benchmark_tools.hpp; sourceTree = "<group>"; };
 		45D287661E966E3400587F05 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/liblocal_ads.a"; sourceTree = "<group>"; };
@@ -431,6 +435,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				454649EF1F2728CE00EF4064 /* local_ads_mark.cpp */,
+				454649F01F2728CE00EF4064 /* local_ads_mark.hpp */,
 				3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */,
 				3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */,
 				3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */,
@@ -508,6 +514,7 @@
 				F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */,
 				675346671A4054E800A0A8C3 /* ge0_parser.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
+				454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
@@ -646,6 +653,7 @@
 				56B6EAF81EA4BAF00037D963 /* mwm_tree.cpp in Sources */,
 				674C38621BFF3095000D603B /* user_mark.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
+				454649F11F2728CE00EF4064 /* local_ads_mark.cpp in Sources */,
 				F63421F81DF9BF9100A96868 /* reachable_by_taxi_checker.cpp in Sources */,
 				6753466A1A4054E800A0A8C3 /* geourl_process.cpp in Sources */,
 				348AB57C1D7EE0C6009F8301 /* chart_generator.cpp in Sources */,

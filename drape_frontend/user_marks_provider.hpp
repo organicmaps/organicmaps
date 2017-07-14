@@ -4,6 +4,8 @@
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include "geometry/polyline2d.hpp"
 
 #include "base/mutex.hpp"
@@ -34,10 +36,11 @@ public:
   virtual bool HasCreationAnimation() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
-  virtual uint16_t GetProirity() const = 0;
-  virtual bool SymbolHasPriority() const = 0;
-  virtual bool TitleHasPriority() const = 0;
+  virtual uint16_t GetPriority() const = 0;
+  virtual bool HasSymbolPriority() const = 0;
+  virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
+  virtual FeatureID GetFeatureID() const = 0;
 
 private:
   uint32_t m_id;

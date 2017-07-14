@@ -40,6 +40,7 @@ public:
     GeometryLayer,
     UserLineLayer,
     OverlayLayer,
+    LocalAdsMarkLayer,
     UserMarkLayer,
     NavigationLayer,
     RoutingMarkLayer,

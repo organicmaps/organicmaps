@@ -732,14 +732,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::InvalidateUserMarks:
     {
-      auto removePredicate = [](drape_ptr<RenderGroup> const & group)
+      RemoveRenderGroupsLater([](drape_ptr<RenderGroup> const & group)
       {
-        RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(group->GetState());
-        return id == RenderLayer::UserLineID ||
-            id == RenderLayer::UserMarkID ||
-            id == RenderLayer::RoutingMarkID;
-      };
-      RemoveRenderGroupsLater(removePredicate);
+        return group->IsUserMark();
+      });
       m_forceUpdateUserMarks = true;
       break;
     }
@@ -776,10 +772,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateCustomSymbols:
+  case Message::UpdateCustomFeatures:
     {
-      ref_ptr<UpdateCustomSymbolsMessage> msg = message;
-      m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptSymbolsFeatures());
+      ref_ptr<UpdateCustomFeaturesMessage> msg = message;
+      m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptFeatures());
       m_forceUpdateScene = true;
       break;
     }
@@ -1164,6 +1160,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     StencilWriterGuard guard(make_ref(m_postprocessRenderer));
     RenderOverlayLayer(modelView);
+    RenderUserMarksLayer(modelView, RenderLayer::LocalAdsMarkID);
   }
 
   m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
@@ -1312,6 +1309,7 @@ void FrontendRenderer::RenderUserLinesLayer(ScreenBase const & modelView)
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   static std::vector<RenderLayer::RenderLayerID> layers = {RenderLayer::OverlayID,
+                                                           RenderLayer::LocalAdsMarkID,
                                                            RenderLayer::NavigationID,
                                                            RenderLayer::RoutingMarkID};
   BeginUpdateOverlayTree(modelView);
@@ -2059,6 +2057,8 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
   case dp::GLState::UserLineLayer: return UserLineID;
   case dp::GLState::RoutingMarkLayer: return RoutingMarkID;
   case dp::GLState::NavigationLayer: return NavigationID;
+  case dp::GLState::LocalAdsMarkLayer: return LocalAdsMarkID;
+  default: break;
   }
 
   if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/custom_symbol.hpp"
+#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/threads_commutator.hpp"
@@ -26,7 +26,7 @@ public:
                 ref_ptr<ThreadsCommutator> commutator,
                 ref_ptr<dp::TextureManager> texMng,
                 ref_ptr<MetalineManager> metalineMng,
-                CustomSymbolsContextWeakPtr customSymbolsContext,
+                CustomFeaturesContextWeakPtr customFeaturesContext,
                 bool is3dBuildingsEnabled,
                 bool isTrafficEnabled,
                 int displacementMode);
@@ -35,7 +35,7 @@ public:
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
   bool IsTrafficEnabled() const { return m_trafficEnabled; }
   int GetDisplacementMode() const { return m_displacementMode; }
-  CustomSymbolsContextWeakPtr GetCustomSymbolsContext() const { return m_customSymbolsContext; }
+  CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
   ref_ptr<dp::TextureManager> GetTextureManager() const;
   ref_ptr<MetalineManager> GetMetalineManager() const;
 
@@ -52,7 +52,7 @@ private:
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;
   ref_ptr<MetalineManager> m_metalineMng;
-  CustomSymbolsContextWeakPtr m_customSymbolsContext;
+  CustomFeaturesContextWeakPtr m_customFeaturesContext;
   bool m_3dBuildingsEnabled;
   bool m_trafficEnabled;
   int m_displacementMode;

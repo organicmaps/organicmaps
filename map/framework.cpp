@@ -389,10 +389,11 @@ Framework::Framework(FrameworkParams const & params)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
                                                std::bind(&Framework::GetCountryInfoGetter, this)),
                      static_cast<RoutingManager::Delegate &>(*this))
-  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
+  , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
-                      bind(&Framework::GetMwmIdByName, this, _1))
+  , m_localAdsManager(std::bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
+                      std::bind(&Framework::GetMwmIdByName, this, _1),
+                      std::bind(&Framework::ReadFeatures, this, _1, _2))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
@@ -462,7 +463,10 @@ Framework::Framework(FrameworkParams const & params)
 
   // Local ads manager should be initialized after storage initialization.
   if (!params.m_disableLocalAds)
+  {
+    m_localAdsManager.SetBookmarkManager(&m_bmManager);
     m_localAdsManager.Startup();
+  }
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
@@ -1911,7 +1915,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     for (auto const & event : events)
     {
       auto const & mwmInfo = event.m_feature.m_mwmId.GetInfo();
-      if (!mwmInfo)
+      if (!mwmInfo || !m_localAdsManager.Contains(event.m_feature))
         continue;
 
       statEvents.emplace_back(local_ads::EventType::ShowPoint,
@@ -2381,7 +2385,8 @@ void Framework::InvalidateUserMarks()
   m_bmManager.InitBookmarks();
 
   std::vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
-                                           UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK};
+                                           UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK,
+                                           UserMarkType::LOCAL_ADS_MARK};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
     m_bmManager.GetUserMarksController(types[typeIndex]).NotifyChanges();
 }
@@ -3354,6 +3359,12 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
 MwmSet::MwmId Framework::GetMwmIdByName(std::string const & name) const
 {
   return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
+}
+
+void Framework::ReadFeatures(std::function<void(FeatureType const &)> const & reader,
+                             std::set<FeatureID> const & features)
+{
+  m_model.ReadFeatures(reader, std::vector<FeatureID>(features.begin(), features.end()));
 }
 
 // RoutingManager::Delegate

@@ -12,7 +12,7 @@ EngineContext::EngineContext(TileKey tileKey,
                              ref_ptr<ThreadsCommutator> commutator,
                              ref_ptr<dp::TextureManager> texMng,
                              ref_ptr<MetalineManager> metalineMng,
-                             CustomSymbolsContextWeakPtr customSymbolsContext,
+                             CustomFeaturesContextWeakPtr customFeaturesContext,
                              bool is3dBuildingsEnabled,
                              bool isTrafficEnabled,
                              int displacementMode)
@@ -20,7 +20,7 @@ EngineContext::EngineContext(TileKey tileKey,
   , m_commutator(commutator)
   , m_texMng(texMng)
   , m_metalineMng(metalineMng)
-  , m_customSymbolsContext(customSymbolsContext)
+  , m_customFeaturesContext(customFeaturesContext)
   , m_3dBuildingsEnabled(is3dBuildingsEnabled)
   , m_trafficEnabled(isTrafficEnabled)
   , m_displacementMode(displacementMode)

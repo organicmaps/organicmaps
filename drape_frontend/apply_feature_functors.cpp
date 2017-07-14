@@ -63,6 +63,7 @@ int const kLineSimplifyLevelEnd = 12;
 
 uint32_t const kPathTextBaseTextIndex = 128;
 uint32_t const kShieldBaseTextIndex = 0;
+int const kShieldMinVisibleZoomLevel = 10;
 
 #ifdef CALC_FILTERED_POINTS
 class LinesStat
@@ -552,8 +553,7 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
   }
 }
 
-void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
-                               CustomSymbolsContextPtr const & customSymbolsContext)
+void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 {
   m2::PointF symbolSize(0.0f, 0.0f);
 
@@ -580,24 +580,12 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
-
     params.m_symbolName = m_symbolRule->name();
-    bool prioritized = false;
-    if (customSymbolsContext)
-    {
-      auto customSymbolIt = customSymbolsContext->m_symbols.find(m_id);
-      if (customSymbolIt != customSymbolsContext->m_symbols.end())
-      {
-        params.m_symbolName = customSymbolIt->second.m_symbolName;
-        prioritized = customSymbolIt->second.m_prioritized;
-      }
-    }
-
     double const mainScale = df::VisualParams::Instance().GetVisualScale();
     params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance());
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
-    params.m_prioritized = prioritized || m_createdByEditor;
+    params.m_prioritized = m_createdByEditor;
     params.m_obsoleteInEditor = m_obsoleteInEditor;
     params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
                                                            : SpecialDisplacement::None;
@@ -991,7 +979,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depth = m_depth;
   textParams.m_depthLayer = dp::GLState::OverlayLayer;
-  textParams.m_minVisibleScale = m_minVisibleScale;
+  textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
   textParams.m_rank = m_rank;
   textParams.m_featureID = m_id;
   textParams.m_titleDecl.m_anchor = anchor;
@@ -1020,7 +1008,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depth = m_depth;
     symbolParams.m_depthLayer = dp::GLState::OverlayLayer;
-    symbolParams.m_minVisibleScale = m_minVisibleScale;
+    symbolParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
     symbolParams.m_offset = shieldOffset;
@@ -1047,7 +1035,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_depth;
     poiParams.m_depthLayer = dp::GLState::OverlayLayer;
-    poiParams.m_minVisibleScale = m_minVisibleScale;
+    poiParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;
     poiParams.m_extendingSize = 0;

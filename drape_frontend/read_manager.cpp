@@ -221,7 +221,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
   ASSERT(m_pool != nullptr, ());
   auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
                                                m_commutator, texMng, metalineMng,
-                                               m_customSymbolsContext,
+                                               m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings,
                                                m_trafficEnabled, m_displacementMode);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
@@ -315,35 +315,49 @@ void ReadManager::SetDisplacementMode(int displacementMode)
   }
 }
 
-void ReadManager::UpdateCustomSymbols(CustomSymbols const & symbols)
+bool ReadManager::SetCustomFeatures(std::set<FeatureID> && ids)
 {
-  CustomSymbols currentSymbols = m_customSymbolsContext ? m_customSymbolsContext->m_symbols :
-                                 CustomSymbols();
-  for (auto const & s : symbols)
-    currentSymbols[s.first] = s.second;
-  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(currentSymbols));
+  size_t const sz = m_customFeaturesContext ? m_customFeaturesContext->m_features.size() : 0;
+  m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::move(ids));
+
+  return sz != m_customFeaturesContext->m_features.size();
 }
 
-void ReadManager::RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds)
+std::vector<FeatureID> ReadManager::GetCustomFeaturesArray() const
 {
-  if (!m_customSymbolsContext)
-    return;
+  if (!m_customFeaturesContext)
+    return {};
+  std::vector<FeatureID> features;
+  features.reserve(m_customFeaturesContext->m_features.size());
+  for (auto const & s : m_customFeaturesContext->m_features)
+    features.push_back(s);
+  return features;
+}
 
-  CustomSymbols currentSymbols;
-  leftoverIds.reserve(m_customSymbolsContext->m_symbols.size());
-  for (auto const & s : m_customSymbolsContext->m_symbols)
+bool ReadManager::RemoveCustomFeatures(MwmSet::MwmId const & mwmId)
+{
+  if (!m_customFeaturesContext)
+    return false;
+
+  std::set<FeatureID> features;
+  for (auto const & s : m_customFeaturesContext->m_features)
   {
-    if (s.first.m_mwmId != mwmId)
-    {
-      currentSymbols.insert(std::make_pair(s.first, s.second));
-      leftoverIds.push_back(s.first);
-    }
+    if (s.m_mwmId != mwmId)
+      features.insert(s);
   }
-  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(std::move(currentSymbols));
+  if (features.size() == m_customFeaturesContext->m_features.size())
+    return false;
+
+  m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::move(features));
+  return true;
 }
 
-void ReadManager::RemoveAllCustomSymbols()
+bool ReadManager::RemoveAllCustomFeatures()
 {
-  m_customSymbolsContext = std::make_shared<CustomSymbolsContext>(CustomSymbols());
+  if (!m_customFeaturesContext || m_customFeaturesContext->m_features.empty())
+    return false;
+
+  m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::set<FeatureID>());
+  return true;
 }
 } // namespace df

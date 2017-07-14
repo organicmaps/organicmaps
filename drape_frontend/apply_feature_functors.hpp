@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -86,8 +85,7 @@ public:
 
   void operator()(m2::PointD const & point, bool hasArea);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
-  void Finish(ref_ptr<dp::TextureManager> texMng,
-              CustomSymbolsContextPtr const & customSymbolsContext);
+  void Finish(ref_ptr<dp::TextureManager> texMng);
 
 protected:
   float const m_posZ;

@@ -152,6 +152,7 @@ private:
       Geometry2dID,
       UserLineID,
       OverlayID,
+      LocalAdsMarkID,
       Geometry3dID,
       UserMarkID,
       NavigationID,

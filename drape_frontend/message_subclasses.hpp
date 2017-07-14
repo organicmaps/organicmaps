@@ -2,7 +2,6 @@
 
 #include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_point.hpp"
@@ -1110,30 +1109,30 @@ private:
   TProperties m_properties;
 };
 
-class AddCustomSymbolsMessage : public Message
+class SetCustomFeaturesMessage : public Message
 {
 public:
-  explicit AddCustomSymbolsMessage(CustomSymbols && symbols)
-    : m_symbols(std::move(symbols))
+  explicit SetCustomFeaturesMessage(std::set<FeatureID> && ids)
+    : m_features(std::move(ids))
   {}
 
-  Type GetType() const override { return Message::AddCustomSymbols; }
+  Type GetType() const override { return Message::SetCustomFeatures; }
 
-  CustomSymbols && AcceptSymbols() { return std::move(m_symbols); }
+  std::set<FeatureID> && AcceptFeatures() { return std::move(m_features); }
 
 private:
-  CustomSymbols m_symbols;
+  std::set<FeatureID> m_features;
 };
 
-class RemoveCustomSymbolsMessage : public Message
+class RemoveCustomFeaturesMessage : public Message
 {
 public:
-  RemoveCustomSymbolsMessage() = default;
-  explicit RemoveCustomSymbolsMessage(MwmSet::MwmId const & mwmId)
+  RemoveCustomFeaturesMessage() = default;
+  explicit RemoveCustomFeaturesMessage(MwmSet::MwmId const & mwmId)
     : m_mwmId(mwmId), m_removeAll(false)
   {}
 
-  Type GetType() const override { return Message::RemoveCustomSymbols; }
+  Type GetType() const override { return Message::RemoveCustomFeatures; }
   bool NeedRemoveAll() const { return m_removeAll; }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
@@ -1142,19 +1141,19 @@ private:
   bool m_removeAll = true;
 };
 
-class UpdateCustomSymbolsMessage : public Message
+class UpdateCustomFeaturesMessage : public Message
 {
 public:
-  explicit UpdateCustomSymbolsMessage(std::vector<FeatureID> && symbolsFeatures)
-    : m_symbolsFeatures(std::move(symbolsFeatures))
+  explicit UpdateCustomFeaturesMessage(std::vector<FeatureID> && features)
+    : m_features(std::move(features))
   {}
 
-  Type GetType() const override { return Message::UpdateCustomSymbols; }
+  Type GetType() const override { return Message::UpdateCustomFeatures; }
 
-  std::vector<FeatureID> && AcceptSymbolsFeatures() { return std::move(m_symbolsFeatures); }
+  std::vector<FeatureID> && AcceptFeatures() { return std::move(m_features); }
 
 private:
-  std::vector<FeatureID> m_symbolsFeatures;
+  std::vector<FeatureID> m_features;
 };
 
 class SetPostprocessStaticTexturesMessage : public Message

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/custom_symbol.hpp"
+#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/tile_key.hpp"
 

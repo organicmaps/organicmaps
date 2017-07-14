@@ -2,7 +2,6 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/route_shape.hpp"
@@ -202,9 +201,11 @@ public:
                    ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
 
-  void AddCustomSymbols(CustomSymbols && symbols);
-  void RemoveCustomSymbols(MwmSet::MwmId const & mwmId);
-  void RemoveAllCustomSymbols();
+  // Custom features are features which we do not render usual way.
+  // All these features will be skipped in process of geometry generation.
+  void SetCustomFeatures(std::set<FeatureID> && ids);
+  void RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
+  void RemoveAllCustomFeatures();
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
 

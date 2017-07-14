@@ -106,14 +106,16 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
     depthLayer = renderInfo.m_depthLayer;
 
-    if (renderInfo.m_symbolHasPriority)
+    if (renderInfo.m_hasSymbolPriority)
     {
-      PoiSymbolViewParams params((FeatureID()));
+      PoiSymbolViewParams params(renderInfo.m_featureId);
+      params.m_tileCenter = tileCenter;
       params.m_depth = renderInfo.m_depth;
       params.m_depthLayer = renderInfo.m_depthLayer;
       params.m_minVisibleScale = renderInfo.m_minZoom;
       params.m_specialDisplacement = SpecialDisplacement::UserMark;
       params.m_specialPriority = renderInfo.m_priority;
+      params.m_symbolName = renderInfo.m_symbolName;
       PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
                      0 /* textIndex */).Draw(&batcher, textures);
     }
@@ -147,12 +149,13 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (renderInfo.m_titleDecl != nullptr && !renderInfo.m_titleDecl->m_primaryText.empty())
     {
       TextViewParams params;
+      params.m_featureID = renderInfo.m_featureId;
       params.m_tileCenter = tileCenter;
       params.m_titleDecl = *renderInfo.m_titleDecl;
       params.m_depth = renderInfo.m_depth;
       params.m_depthLayer = renderInfo.m_depthLayer;
       params.m_minVisibleScale = renderInfo.m_minZoom;
-      if (renderInfo.m_titleHasPriority)
+      if (renderInfo.m_hasTitlePriority)
       {
         params.m_specialDisplacement = SpecialDisplacement::UserMark;
         params.m_specialPriority = renderInfo.m_priority;
@@ -162,9 +165,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       textures->GetSymbolRegion(renderInfo.m_symbolName, region);
       m2::PointF const symbolSize = region.GetPixelSize();
 
-      TextShape(renderInfo.m_pivot, params, tileKey, false /* hasPOI */,
-                symbolSize, renderInfo.m_anchor,
-                0 /* textIndex */).Draw(&batcher, textures);
+      TextShape(renderInfo.m_pivot, params, tileKey, renderInfo.m_hasSymbolPriority /* hasPOI */,
+                symbolSize, renderInfo.m_anchor, 0 /* textIndex */).Draw(&batcher, textures);
     }
   }
 

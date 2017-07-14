@@ -20,13 +20,14 @@ struct UserMarkRenderParams
   std::string m_symbolName;
   dp::Anchor m_anchor = dp::Center;
   drape_ptr<dp::TitleDecl> m_titleDecl;
-  bool m_symbolHasPriority = false;
-  bool m_titleHasPriority = false;
+  bool m_hasSymbolPriority = false;
+  bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
   float m_depth = 0.0;
   dp::GLState::DepthLayer m_depthLayer = dp::GLState::UserMarkLayer;
   bool m_runCreationAnim = false;
   bool m_isVisible = true;
+  FeatureID m_featureId;
 };
 
 struct LineLayer

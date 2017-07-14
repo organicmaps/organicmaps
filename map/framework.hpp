@@ -413,6 +413,9 @@ public:
   vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
   MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
+  void ReadFeatures(std::function<void(FeatureType const &)> const & reader,
+                    std::set<FeatureID> const & features);
+
 private:
   struct TapEvent
   {

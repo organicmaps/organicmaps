@@ -230,9 +230,10 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
       renderInfo->m_runCreationAnim = mark->HasCreationAnimation();
       renderInfo->m_symbolName = mark->GetSymbolName();
       renderInfo->m_titleDecl = mark->GetTitleDecl();
-      renderInfo->m_symbolHasPriority = mark->SymbolHasPriority();
-      renderInfo->m_titleHasPriority = mark->TitleHasPriority();
-      renderInfo->m_priority = mark->GetProirity();
+      renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
+      renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
+      renderInfo->m_priority = mark->GetPriority();
+      renderInfo->m_featureId = mark->GetFeatureID();
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();
     }
@@ -674,24 +675,24 @@ void DrapeEngine::RunScenario(ScenarioManager::ScenarioData && scenarioData,
     manager->RunScenario(std::move(scenarioData), onStartFn, onFinishFn);
 }
 
-void DrapeEngine::AddCustomSymbols(CustomSymbols && symbols)
+void DrapeEngine::SetCustomFeatures(std::set<FeatureID> && ids)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddCustomSymbolsMessage>(std::move(symbols)),
+                                  make_unique_dp<SetCustomFeaturesMessage>(std::move(ids)),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::RemoveCustomSymbols(MwmSet::MwmId const & mwmId)
+void DrapeEngine::RemoveCustomFeatures(MwmSet::MwmId const & mwmId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<RemoveCustomSymbolsMessage>(mwmId),
+                                  make_unique_dp<RemoveCustomFeaturesMessage>(mwmId),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::RemoveAllCustomSymbols()
+void DrapeEngine::RemoveAllCustomFeatures()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<RemoveCustomSymbolsMessage>(),
+                                  make_unique_dp<RemoveCustomFeaturesMessage>(),
                                   MessagePriority::Normal);
 }
 

@@ -45,7 +45,7 @@ struct PoiSymbolViewParams : CommonOverlayViewParams
 
   FeatureID m_id;
   std::string m_symbolName;
-  uint32_t m_extendingSize;
+  uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
   bool m_hasArea = false;
   bool m_prioritized = false;

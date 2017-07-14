@@ -161,8 +161,9 @@ bool RenderGroup::IsOverlay() const
 bool RenderGroup::IsUserMark() const
 {
   return m_state.GetDepthLayer() == dp::GLState::UserLineLayer ||
-      m_state.GetDepthLayer() == dp::GLState::UserMarkLayer ||
-      m_state.GetDepthLayer() == dp::GLState::RoutingMarkLayer;
+         m_state.GetDepthLayer() == dp::GLState::UserMarkLayer ||
+         m_state.GetDepthLayer() == dp::GLState::RoutingMarkLayer ||
+         m_state.GetDepthLayer() == dp::GLState::LocalAdsMarkLayer;
 }
 
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)

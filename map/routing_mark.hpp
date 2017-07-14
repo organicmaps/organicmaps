@@ -55,8 +55,8 @@ public:
 
   drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
 
-  bool SymbolHasPriority() const override { return false; }
-  bool TitleHasPriority() const override { return true; }
+  bool HasSymbolPriority() const override { return false; }
+  bool HasTitlePriority() const override { return true; }
 
 private:
   RouteMarkData m_markData;

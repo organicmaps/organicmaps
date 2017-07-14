@@ -1,0 +1,52 @@
+#pragma once
+
+#include "map/user_mark_container.hpp"
+
+#include <cstdint>
+#include <limits>
+#include <string>
+
+struct LocalAdsMarkData
+{
+  m2::PointD m_position = m2::PointD::Zero();
+  std::string m_symbolName;
+  uint8_t m_minZoomLevel = 1;
+  std::string m_mainText;
+  std::string m_auxText;
+  uint16_t m_priority = std::numeric_limits<uint16_t>::max();
+};
+
+class LocalAdsMark : public UserMark
+{
+public:
+  LocalAdsMark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  virtual ~LocalAdsMark() {}
+
+  dp::GLState::DepthLayer GetDepthLayer() const override;
+
+  std::string GetSymbolName() const override { return m_data.m_symbolName; }
+  UserMark::Type GetMarkType() const override { return Type::LOCAL_ADS; }
+
+  drape_ptr<dp::TitleDecl> GetTitleDecl() const override;
+  uint16_t GetPriority() const override { return m_data.m_priority; }
+  bool HasSymbolPriority() const override { return true; }
+  bool HasTitlePriority() const override { return true; }
+  int GetMinZoom() const override { return static_cast<int>(m_data.m_minZoomLevel); }
+  FeatureID GetFeatureID() const override { return m_featureId; }
+
+  void SetData(LocalAdsMarkData && data);
+  void SetFeatureId(FeatureID const & id);
+
+private:
+  LocalAdsMarkData m_data;
+  FeatureID m_featureId;
+  dp::TitleDecl m_titleDecl;
+};
+
+class LocalAdsMarkContainer : public UserMarkContainer
+{
+public:
+  LocalAdsMarkContainer(double layerDepth, Framework & fm);
+protected:
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
+};

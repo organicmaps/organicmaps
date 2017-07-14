@@ -47,6 +47,8 @@ set(
   gps_tracker.hpp
   local_ads_manager.cpp
   local_ads_manager.hpp
+  local_ads_mark.cpp
+  local_ads_mark.hpp
   local_ads_supported_types.cpp
   mwm_tree.cpp
   mwm_tree.hpp

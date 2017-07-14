@@ -155,7 +155,7 @@ HEADERS += \
     circles_pack_shape.hpp \
     color_constants.hpp \
     colored_symbol_shape.hpp \
-    custom_symbol.hpp \
+    custom_features_context.hpp \
     drape_api.hpp \
     drape_api_builder.hpp \
     drape_api_renderer.hpp \

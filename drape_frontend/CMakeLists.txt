@@ -72,7 +72,7 @@ set(
   color_constants.hpp
   colored_symbol_shape.cpp
   colored_symbol_shape.hpp
-  custom_symbol.hpp
+  custom_features_context.hpp
   drape_api.cpp
   drape_api.hpp
   drape_api_builder.cpp

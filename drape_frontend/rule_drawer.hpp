@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/custom_symbol.hpp"
+#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -63,7 +63,7 @@ private:
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;
-  CustomSymbolsContextPtr m_customSymbolsContext;
+  CustomFeaturesContextPtr m_customFeaturesContext;
   std::unordered_set<m2::Spline const *> m_usedMetalines;
 
   m2::RectD m_globalRect;

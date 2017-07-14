@@ -442,31 +442,35 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AddCustomSymbols:
+  case Message::SetCustomFeatures:
     {
-      ref_ptr<AddCustomSymbolsMessage> msg = message;
-      CustomSymbols customSymbols = msg->AcceptSymbols();
-      std::vector<FeatureID> features;
-      for (auto const & symbol : customSymbols)
-        features.push_back(symbol.first);
-      m_readManager->UpdateCustomSymbols(std::move(customSymbols));
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<UpdateCustomSymbolsMessage>(std::move(features)),
-                                MessagePriority::Normal);
+      ref_ptr<SetCustomFeaturesMessage> msg = message;
+      if (m_readManager->SetCustomFeatures(msg->AcceptFeatures()))
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateCustomFeaturesMessage>(
+                                    m_readManager->GetCustomFeaturesArray()),
+                                  MessagePriority::Normal);
+      }
       break;
     }
 
-  case Message::RemoveCustomSymbols:
+  case Message::RemoveCustomFeatures:
     {
-      ref_ptr<RemoveCustomSymbolsMessage> msg = message;
-      std::vector<FeatureID> leftoverIds;
+      ref_ptr<RemoveCustomFeaturesMessage> msg = message;
+      bool changed = false;
       if (msg->NeedRemoveAll())
-        m_readManager->RemoveAllCustomSymbols();
+        changed = m_readManager->RemoveAllCustomFeatures();
       else
-        m_readManager->RemoveCustomSymbols(msg->GetMwmId(), leftoverIds);
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<UpdateCustomSymbolsMessage>(std::move(leftoverIds)),
-                                MessagePriority::Normal);
+        changed = m_readManager->RemoveCustomFeatures(msg->GetMwmId());
+
+      if (changed)
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateCustomFeaturesMessage>(
+                                    m_readManager->GetCustomFeaturesArray()),
+                                  MessagePriority::Normal);
+      }
       break;
     }
 

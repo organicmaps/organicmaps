@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape_frontend/custom_symbol.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/read_mwm_task.hpp"
 #include "drape_frontend/tile_info.hpp"
@@ -54,9 +53,10 @@ public:
 
   void SetDisplacementMode(int displacementMode);
 
-  void UpdateCustomSymbols(CustomSymbols const & symbols);
-  void RemoveCustomSymbols(MwmSet::MwmId const & mwmId, std::vector<FeatureID> & leftoverIds);
-  void RemoveAllCustomSymbols();
+  bool SetCustomFeatures(std::set<FeatureID> && ids);
+  std::vector<FeatureID> GetCustomFeaturesArray() const;
+  bool RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
+  bool RemoveAllCustomFeatures();
 
   bool IsModeChanged() const { return m_modeChanged; }
 
@@ -99,7 +99,7 @@ private:
   using TTileInfoCollection = buffer_vector<std::shared_ptr<TileInfo>, 8>;
   TTilesCollection m_activeTiles;
 
-  CustomSymbolsContextPtr m_customSymbolsContext;
+  CustomFeaturesContextPtr m_customFeaturesContext;
 
   void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);
