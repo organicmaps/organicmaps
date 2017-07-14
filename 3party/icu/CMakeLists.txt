@@ -10,6 +10,12 @@ add_definitions(
   -DU_ENABLE_DYLOAD=0
 )
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(
+    "-Wno-deprecated-declarations"
+  )
+endif()
+
 set(CMAKE_PREFIX_PATH ./)
 
 include_directories(common i18n common/unicode ./)

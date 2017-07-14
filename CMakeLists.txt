@@ -286,6 +286,7 @@ add_compile_options(
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(
     "-Wshorten-64-to-32"
+    "-Wno-unused-local-typedef"
   )
 endif()
 

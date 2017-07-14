@@ -6,6 +6,12 @@ include_directories(
   ${OMIM_ROOT}/3party/osrm/osrm-backend/third_party
 )
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(
+    "-Wno-overloaded-virtual"
+  )
+endif()
+
 set(
   SRC
   boost_stub.cpp

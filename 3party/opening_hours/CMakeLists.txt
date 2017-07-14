@@ -11,7 +11,6 @@ add_compile_options(
   "-std=c++11"
 )
 
-
 set(
   SRC
   opening_hours.hpp

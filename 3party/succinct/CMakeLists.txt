@@ -4,6 +4,12 @@ add_definitions(-DLTC_NO_ROLC)
 
 include_directories(src/headers)
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(
+    "-Wno-unused-local-typedef"
+  )
+endif()
+
 set(
   SRC
   bit_vector.hpp

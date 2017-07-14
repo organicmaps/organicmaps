@@ -6,6 +6,13 @@ if (NOT PLATFORM_WIN)
   add_definitions(-DHAVE_PTHREAD)
 endif ()
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(
+    "-Wno-deprecated-declarations"
+    "-Wno-shorten-64-to-32"
+  )
+endif()
+
 set(
   SRC
   config.h
