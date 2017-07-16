@@ -22,7 +22,10 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
     if (!PermissionsUtils.isExternalStorageGranted())
       return;
 
-    MwmApplication.get().initNativePlatform();
+    MwmApplication application = MwmApplication.get();
+    if (!application.arePlatformAndCoreInitialized())
+      application.initPlatformAndCore();
+
     if (!ConnectionState.isWifiConnected()
         || MapManager.nativeNeedMigrate())
       return;
@@ -34,8 +37,6 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
       prefs().edit()
              .putLong(DOWNLOAD_UPDATE_TIMESTAMP, System.currentTimeMillis())
              .apply();
-
-      MwmApplication.get().initNativeCore();
 
       MapManager.checkUpdates();
       WorkerService.startActionCheckLocation(context);

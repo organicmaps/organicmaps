@@ -7,17 +7,16 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.text.TextUtils;
 
-import java.util.concurrent.CountDownLatch;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.concurrency.UiThread;
+
+import java.util.concurrent.CountDownLatch;
 
 public class WorkerService extends IntentService
 {
@@ -50,13 +49,6 @@ public class WorkerService extends IntentService
   public WorkerService()
   {
     super("WorkerService");
-  }
-
-  @Override
-  public void onCreate()
-  {
-    super.onCreate();
-    MwmApplication.get().initNativeCore();
   }
 
   @Override
@@ -128,8 +120,9 @@ public class WorkerService extends IntentService
     if (!PermissionsUtils.isExternalStorageGranted())
       return false;
 
-    MwmApplication.get().initNativePlatform();
-    MwmApplication.get().initNativeCore();
+    MwmApplication application = MwmApplication.get();
+    if (!application.arePlatformAndCoreInitialized())
+      application.initPlatformAndCore();
 
     Location l = LocationHelper.INSTANCE.getLastKnownLocation();
     if (l == null)

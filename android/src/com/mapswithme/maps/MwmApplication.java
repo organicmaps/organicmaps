@@ -167,7 +167,12 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
   }
 
-  public void initNativePlatform()
+  public void initPlatformAndCore(){
+    initNativePlatform();
+    initNativeCore();
+  }
+
+  private void initNativePlatform()
   {
     if (mIsPlatformInitialized)
       return;
@@ -217,7 +222,7 @@ public class MwmApplication extends Application
     }
   }
 
-  public void initNativeCore()
+  private void initNativeCore()
   {
     if (mIsFrameworkInitialized)
       return;
@@ -287,13 +292,9 @@ public class MwmApplication extends Application
     return true;
   }
 
-  public boolean isFrameworkInitialized()
+  public boolean arePlatformAndCoreInitialized()
   {
-    return mIsFrameworkInitialized;
-  }
-  public boolean isPlatformInitialized()
-  {
-    return mIsPlatformInitialized;
+    return mIsFrameworkInitialized && mIsPlatformInitialized;
   }
 
   public String getApkPath()

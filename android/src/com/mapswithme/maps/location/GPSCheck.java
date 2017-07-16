@@ -10,7 +10,7 @@ public class GPSCheck extends BroadcastReceiver
 {
   @Override
   public void onReceive(Context context, Intent intent) {
-    if (MwmApplication.get().isFrameworkInitialized() && MwmApplication.backgroundTracker().isForeground())
+    if (MwmApplication.get().arePlatformAndCoreInitialized() && MwmApplication.backgroundTracker().isForeground())
     {
       LocationHelper.INSTANCE.restart();
     }
