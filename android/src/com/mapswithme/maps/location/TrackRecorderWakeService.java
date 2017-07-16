@@ -3,10 +3,12 @@ package com.mapswithme.maps.location;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
+import android.util.Log;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -27,7 +29,10 @@ public class TrackRecorderWakeService extends IntentService
   @Override
   protected final void onHandleIntent(Intent intent)
   {
-    LOGGER.d(TAG, "SVC.onHandleIntent()");
+    String msg = "onHandleIntent: " + intent + " app in background = "
+                 + !MwmApplication.backgroundTracker().isForeground();
+    LOGGER.i(TAG, msg);
+    Crashlytics.log(Log.INFO, TAG, msg);
 
     synchronized (sLock)
     {

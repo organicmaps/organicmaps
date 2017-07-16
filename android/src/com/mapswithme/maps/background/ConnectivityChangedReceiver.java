@@ -3,22 +3,33 @@ package com.mapswithme.maps.background;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
+import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 import static com.mapswithme.maps.MwmApplication.prefs;
 
 public class ConnectivityChangedReceiver extends BroadcastReceiver
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = ConnectivityChangedReceiver.class.getSimpleName();
   private static final String DOWNLOAD_UPDATE_TIMESTAMP = "DownloadOrUpdateTimestamp";
   private static final long MIN_EVENT_DELTA_MILLIS = 3 * 60 * 60 * 1000; // 3 hours
 
   @Override
   public void onReceive(Context context, Intent intent)
   {
+    String msg = "onReceive: " + intent + " app in background = "
+                 + !backgroundTracker().isForeground();
+    LOGGER.i(TAG, msg);
+    Crashlytics.log(Log.INFO, TAG, msg);
     if (!PermissionsUtils.isExternalStorageGranted())
       return;
 
