@@ -644,19 +644,36 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
 {
-  location::RouteMatchingInfo routeMatchingInfo;
-  CheckLocationForRouting(info);
+  if (m_drapeEngine == nullptr)
+    m_gpsInfoCache = my::make_unique<location::GpsInfo>(info);
 
-  MatchLocationToRoute(info, routeMatchingInfo);
+  auto routeMatchingInfo = GetRouteMatchingInfo(info);
 
-  m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
   if (IsTrackingReporterEnabled())
     m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
+}
+
+location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
+{
+  location::RouteMatchingInfo routeMatchingInfo;
+  CheckLocationForRouting(info);
+  MatchLocationToRoute(info, routeMatchingInfo);
+  return routeMatchingInfo;
 }
 
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
 {
   m_drapeEngine = engine;
+
+  // Apply gps info which was set before drape engine creation.
+  if (m_gpsInfoCache != nullptr)
+  {
+    auto routeMatchingInfo = GetRouteMatchingInfo(*m_gpsInfoCache);
+    m_drapeEngine->SetGpsInfo(*m_gpsInfoCache, m_routingSession.IsNavigable(), routeMatchingInfo);
+    m_gpsInfoCache.reset();
+  }
 
   // In case of the engine reinitialization recover route.
   if (IsRoutingActive())
