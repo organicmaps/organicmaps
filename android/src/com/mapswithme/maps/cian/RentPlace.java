@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RentPlace implements Parcelable
@@ -28,11 +30,11 @@ public class RentPlace implements Parcelable
     }
   };
 
-  public RentPlace(double lat, double lon, @NonNull List<RentOffer> offers)
+  public RentPlace(double lat, double lon, @NonNull RentOffer[] offers)
   {
     mLat = lat;
     mLon = lon;
-    mOffers = offers;
+    mOffers = new ArrayList<>(Arrays.asList(offers));
   }
 
   private RentPlace(Parcel in)
