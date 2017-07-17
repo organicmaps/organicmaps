@@ -57,6 +57,7 @@ CGFloat const kMinOffset = 1;
   {
     auto const & size = ownerView.size;
     _ownerView = ownerView;
+    _availableArea = ownerView.frame;
     _placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;

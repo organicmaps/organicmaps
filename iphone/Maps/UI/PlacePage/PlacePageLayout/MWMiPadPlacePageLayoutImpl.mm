@@ -31,6 +31,7 @@ CGFloat const kBottomOffset = 36;
   if (self)
   {
     _ownerView = ownerView;
+    _availableArea = ownerView.frame;
     self.placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
