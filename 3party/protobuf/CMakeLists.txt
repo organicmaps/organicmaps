@@ -6,10 +6,7 @@ if (NOT PLATFORM_WIN)
   add_definitions(-DHAVE_PTHREAD)
 endif ()
 
-add_clang_compile_options(
-  "-Wno-deprecated-declarations"
-  "-Wno-shorten-64-to-32"
-)
+add_clang_compile_options("-Wno-shorten-64-to-32")
 
 set(
   SRC

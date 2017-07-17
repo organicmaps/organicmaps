@@ -262,11 +262,9 @@ function(link_qt5_network target)
   )
 endfunction()
 
-function(add_clang_compile_options options)
+function(add_clang_compile_options)
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(
-        ${options}
-    )
+    add_compile_options(${ARGN})
   endif()
 endfunction()
 
@@ -291,12 +289,7 @@ add_compile_options(
   "-std=c++11"
 )
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(
-    "-Wshorten-64-to-32"
-    "-Wno-unused-local-typedef"
-  )
-endif()
+add_clang_compile_options("-Wshorten-64-to-32")
 
 if (USE_ASAN)
   add_compile_options(

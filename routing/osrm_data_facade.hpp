@@ -17,9 +17,18 @@
 #include "3party/succinct/rs_bit_vector.hpp"
 #include "3party/succinct/mapper.hpp"
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-local-typedef"
+#endif
+
 // TODO (ldragunov) exclude osrm specific headers from here! They causes "coordinate" problem
 #include "3party/osrm/osrm-backend/server/data_structures/datafacade_base.hpp"
 #include "3party/osrm/osrm-backend/data_structures/travel_mode.hpp"
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 namespace routing
 {

@@ -2,10 +2,19 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreorder"
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-local-typedef"
+#endif
+
 #include <boost/algorithm/string.hpp>
 #include <boost/archive/iterators/base64_from_binary.hpp>
 #include <boost/archive/iterators/binary_from_base64.hpp>
 #include <boost/archive/iterators/transform_width.hpp>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 #pragma GCC diagnostic pop
 
 namespace base64

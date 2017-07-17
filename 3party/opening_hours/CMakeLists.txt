@@ -11,6 +11,8 @@ add_compile_options(
   "-std=c++11"
 )
 
+add_clang_compile_options("-Wno-unused-local-typedef")
+
 set(
   SRC
   opening_hours.hpp

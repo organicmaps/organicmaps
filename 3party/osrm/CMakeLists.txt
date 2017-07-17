@@ -7,6 +7,7 @@ include_directories(
 )
 
 add_clang_compile_options(
+  "-Wno-unused-local-typedef"
   "-Wno-overloaded-virtual"
 )
 
