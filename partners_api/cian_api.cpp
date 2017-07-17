@@ -1,5 +1,4 @@
 #include "partners_api/cian_api.hpp"
-#include "partners_api/utils.hpp"
 
 #include "platform/platform.hpp"
 
@@ -13,6 +12,7 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+using namespace partners_api;
 using namespace platform;
 
 namespace
@@ -82,14 +82,14 @@ namespace cian
 std::string const kBaseUrl = "https://api.cian.ru/rent-nearby/v1";
 
 // static
-bool RawApi::GetRentNearby(m2::RectD const & rect, std::string & result,
-                           std::string const & baseUrl /* = kBaseUrl */)
+http::Result RawApi::GetRentNearby(m2::RectD const & rect,
+                                   std::string const & baseUrl /* = kBaseUrl */)
 {
   std::ostringstream url;
   url << baseUrl << "/get-offers-in-bbox/?bbox=" << rect.minX() << ',' << rect.maxY() << '~'
       << rect.maxX() << ',' << rect.minY();
 
-  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
+  return http::RunSimpleRequest(url.str());
 }
 
 Api::Api(std::string const & baseUrl /* = kBaseUrl */) : m_baseUrl(baseUrl) {}
@@ -99,27 +99,29 @@ Api::~Api()
   m_worker.Shutdown(base::WorkerThread::Exit::SkipPending);
 }
 
-uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb)
+uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb,
+                            ErrorCallback const & errCb)
 {
   auto const reqId = ++m_requestId;
-  auto const baseUrl = m_baseUrl;
+  auto const & baseUrl = m_baseUrl;
 
   auto const point = MercatorBounds::FromLatLon(latlon);
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, kSideLength);
 
-  m_worker.Push([reqId, rect, cb, baseUrl]() {
-    std::string rawResult;
+  m_worker.Push([reqId, rect, cb, errCb, baseUrl]() {
     std::vector<RentPlace> result;
 
-    if (!RawApi::GetRentNearby(rect, rawResult, baseUrl))
+    auto const rawResult = RawApi::GetRentNearby(rect, baseUrl);
+    if (!rawResult)
     {
-      GetPlatform().RunOnGuiThread([cb, result, reqId]() { cb(result, reqId); });
+      auto & code = rawResult.m_errorCode;
+      GetPlatform().RunOnGuiThread([errCb, code, reqId]() { errCb(code, reqId); });
       return;
     }
 
     try
     {
-      MakeResult(rawResult, result);
+      MakeResult(rawResult.m_data, result);
     }
     catch (my::Json::Exception const & e)
     {

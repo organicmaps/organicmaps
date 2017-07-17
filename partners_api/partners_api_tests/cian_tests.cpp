@@ -8,31 +8,59 @@ namespace
 {
 UNIT_TEST(Cian_GetRentNearbyRaw)
 {
-  string result;
-  cian::RawApi::GetRentNearby({37.402891, 55.656318, 37.840971, 55.859980}, result);
+  auto const result = cian::RawApi::GetRentNearby({37.402891, 55.656318, 37.840971, 55.859980});
 
-  TEST(!result.empty(), ());
+  TEST(!result.m_data.empty(), ());
 
-  my::Json root(result.c_str());
+  my::Json root(result.m_data.c_str());
   TEST(json_is_object(root.get()), ());
 }
 
 UNIT_TEST(Cian_GetRentNearby)
 {
-  cian::Api api("http://localhost:34568/partners");
   ms::LatLon latlon(37.501365, 55.805666);
-
-  std::vector<cian::RentPlace> result;
   uint64_t reqId = 0;
-  reqId = api.GetRentNearby(latlon, [&reqId, &result](std::vector<cian::RentPlace> const & places,
-                                                      uint64_t const requestId) {
-    TEST_EQUAL(reqId, requestId, ());
-    result = places;
-    testing::StopEventLoop();
-  });
 
-  testing::RunEventLoop();
+  {
+    cian::Api api("http://localhost:34568/partners");
+    std::vector<cian::RentPlace> result;
 
-  TEST(!result.empty(), ());
+    reqId = api.GetRentNearby(
+        latlon,
+        [&reqId, &result](std::vector<cian::RentPlace> const & places, uint64_t const requestId) {
+          TEST_EQUAL(reqId, requestId, ());
+          result = places;
+          testing::StopEventLoop();
+        },
+        [&reqId](int httpCode, uint64_t const requestId) {
+          TEST_EQUAL(reqId, requestId, ());
+          TEST(false, (httpCode));
+        });
+
+    testing::RunEventLoop();
+
+    TEST(!result.empty(), ());
+  }
+  {
+    cian::Api api("incorrect url");
+    std::vector<cian::RentPlace> result;
+    int httpCode = -1;
+
+    reqId = api.GetRentNearby(
+        latlon,
+        [&reqId, &result](std::vector<cian::RentPlace> const & places, uint64_t const requestId) {
+          TEST_EQUAL(reqId, requestId, ());
+          TEST(false, (requestId));
+        },
+        [&reqId, &httpCode](int code, uint64_t const requestId) {
+          TEST_EQUAL(reqId, requestId, ());
+          httpCode = code;
+          testing::StopEventLoop();
+        });
+
+    testing::RunEventLoop();
+
+    TEST_NOT_EQUAL(httpCode, -1, ());
+  }
 }
 }  // namespace

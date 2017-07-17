@@ -17,6 +17,17 @@ using namespace platform;
 
 namespace
 {
+bool RunSimpleHttpRequest(std::string const & url, std::string & result)
+{
+  platform::HttpClient request(url);
+  if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
+  {
+    result = request.ServerResponse();
+    return true;
+  }
+  return false;
+}
+
 bool CheckUberResponse(json_t const * answer)
 {
   if (answer == nullptr)
@@ -117,7 +128,7 @@ bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
   url << fixed << setprecision(6) << baseUrl << "?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.lat << "&longitude=" << pos.lon;
 
-  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
@@ -128,7 +139,7 @@ bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
   url << fixed << setprecision(6) << baseUrl << "/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.lat << "&start_longitude=" << pos.lon;
 
-  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 // static
@@ -140,7 +151,7 @@ bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, s
       << "&start_latitude=" << from.lat << "&start_longitude=" << from.lon
       << "&end_latitude=" << to.lat << "&end_longitude=" << to.lon;
 
-  return partners_api_utils::RunSimpleHttpRequest(url.str(), result);
+  return RunSimpleHttpRequest(url.str(), result);
 }
 
 void ProductMaker::Reset(uint64_t const requestId)

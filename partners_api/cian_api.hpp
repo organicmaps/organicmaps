@@ -1,5 +1,7 @@
 #pragma once
 
+#include "partners_api/utils.hpp"
+
 #include "geometry/latlon.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -17,8 +19,8 @@ extern std::string const kBaseUrl;
 class RawApi
 {
 public:
-  static bool GetRentNearby(m2::RectD const & rect, std::string & result,
-                            std::string const & url = kBaseUrl);
+  static partners_api::http::Result GetRentNearby(m2::RectD const & rect,
+                                                  std::string const & url = kBaseUrl);
 };
 
 struct RentOffer
@@ -44,10 +46,13 @@ public:
   using RentNearbyCallback =
       std::function<void(std::vector<RentPlace> const & places, uint64_t const requestId)>;
 
+  using ErrorCallback = std::function<void(int httpCode, uint64_t const requestId)>;
+
   explicit Api(std::string const & baseUrl = kBaseUrl);
   virtual ~Api();
 
-  uint64_t GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb);
+  uint64_t GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb,
+                         ErrorCallback const & errCb);
 
   static bool IsCitySupported(std::string const & city);
 
