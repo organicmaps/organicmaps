@@ -54,7 +54,7 @@ class UGC : public TraitsBase<UGC, UGCTypeMask, UGCTYPE_NONE>
 
   UGC()
   {
-    coding::CSVReader const reader;
+    coding::CSVReader reader;
     auto const filePath = GetPlatform().ReadPathForFile("ugc_types.csv", "wr");
     reader.ReadLineByLine(filePath, [this](std::vector<std::string> const & line) {
       auto const lineSize = line.size();
