@@ -264,7 +264,7 @@ endfunction()
 
 function(add_clang_compile_options)
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(${ARGN})
+    add_compile_options(${ARGV})
   endif()
 endfunction()
 
