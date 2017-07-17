@@ -295,10 +295,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initPlayServicesPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
     initSimplifiedTrafficColorsPrefsCallbacks();
-
-    if (!MytargetHelper.isShowcaseSwitchedOnServer())
-      getPreferenceScreen().removePreference(findPreference(getString(R.string.pref_showcase_switched_on)));
-
+    initDisplayShowcasePrefs();
     initLoggingEnabledPrefsCallbacks();
     initUseMobileDataPrefsCallbacks();
 
@@ -349,6 +346,18 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
+  }
+
+  private void initDisplayShowcasePrefs()
+  {
+    if (MytargetHelper.isShowcaseSwitchedOnServer())
+      return;
+
+    Preference pref = findPreference(getString(R.string.pref_showcase_switched_on));
+    if (pref == null)
+      return;
+
+    getPreferenceScreen().removePreference(pref);
   }
 
   private void initLangInfoLink()
