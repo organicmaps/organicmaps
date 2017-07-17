@@ -640,7 +640,7 @@
 	<string name="p2p_to">Cieľový bod</string>
 	<string name="p2p_start">Štart</string>
 	<string name="p2p_planning">Plánovanie…</string>
-	<string name="p2p_from_here">Z</string>
+	<string name="p2p_from_here">Cesta z</string>
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>

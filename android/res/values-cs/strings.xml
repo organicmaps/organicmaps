@@ -156,7 +156,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME také umí importovat záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami otevřete např. z emailu, Dropboxu nebo webového odkazu v MAPS.ME.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
@@ -324,7 +324,7 @@
 	<string name="pref_tts_other_section_title">Ostatní</string>
 	<string name="pref_tts_how_to_set_up_voice">Jak nastavit hlas</string>
 	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Nedávné cesty</string>
+	<string name="pref_track_record_title">Historie polohy</string>
 	<string name="pref_map_auto_zoom">Automatické zvětšení</string>
 	<string name="duration_disabled">Vypnuto</string>
 	<string name="duration_1_hour">1 hodina</string>
@@ -390,7 +390,7 @@
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Zpětná vazba</string>
 	<!-- Text in menu -->
-	<string name="subscribe_to_news">Přihlásit se k odběru novinek</string>
+	<string name="subscribe_to_news">Přihlásit se k newsletteru</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Ohodnotit aplikaci</string>
 	<!-- Text in menu -->
@@ -484,7 +484,7 @@
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Nabídka aplikace</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Používat služby Google Play pro získání aktuální polohy</string>
+	<string name="pref_use_google_play">Používat Služby Google Play pro získání aktuální polohy</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Právě jsem ohodnotil(a) vaši aplikaci</string>
 	<!-- Text for rating dialog -->
@@ -520,7 +520,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Chystáte se stáhnout %s MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.</string>
 	<!-- bookmark button text -->
-	<string name="bookmark">záložka</string>
+	<string name="bookmark">uložit</string>
 	<!-- map is not downloaded -->
 	<string name="not_found_map">Mapa vaší polohy není stažena</string>
 	<!-- location service disabled -->
@@ -644,10 +644,10 @@
 	<string name="p2p_to">Místo určení</string>
 	<string name="p2p_start">Start</string>
 	<string name="p2p_planning">Plánování…</string>
-	<string name="p2p_from_here">Z</string>
-	<string name="p2p_to_here">Cesta do</string>
-	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
-	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
+	<string name="p2p_from_here">Trasa z</string>
+	<string name="p2p_to_here">Trasa do</string>
+	<string name="p2p_only_from_current">Navigovat lze pouze z současného umístění.</string>
+	<string name="p2p_reroute_from_current">Máme naplánovat trasu z vašeho současného umístění?</string>
 	<string name="whats_new_next_button">Další</string>
 	<string name="editor_time_add">Přidat rozvrh</string>
 	<string name="editor_time_delete">Smazat rozvrh</string>
@@ -908,15 +908,15 @@
 	<string name="navigation_overview_button">přehled</string>
 	<string name="navigation_stop_button">stop</string>
 	<!-- Text on an empty bookmark page -->
-	<string name="bookmarks_empty_title">Uložit oblíbené</string>
+	<string name="bookmarks_empty_title">Uložte si své záložky</string>
 	<string name="bookmarks_empty_message_1">Klikněte na ★ pro uložení oblíbených míst pro rychlý přístup.</string>
-	<string name="bookmarks_empty_message_2">Importovat oblíbené z emailu a webu.</string>
+	<string name="bookmarks_empty_message_2">Importovat záložky z emailu a webu.</string>
 	<string name="bookmarks_empty_message_3">odjezd: %s</string>
 	<!-- Name of the group for booked hotels -->
 	<string name="bookmarks_group_name">Zarezervované hotely</string>
 	<string name="place_page_button_read_descriprion">Číst</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-	<string name="recent_track_background_dialog_title">Zakázat záznam vaší nedávno ujeté trasy?</string>
+	<string name="recent_track_background_dialog_title">Zakázat zaznamenávání vaší nedávno ujeté trasy?</string>
 	<!-- If a hotel is being shared -->
 	<string name="sharing_booking">nebo zarezervujte na booking.com</string>
 	<string name="off_recent_track_background_button">Zakázat</string>
@@ -939,7 +939,7 @@
 	<!-- Share with friends: sharing text -->
 	<string name="tell_friends_text">Ahoj! Naisntalujte si MAPS.ME!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME je zásadní offline aplikace k cestování. MAPS.ME je založen na datech z OpenStreetMap a umožňuje je upravovat.</string>
+	<string name="about_description">MAPS.ME je základní aplikace pro každého cestovatele. MAPS.ME je založena na datech z OpenStreetMap a umožňuje je upravovat.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -997,11 +997,11 @@
 	<string name="whatsnew_uber_message">Objednejte si taxi Uber přímo z aplikace!</string>
 	<string name="dialog_taxi_offline">Objednání taxi není v režimu offline k dispozici.</string>
 	<string name="dialog_taxi_error">Objednání taxi není dočasně k dispozici.</string>
-	<string name="mobile_data_dialog">Použít mobilní internet ke zobrazení podrobnějších informací?</string>
+	<string name="mobile_data_dialog">Použít mobilní data k zobrazení podrobnějších informací?</string>
 	<string name="mobile_data_option_always">Vždy použít</string>
 	<string name="mobile_data_option_today">Jen dnes</string>
 	<string name="mobile_data_option_not_today">Nepoužívat dnes</string>
-	<string name="mobile_data">Mobilní Internet</string>
+	<string name="mobile_data">Mobilní data</string>
 	<string name="mobile_data_description">Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.</string>
 	<string name="mobile_data_option_never">Nikdy nepoužívat</string>
 	<string name="mobile_data_option_ask">Vždy se zeptat</string>
@@ -1086,7 +1086,7 @@
 	<string name="search_hotel_filter_resort">Letovisko</string>
 	<string name="search_hotel_filter_hotel">Hotel</string>
 	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Zaregistruj si tento podnik</string>
+	<string name="create_campaign_button">Nárokovat tento podnik</string>
 	<string name="view_campaign_button">Podnik je propagován</string>
 	<string name="search_hotel_filters_type">Typ</string>
 	<!-- Settings: "Send general feedback" button -->
@@ -1096,6 +1096,6 @@
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Pro arabštinu, řečtinu a rumunštinu budete muset nainstalovat další TTS (protože Google TTS zatím nepodporuje tyto jazyky) ze služby Google Play, např. Vocalizer TTS nebo SVOX Classics. \nChcete-li spravovat nastavení pro syntézu řeči, na svém zařízení otevřete Nastavení –> Jazyk a vstupy –> Mluvené slovo –> Převod textu na mluvené slovo. Zde si můžete stáhnout další balík jazyků nebo vybrat preferovaný nástroj pro převod textu na mluvené slovo.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
-	<string name="whatsnew_transliteration_title">Transliterace do latinky</string>
+	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
 	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
 </resources>

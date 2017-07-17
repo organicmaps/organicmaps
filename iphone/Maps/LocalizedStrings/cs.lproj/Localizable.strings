@@ -257,7 +257,7 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV MAPS.ME také umí importovat záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami otevřete např. z emailu, Dropboxu nebo webového odkazu v MAPS.ME.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.";
@@ -521,7 +521,7 @@
 "pref_tts_how_to_set_up_voice" = "Jak nastavit hlas";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Nedávné cesty";
+"pref_track_record_title" = "Historie polohy";
 
 "pref_map_auto_zoom" = "Automatické zvětšení";
 
@@ -627,7 +627,7 @@
 "feedback" = "Zpětná vazba";
 
 /* Text in menu */
-"subscribe_to_news" = "Přihlásit se k odběru novinek";
+"subscribe_to_news" = "Přihlásit se k newsletteru";
 
 /* Text in menu */
 "rate_the_app" = "Ohodnotit aplikaci";
@@ -771,7 +771,7 @@
 "toolbar_application_menu" = "Nabídka aplikace";
 
 /* Preference text */
-"pref_use_google_play" = "Používat služby Google Play pro získání aktuální polohy";
+"pref_use_google_play" = "Používat Služby Google Play pro získání aktuální polohy";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Právě jsem ohodnotil(a) vaši aplikaci";
@@ -825,7 +825,7 @@
 "routing_download_roaming" = "Chystáte se stáhnout %@ MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.";
 
 /* bookmark button text */
-"bookmark" = "záložka";
+"bookmark" = "uložit";
 
 /* map is not downloaded */
 "not_found_map" = "Mapa vaší polohy není stažena";
@@ -1051,13 +1051,13 @@
 
 "p2p_planning" = "Plánování…";
 
-"p2p_from_here" = "Z";
+"p2p_from_here" = "Trasa z";
 
-"p2p_to_here" = "Cesta do";
+"p2p_to_here" = "Trasa do";
 
-"p2p_only_from_current" = "Navigace je dostupná pouze z vašeho současného umístění.";
+"p2p_only_from_current" = "Navigovat lze pouze z současného umístění.";
 
-"p2p_reroute_from_current" = "Chcete, abychom naplánovali trasu z vašeho současného umístění?";
+"p2p_reroute_from_current" = "Máme naplánovat trasu z vašeho současného umístění?";
 
 "p2p_add_stop" = "Add stop";
 
@@ -1586,11 +1586,11 @@
 "navigation_stop_button" = "stop";
 
 /* Text on an empty bookmark page */
-"bookmarks_empty_title" = "Uložit oblíbené";
+"bookmarks_empty_title" = "Uložte si své záložky";
 
 "bookmarks_empty_message_1" = "Klikněte na ★ pro uložení oblíbených míst pro rychlý přístup.";
 
-"bookmarks_empty_message_2" = "Importovat oblíbené z emailu a webu.";
+"bookmarks_empty_message_2" = "Importovat záložky z emailu a webu.";
 
 "bookmarks_empty_message_3" = "odjezd: %s";
 
@@ -1600,7 +1600,7 @@
 "place_page_button_read_descriprion" = "Číst";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Zakázat záznam vaší nedávno ujeté trasy?";
+"recent_track_background_dialog_title" = "Zakázat zaznamenávání vaší nedávno ujeté trasy?";
 
 /* If a hotel is being shared */
 "sharing_booking" = "nebo zarezervujte na booking.com";
@@ -1640,7 +1640,7 @@
 "tell_friends_text" = "Ahoj! Naisntalujte si MAPS.ME!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME je zásadní offline aplikace k cestování. MAPS.ME je založen na datech z OpenStreetMap a umožňuje je upravovat.";
+"about_description" = "MAPS.ME je základní aplikace pro každého cestovatele. MAPS.ME je založena na datech z OpenStreetMap a umožňuje je upravovat.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1748,7 +1748,7 @@
 /* Abbreviated for all languages. */
 "advertisement" = "AD";
 
-"mobile_data_dialog" = "Použít mobilní internet ke zobrazení podrobnějších informací?";
+"mobile_data_dialog" = "Použít mobilní data k zobrazení podrobnějších informací?";
 
 "mobile_data_option_always" = "Vždy použít";
 
@@ -1756,7 +1756,7 @@
 
 "mobile_data_option_not_today" = "Nepoužívat dnes";
 
-"mobile_data" = "Mobilní Internet";
+"mobile_data" = "Mobilní data";
 
 "mobile_data_description" = "Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.";
 
@@ -1923,7 +1923,7 @@
 
 "search_hotel_filter_motel" = "Motel";
 
-"create_campaign_button" = "Zaregistruj si tento podnik";
+"create_campaign_button" = "Nárokovat tento podnik";
 
 "view_campaign_button" = "Podnik je propagován";
 
@@ -1942,7 +1942,7 @@
 
 "prefs_languages_information_off_link" = "Více informací najdete v tomto návodu.";
 
-"whatsnew_transliteration_title" = "Transliterace do latinky";
+"whatsnew_transliteration_title" = "Přepis do latinky";
 
 "whatsnew_transliteration_message" = "Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.";
 
