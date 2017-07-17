@@ -48,6 +48,7 @@ import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.Factory;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -121,9 +122,9 @@ public class PlacePageView extends RelativeLayout
                EditBookmarkFragment.EditBookmarkListener,
                BannerController.BannerListener,
                Viator.ViatorListener,
-               ViatorAdapter.ItemSelectedListener,
                UGC.UGCListener,
-               UgcAverageRatingController.OnUgcRatingChangedListener
+               UgcAverageRatingController.OnUgcRatingChangedListener,
+               BaseSponsoredAdapter.ItemSelectedListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -874,19 +875,19 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onViatorItemSelected(@NonNull String url)
+  public void onItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
     Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
-                                                          Sponsored.TYPE_VIATOR);
+                                                          type);
   }
 
   @Override
-  public void onViatorMoreItemSelected(@NonNull String url)
+  public void onMoreItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
     Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                                          Sponsored.TYPE_VIATOR);
+                                                          type);
   }
 
   @Override
