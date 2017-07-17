@@ -16,6 +16,8 @@ public:
     char m_delimiter = ',';
   };
 
+  CSVReader() = default;
+
   using LineByLineCallback = std::function<void(std::vector<std::string> const & line)>;
   using FullFileCallback = std::function<void(std::vector<std::vector<std::string>> const & file)>;
 
