@@ -34,6 +34,7 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -216,9 +217,14 @@ public class MwmApplication extends Application
     File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      Throwable error = new IllegalStateException("Can't create directories for: " + path);
+      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted();
+      Throwable error = new IllegalStateException("Can't create directories for: " + path
+                                                  + " state = " + Environment.getExternalStorageState()
+                                                  + " isPermissionGranted = " + isPermissionGranted);
       LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE)
-                            .e(TAG, "Can't create directories for: " + path, error);
+                            .e(TAG, "Can't create directories for: " + path
+                                    + " state = " + Environment.getExternalStorageState()
+                                    + " isPermissionGranted = " + isPermissionGranted);
       CrashlyticsUtils.logException(error);
     }
   }
