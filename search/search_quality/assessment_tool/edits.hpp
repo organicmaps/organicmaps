@@ -37,6 +37,12 @@ public:
     bool operator!=(MaybeRelevance const & rhs) const { return !(*this == rhs); }
 
     Relevance m_relevance = Relevance::Irrelevant;
+    // The guard for |m_relevance|. The |m_relevance| field
+    // should be read only when |m_unknown| is false.
+    // It is implemented as a separate guard instead of another value
+    // in the Relevance's enum because it results in cleaner typing
+    // in our case (we only use unknown in the UI, so serializing
+    // it makes no sense).
     bool m_unknown = true;
   };
 

@@ -63,7 +63,6 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       continue;
     }
 
-    // No need to keep irrelevant results.
     if (foundEntries[j].m_curr.m_unknown)
       continue;
 
@@ -82,7 +81,6 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       continue;
     }
 
-    // No need to keep irrelevant results.
     if (foundEntries[i].m_curr.m_unknown)
       continue;
 
