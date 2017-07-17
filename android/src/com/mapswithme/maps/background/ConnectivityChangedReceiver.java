@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -29,7 +29,7 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
-    Crashlytics.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
     if (!PermissionsUtils.isExternalStorageGranted())
       return;
 

@@ -57,8 +57,9 @@ public class MwmApplication extends Application
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
 
-  private boolean mIsFrameworkInitialized;
-  private boolean mIsPlatformInitialized;
+  private boolean mFrameworkInitialized;
+  private boolean mPlatformInitialized;
+  private boolean mCrashlyticsInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -174,7 +175,7 @@ public class MwmApplication extends Application
 
   private void initNativePlatform()
   {
-    if (mIsPlatformInitialized)
+    if (mPlatformInitialized)
       return;
 
     final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
@@ -201,7 +202,7 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
-    mIsPlatformInitialized = true;
+    mPlatformInitialized = true;
   }
 
   private void createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
@@ -224,7 +225,7 @@ public class MwmApplication extends Application
 
   private void initNativeCore()
   {
-    if (mIsFrameworkInitialized)
+    if (mFrameworkInitialized)
       return;
 
     nativeInitFramework();
@@ -238,7 +239,7 @@ public class MwmApplication extends Application
     LocationHelper.INSTANCE.initialize();
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
-    mIsFrameworkInitialized = true;
+    mFrameworkInitialized = true;
   }
 
   private void initNativeStrings()
@@ -267,14 +268,24 @@ public class MwmApplication extends Application
     nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
   }
 
-  private void initCrashlytics()
+  public void initCrashlytics()
   {
     if (!isCrashlyticsEnabled())
+      return;
+
+    if (isCrashlyticsInitialized())
       return;
 
     Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 
     nativeInitCrashlytics();
+
+    mCrashlyticsInitialized = true;
+  }
+
+  public boolean isCrashlyticsInitialized()
+  {
+    return mCrashlyticsInitialized;
   }
 
   private static boolean setInstallationIdToCrashlytics()
@@ -294,7 +305,7 @@ public class MwmApplication extends Application
 
   public boolean arePlatformAndCoreInitialized()
   {
-    return mIsFrameworkInitialized && mIsPlatformInitialized;
+    return mFrameworkInitialized && mPlatformInitialized;
   }
 
   public String getApkPath()

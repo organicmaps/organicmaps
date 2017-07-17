@@ -15,6 +15,7 @@ import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -65,7 +66,7 @@ public class WorkerService extends IntentService
       String msg = "onHandleIntent: " + intent + " app in background = "
                    + !MwmApplication.backgroundTracker().isForeground();
       LOGGER.i(TAG, msg);
-      Crashlytics.log(Log.INFO, TAG, msg);
+      CrashlyticsUtils.log(Log.INFO, TAG, msg);
       final String action = intent.getAction();
       switch (action)
       {

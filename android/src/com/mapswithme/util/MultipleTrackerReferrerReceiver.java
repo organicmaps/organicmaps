@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -26,7 +25,7 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
-    Crashlytics.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
     Counters.initCounters(context);
     // parse & send referrer to Aloha
     try

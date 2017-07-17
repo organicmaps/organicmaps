@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class TrackRecorderWakeService extends IntentService
 {
@@ -32,7 +32,7 @@ public class TrackRecorderWakeService extends IntentService
     String msg = "onHandleIntent: " + intent + " app in background = "
                  + !MwmApplication.backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
-    Crashlytics.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
 
     synchronized (sLock)
     {
