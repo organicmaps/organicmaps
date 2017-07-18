@@ -2,8 +2,8 @@
 
 #include "indexer/categories_holder.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 namespace search
 {
@@ -12,16 +12,16 @@ class DisplayedCategories
 public:
   DisplayedCategories(CategoriesHolder const & holder);
 
-  // Returns a list of English names of displayed categories for the
-  // categories search tab. It's guaranteed that the list remains the
-  // same during the application lifetime, keys may be used as parts
-  // of resources ids.
-  static vector<string> const & GetKeys();
+  // Returns a list of English names of displayed categories for the categories search tab.
+  std::vector<std::string> const & GetKeys() const;
+  void InsertKey(std::string const & key, size_t pos);
+  void RemoveKey(std::string const & key);
+  bool Contains(std::string const & key) const;
 
   // Calls |fn| on each pair (synonym name, synonym locale) for the
   // |key|.
   template <typename Fn>
-  void ForEachSynonym(string const & key, Fn && fn) const
+  void ForEachSynonym(std::string const & key, Fn && fn) const
   {
     auto const & translations = m_holder.GetGroupTranslations();
     auto const it = translations.find("@" + key);
@@ -34,5 +34,6 @@ public:
 
  private:
   CategoriesHolder const & m_holder;
+  std::vector<std::string> m_keys;
 };
 }  // namespace search

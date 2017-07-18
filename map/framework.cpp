@@ -1568,6 +1568,29 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
                                              : DoAfterUpdate::AutoupdateMaps;
 }
 
+search::DisplayedCategories const & Framework::GetDisplayedCategories()
+{
+  ASSERT(m_displayedCategories, ());
+  ASSERT(m_cityFinder, ());
+
+  ms::LatLon latlon;
+  GetCurrentPosition(latlon.lat, latlon.lon);
+  auto const city = m_cityFinder->GetCityName(MercatorBounds::FromLatLon(latlon),
+                                              StringUtf8Multilang::kEnglishCode);
+
+  static string const kCian = "cian";
+
+  bool contains = m_displayedCategories->Contains(kCian);
+  bool supported = cian::Api::IsCitySupported(city);
+
+  if (supported && !contains)
+    m_displayedCategories->InsertKey(kCian, 4);
+  else if (!supported && contains)
+    m_displayedCategories->RemoveKey(kCian);
+
+  return *m_displayedCategories;
+}
+
 bool Framework::Search(search::SearchParams const & params)
 {
   if (ParseDrapeDebugCommand(params.m_query))

@@ -304,10 +304,7 @@ public:
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
-  search::DisplayedCategories const & GetDisplayedCategories() const
-  {
-    return *m_displayedCategories;
-  }
+  search::DisplayedCategories const & GetDisplayedCategories();
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
