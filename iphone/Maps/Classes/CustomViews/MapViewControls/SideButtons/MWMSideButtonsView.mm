@@ -122,7 +122,7 @@ CGFloat const kButtonsBottomOffset = 6;
       if (isLocationHidden)
         [self fadeLocationButtonShow:YES];
     }
-    [self setNeedsLayout];
+    [self layoutIfNeeded];
   });
 }
 
