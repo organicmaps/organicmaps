@@ -1,3 +1,5 @@
+#import "MWMPlacePageActionBar.h"
+
 #include "local_ads/event.hpp"
 
 #include "partners_api/booking_api.hpp"
@@ -128,7 +130,7 @@ using BannerIsReady = void (^)();
 @protocol MWMBanner;
 
 /// ViewModel for place page.
-@interface MWMPlacePageData : NSObject
+@interface MWMPlacePageData : NSObject<MWMActionBarSharedData>
 
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) place_page::BannerIsReady bannerIsReadyCallback;
