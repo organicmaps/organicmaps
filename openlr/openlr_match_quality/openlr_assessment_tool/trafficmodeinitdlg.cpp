@@ -18,10 +18,10 @@ TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
 
   string lastDataFilePath;
   if (settings::Get(kDataFilePath, lastDataFilePath))
-      m_ui->dataFileName->setText(QString::fromStdString(lastDataFilePath));
+    m_ui->dataFileName->setText(QString::fromStdString(lastDataFilePath));
 
   connect(m_ui->chooseDataFileButton, &QPushButton::clicked, [this](bool) {
-    SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose data file"), "*.xml");
+      SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose data file"), "*.xml");
   });
 }
 
