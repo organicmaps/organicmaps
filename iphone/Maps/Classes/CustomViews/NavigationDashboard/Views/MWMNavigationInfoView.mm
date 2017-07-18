@@ -464,7 +464,10 @@ BOOL defaultOrientation(CGSize const & size)
   _state = state;
   switch (state)
   {
-  case MWMNavigationInfoViewStateHidden: self.isVisible = NO; break;
+  case MWMNavigationInfoViewStateHidden:
+    self.isVisible = NO;
+    [MWMLocationManager removeObserver:self];
+    break;
   case MWMNavigationInfoViewStateNavigation:
     self.isVisible = YES;
     if ([MWMRouter type] == MWMRouterTypePedestrian)
@@ -476,6 +479,7 @@ BOOL defaultOrientation(CGSize const & size)
     self.isVisible = YES;
     [self setStreetNameVisible:NO];
     [self setTurnsViewVisible:NO];
+    [MWMLocationManager addObserver:self];
     break;
   }
 }
