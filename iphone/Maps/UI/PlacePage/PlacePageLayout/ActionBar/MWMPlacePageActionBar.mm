@@ -193,7 +193,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   for (UIView * v in self.buttons)
   {
     [v.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    auto const type = m_visibleButtons[v.tag - 1];
+    auto const buttonIndex = v.tag - 1;
+    NSAssert(buttonIndex >= 0, @"Invalid button index.");
+    if (buttonIndex < 0 || buttonIndex >= m_visibleButtons.size())
+      continue;
+    auto const type = m_visibleButtons[buttonIndex];
     [MWMActionBarButton addButtonToSuperview:v
                                     delegate:self
                                   buttonType:type
