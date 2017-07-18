@@ -173,11 +173,9 @@ void BookmarkCategory::ClearTracks()
 
 void BookmarkCategory::DeleteTrack(size_t index)
 {
-  RequestController();
   SetDirty();
   ASSERT_LESS(index, m_tracks.size(), ());
   m_tracks.erase(next(m_tracks.begin(), index));
-  ReleaseController();
 }
 
 namespace
@@ -223,7 +221,6 @@ namespace
     }
 
     BookmarkCategory & m_category;
-    UserMarksController & m_controller;
 
     std::vector<std::string> m_tags;
     GeometryType m_geometryType;
@@ -364,14 +361,13 @@ namespace
   public:
     KMLParser(BookmarkCategory & cat)
       : m_category(cat)
-      , m_controller(m_category.RequestController())
     {
       Reset();
     }
 
     ~KMLParser()
     {
-      m_category.ReleaseController();
+      m_category.NotifyChanges();
     }
 
     bool Push(std::string const & name)
@@ -413,7 +409,7 @@ namespace
         {
           if (GEOMETRY_TYPE_POINT == m_geometryType)
           {
-            Bookmark * bm = static_cast<Bookmark *>(m_controller.CreateUserMark(m_org));
+            Bookmark * bm = static_cast<Bookmark *>(m_category.CreateUserMark(m_org));
             bm->SetData(BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
           }
           else if (GEOMETRY_TYPE_LINE == m_geometryType)
@@ -459,7 +455,7 @@ namespace
           if (currTag == "name")
             m_category.SetName(value);
           else if (currTag == "visibility")
-            m_controller.SetIsVisible(value == "0" ? false : true);
+            m_category.SetIsVisible(value == "0" ? false : true);
         }
         else if (prevTag == kPlacemark)
         {

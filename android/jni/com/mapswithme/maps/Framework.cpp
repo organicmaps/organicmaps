@@ -643,7 +643,7 @@ Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
 {
-  UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::API_MARK);
+  UserMarkNotifyGuard guard(frm()->GetBookmarkManager(), UserMarkType::API_MARK);
   guard.m_controller.Clear();
 }
 

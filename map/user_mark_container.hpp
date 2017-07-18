@@ -39,10 +39,11 @@ public:
   virtual void DeleteUserMark(size_t index) = 0;
   virtual void Clear(size_t skipCount = 0) = 0;
   virtual void Update() = 0;
+  virtual void NotifyChanges() = 0;
 };
 
 class UserMarkContainer : public df::UserMarksProvider
-                        , protected UserMarksController
+                        , public UserMarksController
                         , private noncopyable
 {
 public:
@@ -59,10 +60,6 @@ public:
   static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
-
-  // Never save references to UserMarksController!
-  UserMarksController & RequestController();
-  void ReleaseController();
 
   // UserMarksProvider implementation.
   size_t GetUserPointCount() const override;
@@ -84,7 +81,6 @@ public:
   UserMark const * GetUserMark(size_t index) const override;
   UserMarkType GetType() const override final;
 
-protected:
   // UserMarksController implementation.
   UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
   UserMark * GetUserMarkForEdit(size_t index) override;
@@ -93,7 +89,9 @@ protected:
   void SetIsDrawable(bool isDrawable) override;
   void SetIsVisible(bool isVisible) override;
   void Update() override;
+  void NotifyChanges() override;
 
+protected:
   void SetDirty();
 
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;

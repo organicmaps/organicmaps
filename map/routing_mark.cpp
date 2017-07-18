@@ -324,3 +324,8 @@ void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)
       fn(mark);
   }
 }
+
+void RoutePointsLayout::NotifyChanges()
+{
+  m_routeMarks.NotifyChanges();
+}

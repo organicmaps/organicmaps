@@ -405,9 +405,9 @@ using namespace place_page;
     auto category = f.GetBmCategory(categoryIndex);
     NSAssert(category, @"Category can't be nullptr!");
     {
-      BookmarkCategory::Guard guard(*category);
-      auto bookmark = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bookmarkIndex));
+      auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
       f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
+      category->NotifyChanges();
     }
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
@@ -417,8 +417,8 @@ using namespace place_page;
     auto category = bmManager.GetBmCategory(bac.m_categoryIndex);
     NSAssert(category, @"Category can't be nullptr!");
     {
-      BookmarkCategory::Guard guard(*category);
-      guard.m_controller.DeleteUserMark(bac.m_bookmarkIndex);
+      category->DeleteUserMark(bac.m_bookmarkIndex);
+      category->NotifyChanges();
     }
     category->SaveToKMLFile();
 

@@ -87,6 +87,7 @@ public:
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType destType, int8_t destIntermediateIndex);
   void PassRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void NotifyChanges();
 
 private:
   using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;

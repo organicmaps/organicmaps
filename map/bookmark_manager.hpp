@@ -74,20 +74,18 @@ public:
 
   /// Additional layer methods
   bool UserMarksIsVisible(UserMarkType type) const;
-  UserMarksController & UserMarksRequestController(UserMarkType type);
-  void UserMarksReleaseController(UserMarksController & controller);
+  UserMarksController & GetUserMarksController(UserMarkType type);
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkType type) const;
   UserMarkContainer * FindUserMarksContainer(UserMarkType type);
 };
 
-class UserMarkControllerGuard
+class UserMarkNotifyGuard
 {
 public:
-  UserMarkControllerGuard(BookmarkManager & mng, UserMarkType type);
-  ~UserMarkControllerGuard();
+  UserMarkNotifyGuard(BookmarkManager & mng, UserMarkType type);
+  ~UserMarkNotifyGuard();
 
-  BookmarkManager & m_mng;
   UserMarksController & m_controller;
 };

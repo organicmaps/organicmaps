@@ -82,7 +82,7 @@ void BookmarkManager::LoadBookmark(string const & filePath)
 void BookmarkManager::InitBookmarks()
 {
   for (auto & cat : m_categories)
-    BookmarkCategory::Guard guard(*cat);
+    cat->NotifyChanges();
 }
 
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)
@@ -92,12 +92,12 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
 
   BookmarkCategory & cat = *m_categories[categoryIndex];
 
-  BookmarkCategory::Guard guard(cat);
-  Bookmark * bookmark = static_cast<Bookmark *>(guard.m_controller.CreateUserMark(ptOrg));
+  Bookmark * bookmark = static_cast<Bookmark *>(cat.CreateUserMark(ptOrg));
   bookmark->SetData(bm);
   bookmark->SetCreationAnimationShown(false);
-  guard.m_controller.SetIsVisible(true);
+  cat.SetIsVisible(true);
   cat.SaveToKMLFile();
+  cat.NotifyChanges();
 
   m_lastCategoryUrl = cat.GetFileName();
   m_lastType = bm.GetType();
@@ -112,16 +112,14 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
   BookmarkData data;
   m2::PointD ptOrg;
 
-  {
-    BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
-    BookmarkCategory::Guard guard(*cat);
-    Bookmark const * bm = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bmIndex));
-    data = bm->GetData();
-    ptOrg = bm->GetPivot();
+  BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
+  Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(bmIndex));
+  data = bm->GetData();
+  ptOrg = bm->GetPivot();
 
-    guard.m_controller.DeleteUserMark(bmIndex);
-    cat->SaveToKMLFile();
-  }
+  cat->DeleteUserMark(bmIndex);
+  cat->SaveToKMLFile();
+  cat->NotifyChanges();
 
   return AddBookmark(newCatIndex, ptOrg, data);
 }
@@ -129,9 +127,9 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
 void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
   BookmarkCategory & cat = *m_categories[catIndex];
-  BookmarkCategory::Guard guard(cat);
-  static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bmIndex))->SetData(bm);
+  static_cast<Bookmark *>(cat.GetUserMarkForEdit(bmIndex))->SetData(bm);
   cat.SaveToKMLFile();
+  cat.NotifyChanges();
 
   m_lastType = bm.GetType();
   SaveState();
@@ -240,14 +238,9 @@ bool BookmarkManager::UserMarksIsVisible(UserMarkType type) const
   return FindUserMarksContainer(type)->IsVisible();
 }
 
-UserMarksController & BookmarkManager::UserMarksRequestController(UserMarkType type)
+UserMarksController & BookmarkManager::GetUserMarksController(UserMarkType type)
 {
-  return FindUserMarksContainer(type)->RequestController();
-}
-
-void BookmarkManager::UserMarksReleaseController(UserMarksController & controller)
-{
-  FindUserMarksContainer(controller.GetType())->ReleaseController();
+  return *FindUserMarksContainer(type);
 }
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType type) const
@@ -272,13 +265,12 @@ UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
   return iter->get();
 }
 
-UserMarkControllerGuard::UserMarkControllerGuard(BookmarkManager & mng, UserMarkType type)
-  : m_mng(mng)
-  , m_controller(mng.UserMarksRequestController(type))
+UserMarkNotifyGuard::UserMarkNotifyGuard(BookmarkManager & mng, UserMarkType type)
+  : m_controller(mng.GetUserMarksController(type))
 {
 }
 
-UserMarkControllerGuard::~UserMarkControllerGuard()
+UserMarkNotifyGuard::~UserMarkNotifyGuard()
 {
-  m_mng.UserMarksReleaseController(m_controller);
+  m_controller.NotifyChanges();
 }

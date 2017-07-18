@@ -120,26 +120,6 @@ class BookmarkCategory : public UserMarkContainer
   std::string m_file;
 
 public:
-  class Guard
-  {
-  public:
-    Guard(BookmarkCategory & cat)
-      : m_controller(cat.RequestController())
-      , m_cat(cat)
-    {
-    }
-
-    ~Guard()
-    {
-      m_cat.ReleaseController();
-    }
-
-    UserMarksController & m_controller;
-
-  private:
-    BookmarkCategory & m_cat;
-  };
-
   BookmarkCategory(std::string const & name, Framework & framework);
   ~BookmarkCategory() override;
 

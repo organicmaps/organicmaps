@@ -85,10 +85,8 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                    withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  {
-    BookmarkCategory::Guard guard(*cat);
-    guard.m_controller.SetIsVisible(sender.on);
-  }
+  cat->SetIsVisible(sender.on);
+  cat->NotifyChanges();
   cat->SaveToKMLFile();
 }
 
@@ -302,13 +300,13 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
           auto bac = BookmarkAndCategory(static_cast<size_t>(indexPath.row), m_categoryIndex);
           NSValue * value = [NSValue valueWithBytes:&bac objCType:@encode(BookmarkAndCategory)];
           [[NSNotificationCenter defaultCenter] postNotificationName:kBookmarkDeletedNotification object:value];
-          BookmarkCategory::Guard guard(*cat);
-          guard.m_controller.DeleteUserMark(indexPath.row);
+          cat->DeleteUserMark(indexPath.row);
           [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                             object:nil
                                                           userInfo:nil];
         }
       }
+      cat->NotifyChanges();
       cat->SaveToKMLFile();
       size_t previousNumberOfSections  = m_numberOfSections;
       [self calculateSections];

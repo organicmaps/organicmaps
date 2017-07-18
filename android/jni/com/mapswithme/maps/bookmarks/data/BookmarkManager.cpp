@@ -19,10 +19,8 @@ void RemoveBookmark(int cat, int bmk)
   BookmarkCategory * pCat = frm()->GetBmCategory(cat);
   if (pCat)
   {
-    {
-      BookmarkCategory::Guard guard(*pCat);
-      guard.m_controller.DeleteUserMark(bmk);
-    }
+    pCat->DeleteUserMark(bmk);
+    pCat->NotifyChanges();
     pCat->SaveToKMLFile();
   }
 }
@@ -80,6 +78,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
   if (pCat)
   {
     pCat->DeleteTrack(trk);
+    pCat->NotifyChanges();
     pCat->SaveToKMLFile();
   }
 }

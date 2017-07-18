@@ -31,10 +31,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeSetVisibility(
     JNIEnv * env, jobject thiz, jint id, jboolean b)
 {
   BookmarkCategory * pCat = getBmCategory(id);
-  {
-    BookmarkCategory::Guard guard(*pCat);
-    guard.m_controller.SetIsVisible(b);
-  }
+  pCat->SetIsVisible(b);
+  pCat->NotifyChanges();
   pCat->SaveToKMLFile();
 }
 

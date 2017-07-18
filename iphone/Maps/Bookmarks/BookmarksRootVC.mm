@@ -94,10 +94,8 @@ extern NSString * const kBookmarkCategoryDeletedNotification =
                      withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
     cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
-    {
-      BookmarkCategory::Guard guard(*cat);
-      guard.m_controller.SetIsVisible(visible);
-    }
+    cat->SetIsVisible(visible);
+    cat->NotifyChanges();
     cat->SaveToKMLFile();
   }
 }

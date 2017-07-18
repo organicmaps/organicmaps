@@ -64,8 +64,8 @@ UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Frame
 
 UserMarkContainer::~UserMarkContainer()
 {
-  RequestController().Clear();
-  ReleaseController();
+  Clear();
+  NotifyChanges();
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
@@ -112,12 +112,7 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
   return g_myPosition.get();
 }
 
-UserMarksController & UserMarkContainer::RequestController()
-{
-  return *this;
-}
-
-void UserMarkContainer::ReleaseController()
+void UserMarkContainer::NotifyChanges()
 {
   ref_ptr<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
   if (engine == nullptr)

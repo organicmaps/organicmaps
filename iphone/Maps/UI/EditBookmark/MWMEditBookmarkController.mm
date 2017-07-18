@@ -94,18 +94,17 @@ enum RowInMetaInfo
   if (!category)
     return;
 
-  {
-    BookmarkCategory::Guard guard(*category);
-    auto bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
-    if (!bookmark)
-      return;
+  auto bookmark = static_cast<Bookmark *>(category->GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
+  if (!bookmark)
+    return;
 
-    bookmark->SetType(self.cachedColor.UTF8String);
-    bookmark->SetDescription(self.cachedDescription.UTF8String);
-    bookmark->SetName(self.cachedTitle.UTF8String);
-  }
+  bookmark->SetType(self.cachedColor.UTF8String);
+  bookmark->SetDescription(self.cachedDescription.UTF8String);
+  bookmark->SetName(self.cachedTitle.UTF8String);
 
   category->SaveToKMLFile();
+  category->NotifyChanges();
+  
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];
 }

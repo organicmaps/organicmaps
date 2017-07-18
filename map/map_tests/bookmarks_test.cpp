@@ -179,24 +179,16 @@ UNIT_TEST(Bookmarks_ExportKML)
   TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
-  {
-    BookmarkCategory::Guard guard(cat);
-    TEST_EQUAL(cat.IsVisible(), false, ());
-    // Change visibility
-    guard.m_controller.SetIsVisible(true);
-    TEST_EQUAL(cat.IsVisible(), true, ());
-  }
+  TEST_EQUAL(cat.IsVisible(), false, ());
+  // Change visibility
+  cat.SetIsVisible(true);
+  TEST_EQUAL(cat.IsVisible(), true, ());
 
-  {
-    ofstream of(BOOKMARKS_FILE_NAME);
-    cat.SaveToKML(of);
-  }
+  ofstream of(BOOKMARKS_FILE_NAME);
+  cat.SaveToKML(of);
 
-  {
-    BookmarkCategory::Guard guard(cat);
-    guard.m_controller.Clear();
-    TEST_EQUAL(guard.m_controller.GetUserMarkCount(), 0, ());
-  }
+  cat.Clear();
+  TEST_EQUAL(cat.GetUserMarkCount(), 0, ());
 
   TEST(cat.LoadFromKML(make_unique<FileReader>(BOOKMARKS_FILE_NAME)), ());
   CheckBookmarks(cat);
@@ -375,8 +367,8 @@ UNIT_TEST(Bookmarks_Getting)
 
   TEST_EQUAL(cat->GetUserMarkCount(), 2, ());
 
-  BookmarkCategory::Guard guard(*fm.GetBmCategory(2));
-  guard.m_controller.DeleteUserMark(0);
+  BookmarkCategory * cat3 = fm.GetBmCategory(2);
+  cat3->DeleteUserMark(0);
   TEST_EQUAL(cat->GetUserMarkCount(), 1, ());
 
   DeleteCategoryFiles(arrCat);
@@ -558,10 +550,7 @@ UNIT_TEST(BookmarkCategory_EmptyName)
 {
   Framework framework;
   unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", framework));
-  {
-    BookmarkCategory::Guard guard(*pCat);
-    static_cast<Bookmark *>(guard.m_controller.CreateUserMark(m2::PointD(0, 0)))->SetData(BookmarkData("", "placemark-red"));
-  }
+  static_cast<Bookmark *>(pCat->CreateUserMark(m2::PointD(0, 0)))->SetData(BookmarkData("", "placemark-red"));
   TEST(pCat->SaveToKMLFile(), ());
 
   pCat->SetName("xxx");

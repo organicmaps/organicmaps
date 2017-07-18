@@ -55,7 +55,7 @@ static NSString * const kKeyPath = @"subviews";
   [Statistics logEvent:kStatEventName(kStatAPI, kStatBack)];
   Framework & f = GetFramework();
   f.DeactivateMapSelection(true);
-  UserMarkControllerGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);
+  UserMarkNotifyGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);
   guard.m_controller.Clear();
   self.isVisible = NO;
   NSURL * url = [NSURL URLWithString:@(f.GetApiDataHolder().GetGlobalBackUrl().c_str())];

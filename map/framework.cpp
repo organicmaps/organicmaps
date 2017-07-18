@@ -1779,7 +1779,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
                                        search::Results::ConstIter end)
 {
-  UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
+  UserMarkNotifyGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
 
@@ -1808,7 +1808,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
 void Framework::ClearSearchResultsMarks()
 {
-  UserMarkControllerGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
+  UserMarkNotifyGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -2196,7 +2196,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
 
   // Clear every current API-mark.
   {
-    UserMarkControllerGuard guard(m_bmManager, UserMarkType::API_MARK);
+    UserMarkNotifyGuard guard(m_bmManager, UserMarkType::API_MARK);
     guard.m_controller.Clear();
     guard.m_controller.SetIsVisible(true);
     guard.m_controller.SetIsDrawable(true);
@@ -2350,9 +2350,7 @@ void Framework::InvalidateUserMarks()
   std::vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
                                            UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
-  {
-    UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
-  }
+    m_bmManager.GetUserMarksController(types[typeIndex]).NotifyChanges();
 }
 
 void Framework::OnTapEvent(TapEvent const & tapEvent)
