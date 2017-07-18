@@ -6,4 +6,8 @@ final class NavigationStreetNameView: SolidTouchView {
   override var placePageAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return alternative(iPhone: [], iPad: .top)
   }
+
+  override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    return .top
+  }
 }
