@@ -145,7 +145,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   };
   self.bookmarkCell = nil;
 
-  [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
+  [self.actionBar configureWithData:data];
   [self.previewLayoutHelper configWithData:data];
   auto const & metaInfo = data.metainfoRows;
   auto const hasOpeningHours =
