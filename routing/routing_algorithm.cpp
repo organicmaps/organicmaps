@@ -137,7 +137,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 RouterDelegate const & delegate,
                                                                 RoutingResult<Junction> & path)
 {
-  AStarProgress progress(0, 100);
+  AStarProgress progress(0, 95);
   uint32_t visitCount = 0;
 
   auto onVisitJunctionFn = [&](Junction const & junction, Junction const & /* target */) {
@@ -166,7 +166,7 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
     RouterDelegate const & delegate, RoutingResult<Junction> & path)
 {
-  AStarProgress progress(0, 100);
+  AStarProgress progress(0, 95);
   uint32_t visitCount = 0;
 
   auto onVisitJunctionFn = [&](Junction const & junction, Junction const & target) {

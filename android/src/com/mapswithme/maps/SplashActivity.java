@@ -228,8 +228,7 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    MwmApplication.get().initNativePlatform();
-    MwmApplication.get().initNativeCore();
+    MwmApplication.get().initPlatformAndCore();
   }
 
   @SuppressWarnings("unchecked")

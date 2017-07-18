@@ -143,7 +143,7 @@ final class PlacePageButtons
       @Override
       int getTitle()
       {
-        return R.string.p2p_add_stop;
+        return R.string.placepage_add_stop;
       }
 
       @Override
@@ -158,7 +158,7 @@ final class PlacePageButtons
       @Override
       int getTitle()
       {
-        return R.string.p2p_remove_stop;
+        return R.string.placepage_remove_stop;
       }
 
       @Override
@@ -257,6 +257,10 @@ final class PlacePageButtons
       preserveRoutingButtons(res, Item.CALL);
       preserveRoutingButtons(res, Item.BOOKING);
       preserveRoutingButtons(res, Item.BOOKING_SEARCH);
+      from = res.indexOf(Item.ROUTE_FROM);
+      to = res.indexOf(Item.ROUTE_TO);
+      if (from < MAX_BUTTONS && from > to)
+        Collections.swap(res, to, from);
     }
 
     return res;

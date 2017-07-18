@@ -152,52 +152,40 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr
   CHECK(m_numMwmIds, ());
 }
 
-void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+bool BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                                        my::Cancellable const & cancellable, Route::TTurns & turns,
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
+  m_adjacentEdges.clear();
+  m_pathSegments.clear();
   turns.clear();
   streetNames.clear();
   routeGeometry.clear();
-  m_adjacentEdges.clear();
-  m_pathSegments.clear();
   segments.clear();
-
+  
   size_t const pathSize = path.size();
-  if (pathSize == 0)
-    return;
-
-  auto emptyPathWorkaround = [&]()
-  {
-    turns.emplace_back(pathSize - 1, turns::TurnDirection::ReachedYourDestination);
-    // There's one ingoing edge to the finish.
-    this->m_adjacentEdges[UniNodeId(UniNodeId::Type::Mwm)] = AdjacentEdges(1);
-  };
-
-  if (pathSize == 1)
-  {
-    emptyPathWorkaround();
-    return;
-  }
+  // Note. According to Route::IsValid() method route of zero or one point is invalid.
+  if (pathSize < 1)
+    return false;
 
   IRoadGraph::TEdgeVector routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path."));
-    emptyPathWorkaround();
-    return;
+    LOG(LWARNING, ("Can't reconstruct path."));
+    return false;
   }
+
   if (routeEdges.empty())
-  {
-    emptyPathWorkaround();
-    return;
-  }
+    return false;
+
+  if (cancellable.IsCancelled())
+    return false;
 
   FillPathSegmentsAndAdjacentEdgesMap(graph, path, routeEdges, cancellable);
 
   if (cancellable.IsCancelled())
-    return;
+    return false;
 
   RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
   RouterDelegate delegate;
@@ -209,6 +197,7 @@ void BicycleDirectionsEngine::Generate(RoadGraphBase const & graph, vector<Junct
   // so size of |segments| is not equal to size of |routeEdges|.
   if (!segments.empty())
     CHECK_EQUAL(segments.size(), routeEdges.size(), ());
+  return true;
 }
 
 Index::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)

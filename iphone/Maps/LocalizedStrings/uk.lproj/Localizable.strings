@@ -266,7 +266,7 @@
 "settings" = "Налаштування";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Пам'ять для карт";
+"maps_storage" = "Зберігати карти до";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Виберіть місце, куди повинні бути завантажені карти";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 день";
 
-"recent_track_help_text" = "Примітка: активація цієї функції спричиняє підвищене використання заряду акумулятора.";
+"recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.";
 
 "pref_track_ios_caption" = "Останній маршрут показує пройдену відстань.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Доступні";
 
 /* Country queued for download */
-"downloader_queued" = "в черзі";
+"downloader_queued" = "В черзі";
 
 "downloader_near_me_subtitle" = "Поблизу";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Не вдалося знайти місцерозташування проміжної точки.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Будь ласка, вкажіть місцерозташування проміжної точки вручну.";
 
 "dialog_routing_system_error" = "Системна помилка";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Маршрут можна прокласти лише з поточного місцезнаходження.";
 
 "p2p_reroute_from_current" = "Хочете спланувати маршрут із поточного місцезнаходження?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Далі";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Дозволити MAPS.ME доступ до сховища та функції визначення геолокації";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Вітаємо у MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Використовуючи цей додаток, ви погоджуєтеся з <a href=\"http://legal.my.com/us/maps/tou/\">Умовами використання</a> та <a href=\"https://legal.my.com/us/maps/privacy/\">Політикою конфіденційності</a>.";
 
 "dialog_incorrect_feature_position" = "Змініть розташування";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Блог";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Збір статистичної інформації про використання допомагає нам вдосконалювати наш додаток.";
+"allow_statistics_hint" = "Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.";
 
 "general_settings" = "Загальні налаштування";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Не вдалося знайти таксі поблизу";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Сервіс таксі недоступний у цій місцевості";
 
 "install_app" = "Встановити";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Додавання точок до маршруту одним дотиком.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Забронювати екскурсію";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "На ваш вибір — популярні екскурсії в різних куточках світу.";
 
 "whatsnew_driving_style_title" = "Новий дизайн карт для водіїв";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –> Мова та введення –> Мовлення –> Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.";
+"prefs_languages_information_off" = "Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.";
 
 "prefs_languages_information_off_link" = "Додаткову інформацію див. у цьому керівництві.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Докладніше";
 
-"exit" = "Exit";
+"exit" = "Вихід";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Вкажіть кінцеву точку для побудови маршруту";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.";
+
+"button_accept_and_continue" = "Прийняти та продовжити";
+
+"button_learn_more" = "Докладніше";
+
+"onboarding_storage_permissions_title" = "Надати доступ";
+
+"onboarding_storage_permissions_message" = "Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.";
+
+"button_exit" = "Вихід";
+
+"onboarding_detail_permissions_title" = "MAPS.ME необхідно надати доступ до";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Сховище";
+
+"onboarding_detail_permissions_storage_message" = "Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Функція визначення геолокації";
+
+"onboarding_detail_permissions_location_message" = "Для перегляду місцевості та трафіку, а також використання навігації.";
+
+"onboarding_detail_permissions_storage_path_message" = "Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.";
+
+"settings_device_memory" = "Вбудована пам'ять";
+
+"settings_card_memory" = "Карта пам'яті";
+
+"settings_storage_available" = "Доступно: %s";
+
+"toast_location_permission_denied" = "Відмовлено у доступі до функції визначення геолокації";
+
+"place_page_viator_title" = "Визначні пам'ятки та екскурсії";
+
+"button_use" = "Використовувати";
+
+"planning_route_manage_route" = "Редагування маршруту";
+
+"button_plan" = "Прокласти маршрут";
+
+"button_add" = "Додати";
+
+"placepage_remove_stop" = "Видалити";
+
+"planning_route_remove_title" = "Перетягніть сюди, щоб видалити";
+
+"dialog_change_start_point_message" = "Змінити початкову точку на поточне місцезнаходження?";
+
+"button_replace" = "Змінити";
+
+"placepage_add_stop" = "Додати зупинку";
+
+"whatsnew_intermediate_point_title" = "Додаткова зупинка";
+
+"whatsnew_intermediate_point_message" = "Прокласти маршрут з додатковою зупинкою посередині маршруту.";

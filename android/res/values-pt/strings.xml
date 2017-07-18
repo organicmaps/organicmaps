@@ -162,7 +162,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Configurações</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Armazenamento dos mapas</string>
+	<string name="maps_storage">Guardar mapas para</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selecione o local para onde os mapas devem ser descarregados</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -332,7 +332,7 @@
 	<string name="duration_6_hours">6 horas</string>
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 dia</string>
-	<string name="recent_track_help_text">Atenção: a ativação desta função aumenta o uso da bateria.</string>
+	<string name="recent_track_help_text">Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade provoca uma maior utilização da bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.</string>
 	<string name="pref_track_ios_caption">O trajeto recente mostra o seu caminho percorrido.</string>
 	<string name="pref_track_ios_subcaption">Por favor, selecione o intervalo de tempo para gravação do percurso.</string>
 	<string name="placepage_distance">Distância</string>
@@ -583,6 +583,8 @@
 	<string name="dialog_routing_change_end">Ajuste o ponto de chegada</string>
 	<string name="dialog_routing_end_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de chegada.</string>
 	<string name="dialog_routing_select_closer_end">Selecione um ponto de chegada mais perto de uma estrada.</string>
+	<string name="dialog_routing_change_intermediate">Não foi possível localizar o ponto intermédio.</string>
+	<string name="dialog_routing_intermediate_not_determined">Ajuste o seu ponto intermédio.</string>
 	<string name="dialog_routing_system_error">Erro de sistema</string>
 	<string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
 	<string name="dialog_routing_try_again">Tente novamente</string>
@@ -787,6 +789,11 @@
 	<string name="onboarding_notifications_title">Ativar as notificações de atualizações</string>
 	<string name="onboarding_location_title">Ajude-nos a encontrá-lo</string>
 	<string name="onboarding_location_message">Para utilizar a navegação e outros recursos, precisamos de aceder à sua localização geográfica.</string>
+	<string name="onboarding_permissions_title">Permitir que o MAPS.ME tenha acesso ao armazenamento e localização</string>
+	<string name="onboarding_permissions_message">Para que possa transferir mapas, ver locais e o trânsito perto e si e utilizar a navegação.</string>
+	<string name="onboarding_welcome_title">Bem-vindo ao MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.</string>
+	<string name="onboarding_welcome_second_subtitle">Ao lançar a aplicação, o utilizador concorda com os &lt;a href=\"http://legal.my.com/us/maps/tou/\">Termos de Utilização&lt;/a> e a &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Mudar local</string>
 	<string name="message_invalid_feature_position">Um objeto não pode ser posicionado aqui</string>
 	<string name="login_to_make_edits_visible">Inicie sessão para que outros usuários vejam as mudanças que você fez.</string>
@@ -939,7 +946,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blogue</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">A recolha de estatísticas de utilização ajuda-nos a melhorar a app.</string>
+	<string name="allow_statistics_hint">A recolha de estatísticas de utilização anónimas ajuda-nos a melhorar a app.</string>
 	<string name="general_settings">Configurações gerais</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -962,6 +969,8 @@
 	<string name="taxi_wait">Esperado em %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Não consegui encontrar um táxi nas proximidades</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">O serviço de táxi não está disponível aqui</string>
 	<string name="install_app">Instalar</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrar</string>
@@ -1062,6 +1071,8 @@
 	<string name="whatsnew_smaller_mwm_message">Mapas requer até 20% menos espaço de armazenamento.</string>
 	<string name="whatsnew_waypoints_title">Pontos de caminho (waypoints) no Roteamento</string>
 	<string name="whatsnew_waypoints_message">Toque nos locais para adicionar pontos de caminho à sua rota.</string>
+	<string name="whatsnew_viator_title">Reservar um passeio</string>
+	<string name="whatsnew_viator_message">Escolha passeios populares em cidades turísticas em todo o mundo.</string>
 	<string name="whatsnew_driving_style_title">Novo estilo de mapa para a condução</string>
 	<string name="whatsnew_driving_style_message">O modo de navegação do carro ficou mais fácil de utilizar.</string>
 	<string name="more_on_bookingcom">Mais em Booking.com</string>
@@ -1090,8 +1101,44 @@
 	<string name="on">Lig.</string>
 	<string name="off">Deslig.</string>
 	<string name="prefs_languages_information">Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Para os idiomas árabe, grego e romeno: é possível que tenha de instalar TTS adicionais (uma vez que o Google TTS ainda não inclui estes idiomas) a partir do Google Play, como o Vocalizer TTS ou o SVOX Classics. Para gerir as configurações de síntese de fala, no seu dispositivo, vá a Configurações – > idioma e entrada – > voz – > saída de texto para voz. Aqui pode transferir um pacote de idioma adicional ou selecionar um motor de texto para voz.</string>
+	<string name="prefs_languages_information_off">Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play Market, Samsung Apps). Abra as Configurações do seus dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.</string>
 	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
 	<string name="whatsnew_transliteration_title">Transliteração para o latim</string>
 	<string name="whatsnew_transliteration_message">Se uma rua ou um objeto não tiver nome na sua língua, será utilizado o alfabeto latino.</string>
+	<string name="learn_more">Saber mais</string>
+	<string name="exit">Sair</string>
+	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota</string>
+	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
+	<string name="onboarding_welcome_message">Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Ao lançar a aplicação, o utilizador concorda com os Termos de Utilização e a Política de Privacidade.</string>
+	<string name="button_accept_and_continue">Aceitar e continuar</string>
+	<string name="button_learn_more">Saber mais</string>
+	<string name="onboarding_storage_permissions_title">Conceder acesso</string>
+	<string name="onboarding_storage_permissions_message">Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o MAPS.ME.</string>
+	<string name="button_exit">Sair</string>
+	<string name="onboarding_detail_permissions_title">O MAPS.ME precisa de aceder a</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Armazenamento</string>
+	<string name="onboarding_detail_permissions_storage_message">Para guardar e utilizar mapas transferidos offline e guardar favoritos.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Localização</string>
+	<string name="onboarding_detail_permissions_location_message">Para ver locais e o trânsito perto de si e utilizar a navegação.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Também pode alterar o destino para os mapas transferidos nas configurações.</string>
+	<string name="settings_device_memory">Memória do dispositivo</string>
+	<string name="settings_card_memory">Memória do cartão</string>
+	<string name="settings_storage_available">%s disponível</string>
+	<string name="toast_location_permission_denied">Permissão de localização da aplicação não autorizada</string>
+	<string name="place_page_viator_title">Atrações e passeios</string>
+	<string name="button_use">Utilizar</string>
+	<string name="planning_route_manage_route">Gerir rota</string>
+	<string name="button_plan">Planear</string>
+	<string name="button_add">Adicionar</string>
+	<string name="placepage_remove_stop">Remover</string>
+	<string name="planning_route_remove_title">Arraste aqui para remover</string>
+	<string name="dialog_change_start_point_message">Substituir ponto de partida pela localização atual?</string>
+	<string name="button_replace">Substituir</string>
+	<string name="placepage_add_stop">Adicionar paragem</string>
+	<string name="whatsnew_intermediate_point_title">Paragem de adicional</string>
+	<string name="whatsnew_intermediate_point_message">Planeie uma rota com um ponto intermédio.</string>
 </resources>

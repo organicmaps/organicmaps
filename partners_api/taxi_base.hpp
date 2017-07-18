@@ -44,6 +44,8 @@ public:
                                                ms::LatLon const & to) const = 0;
 
 protected:
+  virtual bool IsDistanceSupported(ms::LatLon const & from, ms::LatLon const & to) const;
+
   std::string const m_baseUrl;
 };
 

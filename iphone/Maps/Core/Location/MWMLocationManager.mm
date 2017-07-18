@@ -464,12 +464,10 @@ void setPermissionRequested()
 {
   if (_started == started)
     return;
-  UIDevice * device = [UIDevice currentDevice];
   NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
   if (started)
   {
     _started = [self start];
-    device.batteryMonitoringEnabled = YES;
     [notificationCenter addObserver:self
                            selector:@selector(orientationChanged)
                                name:UIDeviceOrientationDidChangeNotification
@@ -483,7 +481,6 @@ void setPermissionRequested()
   {
     _started = NO;
     [self stop];
-    device.batteryMonitoringEnabled = NO;
     [notificationCenter removeObserver:self
                                   name:UIDeviceOrientationDidChangeNotification
                                 object:nil];

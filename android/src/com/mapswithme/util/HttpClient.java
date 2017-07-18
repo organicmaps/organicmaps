@@ -24,12 +24,14 @@
 
 package com.mapswithme.util;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -62,13 +64,19 @@ public final class HttpClient
     if (TextUtils.isEmpty(p.httpMethod))
       throw new IllegalArgumentException("Please set valid HTTP method for request at Params.httpMethod field.");
 
-    HttpURLConnection connection = null;
+    HttpsURLConnection connection = null;
 
     logUrlSafely(p.url);
 
     try
     {
-      connection = (HttpURLConnection) new URL(p.url).openConnection(); // NullPointerException, MalformedUrlException, IOException
+      connection = (HttpsURLConnection) new URL(p.url).openConnection();
+      // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
+      // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of used by us
+      // APIs (as Viator) requires TLSv1.2. For more info see https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        connection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(connection.getSSLSocketFactory()));
+      // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
       // There is also a nasty bug on Androids before 4.4:
       // if you send any request with Content-Length set, and it is redirected, and your instance is set to automatically follow redirects,

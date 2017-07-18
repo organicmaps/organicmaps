@@ -11,6 +11,7 @@
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
@@ -59,8 +60,10 @@ BOOL defaultOrientation(CGSize const & size)
 @interface MWMNavigationInfoView ()<MWMLocationObserver>
 
 @property(weak, nonatomic) IBOutlet UIView * streetNameView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * streetNameViewHideOffset;
 @property(weak, nonatomic) IBOutlet UILabel * streetNameLabel;
 @property(weak, nonatomic) IBOutlet UIView * turnsView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsViewHideOffset;
 @property(weak, nonatomic) IBOutlet UIImageView * nextTurnImageView;
 @property(weak, nonatomic) IBOutlet UILabel * roundTurnLabel;
 @property(weak, nonatomic) IBOutlet UILabel * distanceToNextTurnLabel;
@@ -75,7 +78,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
 @property(nonatomic) IBOutletCollection(UIButton) NSArray * searchButtons;
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchButtonsSideSize;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsSideSize;
 @property(weak, nonatomic) IBOutlet MWMButton * searchGasButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchParkingButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
@@ -91,6 +94,8 @@ BOOL defaultOrientation(CGSize const & size)
 
 @property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
+@property(nonatomic) BOOL hasLocation;
+
 @end
 
 @implementation MWMNavigationInfoView
@@ -101,45 +106,78 @@ BOOL defaultOrientation(CGSize const & size)
   if (!CGRectEqualToRect(self.frame, self.defaultFrame))
   {
     self.frame = self.defaultFrame;
-    [[MWMMapViewControlsManager manager] navigationDashBoardDidUpdate];
     [self setNeedsLayout];
   }
 }
 
-- (CGFloat)leftHeight { return self.turnsView.maxY; }
-- (CGFloat)rightHeight { return self.streetNameView.hidden ? 0 : self.streetNameView.maxY; }
-- (CGFloat)bottom { return self.toastView.minY; }
-- (CGFloat)left
-{
-  auto sv = self.superview;
-  BOOL const isLandscape = sv.width > sv.height;
-  return isLandscape ? self.searchMainButton.maxX : 0;
-}
-
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
-- (void)onRoutePointsUpdated
+- (void)updateToastView
 {
-  if (![MWMRouter startPoint])
-  {
-    if ([MWMLocationManager lastLocation])
-    {
-      [self.toastView configWithText:L(@"planning_route_need_start") withActionButton:YES];
-      [self setToastViewHidden:NO];
-    }
-    else
-    {
-      [self setToastViewHidden:YES];
-    }
-  }
-  else if (![MWMRouter finishPoint])
-  {
-    [self.toastView configWithText:L(@"planning_route_need_finish") withActionButton:NO];
-    [self setToastViewHidden:NO];
-  }
-  else
+  // -S-F-L -> Start
+  // -S-F+L -> Finish
+  // -S+F-L -> Start
+  // -S+F+L -> Start + Use
+  // +S-F-L -> Finish
+  // +S-F+L -> Finish
+  // +S+F-L -> Hide
+  // +S+F+L -> Hide
+
+  BOOL const hasStart = ([MWMRouter startPoint] != nil);
+  BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+  self.hasLocation = ([MWMLocationManager lastLocation] != nil);
+
+  if (hasStart && hasFinish)
   {
     [self setToastViewHidden:YES];
+    return;
   }
+
+  [self setToastViewHidden:NO];
+
+  auto toastView = self.toastView;
+
+  if (hasStart)
+  {
+    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
+    return;
+  }
+
+  if (hasFinish)
+  {
+    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:self.hasLocation];
+    return;
+  }
+
+  if (self.hasLocation)
+    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
+  else
+    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:NO];
+}
+
+- (IBAction)openSearch
+{
+  BOOL const isStart = ([MWMRouter startPoint] == nil);
+  auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
+  [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType : type}];
+  [MWMMapViewControlsManager manager].searchHidden = NO;
+}
+
+- (IBAction)addLocationRoutePoint
+{
+  NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
+  NSAssert([MWMLocationManager lastLocation],
+           @"Action button is active while my location is not available");
+
+  [Statistics logEvent:kStatRoutingAddPoint
+        withParameters:@{
+          kStatRoutingPointType : kStatRoutingPointTypeStart,
+          kStatRoutingPointValue : kStatRoutingPointValueMyPosition,
+          kStatRoutingPointMethod : kStatRoutingPointMethodPlanning,
+          kStatRoutingMode : kStatRoutingModePlanning
+        }];
+  [MWMRouter
+      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
+          bestRouter:NO];
 }
 
 #pragma mark - Search
@@ -151,11 +189,13 @@ BOOL defaultOrientation(CGSize const & size)
   case NavigationSearchState::Maximized:
     [MWMMapViewControlsManager manager].searchHidden = NO;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
+    [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModeOnRoute }];
     break;
   case NavigationSearchState::MinimizedNormal:
     if (self.state == MWMNavigationInfoViewStatePrepare)
     {
       [MWMMapViewControlsManager manager].searchHidden = NO;
+      [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModePlanning }];
     }
     else
     {
@@ -197,7 +237,16 @@ BOOL defaultOrientation(CGSize const & size)
     body(NavigationSearchState::MinimizedATM);
 }
 
-- (IBAction)bookmarksButtonTouchUpInside { [[MapViewController controller] openBookmarks]; }
+- (IBAction)bookmarksButtonTouchUpInside
+{
+  BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
+  [Statistics logEvent:kStatRoutingBookmarksClicked
+        withParameters:@{
+          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+        }];
+  [[MapViewController controller] openBookmarks];
+}
+
 - (void)collapseSearchOnTimer
 {
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
@@ -212,16 +261,16 @@ BOOL defaultOrientation(CGSize const & size)
     return;
   if (info.streetName.length != 0)
   {
-    self.streetNameView.hidden = NO;
+    [self setStreetNameVisible:YES];
     self.streetNameLabel.text = info.streetName;
   }
   else
   {
-    self.streetNameView.hidden = YES;
+    [self setStreetNameVisible:NO];
   }
   if (info.turnImage)
   {
-    self.turnsView.hidden = NO;
+    [self setTurnsViewVisible:YES];
     self.nextTurnImageView.image = info.turnImage;
     self.nextTurnImageView.mwm_coloring = MWMImageColoringWhite;
 
@@ -266,9 +315,8 @@ BOOL defaultOrientation(CGSize const & size)
   }
   else
   {
-    self.turnsView.hidden = YES;
+    [self setTurnsViewVisible:NO];
   }
-  self.hidden = self.streetNameView.hidden && self.turnsView.hidden;
   [self setNeedsLayout];
 }
 
@@ -297,11 +345,17 @@ BOOL defaultOrientation(CGSize const & size)
       defaultView ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   for (NSLayoutConstraint * constraint in self.searchLandscapeConstraints)
     constraint.priority = priority;
-  for (NSLayoutConstraint * constraint in self.searchButtonsSideSize)
-    constraint.constant = searchButtonsSideSize;
+  self.searchButtonsSideSize.constant = searchButtonsSideSize;
 }
 
 #pragma mark - MWMLocationObserver
+
+- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
+{
+  BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
+  if (self.hasLocation != hasLocation)
+    [self updateToastView];
+}
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info
 {
@@ -367,9 +421,6 @@ BOOL defaultOrientation(CGSize const & size)
                                                  : kSearchButtonsViewHeightLandscape) /
             2;
         [self layoutIfNeeded];
-      }
-      completion:^(BOOL finished) {
-        [[MWMMapWidgets widgetsManager] layoutWidgets];
       }];
 }
 
@@ -413,7 +464,10 @@ BOOL defaultOrientation(CGSize const & size)
   _state = state;
   switch (state)
   {
-  case MWMNavigationInfoViewStateHidden: self.isVisible = NO; break;
+  case MWMNavigationInfoViewStateHidden:
+    self.isVisible = NO;
+    [MWMLocationManager removeObserver:self];
+    break;
   case MWMNavigationInfoViewStateNavigation:
     self.isVisible = YES;
     if ([MWMRouter type] == MWMRouterTypePedestrian)
@@ -423,10 +477,25 @@ BOOL defaultOrientation(CGSize const & size)
     break;
   case MWMNavigationInfoViewStatePrepare:
     self.isVisible = YES;
-    self.streetNameView.hidden = YES;
-    self.turnsView.hidden = YES;
+    [self setStreetNameVisible:NO];
+    [self setTurnsViewVisible:NO];
+    [MWMLocationManager addObserver:self];
     break;
   }
+}
+
+- (void)setStreetNameVisible:(BOOL)isVisible
+{
+  self.streetNameView.hidden = !isVisible;
+  self.streetNameViewHideOffset.priority =
+      isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+}
+
+- (void)setTurnsViewVisible:(BOOL)isVisible
+{
+  self.turnsView.hidden = !isVisible;
+  self.turnsViewHideOffset.priority =
+      isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
 - (void)setIsVisible:(BOOL)isVisible

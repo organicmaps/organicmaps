@@ -86,8 +86,6 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   {
     std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
 
-    m_activeTiles.erase(t->GetTileKey());
-
     // decrement counter
     ASSERT(m_counter > 0, ());
     --m_counter;
@@ -100,6 +98,8 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
     if (!task->IsCancelled())
     {
+      m_activeTiles.erase(t->GetTileKey());
+
       TTilesCollection tiles;
       tiles.emplace(t->GetTileKey());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -241,8 +241,10 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
   std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
 
   for (auto const & tile : requestedTiles)
+  {
     if (m_activeTiles.find(tile->GetTileKey()) == m_activeTiles.end())
       finishedTiles.emplace(tile->GetTileKey());
+  }
 
   if (!finishedTiles.empty())
   {
@@ -254,6 +256,10 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
 
 void ReadManager::CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel)
 {
+  {
+    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
+    m_activeTiles.erase(tileToCancel->GetTileKey());
+  }
   tileToCancel->Cancel();
 }
 

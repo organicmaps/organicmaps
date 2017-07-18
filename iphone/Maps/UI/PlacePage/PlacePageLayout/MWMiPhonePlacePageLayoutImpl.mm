@@ -37,6 +37,8 @@ CGFloat const kMinOffset = 1;
 @property(nonatomic) CGFloat expandedContentOffset;
 @property(weak, nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 
+@property(nonatomic) CGRect availableArea;
+
 @end
 
 @implementation MWMiPhonePlacePageLayoutImpl
@@ -55,6 +57,7 @@ CGFloat const kMinOffset = 1;
   {
     auto const & size = ownerView.size;
     _ownerView = ownerView;
+    _availableArea = ownerView.frame;
     _placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
@@ -69,7 +72,7 @@ CGFloat const kMinOffset = 1;
 
 - (void)onShow
 {
-  self.state = State::Bottom;
+  self.state = [self.delegate isExpandedOnShow] ? State::Top : State::Bottom;
   auto scrollView = self.scrollView;
   
   scrollView.scrollEnabled = NO;
@@ -104,24 +107,30 @@ CGFloat const kMinOffset = 1;
   });
 }
 
-- (void)onScreenResize:(CGSize const &)size
+- (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
+  self.availableArea = frame;
+
   UIScrollView * sv = self.scrollView;
   sv.delegate = nil;
-  sv.frame = {{}, size};
+  sv.frame = frame;
   sv.delegate = self;
+  auto const size = frame.size;
   self.placePageView.minY = size.height;
   auto actionBar = self.actionBar;
-  actionBar.frame = {{0., size.height - actionBar.height},
-    {size.width, actionBar.height}};
+  actionBar.frame = {{0., size.height - actionBar.height}, {size.width, actionBar.height}};
   [self.delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
-  [sv setContentOffset:{0, self.state == State::Top ? self.topContentOffset : self.expandedContentOffset}
-                           animated:YES];
+  [sv setContentOffset:{
+    0, self.state == State::Top ? self.topContentOffset : self.expandedContentOffset
+  }
+              animated:YES];
 }
 
-- (void)onUpdatePlacePageWithHeight:(CGFloat)height
+- (void)updateContentLayout
 {
-  auto const & size = self.ownerView.size;
+  auto const & size = self.availableArea.size;
   self.scrollView.contentSize = {size.width, size.height + self.placePageView.height};
 }
 
@@ -267,6 +276,8 @@ CGFloat const kMinOffset = 1;
   self.placePageView.anchorImage.transform = isTop ? CGAffineTransformMakeRotation(M_PI)
   : CGAffineTransformIdentity;
   [self.previewLayoutHelper layoutInOpenState:isTop];
+  if (isTop)
+    [self.delegate onExpanded];
 }
 
 #pragma mark - UITableViewDelegate

@@ -163,7 +163,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">设置</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">地图存储</string>
+	<string name="maps_storage">将地图保存到</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">选取地图应该下载的位置</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -333,7 +333,7 @@
 	<string name="duration_6_hours">6小时</string>
 	<string name="duration_12_hours">12小时</string>
 	<string name="duration_1_day">1天</string>
-	<string name="recent_track_help_text">请注意：激活此功能会导致用电量增加。</string>
+	<string name="recent_track_help_text">它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。</string>
 	<string name="pref_track_ios_caption">近期轨迹显示您的行进道路。</string>
 	<string name="pref_track_ios_subcaption">请选择保存轨迹的时间范围。</string>
 	<string name="placepage_distance">距离</string>
@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">调整目的地</string>
 	<string name="dialog_routing_end_not_determined">路线未创建。无法定位目的地。</string>
 	<string name="dialog_routing_select_closer_end">请选择更靠近公路的目的地位置。</string>
+	<string name="dialog_routing_change_intermediate">无法定位中间点。</string>
+	<string name="dialog_routing_intermediate_not_determined">请调整您的中间点。</string>
 	<string name="dialog_routing_system_error">系统错误</string>
 	<string name="dialog_routing_application_error">由于应用程序错误，无法创建路线。</string>
 	<string name="dialog_routing_try_again">请重试</string>
@@ -790,6 +792,11 @@
 	<string name="onboarding_notifications_title">允许更新通知</string>
 	<string name="onboarding_location_title">帮助我们找到您</string>
 	<string name="onboarding_location_message">为了使用导航和其他功能，我们需要访问您的地理位置信息.</string>
+	<string name="onboarding_permissions_title">允许 MAPS.ME 访问存储空间和地点</string>
+	<string name="onboarding_permissions_message">因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。</string>
+	<string name="onboarding_welcome_title">欢迎使用 MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">免费、快速、详细且完全离线的地图，并且带有精细导航功能。</string>
+	<string name="onboarding_welcome_second_subtitle">启动应用程序即表明您同意&lt;a href=\"http://legal.my.com/us/maps/tou/\">使用条款&lt;/a>和&lt;a href=\"https://legal.my.com/us/maps/privacy/\">隐私政策&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改变位置</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
 	<string name="login_to_make_edits_visible">登陆，让其他用户能看到您所作出的修改。</string>
@@ -942,7 +949,7 @@
 	<!-- Text in menu -->
 	<string name="blog">博客</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">收集使用统计数据有助于我们改进应用。</string>
+	<string name="allow_statistics_hint">收集匿名使用统计数据有助于我们改进应用。</string>
 	<string name="general_settings">常规设置</string>
 	<string name="date">日期 %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -965,6 +972,8 @@
 	<string name="taxi_wait">预计 %s后到达</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">无法在附近找到出租车</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">这里无法预约出租车</string>
 	<string name="install_app">安装</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">筛选器</string>
@@ -1065,6 +1074,8 @@
 	<string name="whatsnew_smaller_mwm_message">地图需要的存储空间减少 20%。</string>
 	<string name="whatsnew_waypoints_title">在路线中添加路径点</string>
 	<string name="whatsnew_waypoints_message">点按地点即可向您的路线添加路径点。</string>
+	<string name="whatsnew_viator_title">预订游览</string>
+	<string name="whatsnew_viator_message">选择全世界旅游城市的热门游览。</string>
 	<string name="whatsnew_driving_style_title">新的驾驶地图样式</string>
 	<string name="whatsnew_driving_style_message">汽车导航模式更加易用。</string>
 	<string name="more_on_bookingcom">Booking.com 上的更多信息</string>
@@ -1093,8 +1104,44 @@
 	<string name="on">开</string>
 	<string name="off">关</string>
 	<string name="prefs_languages_information">我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能</string>
-	<string name="prefs_languages_information_off">对于阿拉伯语、希腊语和罗马尼亚语，您需要从 Google Play 中安装其他“文字转语音”功能（因为 Google 文字转语音不支持这些语言），例如 Vocalizer TTS 或 SVOX Classics。\n要管理语音合成的设置，请在您的设备上打开“设置 –> 语言和输入法 –> 语音 –> 文字转语音 (TTS) 输出”。您可以从这里下载其他语言包或选择首先的文字转语音引擎。</string>
+	<string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
 	<string name="whatsnew_transliteration_title">直译成拉丁文</string>
 	<string name="whatsnew_transliteration_message">如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。</string>
+	<string name="learn_more">了解更多</string>
+	<string name="exit">退出</string>
+	<string name="routing_add_start_point">添加起点以规划路线</string>
+	<string name="routing_add_finish_point">添加终点以规划路线</string>
+	<string name="onboarding_welcome_message">免费、快速、详细且完全离线的地图，并且带有精细导航功能。</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">启动应用程序即表明同意“使用条款”和“隐私政策”。</string>
+	<string name="button_accept_and_continue">接受并继续</string>
+	<string name="button_learn_more">了解更多</string>
+	<string name="onboarding_storage_permissions_title">授予访问权限</string>
+	<string name="onboarding_storage_permissions_message">更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。</string>
+	<string name="button_exit">退出</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME 需要以下访问权限</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">存储空间</string>
+	<string name="onboarding_detail_permissions_storage_message">保存并离线使用已下载的地图，保存书签。</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">地点</string>
+	<string name="onboarding_detail_permissions_location_message">查看您附近的地点和交通状况并使用导航。</string>
+	<string name="onboarding_detail_permissions_storage_path_message">您还可以在设置中更改已下载地图的目标存储位置。</string>
+	<string name="settings_device_memory">设备内存</string>
+	<string name="settings_card_memory">存储卡</string>
+	<string name="settings_storage_available">%s 可用</string>
+	<string name="toast_location_permission_denied">应用已拒绝地点获取权限</string>
+	<string name="place_page_viator_title">景点和游览</string>
+	<string name="button_use">使用</string>
+	<string name="planning_route_manage_route">管理路线</string>
+	<string name="button_plan">规划</string>
+	<string name="button_add">添加</string>
+	<string name="placepage_remove_stop">移除</string>
+	<string name="planning_route_remove_title">拖动到此处以移除</string>
+	<string name="dialog_change_start_point_message">将起点替换为当前地点？</string>
+	<string name="button_replace">替换</string>
+	<string name="placepage_add_stop">添加经停点</string>
+	<string name="whatsnew_intermediate_point_title">其他经停点</string>
+	<string name="whatsnew_intermediate_point_message">规划带中间点的路线。</string>
 </resources>

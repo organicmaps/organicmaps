@@ -58,6 +58,7 @@ public:
   void Reset(uint64_t const requestId);
   void SetTimes(uint64_t const requestId, string const & times);
   void SetPrices(uint64_t const requestId, string const & prices);
+  void SetError(uint64_t const requestId, taxi::ErrorCode code);
   void MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
                     ErrorProviderCallback const & errorFn);
 
@@ -65,6 +66,7 @@ private:
   uint64_t m_requestId = 0;
   unique_ptr<string> m_times;
   unique_ptr<string> m_prices;
+  unique_ptr<taxi::ErrorCode> m_error;
   mutex m_mutex;
 };
 

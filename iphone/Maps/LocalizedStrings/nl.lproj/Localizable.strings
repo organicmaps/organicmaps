@@ -266,7 +266,7 @@
 "settings" = "Instellingen";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Kaarten bewaren";
+"maps_storage" = "Kaarten opslaan in";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Selecteer de map waar u de kaarten wilt opslaan";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 dag";
 
-"recent_track_help_text" = "Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.";
+"recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
 
 "pref_track_ios_caption" = "Recente route geeft uw gebruikte route weer.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Beschikbaar";
 
 /* Country queued for download */
-"downloader_queued" = "in de wachtrij";
+"downloader_queued" = "In de wachtrij";
 
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Kies een bestemming die dichter bij een weg ligt.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Kan de tussenstop niet vinden.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Gelieve uw tussenstop aan te passen.";
 
 "dialog_routing_system_error" = "Systeemfout";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Volgende";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME toegang geven tot opslag en locatie";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Welkom bij MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Door de toepassing te starten, gaat u akkoord met de <a href=\"http://legal.my.com/us/maps/tou/\">Gebruiksvoorwaarden</a> en het <a href=\"https://legal.my.com/us/maps/privacy/\">Privacybeleid</a>.";
 
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Verzamelen van gebruiksstatistieken helpt ons de app te verbeteren.";
+"allow_statistics_hint" = "Het verzamelen van anonieme gebruiksstatistieken helpt ons de app verbeteren.";
 
 "general_settings" = "Algemene instellingen";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Kon geen taxi vinden in de buurt";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi hier niet beschikbaar";
 
 "install_app" = "Installeer";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Tap op plaatsen om tussenstops toe te voegen aan uw route.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Boek een tour";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Kies populaire tours in toeristische steden over de hele wereld.";
 
 "whatsnew_driving_style_title" = "Nieuwe Kaartstijl voor het Rijden";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Voor Arabische, Griekse en Roemeense talen dient u mogelijk aanvullende TTS te installeren (aangezien Google TTS de talen nog niet ondersteunt) in Google Play, zoals Vocalizer TTS of SVOX Classics.\nOm instellingen voor spraaksynthese te beheren, open op uw toestel Instellingen -> Taal en invoer -> Spraak -> Uitvoer voor tekst-naar-spraak. Hier kunt u aanvullende taalpakketten downloaden of de tekst-naar-spraak engine van uw voorkeur selecteren.";
+"prefs_languages_information_off" = "Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.";
 
 "prefs_languages_information_off_link" = "Gelieve deze handleiding te lezen voor meer informatie.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Meer informatie";
 
-"exit" = "Exit";
+"exit" = "Verlaten";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.";
+
+"button_accept_and_continue" = "Aanvaarden en doorgaan";
+
+"button_learn_more" = "Meer informatie";
+
+"onboarding_storage_permissions_title" = "Toegang verlenen";
+
+"onboarding_storage_permissions_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.";
+
+"button_exit" = "Verlaten";
+
+"onboarding_detail_permissions_title" = "MAPS.ME heeft toegang nodig tot";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Opslag";
+
+"onboarding_detail_permissions_storage_message" = "Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Locatie";
+
+"onboarding_detail_permissions_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
+
+"onboarding_detail_permissions_storage_path_message" = "U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.";
+
+"settings_device_memory" = "Apparaatgeheugen";
+
+"settings_card_memory" = "Kaartgeheugen";
+
+"settings_storage_available" = "%s beschikbaar";
+
+"toast_location_permission_denied" = "App toelating locatie geweigerd";
+
+"place_page_viator_title" = "Attracties en tours";
+
+"button_use" = "Gebruiken";
+
+"planning_route_manage_route" = "Route beheren";
+
+"button_plan" = "Plannen";
+
+"button_add" = "Toevoegen";
+
+"placepage_remove_stop" = "Verwijderen";
+
+"planning_route_remove_title" = "Sleep hier om te verwijderen";
+
+"dialog_change_start_point_message" = "Het beginpunt vervangen met de huidige locatie?";
+
+"button_replace" = "Vervangen";
+
+"placepage_add_stop" = "Tussenstop toevoegen";
+
+"whatsnew_intermediate_point_title" = "Extra stop";
+
+"whatsnew_intermediate_point_message" = "Plan een route met een tussenstop.";

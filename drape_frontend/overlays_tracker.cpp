@@ -42,7 +42,7 @@ void OverlaysTracker::Track(FeatureID const & fid)
   {
     it->second.m_status = OverlayStatus::Visible;
     m_events.emplace_back(it->first, static_cast<uint8_t>(m_zoomLevel),
-                          std::chrono::steady_clock::now(), m_hasMyPosition,
+                          EventClock::now(), m_hasMyPosition,
                           m_myPosition, m_gpsAccuracy);
   }
 }
@@ -56,7 +56,7 @@ void OverlaysTracker::FinishTracking()
     if (p.second.m_status == OverlayStatus::Visible && !p.second.m_tracked)
     {
       p.second.m_status = OverlayStatus::InvisibleCandidate;
-      p.second.m_timestamp = std::chrono::steady_clock::now();
+      p.second.m_timestamp = EventClock::now();
     }
     else if (p.second.m_status == OverlayStatus::InvisibleCandidate)
     {
@@ -64,7 +64,7 @@ void OverlaysTracker::FinishTracking()
       static auto const kDelay = std::chrono::milliseconds(500);
       if (p.second.m_tracked)
         p.second.m_status = OverlayStatus::Visible;
-      else if (std::chrono::steady_clock::now() - p.second.m_timestamp > kDelay)
+      else if (EventClock::now() - p.second.m_timestamp > kDelay)
         p.second.m_status = OverlayStatus::Invisible;
     }
   }

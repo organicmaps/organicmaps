@@ -266,7 +266,7 @@
 "settings" = "Settings";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Maps storage";
+"maps_storage" = "Save maps to";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Select the place where maps should be downloaded to";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 day";
 
-"recent_track_help_text" = "Please note: activation of this function causes increased battery usage.";
+"recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
 
 "pref_track_ios_caption" = "Recent track shows your traveled path.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Available";
 
 /* Country queued for download */
-"downloader_queued" = "queued";
+"downloader_queued" = "Queued";
 
 "downloader_near_me_subtitle" = "Near me";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
 
 "dialog_routing_system_error" = "System error";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Navigation is available only from your current location.";
 
 "p2p_reroute_from_current" = "Do you want us to plan a route from your current location?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Next";
 
@@ -1340,27 +1336,11 @@
 
 "onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
 
-"onboarding_storage_permissions_title" = "Grant access";
-
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
-
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
 "onboarding_welcome_title" = "Welcome to MAPS.ME";
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a> and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
 
 "dialog_incorrect_feature_position" = "Change location";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Collecting usage statistics helps us improve the app.";
+"allow_statistics_hint" = "Collecting anonymous usage statistics helps us improve the app.";
 
 "general_settings" = "General settings";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Couldn't find a taxi nearby";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi is not available here";
 
 "install_app" = "Install";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Tap places to add waypoints to your route.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Book a tour";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Choose popular tours in tourist cities all over the world.";
 
 "whatsnew_driving_style_title" = "New Map Style for Driving";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "For Arabic, Greek and Romanian languages you may need to install additional TTS (as Google TTS doesn’t support the languages yet) from Google Play like Vocalizer TTS or SVOX Classics.\nTo manage settings for speech synthesis, on your device open Settings –> Language and input –> Speech –> Text to speech output. Here you can download additional language pack or select preferred text-to-speech engine.";
+"prefs_languages_information_off" = "For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
 
 "prefs_languages_information_off_link" = "For more information please check this guide.";
 
@@ -1952,10 +1932,67 @@
 
 "exit" = "Exit";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Add a starting point to plan a route";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Add a destination to plan a route";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "By launching the application, you agree to Terms of Use and Privacy Policy.";
+
+"button_accept_and_continue" = "Accept and continue";
+
+"button_learn_more" = "Learn more";
+
+"onboarding_storage_permissions_title" = "Grant Access";
+
+"onboarding_storage_permissions_message" = "Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.";
+
+"button_exit" = "Exit";
+
+"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Storage";
+
+"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and store bookmarks.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Location";
+
+"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
+
+"onboarding_detail_permissions_storage_path_message" = "You can also change the location for downloaded maps in settings.";
+
+"settings_device_memory" = "Device memory";
+
+"settings_card_memory" = "Card memory";
+
+"settings_storage_available" = "%s available";
+
+"toast_location_permission_denied" = "App location permission denied";
+
+"place_page_viator_title" = "Attractions and Tours";
+
+"button_use" = "Use";
+
+"planning_route_manage_route" = "Manage Route";
+
+"button_plan" = "Plan";
+
+"button_add" = "Add";
+
+"placepage_remove_stop" = "Remove";
+
+"planning_route_remove_title" = "Drag here to remove";
+
+"dialog_change_start_point_message" = "Set the current location as the starting point?";
+
+"button_replace" = "Replace";
+
+"placepage_add_stop" = "Add Stop";
+
+"whatsnew_intermediate_point_title" = "Additional stop";
+
+"whatsnew_intermediate_point_message" = "Plan a route with an intermediate point.";

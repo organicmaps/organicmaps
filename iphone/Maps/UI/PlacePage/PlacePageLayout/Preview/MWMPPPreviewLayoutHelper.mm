@@ -178,12 +178,19 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   using place_page::PreviewRows;
   self.lastCellIsBanner = NO;
   self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
-  auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
 
   if (data.isMyPosition)
+  {
     self.distanceRow = 0;
-  else if (it != previewRows.end())
-    self.distanceRow = distance(previewRows.begin(), it) - 1;
+  }
+  else
+  {
+    auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Address);
+    if (it == previewRows.end())
+      it = find(previewRows.begin(), previewRows.end(), PreviewRows::Subtitle);
+    if (it != previewRows.end())
+      self.distanceRow = distance(previewRows.begin(), it);
+  }
 }
 
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withData:(MWMPlacePageData *)data

@@ -24,9 +24,10 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View res = inflater.inflate(R.layout.fragment_routing, container, false);
-
-    mPlanController = new RoutingPlanController(res, getActivity());
-
+    RoutingBottomMenuListener listener = null;
+    if (getActivity() instanceof RoutingBottomMenuListener)
+      listener = (RoutingBottomMenuListener) getActivity();
+    mPlanController = new RoutingPlanController(res, getActivity(), listener);
     return res;
   }
 
@@ -43,11 +44,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
   {
     mPlanController.showTaxiError(code);
-  }
-
-  public void showStartButton(boolean show)
-  {
-    mPlanController.showStartButton(show);
   }
 
   @Override

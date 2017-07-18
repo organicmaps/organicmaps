@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "routing/route.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/turns.hpp"
 
 #include "platform/location.hpp"
@@ -15,6 +16,8 @@ using namespace routing;
 namespace
 {
 static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3}});
+static vector<Segment> const kTestSegments(
+    {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}});
 static Route::TTurns const kTestTurns(
     {turns::TurnItem(1, turns::TurnDirection::TurnLeft),
      turns::TurnItem(2, turns::TurnDirection::TurnRight),
@@ -210,6 +213,17 @@ UNIT_TEST(GetSubrouteInfoTest)
   route.SetTurnInstructions(move(turns));
   Route::TTimes times(kTestTimes);
   route.SetSectionTimes(move(times));
+
+  vector<Junction> junctions;
+  for (auto const & point : kTestGeometry)
+    junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
+
+  vector<RouteSegment> segmentInfo;
+  FillSegmentInfo(kTestSegments, junctions, kTestTurns, kTestNames, kTestTimes,
+                  nullptr /* trafficStash */, segmentInfo);
+  route.SetRouteSegments(move(segmentInfo));
+  route.SetSubroteAttrs(vector<Route::SubrouteAttrs>({Route::SubrouteAttrs(
+      junctions.front(), junctions.back(), 0 /* beginSegmentIdx */, kTestSegments.size())}));
 
   TEST_EQUAL(route.GetSubrouteCount(), 1, ());
   vector<RouteSegment> info;

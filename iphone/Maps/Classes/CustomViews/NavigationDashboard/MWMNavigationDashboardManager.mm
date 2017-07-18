@@ -95,24 +95,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     [infoDisplay updateNavigationInfo:self.entity];
 }
 
-#pragma mark - MWMNavigationInfoView
-
-- (IBAction)addLocationRoutePoint
-{
-  if (![MWMRouter startPoint])
-  {
-    [MWMRouter
-        buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
-            bestRouter:NO];
-  }
-  else if (![MWMRouter finishPoint])
-  {
-    [MWMRouter
-        buildToPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeFinish]
-          bestRouter:NO];
-  }
-}
-
 #pragma mark - MWMRoutePreview
 
 - (void)setRouteBuilderProgress:(CGFloat)progress
@@ -216,7 +198,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [self.routePreview remove];
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
-  [MWMMapViewControlsManager manager].searchHidden = YES;
 }
 
 - (void)updateStartButtonTitle:(UIButton *)startButton
@@ -226,7 +207,7 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
   [startButton setTitle:t forState:UIControlStateDisabled];
 }
 
-- (void)onRoutePointsUpdated { [self.navigationInfoView onRoutePointsUpdated]; }
+- (void)onRoutePointsUpdated { [self.navigationInfoView updateToastView]; }
 - (void)setMenuErrorStateWithErrorMessage:(NSString *)message
 {
   [self.delegate setRoutingErrorMessage:message];
@@ -290,63 +271,6 @@ using TInfoDisplays = NSHashTable<__kindof TInfoDisplay>;
     self.routePreview.leftBound = leftBound;
   if (_navigationInfoView)
     self.navigationInfoView.leftBound = leftBound;
-}
-
-- (CGFloat)leftTop
-{
-  switch (self.state)
-  {
-  case MWMNavigationDashboardStateHidden: return 0.0;
-  case MWMNavigationDashboardStatePlanning:
-  case MWMNavigationDashboardStateReady:
-  case MWMNavigationDashboardStateError:
-  case MWMNavigationDashboardStatePrepare:
-    return IPAD ? self.topBound : self.routePreview.visibleHeight;
-  case MWMNavigationDashboardStateNavigation: return self.navigationInfoView.leftHeight;
-  }
-}
-
-- (CGFloat)rightTop
-{
-  switch (self.state)
-  {
-  case MWMNavigationDashboardStateHidden: return 0.0;
-  case MWMNavigationDashboardStatePlanning:
-  case MWMNavigationDashboardStateReady:
-  case MWMNavigationDashboardStateError:
-  case MWMNavigationDashboardStatePrepare:
-    return IPAD ? self.topBound : self.routePreview.visibleHeight;
-  case MWMNavigationDashboardStateNavigation: return self.navigationInfoView.rightHeight;
-  }
-}
-
-- (CGFloat)bottom
-{
-  auto ov = self.ownerView;
-  switch (self.state)
-  {
-  case MWMNavigationDashboardStateHidden: return ov.height;
-  case MWMNavigationDashboardStatePlanning:
-  case MWMNavigationDashboardStateReady:
-  case MWMNavigationDashboardStateError:
-  case MWMNavigationDashboardStatePrepare:
-  case MWMNavigationDashboardStateNavigation:
-    return IPAD ? ov.height : self.navigationInfoView.bottom;
-  }
-}
-
-- (CGFloat)left
-{
-  switch (self.state)
-  {
-  case MWMNavigationDashboardStateHidden: return 0.0;
-  case MWMNavigationDashboardStatePlanning:
-  case MWMNavigationDashboardStateReady:
-  case MWMNavigationDashboardStateError:
-  case MWMNavigationDashboardStatePrepare:
-  case MWMNavigationDashboardStateNavigation:
-    return self.leftBound + (IPAD ? 0 : self.navigationInfoView.left);
-  }
 }
 
 - (void)addInfoDisplay:(TInfoDisplay)infoDisplay { [self.infoDisplays addObject:infoDisplay]; }

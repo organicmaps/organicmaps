@@ -21,7 +21,10 @@ public:
   // @TODO(bykoianko) When fields |m_turns|, |m_times|, |m_streets| and |m_traffic|
   // are removed from class Route the method Generate() should fill
   // vector<RouteSegment> instead of corresponding arguments.
-  virtual void Generate(RoadGraphBase const & graph, vector<Junction> const & path,
+  /// \brief Generates all args which are passed by reference.
+  /// \param path is points of the route. It should not be empty.
+  /// \returns true if fields passed by reference are filled correctly and false otherwise.
+  virtual bool Generate(RoadGraphBase const & graph, vector<Junction> const & path,
                         my::Cancellable const & cancellable, Route::TTurns & turns,
                         Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                         vector<Segment> & segments) = 0;

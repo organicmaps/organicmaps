@@ -38,7 +38,9 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   // _enabled should be already correctly set up in init method.
   if ([MWMSettings statisticsEnabled])
   {
-    [Flurry startSession:@(FLURRY_KEY)];
+    auto sessionBuilder = [[[FlurrySessionBuilder alloc] init]
+                           withAppVersion:[AppInfo sharedInfo].bundleVersion];
+    [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
     [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
 
     [MRMyTracker createTracker:@(MY_TRACKER_KEY)];

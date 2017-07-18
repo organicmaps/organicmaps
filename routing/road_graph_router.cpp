@@ -208,6 +208,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const & checkpoi
     CalculateMaxSpeedTimes(*m_roadGraph, result.path, times);
 
     CHECK(m_directionsEngine, ());
+    route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
+        {Route::SubrouteAttrs(startPos, finalPos, 0, result.path.size() - 1)}));
     ReconstructRoute(*m_directionsEngine, *m_roadGraph, nullptr /* trafficStash */, delegate,
                      true /* hasAltitude */, result.path, std::move(times), route);
   }

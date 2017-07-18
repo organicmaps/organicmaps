@@ -158,7 +158,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Ajustes</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Almacenamiento de mapas</string>
+	<string name="maps_storage">Guardar mapas en</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Seleccione el lugar donde deben descargarse los mapas</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -324,7 +324,7 @@
 	<string name="duration_6_hours">6 horas</string>
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 día</string>
-	<string name="recent_track_help_text">Nota: activar esta función aumenta el uso de la batería.</string>
+	<string name="recent_track_help_text">Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.</string>
 	<string name="pref_track_ios_caption">El trayecto reciente muestra tu recorrido de viaje.</string>
 	<string name="pref_track_ios_subcaption">Por favor, selecciona la periodicidad para guardar el trayecto.</string>
 	<string name="placepage_distance">Distancia</string>
@@ -575,6 +575,8 @@
 	<string name="dialog_routing_change_end">Ajustar destino</string>
 	<string name="dialog_routing_end_not_determined">La ruta no se creó. No se pudo encontrar el destino.</string>
 	<string name="dialog_routing_select_closer_end">Seleccione un punto de destino cercano a una carretera.</string>
+	<string name="dialog_routing_change_intermediate">No se ha podido ubicar la parada intermedia.</string>
+	<string name="dialog_routing_intermediate_not_determined">Por favor, ajuste la parada intermedia.</string>
 	<string name="dialog_routing_system_error">Error del sistema</string>
 	<string name="dialog_routing_application_error">No se pudo crear la ruta debido a un error en la aplicación.</string>
 	<string name="dialog_routing_try_again">Intentar nuevamente</string>
@@ -777,6 +779,11 @@
 	<string name="onboarding_notifications_title">Permitir notificaciones de actualización</string>
 	<string name="onboarding_location_title">Ayúdanos a encontrarte</string>
 	<string name="onboarding_location_message">Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.</string>
+	<string name="onboarding_permissions_title">Permita el acceso de MAPS.ME a los servicios de almacenamiento y ubicación</string>
+	<string name="onboarding_permissions_message">Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.</string>
+	<string name="onboarding_welcome_title">Bienvenido a MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.</string>
+	<string name="onboarding_welcome_second_subtitle">Al iniciar la aplicación, usted acepta los &lt;a href=\"http://legal.my.com/us/maps/tou/\">Términos de uso&lt;/a> y la &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Política de privacidad&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambiar ubicación</string>
 	<string name="message_invalid_feature_position">No se puede ubicar ningún objeto aquí</string>
 	<string name="login_to_make_edits_visible">Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.</string>
@@ -929,7 +936,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">La recopilación de estadísticas de uso nos ayuda a mejorar la aplicación.</string>
+	<string name="allow_statistics_hint">La recopilación de estadísticas de uso anónimas nos ayuda a mejorar la aplicación.</string>
 	<string name="general_settings">Ajustes generales</string>
 	<string name="date">Fecha %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -952,6 +959,8 @@
 	<string name="taxi_wait">Se espera en %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">No se puede encontrar un taxi cerca</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">El servicio de taxi no está disponible aquí</string>
 	<string name="install_app">Instalar</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrar</string>
@@ -1052,6 +1061,8 @@
 	<string name="whatsnew_smaller_mwm_message">Los mapas requieren un 20% menos de espacio de almacenamiento.</string>
 	<string name="whatsnew_waypoints_title">Puntos de referencia en las rutas</string>
 	<string name="whatsnew_waypoints_message">Pulse sobre los lugares para añadir puntos de referencia a su ruta.</string>
+	<string name="whatsnew_viator_title">Reservar una visita guiada</string>
+	<string name="whatsnew_viator_message">Elija visitas guiadas populares por ciudades turísticas en cualquier parte del mundo.</string>
 	<string name="whatsnew_driving_style_title">Nuevo estilo de mapa para la conducción</string>
 	<string name="whatsnew_driving_style_message">Modo de navegación más fácil de usar.</string>
 	<string name="more_on_bookingcom">Más información en Booking.com</string>
@@ -1080,8 +1091,44 @@
 	<string name="on">Akt.</string>
 	<string name="off">Desact.</string>
 	<string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Para los idiomas árabe, griego y rumano, es posible que necesite instalar un TTS adicional (puesto que Google TTS aún no incluye estos idiomas) desde Google Play, como Vocalizer TTS o SVOX Classics.\nPara administrar los ajustes de síntesis del habla, abra los Ajustes de su dispositivo –> Idioma e introducción –> Voz –> Opciones texto a voz. En este menú puede descargar un paquete de idioma especial o seleccionar un motor existente de conversión de texto a voz.</string>
+	<string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play mercado, Samsung Apps). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
 	<string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
 	<string name="whatsnew_transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="whatsnew_transliteration_message">Si una calle o un objeto no tiene nombre en su idioma, se escribirá con el alfabeto latino.</string>
+	<string name="learn_more">Leer más</string>
+	<string name="exit">Salir</string>
+	<string name="routing_add_start_point">Agregar un punto de inicio para planificar una ruta</string>
+	<string name="routing_add_finish_point">Agregar un destino para planificar una ruta</string>
+	<string name="onboarding_welcome_message">Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Al iniciar la aplicación, usted acepta las Condiciones de uso y la Política de privacidad.</string>
+	<string name="button_accept_and_continue">Aceptar y continuar</string>
+	<string name="button_learn_more">Leer más</string>
+	<string name="onboarding_storage_permissions_title">Otorgar acceso</string>
+	<string name="onboarding_storage_permissions_message">Cambie la configuración de permisos en su dispositivo. MAPS.ME necesita tener acceso al almacenamiento.</string>
+	<string name="button_exit">Salir</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME necesita tener acceso a</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Almacenamiento</string>
+	<string name="onboarding_detail_permissions_storage_message">Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Ubicación</string>
+	<string name="onboarding_detail_permissions_location_message">Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">También puede cambiar en los ajustes el destino para los mapas descargados.</string>
+	<string name="settings_device_memory">Memoria del dispositivo</string>
+	<string name="settings_card_memory">Tarjeta de memoria</string>
+	<string name="settings_storage_available">%s disponible</string>
+	<string name="toast_location_permission_denied">A la aplicación se le ha denegado el permiso de acceso a la ubicación</string>
+	<string name="place_page_viator_title">Lugar de interés y visitas guiadas</string>
+	<string name="button_use">Utilizar</string>
+	<string name="planning_route_manage_route">Administrar ruta</string>
+	<string name="button_plan">Planificar</string>
+	<string name="button_add">Añadir</string>
+	<string name="placepage_remove_stop">Eliminar</string>
+	<string name="planning_route_remove_title">Arrastre aquí para eliminar</string>
+	<string name="dialog_change_start_point_message">¿Cambiar el punto de inicio por la ubicación actual?</string>
+	<string name="button_replace">Cambiar</string>
+	<string name="placepage_add_stop">Añadir parada</string>
+	<string name="whatsnew_intermediate_point_title">Parada adicional</string>
+	<string name="whatsnew_intermediate_point_message">Planifique una ruta con una parada intermedia.</string>
 </resources>

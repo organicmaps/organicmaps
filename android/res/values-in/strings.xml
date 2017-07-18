@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Pengaturan</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Penyimpanan Peta</string>
+	<string name="maps_storage">Simpan peta di</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Pilih tempat untuk menyimpan unduhan peta</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 jam</string>
 	<string name="duration_12_hours">12 jam</string>
 	<string name="duration_1_day">1 hari</string>
-	<string name="recent_track_help_text">Harap perhatikan: mengaktifkan fungsi ini menyebabkan pemakaian baterai meningkat.</string>
+	<string name="recent_track_help_text">Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.</string>
 	<string name="pref_track_ios_caption">Jalur terakhir menunjukkan jalur yang sudah Anda lalui.</string>
 	<string name="pref_track_ios_subcaption">Silakan pilih jangka waktu penyimpanan jalur.</string>
 	<string name="placepage_distance">Jarak</string>
@@ -419,7 +419,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Tersedia</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">telah diantrekan</string>
+	<string name="downloader_queued">Telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
 	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>
@@ -581,6 +581,8 @@
 	<string name="dialog_routing_change_end">Sesuaikan tujuan</string>
 	<string name="dialog_routing_end_not_determined">Rute tidak dibuat. Tidak dapat menemukan tujuan.</string>
 	<string name="dialog_routing_select_closer_end">Pilih titik tujuan yang lebih dekat dengan jalan.</string>
+	<string name="dialog_routing_change_intermediate">Tidak dapat menemukan titik antara.</string>
+	<string name="dialog_routing_intermediate_not_determined">Harap sesuaikan titik antara Anda.</string>
 	<string name="dialog_routing_system_error">Kesalahan sistem</string>
 	<string name="dialog_routing_application_error">Tidak dapat membuat rute karena kesalahan aplikasi.</string>
 	<string name="dialog_routing_try_again">Mohon coba lagi</string>
@@ -783,6 +785,11 @@
 	<string name="onboarding_notifications_title">Aktifkan pemberitahuan pembaruan</string>
 	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
+	<string name="onboarding_permissions_title">Izinkan MAPS.ME mengakses penyimpanan dan lokasi</string>
+	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
+	<string name="onboarding_welcome_title">Selamat datang di MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
+	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui &lt;a href=\"http://legal.my.com/us/maps/tou/\">Syarat-Syarat Penggunaan&lt;/a> dan &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Kebijakan Privasi&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
@@ -935,7 +942,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Pengumpulan statistik penggunaan akan membantu kami meningkatkan aplikasi.</string>
+	<string name="allow_statistics_hint">Mengumpulkan statistik penggunaan anonim membantu kami meningkatkan aplikasi ini.</string>
 	<string name="general_settings">Setelan umum</string>
 	<string name="date">Tanggal %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -958,6 +965,8 @@
 	<string name="taxi_wait">Diharapkan dalam %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Tidak dapat menemukan taksi di dekat lokasi</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taksi tidak tersedia di sini</string>
 	<string name="install_app">Pasang</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1058,6 +1067,8 @@
 	<string name="whatsnew_smaller_mwm_message">Peta memerlukan pengurangan penyimpanan hingga 20%.</string>
 	<string name="whatsnew_waypoints_title">Titik Koordinat dalam Pembuatan Rute</string>
 	<string name="whatsnew_waypoints_message">Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.</string>
+	<string name="whatsnew_viator_title">Pesan tur</string>
+	<string name="whatsnew_viator_message">Pilih wisata populer di kota-kota wisata seluruh dunia.</string>
 	<string name="whatsnew_driving_style_title">Model Peta Baru untuk Berkendara</string>
 	<string name="whatsnew_driving_style_message">Mode navigasi mobil menjadi semakin mudah digunakan.</string>
 	<string name="more_on_bookingcom">Selengkapnya di Booking.com</string>
@@ -1086,8 +1097,44 @@
 	<string name="on">On</string>
 	<string name="off">Mati</string>
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Untuk bahasa Arab, Yunani, dan Romania, Anda mungkin perlu menginstal TTS tambahan (karena Google TTS belum mendukung bahasa-bahasa ini) dari Google Play, seperti Vocalizer TTS atau SVOX Classics.\nUntuk mengelola pengaturan untuk sintesis suara, pada perangkat Anda buka Settings (Pengaturan) –> Language and input (Bahasa dan input) –> Speech (Tuturan) –> Text to speech output (Output teks ke tuturan). Di sini Anda dapat mengunduh paket bahasa tambahan atau memilih mesin teks ke tuturan yang diinginkan.</string>
+	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="whatsnew_transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="whatsnew_transliteration_message">Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.</string>
+	<string name="learn_more">Pelajari selengkapnya</string>
+	<string name="exit">Keluar</string>
+	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
+	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
+	<string name="onboarding_welcome_message">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Dengan meluncurkan aplikasi ini, Anda menyetujui Syarat-Syarat Penggunaan dan Kebijakan Privasi.</string>
+	<string name="button_accept_and_continue">Terima dan lanjutkan</string>
+	<string name="button_learn_more">Pelajari selengkapnya</string>
+	<string name="onboarding_storage_permissions_title">Berikan akses</string>
+	<string name="onboarding_storage_permissions_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.</string>
+	<string name="button_exit">Keluar</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME membutuhkan akses ke</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Penyimpanan</string>
+	<string name="onboarding_detail_permissions_storage_message">Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Lokasi</string>
+	<string name="onboarding_detail_permissions_location_message">Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.</string>
+	<string name="settings_device_memory">Memori perangkat</string>
+	<string name="settings_card_memory">Memori kartu</string>
+	<string name="settings_storage_available">%s tersedia</string>
+	<string name="toast_location_permission_denied">Izin lokasi aplikasi ditolak</string>
+	<string name="place_page_viator_title">Objek wisata dan tur</string>
+	<string name="button_use">Gunakan</string>
+	<string name="planning_route_manage_route">Kelola rute</string>
+	<string name="button_plan">Rencana</string>
+	<string name="button_add">Tambah</string>
+	<string name="placepage_remove_stop">Hapus</string>
+	<string name="planning_route_remove_title">Seret ke sini untuk menghapus</string>
+	<string name="dialog_change_start_point_message">Ganti titik awal ke lokasi saat ini?</string>
+	<string name="button_replace">Ganti</string>
+	<string name="placepage_add_stop">Tambah perhentian</string>
+	<string name="whatsnew_intermediate_point_title">Perhentian tambahan</string>
+	<string name="whatsnew_intermediate_point_message">Rencanakan rute dengan titik antara.</string>
 </resources>

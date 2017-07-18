@@ -23,6 +23,7 @@ bool RunSimpleHttpRequest(std::string const & url, std::string & result)
 {
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", "application/json");
+  request.SetRawHeader("YaTaxi-Api-Key", YANDEX_API_KEY);
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
     result = request.ServerResponse();
@@ -60,8 +61,8 @@ bool RawApi::GetTaxiInfo(ms::LatLon const & from, ms::LatLon const & to, std::st
 {
   std::ostringstream url;
   url << std::fixed << std::setprecision(6) << baseUrl << "/taxi_info?clid=" << YANDEX_CLIENT_ID
-      << "&apikey=" << YANDEX_API_KEY << "&rll=" << from.lon << "," << from.lat << "~" << to.lon
-      << "," << to.lat << "&class=econom";
+      << "&rll=" << from.lon << "," << from.lat << "~" << to.lon << "," << to.lat
+      << "&class=econom";
 
   return RunSimpleHttpRequest(url.str(), result);
 }
@@ -73,6 +74,13 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 {
   ASSERT(successFn, ());
   ASSERT(errorFn, ());
+
+  // TODO(a): Add ErrorCode::FarDistance and provide this error code.
+  if (!IsDistanceSupported(from, to))
+  {
+    errorFn(ErrorCode::NoProducts);
+    return;
+  }
 
   auto const baseUrl = m_baseUrl;
 
@@ -119,7 +127,7 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
            << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon;
 #endif
 
-  return {deepLink.str(), ""};
+  return {deepLink.str(), deepLink.str()};
 }
 
 void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products)
@@ -147,7 +155,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     if (time == 0.0)
       continue;
 
-    FromJSONObject(item, "class", product.m_name);
+    FromJSONObject(item, "class_name", product.m_name);
     FromJSONObject(item, "price", price);
 
     product.m_price = strings::to_string(price);

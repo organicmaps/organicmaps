@@ -1,6 +1,7 @@
 #import "MWMRoutePreview.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
+#import "MWMLocationManager.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
@@ -8,6 +9,8 @@
 #import "SwiftBridge.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
+
+#include "platform/platform.hpp"
 
 namespace
 {
@@ -115,6 +118,9 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.planningBox.hidden = YES;
   self.errorBox.hidden = YES;
   self.taxiBox.hidden = YES;
+
+  if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
+    [self.taxi removeFromSuperview];
 }
 
 - (void)stateError
@@ -305,11 +311,39 @@ CGFloat constexpr kAdditionalHeight = 20.;
   self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
 }
 
-#pragma mark - VisibleArea
+#pragma mark - AvailableArea / VisibleArea
 
-- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+- (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections
 {
-  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionTop;
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
+}
+
+#pragma mark - AvailableArea / PlacePageArea
+
+- (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / WidgetsArea
+
+- (MWMAvailableAreaAffectDirections)widgetsAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
+}
+
+#pragma mark - AvailableArea / TrafficButtonArea
+
+- (MWMAvailableAreaAffectDirections)trafficButtonAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsTop;
 }
 
 @end

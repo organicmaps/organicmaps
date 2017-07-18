@@ -79,7 +79,7 @@ private:
     }
   };
   std::map<MetadataKey, Metadata> m_metadataCache;
-  Timestamp m_lastSending;
+  std::chrono::steady_clock::time_point m_lastSending;
   bool m_isFirstSending = true;
 
   std::string m_userId;

@@ -134,12 +134,44 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  int const kLineSimplifyLevelEnd = 15;
+  bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
+
+  double sqrScale;
+  if (simplify)
+  {
+    double const currentScaleGtoP = 1.0 / GetScale(tileKey.m_zoomLevel);
+    sqrScale =  math::sqr(currentScaleGtoP);
+  }
+
   for (auto lineIndex : indexes)
   {
     UserLineRenderParams & renderInfo = renderParams[lineIndex];
 
-    auto const splines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), renderInfo.m_spline);
-    for (auto const & spline : splines)
+    m2::SharedSpline spline = renderInfo.m_spline;
+    if (simplify)
+    {
+      spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
+
+      static double const kMinSegmentLength = math::sqr(4.0 * vs);
+      m2::PointD lastAddedPoint;
+      for (auto const & point : renderInfo.m_spline->GetPath())
+      {
+        if ((spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength) ||
+            spline->IsPrelonging(point))
+        {
+          spline->ReplacePoint(point);
+        }
+        else
+        {
+          spline->AddPoint(point);
+          lastAddedPoint = point;
+        }
+      }
+    }
+
+    auto const clippedSplines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), spline);
+    for (auto const & clippedSpline : clippedSplines)
     {
       for (auto const & layer : renderInfo.m_layers)
       {
@@ -150,11 +182,12 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_join = dp::RoundJoin;
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
+        params.m_depthLayer = dp::GLState::UserLineLayer;
         params.m_width = layer.m_width * vs;
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 
-        LineShape(spline, params).Draw(make_ref(&batcher), textures);
+        LineShape(clippedSpline, params).Draw(make_ref(&batcher), textures);
       }
     }
   }

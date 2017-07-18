@@ -129,7 +129,12 @@ public final class ViatorAdapter extends RecyclerView.Adapter<ViatorAdapter.View
     void onItemSelected(@NonNull Item item)
     {
       if (mAdapter.mListener != null)
-        mAdapter.mListener.onViatorItemSelected(item.mUrl);
+      {
+        if (item.mType == TYPE_PRODUCT)
+          mAdapter.mListener.onViatorItemSelected(item.mUrl);
+        else if (item.mType == TYPE_MORE)
+          mAdapter.mListener.onViatorMoreItemSelected(item.mUrl);
+      }
     }
   }
 
@@ -209,5 +214,6 @@ public final class ViatorAdapter extends RecyclerView.Adapter<ViatorAdapter.View
   public interface ItemSelectedListener
   {
     void onViatorItemSelected(@NonNull String url);
+    void onViatorMoreItemSelected(@NonNull String url);
   }
 }

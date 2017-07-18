@@ -8,7 +8,7 @@ Countries::Countries(std::vector<Country> const & countries) : m_countries(count
 
 bool Countries::IsEmpty() const { return m_countries.empty(); }
 
-bool Countries::Has(storage::TCountryId id, std::string const & city) const
+bool Countries::Has(storage::TCountryId const & id, std::string const & city) const
 {
   auto const countryIt =
       std::find_if(m_countries.cbegin(), m_countries.cend(),

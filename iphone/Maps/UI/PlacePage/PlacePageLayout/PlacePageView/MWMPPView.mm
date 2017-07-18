@@ -54,7 +54,7 @@ CGFloat const kTableViewTopInset = -36;
       self.currentContentHeight = height;
       self.height = height + self.top.height;
       [self setNeedsLayout];
-      [self.delegate updateWithHeight:self.height];
+      [self.delegate updateLayout];
     }
     return;
   }
@@ -99,9 +99,16 @@ CGFloat const kTableViewTopInset = -36;
 
 #pragma mark - VisibleArea
 
-- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+- (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections
 {
-  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionNone;
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsNone : MWMAvailableAreaAffectDirectionsBottom;
 }
 
 @end

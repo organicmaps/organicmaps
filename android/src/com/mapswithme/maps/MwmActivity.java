@@ -56,6 +56,8 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.NavigationController;
+import com.mapswithme.maps.routing.RoutePointInfo;
+import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
@@ -98,6 +100,7 @@ import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
@@ -117,7 +120,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  FloatingSearchToolbarController.VisibilityListener,
                                  NativeSearchListener,
                                  NavigationButtonsAnimationController.OnTranslationChangedListener,
-                                 RoutingPlanInplaceController.RoutingPlanListener
+                                 RoutingPlanInplaceController.RoutingPlanListener,
+                                 RoutingBottomMenuListener
 {
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
@@ -190,6 +194,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
+  @Nullable
+  private PlacePageTracker mPlacePageTracker;
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
@@ -525,11 +531,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mPlacePage.setOnVisibilityChangedListener(this);
       mPlacePage.setOnAnimationListener(this);
+      mPlacePageTracker = new PlacePageTracker(mPlacePage);
     }
 
     if (!mIsFragmentContainer)
     {
-      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this, this);
+      mRoutingPlanInplaceController = new RoutingPlanInplaceController(this, this, this);
       removeCurrentFragment(false);
     }
 
@@ -956,7 +963,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPlacePage != null && state != State.HIDDEN)
     {
       mPlacePageRestored = true;
-      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT), true,
+      MapObject mapObject = (MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT);
+      mPlacePage.setMapObject(mapObject, true,
                               new PlacePageView.SetMapObjectListener()
       {
         @Override
@@ -965,6 +973,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           mPlacePage.setState(state);
         }
       });
+      if (mPlacePageTracker != null)
+        mPlacePageTracker.setMapObject(mapObject);
     }
 
     if (mIsFragmentContainer)
@@ -1282,6 +1292,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           mPlacePageRestored = false;
         }
       });
+      if (mPlacePageTracker != null)
+        mPlacePageTracker.setMapObject(object);
     }
 
     if (UiUtils.isVisible(mFadeView))
@@ -1400,6 +1412,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeDeactivatePopup();
       if (mPlacePage != null)
         mPlacePage.setMapObject(null, false, null);
+      if (mPlacePageTracker != null)
+        mPlacePageTracker.onHidden();
     }
   }
 
@@ -1413,6 +1427,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                              : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
                                    : AlohaHelper.PP_CLOSE);
+    if (mPlacePageTracker != null && isVisible)
+    {
+      mPlacePageTracker.onOpened();
+    }
   }
 
   @Override
@@ -1420,6 +1438,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavAnimationController != null)
       mNavAnimationController.onPlacePageMoved(translationY);
+    if (mPlacePageTracker != null)
+      mPlacePageTracker.onMove();
   }
 
   @Override
@@ -1496,7 +1516,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                       null, "", null, null),
                                         new MapObject("", 0L, 0, MapObject.API_POINT, to.mName,
                                                       "", "", "", to.mLat, to.mLon, "", null,
-                                                      null, "", null, null));
+                                                      null, "", null, null),
+                                        true);
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
@@ -1665,6 +1686,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
                                             boolean showFrame)
   {
+    // S - start, F - finish, L - my position
+    // -S-F-L -> Start
+    // -S-F+L -> Finish
+    // -S+F-L -> Start
+    // -S+F+L -> Start + Use
+    // +S-F-L -> Finish
+    // +S-F+L -> Finish
+    // +S+F-L -> Hide
+    // +S+F+L -> Hide
+
+    MapObject myPosition = LocationHelper.INSTANCE.getMyPosition();
+
+    if (myPosition != null && !controller.hasEndPoint())
+    {
+      showAddFinishFrame();
+      if (showFrame)
+        showLineFrame();
+      return true;
+    }
     if (!controller.hasStartPoint())
     {
       showAddStartFrame();
@@ -1737,12 +1777,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showLineFrame(boolean show, @Nullable Runnable completion)
   {
     mMainMenu.showLineFrame(show, completion);
-    if (mIsFragmentContainer)
-    {
-      RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-      if (fragment != null)
-        fragment.showStartButton(show);
-    }
   }
 
   private void setNavButtonsTopLimit(int limit)
@@ -2111,6 +2145,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }).show();
   }
 
+  @Override
+  public void onUseMyPositionAsStart()
+  {
+    RoutingController.get().setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+  }
+
+  @Override
+  public void onSearchRoutePoint(@RoutePointInfo.RouteMarkType int pointType)
+  {
+    if (mNavigationController != null)
+    {
+      RoutingController.get().waitForPoiPick(pointType);
+      mNavigationController.performSearchClick();
+      Statistics.INSTANCE.trackRoutingTooltipEvent(pointType, true);
+    }
+  }
+
   public static class ShowAuthorizationTask implements MapTask
   {
     @Override
@@ -2251,16 +2302,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mLatFrom != null && mLonFrom != null && routerType >= 0)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo), routerType);
+                                        fromLatLon(mLatTo, mLonTo), routerType, true);
       }
       else if (mLatFrom != null && mLonFrom != null)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo));
+                                        fromLatLon(mLatTo, mLonTo), true);
       }
       else
       {
-        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo));
+        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo), true);
       }
       return true;
     }

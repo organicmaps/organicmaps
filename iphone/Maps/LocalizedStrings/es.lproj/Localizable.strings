@@ -266,7 +266,7 @@
 "settings" = "Ajustes";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Almacenamiento de mapas";
+"maps_storage" = "Guardar mapas en";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Seleccione el lugar donde deben descargarse los mapas";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 día";
 
-"recent_track_help_text" = "Nota: activar esta función aumenta el uso de la batería.";
+"recent_track_help_text" = "Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.";
 
 "pref_track_ios_caption" = "El trayecto reciente muestra tu recorrido de viaje.";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Seleccione un punto de destino cercano a una carretera.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "No se ha podido ubicar la parada intermedia.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Por favor, ajuste la parada intermedia.";
 
 "dialog_routing_system_error" = "Error del sistema";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "La navegación solo está disponible desde tu ubicación actual.";
 
 "p2p_reroute_from_current" = "¿Quieres que planeemos un ruta desde tu ubicación actual?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Siguiente";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Permita el acceso de MAPS.ME a los servicios de almacenamiento y ubicación";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Bienvenido a MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Al iniciar la aplicación, usted acepta los <a href=\"http://legal.my.com/us/maps/tou/\">Términos de uso</a> y la <a href=\"https://legal.my.com/us/maps/privacy/\">Política de privacidad</a>.";
 
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "La recopilación de estadísticas de uso nos ayuda a mejorar la aplicación.";
+"allow_statistics_hint" = "La recopilación de estadísticas de uso anónimas nos ayuda a mejorar la aplicación.";
 
 "general_settings" = "Ajustes generales";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "No se puede encontrar un taxi cerca";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "El servicio de taxi no está disponible aquí";
 
 "install_app" = "Instalar";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Pulse sobre los lugares para añadir puntos de referencia a su ruta.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Reservar una visita guiada";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Elija visitas guiadas populares por ciudades turísticas en cualquier parte del mundo.";
 
 "whatsnew_driving_style_title" = "Nuevo estilo de mapa para la conducción";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Para los idiomas árabe, griego y rumano, es posible que necesite instalar un TTS adicional (puesto que Google TTS aún no incluye estos idiomas) desde Google Play, como Vocalizer TTS o SVOX Classics.\nPara administrar los ajustes de síntesis del habla, abra los Ajustes de su dispositivo –> Idioma e introducción –> Voz –> Opciones texto a voz. En este menú puede descargar un paquete de idioma especial o seleccionar un motor existente de conversión de texto a voz.";
+"prefs_languages_information_off" = "Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play mercado, Samsung Apps). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.";
 
 "prefs_languages_information_off_link" = "Para obtener más información, consulte esta guía.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Leer más";
 
-"exit" = "Exit";
+"exit" = "Salir";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Agregar un punto de inicio para planificar una ruta";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Agregar un destino para planificar una ruta";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Al iniciar la aplicación, usted acepta las Condiciones de uso y la Política de privacidad.";
+
+"button_accept_and_continue" = "Aceptar y continuar";
+
+"button_learn_more" = "Leer más";
+
+"onboarding_storage_permissions_title" = "Otorgar acceso";
+
+"onboarding_storage_permissions_message" = "Cambie la configuración de permisos en su dispositivo. MAPS.ME necesita tener acceso al almacenamiento.";
+
+"button_exit" = "Salir";
+
+"onboarding_detail_permissions_title" = "MAPS.ME necesita tener acceso a";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Almacenamiento";
+
+"onboarding_detail_permissions_storage_message" = "Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Ubicación";
+
+"onboarding_detail_permissions_location_message" = "Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.";
+
+"onboarding_detail_permissions_storage_path_message" = "También puede cambiar en los ajustes el destino para los mapas descargados.";
+
+"settings_device_memory" = "Memoria del dispositivo";
+
+"settings_card_memory" = "Tarjeta de memoria";
+
+"settings_storage_available" = "%s disponible";
+
+"toast_location_permission_denied" = "A la aplicación se le ha denegado el permiso de acceso a la ubicación";
+
+"place_page_viator_title" = "Lugar de interés y visitas guiadas";
+
+"button_use" = "Utilizar";
+
+"planning_route_manage_route" = "Administrar ruta";
+
+"button_plan" = "Planificar";
+
+"button_add" = "Añadir";
+
+"placepage_remove_stop" = "Eliminar";
+
+"planning_route_remove_title" = "Arrastre aquí para eliminar";
+
+"dialog_change_start_point_message" = "¿Cambiar el punto de inicio por la ubicación actual?";
+
+"button_replace" = "Cambiar";
+
+"placepage_add_stop" = "Añadir parada";
+
+"whatsnew_intermediate_point_title" = "Parada adicional";
+
+"whatsnew_intermediate_point_message" = "Planifique una ruta con una parada intermedia.";

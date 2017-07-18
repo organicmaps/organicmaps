@@ -138,13 +138,6 @@ CGFloat constexpr kTimeWidthRegular = 128;
     for (NSLayoutConstraint * constraint in self.mainButtonConstraintsLeftToRight)
       constraint.priority = UILayoutPriorityFittingSizeLevel;
   }
-
-  self.p2pButton.exclusiveTouch = YES;
-  self.searchButton.exclusiveTouch = YES;
-  self.bookmarksButton.exclusiveTouch = YES;
-  self.menuButton.exclusiveTouch = YES;
-  self.goButton.exclusiveTouch = YES;
-  self.toggleInfoButton.exclusiveTouch = YES;
 }
 
 - (void)layoutSubviews
@@ -172,19 +165,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
       completion:^(BOOL finished) {
         [self updateVisibility];
       }];
-  [self noftifyBottomBoundChange];
   [self updateFonts];
   [self updateHeightProfile];
   [super layoutSubviews];
-}
-
-- (void)noftifyBottomBoundChange
-{
-  if (self.state == MWMBottomMenuStateHidden)
-    return;
-  CGFloat const height = self.superview.height - self.mainButtonsHeight.constant;
-  [MWMMapWidgets widgetsManager].bottomBound = height;
-  [MWMSideButtons buttons].bottomBound = height;
 }
 
 - (void)updateAlphaAndColor
@@ -317,12 +300,14 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateActive:
     self.downloadBadge.hidden = YES;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateCompact:
     if (!IPAD)
@@ -335,6 +320,7 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.routingView.hidden = YES;
     self.routingAdditionalView.hidden = YES;
     self.taxiContainer.hidden = YES;
+    self.estimateLabel.hidden = YES;
     break;
   case MWMBottomMenuStateGo:
   {
@@ -344,10 +330,9 @@ CGFloat constexpr kTimeWidthRegular = 128;
     self.p2pButton.hidden = YES;
     self.searchButton.hidden = YES;
     self.routingAdditionalView.hidden = YES;
-    BOOL const isNeedToShowTaxi = [MWMRouter isTaxi];
+    BOOL const isNeedToShowTaxi = [MWMRouter isTaxi] || IPAD;
     self.estimateLabel.hidden = isNeedToShowTaxi;
-    self.taxiContainer.hidden = !isNeedToShowTaxi || IPAD;
-    self.estimateLabel.hidden = NO;
+    self.taxiContainer.hidden = !isNeedToShowTaxi;
     break;
   }
   case MWMBottomMenuStateRoutingError:
@@ -736,13 +721,35 @@ CGFloat constexpr kTimeWidthRegular = 128;
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = MAX(leftBound, 0.0);
-  self.state = _leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
+  if ([MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStatePrepare)
+    self.state = _leftBound > 1.0 ? MWMBottomMenuStateCompact : self.restoreState;
   [self setNeedsLayout];
 }
 
 - (void)setSearchIsActive:(BOOL)searchIsActive
 {
   _searchIsActive = self.searchButton.selected = searchIsActive;
+}
+
+#pragma mark - AvailableArea / PlacePageArea
+
+- (MWMAvailableAreaAffectDirections)placePageAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsBottom : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / WidgetsArea
+
+- (MWMAvailableAreaAffectDirections)widgetsAreaAffectDirections
+{
+  return MWMAvailableAreaAffectDirectionsBottom;
+}
+
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
+{
+  return MWMAvailableAreaAffectDirectionsBottom;
 }
 
 @end

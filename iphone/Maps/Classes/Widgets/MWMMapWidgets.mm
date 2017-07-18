@@ -10,6 +10,7 @@
 @interface MWMMapWidgets ()
 
 @property(nonatomic) float visualScale;
+@property(nonatomic) CGRect availableArea;
 
 @end
 
@@ -38,73 +39,36 @@
 - (void)resize:(CGSize)size
 {
   m_skin->Resize(size.width, size.height);
-  [self layoutWidgets];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self updateAvailableArea:self.availableArea];
+  });
 }
 
-- (void)doLayoutWidgets
+- (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
+  self.availableArea = frame;
   if (m_skin == nullptr)
     return;
   gui::TWidgetsLayoutInfo layout;
-  if (self.fullScreen)
-  {
-    layout[gui::WIDGET_RULER] = m_skin->ResolvePosition(gui::WIDGET_RULER).m_pixelPivot;
-    layout[gui::WIDGET_COMPASS] = m_skin->ResolvePosition(gui::WIDGET_COMPASS).m_pixelPivot;
-  }
-  else
-  {
-    m_skin->ForEach([&layout, &self](gui::EWidget w, gui::Position const & pos) {
-      m2::PointF pivot = pos.m_pixelPivot;
-      switch (w)
-      {
-      case gui::WIDGET_RULER:
-      case gui::WIDGET_COPYRIGHT:
-      {
-        auto const vs = self.visualScale;
-        pivot -= m2::PointF(-self.leftBound * vs,
-                            ([MapViewController controller].view.height - self.bottomBound) * vs);
-        break;
-      }
-      case gui::WIDGET_COMPASS:
-      case gui::WIDGET_SCALE_LABEL:
-      case gui::WIDGET_CHOOSE_POSITION_MARK: break;
-      }
-      layout[w] = pivot;
-    });
-  }
+  auto const vs = self.visualScale;
+  auto const viewHeight = [MapViewController controller].view.height;
+  auto const rulerOffset =
+      m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs);
+  m_skin->ForEach([&layout, &rulerOffset](gui::EWidget w, gui::Position const & pos) {
+    m2::PointF pivot = pos.m_pixelPivot;
+    switch (w)
+    {
+    case gui::WIDGET_RULER:
+    case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
+    case gui::WIDGET_COMPASS:
+    case gui::WIDGET_SCALE_LABEL:
+    case gui::WIDGET_CHOOSE_POSITION_MARK: break;
+    }
+    layout[w] = pivot;
+  });
   GetFramework().SetWidgetLayout(move(layout));
-}
-
-- (void)layoutWidgets
-{
-  auto doLayoutWidgets = @selector(doLayoutWidgets);
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:doLayoutWidgets object:nil];
-  [self performSelector:doLayoutWidgets withObject:nil afterDelay:0];
-}
-
-#pragma mark - Properties
-
-- (void)setFullScreen:(BOOL)fullScreen
-{
-  _fullScreen = fullScreen;
-  [self layoutWidgets];
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  CGFloat const newLeftBound = MAX(leftBound, 0.0);
-  if (equalScreenDimensions(_leftBound, newLeftBound))
-    return;
-  _leftBound = newLeftBound;
-  [self layoutWidgets];
-}
-
-- (void)setBottomBound:(CGFloat)bottomBound
-{
-  if (equalScreenDimensions(_bottomBound, bottomBound))
-    return;
-  _bottomBound = bottomBound;
-  [self layoutWidgets];
 }
 
 @end

@@ -43,9 +43,7 @@
         self.statusbarBackground.frame = CGRectMake(0.0, -sbHeight, self.width, sbHeight);
       }
       completion:^(BOOL finished) {
-        if (self.isVisible)
-          [self.delegate navigationDashBoardDidUpdate];
-        else
+        if (!self.isVisible)
           [self removeFromSuperview];
       }];
 }
@@ -84,14 +82,6 @@
 {
   _isVisible = isVisible;
   [self setNeedsLayout];
-}
-
-- (CGFloat)visibleHeight
-{
-  CGFloat height = self.contentView.height;
-  if ([self.statusbarBackground.superview isEqual:self])
-    height += self.statusbarBackground.height;
-  return height;
 }
 
 @end

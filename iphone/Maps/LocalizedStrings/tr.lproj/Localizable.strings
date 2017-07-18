@@ -266,7 +266,7 @@
 "settings" = "Ayarlar";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Haritaları depolama";
+"maps_storage" = "Haritaları kaydet";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Haritaların indirileceği yeri seçin";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 gün";
 
-"recent_track_help_text" = "Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.";
+"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
 
 "pref_track_ios_caption" = "En son yol seyahat ettiğiniz yolları gösterir.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Mevcut";
 
 /* Country queued for download */
-"downloader_queued" = "sıraya alındı";
+"downloader_queued" = "Sıraya alındı";
 
 "downloader_near_me_subtitle" = "Yakınlarımda";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Lütfen yola daha yakın bir hedef noktası seçin.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Ara nokta bulunamadı.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Lütfen ara noktanızı ayarlayın.";
 
 "dialog_routing_system_error" = "Sistem hatası";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Navigasyon sadece şu anki konumunuzdan mevcut.";
 
 "p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Sonraki";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "MAPS.ME'ye Hoş Geldiniz";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Koşullarını</a> ve <a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.";
+"allow_statistics_hint" = "Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.";
 
 "general_settings" = "Genel ayarlar";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Yakın hiç taksi bulunamadı";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Bu bölgede hiç taksi yok";
 
 "install_app" = "Kur";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Tur rezervasyonu";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.";
 
 "whatsnew_driving_style_title" = "Sürüş İçin Yeni Harita Stili";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Arapça, Yunanca ve Rumence dilleri için Google Play'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.";
+"prefs_languages_information_off" = "Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.";
 
 "prefs_languages_information_off_link" = "Daha fazla bilgi için lütfen bu kılavuzu inceleyin.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Daha fazla bilgi edinin";
 
-"exit" = "Exit";
+"exit" = "Çık";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Uygulamayı başlatarak, Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul etmiş sayılırsınız.";
+
+"button_accept_and_continue" = "Kabul et ve devam et";
+
+"button_learn_more" = "Daha fazla bilgi edinin";
+
+"onboarding_storage_permissions_title" = "Erişime izin ver";
+
+"onboarding_storage_permissions_message" = "Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME'yi kullanmak için depolama alanına erişim izni gerekiyor.";
+
+"button_exit" = "Çık";
+
+"onboarding_detail_permissions_title" = "MAPS.ME'nin şuraya erişmesi gerekiyor:";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Depolama Alanı";
+
+"onboarding_detail_permissions_storage_message" = "İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Konum";
+
+"onboarding_detail_permissions_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
+
+"onboarding_detail_permissions_storage_path_message" = "İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.";
+
+"settings_device_memory" = "Cihaz belleği";
+
+"settings_card_memory" = "Kart belleği";
+
+"settings_storage_available" = "%s kullanılabilir";
+
+"toast_location_permission_denied" = "Uygulamanın konum bilgilerine erişim isteği reddedildi";
+
+"place_page_viator_title" = "Geziler ve turlar";
+
+"button_use" = "Kullan";
+
+"planning_route_manage_route" = "Güzergâhı yönet";
+
+"button_plan" = "Plan";
+
+"button_add" = "Ekle";
+
+"placepage_remove_stop" = "Kaldır";
+
+"planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
+
+"dialog_change_start_point_message" = "Başlangıç noktası mevcut konumla değiştirilsin mi?";
+
+"button_replace" = "Değiştir";
+
+"placepage_add_stop" = "Ara nokta ekle";
+
+"whatsnew_intermediate_point_title" = "Ek ara nokta";
+
+"whatsnew_intermediate_point_message" = "Güzergâhlarınızı ara noktalarla planlayın.";

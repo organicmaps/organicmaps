@@ -177,16 +177,9 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   if (type == self.type)
     return;
-  if (type == MWMRouterTypeTaxi)
-  {
-    auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
-    for (auto const & point : routePoints)
-    {
-      if (point.m_pointType != RouteMarkType::Intermediate)
-        continue;
-      [self removePoint:RouteMarkType::Intermediate intermediateIndex:point.m_intermediateIndex];
-    }
-  }
+  // Now only car routing supports intermediate points.
+  if (type != MWMRouterTypeVehicle)
+    GetFramework().GetRoutingManager().RemoveIntermediateRoutePoints();
   [self doStop:NO];
   GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
@@ -234,6 +227,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)addPoint:(MWMRoutePoint *)point
 {
+  if (!point)
+  {
+    NSAssert(NO, @"Point can not be nil");
+    return;
+  }
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
@@ -279,7 +277,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (!finishPoint)
     return;
   [self addPoint:finishPoint];
-  if (![self startPoint])
+  if (![self startPoint] && [MWMLocationManager lastLocation])
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]];
   [self rebuildWithBestRouter:bestRouter];
 }
@@ -349,8 +347,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
       else
         [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
               withParameters:@{kStatValue : kStatPointToPoint}];
-
-      if (p1.isMyPosition)
+      
+      if (p1.isMyPosition && [MWMLocationManager lastLocation])
       {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];

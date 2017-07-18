@@ -266,7 +266,7 @@
 "settings" = "設定";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "マップ保存先";
+"maps_storage" = "地図の保存先";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "マップのダウンロード先を選択してください";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1日";
 
-"recent_track_help_text" = "ご注意：この機能を有効にすると電池の使用量が増加します。";
+"recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
 "pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "道路に近い位置にある目的地を設定してください。";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "中間地点を見つけることができません。";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "中間地点を調整してください。";
 
 "dialog_routing_system_error" = "システムエラー";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "ナビゲーションは現在位置からのみ利用できます。";
 
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "次へ";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "MAPS.ME によるストレージと位置情報へのアクセスを許可する";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "MAPS.ME へようこそ";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"http://legal.my.com/us/maps/tou/\">利用規約</a>および<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -1646,7 +1626,7 @@
 "blog" = "ブログ";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "収集した使用統計データは当社がアプリを改善するために役立ちます。";
+"allow_statistics_hint" = "収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。";
 
 "general_settings" = "一般設定";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "近隣にタクシーは見つかりませんでした";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "ここには利用可能なタクシーがありません";
 
 "install_app" = "インストール";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "ツアーの予約";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "世界中の観光都市で人気のツアーを選択してください。";
 
 "whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。";
 
-"prefs_languages_information_off" = "アラビア語、ギリシャ語、ルーマニア語では Vocalizer TTS や SVOX Classics のような追加の TTS を Google Play からインストールする必要があるかもしれません（Google TTS がまだこれらの言語をサポートしていないため）。\n音声合成の設定を管理するには、お使いのデバイスで [設定] –> [言語と入力] –> [音声] –> [テキスト読み上げの出力] を開きます。こここで追加の言語パックをダウンロードしたり、お好みの音声合成エンジンを選択することができます。";
+"prefs_languages_information_off" = "いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Samsung Apps) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。";
 
 "prefs_languages_information_off_link" = "詳細については、このガイドをご確認ください。";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "詳細情報";
 
-"exit" = "Exit";
+"exit" = "終了";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "ルートを計画するには出発地点を追加してください";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "ルートを計画するには到着地点を追加してください";
 
-"use" = "Use";
+"onboarding_welcome_message" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。";
+
+"button_accept_and_continue" = "同意して続ける";
+
+"button_learn_more" = "詳細情報";
+
+"onboarding_storage_permissions_title" = "アクセス権の付与";
+
+"onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
+
+"button_exit" = "終了";
+
+"onboarding_detail_permissions_title" = "MAPS.ME がアクセス許可を必要とする項目";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "ストレージ";
+
+"onboarding_detail_permissions_storage_message" = "ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "位置情報";
+
+"onboarding_detail_permissions_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
+
+"onboarding_detail_permissions_storage_path_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
+
+"settings_device_memory" = "デバイスのメモリ";
+
+"settings_card_memory" = "カードのメモリ";
+
+"settings_storage_available" = "%s 使用可能";
+
+"toast_location_permission_denied" = "アプリの位置情報へのアクセスが拒否されました";
+
+"place_page_viator_title" = "観光地およびツアー";
+
+"button_use" = "使う";
+
+"planning_route_manage_route" = "ルートを管理";
+
+"button_plan" = "計画する";
+
+"button_add" = "追加";
+
+"placepage_remove_stop" = "削除";
+
+"planning_route_remove_title" = "ここにドラッグして削除";
+
+"dialog_change_start_point_message" = "出発地点を現在の場所に変更しますか？";
+
+"button_replace" = "変更する";
+
+"placepage_add_stop" = "停止地点を追加";
+
+"whatsnew_intermediate_point_title" = "その他の停止地点";
+
+"whatsnew_intermediate_point_message" = "中間地点のあるルートを計画します。";

@@ -220,6 +220,7 @@ private:
   bool IsTrackingReporterEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
+  location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
 
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
@@ -232,6 +233,8 @@ private:
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   std::mutex m_drapeSubroutesMutex;
+
+  std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

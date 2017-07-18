@@ -160,6 +160,15 @@
 		343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
 		343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */; };
+		3444DFCC1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
+		3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */; };
+		3444DFDD1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
+		3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
+		3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */; };
 		3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446C6761DDCA9A200146687 /* libtraffic.a */; };
 		344D63171E795A2D006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
 		344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344D63161E795A2D006F17CB /* SystemConfiguration.framework */; };
@@ -222,9 +231,6 @@
 		34574A661E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
 		34574A671E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
 		34574A681E3B85F80061E839 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34574A651E3B85F80061E839 /* ThemeManager.swift */; };
-		345D661D1F0665880069E925 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* MAPSME.plist */; };
-		345D661E1F0665890069E925 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* MAPSME.plist */; };
-		345D661F1F0665890069E925 /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* MAPSME.plist */; };
 		3462258E1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		346225911DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */; };
@@ -337,9 +343,6 @@
 		349B92701DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
 		349B92711DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
 		349B92721DF0526D007779DD /* MWMToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349B926F1DF0526D007779DD /* MWMToast.xib */; };
-		349D1AB71E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
-		349D1AB81E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
-		349D1AB91E2CB6E0004A2006 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */; };
 		349D1ABB1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
 		349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
 		349D1ABD1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
@@ -496,6 +499,24 @@
 		34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808871E793FA3002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
 		34D808881E793FA4002F0584 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D808851E793F91002F0584 /* Pushwoosh.framework */; };
+		34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776101F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776111F14B165003040B3 /* VisibleArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7760E1F14B165003040B3 /* VisibleArea.swift */; };
+		34E776131F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
+		34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
+		34E776151F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
+		34E7761E1F14DB48003040B3 /* PlacePageArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7761D1F14DB48003040B3 /* PlacePageArea.swift */; };
+		34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7761D1F14DB48003040B3 /* PlacePageArea.swift */; };
+		34E776201F14DB48003040B3 /* PlacePageArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7761D1F14DB48003040B3 /* PlacePageArea.swift */; };
+		34E776261F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776251F14FE77003040B3 /* NavigationStreetNameView.swift */; };
+		34E776271F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776251F14FE77003040B3 /* NavigationStreetNameView.swift */; };
+		34E776281F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776251F14FE77003040B3 /* NavigationStreetNameView.swift */; };
+		34E7762A1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776291F150AFD003040B3 /* NavigationTurnsView.swift */; };
+		34E7762B1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776291F150AFD003040B3 /* NavigationTurnsView.swift */; };
+		34E7762C1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776291F150AFD003040B3 /* NavigationTurnsView.swift */; };
+		34E776321F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */; };
+		34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */; };
+		34E776341F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */; };
 		34EE259D1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
 		34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
 		34EE259F1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
@@ -553,6 +574,9 @@
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34F742331E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
+		34FE5A6E1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		34FE5A701F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
 		450703091E9E6CF000E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
@@ -1719,6 +1743,10 @@
 		3432E1771E49B3A2008477E9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCollectionViewController.mm; sourceTree = "<group>"; };
+		3444DFCB1F1760B900E73099 /* WidgetsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetsArea.swift; sourceTree = "<group>"; };
+		3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgetsHelper.h; sourceTree = "<group>"; };
+		3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgetsHelper.mm; sourceTree = "<group>"; };
+		3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideButtonsArea.swift; sourceTree = "<group>"; };
 		3446C6761DDCA9A200146687 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		344D63161E795A2D006F17CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		345050211E028B8000A8DC59 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1827,7 +1855,6 @@
 		349B926B1DF0518E007779DD /* MWMToast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMToast.mm; sourceTree = "<group>"; };
 		349B926F1DF0526D007779DD /* MWMToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMToast.xib; sourceTree = "<group>"; };
 		349C3AF11D33C6EE002AC7A9 /* MWMNavigationDashboardInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardInfoProtocol.h; sourceTree = "<group>"; };
-		349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
 		349D1ABA1E2D05EF004A2006 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		349D1AC31E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuCollectionViewCell.h; sourceTree = "<group>"; };
 		349D1AC41E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuCollectionViewCell.mm; sourceTree = "<group>"; };
@@ -1917,6 +1944,14 @@
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
+		34E7760E1F14B165003040B3 /* VisibleArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleArea.swift; sourceTree = "<group>"; };
+		34E776121F14B17F003040B3 /* AvailableArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableArea.swift; sourceTree = "<group>"; };
+		34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAvailableAreaAffectDirection.h; sourceTree = "<group>"; };
+		34E7761D1F14DB48003040B3 /* PlacePageArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageArea.swift; sourceTree = "<group>"; };
+		34E776251F14FE77003040B3 /* NavigationStreetNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStreetNameView.swift; sourceTree = "<group>"; };
+		34E776291F150AFD003040B3 /* NavigationTurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTurnsView.swift; sourceTree = "<group>"; };
+		34E776301F15FAC2003040B3 /* MWMPlacePageManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageManagerHelper.h; sourceTree = "<group>"; };
+		34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageManagerHelper.mm; sourceTree = "<group>"; };
 		34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPViatorCarouselCell.swift; sourceTree = "<group>"; };
 		34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPViatorCarouselCell.xib; sourceTree = "<group>"; };
 		34EE25A41EFA6AD400F870AB /* ViatorElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViatorElement.xib; sourceTree = "<group>"; };
@@ -2001,6 +2036,7 @@
 		34FB47581E3B928D00D94ED8 /* MWMCoreUnits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreUnits.h; sourceTree = "<group>"; };
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
+		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
@@ -3248,14 +3284,6 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		349D1AB51E2CB407004A2006 /* VisibleArea */ = {
-			isa = PBXGroup;
-			children = (
-				349D1AB61E2CB6E0004A2006 /* VisibleArea.swift */,
-			);
-			path = VisibleArea;
-			sourceTree = "<group>";
-		};
 		349D1AC21E2E325B004A2006 /* BottomMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -3367,6 +3395,8 @@
 				F6BD33821B6240F200F2CE18 /* MWMNavigationView.h */,
 				F6BD33831B6240F200F2CE18 /* MWMNavigationView.mm */,
 				34D783CD1B5F9D7800E0C0EE /* RoutePreview */,
+				34E776251F14FE77003040B3 /* NavigationStreetNameView.swift */,
+				34E776291F150AFD003040B3 /* NavigationTurnsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3384,6 +3414,20 @@
 				3451F4F01F02935300A981F2 /* RoutePreviewTaxiCell.swift */,
 			);
 			path = RoutePreview;
+			sourceTree = "<group>";
+		};
+		34E7760D1F14B165003040B3 /* AvailableArea */ = {
+			isa = PBXGroup;
+			children = (
+				34E776121F14B17F003040B3 /* AvailableArea.swift */,
+				34E7760E1F14B165003040B3 /* VisibleArea.swift */,
+				34E776161F14B6E2003040B3 /* MWMAvailableAreaAffectDirection.h */,
+				34E7761D1F14DB48003040B3 /* PlacePageArea.swift */,
+				3444DFCB1F1760B900E73099 /* WidgetsArea.swift */,
+				3444DFDC1F18A5AF00E73099 /* SideButtonsArea.swift */,
+				34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */,
+			);
+			path = AvailableArea;
 			sourceTree = "<group>";
 		};
 		34EE259B1EFA681000F870AB /* ViatorCells */ = {
@@ -3465,6 +3509,8 @@
 				3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */,
 				3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */,
 				3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */,
+				3444DFCF1F17620C00E73099 /* MWMMapWidgetsHelper.h */,
+				3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -3734,6 +3780,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				34E7760D1F14B165003040B3 /* AvailableArea */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
 				34574A601E3B5B2A0061E839 /* Appearance */,
 				F69018B51E9E5FEB00B3C10B /* Autoupdate */,
@@ -3746,7 +3793,6 @@
 				F6E2FCE11E097B9F0083EBEC /* Search */,
 				F6E2FD361E097BA00083EBEC /* Settings */,
 				340E1EE31E2F614400CE49BF /* Storyboard */,
-				349D1AB51E2CB407004A2006 /* VisibleArea */,
 				34943BB01E2620C600B14F84 /* Welcome */,
 			);
 			path = UI;
@@ -3966,6 +4012,8 @@
 				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
 				F68224A11E5B1B1A00BC1C18 /* MWMPlacePageButtonsProtocol.h */,
 				F6E2FC9C1E097B9F0083EBEC /* PlacePageLayout */,
+				34E776301F15FAC2003040B3 /* MWMPlacePageManagerHelper.h */,
+				34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */,
 			);
 			path = PlacePage;
 			sourceTree = "<group>";
@@ -4673,7 +4721,6 @@
 				349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04A1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEE1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
-				345D661D1F0665880069E925 /* MAPSME.plist in Resources */,
 				F6E2FDF41E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFA1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				F6E2FE751E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
@@ -4852,7 +4899,6 @@
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
-				345D661E1F0665890069E925 /* MAPSME.plist in Resources */,
 				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
@@ -5031,7 +5077,6 @@
 				F6E2FDF01E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
-				345D661F1F0665890069E925 /* MAPSME.plist in Resources */,
 				342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */,
 				F6E2FE771E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				4554B6ED1E55F0F00084017F /* drules_proto_vehicle_clear.bin in Resources */,
@@ -5356,7 +5401,6 @@
 				F6BD33811B62403B00F2CE18 /* MWMRoutePreview.mm in Sources */,
 				34D3B0351E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				F6E2FD8B1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
-				349D1AB71E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				F6E2FD701E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE4E1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
@@ -5370,6 +5414,7 @@
 				F6E2FEBD1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				343E75971E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				3454D7DF1E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
+				34E776131F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				3486B50C1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEF91E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
 				F6E2FE421E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
@@ -5385,6 +5430,7 @@
 				340475581E081A4600C92850 /* WebViewController.mm in Sources */,
 				F6FEA82D1C58E89B007223CC /* MWMButton.mm in Sources */,
 				34F407401E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD11F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3C1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E471EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD4F1E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -5406,15 +5452,18 @@
 				3454D7C11E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				340E1EFA1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				F6E2FE7B1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
+				34E776321F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF351E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE391E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				F6E2FF3B1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF651E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				F6381BF51CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				346DB82D1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
+				34E7761E1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				340475551E081A4600C92850 /* Statistics.mm in Sources */,
 				F68FCB851DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F653CE161C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
+				3444DFCC1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE991E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03B1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				3454D7CD1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
@@ -5428,6 +5477,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				F6E2FF681E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34AC8FCE1EFC028600E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A6E1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				34ABA6301C2D58F300FE1BEC /* MWMInputEmailValidator.mm in Sources */,
 				F6E2FE9C1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				3454D7C71E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
@@ -5481,6 +5531,7 @@
 				F6E2FDA31E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */,
 				34D3B0291E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
+				34E776261F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
 				34926BE61EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D4FA621E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */,
@@ -5491,6 +5542,7 @@
 				F6E2FEFC1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3454D7CA1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
 				3454D7BE1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
+				34E7762A1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */,
 				34D3B0471E389D05004100F9 /* MWMNoteCell.mm in Sources */,
 				F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */,
 				F6E2FE961E097BA00083EBEC /* ContextViews.mm in Sources */,
@@ -5515,6 +5567,7 @@
 				3454D7D61E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB83C1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34B924421DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
+				34E7760F1F14B165003040B3 /* VisibleArea.swift in Sources */,
 				F6E2FF171E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				3488B0191E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -5525,6 +5578,7 @@
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				F6E2FEEA1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C121E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
+				3444DFDD1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4ED1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25A91EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				3454D7D91E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,
@@ -5660,7 +5714,6 @@
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				6741A9DB1BF340DE002C974C /* MWMRoutePreview.mm in Sources */,
-				349D1AB81E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
@@ -5675,6 +5728,7 @@
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				F6E2FEFA1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
+				34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				F6664C131E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
 				F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
@@ -5690,6 +5744,7 @@
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.mm in Sources */,
 				34F407411E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E481EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -5711,15 +5766,18 @@
 				F6664C021E6459DA00E703C2 /* PPReviewHeaderCell.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
+				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE3A1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
+				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				340475561E081A4600C92850 /* Statistics.mm in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
+				3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F68FCB861DA7BBA6007CC7D7 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F6E2FE9A1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03C1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
@@ -5733,6 +5791,7 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				6741AA021BF340DE002C974C /* BookmarksRootVC.mm in Sources */,
 				34AC8FD31EFC02CC00E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				F6E2FE9D1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
@@ -5786,6 +5845,7 @@
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
+				34E776271F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
 				34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
@@ -5796,6 +5856,7 @@
 				F6E2FEFD1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
+				34E7762B1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.mm in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.mm in Sources */,
 				F6E2FE971E097BA00083EBEC /* ContextViews.mm in Sources */,
@@ -5820,6 +5881,7 @@
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
+				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -5830,6 +5892,7 @@
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
+				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
@@ -5967,7 +6030,6 @@
 				34D3B0371E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				849CF6D51DE842290024A8A5 /* MWMTableViewController.mm in Sources */,
 				F6E2FD8D1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
-				349D1AB91E2CB6E0004A2006 /* VisibleArea.swift in Sources */,
 				849CF6D81DE842290024A8A5 /* MWMSegue.mm in Sources */,
 				F6E2FD721E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
 				F6E2FE501E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
@@ -5980,6 +6042,7 @@
 				849CF6DF1DE842290024A8A5 /* MWMAuthorizationCommon.mm in Sources */,
 				F6E2FEBF1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				343E75991E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
+				34E776151F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				3454D7CF1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				3486B50E1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				F6E2FEFB1E097BA00083EBEC /* MWMSearchCategoriesManager.mm in Sources */,
@@ -5995,6 +6058,7 @@
 				3454D7E41E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
 				849CF6E91DE842290024A8A5 /* MWMCircularProgressView.mm in Sources */,
 				34F407421E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
+				3444DFD31F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				F6E2FE3E1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6150E491EFA5C94000B955D /* UGCTextReviewCell.swift in Sources */,
 				F6E2FD511E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
@@ -6016,15 +6080,18 @@
 				849CF6F61DE842290024A8A5 /* MWMNavigationDashboardEntity.mm in Sources */,
 				340E1EFC1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				F6E2FE7D1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
+				34E776341F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF371E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE3B1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
 				F6E2FF3D1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF671E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7D81E07F045004AF2AD /* UIKitCategories.mm in Sources */,
 				346DB82F1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
+				34E776201F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				849CF6FB1DE842290024A8A5 /* BookmarksVC.mm in Sources */,
 				849CF6FC1DE842290024A8A5 /* MWMSideButtonsView.mm in Sources */,
 				3454D7C01E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
+				3444DFCE1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				F6E2FE9B1E097BA00083EBEC /* MWMiPadPlacePageLayoutImpl.mm in Sources */,
 				34D3B03D1E389D05004100F9 /* MWMEditorSwitchTableViewCell.mm in Sources */,
 				849CF7071DE842290024A8A5 /* LocaleTranslator.mm in Sources */,
@@ -6038,6 +6105,7 @@
 				F6E2FD6C1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				F6E2FF6A1E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				34AC8FD41EFC02CC00E7F910 /* MWMNavigationInfoView.mm in Sources */,
+				34FE5A701F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				3454D7BA1E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
 				F6E2FE9E1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				340475721E081A4600C92850 /* MWMSettings.mm in Sources */,
@@ -6091,6 +6159,7 @@
 				3454D7C31E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				34D4FA641E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				34D3B02B1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
+				34E776281F14FE77003040B3 /* NavigationStreetNameView.swift in Sources */,
 				34926BE81EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				849CF7371DE842290024A8A5 /* MWMTaxiCollectionLayout.mm in Sources */,
 				3454D7C61E07F045004AF2AD /* UIButton+Orientation.mm in Sources */,
@@ -6101,6 +6170,7 @@
 				3404754B1E081A4600C92850 /* AppInfo.mm in Sources */,
 				849CF73C1DE842290024A8A5 /* MWMMultilineLabel.mm in Sources */,
 				849CF73D1DE842290024A8A5 /* MWMViewController.mm in Sources */,
+				34E7762C1F150AFD003040B3 /* NavigationTurnsView.swift in Sources */,
 				34D3B0491E389D05004100F9 /* MWMNoteCell.mm in Sources */,
 				F6E2FE981E097BA00083EBEC /* ContextViews.mm in Sources */,
 				349B926E1DF0518E007779DD /* MWMToast.mm in Sources */,
@@ -6125,6 +6195,7 @@
 				849CF7601DE842290024A8A5 /* MWMStopButton.mm in Sources */,
 				346DB83E1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				849CF7611DE842290024A8A5 /* MWMMailViewController.mm in Sources */,
+				34E776111F14B165003040B3 /* VisibleArea.swift in Sources */,
 				F6E2FF191E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				3404754E1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3488B01B1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
@@ -6135,6 +6206,7 @@
 				849CF7651DE842290024A8A5 /* ColorPickerView.mm in Sources */,
 				F6E2FEEC1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				F6664C141E645A4100E703C2 /* MWMPPReviewCell.mm in Sources */,
+				3444DFDF1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3454D7DE1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
 				3451F4EF1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				34EE25AB1EFA726400F870AB /* ViatorItemModel.swift in Sources */,

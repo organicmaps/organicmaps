@@ -4,13 +4,9 @@
 
 + (MWMMapWidgets *)widgetsManager;
 
-@property (nonatomic) BOOL fullScreen;
-@property (nonatomic) CGFloat leftBound;
-@property (nonatomic) CGFloat bottomBound;
-
 - (void)setupWidgets:(Framework::DrapeCreationParams &)p;
-- (void)resize:(CGSize)size;
 
-- (void)layoutWidgets;
+- (void)resize:(CGSize)size;
+- (void)updateAvailableArea:(CGRect)frame;
 
 @end

@@ -266,7 +266,7 @@
 "settings" = "Настройки";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Хранилище карт";
+"maps_storage" = "Сохранять карты в";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Выберите место, где будут храниться загруженные карты";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 сутки";
 
-"recent_track_help_text" = "Внимание: активация этой функции может привести к повышенному расходу батареи.";
+"recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
 
 "pref_track_ios_caption" = "История пути покажет недавно пройденный маршрут.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Доступные";
 
 /* Country queued for download */
-"downloader_queued" = "в очереди";
+"downloader_queued" = "В очереди";
 
 "downloader_near_me_subtitle" = "Возле меня";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Пожалуйста, выберите конечную точку маршрута ближе к дороге.";
 
-"dialog_routing_change_intermediate" = "Выберите другую промежуточную точку, пожалуйста";
+"dialog_routing_change_intermediate" = "Не определена промежуточная точка маршрута.";
 
-"dialog_routing_intermediate_not_determined" = "Промежуточная точка не обнаружена.";
+"dialog_routing_intermediate_not_determined" = "Пожалуйста, измените промежуточную точку маршрута.";
 
 "dialog_routing_system_error" = "Системная ошибка";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Навигация возможна только из текущего местоположения.";
 
 "p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Далее";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Предоставьте MAPS.ME доступ к памяти и местоположению.";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Добро пожаловать в MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"http://legal.my.com/us/maps/tou/\">Условиями использования</a> и <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Блог";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Сбор статистики помогает нам совершенствовать приложение.";
+"allow_statistics_hint" = "Сбор анонимной статистики помогает нам совершенствовать приложение.";
 
 "general_settings" = "Общие настройки";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Не удалось найти такси поблизости";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Не удалось найти поставщика услуг такси поблизости";
+"taxi_no_providers" = "Такси не доступно в данном регионе";
 
 "install_app" = "Установить";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Забронируйте экскурсию";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Выбирайте популярные экскурсии в туристических городах мира.";
 
 "whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Подсказки озвучиваются системным ситнтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Для арабского, греческого и румынского языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из Google Play, например, Vocalizer TTS or SVOX Classics, так как Google TTS пока не поддерживает эти языки. Чтобы настроить синтезатор речи, перейдите в Настройки -> Язык и ввод -> Синтез речи. Здесь можно установить допольнительные языковые пакеты или выбрать синтезатор речи.";
+"prefs_languages_information_off" = "Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.";
 
 "prefs_languages_information_off_link" = "Более подробная информация — в этом руководстве.";
 
@@ -1952,10 +1932,67 @@
 
 "exit" = "Выход";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Добавьте конечную точку, чтобы построить маршрут";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Запуская приложение, вы соглашаетесь с условиями использования и политикой конфиденциальности.";
+
+"button_accept_and_continue" = "Принять и продолжить";
+
+"button_learn_more" = "Подробнее";
+
+"onboarding_storage_permissions_title" = "Предоставьте доступ";
+
+"onboarding_storage_permissions_message" = "Предоставьте MAPS.ME доступ к памяти в настройках вашего устройства, иначе использовать MAPS.ME будет невозможно.";
+
+"button_exit" = "Выход";
+
+"onboarding_detail_permissions_title" = "MAPS.ME нужен доступ к";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Память";
+
+"onboarding_detail_permissions_storage_message" = "Чтобы сохранять и использовать скачанные карты и сохранять метки.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Местоположение";
+
+"onboarding_detail_permissions_location_message" = "Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.";
+
+"onboarding_detail_permissions_storage_path_message" = "В настройках можно изменить место хранения загруженных карт.";
+
+"settings_device_memory" = "Память устроства";
+
+"settings_card_memory" = "Карта памяти";
+
+"settings_storage_available" = "%s доступно";
+
+"toast_location_permission_denied" = "Определение местоположения запрещено";
+
+"place_page_viator_title" = "Экскурсии и достопримечательности";
+
+"button_use" = "Использовать";
+
+"planning_route_manage_route" = "Изменить маршрут";
+
+"button_plan" = "Построить";
+
+"button_add" = "Добавить";
+
+"placepage_remove_stop" = "Удалить";
+
+"planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
+
+"dialog_change_start_point_message" = "Заменить стартовую точку на текущее местоположение?";
+
+"button_replace" = "Заменить";
+
+"placepage_add_stop" = "Заехать";
+
+"whatsnew_intermediate_point_title" = "Промежуточная остановка";
+
+"whatsnew_intermediate_point_message" = "Планируйте маршрут с дополнительной остановкой.";

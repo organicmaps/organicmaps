@@ -36,11 +36,12 @@ struct AddressInfo;
 - (void)openHotelFacilities;
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
 
+- (void)setPlacePageTopBound:(CGFloat)bound;
+
 - (void)initialize;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
-@property(nonatomic) CGFloat visibleAreaBottomOffset;
 
 @end

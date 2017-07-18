@@ -128,12 +128,17 @@ void UserMarkContainer::ReleaseController()
   size_t const layerId = GenerateLayerId(this);
   engine->ChangeVisibilityUserMarksLayer(layerId, IsVisible() && IsDrawable());
 
-  if (IsDirty())
+  if (!IsDirty())
+    return;
+
+  if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
   {
-    if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
-      engine->ClearUserMarksLayer(layerId);
-    else
-      engine->UpdateUserMarksLayer(layerId, this);
+    engine->ClearUserMarksLayer(layerId);
+    ResetDirty();
+  }
+  else if (IsVisible() && IsDrawable())
+  {
+    engine->UpdateUserMarksLayer(layerId, this);
     ResetDirty();
   }
 }

@@ -266,7 +266,7 @@
 "settings" = "Thiết lập";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Lưu trữ bản đồ";
+"maps_storage" = "Lưu bản đồ vào";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Chọn vị trí nơi bản đồ sẽ được tải về";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 ngày";
 
-"recent_track_help_text" = "Xin lưu ý: kích hoạt chức năng này làm tăng việc sử dụng pin.";
+"recent_track_help_text" = "Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.";
 
 "pref_track_ios_caption" = "Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Đã có";
 
 /* Country queued for download */
-"downloader_queued" = "đã xếp hàng chờ";
+"downloader_queued" = "Đã xếp hàng chờ";
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Hãy chọn điểm đến gần với một con đường hơn.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Không thể định vị điểm trung gian.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Vui lòng điều chỉnh điểm trung gian của bạn.";
 
 "dialog_routing_system_error" = "Lỗi hệ thống";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.";
 
 "p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Tiếp theo";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Cho phép MAPS.ME truy cập ổ lưu trữ và vị trí";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Chào mừng đến với MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href=\"http://legal.my.com/us/maps/tou/\">Điều khoản Sử dụng</a> và <a href=\"https://legal.my.com/us/maps/privacy/\">Chính sách Riêng tư</a>.";
 
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Việc thu thập số liệu sử dụng giúp chúng tôi cải thiện ứng dụng.";
+"allow_statistics_hint" = "Việc thu thập số liệu sử dụng ẩn danh giúp chúng tôi cải thiện ứng dụng.";
 
 "general_settings" = "Thiết lập chung";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Không thể tìm thấy một taxi ở gần đây";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Không thể gọi taxi ở đây";
 
 "install_app" = "Cài đặt";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Đặt tour du lịch";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Chọn các tour phổ biến trong các thành phố du lịch trên toàn thế giới.";
 
 "whatsnew_driving_style_title" = "Phong cách Bản đồ Mới cho Lái xe";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Đối với tiếng Ả Rập, tiếng Hy Lạp và tiếng Rumani, bạn có thể cần cài đặt thêm TTS (bởi Google TTS chưa hỗ trợ các ngôn ngữ này) từ Google Play như Vocalizer TTS hoặc SVOX Classics.\nĐể quản lý các thiết lập tổng hợp giọng nói, trên thiết bị của bạn mở Cài đặt –> Ngôn ngữ và nhập liệu –> Giọng nói –> Đầu ra văn bản thành giọng nói. Ở đây bạn có thể tải về thêm các gói ngôn ngữ và lựa chọn công cụ chuyển văn bản thành giọng nói ưa thích.";
+"prefs_languages_information_off" = "Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play Market, Samsung Apps).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.";
 
 "prefs_languages_information_off_link" = "Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Tìm hiểu thêm";
 
-"exit" = "Exit";
+"exit" = "Lối ra";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Bổ sung điểm bắt đầu để lập kế hoạch lộ trình";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Bổ sung điểm kết thúc để lập kế hoạch lộ trình";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Thông qua việc khởi chạy ứng dụng, bạn đồng ý với các Điều khoản Sử dụng và Chính sách Riêng tư.";
+
+"button_accept_and_continue" = "Chấp nhận và tiếp tục";
+
+"button_learn_more" = "Tìm hiểu thêm";
+
+"onboarding_storage_permissions_title" = "Cho phép truy cập";
+
+"onboarding_storage_permissions_message" = "Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.";
+
+"button_exit" = "Thoát";
+
+"onboarding_detail_permissions_title" = "MAPS.ME cần quyền truy cập đến";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Ổ lưu trữ";
+
+"onboarding_detail_permissions_storage_message" = "Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Vị trí";
+
+"onboarding_detail_permissions_location_message" = "Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
+
+"onboarding_detail_permissions_storage_path_message" = "Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.";
+
+"settings_device_memory" = "Bộ nhớ thiết bị";
+
+"settings_card_memory" = "Bộ nhớ thẻ";
+
+"settings_storage_available" = "%s trống";
+
+"toast_location_permission_denied" = "Quyền định vị của ứng dụng bị từ chối";
+
+"place_page_viator_title" = "Các điểm tham quan và du lịch";
+
+"button_use" = "Sử dụng";
+
+"planning_route_manage_route" = "Quản lý lộ trình";
+
+"button_plan" = "Kế hoạch";
+
+"button_add" = "Thêm";
+
+"placepage_remove_stop" = "Xóa";
+
+"planning_route_remove_title" = "Kéo vào đây để xóa";
+
+"dialog_change_start_point_message" = "Thay điểm bắt đầu cho vị trí hiện tại?";
+
+"button_replace" = "Thay thế";
+
+"placepage_add_stop" = "Thêm điểm dừng";
+
+"whatsnew_intermediate_point_title" = "Điểm dừng bổ sung";
+
+"whatsnew_intermediate_point_message" = "Lập một lộ trình với một điểm trung gian.";

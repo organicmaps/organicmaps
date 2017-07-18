@@ -102,36 +102,40 @@ using namespace taxi;
             failure(L(@"dialog_taxi_error"));
             return;
           }
-  
-          auto success = [self, completion](taxi::ProvidersContainer const & providers,
-                                            uint64_t const requestId) {
-            if (self->m_requestId != requestId)
-              return;
-            if (providers.empty())
-            {
-              NSCAssert(false, @"Providers container is empty");
-              return;
-            }
-            auto const & provider = providers.front();
-            auto const & products = provider.GetProducts();
-            auto const type = provider.GetType();
-            runAsyncOnMainQueue([self, completion, products, type] {
+
+          auto success = [self, completion, failure](taxi::ProvidersContainer const & providers,
+                                                     uint64_t const requestId) {
+            runAsyncOnMainQueue([self, completion, failure, providers, requestId] {
+              if (self->m_requestId != requestId)
+                return;
+              if (providers.empty())
+              {
+                failure(L(@"taxi_no_providers"));
+                [Statistics logEvent:kStatRoutingBuildTaxi
+                      withParameters:@{
+                        @"error" : @"No providers (Taxi isn't in the city)"
+                      }];
+                return;
+              }
+              auto const & provider = providers.front();
+              auto const & products = provider.GetProducts();
+              auto const type = provider.GetType();
               self->m_products = products;
-              NSString * provider = nil;
+              NSString * providerName = nil;
               switch (type)
               {
               case taxi::Provider::Type::Uber:
                 self.type = MWMRoutePreviewTaxiCellTypeUber;
-                provider = kStatUber;
+                providerName = kStatUber;
                 break;
               case taxi::Provider::Type::Yandex:
                 self.type = MWMRoutePreviewTaxiCellTypeYandex;
-                provider = kStatYandex;
+                providerName = kStatYandex;
                 break;
               }
               [Statistics logEvent:kStatRoutingBuildTaxi
                     withParameters:@{
-                      @"provider" : provider
+                      @"provider" : providerName
                     }];
               auto cv = self.collectionView;
               cv.hidden = NO;
@@ -142,39 +146,47 @@ using namespace taxi;
               [cv reloadData];
               completion();
             });
-  
           };
-          auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const
-          requestId) {
-            if (self->m_requestId != requestId)
-              return;
-            if (errors.empty())
-            {
-              NSCAssert(false, @"Errors container is empty");
-              return;
-            }
-            auto const & errorCode = errors.front().m_code;
-            runAsyncOnMainQueue(^{
-              NSString * error = nil;
+
+          auto error = [self, failure](taxi::ErrorsContainer const & errors,
+                                       uint64_t const requestId) {
+            runAsyncOnMainQueue([self, failure, errors, requestId] {
+              if (self->m_requestId != requestId)
+                return;
+              if (errors.empty())
+              {
+                NSCAssert(false, @"Errors container is empty");
+                return;
+              }
+              auto const & error = errors.front();
+              auto const errorCode = error.m_code;
+              auto const type = error.m_type;
+              NSString * provider = nil;
+              switch (type)
+              {
+              case taxi::Provider::Type::Uber: provider = kStatUber; break;
+              case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
+              }
+              NSString * errorValue = nil;
               switch (errorCode)
               {
               case taxi::ErrorCode::NoProducts:
-                error = @"No products (Taxi is in the city, but no offers)";
+                errorValue = @"No products (Taxi is in the city, but no offers)";
                 failure(L(@"taxi_not_found"));
                 break;
               case taxi::ErrorCode::RemoteError:
-                error = @"Server error (The taxi server responded with an error)";
+                errorValue = @"Server error (The taxi server responded with an error)";
                 failure(L(@"dialog_taxi_error"));
                 break;
-              case taxi::ErrorCode::NoProvider:
-                error = @"No providers (Taxi isn't in the city)";
-                failure(L(@"taxi_no_provider"));
-                break;
               }
-              [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{ @"error" : error }];
+              [Statistics logEvent:kStatRoutingBuildTaxi
+                    withParameters:@{
+                      @"provider" : provider,
+                      @"error" : errorValue
+                    }];
             });
           };
-  
+
           m_requestId = engine->GetAvailableProducts(m_from, m_to, success, error);
         });
 }

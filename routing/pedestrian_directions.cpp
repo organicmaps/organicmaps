@@ -39,7 +39,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 {
 }
 
-void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
+bool PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
                                           vector<Junction> const & path,
                                           my::Cancellable const & cancellable,
                                           Route::TTurns & turns, Route::TStreets & streetNames,
@@ -48,19 +48,18 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
 {
   turns.clear();
   streetNames.clear();
-  routeGeometry.clear();
   segments.clear();
+  routeGeometry = path;
 
-  if (path.size() <= 1)
-    return;
+  // Note. According to Route::IsValid() method route of zero or one point is invalid.
+  if (path.size() < 1)
+    return false;
 
   vector<Edge> routeEdges;
   if (!ReconstructPath(graph, path, routeEdges, cancellable))
   {
-    LOG(LDEBUG, ("Couldn't reconstruct path."));
-    // use only "arrival" direction
-    turns.emplace_back(path.size() - 1, turns::PedestrianDirection::ReachedYourDestination);
-    return;
+    LOG(LWARNING, ("Can't reconstruct path."));
+    return false;
   }
 
   CalculateTurns(graph, routeEdges, turns, cancellable);
@@ -69,7 +68,7 @@ void PedestrianDirectionsEngine::Generate(RoadGraphBase const & graph,
   for (Edge const & e : routeEdges)
     segments.push_back(ConvertEdgeToSegment(*m_numMwmIds, e));
   
-  routeGeometry = path;
+  return true;
 }
 
 void PedestrianDirectionsEngine::CalculateTurns(RoadGraphBase const & graph,

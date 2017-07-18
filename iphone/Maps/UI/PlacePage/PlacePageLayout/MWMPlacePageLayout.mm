@@ -12,6 +12,7 @@
 #import "MWMPlacePageRegularCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
+#import "MapViewController.h"
 #import "SwiftBridge.h"
 
 #include "ugc/types.hpp"
@@ -59,6 +60,10 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 @property(nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 @property(nonatomic) MWMOpeningHoursLayoutHelper * openingHoursLayoutHelper;
+@property(nonatomic) NSArray<NSIndexPath *> * buttonsSectionIndexPaths;
+
+@property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
+@property(weak, nonatomic) MWMPPViatorCarouselCell * viatorCell;
 
 @end
 
@@ -80,9 +85,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     _placePageView.delegate = self;
     auto const Impl = IPAD ? [MWMiPadPlacePageLayoutImpl class] : [MWMiPhonePlacePageLayoutImpl class];
     _layoutImpl = [[Impl alloc] initOwnerView:view placePageView:_placePageView delegate:delegate];
-
-    if ([_layoutImpl respondsToSelector:@selector(setInitialTopBound:leftBound:)])
-      [_layoutImpl setInitialTopBound:dataSource.topBound leftBound:dataSource.leftBound];
 
     auto tableView = _placePageView.tableView;
     _previewLayoutHelper = [[MWMPPPreviewLayoutHelper alloc]
@@ -113,15 +115,10 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     [tv registerWithCellClass:pair.second];
 }
 
-- (void)layoutWithSize:(CGSize const &)size
-{
-  [self.layoutImpl onScreenResize:size];
-}
-
 - (UIView *)shareAnchor { return self.actionBar.shareAnchor; }
 - (void)showWithData:(MWMPlacePageData *)data
 {
-  self.isPlacePageButtonsEnabled = YES;
+  self.buttonsSectionIndexPaths = nil;
   self.data = data;
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
@@ -148,14 +145,19 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   };
   self.bookmarkCell = nil;
 
-  [self.actionBar configureWithData:static_cast<id<MWMActionBarSharedData>>(data)];
+  [self.actionBar configureWithData:data];
   [self.previewLayoutHelper configWithData:data];
-  [self.openingHoursLayoutHelper configWithData:data];
+  auto const & metaInfo = data.metainfoRows;
+  auto const hasOpeningHours =
+      std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) != metaInfo.cend();
+  if (hasOpeningHours)
+    [self.openingHoursLayoutHelper configWithData:data];
   if ([self.layoutImpl respondsToSelector:@selector(setPreviewLayoutHelper:)])
     [self.layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
 
   [self.placePageView.tableView reloadData];
   [self.layoutImpl onShow];
+  [self checkCellsVisible];
 
   dispatch_async(dispatch_get_main_queue(), ^{
     [data fillOnlineBookingSections];
@@ -178,6 +180,16 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [self.previewLayoutHelper setSpeedAndAltitude:speedAndAltitude];
 }
 
+- (void)setButtonsSectionEnabled:(BOOL)isEnabled
+{
+  [self.buttonsSectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * obj, NSUInteger idx, BOOL * stop) {
+    auto c = static_cast<MWMPlacePageButtonCell *>([self.placePageView.tableView cellForRowAtIndexPath:obj]);
+    // Hotel description button is always enabled.
+    if (c.rowType != place_page::ButtonsRows::HotelDescription)
+      c.enabled = isEnabled;
+  }];
+}
+
 - (MWMPlacePageActionBar *)actionBar
 {
   if (!_actionBar)
@@ -186,6 +198,27 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     self.layoutImpl.actionBar = _actionBar;
   }
   return _actionBar;
+}
+
+- (NSArray<NSIndexPath *> *)buttonsSectionIndexPaths
+{
+  if (!_buttonsSectionIndexPaths)
+  {
+    auto const & sections = self.data.sections;
+    auto tv = self.placePageView.tableView;
+
+    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
+    NSMutableArray<NSIndexPath *> * ip = @[].mutableCopy;
+    if (it != sections.end())
+    {
+      NSInteger const sectionNumber = distance(sections.begin(), it);
+      auto const numberOfRows = [tv numberOfRowsInSection:sectionNumber];
+      for (NSInteger i = 0; i < numberOfRows; i++)
+        [ip addObject:[NSIndexPath indexPathForRow:i inSection:sectionNumber]];
+    }
+    _buttonsSectionIndexPaths = ip.copy;
+  }
+  return _buttonsSectionIndexPaths;
 }
 
 - (void)close
@@ -201,22 +234,39 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)reloadBookmarkSection:(BOOL)isBookmark
 {
+  auto data = self.data;
+  if (!data)
+    return;
   auto tv = self.placePageView.tableView;
-  NSIndexSet * set =
-      [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
-
-  if (isBookmark)
-  {
-    if (self.bookmarkCell)
-      [tv reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+  if (!tv)
+    return;
+  [tv update:^{
+    auto set =
+        [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
+    if (isBookmark)
+    {
+      if (self.bookmarkCell)
+        [tv reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+      else
+        [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     else
-      [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-  }
-  else
-  {
-    [tv deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-    self.bookmarkCell = nil;
-  }
+    {
+      [tv deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
+      self.bookmarkCell = nil;
+    }
+
+    auto const & previewRows = data.previewRows;
+    auto const previewIT =
+        std::find(previewRows.cbegin(), previewRows.cend(), place_page::PreviewRows::Subtitle);
+    if (previewIT != previewRows.cend())
+    {
+      auto previewIP =
+          [NSIndexPath indexPathForRow:std::distance(previewRows.cbegin(), previewIT)
+                             inSection:static_cast<NSInteger>(place_page::Sections::Preview)];
+      [tv reloadRowsAtIndexPaths:@[ previewIP ] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+  }];
 }
 
 #pragma mark - Downloader event
@@ -228,20 +278,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     return;
 
   using namespace storage;
-  auto const & sections = data.sections;
+
   switch (status)
   {
   case NodeStatus::OnDiskOutOfDate:
   case NodeStatus::Undefined:
   {
-    self.isPlacePageButtonsEnabled = NO;
-    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-    if (it != sections.end())
-    {
-      [self.placePageView.tableView
-            reloadSections:[NSIndexSet indexSetWithIndex:distance(sections.begin(), it)]
-          withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    self.buttonsSectionEnabled = NO;
     self.actionBar.isAreaNotDownloaded = NO;
     break;
   }
@@ -265,21 +308,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
   case NodeStatus::OnDisk:
   {
-    self.isPlacePageButtonsEnabled = YES;
-    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-    if (it != sections.end())
-    {
-      [self.placePageView.tableView
-            reloadSections:[NSIndexSet indexSetWithIndex:distance(sections.begin(), it)]
-          withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    self.buttonsSectionEnabled = YES;
     self.actionBar.isAreaNotDownloaded = NO;
     break;
   }
   case NodeStatus::Partly:
   case NodeStatus::NotDownloaded:
   {
-    self.isPlacePageButtonsEnabled = NO;
+    self.buttonsSectionEnabled = NO;
     self.actionBar.isAreaNotDownloaded = YES;
     self.actionBar.downloadingState = MWMCircularProgressStateNormal;
     break;
@@ -287,30 +323,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
 }
 
-#pragma mark - iPad only
+#pragma mark - AvailableArea / PlacePageArea
 
-- (void)updateTopBound
-{
-  if (![self.layoutImpl respondsToSelector:@selector(updateLayoutWithTopBound:)])
-  {
-    NSAssert(!IPAD, @"iPad layout must implement updateLayoutWithTopBound:!");
-    return;
-  }
-
-  [self.layoutImpl updateLayoutWithTopBound:self.dataSource.topBound];
-}
-
-- (void)updateLeftBound
-{
-  if (![self.layoutImpl respondsToSelector:@selector(updateLayoutWithLeftBound:)])
-  {
-    NSAssert(!IPAD, @"iPad layout must implement updateLayoutWithLeftBound:!");
-    return;
-  }
-
-  [self.layoutImpl updateLayoutWithLeftBound:self.dataSource.leftBound];
-}
-
+- (void)updateAvailableArea:(CGRect)frame { [self.layoutImpl updateAvailableArea:frame]; }
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -378,7 +393,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
     case MetainfoRows::OpeningHours:
     case MetainfoRows::ExtendedOpeningHours:
+    {
+      auto const & metaInfo = data.metainfoRows;
+      NSAssert(std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) !=
+                   metaInfo.cend(),
+               @"OpeningHours is not available");
       return [self.openingHoursLayoutHelper cellForRowAtIndexPath:indexPath];
+    }
     case MetainfoRows::Phone:
     case MetainfoRows::Address:
     case MetainfoRows::Website:
@@ -419,6 +440,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     case taxi::Provider::Yandex: type = MWMPlacePageTaxiProviderYandex; break;
     }
     [c configWithType:type delegate:delegate];
+    self.taxiCell = c;
     return c;
   }
   case Sections::Buttons:
@@ -438,11 +460,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
       }
     }];
-    
-    if (row != ButtonsRows::HotelDescription)
-      [c setEnabled:self.isPlacePageButtonsEnabled];
-    else
-      [c setEnabled:YES];
 
     return c;
   }
@@ -452,6 +469,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto c = static_cast<MWMPPViatorCarouselCell *>(
         [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
     [c configWith:data.viatorItems delegate:delegate];
+    self.viatorCell = c;
     return c;
   }
   case Sections::HotelPhotos:
@@ -562,6 +580,57 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   }
 }
 
+- (void)checkCellsVisible
+{
+  auto data = self.data;
+  if (!data)
+    return;
+
+  auto const checkCell = ^(UITableViewCell * cell, MWMVoidBlock onHit) {
+    if (!cell)
+      return;
+    auto taxiBottom = CGPointMake(cell.width / 2, cell.height);
+    auto mainView = [MapViewController controller].view;
+    auto actionBar = self.actionBar;
+    BOOL const isInMainView =
+        [mainView pointInside:[cell convertPoint:taxiBottom toView:mainView] withEvent:nil];
+    BOOL const isInActionBar =
+        [actionBar pointInside:[cell convertPoint:taxiBottom toView:actionBar] withEvent:nil];
+    if (isInMainView && !isInActionBar)
+      onHit();
+  };
+
+  checkCell(self.taxiCell, ^{
+    self.taxiCell = nil;
+
+    auto const & taxiProviders = [data taxiProviders];
+    if (taxiProviders.empty())
+    {
+      NSAssert(NO, @"Taxi is shown but providers are empty.");
+      return;
+    }
+    NSString * provider = nil;
+    switch (taxiProviders.front())
+    {
+    case taxi::Provider::Uber: provider = kStatUber; break;
+    case taxi::Provider::Yandex: provider = kStatYandex; break;
+    }
+    [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
+  });
+
+  checkCell(self.viatorCell, ^{
+    self.viatorCell = nil;
+
+    auto viatorItems = data.viatorItems;
+    if (viatorItems.count == 0)
+    {
+      NSAssert(NO, @"Viator is shown but items are empty.");
+      return;
+    }
+    [Statistics logEvent:kStatPlacepageSponsoredShow];
+  });
+}
+
 #pragma mark - MWMPlacePageCellUpdateProtocol
 
 - (void)cellUpdated
@@ -580,18 +649,14 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 #pragma mark - MWMPlacePageViewUpdateProtocol
 
-- (void)updateWithHeight:(CGFloat)height
+- (void)updateLayout
 {
-  auto const sel = @selector(updatePlacePageHeight);
+  auto const sel = @selector(updateContentLayout);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:sel object:nil];
   [self performSelector:sel withObject:nil afterDelay:0.1];
 }
 
-- (void)updatePlacePageHeight
-{
-  [self.layoutImpl onUpdatePlacePageWithHeight:self.placePageView.tableView.contentSize.height];
-}
-
+- (void)updateContentLayout { [self.layoutImpl updateContentLayout]; }
 #pragma mark - Properties
 
 - (void)setData:(MWMPlacePageData *)data

@@ -266,7 +266,7 @@
 "settings" = "Beállítások";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Térképek tárolása";
+"maps_storage" = "Térképek mentése ide:";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Válassza ki, hogy hova töltsük le a térképeket";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 nap";
 
-"recent_track_help_text" = "Fontos: a funkció bekapcsolásával megnövekedhet az akkumulátorhasználat.";
+"recent_track_help_text" = "Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.";
 
 "pref_track_ios_caption" = "A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Elérhető";
 
 /* Country queued for download */
-"downloader_queued" = "várólistás";
+"downloader_queued" = "Várólistás";
 
 "downloader_near_me_subtitle" = "A közelemben";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Kérjük, válasszon egy úthoz közelebb eső célállomást.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Nem találja a köztes pontot.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Kérjük, állítsa be köztes pontját.";
 
 "dialog_routing_system_error" = "Rendszerhiba";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "A navigáció csak a jelenlegi helyzetéből érhető el.";
 
 "p2p_reroute_from_current" = "Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Következő";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Üdvözöljük a MAPS.ME alkalmazásban";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"http://legal.my.com/us/maps/tou/\"> Felhasználási feltételeket</a> és <a href=\"https://legal.my.com/us/maps/privacy/\"> az Adatvédelmi szabályzatot</a>.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "A használati statisztika gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
+"allow_statistics_hint" = "A névtelen használati statisztikák gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
 
 "general_settings" = "Általános beállítások";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Nem talált taxit a közelben";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Itt nincs taxi";
 
 "install_app" = "Telepítés";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Foglaljon helyet egy utazásra";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Válasszon népszerű városnéző utakat a világ minden táján.";
 
 "whatsnew_driving_style_title" = "Új térképstílus vezetéshez";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Arab, görög és román nyelven szükség lehet arra, hogy további TTS-t telepítsen Google Play áruházból (mivel a Google TTS még nem támogatja a nyelveket), mint például a Vocalizer TTS-t vagy a SVOX Classics alkalmazást. \nBeszédszintézis beállításainak kezeléséhez nyissa meg készülékén a következőket: Beállítások–> Nyelv és adatbevitel-–>Beszéd –> Szöveg-beszéd átalakítás kimenet. Itt további nyelvi csomagokat tölthet le, kiválaszthatja a kívánt szöveg-beszéd motort.";
+"prefs_languages_information_off" = "Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.";
 
 "prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Tudjon meg többet";
 
-"exit" = "Exit";
+"exit" = "Kilépés";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.";
+
+"button_accept_and_continue" = "Fogadja el, és folytassa";
+
+"button_learn_more" = "Tudjon meg többet";
+
+"onboarding_storage_permissions_title" = "Hozzáférés biztosítása";
+
+"onboarding_storage_permissions_message" = "Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.";
+
+"button_exit" = "Kilépés";
+
+"onboarding_detail_permissions_title" = "A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz: ";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Tárolás";
+
+"onboarding_detail_permissions_storage_message" = "A letöltött térképek offline használatához és könyvjelzők mentéséhez.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Helymeghatározás";
+
+"onboarding_detail_permissions_location_message" = "Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.";
+
+"onboarding_detail_permissions_storage_path_message" = "Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.";
+
+"settings_device_memory" = "Készülék memóriája";
+
+"settings_card_memory" = "Memóriakártya";
+
+"settings_storage_available" = "%s rendelkezésre áll";
+
+"toast_location_permission_denied" = "Alkalmazás helymeghatározási engedélye megtagadva";
+
+"place_page_viator_title" = "Látványosságok és kirándulások";
+
+"button_use" = "Használat";
+
+"planning_route_manage_route" = "Útvonal kezelése";
+
+"button_plan" = "Terv";
+
+"button_add" = "Hozzáad";
+
+"placepage_remove_stop" = "Eltávolítja";
+
+"planning_route_remove_title" = "Húzza ide az eltávolításhoz";
+
+"dialog_change_start_point_message" = "Kicseréli a kiindulási pontot az aktuális pozícióval?";
+
+"button_replace" = "Csere";
+
+"placepage_add_stop" = "Hozzáad megállót";
+
+"whatsnew_intermediate_point_title" = "További megálló";
+
+"whatsnew_intermediate_point_message" = "Útvonaltervezés egy közbenső ponttal.";

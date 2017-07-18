@@ -36,15 +36,15 @@ void addToday(ui::TimeTable const & tt, vector<Day> & allDays)
   NSString * workingTimes;
   NSString * breaks;
 
+  BOOL const everyDay = isEveryDay(tt);
   if (tt.IsTwentyFourHours())
   {
-    workingDays = L(@"twentyfour_seven");
+    workingDays = everyDay ? L(@"twentyfour_seven") : L(@"editor_time_allday");
     workingTimes = @"";
     breaks = @"";
   }
   else
   {
-    BOOL const everyDay = (tt.GetOpeningDays().size() == 7);
     workingDays = everyDay ? L(@"daily") : L(@"today");
     workingTimes = stringFromTimeSpan(tt.GetOpeningTime());
     breaks = breaksFromClosedTime(tt.GetExcludeTime());

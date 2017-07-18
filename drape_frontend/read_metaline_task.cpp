@@ -93,6 +93,7 @@ void ReadMetalineTask::Init(MwmSet::MwmId const & mwmId)
 void ReadMetalineTask::Reset()
 {
   m_mwmId.Reset();
+  IRoutine::Reset();
 }
 
 bool ReadMetalineTask::IsCancelled() const

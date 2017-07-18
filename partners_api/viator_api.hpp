@@ -34,7 +34,7 @@ class Api
 {
 public:
   /// Returns web page address for specified city id.
-  static std::string GetCityUrl(std::string const & destId, std::string const & name);
+  static std::string GetCityUrl(std::string const & destId);
 
   /// Returns top-5 products for specified city id.
   /// @currency - currency of the price, if empty then USD will be used.

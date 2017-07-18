@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">الإعدادات</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">تخزين الخرائط</string>
+	<string name="maps_storage">حفظ الخرائط إلى</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">اختر المكان الذي ينبغي تنزيل الخرائط  فيه.</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -337,7 +337,7 @@
 	<string name="duration_6_hours">6 ساعات</string>
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
-	<string name="recent_track_help_text">يرجى ملاحظة الآتي: تفعيل هذه الوظيفة يسبب زيادة في استخدام البطارية.</string>
+	<string name="recent_track_help_text">يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.</string>
 	<string name="pref_track_ios_caption">يُظهر المسار الأخير مسار سفرك.</string>
 	<string name="pref_track_ios_subcaption">يرجى تحديد نطاق وقت حفظ المسار.</string>
 	<string name="placepage_distance">المسافة</string>
@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">تعديل الوجهة</string>
 	<string name="dialog_routing_end_not_determined">لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.</string>
 	<string name="dialog_routing_select_closer_end">يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.</string>
+	<string name="dialog_routing_change_intermediate">تعذر تحديد مكان النقطة الوسيطة.</string>
+	<string name="dialog_routing_intermediate_not_determined">الرجاء ضبط النقطة الوسيطة الخاصة بك.</string>
 	<string name="dialog_routing_system_error">خطأ في النظام</string>
 	<string name="dialog_routing_application_error">تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.</string>
 	<string name="dialog_routing_try_again">برجاء إعادة المحاولة</string>
@@ -790,6 +792,11 @@
 	<string name="onboarding_notifications_title">تفعيل إخطارات التحديث</string>
 	<string name="onboarding_location_title">ساعدنا في العثور عليك</string>
 	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
+	<string name="onboarding_permissions_title">السماح لـ MAPS.ME بالوصول إلى ذاكرة التخزين والموقع</string>
+	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
+	<string name="onboarding_welcome_title">مرحبًا بك في MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
+	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على &lt;a href=\"http://legal.my.com/us/maps/tou/\">شروط الاستخدام&lt;/a> و&lt;a href=\"https://legal.my.com/us/maps/privacy/\">سياسة الخصوصية&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -942,7 +949,7 @@
 	<!-- Text in menu -->
 	<string name="blog">المدونة</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.</string>
+	<string name="allow_statistics_hint">يساعدنا تجميع إحصاءات استخدام بدون التعرف على الهوية في تحسين التطبيق.</string>
 	<string name="general_settings">إعدادات عامة</string>
 	<string name="date">التاريخ %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -965,6 +972,8 @@
 	<string name="taxi_wait">متوقع في %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">لا يمكن العثور على تاكسي قريب</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">التاكسي غير متوفر هنا</string>
 	<string name="install_app">تثبيت</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">عامل التصفية</string>
@@ -1065,6 +1074,8 @@
 	<string name="whatsnew_smaller_mwm_message">الخرائط تتطلب مساحة تخزين أقل بمقدار 20%.</string>
 	<string name="whatsnew_waypoints_title">نقاط الطريق في المسار</string>
 	<string name="whatsnew_waypoints_message">المس الأماكن لإضافة نقاط طريق إلى المسار.</string>
+	<string name="whatsnew_viator_title">حجز جولة</string>
+	<string name="whatsnew_viator_message">اختر جولات شائعة في المدن السياحية في كافة أنحاء العالم.</string>
 	<string name="whatsnew_driving_style_title">نمط خريطة جديد للقيادة</string>
 	<string name="whatsnew_driving_style_message">وضع التنقل بالسيارة أصبح سهل الاستخدام.</string>
 	<string name="more_on_bookingcom">المزيد عن Booking.com</string>
@@ -1093,8 +1104,44 @@
 	<string name="on">تشغيل</string>
 	<string name="off">إيقاف</string>
 	<string name="prefs_languages_information">نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">بالنسبة للغة العربية واليونانية والرومانية قد تحتاج إلى تثبيت نظام نص إلى كلام (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
+	<string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تثبيت مازج صوت آخر أو حزمة لغة إضافية من متجر التطبيقات (سوق Google Play وSamsung Apps).\nافتح إعدادات الجهاز → اللغة والإدخال → الكلام→ إخراج النص إلى كلام.\nهنا يمكنك إدارة إعدادات مزج الكلام (على سبيل المثال، تنزيل حزمة اللغة للاستخدام بدون اتصال) وتحديد محرك نص إلى كلام آخر.</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
 	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
 	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>
+	<string name="learn_more">تعلم المزيد</string>
+	<string name="exit">خروج</string>
+	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
+	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
+	<string name="onboarding_welcome_message">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.</string>
+	<string name="button_accept_and_continue">قبول ومتابعة</string>
+	<string name="button_learn_more">تعلم المزيد</string>
+	<string name="onboarding_storage_permissions_title">منح حق الوصول</string>
+	<string name="onboarding_storage_permissions_message">قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.</string>
+	<string name="button_exit">خروج</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME يحتاج إلى الوصول إلى</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">ذاكرة التخزين</string>
+	<string name="onboarding_detail_permissions_storage_message">لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">الموقع</string>
+	<string name="onboarding_detail_permissions_location_message">لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.</string>
+	<string name="settings_device_memory">ذاكرة الجهاز</string>
+	<string name="settings_card_memory">بطاقة الذاكرة</string>
+	<string name="settings_storage_available">%s متوفر</string>
+	<string name="toast_location_permission_denied">تم رفض إذن الموقع للتطبيق</string>
+	<string name="place_page_viator_title">معالم الجذب والجولات</string>
+	<string name="button_use">استخدام</string>
+	<string name="planning_route_manage_route">إدارة المسار</string>
+	<string name="button_plan">خطة</string>
+	<string name="button_add">إضافة</string>
+	<string name="placepage_remove_stop">إزالة</string>
+	<string name="planning_route_remove_title">اسحب هنا للإزالة</string>
+	<string name="dialog_change_start_point_message">استبدال نقطة البدء إلى الموقع الحالي؟</string>
+	<string name="button_replace">استبدال</string>
+	<string name="placepage_add_stop">إضافة نقطة توقف</string>
+	<string name="whatsnew_intermediate_point_title">نقطة توقف إضافية</string>
+	<string name="whatsnew_intermediate_point_message">خطط مسارًا مع نقطة وسيطة.</string>
 </resources>

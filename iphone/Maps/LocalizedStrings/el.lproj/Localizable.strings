@@ -266,7 +266,7 @@
 "settings" = "Ρυθμίσεις";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Αποθηκευτικό χώρος χαρτών";
+"maps_storage" = "Αποθήκευση χαρτών στο";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Επιλέξτε από που θα γίνει λήψη χαρτών";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 ημέρα";
 
-"recent_track_help_text" = "Σημείωση: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας.";
+"recent_track_help_text" = "Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.";
 
 "pref_track_ios_caption" = "Recent track shows your traveled path.";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Ρυθμίστε το ενδιάμεσο σημείο.";
 
 "dialog_routing_system_error" = "Σφάλμα συστήματος";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.";
 
 "p2p_reroute_from_current" = "Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Επόμενη";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Καλωσήρθατε στο MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"http://legal.my.com/us/maps/tou/\">τους Όρους χρήσης</a> και <a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Ιστολόγιο";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Η συλλογή στατιστικών στοιχείων χρήσης μας βοηθάει να βελτιώσουμε την εφαρμογή.";
+"allow_statistics_hint" = "Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.";
 
 "general_settings" = "Γενικές ρυθμίσεις";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Δε βρέθηκε ταξί σε κοντινή απόσταση";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Δεν υπάρχει διαθέσιμο ταξί εδώ";
 
 "install_app" = "Εγκατάσταση";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Κάντε κράτηση σε μια ξενάγηση";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.";
 
 "whatsnew_driving_style_title" = "Νέο στυλ χάρτη για την οδήγηση";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.";
+"prefs_languages_information_off" = "Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.";
 
 "prefs_languages_information_off_link" = "Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Μάθετε περισσότερα";
 
-"exit" = "Exit";
+"exit" = "Έξοδος";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.";
+
+"button_accept_and_continue" = "Αποδοχή και συνέχεια";
+
+"button_learn_more" = "Μάθετε περισσότερα";
+
+"onboarding_storage_permissions_title" = "Εκχώρηση άδειας";
+
+"onboarding_storage_permissions_message" = "Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME";
+
+"button_exit" = "Έξοδος";
+
+"onboarding_detail_permissions_title" = "Το MAPS.ME χρειάζεται πρόσβαση στο";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Αποθηκευτικός χώρος";
+
+"onboarding_detail_permissions_storage_message" = "Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Τοποθεσία";
+
+"onboarding_detail_permissions_location_message" = "Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.";
+
+"onboarding_detail_permissions_storage_path_message" = "Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.";
+
+"settings_device_memory" = "Μνήμη συσκευής";
+
+"settings_card_memory" = "Κάρτα μνήμης";
+
+"settings_storage_available" = "%s διαθέσιμα";
+
+"toast_location_permission_denied" = "Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας";
+
+"place_page_viator_title" = "Αξιοθέατα και περιηγήσεις";
+
+"button_use" = "Χρήση";
+
+"planning_route_manage_route" = "Διαχείριση διαδρομής";
+
+"button_plan" = "Σχέδιο";
+
+"button_add" = "Προσθήκη";
+
+"placepage_remove_stop" = "Κατάργηση";
+
+"planning_route_remove_title" = "Σύρετε εδώ για κατάργηση";
+
+"dialog_change_start_point_message" = "Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;";
+
+"button_replace" = "Αλλαγή";
+
+"placepage_add_stop" = "Προσθήκη στάσης";
+
+"whatsnew_intermediate_point_title" = "Επιπλέον στάση";
+
+"whatsnew_intermediate_point_message" = "Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.";

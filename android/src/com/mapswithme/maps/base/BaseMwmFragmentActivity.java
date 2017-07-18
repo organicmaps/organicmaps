@@ -53,7 +53,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
-    if (!MwmApplication.get().isPlatformInitialized()
+    if (!MwmApplication.get().arePlatformAndCoreInitialized()
         || !PermissionsUtils.isExternalStorageGranted())
     {
       super.onCreate(savedInstanceState);

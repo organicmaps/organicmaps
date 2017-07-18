@@ -730,6 +730,7 @@ it:^Minimarket
 ja:^コンビニエンスストア|コンビニ
 ko:^편의점
 nb:^Nærbutikk|nærbutikk
+pl:^Sklep spożywczy
 pt:^Loja de conveniência
 pt-BR:^Loja de conveniência|4mercadinho|compras
 ro:4^Magazin mixt
@@ -1323,6 +1324,7 @@ it:^Grandi magazzini|centro commerciale
 ja:^デパート
 ko:^백화점
 nb:^Varehus
+pl:^Dom towarowy
 pt:^Armazém retalhista
 pt-BR:^Loja de departamentos|compras
 ro:^Magazin universal
@@ -1384,6 +1386,7 @@ it:^Negozio di computer|negozio di articoli informatici
 ja:^コンピュータショップ
 ko:^컴퓨터 판매점
 nb:^Databutikk
+pl:^Sklep komputerowy
 pt:^Loja de informática
 pt-BR:^Loja de informática|compras
 ro:^Magazin de calculatoare
@@ -1476,6 +1479,7 @@ it:^Negozio di giocattoli
 ja:^おもちゃ屋|玩具店
 ko:^장난감 가게
 nb:^Legebutikk
+pl:^Sklep z zabawkami
 pt:^Loja de brinquedos
 pt-BR:^Loja de brinquedos
 ro:^Magazin de jucării

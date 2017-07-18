@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Stocare hărți</string>
+	<string name="maps_storage">Salvare hărți în</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Selectați locul în care doriți să fie descărcate hărțile.</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -331,7 +331,7 @@
 	<string name="duration_6_hours">6 ore</string>
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 zi</string>
-	<string name="recent_track_help_text">Vă rugăm să rețineți: activarea acestei funcții determină un consum accelerat al bateriei.</string>
+	<string name="recent_track_help_text">Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.</string>
 	<string name="pref_track_ios_caption">Opțiunea Rută recentă vă afișează ruta folosită anterior.</string>
 	<string name="pref_track_ios_subcaption">Vă rugăm să selectați intervalul orar corespunzător salvării rutei.</string>
 	<string name="placepage_distance">Distanță</string>
@@ -417,7 +417,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponibil</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">în lista de așteptare</string>
+	<string name="downloader_queued">În lista de așteptare</string>
 	<string name="downloader_near_me_subtitle">Aproape de mine</string>
 	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descărcați toate</string>
@@ -579,6 +579,8 @@
 	<string name="dialog_routing_change_end">Ajustaţi destinaţia finală</string>
 	<string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinaţiei a eşuat.</string>
 	<string name="dialog_routing_select_closer_end">Setaţi un punct de destinaţie mai aproape de un drum.</string>
+	<string name="dialog_routing_change_intermediate">Punctul intermediar nu poate fi localizat.</string>
+	<string name="dialog_routing_intermediate_not_determined">Ajustați punctul intermediar.</string>
 	<string name="dialog_routing_system_error">Eroare sistem</string>
 	<string name="dialog_routing_application_error">Crearea traseului a eşuat din cauza unei erori a aplicaţiei.</string>
 	<string name="dialog_routing_try_again">Încercaţi din nou</string>
@@ -781,6 +783,11 @@
 	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
 	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
+	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
+	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
+	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
+	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href=\"http://legal.my.com/us/maps/tou/\">Condițiile de utilizare&lt;/a> și &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -932,7 +939,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.</string>
+	<string name="allow_statistics_hint">Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.</string>
 	<string name="general_settings">Setări generale</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -955,6 +962,8 @@
 	<string name="taxi_wait">Așteptat în %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Nu am găsit niciun taxi în apropiere\u0020</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Serviciul de taxi nu este disponibil aici</string>
 	<string name="install_app">Instalați</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtrare</string>
@@ -1055,6 +1064,8 @@
 	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
 	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
 	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
+	<string name="whatsnew_viator_title">Rezervați un tur</string>
+	<string name="whatsnew_viator_message">Selectați dintre tururile populare din orașe turistice din întreaga lume.</string>
 	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
 	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
@@ -1083,8 +1094,44 @@
 	<string name="on">Activat</string>
 	<string name="off">Dezactivat</string>
 	<string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.</string>
+	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.</string>
 	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
 	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
+	<string name="learn_more">Mai multe</string>
+	<string name="exit">Ieșire</string>
+	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
+	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
+	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.</string>
+	<string name="button_accept_and_continue">Acceptare și continuare</string>
+	<string name="button_learn_more">Aflați mai multe</string>
+	<string name="onboarding_storage_permissions_title">Acordați acces</string>
+	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.</string>
+	<string name="button_exit">Ieșire</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME necesită acces la</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Stocare</string>
+	<string name="onboarding_detail_permissions_storage_message">Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Locație</string>
+	<string name="onboarding_detail_permissions_location_message">Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.</string>
+	<string name="settings_device_memory">Memoria dispozitivului</string>
+	<string name="settings_card_memory">Card</string>
+	<string name="settings_storage_available">%s disponibil</string>
+	<string name="toast_location_permission_denied">Permisiune de accesare a locației respinsă</string>
+	<string name="place_page_viator_title">Atracții și tururi</string>
+	<string name="button_use">Utilizare</string>
+	<string name="planning_route_manage_route">Administrare traseu</string>
+	<string name="button_plan">Planificare</string>
+	<string name="button_add">Adăugare</string>
+	<string name="placepage_remove_stop">Eliminare</string>
+	<string name="planning_route_remove_title">Trageți aici pentru a elimina</string>
+	<string name="dialog_change_start_point_message">Înlocuiți punctul de plecare cu locația curentă?</string>
+	<string name="button_replace">Înlocuire</string>
+	<string name="placepage_add_stop">Adăugare oprire</string>
+	<string name="whatsnew_intermediate_point_title">Oprire suplimentară</string>
+	<string name="whatsnew_intermediate_point_message">Planificați o rută cu un punct intermediar.</string>
 </resources>

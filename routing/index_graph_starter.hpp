@@ -84,8 +84,8 @@ public:
 
   static void CheckValidRoute(vector<Segment> const &segments);
   static size_t GetRouteNumPoints(vector<Segment> const & route);
-  static vector<Segment>::const_iterator GetNonFakeStart(vector<Segment> const & segments);
-  static vector<Segment>::const_iterator GetNonFakeFinish(vector<Segment> const & segments);
+  static vector<Segment>::const_iterator GetNonFakeStartIt(vector<Segment> const & segments);
+  static vector<Segment>::const_iterator GetNonFakeFinishIt(vector<Segment> const & segments);
   m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
 
   void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);

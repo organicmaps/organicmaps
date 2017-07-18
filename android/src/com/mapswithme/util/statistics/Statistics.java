@@ -26,6 +26,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -52,10 +53,15 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERRO
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPEN;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
@@ -63,6 +69,8 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.METHOD;
+import static com.mapswithme.util.statistics.Statistics.EventParam.MODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
@@ -71,9 +79,12 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
 {
@@ -130,7 +141,11 @@ public enum Statistics
     public static final String PP_SPONSORED_DETAILS = "Placepage_Hotel_details";
     public static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
     public static final String PP_SPONSORED_OPENTABLE = "Placepage_Restaurant_book";
-    public static final String PP_SPONSORED_NONE = "Placepage_Sponsored_none";
+    public static final String PP_SPONSORED_OPEN = "Placepage_SponsoredGalleryPage_opened";
+    public static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
+    public static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
+    public static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
+    public static final String PP_SPONSOR_MORE_SELECTED = "Placepage_SponsoredGallery_MoreItem_selected";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
@@ -194,8 +209,14 @@ public enum Statistics
     public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
     public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
     public static final String ROUTING_TAXI_SHOW_IN_PP = "Placepage_Taxi_show";
+    public static final String ROUTING_TAXI_REAL_SHOW_IN_PP = "Placepage_Taxi_show_real";
     public static final String ROUTING_TAXI_CLICK_IN_PP = "Placepage_Taxi_click";
     public static final String ROUTING_TAXI_ROUTE_BUILT = "Routing_Build_Taxi";
+    public static final String ROUTING_POINT_ADD = "Routing_Point_add";
+    public static final String ROUTING_POINT_REMOVE = "Routing_Point_remove";
+    public static final String ROUTING_SEARCH_CLICK = "Routing_Search_click";
+    public static final String ROUTING_BOOKMARKS_CLICK = "Routing_Bookmarks_click";
+    public static final String ROUTING_PLAN_TOOLTIP_CLICK = "Routing_PlanTooltip_click";
 
     // editor
     public static final String EDITOR_START_CREATE = "Editor_Add_start";
@@ -300,11 +321,15 @@ public enum Statistics
     static final String BANNER = "banner";
     static final String BANNER_STATE = "state";
     static final String ERROR_CODE = "error_code";
+    public static final String ERROR = "error";
     static final String ERROR_MESSAGE = "error_message";
     static final String MAP_DATA_SIZE = "map_data_size:";
     static final String BATTERY = "battery";
     static final String CHARGING = "charging";
     static final String NETWORK = "network";
+    static final String VALUE = "value";
+    static final String METHOD = "method";
+    static final String MODE = "mode";
     private EventParam() {}
   }
 
@@ -313,6 +338,8 @@ public enum Statistics
     public static final String BOOKING_COM = "Booking.Com";
     public static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     public static final String OPENTABLE = "OpenTable";
+    public static final String VIATOR = "Viator.Com";
+    public static final String GEOCHAT = "Geochat";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -558,6 +585,13 @@ public enum Statistics
     trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }
 
+  public void trackNoTaxiProvidersError()
+  {
+    Statistics.ParameterBuilder params = Statistics.params();
+    params.add(ERROR_CODE, TaxiManager.ErrorCode.NoProviders.name());
+    trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
+  }
+
   public void trackRestaurantEvent(@NonNull String eventName, @NonNull Sponsored restaurant,
                                    @NonNull MapObject mapObject)
   {
@@ -665,6 +699,19 @@ public enum Statistics
         break;
     }
 
+    final String network = getConnectionState();
+
+    trackEvent(APPLICATION_COLD_STARTUP_INFO,
+               params()
+                   .add(BATTERY, state.getLevel())
+                   .add(CHARGING, charging)
+                   .add(NETWORK, network)
+                   .get());
+  }
+
+  @NonNull
+  private String getConnectionState()
+  {
     final String network;
     if (ConnectionState.isWifiConnected())
     {
@@ -673,7 +720,7 @@ public enum Statistics
     else if (ConnectionState.isMobileConnected())
     {
       if (ConnectionState.isInRoaming())
-        network = "roaming (android)";
+        network = "roaming";
       else
         network = "mobile";
     }
@@ -681,13 +728,115 @@ public enum Statistics
     {
       network = "off";
     }
+    return network;
+  }
 
-    trackEvent(APPLICATION_COLD_STARTUP_INFO,
+  public void trackSponsoredOpenEvent(@Sponsored.SponsoredType int type)
+  {
+    Statistics.ParameterBuilder builder = Statistics.params();
+    builder.add(NETWORK, getConnectionState())
+           .add(PROVIDER, convertToSponsor(type));
+    trackEvent(PP_SPONSORED_OPEN, builder.get());
+  }
+
+  public void trackSponsoredGalleryShown(@Sponsored.SponsoredType int type)
+  {
+    trackEvent(PP_SPONSORED_SHOWN, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
+  }
+
+  public void trackSponsoredGalleryError(@Sponsored.SponsoredType int type)
+  {
+    trackEvent(PP_SPONSORED_ERROR, Statistics.params().add(PROVIDER, convertToSponsor(type))
+                                                   .add(ERROR, "N/A").get());
+  }
+
+  public void trackSponsoredGalleryItemSelected(@NonNull String eventName,
+                                                @Sponsored.SponsoredType int type)
+  {
+    trackEvent(eventName, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
+  }
+
+  @NonNull
+  private static String convertToSponsor(@Sponsored.SponsoredType int type)
+  {
+    switch (type)
+    {
+      case Sponsored.TYPE_BOOKING:
+        return BOOKING_COM;
+      case Sponsored.TYPE_VIATOR:
+        return VIATOR;
+      case Sponsored.TYPE_GEOCHAT:
+        return GEOCHAT;
+      case Sponsored.TYPE_OPENTABLE:
+        return OPENTABLE;
+      case Sponsored.TYPE_NONE:
+        return "N/A";
+      default:
+        throw new AssertionError("Unknown sponsor type: " + type);
+    }
+  }
+
+  public void trackRoutingPoint(@NonNull String eventName, @RoutePointInfo.RouteMarkType int type,
+                                boolean isPlanning, boolean isNavigating, boolean isMyPosition,
+                                boolean isApi)
+  {
+    final String mode;
+    if (isNavigating)
+      mode = "onroute";
+    else if (isPlanning)
+      mode = "planning";
+    else
+      mode = null;
+
+    final String method;
+    if (isPlanning)
+      method = "planning_pp";
+    else if (isApi)
+      method = "api";
+    else
+      method = "outside_pp";
+
+    ParameterBuilder builder = params()
+        .add(TYPE, convertRoutePointType(type))
+        .add(VALUE, isMyPosition ? "gps" : "point")
+        .add(METHOD, method);
+    if (mode != null)
+      builder.add(MODE, mode);
+    trackEvent(eventName, builder.get());
+  }
+
+  public void trackRoutingEvent(@NonNull String eventName, boolean isPlanning)
+  {
+    trackEvent(eventName,
                params()
-                   .add(BATTERY, state.getLevel())
-                   .add(CHARGING, charging)
-                   .add(NETWORK, network)
+                   .add(MODE, isPlanning ? "planning" : "onroute")
                    .get());
+  }
+
+  public void trackRoutingTooltipEvent(@RoutePointInfo.RouteMarkType int type,
+                                       boolean isPlanning)
+  {
+    trackEvent(ROUTING_PLAN_TOOLTIP_CLICK,
+               params()
+                   .add(TYPE, convertRoutePointType(type))
+                   .add(MODE, isPlanning ? "planning" : "onroute")
+                   .get());
+  }
+
+  @NonNull
+  private static String convertRoutePointType(@RoutePointInfo.RouteMarkType int type)
+  {
+    switch (type)
+    {
+      case RoutePointInfo.ROUTE_MARK_FINISH:
+        return "finish";
+      case RoutePointInfo.ROUTE_MARK_INTERMEDIATE:
+        return "inter";
+      case RoutePointInfo.ROUTE_MARK_START:
+        return "start";
+      default:
+        throw new AssertionError("Wrong parameter 'type'");
+    }
   }
 
   public static ParameterBuilder params()

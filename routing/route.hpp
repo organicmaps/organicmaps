@@ -92,17 +92,38 @@ public:
   {
   public:
     SubrouteAttrs() = default;
-    SubrouteAttrs(Junction const & start, Junction const & finish)
-      : m_start(start), m_finish(finish)
+
+    SubrouteAttrs(Junction const & start, Junction const & finish, size_t beginSegmentIdx,
+                  size_t endSegmentIdx)
+      : m_start(start)
+      , m_finish(finish)
+      , m_beginSegmentIdx(beginSegmentIdx)
+      , m_endSegmentIdx(endSegmentIdx)
+    {
+      CHECK_LESS_OR_EQUAL(beginSegmentIdx, endSegmentIdx, ());
+    }
+
+    SubrouteAttrs(SubrouteAttrs const & subroute, size_t beginSegmentIdx)
+      : m_start(subroute.m_start)
+      , m_finish(subroute.m_finish)
+      , m_beginSegmentIdx(beginSegmentIdx)
+      , m_endSegmentIdx(beginSegmentIdx + subroute.GetSize())
     {
     }
 
     Junction const & GetStart() const { return m_start; }
     Junction const & GetFinish() const { return m_finish; }
+    size_t GetBeginSegmentIdx() const { return m_beginSegmentIdx; }
+    size_t GetEndSegmentIdx() const { return m_endSegmentIdx; }
+    size_t GetSize() const { return m_endSegmentIdx - m_beginSegmentIdx; }
 
   private:
     Junction m_start;
     Junction m_finish;
+    // Index of the first subroute segment in the whole route.
+    size_t m_beginSegmentIdx = 0;
+    // Non inclusive index of the last subroute segment in the whole route.
+    size_t m_endSegmentIdx = 0;
   };
 
   /// \brief For every subroute some attributes are kept the following stucture.
@@ -152,6 +173,11 @@ public:
   template <class SI>
   void SetRouteSegments(SI && v) { m_routeSegments = std::forward<SI>(v); }
 
+  void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
+
+  template <class V>
+  void SetSubroteAttrs(V && subroutes) { m_subrouteAttrs = std::forward<V>(subroutes); }
+
   uint32_t GetTotalTimeSec() const;
   uint32_t GetCurrentTimeToEndSec() const;
 
@@ -162,6 +188,8 @@ public:
   TTurns const & GetTurns() const { return m_turns; }
   feature::TAltitudes const & GetAltitudes() const { return m_altitudes; }
   vector<traffic::SpeedGroup> const & GetTraffic() const { return m_traffic; }
+  size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
+  vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
   vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
@@ -198,8 +226,6 @@ public:
 
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  bool IsCurrentOnEnd() const;
-
   /// Add country name if we have no country filename to make route
   void AddAbsentCountry(string const & name);
 
@@ -218,7 +244,7 @@ public:
   size_t GetSubrouteCount() const;
 
   /// \brief Fills |info| with full subroute information.
-  /// \param segmentIdx zero base number of subroute. |segmentIdx| should be less than GetSubrouteCount();
+  /// \param subrouteIdx zero base number of subroute. |segmentIdx| should be less than GetSubrouteCount();
   /// \note |info| is a segment oriented route. Size of |info| is equal to number of points in |m_poly| - 1.
   /// Class Route is a point oriented route. While this conversion some attributes of zero point will be lost.
   /// It happens with zero turn for example.
@@ -226,14 +252,16 @@ public:
   /// intermediate points.
   /// Note. SegmentInfo::m_segment is filled with default Segment instance.
   /// Note. SegmentInfo::m_streetName is filled with an empty string.
-  void GetSubrouteInfo(size_t segmentIdx, std::vector<RouteSegment> & segments) const;
+  void GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const;
 
-  void GetSubrouteAttrs(size_t segmentIdx, SubrouteAttrs & info) const;
+  SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
 
   /// \returns Subroute settings by |segmentIdx|.
   // @TODO(bykoianko) This method should return SubrouteSettings by reference. Now it returns by value
   // because of fake implementation.
   SubrouteSettings const GetSubrouteSettings(size_t segmentIdx) const;
+
+  bool IsSubroutePassed(size_t subrouteIdx) const;
 
   /// \brief Sets subroute unique id (|subrouteUid|) by |segmentIdx|.
   /// \note |subrouteUid| is a permanent id of a subroute. This id can be used to address to a subroute
@@ -272,5 +300,7 @@ private:
 
   // Subroute
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;
+  size_t m_currentSubrouteIdx = 0;
+  std::vector<SubrouteAttrs> m_subrouteAttrs;
 };
 } // namespace routing

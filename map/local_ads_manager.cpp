@@ -68,11 +68,6 @@ std::string GetPath(std::string const & fileName)
   return my::JoinFoldersToPath(GetPlatform().WritableDir(), fileName);
 }
 
-std::chrono::steady_clock::time_point Now()
-{
-  return std::chrono::steady_clock::now();
-}
-
 std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
 {
   if (kServerUrl.empty() || !mwmId.IsAlive())
@@ -97,7 +92,7 @@ df::CustomSymbols ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::Mw
   {
     std::string const iconName = campaign.GetIconName();
     auto const expiration = timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired);
-    if (iconName.empty() || Now() > expiration)
+    if (iconName.empty() || local_ads::Clock::now() > expiration)
       continue;
     symbols.insert(std::make_pair(FeatureID(mwmId, campaign.m_featureId),
                                   df::CustomSymbol(iconName, campaign.m_priorityBit)));
@@ -269,8 +264,8 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
       auto const failedDownloadsIt = m_failedDownloads.find(mwm);
       if (failedDownloadsIt != m_failedDownloads.cend() &&
           (failedDownloadsIt->second.m_attemptsCount >= kMaxDownloadingAttempts ||
-           Now() <= failedDownloadsIt->second.m_lastDownloading +
-                        failedDownloadsIt->second.m_currentTimeout))
+           std::chrono::steady_clock::now() <= failedDownloadsIt->second.m_lastDownloading +
+                                               failedDownloadsIt->second.m_currentTimeout))
       {
         continue;
       }
@@ -289,7 +284,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
         auto const it = m_info.find(mwmName);
         bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
         if (!needUpdateByTimeout && it != m_info.end())
-          needUpdateByTimeout = Now() > (it->second.m_created + kWWanUpdateTimeout);
+          needUpdateByTimeout = local_ads::Clock::now() > (it->second.m_created + kWWanUpdateTimeout);
 
         if (needUpdateByTimeout || it == m_info.end())
           requestedCampaigns.push_back(mwmName);
@@ -333,8 +328,9 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
     auto const it = m_failedDownloads.find(mwmId);
     if (it == m_failedDownloads.cend())
     {
-      m_failedDownloads.insert(std::make_pair(
-          mwmId, BackoffStats(Now(), kFailedDownloadingTimeout, 1 /* m_attemptsCount */)));
+      m_failedDownloads.insert(std::make_pair(mwmId, BackoffStats(std::chrono::steady_clock::now(),
+                                                                  kFailedDownloadingTimeout,
+                                                                  1 /* m_attemptsCount */)));
     }
     else
     {
@@ -374,6 +370,7 @@ void LocalAdsManager::ThreadRoutine()
       {
         // Download campaign data from server.
         CampaignInfo info;
+        info.m_created = local_ads::Clock::now();
         if (!DownloadCampaign(mwm.first, info.m_data))
           continue;
 
@@ -395,7 +392,7 @@ void LocalAdsManager::ThreadRoutine()
         {
           DeleteSymbolsFromRendering(mwm.first);
         }
-        info.m_created = Now();
+        info.m_created = local_ads::Clock::now();
 
         // Update run-time data.
         {

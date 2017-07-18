@@ -16,9 +16,10 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   private RoutingPlanListener mRoutingPlanListener;
 
   public RoutingPlanInplaceController(@NonNull MwmActivity activity,
-                                      @Nullable RoutingPlanListener routingPlanListener)
+                                      @Nullable RoutingPlanListener routingPlanListener,
+                                      @Nullable RoutingBottomMenuListener listener)
   {
-    super(activity.findViewById(R.id.routing_plan_frame), activity);
+    super(activity.findViewById(R.id.routing_plan_frame), activity, listener);
     mRoutingPlanListener = routingPlanListener;
   }
 

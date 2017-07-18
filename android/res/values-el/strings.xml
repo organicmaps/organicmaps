@@ -119,7 +119,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Αποθηκευτικό χώρος χαρτών</string>
+	<string name="maps_storage">Αποθήκευση χαρτών στο</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Επιλέξτε από που θα γίνει λήψη χαρτών</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -258,7 +258,7 @@
 	<string name="duration_6_hours">6 ώρες</string>
 	<string name="duration_12_hours">12 ώρες</string>
 	<string name="duration_1_day">1 ημέρα</string>
-	<string name="recent_track_help_text">Σημείωση: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας.</string>
+	<string name="recent_track_help_text">Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Ο αποθηκευτικός χώρος του χάρτη έχει βελτιστοποιηθεί. Κάντε επανεκκίνηση της εφαρμογής.\n\nΟ φάκελος MapsWithMe στο ριζικό κατάλογο της κάρτας SD δε χρειάζεται πλέον. Μπορείτε να το διαγράψετε.</string>
@@ -439,6 +439,8 @@
 	<string name="dialog_routing_change_end">Ρύθμιση προορισμού</string>
 	<string name="dialog_routing_end_not_determined">Δεν δημιουργήθηκε διαδρομή. Δεν είναι δυνατός ο εντοπισμός του προορισμού.</string>
 	<string name="dialog_routing_select_closer_end">Επιλέξτε ένα σημείο προορισμού πιο κοντά σε ένα δρόμο.</string>
+	<string name="dialog_routing_change_intermediate">Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.</string>
+	<string name="dialog_routing_intermediate_not_determined">Ρυθμίστε το ενδιάμεσο σημείο.</string>
 	<string name="dialog_routing_system_error">Σφάλμα συστήματος</string>
 	<string name="dialog_routing_application_error">Δεν είναι δυνατή η δημιουργία διαδρομής εξαιτίας σφάλματος εφαρμογής.</string>
 	<string name="dialog_routing_try_again">Προσπαθήστε ξανά</string>
@@ -597,6 +599,11 @@
 	<string name="onboarding_notifications_title">Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις</string>
 	<string name="onboarding_location_title">Βοηθήστε μας να σας βρούμε</string>
 	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
+	<string name="onboarding_permissions_title">Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
+	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
+	<string name="onboarding_welcome_title">Καλωσήρθατε στο MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
+	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href=\"http://legal.my.com/us/maps/tou/\">τους Όρους χρήσης&lt;/a> και &lt;a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
@@ -700,7 +707,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Ιστολόγιο</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Η συλλογή στατιστικών στοιχείων χρήσης μας βοηθάει να βελτιώσουμε την εφαρμογή.</string>
+	<string name="allow_statistics_hint">Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.</string>
 	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<string name="date">Ημερομηνία %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -723,6 +730,8 @@
 	<string name="taxi_wait">Χρόνος αναμονής %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Δε βρέθηκε ταξί σε κοντινή απόσταση</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Δεν υπάρχει διαθέσιμο ταξί εδώ</string>
 	<string name="install_app">Εγκατάσταση</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Φίλτρο</string>
@@ -823,6 +832,8 @@
 	<string name="whatsnew_smaller_mwm_message">Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.</string>
 	<string name="whatsnew_waypoints_title">Ενδιάμεσα σημεία στη διαδρομή</string>
 	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
+	<string name="whatsnew_viator_title">Κάντε κράτηση σε μια ξενάγηση</string>
+	<string name="whatsnew_viator_message">Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.</string>
 	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
 	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
 	<string name="more_on_bookingcom">Περισσότερα στο Booking.com</string>
@@ -851,8 +862,44 @@
 	<string name="on">Ενεργ.</string>
 	<string name="off">Απενεργ.</string>
 	<string name="prefs_languages_information">Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Για Αραβικά, Ελληνικά και Ρουμανικά ίσως χρειάζεται να εγκαταστήσετε συμπληρωματικό TTS (δεδομένου ότι το Google TTS δεν υποστηρίζει τις συγκεκριμένες γλώσσες προς το παρόν) από το Google Play όπως το Vocalizer TTS ή το SVOX Classics. \nΓια να αλλάξετε τις ρυθμίσεις της σύνθεσης ομιλίας, στη συσκευή σας ανοίξτε το μενού Ρυθμίσεις – > Γλώσσα και εισαγωγή – > Ομιλία – > Μετατροπή κειμένου σε ομιλία. Εδώ μπορείτε να κατεβάσετε συμπληρωματικά πακέτα γλώσσας ή να επιλέξετε τη μηχανή μετατροπής κειμένου σε ομιλία που προτιμάτε.</string>
+	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
 	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>
+	<string name="learn_more">Μάθετε περισσότερα</string>
+	<string name="exit">Έξοδος</string>
+	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
+	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
+	<string name="onboarding_welcome_message">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.</string>
+	<string name="button_accept_and_continue">Αποδοχή και συνέχεια</string>
+	<string name="button_learn_more">Μάθετε περισσότερα</string>
+	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
+	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME</string>
+	<string name="button_exit">Έξοδος</string>
+	<string name="onboarding_detail_permissions_title">Το MAPS.ME χρειάζεται πρόσβαση στο</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Αποθηκευτικός χώρος</string>
+	<string name="onboarding_detail_permissions_storage_message">Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Τοποθεσία</string>
+	<string name="onboarding_detail_permissions_location_message">Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.</string>
+	<string name="settings_device_memory">Μνήμη συσκευής</string>
+	<string name="settings_card_memory">Κάρτα μνήμης</string>
+	<string name="settings_storage_available">%s διαθέσιμα</string>
+	<string name="toast_location_permission_denied">Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας</string>
+	<string name="place_page_viator_title">Αξιοθέατα και περιηγήσεις</string>
+	<string name="button_use">Χρήση</string>
+	<string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
+	<string name="button_plan">Σχέδιο</string>
+	<string name="button_add">Προσθήκη</string>
+	<string name="placepage_remove_stop">Κατάργηση</string>
+	<string name="planning_route_remove_title">Σύρετε εδώ για κατάργηση</string>
+	<string name="dialog_change_start_point_message">Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;</string>
+	<string name="button_replace">Αλλαγή</string>
+	<string name="placepage_add_stop">Προσθήκη στάσης</string>
+	<string name="whatsnew_intermediate_point_title">Επιπλέον στάση</string>
+	<string name="whatsnew_intermediate_point_message">Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.</string>
 </resources>

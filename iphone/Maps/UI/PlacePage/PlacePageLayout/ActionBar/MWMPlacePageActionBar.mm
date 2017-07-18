@@ -1,4 +1,5 @@
 #import "MWMPlacePageActionBar.h"
+#import "AppInfo.h"
 #import "MWMActionBarButton.h"
 #import "MWMCommon.h"
 #import "MWMPlacePageProtocol.h"
@@ -50,17 +51,16 @@ extern NSString * const kAlohalyticsTapEventKey;
   m_visibleButtons.clear();
   m_additionalButtons.clear();
   auto data = self.data;
-  NSString * phone = data.phoneNumber;
 
-  BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
-  BOOL const isPhoneNotEmpty = phone.length > 0;
   BOOL const isBooking = data.isBooking;
   BOOL const isOpentable = data.isOpentable;
   BOOL const isBookingSearch = data.isBookingSearch;
   BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
-  BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
+  BOOL const isPhoneCallAvailable =
+      [AppInfo sharedInfo].canMakeCalls && data.phoneNumber.length > 0;
   BOOL const isApi = data.isApi;
-  BOOL const isP2P = [MWMRouter isRoutingActive];
+  BOOL const isP2P =
+      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
   BOOL const isMyPosition = data.isMyPosition;
   BOOL const isRoutePoint = data.isRoutePoint;
   BOOL const isNeedToAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
@@ -88,7 +88,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(EButton::Bookmark);
     if (isSponsored)
       m_additionalButtons.push_back(sponsoredButton);
-    if (itHasPhoneNumber)
+    if (isPhoneCallAvailable)
       m_additionalButtons.push_back(EButton::Call);
     if (isApi)
       m_additionalButtons.push_back(EButton::Api);
@@ -127,7 +127,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
-  else if (isApi && itHasPhoneNumber)
+  else if (isApi && isPhoneCallAvailable)
   {
     m_visibleButtons.push_back(EButton::Api);
     m_visibleButtons.push_back(EButton::Call);
@@ -156,7 +156,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(sponsoredButton);
     m_additionalButtons.push_back(EButton::Share);
   }
-  else if (itHasPhoneNumber && isP2P)
+  else if (isPhoneCallAvailable && isP2P)
   {
     m_visibleButtons.push_back(EButton::Bookmark);
     m_visibleButtons.push_back(EButton::RouteFrom);
@@ -170,7 +170,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
-  else if (itHasPhoneNumber)
+  else if (isPhoneCallAvailable)
   {
     m_visibleButtons.push_back(EButton::Call);
     m_visibleButtons.push_back(EButton::Bookmark);
@@ -193,7 +193,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   for (UIView * v in self.buttons)
   {
     [v.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    auto const type = m_visibleButtons[v.tag - 1];
+    auto const buttonIndex = v.tag - 1;
+    NSAssert(buttonIndex >= 0, @"Invalid button index.");
+    if (buttonIndex < 0 || buttonIndex >= m_visibleButtons.size())
+      continue;
+    auto const type = m_visibleButtons[buttonIndex];
     [MWMActionBarButton addButtonToSuperview:v
                                     delegate:self
                                   buttonType:type

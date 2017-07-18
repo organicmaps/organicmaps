@@ -25,6 +25,7 @@ void ReadMWMTask::Reset()
   m_checker = false;
 #endif
   m_tileInfo.reset();
+  IRoutine::Reset();
 }
 
 bool ReadMWMTask::IsCancelled() const

@@ -266,7 +266,7 @@
 "settings" = "Inställningar";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Kartlagring";
+"maps_storage" = "Spara kartor i";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Välj en plats dit kartor ska laddas ner";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 dag";
 
-"recent_track_help_text" = "Obs: aktivering av denna funktion orsakar ökad batterianvändning.";
+"recent_track_help_text" = "Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.";
 
 "pref_track_ios_caption" = "Senaste resväg visar den väg du rest.";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Välj en destinationspunkt närmare en väg.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Det går inte att hitta mellanliggande punkt.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Justera din mellanliggande punkt.";
 
 "dialog_routing_system_error" = "Systemfel";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Navigering är endast tillgänglig från din aktuella plats.";
 
 "p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Nästa";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Ge MAPS.ME åtkomst till lagring och plats";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Välkommen till MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"http://legal.my.com/us/maps/tou/\">användningsvillkoren</a> och <a href=\"https://legal.my.com/us/maps/privacy/\">sekretesspolicyn</a>.";
 
 "dialog_incorrect_feature_position" = "Ändra placering";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blogg";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Genom att samla användningsstatistik hjälper du oss att förbättra appen.";
+"allow_statistics_hint" = "Genom att samla in anonym användningsstatistik kan vi förbättra appen.";
 
 "general_settings" = "Allmänna inställningar";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Hittade ingen taxi i närheten";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Taxi är inte tillgängligt här";
 
 "install_app" = "Installera";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Tryck på platser för att lägga till vägpunkter till din rutt.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Boka en tur";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Välj populära turer i turiststäder över hela världen.";
 
 "whatsnew_driving_style_title" = "En ny kartstil när du kör";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –> Språk och inmatning –> Tal –> Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.";
+"prefs_languages_information_off" = "För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.";
 
 "prefs_languages_information_off_link" = "Kolla in den här guiden för mer information.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Läs mer";
 
-"exit" = "Exit";
+"exit" = "Avsluta";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Lägg till startpunkt för att planera en rutt";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "När du startar applikationen godkänner du våra användningsvillkor och sekretesspolicy.";
+
+"button_accept_and_continue" = "Godkänn och fortsätt";
+
+"button_learn_more" = "Läs mer";
+
+"onboarding_storage_permissions_title" = "Bevilja åtkomst";
+
+"onboarding_storage_permissions_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.";
+
+"button_exit" = "Avsluta";
+
+"onboarding_detail_permissions_title" = "MAPS.ME behöver åtkomst till";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Lagring";
+
+"onboarding_detail_permissions_storage_message" = "För att spara och använda nedladdade kartor offline och spara bokmärken.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Plats";
+
+"onboarding_detail_permissions_location_message" = "För att visa platser och trafik i närheten och använda navigering.";
+
+"onboarding_detail_permissions_storage_path_message" = "Du kan även ändra destination för nedladdade kartor i inställningarna.";
+
+"settings_device_memory" = "Enhetens minne";
+
+"settings_card_memory" = "Kortets minne";
+
+"settings_storage_available" = "%s tillgängligt";
+
+"toast_location_permission_denied" = "Behörighet till appens plats nekades";
+
+"place_page_viator_title" = "Attraktioner och turer";
+
+"button_use" = "Använd";
+
+"planning_route_manage_route" = "Hantera rutt";
+
+"button_plan" = "Planera";
+
+"button_add" = "Lägg till";
+
+"placepage_remove_stop" = "Ta bort";
+
+"planning_route_remove_title" = "Dra här för att ta bort";
+
+"dialog_change_start_point_message" = "Ersätt startpunkt för den aktuella platsen?";
+
+"button_replace" = "Ersätt";
+
+"placepage_add_stop" = "Lägg till stopp";
+
+"whatsnew_intermediate_point_title" = "Ytterligare stopp";
+
+"whatsnew_intermediate_point_message" = "Planera rutter med ett uppehåll.";

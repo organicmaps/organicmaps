@@ -48,13 +48,8 @@ struct HotelFacility;
 
 @protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder, MWMBookingInfoHolder>
 
-@property(nonatomic) CGFloat topBound;
-@property(nonatomic) CGFloat leftBound;
-
 - (void)show:(place_page::Info const &)info;
 - (void)close;
 - (void)mwm_refreshUI;
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 
 @end

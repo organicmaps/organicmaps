@@ -83,11 +83,9 @@ void BookmarkManager::LoadBookmark(string const & filePath)
 
 void BookmarkManager::InitBookmarks()
 {
-  for (auto it = m_categories.begin(); it != m_categories.end(); ++it)
+  for (auto & cat : m_categories)
   {
-    BookmarkCategory * cat = *it;
     BookmarkCategory::Guard guard(*cat);
-    guard.m_controller.Update();
   }
 }
 
@@ -210,7 +208,11 @@ namespace
     {
       m2::AnyRectD const & rect = m_rectHolder(container->GetType());
       if (UserMark const * p = container->FindMarkInRect(rect, m_d))
-        m_mark = p;
+      {
+        double const kEps = 1e-5;
+        if (m_mark == nullptr || !p->GetPivot().EqualDxDy(m_mark->GetPivot(), kEps))
+          m_mark = p;
+      }
     }
 
     UserMark const * GetFindedMark() const { return m_mark; }
@@ -230,10 +232,10 @@ UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect)
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
   BestUserMarkFinder finder(holder);
-  for_each(m_categories.begin(), m_categories.end(), ref(finder));
-  finder(FindUserMarksContainer(UserMarkType::API_MARK));
-  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
   finder(FindUserMarksContainer(UserMarkType::ROUTING_MARK));
+  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
+  finder(FindUserMarksContainer(UserMarkType::API_MARK));
+  for_each(m_categories.begin(), m_categories.end(), ref(finder));
 
   return finder.GetFindedMark();
 }

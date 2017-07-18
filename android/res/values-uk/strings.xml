@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Пам\'ять для карт</string>
+	<string name="maps_storage">Зберігати карти до</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -337,7 +337,7 @@
 	<string name="duration_6_hours">6 годин</string>
 	<string name="duration_12_hours">12 годин</string>
 	<string name="duration_1_day">1 день</string>
-	<string name="recent_track_help_text">Примітка: активація цієї функції спричиняє підвищене використання заряду акумулятора.</string>
+	<string name="recent_track_help_text">Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.</string>
 	<string name="pref_track_ios_caption">Останній маршрут показує пройдену відстань.</string>
 	<string name="pref_track_ios_subcaption">Будь ласка, виберіть проміжок часу для збереження маршруту.</string>
 	<string name="placepage_distance">Відстань</string>
@@ -423,7 +423,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">в черзі</string>
+	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
@@ -586,6 +586,8 @@
 	<string name="dialog_routing_change_end">Змініть кінцеву точку маршруту</string>
 	<string name="dialog_routing_end_not_determined">Маршрут не побудовано. Не визначено кінцеву точку маршруту.</string>
 	<string name="dialog_routing_select_closer_end">Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.</string>
+	<string name="dialog_routing_change_intermediate">Не вдалося знайти місцерозташування проміжної точки.</string>
+	<string name="dialog_routing_intermediate_not_determined">Будь ласка, вкажіть місцерозташування проміжної точки вручну.</string>
 	<string name="dialog_routing_system_error">Системна помилка</string>
 	<string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
 	<string name="dialog_routing_try_again">Спробуйте знову</string>
@@ -788,6 +790,11 @@
 	<string name="onboarding_notifications_title">Дозвольте відправлення повідомлень</string>
 	<string name="onboarding_location_title">Допоможіть знайти вас</string>
 	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
+	<string name="onboarding_permissions_title">Дозволити MAPS.ME доступ до сховища та функції визначення геолокації</string>
+	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
+	<string name="onboarding_welcome_title">Вітаємо у MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
+	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з &lt;a href=\"http://legal.my.com/us/maps/tou/\">Умовами використання&lt;/a> та &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Політикою конфіденційності&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -940,7 +947,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Блог</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Збір статистичної інформації про використання допомагає нам вдосконалювати наш додаток.</string>
+	<string name="allow_statistics_hint">Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.</string>
 	<string name="general_settings">Загальні налаштування</string>
 	<string name="date">Дата %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -963,6 +970,8 @@
 	<string name="taxi_wait">Очікується через %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Не вдалося знайти таксі поблизу</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Сервіс таксі недоступний у цій місцевості</string>
 	<string name="install_app">Встановити</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Фільтр</string>
@@ -1063,6 +1072,8 @@
 	<string name="whatsnew_smaller_mwm_message">Тепер карти займають на 20% менше дискового простору.</string>
 	<string name="whatsnew_waypoints_title">Точки маршруту</string>
 	<string name="whatsnew_waypoints_message">Додавання точок до маршруту одним дотиком.</string>
+	<string name="whatsnew_viator_title">Забронювати екскурсію</string>
+	<string name="whatsnew_viator_message">На ваш вибір — популярні екскурсії в різних куточках світу.</string>
 	<string name="whatsnew_driving_style_title">Новий дизайн карт для водіїв</string>
 	<string name="whatsnew_driving_style_message">Режим навігації став ще простішим.</string>
 	<string name="more_on_bookingcom">Більше на Booking.com</string>
@@ -1091,8 +1102,44 @@
 	<string name="on">Увімкн.</string>
 	<string name="off">Вимкн.</string>
 	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Для арабської, грецької та румунської мов можливо вам знадобиться встановити додаткову систему TTS (наразі Google TTS не підтримує ці мови) з магазину Google Play — наприклад, Vocalizer TTS або SVOX Classics.\nДля управління налаштуваннями синтезу мови відкрийте на вашому пристрої Налаштування –> Мова та введення –> Мовлення –> Перетворення тексту на мовлення. Тут ви можете завантажити додатковий мовний пакет або вибрати інструмент для перетворення тексту на мовлення.</string>
+	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
 	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="whatsnew_transliteration_message">Якщо для вулиці чи об\'єкта відсутня назва українською мовою, використовуватиметься назва, транслітерована латинськими літерами.</string>
+	<string name="learn_more">Докладніше</string>
+	<string name="exit">Вихід</string>
+	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
+	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
+	<string name="onboarding_welcome_message">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.</string>
+	<string name="button_accept_and_continue">Прийняти та продовжити</string>
+	<string name="button_learn_more">Докладніше</string>
+	<string name="onboarding_storage_permissions_title">Надати доступ</string>
+	<string name="onboarding_storage_permissions_message">Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.</string>
+	<string name="button_exit">Вихід</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME необхідно надати доступ до</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Сховище</string>
+	<string name="onboarding_detail_permissions_storage_message">Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Функція визначення геолокації</string>
+	<string name="onboarding_detail_permissions_location_message">Для перегляду місцевості та трафіку, а також використання навігації.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.</string>
+	<string name="settings_device_memory">Вбудована пам\'ять</string>
+	<string name="settings_card_memory">Карта пам\'яті</string>
+	<string name="settings_storage_available">Доступно: %s</string>
+	<string name="toast_location_permission_denied">Відмовлено у доступі до функції визначення геолокації</string>
+	<string name="place_page_viator_title">Визначні пам\'ятки та екскурсії</string>
+	<string name="button_use">Використовувати</string>
+	<string name="planning_route_manage_route">Редагування маршруту</string>
+	<string name="button_plan">Прокласти маршрут</string>
+	<string name="button_add">Додати</string>
+	<string name="placepage_remove_stop">Видалити</string>
+	<string name="planning_route_remove_title">Перетягніть сюди, щоб видалити</string>
+	<string name="dialog_change_start_point_message">Змінити початкову точку на поточне місцезнаходження?</string>
+	<string name="button_replace">Змінити</string>
+	<string name="placepage_add_stop">Додати зупинку</string>
+	<string name="whatsnew_intermediate_point_title">Додаткова зупинка</string>
+	<string name="whatsnew_intermediate_point_message">Прокласти маршрут з додатковою зупинкою посередині маршруту.</string>
 </resources>

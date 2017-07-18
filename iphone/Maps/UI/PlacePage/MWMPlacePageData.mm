@@ -136,7 +136,8 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
-  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner())
+  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
+      ![self isViator])
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
@@ -653,6 +654,8 @@ using namespace place_page;
 - (NSString *)localAdsURL { return @(m_info.GetLocalAdsUrl().c_str()); }
 - (void)logLocalAdsEvent:(local_ads::EventType)type
 {
+  if (m_info.GetLocalAdsStatus() != place_page::LocalAdsStatus::Customer)
+    return;
   auto const featureID = m_info.GetID();
   auto const & mwmInfo = featureID.m_mwmId.GetInfo();
   if (!mwmInfo)
@@ -661,7 +664,7 @@ using namespace place_page;
   auto location = [MWMLocationManager lastLocation];
   auto event = local_ads::Event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
                                 featureID.m_index, f.GetDrawScale(),
-                                std::chrono::steady_clock::now(), location.coordinate.latitude,
+                                local_ads::Clock::now(), location.coordinate.latitude,
                                 location.coordinate.longitude, location.horizontalAccuracy);
   f.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }

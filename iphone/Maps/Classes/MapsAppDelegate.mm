@@ -239,6 +239,21 @@ using namespace osm_auth_ios;
       auto const points = parsedData.m_points;
       if (points.size() == 2)
       {
+        [Statistics logEvent:kStatRoutingAddPoint
+              withParameters:@{
+                kStatRoutingPointType : kStatRoutingPointTypeStart,
+                kStatRoutingPointValue : kStatRoutingPointValuePoint,
+                kStatRoutingPointMethod : kStatRoutingPointMethodApi,
+                kStatRoutingMode : kStatRoutingModePlanning
+              }];
+        [Statistics logEvent:kStatRoutingAddPoint
+              withParameters:@{
+                kStatRoutingPointType : kStatRoutingPointTypeFinish,
+                kStatRoutingPointValue : kStatRoutingPointValuePoint,
+                kStatRoutingPointMethod : kStatRoutingPointMethodApi,
+                kStatRoutingMode : kStatRoutingModePlanning
+              }];
+
         auto p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
                                                                 type:MWMRoutePointTypeStart];
         auto p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
@@ -664,14 +679,14 @@ using namespace osm_auth_ios;
       [statistics application:application didFinishLaunchingWithOptions:launchOptions];
 
   NSString * connectionType;
-  NSString * network = kStatOff;
+  NSString * network = kStatOffline;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE: break;
   case Platform::EConnectionType::CONNECTION_WIFI:
-      connectionType = @"Wi-Fi";
-      network = kStatWifi;
-      break;
+    connectionType = @"Wi-Fi";
+    network = kStatWifi;
+    break;
   case Platform::EConnectionType::CONNECTION_WWAN:
     connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
     network = kStatMobile;
@@ -685,8 +700,10 @@ using namespace osm_auth_ios;
           kStatConnection : connectionType
         }];
 
-  NSString * charging = kStatUnknown;
-  UIDeviceBatteryState const state = [UIDevice currentDevice].batteryState;
+  auto device = [UIDevice currentDevice];
+  device.batteryMonitoringEnabled = YES;
+  auto charging = kStatUnknown;
+  auto const state = device.batteryState;
   if (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull)
     charging = kStatOn;
   else if (state == UIDeviceBatteryStateUnplugged)
@@ -744,6 +761,8 @@ using namespace osm_auth_ios;
 
 + (void)customizeAppearance
 {
+  [UIButton appearance].exclusiveTouch = YES;
+
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 
   UIBarButtonItem * barBtn = [UIBarButtonItem appearance];

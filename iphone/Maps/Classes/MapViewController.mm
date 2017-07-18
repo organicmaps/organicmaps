@@ -23,6 +23,7 @@
 #import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
 #import "MWMSettings.h"
+#import "MWMSideButtons.h"
 #import "MWMStorage.h"
 #import "MWMTableViewController.h"
 #import "MapsAppDelegate.h"
@@ -111,6 +112,9 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaBottom;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaKeyboard;
 
 @end
 
@@ -271,7 +275,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-  [self processMyPositionStateModeEvent:location::PendingPosition];
+  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
 }
 
@@ -368,7 +372,7 @@ BOOL gIsFirstMyPositionMode = YES;
     // TODO: Two global listeners are subscribed to the same event from the core.
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
     // May be better solution would be multiobservers support in the C++ core.
-    [self processMyPositionStateModeEvent:mode];
+    [self processMyPositionStateModeEvent:location_helpers::mwmMyPositionMode(mode)];
   });
 
   self.userTouchesAction = UserTouchesActionNone;
@@ -419,10 +423,10 @@ BOOL gIsFirstMyPositionMode = YES;
   [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
 }
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
+- (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
-  location_helpers::setMyPositionMode(mode);
-  [self.controlsManager processMyPositionStateModeEvent:mode];
+  [MWMLocationManager setMyPositionMode:mode];
+  [[MWMSideButtons buttons] processMyPositionStateModeEvent:mode];
   self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
   {
@@ -596,7 +600,15 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - MWMKeyboard
 
-- (void)onKeyboardAnimation { self.visibleAreaKeyboard.constant = [MWMKeyboard keyboardHeight]; }
+- (void)onKeyboardWillAnimate { [self.view setNeedsLayout]; }
+- (void)onKeyboardAnimation
+{
+  auto const kbHeight = [MWMKeyboard keyboardHeight];
+  self.visibleAreaKeyboard.constant = kbHeight;
+  self.placePageAreaKeyboard.constant = kbHeight;
+  self.sideButtonsAreaKeyboard.constant = kbHeight;
+  [self.view layoutIfNeeded];
+}
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager
@@ -616,10 +628,10 @@ BOOL gIsFirstMyPositionMode = YES;
   return _downloadDialog;
 }
 
-- (CGFloat)visibleAreaBottomOffset { return self.visibleAreaBottom.constant; }
-- (void)setVisibleAreaBottomOffset:(CGFloat)visibleAreaBottomOffset
+- (void)setPlacePageTopBound:(CGFloat)bound;
 {
-  self.visibleAreaBottom.constant = visibleAreaBottomOffset;
+  self.visibleAreaBottom.constant = bound;
+  self.sideButtonsAreaBottom.constant = bound;
 }
 
 @end

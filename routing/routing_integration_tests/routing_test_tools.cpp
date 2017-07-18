@@ -365,8 +365,8 @@ namespace integration
       return false;
     };
     routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
-    fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint),
-                            MercatorBounds::FromLatLon(finalPoint));
+    fetcher.GenerateRequest(Checkpoints(MercatorBounds::FromLatLon(startPoint),
+                                        MercatorBounds::FromLatLon(finalPoint)));
     vector<string> absent;
     fetcher.GetAbsentCountries(absent);
     if (expected.size() < 2)
@@ -384,7 +384,12 @@ namespace integration
                          vector<string> const & expected,
                          IRouterComponents & routerComponents)
   {
-    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
+    TCountryFileFn const countryFileGetter = [&](m2::PointD const & p) {
+      return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
+    };
+    routing::OnlineCrossFetcher fetcher(countryFileGetter, OSRM_ONLINE_SERVER_URL,
+                                        Checkpoints(MercatorBounds::FromLatLon(startPoint),
+                                                    MercatorBounds::FromLatLon(finalPoint)));
     fetcher.Do();
     vector<m2::PointD> const & points = fetcher.GetMwmPoints();
     set<string> foundMwms;

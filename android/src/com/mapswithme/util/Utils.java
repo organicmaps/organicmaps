@@ -478,7 +478,7 @@ public class Utils
   public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,
                                                         @NonNull Fragment fragment)
   {
-    if (context instanceof AppCompatActivity && !MwmApplication.get().isPlatformInitialized())
+    if (context instanceof AppCompatActivity && !MwmApplication.get().arePlatformAndCoreInitialized())
     {
       ((AppCompatActivity)context).getSupportFragmentManager()
                                   .beginTransaction()

@@ -50,7 +50,7 @@ public:
   DummyFetcher(vector<string> const & absent) : m_absent(absent) {}
 
   // IOnlineFetcher overrides:
-  void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) override {}
+  void GenerateRequest(Checkpoints const &) override {}
   void GetAbsentCountries(vector<string> & countries) override { countries = m_absent; }
 };
 

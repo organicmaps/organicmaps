@@ -47,7 +47,11 @@ public class TaxiManager
       throw new AssertionError("Must be called from UI thread!");
 
     if (providers.length == 0)
-      throw new AssertionError("Taxi provider array must be non-empty!");
+    {
+      if (mListener != null)
+        mListener.onNoTaxiProviders();
+      return;
+    }
 
     mProviders.clear();
     mProviders.addAll(Arrays.asList(providers));
@@ -107,12 +111,13 @@ public class TaxiManager
 
   public enum ErrorCode
   {
-    NoProducts, RemoteError, NoProvider
+    NoProducts, RemoteError, NoProviders
   }
 
   public interface TaxiListener
   {
     void onTaxiProviderReceived(@NonNull TaxiInfo provider);
     void onTaxiErrorReceived(@NonNull TaxiInfoError error);
+    void onNoTaxiProviders();
   }
 }

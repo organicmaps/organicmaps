@@ -266,7 +266,7 @@
 "settings" = "Setări";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Stocare hărți";
+"maps_storage" = "Salvare hărți în";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Selectați locul în care doriți să fie descărcate hărțile.";
@@ -537,7 +537,7 @@
 
 "duration_1_day" = "1 zi";
 
-"recent_track_help_text" = "Vă rugăm să rețineți: activarea acestei funcții determină un consum accelerat al bateriei.";
+"recent_track_help_text" = "Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.";
 
 "pref_track_ios_caption" = "Opțiunea Rută recentă vă afișează ruta folosită anterior.";
 
@@ -681,7 +681,7 @@
 "downloader_available_maps" = "Disponibil";
 
 /* Country queued for download */
-"downloader_queued" = "în lista de așteptare";
+"downloader_queued" = "În lista de așteptare";
 
 "downloader_near_me_subtitle" = "Aproape de mine";
 
@@ -943,9 +943,9 @@
 
 "dialog_routing_select_closer_end" = "Setaţi un punct de destinaţie mai aproape de un drum.";
 
-"dialog_routing_change_intermediate" = "Please select another intermediate point";
+"dialog_routing_change_intermediate" = "Punctul intermediar nu poate fi localizat.";
 
-"dialog_routing_intermediate_not_determined" = "An intermediate point is not determined.";
+"dialog_routing_intermediate_not_determined" = "Ajustați punctul intermediar.";
 
 "dialog_routing_system_error" = "Eroare sistem";
 
@@ -1058,10 +1058,6 @@
 "p2p_only_from_current" = "Navigația este disponibilă doar având ca punct de pornire locațiacctuală.";
 
 "p2p_reroute_from_current" = "Doriți să vă planificăm o rută având ca punct de pornire locația actuală?";
-
-"p2p_add_stop" = "Add stop";
-
-"p2p_remove_stop" = "Remove stop";
 
 "whats_new_next_button" = "Următoarea";
 
@@ -1336,31 +1332,15 @@
 
 "onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
 
-"onboarding_permissions_title" = "Allow MAPS.ME access to storage and location";
+"onboarding_permissions_title" = "Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație";
 
-"onboarding_permissions_message" = "So you can download maps, see places and traffic near you and use navigation.";
+"onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
 
-"onboarding_storage_permissions_title" = "Grant access";
+"onboarding_welcome_title" = "Bun venit în MAPS.ME";
 
-"onboarding_storage_permissions_message" = "Change permissions settings in your device. Needs a storage access to use MAPS.ME.";
+"onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"onboarding_detail_permissions_title" = "MAPS.ME needs access to";
-
-"onboarding_detail_permissions_storage_title" = "Storage";
-
-"onboarding_detail_permissions_storage_message" = "To save and use downloaded maps offline and save bookmarks.";
-
-"onboarding_detail_permissions_location_title" = "Location";
-
-"onboarding_detail_permissions_location_message" = "To see places and traffic near you and use navigation.";
-
-"onboarding_detail_permissions_storage_path_message" = "You can also change a destination to save downloaded maps.";
-
-"onboarding_welcome_title" = "Welcome to MAPS.ME";
-
-"onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
-
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms</a> of Use and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"http://legal.my.com/us/maps/tou/\">Condițiile de utilizare</a> și <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
@@ -1646,7 +1626,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Colectarea statisticilor privind utilizarea ne ajută să îmbunătățim aplicația.";
+"allow_statistics_hint" = "Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.";
 
 "general_settings" = "Setări generale";
 
@@ -1687,7 +1667,7 @@
 "taxi_not_found" = "Nu am găsit niciun taxi în apropiere ";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Couldn’t find a taxi provider nearby";
+"taxi_no_providers" = "Serviciul de taxi nu este disponibil aici";
 
 "install_app" = "Instalați";
 
@@ -1877,9 +1857,9 @@
 
 "whatsnew_waypoints_message" = "Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.";
 
-"whatsnew_viator_title" = "Viator title";
+"whatsnew_viator_title" = "Rezervați un tur";
 
-"whatsnew_viator_message" = "Viator message";
+"whatsnew_viator_message" = "Selectați dintre tururile populare din orașe turistice din întreaga lume.";
 
 "whatsnew_driving_style_title" = "Un nou stil de hartă pentru condus";
 
@@ -1938,7 +1918,7 @@
 
 "prefs_languages_information" = "Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
 
-"prefs_languages_information_off" = "Pentru limbile arabă, greacă și română ar putea fi necesar să instalați alte aplicații TTS (deoarece Google TTS nu oferă încă suport pentru aceste limbi) din Google Play, ca de exemplu Vocalizer TTS sau SVOX Classics.\nPentru setarea sintetizatorului vocal, deschideți pe dispozitiv Setări –> Limbă și introducere –> Voce –> Text. De aici puteți descărca pachete de limbi suplimentare sau selecta motorul preferat de transcriere vocală.";
+"prefs_languages_information_off" = "Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.";
 
 "prefs_languages_information_off_link" = "Consultați acest ghid pentru informații suplimentare.";
 
@@ -1948,14 +1928,71 @@
 
 "yandex_taxi_title" = "Yandex.Taxi";
 
-"learn_more" = "Learn more";
+"learn_more" = "Mai multe";
 
-"exit" = "Exit";
+"exit" = "Ieșire";
 
-"routing_add_start_point" = "Add start point to plan a route.";
+"routing_add_start_point" = "Adăugați punctul de plecare pentru a planifica un traseu";
 
-"routing_add_finish_point" = "Add finish to plan a route.";
+"routing_add_finish_point" = "Adăugați punctul de sosire pentru a planifica un traseu";
 
-"use" = "Use";
+"onboarding_welcome_message" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"viator_title" = "Attractions and tours";
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.";
+
+"button_accept_and_continue" = "Acceptare și continuare";
+
+"button_learn_more" = "Aflați mai multe";
+
+"onboarding_storage_permissions_title" = "Acordați acces";
+
+"onboarding_storage_permissions_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.";
+
+"button_exit" = "Ieșire";
+
+"onboarding_detail_permissions_title" = "MAPS.ME necesită acces la";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_storage_title" = "Stocare";
+
+"onboarding_detail_permissions_storage_message" = "Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.";
+
+/* Default permission's name from Android settings. */
+"onboarding_detail_permissions_location_title" = "Locație";
+
+"onboarding_detail_permissions_location_message" = "Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.";
+
+"onboarding_detail_permissions_storage_path_message" = "Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.";
+
+"settings_device_memory" = "Memoria dispozitivului";
+
+"settings_card_memory" = "Card";
+
+"settings_storage_available" = "%s disponibil";
+
+"toast_location_permission_denied" = "Permisiune de accesare a locației respinsă";
+
+"place_page_viator_title" = "Atracții și tururi";
+
+"button_use" = "Utilizare";
+
+"planning_route_manage_route" = "Administrare traseu";
+
+"button_plan" = "Planificare";
+
+"button_add" = "Adăugare";
+
+"placepage_remove_stop" = "Eliminare";
+
+"planning_route_remove_title" = "Trageți aici pentru a elimina";
+
+"dialog_change_start_point_message" = "Înlocuiți punctul de plecare cu locația curentă?";
+
+"button_replace" = "Înlocuire";
+
+"placepage_add_stop" = "Adăugare oprire";
+
+"whatsnew_intermediate_point_title" = "Oprire suplimentară";
+
+"whatsnew_intermediate_point_message" = "Planificați o rută cu un punct intermediar.";

@@ -560,8 +560,8 @@ public class PlacePageView extends RelativeLayout
         case ROUTE_TO:
           if (RoutingController.get().isPlanning())
           {
-            if (RoutingController.get().setEndPoint(mMapObject))
-              hide();
+            RoutingController.get().setEndPoint(mMapObject);
+            hide();
           }
           else
           {
@@ -855,6 +855,9 @@ public class PlacePageView extends RelativeLayout
 
   private void updateViatorView(@NonNull ViatorProduct[] products, @NonNull String cityUrl)
   {
+    if (products.length == 0)
+      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_VIATOR);
+
     UiUtils.showIf(products.length > 0, mViatorView);
     mRvViatorProducts.setAdapter(new ViatorAdapter(products, cityUrl, this));
   }
@@ -873,6 +876,16 @@ public class PlacePageView extends RelativeLayout
   public void onViatorItemSelected(@NonNull String url)
   {
     Utils.openUrl(getContext(), url);
+    Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
+                                                          Sponsored.TYPE_VIATOR);
+  }
+
+  @Override
+  public void onViatorMoreItemSelected(@NonNull String url)
+  {
+    Utils.openUrl(getContext(), url);
+    Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                                          Sponsored.TYPE_VIATOR);
   }
 
   @Override
@@ -1313,6 +1326,12 @@ public class PlacePageView extends RelativeLayout
     return mSponsored != null && mSponsored.getType() != Sponsored.TYPE_NONE;
   }
 
+  @Nullable
+  public Sponsored getSponsored()
+  {
+    return mSponsored;
+  }
+
   private void refreshDetails(@NonNull MapObject mapObject)
   {
     refreshLatLon(mapObject);
@@ -1333,6 +1352,8 @@ public class PlacePageView extends RelativeLayout
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
+      if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
+        hideViatorViews();
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);

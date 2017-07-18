@@ -66,7 +66,7 @@ class FrontendRenderer : public BaseRenderer,
 public:
   using TModelViewChanged = std::function<void(ScreenBase const & screen)>;
   using TTapEventInfoFn = std::function<void(TapInfo const &)>;
-  using TUserPositionChangedFn = std::function<void(m2::PointD const & pt)>;
+  using TUserPositionChangedFn = std::function<void(m2::PointD const & pt, bool hasPosition)>;
 
   struct Params : BaseRenderer::Params
   {
@@ -113,7 +113,7 @@ public:
   void AddUserEvent(drape_ptr<UserEvent> && event);
 
   // MyPositionController::Listener
-  void PositionChanged(m2::PointD const & position) override;
+  void PositionChanged(m2::PointD const & position, bool hasPosition) override;
   void ChangeModelView(m2::PointD const & center, int zoomLevel,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
@@ -151,6 +151,7 @@ private:
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView);
+  void RenderUserLinesLayer(ScreenBase const & modelView);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -239,6 +240,7 @@ private:
     enum RenderLayerID
     {
       Geometry2dID,
+      UserLineID,
       OverlayID,
       Geometry3dID,
       UserMarkID,

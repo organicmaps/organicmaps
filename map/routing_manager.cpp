@@ -111,7 +111,14 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     GetPlatform().RunOnGuiThread([this, passedCheckpointIdx]()
     {
       size_t const pointsCount = GetRoutePointsCount();
-      ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+
+      // TODO(@bykoianko). Since routing system may invoke callbacks from different threads and here
+      // we have to use gui thread, ASSERT is not correct. Uncomment it and delete condition after
+      // refactoring of threads usage in routing system.
+      //ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+      if (passedCheckpointIdx >= pointsCount)
+        return;
+
       if (passedCheckpointIdx == 0)
         OnRoutePointPassed(RouteMarkType::Start, 0);
       else if (passedCheckpointIdx + 1 == pointsCount)
@@ -263,7 +270,7 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
 
-  m_routingSession.SetRouter(move(router), move(fetcher));
+  m_routingSession.SetRouter(std::move(router), std::move(fetcher));
   m_currentRouterType = type;
 }
 
@@ -298,27 +305,23 @@ void RoutingManager::InsertRoute(routing::Route const & route)
   std::vector<RouteSegment> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
-  for (size_t subrouteIndex = 0; subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
+  for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
-    Route::SubrouteAttrs attrs;
-    route.GetSubrouteAttrs(subrouteIndex, attrs);
 
     // Fill points.
     double const currentBaseDistance = distance;
     points.clear();
     points.reserve(segments.size() + 1);
-    points.push_back(attrs.GetStart().GetPoint());
+    points.push_back(route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint());
     for (auto const & s : segments)
-    {
       points.push_back(s.GetJunction().GetPoint());
-      distance += s.GetDistFromBeginningMerc();
-    }
     if (points.size() < 2)
     {
       LOG(LWARNING, ("Invalid subroute. Points number =", points.size()));
       continue;
     }
+    distance = segments.back().GetDistFromBeginningMerc();
 
     auto subroute = make_unique_dp<df::Subroute>();
     subroute->m_polyline = m2::PolylineD(points);
@@ -435,6 +438,11 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 {
   if (!IsRoutingActive())
     return false;
+
+  // Now only car routing supports intermediate points.
+  if (m_currentRouterType != routing::RouterType::Vehicle)
+    return false;
+
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::ROUTING_MARK);
   return guard.m_controller.GetUserMarkCount() <
          static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);
@@ -507,13 +515,13 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     if (!p.m_isMyPosition)
       continue;
 
-    m2::PointD myPos;
-    if (!m_drapeEngine->GetMyPosition(myPos))
+    MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
+    if (!myPosition->HasPosition())
     {
       CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
       return;
     }
-    p.m_position = myPos;
+    p.m_position = myPosition->GetPivot();
   }
 
   // Check for equal points.
@@ -582,7 +590,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(0 /* arriveIdx */, std::move(points)), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
@@ -636,19 +644,36 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
 {
-  location::RouteMatchingInfo routeMatchingInfo;
-  CheckLocationForRouting(info);
+  if (m_drapeEngine == nullptr)
+    m_gpsInfoCache = my::make_unique<location::GpsInfo>(info);
 
-  MatchLocationToRoute(info, routeMatchingInfo);
+  auto routeMatchingInfo = GetRouteMatchingInfo(info);
 
-  m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
   if (IsTrackingReporterEnabled())
     m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
+}
+
+location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
+{
+  location::RouteMatchingInfo routeMatchingInfo;
+  CheckLocationForRouting(info);
+  MatchLocationToRoute(info, routeMatchingInfo);
+  return routeMatchingInfo;
 }
 
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
 {
   m_drapeEngine = engine;
+
+  // Apply gps info which was set before drape engine creation.
+  if (m_gpsInfoCache != nullptr)
+  {
+    auto routeMatchingInfo = GetRouteMatchingInfo(*m_gpsInfoCache);
+    m_drapeEngine->SetGpsInfo(*m_gpsInfoCache, m_routingSession.IsNavigable(), routeMatchingInfo);
+    m_gpsInfoCache.reset();
+  }
 
   // In case of the engine reinitialization recover route.
   if (IsRoutingActive())

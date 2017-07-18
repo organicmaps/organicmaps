@@ -163,7 +163,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Inställningar</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Kartlagring</string>
+	<string name="maps_storage">Spara kartor i</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Välj en plats dit kartor ska laddas ner</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -333,7 +333,7 @@
 	<string name="duration_6_hours">6 timmar</string>
 	<string name="duration_12_hours">12 timmar</string>
 	<string name="duration_1_day">1 dag</string>
-	<string name="recent_track_help_text">Obs: aktivering av denna funktion orsakar ökad batterianvändning.</string>
+	<string name="recent_track_help_text">Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.</string>
 	<string name="pref_track_ios_caption">Senaste resväg visar den väg du rest.</string>
 	<string name="pref_track_ios_subcaption">Välj tidsintervall för att spara resvägen.</string>
 	<string name="placepage_distance">Avstånd</string>
@@ -586,6 +586,8 @@
 	<string name="dialog_routing_change_end">Justera destination</string>
 	<string name="dialog_routing_end_not_determined">Ingen väg skapades. Kan inte lokalisera destination.</string>
 	<string name="dialog_routing_select_closer_end">Välj en destinationspunkt närmare en väg.</string>
+	<string name="dialog_routing_change_intermediate">Det går inte att hitta mellanliggande punkt.</string>
+	<string name="dialog_routing_intermediate_not_determined">Justera din mellanliggande punkt.</string>
 	<string name="dialog_routing_system_error">Systemfel</string>
 	<string name="dialog_routing_application_error">Kan inte skapa väg på grund av ett programfel.</string>
 	<string name="dialog_routing_try_again">Försök igen</string>
@@ -788,6 +790,11 @@
 	<string name="onboarding_notifications_title">Aktivera avisering om uppdateringar</string>
 	<string name="onboarding_location_title">Hjälp oss att hitta dig</string>
 	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
+	<string name="onboarding_permissions_title">Ge MAPS.ME åtkomst till lagring och plats</string>
+	<string name="onboarding_permissions_message">Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.</string>
+	<string name="onboarding_welcome_title">Välkommen till MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
+	<string name="onboarding_welcome_second_subtitle">Genom att starta applikationen godkänner du &lt;a href=\"http://legal.my.com/us/maps/tou/\">användningsvillkoren&lt;/a> och &lt;a href=\"https://legal.my.com/us/maps/privacy/\">sekretesspolicyn&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
@@ -940,7 +947,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blogg</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Genom att samla användningsstatistik hjälper du oss att förbättra appen.</string>
+	<string name="allow_statistics_hint">Genom att samla in anonym användningsstatistik kan vi förbättra appen.</string>
 	<string name="general_settings">Allmänna inställningar</string>
 	<string name="date">Datum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -963,6 +970,8 @@
 	<string name="taxi_wait">Förväntas om %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Hittade ingen taxi i närheten</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taxi är inte tillgängligt här</string>
 	<string name="install_app">Installera</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1063,6 +1072,8 @@
 	<string name="whatsnew_smaller_mwm_message">Kartor kräver upp till 20 % mindre lagringsutrymme.</string>
 	<string name="whatsnew_waypoints_title">Vägpunkter i ruttning</string>
 	<string name="whatsnew_waypoints_message">Tryck på platser för att lägga till vägpunkter till din rutt.</string>
+	<string name="whatsnew_viator_title">Boka en tur</string>
+	<string name="whatsnew_viator_message">Välj populära turer i turiststäder över hela världen.</string>
 	<string name="whatsnew_driving_style_title">En ny kartstil när du kör</string>
 	<string name="whatsnew_driving_style_message">Bilens navigeringsläge är lättare att använda.</string>
 	<string name="more_on_bookingcom">Mer på Booking.com</string>
@@ -1091,8 +1102,44 @@
 	<string name="on">På</string>
 	<string name="off">Av</string>
 	<string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">För arabiska, grekiska och rumänska måste du kanske installera ytterligare TTS (eftersom Google TTS inte stödjer dessa språk ännu) från Google Play, som till exempel Vocalizer TTS eller SVOX Classics.\nFör att hantera talsyntesinställningar på din enhet, öppna Inställningar –> Språk och inmatning –> Tal –> Text till tal-uppspelning. Här kan du ladda ned flera språkpaket eller välja den text till tal-motor som du föredrar.</string>
+	<string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
 	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
 	<string name="whatsnew_transliteration_title">Transkribering till latin</string>
 	<string name="whatsnew_transliteration_message">Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.</string>
+	<string name="learn_more">Läs mer</string>
+	<string name="exit">Avsluta</string>
+	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
+	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
+	<string name="onboarding_welcome_message">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">När du startar applikationen godkänner du våra användningsvillkor och sekretesspolicy.</string>
+	<string name="button_accept_and_continue">Godkänn och fortsätt</string>
+	<string name="button_learn_more">Läs mer</string>
+	<string name="onboarding_storage_permissions_title">Bevilja åtkomst</string>
+	<string name="onboarding_storage_permissions_message">Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.</string>
+	<string name="button_exit">Avsluta</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME behöver åtkomst till</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Lagring</string>
+	<string name="onboarding_detail_permissions_storage_message">För att spara och använda nedladdade kartor offline och spara bokmärken.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Plats</string>
+	<string name="onboarding_detail_permissions_location_message">För att visa platser och trafik i närheten och använda navigering.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">Du kan även ändra destination för nedladdade kartor i inställningarna.</string>
+	<string name="settings_device_memory">Enhetens minne</string>
+	<string name="settings_card_memory">Kortets minne</string>
+	<string name="settings_storage_available">%s tillgängligt</string>
+	<string name="toast_location_permission_denied">Behörighet till appens plats nekades</string>
+	<string name="place_page_viator_title">Attraktioner och turer</string>
+	<string name="button_use">Använd</string>
+	<string name="planning_route_manage_route">Hantera rutt</string>
+	<string name="button_plan">Planera</string>
+	<string name="button_add">Lägg till</string>
+	<string name="placepage_remove_stop">Ta bort</string>
+	<string name="planning_route_remove_title">Dra här för att ta bort</string>
+	<string name="dialog_change_start_point_message">Ersätt startpunkt för den aktuella platsen?</string>
+	<string name="button_replace">Ersätt</string>
+	<string name="placepage_add_stop">Lägg till stopp</string>
+	<string name="whatsnew_intermediate_point_title">Ytterligare stopp</string>
+	<string name="whatsnew_intermediate_point_message">Planera rutter med ett uppehåll.</string>
 </resources>

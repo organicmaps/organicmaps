@@ -84,6 +84,7 @@ area[landuse=field],
 {z-index: 41;}
 
 area[natural=wetland],
+area[leisure=marina],
 line[waterway=stream][intermittent=yes]
 {z-index: 42;}
 
@@ -344,6 +345,7 @@ area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z10-[natural=bay],
 area|z11-[natural=wetland],
+area|z11-[leisure=marina],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
@@ -375,6 +377,7 @@ area|z16-[amenity=fountain],
 {fill-color: @water;}
 
 area|z11-[natural=wetland],
+area|z11-[leisure=marina],
 {fill-color: @wetland;}
 
 /* 6.2 Line water(river,canal etc.) */

@@ -162,7 +162,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavenia</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Úložisko máp</string>
+	<string name="maps_storage">Uložiť mapy do</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Vyberte miesto, kam by mali byť mapy sťahované</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -330,7 +330,7 @@
 	<string name="duration_6_hours">6 hodín</string>
 	<string name="duration_12_hours">12 hodín</string>
 	<string name="duration_1_day">1 deň</string>
-	<string name="recent_track_help_text">Upozornenie: aktivovanie tejto funkcie zvyšuje spotrebu energie.</string>
+	<string name="recent_track_help_text">Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.</string>
 	<string name="pref_track_ios_caption">Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.</string>
 	<string name="pref_track_ios_subcaption">Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.</string>
 	<string name="placepage_distance">Vzdialenosť</string>
@@ -585,6 +585,8 @@
 	<string name="dialog_routing_change_end">Nastavte cieľové miesto</string>
 	<string name="dialog_routing_end_not_determined">Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.</string>
 	<string name="dialog_routing_select_closer_end">Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.</string>
+	<string name="dialog_routing_change_intermediate">Zastávku sa nepodarilo nájsť.</string>
+	<string name="dialog_routing_intermediate_not_determined">Upravte zastávku.</string>
 	<string name="dialog_routing_system_error">Systémová chyba</string>
 	<string name="dialog_routing_application_error">Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.</string>
 	<string name="dialog_routing_try_again">Skúste znova, prosím</string>
@@ -787,6 +789,11 @@
 	<string name="onboarding_notifications_title">Povoliť notifikácie aktualizácií</string>
 	<string name="onboarding_location_title">Pomôžte nám a my vás nájdeme</string>
 	<string name="onboarding_location_message">Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.</string>
+	<string name="onboarding_permissions_title">Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe</string>
+	<string name="onboarding_permissions_message">Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.</string>
+	<string name="onboarding_welcome_title">Vitajte v aplikácii MAPS.ME</string>
+	<string name="onboarding_welcome_first_subtitle">Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.</string>
+	<string name="onboarding_welcome_second_subtitle">Spustením aplikácie súhlasíte s &lt;a href=\"http://legal.my.com/us/maps/tou/\"> Podmienkami používania&lt;/a> a &lt;a href=\"https://legal.my.com/us/maps/privacy/\"> Zásadami ochrany osobných údajov&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmeniť polohu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
@@ -939,7 +946,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Zhromažďovanie štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.</string>
+	<string name="allow_statistics_hint">Zhromažďovanie anonymných štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.</string>
 	<string name="general_settings">Všeobecné nastavenia</string>
 	<string name="date">Dátum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -962,6 +969,8 @@
 	<string name="taxi_wait">Očakávaný príjazd o %s</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">V okolí sa nepodarilo nájsť žiaden taxík</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Taxík to nie je k dispozícii</string>
 	<string name="install_app">Nainštalovať</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
@@ -1062,6 +1071,8 @@
 	<string name="whatsnew_smaller_mwm_message">Mapy Maps vyžadujú až o 20% menej ukladacieho priestoru.</string>
 	<string name="whatsnew_waypoints_title">Trasovanie cez určené body</string>
 	<string name="whatsnew_waypoints_message">Ťuknite na miesta, ak chcete do trasy pridať body.</string>
+	<string name="whatsnew_viator_title">Rezervovať prehliadku</string>
+	<string name="whatsnew_viator_message">Vyberte si obľúbené prehliadky po turistických mestách po celom svete.</string>
 	<string name="whatsnew_driving_style_title">Nový štýl máp pre jazdu</string>
 	<string name="whatsnew_driving_style_message">Režim navigácie v aute sa zjednodušil.</string>
 	<string name="more_on_bookingcom">Viac na Booking.com</string>
@@ -1090,8 +1101,44 @@
 	<string name="on">Zap.</string>
 	<string name="off">Vyp.</string>
 	<string name="prefs_languages_information">Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Pre arabčinu, gréčtinu a rumunčinu bude potrebné z obchodu Google Play nainštalovať dodatočné TTS (keďže Google tieto jazyky ešte nepodporuje) ako Vocalizer TTS alebo SVOX Classics. Ak chcete nastaviť nastavenia na syntézu reči, otvorte v zariadení Nastavenia -> Jazyk a vstup -> Reč -> Výstup textu na reč. Tam si môžete prevziať dodatočný jazykový balík alebo si vybrať preferovaný systém prevodu textu na reč.</string>
+	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Samsung Apps). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
 	<string name="whatsnew_transliteration_title">Prepis do latinčiny</string>
 	<string name="whatsnew_transliteration_message">Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.</string>
+	<string name="learn_more">Zistiť viac</string>
+	<string name="exit">Ukončiť</string>
+	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
+	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
+	<string name="onboarding_welcome_message">Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.</string>
+	<string name="button_accept_and_continue">Prijať a pokračovať</string>
+	<string name="button_learn_more">Zistiť viac</string>
+	<string name="onboarding_storage_permissions_title">Prideliť prístup</string>
+	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.</string>
+	<string name="button_exit">Ukončiť</string>
+	<string name="onboarding_detail_permissions_title">Aplikácia MAPS.ME si vyžaduje prístup k</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Ukladací priestor</string>
+	<string name="onboarding_detail_permissions_storage_message">Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Poloha</string>
+	<string name="onboarding_detail_permissions_location_message">Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.</string>
+	<string name="settings_device_memory">Pamäť zariadenia</string>
+	<string name="settings_card_memory">Pamäť na karte</string>
+	<string name="settings_storage_available">K dispozícii %s</string>
+	<string name="toast_location_permission_denied">Zamietnutý prístup aplikácie k lokalite</string>
+	<string name="place_page_viator_title">Atrakcie a prehliadky</string>
+	<string name="button_use">Použiť</string>
+	<string name="planning_route_manage_route">Spravovať trasu</string>
+	<string name="button_plan">Naplánovať</string>
+	<string name="button_add">Pridať</string>
+	<string name="placepage_remove_stop">Odstrániť</string>
+	<string name="planning_route_remove_title">Presunutím sem odstránite</string>
+	<string name="dialog_change_start_point_message">Nahradiť štart na aktuálnou polohou?</string>
+	<string name="button_replace">Nahradiť</string>
+	<string name="placepage_add_stop">Pridať zastávku</string>
+	<string name="whatsnew_intermediate_point_title">Ďalšie zastávky</string>
+	<string name="whatsnew_intermediate_point_message">Naplánujte si trasu s zastávkou.</string>
 </resources>

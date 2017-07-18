@@ -2,8 +2,6 @@ package com.mapswithme.maps;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
@@ -35,6 +33,8 @@ import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -58,8 +58,9 @@ public class MwmApplication extends Application
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
 
-  private boolean mIsFrameworkInitialized;
-  private boolean mIsPlatformInitialized;
+  private boolean mFrameworkInitialized;
+  private boolean mPlatformInitialized;
+  private boolean mCrashlyticsInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -168,9 +169,14 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
   }
 
-  public void initNativePlatform()
+  public void initPlatformAndCore(){
+    initNativePlatform();
+    initNativeCore();
+  }
+
+  private void initNativePlatform()
   {
-    if (mIsPlatformInitialized)
+    if (mPlatformInitialized)
       return;
 
     final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
@@ -181,14 +187,14 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
     String tempPath = getTempPath();
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
-    new File(settingsPath).mkdirs();
-    new File(tempPath).mkdirs();
+    createPlatformDirectories(settingsPath, tempPath);
 
     // First we need initialize paths and platform to have access to settings and other components.
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
+    @SuppressWarnings("unused")
     Statistics s = Statistics.INSTANCE;
 
     if (!isInstallationIdFound)
@@ -197,12 +203,35 @@ public class MwmApplication extends Application
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
     Editor.init();
-    mIsPlatformInitialized = true;
+    mPlatformInitialized = true;
   }
 
-  public void initNativeCore()
+  private void createPlatformDirectories(@NonNull String settingsPath, @NonNull String tempPath)
   {
-    if (mIsFrameworkInitialized)
+    createPlatformDirectory(settingsPath);
+    createPlatformDirectory(tempPath);
+  }
+
+  private void createPlatformDirectory(@NonNull String path)
+  {
+    File directory = new File(path);
+    if (!directory.exists() && !directory.mkdirs())
+    {
+      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted();
+      Throwable error = new IllegalStateException("Can't create directories for: " + path
+                                                  + " state = " + Environment.getExternalStorageState()
+                                                  + " isPermissionGranted = " + isPermissionGranted);
+      LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE)
+                            .e(TAG, "Can't create directories for: " + path
+                                    + " state = " + Environment.getExternalStorageState()
+                                    + " isPermissionGranted = " + isPermissionGranted);
+      CrashlyticsUtils.logException(error);
+    }
+  }
+
+  private void initNativeCore()
+  {
+    if (mFrameworkInitialized)
       return;
 
     nativeInitFramework();
@@ -216,7 +245,7 @@ public class MwmApplication extends Application
     LocationHelper.INSTANCE.initialize();
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
-    mIsFrameworkInitialized = true;
+    mFrameworkInitialized = true;
   }
 
   private void initNativeStrings()
@@ -245,14 +274,24 @@ public class MwmApplication extends Application
     nativeAddLocalization("place_page_booking_rating", getString(R.string.place_page_booking_rating));
   }
 
-  private void initCrashlytics()
+  public void initCrashlytics()
   {
     if (!isCrashlyticsEnabled())
+      return;
+
+    if (isCrashlyticsInitialized())
       return;
 
     Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 
     nativeInitCrashlytics();
+
+    mCrashlyticsInitialized = true;
+  }
+
+  public boolean isCrashlyticsInitialized()
+  {
+    return mCrashlyticsInitialized;
   }
 
   private static boolean setInstallationIdToCrashlytics()
@@ -270,13 +309,9 @@ public class MwmApplication extends Application
     return true;
   }
 
-  public boolean isFrameworkInitialized()
+  public boolean arePlatformAndCoreInitialized()
   {
-    return mIsFrameworkInitialized;
-  }
-  public boolean isPlatformInitialized()
-  {
-    return mIsPlatformInitialized;
+    return mFrameworkInitialized && mPlatformInitialized;
   }
 
   public String getApkPath()

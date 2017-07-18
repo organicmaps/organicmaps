@@ -271,10 +271,10 @@ LocalAdsManager & Framework::GetLocalAdsManager()
   return m_localAdsManager;
 }
 
-void Framework::OnUserPositionChanged(m2::PointD const & position)
+void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   MyPositionMarkPoint * myPosition = UserMarkContainer::UserMarkForMyPostion();
-  myPosition->SetUserPosition(position);
+  myPosition->SetUserPosition(position, hasPosition);
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -922,7 +922,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   {
     info.m_sponsoredType = SponsoredType::Viator;
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId, info.GetDefaultName());
+    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId);
     info.m_isPreviewExtended = true;
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
@@ -1931,9 +1931,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       OnTapEvent({tapInfo, TapEvent::Source::User});
     });
   });
-  m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position)
+  m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position, bool hasPosition)
   {
-    GetPlatform().RunOnGuiThread([this, position](){ OnUserPositionChanged(position); });
+    GetPlatform().RunOnGuiThread([this, position, hasPosition](){
+      OnUserPositionChanged(position, hasPosition);
+    });
   });
 
   OnSize(params.m_surfaceWidth, params.m_surfaceHeight);
@@ -2350,7 +2352,6 @@ void Framework::InvalidateUserMarks()
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
   {
     UserMarkControllerGuard guard(m_bmManager, types[typeIndex]);
-    guard.m_controller.Update();
   }
 }
 
@@ -2521,10 +2522,18 @@ UserMark const * Framework::FindUserMarkInTapPosition(m2::PointD const & pt) con
   double const pxHeight = touchRadius + bmAddition;
   m_currentModelView.GetTouchRect(pt + m2::PointD(0, bmAddition),
                                   pxWidth, pxHeight, bmSearchRect);
+
+  m2::AnyRectD routingRect;
+  m_currentModelView.GetTouchRect(pt, touchRadius + bmAddition, routingRect);
+
   UserMark const * mark = m_bmManager.FindNearestUserMark(
-    [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
+    [&rect, &bmSearchRect, &routingRect](UserMarkType type) -> m2::AnyRectD const &
     {
-      return (type == UserMarkType::BOOKMARK_MARK ? bmSearchRect : rect);
+      if (type == UserMarkType::BOOKMARK_MARK)
+        return bmSearchRect;
+      if (type == UserMarkType::ROUTING_MARK)
+        return routingRect;
+      return rect;
     });
   return mark;
 }

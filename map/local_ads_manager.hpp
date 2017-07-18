@@ -110,14 +110,15 @@ private:
   struct BackoffStats
   {
     BackoffStats() = default;
-    BackoffStats(Timestamp lastDownloading, std::chrono::seconds currentTimeout,
+    BackoffStats(std::chrono::steady_clock::time_point lastDownloading,
+                 std::chrono::seconds currentTimeout,
                  uint8_t attemptsCount)
       : m_lastDownloading(lastDownloading)
       , m_currentTimeout(currentTimeout)
       , m_attemptsCount(attemptsCount)
     {}
 
-    Timestamp m_lastDownloading = {};
+    std::chrono::steady_clock::time_point m_lastDownloading = {};
     std::chrono::seconds m_currentTimeout = std::chrono::seconds(0);
     uint8_t m_attemptsCount = 0;
   };

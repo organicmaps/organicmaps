@@ -471,7 +471,7 @@ public:
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
 private:
-  void OnUserPositionChanged(m2::PointD const & position);
+  void OnUserPositionChanged(m2::PointD const & position, bool hasPosition);
   //@}
 
 public:

@@ -1136,6 +1136,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit | gl_const::GLStencilBit);
 
   Render2dLayer(modelView);
+  RenderUserLinesLayer(modelView);
 
   if (m_buildingsFramebuffer->IsSupported())
   {
@@ -1285,12 +1286,27 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView)
 {
+  auto & renderGroups = m_layers[RenderLayer::UserMarkID].m_renderGroups;
+  if (renderGroups.empty())
+    return;
+
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
-  RenderLayer & userMarks = m_layers[RenderLayer::UserMarkID];
-  for (drape_ptr<RenderGroup> & group : userMarks.m_renderGroups)
+  for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
   GLFunctions::glDisable(gl_const::GLDepthTest);
+}
+
+void FrontendRenderer::RenderUserLinesLayer(ScreenBase const & modelView)
+{
+  auto & renderGroups = m_layers[RenderLayer::UserLineID].m_renderGroups;
+  if (renderGroups.empty())
+    return;
+
+  GLFunctions::glClear(gl_const::GLDepthBit);
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  for (drape_ptr<RenderGroup> & group : renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -1811,7 +1827,7 @@ void FrontendRenderer::Routine::Do()
 
     isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
-    isActiveFrame |= m_renderer.m_routeRenderer->UpdatePreview(modelView);
+    m_renderer.m_routeRenderer->UpdatePreview(modelView);
 
     m_renderer.RenderScene(modelView);
 
@@ -1907,9 +1923,9 @@ void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)
     CancelMessageWaiting();
 }
 
-void FrontendRenderer::PositionChanged(m2::PointD const & position)
+void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
-  m_userPositionChangedFn(position);
+  m_userPositionChangedFn(position, hasPosition);
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
@@ -2032,9 +2048,11 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
 {
   if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
     return OverlayID;
-  else if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
+  if (state.GetDepthLayer() == dp::GLState::UserMarkLayer)
     return UserMarkID;
-  else if (state.GetDepthLayer() == dp::GLState::NavigationLayer)
+  if (state.GetDepthLayer() == dp::GLState::UserLineLayer)
+    return UserLineID;
+  if (state.GetDepthLayer() == dp::GLState::NavigationLayer)
     return NavigationID;
 
   if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||

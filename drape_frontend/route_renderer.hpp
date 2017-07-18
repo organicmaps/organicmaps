@@ -53,7 +53,7 @@ public:
   void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
                             ref_ptr<dp::GpuProgramManager> mng);
 
-  bool UpdatePreview(ScreenBase const & screen);
+  void UpdatePreview(ScreenBase const & screen);
 
   void Clear();
   void ClearRouteData();

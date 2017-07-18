@@ -167,7 +167,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Haritaları depolama</string>
+	<string name="maps_storage">Haritaları kaydet</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -337,7 +337,7 @@
 	<string name="duration_6_hours">6 saat</string>
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
-	<string name="recent_track_help_text">Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.</string>
+	<string name="recent_track_help_text">Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.</string>
 	<string name="pref_track_ios_caption">En son yol seyahat ettiğiniz yolları gösterir.</string>
 	<string name="pref_track_ios_subcaption">Lütfen kaydedilecek yol süresini seçin.</string>
 	<string name="placepage_distance">Mesafe</string>
@@ -425,7 +425,7 @@
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Mevcut</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">sıraya alındı</string>
+	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini indir</string>
@@ -588,6 +588,8 @@
 	<string name="dialog_routing_change_end">Hedefinizi ayarlayın</string>
 	<string name="dialog_routing_end_not_determined">Güzergah oluşturulamadı. Hedef belirlenemiyor.</string>
 	<string name="dialog_routing_select_closer_end">Lütfen yola daha yakın bir hedef noktası seçin.</string>
+	<string name="dialog_routing_change_intermediate">Ara nokta bulunamadı.</string>
+	<string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
 	<string name="dialog_routing_system_error">Sistem hatası</string>
 	<string name="dialog_routing_application_error">Uygulama hatası nedeniyle güzergah oluşturulamadı.</string>
 	<string name="dialog_routing_try_again">Lütfen daha sonra tekrar deneyin</string>
@@ -790,6 +792,11 @@
 	<string name="onboarding_notifications_title">Güncelleme bildirimlerini etkinleştir</string>
 	<string name="onboarding_location_title">Sizi bulmamıza yardım edin</string>
 	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
+	<string name="onboarding_permissions_title">MAPS.ME\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
+	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
+	<string name="onboarding_welcome_title">MAPS.ME\'ye Hoş Geldiniz</string>
+	<string name="onboarding_welcome_first_subtitle">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
+	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak &lt;a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Koşullarını&lt;/a> ve &lt;a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını&lt;/a> kabul etmiş sayılırsınız.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
@@ -942,7 +949,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.</string>
+	<string name="allow_statistics_hint">Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.</string>
 	<string name="general_settings">Genel ayarlar</string>
 	<string name="date">Tarih %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -965,6 +972,8 @@
 	<string name="taxi_wait">%s içinde bekleniyor</string>
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Yakın hiç taksi bulunamadı</string>
+	<!-- When there are no available taxi providers nearby -->
+	<string name="taxi_no_providers">Bu bölgede hiç taksi yok</string>
 	<string name="install_app">Kur</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filtre</string>
@@ -1065,6 +1074,8 @@
 	<string name="whatsnew_smaller_mwm_message">Artık haritalar %20\'ye kadar daha az depolama alanı gerektiriyor.</string>
 	<string name="whatsnew_waypoints_title">Güzergâhtaki Yol Noktaları</string>
 	<string name="whatsnew_waypoints_message">Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.</string>
+	<string name="whatsnew_viator_title">Tur rezervasyonu</string>
+	<string name="whatsnew_viator_message">Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.</string>
 	<string name="whatsnew_driving_style_title">Sürüş İçin Yeni Harita Stili</string>
 	<string name="whatsnew_driving_style_message">Araç navigasyon modunu kullanmak şimdi çok daha kolay.</string>
 	<string name="more_on_bookingcom">Booking.com hakkında daha fazla</string>
@@ -1093,8 +1104,44 @@
 	<string name="on">Aç</string>
 	<string name="off">Kapat</string>
 	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor, Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off">Arapça, Yunanca ve Rumence dilleri için Google Play\'den Vocalizer TTS veya SVOX Classics gibi ek TTS (Google TTS, henüz bu dilleri desteklememektedir) uygulamalarını yüklemeniz gerekebilir. Ses sentezi ayarlarını yönetmek için cihazınızda Ayarlar -> Dil ve giriş -> Konuşma -> Konuşmayı metne dönüştür seçeneklerini etkinleştirin. Buradan, ek dil paketini indirebilir veya tercih ettiğiniz metin okuma motorunu seçebilirsiniz.</string>
+	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
 	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>
+	<string name="learn_more">Daha fazla bilgi edinin</string>
+	<string name="exit">Çık</string>
+	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
+	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin</string>
+	<string name="onboarding_welcome_message">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Uygulamayı başlatarak, Kullanım Şartları\'nı ve Gizlilik Politikası\'nı kabul etmiş sayılırsınız.</string>
+	<string name="button_accept_and_continue">Kabul et ve devam et</string>
+	<string name="button_learn_more">Daha fazla bilgi edinin</string>
+	<string name="onboarding_storage_permissions_title">Erişime izin ver</string>
+	<string name="onboarding_storage_permissions_message">Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME\'yi kullanmak için depolama alanına erişim izni gerekiyor.</string>
+	<string name="button_exit">Çık</string>
+	<string name="onboarding_detail_permissions_title">MAPS.ME\'nin şuraya erişmesi gerekiyor:</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_storage_title">Depolama Alanı</string>
+	<string name="onboarding_detail_permissions_storage_message">İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.</string>
+	<!-- Default permission's name from Android settings. -->
+	<string name="onboarding_detail_permissions_location_title">Konum</string>
+	<string name="onboarding_detail_permissions_location_message">Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.</string>
+	<string name="onboarding_detail_permissions_storage_path_message">İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.</string>
+	<string name="settings_device_memory">Cihaz belleği</string>
+	<string name="settings_card_memory">Kart belleği</string>
+	<string name="settings_storage_available">%s kullanılabilir</string>
+	<string name="toast_location_permission_denied">Uygulamanın konum bilgilerine erişim isteği reddedildi</string>
+	<string name="place_page_viator_title">Geziler ve turlar</string>
+	<string name="button_use">Kullan</string>
+	<string name="planning_route_manage_route">Güzergâhı yönet</string>
+	<string name="button_plan">Plan</string>
+	<string name="button_add">Ekle</string>
+	<string name="placepage_remove_stop">Kaldır</string>
+	<string name="planning_route_remove_title">Kaldırmak için buraya sürükleyin</string>
+	<string name="dialog_change_start_point_message">Başlangıç noktası mevcut konumla değiştirilsin mi?</string>
+	<string name="button_replace">Değiştir</string>
+	<string name="placepage_add_stop">Ara nokta ekle</string>
+	<string name="whatsnew_intermediate_point_title">Ek ara nokta</string>
+	<string name="whatsnew_intermediate_point_message">Güzergâhlarınızı ara noktalarla planlayın.</string>
 </resources>

@@ -259,4 +259,16 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   return MWMOpenGLDriverMetal;
 }
 
+- (BOOL)canMakeCalls
+{
+  if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone)
+    return NO;
+  NSURL * telURL = [NSURL URLWithString:@"tel://"];
+  if (![[UIApplication sharedApplication] canOpenURL:telURL])
+    return NO;
+  NSString * networkCode =
+      [[CTTelephonyNetworkInfo alloc] init].subscriberCellularProvider.mobileNetworkCode;
+  return networkCode != nil && networkCode.length > 0 && ![networkCode isEqualToString:@"65535"];
+}
+
 @end

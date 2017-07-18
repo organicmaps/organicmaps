@@ -7,13 +7,12 @@ namespace
 CGFloat const kPlacePageWidth = 360;
 CGFloat const kLeftOffset = 12;
 CGFloat const kTopOffset = 36;
-CGFloat const kBottomOffset = 60;
+CGFloat const kBottomOffset = 36;
 }  // namespace
 
 @interface MWMiPadPlacePageLayoutImpl ()<UITableViewDelegate>
 
-@property(nonatomic) CGFloat topBound;
-@property(nonatomic) CGFloat leftBound;
+@property(nonatomic) CGRect availableArea;
 
 @end
 
@@ -32,6 +31,7 @@ CGFloat const kBottomOffset = 60;
   if (self)
   {
     _ownerView = ownerView;
+    _availableArea = ownerView.frame;
     self.placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
@@ -67,6 +67,8 @@ CGFloat const kBottomOffset = 60;
     actionBar.alpha = 1;
     ppView.minX = self.leftBound;
   });
+
+  [self.delegate onExpanded];
 }
 
 - (void)onClose
@@ -84,67 +86,45 @@ CGFloat const kBottomOffset = 60;
       });
 }
 
-- (void)onScreenResize:(CGSize const &)size
+- (void)updateAvailableArea:(CGRect)frame
 {
-  [self layoutPlacePage:self.placePageView.tableView.contentSize.height onScreen:size.height];
-}
-
-- (void)onUpdatePlacePageWithHeight:(CGFloat)height
-{
-  [self layoutPlacePage:height onScreen:self.ownerView.height];
-}
-
-- (void)setInitialTopBound:(CGFloat)topBound leftBound:(CGFloat)leftBound
-{
-  self.topBound = topBound;
-  self.leftBound = leftBound;
-}
-
-- (void)updateLayoutWithTopBound:(CGFloat)topBound
-{
-  self.topBound = topBound;
-  [self layoutPlacePage:self.placePageView.tableView.contentSize.height onScreen:self.ownerView.height];
-}
-
-- (void)updateLayoutWithLeftBound:(CGFloat)leftBound
-{
-  self.leftBound = leftBound;
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
+  self.availableArea = frame;
+  [self updateContentLayout];
   place_page_layout::animate(^{
     self.placePageView.minX = self.leftBound;
   });
 }
 
-- (void)layoutPlacePage:(CGFloat)placePageHeight onScreen:(CGFloat)screenHeight
+- (void)updateContentLayout
 {
-  BOOL const isPlacePageWithinScreen = [self isPlacePage:placePageHeight withinScreen:screenHeight];
   auto ppView = self.placePageView;
-
-  place_page_layout::animate(^{
-    ppView.minY = self.topBound;
-  });
+  CGFloat const placePageHeight = ppView.tableView.contentSize.height;
+  CGFloat const screenHeight = self.availableArea.size.height;
 
   ppView.height = [self actualPlacePageViewHeightWithPlacePageHeight:placePageHeight
                                                         screenHeight:screenHeight];
 
-  if (!ppView.tableView.scrollEnabled && !isPlacePageWithinScreen)
-    ppView.tableView.scrollEnabled = YES;
+  place_page_layout::animate(^{
+    ppView.minY = self.topBound;
+  });
 }
 
 - (CGFloat)actualPlacePageViewHeightWithPlacePageHeight:(CGFloat)placePageHeight
                                            screenHeight:(CGFloat)screenHeight
 {
   auto ppView = self.placePageView;
-  if ([self isPlacePage:placePageHeight withinScreen:screenHeight])
-    return placePageHeight + ppView.top.height;
-
-  return screenHeight - kBottomOffset - self.topBound + (ppView.tableView.scrollEnabled ?
-                                                         self.actionBar.height : 0);
+  BOOL const isPlacePageWithinScreen = [self isPlacePage:placePageHeight withinScreen:screenHeight];
+  ppView.tableView.scrollEnabled = !isPlacePageWithinScreen;
+  return isPlacePageWithinScreen ? placePageHeight + ppView.top.height
+                                 : screenHeight - kBottomOffset - kTopOffset;
 }
 
 - (BOOL)isPlacePage:(CGFloat)placePageHeight withinScreen:(CGFloat)screenHeight
 {
   auto const placePageFullHeight = placePageHeight;
-  auto const availableSpace = screenHeight - self.topBound - kBottomOffset;
+  auto const availableSpace = screenHeight - kTopOffset - kBottomOffset;
   return availableSpace > placePageFullHeight;
 }
 
@@ -182,8 +162,8 @@ CGFloat const kBottomOffset = 60;
 
 #pragma mark - Top and left bound
 
-- (CGFloat)topBound { return _topBound + kTopOffset; }
-- (CGFloat)leftBound { return _leftBound + kLeftOffset; }
+- (CGFloat)topBound { return self.availableArea.origin.y + kTopOffset; }
+- (CGFloat)leftBound { return self.availableArea.origin.x + kLeftOffset; }
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
