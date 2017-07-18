@@ -2,12 +2,12 @@ project(openlr)
 
 set(
   SRC
+  decoded_path.cpp
+  decoded_path.hpp
   openlr_model.cpp
   openlr_model.hpp
   openlr_model_xml.cpp
   openlr_model_xml.hpp
-  openlr_sample.cpp
-  openlr_sample.hpp
   openlr_simple_decoder.cpp
   openlr_simple_decoder.hpp
   road_info_getter.cpp

@@ -13,3 +13,4 @@ SOURCES += \
 HEADERS += \
     src/pugiconfig.hpp \
     src/pugixml.hpp \
+    src/utils.hpp \

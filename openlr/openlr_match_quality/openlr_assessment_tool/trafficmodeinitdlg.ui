@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>130</height>
+    <width>482</width>
+    <height>122</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Select traffic files</string>
@@ -22,48 +28,14 @@
      <x>20</x>
      <y>10</y>
      <width>441</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="3">
-     <widget class="QPushButton" name="chooseSampleFileButton">
+    <item row="1" column="2">
+     <widget class="QPushButton" name="cancelButton">
       <property name="text">
-       <string>Choose...</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="dataLabel">
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Traffic data:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <widget class="QLineEdit" name="dataFileName"/>
-    </item>
-    <item row="2" column="1" colspan="2">
-     <widget class="QLineEdit" name="sampleFileName">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QPushButton" name="okButton">
-      <property name="text">
-       <string>Ok</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Traffic sample:</string>
+       <string>Cancel</string>
       </property>
      </widget>
     </item>
@@ -74,10 +46,23 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="cancelButton">
+    <item row="1" column="3">
+     <widget class="QPushButton" name="okButton">
       <property name="text">
-       <string>Cancel</string>
+       <string>Ok</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QLineEdit" name="dataFileName"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="dataLabel">
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Data file:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -87,8 +72,6 @@
  <tabstops>
   <tabstop>dataFileName</tabstop>
   <tabstop>chooseDataFileButton</tabstop>
-  <tabstop>sampleFileName</tabstop>
-  <tabstop>chooseSampleFileButton</tabstop>
  </tabstops>
  <resources/>
  <connections>

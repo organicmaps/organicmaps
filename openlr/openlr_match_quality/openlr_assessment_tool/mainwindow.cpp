@@ -22,8 +22,6 @@
 
 namespace
 {
-// TODO(mgsergio): Consider getting rid of this class: just put everything
-// in TrafficMode.
 class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
 {
 public:
@@ -38,10 +36,9 @@ public:
     m_framework.SetViewportCenter(center);
   }
 
-  void DrawDecodedSegments(DecodedSample const & sample, int const sampleIndex) override
+  void DrawDecodedSegments(std::vector<m2::PointD> const & points) override
   {
-    CHECK(!sample.GetItems().empty(), ("Sample must not be empty."));
-    auto const & points = sample.GetPoints(sampleIndex);
+    CHECK(!points.empty(), ("Points must not be empty."));
 
     LOG(LINFO, ("Decoded segment", points));
     m_drapeApi.AddLine(NextLineId(),
@@ -49,10 +46,8 @@ public:
                        .Width(3.0f).ShowPoints(true /* markPoints */));
   }
 
-  void DrawEncodedSegment(openlr::LinearSegment const & segment) override
+  void DrawEncodedSegment(std::vector<m2::PointD> const & points) override
   {
-    auto const & points = segment.GetMercatorPoints();
-
     LOG(LINFO, ("Encoded segment", points));
     m_drapeApi.AddLine(NextLineId(),
                        df::DrapeApiLineData(points, dp::Color(255, 0, 0, 255))
@@ -102,14 +97,14 @@ MainWindow::MainWindow(Framework & framework)
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
 }
 
-void MainWindow::CreateTrafficPanel(string const & dataFilePath, string const & sampleFilePath)
+void MainWindow::CreateTrafficPanel(string const & dataFilePath)
 {
+  m_trafficMode = new TrafficMode(dataFilePath, m_framework.GetIndex(),
+                                  make_unique<TrafficDrawerDelegate>(m_framework));
+
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);
 
-  m_trafficMode = new TrafficMode(dataFilePath, sampleFilePath,
-                                  m_framework.GetIndex(),
-                                  make_unique<TrafficDrawerDelegate>(m_framework));
   m_docWidget->setWidget(new TrafficPanel(m_trafficMode, m_docWidget));
 
   m_docWidget->adjustSize();
@@ -133,7 +128,17 @@ void MainWindow::OnOpenTrafficSample()
   if (dlg.result() != QDialog::DialogCode::Accepted)
     return;
 
-  CreateTrafficPanel(dlg.GetDataFilePath(), dlg.GetSampleFilePath());
+  try
+  {
+    CreateTrafficPanel(dlg.GetDataFilePath());
+  }
+  catch (TrafficModeError const & e)
+  {
+    QMessageBox::critical(this, "Data loading error", QString("Can't load data file."));
+    LOG(LERROR, (e.Msg()));
+    return;
+  }
+
   m_closeTrafficSampleAction->setEnabled(true /* enabled */);
   m_saveTrafficSampleAction->setEnabled(true /* enabled */);
 }

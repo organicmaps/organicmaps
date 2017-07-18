@@ -19,7 +19,6 @@ public:
   ~TrafficModeInitDlg();
 
   std::string GetDataFilePath() const { return m_dataFileName; }
-  std::string GetSampleFilePath() const { return m_sampleFileName; }
 
 private:
   void SetFilePathViaDialog(QLineEdit & dest, QString const & title,
@@ -31,5 +30,4 @@ private:
   Ui::TrafficModeInitDlg * m_ui;
 
   std::string m_dataFileName;
-  std::string m_sampleFileName;
 };

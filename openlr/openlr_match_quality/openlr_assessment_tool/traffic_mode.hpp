@@ -2,29 +2,44 @@
 
 #include "indexer/feature.hpp"
 
+#include "openlr/decoded_path.hpp"
 #include "openlr/openlr_model.hpp"
-#include "openlr/openlr_sample.hpp"
 
+#include "base/exception.hpp"
+
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <unordered_map>
 
-#include <QtCore/QAbstractTableModel>
+#include <boost/optional.hpp>
+
+#include <QAbstractTableModel>
 
 class Index;
 class QItemSelection;
+class Selection;
 
-struct DecodedSample
+DECLARE_EXCEPTION(TrafficModeError, RootException);
+
+class SegmentCorrespondence
 {
-  DecodedSample(Index const & index, openlr::SamplePool const & sample);
+public:
+  boost::optional<openlr::Path> const & GetMatchedPath() const { return m_matchedPath; }
+  boost::optional<openlr::Path> & GetMatchedPath() { return m_matchedPath; }
 
-  bool Empty() const { return m_decodedItems.empty(); }
+  boost::optional<openlr::Path> const & GetFakePath() const { return m_fakePath; }
+  boost::optional<openlr::Path> & GetFakePath() { return m_fakePath; }
 
-  openlr::SamplePool const & GetItems() const { return m_decodedItems; }
-  std::vector<m2::PointD> GetPoints(size_t const index) const;
+  openlr::LinearSegment const & GetPartnerSegment() const { return m_partnerSegment; }
+  openlr::LinearSegment & GetPartnerSegment() { return m_partnerSegment; }
 
-  std::map<FeatureID, std::vector<m2::PointD>> m_points;
-  std::vector<openlr::SampleItem> m_decodedItems;
+  uint32_t GetPartnerSegmentId() const { return m_partnerSegment.m_segmentId; }
+
+private:
+  openlr::LinearSegment m_partnerSegment;
+  boost::optional<openlr::Path> m_matchedPath;
+  boost::optional<openlr::Path> m_fakePath;
 };
 
 /// This class is used to delegate segments drawing to the DrapeEngine.
@@ -35,8 +50,8 @@ public:
 
   virtual void SetViewportCenter(m2::PointD const & center) = 0;
 
-  virtual void DrawDecodedSegments(DecodedSample const & sample, int sampleIndex) = 0;
-  virtual void DrawEncodedSegment(openlr::LinearSegment const & segment) = 0;
+  virtual void DrawDecodedSegments(std::vector<m2::PointD> const & points) = 0;
+  virtual void DrawEncodedSegment(std::vector<m2::PointD> const & points) = 0;
   virtual void Clear() = 0;
 };
 
@@ -47,12 +62,12 @@ class TrafficMode : public QAbstractTableModel
   Q_OBJECT
 
 public:
-  TrafficMode(std::string const & dataFileName, std::string const & sampleFileName,
-              Index const & index, std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
+  // TODO(mgsergio): Check we are on the right mwm. I.E. right mwm version an everything.
+  TrafficMode(std::string const & dataFileName, Index const & index,
+              std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
               QObject * parent = Q_NULLPTR);
 
   bool SaveSampleAs(std::string const & fileName) const;
-  bool IsValid() const { return m_valid; }
 
   int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
   int columnCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
@@ -62,16 +77,13 @@ public:
   //                     int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
   Qt::ItemFlags flags(QModelIndex const & index) const Q_DECL_OVERRIDE;
-  bool setData(QModelIndex const & index, QVariant const & value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 
 public slots:
   void OnItemSelected(QItemSelection const & selected, QItemSelection const &);
 
 private:
-  std::unique_ptr<DecodedSample> m_decodedSample;
-  std::unordered_map<decltype(openlr::LinearSegment::m_segmentId), openlr::LinearSegment> m_partnerSegments;
+  Index const & m_index;
+  std::vector<SegmentCorrespondence> m_segments;
 
   std::unique_ptr<TrafficDrawerDelegateBase> m_drawerDelegate;
-
-  bool m_valid = false;
 };

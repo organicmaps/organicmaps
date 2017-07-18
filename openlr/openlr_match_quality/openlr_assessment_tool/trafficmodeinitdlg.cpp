@@ -7,8 +7,7 @@
 
 namespace
 {
-string const kDataFilePath = "LastTrafficDataFilePath";
-string const kSampleFilePath = "LastTrafficSampleFilePath";
+string const kDataFilePath = "LastOpenlrAssessmentDataFilePath";
 }  // namespace
 
 TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
@@ -18,19 +17,11 @@ TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
   m_ui->setupUi(this);
 
   string lastDataFilePath;
-  string lastSampleFilePath;
   if (settings::Get(kDataFilePath, lastDataFilePath))
       m_ui->dataFileName->setText(QString::fromStdString(lastDataFilePath));
-  if (settings::Get(kSampleFilePath, lastSampleFilePath))
-    m_ui->sampleFileName->setText(QString::fromStdString(lastSampleFilePath));
 
-  connect(m_ui->chooseDataFileButton, &QPushButton::clicked, [this](bool)
-  {
-    SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose traffic data file"), "*.xml");
-  });
-  connect(m_ui->chooseSampleFileButton, &QPushButton::clicked, [this](bool)
-  {
-    SetFilePathViaDialog(*m_ui->sampleFileName, tr("Choose traffic sample file"));
+  connect(m_ui->chooseDataFileButton, &QPushButton::clicked, [this](bool) {
+    SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose data file"), "*.xml");
   });
 }
 
@@ -42,11 +33,7 @@ TrafficModeInitDlg::~TrafficModeInitDlg()
 void TrafficModeInitDlg::accept()
 {
   m_dataFileName = m_ui->dataFileName->text().trimmed().toStdString();
-  m_sampleFileName = m_ui->sampleFileName->text().trimmed().toStdString();
-
   settings::Set(kDataFilePath, m_dataFileName);
-  settings::Set(kSampleFilePath, m_sampleFileName);
-
   QDialog::accept();
 }
 

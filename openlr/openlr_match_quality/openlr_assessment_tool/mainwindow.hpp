@@ -26,7 +26,7 @@ public:
   MainWindow(Framework & framework);
 
 private:
-  void CreateTrafficPanel(std::string const & dataFilePath, std::string const & sampleFilePath);
+  void CreateTrafficPanel(std::string const & dataFilePath);
   void DestroyTrafficPanel();
 
   void OnOpenTrafficSample();

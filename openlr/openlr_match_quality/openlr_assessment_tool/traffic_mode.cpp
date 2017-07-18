@@ -5,140 +5,87 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-#include <QtCore/QItemSelection>
+#include <QItemSelection>
 
-
-// DecodedSample -----------------------------------------------------------------------------------
-DecodedSample::DecodedSample(Index const & index, openlr::SamplePool const & sample)
+namespace
 {
-  for (auto const & item : sample)
-  {
-    m_decodedItems.push_back(item);
-    for (auto const & mwmSegment : item.m_segments)
-    {
-      auto const & fid = mwmSegment.m_fid;
-      Index::FeaturesLoaderGuard g(index, fid.m_mwmId);
-      CHECK(fid.m_mwmId.IsAlive(), ("Mwm id is not alive."));
-      if (m_points.find(fid) != end(m_points))
-        continue;
-
-      FeatureType ft;
-      CHECK(g.GetFeatureByIndex(fid.m_index, ft), ("Can't read feature", fid));
-      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-      auto & v = m_points[fid];
-      v.reserve(ft.GetPointsCount());
-      ft.ForEachPoint(MakeBackInsertFunctor(v), scales::GetUpperScale());
-    }
-  }
+std::vector<m2::PointD> GetPoints(openlr::LinearSegment const & segment)
+{
+  std::vector<m2::PointD> result;
+  for (auto const & lrp : segment.m_locationReference.m_points)
+    result.push_back(MercatorBounds::FromLatLon(lrp.m_latLon));
+  return result;
 }
-
-std::vector<m2::PointD> DecodedSample::GetPoints(size_t const index) const
-{
-  std::vector<m2::PointD> points;
-
-  auto const pushPoint = [&points](m2::PointD const & p)
-  {
-    if (points.empty() || !(points.back() - p).IsAlmostZero())
-      points.push_back(p);
-  };
-
-  auto const & item = m_decodedItems[index];
-  for (auto const & seg : item.m_segments)
-  {
-    auto const ftIt = m_points.find(seg.m_fid);
-    CHECK(ftIt != end(m_points), ("Can't find feature with id:", seg.m_fid));
-    auto const & ftPoints = ftIt->second;
-    CHECK_LESS(seg.m_segId + 1, ftPoints.size(), ());
-    auto const firstP = ftPoints[seg.m_segId];
-    auto const secondP = ftPoints[seg.m_segId + 1];
-    if (seg.m_isForward)
-    {
-      pushPoint(firstP);
-      pushPoint(secondP);
-    }
-    else
-    {
-      pushPoint(secondP);
-      pushPoint(firstP);
-    }
-  }
-
-  return points;
 }
 
 // TrafficMode -------------------------------------------------------------------------------------
-TrafficMode::TrafficMode(std::string const & dataFileName, std::string const & sampleFileName,
-                         Index const & index, std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
+TrafficMode::TrafficMode(std::string const & dataFileName, Index const & index,
+                         std::unique_ptr<TrafficDrawerDelegateBase> drawerDelagate,
                          QObject * parent)
-  : QAbstractTableModel(parent)
-  , m_drawerDelegate(move(drawerDelagate))
+  : QAbstractTableModel(parent), m_index(index), m_drawerDelegate(move(drawerDelagate))
 {
-  try
-  {
-    auto const & sample = openlr::LoadSamplePool(sampleFileName, index);
-    LOG(LINFO, ("Samples parsed:", sample.size()));
-    m_decodedSample = make_unique<DecodedSample>(index, sample);
-    LOG(LINFO, (m_decodedSample->GetItems().size(), "samples are loaded"));
-  }
-  catch (openlr::SamplePoolLoadError const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    return;
-  }
-
+  // TODO(mgsergio): Collect stat how many segments of each kind were parsed.
   pugi::xml_document doc;
   if (!doc.load_file(dataFileName.data()))
+    MYTHROW(TrafficModeError, ("Can't load file:", strerror(errno)));
+
+  // Select all Segment elements that are direct children of the context node.
+  auto const segments = doc.select_nodes("./Segment");
+
+  try
   {
-    LOG(LERROR, ("Can't load file:", dataFileName));
-    return;
+    for (auto const xpathNode : segments)
+    {
+      m_segments.emplace_back();
+
+      auto const xmlSegment = xpathNode.node();
+      auto & segment = m_segments.back();
+
+      // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
+      if (!openlr::SegmentFromXML(xmlSegment.child("reportSegments"), segment.GetPartnerSegment()))
+        MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
+
+      if (auto const route = xmlSegment.child("Route"))
+      {
+        auto & path = segment.GetMatchedPath();
+        path.emplace();
+        openlr::PathFromXML(route, m_index, *path);
+      }
+
+      if (auto const route = xmlSegment.child("FakeRoute"))
+      {
+        auto & path = segment.GetFakePath();
+        path.emplace();
+        openlr::PathFromXML(route, m_index, *path);
+      }
+    }
+  }
+  catch (openlr::DecodedPathLoadError const & e)
+  {
+    MYTHROW(TrafficModeError, ("An exception occured while parsing", dataFileName, e.Msg()));
   }
 
-  std::vector<openlr::LinearSegment> segments;
-  if (!ParseOpenlr(doc, segments))
-  {
-    LOG(LERROR, ("Can't parse data:", dataFileName));
-    return;
-  }
-  for (auto const & segment : segments)
-  {
-    CHECK(!segment.m_locationReference.m_points.empty(), ());
-    m_partnerSegments[segment.m_segmentId] = segment;
-  }
-  LOG(LINFO, (m_partnerSegments.size(), "segments are loaded"));
-  m_valid = true;
+  // TODO(mgsergio): LOG(LINFO, (xxx, "segments are loaded"));
 }
 
 bool TrafficMode::SaveSampleAs(std::string const & fileName) const
 {
-  try
-  {
-    auto const & samplePool = m_decodedSample->GetItems();
-    openlr::SaveSamplePool(fileName, samplePool, true /* saveEvaluation */);
-  }
-  catch (openlr::SamplePoolSaveError const & e)
-  {
-    LOG(LERROR, (e.Msg()));
-    return false;
-  }
+  // TODO(mgsergio): Remove #include "base/macros.hpp" when implemented;
+  NOTIMPLEMENTED();
   return true;
 }
 
 int TrafficMode::rowCount(const QModelIndex & parent) const
 {
-  if (!m_decodedSample)
-    return 0;
-  return static_cast<int>(m_decodedSample->m_decodedItems.size());
+  return static_cast<int>(m_segments.size());
 }
 
-int TrafficMode::columnCount(const QModelIndex & parent) const
-{
-  return 2;
-}
+int TrafficMode::columnCount(const QModelIndex & parent) const { return 1; }
 
 QVariant TrafficMode::data(const QModelIndex & index, int role) const
 {
@@ -152,10 +99,7 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
     return QVariant();
 
   if (index.column() == 0)
-    return ToString(m_decodedSample->m_decodedItems[index.row()].m_evaluation).data();
-
-  if (index.column() == 1)
-    return m_decodedSample->m_decodedItems[index.row()].m_partnerSegmentId.Get();
+    return m_segments[index.row()].GetPartnerSegmentId();
 
   return QVariant();
 }
@@ -163,37 +107,26 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
 void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection const &)
 {
   CHECK(!selected.empty(), ("The selection should not be empty. RTFM for qt5."));
-  CHECK(!m_decodedSample->Empty(), ("No samples are loaded, can't select."));
+  CHECK(!m_segments.empty(), ("No segments are loaded, can't select."));
 
   auto const row = selected.front().top();
 
   // TODO(mgsergio): Use algo for center calculation.
   // Now viewport is set to the first point of the first segment.
-  CHECK_LESS(row, m_decodedSample->m_decodedItems.size(), ());
-  auto & sampleItem = m_decodedSample->m_decodedItems[row];
-  auto const partnerSegmentId = sampleItem.m_partnerSegmentId;
-  LOG(LINFO, ("Partner segment id:", partnerSegmentId));
+  CHECK_LESS(row, m_segments.size(), ());
+  auto & segment = m_segments[row];
+  auto const partnerSegmentId = segment.GetPartnerSegmentId();
 
-  if (sampleItem.m_segments.empty())
-  {
-    LOG(LERROR, ("Empty mwm segments for partner id", partnerSegmentId.Get()));
-    return;
-  }
+  // TODO(mgsergio): Maybe we shold show empty paths.
+  CHECK(segment.GetMatchedPath(), ("Empty mwm segments for partner id", partnerSegmentId));
 
-  auto const & firstSegment = sampleItem.m_segments[0];
-  auto const & firstSegmentFeatureId = firstSegment.m_fid;
-  auto const & firstSegmentFeature = m_decodedSample->m_points.at(firstSegmentFeatureId);
-
-  LOG(LDEBUG, ("PartnerSegmentId:", partnerSegmentId.Get(),
-               "Segment points:", m_partnerSegments[partnerSegmentId.Get()].GetMercatorPoints(),
-               "Featrue segment id", firstSegment.m_segId,
-               "Feature segment points", firstSegmentFeature[firstSegment.m_segId],
-                                         firstSegmentFeature[firstSegment.m_segId + 1]));
+  auto const & path = *segment.GetMatchedPath();
+  auto const & firstEdge = path.front();
 
   m_drawerDelegate->Clear();
-  m_drawerDelegate->SetViewportCenter(firstSegmentFeature[firstSegment.m_segId]);
-  m_drawerDelegate->DrawEncodedSegment(m_partnerSegments.at(partnerSegmentId.Get()));
-  m_drawerDelegate->DrawDecodedSegments(*m_decodedSample, row);
+  m_drawerDelegate->SetViewportCenter(GetStart(firstEdge));
+  m_drawerDelegate->DrawEncodedSegment(GetPoints(segment.GetPartnerSegment()));
+  m_drawerDelegate->DrawDecodedSegments(GetPoints(path));
 }
 
 Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
@@ -201,23 +134,5 @@ Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
   if (!index.isValid())
     return Qt::ItemIsEnabled;
 
-  if (index.column() != 0)
-    QAbstractItemModel::flags(index);
-
-  return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
-}
-
-bool TrafficMode::setData(QModelIndex const & index, QVariant const & value, int const role)
-{
-  if (!index.isValid() || role != Qt::EditRole)
-    return false;
-
-  auto const newValue = value.toString();
-  auto evaluation = openlr::ParseItemEvaluation(newValue.toStdString());
-  if (evaluation == openlr::ItemEvaluation::NotAValue)
-    return false;
-
-  m_decodedSample->m_decodedItems[index.row()].m_evaluation = evaluation;
-  emit dataChanged(index, index);
-  return true;
+  return QAbstractItemModel::flags(index);
 }

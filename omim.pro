@@ -88,7 +88,7 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     qt.depends = $$SUBDIRS qt_common
 
     SUBDIRS *= benchmark_tool mapshot qt qt_common
-    }
+  }
 
   CONFIG(desktop) {
     # Desktop-only support library, used in tests and search quality tools.

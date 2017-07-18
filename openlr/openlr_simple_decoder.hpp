@@ -2,7 +2,7 @@
 
 #include "base/exception.hpp"
 
-#include "3party/pugixml/src/pugixml.hpp"
+#include <routing/road_graph.hpp>
 
 #include <cstdint>
 #include <string>
@@ -14,6 +14,7 @@ class Index;
 namespace openlr
 {
 struct LinearSegment;
+struct DecodedPath;
 
 DECLARE_EXCEPTION(DecoderError, RootException);
 
@@ -33,15 +34,13 @@ public:
     bool const m_multipointsOnly;
   };
 
-  static int const kHandleAllSegments;
+  OpenLRSimpleDecoder(std::vector<Index> const & indexes);
 
-  OpenLRSimpleDecoder(std::string const & dataFilename, std::vector<Index> const & indexes);
-
-  void Decode(std::string const & outputFilename, std::string const & nonMatchedIdsFilename,
-              int segmentsToHandle, SegmentsFilter const & filter, uint32_t numThreads);
+  // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
+  void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
+              std::vector<DecodedPath> & paths);
 
 private:
   std::vector<Index> const & m_indexes;
-  pugi::xml_document m_document;
 };
 }  // namespace openlr
