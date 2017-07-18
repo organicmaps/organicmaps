@@ -78,7 +78,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
 @property(nonatomic) IBOutletCollection(UIButton) NSArray * searchButtons;
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchButtonsSideSize;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsSideSize;
 @property(weak, nonatomic) IBOutlet MWMButton * searchGasButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchParkingButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
@@ -345,8 +345,7 @@ BOOL defaultOrientation(CGSize const & size)
       defaultView ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
   for (NSLayoutConstraint * constraint in self.searchLandscapeConstraints)
     constraint.priority = priority;
-  for (NSLayoutConstraint * constraint in self.searchButtonsSideSize)
-    constraint.constant = searchButtonsSideSize;
+  self.searchButtonsSideSize.constant = searchButtonsSideSize;
 }
 
 #pragma mark - MWMLocationObserver
