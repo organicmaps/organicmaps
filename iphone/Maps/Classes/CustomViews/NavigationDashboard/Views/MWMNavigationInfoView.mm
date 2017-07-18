@@ -359,15 +359,17 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info
 {
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
-    return;
-
-  CGFloat const angle =
-      ang::AngleTo(lastLocation.mercator,
-                   location_helpers::ToMercator(self.navigationInfo.pedestrianDirectionPosition)) +
-      info.m_bearing;
-  self.nextTurnImageView.layer.transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
+  auto transform = CATransform3DIdentity;
+  auto lastLocation = [MWMLocationManager lastLocation];
+  if (lastLocation && self.state == MWMNavigationInfoViewStateNavigation &&
+      [MWMRouter type] == MWMRouterTypePedestrian)
+  {
+    auto const mercator =
+        location_helpers::ToMercator(self.navigationInfo.pedestrianDirectionPosition);
+    auto const angle = ang::AngleTo(lastLocation.mercator, mercator) + info.m_bearing;
+    transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
+  }
+  self.nextTurnImageView.layer.transform = transform;
 }
 
 #pragma mark - SolidTouchView
