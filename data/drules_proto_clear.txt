@@ -64773,6 +64773,17 @@ colors {
     color: 15086900
   }
   value {
+    name: "RouteMarkPrimaryText"
+  }
+  value {
+    name: "RouteMarkPrimaryTextOutline"
+    color: 16777215
+  }
+  value {
+    name: "RouteTrafficG3"
+    color: 4294960384
+  }
+  value {
     name: "Arrow3DShadow"
     color: 3258727484
   }
@@ -64788,12 +64799,15 @@ colors {
     color: 352205
   }
   value {
+    name: "RouteMarkSecondaryText"
+  }
+  value {
     name: "TrackPlaneSpeed"
     color: 11057133
   }
   value {
-    name: "TrackCarSpeed"
-    color: 8163038
+    name: "TrafficG0"
+    color: 8263442
   }
   value {
     name: "RoutePreview"
@@ -64816,8 +64830,8 @@ colors {
     color: 14951168
   }
   value {
-    name: "TrafficG0"
-    color: 8263442
+    name: "TrackCarSpeed"
+    color: 8163038
   }
   value {
     name: "TrafficTempBlock"
@@ -64859,8 +64873,8 @@ colors {
     color: 10167040
   }
   value {
-    name: "RouteTrafficG3"
-    color: 4294960384
+    name: "RouteMarkSecondaryTextOutline"
+    color: 16777215
   }
   value {
     name: "RouteTrafficG2"
