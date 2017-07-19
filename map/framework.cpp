@@ -816,15 +816,12 @@ bool Framework::DeleteBmCategory(size_t index)
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
-  FillPointInfo(bmk.GetPivot(), string(), info);
-
-  info.m_bac = bac;
+  info.SetBac(bac);
   BookmarkCategory * cat = GetBmCategory(bac.m_categoryIndex);
-  info.m_bookmarkCategoryName = cat->GetName();
+  info.SetBookmarkCategoryName(cat->GetName());
   BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
-  info.m_bookmarkTitle = data.GetName();
-  info.m_bookmarkColorName = data.GetType();
-  info.m_bookmarkDescription = data.GetDescription();
+  info.SetBookmarkData(data);
+  FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
@@ -859,10 +856,13 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   {
     size_t const level = isState ? 1 : 0;
     TCountriesVec countries;
-    info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    GetStorage().GetTopmostNodesFor(info.m_countryId, countries, level);
+    TCountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+    GetStorage().GetTopmostNodesFor(countryId, countries, level);
     if (countries.size() == 1)
-      info.m_countryId = countries.front();
+      countryId = countries.front();
+
+    info.SetCountryId(countryId);
+    info.SetTopmostCountryIds(countries);
   }
 }
 
@@ -875,8 +875,10 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   }
   else
   {
-    info.m_customName = customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
-    info.m_canEditOrAdd = CanEditMap();
+    auto const customName =
+        customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
+    info.SetCustomName(customName);
+    info.SetCanEditOrAdd(CanEditMap());
   }
 
   // This line overwrites mercator center from area feature which can be far away.
@@ -896,81 +898,82 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   feature::TypesHolder buildingHolder;
   buildingHolder.Assign(classif().GetTypeByPath({"building"}));
 
-  info.SetFromFeatureType(ft);
+  info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
+  info.SetLocalizedRatingString(m_stringsBundle.GetString("place_page_booking_rating"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
-    info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
+    info.SetAddress(GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet());
+
+  info.SetFromFeatureType(ft);
 
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
     ASSERT(m_bookingApi, ());
-    info.m_sponsoredType = SponsoredType::Booking;
+    info.SetSponsoredType(SponsoredType::Booking);
     auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
     auto const & hotelId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.m_sponsoredUrl = m_bookingApi->GetBookHotelUrl(baseUrl);
-    info.m_sponsoredDescriptionUrl = m_bookingApi->GetDescriptionUrl(baseUrl);
-    info.m_sponsoredReviewUrl = m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl);
+    info.SetSponsoredUrl(m_bookingApi->GetBookHotelUrl(baseUrl));
+    info.SetSponsoredDescriptionUrl(m_bookingApi->GetDescriptionUrl(baseUrl));
+    info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
   }
   else if (ftypes::IsOpentableChecker::Instance()(ft))
   {
-    info.m_sponsoredType = SponsoredType::Opentable;
+    info.SetSponsoredType(SponsoredType::Opentable);
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
     auto const & url = opentable::Api::GetBookTableUrl(sponsoredId);
-    info.m_sponsoredUrl = url;
-    info.m_sponsoredDescriptionUrl = url;
+    info.SetSponsoredUrl(url);
+    info.SetSponsoredDescriptionUrl(url);
   }
   else if (ftypes::IsViatorChecker::Instance()(ft))
   {
-    info.m_sponsoredType = SponsoredType::Viator;
+    info.SetSponsoredType(SponsoredType::Viator);
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.m_sponsoredUrl = viator::Api::GetCityUrl(sponsoredId);
-    info.m_isPreviewExtended = true;
+    info.SetSponsoredDescriptionUrl(viator::Api::GetCityUrl(sponsoredId));
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
-    info.m_bookingSearchUrl = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
-    LOG(LINFO, (info.m_bookingSearchUrl));
+    auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
+    info.SetBookingSearchUrl(url);
+    LOG(LINFO, (url));
   }
   else if (cian::Api::IsCitySupported(city) &&
            (buildingHolder.Equals({ft}) || ftypes::IsPublicTransportStopChecker::Instance()(ft)))
   {
-    info.m_sponsoredType = SponsoredType::Cian;
-    info.m_isPreviewExtended = true;
+    info.SetSponsoredType(SponsoredType::Cian);
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
-  info.m_canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
-                        !info.IsNotEditableSponsored() && isMapVersionEditable;
-
-  info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
-  info.m_localizedRatingString = m_stringsBundle.GetString("place_page_booking_rating");
+  bool const canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
+                            !info.IsNotEditableSponsored() && isMapVersionEditable;
+  info.SetCanEditOrAdd(canEditOrAdd);
 
   if (m_localAdsManager.IsSupportedType(info.GetTypes()))
   {
-    info.m_localAdsUrl = m_localAdsManager.GetCompanyUrl(ft.GetID());
-    info.m_localAdsStatus = m_localAdsManager.Contains(ft.GetID())
-                                ? place_page::LocalAdsStatus::Customer
-                                : place_page::LocalAdsStatus::Candidate;
+    info.SetLocalAdsUrl(m_localAdsManager.GetCompanyUrl(ft.GetID()));
+    auto const status = m_localAdsManager.Contains(ft.GetID())
+                            ? place_page::LocalAdsStatus::Customer
+                            : place_page::LocalAdsStatus::Candidate;
+    info.SetLocalAdsStatus(status);
   }
   else
   {
-    info.m_localAdsStatus = place_page::LocalAdsStatus::NotAvailable;
+    info.SetLocalAdsStatus(place_page::LocalAdsStatus::NotAvailable);
   }
 
   auto const latlon = MercatorBounds::ToLatLon(feature::GetCenter(ft));
   ASSERT(m_taxiEngine, ());
-  info.m_reachableByProviders = m_taxiEngine->GetProvidersAtPos(latlon);
+  info.SetReachableByTaxiProviders(m_taxiEngine->GetProvidersAtPos(latlon));
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
-  FillPointInfo(api.GetPivot(), "", info);
+  FillPointInfo(api.GetPivot(), {} /* customTitle */, info);
   string const & name = api.GetName();
   if (!name.empty())
-    info.m_customName = name;
-  info.m_apiId = api.GetID();
-  info.m_apiUrl = GenerateApiBackUrl(api);
+    info.SetCustomName(name);
+  info.SetApiId(api.GetID());
+  info.SetApiUrl(GenerateApiBackUrl(api));
 }
 
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
@@ -986,25 +989,25 @@ void Framework::FillMyPositionInfo(place_page::Info & info, m2::PointD const & p
   double lat, lon;
   VERIFY(GetCurrentPosition(lat, lon), ());
   info.SetMercator(MercatorBounds::FromLatLon(lat, lon));
-  info.m_isMyPosition = true;
-  info.m_customName = m_stringsBundle.GetString("my_position");
+  info.SetIsMyPosition();
+  info.SetCustomName(m_stringsBundle.GetString("my_position"));
 
   UserMark const * mark = FindUserMarkInTapPosition(pt);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
   {
     RouteMarkPoint const * routingMark = static_cast<RouteMarkPoint const *>(mark);
-    info.m_isRoutePoint = true;
-    info.m_routeMarkType = routingMark->GetRoutePointType();
-    info.m_intermediateIndex = routingMark->GetIntermediateIndex();
+    info.SetIsRoutePoint();
+    info.SetRouteMarkType(routingMark->GetRoutePointType());
+    info.SetIntermediateIndex(routingMark->GetIntermediateIndex());
   }
 }
 
 void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const
 {
-  FillPointInfo(rmp.GetPivot(), "", info);
-  info.m_isRoutePoint = true;
-  info.m_routeMarkType = rmp.GetRoutePointType();
-  info.m_intermediateIndex = rmp.GetIntermediateIndex();
+  FillPointInfo(rmp.GetPivot(), {} /* customTitle */, info);
+  info.SetIsRoutePoint();
+  info.SetRouteMarkType(rmp.GetRoutePointType());
+  info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
@@ -2361,8 +2364,12 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
   place_page::Info info;
 
   df::SelectionShape::ESelectedObject const obj = OnTapEventImpl(*m_lastTapEvent, info);
-  info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-  GetStorage().GetTopmostNodesFor(info.m_countryId, info.m_topmostCountryIds);
+  TCountryId const countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+  TCountriesVec countries;
+  GetStorage().GetTopmostNodesFor(countryId, countries);
+
+  info.SetCountryId(countryId);
+  info.SetTopmostCountryIds(countries);
   if (obj != df::SelectionShape::OBJECT_EMPTY)
     ActivateMapSelection(false, obj, info);
 }
@@ -2409,13 +2416,16 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv, alohalytics::Location::FromLatLon(ll.lat, ll.lon));
 
-      if (info.m_sponsoredType == SponsoredType::Booking)
+      if (info.GetSponsoredType() == SponsoredType::Booking)
         GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook, {{"provider", "booking.com"}});
     }
 
-    if (info.m_countryId.empty())
-      info.m_countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    GetStorage().GetTopmostNodesFor(info.m_countryId, info.m_topmostCountryIds);
+    if (info.GetCountryId().empty())
+      info.SetCountryId(m_infoGetter->GetRegionCountryId(info.GetMercator()));
+
+    TCountriesVec countries;
+    GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
+    info.SetTopmostCountryIds(countries);
 
     ActivateMapSelection(true, selection, info);
   }
@@ -2479,7 +2489,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     return df::SelectionShape::OBJECT_MY_POSITION;
   }
 
-  outInfo.m_adsEngine = m_adsEngine.get();
+  outInfo.SetAdsEngine(m_adsEngine.get());
 
   UserMark const * mark = FindUserMarkInTapPosition(pxPoint2d);
   if (mark)
@@ -2517,7 +2527,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   }
   else if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
   {
-    FillPointInfo(m_currentModelView.PtoG(pxPoint2d), "", outInfo);
+    FillPointInfo(m_currentModelView.PtoG(pxPoint2d), {} /* customTitle */, outInfo);
     showMapSelection = true;
   }
 

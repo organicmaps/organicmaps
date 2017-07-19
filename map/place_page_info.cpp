@@ -20,20 +20,135 @@ char const * const Info::kEmptyRatingSymbol = "-";
 char const * const Info::kPricingSymbol = "$";
 char const * const kWheelchairSymbol = u8"\u267F";
 
-bool Info::IsFeature() const { return m_featureID.IsValid(); }
-bool Info::IsBookmark() const { return m_bac.IsValid(); }
-bool Info::IsMyPosition() const { return m_isMyPosition; }
-bool Info::IsRoutePoint() const { return m_isRoutePoint; }
-bool Info::IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
-bool Info::IsNotEditableSponsored() const { return m_sponsoredType == SponsoredType::Booking; }
-
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
   return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
 }
 
-bool Info::ShouldShowAddBusiness() const { return m_canEditOrAdd && IsBuilding(); }
+void Info::SetFromFeatureType(FeatureType const & ft)
+{
+  MapObject::SetFromFeatureType(ft);
+  std::string primaryName;
+  std::string secondaryName;
+  GetPrefferedNames(primaryName, secondaryName);
+  if (IsBookmark())
+  {
+    m_uiTitle = m_bookmarkData.GetName();
+
+    std::string secondary;
+    if (m_customName.empty())
+      secondary = primaryName.empty() ? secondaryName : primaryName;
+    else
+      secondary = m_customName;
+
+    if (m_uiTitle != secondary)
+      m_uiSecondaryTitle = secondary;
+
+    m_uiSubtitle = FormatSubtitle(true /* withType */);
+    m_uiAddress = m_address;
+  }
+  else if (!primaryName.empty())
+  {
+    m_uiTitle = primaryName;
+    m_uiSecondaryTitle = secondaryName;
+    m_uiSubtitle = FormatSubtitle(true /* withType */);
+    m_uiAddress = m_address;
+  }
+  else if (!secondaryName.empty())
+  {
+    m_uiTitle = secondaryName;
+    m_uiSubtitle = FormatSubtitle(true /* withType */);
+    m_uiAddress = m_address;
+  }
+  else if (IsBuilding())
+  {
+    bool const isAddressEmpty = m_address.empty();
+    m_uiTitle = isAddressEmpty ? GetLocalizedType() : m_address;
+    m_uiSubtitle = FormatSubtitle(!isAddressEmpty /* withType */);
+  }
+  else
+  {
+    m_uiTitle = GetLocalizedType();
+    m_uiSubtitle = FormatSubtitle(false /* withType */);
+    m_uiAddress = m_address;
+  }
+}
+
+string Info::FormatSubtitle(bool withType) const
+{
+  std::vector<std::string> subtitle;
+
+  if (IsBookmark())
+    subtitle.push_back(m_bookmarkCategoryName);
+
+  if (withType)
+    subtitle.push_back(GetLocalizedType());
+  // Flats.
+  string const flats = GetFlats();
+  if (!flats.empty())
+    subtitle.push_back(flats);
+
+  // Cuisines.
+  for (string const & cuisine : GetLocalizedCuisines())
+    subtitle.push_back(cuisine);
+
+  // Stars.
+  string const stars = FormatStars();
+  if (!stars.empty())
+    subtitle.push_back(stars);
+
+  // Operator.
+  string const op = GetOperator();
+  if (!op.empty())
+    subtitle.push_back(op);
+
+  // Elevation.
+  string const eleStr = GetElevationFormatted();
+  if (!eleStr.empty())
+    subtitle.push_back(kMountainSymbol + eleStr);
+  if (HasWifi())
+    subtitle.push_back(m_localizedWifiString);
+
+  // Wheelchair
+  if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
+    subtitle.push_back(kWheelchairSymbol);
+
+  return strings::JoinStrings(subtitle, kSubtitleSeparator);
+}
+
+void Info::GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const
+{
+  auto const mwmInfo = GetID().m_mwmId.GetInfo();
+  if (mwmInfo)
+  {
+    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang,
+                               true /* allowTranslit */, primaryName, secondaryName);
+  }
+}
+
+void Info::SetCustomName(std::string const & name)
+{
+  if (IsBookmark())
+  {
+    m_uiTitle = GetBookmarkData().GetName();
+    m_uiSubtitle = m_bookmarkCategoryName;
+  }
+  else
+  {
+    m_uiTitle = name;
+  }
+
+  m_customName = name;
+}
+
+void Info::SetBac(BookmarkAndCategory const & bac)
+{
+  m_bac = bac;
+  if (!bac.IsValid())
+    m_uiSubtitle = FormatSubtitle(true /* withType */);
+}
 
 bool Info::ShouldShowEditPlace() const
 {
@@ -42,101 +157,12 @@ bool Info::ShouldShowEditPlace() const
          !IsMyPosition() && IsFeature();
 }
 
-bool Info::ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_types); }
-bool Info::ShouldShowUGCRating() const { return ftraits::UGC::IsRatingAvailable(m_types); }
-bool Info::ShouldShowUGCReviews() const { return ftraits::UGC::IsReviewsAvailable(m_types); }
-bool Info::ShouldShowUGCDetails() const { return ftraits::UGC::IsDetailsAvailable(m_types); }
-bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
-bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
-
 string Info::FormatNewBookmarkName() const
 {
   string const title = GetTitle();
   if (title.empty())
     return GetLocalizedType();
   return title;
-}
-
-string Info::GetTitle() const
-{
-  if (!m_customName.empty())
-    return m_customName;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  string primaryName;
-  if (mwmInfo)
-  {
-    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    string secondaryName;
-    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, primaryName, secondaryName);
-  }
-  return primaryName;
-}
-
-string Info::GetSecondaryTitle() const
-{
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-
-  string secondaryName;
-  if (mwmInfo)
-  {
-    auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    string primaryName;
-    feature::GetPreferredNames(mwmInfo->GetRegionData(), m_name, deviceLang, true /* allowTranslit */, primaryName, secondaryName);
-  }
-  return secondaryName;
-}
-
-string Info::GetSubtitle() const
-{
-  if (!IsFeature())
-  {
-    if (IsBookmark())
-      return m_bookmarkCategoryName;
-    return {};
-  }
-
-  vector<string> values;
-
-  // Bookmark category.
-  if (IsBookmark())
-    values.push_back(m_bookmarkCategoryName);
-
-  // Type.
-  values.push_back(GetLocalizedType());
-
-  // Flats.
-  string const flats = GetFlats();
-  if (!flats.empty())
-    values.push_back(flats);
-
-  // Cuisines.
-  for (string const & cuisine : GetLocalizedCuisines())
-    values.push_back(cuisine);
-
-  // Stars.
-  string const stars = FormatStars();
-  if (!stars.empty())
-    values.push_back(stars);
-
-  // Operator.
-  string const op = GetOperator();
-  if (!op.empty())
-    values.push_back(op);
-
-  // Elevation.
-  string const eleStr = GetElevationFormatted();
-  if (!eleStr.empty())
-    values.push_back(kMountainSymbol + eleStr);
-  if (HasWifi())
-    values.push_back(m_localizedWifiString);
-
-  // Wheelchair
-  if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
-    values.push_back(kWheelchairSymbol);
-
-  return strings::JoinStrings(values, kSubtitleSeparator);
 }
 
 string Info::FormatStars() const
@@ -153,14 +179,6 @@ string Info::GetFormattedCoordinate(bool isDMS) const
   return isDMS ? measurement_utils::FormatLatLon(ll.lat, ll.lon, true)
                : measurement_utils::FormatLatLonAsDMS(ll.lat, ll.lon, 2);
 }
-
-string Info::GetCustomName() const { return m_customName; }
-BookmarkAndCategory Info::GetBookmarkAndCategory() const { return m_bac; }
-string Info::GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
-string const & Info::GetApiUrl() const { return m_apiUrl; }
-string const & Info::GetSponsoredUrl() const { return m_sponsoredUrl; }
-string const & Info::GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
-string const & Info::GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
 
 string Info::GetRatingFormatted() const
 {
@@ -218,16 +236,4 @@ vector<ads::Banner> Info::GetBanners() const
 
   return m_adsEngine->GetBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
-
-std::vector<taxi::Provider::Type> const & Info::ReachableByTaxiProviders() const
-{
-  return m_reachableByProviders;
-}
-
-void Info::SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
-vector<string> Info::GetRawTypes() const { return m_types.ToObjectNames(); }
-string const & Info::GetBookingSearchUrl() const { return m_bookingSearchUrl; }
-LocalAdsStatus Info::GetLocalAdsStatus() const { return m_localAdsStatus; }
-string const & Info::GetLocalAdsUrl() const { return m_localAdsUrl; }
-bool Info::IsPreviewExtended() const { return m_isPreviewExtended; }
 }  // namespace place_page

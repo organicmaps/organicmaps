@@ -231,12 +231,12 @@ void initFieldsMap()
 
 - (place_page::Info const &)info { return m_info; }
 - (FeatureID const &)featureID { return m_info.GetID(); }
-- (storage::TCountryId const &)countryId { return m_info.m_countryId; }
+- (storage::TCountryId const &)countryId { return m_info.GetCountryId(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
 - (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.m_sponsoredType == place_page::SponsoredType::Booking; }
-- (BOOL)isOpentable { return m_info.m_sponsoredType == place_page::SponsoredType::Opentable; }
+- (BOOL)isBooking { return m_info.GetSponsoredType() == place_page::SponsoredType::Booking; }
+- (BOOL)isOpentable { return m_info.GetSponsoredType() == place_page::SponsoredType::Opentable; }
 - (BOOL)isSponsored { return m_info.IsSponsored(); }
 - (NSString *)sponsoredId
 {
@@ -260,7 +260,7 @@ void initFieldsMap()
 
 #pragma mark - Bookmark editing
 
-- (void)setBac:(BookmarkAndCategory)bac { m_info.m_bac = bac; }
+- (void)setBac:(BookmarkAndCategory)bac { m_info.SetBac(bac); }
 - (BookmarkAndCategory)bac { return m_info.GetBookmarkAndCategory(); }
 - (NSString *)bookmarkCategory
 {

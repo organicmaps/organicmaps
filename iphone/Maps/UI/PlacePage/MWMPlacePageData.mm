@@ -422,7 +422,7 @@ using namespace place_page;
     }
     category->SaveToKMLFile();
 
-    m_info.m_bac = {};
+    m_info.SetBac({});
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
   }
 }
@@ -440,7 +440,7 @@ using namespace place_page;
 
 #pragma mark - Getters
 
-- (storage::TCountryId const &)countryId { return m_info.m_countryId; }
+- (storage::TCountryId const &)countryId { return m_info.GetCountryId(); }
 - (FeatureID const &)featureId { return m_info.GetID(); }
 - (NSString *)title { return @(m_info.GetTitle().c_str()); }
 - (NSString *)subtitle { return @(m_info.GetSubtitle().c_str()); }
@@ -620,34 +620,27 @@ using namespace place_page;
 
 - (NSString *)externalTitle
 {
-  if (m_info.IsBookmark() && m_info.m_bookmarkTitle != m_info.GetTitle())
-    return @(m_info.m_bookmarkTitle.c_str());
-
-  auto const secondaryTitle = m_info.GetSecondaryTitle();
-  if (!secondaryTitle.empty())
-    return @(secondaryTitle.c_str());
-
-  return nil;
+  return m_info.GetSecondaryTitle().empty() ? nil : @(m_info.GetSecondaryTitle().c_str());
 }
 
 - (NSString *)bookmarkColor
 {
-  return m_info.IsBookmark() ? @(m_info.m_bookmarkColorName.c_str()) : nil;
+  return m_info.IsBookmark() ? @(m_info.GetBookmarkData().GetType().c_str()) : nil;
 }
 
 - (NSString *)bookmarkDescription
 {
-  return m_info.IsBookmark() ? @(m_info.m_bookmarkDescription.c_str()) : nil;
+  return m_info.IsBookmark() ? @(m_info.GetBookmarkData().GetDescription().c_str()) : nil;
 }
 
 - (NSString *)bookmarkCategory
 {
-  return m_info.IsBookmark() ? @(m_info.m_bookmarkCategoryName.c_str()) : nil;
+  return m_info.IsBookmark() ? @(m_info.GetBookmarkCategoryName().c_str()) : nil;
 }
 
 - (BookmarkAndCategory)bac;
 {
-  return m_info.IsBookmark() ? m_info.m_bac : BookmarkAndCategory();
+  return m_info.IsBookmark() ? m_info.GetBookmarkAndCategory() : BookmarkAndCategory();
 }
 
 #pragma mark - Local Ads
@@ -677,8 +670,8 @@ using namespace place_page;
 
 #pragma mark - Getters
 
-- (RouteMarkType)routeMarkType { return m_info.m_routeMarkType; }
-- (int8_t)intermediateIndex { return m_info.m_intermediateIndex; }
+- (RouteMarkType)routeMarkType { return m_info.GetRouteMarkType(); }
+- (int8_t)intermediateIndex { return m_info.GetIntermediateIndex(); }
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }
@@ -722,12 +715,12 @@ using namespace place_page;
 - (NSString *)phoneNumber { return @(m_info.GetPhone().c_str()); }
 - (BOOL)isBookmark { return m_info.IsBookmark(); }
 - (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.m_sponsoredType == SponsoredType::Booking; }
-- (BOOL)isOpentable { return m_info.m_sponsoredType == SponsoredType::Opentable; }
-- (BOOL)isViator { return m_info.m_sponsoredType == SponsoredType::Viator; }
+- (BOOL)isBooking { return m_info.GetSponsoredType() == SponsoredType::Booking; }
+- (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
+- (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
-- (BOOL)isHTMLDescription { return strings::IsHTML(m_info.m_bookmarkDescription); }
+- (BOOL)isHTMLDescription { return strings::IsHTML(m_info.GetBookmarkData().GetDescription()); }
 - (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
 
 #pragma mark - Coordinates

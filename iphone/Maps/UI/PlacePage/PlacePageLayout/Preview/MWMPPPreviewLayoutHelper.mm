@@ -179,7 +179,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   self.lastCellIsBanner = NO;
   self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
 
-  if (data.isMyPosition)
+  if (data.isMyPosition || previewRows.size() == 1)
   {
     self.distanceRow = 0;
   }

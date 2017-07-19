@@ -123,7 +123,7 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredReviewUrl()),
-                        (jint)ppInfo.m_sponsoredType);
+                        (jint)ppInfo.GetSponsoredType());
 }
 
 // static void nativeRequestPrice(String id, String currencyCode);

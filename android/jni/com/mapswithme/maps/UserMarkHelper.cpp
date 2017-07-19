@@ -85,7 +85,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   jni::TScopedLocalRef localAdInfo(env, CreateLocalAdInfo(env, info));
 
   jni::TScopedLocalRef routingPointInfo(env, nullptr);
-  if (info.m_isRoutePoint)
+  if (info.IsRoutePoint())
     routingPointInfo.reset(CreateRoutePointInfo(env, info));
 
   if (info.IsBookmark())
@@ -99,36 +99,32 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
                               "(Ljava/lang/String;JIIILjava/lang/String;Ljava/"
-                              "lang/String;Ljava/lang/String;"
+                              "lang/String;Ljava/lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
                               "Lcom/mapswithme/maps/routing/RoutePointInfo;)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
-    BookmarkData const & data =
-        static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
-
+    BookmarkData const & data = info.GetBookmarkData();
     jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
-    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
     jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
+    jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
+    jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetAddress()));
+
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
-    jobject mapObject =
-        env->NewObject(g_bookmarkClazz, ctorId, jMwmName.get(), info.GetID().GetMwmVersion(),
-                       info.GetID().m_index, static_cast<jint>(info.m_bac.m_categoryIndex),
-                       static_cast<jint>(info.m_bac.m_bookmarkIndex), jName.get(), jTitle.get(),
-                       jSecondaryTitle.get(), jbanners.get(),
-                       jTaxiTypes.get(), jBookingSearchUrl.get(), localAdInfo.get(), routingPointInfo.get());
+    jobject mapObject = env->NewObject(
+        g_bookmarkClazz, ctorId, jMwmName.get(), info.GetID().GetMwmVersion(), info.GetID().m_index,
+        static_cast<jint>(bac.m_categoryIndex), static_cast<jint>(bac.m_bookmarkIndex),
+        jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), jbanners.get(),
+        jTaxiTypes.get(), jBookingSearchUrl.get(), localAdInfo.get(), routingPointInfo.get());
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;
   }
 
   ms::LatLon const ll = info.GetLatLon();
-  search::AddressInfo const address =
-      g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
-
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
@@ -136,25 +132,24 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
                            info.GetID().m_index, kMyPosition, info.GetTitle(),
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), {}, "", jbanners.get(),
-                           jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
+                           info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
+                           info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
   }
 
   if (info.HasApiUrl())
   {
-    return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
-                           info.GetID().m_index, kApiPoint, info.GetTitle(),
-                           info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
-                           address.FormatAddress(), info.GetMetadata(), info.GetApiUrl(),
-                           jbanners.get(), jTaxiTypes.get(), info.GetBookingSearchUrl(),
-                           localAdInfo.get(), routingPointInfo.get());
+    return CreateMapObject(
+        env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index,
+        kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+        info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
+        info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
   }
 
-  return CreateMapObject(env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(),
-                         info.GetID().m_index, kPoi, info.GetTitle(), info.GetSecondaryTitle(),
-                         info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
-                         info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
-                         jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
+  return CreateMapObject(
+      env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index, kPoi,
+      info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+      info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
+      jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
@@ -197,7 +192,7 @@ jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info)
 {
   static jclass const clazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutePointInfo");
   static jmethodID const ctorId = jni::GetConstructorID(env, clazz, "(II)V");
-  int const markType = static_cast<int>(info.m_routeMarkType);
-  return env->NewObject(clazz, ctorId, markType, info.m_intermediateIndex);
+  int const markType = static_cast<int>(info.GetRouteMarkType());
+  return env->NewObject(clazz, ctorId, markType, info.GetIntermediateIndex());
 }
 }  // namespace usermark_helper

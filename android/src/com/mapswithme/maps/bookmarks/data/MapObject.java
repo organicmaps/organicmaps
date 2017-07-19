@@ -39,7 +39,7 @@ public class MapObject implements Parcelable
   @MapObjectType
   private final int mMapObjectType;
 
-  protected String mTitle;
+  private String mTitle;
   @Nullable
   private String mSecondaryTitle;
   private String mSubtitle;

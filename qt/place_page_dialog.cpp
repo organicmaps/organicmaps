@@ -36,7 +36,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   }
   {
     grid->addWidget(new QLabel("CountryId"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.m_countryId));
+    QLabel * label = new QLabel(QString::fromStdString(info.GetCountryId()));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
