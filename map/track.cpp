@@ -64,7 +64,7 @@ float Track::GetWidth(size_t layerIndex) const
 
 float Track::GetDepth(size_t layerIndex) const
 {
-  return 0 + layerIndex * 10;
+  return layerIndex * 10;
 }
 
 std::vector<m2::PointD> const & Track::GetPoints() const

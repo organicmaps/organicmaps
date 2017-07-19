@@ -51,20 +51,20 @@ public:
   UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm);
   virtual ~UserMarkContainer();
 
-  // If not found mark on rect result is nullptr
-  // If mark is found in "d" return distance from rect center
-  // In multiple select choose mark with min(d)
+  // If not found mark on rect result is nullptr.
+  // If mark is found in "d" return distance from rect center.
+  // In multiple select choose mark with min(d).
   UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d) const;
 
   static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
 
-  /// never save reference on UserMarksController
+  // Never save references to UserMarksController!
   UserMarksController & RequestController();
   void ReleaseController();
 
-  /// Render info
+  // UserMarksProvider implementation.
   size_t GetUserPointCount() const override;
   df::UserPointMark const * GetUserPointMark(size_t index) const override;
 
@@ -72,6 +72,8 @@ public:
   df::UserLineMark const * GetUserLineMark(size_t index) const override;
 
   bool IsDirty() const override;
+
+  // Discard isDirty flag, return id collection of removed marks since previous method call.
   void AcceptChanges(std::vector<uint32_t> & removedMarks) override;
 
   float GetPointDepth() const;
@@ -83,7 +85,7 @@ public:
   UserMarkType GetType() const override final;
 
 protected:
-  /// UserMarksController implementation
+  // UserMarksController implementation.
   UserMark * CreateUserMark(m2::PointD const & ptOrg) override;
   UserMark * GetUserMarkForEdit(size_t index) override;
   void DeleteUserMark(size_t index) override;

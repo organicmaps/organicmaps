@@ -13,9 +13,9 @@
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
 #include "std/target_os.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
 
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
@@ -74,7 +74,7 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(string const & filePath)
 {
-  unique_ptr<BookmarkCategory> cat(BookmarkCategory::CreateFromKMLFile(filePath, m_framework));
+  std::unique_ptr<BookmarkCategory> cat(BookmarkCategory::CreateFromKMLFile(filePath, m_framework));
   if (cat)
     m_categories.emplace_back(std::move(cat));
 }
@@ -151,7 +151,7 @@ size_t BookmarkManager::LastEditedBMCategory()
   return 0;
 }
 
-string BookmarkManager::LastEditedBMType() const
+std::string BookmarkManager::LastEditedBMType() const
 {
   return (m_lastType.empty() ? BookmarkCategory::GetDefaultType() : m_lastType);
 }
@@ -161,7 +161,7 @@ BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
   return (index < m_categories.size() ? m_categories[index].get() : 0);
 }
 
-size_t BookmarkManager::CreateBmCategory(string const & name)
+size_t BookmarkManager::CreateBmCategory(std::string const & name)
 {
   m_categories.emplace_back(new BookmarkCategory(name, m_framework));
   return (m_categories.size() - 1);

@@ -48,11 +48,6 @@ UserMarkContainer const * UserMark::GetContainer() const
   return m_container;
 }
 
-void UserMark::SetDirty()
-{
-  m_isDirty = true;
-}
-
 ms::LatLon UserMark::GetLatLon() const
 {
   return MercatorBounds::ToLatLon(m_ptOrg);

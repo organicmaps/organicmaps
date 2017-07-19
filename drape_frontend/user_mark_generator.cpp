@@ -35,9 +35,9 @@ void UserMarkGenerator::RemoveUserMarks(drape_ptr<IDCollection> && ids)
   if (ids == nullptr)
     return;
   for (auto const & id : ids->m_marksID)
-   m_marks.erase(id);
+    m_marks.erase(id);
   for (auto const & id : ids->m_linesID)
-   m_lines.erase(id);
+    m_lines.erase(id);
 }
 
 void UserMarkGenerator::SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks)

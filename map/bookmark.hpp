@@ -15,6 +15,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace anim
 {
@@ -112,7 +113,7 @@ private:
 class BookmarkCategory : public UserMarkContainer
 {
   typedef UserMarkContainer TBase;
-  vector<std::unique_ptr<Track>> m_tracks;
+  std::vector<std::unique_ptr<Track>> m_tracks;
 
   std::string m_name;
   /// Stores file name from which category was loaded
@@ -151,7 +152,7 @@ public:
 
   /// @name Tracks routine.
   //@{
-  void AddTrack(unique_ptr<Track> && track);
+  void AddTrack(std::unique_ptr<Track> && track);
   Track const * GetTrack(size_t index) const;
   inline size_t GetTracksCount() const { return m_tracks.size(); }
   void DeleteTrack(size_t index);

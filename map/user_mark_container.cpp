@@ -252,7 +252,9 @@ void UserMarkContainer::DeleteUserMark(size_t index)
     m_userMarks.erase(m_userMarks.begin() + index);
   }
   else
+  {
     LOG(LWARNING, ("Trying to delete non-existing item at index", index));
+  }
 }
 
 void UserMarkContainer::AcceptChanges(std::vector<uint32_t> & removedMarks)

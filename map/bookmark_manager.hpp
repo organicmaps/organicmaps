@@ -3,24 +3,27 @@
 #include "map/bookmark.hpp"
 #include "map/user_mark_container.hpp"
 
+#include "geometry/any_rect2d.hpp"
+
 #include <functional>
 #include <memory>
-
+#include <string>
+#include <vector>
 
 class Framework;
 class PaintEvent;
 
 class BookmarkManager : private noncopyable
 {
-  using CategoriesCollection = std::vector<unique_ptr<BookmarkCategory>>;
+  using CategoriesCollection = std::vector<std::unique_ptr<BookmarkCategory>>;
   using CategoryIter = CategoriesCollection::iterator;
 
-  using UserMarkLayers = std::vector<unique_ptr<UserMarkContainer>>;
+  using UserMarkLayers = std::vector<std::unique_ptr<UserMarkContainer>>;
 
   CategoriesCollection m_categories;
 
-  string m_lastCategoryUrl;
-  string m_lastType;
+  std::string m_lastCategoryUrl;
+  std::string m_lastType;
 
   Framework & m_framework;
 
@@ -50,14 +53,14 @@ public:
   void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm);
 
   size_t LastEditedBMCategory();
-  string LastEditedBMType() const;
+  std::string LastEditedBMType() const;
 
   inline size_t GetBmCategoriesCount() const { return m_categories.size(); }
 
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;
 
-  size_t CreateBmCategory(string const & name);
+  size_t CreateBmCategory(std::string const & name);
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted

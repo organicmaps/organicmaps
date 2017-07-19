@@ -21,6 +21,8 @@ class UserMark : public df::UserPointMark
 {
   DISALLOW_COPY_AND_MOVE(UserMark);
 public:
+  static uint16_t constexpr kDefaultUserMarkProirity = 0xFFFF;
+
   enum class Type
   {
     API,
@@ -46,7 +48,7 @@ public:
   dp::GLState::DepthLayer GetDepthLayer() const override;
   bool HasCreationAnimation() const override;
   drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
-  uint16_t GetProirity() const override { return 0xFFFF; }
+  uint16_t GetProirity() const override { return kDefaultUserMarkProirity; }
   bool SymbolHasPriority() const override { return false; }
   bool TitleHasPriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
@@ -56,7 +58,7 @@ public:
   virtual Type GetMarkType() const = 0;
 
 protected:
-  void SetDirty();
+  void SetDirty() { m_isDirty = true; }
 
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
