@@ -172,10 +172,12 @@ UNIT_TEST(Uber_GetAvailableProducts)
   ms::LatLon const to(55.758213, 37.616093);
 
   std::vector<taxi::Product> resultProducts;
+  std::atomic<int> counter(0);
 
   api.GetAvailableProducts(from, to,
-                           [&resultProducts](std::vector<taxi::Product> const & products) {
+                           [&resultProducts, &counter](std::vector<taxi::Product> const & products) {
                              resultProducts = products;
+                             ++counter;
                              GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
                            },
                            [](taxi::ErrorCode const code) {
@@ -186,7 +188,9 @@ UNIT_TEST(Uber_GetAvailableProducts)
   testing::RunEventLoop();
 
   TEST(!resultProducts.empty(), ());
+  TEST_EQUAL(counter, 1, ());
 
+  counter = 0;
   taxi::ErrorCode errorCode = taxi::ErrorCode::RemoteError;
   ms::LatLon const farPos(56.838197, 35.908507);
   api.GetAvailableProducts(from, farPos,
@@ -194,14 +198,16 @@ UNIT_TEST(Uber_GetAvailableProducts)
                              TEST(false, ());
                              GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
                            },
-                           [&errorCode](taxi::ErrorCode const code) {
+                           [&errorCode, &counter](taxi::ErrorCode const code) {
                              errorCode = code;
+                             ++counter;
                              GetPlatform().RunOnGuiThread([=] { testing::StopEventLoop(); });
                            });
 
-  TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
-
   testing::RunEventLoop();
+
+  TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
+  TEST_EQUAL(counter, 1, ());
 }
 
 UNIT_TEST(Uber_GetRideRequestLinks)
