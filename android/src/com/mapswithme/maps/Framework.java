@@ -274,7 +274,7 @@ public class Framework
   public static native int nativeGetBestRouter(double srcLat, double srcLon,
                                                double dstLat, double dstLon);
 
-  public static native void nativeAddRoutePoint(String name,
+  public static native void nativeAddRoutePoint(String title, String subtitle,
                                                 @RoutePointInfo.RouteMarkType int markType,
                                                 int intermediateIndex, boolean isMyPosition,
                                                 double lat, double lon);

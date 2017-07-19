@@ -13,7 +13,8 @@ enum class RouteMarkType : uint8_t
 
 struct RouteMarkData
 {
-  std::string m_name;
+  std::string m_title;
+  std::string m_subTitle;
   RouteMarkType m_pointType = RouteMarkType::Start;
   int8_t m_intermediateIndex = 0;
   bool m_isVisible = true;

@@ -24,9 +24,11 @@
   if (self)
   {
     _point = lastLocation.mercator;
-    _name = L(@"p2p_your_location");
+    _title = L(@"p2p_your_location");
+    _subtitle = L(@"");
     _isMyPosition = YES;
     _type = type;
+    _intermediateIndex = 0;
   }
   return self;
 }
@@ -38,9 +40,11 @@
   if (self)
   {
     _point = point.m_org;
-    _name = @(point.m_name.c_str());
+    _title = @(point.m_name.c_str());
+    _subtitle = L(@"");
     _isMyPosition = NO;
     _type = type;
+    _intermediateIndex = 0;
   }
   return self;
 }
@@ -51,8 +55,10 @@
   if (self)
   {
     _point = point.m_position;
-    _name = @(point.m_name.c_str());
+    _title = @(point.m_title.c_str());
+    _subtitle = @(point.m_subTitle.c_str());
     _isMyPosition = point.m_isMyPosition;
+    _intermediateIndex = point.m_intermediateIndex;
     switch (point.m_pointType)
     {
     case RouteMarkType::Start: _type = MWMRoutePointTypeStart; break;
@@ -71,12 +77,14 @@
     _point = point;
     switch (type)
     {
-    case MWMRoutePointTypeStart: _name = @"Source"; break;
-    case MWMRoutePointTypeIntermediate: _name = @"Intermediate"; break;
-    case MWMRoutePointTypeFinish: _name = @"Destination"; break;
+    case MWMRoutePointTypeStart: _title = @"Source"; break;
+    case MWMRoutePointTypeIntermediate: _title = @"Intermediate"; break;
+    case MWMRoutePointTypeFinish: _title = @"Destination"; break;
     }
+    _subtitle = L(@"");
     _isMyPosition = NO;
     _type = type;
+    _intermediateIndex = 0;
   }
   return self;
 }
@@ -94,6 +102,9 @@
   }
   pt.m_position = self.point;
   pt.m_isMyPosition = static_cast<bool>(self.isMyPosition);
+  pt.m_title = self.title.UTF8String;
+  pt.m_subTitle = self.subtitle.UTF8String;
+  pt.m_intermediateIndex = self.intermediateIndex;
   return pt;
 }
 

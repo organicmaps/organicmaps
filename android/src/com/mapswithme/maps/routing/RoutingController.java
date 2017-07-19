@@ -471,7 +471,9 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void addStop(@NonNull MapObject mapObject)
   {
-    Framework.nativeAddRoutePoint(""/* name */, RoutePointInfo.ROUTE_MARK_INTERMEDIATE,
+    // TODO(@alexzatsepin): set correct title and subtitle.
+    Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
+                                  RoutePointInfo.ROUTE_MARK_INTERMEDIATE,
                                   0/* intermediateIndex */,
                                   MapObject.isOfType(MapObject.MY_POSITION, mapObject),
                                   mapObject.getLat(), mapObject.getLon());
@@ -521,8 +523,8 @@ public class RoutingController implements TaxiManager.TaxiListener
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
     return new MapObject("", 0L, 0, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
-                         point.mName, null, null, null, point.mLat, point.mLon, null, null, null, null,
-                         null, null);
+                         point.mTitle, null, point.mSubtitle, null, point.mLat, point.mLon, null,
+                         null, null, null, null, null);
   }
 
   public boolean isStopPointAllowed()
@@ -752,8 +754,9 @@ public class RoutingController implements TaxiManager.TaxiListener
   {
     if (startPoint != null)
     {
-      Framework.nativeAddRoutePoint(""/* name */, RoutePointInfo.ROUTE_MARK_START,
-                                    0/* intermediateIndex */,
+      // TODO(@alexzatsepin): set correct title and subtitle.
+      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
+                                    RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
                                     MapObject.isOfType(MapObject.MY_POSITION, startPoint),
                                     startPoint.getLat(), startPoint.getLon());
       if (mContainer != null)
@@ -762,8 +765,9 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     if (endPoint != null)
     {
-      Framework.nativeAddRoutePoint(""/* name */, RoutePointInfo.ROUTE_MARK_FINISH,
-                                    0/* intermediateIndex */,
+      // TODO(@alexzatsepin): set correct title and subtitle.
+      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
+                                    RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
                                     MapObject.isOfType(MapObject.MY_POSITION, endPoint),
                                     endPoint.getLat(), endPoint.getLon());
       if (mContainer != null)
@@ -813,8 +817,9 @@ public class RoutingController implements TaxiManager.TaxiListener
     boolean isSamePoint = MapObject.same(startPoint, point);
     if (point != null)
     {
-      Framework.nativeAddRoutePoint(""/* name */, RoutePointInfo.ROUTE_MARK_START,
-                                    0/* intermediateIndex */,
+      // TODO(@alexzatsepin): set correct title and subtitle.
+      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
+                                    RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
                                     MapObject.isOfType(MapObject.MY_POSITION, point),
                                     point.getLat(), point.getLon());
       startPoint = getStartPoint();
@@ -866,8 +871,9 @@ public class RoutingController implements TaxiManager.TaxiListener
     boolean isSamePoint = MapObject.same(endPoint, point);
     if (point != null)
     {
-      Framework.nativeAddRoutePoint(""/* name */, RoutePointInfo.ROUTE_MARK_FINISH,
-                                    0/* intermediateIndex */,
+      // TODO(@alexzatsepin): set correct title and subtitle.
+      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
+                                    RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
                                     MapObject.isOfType(MapObject.MY_POSITION, point),
                                     point.getLat(), point.getLon());
       endPoint = getEndPoint();

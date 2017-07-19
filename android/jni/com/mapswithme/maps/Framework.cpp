@@ -1175,13 +1175,15 @@ Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass,
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring name,
-                                                       jint markType, jint intermediateIndex,
+Java_com_mapswithme_maps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
+                                                       jstring subtitle, jint markType,
+                                                       jint intermediateIndex,
                                                        jboolean isMyPosition,
                                                        jdouble lat, jdouble lon)
 {
   RouteMarkData data;
-  data.m_name = jni::ToNativeString(env, name);
+  data.m_title = jni::ToNativeString(env, title);
+  data.m_subTitle = jni::ToNativeString(env, subtitle);
   data.m_pointType = static_cast<RouteMarkType>(markType);
   data.m_intermediateIndex = static_cast<int8_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
@@ -1217,16 +1219,19 @@ Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 
   static jclass const pointClazz = jni::GetGlobalClassRef(env,
                                    "com/mapswithme/maps/routing/RouteMarkData");
-  // Java signature : RouteMarkData(String name, @RoutePointInfo.RouteMarkType int pointType,
+  // Java signature : RouteMarkData(String title, String subtitle,
+  //                                @RoutePointInfo.RouteMarkType int pointType,
   //                                int intermediateIndex, boolean isVisible, boolean isMyPosition,
   //                                boolean isPassed, double lat, double lon)
   static jmethodID const pointConstructor = jni::GetConstructorID(env, pointClazz,
-                                                                  "(Ljava/lang/String;IIZZZDD)V");
+                                            "(Ljava/lang/String;Ljava/lang/String;IIZZZDD)V");
   return jni::ToJavaArray(env, pointClazz, points, [&](JNIEnv * env, RouteMarkData const & data)
   {
-    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, data.m_name));
+    jni::TScopedLocalRef const title(env, jni::ToJavaString(env, data.m_title));
+    jni::TScopedLocalRef const subtitle(env, jni::ToJavaString(env, data.m_subTitle));
     return env->NewObject(pointClazz, pointConstructor,
-                          name.get(), static_cast<jint>(data.m_pointType),
+                          title.get(), subtitle.get(),
+                          static_cast<jint>(data.m_pointType),
                           static_cast<jint>(data.m_intermediateIndex),
                           static_cast<jboolean>(data.m_isVisible),
                           static_cast<jboolean>(data.m_isMyPosition),

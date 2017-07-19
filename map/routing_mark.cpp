@@ -1,15 +1,34 @@
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/visual_params.hpp"
+
 #include <algorithm>
 
-RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg,
-                               UserMarkContainer * container)
+namespace
+{
+static std::string const kRouteMarkPrimaryText = "RouteMarkPrimaryText";
+static std::string const kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOutline";
+static std::string const kRouteMarkSecondaryText = "RouteMarkSecondaryText";
+static std::string const kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
+
+float const kRouteMarkPrimaryTextSize = 11.0f;
+float const kRouteMarkSecondaryTextSize = 10.0f;
+float const kRouteMarkSecondaryOffsetY = 2.0f;
+}  // namespace
+
+RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   m_titleDecl.m_anchor = dp::Top;
-  m_titleDecl.m_primaryTextFont.m_color = dp::Color::Black();
-  m_titleDecl.m_primaryTextFont.m_outlineColor = dp::Color::White();
-  m_titleDecl.m_primaryTextFont.m_size = 22;
+  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkPrimaryText);
+  m_titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kRouteMarkPrimaryTextOutline);
+  m_titleDecl.m_primaryTextFont.m_size = kRouteMarkPrimaryTextSize * vs;
+  m_titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kRouteMarkSecondaryText);
+  m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRouteMarkSecondaryTextOutline);
+  m_titleDecl.m_secondaryTextFont.m_size = kRouteMarkSecondaryTextSize * vs;
+  m_titleDecl.m_secondaryOffset = m2::PointF(0, kRouteMarkSecondaryOffsetY * vs);
 
   m_markData.m_position = ptOrg;
 }
@@ -54,13 +73,16 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 {
   SetDirty();
   m_markData = std::move(data);
-  m_titleDecl.m_primaryText = m_markData.m_name;
+  m_titleDecl.m_primaryText = m_markData.m_title;
+  if (!m_titleDecl.m_primaryText.empty())
+    m_titleDecl.m_secondaryText = m_markData.m_subTitle;
+  else
+    m_titleDecl.m_secondaryText.clear();
 }
 
 drape_ptr<dp::TitleDecl> RouteMarkPoint::GetTitleDecl() const
 {
-  drape_ptr<dp::TitleDecl> titleDecl = make_unique_dp<dp::TitleDecl>(m_titleDecl);
-  return titleDecl;
+  return make_unique_dp<dp::TitleDecl>(m_titleDecl);
 }
 
 std::string RouteMarkPoint::GetSymbolName() const
