@@ -11,7 +11,32 @@ using namespace routing;
 namespace
 {
   static const m2::PolylineD kTestDirectedPolyline({{0.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}});
+  static const m2::PolylineD kTestDirectedPolyline2({{6.0, 0.0}, {7.0, 0.0}});
 }  // namespace
+
+UNIT_TEST(FollowedPolylineAppend)
+{
+  FollowedPolyline followedPolyline1(kTestDirectedPolyline.Begin(), kTestDirectedPolyline.End());
+  FollowedPolyline const followedPolyline2(kTestDirectedPolyline2.Begin(), kTestDirectedPolyline2.End());
+
+  TEST_EQUAL(followedPolyline1.GetPolyline(), kTestDirectedPolyline, ());
+  followedPolyline1.Append(followedPolyline2);
+  TEST_EQUAL(followedPolyline1.GetPolyline().GetSize(), 5, ());
+
+  m2::PolylineD polyline1 = kTestDirectedPolyline;
+  polyline1.Append(kTestDirectedPolyline2);
+  TEST_EQUAL(followedPolyline1.GetPolyline(), polyline1, ());
+}
+
+UNIT_TEST(FollowedPolylinePop)
+{
+  FollowedPolyline followedPolyline(kTestDirectedPolyline.Begin(), kTestDirectedPolyline.End());
+
+  TEST_EQUAL(followedPolyline.GetPolyline(), kTestDirectedPolyline, ());
+  TEST_EQUAL(followedPolyline.GetPolyline().GetSize(), 3, ());
+  followedPolyline.PopBack();
+  TEST_EQUAL(followedPolyline.GetPolyline().GetSize(), 2, ());
+}
 
 UNIT_TEST(FollowedPolylineInitializationFogTest)
 {
