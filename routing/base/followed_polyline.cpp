@@ -1,8 +1,11 @@
 #include "followed_polyline.hpp"
 
+#include <algorithm>
+#include <limits>
+
 namespace routing
 {
-
+using namespace std;
 using Iter = routing::FollowedPolyline::Iter;
 
 Iter FollowedPolyline::Begin() const

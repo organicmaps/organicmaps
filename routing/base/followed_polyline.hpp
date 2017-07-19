@@ -5,6 +5,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include <vector>
+
 namespace routing
 {
 class FollowedPolyline
@@ -22,12 +24,14 @@ public:
 
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
   m2::PolylineD const & GetPolyline() const { return m_poly; }
+
   vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
   double GetTotalDistanceMeters() const;
   double GetDistanceFromStartMeters() const;
   double GetDistanceToEndMeters() const;
   double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;
+  double GetMercatorDistanceFromBegin() const;
 
   /*! \brief Return next navigation point for direction widgets.
    *  Returns first geometry point from the polyline after your location if it is farther then
@@ -72,9 +76,9 @@ private:
   /// Iterator with the current position. Position sets with UpdateProjection methods.
   mutable Iter m_current;
   /// Precalculated info for fast projection finding.
-  vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
+  std::vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
   /// Accumulated cache of segments length in meters.
-  vector<double> m_segDistance;
+  std::vector<double> m_segDistance;
 };
 
 }  // namespace routing
