@@ -82,9 +82,7 @@ void BookmarkManager::LoadBookmark(string const & filePath)
 void BookmarkManager::InitBookmarks()
 {
   for (auto & cat : m_categories)
-  {
     BookmarkCategory::Guard guard(*cat);
-  }
 }
 
 size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)

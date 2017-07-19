@@ -260,7 +260,7 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
   // - Minimum visible zoom level (the less the better);
   // - Manual priority from styles (equals to the depth);
   // - Rank of the feature (the more the better);
-  // [1 byte - zoom][4 bytes - priority][1 byte - rank][1 byte - reserved][1 byte - reserved].
+  // [1 byte - zoom][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
   uint8_t const minZoom = 0xFF - static_cast<uint8_t>(std::max(minZoomLevel, 0));
 
   float const kMinDepth = -100000.0f;
@@ -276,6 +276,7 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 
 uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
 {
+  // [6 bytes - 0xFFFFFFFFFFFF][2 bytes - special priority]
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::kPriorityMaskAll;
   priority &= kMask;
@@ -285,6 +286,7 @@ uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
 
 uint64_t CalculateUserMarkPriority(int minZoomLevel, uint16_t specialPriority)
 {
+  // [1 byte - zoom][5 bytes - 0xFFFFFFFFFF][2 bytes - special priority]
   uint8_t const minZoom = 0xFF - static_cast<uint8_t>(std::max(minZoomLevel, 0));
   uint64_t priority = ~dp::kPriorityMaskZoomLevel;
   return priority | (static_cast<uint64_t>(minZoom) << 56) | static_cast<uint64_t>(specialPriority);
