@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
 import com.mapswithme.maps.news.NewsFragment;
@@ -95,11 +97,45 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    handleUpdateMapsFragmentCorrectly(savedInstanceState);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
+  }
+
+  private void handleUpdateMapsFragmentCorrectly(@Nullable Bundle savedInstanceState)
+  {
+    if (savedInstanceState == null)
+      return;
+
+    FragmentManager fm = getSupportFragmentManager();
+    DialogFragment updaterFragment = (DialogFragment) fm
+        .findFragmentByTag(UpdaterDialogFragment.class.getName());
+
+    if (updaterFragment == null)
+      return;
+
+    // If the user revoked the external storage permission while the app was killed
+    // we can't update maps automatically during recovering process, so just dismiss updater fragment
+    // and ask the user to grant the permission.
+    if (!PermissionsUtils.isExternalStorageGranted())
+    {
+      fm.beginTransaction().remove(updaterFragment).commitAllowingStateLoss();
+      fm.executePendingTransactions();
+      StoragePermissionsDialogFragment.show(this);
+    }
+    else
+    {
+      // If external permissions are still granted we just need to check platform
+      // and core initialization, because we may be in the recovering process,
+      // i.e. method onResume() may not be invoked in that case.
+      if (!MwmApplication.get().arePlatformAndCoreInitialized())
+      {
+        init();
+      }
+    }
   }
 
   @Override
