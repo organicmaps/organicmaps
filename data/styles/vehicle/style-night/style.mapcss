@@ -71,4 +71,8 @@ colors
   PoiDeletedMask-color: #FFFFFF;
   PoiDeletedMask-opacity: 0.3;
   DefaultTrackColor-color: #1E96F0;
+  RouteMarkPrimaryText-color: #FFFFFF;
+  RouteMarkPrimaryTextOutline-color: #000000;
+  RouteMarkSecondaryText-color: #FFFFFF;
+  RouteMarkSecondaryTextOutline-color: #000000;
 }
