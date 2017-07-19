@@ -70,16 +70,6 @@ public:
 
   void Clear() { m_points.clear(); }
   void Add(Point<T> const & pt) { m_points.push_back(pt); }
-  void Append(Polyline const & poly)
-  {
-    m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend());
-  }
-
-  void PopBack()
-  {
-    ASSERT(!m_points.empty(), ());
-    m_points.pop_back();
-  }
 
   void Swap(Polyline & rhs) { m_points.swap(rhs.m_points); }
   size_t GetSize() const { return m_points.size(); }

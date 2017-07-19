@@ -102,15 +102,19 @@ void FollowedPolyline::Update()
 }
 
 template <class DistanceFn>
-Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
-                                            DistanceFn const & distFn) const
+Iter FollowedPolyline::GetClosestProjectionInInterval(m2::RectD const & posRect,
+                                                      DistanceFn const & distFn, size_t startIdx,
+                                                      size_t endIdx) const
 {
+  CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
+  CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
+
   Iter res;
   double minDist = numeric_limits<double>::max();
 
   m2::PointD const currPos = posRect.Center();
-  size_t const count = m_poly.GetSize() - 1;
-  for (size_t i = m_current.m_ind; i < count; ++i)
+
+  for (size_t i = startIdx; i < endIdx; ++i)
   {
     m2::PointD const pt = m_segProj[i](currPos);
 
@@ -127,6 +131,23 @@ Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
   }
 
   return res;
+}
+
+template <class DistanceFn>
+Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
+                                            DistanceFn const & distFn) const
+{
+  CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
+  // At first trying to find a projection to two closest route segments of route which is near
+  // enough to |posRect| center.
+  size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 2);
+  Iter const closestIter =
+    GetClosestProjectionInInterval(posRect, distFn, m_current.m_ind, hoppingBorderIdx);
+  if (closestIter.IsValid())
+    return closestIter;
+
+  // If a projection to two closest route segments is not found trying to find projection to other route segments.
+  return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_segProj.size());
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,

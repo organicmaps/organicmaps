@@ -20,14 +20,7 @@ public:
 
   void Swap(FollowedPolyline & rhs);
 
-  void Append(FollowedPolyline const & poly)
-  {
-    m_poly.Append(poly.m_poly);
-    Update();
-  }
-
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
-
   m2::PolylineD const & GetPolyline() const { return m_poly; }
   vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
   double GetTotalDistanceMeters() const;
@@ -66,6 +59,9 @@ public:
   Iter GetIterToIndex(size_t index) const;
 
 private:
+  template <class DistanceFn>
+  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
+                                      size_t startIdx, size_t endIdx) const;
   template <class DistanceFn>
   Iter GetClosestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
