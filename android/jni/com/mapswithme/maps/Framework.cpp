@@ -64,7 +64,7 @@ namespace
   return g_framework->NativeFramework();
 }
 
-jobject g_mapObjectListener;
+jobject g_mapObjectListener = nullptr;
 }  // namespace
 
 namespace android
@@ -715,6 +715,9 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jclass)
 {
+  if (g_mapObjectListener == nullptr)
+    return;
+
   frm()->SetMapSelectionListeners({}, {});
   env->DeleteGlobalRef(g_mapObjectListener);
 }
