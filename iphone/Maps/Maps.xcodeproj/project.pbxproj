@@ -1891,6 +1891,7 @@
 		34AC8FCC1EFC028600E7F910 /* MWMNavigationInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNavigationInfoView.xib; sourceTree = "<group>"; };
 		34AC8FCD1EFC028600E7F910 /* NavigationAddPointToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAddPointToastView.swift; sourceTree = "<group>"; };
 		34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+NumberOfVisibleLines.swift"; sourceTree = "<group>"; };
+		34B3806B1F1E46E20087D65B /* MWMSearchManagerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerState.h; sourceTree = "<group>"; };
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMailViewController.mm; sourceTree = "<group>"; };
 		34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsManager.h; sourceTree = "<group>"; };
@@ -4201,6 +4202,7 @@
 				F6E2FD281E097BA00083EBEC /* TableView */,
 				34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */,
 				349D1ABA1E2D05EF004A2006 /* SearchBar.swift */,
+				34B3806B1F1E46E20087D65B /* MWMSearchManagerState.h */,
 			);
 			path = Search;
 			sourceTree = "<group>";

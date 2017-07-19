@@ -4,9 +4,11 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "search/displayed_categories.hpp"
+#include "Framework.h"
 
 #include "base/macros.hpp"
+
+extern NSString * const kCianCategory = @"cian";
 
 @implementation MWMSearchCategoriesManager
 {
@@ -17,7 +19,7 @@
 {
   self = [super init];
   if (self)
-    m_categories = search::DisplayedCategories::GetKeys();
+    m_categories = GetFramework().GetDisplayedCategories().GetKeys();
   return self;
 }
 
@@ -63,6 +65,8 @@
   [delegate searchText:[L(string) stringByAppendingString:@" "]
         forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
+  if ([string isEqualToString:kCianCategory])
+    delegate.state = MWMSearchManagerStateMapSearch;
 }
 
 @end

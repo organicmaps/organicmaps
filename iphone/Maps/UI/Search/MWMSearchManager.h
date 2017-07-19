@@ -1,14 +1,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMMapDownloaderTypes.h"
 #import "MWMSearchTextField.h"
-
-typedef NS_ENUM(NSUInteger, MWMSearchManagerState)
-{
-  MWMSearchManagerStateHidden,
-  MWMSearchManagerStateDefault,
-  MWMSearchManagerStateTableSearch,
-  MWMSearchManagerStateMapSearch
-};
+#import "MWMSearchManagerState.h"
 
 @interface MWMSearchManager : NSObject
 

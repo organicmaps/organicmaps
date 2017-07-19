@@ -2,10 +2,13 @@
 #import "MWMCommon.h"
 #import "UIImageView+Coloring.h"
 
+extern NSString * const kCianCategory;
+
 @interface MWMSearchCategoryCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView * icon;
-@property (weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UIImageView * icon;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UIImageView * adIcon;
 
 @end
 
@@ -27,6 +30,15 @@
   label.text = L(category);
   label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
+  if ([category isEqualToString:kCianCategory])
+  {
+    self.adIcon.hidden = NO;
+    self.adIcon.mwm_name = @"logo_cian";
+  }
+  else
+  {
+    self.adIcon.hidden = YES;
+  }
 }
 
 @end
