@@ -761,7 +761,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto removePredicate = [](drape_ptr<RenderGroup> const & group)
       {
         RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(group->GetState());
-        return id == RenderLayer::UserLineID || id == RenderLayer::UserMarkID;
+        return id == RenderLayer::UserLineID ||
+            id == RenderLayer::UserMarkID ||
+            id == RenderLayer::RoutingMarkID;
       };
       RemoveRenderGroupsLater(removePredicate);
       m_forceUpdateUserMarks = true;
