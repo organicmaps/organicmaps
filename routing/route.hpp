@@ -13,11 +13,8 @@
 
 #include "base/followed_polyline.hpp"
 
-#include "std/vector.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
-
 #include <limits>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -82,11 +79,11 @@ private:
 class Route
 {
 public:
-  using TTurns = vector<turns::TurnItem>;
-  using TTimeItem = pair<uint32_t, double>;
-  using TTimes = vector<TTimeItem>;
-  using TStreetItem = pair<uint32_t, string>;
-  using TStreets = vector<TStreetItem>;
+  using TTurns = std::vector<turns::TurnItem>;
+  using TTimeItem = std::pair<uint32_t, double>;
+  using TTimes = std::vector<TTimeItem>;
+  using TStreetItem = std::pair<uint32_t, std::string>;
+  using TStreets = std::vector<TStreetItem>;
 
   class SubrouteAttrs final
   {
@@ -129,28 +126,30 @@ public:
   /// \brief For every subroute some attributes are kept the following stucture.
   struct SubrouteSettings final
   {
-    SubrouteSettings(RoutingSettings const & routingSettings, string const & router, SubrouteUid id)
+    SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router,
+                     SubrouteUid id)
       : m_routingSettings(routingSettings), m_router(router), m_id(id)
     {
     }
 
     RoutingSettings const m_routingSettings;
-    string const m_router;
+    std::string const m_router;
     /// Some subsystems (for example drape) which is used Route class need to have an id of any subroute.
     /// This subsystems may set the id and then use it. The id is kept in |m_id|.
     SubrouteUid const m_id = kInvalidSubrouteId;
   };
 
-  explicit Route(string const & router)
+  explicit Route(std::string const & router)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
 
   template <class TIter>
-  Route(string const & router, TIter beg, TIter end)
+  Route(std::string const & router, TIter beg, TIter end)
     : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
   {
   }
 
-  Route(string const & router, vector<m2::PointD> const & points, string const & name = string());
+  Route(std::string const & router, std::vector<m2::PointD> const & points,
+        std::string const & name = std::string());
 
   void Swap(Route & rhs);
 
@@ -187,13 +186,13 @@ public:
 
   FollowedPolyline const & GetFollowedPolyline() const { return m_poly; }
 
-  string const & GetRouterId() const { return m_router; }
+  std::string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly.GetPolyline(); }
   
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
-  vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
+  std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
 
-  vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
+  std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
   double GetTotalDistanceMeters() const;
@@ -207,17 +206,18 @@ public:
   void GetCurrentTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
 
   /// \brief Returns a name of a street where the user rides at this moment.
-  void GetCurrentStreetName(string & name) const;
+  void GetCurrentStreetName(std::string & name) const;
 
   /// \brief Returns a name of a street next to idx point of the path. Function avoids short unnamed links.
-  void GetStreetNameAfterIdx(uint32_t idx, string & name) const;
+  void GetStreetNameAfterIdx(uint32_t idx, std::string & name) const;
 
+  /// \brief Gets turn information after the turn next to the nearest one.
   /// \param distanceToTurnMeters is a distance from current position to the second turn.
-  /// \param turn is information about the second turn.
+  /// \param nextTurn is information about the second turn.
   /// \note All parameters are filled while a GetNextTurn function call.
-  bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & turn) const;
+  bool GetNextTurn(double & distanceToTurnMeters, turns::TurnItem & nextTurn) const;
   /// \brief Extract information about zero, one or two nearest turns depending on current position.
-  bool GetNextTurns(vector<turns::TurnItemDist> & turns) const;
+  bool GetNextTurns(std::vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
@@ -227,10 +227,10 @@ public:
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   /// Add country name if we have no country filename to make route
-  void AddAbsentCountry(string const & name);
+  void AddAbsentCountry(std::string const & name);
 
   /// Get absent file list of a routing files for shortest path finding
-  set<string> const & GetAbsentCountries() const { return m_absentCountries; }
+  std::set<std::string> const & GetAbsentCountries() const { return m_absentCountries; }
 
   inline void SetRoutingSettings(RoutingSettings const & routingSettings)
   {
@@ -271,10 +271,10 @@ public:
   bool HaveAltitudes() const { return m_haveAltitudes; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 
-  void GetTurnsForTesting(vector<turns::TurnItem> & turns) const;
+  void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
 
 private:
-  friend string DebugPrint(Route const & r);
+  friend std::string DebugPrint(Route const & r);
 
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
@@ -287,13 +287,13 @@ private:
   /// \returns ETA to the last passed route point in seconds.
   double GetETAToLastPassedPointS() const;
 
-  string m_router;
+  std::string m_router;
   RoutingSettings m_routingSettings;
-  string m_name;
+  std::string m_name;
 
   FollowedPolyline m_poly;
 
-  set<string> m_absentCountries;
+  std::set<std::string> m_absentCountries;
   std::vector<RouteSegment> m_routeSegments;
   // |m_haveAltitudes| == true if all route points have altitude information.
   // |m_haveAltitudes| == false if at least one of route points don't have altitude information.

@@ -258,8 +258,8 @@ void BicycleDirectionsEngine::GetUniNodeIdAndAdjacentEdges(IRoadGraph::TEdgeVect
 
     if (inEdge.GetFeatureId().m_mwmId == edge.GetFeatureId().m_mwmId)
     {
-//      ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
-//                  turns::kFeaturesNearTurnMeters, ());
+      ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
+                  turns::kFeaturesNearTurnMeters, ());
       m2::PointD const & outgoingPoint = edge.GetEndJunction().GetPoint();
       angle = my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
     }

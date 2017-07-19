@@ -13,10 +13,10 @@
 
 #include "base/cancellable.hpp"
 
-#include "std/queue.hpp"
-#include "std/set.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <queue>
+#include <set>
+#include <vector>
 
 namespace routing
 {
@@ -29,14 +29,14 @@ bool IsRoad(TTypes const & types)
          BicycleModel::AllLimitsInstance().HasRoadType(types);
 }
 
-void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & junctions,
+void FillSegmentInfo(std::vector<Segment> const & segments, std::vector<Junction> const & junctions,
                      Route::TTurns const & turns, Route::TStreets const & streets,
-                     Route::TTimes const & times, shared_ptr<TrafficStash> const & trafficStash,
-                     vector<RouteSegment> & routeSegment);
+                     Route::TTimes const & times, std::shared_ptr<TrafficStash> const & trafficStash,
+                     std::vector<RouteSegment> & routeSegment);
 
 void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
-                      shared_ptr<TrafficStash> const & trafficStash,
-                      my::Cancellable const & cancellable, vector<Junction> const & path,
+                      std::shared_ptr<TrafficStash> const & trafficStash,
+                      my::Cancellable const & cancellable, std::vector<Junction> const & path,
                       Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.
@@ -44,7 +44,7 @@ void ReconstructRoute(IDirectionsEngine & engine, RoadGraphBase const & graph,
 Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge);
 
 /// \brief Fills |times| according to max speed at |graph| and |path|.
-void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const & path,
+void CalculateMaxSpeedTimes(RoadGraphBase const & graph, std::vector<Junction> const & path,
                             Route::TTimes & times);
 
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
@@ -55,13 +55,13 @@ template <typename Graph, typename GetVertexByEdgeFn, typename GetOutgoingEdgesF
 bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, Graph & graph,
                             GetVertexByEdgeFn && getVertexByEdgeFn, GetOutgoingEdgesFn && getOutgoingEdgesFn)
 {
-  queue<typename Graph::Vertex> q;
+  std::queue<typename Graph::Vertex> q;
   q.push(start);
 
-  set<typename Graph::Vertex> marked;
+  std::set<typename Graph::Vertex> marked;
   marked.insert(start);
 
-  vector<typename Graph::Edge> edges;
+  std::vector<typename Graph::Edge> edges;
   while (!q.empty() && marked.size() < limit)
   {
     auto const u = q.front();

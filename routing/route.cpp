@@ -16,13 +16,13 @@
 
 #include "base/logging.hpp"
 
-#include "std/numeric.hpp"
-
 #include <algorithm>
+#include <numeric>
 #include <utility>
 
 using namespace traffic;
 using namespace routing::turns;
+using namespace std;
 
 namespace routing
 {
@@ -31,6 +31,15 @@ namespace
 double constexpr kLocationTimeThreshold = 60.0 * 1.0;
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.;
+
+bool IsNormalTurn(TurnItem const & turn)
+{
+  CHECK_NOT_EQUAL(turn.m_turn, TurnDirection::Count, ());
+  CHECK_NOT_EQUAL(turn.m_pedestrianTurn, PedestrianDirection::Count, ());
+
+  return turn.m_turn != turns::TurnDirection::NoTurn ||
+         turn.m_pedestrianTurn != turns::PedestrianDirection::None;
+}
 }  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
@@ -83,6 +92,8 @@ double Route::GetMercatorDistanceFromBegin() const
     return 0;
 
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
+  CHECK_GREATER(curIter.m_ind, 0, ());
+
   double const distMerc =
       curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
   return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
@@ -166,42 +177,49 @@ void Route::GetClosestTurn(size_t segIdx, TurnItem & turn) const
 
   for (size_t i = segIdx; i < m_routeSegments.size(); ++i)
   {
-    if (m_routeSegments[i].GetTurn().m_turn != TurnDirection::NoTurn ||
-        m_routeSegments[i].GetTurn().m_pedestrianTurn != PedestrianDirection::None)
+    if (IsNormalTurn(m_routeSegments[i].GetTurn()))
     {
       turn = m_routeSegments[i].GetTurn();
       return;
     }
   }
-  CHECK(false, ("Last turn should be TurnDirection::ReachedYourDestination."));
+  CHECK(false, ("The last turn should be TurnDirection::ReachedYourDestination."));
   return;
 }
 
 void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
 {
-  // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at the polyline.
+  // Note. |m_poly.GetCurrentIter().m_ind| is a point index of last passed point at |m_poly|.
   GetClosestTurn(m_poly.GetCurrentIter().m_ind, turn);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(turn.m_index));
 }
 
-bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & turn) const
+bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) const
 {
   TurnItem curTurn;
-  GetClosestTurn(m_poly.GetCurrentIter().m_ind, curTurn);
+  // Note. |m_poly.GetCurrentIter().m_ind| is a zero based index of last passed point at \m_poly|.
+  size_t const curIdx = m_poly.GetCurrentIter().m_ind;
+  // Note. First param of GetClosestTurn() is a segment index at |m_routeSegments|.
+  // |curIdx| is an index of last passed point at |m_poly|.
+  // |curIdx| + 1 is an index of next point.
+  // |curIdx| + 1 - 1 is an index of segment to start look for the closest turn.
+  GetClosestTurn(curIdx, curTurn);
+  CHECK_LESS(curIdx, curTurn.m_index, ());
   if (curTurn.m_turn == TurnDirection::ReachedYourDestination)
   {
-    turn = TurnItem();
+    nextTurn = TurnItem();
     return false;
   }
 
-  // Note. curTurn.m_index is index of |curTurn| at polyline |m_poly| starting from zero point.
-  // So index of the turn at |m_routeSegments| is |curTurn.m_index| - 1.
-  // To find the next turn next turn after |curTurn.m_index| - 1 should be used.
+  // Note. |curTurn.m_index| is an index of the point of |curTurn| at polyline |m_poly|.
+  // |curTurn.m_index| + 1 is an index of the next point after |curTurn|.
+  // |curTurn.m_index| + 1 - 1 is an index of the segment next to the |curTurn| segment.
   CHECK_LESS(curTurn.m_index, m_routeSegments.size(), ());
-  GetClosestTurn(curTurn.m_index, turn);
+  GetClosestTurn(curTurn.m_index, nextTurn);
+  CHECK_LESS(curTurn.m_index, nextTurn.m_index, ());
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
-                                             m_poly.GetIterToIndex(turn.m_index));
+                                             m_poly.GetIterToIndex(nextTurn.m_index));
   return true;
 }
 
@@ -275,7 +293,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 size_t Route::GetSubrouteCount() const { return m_subrouteAttrs.size(); }
 
-void Route::GetSubrouteInfo(size_t subrouteIdx, std::vector<RouteSegment> & segments) const
+void Route::GetSubrouteInfo(size_t subrouteIdx, vector<RouteSegment> & segments) const
 {
   segments.clear();
   SubrouteAttrs const & attrs = GetSubrouteAttrs(subrouteIdx);
@@ -327,16 +345,13 @@ traffic::SpeedGroup Route::GetTraffic(size_t segmentIdx) const
   return m_routeSegments[segmentIdx].GetTraffic();
 }
 
-void Route::GetTurnsForTesting(vector<turns::TurnItem> & turns) const
+void Route::GetTurnsForTesting(vector<TurnItem> & turns) const
 {
   turns.clear();
   for (auto const & s : m_routeSegments)
   {
-    if (s.GetTurn().m_turn != turns::TurnDirection::NoTurn ||
-        s.GetTurn().m_pedestrianTurn != turns::PedestrianDirection::None)
-    {
+    if (IsNormalTurn(s.GetTurn()))
       turns.push_back(s.GetTurn());
-    }
   }
 }
 
