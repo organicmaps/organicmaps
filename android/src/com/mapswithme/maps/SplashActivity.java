@@ -208,16 +208,10 @@ public class SplashActivity extends AppCompatActivity
       {
         UiUtils.hide(mIvLogo, mAppName);
         ViralFragment dialog = new ViralFragment();
-        dialog.onDismiss(new DialogInterface()
+        dialog.onDismissListener(new Runnable()
         {
           @Override
-          public void cancel()
-          {
-            onDialogDone();
-          }
-
-          @Override
-          public void dismiss()
+          public void run()
           {
             onDialogDone();
           }
