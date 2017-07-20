@@ -8,6 +8,7 @@
 
 #include "platform/location.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "std/set.hpp"
@@ -206,6 +207,68 @@ UNIT_TEST(NextTurnsTest)
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 1, ());
   }
+}
+
+//   0.0002        *--------*
+//                 |        |
+//                 |        |
+//        Finish   |        |
+//   0.0001  *--------------*
+//                 |
+//                 |
+//                 |
+//        0        * Start
+//           0  0.0001    0.0002
+//
+UNIT_TEST(SelfIntersectedRouteMatchingTest)
+{
+  vector<m2::PointD> const kRouteGeometry(
+      {{0.0001, 0.0}, {0.0001, 0.0002}, {0.0002, 0.0002}, {0.0002, 0.0001}, {0.0, 0.0001}});
+  double constexpr kRoundingErrorMeters = 0.001;
+
+  Route route("TestRouter");
+  route.SetGeometry(kRouteGeometry.begin(), kRouteGeometry.end());
+
+  auto const testMachedPos = [&](location::GpsInfo const & pos,
+                                 location::GpsInfo const & expectedMatchingPos,
+                                 size_t expectedIndexInRoute) {
+    location::RouteMatchingInfo routeMatchingInfo;
+    route.MoveIterator(pos);
+    location::GpsInfo matchedPos = pos;
+    route.MatchLocationToRoute(matchedPos, routeMatchingInfo);
+    TEST_LESS(MercatorBounds::DistanceOnEarth(
+                  m2::PointD(matchedPos.m_latitude, matchedPos.m_longitude),
+                  m2::PointD(expectedMatchingPos.m_latitude, expectedMatchingPos.m_longitude)),
+              kRoundingErrorMeters, ());
+    TEST_EQUAL(routeMatchingInfo.GetIndexInRoute(), expectedIndexInRoute, ());
+  };
+
+  // Moving along the route from start point.
+  location::GpsInfo const pos1(GetGps(0.0001, 0.0));
+  testMachedPos(pos1, pos1, 0 /* expectedIndexInRoute */);
+  location::GpsInfo const pos2(GetGps(0.0001, 0.00005));
+  testMachedPos(pos2, pos2, 0 /* expectedIndexInRoute */);
+
+  // Moving around the self intersection and checking that position is matched to the first segment of the route.
+  location::GpsInfo const selfIntersectionPos(GetGps(0.0001, 0.0001));
+  location::GpsInfo const pos3(GetGps(0.00005, 0.0001));
+  testMachedPos(pos3, selfIntersectionPos, 0 /* expectedIndexInRoute */);
+  location::GpsInfo const pos4(GetGps(0.00015, 0.0001));
+  testMachedPos(pos4, selfIntersectionPos, 0 /* expectedIndexInRoute */);
+
+  // Continue moving along the route.
+  location::GpsInfo const pos5(GetGps(0.00011, 0.0002));
+  testMachedPos(pos5, pos5, 1 /* expectedIndexInRoute */);
+  location::GpsInfo const pos6(GetGps(0.0002, 0.00019));
+  testMachedPos(pos6, pos6, 2 /* expectedIndexInRoute */);
+  location::GpsInfo const pos7(GetGps(0.00019, 0.0001));
+  testMachedPos(pos7, pos7, 3 /* expectedIndexInRoute */);
+
+  // Moving around the self intersection and checking that position is matched to the last segment of the route.
+  location::GpsInfo const pos8(GetGps(0.0001, 0.00005));
+  testMachedPos(pos8, selfIntersectionPos, 3 /* expectedIndexInRoute */);
+  location::GpsInfo const pos9(GetGps(0.0001, 0.00015));
+  testMachedPos(pos9, selfIntersectionPos, 3 /* expectedIndexInRoute */);
 }
 
 UNIT_TEST(RouteNameTest)
