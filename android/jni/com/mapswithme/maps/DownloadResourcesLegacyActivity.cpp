@@ -91,7 +91,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetBytesToDownload(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_DownloadResourcesLegacyActivity_nativeGetBytesToDownload(JNIEnv * env, jclass clazz)
   {
     // clear all
     g_filesToDownload.clear();
@@ -197,7 +197,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeStartNextFileDownload(JNIEnv * env, jclass clazz, jobject listener)
+  Java_com_mapswithme_maps_DownloadResourcesLegacyActivity_nativeStartNextFileDownload(JNIEnv * env, jclass clazz, jobject listener)
   {
     if (g_filesToDownload.empty())
       return ERR_NO_MORE_FILES;
@@ -215,7 +215,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeCancelCurrentFile(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_DownloadResourcesLegacyActivity_nativeCancelCurrentFile(JNIEnv * env, jclass clazz)
   {
     LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest));
     g_currentRequest.reset();

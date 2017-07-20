@@ -47,10 +47,10 @@ import java.io.OutputStream;
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
-public class DownloadResourcesActivity extends BaseMwmFragmentActivity
+public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
-  private static final String TAG = DownloadResourcesActivity.class.getName();
+  private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
 
   static final String EXTRA_COUNTRY = "country";
   static final String EXTRA_AUTODOWNLOAD = "autodownload";
@@ -203,7 +203,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
           return;
 
         case CountryItem.STATUS_FAILED:
-          MapManager.showError(DownloadResourcesActivity.this, item, null);
+          MapManager.showError(DownloadResourcesLegacyActivity.this, item, null);
           return;
         }
       }
@@ -704,7 +704,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
             @Override
             public void run()
             {
-              Utils.toastShortcut(DownloadResourcesActivity.this, result ? R.string.load_kmz_successful : R.string.load_kmz_failed);
+              Utils.toastShortcut(DownloadResourcesLegacyActivity.this, result ? R.string.load_kmz_successful : R.string.load_kmz_failed);
               mIsReadingAttachment = false;
               showMap();
             }

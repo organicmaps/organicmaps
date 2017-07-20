@@ -308,9 +308,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static Intent createShowMapIntent(Context context, String countryId, boolean doAutoDownload)
   {
-    return new Intent(context, DownloadResourcesActivity.class)
-               .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY, countryId)
-               .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD, doAutoDownload);
+    return new Intent(context, DownloadResourcesLegacyActivity.class)
+               .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId)
+               .putExtra(DownloadResourcesLegacyActivity.EXTRA_AUTODOWNLOAD, doAutoDownload);
   }
 
   public static Intent createUpdateMapsIntent()

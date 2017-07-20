@@ -80,7 +80,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp \
 	com/mapswithme/maps/DisplayedCategories.cpp \
-	com/mapswithme/maps/DownloadResourcesActivity.cpp \
+	com/mapswithme/maps/DownloadResourcesLegacyActivity.cpp \
 	com/mapswithme/maps/editor/OpeningHours.cpp \
 	com/mapswithme/maps/editor/Editor.cpp \
 	com/mapswithme/maps/editor/OsmOAuth.cpp \

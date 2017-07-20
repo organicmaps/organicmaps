@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -265,7 +264,7 @@ public class SplashActivity extends AppCompatActivity
   private void processNavigation()
   {
     Intent input = getIntent();
-    Intent intent = new Intent(this, DownloadResourcesActivity.class);
+    Intent intent = new Intent(this, DownloadResourcesLegacyActivity.class);
     if (input != null)
     {
       Class<? extends Activity> type = (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START);
