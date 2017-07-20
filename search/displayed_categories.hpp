@@ -7,16 +7,21 @@
 
 namespace search
 {
+class CategoriesModifier;
+// *NOTE* This class is not thread-safe.
 class DisplayedCategories
 {
 public:
+  using Keys = std::vector<std::string>;
+
   DisplayedCategories(CategoriesHolder const & holder);
 
+  void Modify(CategoriesModifier * modifier);
+
   // Returns a list of English names of displayed categories for the categories search tab.
-  std::vector<std::string> const & GetKeys() const;
-  void InsertKey(std::string const & key, size_t pos);
-  void RemoveKey(std::string const & key);
-  bool Contains(std::string const & key) const;
+  // The list may be modified during the application runtime in order to support sponsored or
+  // featured categories. Keys may be used as parts of resources ids.
+  Keys const & GetKeys() const;
 
   // Calls |fn| on each pair (synonym name, synonym locale) for the
   // |key|.
@@ -34,6 +39,14 @@ public:
 
  private:
   CategoriesHolder const & m_holder;
-  std::vector<std::string> m_keys;
+  Keys m_keys;
+};
+
+class CategoriesModifier
+{
+public:
+  virtual ~CategoriesModifier() = default;
+
+  virtual void Modify(DisplayedCategories::Keys & keys) = 0;
 };
 }  // namespace search

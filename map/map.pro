@@ -17,6 +17,7 @@ HEADERS += \
     bookmark_manager.hpp \
     chart_generator.hpp \
     displacement_mode_manager.hpp \
+    displayed_categories_modifiers.hpp \
     feature_vec_model.hpp \
     framework.hpp \
     ge0_parser.hpp \
@@ -48,6 +49,7 @@ SOURCES += \
     bookmark_manager.cpp \
     chart_generator.cpp \
     displacement_mode_manager.cpp \
+    displayed_categories_modifiers.cpp \
     feature_vec_model.cpp \
     framework.cpp \
     ge0_parser.cpp \

@@ -1,6 +1,7 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
 #include "map/chart_generator.hpp"
+#include "map/displayed_categories_modifiers.hpp"
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
@@ -1573,24 +1574,17 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   ASSERT(m_displayedCategories, ());
   ASSERT(m_cityFinder, ());
 
-  static string const kCian = "cian";
-
   ms::LatLon latlon;
-  bool supported = false;
+  std::string city;
 
   if (GetCurrentPosition(latlon.lat, latlon.lon))
   {
-    auto const city = m_cityFinder->GetCityName(MercatorBounds::FromLatLon(latlon),
-                                                StringUtf8Multilang::kEnglishCode);
-    supported = cian::Api::IsCitySupported(city);
+    city = m_cityFinder->GetCityName(MercatorBounds::FromLatLon(latlon),
+                                    StringUtf8Multilang::kEnglishCode);
   }
 
-  auto const contains = m_displayedCategories->Contains(kCian);
-
-  if (supported && !contains)
-    m_displayedCategories->InsertKey(kCian, 4);
-  else if (!supported && contains)
-    m_displayedCategories->RemoveKey(kCian);
+  CianModifier cianModifier(city);
+  m_displayedCategories->Modify(&cianModifier);
 
   return *m_displayedCategories;
 }
