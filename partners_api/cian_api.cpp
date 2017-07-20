@@ -17,7 +17,7 @@ using namespace platform;
 
 namespace
 {
-// Length of the rect side.
+// Length of the rect side in meters.
 double const kSearchRadius = 500.0;
 
 std::unordered_set<std::string> const kSupportedCities

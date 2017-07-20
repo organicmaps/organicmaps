@@ -125,8 +125,8 @@ struct MercatorBounds
 
   inline static m2::RectD ToLatLonRect(m2::RectD const & mercatorRect)
   {
-    return m2::RectD(MercatorBounds::YToLat(mercatorRect.minY()), MercatorBounds::XToLon(mercatorRect.minX()),
-                     MercatorBounds::YToLat(mercatorRect.maxY()), MercatorBounds::XToLon(mercatorRect.maxX()));
+    return m2::RectD(YToLat(mercatorRect.minY()), XToLon(mercatorRect.minX()),
+                     YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX()));
   }
 
   /// Calculates distance on Earth by two points in mercator
