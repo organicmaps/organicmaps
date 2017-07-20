@@ -9,17 +9,8 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-local-typedef"
-#endif
-
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/mapper.hpp"
-
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
 
 namespace platform
 {
