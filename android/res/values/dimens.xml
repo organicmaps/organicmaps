@@ -205,4 +205,9 @@
   <dimen name="viator_product_width">160dp</dimen>
   <dimen name="viator_product_image_height">100dp</dimen>
   <dimen name="viator_height">284dp</dimen>
+
+  <!-- Cian-->
+  <dimen name="cian_product_height">140dp</dimen>
+  <dimen name="cian_product_width">160dp</dimen>
+  <dimen name="cian_details_height">44dp</dimen>
 </resources>
