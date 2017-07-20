@@ -192,7 +192,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         return ParsingResult::Incorrect;
 
       ASSERT(m_bmManager != nullptr, ());
-      UserMarkNotifyGuard guard(*m_bmManager, UserMarkType::API_MARK);
+      UserMarkNotificationGuard guard(*m_bmManager, UserMarkType::API_MARK);
       for (auto const & p : points)
       {
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
@@ -444,7 +444,7 @@ void ParsedMapApi::Reset()
 bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 {
   ASSERT(m_bmManager != nullptr, ());
-  UserMarkNotifyGuard guard(*m_bmManager, UserMarkType::API_MARK);
+  UserMarkNotificationGuard guard(*m_bmManager, UserMarkType::API_MARK);
 
   size_t markCount = guard.m_controller.GetUserMarkCount();
   if (markCount == 1 && m_zoomLevel >= 1)
@@ -472,7 +472,7 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 {
   ASSERT(m_bmManager != nullptr, ());
-  UserMarkNotifyGuard guard(*m_bmManager, UserMarkType::API_MARK);
+  UserMarkNotificationGuard guard(*m_bmManager, UserMarkType::API_MARK);
 
   if (guard.m_controller.GetUserMarkCount() != 1)
     return nullptr;

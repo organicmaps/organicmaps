@@ -186,6 +186,7 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   ofstream of(BOOKMARKS_FILE_NAME);
   cat.SaveToKML(of);
+  of.close();
 
   cat.Clear();
   TEST_EQUAL(cat.GetUserMarkCount(), 0, ());

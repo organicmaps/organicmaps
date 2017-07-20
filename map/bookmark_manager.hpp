@@ -81,11 +81,11 @@ private:
   UserMarkContainer * FindUserMarksContainer(UserMarkType type);
 };
 
-class UserMarkNotifyGuard
+class UserMarkNotificationGuard
 {
 public:
-  UserMarkNotifyGuard(BookmarkManager & mng, UserMarkType type);
-  ~UserMarkNotifyGuard();
+  UserMarkNotificationGuard(BookmarkManager & mng, UserMarkType type);
+  ~UserMarkNotificationGuard();
 
   UserMarksController & m_controller;
 };

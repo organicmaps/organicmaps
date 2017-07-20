@@ -95,10 +95,11 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #ifdef SHOW_ROUTE_DEBUG_MARKS
     if (m_bmManager == nullptr)
       return;
-    UserMarkControllerGuard guard(*m_bmManager, UserMarkType::DEBUG_MARK);
-    guard.m_controller.SetIsVisible(true);
-    guard.m_controller.SetIsDrawable(true);
-    guard.m_controller.CreateUserMark(pt);
+    auto & controller = m_bmManager->GetUserMarksController(UserMarkType::DEBUG_MARK);
+    controller.SetIsVisible(true);
+    controller.SetIsDrawable(true);
+    controller.CreateUserMark(pt);
+    controller.NotifyChanges();
 #endif
   });
 

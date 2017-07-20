@@ -1779,7 +1779,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
                                        search::Results::ConstIter end)
 {
-  UserMarkNotifyGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
+  UserMarkNotificationGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
   guard.m_controller.SetIsVisible(true);
   guard.m_controller.SetIsDrawable(true);
 
@@ -1808,7 +1808,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
 void Framework::ClearSearchResultsMarks()
 {
-  UserMarkNotifyGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
+  UserMarkNotificationGuard(m_bmManager, UserMarkType::SEARCH_MARK).m_controller.Clear();
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
@@ -2196,7 +2196,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
 
   // Clear every current API-mark.
   {
-    UserMarkNotifyGuard guard(m_bmManager, UserMarkType::API_MARK);
+    UserMarkNotificationGuard guard(m_bmManager, UserMarkType::API_MARK);
     guard.m_controller.Clear();
     guard.m_controller.SetIsVisible(true);
     guard.m_controller.SetIsDrawable(true);

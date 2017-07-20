@@ -46,11 +46,17 @@ namespace
 
     string const & GetAppTitle() const { return m_api.GetAppTitle(); }
     bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
-    size_t GetPointCount() const { return UserMarkNotifyGuard(*m_m, type).m_controller.GetUserMarkCount(); }
+
+    size_t GetPointCount() const
+    {
+      return UserMarkNotificationGuard(*m_m, type).m_controller.GetUserMarkCount();
+    }
+
     vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
     url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
     string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
     int GetApiVersion() const { return m_api.GetApiVersion(); }
+
     bool TestLatLon(int index, double lat, double lon) const
     {
       ms::LatLon const ll = GetMark(index)->GetLatLon();
@@ -77,7 +83,7 @@ namespace
   private:
     ApiMarkPoint const * GetMark(int index) const
     {
-      UserMarkNotifyGuard guard(*m_m, type);
+      UserMarkNotificationGuard guard(*m_m, type);
       TEST_LESS(index, static_cast<int>(guard.m_controller.GetUserMarkCount()), ());
       return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(index));
     }
@@ -95,7 +101,7 @@ namespace
     api.SetBookmarkManager(&fm.GetBookmarkManager());
     api.SetUriAndParse(uriString);
     {
-      UserMarkNotifyGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
+      UserMarkNotificationGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
       guard.m_controller.Clear();
     }
 

@@ -265,12 +265,12 @@ UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
   return iter->get();
 }
 
-UserMarkNotifyGuard::UserMarkNotifyGuard(BookmarkManager & mng, UserMarkType type)
+UserMarkNotificationGuard::UserMarkNotificationGuard(BookmarkManager & mng, UserMarkType type)
   : m_controller(mng.GetUserMarksController(type))
 {
 }
 
-UserMarkNotifyGuard::~UserMarkNotifyGuard()
+UserMarkNotificationGuard::~UserMarkNotificationGuard()
 {
   m_controller.NotifyChanges();
 }
