@@ -446,6 +446,7 @@ public class PlacePageView extends RelativeLayout
     initHotelGalleryView();
     initHotelNearbyView();
     initHotelRatingView();
+    initViatorView();
 
     initUgcView();
 
