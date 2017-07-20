@@ -123,6 +123,12 @@ struct MercatorBounds
                      FromLatLon(latLonRect.maxY(), latLonRect.maxX()));
   }
 
+  inline static m2::RectD ToLatLonRect(m2::RectD const & mercatorRect)
+  {
+    return m2::RectD(MercatorBounds::YToLat(mercatorRect.minY()), MercatorBounds::XToLon(mercatorRect.minX()),
+                     MercatorBounds::YToLat(mercatorRect.maxY()), MercatorBounds::XToLon(mercatorRect.maxX()));
+  }
+
   /// Calculates distance on Earth by two points in mercator
   static double DistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2);
 

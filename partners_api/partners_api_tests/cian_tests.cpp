@@ -18,7 +18,7 @@ UNIT_TEST(Cian_GetRentNearbyRaw)
 
 UNIT_TEST(Cian_GetRentNearby)
 {
-  ms::LatLon latlon(37.501365, 55.805666);
+  ms::LatLon latlon(55.807385, 37.505554);
   uint64_t reqId = 0;
 
   {

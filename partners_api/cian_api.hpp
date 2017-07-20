@@ -32,11 +32,19 @@ struct RentOffer
   uint8_t m_floorsCount = 0;
   std::string m_url;
   std::string m_address;
+
+  // No need to use offer when it is not fully filled.
+  bool IsValid() const
+  {
+    return !m_flatType.empty() && m_roomsCount && m_priceRur && m_floorNumber && m_floorsCount &&
+           !m_url.empty() && !m_address.empty();
+  }
 };
 
 struct RentPlace
 {
   ms::LatLon m_latlon;
+  std::string m_url;
   std::vector<RentOffer> m_offers;
 };
 
