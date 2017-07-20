@@ -28,7 +28,6 @@ namespace routing
 {
 namespace
 {
-double constexpr kLocationTimeThreshold = 60.0 * 1.0;
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.;
 

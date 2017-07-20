@@ -79,7 +79,7 @@ private:
   Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
                                       size_t startIdx, size_t endIdx) const;
   template <class DistanceFn>
-  Iter GetClosestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
+  Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
   void Update();
 

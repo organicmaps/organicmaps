@@ -136,9 +136,13 @@ Iter FollowedPolyline::GetClosestProjectionInInterval(m2::RectD const & posRect,
   return res;
 }
 
+/// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
+/// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
+/// after |m_current| the iterator corresponding of the projection returns.
+/// Otherwise returned a projection to closest point of route.
 template <class DistanceFn>
-Iter FollowedPolyline::GetClosestProjection(m2::RectD const & posRect,
-                                            DistanceFn const & distFn) const
+Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
+                                         DistanceFn const & distFn) const
 {
   CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
   // At first trying to find a projection to two closest route segments of route which is near
@@ -163,7 +167,7 @@ Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
     return UpdateProjection(posRect);
 
   Iter res;
-  res = GetClosestProjection(posRect, [&](Iter const & it)
+  res = GetBestProjection(posRect, [&](Iter const & it)
   {
     return fabs(GetDistanceM(m_current, it) - predictDistance);
   });
@@ -180,7 +184,7 @@ Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
 
   Iter res;
   m2::PointD const currPos = posRect.Center();
-  res = GetClosestProjection(posRect, [&](Iter const & it)
+  res = GetBestProjection(posRect, [&](Iter const & it)
   {
     return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
   });
