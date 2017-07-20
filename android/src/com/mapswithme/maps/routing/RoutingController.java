@@ -95,7 +95,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   private int mWaitingPoiPickType = NO_WAITING_POI_PICK;
   private int mLastBuildProgress;
   @Framework.RouterType
-  private int mLastRouterType = Framework.nativeGetLastUsedRouter();
+  private int mLastRouterType;
 
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
@@ -106,6 +106,9 @@ public class RoutingController implements TaxiManager.TaxiListener
   private boolean mTaxiRequestHandled;
   private boolean mTaxiPlanning;
   private boolean mInternetConnected;
+
+  private int mInvalidRoutePointsTransactionId;
+  private int mRemovingIntermediatePointsTransactionId;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -246,6 +249,10 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void initialize()
   {
+    mLastRouterType = Framework.nativeGetLastUsedRouter();
+    mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
+    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
+
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     TaxiManager.INSTANCE.setTaxiListener(this);
@@ -287,10 +294,6 @@ public class RoutingController implements TaxiManager.TaxiListener
     mTaxiRequestHandled = false;
     mLastBuildProgress = 0;
     mInternetConnected = ConnectionState.isConnected();
-
-    // Now only car routing supports intermediate points.
-    if (!isVehicleRouterType())
-      removeIntermediatePoints();
 
     if (isTaxiRouterType())
     {
@@ -491,6 +494,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (info == null)
       throw new AssertionError("A stop point must have the route point info!");
 
+    applyRemovingIntermediatePointsTransaction();
     Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
     build();
     if (mContainer != null)
@@ -596,6 +600,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     setBuildState(BuildState.NONE);
     setState(State.NONE);
 
+    applyRemovingIntermediatePointsTransaction();
     Framework.nativeCloseRouting();
   }
 
@@ -754,6 +759,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   {
     if (startPoint != null)
     {
+      applyRemovingIntermediatePointsTransaction();
       // TODO(@alexzatsepin): set correct title and subtitle.
       Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
                                     RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
@@ -765,6 +771,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     if (endPoint != null)
     {
+      applyRemovingIntermediatePointsTransaction();
       // TODO(@alexzatsepin): set correct title and subtitle.
       Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
                                     RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
@@ -817,6 +824,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     boolean isSamePoint = MapObject.same(startPoint, point);
     if (point != null)
     {
+      applyRemovingIntermediatePointsTransaction();
       // TODO(@alexzatsepin): set correct title and subtitle.
       Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
                                     RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
@@ -871,6 +879,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     boolean isSamePoint = MapObject.same(endPoint, point);
     if (point != null)
     {
+      applyRemovingIntermediatePointsTransaction();
       // TODO(@alexzatsepin): set correct title and subtitle.
       Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
                                     RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
@@ -946,8 +955,43 @@ public class RoutingController implements TaxiManager.TaxiListener
     mLastRouterType = router;
     Framework.nativeSetRouter(router);
 
+    // Taxi routing does not support intermediate points.
+    if (isTaxiRouterType())
+    {
+      openRemovingIntermediatePointsTransaction();
+      removeIntermediatePoints();
+    }
+    else
+    {
+      cancelRemovingIntermediatePointsTransaction();
+    }
+
     if (getStartPoint() != null && getEndPoint() != null)
       build();
+  }
+
+  private void openRemovingIntermediatePointsTransaction()
+  {
+    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
+      mRemovingIntermediatePointsTransactionId = Framework.nativeOpenRoutePointsTransaction();
+  }
+
+  private void cancelRemovingIntermediatePointsTransaction()
+  {
+    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
+      return;
+    Framework.nativeCancelRoutePointsTransaction(mRemovingIntermediatePointsTransactionId);
+    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
+  }
+
+  private void applyRemovingIntermediatePointsTransaction()
+  {
+    // We have to apply removing intermediate points transaction each time
+    // we add/remove route points in the taxi mode.
+    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
+      return;
+    Framework.nativeApplyRoutePointsTransaction(mRemovingIntermediatePointsTransactionId);
+    mRemovingIntermediatePointsTransactionId = mInvalidRoutePointsTransactionId;
   }
 
   public void onPoiSelected(@Nullable MapObject point)

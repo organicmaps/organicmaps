@@ -41,6 +41,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 @property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
 @property(nonatomic) NSString * altitudeElevation;
 @property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
+@property(nonatomic) uint32_t taxiRoutePointTransactionId;
 
 @end
 
@@ -167,6 +168,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     self.altitudeImagesData = [@{} mutableCopy];
     self.renderAltitudeImagesQueue =
         dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
+    self.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
   }
@@ -177,11 +179,42 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   if (type == self.type)
     return;
-  // Now only car routing supports intermediate points.
-  if (type != MWMRouterTypeVehicle)
-    GetFramework().GetRoutingManager().RemoveIntermediateRoutePoints();
+  
+  // Try to cancel transaction if we switched router type back.
+  [self cancelTaxiTransaction];
+  
+  // Taxi routing does not support intermediate points.
+  auto & rm = GetFramework().GetRoutingManager();
+  if (type == MWMRouterTypeTaxi)
+  {
+    auto router = [MWMRouter router];
+    router.taxiRoutePointTransactionId = rm.OpenRoutePointsTransaction();
+    rm.RemoveIntermediateRoutePoints();
+  }
+  
   [self doStop:NO];
-  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
+  rm.SetRouter(coreRouterType(type));
+}
+
++ (void)cancelTaxiTransaction
+{
+  auto router = [MWMRouter router];
+  if (router.taxiRoutePointTransactionId != RoutingManager::InvalidRoutePointsTransactionId())
+  {
+    GetFramework().GetRoutingManager().CancelRoutePointsTransaction(router.taxiRoutePointTransactionId);
+    router.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+  }
+}
+
++ (void)applyTaxiTransaction
+{
+  // We have to apply taxi transaction each time we add/remove points after switch to taxi mode.
+  auto router = [MWMRouter router];
+  if (router.taxiRoutePointTransactionId != RoutingManager::InvalidRoutePointsTransactionId())
+  {
+    GetFramework().GetRoutingManager().ApplyRoutePointsTransaction(router.taxiRoutePointTransactionId);
+    router.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+  }
 }
 
 + (MWMRouterType)type { return routerType(GetFramework().GetRoutingManager().GetRouter()); }
@@ -213,12 +246,14 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)removePoint:(RouteMarkType)type intermediateIndex:(int8_t)intermediateIndex
 {
+  [self applyTaxiTransaction];
   GetFramework().GetRoutingManager().RemoveRoutePoint(type, intermediateIndex);
   [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
 }
 
 + (void)addPoint:(MWMRoutePoint *)point intermediateIndex:(int8_t)intermediateIndex
 {
+  [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   pt.m_intermediateIndex = intermediateIndex;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
@@ -232,6 +267,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     NSAssert(NO, @"Point can not be nil");
     return;
   }
+  [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMMapViewControlsManager manager] onRoutePointsUpdated];

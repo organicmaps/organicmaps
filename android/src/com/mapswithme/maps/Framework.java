@@ -343,4 +343,9 @@ public class Framework
                                                    double lat, double lon, int accuracy);
 
   public static native void nativeRunFirstLaunchAnimation();
+
+  public static native int nativeOpenRoutePointsTransaction();
+  public static native void nativeApplyRoutePointsTransaction(int transactionId);
+  public static native void nativeCancelRoutePointsTransaction(int transactionId);
+  public static native int nativeInvalidRoutePointsTransactionId();
 }

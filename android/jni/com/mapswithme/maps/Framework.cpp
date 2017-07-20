@@ -1406,4 +1406,30 @@ Java_com_mapswithme_maps_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, j
 {
   frm()->RunFirstLaunchAnimation();
 }
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeOpenRoutePointsTransaction(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().OpenRoutePointsTransaction();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeApplyRoutePointsTransaction(JNIEnv * env, jclass,
+                                                                     jint transactionId)
+{
+  frm()->GetRoutingManager().ApplyRoutePointsTransaction(transactionId);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeCancelRoutePointsTransaction(JNIEnv * env, jclass,
+                                                                      jint transactionId)
+{
+  frm()->GetRoutingManager().CancelRoutePointsTransaction(transactionId);
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeInvalidRoutePointsTransactionId(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().InvalidRoutePointsTransactionId();
+}
 }  // extern "C"

@@ -41,6 +41,8 @@ char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
 
+uint32_t constexpr kInvalidTransactionId = 0;
+
 void FillTurnsDistancesForRendering(std::vector<routing::RouteSegment> const & segments,
                                     std::vector<double> & turns)
 {
@@ -749,4 +751,65 @@ void RoutingManager::SetRouter(RouterType type)
 
   SetLastUsedRouter(type);
   SetRouterImpl(type);
+}
+
+// static
+uint32_t RoutingManager::InvalidRoutePointsTransactionId()
+{
+  return kInvalidTransactionId;
+}
+
+uint32_t RoutingManager::GenerateRoutePointsTransactionId() const
+{
+  static uint32_t id = kInvalidTransactionId + 1;
+  return id++;
+}
+
+uint32_t RoutingManager::OpenRoutePointsTransaction()
+{
+  auto const id = GenerateRoutePointsTransactionId();
+  m_routePointsTransactions[id].m_routeMarks = std::move(GetRoutePoints());
+  return id;
+}
+
+void RoutingManager::ApplyRoutePointsTransaction(uint32_t transactionId)
+{
+  if (m_routePointsTransactions.find(transactionId) == m_routePointsTransactions.end())
+    return;
+
+  // If we apply a transaction we can remove all earlier transactions.
+  // All older transactions must be kept since they can be applied or cancelled later.
+  for (auto it = m_routePointsTransactions.begin(); it != m_routePointsTransactions.end();)
+  {
+    if (it->first <= transactionId)
+      it = m_routePointsTransactions.erase(it);
+    else
+      ++it;
+  }
+}
+
+void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
+{
+  auto const it = m_routePointsTransactions.find(transactionId);
+  if (it == m_routePointsTransactions.end())
+    return;
+  auto routeMarks = it->second.m_routeMarks;
+
+  // If we cancel a transaction we must remove all later transactions.
+  for (auto it = m_routePointsTransactions.begin(); it != m_routePointsTransactions.end();)
+  {
+    if (it->first >= transactionId)
+      it = m_routePointsTransactions.erase(it);
+    else
+      ++it;
+  }
+
+  // Revert route points.
+  ASSERT(m_bmManager != nullptr, ());
+  auto & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
+  controller.Clear();
+  RoutePointsLayout routePoints(controller);
+  for (auto & markData : routeMarks)
+    routePoints.AddRoutePoint(std::move(markData));
+  routePoints.NotifyChanges();
 }

@@ -23,6 +23,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 + (void)setType:(MWMRouterType)type;
 + (MWMRouterType)type;
+- (uint32_t)taxiRoutePointTransactionId;
 
 + (void)disableFollowMode;
 

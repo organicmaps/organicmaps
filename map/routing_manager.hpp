@@ -15,6 +15,7 @@
 #include "base/thread_checker.hpp"
 
 #include <functional>
+#include <map>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -215,12 +216,18 @@ public:
                                   int32_t & minRouteAltitude, int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;
 
+  uint32_t OpenRoutePointsTransaction();
+  void ApplyRoutePointsTransaction(uint32_t transactionId);
+  void CancelRoutePointsTransaction(uint32_t transactionId);
+  static uint32_t InvalidRoutePointsTransactionId();
+
 private:
   void InsertRoute(routing::Route const & route);
   bool IsTrackingReporterEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
+  uint32_t GenerateRoutePointsTransactionId() const;
 
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
@@ -235,6 +242,12 @@ private:
   std::mutex m_drapeSubroutesMutex;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
+
+  struct RoutePointsTransaction
+  {
+    std::vector<RouteMarkData> m_routeMarks;
+  };
+  std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
