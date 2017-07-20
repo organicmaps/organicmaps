@@ -78,6 +78,11 @@ private:
   template <class DistanceFn>
   Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
                                       size_t startIdx, size_t endIdx) const;
+
+  /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
+  /// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
+  /// after |m_current| the iterator corresponding of the projection is returned.
+  /// Otherwise returns a projection to closest point of route.
   template <class DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 

@@ -136,10 +136,6 @@ Iter FollowedPolyline::GetClosestProjectionInInterval(m2::RectD const & posRect,
   return res;
 }
 
-/// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
-/// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
-/// after |m_current| the iterator corresponding of the projection returns.
-/// Otherwise returned a projection to closest point of route.
 template <class DistanceFn>
 Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
                                          DistanceFn const & distFn) const
