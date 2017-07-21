@@ -60,10 +60,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 @property(nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 @property(nonatomic) MWMOpeningHoursLayoutHelper * openingHoursLayoutHelper;
-@property(nonatomic) NSArray<NSIndexPath *> * buttonsSectionIndexPaths;
 
 @property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
 @property(weak, nonatomic) MWMPPViatorCarouselCell * viatorCell;
+
+@property(nonatomic) BOOL buttonsSectionEnabled;
 
 @end
 
@@ -118,7 +119,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 - (UIView *)shareAnchor { return self.actionBar.shareAnchor; }
 - (void)showWithData:(MWMPlacePageData *)data
 {
-  self.buttonsSectionIndexPaths = nil;
+  self.buttonsSectionEnabled = YES;
   self.data = data;
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
@@ -180,14 +181,37 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [self.previewLayoutHelper setSpeedAndAltitude:speedAndAltitude];
 }
 
-- (void)setButtonsSectionEnabled:(BOOL)isEnabled
+- (void)setButtonsSectionEnabled:(BOOL)buttonsSectionEnabled
 {
-  [self.buttonsSectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * obj, NSUInteger idx, BOOL * stop) {
-    auto c = static_cast<MWMPlacePageButtonCell *>([self.placePageView.tableView cellForRowAtIndexPath:obj]);
+  if (_buttonsSectionEnabled == buttonsSectionEnabled)
+    return;
+  auto data = self.data;
+  auto tv = self.placePageView.tableView;
+  if (!data || !tv)
+    return;
+
+  _buttonsSectionEnabled = buttonsSectionEnabled;
+  auto const & sections = data.sections;
+  auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
+  if (it == sections.end())
+    return;
+  NSInteger const sectionNumber = distance(sections.begin(), it);
+  auto const numberOfRows = [tv numberOfRowsInSection:sectionNumber];
+  for (NSInteger i = 0; i < numberOfRows; ++i)
+  {
+    auto ip = [NSIndexPath indexPathForRow:i inSection:sectionNumber];
+    auto c = [tv cellForRowAtIndexPath:ip];
+    BOOL const isKindOfMWMPlacePageButtonCell = [c isKindOfClass:[MWMPlacePageButtonCell class]];
+    NSAssert(isKindOfMWMPlacePageButtonCell, @"Invalid cell class");
+    if (!isKindOfMWMPlacePageButtonCell)
+      continue;
+    auto cell = static_cast<MWMPlacePageButtonCell *>(c);
     // Hotel description button is always enabled.
-    if (c.rowType != place_page::ButtonsRows::HotelDescription)
-      c.enabled = isEnabled;
-  }];
+    if (cell.rowType == place_page::ButtonsRows::HotelDescription)
+      cell.enabled = YES;
+    else
+      cell.enabled = buttonsSectionEnabled;
+  }
 }
 
 - (MWMPlacePageActionBar *)actionBar
@@ -198,27 +222,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     self.layoutImpl.actionBar = _actionBar;
   }
   return _actionBar;
-}
-
-- (NSArray<NSIndexPath *> *)buttonsSectionIndexPaths
-{
-  if (!_buttonsSectionIndexPaths)
-  {
-    auto const & sections = self.data.sections;
-    auto tv = self.placePageView.tableView;
-
-    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-    NSMutableArray<NSIndexPath *> * ip = @[].mutableCopy;
-    if (it != sections.end())
-    {
-      NSInteger const sectionNumber = distance(sections.begin(), it);
-      auto const numberOfRows = [tv numberOfRowsInSection:sectionNumber];
-      for (NSInteger i = 0; i < numberOfRows; i++)
-        [ip addObject:[NSIndexPath indexPathForRow:i inSection:sectionNumber]];
-    }
-    _buttonsSectionIndexPaths = ip.copy;
-  }
-  return _buttonsSectionIndexPaths;
 }
 
 - (void)close
