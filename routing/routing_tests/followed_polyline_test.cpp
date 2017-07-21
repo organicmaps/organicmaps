@@ -111,8 +111,8 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
   m2::PointD point(4, 0);
   polyline.UpdateProjection(MercatorBounds::RectByCenterXYAndSizeInMeters(point, 2));
-  double distance = polyline.GetDistanceFromBeginMeters();
-  double masterDistance = MercatorBounds::DistanceOnEarth(kTestDirectedPolyline.Front(),
+  double const distance = polyline.GetDistanceFromStartMeters();
+  double const masterDistance = MercatorBounds::DistanceOnEarth(kTestDirectedPolyline.Front(),
                                                           point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }

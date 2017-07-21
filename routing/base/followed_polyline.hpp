@@ -31,7 +31,7 @@ public:
   m2::PolylineD const & GetPolyline() const { return m_poly; }
   vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
   double GetTotalDistanceMeters() const;
-  double GetDistanceFromBeginMeters() const;
+  double GetDistanceFromStartMeters() const;
   double GetDistanceToEndMeters() const;
   double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;

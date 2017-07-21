@@ -51,7 +51,7 @@ double FollowedPolyline::GetTotalDistanceMeters() const
   return m_segDistance.back();
 }
 
-double FollowedPolyline::GetDistanceFromBeginMeters() const
+double FollowedPolyline::GetDistanceFromStartMeters() const
 {
   if (!IsValid() || !m_current.IsValid())
   {
@@ -66,7 +66,7 @@ double FollowedPolyline::GetDistanceFromBeginMeters() const
 
 double FollowedPolyline::GetDistanceToEndMeters() const
 {
-  return GetTotalDistanceMeters() - GetDistanceFromBeginMeters();
+  return GetTotalDistanceMeters() - GetDistanceFromStartMeters();
 }
 
 void FollowedPolyline::Swap(FollowedPolyline & rhs)

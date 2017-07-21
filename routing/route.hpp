@@ -55,7 +55,7 @@ public:
   std::string const & GetStreet() const { return m_street; }
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
-  double GetTimeFromBeginningS() const { return m_timeFromBeginningS; }
+  double GetTimeFromBeginningSec() const { return m_timeFromBeginningS; }
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }
 
 private:
@@ -284,7 +284,7 @@ private:
   size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;
 
   /// \returns Estimated time to pass the route segment with |segIdx|.
-  double GetTimeToPassSegS(size_t segIdx) const;
+  double GetTimeToPassSegSec(size_t segIdx) const;
   /// \returns Length of the route segment with |segIdx| in meters.
   double GetSegLenMeters(size_t segIdx) const;
   /// \returns ETA to the last passed route point in seconds.

@@ -75,7 +75,7 @@ double Route::GetCurrentDistanceFromBeginMeters() const
 {
   if (!m_poly.IsValid())
     return 0.0;
-  return m_poly.GetDistanceFromBeginMeters();
+  return m_poly.GetDistanceFromStartMeters();
 }
 
 double Route::GetCurrentDistanceToEndMeters() const
@@ -101,7 +101,7 @@ double Route::GetMercatorDistanceFromBegin() const
 
 double Route::GetTotalTimeSec() const
 {
-  return m_routeSegments.empty() ? 0 : m_routeSegments.back().GetTimeFromBeginningS();
+  return m_routeSegments.empty() ? 0 : m_routeSegments.back().GetTimeFromBeginningSec();
 }
 
 double Route::GetCurrentTimeToEndSec() const
@@ -119,7 +119,7 @@ double Route::GetCurrentTimeToEndSec() const
   if (my::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
     return totalTimeS - etaToLastPassedPointS;
 
-  double const curSegTimeS = GetTimeToPassSegS(curIter.m_ind);
+  double const curSegTimeS = GetTimeToPassSegSec(curIter.m_ind);
   CHECK_GREATER(curSegTimeS, 0, ("Route can't contain segments with infinite speed."));
 
   double const curSegSpeedMPerS = curSegLenMeters / curSegTimeS;
@@ -130,7 +130,6 @@ double Route::GetCurrentTimeToEndSec() const
 
 void Route::GetCurrentStreetName(string & name) const
 {
-  name.clear();
   GetStreetNameAfterIdx(static_cast<uint32_t>(m_poly.GetCurrentIter().m_ind), name);
 }
 
@@ -149,10 +148,10 @@ void Route::GetStreetNameAfterIdx(uint32_t idx, string & name) const
     if (i == 0)
       continue;
 
-    string const n = m_routeSegments[ConvertPointIdxToSegmentIdx(i)].GetStreet();
-    if (!n.empty())
+    string const street = m_routeSegments[ConvertPointIdxToSegmentIdx(i)].GetStreet();
+    if (!street.empty())
     {
-      name = n;
+      name = street;
       return;
     }
     auto const furtherIter = m_poly.GetIterToIndex(i);
@@ -322,7 +321,7 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
   size_t const segmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx() - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
-  double const passedDistanceMeters = m_poly.GetDistanceFromBeginMeters();
+  double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
   return lengthMeters - passedDistanceMeters < kOnEndToleranceM;
 }
 
@@ -355,11 +354,11 @@ void Route::GetTurnsForTesting(vector<TurnItem> & turns) const
   }
 }
 
-double Route::GetTimeToPassSegS(size_t segIdx) const
+double Route::GetTimeToPassSegSec(size_t segIdx) const
 {
   CHECK_LESS(segIdx, m_routeSegments.size(), ());
-  return m_routeSegments[segIdx].GetTimeFromBeginningS() -
-         (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetTimeFromBeginningS());
+  return m_routeSegments[segIdx].GetTimeFromBeginningSec() -
+         (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetTimeFromBeginningSec());
 }
 
 double Route::GetSegLenMeters(size_t segIdx) const
@@ -376,7 +375,7 @@ double Route::GetETAToLastPassedPointSec() const
   CHECK(curIter.IsValid(), ());
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningS();
+  return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
 }
 
 string DebugPrint(Route const & r)
