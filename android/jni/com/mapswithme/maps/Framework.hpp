@@ -202,6 +202,10 @@ namespace android
 
     void RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback);
 
+    uint64_t GetRentNearby(JNIEnv * env, jobject policy, ms::LatLon const & latlon,
+                       cian::Api::RentNearbyCallback const & onSuccess,
+                       cian::Api::ErrorCallback const & onError);
+
     int ToDoAfterUpdate() const;
 
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);

@@ -79,6 +79,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkCategory.cpp \
+	com/mapswithme/maps/cian/Cian.cpp \
 	com/mapswithme/maps/DisplayedCategories.cpp \
 	com/mapswithme/maps/DownloadResourcesLegacyActivity.cpp \
 	com/mapswithme/maps/editor/OpeningHours.cpp \
@@ -97,10 +98,11 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/sound/tts.cpp \
 	com/mapswithme/maps/Sponsored.cpp \
 	com/mapswithme/maps/taxi/TaxiManager.cpp \
-    com/mapswithme/maps/ugc/UGC.cpp \
 	com/mapswithme/maps/TrackRecorder.cpp \
 	com/mapswithme/maps/TrafficState.cpp \
+	com/mapswithme/maps/ugc/UGC.cpp \
 	com/mapswithme/maps/UserMarkHelper.cpp \
+	com/mapswithme/maps/viator/Viator.cpp \
 	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
@@ -113,12 +115,10 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/PThreadImpl.cpp \
 	com/mapswithme/util/Config.cpp \
 	com/mapswithme/util/HttpClient.cpp \
-	com/mapswithme/util/StringUtils.cpp \
-	com/mapswithme/util/statistics/PushwooshHelper.cpp \
 	com/mapswithme/util/LoggerFactory.cpp \
 	com/mapswithme/util/NetworkPolicy.cpp \
-	com/mapswithme/maps/viator/Viator.cpp \
-
+	com/mapswithme/util/StringUtils.cpp \
+	com/mapswithme/util/statistics/PushwooshHelper.cpp \
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 

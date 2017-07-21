@@ -59,8 +59,8 @@ public:
   explicit Api(std::string const & baseUrl = kBaseUrl);
   virtual ~Api();
 
-  uint64_t GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb,
-                         ErrorCallback const & errCb);
+  uint64_t GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & onSuccess,
+                         ErrorCallback const & onError);
 
   static bool IsCitySupported(std::string const & city);
 

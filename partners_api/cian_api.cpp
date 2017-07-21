@@ -127,8 +127,8 @@ Api::~Api()
   m_worker.Shutdown(base::WorkerThread::Exit::SkipPending);
 }
 
-uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & cb,
-                            ErrorCallback const & errCb)
+uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & onSuccess,
+                            ErrorCallback const & onError)
 {
   auto const reqId = ++m_requestId;
   auto const & baseUrl = m_baseUrl;
@@ -137,14 +137,14 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
   auto const mercatorRect = MercatorBounds::MetresToXY(latlon.lat, latlon.lon, kSearchRadius);
   auto const rect = MercatorBounds::ToLatLonRect(mercatorRect);
 
-  m_worker.Push([reqId, rect, cb, errCb, baseUrl]() {
+  m_worker.Push([reqId, rect, onSuccess, onError, baseUrl]() {
     std::vector<RentPlace> result;
 
     auto const rawResult = RawApi::GetRentNearby(rect, baseUrl);
     if (!rawResult)
     {
       auto & code = rawResult.m_errorCode;
-      GetPlatform().RunOnGuiThread([errCb, code, reqId]() { errCb(code, reqId); });
+      GetPlatform().RunOnGuiThread([onError, code, reqId]() { onError(code, reqId); });
       return;
     }
 
@@ -157,7 +157,7 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
       LOG(LERROR, (e.Msg()));
       result.clear();
     }
-    GetPlatform().RunOnGuiThread([cb, result, reqId]() { cb(result, reqId); });
+    GetPlatform().RunOnGuiThread([onSuccess, result, reqId]() { onSuccess(result, reqId); });
   });
 
   return reqId;
