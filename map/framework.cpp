@@ -1584,7 +1584,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   }
 
   CianModifier cianModifier(city);
-  m_displayedCategories->Modify(&cianModifier);
+  m_displayedCategories->Modify(cianModifier);
 
   return *m_displayedCategories;
 }

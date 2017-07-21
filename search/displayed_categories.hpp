@@ -16,7 +16,7 @@ public:
 
   DisplayedCategories(CategoriesHolder const & holder);
 
-  void Modify(CategoriesModifier * modifier);
+  void Modify(CategoriesModifier & modifier);
 
   // Returns a list of English names of displayed categories for the categories search tab.
   // The list may be modified during the application runtime in order to support sponsored or

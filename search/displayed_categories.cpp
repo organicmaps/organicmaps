@@ -12,9 +12,9 @@ DisplayedCategories::DisplayedCategories(CategoriesHolder const & holder) : m_ho
             "atm",  "bank",  "entertainment", "hospital", "pharmacy",  "police", "toilet",  "post"};
 }
 
-void DisplayedCategories::Modify(CategoriesModifier * modifier)
+void DisplayedCategories::Modify(CategoriesModifier & modifier)
 {
-  modifier->Modify(m_keys);
+  modifier.Modify(m_keys);
 }
 
 std::vector<std::string> const & DisplayedCategories::GetKeys() const { return m_keys; }
