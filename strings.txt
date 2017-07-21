@@ -25859,3 +25859,25 @@
     el = Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.
     sk = Naplánujte si trasu s zastávkou.
     sw = Panga njia ya kufuata yenye eneo la kati.
+
+  [subtitle_rent]
+    en = Rent
+    ru = Аренда
+  [rub_month]
+    en = ₽/month
+    ru = ₽/мес.
+  [room]
+    en = %S room(s) apart.
+    ru = %S-комн. кв.
+  [real_estate]
+    en = Real estate
+    ru = Недвижимость
+  [title_cian_load_information]
+    en = Verified accommodation
+    ru = Проверенное жильё
+  [subtitle_cian_load_information]
+    en = Find out how much the apartments cost in this house
+    ru = Узнай сколько стоят квартиры в этом доме
+  [error_load_information]
+    en = Could not load information
+    ru = Не удалось загрузить информацию
