@@ -41,7 +41,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_BOOKMARKS_CLICK;
-import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_SEARCH_CLICK;
 
 public class NavigationController implements TrafficManager.TrafficCallback, View.OnClickListener
 {
@@ -204,15 +203,15 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
                                                     R.dimen.text_size_nav_dimension,
                                                     info.distToTurn,
                                                     info.turnUnits));
-    info.vehicleTurnDirection.setTurnDrawable(mNextTurnImage);
-    if (RoutingInfo.VehicleTurnDirection.isRoundAbout(info.vehicleTurnDirection))
+    info.carDirection.setTurnDrawable(mNextTurnImage);
+    if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
     else
       UiUtils.hide(mCircleExit);
 
-    UiUtils.showIf(info.vehicleNextTurnDirection.containsNextTurn(), mNextNextTurnFrame);
-    if (info.vehicleNextTurnDirection.containsNextTurn())
-      info.vehicleNextTurnDirection.setNextTurnDrawable(mNextNextTurnImage);
+    UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
+    if (info.nextCarDirection.containsNextTurn())
+      info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
   }
 
   private void updatePedestrian(RoutingInfo info)
