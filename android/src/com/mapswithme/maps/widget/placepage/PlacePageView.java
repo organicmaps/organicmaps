@@ -202,6 +202,7 @@ public class PlacePageView extends RelativeLayout
   private RecyclerView mRvSponsoredProducts;
   @Nullable
   private BaseSponsoredAdapter mSponsoredAdapter;
+  private TextView mTvSponsoredTitle;
   private View mUgcView;
   private View mUgcRating;
   private View mUgcMoreReviews;
@@ -873,6 +874,7 @@ public class PlacePageView extends RelativeLayout
   private void initSponsoredGalleryView()
   {
     mSponsoredGalleryView = findViewById(R.id.ll__place_sponsored_gallery);
+    mTvSponsoredTitle = (TextView) mSponsoredGalleryView.findViewById(R.id.tv__sponsored_title);
     mRvSponsoredProducts = (RecyclerView) mSponsoredGalleryView.findViewById(R.id.rv__sponsored_products);
     mRvSponsoredProducts.setLayoutManager(new LinearLayoutManager(getContext(),
                                                                   LinearLayoutManager.HORIZONTAL,
@@ -962,6 +964,7 @@ public class PlacePageView extends RelativeLayout
   private void showLoadingViatorProducts(@NonNull String id, @NonNull String cityUrl)
   {
     UiUtils.show(mSponsoredGalleryView);
+    mTvSponsoredTitle.setText(R.string.place_page_viator_title);
     if (!Viator.hasCache(id))
     {
       mSponsoredAdapter = new ViatorAdapter(cityUrl, false, this);
@@ -972,6 +975,7 @@ public class PlacePageView extends RelativeLayout
   private void showLoadingCianProducts(@NonNull String url)
   {
     UiUtils.show(mSponsoredGalleryView);
+    mTvSponsoredTitle.setText(R.string.subtitle_rent);
     if (mRvSponsoredProducts.getAdapter().getItemCount() == 0)
     {
       mSponsoredAdapter = new CianAdapter(url, false, this);

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.cian;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -17,6 +19,11 @@ import java.util.List;
 
 public final class CianAdapter extends BaseSponsoredAdapter
 {
+  private static final String LOADING_TITLE = MwmApplication
+      .get().getString(R.string.title_cian_load_information);
+  private static final String LOADING_SUBTITLE = MwmApplication
+      .get().getString(R.string.subtitle_cian_load_information);
+
   public CianAdapter(@NonNull String url, boolean hasError, @Nullable ItemSelectedListener listener)
   {
     super(Sponsored.TYPE_CIAN, url, hasError, listener);
@@ -35,11 +42,11 @@ public final class CianAdapter extends BaseSponsoredAdapter
     for (RentPlace place : items)
     {
       RentOffer product = place.getOffers().get(0);
-//      Context context = MwmApplication.get();
-//      String title = context.getString(R.string.room, Integer.toString(product.getRoomsCount()))
-//          + " " + Integer.toString(product.getFloorNumber()) + context.getString(R.string.area);
-//      String price = context.getString(R.string.rub_month);
-//      viewItems.add(new Item(title, product.getUrl(), price, product.getAddress()));
+      Context context = MwmApplication.get();
+      String title = context.getString(R.string.room, Integer.toString(product.getRoomsCount()));
+      String price = Integer.toString(product.getPrice()) + " "
+                     + context.getString(R.string.rub_month);
+      viewItems.add(new Item(title, product.getUrl(), price, product.getAddress()));
     }
 
     return viewItems;
@@ -66,14 +73,14 @@ public final class CianAdapter extends BaseSponsoredAdapter
   @Override
   protected String getLoadingTitle()
   {
-    return null;
+    return LOADING_TITLE;
   }
 
   @Nullable
   @Override
   protected String getLoadingSubtitle()
   {
-    return null;
+    return LOADING_SUBTITLE;
   }
 
   private static final class ProductViewHolder extends ViewHolder

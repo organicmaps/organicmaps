@@ -18,12 +18,13 @@
     android:paddingLeft="@dimen/margin_base"
     android:paddingRight="@dimen/margin_base">
     <TextView
+      android:id="@+id/tv__sponsored_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:fontFamily="@string/robotoMedium"
-      android:text="@string/place_page_viator_title"
+      tools:text="@string/place_page_viator_title"
       tools:targetApi="jelly_bean"/>
     <TextView
       android:id="@+id/btn__sponsored_more"
