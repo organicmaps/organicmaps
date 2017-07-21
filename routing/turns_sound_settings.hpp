@@ -134,11 +134,11 @@ struct Notification
   /// if m_useThenInsteadOfDistance == true the m_distanceUnits is ignored.
   /// The word "Then" shall be pronounced intead of the distance.
   bool m_useThenInsteadOfDistance;
-  TurnDirection m_turnDir;
+  CarDirection m_turnDir;
   measurement_utils::Units m_lengthUnits;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               TurnDirection turnDir, measurement_utils::Units lengthUnits)
+               CarDirection turnDir, measurement_utils::Units lengthUnits)
     : m_distanceUnits(distanceUnits)
     , m_exitNum(exitNum)
     , m_useThenInsteadOfDistance(useThenInsteadOfDistance)

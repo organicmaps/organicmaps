@@ -10,6 +10,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -22,19 +23,19 @@ static vector<m2::PointD> const kTestGeometry({{0, 0}, {0,1}, {1,1}, {1,2}, {1,3
 static vector<Segment> const kTestSegments(
     {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}});
 static Route::TTurns const kTestTurns(
-    {turns::TurnItem(1, turns::TurnDirection::TurnLeft),
-     turns::TurnItem(2, turns::TurnDirection::TurnRight),
-     turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
+    {turns::TurnItem(1, turns::CarDirection::TurnLeft),
+     turns::TurnItem(2, turns::CarDirection::TurnRight),
+     turns::TurnItem(4, turns::CarDirection::ReachedYourDestination)});
 static Route::TStreets const kTestNames({{0, "Street1"}, {1, "Street2"}, {4, "Street3"}});
 static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(3, 10),
                                       Route::TTimeItem(4, 15)});
 
 static Route::TTurns const kTestTurns2(
-    {turns::TurnItem(0, turns::TurnDirection::None),
-     turns::TurnItem(1, turns::TurnDirection::TurnLeft),
-     turns::TurnItem(2, turns::TurnDirection::TurnRight),
-     turns::TurnItem(3, turns::TurnDirection::None),
-     turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
+    {turns::TurnItem(0, turns::CarDirection::None),
+     turns::TurnItem(1, turns::CarDirection::TurnLeft),
+     turns::TurnItem(2, turns::CarDirection::TurnRight),
+     turns::TurnItem(3, turns::CarDirection::None),
+     turns::TurnItem(4, turns::CarDirection::ReachedYourDestination)});
 static vector<string> const kTestNames2 = {"Street0", "Street1", "Street2", "", "Street3"};
 static vector<double> const kTestTimes2 = {0.0, 5.0, 6.0, 10.0, 15.0};
 

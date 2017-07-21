@@ -18,7 +18,7 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::TestRouteLength(route, 1054.0);
 }
 
@@ -34,8 +34,8 @@ UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
 
   integration::TestTurnCount(route, 2);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
 UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
@@ -50,7 +50,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
 
   integration::TestTurnCount(route, 1);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::GoStraight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTurnTest)
@@ -75,10 +75,10 @@ UNIT_TEST(RussiaMoscowPlanernaiOnewayCarRoadTurnTest)
 
   integration::TestTurnCount(route, 4);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
 
   integration::TestRouteLength(route, 420.0);
 }
@@ -95,9 +95,9 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
 
   integration::TestTurnCount(route, 3);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
 
   integration::TestRouteLength(route, 768.0);
 }

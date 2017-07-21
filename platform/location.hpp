@@ -125,8 +125,8 @@ namespace location
   {
   public:
     FollowingInfo()
-        : m_turn(routing::turns::TurnDirection::None),
-          m_nextTurn(routing::turns::TurnDirection::None),
+        : m_turn(routing::turns::CarDirection::None),
+          m_nextTurn(routing::turns::CarDirection::None),
           m_exitNum(0),
           m_time(0),
           m_completionPercent(0),
@@ -165,9 +165,9 @@ namespace location
     //@{
     string m_distToTurn;
     string m_turnUnitsSuffix;
-    routing::turns::TurnDirection m_turn;
+    routing::turns::CarDirection m_turn;
     /// Turn after m_turn. Returns NoTurn if there is no turns after.
-    routing::turns::TurnDirection m_nextTurn;
+    routing::turns::CarDirection m_nextTurn;
     uint32_t m_exitNum;
     //@}
     int m_time;

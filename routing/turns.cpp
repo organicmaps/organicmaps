@@ -28,24 +28,24 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
               "Check the size of g_laneWayNames");
 
-array<pair<TurnDirection, char const *>, static_cast<size_t>(TurnDirection::Count)> const g_turnNames = {
-    {{TurnDirection::None, "None"},
-     {TurnDirection::GoStraight, "GoStraight"},
-     {TurnDirection::TurnRight, "TurnRight"},
-     {TurnDirection::TurnSharpRight, "TurnSharpRight"},
-     {TurnDirection::TurnSlightRight, "TurnSlightRight"},
-     {TurnDirection::TurnLeft, "TurnLeft"},
-     {TurnDirection::TurnSharpLeft, "TurnSharpLeft"},
-     {TurnDirection::TurnSlightLeft, "TurnSlightLeft"},
-     {TurnDirection::UTurnLeft, "UTurnLeft"},
-     {TurnDirection::UTurnRight, "UTurnRight"},
-     {TurnDirection::TakeTheExit, "TakeTheExit"},
-     {TurnDirection::EnterRoundAbout, "EnterRoundAbout"},
-     {TurnDirection::LeaveRoundAbout, "LeaveRoundAbout"},
-     {TurnDirection::StayOnRoundAbout, "StayOnRoundAbout"},
-     {TurnDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
-     {TurnDirection::ReachedYourDestination, "ReachedYourDestination"}}};
-static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count),
+array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const g_turnNames = {
+    {{CarDirection::None, "None"},
+     {CarDirection::GoStraight, "GoStraight"},
+     {CarDirection::TurnRight, "TurnRight"},
+     {CarDirection::TurnSharpRight, "TurnSharpRight"},
+     {CarDirection::TurnSlightRight, "TurnSlightRight"},
+     {CarDirection::TurnLeft, "TurnLeft"},
+     {CarDirection::TurnSharpLeft, "TurnSharpLeft"},
+     {CarDirection::TurnSlightLeft, "TurnSlightLeft"},
+     {CarDirection::UTurnLeft, "UTurnLeft"},
+     {CarDirection::UTurnRight, "UTurnRight"},
+     {CarDirection::TakeTheExit, "TakeTheExit"},
+     {CarDirection::EnterRoundAbout, "EnterRoundAbout"},
+     {CarDirection::LeaveRoundAbout, "LeaveRoundAbout"},
+     {CarDirection::StayOnRoundAbout, "StayOnRoundAbout"},
+     {CarDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
+     {CarDirection::ReachedYourDestination, "ReachedYourDestination"}}};
+static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
               "Check the size of g_turnNames");
 }  // namespace
 
@@ -175,7 +175,7 @@ string DebugPrint(TurnItemDist const & turnItemDist)
   return out.str();
 }
 
-string const GetTurnString(TurnDirection turn)
+string const GetTurnString(CarDirection turn)
 {
   for (auto const & p : g_turnNames)
   {
@@ -184,84 +184,84 @@ string const GetTurnString(TurnDirection turn)
   }
 
   stringstream out;
-  out << "unknown TurnDirection (" << static_cast<int>(turn) << ")";
+  out << "unknown CarDirection (" << static_cast<int>(turn) << ")";
   return out.str();
 }
 
-bool IsLeftTurn(TurnDirection t)
+bool IsLeftTurn(CarDirection t)
 {
-  return (t >= TurnDirection::TurnLeft && t <= TurnDirection::TurnSlightLeft);
+  return (t >= CarDirection::TurnLeft && t <= CarDirection::TurnSlightLeft);
 }
 
-bool IsRightTurn(TurnDirection t)
+bool IsRightTurn(CarDirection t)
 {
-  return (t >= TurnDirection::TurnRight && t <= TurnDirection::TurnSlightRight);
+  return (t >= CarDirection::TurnRight && t <= CarDirection::TurnSlightRight);
 }
 
-bool IsLeftOrRightTurn(TurnDirection t)
+bool IsLeftOrRightTurn(CarDirection t)
 {
   return IsLeftTurn(t) || IsRightTurn(t);
 }
 
-bool IsStayOnRoad(TurnDirection t)
+bool IsStayOnRoad(CarDirection t)
 {
-  return (t == TurnDirection::GoStraight || t == TurnDirection::StayOnRoundAbout);
+  return (t == CarDirection::GoStraight || t == CarDirection::StayOnRoundAbout);
 }
 
-bool IsGoStraightOrSlightTurn(TurnDirection t)
+bool IsGoStraightOrSlightTurn(CarDirection t)
 {
-  return (t == TurnDirection::GoStraight || t == TurnDirection::TurnSlightLeft ||
-          t == TurnDirection::TurnSlightRight);
+  return (t == CarDirection::GoStraight || t == CarDirection::TurnSlightLeft ||
+          t == CarDirection::TurnSlightRight);
 }
 
-bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t)
+bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t)
 {
   switch (t)
   {
     default:
       return false;
-    case TurnDirection::GoStraight:
+    case CarDirection::GoStraight:
       return l == LaneWay::Through;
-    case TurnDirection::TurnRight:
+    case CarDirection::TurnRight:
       return l == LaneWay::Right;
-    case TurnDirection::TurnSharpRight:
+    case CarDirection::TurnSharpRight:
       return l == LaneWay::SharpRight;
-    case TurnDirection::TurnSlightRight:
+    case CarDirection::TurnSlightRight:
       return l == LaneWay::SlightRight;
-    case TurnDirection::TurnLeft:
+    case CarDirection::TurnLeft:
       return l == LaneWay::Left;
-    case TurnDirection::TurnSharpLeft:
+    case CarDirection::TurnSharpLeft:
       return l == LaneWay::SharpLeft;
-    case TurnDirection::TurnSlightLeft:
+    case CarDirection::TurnSlightLeft:
       return l == LaneWay::SlightLeft;
-    case TurnDirection::UTurnLeft:
-    case TurnDirection::UTurnRight:
+    case CarDirection::UTurnLeft:
+    case CarDirection::UTurnRight:
       return l == LaneWay::Reverse;
   }
 }
 
-bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t)
+bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t)
 {
   switch (t)
   {
     default:
       return false;
-    case TurnDirection::GoStraight:
+    case CarDirection::GoStraight:
       return l == LaneWay::Through || l == LaneWay::SlightRight || l == LaneWay::SlightLeft;
-    case TurnDirection::TurnRight:
+    case CarDirection::TurnRight:
       return l == LaneWay::Right || l == LaneWay::SharpRight || l == LaneWay::SlightRight;
-    case TurnDirection::TurnSharpRight:
+    case CarDirection::TurnSharpRight:
       return l == LaneWay::SharpRight || l == LaneWay::Right;
-    case TurnDirection::TurnSlightRight:
+    case CarDirection::TurnSlightRight:
       return l == LaneWay::SlightRight || l == LaneWay::Through || l == LaneWay::Right;
-    case TurnDirection::TurnLeft:
+    case CarDirection::TurnLeft:
       return l == LaneWay::Left || l == LaneWay::SlightLeft || l == LaneWay::SharpLeft;
-    case TurnDirection::TurnSharpLeft:
+    case CarDirection::TurnSharpLeft:
       return l == LaneWay::SharpLeft || l == LaneWay::Left;
-    case TurnDirection::TurnSlightLeft:
+    case CarDirection::TurnSlightLeft:
       return l == LaneWay::SlightLeft || l == LaneWay::Through || l == LaneWay::Left;
-    case TurnDirection::UTurnLeft:
-    case TurnDirection::UTurnRight:
+    case CarDirection::UTurnLeft:
+    case CarDirection::UTurnRight:
       return l == LaneWay::Reverse;
   }
 }
@@ -337,7 +337,7 @@ string DebugPrint(LaneWay const l)
   return it->second;
 }
 
-string DebugPrint(TurnDirection const turn)
+string DebugPrint(CarDirection const turn)
 {
   stringstream out;
   out << "[ " << GetTurnString(turn) << " ]";

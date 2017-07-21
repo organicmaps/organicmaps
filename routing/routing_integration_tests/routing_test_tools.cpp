@@ -324,14 +324,14 @@ namespace integration
     return *this;
   }
 
-  const TestTurn & TestTurn::TestDirection(routing::turns::TurnDirection expectedDirection) const
+  const TestTurn & TestTurn::TestDirection(routing::turns::CarDirection expectedDirection) const
   {
     TEST_EQUAL(m_direction, expectedDirection, ());
     return *this;
   }
 
   const TestTurn & TestTurn::TestOneOfDirections(
-      set<routing::turns::TurnDirection> const & expectedDirections) const
+      set<routing::turns::CarDirection> const & expectedDirections) const
   {
     TEST(expectedDirections.find(m_direction) != expectedDirections.cend(), ());
     return *this;

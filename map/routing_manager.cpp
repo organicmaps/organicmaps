@@ -50,11 +50,11 @@ void FillTurnsDistancesForRendering(std::vector<routing::RouteSegment> const & s
   for (auto const & s : segments)
   {
     auto const & t = s.GetTurn();
-    CHECK_NOT_EQUAL(t.m_turn, TurnDirection::Count, ());
+    CHECK_NOT_EQUAL(t.m_turn, CarDirection::Count, ());
     // We do not render some of turn directions.
-    if (t.m_turn == TurnDirection::None || t.m_turn == TurnDirection::StartAtEndOfStreet ||
-        t.m_turn == TurnDirection::StayOnRoundAbout || t.m_turn == TurnDirection::TakeTheExit ||
-        t.m_turn == TurnDirection::ReachedYourDestination)
+    if (t.m_turn == CarDirection::None || t.m_turn == CarDirection::StartAtEndOfStreet ||
+        t.m_turn == CarDirection::StayOnRoundAbout || t.m_turn == CarDirection::TakeTheExit ||
+        t.m_turn == CarDirection::ReachedYourDestination)
     {
       continue;
     }

@@ -111,18 +111,18 @@ class TestTurn
   friend TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 
   m2::PointD const m_point;
-  TurnDirection const m_direction;
+  CarDirection const m_direction;
   uint32_t const m_roundAboutExitNum;
   bool const m_isValid;
 
   TestTurn()
     : m_point({0.0, 0.0})
-    , m_direction(TurnDirection::None)
+    , m_direction(CarDirection::None)
     , m_roundAboutExitNum(0)
     , m_isValid(false)
   {
   }
-  TestTurn(m2::PointD const & pnt, TurnDirection direction, uint32_t roundAboutExitNum)
+  TestTurn(m2::PointD const & pnt, CarDirection direction, uint32_t roundAboutExitNum)
     : m_point(pnt), m_direction(direction), m_roundAboutExitNum(roundAboutExitNum), m_isValid(true)
   {
   }
@@ -131,8 +131,8 @@ public:
   const TestTurn & TestValid() const;
   const TestTurn & TestNotValid() const;
   const TestTurn & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
-  const TestTurn & TestDirection(TurnDirection expectedDirection) const;
-  const TestTurn & TestOneOfDirections(set<TurnDirection> const & expectedDirections) const;
+  const TestTurn & TestDirection(CarDirection expectedDirection) const;
+  const TestTurn & TestOneOfDirections(set<CarDirection> const & expectedDirections) const;
   const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 

@@ -72,7 +72,7 @@ double constexpr kFeaturesNearTurnMeters = 3.0;
  * \warning The values of TurnDirection shall be synchronized with values of TurnDirection enum in
  * java.
  */
-enum class TurnDirection
+enum class CarDirection
 {
   None = 0,
   GoStraight,
@@ -99,7 +99,7 @@ enum class TurnDirection
   Count  /**< This value is used for internals only. */
 };
 
-string DebugPrint(TurnDirection const l);
+string DebugPrint(CarDirection const l);
 
 /*!
  * \warning The values of PedestrianDirectionType shall be synchronized with values in java
@@ -156,21 +156,21 @@ struct TurnItem
 {
   TurnItem()
       : m_index(numeric_limits<uint32_t>::max()),
-        m_turn(TurnDirection::None),
+        m_turn(CarDirection::None),
         m_exitNum(0),
         m_keepAnyway(false),
         m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
-  TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
+  TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
       : m_index(idx), m_turn(t), m_exitNum(exitNum), m_keepAnyway(false)
       , m_pedestrianTurn(PedestrianDirection::None)
   {
   }
 
   TurnItem(uint32_t idx, PedestrianDirection p)
-      : m_index(idx), m_turn(TurnDirection::None), m_exitNum(0), m_keepAnyway(false)
+      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0), m_keepAnyway(false)
       , m_pedestrianTurn(p)
   {
   }
@@ -184,7 +184,7 @@ struct TurnItem
   }
 
   uint32_t m_index;               /*!< Index of point on route polyline (number of segment + 1). */
-  TurnDirection m_turn;           /*!< The turn instruction of the TurnItem */
+  CarDirection m_turn;            /*!< The turn instruction of the TurnItem */
   vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
   uint32_t m_exitNum;             /*!< Number of exit on roundabout. */
   string m_sourceName;            /*!< Name of the street which the ingoing edge belongs to */
@@ -211,13 +211,13 @@ struct TurnItemDist
 
 string DebugPrint(TurnItemDist const & turnItemDist);
 
-string const GetTurnString(TurnDirection turn);
+string const GetTurnString(CarDirection turn);
 
-bool IsLeftTurn(TurnDirection t);
-bool IsRightTurn(TurnDirection t);
-bool IsLeftOrRightTurn(TurnDirection t);
-bool IsStayOnRoad(TurnDirection t);
-bool IsGoStraightOrSlightTurn(TurnDirection t);
+bool IsLeftTurn(CarDirection t);
+bool IsRightTurn(CarDirection t);
+bool IsLeftOrRightTurn(CarDirection t);
+bool IsStayOnRoad(CarDirection t);
+bool IsGoStraightOrSlightTurn(CarDirection t);
 
 /*!
  * \param l A variant of going along a lane.
@@ -226,7 +226,7 @@ bool IsGoStraightOrSlightTurn(TurnDirection t);
  * when @l equals to LaneWay::Right and @t equals to TurnDirection::TurnRight.
  * Otherwise it returns false.
  */
-bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t);
+bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t);
 
 /*!
  * \param l A variant of going along a lane.
@@ -235,7 +235,7 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t);
  * when @l equals to LaneWay::Right and @t equals to TurnDirection::TurnSlightRight.
  * Otherwise it returns false.
  */
-bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
+bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t);
 
 /*!
  * \brief Parse lane information which comes from @lanesString

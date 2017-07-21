@@ -44,7 +44,7 @@ public:
 static vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
 static vector<Segment> const kTestSegments({{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}});
 static Route::TTurns const kTestTurns = {
-    turns::TurnItem(3, turns::TurnDirection::ReachedYourDestination)};
+    turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
 static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(2, 10),
                                        Route::TTimeItem(3, 15)});
 

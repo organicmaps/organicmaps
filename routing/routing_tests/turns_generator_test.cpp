@@ -130,17 +130,17 @@ UNIT_TEST(TestFixupTurns)
     {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
     {{ kSquareNearZero.maxX(), kSquareNearZero.minY() }, feature::kDefaultAltitudeMeters},
   };
-  // The constructor TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
+  // The constructor TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
   // is used for initialization of vector<TurnItem> below.
-  Route::TTurns turnsDir1 = {{0, TurnDirection::EnterRoundAbout},
-                             {1, TurnDirection::StayOnRoundAbout},
-                             {2, TurnDirection::LeaveRoundAbout},
-                             {3, TurnDirection::ReachedYourDestination}};
+  Route::TTurns turnsDir1 = {{0, CarDirection::EnterRoundAbout},
+                             {1, CarDirection::StayOnRoundAbout},
+                             {2, CarDirection::LeaveRoundAbout},
+                             {3, CarDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc1, turnsDir1);
-  Route::TTurns const expectedTurnDir1 = {{0, TurnDirection::EnterRoundAbout, 2},
-                                          {2, TurnDirection::LeaveRoundAbout, 2},
-                                          {3, TurnDirection::ReachedYourDestination}};
+  Route::TTurns const expectedTurnDir1 = {{0, CarDirection::EnterRoundAbout, 2},
+                                          {2, CarDirection::LeaveRoundAbout, 2},
+                                          {3, CarDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
 
   // Merging turns which are close to each other.
@@ -149,13 +149,13 @@ UNIT_TEST(TestFixupTurns)
     {{ kSquareCenterLonLat.x, kSquareCenterLonLat.y }, feature::kDefaultAltitudeMeters},
     {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
   };
-  Route::TTurns turnsDir2 = {{0, TurnDirection::GoStraight},
-                             {1, TurnDirection::TurnLeft},
-                             {2, TurnDirection::ReachedYourDestination}};
+  Route::TTurns turnsDir2 = {{0, CarDirection::GoStraight},
+                             {1, CarDirection::TurnLeft},
+                             {2, CarDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc2, turnsDir2);
-  Route::TTurns const expectedTurnDir2 = {{1, TurnDirection::TurnLeft},
-                                          {2, TurnDirection::ReachedYourDestination}};
+  Route::TTurns const expectedTurnDir2 = {{1, CarDirection::TurnLeft},
+                                          {2, CarDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
 
   // No turn is removed.
@@ -164,59 +164,59 @@ UNIT_TEST(TestFixupTurns)
     {{ kSquareNearZero.minX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
     {{ kSquareNearZero.maxX(), kSquareNearZero.maxY() }, feature::kDefaultAltitudeMeters},
   };
-  Route::TTurns turnsDir3 = {{1, TurnDirection::TurnRight},
-                             {2, TurnDirection::ReachedYourDestination}};
+  Route::TTurns turnsDir3 = {{1, CarDirection::TurnRight},
+                             {2, CarDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc3, turnsDir3);
-  Route::TTurns const expectedTurnDir3 = {{1, TurnDirection::TurnRight},
-                                          {2, TurnDirection::ReachedYourDestination}};
+  Route::TTurns const expectedTurnDir3 = {{1, CarDirection::TurnRight},
+                                          {2, CarDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir3, expectedTurnDir3, ());
 }
 
 UNIT_TEST(TestIsLaneWayConformedTurnDirection)
 {
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::Left, TurnDirection::TurnLeft), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::Right, TurnDirection::TurnRight), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, TurnDirection::TurnSlightLeft), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::TurnSharpRight), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::UTurnLeft), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::UTurnRight), ());
-  TEST(IsLaneWayConformedTurnDirection(LaneWay::Through, TurnDirection::GoStraight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Left, CarDirection::TurnLeft), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Right, CarDirection::TurnRight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, CarDirection::TurnSlightLeft), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::SharpRight, CarDirection::TurnSharpRight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Reverse, CarDirection::UTurnLeft), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Reverse, CarDirection::UTurnRight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Through, CarDirection::GoStraight), ());
 
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Left, TurnDirection::TurnSlightLeft), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Right, TurnDirection::TurnSharpRight), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, TurnDirection::GoStraight), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::None), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::TurnLeft), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::None, TurnDirection::ReachedYourDestination), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Left, CarDirection::TurnSlightLeft), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Right, CarDirection::TurnSharpRight), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, CarDirection::GoStraight), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SharpRight, CarDirection::None), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Reverse, CarDirection::TurnLeft), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::None, CarDirection::ReachedYourDestination), ());
 }
 
 UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
 {
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, TurnDirection::TurnSharpLeft), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, TurnDirection::TurnSlightLeft), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, TurnDirection::TurnSharpRight), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, TurnDirection::TurnRight), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Reverse, TurnDirection::UTurnLeft), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Reverse, TurnDirection::UTurnRight), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightLeft, TurnDirection::GoStraight), ());
-  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight, TurnDirection::GoStraight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, CarDirection::TurnSharpLeft), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, CarDirection::TurnSlightLeft), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, CarDirection::TurnSharpRight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, CarDirection::TurnRight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Reverse, CarDirection::UTurnLeft), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Reverse, CarDirection::UTurnRight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightLeft, CarDirection::GoStraight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight, CarDirection::GoStraight), ());
 
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpLeft, TurnDirection::UTurnLeft), ());
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpLeft, TurnDirection::UTurnRight), ());
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, TurnDirection::UTurnLeft), ());
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, TurnDirection::UTurnRight), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Through, TurnDirection::ReachedYourDestination), ());
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::Through, TurnDirection::TurnRight), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpLeft, CarDirection::UTurnLeft), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpLeft, CarDirection::UTurnRight), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, CarDirection::UTurnLeft), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, CarDirection::UTurnRight), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Through, CarDirection::ReachedYourDestination), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::Through, CarDirection::TurnRight), ());
   TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight,
-                                                     TurnDirection::TurnSharpLeft), ());
+                                                     CarDirection::TurnSharpLeft), ());
 }
 
 UNIT_TEST(TestAddingActiveLaneInformation)
 {
-  Route::TTurns turns = {{0, TurnDirection::GoStraight},
-                         {1, TurnDirection::TurnLeft},
-                         {2, TurnDirection::ReachedYourDestination}};
+  Route::TTurns turns = {{0, CarDirection::GoStraight},
+                         {1, CarDirection::TurnLeft},
+                         {2, CarDirection::ReachedYourDestination}};
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
   turns[0].m_lanes.push_back({LaneWay::Right});
 
@@ -239,12 +239,12 @@ UNIT_TEST(TestGetRoundaboutDirection)
   // The signature of GetRoundaboutDirection function is
   // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
   //     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true, true), TurnDirection::StayOnRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), TurnDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), TurnDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), TurnDirection::None, ());
-  TEST_EQUAL(GetRoundaboutDirection(false, true, false, true), TurnDirection::EnterRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), TurnDirection::LeaveRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true, true), CarDirection::StayOnRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), CarDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirection(false, true, false, true), CarDirection::EnterRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), CarDirection::LeaveRoundAbout, ());
 }
 
 UNIT_TEST(TestCheckRoundaboutEntrance)
@@ -269,49 +269,49 @@ UNIT_TEST(TestCheckRoundaboutExit)
 
 UNIT_TEST(TestInvertDirection)
 {
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightRight), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnRight), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnSharpRight), TurnDirection::TurnSharpLeft, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightLeft), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightRight), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnLeft), TurnDirection::TurnRight, ());
-  TEST_EQUAL(InvertDirection(TurnDirection::TurnSharpLeft), TurnDirection::TurnSharpRight, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnSlightRight), CarDirection::TurnSlightLeft, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnRight), CarDirection::TurnLeft, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnSharpRight), CarDirection::TurnSharpLeft, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnSlightLeft), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnSlightRight), CarDirection::TurnSlightLeft, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnLeft), CarDirection::TurnRight, ());
+  TEST_EQUAL(InvertDirection(CarDirection::TurnSharpLeft), CarDirection::TurnSharpRight, ());
 }
 
 UNIT_TEST(TestRightmostDirection)
 {
-  TEST_EQUAL(RightmostDirection(180.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(RightmostDirection(170.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(RightmostDirection(90.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(RightmostDirection(45.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(RightmostDirection(0.), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(RightmostDirection(-20.), TurnDirection::GoStraight, ());
-  TEST_EQUAL(RightmostDirection(-90.), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(RightmostDirection(-170.), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(RightmostDirection(180.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(RightmostDirection(170.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(RightmostDirection(90.), CarDirection::TurnRight, ());
+  TEST_EQUAL(RightmostDirection(45.), CarDirection::TurnRight, ());
+  TEST_EQUAL(RightmostDirection(0.), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(RightmostDirection(-20.), CarDirection::GoStraight, ());
+  TEST_EQUAL(RightmostDirection(-90.), CarDirection::TurnLeft, ());
+  TEST_EQUAL(RightmostDirection(-170.), CarDirection::TurnSharpLeft, ());
 }
 
 UNIT_TEST(TestLeftmostDirection)
 {
-  TEST_EQUAL(LeftmostDirection(180.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(170.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(LeftmostDirection(90.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(LeftmostDirection(45.), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(LeftmostDirection(0.), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(LeftmostDirection(-20.), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(LeftmostDirection(-90.), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(LeftmostDirection(-170.), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(LeftmostDirection(180.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(LeftmostDirection(170.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(LeftmostDirection(90.), CarDirection::TurnRight, ());
+  TEST_EQUAL(LeftmostDirection(45.), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(LeftmostDirection(0.), CarDirection::TurnSlightLeft, ());
+  TEST_EQUAL(LeftmostDirection(-20.), CarDirection::TurnSlightLeft, ());
+  TEST_EQUAL(LeftmostDirection(-90.), CarDirection::TurnLeft, ());
+  TEST_EQUAL(LeftmostDirection(-170.), CarDirection::TurnSharpLeft, ());
 }
 
 UNIT_TEST(TestIntermediateDirection)
 {
-  TEST_EQUAL(IntermediateDirection(180.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(IntermediateDirection(170.), TurnDirection::TurnSharpRight, ());
-  TEST_EQUAL(IntermediateDirection(90.), TurnDirection::TurnRight, ());
-  TEST_EQUAL(IntermediateDirection(45.), TurnDirection::TurnSlightRight, ());
-  TEST_EQUAL(IntermediateDirection(0.), TurnDirection::GoStraight, ());
-  TEST_EQUAL(IntermediateDirection(-20.), TurnDirection::TurnSlightLeft, ());
-  TEST_EQUAL(IntermediateDirection(-90.), TurnDirection::TurnLeft, ());
-  TEST_EQUAL(IntermediateDirection(-170.), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(IntermediateDirection(180.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(IntermediateDirection(170.), CarDirection::TurnSharpRight, ());
+  TEST_EQUAL(IntermediateDirection(90.), CarDirection::TurnRight, ());
+  TEST_EQUAL(IntermediateDirection(45.), CarDirection::TurnSlightRight, ());
+  TEST_EQUAL(IntermediateDirection(0.), CarDirection::GoStraight, ());
+  TEST_EQUAL(IntermediateDirection(-20.), CarDirection::TurnSlightLeft, ());
+  TEST_EQUAL(IntermediateDirection(-90.), CarDirection::TurnLeft, ());
+  TEST_EQUAL(IntermediateDirection(-170.), CarDirection::TurnSharpLeft, ());
 }
 
 UNIT_TEST(TestCalculateMercatorDistanceAlongRoute)
@@ -351,10 +351,10 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   // Zigzag test.
   TurnItem turn1;
   TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 1, turn1), 1, ());
-  TEST_EQUAL(turn1.m_turn, TurnDirection::UTurnLeft, ());
+  TEST_EQUAL(turn1.m_turn, CarDirection::UTurnLeft, ());
   TurnItem turn2;
   TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 2, turn2), 1, ());
-  TEST_EQUAL(turn2.m_turn, TurnDirection::UTurnLeft, ());
+  TEST_EQUAL(turn2.m_turn, CarDirection::UTurnLeft, ());
 
   // Empty path test.
   TurnItem turn3;

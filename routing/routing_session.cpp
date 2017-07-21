@@ -315,7 +315,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   if (m_routingSettings.m_showTurnAfterNext)
     info.m_nextTurn = m_turnNotificationsMgr.GetSecondTurnNotification();
   else
-    info.m_nextTurn = routing::turns::TurnDirection::None;
+    info.m_nextTurn = routing::turns::CarDirection::None;
 
   info.m_exitNum = turn.m_exitNum;
   info.m_time = static_cast<int>(max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));

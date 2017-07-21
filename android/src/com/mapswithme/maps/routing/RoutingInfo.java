@@ -32,7 +32,7 @@ public class RoutingInfo
   public final Location pedestrianNextDirection;
 
   /**
-   * IMPORTANT : Order of enum values MUST BE the same as native TurnDirection enum.
+   * IMPORTANT : Order of enum values MUST BE the same as native CarDirection enum.
    */
   public enum VehicleTurnDirection
   {
