@@ -21,6 +21,12 @@ import java.util.List;
 
 public final class ViatorAdapter extends BaseSponsoredAdapter
 {
+  public ViatorAdapter(@NonNull String url, boolean hasError,
+                       @Nullable ItemSelectedListener listener)
+  {
+    super(Sponsored.TYPE_VIATOR, url, hasError, listener);
+  }
+
   public ViatorAdapter(@NonNull ViatorProduct[] items, @NonNull String cityUrl,
                        @Nullable ItemSelectedListener listener)
   {
@@ -48,6 +54,28 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
   {
     return new ProductViewHolder(inflater.inflate(R.layout.item_viator_product, parent, false),
                                  this);
+  }
+
+  @NonNull
+  @Override
+  protected ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
+  {
+    return new LoadingViewHolder(inflater.inflate(R.layout.item_viator_loading, parent, false),
+                                 this);
+  }
+
+  @NonNull
+  @Override
+  protected String getLoadingTitle()
+  {
+    return "title";
+  }
+
+  @Nullable
+  @Override
+  protected String getLoadingSubtitle()
+  {
+    return "subtitle";
   }
 
   private static final class ProductViewHolder extends ViewHolder
@@ -108,7 +136,7 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
                  @Nullable String duration, double rating, @Nullable String price,
                  @NonNull String url)
     {
-      super(TYPE_PRODUCT, Sponsored.TYPE_VIATOR, title, url);
+      super(TYPE_PRODUCT, Sponsored.TYPE_VIATOR, title, url, null, false, false);
       mPhotoUrl = photoUrl;
       mDuration = duration;
       mRating = rating;

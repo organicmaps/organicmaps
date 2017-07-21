@@ -37,7 +37,7 @@ public class PlacePageTracker
     mPlacePageView = placePageView;
     mBottomButtons = mPlacePageView.findViewById(R.id.pp__buttons);
     mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
-    mViator = mPlacePageView.findViewById(R.id.ll__place_viator);
+    mViator = mPlacePageView.findViewById(R.id.ll__place_sponsored_gallery);
   }
 
   public void setMapObject(@Nullable MapObject mapObject)

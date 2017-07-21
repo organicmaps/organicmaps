@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,6 +55,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.cian.CianAdapter;
+import com.mapswithme.maps.cian.RentPlace;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -82,6 +85,7 @@ import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.maps.widget.recycler.DividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+import com.mapswithme.maps.widget.recycler.SingleChangeItemAnimator;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
@@ -194,8 +198,10 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
   private View mHotelMore;
-  private View mViatorView;
-  private RecyclerView mRvViatorProducts;
+  private View mSponsoredGalleryView;
+  private RecyclerView mRvSponsoredProducts;
+  @Nullable
+  private BaseSponsoredAdapter mSponsoredAdapter;
   private View mUgcView;
   private View mUgcRating;
   private View mUgcMoreReviews;
@@ -331,7 +337,7 @@ public class PlacePageView extends RelativeLayout
   public boolean isHorizontalScrollAreaTouched(@NonNull MotionEvent event)
   {
     return UiUtils.isViewTouched(event, mHotelGallery)
-           || UiUtils.isViewTouched(event, mRvViatorProducts);
+           || UiUtils.isViewTouched(event, mRvSponsoredProducts);
   }
 
   public void onActivityResume()
@@ -447,7 +453,7 @@ public class PlacePageView extends RelativeLayout
     initHotelGalleryView();
     initHotelNearbyView();
     initHotelRatingView();
-    initViatorView();
+    initSponsoredGalleryView();
 
     initUgcView();
 
@@ -837,41 +843,151 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onViatorProductsReceived(@NonNull String destId, @NonNull ViatorProduct[] products)
+  public void onViatorProductsReceived(@NonNull String destId, final @NonNull ViatorProduct[] products)
   {
     if (mSponsored != null)
       updateViatorView(products, mSponsored.getUrl());
   }
 
-  private void initViatorView()
+  //TODO override from Cian.CianListener
+  void onRentPlacesReceived(@NonNull RentPlace[] places)
   {
-    mViatorView = findViewById(R.id.ll__place_viator);
-    mRvViatorProducts = (RecyclerView) mViatorView.findViewById(R.id.rv__viator_products);
-    mRvViatorProducts.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                               LinearLayoutManager.HORIZONTAL,
-                                                               false));
-    Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_half);
-    mRvViatorProducts.addItemDecoration(new DividerItemDecoration(divider, true));
-    mViatorView.findViewById(R.id.btn__viator_more).setOnClickListener(this);
+    updateCianView(places, "");
   }
 
-  private void updateViatorView(@NonNull ViatorProduct[] products, @NonNull String cityUrl)
+  //TODO override from Cian.CianListener
+  void onErrorReceived(int httpCode)
+  {
+    if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
+    {
+      mSponsoredAdapter = new CianAdapter("", true, this);
+      mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+    }
+    else
+    {
+      mSponsoredAdapter.setLoadingError(Sponsored.TYPE_CIAN, "");
+    }
+    Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN);
+  }
+
+  private void initSponsoredGalleryView()
+  {
+    mSponsoredGalleryView = findViewById(R.id.ll__place_sponsored_gallery);
+    mRvSponsoredProducts = (RecyclerView) mSponsoredGalleryView.findViewById(R.id.rv__sponsored_products);
+    mRvSponsoredProducts.setLayoutManager(new LinearLayoutManager(getContext(),
+                                                                  LinearLayoutManager.HORIZONTAL,
+                                                                  false));
+    Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_half);
+    mRvSponsoredProducts.addItemDecoration(new DividerItemDecoration(divider, true));
+    mSponsoredGalleryView.findViewById(R.id.btn__sponsored_more).setOnClickListener(this);
+  }
+
+  private void updateViatorView(@NonNull final ViatorProduct[] products,
+                                @NonNull final String cityUrl)
   {
     if (products.length == 0)
+    {
+      if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
+      {
+        mSponsoredAdapter = new ViatorAdapter(cityUrl, true, this);
+        mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+      }
+      else
+      {
+        mSponsoredAdapter.setLoadingError(Sponsored.TYPE_VIATOR, cityUrl);
+      }
       Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_VIATOR);
-
-    UiUtils.showIf(products.length > 0, mViatorView);
-    mRvViatorProducts.setAdapter(new ViatorAdapter(products, cityUrl, this));
+    }
+    else
+    {
+      if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
+      {
+        mSponsoredAdapter = new ViatorAdapter(products, cityUrl, this);
+        mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+      }
+      else
+      {
+        mRvSponsoredProducts.setItemAnimator(new SingleChangeItemAnimator() {
+          @Override
+          public void onAnimationFinished()
+          {
+            mRvSponsoredProducts.setItemAnimator(new DefaultItemAnimator());
+            mSponsoredAdapter = new ViatorAdapter(products, cityUrl, PlacePageView.this);
+            mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+          }
+        });
+        mSponsoredAdapter.setLoadingCompleted(Sponsored.TYPE_VIATOR, cityUrl);
+      }
+    }
   }
 
-  private void hideViatorViews()
+  private void updateCianView(@NonNull final RentPlace[] products, @NonNull final String url)
   {
-    UiUtils.hide(mViatorView);
+    if (products.length == 0)
+    {
+      if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
+      {
+        mSponsoredAdapter = new CianAdapter(url, true, this);
+        mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+      }
+      else
+      {
+        mSponsoredAdapter.setLoadingError(Sponsored.TYPE_CIAN, url);
+      }
+      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN);
+    }
+    else
+    {
+      if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
+      {
+        mSponsoredAdapter = new CianAdapter(products, url, this);
+        mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+      }
+      else
+      {
+        mRvSponsoredProducts.setItemAnimator(new SingleChangeItemAnimator() {
+          @Override
+          public void onAnimationFinished()
+          {
+            mRvSponsoredProducts.setItemAnimator(new DefaultItemAnimator());
+            mSponsoredAdapter = new CianAdapter(products, url, PlacePageView.this);
+            mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+          }
+        });
+        mSponsoredAdapter.setLoadingCompleted(Sponsored.TYPE_VIATOR, url);
+      }
+    }
   }
 
-  private void clearViatorViews()
+  private void showLoadingViatorProducts(@NonNull String id, @NonNull String cityUrl)
   {
-    mRvViatorProducts.setAdapter(new ViatorAdapter(new ViatorProduct[]{}, "", null));
+    UiUtils.show(mSponsoredGalleryView);
+    if (!Viator.hasCache(id))
+    {
+      mSponsoredAdapter = new ViatorAdapter(cityUrl, false, this);
+      mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+    }
+  }
+
+  private void showLoadingCianProducts(@NonNull String url)
+  {
+    UiUtils.show(mSponsoredGalleryView);
+    if (mRvSponsoredProducts.getAdapter().getItemCount() == 0)
+    {
+      mSponsoredAdapter = new CianAdapter(url, false, this);
+      mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
+    }
+  }
+
+  private void hideSponsoredGalleryViews()
+  {
+    UiUtils.hide(mSponsoredGalleryView);
+  }
+
+  private void clearSponsoredGalleryViews()
+  {
+    mSponsoredAdapter = null;
+    mRvSponsoredProducts.setAdapter(new ViatorAdapter(new ViatorProduct[]{}, "", null));
   }
 
   @Override
@@ -1173,7 +1289,7 @@ public class PlacePageView extends RelativeLayout
         return;
       }
       clearHotelViews();
-      clearViatorViews();
+      clearSponsoredGalleryViews();
       if (mSponsored != null)
       {
         mSponsored.updateId(mMapObject);
@@ -1183,9 +1299,14 @@ public class PlacePageView extends RelativeLayout
         if (mSponsored.getId() != null && !TextUtils.isEmpty(currencyCode))
         {
           if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
+          {
             Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+          }
           else if (mSponsored.getType() == Sponsored.TYPE_VIATOR)
+          {
             Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
+            showLoadingViatorProducts(mSponsored.getId(), mSponsored.getUrl());
+          }
         }
         Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
       }
@@ -1345,7 +1466,7 @@ public class PlacePageView extends RelativeLayout
       refreshMetadataOrHide(TextUtils.isEmpty(website) ? mapObject.getMetadata(Metadata.MetadataType.FMD_URL)
                                                        : website, mWebsite, mTvWebsite);
       hideHotelViews();
-      hideViatorViews();
+      hideSponsoredGalleryViews();
     }
     else
     {
@@ -1354,8 +1475,11 @@ public class PlacePageView extends RelativeLayout
 
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
-      if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
-        hideViatorViews();
+      if (mSponsored.getType() != Sponsored.TYPE_VIATOR
+          && mSponsored.getType() != Sponsored.TYPE_CIAN)
+      {
+        hideSponsoredGalleryViews();
+      }
     }
 
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
@@ -1824,7 +1948,7 @@ public class PlacePageView extends RelativeLayout
           }
         }
         break;
-      case R.id.btn__viator_more:
+      case R.id.btn__sponsored_more:
         if (mSponsored != null)
           Utils.openUrl(getContext(), mSponsored.getUrl());
         break;

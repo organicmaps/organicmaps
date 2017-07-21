@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.Sponsored;
+import com.mapswithme.util.UiUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,17 +27,31 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
   protected static final int TYPE_PRODUCT = 0;
   private static final int TYPE_MORE = 1;
+  private static final int TYPE_LOADING = 2;
 
   private static final String MORE = MwmApplication.get().getString(R.string.placepage_more_button);
+  private static final int TARGET_LOAD_WIDTH = UiUtils.dimen(MwmApplication.get(),
+                                                        R.dimen.viator_product_width);
+  private static final int MARGING_QUARTER = UiUtils.dimen(MwmApplication.get(),
+                                                             R.dimen.margin_quarter);
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_PRODUCT, TYPE_MORE })
+  @IntDef({ TYPE_PRODUCT, TYPE_MORE, TYPE_LOADING })
   @interface ViewType{}
 
   @NonNull
   private final List<Item> mItems;
   @Nullable
   private final ItemSelectedListener mListener;
+
+  public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType, @NonNull String url,
+                              boolean hasError, @Nullable ItemSelectedListener listener)
+  {
+    mItems = new ArrayList<>();
+    mListener = listener;
+    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+                        hasError, false));
+  }
 
   public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType,
                               @NonNull List<? extends Item> items, @NonNull String url,
@@ -51,7 +67,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       mItems.add(product);
     }
     if (showMoreItem)
-      mItems.add(new Item(TYPE_MORE, sponsoredType, MORE, url));
+      mItems.add(new Item(TYPE_MORE, sponsoredType, MORE, url, null, false, false));
   }
 
   @Override
@@ -65,6 +81,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
         return new ViewHolder(LayoutInflater.from(parent.getContext())
                                             .inflate(R.layout.item_viator_more,
                                                      parent, false), this);
+      case TYPE_LOADING:
+        return createLoadingViewHolder(LayoutInflater.from(parent.getContext()), parent);
     }
     return null;
   }
@@ -88,9 +106,40 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     return mItems.get(position).mType;
   }
 
+  public boolean containsLoading()
+  {
+    return mItems.size() == 1 && mItems.get(0).mType == TYPE_LOADING;
+  }
+
+  public void setLoadingError(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
+  {
+    mItems.clear();
+    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+                        true, false));
+    notifyItemChanged(0);
+  }
+
+  public void setLoadingCompleted(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
+  {
+    mItems.clear();
+    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+                        false, true));
+    notifyItemChanged(0);
+  }
+
   @NonNull
   protected abstract ViewHolder createViewHolder(@NonNull LayoutInflater inflater,
                                                  @NonNull ViewGroup parent);
+
+  @NonNull
+  protected abstract ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater,
+                                                        @NonNull ViewGroup parent);
+
+  @NonNull
+  protected abstract String getLoadingTitle();
+
+  @Nullable
+  protected abstract String getLoadingSubtitle();
 
   public static class ViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener
@@ -130,6 +179,61 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       {
         if (item.mType == TYPE_PRODUCT)
           mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
+        else if (item.mType == TYPE_MORE || item.mType == TYPE_LOADING)
+          mAdapter.mListener.onMoreItemSelected(item.mUrl, item.mSponsoredType);
+      }
+    }
+  }
+
+  public static class LoadingViewHolder extends ViewHolder
+      implements View.OnClickListener
+  {
+    @NonNull
+    ProgressBar mProgressBar;
+    @NonNull
+    TextView mSubtitle;
+
+    public LoadingViewHolder(@NonNull View itemView, @NonNull BaseSponsoredAdapter adapter)
+    {
+      super(itemView, adapter);
+      mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
+      mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
+    }
+
+    @CallSuper
+    @Override
+    public void bind(@NonNull Item item)
+    {
+      super.bind(item);
+      UiUtils.setTextAndHideIfEmpty(mSubtitle, item.mSubtitle);
+      UiUtils.visibleIf(!item.mLoadingError, mProgressBar);
+      if (item.mFinished)
+      {
+        UiUtils.hide(mTitle, mSubtitle, mProgressBar);
+        ViewGroup.LayoutParams lp = itemView.getLayoutParams();
+        lp.width = TARGET_LOAD_WIDTH;
+        itemView.setLayoutParams(lp);
+        itemView.setPadding(itemView.getLeft(), itemView.getTop(),
+                            MARGING_QUARTER, itemView.getBottom());
+      }
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      int position = getAdapterPosition();
+      if (position == RecyclerView.NO_POSITION)
+        return;
+
+      onItemSelected(mAdapter.mItems.get(position));
+    }
+
+    void onItemSelected(@NonNull Item item)
+    {
+      if (mAdapter.mListener != null)
+      {
+        if (item.mType == TYPE_PRODUCT)
+          mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
         else if (item.mType == TYPE_MORE)
           mAdapter.mListener.onMoreItemSelected(item.mUrl, item.mSponsoredType);
       }
@@ -146,14 +250,22 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     private final String mTitle;
     @NonNull
     private final String mUrl;
+    @Nullable
+    private final String mSubtitle;
+    private final boolean mLoadingError;
+    private final boolean mFinished;
 
     protected Item(@ViewType int type, @Sponsored.SponsoredType int sponsoredType,
-                   @NonNull String title, @NonNull String url)
+                   @NonNull String title, @NonNull String url, @Nullable String subtitle,
+                   boolean loadingError, boolean finished)
     {
       mType = type;
       mSponsoredType = sponsoredType;
       mTitle = title;
       mUrl = url;
+      mSubtitle = subtitle;
+      mLoadingError = loadingError;
+      mFinished = finished;
     }
   }
 

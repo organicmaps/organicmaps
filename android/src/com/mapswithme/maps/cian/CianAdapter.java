@@ -1,6 +1,5 @@
 package com.mapswithme.maps.cian;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -19,10 +17,15 @@ import java.util.List;
 
 public final class CianAdapter extends BaseSponsoredAdapter
 {
-  public CianAdapter(@NonNull RentPlace[] items, @NonNull String cityUrl,
+  public CianAdapter(@NonNull String url, boolean hasError, @Nullable ItemSelectedListener listener)
+  {
+    super(Sponsored.TYPE_CIAN, url, hasError, listener);
+  }
+
+  public CianAdapter(@NonNull RentPlace[] items, @NonNull String url,
                        @Nullable ItemSelectedListener listener)
   {
-    super(Sponsored.TYPE_CIAN, convertItems(items), cityUrl, listener);
+    super(Sponsored.TYPE_CIAN, convertItems(items), url, listener);
   }
 
   @NonNull
@@ -49,6 +52,28 @@ public final class CianAdapter extends BaseSponsoredAdapter
   {
     return new ProductViewHolder(inflater.inflate(R.layout.item_cian_product, parent, false),
                                  this);
+  }
+
+  @NonNull
+  @Override
+  protected ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
+  {
+    return new LoadingViewHolder(inflater.inflate(R.layout.item_cian_loading, parent, false),
+                                 this);
+  }
+
+  @NonNull
+  @Override
+  protected String getLoadingTitle()
+  {
+    return null;
+  }
+
+  @Nullable
+  @Override
+  protected String getLoadingSubtitle()
+  {
+    return null;
   }
 
   private static final class ProductViewHolder extends ViewHolder
@@ -86,7 +111,7 @@ public final class CianAdapter extends BaseSponsoredAdapter
     private Item(@NonNull String title, @NonNull String url, @NonNull String price,
                  @NonNull String address)
     {
-      super(TYPE_PRODUCT, Sponsored.TYPE_CIAN, title, url);
+      super(TYPE_PRODUCT, Sponsored.TYPE_CIAN, title, url, null, false, false);
       mPrice = price;
       mAddress = address;
     }

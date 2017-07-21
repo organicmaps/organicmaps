@@ -2,9 +2,9 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/ll__place_viator"
+  android:id="@+id/ll__place_sponsored_gallery"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/viator_height"
+  android:layout_height="wrap_content"
   android:orientation="vertical"
   android:clipToPadding="false"
   android:minHeight="@dimen/placepage_hotel_gallery_height"
@@ -26,7 +26,7 @@
       android:text="@string/place_page_viator_title"
       tools:targetApi="jelly_bean"/>
     <TextView
-      android:id="@+id/btn__viator_more"
+      android:id="@+id/btn__sponsored_more"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:paddingLeft="@dimen/margin_half"
@@ -47,9 +47,9 @@
   </RelativeLayout>
 
   <android.support.v7.widget.RecyclerView
-    android:id="@+id/rv__viator_products"
+    android:id="@+id/rv__sponsored_products"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_base_plus"
     tools:listitem="@layout/item_viator_product"/>
 </LinearLayout>
