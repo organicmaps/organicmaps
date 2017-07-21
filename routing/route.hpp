@@ -192,7 +192,7 @@ public:
   size_t GetCurrentSubrouteIdx() const { return m_currentSubrouteIdx; }
   std::vector<SubrouteAttrs> const & GetSubroutes() const { return m_subrouteAttrs; }
 
-  std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceM(); }
+  std::vector<double> const & GetSegDistanceMeters() const { return m_poly.GetSegDistanceMeters(); }
   bool IsValid() const { return (m_poly.GetPolyline().GetSize() > 1); }
 
   double GetTotalDistanceMeters() const;

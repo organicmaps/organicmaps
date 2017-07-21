@@ -68,7 +68,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   double masterDistance = MercatorBounds::DistanceOnEarth(kTestDirectedPolyline.Front(),
                                                           kTestDirectedPolyline.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
-  distance = polyline.GetTotalDistanceM();
+  distance = polyline.GetTotalDistanceMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 
   // Test partial length case.
@@ -77,7 +77,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   masterDistance = MercatorBounds::DistanceOnEarth(kTestDirectedPolyline.GetPoint(1),
                                                    kTestDirectedPolyline.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
-  distance = polyline.GetDistanceToEndM();
+  distance = polyline.GetDistanceToEndMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 
   // Test point in the middle case.
@@ -86,7 +86,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   masterDistance = MercatorBounds::DistanceOnEarth(m2::PointD(4, 0),
                                                    kTestDirectedPolyline.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
-  distance = polyline.GetDistanceToEndM();
+  distance = polyline.GetDistanceToEndMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }
 
@@ -111,7 +111,7 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
   m2::PointD point(4, 0);
   polyline.UpdateProjection(MercatorBounds::RectByCenterXYAndSizeInMeters(point, 2));
-  double distance = polyline.GetDistanceFromBeginM();
+  double distance = polyline.GetDistanceFromBeginMeters();
   double masterDistance = MercatorBounds::DistanceOnEarth(kTestDirectedPolyline.Front(),
                                                           point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());

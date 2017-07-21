@@ -29,10 +29,10 @@ public:
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
 
   m2::PolylineD const & GetPolyline() const { return m_poly; }
-  vector<double> const & GetSegDistanceM() const { return m_segDistance; }
-  double GetTotalDistanceM() const;
-  double GetDistanceFromBeginM() const;
-  double GetDistanceToEndM() const;
+  vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
+  double GetTotalDistanceMeters() const;
+  double GetDistanceFromBeginMeters() const;
+  double GetDistanceToEndMeters() const;
   double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;
 

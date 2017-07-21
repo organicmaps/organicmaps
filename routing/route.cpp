@@ -68,21 +68,21 @@ double Route::GetTotalDistanceMeters() const
 {
   if (!m_poly.IsValid())
     return 0.0;
-  return m_poly.GetTotalDistanceM();
+  return m_poly.GetTotalDistanceMeters();
 }
 
 double Route::GetCurrentDistanceFromBeginMeters() const
 {
   if (!m_poly.IsValid())
     return 0.0;
-  return m_poly.GetDistanceFromBeginM();
+  return m_poly.GetDistanceFromBeginMeters();
 }
 
 double Route::GetCurrentDistanceToEndMeters() const
 {
   if (!m_poly.IsValid())
     return 0.0;
-  return m_poly.GetDistanceToEndM();
+  return m_poly.GetDistanceToEndMeters();
 }
 
 double Route::GetMercatorDistanceFromBegin() const
@@ -322,7 +322,7 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
   size_t const segmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx() - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
-  double const passedDistanceMeters = m_poly.GetDistanceFromBeginM();
+  double const passedDistanceMeters = m_poly.GetDistanceFromBeginMeters();
   return lengthMeters - passedDistanceMeters < kOnEndToleranceM;
 }
 

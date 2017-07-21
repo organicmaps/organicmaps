@@ -41,7 +41,7 @@ double FollowedPolyline::GetDistanceM(Iter const & it1, Iter const & it2) const
           MercatorBounds::DistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
 }
 
-double FollowedPolyline::GetTotalDistanceM() const
+double FollowedPolyline::GetTotalDistanceMeters() const
 {
   if (!IsValid())
   {
@@ -51,7 +51,7 @@ double FollowedPolyline::GetTotalDistanceM() const
   return m_segDistance.back();
 }
 
-double FollowedPolyline::GetDistanceFromBeginM() const
+double FollowedPolyline::GetDistanceFromBeginMeters() const
 {
   if (!IsValid() || !m_current.IsValid())
   {
@@ -64,9 +64,9 @@ double FollowedPolyline::GetDistanceFromBeginM() const
          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
 }
 
-double FollowedPolyline::GetDistanceToEndM() const
+double FollowedPolyline::GetDistanceToEndMeters() const
 {
-  return GetTotalDistanceM() - GetDistanceFromBeginM();
+  return GetTotalDistanceMeters() - GetDistanceFromBeginMeters();
 }
 
 void FollowedPolyline::Swap(FollowedPolyline & rhs)
