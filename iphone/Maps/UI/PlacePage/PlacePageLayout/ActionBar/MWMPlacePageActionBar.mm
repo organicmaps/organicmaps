@@ -222,9 +222,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   for (UIView * view in self.buttons)
   {
-    NSAssert(view.subviews.count, @"Subviews can't be empty!");
-    MWMActionBarButton * button = view.subviews[0];
-    if (button.type != EButton::Download)
+    MWMActionBarButton * button = view.subviews.firstObject;
+    NSAssert(button, @"Subviews can't be empty!");
+    if (!button || button.type != EButton::Download)
       continue;
 
     return button.mapDownloadProgress;
