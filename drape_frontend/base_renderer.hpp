@@ -74,6 +74,7 @@ private:
   condition_variable m_renderingEnablingCondition;
   atomic<bool> m_isEnabled;
   TCompletionHandler m_renderingEnablingCompletionHandler;
+  mutex m_completionHandlerMutex;
   bool m_wasNotified;
   atomic<bool> m_wasContextReset;
 

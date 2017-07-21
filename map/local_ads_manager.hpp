@@ -90,6 +90,7 @@ private:
   GetMwmIdByName m_getMwmIdByNameFn;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
+  std::mutex m_drapeEngineMutex;
 
   std::map<std::string, bool> m_campaigns;
   struct CampaignInfo

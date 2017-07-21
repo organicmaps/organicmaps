@@ -4,6 +4,7 @@
 
 #include "map_style.hpp"
 
+#include <atomic>
 #include <string>
 
 class StyleReader
@@ -21,7 +22,7 @@ public:
   ReaderPtr<Reader> GetDefaultResourceReader(std::string const & file) const;
 
 private:
-  MapStyle m_mapStyle;
+  std::atomic<MapStyle> m_mapStyle;
 };
 
 extern StyleReader & GetStyleReader();

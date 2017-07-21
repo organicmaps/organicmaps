@@ -150,6 +150,7 @@ private:
   traffic::TrafficObserver & m_observer;
 
   ref_ptr<df::DrapeEngine> m_drapeEngine;
+  mutex m_drapeEngineMutex;
   atomic<int64_t> m_currentDataVersion;
 
   // These fields have a flag of their initialization.

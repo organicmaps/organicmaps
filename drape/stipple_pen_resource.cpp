@@ -167,12 +167,11 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
 void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::ALPHA, ());
-  if (m_pendingNodes.empty())
-    return;
-
   TPendingNodes pendingNodes;
   {
     lock_guard<mutex> g(m_lock);
+    if (m_pendingNodes.empty())
+      return;
     m_pendingNodes.swap(pendingNodes);
   }
 

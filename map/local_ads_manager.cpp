@@ -222,7 +222,10 @@ void LocalAdsManager::Teardown()
 
 void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
-  m_drapeEngine = engine;
+  {
+    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
+    m_drapeEngine = engine;
+  }
   {
     std::lock_guard<std::mutex> lock(m_symbolsCacheMutex);
     if (m_symbolsCache.empty())
@@ -491,25 +494,34 @@ void LocalAdsManager::SendSymbolsToRendering(df::CustomSymbols && symbols)
   if (symbols.empty())
     return;
 
-  if (m_drapeEngine == nullptr)
+  // Send symbols if drape engine is available.
   {
-    std::lock_guard<std::mutex> lock(m_symbolsCacheMutex);
-    m_symbolsCache.insert(symbols.begin(), symbols.end());
-    return;
+    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
+    if (m_drapeEngine != nullptr)
+    {
+      m_drapeEngine->AddCustomSymbols(std::move(symbols));
+      return;
+    }
   }
-  m_drapeEngine->AddCustomSymbols(std::move(symbols));
+
+  std::lock_guard<std::mutex> lock(m_symbolsCacheMutex);
+  m_symbolsCache.insert(symbols.begin(), symbols.end());
 }
 
 void LocalAdsManager::DeleteSymbolsFromRendering(MwmSet::MwmId const & mwmId)
 {
+  std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RemoveCustomSymbols(mwmId);
 }
 
 void LocalAdsManager::Invalidate()
 {
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllCustomSymbols();
+  {
+    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->RemoveAllCustomSymbols();
+  }
 
   df::CustomSymbols symbols;
   {

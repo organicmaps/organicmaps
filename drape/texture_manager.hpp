@@ -227,23 +227,8 @@ private:
   uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
                                 int fixedHeight) const;
 
-  template<typename TGlyphGroups>
-  void UpdateGlyphTextures(TGlyphGroups & groups)
-  {
-    for (auto & g : groups)
-      if (g.m_texture != nullptr)
-        g.m_texture->UpdateState();
-  }
-
-  template<typename TGlyphGroups>
-  bool HasAsyncRoutines(TGlyphGroups const & groups) const
-  {
-    for (auto const & g : groups)
-      if (g.m_texture != nullptr && g.m_texture->HasAsyncRoutines())
-        return true;
-
-    return false;
-  }
+  void UpdateGlyphTextures();
+  bool HasAsyncRoutines() const;
 
   static constexpr size_t GetInvalidGlyphGroup();
 
@@ -253,6 +238,7 @@ private:
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
   std::list<drape_ptr<Texture>> m_glyphTextures;
+  mutable std::mutex m_glyphTexturesMutex;
 
   drape_ptr<Texture> m_trafficArrowTexture;
   drape_ptr<Texture> m_hatchingTexture;

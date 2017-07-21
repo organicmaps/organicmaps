@@ -253,24 +253,40 @@ void TextureManager::Release()
 
 bool TextureManager::UpdateDynamicTextures()
 {
-  bool const asyncRoutines = HasAsyncRoutines(m_glyphGroups) || HasAsyncRoutines(m_hybridGlyphGroups);
-
-  if (!asyncRoutines && m_nothingToUpload.test_and_set())
+  if (!HasAsyncRoutines() && m_nothingToUpload.test_and_set())
     return false;
 
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();
 
-  UpdateGlyphTextures(m_glyphGroups);
-  UpdateGlyphTextures(m_hybridGlyphGroups);
+  UpdateGlyphTextures();
 
   m_textureAllocator->Flush();
 
   return true;
 }
 
+void TextureManager::UpdateGlyphTextures()
+{
+  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
+  for (auto & texture : m_glyphTextures)
+    texture->UpdateState();
+}
+
+bool TextureManager::HasAsyncRoutines() const
+{
+  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
+  for (auto const & texture : m_glyphTextures)
+  {
+    if (texture->HasAsyncRoutines())
+      return true;
+  }
+  return false;
+}
+
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
+  std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
   m2::PointU size(m_maxTextureSize, m_maxTextureSize);
   m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager),
                                                         make_ref(m_textureAllocator)));

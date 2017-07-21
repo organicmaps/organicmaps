@@ -24,6 +24,7 @@ public:
   bool CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const;
   m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
   bool IsFull() const;
+  m2::PointU const & GetSize() const { return m_size; }
 
 private:
   m2::PointU m_size = m2::PointU(0, 0);

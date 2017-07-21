@@ -156,7 +156,8 @@ GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
   , m_generator(new GlyphGenerator(mng, bind(&GlyphIndex::OnGlyphGenerationCompletion, this, _1, _2)))
 {
   // Cache invalid glyph.
-  GlyphKey const key = GlyphKey(m_mng->GetInvalidGlyph(GlyphManager::kDynamicGlyphSize).m_code, GlyphManager::kDynamicGlyphSize);
+  GlyphKey const key = GlyphKey(m_mng->GetInvalidGlyph(GlyphManager::kDynamicGlyphSize).m_code,
+                                GlyphManager::kDynamicGlyphSize);
   bool newResource = false;
   MapResource(key, newResource);
 }
@@ -188,7 +189,9 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    LOG(LWARNING, ("Glyphs packer could not pack a glyph", key.GetUnicodePoint()));
+    LOG(LWARNING, ("Glyphs packer could not pack a glyph", key.GetUnicodePoint(),
+                   "w =", glyph.m_image.m_width, "h =", glyph.m_image.m_height,
+                   "packerSize =", m_packer.GetSize()));
 
     auto invalidGlyph = m_index.find(GlyphKey(m_mng->GetInvalidGlyph(key.GetFixedSize()).m_code,
                                               key.GetFixedSize()));
@@ -237,12 +240,11 @@ void GlyphIndex::OnGlyphGenerationCompletion(m2::RectU const & rect, GlyphManage
 
 void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
 {
-  if (m_pendingNodes.empty())
-    return;
-
   TPendingNodes pendingNodes;
   {
     threads::MutexGuard g(m_lock);
+    if (m_pendingNodes.empty())
+      return;
     m_pendingNodes.swap(pendingNodes);
   }
 

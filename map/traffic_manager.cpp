@@ -102,8 +102,11 @@ void TrafficManager::SetEnabled(bool enabled)
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->EnableTraffic(enabled);
+  {
+    lock_guard<mutex> lock(m_drapeEngineMutex);
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->EnableTraffic(enabled);
+  }
 
   if (enabled)
   {
@@ -133,6 +136,7 @@ void TrafficManager::Clear()
 
 void TrafficManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
+  lock_guard<mutex> lock(m_drapeEngineMutex);
   m_drapeEngine = engine;
 }
 
@@ -392,7 +396,10 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 
   if (!info.GetColoring().empty())
   {
-    m_drapeEngine->UpdateTraffic(info);
+    {
+      lock_guard<mutex> lock(m_drapeEngineMutex);
+      m_drapeEngine->UpdateTraffic(info);
+    }
 
     // Update traffic colors for routing.
     m_observer.OnTrafficInfoAdded(move(info));
@@ -438,7 +445,11 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
     ASSERT_GREATER_OR_EQUAL(m_currentCacheSizeBytes, it->second.m_dataSize, ());
     m_currentCacheSizeBytes -= it->second.m_dataSize;
 
-    m_drapeEngine->ClearTrafficCache(mwmId);
+    {
+      lock_guard<mutex> lock(m_drapeEngineMutex);
+      m_drapeEngine->ClearTrafficCache(mwmId);
+    }
+
     GetPlatform().RunOnGuiThread([this, mwmId]()
     {
       m_observer.OnTrafficInfoRemoved(mwmId);
@@ -559,6 +570,7 @@ void TrafficManager::Resume()
 
 void TrafficManager::SetSimplifiedColorScheme(bool simplified)
 {
+  lock_guard<mutex> lock(m_drapeEngineMutex);
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetSimplifiedTrafficColors(simplified);
 }
@@ -583,7 +595,7 @@ string DebugPrint(TrafficManager::TrafficState state)
     return "ExpiredData";
   case TrafficManager::TrafficState::ExpiredApp:
     return "ExpiredApp";
-    default:
+  default:
       ASSERT(false, ("Unknown state"));
   }
   return "Unknown";

@@ -74,12 +74,11 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
 void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::RGBA8, ());
-  if (m_pendingNodes.empty())
-    return;
-
   buffer_vector<PendingColor, 16> pendingNodes;
   {
     lock_guard<mutex> g(m_lock);
+    if (m_pendingNodes.empty())
+      return;
     m_pendingNodes.swap(pendingNodes);
   }
 

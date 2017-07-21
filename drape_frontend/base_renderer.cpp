@@ -70,12 +70,17 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   mutex completionMutex;
   condition_variable completionCondition;
   bool notified = false;
-  m_renderingEnablingCompletionHandler = [&]()
+  auto handler = [&]()
   {
     lock_guard<mutex> lock(completionMutex);
     notified = true;
     completionCondition.notify_one();
   };
+  
+  {
+    lock_guard<mutex> lock(m_completionHandlerMutex);
+    m_renderingEnablingCompletionHandler = move(handler);
+  }
 
   if (isEnabled)
   {
@@ -153,10 +158,15 @@ void BaseRenderer::CheckRenderingEnabled()
 
 void BaseRenderer::Notify()
 {
-  if (m_renderingEnablingCompletionHandler != nullptr)
-    m_renderingEnablingCompletionHandler();
+  function<void()> handler;
+  {
+    lock_guard<mutex> lock(m_completionHandlerMutex);
+    handler = move(m_renderingEnablingCompletionHandler);
+    m_renderingEnablingCompletionHandler = nullptr;
+  }
 
-  m_renderingEnablingCompletionHandler = nullptr;
+  if (handler != nullptr)
+    handler();
 }
 
 void BaseRenderer::WakeUp()
