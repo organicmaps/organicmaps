@@ -74,7 +74,7 @@ double constexpr kFeaturesNearTurnMeters = 3.0;
  */
 enum class TurnDirection
 {
-  NoTurn = 0,
+  None = 0,
   GoStraight,
 
   TurnRight,
@@ -156,7 +156,7 @@ struct TurnItem
 {
   TurnItem()
       : m_index(numeric_limits<uint32_t>::max()),
-        m_turn(TurnDirection::NoTurn),
+        m_turn(TurnDirection::None),
         m_exitNum(0),
         m_keepAnyway(false),
         m_pedestrianTurn(PedestrianDirection::None)
@@ -170,7 +170,7 @@ struct TurnItem
   }
 
   TurnItem(uint32_t idx, PedestrianDirection p)
-      : m_index(idx), m_turn(TurnDirection::NoTurn), m_exitNum(0), m_keepAnyway(false)
+      : m_index(idx), m_turn(TurnDirection::None), m_exitNum(0), m_keepAnyway(false)
       , m_pedestrianTurn(p)
   {
   }

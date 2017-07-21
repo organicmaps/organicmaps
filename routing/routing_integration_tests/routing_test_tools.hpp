@@ -117,7 +117,7 @@ class TestTurn
 
   TestTurn()
     : m_point({0.0, 0.0})
-    , m_direction(TurnDirection::NoTurn)
+    , m_direction(TurnDirection::None)
     , m_roundAboutExitNum(0)
     , m_isValid(false)
   {

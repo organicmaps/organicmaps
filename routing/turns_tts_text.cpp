@@ -49,7 +49,7 @@ string GetTtsText::operator()(Notification const & notification) const
 {
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
-  if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == TurnDirection::NoTurn)
+  if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == TurnDirection::None)
     return string();
 
   string const dirStr = GetTextById(GetDirectionTextId(notification));
@@ -160,7 +160,7 @@ string GetDirectionTextId(Notification const & notification)
     case TurnDirection::StayOnRoundAbout:
     case TurnDirection::StartAtEndOfStreet:
     case TurnDirection::TakeTheExit:
-    case TurnDirection::NoTurn:
+    case TurnDirection::None:
     case TurnDirection::Count:
       ASSERT(false, ());
       return string();

@@ -125,8 +125,8 @@ namespace location
   {
   public:
     FollowingInfo()
-        : m_turn(routing::turns::TurnDirection::NoTurn),
-          m_nextTurn(routing::turns::TurnDirection::NoTurn),
+        : m_turn(routing::turns::TurnDirection::None),
+          m_nextTurn(routing::turns::TurnDirection::None),
           m_exitNum(0),
           m_time(0),
           m_completionPercent(0),

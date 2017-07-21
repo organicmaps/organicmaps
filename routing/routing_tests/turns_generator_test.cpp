@@ -186,7 +186,7 @@ UNIT_TEST(TestIsLaneWayConformedTurnDirection)
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::Left, TurnDirection::TurnSlightLeft), ());
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::Right, TurnDirection::TurnSharpRight), ());
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, TurnDirection::GoStraight), ());
-  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::NoTurn), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::None), ());
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::TurnLeft), ());
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::None, TurnDirection::ReachedYourDestination), ());
 }
@@ -240,9 +240,9 @@ UNIT_TEST(TestGetRoundaboutDirection)
   // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
   //     bool isMultiTurnJunction, bool keepTurnByHighwayClass)
   TEST_EQUAL(GetRoundaboutDirection(true, true, true, true), TurnDirection::StayOnRoundAbout, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), TurnDirection::NoTurn, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), TurnDirection::NoTurn, ());
-  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), TurnDirection::NoTurn, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true, false), TurnDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, true), TurnDirection::None, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false, false), TurnDirection::None, ());
   TEST_EQUAL(GetRoundaboutDirection(false, true, false, true), TurnDirection::EnterRoundAbout, ());
   TEST_EQUAL(GetRoundaboutDirection(true, false, false, false), TurnDirection::LeaveRoundAbout, ());
 }

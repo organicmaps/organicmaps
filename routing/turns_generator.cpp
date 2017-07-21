@@ -165,7 +165,7 @@ TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & l
   }
 
   ASSERT(false, ("The angle is not covered by the table. angle = ", angle));
-  return TurnDirection::NoTurn;
+  return TurnDirection::None;
 }
 
 /*!
@@ -286,11 +286,11 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result,
 
       turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], *loadedSegmentIt);
 
-      if (turnItem.m_turn == turns::TurnDirection::NoTurn)
+      if (turnItem.m_turn == turns::TurnDirection::None)
         turns::GetTurnDirection(result, turnInfo, turnItem);
 
       //  Lane information.
-      if (turnItem.m_turn != turns::TurnDirection::NoTurn)
+      if (turnItem.m_turn != turns::TurnDirection::None)
       {
         turnItem.m_lanes = turnInfo.m_ingoing.m_lanes;
         turnsDir.push_back(move(turnItem));
@@ -470,8 +470,8 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
   if (isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
   {
     if (isMultiTurnJunction)
-      return keepTurnByHighwayClass ? TurnDirection::StayOnRoundAbout : TurnDirection::NoTurn;
-    return TurnDirection::NoTurn;
+      return keepTurnByHighwayClass ? TurnDirection::StayOnRoundAbout : TurnDirection::None;
+    return TurnDirection::None;
   }
 
   if (CheckRoundaboutEntrance(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout))
@@ -481,7 +481,7 @@ TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoi
     return TurnDirection::LeaveRoundAbout;
 
   ASSERT(false, ());
-  return TurnDirection::NoTurn;
+  return TurnDirection::None;
 }
 
 TurnDirection InvertDirection(TurnDirection dir)
@@ -563,7 +563,7 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   turn.m_keepAnyway = (!turnInfo.m_ingoing.m_isLink && turnInfo.m_outgoing.m_isLink);
   turn.m_sourceName = turnInfo.m_ingoing.m_name;
   turn.m_targetName = turnInfo.m_outgoing.m_name;
-  turn.m_turn = TurnDirection::NoTurn;
+  turn.m_turn = TurnDirection::None;
   // Early filtering based only on the information about ingoing and outgoing edges.
   if (DiscardTurnByIngoingAndOutgoingEdges(intermediateDirection, turnInfo, turn))
     return;
@@ -608,7 +608,7 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo);
   if (!turn.m_keepAnyway && !keepTurnByHighwayClass)
   {
-    turn.m_turn = TurnDirection::NoTurn;
+    turn.m_turn = TurnDirection::None;
     return;
   }
 
@@ -619,14 +619,14 @@ void GetTurnDirection(IRoutingResult const & result, TurnInfo & turnInfo, TurnIt
   if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
                               nodes.candidates.size() + ingoingCount))
   {
-    turn.m_turn = TurnDirection::NoTurn;
+    turn.m_turn = TurnDirection::None;
     return;
   }
 
   if (turn.m_turn == TurnDirection::GoStraight)
   {
     if (!hasMultiTurns)
-      turn.m_turn = TurnDirection::NoTurn;
+      turn.m_turn = TurnDirection::None;
     return;
   }
 }

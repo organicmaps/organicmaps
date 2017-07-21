@@ -30,10 +30,10 @@ static Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(
                                       Route::TTimeItem(4, 15)});
 
 static Route::TTurns const kTestTurns2(
-    {turns::TurnItem(0, turns::TurnDirection::NoTurn),
+    {turns::TurnItem(0, turns::TurnDirection::None),
      turns::TurnItem(1, turns::TurnDirection::TurnLeft),
      turns::TurnItem(2, turns::TurnDirection::TurnRight),
-     turns::TurnItem(3, turns::TurnDirection::NoTurn),
+     turns::TurnItem(3, turns::TurnDirection::None),
      turns::TurnItem(4, turns::TurnDirection::ReachedYourDestination)});
 static vector<string> const kTestNames2 = {"Street0", "Street1", "Street2", "", "Street3"};
 static vector<double> const kTestTimes2 = {0.0, 5.0, 6.0, 10.0, 15.0};

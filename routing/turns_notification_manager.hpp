@@ -51,7 +51,7 @@ class NotificationManager
     , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
     , m_turnNotificationWithThen(false)
     , m_nextTurnIndex(0)
-    , m_secondTurnNotification(TurnDirection::NoTurn)
+    , m_secondTurnNotification(TurnDirection::None)
   {
   }
 
@@ -125,7 +125,7 @@ public:
     , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
     , m_turnNotificationWithThen(false)
     , m_nextTurnIndex(0)
-    , m_secondTurnNotification(TurnDirection::NoTurn)
+    , m_secondTurnNotification(TurnDirection::None)
   {
   }
 

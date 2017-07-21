@@ -29,7 +29,7 @@ static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
               "Check the size of g_laneWayNames");
 
 array<pair<TurnDirection, char const *>, static_cast<size_t>(TurnDirection::Count)> const g_turnNames = {
-    {{TurnDirection::NoTurn, "NoTurn"},
+    {{TurnDirection::None, "None"},
      {TurnDirection::GoStraight, "GoStraight"},
      {TurnDirection::TurnRight, "TurnRight"},
      {TurnDirection::TurnSharpRight, "TurnSharpRight"},

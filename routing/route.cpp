@@ -37,7 +37,7 @@ bool IsNormalTurn(TurnItem const & turn)
   CHECK_NOT_EQUAL(turn.m_turn, TurnDirection::Count, ());
   CHECK_NOT_EQUAL(turn.m_pedestrianTurn, PedestrianDirection::Count, ());
 
-  return turn.m_turn != turns::TurnDirection::NoTurn ||
+  return turn.m_turn != turns::TurnDirection::None ||
          turn.m_pedestrianTurn != turns::PedestrianDirection::None;
 }
 }  //  namespace

@@ -186,7 +186,7 @@ void NotificationManager::Reset()
   m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
   m_turnNotificationWithThen = false;
-  m_secondTurnNotification = TurnDirection::NoTurn;
+  m_secondTurnNotification = TurnDirection::None;
   m_secondTurnNotificationIndex = 0;
 }
 
@@ -202,7 +202,7 @@ TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnIte
   if (turns.size() < 2)
   {
     m_secondTurnNotificationIndex = 0;
-    return TurnDirection::NoTurn;
+    return TurnDirection::None;
   }
 
   TurnItemDist const & firstTurn = turns[0];
@@ -217,7 +217,7 @@ TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnIte
   ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
 
   if (distBetweenTurnsMeters > kMaxTurnDistM)
-    return TurnDirection::NoTurn;
+    return TurnDirection::None;
 
   uint32_t const startPronounceDistMeters =
       m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) +
@@ -227,7 +227,7 @@ TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnIte
     m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;
     return secondTurn.m_turnItem.m_turn;  // It's time to inform about the turn after the next one.
   }
-  return TurnDirection::NoTurn;
+  return TurnDirection::None;
 }
 
 string DebugPrint(PronouncedNotification const notificationProgress)
