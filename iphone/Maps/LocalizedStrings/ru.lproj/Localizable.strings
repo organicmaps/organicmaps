@@ -1996,3 +1996,17 @@
 "whatsnew_intermediate_point_title" = "Промежуточная остановка";
 
 "whatsnew_intermediate_point_message" = "Планируйте маршрут с дополнительной остановкой.";
+
+"subtitle_rent" = "Аренда";
+
+"rub_month" = "₽/мес.";
+
+"room" = "%S-комн. кв.";
+
+"real_estate" = "Недвижимость";
+
+"title_cian_load_information" = "Проверенное жильё";
+
+"subtitle_cian_load_information" = "Узнай сколько стоят квартиры в этом доме";
+
+"error_load_information" = "Не удалось загрузить информацию";

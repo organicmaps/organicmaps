@@ -1996,3 +1996,17 @@
 "whatsnew_intermediate_point_title" = "其他经停点";
 
 "whatsnew_intermediate_point_message" = "规划带中间点的路线。";
+
+"subtitle_rent" = "Rent";
+
+"rub_month" = "₽/month";
+
+"room" = "%S room(s) apart.";
+
+"real_estate" = "Real estate";
+
+"title_cian_load_information" = "Verified accommodation";
+
+"subtitle_cian_load_information" = "Find out how much the apartments cost in this house";
+
+"error_load_information" = "Could not load information";

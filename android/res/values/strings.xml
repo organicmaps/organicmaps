@@ -1171,4 +1171,11 @@
 	<string name="placepage_add_stop">Add Stop</string>
 	<string name="whatsnew_intermediate_point_title">Additional stop</string>
 	<string name="whatsnew_intermediate_point_message">Plan a route with an intermediate point.</string>
+	<string name="subtitle_rent">Rent</string>
+	<string name="rub_month">₽/month</string>
+	<string name="room">%S room(s) apart.</string>
+	<string name="real_estate">Real estate</string>
+	<string name="title_cian_load_information">Verified accommodation</string>
+	<string name="subtitle_cian_load_information">Find out how much the apartments cost in this house</string>
+	<string name="error_load_information">Could not load information</string>
 </resources>
