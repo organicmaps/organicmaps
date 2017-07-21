@@ -170,7 +170,10 @@ public:
     for (auto const & s : m_routeSegments)
     {
       if (s.GetJunction().GetAltitude() == feature::kInvalidAltitude)
+      {
         m_haveAltitudes = false;
+        return;
+      }
     }
   }
 
@@ -285,7 +288,7 @@ private:
   /// \returns Length of the route segment with |segIdx| in meters.
   double GetSegLenMeters(size_t segIdx) const;
   /// \returns ETA to the last passed route point in seconds.
-  double GetETAToLastPassedPointS() const;
+  double GetETAToLastPassedPointSec() const;
 
   std::string m_router;
   RoutingSettings m_routingSettings;
@@ -295,8 +298,7 @@ private:
 
   std::set<std::string> m_absentCountries;
   std::vector<RouteSegment> m_routeSegments;
-  // |m_haveAltitudes| == true if all route points have altitude information.
-  // |m_haveAltitudes| == false if at least one of route points don't have altitude information.
+  // |m_haveAltitudes| is true if and only if all route points have altitude information.
   bool m_haveAltitudes = false;
 
   // Subroute

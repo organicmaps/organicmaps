@@ -197,7 +197,6 @@ private:
   void RemoveRouteImpl();
   void RebuildRouteOnTrafficUpdate();
 
-  bool HasRouteAltitudeImpl() const;
   double GetCompletionPercent() const;
   void PassCheckpoints();
 

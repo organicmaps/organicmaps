@@ -111,10 +111,10 @@ double Route::GetCurrentTimeToEndSec() const
     return 0.0;
 
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
-  double const etaToLastPassedPointS = GetETAToLastPassedPointS();
+  double const etaToLastPassedPointS = GetETAToLastPassedPointSec();
   double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
   double const totalTimeS = GetTotalTimeSec();
-  // Note. If a segment is short it does not make any sence to take into account time needed
+  // Note. If a segment is short it does not make any sense to take into account time needed
   // to path its part.
   if (my::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
     return totalTimeS - etaToLastPassedPointS;
@@ -369,7 +369,7 @@ double Route::GetSegLenMeters(size_t segIdx) const
          (segIdx == 0 ? 0.0 : m_routeSegments[segIdx - 1].GetDistFromBeginningMeters());
 }
 
-double Route::GetETAToLastPassedPointS() const
+double Route::GetETAToLastPassedPointSec() const
 {
   CHECK(IsValid(), ());
   auto const & curIter = m_poly.GetCurrentIter();
