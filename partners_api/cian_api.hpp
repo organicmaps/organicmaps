@@ -27,7 +27,7 @@ struct RentOffer
 {
   std::string m_flatType;
   uint8_t m_roomsCount = 0;
-  uint32_t m_priceRur = 0;
+  double m_priceRur = 0.0;
   uint8_t m_floorNumber = 0;
   uint8_t m_floorsCount = 0;
   std::string m_url;
@@ -36,8 +36,8 @@ struct RentOffer
   // No need to use offer when it is not fully filled.
   bool IsValid() const
   {
-    return !m_flatType.empty() && m_roomsCount && m_priceRur && m_floorNumber && m_floorsCount &&
-           !m_url.empty() && !m_address.empty();
+    return !m_flatType.empty() && m_roomsCount && m_priceRur != 0.0 && m_floorNumber &&
+           m_floorsCount && !m_url.empty() && !m_address.empty();
   }
 };
 

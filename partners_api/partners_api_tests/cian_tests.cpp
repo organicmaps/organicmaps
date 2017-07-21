@@ -40,6 +40,13 @@ UNIT_TEST(Cian_GetRentNearby)
     testing::RunEventLoop();
 
     TEST(!result.empty(), ());
+    for (auto const & r : result)
+    {
+      for (auto const & o : r.m_offers)
+      {
+        TEST(o.IsValid(), ());
+      }
+    }
   }
   {
     cian::Api api("incorrect url");

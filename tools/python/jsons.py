@@ -261,7 +261,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 50000,
+          "priceRur": 50000.0,
           "floorNumber": 8,
           "floorsCount": 9,
           "photosCount": 11,
@@ -271,7 +271,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 1,
-          "priceRur": 39999,
+          "priceRur": 39999.0,
           "floorNumber": 1,
           "floorsCount": 12,
           "photosCount": 13,
@@ -281,7 +281,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 58000,
+          "priceRur": 58000.0,
           "floorNumber": 6,
           "floorsCount": 9,
           "photosCount": 9,
@@ -299,7 +299,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 1,
-          "priceRur": 39000,
+          "priceRur": 39000.0,
           "floorNumber": 2,
           "floorsCount": 9,
           "photosCount": 9,
@@ -317,7 +317,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 50000,
+          "priceRur": 50000.0,
           "floorNumber": 6,
           "floorsCount": 10,
           "photosCount": 9,
@@ -335,7 +335,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 70000,
+          "priceRur": 70000.0,
           "floorNumber": 4,
           "floorsCount": 9,
           "photosCount": 0,
@@ -353,7 +353,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 1,
-          "priceRur": 45000,
+          "priceRur": 45000.0,
           "floorNumber": 1,
           "floorsCount": 9,
           "photosCount": 6,
@@ -363,7 +363,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 48000,
+          "priceRur": 48000.0,
           "floorNumber": 5,
           "floorsCount": 9,
           "photosCount": 15,
@@ -373,7 +373,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 1,
-          "priceRur": 45000,
+          "priceRur": 45000.0,
           "floorNumber": 1,
           "floorsCount": 9,
           "photosCount": 7,
@@ -391,7 +391,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 60000,
+          "priceRur": 60000.0,
           "floorNumber": 5,
           "floorsCount": 8,
           "photosCount": 37,
@@ -401,7 +401,7 @@ PARTNERS_RENT_NEARBY = """
         {
           "flatType": "rooms",
           "roomsCount": 2,
-          "priceRur": 35000,
+          "priceRur": 35000.0,
           "floorNumber": 6,
           "floorsCount": 8,
           "photosCount": 5,

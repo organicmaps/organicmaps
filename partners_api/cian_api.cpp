@@ -32,23 +32,15 @@ std::unordered_set<std::string> const kSupportedCities
   "Ufa"
 };
 
-template <typename T, typename std::enable_if<std::is_integral<T>::value, void>::type* = nullptr>
+template <typename T>
 void GetNullable(json_t * src, std::string const & fieldName, T & result)
 {
-  result = 0;
-
   auto const field = json_object_get(src, fieldName.c_str());
-  if (field != nullptr && !json_is_null(field))
-    result = static_cast<T>(json_integer_value(field));
-}
 
-void GetNullable(json_t * src, std::string const & fieldName, std::string & result)
-{
-  result.clear();
+  if (json_is_null(field))
+    return;
 
-  auto const field = json_object_get(src, fieldName.c_str());
-  if (field != nullptr && !json_is_null(field))
-    result = json_string_value(field);
+  FromJSON(field, result);
 }
 
 void MakeResult(std::string const & src, std::vector<cian::RentPlace> & result)
