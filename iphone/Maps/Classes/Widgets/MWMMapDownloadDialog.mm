@@ -1,6 +1,7 @@
 #import "MWMMapDownloadDialog.h"
 #import "CLLocation+Mercator.h"
 #import "MWMAlertViewController.h"
+#import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
@@ -175,7 +176,12 @@ using namespace storage;
 {
   if (self.superview)
     return;
-  [self.controller.view addSubview:self];
+  auto superview = self.controller.view;
+  auto bottomMenuView = [MWMBottomMenuViewController controller].view;
+  if (bottomMenuView)
+    [superview insertSubview:self belowSubview:bottomMenuView];
+  else
+    [superview addSubview:self];
   [MWMFrameworkListener addObserver:self];
 }
 
