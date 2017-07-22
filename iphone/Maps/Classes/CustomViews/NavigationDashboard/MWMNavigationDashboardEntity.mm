@@ -64,18 +64,18 @@ using namespace routing::turns;
   [result addAttributes:etaAttributes range:NSMakeRange(0, resultString.length)];
   _estimate = [result copy];
 
-  TurnDirection const turn = info.m_turn;
+  CarDirection const turn = info.m_turn;
   _turnImage = image(turn, false);
-  BOOL const isRound = turn == TurnDirection::EnterRoundAbout ||
-                       turn == TurnDirection::StayOnRoundAbout ||
-                       turn == TurnDirection::LeaveRoundAbout;
+  BOOL const isRound = turn == CarDirection::EnterRoundAbout ||
+                       turn == CarDirection::StayOnRoundAbout ||
+                       turn == CarDirection::LeaveRoundAbout;
   if (isRound)
     _roundExitNumber = info.m_exitNum;
   else
     _roundExitNumber = 0;
 }
 
-UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
+UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 {
   if ([MWMRouter type] == MWMRouterTypePedestrian)
     return [UIImage imageNamed:@"ic_direction"];
@@ -83,23 +83,23 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   NSString * imageName;
   switch (t)
   {
-  case TurnDirection::TurnSlightRight: imageName = @"slight_right"; break;
-  case TurnDirection::TurnRight: imageName = @"simple_right"; break;
-  case TurnDirection::TurnSharpRight: imageName = @"sharp_right"; break;
-  case TurnDirection::TurnSlightLeft: imageName = @"slight_left"; break;
-  case TurnDirection::TurnLeft: imageName = @"simple_left"; break;
-  case TurnDirection::TurnSharpLeft: imageName = @"sharp_left"; break;
-  case TurnDirection::UTurnLeft: imageName = @"uturn_left"; break;
-  case TurnDirection::UTurnRight: imageName = @"uturn_right"; break;
-  case TurnDirection::ReachedYourDestination: imageName = @"finish_point"; break;
-  case TurnDirection::LeaveRoundAbout:
-  case TurnDirection::EnterRoundAbout: imageName = @"round"; break;
-  case TurnDirection::GoStraight: imageName = @"straight"; break;
-  case TurnDirection::StartAtEndOfStreet:
-  case TurnDirection::StayOnRoundAbout:
-  case TurnDirection::TakeTheExit:
-  case TurnDirection::Count:
-  case TurnDirection::NoTurn: imageName = isNextTurn ? nil : @"straight"; break;
+  case CarDirection::TurnSlightRight: imageName = @"slight_right"; break;
+  case CarDirection::TurnRight: imageName = @"simple_right"; break;
+  case CarDirection::TurnSharpRight: imageName = @"sharp_right"; break;
+  case CarDirection::TurnSlightLeft: imageName = @"slight_left"; break;
+  case CarDirection::TurnLeft: imageName = @"simple_left"; break;
+  case CarDirection::TurnSharpLeft: imageName = @"sharp_left"; break;
+  case CarDirection::UTurnLeft: imageName = @"uturn_left"; break;
+  case CarDirection::UTurnRight: imageName = @"uturn_right"; break;
+  case CarDirection::ReachedYourDestination: imageName = @"finish_point"; break;
+  case CarDirection::LeaveRoundAbout:
+  case CarDirection::EnterRoundAbout: imageName = @"round"; break;
+  case CarDirection::GoStraight: imageName = @"straight"; break;
+  case CarDirection::StartAtEndOfStreet:
+  case CarDirection::StayOnRoundAbout:
+  case CarDirection::TakeTheExit:
+  case CarDirection::Count:
+  case CarDirection::None: imageName = isNextTurn ? nil : @"straight"; break;
   }
   if (!imageName)
     return nil;
