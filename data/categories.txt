@@ -68,7 +68,7 @@ sk:Jedlo
 @transport
 en:Transport
 ru:Транспорт
-ar:مواصلات|نقل
+ar:^مواصلات|نقل
 cs:Doprava
 da:Transport
 nl:Transport
@@ -100,7 +100,7 @@ sk:Doprava
 @fuel
 en:2Gas
 ru:3^Заправка
-ar:1وقود
+ar:1^وقود|بنزين|سولار|ديزل|غاز
 cs:2^Čerpací stanice
 da:Brændstof|Benzin
 nl:3Benzine
@@ -293,7 +293,7 @@ sk:Zábava
 @atm
 en:^ATM|Cash machine
 ru:3^Банкомат
-ar:^ماكينة صرافة آلية
+ar:^ماكينة صرافة آلية|صراف|صراف آلي
 cs:3^Bankomat
 da:3^Hæveautomat
 nl:3^Geldautomaat
@@ -326,7 +326,7 @@ sw:^Benki|fedha
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
-ar:ماكينة الصراف الآلي|الأموال|فلوس|صرافة آلية|نقود
+ar:^ماكينة صراف آلي|الأموال|فلوس|صرافة آلية|نقود
 cs:spořitelna|peníze
 da:penge
 nl:geld
@@ -390,7 +390,7 @@ sw:^Benki|fedha
 amenity-bank|@bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
-ar:البنك|الأموال|فلوس|نقود|مال
+ar:^بنك|الأموال|فلوس|نقود|مال
 cs:peníze
 da:3penge
 nl:geld
@@ -450,7 +450,7 @@ sk:3^Zmenáreň|peniaze
 amenity-bar|@food
 en:2^Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376
 ru:2^Бар|2паб|пиво|выпить|еда
-ar:^حانة|خمارة์|بيرة|شراب
+ar:^حانة|خمارة|بيرة|شراب
 cs:2^Bar|pivo|pití|voda|pitná voda|tekutiny
 da:2^Bar|øl|pub|drink
 nl:2^Bar|2pub|2café|bier|drinken
@@ -576,7 +576,7 @@ sk:2^Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 amenity-restaurant|@food
 en:3^Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3^Ресторан|3кафе|еда
-ar:1^مطعم|مقهى|طعام
+ar:2^مطعم|مقهى|طعام
 cs:3^Restaurace|hospoda|kavárna
 da:3^Restaurant|café
 nl:3^Restaurant|3café
@@ -608,7 +608,7 @@ sw:^Hoteli|restorenti|mgahawa|chakula
 amenity-fuel|@fuel
 en:^Gas Station|3fuel|petrol|petrol station|U+26FD
 ru:Бензин|топливо|азс
-ar:^محطة وقود|وقود|غاز|بترول
+ar:^محطة وقود|وقود|غاز|سولار|ديزل|بنزين|بترول
 cs:2pumpa
 da:3^Tankstation
 nl:3^Tankstation|3brandstof
@@ -717,7 +717,7 @@ sw:^Vipodozi
 shop-convenience|@shop
 en:4^Convenience Store|U+1F3EC|U+1F3EA
 ru:4^Продуктовый магазин|2магазин
-ar:^متجر|متجر صغير
+ar:^متجر صغير
 cs:^Smíšené zboží|koloniál
 da:^Døgnbutik|døgnkiosk|kiosk
 nl:^Buurtwinkel|kruidenier
@@ -1497,7 +1497,7 @@ sk:^Hračkárstvo
 amenity-marketplace|@shop
 en:3^Marketplace|market
 ru:3^Рынок|базар|магазин
-ar:^ سوق|السوق|متجر
+ar:^سوق|السوق|متجر
 cs:4^Tržiště|samoobsluha|market
 da:3^Markedsplads|marked
 nl:3^Markt
@@ -1807,7 +1807,7 @@ sw:^Reli ya chini
 amenity-ferry_terminal|@transport
 en:3^Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ru:3^Паром|транспорт
-ar:^محطة عبارات|مركب|محطة|مواصلات|نقل
+ar:^محطة عبّارات|مركب|محطة|مواصلات|نقل
 cs:3^Trajekt
 da:2^Færge|færgehavn|terminal
 nl:3^Veerpont|veerboot|veer|pont|overzetboot
