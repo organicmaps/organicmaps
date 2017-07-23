@@ -1452,8 +1452,11 @@ void Framework::EnterBackground()
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
-  double const time = m_startForegroundTime - m_startBackgroundTime;
-  CallDrapeFunction(bind(&df::DrapeEngine::SetTimeInBackground, _1, time));
+  if (m_drapeEngine != nullptr)
+  {
+    auto const timeInBackground = m_startForegroundTime - m_startBackgroundTime;
+    m_drapeEngine->SetTimeInBackground(timeInBackground);
+  }
 
   m_trafficManager.OnEnterForeground();
   m_routingManager.SetAllowSendingPoints(true);

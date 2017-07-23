@@ -152,13 +152,10 @@ public:
   using TUserPositionChangedFn = FrontendRenderer::TUserPositionChangedFn;
   void SetUserPositionListener(TUserPositionChangedFn && fn);
 
-  FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim);
   void DeselectObject();
-  bool GetMyPosition(m2::PointD & myPosition);
-  SelectionShape::ESelectedObject GetSelectedObject();
-
+  
   dp::DrapeID AddSubroute(drape_ptr<Subroute> &&segment);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);

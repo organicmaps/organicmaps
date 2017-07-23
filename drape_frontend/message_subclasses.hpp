@@ -498,28 +498,6 @@ private:
   location::RouteMatchingInfo const m_routeInfo;
 };
 
-class FindVisiblePOIMessage : public BaseBlockingMessage
-{
-public:
-  FindVisiblePOIMessage(Blocker & blocker, m2::PointD const & glbPt, FeatureID & featureID)
-    : BaseBlockingMessage(blocker)
-    , m_pt(glbPt)
-    , m_featureID(featureID)
-  {}
-
-  Type GetType() const override { return FindVisiblePOI; }
-
-  m2::PointD const & GetPoint() const { return m_pt; }
-  void SetFeatureID(FeatureID const & id)
-  {
-    m_featureID = id;
-  }
-
-private:
-  m2::PointD m_pt;
-  FeatureID & m_featureID;
-};
-
 class SelectObjectMessage : public Message
 {
 public:
@@ -555,47 +533,6 @@ private:
   FeatureID m_featureID;
   bool m_isAnim;
   bool m_isDismiss;
-};
-
-class GetSelectedObjectMessage : public BaseBlockingMessage
-{
-public:
-  GetSelectedObjectMessage(Blocker & blocker, SelectionShape::ESelectedObject & object)
-    : BaseBlockingMessage(blocker)
-    , m_object(object)
-  {}
-
-  Type GetType() const override { return GetSelectedObject; }
-
-  void SetSelectedObject(SelectionShape::ESelectedObject const & object)
-  {
-    m_object = object;
-  }
-
-private:
-  SelectionShape::ESelectedObject & m_object;
-};
-
-class GetMyPositionMessage : public BaseBlockingMessage
-{
-public:
-  GetMyPositionMessage(Blocker & blocker, bool & hasPosition, m2::PointD & myPosition)
-    : BaseBlockingMessage(blocker)
-    , m_myPosition(myPosition)
-    , m_hasPosition(hasPosition)
-  {}
-
-  Type GetType() const override { return GetMyPosition; }
-
-  void SetMyPosition(bool hasPosition, m2::PointD const & myPosition)
-  {
-    m_hasPosition = hasPosition;
-    m_myPosition = myPosition;
-  }
-
-private:
-  m2::PointD & m_myPosition;
-  bool & m_hasPosition;
 };
 
 class AddSubrouteMessage : public Message

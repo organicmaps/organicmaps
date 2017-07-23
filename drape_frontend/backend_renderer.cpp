@@ -579,16 +579,15 @@ void BackendRenderer::InitGLDependentResource()
   textures->m_smaaSearchTexture = m_texMng->GetSMAASearchTexture();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<SetPostprocessStaticTexturesMessage>(std::move(textures)),
-                            MessagePriority::High);
+                            MessagePriority::Normal);
 }
 
 void BackendRenderer::RecacheMapShapes()
 {
   auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_texMng),
                                               make_unique_dp<SelectionShape>(m_texMng));
-
   GLFunctions::glFlush();
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state,

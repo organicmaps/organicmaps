@@ -412,15 +412,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FindVisiblePOI:
-    {
-      ref_ptr<FindVisiblePOIMessage> msg = message;
-      ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-      msg->SetFeatureID(GetVisiblePOI(screen.isPerspective() ? screen.PtoP3d(screen.GtoP(msg->GetPoint()))
-                                                             : screen.GtoP(msg->GetPoint())));
-      break;
-    }
-
   case Message::SelectObject:
     {
       ref_ptr<SelectObjectMessage> msg = message;
@@ -434,23 +425,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ProcessSelection(msg);
       AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(m_userEventStream.GetVisibleViewport()));
 
-      break;
-    }
-
-  case Message::GetSelectedObject:
-    {
-      ref_ptr<GetSelectedObjectMessage> msg = message;
-      if (m_selectionShape != nullptr)
-        msg->SetSelectedObject(m_selectionShape->GetSelectedObject());
-      else
-        msg->SetSelectedObject(SelectionShape::OBJECT_EMPTY);
-      break;
-    }
-
-  case Message::GetMyPosition:
-    {
-      ref_ptr<GetMyPositionMessage> msg = message;
-      msg->SetMyPosition(m_myPositionController->IsModeHasPosition(), m_myPositionController->Position());
       break;
     }
 

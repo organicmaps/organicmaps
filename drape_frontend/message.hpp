@@ -33,10 +33,7 @@ public:
     ChangeMyPostitionMode,
     CompassInfo,
     GpsInfo,
-    FindVisiblePOI,
     SelectObject,
-    GetSelectedObject,
-    GetMyPosition,
     AddSubroute,
     RemoveSubroute,
     CacheRouteArrows,
@@ -93,9 +90,17 @@ public:
 
 enum class MessagePriority
 {
+  // This is standard priority. It must be used for majority of messages.
+  // This priority guarantees order of messages processing.
   Normal,
+  // This priority is used for system messages where order of processing
+  // could be neglected, so it does not guarantee order of messages processing.
+  // Also it must be used for messages which stop threads.
   High,
+  // It can be used for the only system message (UpdateReadManagerMessage) and
+  // must not be used anywhere else.
   UberHighSingleton,
+  // This priority allows to process messages after any other messages in queue.
   Low
 };
 

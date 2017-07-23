@@ -132,7 +132,7 @@ void DrapeEngine::Update(int w, int h)
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<ShowChoosePositionMarkMessage>(),
-                                    MessagePriority::High);
+                                    MessagePriority::Normal);
   }
   RecacheGui(false);
 
@@ -140,7 +140,7 @@ void DrapeEngine::Update(int w, int h)
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<RecoverGLResourcesMessage>(),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 
   ResizeImpl(w, h);
 }
@@ -327,7 +327,7 @@ void DrapeEngine::RecacheGui(bool needResetOldGui)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<GuiRecacheMessage>(m_widgetsInfo, needResetOldGui),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::AddUserEvent(drape_ptr<UserEvent> && e)
@@ -371,7 +371,7 @@ void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<CompassInfoMessage>(info),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
@@ -379,7 +379,7 @@ void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SwitchMyPositionNextMode()
@@ -387,7 +387,7 @@ void DrapeEngine::SwitchMyPositionNextMode()
   using Mode = ChangeMyPositionModeMessage::EChangeType;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<ChangeMyPositionModeMessage>(Mode::SwitchNextMode),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::LoseLocation()
@@ -395,7 +395,7 @@ void DrapeEngine::LoseLocation()
   using Mode = ChangeMyPositionModeMessage::EChangeType;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<ChangeMyPositionModeMessage>(Mode::LoseLocation),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::StopLocationFollow()
@@ -403,7 +403,7 @@ void DrapeEngine::StopLocationFollow()
   using Mode = ChangeMyPositionModeMessage::EChangeType;
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<ChangeMyPositionModeMessage>(Mode::StopFollowing),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom)
@@ -411,7 +411,7 @@ void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<FollowRouteMessage>(preferredZoomLevel,
                                                                      preferredZoomLevel3d, enableAutoZoom),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SetModelViewListener(TModelViewListenerFn && fn)
@@ -429,55 +429,19 @@ void DrapeEngine::SetUserPositionListener(TUserPositionChangedFn && fn)
   m_userPositionChanged = std::move(fn);
 }
 
-FeatureID DrapeEngine::GetVisiblePOI(m2::PointD const & glbPoint)
-{
-  FeatureID result;
-  BaseBlockingMessage::Blocker blocker;
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FindVisiblePOIMessage>(blocker, glbPoint, result),
-                                  MessagePriority::High);
-
-  blocker.Wait();
-  return result;
-}
-
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                                FeatureID const & featureId, bool isAnim)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SelectObjectMessage>(obj, pt, featureId, isAnim),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::DeselectObject()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag()),
-                                  MessagePriority::High);
-}
-
-SelectionShape::ESelectedObject DrapeEngine::GetSelectedObject()
-{
-  SelectionShape::ESelectedObject object;
-  BaseBlockingMessage::Blocker blocker;
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<GetSelectedObjectMessage>(blocker, object),
-                                  MessagePriority::High);
-
-  blocker.Wait();
-  return object;
-}
-
-bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
-{
-  bool hasPosition = false;
-  BaseBlockingMessage::Blocker blocker;
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<GetMyPositionMessage>(blocker, hasPosition, myPosition),
-                                  MessagePriority::High);
-
-  blocker.Wait();
-  return hasPosition;
+                                  MessagePriority::Normal);
 }
 
 dp::DrapeID DrapeEngine::AddSubroute(drape_ptr<Subroute> && subroute)
@@ -599,7 +563,7 @@ void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::Triangle
     StopLocationFollow();
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<ShowChoosePositionMarkMessage>(),
-                                    MessagePriority::High);
+                                    MessagePriority::Normal);
     kineticScroll = false;
   }
   else
@@ -609,7 +573,7 @@ void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::Triangle
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetAddNewPlaceModeMessage>(enable, std::move(boundAreaTriangles),
                                                                             kineticScroll, hasPosition, position),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::BlockTapEvents(bool block)
@@ -627,7 +591,7 @@ void DrapeEngine::SetKineticScrollEnabled(bool enabled)
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetKineticScrollEnabledMessage>(m_kineticScrollEnabled),
-                                  MessagePriority::High);
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SetTimeInBackground(double time)
