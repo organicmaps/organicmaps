@@ -14,10 +14,12 @@ enum class ScrollDirection
 enum class State
 {
   Bottom,
-  Top
+  Top,
+  Expanded
 };
 
-CGFloat const kOpenPlacePageStopValue = 0.7;
+CGFloat const kTopPlacePageStopValue = 0.7;
+CGFloat const kExpandedPlacePageStopValue = 0.5;
 CGFloat const kLuftDraggingOffset = 30;
 
 // Minimal offset for collapse. If place page offset is below this value we should hide place page.
@@ -31,10 +33,7 @@ CGFloat const kMinOffset = 1;
 @property(nonatomic) ScrollDirection direction;
 @property(nonatomic) State state;
 
-@property(nonatomic) CGFloat portraitOpenContentOffset;
-@property(nonatomic) CGFloat landscapeOpenContentOffset;
 @property(nonatomic) CGFloat lastContentOffset;
-@property(nonatomic) CGFloat expandedContentOffset;
 @property(weak, nonatomic) MWMPPPreviewLayoutHelper * previewLayoutHelper;
 
 @property(nonatomic) CGRect availableArea;
@@ -63,8 +62,6 @@ CGFloat const kMinOffset = 1;
     _delegate = delegate;
     self.scrollView =
         [[MWMPPScrollView alloc] initWithFrame:ownerView.frame inactiveView:placePageView];
-    _portraitOpenContentOffset = MAX(size.width, size.height) * kOpenPlacePageStopValue;
-    _landscapeOpenContentOffset = MIN(size.width, size.height) * kOpenPlacePageStopValue;
     placePageView.frame = {{0, size.height}, size};
   }
   return self;
@@ -72,7 +69,7 @@ CGFloat const kMinOffset = 1;
 
 - (void)onShow
 {
-  self.state = [self.delegate isExpandedOnShow] ? State::Top : State::Bottom;
+  self.state = [self.delegate isExpandedOnShow] ? State::Expanded : State::Bottom;
   auto scrollView = self.scrollView;
   
   scrollView.scrollEnabled = NO;
@@ -83,10 +80,7 @@ CGFloat const kMinOffset = 1;
       scrollView.scrollEnabled = YES;
       auto actionBar = self.actionBar;
       actionBar.maxY = actionBar.superview.height;
-      self.expandedContentOffset =
-        self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
-      auto const targetOffset =
-        self.state == State::Bottom ? self.expandedContentOffset : self.topContentOffset;
+      auto const targetOffset = self.state == State::Expanded ? self.expandedContentOffset : self.bottomContentOffset;
       [scrollView setContentOffset:{ 0, targetOffset } animated:YES];
     });
   });
@@ -123,7 +117,7 @@ CGFloat const kMinOffset = 1;
   actionBar.frame = {{0., size.height - actionBar.height}, {size.width, actionBar.height}};
   [self.delegate onPlacePageTopBoundChanged:self.scrollView.contentOffset.y];
   [sv setContentOffset:{
-    0, self.state == State::Top ? self.topContentOffset : self.expandedContentOffset
+    0, self.state == State::Top ? self.topContentOffset : self.bottomContentOffset
   }
               animated:YES];
 }
@@ -149,10 +143,8 @@ CGFloat const kMinOffset = 1;
   dispatch_async(dispatch_get_main_queue(), ^{
     auto actionBar = self.actionBar;
     actionBar.maxY = actionBar.superview.height;
-    self.expandedContentOffset =
-        self.previewLayoutHelper.height + actionBar.height - self.placePageView.top.height;
     if (self.state == State::Bottom)
-      [scrollView setContentOffset:{ 0, self.expandedContentOffset } animated:YES];
+      [scrollView setContentOffset:{ 0, self.bottomContentOffset } animated:YES];
     scrollView.scrollEnabled = YES;
   });
 }
@@ -167,7 +159,9 @@ CGFloat const kMinOffset = 1;
 
 - (CGFloat)openContentOffset
 {
-  return self.isPortrait ? self.portraitOpenContentOffset : self.landscapeOpenContentOffset;
+  auto const & size = self.ownerView.size;
+  auto const offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
+  return offset * kTopPlacePageStopValue;
 }
 
 - (CGFloat)topContentOffset
@@ -175,6 +169,18 @@ CGFloat const kMinOffset = 1;
   auto const target = self.openContentOffset;
   auto const ppViewMaxY = self.placePageView.tableView.maxY;
   return MIN(target, ppViewMaxY);
+}
+
+- (CGFloat)expandedContentOffset
+{
+  auto const & size = self.ownerView.size;
+  auto const offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
+  return offset * kExpandedPlacePageStopValue;
+}
+
+- (CGFloat)bottomContentOffset
+{
+  return self.previewLayoutHelper.height + self.actionBar.height - self.placePageView.top.height;
 }
 
 - (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView
@@ -215,18 +221,18 @@ CGFloat const kMinOffset = 1;
   auto const openOffset = self.openContentOffset;
   auto const targetOffset = (*targetContentOffset).y;
 
-  if (actualOffset > self.expandedContentOffset && actualOffset < openOffset)
+  if (actualOffset > self.bottomContentOffset && actualOffset < openOffset)
   {
     auto const isDirectionUp = self.direction == ScrollDirection::Up;
     self.state = isDirectionUp ? State::Top : State::Bottom;
-    (*targetContentOffset).y = isDirectionUp ? openOffset : self.expandedContentOffset;
+    (*targetContentOffset).y = isDirectionUp ? openOffset : self.bottomContentOffset;
   }
   else if (actualOffset > openOffset && targetOffset < openOffset)
   {
     self.state = State::Top;
     (*targetContentOffset).y = openOffset;
   }
-  else if (actualOffset < self.expandedContentOffset)
+  else if (actualOffset < self.bottomContentOffset)
   {
     (*targetContentOffset).y = 0;
     place_page_layout::animate(^{
@@ -247,11 +253,11 @@ CGFloat const kMinOffset = 1;
   auto const actualOffset = scrollView.contentOffset.y;
   auto const openOffset = self.openContentOffset;
 
-  if (actualOffset < self.expandedContentOffset + kLuftDraggingOffset)
+  if (actualOffset < self.bottomContentOffset + kLuftDraggingOffset)
   {
     self.state = State::Bottom;
     place_page_layout::animate(^{
-      [scrollView setContentOffset:{ 0, self.expandedContentOffset } animated:YES];
+      [scrollView setContentOffset:{ 0, self.bottomContentOffset } animated:YES];
     });
   }
   else if (actualOffset < openOffset)
@@ -259,7 +265,7 @@ CGFloat const kMinOffset = 1;
     auto const isDirectionUp = self.direction == ScrollDirection::Up;
     self.state = isDirectionUp ? State::Top : State::Bottom;
     place_page_layout::animate(^{
-      [scrollView setContentOffset:{0, isDirectionUp ? openOffset : self.expandedContentOffset}
+      [scrollView setContentOffset:{0, isDirectionUp ? openOffset : self.bottomContentOffset}
                           animated:YES];
     });
   }
@@ -298,7 +304,7 @@ CGFloat const kMinOffset = 1;
   if (self.state == State::Top)
   {
     self.state = State::Bottom;
-    offset = self.expandedContentOffset;
+    offset = self.bottomContentOffset;
   }
   else
   {
