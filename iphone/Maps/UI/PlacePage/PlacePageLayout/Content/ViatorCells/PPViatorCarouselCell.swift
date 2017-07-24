@@ -58,7 +58,7 @@ extension PPViatorCarouselCell: UICollectionViewDelegate, UICollectionViewDataSo
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return min(dataSource.count + 1, kMaximumNumberOfElements)
+    return min(dataSource.count, kMaximumNumberOfElements) + 1
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
