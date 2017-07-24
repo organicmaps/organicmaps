@@ -2344,7 +2344,7 @@ sw:^Makumbusho|kivutio|utalii
 waterway-waterfall|@tourism
 en:2^Waterfall
 ru:2^Водопад|достопримечательность
-ar:^شلال|مناظر
+ar:^شلال|مناظر|سياحة
 cs:2^Vodopád|zajímavost
 da:2^Vandfald
 nl:2^Watervallen|waterval
@@ -2376,7 +2376,7 @@ sw:^Maporomoko ya maji
 historic-memorial|@tourism
 en:^Memorial|monument|attraction|tourism|U+1F5FC|U+1F5FD|U+1F5FF
 ru:^Памятник|мемориал|достопримечательность|туризм
-ar:^مبنى او نصب تزكارى
+ar:^نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
 cs:^Pomník|památka|zajímavost
 da:^Mindesmærke|mindesten
 nl:^Gedenkteken|monument|attractie
@@ -2408,7 +2408,7 @@ sw:^Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 historic-monument|@tourism
 en:^Monument|attraction|tourism|U+1F5FD|U+1F5FF
 ru:^Монумент|мавзолей|арка|достопримечательность|туризм
-ar:^نصب تزكارى
+ar:^صرح|معالم|سياحة|مناظر
 cs:^Zajímavost|pomník|památka
 da:^Monument
 nl:^Monument|attractie
@@ -2440,7 +2440,7 @@ sw:^Makumbusho|kivutio|utalii
 historic-ruins|@tourism
 en:^Ruins|attraction|tourism|U+1F5FF
 ru:^Руины|развалины|достопримечательность|туризм
-ar:^آثار|أماكن الجذب|مناظر
+ar:^آثار|أماكن جذابة|مناظر|سياحة
 cs:^Ruiny|zřícenina
 da:^Ruiner|bunker
 nl:^Ruïne|attractie
@@ -2472,7 +2472,7 @@ sw:^Maeneo ya kale|jengo la kale|chakavu
 historic-castle|@tourism
 en:^Castle|attraction|tourism|U+1F3EF|U+1F3F0|U+1F451|U+1F478
 ru:^Замок|достопримечательность|туризм
-ar:^قلعةأماكن الجذب|مناظر
+ar:^قلعة|سياحة|أماكن جذابة|مناظر
 cs:^Zámek|zajímavost
 da:^Slot|borg
 nl:^Kasteel|burcht|attractie
@@ -2504,7 +2504,7 @@ sw:^Ngome|kivutio|utalii
 historic-archaeological_site|@tourism
 en:^Archaeological Site|attraction|tourism
 ru:^Раскопки|достопримечательность|туризм
-ar:^موقع أثري|أماكن الجذب|مناظر
+ar:^موقع أثري|أماكن جذابة|سياحة|مناظر
 cs:^Vykopávky|zajímavost
 da:^Arkæologisk sted
 nl:^Archeologische site|opgravingen|attractie
@@ -2536,7 +2536,7 @@ sw:^Machimbo ya kihistoria|kivutio|utalii
 leisure-garden|@tourism
 en:2^Garden
 ru:2^Сад|достопримечательность
-ar:^بستان|مناظر
+ar:^بستان|مناظر|سياحة
 cs:2^Zahrada|zajímavost
 da:2^Have
 nl:2^Tuin
@@ -2600,7 +2600,7 @@ sw:^Benchi
 amenity-bicycle_rental
 en:4^Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5
 ru:4^Велопрокат|велосипед|3прокат
-ar:^استئجار دراجات
+ar:^تأجير دراجات
 cs:2^Půjčovna kol|4jízdní kolo|3kolo|3pronájem|3nájemné
 da:4^Cykeludlejning|udlejning|cykel
 nl:4^Fietsverhuur|2huur
@@ -2632,7 +2632,7 @@ sw:^Kodi ya baiskeli|baiskeli|kodi
 amenity-car_sharing
 en:^Car Sharing|car|sharing|U+1F697|U+1F698|U+1F699
 ru:^Каршеринг|аренда|машин
-ar:^مشاركة السيارة
+ar:^مشاركة السيارة|تقاسم السيارة
 cs:^Sdílení aut
 da:^Delebiler
 de:^Carsharing
@@ -2663,7 +2663,7 @@ zh-Hant:^汽車共用
 amenity-car_rental
 en:3^Car Rental|car|rental|U+1F697|U+1F698|U+1F699
 ru:4^Прокат авто|3авто|3машина|прокат
-ar:^تأجير سيارات|سيارة
+ar:^تأجير سيارات|سيارة|تأجير|إيجار
 cs:3^Půjčovna aut|auto|pronájem|nájemné
 da:4^Biludlejning|bil
 nl:3^Autoverhuur|autodelen|auto|huur
@@ -2695,7 +2695,7 @@ sw:^Kodi ya gari|gari|kodi
 amenity-cinema|@entertainment
 en:3^Cinema|U+1F3A6|U+1F3AC
 ru:^Кинотеатр|3кино|развлечения
-ar:^سينيما
+ar:^سينما
 cs:3^Kino|biograf
 da:3^Biograf
 nl:3^Bioscoop|cinema
@@ -2791,7 +2791,7 @@ sw:^Ukumbi wa starehe|klabu|burudani
 amenity-brothel|@entertainment
 en:^Brothel|U+1F3E9
 ru:^Бордель|развлечения
-ar:^دعارة|لتسلية
+ar:^دعارة|تسلية
 cs:^Nevěstinec
 da:^Bordel
 nl:^Bordeel
@@ -2820,7 +2820,7 @@ sw:^Danguro
 amenity-casino|@entertainment
 en:^Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ru:^Казино|развлечения
-ar:^اكازينو|لتسلية
+ar:^كازينو|تسلية
 cs:^Casino
 da:^Kasino
 nl:^Casino|goktent
@@ -2881,7 +2881,7 @@ sw:^Chuo
 amenity-drinking_water
 en:4^Drinking Water|U+1F6B0
 ru:4^Питьевой фонтан
-ar:^مياه الشرب
+ar:^مياه شرب
 cs:4^Pitná voda
 da:3^Vand|4drikkevand
 nl:4^Drinkwater
@@ -2913,7 +2913,7 @@ sw:^Maji ya kunywa
 amenity-fire_station
 en:^Fire Station|U+1F692
 ru:^Пожарная часть|Пожарная станция|Пожарные
-ar:^محطة إطفائية
+ar:^محطة إطفاء
 cs:^Hasiči
 da:2^Brandstation
 nl:^Brandweer
@@ -3008,7 +3008,7 @@ sw:^Makabulini
 @hospital
 en:4^Hospital
 ru:4^Больница
-ar:^المستشفى
+ar:^مستشفى
 cs:4^Nemocnice
 da:4^Hospital
 nl:4^Ziekenhuis
@@ -3041,7 +3041,7 @@ sw:^Hospitali
 amenity-hospital|@hospital
 en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ru:4госпиталь|врач|доктор
-ar:المستشفى|عيادة
+ar:^عيادة|طبيب|دكتور
 cs:klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 da:sygehus
 nl:kliniek|hospitaal|tandarts|3dokter
@@ -3066,7 +3066,7 @@ sw:zahanati|daktari
 amenity-clinic
 en:^Clinic|1hospital|doctor|U+1F3E5|U+1F489
 ru:^Поликлиника|клиника|больница|врач
-ar:^عيادة|مستشفى|المستشفى
+ar:^عيادة|مستشفى|طبيب|دكتور
 cs:^Klinika|nemocnice
 da:^Klinik|hospital
 nl:^Kliniek|ziekenhuis
@@ -3097,7 +3097,7 @@ sk:^Poliklinika|nemocnica|zdravotné stredisko
 amenity-doctors
 en:^Doctor|clinic|U+1F489|U+1F3E5|U+1F691|hospital
 ru:^Врач|больница|клиника|поликлиника
-ar:^مكتب طبيب|عيادة|المستشفى
+ar:^طبيب|عيادة|مستشفى
 cs:^Lékařská ordinace|Klinika|nemocnice
 da:^Lægekontor|lægehus|klinik|hospital
 nl:^Huisartsenpost|Kliniek|huisarts|ziekenhuis
@@ -3189,7 +3189,7 @@ sw:^Uwanja wa mawindo
 amenity-kindergarten
 en:^Kindergarten|U+1F476|U+1F37C|U+1F6BC
 ru:^Детсад|ясли
-ar:^رياض الأطفال
+ar:^حضانة أطفال|روضة أطفال
 cs:^Školka|mateřská škola|dětská školka|mateřská školka
 da:4^Børnehave
 nl:^Kleuterschool
@@ -3253,6 +3253,7 @@ sw:^Maktaba
 amenity-parking|@parking
 en:U+1F697|U+1F17F|U+1F698|U+1F699
 ru:Автостоянка|парковка
+ar:^موقف سيارات
 da:3Parkeringsplads
 nl:parking
 fr:3parking
@@ -3271,7 +3272,7 @@ sw:Maegesho
 @pharmacy
 en:3^Pharmacy
 ru:3^Аптека
-ar:^الصيدلية
+ar:^صيدلية
 cs:3^Lékárna
 da:3^Apotek
 nl:3^Apotheek
@@ -3303,7 +3304,7 @@ sw:^Duka la dawa
 
 amenity-pharmacy|@pharmacy
 en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
-ar:الصيدلية
+ar:^متجر أدوية|صيدلية
 nl:verdeelstation
 fi:3Farmasia
 fr:dispensaire
@@ -3355,7 +3356,7 @@ sw:^Sanduku la posta
 @post
 en:3^Post
 ru:3^Почта
-ar:^البريد
+ar:^بريد
 cs:3^Pošta
 da:^Post
 nl:^Post
@@ -3387,7 +3388,7 @@ sw:^Posta
 
 amenity-post_office|@post
 en:U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
-ar:البريد
+ar:مكتب بريد
 da:3Postkontor|posthus
 nl:3Postkantoor
 fr:3comptoir postal
@@ -3405,7 +3406,7 @@ sk:poštový úrad
 amenity-waste_disposal
 en:^Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
 ru:^Мусорный контейнер|мусорка
-ar:^القمامة|ﺔﻣﺎﻤﻗ
+ar:^قمامة|مهملات|سلة مهملات|صندوق قمامة
 cs:^Odpadky|koš|popelnice|uložiště odpadu
 da:^Bortskaffelse af affald|skraldespand|skrald
 nl:^Uitschot|afval|prullenbak|vuilnis
@@ -3500,7 +3501,7 @@ sw:^Shule|skuli
 amenity-shelter
 en:^Shelter
 ru:^Укрытие
-ar:^مأوى
+ar:^ملجأ
 cs:^Přístřešek|úkryt
 da:^Shelter|læskur|hytte
 nl:^Beschutting
@@ -3532,7 +3533,7 @@ sw:^Malazi
 amenity-telephone
 en:2^Phone|U+260E|U+1F4DE
 ru:2^Телефон|таксофон
-ar:^الهاتف
+ar:^هاتف
 cs:2^Telefon|telefonní budka|telefonní automat
 da:2^Telefon
 nl:2^Telefoon|publieke telefoon
@@ -3564,7 +3565,7 @@ sw:^Simu
 @toilet
 en:3^Toilet
 ru:3^Туалет
-ar:^الحمام
+ar:^حمام
 cs:3^Záchody
 da:3^Toilet
 nl:3^Toilet
@@ -3596,7 +3597,7 @@ sw:^Choo
 
 amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
-ar:الحمام
+ar:^حمام|مرحاض
 cs:wc|toalety
 nl:wc
 fr:wc
@@ -3776,7 +3777,7 @@ sw:^Mji mdogo
 place-city-capital
 en:^Capital|city
 ru:^Столица|город
-ar:^مدينة
+ar:^عاصمة|مدينة
 cs:^Hlavní město|metropole
 da:^Kapital
 nl:^Hoofdstad|stad
@@ -3935,7 +3936,7 @@ sw:^Kisiwa
 place-suburb
 en:^Suburb|district
 ru:^Район|микрорайон|округ|квартал
-ar:^ضاحية
+ar:^حي سكني|ضاحية
 cs:^Předměstí|městská část|městská zóna
 da:^Forstad|distrikt
 nl:^Buitenwijken|voorstad|wijk
@@ -4159,7 +4160,7 @@ sw:^Mfereji
 highway-raceway
 en:^Racetrack|U+1F3C1
 ru:^Гоночный трек
-ar:^مسار السباق
+ar:^مسار سباق
 cs:^Závodiště
 da:^Væddeløbsbane
 nl:^Racebaan
@@ -4190,7 +4191,7 @@ sk:^Pretekárska dráha
 highway-path|highway-footway|highway-steps
 en:^Path
 ru:^Дорожка
-ar:^طريق
+ar:^مسار
 cs:^Cesta
 da:^Sti|gangsti|trin|trappe
 nl:^Pad|voetweg|trappen
@@ -4222,7 +4223,7 @@ sw:^Jia
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:^Street|st|str|ave|road|rd
 ru:^Улица|переулок|проезд|тракт|проспект|ул
-ar:^شارع
+ar:^شارع|طريق
 cs:^Ulice|cesta|silnice|ul
 da:^Gade|vej|stræde
 nl:^Straat|st|str|laan|weg
@@ -4819,7 +4820,7 @@ sw:^Uwanja wa gofu|michezo
 leisure-pitch
 en:^Sports Ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
 ru:^Спортплощадка|спорт
-ar:^ميدان اللعب|رياضة|ملاعب رياضية
+ar:^ملعب رياضي|رياضة|ملاعب رياضية
 cs:^Sportovní hřiště|sport
 da:^Sportsplads|fodboldbane|tennisbane|bane
 nl:^Sportveld|veld|sport
@@ -4915,7 +4916,7 @@ sw:^Jengo
 @police
 en:4^Police
 ru:4^Полиция
-ar:^الشرطة
+ar:^شرطة
 cs:4^Policie
 da:4^Politi
 nl:4^Politie
@@ -5027,7 +5028,7 @@ sw:^Ghuba
 natural-spring
 en:^Spring
 ru:^Родник
-ar:^خليجc
+ar:^ربيع|طبيعة
 cs:^Pramen
 da:^Kilde|kildevæld
 nl:^Bron
