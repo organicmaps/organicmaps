@@ -37,10 +37,10 @@ public:
 
   virtual bool IsOneWay(FeatureType const & f) const = 0;
 
-  /// @returns true if feature |f| can be used for routing with corresponding vehicle model.
+  /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
   virtual bool IsRoad(FeatureType const & f) const = 0;
 
-  /// @returns true if feature |f| can be used for transit with corresponding vehicle model.
+  /// @returns true iff feature |f| can be used for transit with corresponding vehicle model.
   virtual bool IsTransitAllowed(FeatureType const & f) const = 0;
 };
 
