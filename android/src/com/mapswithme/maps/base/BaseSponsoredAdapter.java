@@ -2,6 +2,7 @@ package com.mapswithme.maps.base;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.IntDef;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
                                                         R.dimen.viator_product_width);
   private static final int MARGING_QUARTER = UiUtils.dimen(MwmApplication.get(),
                                                              R.dimen.margin_quarter);
+  private static final String ERROR_SUBTITLE = MwmApplication
+      .get().getString(R.string.error_load_information);
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_PRODUCT, TYPE_MORE, TYPE_LOADING })
@@ -43,20 +46,25 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   private final List<Item> mItems;
   @Nullable
   private final ItemSelectedListener mListener;
+  @Sponsored.SponsoredType
+  private final int mSponsoredType;
 
   public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType, @NonNull String url,
                               boolean hasError, @Nullable ItemSelectedListener listener)
   {
+    mSponsoredType = sponsoredType;
     mItems = new ArrayList<>();
     mListener = listener;
-    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
-                        hasError, false));
+    String subtitle = hasError ? ERROR_SUBTITLE : getLoadingSubtitle();
+    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, subtitle, hasError,
+                        false));
   }
 
   public BaseSponsoredAdapter(@Sponsored.SponsoredType int sponsoredType,
                               @NonNull List<? extends Item> items, @NonNull String url,
                               @Nullable ItemSelectedListener listener)
   {
+    mSponsoredType = sponsoredType;
     mItems = new ArrayList<>();
     mListener = listener;
     boolean showMoreItem = items.size() >= MAX_ITEMS;
@@ -78,9 +86,13 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       case TYPE_PRODUCT:
         return createViewHolder(LayoutInflater.from(parent.getContext()), parent);
       case TYPE_MORE:
+        @LayoutRes final int layout;
+        if (mSponsoredType == Sponsored.TYPE_VIATOR)
+          layout = R.layout.item_viator_more;
+        else
+          layout = R.layout.item_cian_more;
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                            .inflate(R.layout.item_viator_more,
-                                                     parent, false), this);
+                                            .inflate(layout, parent, false), this);
       case TYPE_LOADING:
         return createLoadingViewHolder(LayoutInflater.from(parent.getContext()), parent);
     }
@@ -114,7 +126,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   public void setLoadingError(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
   {
     mItems.clear();
-    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
+    mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, ERROR_SUBTITLE,
                         true, false));
     notifyItemChanged(0);
   }
@@ -206,7 +218,6 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     {
       super.bind(item);
       UiUtils.setTextAndHideIfEmpty(mSubtitle, item.mSubtitle);
-      UiUtils.visibleIf(!item.mLoadingError, mProgressBar);
       if (item.mFinished)
       {
         UiUtils.hide(mTitle, mSubtitle, mProgressBar);
@@ -216,6 +227,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
         itemView.setPadding(itemView.getLeft(), itemView.getTop(),
                             MARGING_QUARTER, itemView.getBottom());
       }
+      if (item.mLoadingError)
+        UiUtils.hide(mProgressBar);
     }
 
     @Override

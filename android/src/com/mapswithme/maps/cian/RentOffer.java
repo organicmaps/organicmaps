@@ -9,7 +9,7 @@ public final class RentOffer implements Parcelable
   @NonNull
   private final String mFlatType;
   private final int mRoomsCount;
-  private final int mPrice;
+  private final double mPrice;
   private final int mFloorNumber;
   private final int mFloorsCount;
   @NonNull
@@ -32,7 +32,7 @@ public final class RentOffer implements Parcelable
     }
   };
 
-  public RentOffer(@NonNull String flatType, int roomsCount, int price, int floorNumber,
+  public RentOffer(@NonNull String flatType, int roomsCount, double price, int floorNumber,
                    int floorsCount, @NonNull String url, @NonNull String address)
   {
     mFlatType = flatType;
@@ -66,7 +66,7 @@ public final class RentOffer implements Parcelable
   {
     dest.writeString(mFlatType);
     dest.writeInt(mRoomsCount);
-    dest.writeInt(mPrice);
+    dest.writeDouble(mPrice);
     dest.writeInt(mFloorNumber);
     dest.writeInt(mFloorsCount);
     dest.writeString(mUrl);
@@ -84,7 +84,7 @@ public final class RentOffer implements Parcelable
     return mRoomsCount;
   }
 
-  public int getPrice()
+  public double getPrice()
   {
     return mPrice;
   }
@@ -120,7 +120,7 @@ public final class RentOffer implements Parcelable
     RentOffer rentOffer = (RentOffer) o;
 
     if (mRoomsCount != rentOffer.mRoomsCount) return false;
-    if (mPrice != rentOffer.mPrice) return false;
+    if (Double.compare(rentOffer.mPrice, mPrice) != 0) return false;
     if (mFloorNumber != rentOffer.mFloorNumber) return false;
     if (mFloorsCount != rentOffer.mFloorsCount) return false;
     if (!mFlatType.equals(rentOffer.mFlatType)) return false;
@@ -131,9 +131,12 @@ public final class RentOffer implements Parcelable
   @Override
   public int hashCode()
   {
-    int result = mFlatType.hashCode();
+    int result;
+    long temp;
+    result = mFlatType.hashCode();
     result = 31 * result + mRoomsCount;
-    result = 31 * result + mPrice;
+    temp = Double.doubleToLongBits(mPrice);
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
     result = 31 * result + mFloorNumber;
     result = 31 * result + mFloorsCount;
     result = 31 * result + mUrl.hashCode();

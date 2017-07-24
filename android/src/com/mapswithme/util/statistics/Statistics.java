@@ -81,6 +81,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.CIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GEOCHAT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
@@ -340,6 +341,7 @@ public enum Statistics
     public static final String OPENTABLE = "OpenTable";
     public static final String VIATOR = "Viator.Com";
     public static final String GEOCHAT = "Geochat";
+    public static final String CIAN = "Cian";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -769,6 +771,8 @@ public enum Statistics
         return GEOCHAT;
       case Sponsored.TYPE_OPENTABLE:
         return OPENTABLE;
+      case Sponsored.TYPE_CIAN:
+        return CIAN;
       case Sponsored.TYPE_NONE:
         return "N/A";
       default:

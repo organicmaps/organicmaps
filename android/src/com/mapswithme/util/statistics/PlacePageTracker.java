@@ -16,7 +16,7 @@ import java.util.List;
 
 public class PlacePageTracker
 {
-  private static final float VISIBILITY_RATIO_VIATOR = 0.3f;
+  private static final float VISIBILITY_RATIO_SPONSORED_GALLERY = 0.3f;
   private static final float VISIBILITY_RATIO_TAXI = 1f;
   @NonNull
   private final PlacePageView mPlacePageView;
@@ -25,19 +25,19 @@ public class PlacePageTracker
   @NonNull
   private final View mTaxi;
   @NonNull
-  private final View mViator;
+  private final View mSponsoredGallery;
   @Nullable
   private MapObject mMapObject;
 
   private boolean mTaxiTracked;
-  private boolean mViatorTracked;
+  private boolean mSponsoredTracked;
 
   public PlacePageTracker(@NonNull PlacePageView placePageView)
   {
     mPlacePageView = placePageView;
     mBottomButtons = mPlacePageView.findViewById(R.id.pp__buttons);
     mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
-    mViator = mPlacePageView.findViewById(R.id.ll__place_sponsored_gallery);
+    mSponsoredGallery = mPlacePageView.findViewById(R.id.ll__place_sponsored_gallery);
   }
 
   public void setMapObject(@Nullable MapObject mapObject)
@@ -48,13 +48,13 @@ public class PlacePageTracker
   public void onMove()
   {
     trackTaxiVisibility();
-    trackViatorVisibility();
+    trackSponsoredGalleryVisibility();
   }
 
   public void onHidden()
   {
     mTaxiTracked = false;
-    mViatorTracked = false;
+    mSponsoredTracked = false;
   }
 
   public void onOpened()
@@ -82,14 +82,14 @@ public class PlacePageTracker
     }
   }
 
-  private void trackViatorVisibility()
+  private void trackSponsoredGalleryVisibility()
   {
-    if (!mViatorTracked && isViewOnScreen(mViator, VISIBILITY_RATIO_VIATOR)
+    if (!mSponsoredTracked && isViewOnScreen(mSponsoredGallery, VISIBILITY_RATIO_SPONSORED_GALLERY)
         && mPlacePageView.getSponsored() != null)
     {
       Sponsored sponsored = mPlacePageView.getSponsored();
       Statistics.INSTANCE.trackSponsoredGalleryShown(sponsored.getType());
-      mViatorTracked = true;
+      mSponsoredTracked = true;
     }
   }
 

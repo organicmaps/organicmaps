@@ -41,10 +41,13 @@ public final class CianAdapter extends BaseSponsoredAdapter
     List<Item> viewItems = new ArrayList<>();
     for (RentPlace place : items)
     {
+      if (place.getOffers().isEmpty())
+        continue;
+
       RentOffer product = place.getOffers().get(0);
       Context context = MwmApplication.get();
       String title = context.getString(R.string.room, Integer.toString(product.getRoomsCount()));
-      String price = Integer.toString(product.getPrice()) + " "
+      String price = Integer.toString((int) product.getPrice()) + " "
                      + context.getString(R.string.rub_month);
       viewItems.add(new Item(title, product.getUrl(), price, product.getAddress()));
     }

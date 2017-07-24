@@ -296,6 +296,12 @@ public class MapObject implements Parcelable
     return mFeatureIndex;
   }
 
+  @NonNull
+  public String getFeatureId()
+  {
+    return mMwmName + ":" + mMwmVersion + ":" + mFeatureIndex;
+  }
+
   private  static MapObject readFromParcel(Parcel source)
   {
     @MapObjectType int type = source.readInt();

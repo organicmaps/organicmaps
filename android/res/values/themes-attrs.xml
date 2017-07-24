@@ -85,7 +85,7 @@
 
     <attr name="tagBackground" format="reference"/>
 
-    <attr name="viatorMore" format="reference"/>
+    <attr name="sponsoredGalleryMore" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

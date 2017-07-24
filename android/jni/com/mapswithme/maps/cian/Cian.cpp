@@ -16,6 +16,7 @@ jmethodID g_cianCallback;
 jmethodID g_cianSuccessCallback;
 jmethodID g_cianErrorCallback;
 uint64_t g_requestId;
+std::string g_id;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -32,11 +33,11 @@ void PrepareClassRefs(JNIEnv * env)
 
   g_rentOfferConstructor =
       jni::GetConstructorID(env, g_rentOfferClass,
-                            "(Ljava/lang/String;IIIILjava/lang/String;Ljava/lang/String;)V");
+                            "(Ljava/lang/String;IDIILjava/lang/String;Ljava/lang/String;)V");
 
   g_cianSuccessCallback =
       jni::GetStaticMethodID(env, g_cianClass, "onRentPlacesReceived",
-                             "([Lcom/mapswithme/maps/cian/RentPlace;)V");
+                             "([Lcom/mapswithme/maps/cian/RentPlace;Ljava/lang/String;)V");
   g_cianErrorCallback =
       jni::GetStaticMethodID(env, g_cianClass, "onErrorReceived",
                              "(I)V");
@@ -68,8 +69,9 @@ void OnRentPlacesReceived(std::vector<cian::RentPlace> const & places, uint64_t 
 
   jni::TScopedLocalObjectArrayRef jPlaces(env, jni::ToJavaArray(env, g_rentPlaceClass, places,
                                           placeBuilder));
+  jni::TScopedLocalRef jId(env, jni::ToJavaString(env, g_id));
 
-  env->CallStaticVoidMethod(g_cianClass, g_cianSuccessCallback, jPlaces.get());
+  env->CallStaticVoidMethod(g_cianClass, g_cianSuccessCallback, jPlaces.get(), jId.get());
 }
 
 void OnErrorReceived(int httpCode, uint64_t const requestId)
@@ -86,10 +88,11 @@ void OnErrorReceived(int httpCode, uint64_t const requestId)
 extern "C" {
 
 JNIEXPORT void JNICALL Java_com_mapswithme_maps_cian_Cian_nativeGetRentNearby(
-    JNIEnv * env, jclass clazz, jobject policy, jdouble lat, jdouble lon)
+    JNIEnv * env, jclass clazz, jobject policy, jdouble lat, jdouble lon, jstring id)
 {
   PrepareClassRefs(env);
 
+  g_id = jni::ToNativeString(env, id);
   ms::LatLon const pos(lat, lon);
   g_requestId = g_framework->GetRentNearby(env, policy, pos, &OnRentPlacesReceived,
                                                    &OnErrorReceived);

@@ -2,8 +2,8 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="@dimen/viator_product_width"
-  android:layout_height="@dimen/viator_product_height"
+  android:layout_width="@dimen/cian_product_width"
+  android:layout_height="@dimen/cian_product_height"
   android:padding="@dimen/margin_quarter"
   android:clipToPadding="false"
   android:foreground="?clickableBackground">

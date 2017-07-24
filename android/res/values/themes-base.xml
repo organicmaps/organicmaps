@@ -102,7 +102,7 @@
 
     <item name="tagBackground">@drawable/bg_tag</item>
 
-    <item name="viatorMore">@drawable/ic_viator_more</item>
+    <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more</item>
   </style>
 
   <!-- Night theme -->
@@ -207,6 +207,6 @@
 
     <item name="tagBackground">@drawable/bg_tag_night</item>
 
-    <item name="viatorMore">@drawable/ic_viator_more_night</item>
+    <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more_night</item>
   </style>
 </resources>
