@@ -27,16 +27,17 @@ extern NSString * const kCianCategory;
 - (void)setCategory:(NSString *)category
 {
   UILabel * label = self.label;
-  label.text = L(category);
   label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
   if ([category isEqualToString:kCianCategory])
   {
+    label.text = L(@"real_estate");
     self.adIcon.hidden = NO;
     self.adIcon.mwm_name = @"logo_cian";
   }
   else
   {
+    label.text = L(category);
     self.adIcon.hidden = YES;
   }
 }
