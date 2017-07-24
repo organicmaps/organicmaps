@@ -264,7 +264,13 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
 
 - (void)shouldDestroyLayout { self.layout = nil; }
 - (void)shouldClose { GetFramework().DeactivateMapSelection(true); }
-- (BOOL)isExpandedOnShow { return self.data.isViator; }
+
+- (BOOL)isExpandedOnShow
+{
+  auto data = self.data;
+  return data.isViator || data.isCian;
+}
+
 - (void)onExpanded
 {
   if (self.isSponsoredOpenLogged)

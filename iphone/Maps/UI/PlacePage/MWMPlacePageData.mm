@@ -57,6 +57,8 @@ using namespace place_page;
   std::vector<UGCRow> m_ugcRows;
 
   booking::HotelInfo m_hotelInfo;
+
+  uint64_t m_cianRequestId;
 }
 
 - (instancetype)initWithPlacePageInfo:(Info const &)info
@@ -135,8 +137,9 @@ using namespace place_page;
   
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
   m_previewRows.push_back(PreviewRows::Space);
+
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
-      ![self isViator])
+      ![self isViator] && ![self isCian])
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
@@ -281,6 +284,59 @@ using namespace place_page;
           [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
         });
       });
+  });
+}
+
+- (void)fillOnlineCianSection
+{
+  if (![self isCian])
+    return;
+
+  [self insertSpecialProjectsSectionWithProject:SpecialProject::Cian];
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return;
+
+  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
+    auto api = GetFramework().GetCianApi(canUseNetwork);
+    if (!api)
+      return;
+    m_cianRequestId = api->GetRentNearby([self latLon],
+    [self](std::vector<cian::RentPlace> const & places, uint64_t const requestId)
+    {
+      if (self->m_cianRequestId != requestId)
+        return;
+      NSMutableArray<MWMCianItemModel *> * items = [@[] mutableCopy];
+      for (auto const & p : places)
+      {
+        auto const & offers = p.m_offers;
+        NSCAssert(!offers.empty(), @"Cian misses offers for place.");
+        if (offers.empty())
+          continue;
+        auto const & firstOffer = offers.front();
+        
+        auto pageURL = [NSURL URLWithString:@(firstOffer.m_url.c_str())];
+        if (!pageURL)
+          continue;
+        auto item = [[MWMCianItemModel alloc] initWithRoomsCount:firstOffer.m_roomsCount
+                                                        priceRur:firstOffer.m_priceRur
+                                                        pageURL:pageURL
+                                                        address:@(firstOffer.m_address.c_str())];
+        [items addObject:item];
+      }
+
+      dispatch_async(dispatch_get_main_queue(), [items, self] {
+        self.cianIsReadyCallback(items);
+      });
+    },
+    [self](int code, uint64_t const requestId)
+    {
+      if (self->m_cianRequestId != requestId)
+        return;
+      dispatch_async(dispatch_get_main_queue(), [self] {
+        self.cianIsReadyCallback(@[]);
+      });
+    });
   });
 }
 
@@ -716,6 +772,7 @@ using namespace place_page;
 - (BOOL)isBooking { return m_info.GetSponsoredType() == SponsoredType::Booking; }
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
 - (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
+- (BOOL)isCian { return m_info.GetSponsoredType() == SponsoredType::Cian; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(m_info.GetBookmarkData().GetDescription()); }

@@ -275,6 +275,21 @@
 		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
+		347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
+		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
+		347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
+		347E1A8D1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */; };
+		347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */; };
+		347E1A8F1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */; };
+		347E1A911F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */; };
+		347E1A921F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */; };
+		347E1A931F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */; };
+		347E1A961F1F7404002BF7A8 /* CianElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A941F1F7404002BF7A8 /* CianElement.swift */; };
+		347E1A971F1F7404002BF7A8 /* CianElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A941F1F7404002BF7A8 /* CianElement.swift */; };
+		347E1A981F1F7404002BF7A8 /* CianElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A941F1F7404002BF7A8 /* CianElement.swift */; };
+		347E1A991F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
+		347E1A9A1F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
+		347E1A9B1F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
 		34845DAE1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
 		34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
 		34845DB01E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
@@ -1811,6 +1826,11 @@
 		347526FB1DC0B00F00918CF5 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
 		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
 		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
+		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
+		347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPCianCarouselCell.swift; sourceTree = "<group>"; };
+		347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCianCarouselCell.xib; sourceTree = "<group>"; };
+		347E1A941F1F7404002BF7A8 /* CianElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianElement.swift; sourceTree = "<group>"; };
+		347E1A951F1F7404002BF7A8 /* CianElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CianElement.xib; sourceTree = "<group>"; };
 		348320CC1B6A2C52007EC039 /* MWMNavigationViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationViewProtocol.h; sourceTree = "<group>"; };
 		34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderNoResultsEmbedViewController.swift; sourceTree = "<group>"; };
 		34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
@@ -3199,6 +3219,18 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		347E1A861F1F5DD7002BF7A8 /* Cian */ = {
+			isa = PBXGroup;
+			children = (
+				347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */,
+				347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */,
+				347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */,
+				347E1A941F1F7404002BF7A8 /* CianElement.swift */,
+				347E1A951F1F7404002BF7A8 /* CianElement.xib */,
+			);
+			path = Cian;
+			sourceTree = "<group>";
+		};
 		3486B5041E27A4B50069C126 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -4074,6 +4106,7 @@
 		F6E2FCA81E097B9F0083EBEC /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				347E1A861F1F5DD7002BF7A8 /* Cian */,
 				34EE259B1EFA681000F870AB /* ViatorCells */,
 				F68BDF181EF80DCC0009BB81 /* UGC */,
 				346DB81C1E5C4F6700E3123E /* Gallery */,
@@ -4761,6 +4794,7 @@
 				F6E2FF201E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF291E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
 				F6E2FF411E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
+				347E1A911F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				F6E2FEED1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				3490D2E21CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				346DB82A1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
@@ -4785,6 +4819,7 @@
 				4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
 				340E1EF41E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
+				347E1A991F1F7404002BF7A8 /* CianElement.xib in Resources */,
 				F682249E1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF71E2F614400CE49BF /* Settings.storyboard in Resources */,
 				5605022F1B6211E100169CAD /* sound-strings in Resources */,
@@ -4939,6 +4974,7 @@
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
+				347E1A921F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				F68FCB8D1DA7BD20007CC7D7 /* RoutePreviewTaxiCell.xib in Resources */,
@@ -4963,6 +4999,7 @@
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
+				347E1A9A1F1F7404002BF7A8 /* CianElement.xib in Resources */,
 				F682249F1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
@@ -5117,6 +5154,7 @@
 				F6E2FF221E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				F6E2FF2B1E097BA00083EBEC /* MWMSearchTabButtonsView.xib in Resources */,
 				F6E2FF431E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
+				347E1A931F1F72AD002BF7A8 /* PPCianCarouselCell.xib in Resources */,
 				F6E2FEEF1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				849CF6471DE842290024A8A5 /* MWMSideButtonsView.xib in Resources */,
 				346DB82C1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
@@ -5141,6 +5179,7 @@
 				849CF61A1DE842290024A8A5 /* resources-xhdpi_dark in Resources */,
 				849CF5FC1DE842290024A8A5 /* resources-xxhdpi_clear in Resources */,
 				849CF6061DE842290024A8A5 /* resources-xxhdpi_dark in Resources */,
+				347E1A9B1F1F7404002BF7A8 /* CianElement.xib in Resources */,
 				340E1EF61E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
 				340E1EF91E2F614400CE49BF /* Settings.storyboard in Resources */,
 				849CF5EA1DE842290024A8A5 /* sound-strings in Resources */,
@@ -5296,6 +5335,7 @@
 				F6E2FF5C1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				343064401E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BF91E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
+				347E1A8D1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE81E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
 				F6150E431EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
@@ -5322,6 +5362,7 @@
 				34F4073D1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */,
 				560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */,
+				347E1A961F1F7404002BF7A8 /* CianElement.swift in Sources */,
 				F6E2FECF1E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */,
 				34D3B01A1E389D05004100F9 /* MWMButtonCell.mm in Sources */,
@@ -5389,6 +5430,7 @@
 				34943BB61E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5E1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6558DA11E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
+				347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF471E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				349D1ACE1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF261E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
@@ -5610,6 +5652,7 @@
 				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
+				347E1A8E1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				6741A9A81BF340DE002C974C /* MWMFacebookAlert.mm in Sources */,
 				F6150E441EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
@@ -5636,6 +5679,7 @@
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				6741A9B61BF340DE002C974C /* MWMTextToSpeech.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
+				347E1A971F1F7404002BF7A8 /* CianElement.swift in Sources */,
 				34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */,
 				34D3B01B1E389D05004100F9 /* MWMButtonCell.mm in Sources */,
 				3486B5161E27AD3B0069C126 /* Framework.cpp in Sources */,
@@ -5703,6 +5747,7 @@
 				F6E2FF271E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
 				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
+				347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
@@ -5924,6 +5969,7 @@
 				F6E2FF5E1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				343064421E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
 				F6664BFB1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */,
+				347E1A8F1F1F71F1002BF7A8 /* PPCianCarouselCell.swift in Sources */,
 				F6E2FDEA1E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				849CF68A1DE842290024A8A5 /* MWMDefaultAlert.mm in Sources */,
 				F6150E451EFA52E9000B955D /* UGCSpecificReviewCell.swift in Sources */,
@@ -5950,6 +5996,7 @@
 				34F4073F1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				849CF69D1DE842290024A8A5 /* MWMInputLoginValidator.mm in Sources */,
 				F6E2FED11E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
+				347E1A981F1F7404002BF7A8 /* CianElement.swift in Sources */,
 				34D4FA681E265749003F53EF /* WhatsNewController.swift in Sources */,
 				34D3B01C1E389D05004100F9 /* MWMButtonCell.mm in Sources */,
 				3486B5171E27AD3B0069C126 /* Framework.cpp in Sources */,
@@ -6017,6 +6064,7 @@
 				34943BB81E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD601E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				F6558DA31E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
+				347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */,
 				F6E2FF491E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				349D1AD01E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				F6E2FF281E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,

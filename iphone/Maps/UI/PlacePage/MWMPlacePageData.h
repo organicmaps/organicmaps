@@ -10,6 +10,7 @@
 
 @class MWMPlacePageData;
 @class MWMUGCReviewVM;
+@class MWMCianItemModel;
 
 namespace ugc
 {
@@ -72,6 +73,7 @@ enum class HotelReviewsRow
 enum class SpecialProject
 {
   Viator,
+  Cian
 };
 
 enum class MetainfoRows
@@ -120,20 +122,22 @@ enum class OpeningHours
 };
 
 using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
-using BannerIsReady = void (^)();
+using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 
 }  // namespace place_page
 
 
 @class MWMGalleryItemModel;
 @class MWMViatorItemModel;
+@class MWMCianItemModel;
 @protocol MWMBanner;
 
 /// ViewModel for place page.
 @interface MWMPlacePageData : NSObject<MWMActionBarSharedData>
 
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
-@property(copy, nonatomic) place_page::BannerIsReady bannerIsReadyCallback;
+@property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
+@property(copy, nonatomic) place_page::CianIsReady cianIsReadyCallback;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
@@ -171,6 +175,9 @@ using BannerIsReady = void (^)();
 // Viator
 - (void)fillOnlineViatorSection;
 - (NSArray<MWMViatorItemModel *> *)viatorItems;
+
+// CIAN
+- (void)fillOnlineCianSection;
 
 // UGC
 - (MWMUGCReviewVM *)reviewViewModel;
@@ -223,6 +230,7 @@ using BannerIsReady = void (^)();
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
 - (BOOL)isViator;
+- (BOOL)isCian;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
