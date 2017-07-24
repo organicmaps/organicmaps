@@ -92,7 +92,6 @@ double Route::GetMercatorDistanceFromBegin() const
     return 0;
 
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
-  CHECK_GREATER(curIter.m_ind, 0, ());
 
   double const distMerc =
       curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
