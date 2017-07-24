@@ -41,6 +41,7 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
@@ -1511,10 +1512,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(new MapObject("", 0L, 0, MapObject.API_POINT, from.mName,
+        RoutingController.get().prepare(new MapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName,
                                                       "", "", "", from.mLat, from.mLon, "", null,
                                                       null, "", null, null),
-                                        new MapObject("", 0L, 0, MapObject.API_POINT, to.mName,
+                                        new MapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName,
                                                       "", "", "", to.mLat, to.mLon, "", null,
                                                       null, "", null, null),
                                         true);
@@ -2251,7 +2252,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @NonNull
     private static MapObject fromLatLon(double lat, double lon)
     {
-      return new MapObject("", 0L, 0, MapObject.API_POINT, "",
+      return new MapObject(FeatureId.EMPTY, MapObject.API_POINT, "",
                            "", "", "", lat, lon, "", null,
                            null, "", null, null);
     }

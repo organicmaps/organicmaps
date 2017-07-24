@@ -23,15 +23,14 @@ public class Bookmark extends MapObject
   private double mMerX;
   private double mMerY;
 
-  public Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
-                  @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
-                  String title, @Nullable String secondaryTitle, @Nullable String subtitle,
-                  @Nullable String address,
-                  @Nullable Banner[] banners, @TaxiManager.TaxiType int[] reachableByTaxiTypes,
+  public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) int categoryId,
+                  @IntRange(from = 0) int bookmarkId, String title, @Nullable String secondaryTitle,
+                  @Nullable String subtitle, @Nullable String address, @Nullable Banner[] banners,
+                  @TaxiManager.TaxiType int[] reachableByTaxiTypes,
                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                   @Nullable RoutePointInfo routePointInfo)
   {
-    super(mwmName, mwmVersion, featureIndex, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
+    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo);
 
     mCategoryId = categoryId;

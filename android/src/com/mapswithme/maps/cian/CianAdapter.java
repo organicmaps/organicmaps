@@ -1,6 +1,7 @@
 package com.mapswithme.maps.cian;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -84,6 +85,13 @@ public final class CianAdapter extends BaseSponsoredAdapter
   protected String getLoadingSubtitle()
   {
     return LOADING_SUBTITLE;
+  }
+
+  @LayoutRes
+  @Override
+  protected int getMoreLayout()
+  {
+    return R.layout.item_cian_more;
   }
 
   private static final class ProductViewHolder extends ViewHolder

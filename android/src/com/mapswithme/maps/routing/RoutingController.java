@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
@@ -526,7 +527,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   @NonNull
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
-    return new MapObject("", 0L, 0, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
+    return new MapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
                          point.mTitle, null, point.mSubtitle, null, point.mLat, point.mLon, null,
                          null, null, null, null, null);
   }

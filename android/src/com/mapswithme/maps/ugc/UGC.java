@@ -4,7 +4,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.FeatureId;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 
 import java.io.Serializable;
 

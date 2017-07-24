@@ -42,7 +42,7 @@ public final class Viator
     nativeRequestViatorProducts(policy, destId, currency);
   }
 
-  public static boolean hasCache(String id)
+  public static boolean hasCache(@NonNull String id)
   {
     return sProductsCache.containsKey(id);
   }

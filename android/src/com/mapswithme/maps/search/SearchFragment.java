@@ -25,6 +25,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -464,7 +465,7 @@ public class SearchFragment extends BaseMwmFragment
     if (RoutingController.get().isWaitingPoiPick())
     {
       SearchResult.Description description = result.description;
-      final MapObject point = new MapObject("", 0L, 0, MapObject.SEARCH, result.name, "",
+      final MapObject point = new MapObject(FeatureId.EMPTY, MapObject.SEARCH, result.name, "",
                                             description != null ? description.featureType : "", "",
                                             result.lat, result.lon, "", null, null, "", null, null);
       RoutingController.get().onPoiSelected(point);

@@ -2,6 +2,7 @@ package com.mapswithme.maps.cian;
 
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.util.NetworkPolicy;
 
 import java.lang.ref.WeakReference;
@@ -13,7 +14,7 @@ public final class Cian
   @NonNull
   private static WeakReference<com.mapswithme.maps.cian.Cian.CianListener> sCianListener = new WeakReference<>(null);
   @NonNull
-  private static final Map<String, RentPlace[]> sProductsCache = new HashMap<>();
+  private static final Map<FeatureId, RentPlace[]> sProductsCache = new HashMap<>();
 
   public static void setCianListener(@NonNull com.mapswithme.maps.cian.Cian.CianListener listener)
   {
@@ -22,7 +23,7 @@ public final class Cian
 
   private static void onRentPlacesReceived(@NonNull RentPlace[] places, @NonNull String id)
   {
-    sProductsCache.put(id, places);
+    sProductsCache.put(FeatureId.fromString(id), places);
     com.mapswithme.maps.cian.Cian.CianListener listener = sCianListener.get();
     if (listener != null)
       listener.onRentPlacesReceived(places);
@@ -38,16 +39,16 @@ public final class Cian
   private Cian() {}
 
   public static void getRentNearby(@NonNull NetworkPolicy policy,double lat, double lon,
-                                   @NonNull String id)
+                                   @NonNull FeatureId id)
   {
     RentPlace[] products = sProductsCache.get(id);
     if (products != null && products.length > 0)
-      onRentPlacesReceived(products, id);
+      onRentPlacesReceived(products, id.toString());
 
-    nativeGetRentNearby(policy, lat, lon, id);
+    nativeGetRentNearby(policy, lat, lon, id.toString());
   }
 
-  public static boolean hasCache(String id)
+  public static boolean hasCache(@NonNull FeatureId id)
   {
     return sProductsCache.containsKey(id);
   }

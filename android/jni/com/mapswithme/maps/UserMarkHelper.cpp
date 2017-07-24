@@ -43,32 +43,38 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         string const & bookingSearchUrl, jobject const & localAdInfo,
                         jobject const & routingPointInfo)
 {
-  // public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
-  //                  @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
+  // public MapObject(@NonNull FeatureId featureId,
+  //                  @MapObjectType int mapObjectType, String title, @Nullable String
+  //                  secondaryTitle,
   //                  String subtitle, String address, double lat, double lon, String apiId,
   //                  @Nullable Banner[] banners, @TaxiType int[] reachableByTaxiTypes,
   //                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
   //                  @Nullable RoutePointInfo routePointInfo)
-  static jmethodID const ctorId =
-      jni::GetConstructorID(env, g_mapObjectClazz,
-                            "(Ljava/lang/String;JIILjava/lang/String;Ljava/lang/"
-                            "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
-                            "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
-                            "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-                            "Lcom/mapswithme/maps/routing/RoutePointInfo;)V");
+  static jmethodID const ctorId = jni::GetConstructorID(
+      env, g_mapObjectClazz,
+      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;ILjava/lang/String;Ljava/lang/"
+      "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
+      "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
+      "Lcom/mapswithme/maps/ads/LocalAdInfo;"
+      "Lcom/mapswithme/maps/routing/RoutePointInfo;)V");
+  //public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
+  static jmethodID const featureCtorId =
+      jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
 
   jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, mwmName));
+  jni::TScopedLocalRef jFeatureId(
+      env, env->NewObject(g_featureIdClazz, featureCtorId, jMwmName.get(), (jlong)mwmVersion,
+                          (jint)featureIndex));
   jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, title));
   jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, secondaryTitle));
   jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, subtitle));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, address));
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
   jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
-  jobject mapObject = env->NewObject(
-      g_mapObjectClazz, ctorId, jMwmName.get(), (jlong)mwmVersion, (jint)featureIndex,
-      mapObjectType, jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(),
-      lat, lon, jApiId.get(), jbanners, jTaxiTypes, jBookingSearchUrl.get(),
-      localAdInfo, routingPointInfo);
+  jobject mapObject =
+      env->NewObject(g_mapObjectClazz, ctorId, jFeatureId.get(), mapObjectType, jTitle.get(),
+                     jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
+                     jbanners, jTaxiTypes, jBookingSearchUrl.get(), localAdInfo, routingPointInfo);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -90,7 +96,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   if (info.IsBookmark())
   {
-    // public Bookmark(@NonNull String mwmName, long mwmVersion, int featureIndex,
+    // public Bookmark(@NonNull FeatureId featureId,
     //                 @IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId,
     //                 String title, @Nullable String secondaryTitle, @Nullable String objectTitle,
     //                 @Nullable Banner[] banners, boolean reachableByTaxi,
@@ -98,16 +104,23 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     //                 @Nullable RoutePointInfo routePointInfo)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
-                              "(Ljava/lang/String;JIIILjava/lang/String;Ljava/"
-                              "lang/String;Ljava/lang/String;Ljava/lang/String;"
+                              "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;IILjava/lang/String;"
+                              "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
                               "Lcom/mapswithme/maps/routing/RoutePointInfo;)V");
+    // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
+    static jmethodID const featureCtorId =
+        jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
 
     auto const & bac = info.GetBookmarkAndCategory();
     BookmarkCategory * cat = g_framework->NativeFramework()->GetBmCategory(bac.m_categoryIndex);
     BookmarkData const & data = info.GetBookmarkData();
     jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
+    jni::TScopedLocalRef jFeatureId(
+        env, env->NewObject(g_featureIdClazz, featureCtorId, jMwmName.get(),
+                            (jlong)info.GetID().GetMwmVersion(), (jint)info.GetID().m_index));
+    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, data.GetName()));
     jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
     jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
     jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
@@ -115,10 +128,11 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
     jobject mapObject = env->NewObject(
-        g_bookmarkClazz, ctorId, jMwmName.get(), info.GetID().GetMwmVersion(), info.GetID().m_index,
-        static_cast<jint>(bac.m_categoryIndex), static_cast<jint>(bac.m_bookmarkIndex),
-        jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), jbanners.get(),
-        jTaxiTypes.get(), jBookingSearchUrl.get(), localAdInfo.get(), routingPointInfo.get());
+        g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jint>(bac.m_categoryIndex),
+        static_cast<jint>(bac.m_bookmarkIndex), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
+        jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
+        localAdInfo.get(), routingPointInfo.get());
+
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
     return mapObject;

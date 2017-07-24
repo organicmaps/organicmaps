@@ -39,7 +39,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mapswithme.maps.FeatureId;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -53,6 +52,7 @@ import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.cian.Cian;
@@ -289,7 +289,8 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject == null || mUgc == null)
       return;
 
-    UGCEditorActivity.start(getActivity(), mMapObject.getTitle(), mMapObject.getFeatureIndex(),
+    UGCEditorActivity.start(getActivity(), mMapObject.getTitle(),
+                            mMapObject.getFeatureId().getFeatureIndex(),
                             mUgc, rating);
   }
 
@@ -865,7 +866,7 @@ public class PlacePageView extends RelativeLayout
   {
     if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
     {
-      mSponsoredAdapter = new CianAdapter("", true, this);
+      mSponsoredAdapter = new CianAdapter(""/* url */ , true/* hasError */, this);
       mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
     }
     else
@@ -934,7 +935,7 @@ public class PlacePageView extends RelativeLayout
     {
       if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
       {
-        mSponsoredAdapter = new CianAdapter(url, true, this);
+        mSponsoredAdapter = new CianAdapter(url, true/* hasError */, this);
         mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
       }
       else
@@ -977,13 +978,13 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void showLoadingCianProducts(@NonNull String id, @NonNull String url)
+  private void showLoadingCianProducts(@NonNull FeatureId id, @NonNull String url)
   {
     UiUtils.show(mSponsoredGalleryView);
     mTvSponsoredTitle.setText(R.string.subtitle_rent);
     if (!Cian.hasCache(id))
     {
-      mSponsoredAdapter = new CianAdapter(url, false, this);
+      mSponsoredAdapter = new CianAdapter(url, false/* hasError */, this);
       mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
     }
   }
@@ -1287,12 +1288,10 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject != null)
     {
       // TODO: mock implementation for test only
-      if (mMapObject.getFeatureIndex() == 218028)
+      FeatureId fid = mMapObject.getFeatureId();
+      if (fid.getFeatureIndex() == 218028)
       {
         UGC.setListener(this);
-        // TODO (@y): replace three fields in the MapObject by FeatureId.
-        FeatureId fid = new FeatureId(
-            mMapObject.getMwmName(), mMapObject.getMwmVersion(), mMapObject.getFeatureIndex());
         UGC.requestUGC(fid);
         refreshViews(policy);
         return;

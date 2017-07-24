@@ -33,9 +33,7 @@ public class MapObject implements Parcelable
   public static final int SEARCH = 4;
 
   @NonNull
-  private final String mMwmName;
-  private final long mMwmVersion;
-  private final int mFeatureIndex;
+  private final FeatureId mFeatureId;
   @MapObjectType
   private final int mMapObjectType;
 
@@ -59,28 +57,26 @@ public class MapObject implements Parcelable
   @Nullable
   private RoutePointInfo mRoutePointInfo;
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
-                   @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
-                   String subtitle, String address, double lat, double lon, String apiId,
+  public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
+                   @Nullable String secondaryTitle, String subtitle, String address,
+                   double lat, double lon, String apiId,
                    @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {
-    this(mwmName, mwmVersion, featureIndex, mapObjectType, title, secondaryTitle,
+    this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo);
   }
 
-  public MapObject(@NonNull String mwmName, long mwmVersion, int featureIndex,
-                   @MapObjectType int mapObjectType, String title, @Nullable String secondaryTitle,
+  public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
+                   String title, @Nullable String secondaryTitle,
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo)
   {
-    mMwmName = mwmName;
-    mMwmVersion = mwmVersion;
-    mFeatureIndex = featureIndex;
+    mFeatureId = featureId;
     mMapObjectType = mapObjectType;
     mTitle = title;
     mSecondaryTitle = secondaryTitle;
@@ -106,9 +102,7 @@ public class MapObject implements Parcelable
   protected MapObject(@MapObjectType int type, Parcel source)
   {
     //noinspection ResourceType
-    this(source.readString(), // MwmName
-         source.readLong(),   // MwmVersion
-         source.readInt(),    // FeatureId
+    this((FeatureId) source.readParcelable(FeatureId.class.getClassLoader()), // FeatureId
          type, // MapObjectType
          source.readString(), // Title
          source.readString(), // SecondaryTitle
@@ -281,25 +275,9 @@ public class MapObject implements Parcelable
   }
 
   @NonNull
-  public String getMwmName()
+  public FeatureId getFeatureId()
   {
-    return mMwmName;
-  }
-
-  public long getMwmVersion()
-  {
-    return mMwmVersion;
-  }
-
-  public int getFeatureIndex()
-  {
-    return mFeatureIndex;
-  }
-
-  @NonNull
-  public String getFeatureId()
-  {
-    return mMwmName + ":" + mMwmVersion + ":" + mFeatureIndex;
+    return mFeatureId;
   }
 
   private  static MapObject readFromParcel(Parcel source)
@@ -323,9 +301,7 @@ public class MapObject implements Parcelable
     // A map object type must be written first, since it's used in readParcel method to distinguish
     // what type of object should be read from the parcel.
     dest.writeInt(mMapObjectType);
-    dest.writeString(mMwmName);
-    dest.writeLong(mMwmVersion);
-    dest.writeInt(mFeatureIndex);
+    dest.writeParcelable(mFeatureId, 0);
     dest.writeString(mTitle);
     dest.writeString(mSecondaryTitle);
     dest.writeString(mSubtitle);
@@ -348,19 +324,13 @@ public class MapObject implements Parcelable
     if (o == null || getClass() != o.getClass()) return false;
 
     MapObject mapObject = (MapObject) o;
-
-    if (mMwmVersion != mapObject.mMwmVersion) return false;
-    if (mFeatureIndex != mapObject.mFeatureIndex) return false;
-    return mMwmName.equals(mapObject.mMwmName);
+    return mFeatureId.equals(mapObject.mFeatureId);
   }
 
   @Override
   public int hashCode()
   {
-    int result = mMwmName.hashCode();
-    result = 31 * result + (int) (mMwmVersion ^ (mMwmVersion >>> 32));
-    result = 31 * result + mFeatureIndex;
-    return result;
+    return mFeatureId.hashCode();
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()

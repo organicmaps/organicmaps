@@ -86,13 +86,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
       case TYPE_PRODUCT:
         return createViewHolder(LayoutInflater.from(parent.getContext()), parent);
       case TYPE_MORE:
-        @LayoutRes final int layout;
-        if (mSponsoredType == Sponsored.TYPE_VIATOR)
-          layout = R.layout.item_viator_more;
-        else
-          layout = R.layout.item_cian_more;
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                            .inflate(layout, parent, false), this);
+                                            .inflate(getMoreLayout(), parent, false), this);
       case TYPE_LOADING:
         return createLoadingViewHolder(LayoutInflater.from(parent.getContext()), parent);
     }
@@ -128,7 +123,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     mItems.clear();
     mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, ERROR_SUBTITLE,
                         true, false));
-    notifyItemChanged(0);
+    notifyItemChanged(0/* position */);
   }
 
   public void setLoadingCompleted(@Sponsored.SponsoredType int sponsoredType, @NonNull String url)
@@ -136,7 +131,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
     mItems.clear();
     mItems.add(new Item(TYPE_LOADING, sponsoredType, getLoadingTitle(), url, getLoadingSubtitle(),
                         false, true));
-    notifyItemChanged(0);
+    notifyItemChanged(0/* position */);
   }
 
   @NonNull
@@ -152,6 +147,9 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
 
   @Nullable
   protected abstract String getLoadingSubtitle();
+
+  @LayoutRes
+  protected abstract int getMoreLayout();
 
   public static class ViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener

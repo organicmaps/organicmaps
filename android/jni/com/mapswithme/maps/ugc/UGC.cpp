@@ -38,10 +38,10 @@ private:
     if (m_initialized)
       return;
 
-    m_class = jni::GetGlobalClassRef(env, "com/mapswithme/maps/FeatureId");
-    m_countryName = env->GetFieldID(m_class, "mCountryName", "Ljava/lang/String;");
-    m_version = env->GetFieldID(m_class, "mVersion", "J");
-    m_index = env->GetFieldID(m_class, "mIndex", "I");
+    m_class = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/FeatureId");
+    m_countryName = env->GetFieldID(m_class, "mMwmName", "Ljava/lang/String;");
+    m_version = env->GetFieldID(m_class, "mMwmVersion", "J");
+    m_index = env->GetFieldID(m_class, "mFeatureIndex", "I");
 
     m_initialized = true;
   }

@@ -675,9 +675,9 @@ public enum Statistics
   {
     trackEvent(PP_OWNERSHIP_BUTTON_CLICK, LocationHelper.INSTANCE.getLastKnownLocation(),
                params()
-                   .add(MWM_NAME, mapObject.getMwmName())
-                   .add(MWM_VERSION, mapObject.getMwmVersion())
-                   .add(FEATURE_ID, mapObject.getFeatureIndex())
+                   .add(MWM_NAME, mapObject.getFeatureId().getMwmName())
+                   .add(MWM_VERSION, mapObject.getFeatureId().getMwmVersion())
+                   .add(FEATURE_ID, mapObject.getFeatureId().getFeatureIndex())
                    .get());
   }
 
