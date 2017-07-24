@@ -1217,6 +1217,10 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFramebuffer)
 {
+  RenderLayer & layer = m_layers[RenderLayer::Geometry3dID];
+  if (layer.m_renderGroups.empty())
+    return;
+
   float const kOpacity = 0.7f;
   if (useFramebuffer)
   {
@@ -1228,7 +1232,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
 
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  RenderLayer & layer = m_layers[RenderLayer::Geometry3dID];
+
   layer.Sort(make_ref(m_overlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));

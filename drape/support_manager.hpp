@@ -20,6 +20,7 @@ public:
   bool IsTegraDevice() const { return m_isTegra; }
   int GetMaxLineWidth() const { return m_maxLineWidth; }
   bool IsAntialiasingEnabledByDefault() const { return m_isAntialiasingEnabledByDefault; }
+  bool IsFramebufferSupported() const { return m_isFramebufferSupported; }
 
 private:
   SupportManager() = default;
@@ -29,6 +30,7 @@ private:
   bool m_isTegra = false;
   int m_maxLineWidth = 1;
   bool m_isAntialiasingEnabledByDefault = false;
+  bool m_isFramebufferSupported = true;
 
   DISALLOW_COPY_AND_MOVE(SupportManager);
 };
