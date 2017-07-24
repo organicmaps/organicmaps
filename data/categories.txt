@@ -857,7 +857,7 @@ it:^Macellaio
 ja:^肉屋|お買い物|ショップ|商店|雑貨
 ko:^정육점의|가게
 nb:^Slakter
-pl:^Rzeźnik|towary
+pl:^Rzeźnik|towary|Sklep mięsny
 pt:^Açougueiro|2loja
 pt-BR:^Açougue|açougueiro|2loja|compras
 ro:^Măcelărie
