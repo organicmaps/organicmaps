@@ -55,6 +55,9 @@ void Route::Swap(Route & rhs)
   m_name.swap(rhs.m_name);
   m_absentCountries.swap(rhs.m_absentCountries);
   m_routeSegments.swap(rhs.m_routeSegments);
+
+  swap(m_subrouteUid, rhs.m_subrouteUid);
+  swap(m_currentSubrouteIdx, rhs.m_currentSubrouteIdx);
   m_subrouteAttrs.swap(rhs.m_subrouteAttrs);
 }
 

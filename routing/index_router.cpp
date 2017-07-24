@@ -253,7 +253,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   segments.push_back(IndexGraphStarter::kStartFakeSegment);
 
   Segment startSegment;
-  if (!FindClosestSegment(checkpoints.GetStart(), true /* isOutgoing */, graph, startSegment))
+  if (!FindClosestSegment(checkpoints.GetPointFrom(), true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
   
   size_t subrouteSegmentsBegin = 0;
