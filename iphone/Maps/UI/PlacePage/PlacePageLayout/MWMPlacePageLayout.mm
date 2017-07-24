@@ -49,8 +49,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 @property(weak, nonatomic) id<MWMPlacePageLayoutDataSource> dataSource;
 @property(nonatomic) IBOutlet MWMPPView * placePageView;
 
-@property(nonatomic) MWMBookmarkCell * bookmarkCell;
-
 @property(nonatomic) MWMPlacePageActionBar * actionBar;
 
 @property(nonatomic) BOOL isPlacePageButtonsEnabled;
@@ -82,15 +80,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     _delegate = delegate;
     _dataSource = dataSource;
     [[NSBundle mainBundle] loadNibNamed:[MWMPPView className] owner:self options:nil];
-    [_placePageView layoutIfNeeded];
     _placePageView.delegate = self;
-    auto const Impl = IPAD ? [MWMiPadPlacePageLayoutImpl class] : [MWMiPhonePlacePageLayoutImpl class];
-    _layoutImpl = [[Impl alloc] initOwnerView:view placePageView:_placePageView delegate:delegate];
 
     auto tableView = _placePageView.tableView;
     _previewLayoutHelper = [[MWMPPPreviewLayoutHelper alloc]
                                                      initWithTableView:tableView];
-    _openingHoursLayoutHelper = [[MWMOpeningHoursLayoutHelper alloc] initWithTableView:tableView];
     [self registerCells];
   }
   return self;
@@ -119,44 +113,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 - (UIView *)shareAnchor { return self.actionBar.shareAnchor; }
 - (void)showWithData:(MWMPlacePageData *)data
 {
-  self.buttonsSectionEnabled = YES;
   self.data = data;
 
-  data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
-    if (![self.data isEqual:d])
-      return;
-
-    auto tv = self.placePageView.tableView;
-    if (isSection) {
-      [tv insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
-                                withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    else
-    {
-      NSMutableArray<NSIndexPath *> * indexPaths = [@[] mutableCopy];
-      for (auto i = 1; i < range.length + 1; i++)
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:range.location]];
-
-      [tv insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-  };
-
-  data.bannerIsReadyCallback = ^{
-    [self.previewLayoutHelper insertRowAtTheEnd];
-  };
-  self.bookmarkCell = nil;
-
-  [self.actionBar configureWithData:data];
-  [self.previewLayoutHelper configWithData:data];
-  auto const & metaInfo = data.metainfoRows;
-  auto const hasOpeningHours =
-      std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) != metaInfo.cend();
-  if (hasOpeningHours)
-    [self.openingHoursLayoutHelper configWithData:data];
-  if ([self.layoutImpl respondsToSelector:@selector(setPreviewLayoutHelper:)])
-    [self.layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
-
-  [self.placePageView.tableView reloadData];
   [self.layoutImpl onShow];
   [self checkCellsVisible];
 
@@ -185,33 +143,19 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   if (_buttonsSectionEnabled == buttonsSectionEnabled)
     return;
+  _buttonsSectionEnabled = buttonsSectionEnabled;
   auto data = self.data;
   auto tv = self.placePageView.tableView;
   if (!data || !tv)
     return;
 
-  _buttonsSectionEnabled = buttonsSectionEnabled;
   auto const & sections = data.sections;
   auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
   if (it == sections.end())
     return;
   NSInteger const sectionNumber = distance(sections.begin(), it);
-  auto const numberOfRows = [tv numberOfRowsInSection:sectionNumber];
-  for (NSInteger i = 0; i < numberOfRows; ++i)
-  {
-    auto ip = [NSIndexPath indexPathForRow:i inSection:sectionNumber];
-    auto c = [tv cellForRowAtIndexPath:ip];
-    BOOL const isKindOfMWMPlacePageButtonCell = [c isKindOfClass:[MWMPlacePageButtonCell class]];
-    NSAssert(isKindOfMWMPlacePageButtonCell, @"Invalid cell class");
-    if (!isKindOfMWMPlacePageButtonCell)
-      continue;
-    auto cell = static_cast<MWMPlacePageButtonCell *>(c);
-    // Hotel description button is always enabled.
-    if (cell.rowType == place_page::ButtonsRows::HotelDescription)
-      cell.enabled = YES;
-    else
-      cell.enabled = buttonsSectionEnabled;
-  }
+  [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionNumber]
+      withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (MWMPlacePageActionBar *)actionBar
@@ -247,17 +191,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     auto set =
         [NSIndexSet indexSetWithIndex:static_cast<NSInteger>(place_page::Sections::Bookmark)];
     if (isBookmark)
-    {
-      if (self.bookmarkCell)
-        [tv reloadSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-      else
-        [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+      [tv insertSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
     else
-    {
       [tv deleteSections:set withRowAnimation:UITableViewRowAnimationAutomatic];
-      self.bookmarkCell = nil;
-    }
 
     auto const & previewRows = data.previewRows;
     auto const previewIT =
@@ -463,7 +399,8 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
       }
     }];
-
+    // Hotel description button is always enabled.
+    c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
     return c;
   }
   case Sections::Viator:
@@ -634,6 +571,33 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   });
 }
 
+#pragma mark - MWMOpeningHoursLayoutHelper
+
+- (MWMOpeningHoursLayoutHelper *)openingHoursLayoutHelper
+{
+  if (!_openingHoursLayoutHelper)
+    _openingHoursLayoutHelper =
+        [[MWMOpeningHoursLayoutHelper alloc] initWithTableView:self.placePageView.tableView];
+  return _openingHoursLayoutHelper;
+}
+
+#pragma mark - MWMPlacePageLayoutImpl
+
+- (id<MWMPlacePageLayoutImpl>)layoutImpl
+{
+  if (!_layoutImpl)
+  {
+    auto const Impl =
+        IPAD ? [MWMiPadPlacePageLayoutImpl class] : [MWMiPhonePlacePageLayoutImpl class];
+    _layoutImpl = [[Impl alloc] initOwnerView:self.ownerView
+                                placePageView:self.placePageView
+                                     delegate:self.delegate];
+    if ([_layoutImpl respondsToSelector:@selector(setPreviewLayoutHelper:)])
+      [_layoutImpl setPreviewLayoutHelper:self.previewLayoutHelper];
+  }
+  return _layoutImpl;
+}
+
 #pragma mark - MWMPlacePageCellUpdateProtocol
 
 - (void)cellUpdated
@@ -664,8 +628,48 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
 - (void)setData:(MWMPlacePageData *)data
 {
+  if (_data == data)
+    return;
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   _data = data;
+
+  if (!data)
+    return;
+
+  data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
+    if (![self.data isEqual:d])
+      return;
+
+    auto tv = self.placePageView.tableView;
+    if (isSection) {
+      [tv insertSections:[NSIndexSet indexSetWithIndexesInRange:range]
+        withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else
+    {
+      NSMutableArray<NSIndexPath *> * indexPaths = [@[] mutableCopy];
+      for (auto i = 1; i < range.length + 1; i++)
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:range.location]];
+
+      [tv insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+  };
+
+  data.bannerIsReadyCallback = ^{
+    [self.previewLayoutHelper insertRowAtTheEnd];
+  };
+
+  [self.actionBar configureWithData:data];
+  [self.previewLayoutHelper configWithData:data];
+  auto const & metaInfo = data.metainfoRows;
+  auto const hasOpeningHours =
+      std::find(metaInfo.cbegin(), metaInfo.cend(), MetainfoRows::OpeningHours) != metaInfo.cend();
+  if (hasOpeningHours)
+    [self.openingHoursLayoutHelper configWithData:data];
+
+  [self.placePageView.tableView reloadData];
+
+  self.buttonsSectionEnabled = YES;
 }
 
 @end
