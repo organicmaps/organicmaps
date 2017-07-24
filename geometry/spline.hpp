@@ -55,11 +55,12 @@ public:
   bool IsPrelonging(PointD const & pt);
   size_t GetSize() const;
   vector<PointD> const & GetPath() const { return m_position; }
+  vector<double> const & GetLengths() const { return m_length; }
 
   iterator GetPoint(double step) const;
 
   template <typename TFunctor>
-  void ForEachNode(iterator const & begin, iterator const & end, TFunctor & f) const
+  void ForEachNode(iterator const & begin, iterator const & end, TFunctor const & f) const
   {
     ASSERT(begin.BeginAgain() == false, ());
     ASSERT(end.BeginAgain() == false, ());

@@ -194,7 +194,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   if (simplify)
   {
     double const currentScaleGtoP = 1.0 / GetScale(tileKey.m_zoomLevel);
-    sqrScale =  math::sqr(currentScaleGtoP);
+    sqrScale = math::sqr(currentScaleGtoP);
   }
 
   for (auto id : linesId)
@@ -212,8 +212,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       m2::PointD lastAddedPoint;
       for (auto const & point : renderInfo.m_spline->GetPath())
       {
-        if ((spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength) ||
-            spline->IsPrelonging(point))
+        if (spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
         {
           spline->ReplacePoint(point);
         }
