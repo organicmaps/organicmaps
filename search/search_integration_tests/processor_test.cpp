@@ -866,5 +866,53 @@ UNIT_CLASS_TEST(ProcessorTest, Numerals)
     TEST(ResultsMatch("школа", "ru", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, TestWeirdTypes)
+{
+  string const countryName = "Area51";
+
+  TestCity tokyo(m2::PointD(0, 0), "東京", "ja", 100 /* rank */);
+
+  TestStreet street(vector<m2::PointD>{m2::PointD(-8.0, 0.0), m2::PointD(8.0, 0.0)}, "竹下通り",
+                    "ja");
+
+  TestPOI defibrillator1(m2::PointD(0.0, 0.0), "" /* name */, "en");
+  defibrillator1.SetTypes({{"emergency", "defibrillator"}});
+  TestPOI defibrillator2(m2::PointD(-5.0, 0.0), "" /* name */, "ja");
+  defibrillator2.SetTypes({{"emergency", "defibrillator"}});
+  TestPOI fireHydrant(m2::PointD(2.0, 0.0), "" /* name */, "en");
+  fireHydrant.SetTypes({{"emergency", "fire_hydrant"}});
+
+  BuildWorld([&](TestMwmBuilder & builder) { builder.Add(tokyo); });
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+    builder.Add(defibrillator1);
+    builder.Add(defibrillator2);
+    builder.Add(fireHydrant);
+  });
+
+  {
+    TRules rules{ExactMatch(countryId, defibrillator1), ExactMatch(countryId, defibrillator2)};
+    TEST(ResultsMatch("defibrillator", "en", rules), ());
+    TEST(ResultsMatch("除細動器", "ja", rules), ());
+
+    TRules onlyFirst{ExactMatch(countryId, defibrillator1)};
+    // City + category. Only the first defibrillator is inside.
+    TEST(ResultsMatch("東京 除細動器", "ja", onlyFirst), ());
+
+    // City + street + category.
+    TEST(ResultsMatch("東京 竹下通り 除細動器", "ja", onlyFirst), ());
+  }
+
+  {
+    TRules rules{ExactMatch(countryId, fireHydrant)};
+    TEST(ResultsMatch("fire hydrant", "en", rules), ());
+    TEST(ResultsMatch("гидрант", "ru", rules), ());
+    TEST(ResultsMatch("пожарный гидрант", "ru", rules), ());
+
+    TEST(ResultsMatch("fire station", "en", TRules{}), ());
+  }
+}
 }  // namespace
 }  // namespace search
