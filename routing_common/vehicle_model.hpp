@@ -128,13 +128,18 @@ private:
     double const m_speedKMpH;
   };
 
-  struct RoadLimits
+  class RoadLimits
   {
+  public:
     RoadLimits() = delete;
-    RoadLimits(double speedKMpH, bool isTransitAllowed): m_speedKMpH(speedKMpH), m_isTransitAllowed(isTransitAllowed) {};
+    RoadLimits(double speedKMpH, bool isTransitAllowed);
 
-    double m_speedKMpH;
-    bool m_isTransitAllowed;
+    double GetSpeedKMpH() const {return m_speedKMpH;};
+    bool GetIsTransitAllowed() const {return m_isTransitAllowed;};
+
+  private:
+    double const m_speedKMpH;
+    bool const m_isTransitAllowed;
   };
 
   vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;
