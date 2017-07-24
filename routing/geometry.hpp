@@ -30,6 +30,7 @@ public:
   bool IsOneWay() const { return m_isOneWay; }
   // Kilometers per hour.
   double GetSpeed() const { return m_speed; }
+  bool IsTransitAllowed() const { return m_isTransitAllowed; }
   m2::PointD const & GetPoint(uint32_t pointId) const
   {
     ASSERT_LESS(pointId, m_points.size(), ());
@@ -55,6 +56,7 @@ private:
   double m_speed = 0.0;
   bool m_isOneWay = false;
   bool m_valid = false;
+  bool m_isTransitAllowed = false;
 };
 
 class GeometryLoader

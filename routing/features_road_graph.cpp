@@ -74,6 +74,11 @@ bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType const & f) 
   return GetVehicleModel(f.GetID())->IsRoad(f);
 }
 
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsTransitAllowed(FeatureType const & f) const
+{
+  return GetVehicleModel(f.GetID())->IsTransitAllowed(f);
+}
+
 IVehicleModel * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const
 {
   auto itr = m_cache.find(featureId.m_mwmId);

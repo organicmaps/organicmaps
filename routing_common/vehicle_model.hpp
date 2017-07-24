@@ -37,8 +37,11 @@ public:
 
   virtual bool IsOneWay(FeatureType const & f) const = 0;
 
-  /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
+  /// @returns true if feature |f| can be used for routing with corresponding vehicle model.
   virtual bool IsRoad(FeatureType const & f) const = 0;
+
+  /// @returns true if feature |f| can be used for transit with corresponding vehicle model.
+  virtual bool IsTransitAllowed(FeatureType const & f) const = 0;
 };
 
 class VehicleModelFactory
@@ -56,21 +59,23 @@ public:
 class VehicleModel : public IVehicleModel
 {
 public:
-  struct SpeedForType
+  struct FeatureTypeLimits
   {
     char const * m_types[2];  /// 2-arity road type
     double m_speedKMpH;       /// max allowed speed on this road type
+    bool m_isTransitAllowed;  /// transit allowed for this road type
   };
 
-  typedef initializer_list<SpeedForType> InitListT;
+  typedef initializer_list<FeatureTypeLimits> InitListT;
 
-  VehicleModel(Classificator const & c, InitListT const & speedLimits);
+  VehicleModel(Classificator const & c, InitListT const & featureTypeLimits);
 
   /// IVehicleModel overrides:
   double GetSpeed(FeatureType const & f) const override;
   double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
   bool IsOneWay(FeatureType const & f) const override;
   bool IsRoad(FeatureType const & f) const override;
+  bool IsTransitAllowed(FeatureType const & f) const override;
 
 public:
 
@@ -123,9 +128,15 @@ private:
     double const m_speedKMpH;
   };
 
+  struct RoadLimits
+  {
+    double m_speedKMpH;
+    bool m_isTransitAllowed;
+  };
+
   vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;
 
-  unordered_map<uint32_t, double> m_types;
+  unordered_map<uint32_t, RoadLimits> m_types;
 
   vector<AdditionalRoadType> m_addRoadTypes;
   uint32_t m_onewayType;

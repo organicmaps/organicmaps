@@ -18,14 +18,14 @@ VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
 {
 }
 
-VehicleModel::VehicleModel(Classificator const & c, InitListT const & speedLimits)
+VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTypeLimits)
   : m_maxSpeedKMpH(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
 {
-  for (auto const & v : speedLimits)
+  for (auto const & v : featureTypeLimits)
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
-    m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = v.m_speedKMpH;
+    m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = {v.m_speedKMpH, v.m_isTransitAllowed};
   }
 }
 
@@ -60,7 +60,7 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto it = m_types.find(type);
     if (it != m_types.end())
-      speed = min(speed, it->second);
+      speed = min(speed, it->second.m_speedKMpH);
 
     auto const addRoadInfoIter = FindRoadType(t);
     if (addRoadInfoIter != m_addRoadTypes.cend())
@@ -102,6 +102,24 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
   if (GetRoadAvailability(types) == RoadAvailability::NotAvailable)
     return false;
   return HasRoadType(types);
+}
+
+bool VehicleModel::IsTransitAllowed(FeatureType const & f) const
+{
+  feature::TypesHolder const types(f);
+
+  for (uint32_t t : types)
+  {
+    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
+    auto it = m_types.find(type);
+    if (it != m_types.end())
+    {
+      if (it->second.m_isTransitAllowed)
+        return true;
+    }
+  }
+
+  return false;
 }
 
 bool VehicleModel::IsRoadType(uint32_t type) const
