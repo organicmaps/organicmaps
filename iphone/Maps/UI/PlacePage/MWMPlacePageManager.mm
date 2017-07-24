@@ -596,7 +596,7 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   [self.ownerViewController openUrl:url];
 }
 
-- (void)openViatorURL:(nullable NSURL *)url
+- (void)openSponsoredURL:(nullable NSURL *)url
 {
   if (auto u = url ?: self.data.sponsoredURL)
     [self.ownerViewController openUrl:u];

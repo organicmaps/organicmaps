@@ -42,7 +42,7 @@ final class PPViatorCarouselCell: MWMTableViewCell {
 
   @IBAction
   func onMore() {
-    delegate?.openViatorURL(nil)
+    delegate?.openSponsoredURL(nil)
   }
 }
 
@@ -64,7 +64,7 @@ extension PPViatorCarouselCell: UICollectionViewDelegate, UICollectionViewDataSo
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let isMore = isLastCell(indexPath)
     let url: URL? = isMore ? nil : dataSource[indexPath.item].pageURL
-    delegate?.openViatorURL(url)
+    delegate?.openSponsoredURL(url)
     Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected)
   }
 }

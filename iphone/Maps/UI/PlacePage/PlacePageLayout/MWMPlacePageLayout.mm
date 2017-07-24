@@ -286,7 +286,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   {
   case Sections::Bookmark: return 1;
   case Sections::Preview: return data.previewRows.size();
-  case Sections::Viator: return data.viatorRows.size();
+  case Sections::SpecialProjects: return data.specialProjectRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
   case Sections::Ad: return data.adRows.size();
   case Sections::Buttons: return data.buttonsRows.size();
@@ -403,7 +403,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
     return c;
   }
-  case Sections::Viator:
+  case Sections::SpecialProjects:
   {
     Class cls = [MWMPPViatorCarouselCell class];
     auto c = static_cast<MWMPPViatorCarouselCell *>(

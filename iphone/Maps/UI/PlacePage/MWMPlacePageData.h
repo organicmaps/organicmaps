@@ -26,7 +26,7 @@ enum class Sections
   HotelDescription,
   HotelFacilities,
   HotelReviews,
-  Viator,
+  SpecialProjects,
   Metainfo,
   Ad,
   UGC,
@@ -69,9 +69,9 @@ enum class HotelReviewsRow
   ShowMore
 };
 
-enum class ViatorRow
+enum class SpecialProject
 {
-  Regular
+  Viator,
 };
 
 enum class MetainfoRows
@@ -208,7 +208,7 @@ using BannerIsReady = void (^)();
 - (std::vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
 - (std::vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
 - (std::vector<place_page::MetainfoRows> const &)metainfoRows;
-- (std::vector<place_page::ViatorRow> const &)viatorRows;
+- (std::vector<place_page::SpecialProject> const &)specialProjectRows;
 - (std::vector<place_page::AdRows> const &)adRows;
 - (std::vector<place_page::UGCRow> const &)ugcRows;
 - (std::vector<place_page::ButtonsRows> const &)buttonsRows;

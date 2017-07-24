@@ -46,7 +46,7 @@ using namespace place_page;
 
   std::vector<Sections> m_sections;
   std::vector<PreviewRows> m_previewRows;
-  std::vector<ViatorRow> m_viatorRows;
+  std::vector<SpecialProject> m_specialProjectRows;
   std::vector<MetainfoRows> m_metainfoRows;
   std::vector<AdRows> m_adRows;
   std::vector<ButtonsRows> m_buttonsRows;
@@ -57,7 +57,6 @@ using namespace place_page;
   std::vector<UGCRow> m_ugcRows;
 
   booking::HotelInfo m_hotelInfo;
-  std::vector<viator::Product> m_viatorProducts;
 }
 
 - (instancetype)initWithPlacePageInfo:(Info const &)info
@@ -225,6 +224,20 @@ using namespace place_page;
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
 }
 
+- (void)insertSpecialProjectsSectionWithProject:(SpecialProject)project
+{
+  auto const begin = m_sections.begin();
+  auto const end = m_sections.end();
+
+  if (std::find(begin, end, Sections::SpecialProjects) != end)
+    return;
+
+  m_sections.insert(find(begin, end, Sections::Preview) + 1, Sections::SpecialProjects);
+  m_specialProjectRows.emplace_back(project);
+
+  self.sectionsAreReadyCallback({1, 1}, self, YES);
+}
+
 - (void)fillOnlineViatorSection
 {
   if (!self.isViator)
@@ -246,17 +259,26 @@ using namespace place_page;
       {
         if (viatorId != destId)
           return;
-        dispatch_async(dispatch_get_main_queue(), [products, self] {
-          m_viatorProducts = products;
+        NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
+        for (auto const & p : products)
+        {
+          auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
+          auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
+          if (!imageURL || !pageURL)
+            continue;
+          auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
+                                                           pageURL:pageURL
+                                                             title:@(p.m_title.c_str())
+                                                            rating:p.m_rating
+                                                          duration:@(p.m_duration.c_str())
+                                                             price:@(p.m_priceFormatted.c_str())];
+          [items addObject:item];
+        }
 
-          auto & sections = self->m_sections;
-          auto const begin = sections.begin();
-          auto const end = sections.end();
+        dispatch_async(dispatch_get_main_queue(), [items, self] {
+          self.viatorItems = items;
 
-          sections.insert(find(begin, end, Sections::Preview) + 1, Sections::Viator);
-          m_viatorRows.emplace_back(ViatorRow::Regular);
-
-          self.sectionsAreReadyCallback({1, 1}, self, YES);
+          [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
         });
       });
   });
@@ -592,30 +614,6 @@ using namespace place_page;
   return _photos;
 }
 
-- (NSArray<MWMViatorItemModel *> *)viatorItems
-{
-  if (!_viatorItems)
-  {
-    NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
-    for (auto const & p : m_viatorProducts)
-    {
-      auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
-      auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
-      if (!imageURL || !pageURL)
-        continue;
-      auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
-                                                       pageURL:pageURL
-                                                         title:@(p.m_title.c_str())
-                                                        rating:p.m_rating
-                                                      duration:@(p.m_duration.c_str())
-                                                         price:@(p.m_priceFormatted.c_str())];
-      [items addObject:item];
-    }
-    self.viatorItems = items;
-  }
-  return _viatorItems;
-}
-
 #pragma mark - Bookmark
 
 - (NSString *)externalTitle
@@ -676,7 +674,7 @@ using namespace place_page;
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }
 - (std::vector<PreviewRows> const &)previewRows { return m_previewRows; }
-- (std::vector<place_page::ViatorRow> const &)viatorRows { return m_viatorRows; }
+- (std::vector<place_page::SpecialProject> const &)specialProjectRows { return m_specialProjectRows; }
 - (std::vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (std::vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (std::vector<AdRows> const &)adRows { return m_adRows; }
