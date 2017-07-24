@@ -608,7 +608,7 @@ sw:^Hoteli|restorenti|mgahawa|chakula
 amenity-fuel|@fuel
 en:^Gas Station|3fuel|petrol|petrol station|U+26FD
 ru:Бензин|топливо|азс
-ar:^محطة وقود|وقود|غاز|سولار|ديزل|بنزين|بترول
+ar:^محطة وقود|بترول
 cs:2pumpa
 da:3^Tankstation
 nl:3^Tankstation|3brandstof
