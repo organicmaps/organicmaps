@@ -66,10 +66,12 @@ public:
   bool ShouldShowEditPlace() const;
 
   /// UGC
-  bool ShouldShowUGC() const { return ftraits::UGC::IsUGCAvailable(m_types); }
-  bool ShouldShowUGCRating() const { return ftraits::UGC::IsRatingAvailable(m_types); }
-  bool ShouldShowUGCReviews() const { return ftraits::UGC::IsReviewsAvailable(m_types); }
-  bool ShouldShowUGCDetails() const { return ftraits::UGC::IsDetailsAvailable(m_types); }
+  // TODO: Uncomment correct implementation.
+  // TODO: UGC is disabled before UI isn't ready.
+  bool ShouldShowUGC() const { return false; } //ftraits::UGC::IsUGCAvailable(m_types); }
+  bool ShouldShowUGCRating() const { return false; } //ftraits::UGC::IsRatingAvailable(m_types); }
+  bool ShouldShowUGCReviews() const { return false; } //ftraits::UGC::IsReviewsAvailable(m_types); }
+  bool ShouldShowUGCDetails() const { return false; } //ftraits::UGC::IsDetailsAvailable(m_types); }
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
