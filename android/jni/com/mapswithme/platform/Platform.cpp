@@ -205,7 +205,7 @@ int GetAndroidSdkVersion()
     return 0;
 
   int version;
-  if (strings::to_int(std::string(osVersion), version))
+  if (!strings::to_int(std::string(osVersion), version))
     version = 0;
 
   return version;
