@@ -1,6 +1,5 @@
 #include "drape/framebuffer.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/support_manager.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -111,12 +110,6 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 {
   if (!m_isSupported)
     return;
-
-  if (!SupportManager::Instance().IsFramebufferSupported())
-  {
-    m_isSupported = false;
-    return;
-  }
 
   if (m_width == width && m_height == height)
     return;

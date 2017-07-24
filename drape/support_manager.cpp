@@ -5,10 +5,6 @@
 
 #include "base/logging.hpp"
 
-#ifdef OMIM_OS_ANDROID
-#include "android/jni/com/mapswithme/platform/Platform.hpp"
-#endif
-
 #include "3party/Alohalytics/src/alohalytics.h"
 
 #include <algorithm>
@@ -72,17 +68,6 @@ void SupportManager::Init()
 #endif
     settings::Set(kSupportedAntialiasing, m_isAntialiasingEnabledByDefault);
   }
-
-  // Disable framebuffer for old Android OS versions.
-#ifdef OMIM_OS_ANDROID
-  int constexpr kMinSdkVersionForFramebuffer = 18;
-  int const sdkVersion = android::GetAndroidSdkVersion();
-  if (sdkVersion != 0)
-    m_isFramebufferSupported = (sdkVersion >= kMinSdkVersionForFramebuffer);
-
-  if (!m_isFramebufferSupported)
-    LOG(LINFO, ("Framebuffer is not supported on Android API level ", sdkVersion));
-#endif
 }
 
 SupportManager & SupportManager::Instance()
