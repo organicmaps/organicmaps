@@ -130,6 +130,9 @@ private:
 
   struct RoadLimits
   {
+    RoadLimits() = delete;
+    RoadLimits(double speedKMpH, bool isTransitAllowed): m_speedKMpH(speedKMpH), m_isTransitAllowed(isTransitAllowed) {};
+
     double m_speedKMpH;
     bool m_isTransitAllowed;
   };

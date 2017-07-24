@@ -31,6 +31,7 @@ public:
   // Kilometers per hour.
   double GetSpeed() const { return m_speed; }
   bool IsTransitAllowed() const { return m_isTransitAllowed; }
+
   m2::PointD const & GetPoint(uint32_t pointId) const
   {
     ASSERT_LESS(pointId, m_points.size(), ());

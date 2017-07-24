@@ -52,7 +52,7 @@ double constexpr kSpeedPierKMpH = 7.0;
 // Default
 routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
 {
-  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
+  { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* transitAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
