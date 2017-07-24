@@ -215,7 +215,10 @@ void setPermissionRequested()
 + (void)applicationDidBecomeActive
 {
   if (isPermissionRequested() || ![Alohalytics isFirstSession])
+  {
     [self start];
+    [[self manager] updateFrameworkInfo];
+  }
 }
 
 + (void)applicationWillResignActive
@@ -538,8 +541,10 @@ void setPermissionRequested()
 - (void)updateFrameworkInfo
 {
   auto app = UIApplication.sharedApplication;
+  if (app.applicationState != UIApplicationStateActive)
+    return;
   auto delegate = static_cast<MapsAppDelegate *>(app.delegate);
-  if (delegate.isDrapeEngineCreated && app.applicationState == UIApplicationStateActive)
+  if (delegate.isDrapeEngineCreated)
   {
     auto & f = GetFramework();
     if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateLocation)
