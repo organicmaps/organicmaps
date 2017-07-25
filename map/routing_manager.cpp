@@ -24,12 +24,19 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/multilang_utf8_string.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/mwm_traits.hpp"
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/jansson/myjansson.hpp"
 
 #include <map>
 
@@ -40,6 +47,8 @@ namespace
 char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
+
+std::string const kRoutePointsFile = "route_points.dat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
 
@@ -71,6 +80,121 @@ void FillTrafficForRendering(std::vector<routing::RouteSegment> const & segments
   traffic.reserve(segments.size());
   for (auto const & s : segments)
     traffic.push_back(s.GetTraffic());
+}
+
+RouteMarkData GetLastPassedPoint(std::vector<RouteMarkData> const & points)
+{
+  ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
+  ASSERT(points[0].m_pointType == RouteMarkType::Start, ());
+  RouteMarkData data = points[0];
+
+  for (int i = static_cast<int>(points.size()) - 1; i >= 0; i--)
+  {
+    if (points[i].m_isPassed)
+    {
+      data = points[i];
+      break;
+    }
+  }
+
+  // Last passed point will be considered as start point.
+  data.m_pointType = RouteMarkType::Start;
+  data.m_intermediateIndex = 0;
+  if (data.m_isMyPosition)
+  {
+    MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+    data.m_position = myPosMark->GetPivot();
+    data.m_isMyPosition = false;
+  }
+
+  return data;
+}
+
+void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
+{
+  ASSERT(node != nullptr, ());
+  ToJSONObject(*node, "type", static_cast<int>(data.m_pointType));
+  ToJSONObject(*node, "title", data.m_title);
+  ToJSONObject(*node, "subtitle", data.m_subTitle);
+  ToJSONObject(*node, "x", data.m_position.x);
+  ToJSONObject(*node, "y", data.m_position.y);
+}
+
+RouteMarkData DeserializeRoutePoint(json_t * node)
+{
+  ASSERT(node != nullptr, ());
+  RouteMarkData data;
+
+  int type = 0;
+  FromJSONObject(node, "type", type);
+  data.m_pointType = static_cast<RouteMarkType>(type);
+
+  FromJSONObject(node, "title", data.m_title);
+  FromJSONObject(node, "subtitle", data.m_subTitle);
+
+  FromJSONObject(node, "x", data.m_position.x);
+  FromJSONObject(node, "y", data.m_position.y);
+
+  return data;
+}
+
+std::string SerializeRoutePoints(std::vector<RouteMarkData> const & points)
+{
+  ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
+  auto pointsNode = my::NewJSONArray();
+
+  // Save last passed point. It will be used on points loading if my position
+  // isn't determined.
+  auto lastPassedPoint = GetLastPassedPoint(points);
+  auto lastPassedNode = my::NewJSONObject();
+  SerializeRoutePoint(lastPassedNode.get(), lastPassedPoint);
+  json_array_append_new(pointsNode.get(), lastPassedNode.release());
+
+  for (auto const & p : points)
+  {
+    // Here we skip passed points and the start point.
+    if (p.m_isPassed || p.m_pointType == RouteMarkType::Start)
+      continue;
+
+    auto pointNode = my::NewJSONObject();
+    SerializeRoutePoint(pointNode.get(), p);
+    json_array_append_new(pointsNode.get(), pointNode.release());
+  }
+  std::unique_ptr<char, JSONFreeDeleter> buffer(
+    json_dumps(pointsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
+  return std::string(buffer.get());
+}
+
+std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
+{
+  my::Json root(data.c_str());
+
+  if (root.get() == nullptr || !json_is_array(root.get()))
+    return {};
+
+  size_t const sz = json_array_size(root.get());
+  if (sz == 0)
+    return {};
+
+  std::vector<RouteMarkData> result;
+  result.reserve(sz);
+  for (size_t i = 0; i < sz; ++i)
+  {
+    auto pointNode = json_array_get(root.get(), i);
+    if (pointNode == nullptr)
+      continue;
+
+    auto point = DeserializeRoutePoint(pointNode);
+    if (point.m_position.EqualDxDy(m2::PointD::Zero(), 1e-7))
+      continue;
+
+    result.push_back(std::move(point));
+  }
+
+  if (result.size() < 2)
+    return {};
+
+  return result;
 }
 }  // namespace
 
@@ -698,6 +822,7 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
 
   if (m_drapeEngine != nullptr)
     m_drapeEngine->SetGpsInfo(info, m_routingSession.IsNavigable(), routeMatchingInfo);
+
   if (IsTrackingReporterEnabled())
     m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
 }
@@ -817,7 +942,7 @@ uint32_t RoutingManager::GenerateRoutePointsTransactionId() const
 uint32_t RoutingManager::OpenRoutePointsTransaction()
 {
   auto const id = GenerateRoutePointsTransactionId();
-  m_routePointsTransactions[id].m_routeMarks = std::move(GetRoutePoints());
+  m_routePointsTransactions[id].m_routeMarks = GetRoutePoints();
   return id;
 }
 
@@ -861,4 +986,79 @@ void RoutingManager::CancelRoutePointsTransaction(uint32_t transactionId)
   for (auto & markData : routeMarks)
     routePoints.AddRoutePoint(std::move(markData));
   routePoints.NotifyChanges();
+}
+
+bool RoutingManager::HasSavedRoutePoints() const
+{
+  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+  return GetPlatform().IsFileExistsByFullPath(fileName);
+}
+
+bool RoutingManager::LoadRoutePoints()
+{
+  if (!HasSavedRoutePoints())
+    return false;
+
+  // Delete file after loading.
+  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+  MY_SCOPE_GUARD(routePointsFileGuard, std::bind(&FileWriter::DeleteFileX,
+                                                 std::cref(fileName)));
+
+  std::string data;
+  try
+  {
+    ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Loading road points failed:", ex.Msg()));
+    return false;
+  }
+
+  auto points = DeserializeRoutePoints(data);
+  if (points.empty())
+    return false;
+
+  // If we have found my position, we use my position as start point.
+  MyPositionMarkPoint * myPosMark = UserMarkContainer::UserMarkForMyPostion();
+  ASSERT(m_bmManager != nullptr, ());
+  m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK).Clear();
+  for (auto & p : points)
+  {
+    if (p.m_pointType == RouteMarkType::Start && myPosMark->HasPosition())
+    {
+      RouteMarkData startPt;
+      startPt.m_pointType = RouteMarkType::Start;
+      startPt.m_isMyPosition = true;
+      startPt.m_position = myPosMark->GetPivot();
+      AddRoutePoint(std::move(startPt));
+    }
+    else
+    {
+      AddRoutePoint(std::move(p));
+    }
+  }
+  return true;
+}
+
+void RoutingManager::SaveRoutePoints() const
+{
+  auto points = GetRoutePoints();
+  if (points.size() < 2)
+    return;
+
+  if (points.back().m_isPassed)
+    return;
+
+  try
+  {
+    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+    FileWriter writer(fileName);
+    std::string const pointsData = SerializeRoutePoints(points);
+    writer.Write(pointsData.c_str(), pointsData.length());
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Saving road points failed:", ex.Msg()));
+  }
 }

@@ -7,8 +7,6 @@
 
 #include "map/framework.hpp"
 
-#include "drape_frontend/visual_params.hpp"
-
 #include "search/result.hpp"
 
 #include "storage/index.hpp"
@@ -114,6 +112,8 @@ void DrawWidget::PrepareShutdown()
   auto & routingManager = m_framework.GetRoutingManager();
   if (routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing())
   {
+    routingManager.SaveRoutePoints();
+
     auto style = m_framework.GetMapStyle();
     if (style == MapStyle::MapStyleVehicleClear)
       m_framework.MarkMapStyle(MapStyle::MapStyleClear);
@@ -150,6 +150,10 @@ void DrawWidget::initializeGL()
 {
   MapWidget::initializeGL();
   m_framework.LoadBookmarks();
+
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.LoadRoutePoints())
+    routingManager.BuildRoute(0 /* timeoutSec */);
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)

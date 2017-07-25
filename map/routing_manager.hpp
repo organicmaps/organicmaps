@@ -221,6 +221,14 @@ public:
   void CancelRoutePointsTransaction(uint32_t transactionId);
   static uint32_t InvalidRoutePointsTransactionId();
 
+  /// \returns true if there are route points saved in file and false otherwise.
+  bool HasSavedRoutePoints() const;
+  /// \brief It loads road points from file and delete file after loading.
+  /// \returns true if route points loaded and false otherwise.
+  bool LoadRoutePoints();
+  /// \brief It saves route points to file.
+  void SaveRoutePoints() const;
+
 private:
   void InsertRoute(routing::Route const & route);
   bool IsTrackingReporterEnabled() const;

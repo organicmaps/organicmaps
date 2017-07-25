@@ -6,6 +6,7 @@
 
 enum class RouteMarkType : uint8_t
 {
+  // Do not change the order!
   Start = 0,
   Intermediate = 1,
   Finish = 2

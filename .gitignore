@@ -24,6 +24,7 @@ data/resources-*_design/*
 data/drules_proto_design.bin
 data/colors_design.txt
 data/patterns_design.txt
+data/route_points.dat
 
 # Compiled Python
 *.pyc
