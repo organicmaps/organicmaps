@@ -1556,7 +1556,9 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (platform::migrate::NeedMigrate())
     return DoAfterUpdate::Migrate;
 
-  if (Platform::ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
+  using Platform::EConnectionType;
+  auto const connectionStatus = Platform::ConnectionStatus();
+  if (connectionStatus == EConnectionType::CONNECTION_NONE)
     return DoAfterUpdate::Nothing;
 
   auto const & s = GetStorage();
@@ -1564,7 +1566,6 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (!IsEnoughSpaceForUpdate(rootId, s))
     return DoAfterUpdate::Nothing;
 
-  TMwmSize constexpr maxSizeInBytes = 100 * 1024 * 1024;
   NodeAttrs attrs;
   s.GetNodeAttrs(rootId, attrs);
   TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
@@ -1572,8 +1573,8 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (countrySizeInBytes == 0 || attrs.m_status != NodeStatus::OnDiskOutOfDate)
     return DoAfterUpdate::Nothing;
 
-  return countrySizeInBytes > maxSizeInBytes ? DoAfterUpdate::AskForUpdateMaps
-                                             : DoAfterUpdate::AutoupdateMaps;
+  return connectionStatus == EConnectionType::CONNECTION_WWAN ? DoAfterUpdate::AskForUpdateMaps
+                                                              : DoAfterUpdate::AutoupdateMaps;
 }
 
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
