@@ -6,10 +6,6 @@
 
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/initializer_list.hpp"
-#include "std/limits.hpp"
-
 namespace routing
 {
 VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
@@ -31,8 +27,8 @@ VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTyp
   for (auto const & v : featureTypeLimits)
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
-    m_types.emplace(make_pair(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                              RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed)));
+    m_types.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
+                              RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed));
   }
 }
 

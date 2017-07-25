@@ -1,12 +1,16 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/initializer_list.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <initializer_list>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+using std::initializer_list;
+using std::shared_ptr;
+using std::string;
+using std::unordered_map;
+using std::vector;
 
 class Classificator;
 class FeatureType;
