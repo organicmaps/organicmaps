@@ -1,9 +1,9 @@
 #include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include "drape/batcher.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/rect_intersect.hpp"
 
 #include "indexer/scales.hpp"
@@ -106,8 +106,9 @@ void UserMarkGenerator::UpdateIndex(GroupID groupId)
       double length = 0;
       while (length < splineFullLength)
       {
-        m2::RectD const tileRect = GetRectForDrawScale(zoomLevel, params.m_spline->GetPoint(length).m_pos);
-        double const maxLength = std::min(tileRect.SizeX(), tileRect.SizeY());
+        // Process spline by segments that no longer than tile size.
+        double const range = MercatorBounds::maxX - MercatorBounds::minX;
+        double const maxLength = range / (1 << (zoomLevel - 1));
 
         m2::RectD splineRect;
 
