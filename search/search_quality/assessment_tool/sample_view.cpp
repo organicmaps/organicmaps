@@ -222,10 +222,10 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & bookmarkManager = m_framework.GetBookmarkManager();
-  UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
-  guard.m_controller.SetIsVisible(true);
-  guard.m_controller.SetIsDrawable(true);
+  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMarkType::SEARCH_MARK);
+  controller.SetIsVisible(true);
+  controller.SetIsDrawable(true);
+  controller.NotifyChanges();
 
   m_nonFoundResults->Clear();
 
@@ -251,10 +251,9 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
 {
   CHECK_EQUAL(results.size(), entries.size(), ());
 
-  auto & bookmarkManager = m_framework.GetBookmarkManager();
-  UserMarkControllerGuard guard(bookmarkManager, UserMarkType::SEARCH_MARK);
-  guard.m_controller.SetIsVisible(true);
-  guard.m_controller.SetIsDrawable(true);
+  auto & controller = m_framework.GetBookmarkManager().GetUserMarksController(UserMarkType::SEARCH_MARK);
+  controller.SetIsVisible(true);
+  controller.SetIsDrawable(true);
 
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -264,9 +263,10 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
       continue;
 
     SearchMarkPoint * mark =
-        static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(result.m_pos));
+        static_cast<SearchMarkPoint *>(controller.CreateUserMark(result.m_pos));
     mark->SetCustomSymbol("non-found-search-result");
   }
+  controller.NotifyChanges();
 }
 
 void SampleView::ClearSearchResultMarks() { m_framework.ClearSearchResultsMarks(); }

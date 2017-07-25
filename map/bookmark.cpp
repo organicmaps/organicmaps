@@ -43,6 +43,7 @@ Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMark
 
 void Bookmark::SetData(BookmarkData const & data)
 {
+  SetDirty();
   m_data = data;
 }
 
@@ -85,6 +86,7 @@ std::string const & Bookmark::GetName() const
 
 void Bookmark::SetName(std::string const & name)
 {
+  SetDirty();
   m_data.SetName(name);
 }
 
@@ -95,6 +97,7 @@ std::string const & Bookmark::GetType() const
 
 void Bookmark::SetType(std::string const & type)
 {
+  SetDirty();
   m_data.SetType(type);
 }
 
