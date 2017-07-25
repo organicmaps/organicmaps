@@ -9,6 +9,7 @@
 #include <QMainWindow>
 
 class Framework;
+class MapWidget;
 class TrafficMode;
 
 namespace df
@@ -40,4 +41,6 @@ private:
 
   QAction * m_saveTrafficSampleAction = nullptr;
   QAction * m_closeTrafficSampleAction = nullptr;
+
+  MapWidget * m_mapWidget = nullptr;
 };

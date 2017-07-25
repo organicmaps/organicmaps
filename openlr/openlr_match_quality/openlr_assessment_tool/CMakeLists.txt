@@ -14,6 +14,8 @@ set(
   main.cpp
   mainwindow.cpp
   mainwindow.hpp
+  map_widget.cpp
+  map_widget.hpp
   traffic_mode.cpp
   traffic_mode.hpp
   traffic_panel.cpp

@@ -2,12 +2,18 @@
 
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_panel.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/trafficmodeinitdlg.h"
-
-#include "qt/qt_common/map_widget.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/map_widget.hpp"
 
 #include "map/framework.hpp"
 
 #include "drape_frontend/drape_api.hpp"
+
+#include "routing/features_road_graph.hpp"
+#include "routing/road_graph.hpp"
+
+#include "routing_common/car_model.hpp"
+
+#include "geometry/point2d.hpp"
 
 #include <QDockWidget>
 #include <QFileDialog>
@@ -19,6 +25,7 @@
 
 #include <cerrno>
 #include <cstring>
+#include <vector>
 
 namespace
 {
@@ -26,8 +33,9 @@ class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
 {
 public:
   TrafficDrawerDelegate(Framework & framework)
-  : m_framework(framework)
-  , m_drapeApi(m_framework.GetDrapeApi())
+    : m_framework(framework)
+    , m_drapeApi(m_framework.GetDrapeApi())
+    , m_bm(framework.GetBookmarkManager())
   {
   }
 
@@ -54,9 +62,33 @@ public:
                        .Width(3.0f).ShowPoints(true /* markPoints */));
   }
 
-  void Clear() override
+  void ClearAllPaths() override
   {
     m_drapeApi.Clear();
+  }
+
+  void VisualizeGoldenPath(std::vector<m2::PointD> const & points)
+  {
+    ClearAllPaths();
+
+    m_drapeApi.AddLine(NextLineId(),
+                       df::DrapeApiLineData(points, dp::Color(255, 127, 36, 255))
+                       .Width(4.0f).ShowPoints(true /* markPoints */));
+  }
+
+  void VisualizePoints(std::vector<m2::PointD> const & points) override
+  {
+    UserMarkControllerGuard g(m_bm, UserMarkType::DEBUG_MARK);
+    g.m_controller.SetIsVisible(true);
+    g.m_controller.SetIsDrawable(true);
+    for (auto const & p : points)
+      g.m_controller.CreateUserMark(p);
+  }
+
+  void CleanAllVisualizedPoints() override
+  {
+    UserMarkControllerGuard g(m_bm, UserMarkType::DEBUG_MARK);
+    g.m_controller.Clear();
   }
 
 private:
@@ -66,6 +98,106 @@ private:
 
   Framework & m_framework;
   df::DrapeApi & m_drapeApi;
+  BookmarkManager & m_bm;
+};
+
+class PointsControllerDelegate : public PointsControllerDelegateBase
+{
+public:
+  PointsControllerDelegate(Framework & framework)
+    : m_framework(framework)
+    , m_index(framework.GetIndex())
+    , m_roadGraph(m_index, routing::IRoadGraph::Mode::ObeyOnewayTag,
+                  make_unique<routing::CarModelFactory>())
+  {
+  }
+
+  std::vector<m2::PointD> GetAllJunctionPointsInViewPort() const
+  {
+    std::vector<m2::PointD> points;
+    auto const & rect = m_framework.GetCurrentViewport();
+    auto const pushPoint = [&points, &rect](m2::PointD const & point) {
+      if (!rect.IsPointInside(point))
+        return;
+      for (auto const & p : points)
+      {
+        if (point.EqualDxDy(p, 1e-5))
+          return;
+      }
+      points.push_back(point);
+    };
+
+    auto const pushFeaturePoints = [&pushPoint](FeatureType & ft) {
+      if (ft.GetFeatureType() != feature::GEOM_LINE)
+        return;
+      auto const roadClass = ftypes::GetHighwayClass(ft);
+      if (roadClass == ftypes::HighwayClass::Error ||
+          roadClass == ftypes::HighwayClass::Pedestrian)
+      {
+        return;
+      }
+      ft.ForEachPoint(pushPoint, scales::GetUpperScale());
+    };
+
+    m_index.ForEachInRect(pushFeaturePoints, rect, scales::GetUpperScale());
+    return points;
+  }
+
+  std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const
+  {
+    std::vector<FeaturePoint> points;
+    indexer::ForEachFeatureAtPoint(m_index, [&points, &p](FeatureType & ft) {
+        if (ft.GetFeatureType() != feature::GEOM_LINE)
+          return;
+        size_t pointIndex = 0;
+        ft.ForEachPoint([&points, &p, &ft, &pointIndex](m2::PointD const & fp)
+                        {
+                          ++pointIndex;
+                          if (fp.EqualDxDy(p, 1e-4))
+                          {
+                            points.emplace_back(ft.GetID(), pointIndex);
+                            p = fp;
+                          }
+                        },
+                        FeatureType::BEST_GEOMETRY);
+      },
+      p);
+    return points;
+  }
+
+  std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const
+  {
+    routing::FeaturesRoadGraph::TEdgeVector edges;
+    m_roadGraph.GetOutgoingEdges(
+        routing::Junction(p, 0 /* altitude */),
+        edges);
+
+    std::vector<m2::PointD> points;
+    for (auto const & e : edges)
+      points.push_back(e.GetEndJunction().GetPoint());
+    return points;
+  }
+
+  ClickType CheckClick(m2::PointD const & clickPoint,
+                       m2::PointD const & lastClickedPoint,
+                       std::vector<m2::PointD> const & reachablePoints) const
+  {
+    LOG(LDEBUG, (clickPoint, "vs", lastClickedPoint));
+    if (clickPoint.EqualDxDy(lastClickedPoint, 1e-4))
+      return ClickType::Remove;
+    for (auto const & p : reachablePoints)
+    {
+      LOG(LDEBUG, (clickPoint, "vs", p));
+      if (clickPoint.EqualDxDy(p, 1e-4))
+        return ClickType::Add;
+    }
+    return ClickType::Miss;
+  }
+
+private:
+  Framework & m_framework;
+  Index const & m_index;
+  routing::FeaturesRoadGraph m_roadGraph;
 };
 }  // namespace
 
@@ -73,10 +205,10 @@ private:
 MainWindow::MainWindow(Framework & framework)
   : m_framework(framework)
 {
-  auto * mapWidget = new qt::common::MapWidget(
+  m_mapWidget = new MapWidget(
       m_framework, false /* apiOpenGLES3 */, this /* parent */
   );
-  setCentralWidget(mapWidget);
+  setCentralWidget(m_mapWidget);
 
   // setWindowTitle(tr("MAPS.ME"));
   // setWindowIcon(QIcon(":/ui/logo.png"));
@@ -94,13 +226,35 @@ MainWindow::MainWindow(Framework & framework)
   m_saveTrafficSampleAction = fileMenu->addAction(
       "Save sample", this, &MainWindow::OnSaveTrafficSample
   );
+
+  fileMenu->addAction("Start editing", [this] {
+      m_trafficMode->StartBuildingPath();
+      m_mapWidget->SetTrafficMarkupMode();
+      //m_mapWidget->ShowPointsInViewPort();
+  });
+  fileMenu->addAction("Commit path", [this] {
+      m_trafficMode->CommitPath();
+      m_mapWidget->SetNormalMode();
+      //TODO m_mapWidget->ClearShownPoints();
+  });
+  fileMenu->addAction("Cancel path", [this] {
+      m_trafficMode->RollBackPath();
+      m_mapWidget->SetNormalMode();
+      // TODO m_mapWidget->ClearShownPoints();
+  });
+
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
 }
 
 void MainWindow::CreateTrafficPanel(string const & dataFilePath)
 {
-  m_trafficMode = new TrafficMode(dataFilePath, m_framework.GetIndex(),
-                                  make_unique<TrafficDrawerDelegate>(m_framework));
+  m_trafficMode = new TrafficMode(dataFilePath,
+                                  m_framework.GetIndex(),
+                                  make_unique<TrafficDrawerDelegate>(m_framework),
+                                  make_unique<PointsControllerDelegate>(m_framework));
+
+  connect(m_mapWidget, SIGNAL(TrafficMarkupClick(m2::PointD const &)),
+          m_trafficMode, SLOT(OnClick(m2::PointD const &)));
 
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);
@@ -119,6 +273,8 @@ void MainWindow::DestroyTrafficPanel()
 
   delete m_trafficMode;
   m_trafficMode = nullptr;
+
+  m_mapWidget->SetNormalMode();
 }
 
 void MainWindow::OnOpenTrafficSample()
