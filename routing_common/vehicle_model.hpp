@@ -59,7 +59,7 @@ public:
 class VehicleModel : public IVehicleModel
 {
 public:
-  struct FeatureTypeLimits
+  struct FeatureTypeLimits final
   {
     char const * m_types[2];  /// 2-arity road type
     double m_speedKMpH;       /// max allowed speed on this road type
@@ -78,7 +78,6 @@ public:
   bool IsTransitAllowed(FeatureType const & f) const override;
 
 public:
-
   /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
 
@@ -94,7 +93,7 @@ public:
   }
 
 protected:
-  struct AdditionalRoadTags
+  struct AdditionalRoadTags final
   {
     initializer_list<char const *> m_hwtag;
     double m_speedKMpH;
@@ -119,7 +118,7 @@ protected:
   double m_maxSpeedKMpH;
 
 private:
-  struct AdditionalRoadType
+  struct AdditionalRoadType final
   {
     AdditionalRoadType(Classificator const & c, AdditionalRoadTags const & tag);
 
@@ -128,14 +127,14 @@ private:
     double const m_speedKMpH;
   };
 
-  class RoadLimits
+  class RoadLimits final
   {
   public:
     RoadLimits() = delete;
     RoadLimits(double speedKMpH, bool isTransitAllowed);
 
-    double GetSpeedKMpH() const {return m_speedKMpH;};
-    bool GetIsTransitAllowed() const {return m_isTransitAllowed;};
+    double GetSpeedKMpH() const { return m_speedKMpH; };
+    bool IsTransitAllowed() const { return m_isTransitAllowed; };
 
   private:
     double const m_speedKMpH;

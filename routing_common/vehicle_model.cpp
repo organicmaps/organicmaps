@@ -31,8 +31,8 @@ VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTyp
   for (auto const & v : featureTypeLimits)
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
-    m_types.emplace(std::make_pair(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                                   RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed)));
+    m_types.emplace(make_pair(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
+                              RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed)));
   }
 }
 
@@ -119,8 +119,8 @@ bool VehicleModel::IsTransitAllowed(FeatureType const & f) const
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto it = m_types.find(type);
-    if (it != m_types.end() && it->second.GetIsTransitAllowed())
-        return true;
+    if (it != m_types.end() && it->second.IsTransitAllowed())
+      return true;
   }
 
   return false;
