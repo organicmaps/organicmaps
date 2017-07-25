@@ -414,7 +414,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       Class cls = [MWMPPViatorCarouselCell class];
       auto c = static_cast<MWMPPViatorCarouselCell *>(
-                                                      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [c configWith:data.viatorItems delegate:delegate];
       self.viatorCell = c;
       return c;
@@ -423,7 +423,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       Class cls = [MWMPPCianCarouselCell class];
       auto c = static_cast<MWMPPCianCarouselCell *>(
-                                                      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [c configWithDelegate:delegate];
       self.cianCell = c;
       return c;

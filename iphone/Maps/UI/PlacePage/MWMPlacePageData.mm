@@ -257,33 +257,35 @@ using namespace place_page;
     std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
     std::string const viatorId = [self sponsoredId].UTF8String;
 
-    api->GetTop5Products(viatorId, currency,
-      [viatorId, self](std::string const & destId, std::vector<viator::Product> const & products)
-      {
-        if (viatorId != destId)
-          return;
-        NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
-        for (auto const & p : products)
-        {
-          auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
-          auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
-          if (!imageURL || !pageURL)
-            continue;
-          auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
-                                                           pageURL:pageURL
-                                                             title:@(p.m_title.c_str())
-                                                            rating:p.m_rating
-                                                          duration:@(p.m_duration.c_str())
-                                                             price:@(p.m_priceFormatted.c_str())];
-          [items addObject:item];
-        }
+    __weak auto wSelf = self;
+    api->GetTop5Products(
+        viatorId, currency, [wSelf, viatorId](std::string const & destId,
+                                              std::vector<viator::Product> const & products) {
+          __strong auto self = wSelf;
+          if (!self || viatorId != destId)
+            return;
+          NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
+          for (auto const & p : products)
+          {
+            auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
+            auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
+            if (!imageURL || !pageURL)
+              continue;
+            auto item = [[MWMViatorItemModel alloc] initWithImageURL:imageURL
+                                                             pageURL:pageURL
+                                                               title:@(p.m_title.c_str())
+                                                              rating:p.m_rating
+                                                            duration:@(p.m_duration.c_str())
+                                                               price:@(p.m_priceFormatted.c_str())];
+            [items addObject:item];
+          }
 
-        dispatch_async(dispatch_get_main_queue(), [items, self] {
-          self.viatorItems = items;
+          dispatch_async(dispatch_get_main_queue(), [items, self] {
+            self.viatorItems = items;
 
-          [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
+            [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
+          });
         });
-      });
   });
 }
 
@@ -301,42 +303,45 @@ using namespace place_page;
     auto api = GetFramework().GetCianApi(canUseNetwork);
     if (!api)
       return;
-    m_cianRequestId = api->GetRentNearby([self latLon],
-    [self](std::vector<cian::RentPlace> const & places, uint64_t const requestId)
-    {
-      if (self->m_cianRequestId != requestId)
-        return;
-      NSMutableArray<MWMCianItemModel *> * items = [@[] mutableCopy];
-      for (auto const & p : places)
-      {
-        auto const & offers = p.m_offers;
-        NSCAssert(!offers.empty(), @"Cian misses offers for place.");
-        if (offers.empty())
-          continue;
-        auto const & firstOffer = offers.front();
-        
-        auto pageURL = [NSURL URLWithString:@(firstOffer.m_url.c_str())];
-        if (!pageURL)
-          continue;
-        auto item = [[MWMCianItemModel alloc] initWithRoomsCount:firstOffer.m_roomsCount
-                                                        priceRur:firstOffer.m_priceRur
-                                                        pageURL:pageURL
-                                                        address:@(firstOffer.m_address.c_str())];
-        [items addObject:item];
-      }
+    auto const latLon = [self latLon];
 
-      dispatch_async(dispatch_get_main_queue(), [items, self] {
-        self.cianIsReadyCallback(items);
-      });
-    },
-    [self](int code, uint64_t const requestId)
-    {
-      if (self->m_cianRequestId != requestId)
-        return;
-      dispatch_async(dispatch_get_main_queue(), [self] {
-        self.cianIsReadyCallback(@[]);
-      });
-    });
+    __weak auto wSuccessSelf = self;
+    __weak auto wErrorSelf = self;
+    m_cianRequestId = api->GetRentNearby(
+        latLon,
+        [wSuccessSelf](std::vector<cian::RentPlace> const & places, uint64_t const requestId) {
+          __strong auto self = wSuccessSelf;
+          if (!self || self->m_cianRequestId != requestId)
+            return;
+          NSMutableArray<MWMCianItemModel *> * items = [@[] mutableCopy];
+          for (auto const & p : places)
+          {
+            auto const & offers = p.m_offers;
+            NSCAssert(!offers.empty(), @"Cian misses offers for place.");
+            if (offers.empty())
+              continue;
+            auto const & firstOffer = offers.front();
+
+            auto pageURL = [NSURL URLWithString:@(firstOffer.m_url.c_str())];
+            if (!pageURL)
+              continue;
+            auto item =
+                [[MWMCianItemModel alloc] initWithRoomsCount:firstOffer.m_roomsCount
+                                                    priceRur:firstOffer.m_priceRur
+                                                     pageURL:pageURL
+                                                     address:@(firstOffer.m_address.c_str())];
+            [items addObject:item];
+          }
+
+          dispatch_async(dispatch_get_main_queue(),
+                         [self, items] { self.cianIsReadyCallback(items); });
+        },
+        [wErrorSelf](int code, uint64_t const requestId) {
+          __strong auto self = wErrorSelf;
+          if (!self || self->m_cianRequestId != requestId)
+            return;
+          dispatch_async(dispatch_get_main_queue(), [self] { self.cianIsReadyCallback(@[]); });
+        });
   });
 }
 
@@ -348,83 +353,84 @@ using namespace place_page;
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
 
-  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork)
-  {
+  network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
     auto api = GetFramework().GetBookingApi(canUseNetwork);
     if (!api)
       return;
 
     std::string const hotelId = self.sponsoredId.UTF8String;
-    api->GetHotelInfo(hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
-                      [hotelId, self](booking::HotelInfo const & hotelInfo)
-    {
-      if (hotelId != hotelInfo.m_hotelId)
-        return;
+    __weak auto wSelf = self;
+    api->GetHotelInfo(
+        hotelId, [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
+        [wSelf, hotelId](booking::HotelInfo const & hotelInfo) {
+          __strong auto self = wSelf;
+          if (!self || hotelId != hotelInfo.m_hotelId)
+            return;
 
-      dispatch_async(dispatch_get_main_queue(), [hotelInfo, self]
-      {
-        m_hotelInfo = hotelInfo;
+          dispatch_async(dispatch_get_main_queue(), [self, hotelInfo] {
+            m_hotelInfo = hotelInfo;
 
-        auto & sections = self->m_sections;
-        auto const begin = sections.begin();
-        auto const end = sections.end();
+            auto & sections = self->m_sections;
+            auto const begin = sections.begin();
+            auto const end = sections.end();
 
-        NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
-        NSUInteger length = 0;
-        auto it = m_sections.begin() + position;
+            NSUInteger const position = find(begin, end, Sections::Bookmark) != end ? 2 : 1;
+            NSUInteger length = 0;
+            auto it = m_sections.begin() + position;
 
-        if (!hotelInfo.m_photos.empty())
-        {
-          it = sections.insert(it, Sections::HotelPhotos) + 1;
-          m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
-          length++;
-        }
+            if (!hotelInfo.m_photos.empty())
+            {
+              it = sections.insert(it, Sections::HotelPhotos) + 1;
+              m_hotelPhotosRows.emplace_back(HotelPhotosRow::Regular);
+              length++;
+            }
 
-        if (!hotelInfo.m_description.empty())
-        {
-          it = sections.insert(it, Sections::HotelDescription) + 1;
-          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
-          m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
-          length++;
-        }
+            if (!hotelInfo.m_description.empty())
+            {
+              it = sections.insert(it, Sections::HotelDescription) + 1;
+              m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::Regular);
+              m_hotelDescriptionRows.emplace_back(HotelDescriptionRow::ShowMore);
+              length++;
+            }
 
-        auto const & facilities = hotelInfo.m_facilities;
-        if (!facilities.empty())
-        {
-          it = sections.insert(it, Sections::HotelFacilities) + 1;
-          auto & facilitiesRows = self->m_hotelFacilitiesRows;
-          auto const size = facilities.size();
-          auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
+            auto const & facilities = hotelInfo.m_facilities;
+            if (!facilities.empty())
+            {
+              it = sections.insert(it, Sections::HotelFacilities) + 1;
+              auto & facilitiesRows = self->m_hotelFacilitiesRows;
+              auto const size = facilities.size();
+              auto constexpr maxNumberOfHotelCellsInPlacePage = 3UL;
 
-          if (size > maxNumberOfHotelCellsInPlacePage)
-          {
-            facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage, HotelFacilitiesRow::Regular);
-            facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
-          }
-          else
-          {
-            facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
-          }
+              if (size > maxNumberOfHotelCellsInPlacePage)
+              {
+                facilitiesRows.insert(facilitiesRows.begin(), maxNumberOfHotelCellsInPlacePage,
+                                      HotelFacilitiesRow::Regular);
+                facilitiesRows.emplace_back(HotelFacilitiesRow::ShowMore);
+              }
+              else
+              {
+                facilitiesRows.insert(facilitiesRows.begin(), size, HotelFacilitiesRow::Regular);
+              }
 
-          length++;
-        }
+              length++;
+            }
 
-        auto const & reviews = hotelInfo.m_reviews;
-        if (!reviews.empty())
-        {
-          sections.insert(it, Sections::HotelReviews);
-          auto const size = reviews.size();
-          auto & reviewsRows = self->m_hotelReviewsRows;
+            auto const & reviews = hotelInfo.m_reviews;
+            if (!reviews.empty())
+            {
+              sections.insert(it, Sections::HotelReviews);
+              auto const size = reviews.size();
+              auto & reviewsRows = self->m_hotelReviewsRows;
 
-          reviewsRows.emplace_back(HotelReviewsRow::Header);
-          reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
-          reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
-          length++;
-        }
+              reviewsRows.emplace_back(HotelReviewsRow::Header);
+              reviewsRows.insert(reviewsRows.end(), size, HotelReviewsRow::Regular);
+              reviewsRows.emplace_back(HotelReviewsRow::ShowMore);
+              length++;
+            }
 
-        self.sectionsAreReadyCallback({position, length}, self, YES /* It's a section */);
-      });
-    });
+            self.sectionsAreReadyCallback({position, length}, self, YES /* It's a section */);
+          });
+        });
   });
 }
 
@@ -624,7 +630,7 @@ using namespace place_page;
         auto const api = GetFramework().GetBookingApi(canUseNetwork);
         if (api)
           api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
-  });
+      });
 }
 
 - (NSNumberFormatter *)currencyFormatter
@@ -730,7 +736,10 @@ using namespace place_page;
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }
 - (std::vector<PreviewRows> const &)previewRows { return m_previewRows; }
-- (std::vector<place_page::SpecialProject> const &)specialProjectRows { return m_specialProjectRows; }
+- (std::vector<place_page::SpecialProject> const &)specialProjectRows
+{
+  return m_specialProjectRows;
+}
 - (std::vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (std::vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (std::vector<AdRows> const &)adRows { return m_adRows; }

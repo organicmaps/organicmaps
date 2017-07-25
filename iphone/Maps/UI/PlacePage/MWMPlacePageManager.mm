@@ -264,7 +264,6 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
 
 - (void)shouldDestroyLayout { self.layout = nil; }
 - (void)shouldClose { GetFramework().DeactivateMapSelection(true); }
-
 - (BOOL)isExpandedOnShow
 {
   auto data = self.data;

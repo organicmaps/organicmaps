@@ -80,7 +80,8 @@ CGFloat const kMinOffset = 1;
       scrollView.scrollEnabled = YES;
       auto actionBar = self.actionBar;
       actionBar.maxY = actionBar.superview.height;
-      auto const targetOffset = self.state == State::Expanded ? self.expandedContentOffset : self.bottomContentOffset;
+      auto const targetOffset =
+          self.state == State::Expanded ? self.expandedContentOffset : self.bottomContentOffset;
       [scrollView setContentOffset:{ 0, targetOffset } animated:YES];
     });
   });
@@ -265,7 +266,7 @@ CGFloat const kMinOffset = 1;
     auto const isDirectionUp = self.direction == ScrollDirection::Up;
     self.state = isDirectionUp ? State::Top : State::Bottom;
     place_page_layout::animate(^{
-      [scrollView setContentOffset:{0, isDirectionUp ? openOffset : self.bottomContentOffset}
+      [scrollView setContentOffset:{ 0, isDirectionUp ? openOffset : self.bottomContentOffset }
                           animated:YES];
     });
   }
