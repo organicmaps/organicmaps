@@ -6,6 +6,12 @@
 
 #include "base/macros.hpp"
 
+#include <algorithm>
+
+using std::max;
+using std::min;
+using std::find_if;
+
 namespace routing
 {
 VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
