@@ -20,6 +20,7 @@ public:
   // AStarAlgorithm types aliases:
   using TVertexType = IndexGraph::TVertexType;
   using TEdgeType = IndexGraph::TEdgeType;
+  using TWeightType = IndexGraph::TWeightType;
 
   // CheckGraphConnectivity() types aliases:
   using Vertex = TVertexType;
@@ -56,7 +57,7 @@ public:
   // Interface for AStarAlgorithm:
   void GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
   void GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges);
-  double HeuristicCostEstimate(Segment const & from, Segment const & to);
+  RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to);
 
   template <typename Fn>
   void ForEachTransition(NumMwmId numMwmId, bool isEnter, Fn && fn)

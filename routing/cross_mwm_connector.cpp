@@ -150,7 +150,7 @@ void CrossMwmConnector::AddEdge(Segment const & segment, Weight weight,
                                 std::vector<SegmentEdge> & edges) const
 {
   if (weight != static_cast<Weight>(kNoRoute))
-    edges.emplace_back(segment, static_cast<double>(weight));
+    edges.emplace_back(segment, RouteWeight(static_cast<double>(weight)));
 }
 
 CrossMwmConnector::Transition const & CrossMwmConnector::GetTransition(

@@ -143,7 +143,7 @@ UNIT_TEST(TwoWayExit)
 
 UNIT_TEST(Serialization)
 {
-  float constexpr kEdgesWeight = 4444;
+  RouteWeight constexpr kEdgesWeight = RouteWeight(4444.0);
 
   vector<uint8_t> buffer;
   {
@@ -159,7 +159,7 @@ UNIT_TEST(Serialization)
       CrossMwmConnectorSerializer::AddTransition(transition, kCarMask, carConnector);
 
     carConnector.FillWeights(
-        [](Segment const & enter, Segment const & exit) { return kEdgesWeight; });
+        [&](Segment const & enter, Segment const & exit) { return kEdgesWeight; });
 
     serial::CodingParams const codingParams;
     MemWriter<vector<uint8_t>> writer(buffer);
@@ -244,9 +244,15 @@ UNIT_TEST(Serialization)
 UNIT_TEST(WeightsSerialization)
 {
   size_t constexpr kNumTransitions = 3;
-  vector<double> const weights = {
-      4.0,  20.0, CrossMwmConnector::kNoRoute, 12.0, CrossMwmConnector::kNoRoute, 40.0, 48.0,
-      24.0, 12.0};
+  vector<RouteWeight> const weights = {RouteWeight(4.0),
+                                       RouteWeight(20.0),
+                                       RouteWeight(CrossMwmConnector::kNoRoute),
+                                       RouteWeight(12.0),
+                                       RouteWeight(CrossMwmConnector::kNoRoute),
+                                       RouteWeight(40.0),
+                                       RouteWeight(48.0),
+                                       RouteWeight(24.0),
+                                       RouteWeight(12.0)};
   TEST_EQUAL(weights.size(), kNumTransitions * kNumTransitions, ());
 
   vector<uint8_t> buffer;
@@ -305,7 +311,7 @@ UNIT_TEST(WeightsSerialization)
     for (uint32_t exitId = 0; exitId < kNumTransitions; ++exitId)
     {
       auto const weight = weights[weightIdx];
-      if (weight != CrossMwmConnector::kNoRoute)
+      if (weight != RouteWeight(CrossMwmConnector::kNoRoute))
       {
         expectedEdges.emplace_back(Segment(mwmId, exitId, 1 /* segmentIdx */, false /* forward */),
                                    weight);

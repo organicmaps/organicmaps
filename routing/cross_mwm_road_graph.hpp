@@ -126,6 +126,7 @@ public:
   using TCachingKey = pair<TWrittenNodeId, Index::MwmId>;
   using TVertexType = BorderCross;
   using TEdgeType = CrossWeightedEdge;
+  using TWeightType = double;
 
   struct Hash
   {

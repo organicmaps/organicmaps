@@ -51,6 +51,7 @@ SOURCES += \
     road_graph_router.cpp \
     road_index.cpp \
     route.cpp \
+    route_weight.cpp \
     router.cpp \
     router_delegate.cpp \
     routing_algorithm.cpp \
@@ -72,6 +73,7 @@ SOURCES += \
 HEADERS += \
     async_router.hpp \
     base/astar_algorithm.hpp \
+    base/astar_weight.hpp \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
     checkpoints.hpp \
@@ -115,6 +117,7 @@ HEADERS += \
     road_point.hpp \
     route.hpp \
     route_point.hpp \
+    route_weight.hpp \
     router.hpp \
     router_delegate.hpp \
     routing_algorithm.hpp \

@@ -141,7 +141,7 @@ void IndexGraphStarter::GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool 
 {
   auto const segment = fakeVertex.GetSegmentWithDirection(forward);
   m2::PointD const & pointTo = GetPoint(segment, true /* front */);
-  double const weight = m_graph.GetEstimator().CalcLeapWeight(fakeVertex.GetPoint(), pointTo);
+  RouteWeight const weight(m_graph.GetEstimator().CalcLeapWeight(fakeVertex.GetPoint(), pointTo));
   edges.emplace_back(segment, weight);
 }
 
@@ -155,16 +155,16 @@ void IndexGraphStarter::GetNormalToFakeEdge(Segment const & segment, FakeVertex 
   {
     if (m_graph.IsTransition(segment, isOutgoing))
     {
-      edges.emplace_back(fakeSegment,
-                         m_graph.GetEstimator().CalcLeapWeight(pointFrom, fakeVertex.GetPoint()));
+      edges.emplace_back(fakeSegment, RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
+                                          pointFrom, fakeVertex.GetPoint())));
     }
     return;
   }
 
   if (fakeVertex.Fits(segment))
   {
-    edges.emplace_back(fakeSegment,
-                       m_graph.GetEstimator().CalcLeapWeight(pointFrom, fakeVertex.GetPoint()));
+    edges.emplace_back(fakeSegment, RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
+                                        pointFrom, fakeVertex.GetPoint())));
   }
 }
 
@@ -180,8 +180,8 @@ void IndexGraphStarter::ConnectLeapToTransitions(Segment const & segment, bool i
   // So |isEnter| below should be set to true.
   m_graph.ForEachTransition(
       segment.GetMwmId(), !isOutgoing /* isEnter */, [&](Segment const & transition) {
-        edges.emplace_back(transition, m_graph.GetEstimator().CalcLeapWeight(
-          segmentPoint, GetPoint(transition, isOutgoing)));
+        edges.emplace_back(transition, RouteWeight(m_graph.GetEstimator().CalcLeapWeight(
+                                           segmentPoint, GetPoint(transition, isOutgoing))));
       });
 }
 }  // namespace routing

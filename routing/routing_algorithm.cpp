@@ -50,6 +50,7 @@ class RoadGraph
 public:
   using TVertexType = Junction;
   using TEdgeType = WeightedEdge;
+  using TWeightType = double;
 
   RoadGraph(IRoadGraph const & roadGraph)
     : m_roadGraph(roadGraph)
@@ -135,7 +136,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 Junction const & startPos,
                                                                 Junction const & finalPos,
                                                                 RouterDelegate const & delegate,
-                                                                RoutingResult<Junction> & path)
+                                                                RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   AStarProgress progress(0, 95);
   uint32_t visitCount = 0;
@@ -164,7 +165,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
 IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
-    RouterDelegate const & delegate, RoutingResult<Junction> & path)
+    RouterDelegate const & delegate, RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   AStarProgress progress(0, 95);
   uint32_t visitCount = 0;

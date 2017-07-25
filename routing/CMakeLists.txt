@@ -12,6 +12,7 @@ set(
   async_router.cpp
   async_router.hpp
   base/astar_algorithm.hpp
+  base/astar_weight.hpp
   base/followed_polyline.cpp
   base/followed_polyline.hpp
   bicycle_directions.cpp
@@ -92,6 +93,8 @@ set(
   route.cpp
   route.hpp
   route_point.hpp
+  route_weight.cpp
+  route_weight.hpp
   router.cpp
   router.hpp
   router_delegate.cpp

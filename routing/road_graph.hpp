@@ -131,6 +131,7 @@ public:
   // CheckGraphConnectivity() types aliases:
   using Vertex = Junction;
   using Edge = routing::Edge;
+  using Weight = double;
 
   enum class Mode
   {

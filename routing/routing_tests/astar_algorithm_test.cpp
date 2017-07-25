@@ -26,6 +26,7 @@ class UndirectedGraph
 public:
   using TVertexType = unsigned;
   using TEdgeType = Edge;
+  using TWeightType = double;
 
   void AddEdge(unsigned u, unsigned v, unsigned w)
   {
@@ -63,7 +64,7 @@ void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, 
 {
   TAlgorithm algo;
 
-  RoutingResult<unsigned> actualRoute;
+  RoutingResult<unsigned /* VertexType */, double /* WeightType */> actualRoute;
   TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(graph, 0u, 4u, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute.path, ());
   TEST_ALMOST_EQUAL_ULPS(expectedDistance, actualRoute.distance, ());
@@ -105,7 +106,7 @@ UNIT_TEST(AdjustRoute)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  RoutingResult<unsigned> result;
+  RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
   auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
                                my::Cancellable(), nullptr /* onVisitedVertexCallback */);
 
@@ -126,7 +127,7 @@ UNIT_TEST(AdjustRouteNoPath)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  RoutingResult<unsigned> result;
+  RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
   auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
                                my::Cancellable(), nullptr /* onVisitedVertexCallback */);
 
@@ -147,7 +148,7 @@ UNIT_TEST(AdjustRouteOutOfLimit)
   vector<Edge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
   TAlgorithm algo;
-  RoutingResult<unsigned> result;
+  RoutingResult<unsigned /* VertexType */, double /* WeightType */> result;
   auto code = algo.AdjustRoute(graph, 6 /* start */, prevRoute, 1.0 /* limit */, result,
                                my::Cancellable(), nullptr /* onVisitedVertexCallback */);
 

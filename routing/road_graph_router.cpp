@@ -193,7 +193,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(Checkpoints const & checkpoi
   m_roadGraph->AddFakeEdges(startPos, startVicinity);
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
-  RoutingResult<Junction> result;
+  RoutingResult<Junction, double /* WeightType */> result;
   IRoutingAlgorithm::Result const resultCode =
       m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, delegate, result);
 

@@ -108,7 +108,7 @@ IRouter::ResultCode FindPath(
     typename Graph::TVertexType const & start, typename Graph::TVertexType const & finish,
     RouterDelegate const & delegate, Graph & graph,
     typename AStarAlgorithm<Graph>::TOnVisitedVertexCallback const & onVisitedVertexCallback,
-    RoutingResult<typename Graph::TVertexType> & routingResult)
+    RoutingResult<typename Graph::TVertexType, typename Graph::TWeightType> & routingResult)
 {
   AStarAlgorithm<Graph> algorithm;
   return ConvertResult<Graph>(algorithm.FindPathBidirectional(graph, start, finish, routingResult,
@@ -469,7 +469,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
     delegate.OnPointCheck(pointFrom);
   };
 
-  RoutingResult<Segment> routingResult;
+  RoutingResult<Segment, RouteWeight> routingResult;
   IRouter::ResultCode const result = FindPath(starter.GetStart(), starter.GetFinish(), delegate,
                                               starter, onVisitJunction, routingResult);
   if (result != IRouter::NoError)
@@ -519,7 +519,8 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   for (size_t i = lastSubroute.GetBeginSegmentIdx(); i < lastSubroute.GetEndSegmentIdx(); ++i)
   {
     auto const & step = steps[i];
-    prevEdges.emplace_back(step.GetSegment(), starter.CalcSegmentWeight(step.GetSegment()));
+    prevEdges.emplace_back(step.GetSegment(),
+                           RouteWeight(starter.CalcSegmentWeight(step.GetSegment())));
   }
 
   uint32_t visitCount = 0;
@@ -538,9 +539,10 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   };
 
   AStarAlgorithm<IndexGraphStarter> algorithm;
-  RoutingResult<Segment> result;
-  auto resultCode = ConvertResult<IndexGraphStarter>(algorithm.AdjustRoute(
-      starter, starter.GetStart(), prevEdges, kAdjustLimitSec, result, delegate, onVisitJunction));
+  RoutingResult<Segment, RouteWeight> result;
+  auto resultCode = ConvertResult<IndexGraphStarter>(
+      algorithm.AdjustRoute(starter, starter.GetStart(), prevEdges, RouteWeight(kAdjustLimitSec),
+                            result, delegate, onVisitJunction));
   if (resultCode != IRouter::NoError)
     return resultCode;
 
@@ -672,7 +674,7 @@ IRouter::ResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
       ("Different mwm ids for leap enter and exit, i:", i, "size of input:", input.size()));
 
     IRouter::ResultCode result = IRouter::InternalError;
-    RoutingResult<Segment> routingResult;
+    RoutingResult<Segment, RouteWeight> routingResult;
     // In case of leaps from the start to its mwm transition and from finish mwm transition
     // route calculation should be made on the world graph (WorldGraph::Mode::NoLeaps).
     if ((current.GetMwmId() == starter.GetStartVertex().GetMwmId()

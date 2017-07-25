@@ -140,6 +140,7 @@ public:
   // AStarAlgorithm types aliases:
   using TVertexType = Segment;
   using TEdgeType = SegmentEdge;
+  using TWeightType = RouteWeight;
 
   explicit DijkstraWrapper(IndexGraph & graph) : m_graph(graph) {}
 
@@ -155,9 +156,9 @@ public:
     m_graph.GetEdgeList(vertex, false /* isOutgoing */, edges);
   }
 
-  double HeuristicCostEstimate(TVertexType const & /* from */, TVertexType const & /* to */)
+  TWeightType HeuristicCostEstimate(TVertexType const & /* from */, TVertexType const & /* to */)
   {
-    return 0.0;
+    return GetAStarWeightZero<TWeightType>();
   }
 
 private:
@@ -177,10 +178,10 @@ bool RegionsContain(vector<m2::RegionD> const & regions, m2::PointD const & poin
 
 // Calculate distance from the starting border point to the transition along the border.
 // It could be measured clockwise or counterclockwise, direction doesn't matter.
-double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
-                                   CrossMwmConnectorSerializer::Transition const & transition)
+RouteWeight CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
+                                        CrossMwmConnectorSerializer::Transition const & transition)
 {
-  double distance = 0.0;
+  RouteWeight distance = GetAStarWeightZero<RouteWeight>();
 
   for (m2::RegionD const & region : borders)
   {
@@ -194,11 +195,11 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
       if (m2::RegionD::IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev,
                                    curr, intersection))
       {
-        distance += prev->Length(intersection);
+        distance += RouteWeight(prev->Length(intersection));
         return distance;
       }
 
-      distance += prev->Length(curr);
+      distance += RouteWeight(prev->Length(curr));
       prev = &curr;
     }
   }
@@ -288,7 +289,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
   DeserializeIndexGraph(mwmValue, kCarMask, graph);
 
-  map<Segment, map<Segment, double>> weights;
+  map<Segment, map<Segment, RouteWeight>> weights;
   auto const numEnters = connector.GetEnters().size();
   size_t foundCount = 0;
   size_t notFoundCount = 0;
@@ -323,11 +324,11 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   connector.FillWeights([&](Segment const & enter, Segment const & exit) {
     auto it0 = weights.find(enter);
     if (it0 == weights.end())
-      return CrossMwmConnector::kNoRoute;
+      return RouteWeight(CrossMwmConnector::kNoRoute);
 
     auto it1 = it0->second.find(exit);
     if (it1 == it0->second.end())
-      return CrossMwmConnector::kNoRoute;
+      return RouteWeight(CrossMwmConnector::kNoRoute);
 
     return it1->second;
   });

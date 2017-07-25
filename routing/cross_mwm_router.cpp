@@ -13,7 +13,7 @@ namespace
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
                                    CrossMwmRoadGraph & roadGraph, RouterDelegate const & delegate,
-                                   RoutingResult<BorderCross> & route)
+                                   RoutingResult<BorderCross, double /* WeightType */> & route)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmRoadGraph>;
 
@@ -90,7 +90,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
     return IRouter::EndPointNotFound;
 
   // Finding path through maps.
-  RoutingResult<BorderCross> tempRoad;
+  RoutingResult<BorderCross, double /* WeightType */> tempRoad;
   code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, delegate, tempRoad);
   cost = tempRoad.distance;
   if (code != IRouter::NoError)

@@ -109,14 +109,16 @@ void IndexGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge
   GetEdgeList(segment, false /* isOutgoing */, edges);
 }
 
-double IndexGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
+RouteWeight IndexGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
-  return m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
+  return RouteWeight(
+      m_estimator->CalcHeuristic(GetPoint(from, true /* front */), GetPoint(to, true /* front */)));
 }
 
-double IndexGraph::CalcSegmentWeight(Segment const & segment)
+RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
-  return m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId()));
+  return RouteWeight(
+      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())));
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
@@ -161,16 +163,16 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (m_roadAccess.GetSegmentType(to) != RoadAccess::Type::Yes)
     return;
 
-  double const weight = CalcSegmentWeight(isOutgoing ? to : from) +
-                        GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
+  RouteWeight const weight = CalcSegmentWeight(isOutgoing ? to : from) +
+                             GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
   edges.emplace_back(to, weight);
 }
 
-double IndexGraph::GetPenalties(Segment const & u, Segment const & v) const
+RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v) const
 {
   if (IsUTurn(u, v))
-    return m_estimator->GetUTurnPenalty();
+    return RouteWeight(m_estimator->GetUTurnPenalty());
 
-  return 0.0;
+  return RouteWeight(0.0);
 }
 }  // namespace routing

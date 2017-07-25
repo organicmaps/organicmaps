@@ -19,6 +19,7 @@ public:
   // AStarAlgorithm types aliases:
   using TVertexType = IndexGraph::TVertexType;
   using TEdgeType = IndexGraph::TEdgeType;
+  using TWeightType = IndexGraph::TWeightType;
 
   class FakeVertex final
   {
@@ -100,10 +101,10 @@ public:
     GetEdgesList(segment, false /* isOutgoing */, edges);
   }
 
-  double HeuristicCostEstimate(TVertexType const & from, TVertexType const & to)
+  RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to)
   {
-    return m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
-                                                GetPoint(to, true /* front */));
+    return RouteWeight(m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
+                                                            GetPoint(to, true /* front */)));
   }
 
   double CalcSegmentWeight(Segment const & segment) const
