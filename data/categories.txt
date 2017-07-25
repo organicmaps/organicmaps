@@ -5028,7 +5028,7 @@ sw:^Ghuba
 natural-spring
 en:^Spring
 ru:^Родник
-ar:^ربيع|طبيعة
+ar:^ينبوع
 cs:^Pramen
 da:^Kilde|kildevæld
 nl:^Bron
