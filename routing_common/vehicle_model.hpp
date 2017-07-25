@@ -113,6 +113,8 @@ protected:
   /// may be considered as features with forward geometry.
   bool HasOneWayType(feature::TypesHolder const & types) const;
 
+  bool HasTransitType(feature::TypesHolder const & types) const;
+
   double GetMinTypeSpeed(feature::TypesHolder const & types) const;
 
   double m_maxSpeedKMpH;

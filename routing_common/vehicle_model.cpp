@@ -114,7 +114,11 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
 bool VehicleModel::IsTransitAllowed(FeatureType const & f) const
 {
   feature::TypesHolder const types(f);
+  return HasTransitType(types);
+}
 
+bool VehicleModel::HasTransitType(feature::TypesHolder const & types) const
+{
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);

@@ -11,15 +11,17 @@
 namespace
 {
 routing::VehicleModel::InitListT const s_testLimits = {
-    {{"highway", "trunk"}, 150},
-    {{"highway", "primary"}, 120},
-    {{"highway", "secondary"}, 80},
-    {{"highway", "residential"}, 50},
+    {{"highway", "trunk"}, 150, true},
+    {{"highway", "primary"}, 120, true},
+    {{"highway", "secondary"}, 80, true},
+    {{"highway", "residential"}, 50, true},
+    {{"highway", "service"}, 50, false},
 };
 
 class TestVehicleModel : public routing::VehicleModel
 {
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
+  friend void CheckTransitAllowed(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed);
 
 public:
@@ -56,6 +58,16 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
     h.Add(t);
 
   TEST_EQUAL(vehicleModel.HasOneWayType(h), expectedValue, ());
+}
+
+void CheckTransitAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
+{
+  TestVehicleModel vehicleModel;
+  feature::TypesHolder h;
+  for (uint32_t t : types)
+    h.Add(t);
+
+  TEST_EQUAL(vehicleModel.HasTransitType(h), expectedValue, ());
 }
 }  // namespace
 
@@ -113,4 +125,11 @@ UNIT_TEST(VehicleModel_DifferentSpeeds)
 
   CheckSpeed({typePrimary, typeOneway, typeSecondary}, 80.0);
   CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
+}
+
+UNIT_TEST(VehicleModel_TransitAllowed)
+{
+  CheckTransitAllowed({GetType("highway", "secondary")}, true);
+  CheckTransitAllowed({GetType("highway", "primary")}, true);
+  CheckTransitAllowed({GetType("highway", "service")}, false);
 }
