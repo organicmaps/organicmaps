@@ -319,7 +319,12 @@ Route::SubrouteSettings const Route::GetSubrouteSettings(size_t segmentIdx) cons
 
 bool Route::IsSubroutePassed(size_t subrouteIdx) const
 {
-  size_t const segmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx() - 1;
+  size_t const endSegmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx();
+  // If all subroutes up to subrouteIdx are empty.
+  if (endSegmentIdx == 0)
+    return true;
+
+  size_t const segmentIdx = endSegmentIdx - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
