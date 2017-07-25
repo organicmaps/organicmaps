@@ -56,9 +56,7 @@ Platform::Platform()
   }
   else
   {
-#ifdef STANDALONE_APP
     m_resourcesDir = resourcesPath + "/";
-#else // STANDALONE_APP
     // get writable path
     // developers can have symlink to data folder
     char const * dataPath = "../../../../../data/";
@@ -77,7 +75,6 @@ Platform::Platform()
           m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
       }
     }
-#endif // STANDALONE_APP
 
     if (m_writableDir.empty())
     {
