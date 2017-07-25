@@ -160,4 +160,11 @@ bool Api::IsCitySupported(std::string const & city)
 {
   return kSupportedCities.find(city) != kSupportedCities.cend();
 }
+
+// static
+std::string const & Api::GetMainPageUrl()
+{
+  static std::string const kMainPageUrl = "https://www.cian.ru/";
+  return kMainPageUrl;
+}
 }  // namespace cian

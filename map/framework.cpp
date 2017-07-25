@@ -940,6 +940,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
            (buildingHolder.Equals({ft}) || ftypes::IsPublicTransportStopChecker::Instance()(ft)))
   {
     info.SetSponsoredType(SponsoredType::Cian);
+    info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
   }
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();

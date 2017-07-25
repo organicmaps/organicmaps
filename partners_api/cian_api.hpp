@@ -63,6 +63,7 @@ public:
                          ErrorCallback const & onError);
 
   static bool IsCitySupported(std::string const & city);
+  static std::string const & GetMainPageUrl();
 
 private:
   uint64_t m_requestId = 0;
