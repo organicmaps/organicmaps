@@ -253,7 +253,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   segments.push_back(IndexGraphStarter::kStartFakeSegment);
 
   Segment startSegment;
-  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true, graph, startSegment))
+  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
   
   size_t subrouteSegmentsBegin = 0;
@@ -332,7 +332,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   auto const & finishCheckpoint = checkpoints.GetPoint(subrouteIdx + 1);
 
   Segment finishSegment;
-  if (!FindBestSegment(finishCheckpoint, {0.0, 0.0}, false, graph, finishSegment))
+  if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero(), false /* isOutgoing */, graph, finishSegment))
   {
     bool const isLastSubroute = subrouteIdx == checkpoints.GetNumSubroutes() - 1;
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
@@ -399,7 +399,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   Segment startSegment;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
-  if (!FindBestSegment(pointFrom, startDirection, true, graph, startSegment))
+  if (!FindBestSegment(pointFrom, startDirection, true /* isOutgoing */, graph, startSegment))
     return IRouter::StartPointNotFound;
 
   auto const & lastSubroutes = m_lastRoute->GetSubroutes();

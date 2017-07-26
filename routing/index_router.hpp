@@ -70,11 +70,8 @@ private:
   /// to |startDirection|.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  bool FindBestSegment(m2::PointD const & point,
-                       m2::PointD const & startDirection,
-                       bool isOutgoing,
-                       WorldGraph & worldGraph,
-                       Segment & bestSegment) const;
+  bool FindBestSegment(m2::PointD const & point, m2::PointD const & startDirection, bool isOutgoing,
+                       WorldGraph & worldGraph, Segment & bestSegment) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(vector<Segment> const & input,
