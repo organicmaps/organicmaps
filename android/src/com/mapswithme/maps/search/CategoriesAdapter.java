@@ -105,6 +105,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   private String getSuggestionFromCategory(int resId)
   {
+    if (resId == R.string.real_estate)
+      return "cian ";
     return mResources.getString(resId) + ' ';
   }
 

@@ -577,6 +577,8 @@ public class SearchFragment extends BaseMwmFragment
   public void onCategorySelected(String category)
   {
     mToolbarController.setQuery(category);
+    if (!TextUtils.isEmpty(category) && category.equals("cian "))
+      showAllResultsOnMap();
   }
 
   private void updateFilterButton(boolean isHotel)
