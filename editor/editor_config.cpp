@@ -11,30 +11,31 @@ namespace
 using EType = feature::Metadata::EType;
 
 // TODO(mgsergio): It would be nice to have this map generated from editor.config.
-static unordered_map<string, EType> const kNamesToFMD= {
-  {"cuisine", feature::Metadata::FMD_CUISINE},
-  {"opening_hours", feature::Metadata::FMD_OPEN_HOURS},
-  {"phone", feature::Metadata::FMD_PHONE_NUMBER},
-  {"fax", feature::Metadata::FMD_FAX_NUMBER},
-  {"stars", feature::Metadata::FMD_STARS},
-  {"operator", feature::Metadata::FMD_OPERATOR},
-  // {"", feature::Metadata::FMD_URL},
-  {"website", feature::Metadata::FMD_WEBSITE},
-  {"internet", feature::Metadata::FMD_INTERNET},
-  {"ele", feature::Metadata::FMD_ELE},
-  // {"", feature::Metadata::FMD_TURN_LANES},
-  // {"", feature::Metadata::FMD_TURN_LANES_FORWARD},
-  // {"", feature::Metadata::FMD_TURN_LANES_BACKWARD},
-  {"email", feature::Metadata::FMD_EMAIL},
-  {"postcode", feature::Metadata::FMD_POSTCODE},
-  {"wikipedia", feature::Metadata::FMD_WIKIPEDIA},
-  // {"", feature::Metadata::FMD_MAXSPEED},
-  {"flats", feature::Metadata::FMD_FLATS},
-  {"height", feature::Metadata::FMD_HEIGHT},
-  // {"", feature::Metadata::FMD_MIN_HEIGHT},
-  {"denomination", feature::Metadata::FMD_DENOMINATION},
-  {"building:levels", feature::Metadata::FMD_BUILDING_LEVELS}
-  // description
+static unordered_map<string, EType> const kNamesToFMD = {
+    {"cuisine", feature::Metadata::FMD_CUISINE},
+    {"opening_hours", feature::Metadata::FMD_OPEN_HOURS},
+    {"phone", feature::Metadata::FMD_PHONE_NUMBER},
+    {"fax", feature::Metadata::FMD_FAX_NUMBER},
+    {"stars", feature::Metadata::FMD_STARS},
+    {"operator", feature::Metadata::FMD_OPERATOR},
+    // {"", feature::Metadata::FMD_URL},
+    {"website", feature::Metadata::FMD_WEBSITE},
+    {"internet", feature::Metadata::FMD_INTERNET},
+    {"ele", feature::Metadata::FMD_ELE},
+    // {"", feature::Metadata::FMD_TURN_LANES},
+    // {"", feature::Metadata::FMD_TURN_LANES_FORWARD},
+    // {"", feature::Metadata::FMD_TURN_LANES_BACKWARD},
+    {"email", feature::Metadata::FMD_EMAIL},
+    {"postcode", feature::Metadata::FMD_POSTCODE},
+    {"wikipedia", feature::Metadata::FMD_WIKIPEDIA},
+    // {"", feature::Metadata::FMD_MAXSPEED},
+    {"flats", feature::Metadata::FMD_FLATS},
+    {"height", feature::Metadata::FMD_HEIGHT},
+    // {"", feature::Metadata::FMD_MIN_HEIGHT},
+    {"denomination", feature::Metadata::FMD_DENOMINATION},
+    {"building:levels", feature::Metadata::FMD_BUILDING_LEVELS},
+    {"level", feature::Metadata::FMD_LEVEL}
+    // description
 };
 
 unordered_map<string, int> const kPriorityWeights = {{"high", 0}, {"", 1}, {"low", 2}};

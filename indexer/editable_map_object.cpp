@@ -513,6 +513,11 @@ void EditableMapObject::SetBuildingLevels(string const & buildingLevels)
   m_metadata.Set(feature::Metadata::FMD_BUILDING_LEVELS, buildingLevels);
 }
 
+void EditableMapObject::SetLevel(string const & level)
+{
+  m_metadata.Set(feature::Metadata::FMD_LEVEL, level);
+}
+
 LocalizedStreet const & EditableMapObject::GetStreet() const { return m_street; }
 
 void EditableMapObject::SetCuisines(vector<string> const & cuisine)
@@ -707,5 +712,28 @@ bool EditableMapObject::ValidateEmail(string const & email)
     return false;
 
   return true;
+}
+
+// static
+bool EditableMapObject::ValidateLevel(string const & level)
+{
+  if (level.empty())
+    return true;
+
+  if (level.size() > 4 /* 10.5, for example */)
+    return false;
+
+  // Allowing only half-levels.
+  if (level.find('.') != string::npos && !strings::EndsWith(level, ".5"))
+    return false;
+
+  // Forbid "04" and "0.".
+  if ('0' == level.front() && level.size() == 2)
+    return false;
+
+  auto constexpr kMinBuildingLevel = -9;
+  double result;
+  return strings::to_double(level, result) && result > kMinBuildingLevel &&
+         result <= kMaximumLevelsEditableByUsers;
 }
 }  // namespace osm

@@ -142,6 +142,7 @@ public:
   void SetFlats(string const & flats);
 
   void SetBuildingLevels(string const & buildingLevels);
+  void SetLevel(string const & level);
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);
   void SetOpeningHours(string const & openingHours);
@@ -163,6 +164,7 @@ public:
   static bool ValidatePhone(string const & phone);
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
+  static bool ValidateLevel(string const & level);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, vector<int8_t> const & nativeMwmLanguages);
