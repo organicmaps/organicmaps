@@ -47,7 +47,13 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
       mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
       if (mCategoryResIds[i] == 0)
-        throw new IllegalStateException("Can't get string resource id for category:" + key);
+      {
+        // TODO: remove this code after "cian" feature is obsoleted.
+        if (key.equals("cian"))
+          mCategoryResIds[i] = R.string.real_estate;
+        else
+          throw new IllegalStateException("Can't get string resource id for category:" + key);
+      }
 
       String iconId = "ic_category_" + key;
       if (isNightTheme)
