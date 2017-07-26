@@ -1,7 +1,6 @@
 #include "map/routing_mark.hpp"
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
 
@@ -20,15 +19,14 @@ float const kRouteMarkSecondaryOffsetY = 2.0f;
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   m_titleDecl.m_anchor = dp::Top;
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkPrimaryText);
   m_titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kRouteMarkPrimaryTextOutline);
-  m_titleDecl.m_primaryTextFont.m_size = kRouteMarkPrimaryTextSize * vs;
+  m_titleDecl.m_primaryTextFont.m_size = kRouteMarkPrimaryTextSize;
   m_titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kRouteMarkSecondaryText);
   m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRouteMarkSecondaryTextOutline);
-  m_titleDecl.m_secondaryTextFont.m_size = kRouteMarkSecondaryTextSize * vs;
-  m_titleDecl.m_secondaryOffset = m2::PointF(0, kRouteMarkSecondaryOffsetY * vs);
+  m_titleDecl.m_secondaryTextFont.m_size = kRouteMarkSecondaryTextSize;
+  m_titleDecl.m_secondaryOffset = m2::PointF(0, kRouteMarkSecondaryOffsetY);
 
   m_markData.m_position = ptOrg;
 }

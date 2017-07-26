@@ -88,6 +88,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
+  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   using UPV = UserPointVertex;
   uint32_t const vertexCount = static_cast<uint32_t>(marksId.size()) * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
@@ -152,6 +153,14 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       params.m_featureID = renderInfo.m_featureId;
       params.m_tileCenter = tileCenter;
       params.m_titleDecl = *renderInfo.m_titleDecl;
+
+      // Here we use visual scale to adapt texts sizes and offsets
+      // to different screen resolutions and DPI.
+      params.m_titleDecl.m_primaryTextFont.m_size *= vs;
+      params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
+      params.m_titleDecl.m_primaryOffset *= vs;
+      params.m_titleDecl.m_secondaryOffset *= vs;
+
       params.m_depth = renderInfo.m_depth;
       params.m_depthLayer = renderInfo.m_depthLayer;
       params.m_minVisibleScale = renderInfo.m_minZoom;

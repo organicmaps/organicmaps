@@ -1,7 +1,6 @@
 #include "map/local_ads_mark.hpp"
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include <utility>
 
@@ -21,15 +20,14 @@ LocalAdsMark::LocalAdsMark(m2::PointD const & ptOrg,
                            UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   m_titleDecl.m_anchor = dp::Top;
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kLocalAdsPrimaryText);
   m_titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kLocalAdsPrimaryTextOutline);
-  m_titleDecl.m_primaryTextFont.m_size = kLocalAdsPrimaryTextSize * vs;
+  m_titleDecl.m_primaryTextFont.m_size = kLocalAdsPrimaryTextSize;
   m_titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kLocalAdsSecondaryText);
   m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kLocalAdsSecondaryTextOutline);
-  m_titleDecl.m_secondaryTextFont.m_size = kLocalAdsSecondaryTextSize * vs;
-  m_titleDecl.m_secondaryOffset = m2::PointF(0, kSecondaryOffsetY * vs);
+  m_titleDecl.m_secondaryTextFont.m_size = kLocalAdsSecondaryTextSize;
+  m_titleDecl.m_secondaryOffset = m2::PointF(0, kSecondaryOffsetY);
 }
 
 dp::GLState::DepthLayer LocalAdsMark::GetDepthLayer() const
