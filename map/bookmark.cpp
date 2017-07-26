@@ -30,14 +30,12 @@
 
 Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
-  , m_hasCreationAnimation(false)
 {
 }
 
 Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
   , m_data(data)
-  , m_hasCreationAnimation(false)
 {
 }
 
@@ -62,21 +60,14 @@ std::string Bookmark::GetSymbolName() const
   return GetType();
 }
 
+bool Bookmark::RunCreationAnim() const
+{
+  return true;
+}
+
 UserMark::Type Bookmark::GetMarkType() const
 {
   return UserMark::Type::BOOKMARK;
-}
-
-bool Bookmark::HasCreationAnimation() const
-{
-  bool const result = m_hasCreationAnimation;
-  m_hasCreationAnimation = false;
-  return result;
-}
-
-void Bookmark::SetCreationAnimationShown(bool shown)
-{
-  m_hasCreationAnimation = !shown;
 }
 
 std::string const & Bookmark::GetName() const

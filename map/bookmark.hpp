@@ -83,10 +83,9 @@ public:
 
   dp::Anchor GetAnchor() const override;
   std::string GetSymbolName() const override;
+  bool RunCreationAnim() const override;
 
   Type GetMarkType() const override;
-  bool HasCreationAnimation() const override;
-  void SetCreationAnimationShown(bool shown);
 
   std::string const & GetName() const;
   void SetName(std::string const & name);
@@ -107,7 +106,6 @@ public:
 
 private:
   BookmarkData m_data;
-  mutable bool m_hasCreationAnimation;
 };
 
 class BookmarkCategory : public UserMarkContainer

@@ -55,3 +55,21 @@ m2::PointD ApiMarkPoint::GetPixelOffset() const
 {
   return m_style.empty() ? m2::PointD(0.0, 0.0) : m2::PointD(0.0, 3.0);
 }
+
+void ApiMarkPoint::SetName(string const & name)
+{
+  SetDirty();
+  m_name = name;
+}
+
+void ApiMarkPoint::SetApiID(string const & id)
+{
+  SetDirty();
+  m_id = id;
+}
+
+void ApiMarkPoint::SetStyle(string const & style)
+{
+  SetDirty();
+  m_style = style;
+}

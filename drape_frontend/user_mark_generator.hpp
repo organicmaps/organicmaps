@@ -12,9 +12,7 @@
 
 namespace df
 {
-using GroupID = size_t;
-
-using MarksIDGroups = std::map<GroupID, drape_ptr<IDCollection>>;
+using MarksIDGroups = std::map<MarkGroupID, drape_ptr<MarkIDCollection>>;
 using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 
 class UserMarkGenerator
@@ -26,22 +24,22 @@ public:
 
   void SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks);
   void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
+  void SetRemovedUserMarks(drape_ptr<MarkIDCollection> && ids);
+  void SetCreatedUserMarks(drape_ptr<MarkIDCollection> && ids);
 
-  void SetGroup(GroupID groupId, drape_ptr<IDCollection> && ids);
-  void RemoveGroup(GroupID groupId);
-  void RemoveUserMarks(drape_ptr<IDCollection> && ids);
-
-  void SetGroupVisibility(GroupID groupId, bool isVisible);
+  void SetGroup(MarkGroupID groupId, drape_ptr<MarkIDCollection> && ids);
+  void RemoveGroup(MarkGroupID groupId);
+  void SetGroupVisibility(MarkGroupID groupId, bool isVisible);
 
   void GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures);
 
 private:
-  void UpdateIndex(GroupID groupId);
+  void UpdateIndex(MarkGroupID groupId);
 
-  ref_ptr<IDCollection> GetIdCollection(TileKey const & tileKey, GroupID groupId);
+  ref_ptr<MarkIDCollection> GetIdCollection(TileKey const & tileKey, MarkGroupID groupId);
   void CleanIndex();
 
-  std::unordered_set<GroupID> m_groupsVisibility;
+  std::unordered_set<MarkGroupID> m_groupsVisibility;
   MarksIDGroups m_groups;
 
   UserMarksRenderCollection m_marks;

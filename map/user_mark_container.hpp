@@ -72,7 +72,8 @@ public:
   bool IsDirty() const override;
 
   // Discard isDirty flag, return id collection of removed marks since previous method call.
-  void AcceptChanges(std::vector<uint32_t> & removedMarks) override;
+  void AcceptChanges(df::MarkIDCollection & createdMarks,
+                     df::MarkIDCollection & removedMarks) override;
 
   float GetPointDepth() const;
 
@@ -104,7 +105,8 @@ private:
   double m_layerDepth;
   TUserMarksList m_userMarks;
   UserMarkType m_type;
-  std::vector<uint32_t> m_removedMarks;
+  df::MarkIDCollection m_createdMarks;
+  df::MarkIDCollection m_removedMarks;
   bool m_isDirty = false;
 };
 

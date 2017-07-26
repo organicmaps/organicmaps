@@ -47,9 +47,9 @@ public:
 size_t const VisibleFlag = 0;
 size_t const DrawableFlag = 1;
 
-size_t GenerateLayerId(UserMarkContainer const * cont)
+df::MarkGroupID GenerateMarkGroupId(UserMarkContainer const * cont)
 {
-  return reinterpret_cast<size_t>(cont);
+  return reinterpret_cast<df::MarkGroupID>(cont);
 }
 
 } // namespace
@@ -114,25 +114,27 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 
 void UserMarkContainer::NotifyChanges()
 {
+  if (!IsDirty())
+    return;
+
   ref_ptr<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
   if (engine == nullptr)
     return;
 
-  size_t const layerId = GenerateLayerId(this);
-  engine->ChangeVisibilityUserMarksLayer(layerId, IsVisible() && IsDrawable());
-
-  if (!IsDirty())
-    return;
+  df::MarkGroupID const groupId = GenerateMarkGroupId(this);
+  engine->ChangeVisibilityUserMarksGroup(groupId, IsVisible() && IsDrawable());
 
   if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
   {
-    engine->UpdateUserMarksLayer(layerId, this);
-    engine->ClearUserMarksLayer(layerId);
+    engine->UpdateUserMarksGroup(groupId, this);
+    engine->ClearUserMarksGroup(groupId);
   }
   else if (IsVisible() && IsDrawable())
   {
-    engine->UpdateUserMarksLayer(layerId, this);
+    engine->UpdateUserMarksGroup(groupId, this);
   }
+
+  engine->InvalidateUserMarks();
 }
 
 size_t UserMarkContainer::GetUserPointCount() const
@@ -177,6 +179,7 @@ UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
   // Push front an user mark.
   SetDirty();
   m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  m_createdMarks.m_marksID.push_back(m_userMarks.front()->GetId());
   return m_userMarks.front().get();
 }
 
@@ -213,13 +216,19 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 void UserMarkContainer::SetIsDrawable(bool isDrawable)
 {
   if (IsDrawable() != isDrawable)
+  {
+    SetDirty();
     m_flags[DrawableFlag] = isDrawable;
+  }
 }
 
 void UserMarkContainer::SetIsVisible(bool isVisible)
 {
   if (IsVisible() != isVisible)
+  {
+    SetDirty();
     m_flags[VisibleFlag] = isVisible;
+  }
 }
 
 void UserMarkContainer::Update()
@@ -243,7 +252,7 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   ASSERT_LESS(index, m_userMarks.size(), ());
   if (index < m_userMarks.size())
   {
-    m_removedMarks.push_back(m_userMarks[index]->GetId());
+    m_removedMarks.m_marksID.push_back(m_userMarks[index]->GetId());
     m_userMarks.erase(m_userMarks.begin() + index);
   }
   else
@@ -252,10 +261,15 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   }
 }
 
-void UserMarkContainer::AcceptChanges(std::vector<uint32_t> & removedMarks)
+void UserMarkContainer::AcceptChanges(df::MarkIDCollection & createdMarks,
+                                      df::MarkIDCollection & removedMarks)
 {
-  removedMarks.swap(m_removedMarks);
-  m_removedMarks.clear();
+  std::swap(m_createdMarks, createdMarks);
+  m_createdMarks.Clear();
+
+  std::swap(m_removedMarks, removedMarks);
+  m_removedMarks.Clear();
+
   m_isDirty = false;
 }
 

@@ -85,12 +85,12 @@ struct UserPointVertex : gpu::BaseVertex
 } // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
+                    IDCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   using UPV = UserPointVertex;
-  uint32_t const vertexCount = static_cast<uint32_t>(marksId.size()) * dp::Batcher::VertexPerQuad;
+  size_t const vertexCount = marksId.size() * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
 
   dp::TextureManager::SymbolRegion region;
@@ -131,8 +131,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
                                                      kShapeCoordScalar);
       glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
-      bool const runAnim = renderInfo.m_runCreationAnim;
-      renderInfo.m_runCreationAnim = false;
+      bool const runAnim = renderInfo.m_runCreationAnim && renderInfo.m_justCreated;
 
       glsl::vec2 left, right, up, down;
       AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
@@ -177,6 +176,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       TextShape(renderInfo.m_pivot, params, tileKey, renderInfo.m_hasSymbolPriority /* hasPOI */,
                 symbolSize, renderInfo.m_anchor, 0 /* textIndex */).Draw(&batcher, textures);
     }
+
+    renderInfo.m_justCreated = false;
   }
 
   if (!buffer.empty())
@@ -194,7 +195,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIdCollection const & linesId, UserLinesRenderCollection & renderParams,
+                    IDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());

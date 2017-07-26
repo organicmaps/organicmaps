@@ -96,7 +96,6 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptO
 
   Bookmark * bookmark = static_cast<Bookmark *>(cat.CreateUserMark(ptOrg));
   bookmark->SetData(bm);
-  bookmark->SetCreationAnimationShown(false);
   cat.SetIsVisible(true);
   cat.SaveToKMLFile();
   cat.NotifyChanges();

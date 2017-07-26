@@ -76,7 +76,7 @@ namespace
 
     bool TestID(int index, string const & id) const
     {
-      return GetMark(index)->GetID() == id;
+      return GetMark(index)->GetApiID() == id;
     }
 
     bool TestRouteType(string const & type) const { return m_api.GetRoutingType() == type; }

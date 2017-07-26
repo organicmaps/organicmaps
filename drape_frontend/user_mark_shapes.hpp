@@ -1,6 +1,7 @@
 #pragma once
 
-#include "tile_key.hpp"
+#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/user_marks_provider.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
@@ -26,6 +27,7 @@ struct UserMarkRenderParams
   float m_depth = 0.0;
   dp::GLState::DepthLayer m_depthLayer = dp::GLState::UserMarkLayer;
   bool m_runCreationAnim = false;
+  bool m_justCreated = false;
   bool m_isVisible = true;
   FeatureID m_featureId;
 };
@@ -52,17 +54,8 @@ struct UserLineRenderParams
   m2::SharedSpline m_spline;
 };
 
-using UserMarksRenderCollection = std::unordered_map<uint32_t, drape_ptr<UserMarkRenderParams>>;
-using UserLinesRenderCollection = std::unordered_map<uint32_t, drape_ptr<UserLineRenderParams>>;
-
-using MarkIdCollection = std::vector<uint32_t>;
-using LineIdCollection = std::vector<uint32_t>;
-
-struct IDCollection
-{
-  MarkIdCollection m_marksID;
-  LineIdCollection m_linesID;
-};
+using UserMarksRenderCollection = std::unordered_map<MarkID, drape_ptr<UserMarkRenderParams>>;
+using UserLinesRenderCollection = std::unordered_map<MarkID, drape_ptr<UserLineRenderParams>>;
 
 struct UserMarkRenderData
 {
@@ -80,10 +73,10 @@ struct UserMarkRenderData
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
+                    IDCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher);
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIdCollection const & linesId, UserLinesRenderCollection & renderParams,
+                    IDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher);
 }  // namespace df

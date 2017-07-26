@@ -257,41 +257,45 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ChangeUserMarkLayerVisibility:
+  case Message::ChangeUserMarkGroupVisibility:
     {
-      ref_ptr<ChangeUserMarkLayerVisibilityMessage> msg = message;
-      m_userMarkGenerator->SetGroupVisibility(static_cast<GroupID>(msg->GetLayerId()), msg->IsVisible());
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<InvalidateUserMarksMessage>(msg->GetLayerId()),
-                                MessagePriority::Normal);
+      ref_ptr<ChangeUserMarkGroupVisibilityMessage> msg = message;
+      m_userMarkGenerator->SetGroupVisibility(msg->GetGroupId(), msg->IsVisible());
       break;
     }
 
-  case Message::UpdateUserMarkLayer:
+  case Message::UpdateUserMarks:
     {
-      ref_ptr<UpdateUserMarkLayerMessage> msg = message;
-      size_t const layerId = msg->GetLayerId();
-      m_userMarkGenerator->RemoveUserMarks(msg->AcceptRemovedIds());
+      ref_ptr<UpdateUserMarksMessage> msg = message;
+      m_userMarkGenerator->SetRemovedUserMarks(msg->AcceptRemovedIds());
       m_userMarkGenerator->SetUserMarks(msg->AcceptMarkRenderParams());
       m_userMarkGenerator->SetUserLines(msg->AcceptLineRenderParams());
-      m_userMarkGenerator->SetGroup(msg->GetLayerId(), msg->AcceptIds());
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<InvalidateUserMarksMessage>(layerId),
-                                MessagePriority::Normal);
+      m_userMarkGenerator->SetCreatedUserMarks(msg->AcceptCreatedIds());
       break;
     }
 
-  case Message::ClearUserMarkLayer:
+  case Message::UpdateUserMarkGroup:
     {
-      ref_ptr<ClearUserMarkLayerMessage> msg = message;
-      size_t const layerId = msg->GetLayerId();
-      m_userMarkGenerator->RemoveGroup(static_cast<GroupID>(layerId));
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<InvalidateUserMarksMessage>(layerId),
-                                MessagePriority::Normal);
+      ref_ptr<UpdateUserMarkGroupMessage> msg = message;
+      MarkGroupID const groupId = msg->GetGroupId();
+      m_userMarkGenerator->SetGroup(groupId, msg->AcceptIds());
       break;
     }
 
+  case Message::ClearUserMarkGroup:
+    {
+      ref_ptr<ClearUserMarkGroupMessage> msg = message;
+      m_userMarkGenerator->RemoveGroup(msg->GetGroupId());
+      break;
+    }
+
+  case Message::InvalidateUserMarks:
+    {
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<InvalidateUserMarksMessage>(),
+                                MessagePriority::Normal);
+      break;
+    }
   case Message::AddSubroute:
     {
       ref_ptr<AddSubrouteMessage> msg = message;

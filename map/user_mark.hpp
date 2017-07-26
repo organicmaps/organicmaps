@@ -46,13 +46,13 @@ public:
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
   dp::GLState::DepthLayer GetDepthLayer() const override;
-  bool HasCreationAnimation() const override;
   drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
   uint16_t GetPriority() const override { return kDefaultUserMarkProirity; }
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
   FeatureID GetFeatureID() const override { return FeatureID(); }
+  bool RunCreationAnim() const override { return false; }
 
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;

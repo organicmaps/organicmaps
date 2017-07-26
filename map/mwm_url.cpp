@@ -198,7 +198,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
         ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(guard.m_controller.CreateUserMark(glPoint));
         mark->SetName(p.m_name);
-        mark->SetID(p.m_id);
+        mark->SetApiID(p.m_id);
         mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
       }
 

@@ -15,6 +15,27 @@
 
 namespace df
 {
+using MarkID = uint32_t;
+using IDCollection = std::vector<MarkID>;
+
+using MarkGroupID = size_t;
+
+struct MarkIDCollection
+{
+  IDCollection m_marksID;
+  IDCollection m_linesID;
+
+  bool IsEmpty()
+  {
+    return m_marksID.empty() && m_linesID.empty();
+  }
+
+  void Clear()
+  {
+    m_marksID.clear();
+    m_linesID.clear();
+  }
+};
 
 class UserPointMark
 {
@@ -25,7 +46,7 @@ public:
   virtual bool IsDirty() const = 0;
   virtual void AcceptChanges() const = 0;
 
-  uint32_t GetId() const { return m_id; }
+  MarkID GetId() const { return m_id; }
 
   virtual m2::PointD const & GetPivot() const = 0;
   virtual m2::PointD GetPixelOffset() const = 0;
@@ -33,7 +54,6 @@ public:
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
   virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
-  virtual bool HasCreationAnimation() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
   virtual uint16_t GetPriority() const = 0;
@@ -41,9 +61,10 @@ public:
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
   virtual FeatureID GetFeatureID() const = 0;
+  virtual bool RunCreationAnim() const = 0;
 
 private:
-  uint32_t m_id;
+  MarkID m_id;
 };
 
 class UserLineMark
@@ -55,7 +76,7 @@ public:
   virtual bool IsDirty() const = 0;
   virtual void AcceptChanges() const = 0;
 
-  virtual uint32_t GetId() const { return m_id; }
+  virtual MarkID GetId() const { return m_id; }
 
   virtual int GetMinZoom() const = 0;
   virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
@@ -66,7 +87,7 @@ public:
   virtual std::vector<m2::PointD> const & GetPoints() const = 0;
 
 private:
-  uint32_t m_id;
+  MarkID m_id;
 };
 
 class UserMarksProvider
@@ -76,7 +97,7 @@ public:
   virtual ~UserMarksProvider() {}
 
   virtual bool IsDirty() const = 0;
-  virtual void AcceptChanges(std::vector<uint32_t> & removedMarks) = 0;
+  virtual void AcceptChanges(MarkIDCollection & createdMarks, MarkIDCollection & removedMarks) = 0;
 
   virtual bool IsDrawable() const = 0;
 

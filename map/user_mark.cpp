@@ -37,11 +37,6 @@ dp::GLState::DepthLayer UserMark::GetDepthLayer() const
   return dp::GLState::UserMarkLayer;
 }
 
-bool UserMark::HasCreationAnimation() const
-{
-  return false;
-}
-
 UserMarkContainer const * UserMark::GetContainer() const
 {
   ASSERT(m_container != nullptr, ());

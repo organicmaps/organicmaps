@@ -199,70 +199,97 @@ private:
   bool m_needInvalidateAll;
 };
 
-class BaseUserMarkLayerMessage : public Message
+class ClearUserMarkGroupMessage : public Message
 {
 public:
-  BaseUserMarkLayerMessage(size_t layerId)
-    : m_layerId(layerId)
+  ClearUserMarkGroupMessage(MarkGroupID groupId)
+    : m_groupId(groupId)
   {}
 
-  size_t GetLayerId() const { return m_layerId; }
+  Type GetType() const override { return Message::ClearUserMarkGroup; }
+
+  MarkGroupID GetGroupId() const { return m_groupId; }
 
 private:
-  size_t m_layerId;
+  MarkGroupID m_groupId;
 };
 
-class ClearUserMarkLayerMessage : public BaseUserMarkLayerMessage
+class ChangeUserMarkGroupVisibilityMessage : public Message
 {
 public:
-  ClearUserMarkLayerMessage(size_t layerId)
-    : BaseUserMarkLayerMessage(layerId) {}
-
-  Type GetType() const override { return Message::ClearUserMarkLayer; }
-};
-
-class ChangeUserMarkLayerVisibilityMessage : public BaseUserMarkLayerMessage
-{
-public:
-  ChangeUserMarkLayerVisibilityMessage(size_t layerId, bool isVisible)
-    : BaseUserMarkLayerMessage(layerId)
+  ChangeUserMarkGroupVisibilityMessage(MarkGroupID groupId, bool isVisible)
+    : m_groupId(groupId)
     , m_isVisible(isVisible) {}
 
-  Type GetType() const override { return Message::ChangeUserMarkLayerVisibility; }
+  Type GetType() const override { return Message::ChangeUserMarkGroupVisibility; }
 
+  MarkGroupID GetGroupId() const { return m_groupId; }
   bool IsVisible() const { return m_isVisible; }
 
 private:
+  MarkGroupID m_groupId;
   bool m_isVisible;
 };
 
-class UpdateUserMarkLayerMessage : public BaseUserMarkLayerMessage
+class AnimateUserMarksMessage : public Message
 {
 public:
-  UpdateUserMarkLayerMessage(size_t layerId,
-                             drape_ptr<IDCollection> && ids,
-                             drape_ptr<IDCollection> && removedIds,
-                             drape_ptr<UserMarksRenderCollection> && marksRenderParams,
-                             drape_ptr<UserLinesRenderCollection> && linesRenderParams)
-    : BaseUserMarkLayerMessage(layerId)
-    , m_marksRenderParams(std::move(marksRenderParams))
-    , m_linesRenderParams(std::move(linesRenderParams))
-    , m_ids(std::move(ids))
-    , m_removedIds(std::move(removedIds))
+  AnimateUserMarksMessage(drape_ptr<MarkIDCollection> && ids)
+    : m_ids(std::move(ids))
   {}
 
-  Type GetType() const override { return Message::UpdateUserMarkLayer; }
+  Type GetType() const override { return Message::SetCreatedUserMarks; }
+
+  drape_ptr<MarkIDCollection> && AcceptIds() { return std::move(m_ids); }
+
+private:
+  drape_ptr<MarkIDCollection> m_ids;
+};
+
+class UpdateUserMarksMessage : public Message
+{
+public:
+  UpdateUserMarksMessage(drape_ptr<MarkIDCollection> && createdIds,
+                         drape_ptr<MarkIDCollection> && removedIds,
+                         drape_ptr<UserMarksRenderCollection> && marksRenderParams,
+                         drape_ptr<UserLinesRenderCollection> && linesRenderParams)
+    : m_createdIds(std::move(createdIds))
+    , m_removedIds(std::move(removedIds))
+    , m_marksRenderParams(std::move(marksRenderParams))
+    , m_linesRenderParams(std::move(linesRenderParams))
+  {}
+
+  Type GetType() const override { return Message::UpdateUserMarks; }
 
   drape_ptr<UserMarksRenderCollection> && AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
   drape_ptr<UserLinesRenderCollection> && AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
-  drape_ptr<IDCollection> && AcceptIds() { return std::move(m_ids); }
-  drape_ptr<IDCollection> && AcceptRemovedIds() { return std::move(m_removedIds); }
+  drape_ptr<MarkIDCollection> && AcceptRemovedIds() { return std::move(m_removedIds); }
+  drape_ptr<MarkIDCollection> && AcceptCreatedIds() { return std::move(m_createdIds); }
 
 private:
+  drape_ptr<MarkIDCollection> m_createdIds;
+  drape_ptr<MarkIDCollection> m_removedIds;
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
-  drape_ptr<IDCollection> m_ids;
-  drape_ptr<IDCollection> m_removedIds;
+};
+
+class UpdateUserMarkGroupMessage : public Message
+{
+public:
+  UpdateUserMarkGroupMessage(MarkGroupID groupId,
+                             drape_ptr<MarkIDCollection> && ids)
+    : m_groupId(groupId)
+    , m_ids(std::move(ids))
+  {}
+
+  Type GetType() const override { return Message::UpdateUserMarkGroup; }
+
+  MarkGroupID GetGroupId() const { return m_groupId; }
+  drape_ptr<MarkIDCollection> && AcceptIds() { return std::move(m_ids); }
+
+private:
+  MarkGroupID m_groupId;
+  drape_ptr<MarkIDCollection> m_ids;
 };
 
 class FlushUserMarksMessage : public Message
@@ -281,12 +308,10 @@ private:
   TUserMarksRenderData m_renderData;
 };
 
-class InvalidateUserMarksMessage : public BaseUserMarkLayerMessage
+class InvalidateUserMarksMessage : public Message
 {
 public:
-  InvalidateUserMarksMessage(size_t layerId)
-    : BaseUserMarkLayerMessage(layerId)
-  {}
+  InvalidateUserMarksMessage() = default;
 
   Type GetType() const override { return Message::InvalidateUserMarks; }
 };

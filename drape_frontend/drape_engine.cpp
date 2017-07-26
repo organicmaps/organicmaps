@@ -193,30 +193,40 @@ void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
   AddUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
-void DrapeEngine::ClearUserMarksLayer(size_t layerId)
+void DrapeEngine::ClearUserMarksGroup(size_t layerId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<ClearUserMarkLayerMessage>(layerId),
+                                  make_unique_dp<ClearUserMarkGroupMessage>(layerId),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::ChangeVisibilityUserMarksLayer(size_t layerId, bool isVisible)
+void DrapeEngine::ChangeVisibilityUserMarksGroup(MarkGroupID groupId, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<ChangeUserMarkLayerVisibilityMessage>(layerId, isVisible),
+                                  make_unique_dp<ChangeUserMarkGroupVisibilityMessage>(groupId, isVisible),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provider)
+void DrapeEngine::InvalidateUserMarks()
 {
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<InvalidateUserMarksMessage>(),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * provider)
+{
+  auto groupIdCollection = make_unique_dp<MarkIDCollection>();
+  auto removedIdCollection = make_unique_dp<MarkIDCollection>();
+  auto createdIdCollection = make_unique_dp<MarkIDCollection>();
+
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
-  auto idCollection = make_unique_dp<IDCollection>();
-  auto removedIdCollection = make_unique_dp<IDCollection>();
   marksRenderCollection->reserve(provider->GetUserPointCount());
+
   for (size_t pointIndex = 0, sz = provider->GetUserPointCount(); pointIndex < sz; ++pointIndex)
   {
     UserPointMark const * mark = provider->GetUserPointMark(pointIndex);
-    idCollection->m_marksID.push_back(mark->GetId());
+    groupIdCollection->m_marksID.push_back(mark->GetId());
     if (mark->IsDirty())
     {
       auto renderInfo = make_unique_dp<UserMarkRenderParams>();
@@ -227,13 +237,14 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
       renderInfo->m_isVisible = mark->IsVisible();
       renderInfo->m_pivot = mark->GetPivot();
       renderInfo->m_pixelOffset = mark->GetPixelOffset();
-      renderInfo->m_runCreationAnim = mark->HasCreationAnimation();
       renderInfo->m_symbolName = mark->GetSymbolName();
       renderInfo->m_titleDecl = mark->GetTitleDecl();
       renderInfo->m_hasSymbolPriority = mark->HasSymbolPriority();
       renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
       renderInfo->m_priority = mark->GetPriority();
       renderInfo->m_featureId = mark->GetFeatureID();
+      renderInfo->m_runCreationAnim = mark->RunCreationAnim();
+
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();
     }
@@ -244,7 +255,7 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
   for (size_t lineIndex = 0, sz = provider->GetUserLineCount(); lineIndex < sz; ++lineIndex)
   {
     UserLineMark const * mark = provider->GetUserLineMark(lineIndex);
-    idCollection->m_linesID.push_back(mark->GetId());
+    groupIdCollection->m_linesID.push_back(mark->GetId());
     if (mark->IsDirty())
     {
       auto renderInfo = make_unique_dp<UserLineRenderParams>();
@@ -258,17 +269,30 @@ void DrapeEngine::UpdateUserMarksLayer(size_t layerId, UserMarksProvider * provi
                                           mark->GetWidth(layerIndex),
                                           mark->GetDepth(layerIndex));
       }
+
       linesRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();
     }
   }
-  provider->AcceptChanges(removedIdCollection->m_marksID);
+
+  provider->AcceptChanges(*createdIdCollection, *removedIdCollection);
+
+  if (!createdIdCollection->IsEmpty() || !removedIdCollection->IsEmpty() ||
+      !marksRenderCollection->empty() || !linesRenderCollection->empty())
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<UpdateUserMarksMessage>(
+                                      std::move(createdIdCollection),
+                                      std::move(removedIdCollection),
+                                      std::move(marksRenderCollection),
+                                      std::move(linesRenderCollection)),
+                                    MessagePriority::Normal);
+  }
+
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateUserMarkLayerMessage>(layerId,
-                                                                             std::move(idCollection),
-                                                                             std::move(removedIdCollection),
-                                                                             std::move(marksRenderCollection),
-                                                                             std::move(linesRenderCollection)),
+                                  make_unique_dp<UpdateUserMarkGroupMessage>(
+                                    groupId,
+                                    std::move(groupIdCollection)),
                                   MessagePriority::Normal);
 }
 

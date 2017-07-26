@@ -2,10 +2,10 @@
 
 namespace
 {
-uint32_t GetNextUserMarkId()
+df::MarkID GetNextUserMarkId()
 {
   static uint32_t nextMarkId = 0;
-  return ++nextMarkId;
+  return static_cast<df::MarkID>(++nextMarkId);
 }
 }  // namespace
 
