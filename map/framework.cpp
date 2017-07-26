@@ -1556,9 +1556,8 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (platform::migrate::NeedMigrate())
     return DoAfterUpdate::Migrate;
 
-  using Platform::EConnectionType;
   auto const connectionStatus = Platform::ConnectionStatus();
-  if (connectionStatus == EConnectionType::CONNECTION_NONE)
+  if (connectionStatus == Platform::EConnectionType::CONNECTION_NONE)
     return DoAfterUpdate::Nothing;
 
   auto const & s = GetStorage();
@@ -1573,8 +1572,9 @@ Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
   if (countrySizeInBytes == 0 || attrs.m_status != NodeStatus::OnDiskOutOfDate)
     return DoAfterUpdate::Nothing;
 
-  return connectionStatus == EConnectionType::CONNECTION_WWAN ? DoAfterUpdate::AskForUpdateMaps
-                                                              : DoAfterUpdate::AutoupdateMaps;
+  return connectionStatus == Platform::EConnectionType::CONNECTION_WWAN
+             ? DoAfterUpdate::AskForUpdateMaps
+             : DoAfterUpdate::AutoupdateMaps;
 }
 
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
