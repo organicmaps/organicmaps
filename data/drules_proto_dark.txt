@@ -60142,6 +60142,86 @@ cont {
 cont {
   name: "sponsored-viator"
   element {
+    scale: 6
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 7
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 8
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
+  }
+  element {
+    scale: 9
+    symbol {
+      name: "viator-star-l"
+      apply_for_type: 1
+      priority: 16970
+    }
+    caption {
+      primary {
+        height: 10
+        offset_y: 1
+      }
+      secondary {
+        height: 9
+        offset_y: 1
+        text: "int_name"
+      }
+      priority: 15970
+    }
+  }
+  element {
     scale: 10
     symbol {
       name: "viator-star-l"
