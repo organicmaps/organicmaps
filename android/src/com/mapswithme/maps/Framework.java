@@ -348,4 +348,8 @@ public class Framework
   public static native void nativeApplyRoutePointsTransaction(int transactionId);
   public static native void nativeCancelRoutePointsTransaction(int transactionId);
   public static native int nativeInvalidRoutePointsTransactionId();
+
+  public static native boolean nativeHasSavedRoutePoints();
+  public static native boolean nativeLoadRoutePoints();
+  public static native void nativeSaveRoutePoints();
 }

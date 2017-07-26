@@ -1432,4 +1432,22 @@ Java_com_mapswithme_maps_Framework_nativeInvalidRoutePointsTransactionId(JNIEnv 
 {
   return frm()->GetRoutingManager().InvalidRoutePointsTransactionId();
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasSavedRoutePoints()
+{
+  return frm()->GetRoutingManager().HasSavedRoutePoints();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeLoadRoutePoints()
+{
+  return frm()->GetRoutingManager().LoadRoutePoints();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSaveRoutePoints()
+{
+  frm()->GetRoutingManager().SaveRoutePoints();
+}
 }  // extern "C"
