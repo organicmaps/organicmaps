@@ -94,7 +94,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   m_checkpoints.SetPointFrom(startPoint);
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(m_checkpoints, startPoint - m_lastGoodPosition, adjustToPrevRoute,
+  m_router->CalculateRoute(m_checkpoints, m_currentDirection, adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
                            m_progressCallback, timeoutSec);
 }
@@ -233,6 +233,9 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
         }
       }
     }
+
+    if (m_lastGoodPosition != m2::PointD::Zero())
+      m_currentDirection = m_userCurrentPosition - m_lastGoodPosition;
 
     m_lastGoodPosition = m_userCurrentPosition;
   }

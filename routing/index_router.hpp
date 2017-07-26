@@ -65,11 +65,16 @@ private:
 
   WorldGraph MakeWorldGraph();
 
-  /// \brief Finds closest edges which may be considered as start of finish of the route.
+  /// \brief Finds best edges which may be considered as the start of the finish of the route.
+  /// If it's possible |bestSegment| will be filled with a segment which is almost parallel
+  /// to |startDirection|.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  bool FindClosestSegment(m2::PointD const & point, bool isOutgoing, WorldGraph & worldGraph,
-                          Segment & closestSegment) const;
+  bool FindBestSegment(m2::PointD const & point,
+                       m2::PointD const & startDirection,
+                       bool isOutgoing,
+                       WorldGraph & worldGraph,
+                       Segment & bestSegment) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(vector<Segment> const & input,

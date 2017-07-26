@@ -222,6 +222,8 @@ private:
   double m_lastDistance;
   int m_moveAwayCounter;
   m2::PointD m_lastGoodPosition;
+  // |m_currentDirection| is a vector from the position before last good position to last good position.
+  m2::PointD m_currentDirection;
   m2::PointD m_userCurrentPosition;
 
   // Sound turn notification parameters.

@@ -222,7 +222,7 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 }
 
 IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
-                                                  m2::PointD const & /* startDirection */,
+                                                  m2::PointD const & startDirection,
                                                   RouterDelegate const & delegate, Route & route)
 {
   m_lastRoute.reset();
@@ -253,7 +253,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   segments.push_back(IndexGraphStarter::kStartFakeSegment);
 
   Segment startSegment;
-  if (!FindClosestSegment(checkpoints.GetPointFrom(), true /* isOutgoing */, graph, startSegment))
+  if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true, graph, startSegment))
     return IRouter::StartPointNotFound;
   
   size_t subrouteSegmentsBegin = 0;
@@ -332,7 +332,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   auto const & finishCheckpoint = checkpoints.GetPoint(subrouteIdx + 1);
 
   Segment finishSegment;
-  if (!FindClosestSegment(finishCheckpoint, false /* isOutgoing */, graph, finishSegment))
+  if (!FindBestSegment(finishCheckpoint, {0.0, 0.0}, false, graph, finishSegment))
   {
     bool const isLastSubroute = subrouteIdx == checkpoints.GetNumSubroutes() - 1;
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
@@ -399,7 +399,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   Segment startSegment;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
-  if (!FindClosestSegment(pointFrom, true /* isOutgoing */, graph, startSegment))
+  if (!FindBestSegment(pointFrom, startDirection, true, graph, startSegment))
     return IRouter::StartPointNotFound;
 
   auto const & lastSubroutes = m_lastRoute->GetSubroutes();
@@ -499,8 +499,9 @@ WorldGraph IndexRouter::MakeWorldGraph()
   return graph;
 }
 
-bool IndexRouter::FindClosestSegment(m2::PointD const & point, bool isOutgoing,
-                                     WorldGraph & worldGraph, Segment & closestSegment) const
+bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & startDirection,
+                                  bool isOutgoing, WorldGraph & worldGraph,
+                                  Segment & bestSegment) const
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
@@ -513,8 +514,13 @@ bool IndexRouter::FindClosestSegment(m2::PointD const & point, bool isOutgoing,
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
-  double minDistance = numeric_limits<double>::max();
+  // Minimum distance to neighbouring segments.
+  double minDist = numeric_limits<double>::max();
   size_t minIndex = candidates.size();
+
+  // Minimum distance to neighbouring segments which are parallel to |startDirection|.
+  double minDistForParallel = numeric_limits<double>::max();
+  size_t minIndexForParallel = candidates.size();
 
   for (size_t i = 0; i < candidates.size(); ++i)
   {
@@ -524,22 +530,58 @@ bool IndexRouter::FindClosestSegment(m2::PointD const & point, bool isOutgoing,
     if (edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(segment, isOutgoing, worldGraph))
       continue;
 
+    // Distance without taking into account angle.
     m2::DistanceToLineSquare<m2::PointD> squaredDistance;
     squaredDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
-    double const distance = squaredDistance(point);
-    if (distance < minDistance)
-    {
-      minDistance = distance;
-      minIndex = i;
-    }
+    double const dist = squaredDistance(point);
+    auto const UpdateMinValuesIfNeeded = [&](double & minDistToUpdate, size_t & minIndexToUpdate) {
+      if (minDistToUpdate > dist)
+      {
+        minDistToUpdate = dist;
+        minIndexToUpdate = i;
+      }
+    };
+
+    UpdateMinValuesIfNeeded(minDist, minIndex);
+
+    // Distance for almost parallel vectors.
+    if (startDirection.IsAlmostZero())
+      continue;
+
+    m2::PointD const candidateDirection =
+        edge.GetEndJunction().GetPoint() - edge.GetStartJunction().GetPoint();
+    if (candidateDirection.IsAlmostZero())
+      continue;
+
+    double const cosAng =
+        m2::DotProduct(startDirection.Normalize(), candidateDirection.Normalize());
+    // Let us consider that vectors are almost parallel if cos of angle between them is more
+    // than |kMinCosAngForAlmostParallelVectors|.
+    // Note. If cosinus of an angle is more 0.97. The angle should be more than 14 degrees.
+    double constexpr kMinCosAngForAlmostParallelVectors = 0.97;
+    if (cosAng < kMinCosAngForAlmostParallelVectors)
+      continue;
+
+    // Vectors of |edge| and gps heading are almost parallel.
+    UpdateMinValuesIfNeeded(minDistForParallel, minIndexForParallel);
   }
 
   if (minIndex == candidates.size())
+  {
+    CHECK_EQUAL(minIndexForParallel, candidates.size(), ());
     return false;
+  }
 
-  Edge const & closestEdge = candidates[minIndex].first;
-  closestSegment = Segment(m_numMwmIds->GetId(file), closestEdge.GetFeatureId().m_index,
-                           closestEdge.GetSegId(), true /* forward */);
+  // Note. The idea behind choosing |bestEdge| is
+  // * trying to find closest to |point| edge (segment) which is almost parallel to
+  // |startDirection|;
+  // * if there's no such edge (segment) trying to find the segment which is closest the |point|.
+  // * if anyway nothing is found - returns false.
+  Edge const & bestEdge =
+      (minIndexForParallel == candidates.size() ? candidates[minIndex].first
+                                                : candidates[minIndexForParallel].first);
+  bestSegment = Segment(m_numMwmIds->GetId(file), bestEdge.GetFeatureId().m_index,
+                        bestEdge.GetSegId(), true /* forward */);
   return true;
 }
 
