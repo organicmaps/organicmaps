@@ -103,6 +103,8 @@
     <item name="tagBackground">@drawable/bg_tag</item>
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more</item>
+
+    <item name="cianLogo">@drawable/logo_cain_light</item>
   </style>
 
   <!-- Night theme -->
@@ -208,5 +210,7 @@
     <item name="tagBackground">@drawable/bg_tag_night</item>
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more_night</item>
+
+    <item name="cianLogo">@drawable/logo_cain_dark</item>
   </style>
 </resources>

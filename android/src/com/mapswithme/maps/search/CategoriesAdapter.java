@@ -1,8 +1,8 @@
 package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -70,10 +70,25 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   }
 
   @Override
+  public int getItemViewType(int position)
+  {
+    if (mCategoryResIds[position] == R.string.real_estate)
+      return R.layout.item_search_category_cian;
+    return R.layout.item_search_category;
+  }
+
+  @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    final View view = mInflater.inflate(R.layout.item_search_category, parent, false);
-    return new ViewHolder(view);
+    final View view;
+    if (viewType == R.layout.item_search_category_cian)
+    {
+      view = mInflater.inflate(R.layout.item_search_category_cian, parent, false);
+      return new ViewHolder(view, (TextView) view.findViewById(R.id.tv__category));
+    }
+
+    view = mInflater.inflate(R.layout.item_search_category, parent, false);
+    return new ViewHolder(view, (TextView)view);
   }
 
   @Override
@@ -95,13 +110,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
+    @NonNull
     private final TextView mTitle;
 
-    ViewHolder(View v)
+    ViewHolder(@NonNull View v, @NonNull TextView tv)
     {
       super(v);
       v.setOnClickListener(this);
-      mTitle = (TextView) v;
+      mTitle = tv;
     }
 
     @Override

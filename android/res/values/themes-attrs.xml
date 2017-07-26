@@ -86,6 +86,8 @@
     <attr name="tagBackground" format="reference"/>
 
     <attr name="sponsoredGalleryMore" format="reference"/>
+
+    <attr name="cianLogo" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
