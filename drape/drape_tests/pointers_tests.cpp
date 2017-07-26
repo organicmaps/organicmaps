@@ -82,7 +82,9 @@ UNIT_TEST(RefPointerExpiringTest)
 #if defined(TRACK_POINTERS)
 
   g_assertRaised = false;
+  bool const assertAbortWasEnabled = my::AssertAbortIsEnabled();
   my::AssertFailedFn prevFn = my::SetAssertFunction(OnAssertRaised);
+  my::SwitchAssertAbort(false);
 
   drape_ptr<Tester> ptr = make_unique_dp<Tester>();
   ref_ptr<Tester> refPtr1 = make_ref(ptr);
@@ -90,6 +92,7 @@ UNIT_TEST(RefPointerExpiringTest)
   ptr.reset();
 
   my::SetAssertFunction(prevFn);
+  my::SwitchAssertAbort(assertAbortWasEnabled);
 
   TEST(g_assertRaised, ());
 

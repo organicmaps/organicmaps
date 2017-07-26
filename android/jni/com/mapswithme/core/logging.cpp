@@ -53,11 +53,6 @@ void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const &
 void AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(LCRITICAL, src, s);
-#ifdef DEBUG
-  assert(false);
-#else
-  std::abort();
-#endif
 }
 
 void InitSystemLog()

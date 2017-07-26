@@ -4,9 +4,11 @@
 
 #include "base/assert.hpp"
 
+#include <iostream>
+
 namespace platform
 {
-  void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
+void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
 {
   std::string recordType;
   switch (level)
@@ -22,7 +24,19 @@ namespace platform
   std::string const srcString = recordType + DebugPrint(srcPoint) + " " + msg + "\n";
 
   CLSLog(@"%@", @(srcString.c_str()));
+}
 
+void IosLogMessage(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
+{
+  LogMessageFabric(level, srcPoint, msg);
   my::LogMessageDefault(level, srcPoint, msg);
+}
+
+void IosAssertMessage(my::SrcPoint const & srcPoint, std::string const & msg)
+{
+  LogMessageFabric(my::LCRITICAL, srcPoint, msg);
+  std::cerr << "ASSERT FAILED" << std::endl
+            << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
+            << msg << std::endl;
 }
 }  //  namespace platform
