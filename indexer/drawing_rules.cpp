@@ -481,13 +481,10 @@ void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
         {
           // Take the color of the draw element
           AreaRuleProto const & rule = de.area();
-          if (rule.color() != 0)
-          {
-            bgColorDefault = rule.color();
+          bgColorDefault = rule.color();
 
-            if (de.scale() != 0)
-              bgColorForScale.insert(make_pair(de.scale(), rule.color()));
-          }
+          if (de.scale() != 0)
+            bgColorForScale.insert(make_pair(de.scale(), rule.color()));
         }
       }
       break;
