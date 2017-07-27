@@ -1,3 +1,4 @@
+#include "indexer/classificator.hpp"
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -96,6 +97,38 @@ private:
   TType const m_value;
 };
 
+uint32_t TagSelectorToType(string value)
+{
+  vector<string> path;
+  strings::ParseCSVRow(value, '=', path);
+  return path.size() > 0 && path.size() <= 2 ? classif().GetTypeByPathSafe(path) : 0;
+}
+
+class TypeSelector : public ISelector
+{
+public:
+  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type)
+  {
+    m_equals = op == SelectorOperatorEqual;
+  }
+
+  bool Test(FeatureType const & ft) const override
+  {
+    bool found = false;
+    ft.ForEachType([&found, this](uint32_t type)
+    {
+      ftype::TruncValue(type, ftype::GetLevel(m_type));
+      if (type == m_type)
+        found = true;
+    });
+    return found == m_equals;
+  }
+
+private:
+  uint32_t m_type;
+  bool m_equals;
+};
+
 // Feature tag value evaluator for tag 'population'
 bool GetPopulation(FeatureType const & ft, uint64_t & population)
 {
@@ -187,6 +220,17 @@ unique_ptr<ISelector> ParseSelector(string const & str)
       return unique_ptr<ISelector>();
     }
     return make_unique<Selector<double>>(&GetRating, e.m_operator, value);
+  }
+  else if (e.m_tag == "extra_tag")
+  {
+    uint32_t const type = TagSelectorToType(e.m_value);
+    if (type == 0)
+    {
+      // Type was not found.
+      LOG(LDEBUG, ("Invalid selector:", str));
+      return unique_ptr<ISelector>();
+    }
+    return make_unique<TypeSelector>(type, e.m_operator);
   }
 
   // Add new tag here
