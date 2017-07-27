@@ -151,6 +151,7 @@ vector<string> kSearchMarks =
   "search-booking",
   "search-tinkoff",
   "search-adv",
+  "search-cian", // TODO: delete me after Cian project is finished.
 };
 
 // TODO!
@@ -1371,6 +1372,15 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 
 bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
 {
+  // TODO: delete me after Cian project is finished.
+  {
+    std::string query = params.m_query;
+    strings::Trim(query);
+    strings::AsciiToLower(query);
+    if (query == "cian")
+      m_cianSearchMode = true;
+  }
+
   search::SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
@@ -1415,6 +1425,9 @@ void Framework::CancelSearch(search::Mode mode)
 
   if (mode == search::Mode::Viewport)
   {
+    // TODO: delete me after Cian project is finished.
+    m_cianSearchMode = false;
+
     ClearSearchResultsMarks();
     SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, false /* show */);
   }
@@ -1832,6 +1845,13 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
     mark->SetMatchedName(r.GetString());
+
+    // TODO: delete me after Cian project is finished.
+    if (m_cianSearchMode)
+    {
+      mark->SetCustomSymbol("search-cian");
+      continue;
+    }
 
     if (r.m_metadata.m_isSponsoredHotel)
       mark->SetCustomSymbol("search-booking");

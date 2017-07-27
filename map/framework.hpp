@@ -850,6 +850,9 @@ private:
   // taxi::Engine and, therefore, destroyed after taxi::Engine.
   unique_ptr<taxi::Engine> m_taxiEngine;
 
+  // TODO: delete me after Cian project is finished.
+  bool m_cianSearchMode = false;
+
   void InitCityFinder();
   void InitTaxiEngine();
 
