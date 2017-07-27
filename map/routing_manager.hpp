@@ -231,6 +231,9 @@ private:
 
   void SetPointsFollowingMode(bool enabled);
 
+  void ReorderIntermediatePoints();
+  std::vector<int8_t> PredictIntermediatePointsOrder(std::vector<m2::PointD> const & points);
+
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
   ref_ptr<df::DrapeEngine> m_drapeEngine = nullptr;

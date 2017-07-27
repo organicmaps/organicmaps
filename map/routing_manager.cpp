@@ -461,6 +461,7 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
 
   markData.m_isVisible = !markData.m_isMyPosition;
   routePoints.AddRoutePoint(std::move(markData));
+  ReorderIntermediatePoints();
   routePoints.NotifyChanges();
 }
 
@@ -469,6 +470,7 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateInd
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   routePoints.RemoveRoutePoint(type, intermediateIndex);
+  ReorderIntermediatePoints();
   routePoints.NotifyChanges();
 }
 
@@ -495,6 +497,41 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   routePoints.SetFollowingMode(enabled);
+  routePoints.NotifyChanges();
+}
+
+std::vector<int8_t> RoutingManager::PredictIntermediatePointsOrder(std::vector<m2::PointD> const & points)
+{
+  //TODO(@bykoianko) Implement it
+  std::vector<int8_t> result;
+  result.reserve(points.size());
+  for (size_t i = 0; i < points.size(); ++i)
+    result.push_back(static_cast<int8_t>(i));
+  return result;
+}
+
+void RoutingManager::ReorderIntermediatePoints()
+{
+  std::vector<RouteMarkPoint *> points;
+  std::vector<m2::PointD> positions;
+  points.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
+  positions.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  for (auto const & p : routePoints.GetRoutePoints())
+  {
+    if (p->GetRoutePointType() == RouteMarkType::Intermediate)
+    {
+      points.push_back(p);
+      positions.push_back(p->GetPivot());
+    }
+  }
+  if (points.empty())
+    return;
+
+  std::vector<int8_t> const order = PredictIntermediatePointsOrder(positions);
+  ASSERT_EQUAL(order.size(), points.size(), ());
+  for (size_t i = 0; i < order.size(); ++i)
+    points[i]->SetIntermediateIndex(order[i]);
   routePoints.NotifyChanges();
 }
 

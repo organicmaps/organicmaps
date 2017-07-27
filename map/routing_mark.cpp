@@ -123,7 +123,7 @@ UserMark * RouteUserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
   return new RouteMarkPoint(ptOrg, this);
 }
 
-int8_t const RoutePointsLayout::kMaxIntermediatePointsCount = 1;
+int8_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
 
 RoutePointsLayout::RoutePointsLayout(UserMarksController & routeMarks)
   : m_routeMarks(routeMarks)
