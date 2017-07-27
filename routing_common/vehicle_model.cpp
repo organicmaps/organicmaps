@@ -8,9 +8,7 @@
 
 #include <algorithm>
 
-using std::max;
-using std::min;
-using std::find_if;
+using namespace std;
 
 namespace routing
 {
@@ -34,7 +32,7 @@ VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTyp
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
     m_types.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                              RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed));
+                    RoadLimits(v.m_speedKMpH, v.m_isTransitAllowed));
   }
 }
 
