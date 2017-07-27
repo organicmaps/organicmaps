@@ -58,9 +58,12 @@ public:
   bool HasSymbolPriority() const override { return false; }
   bool HasTitlePriority() const override { return true; }
 
+  void SetFollowingMode(bool enabled);
+
 private:
   RouteMarkData m_markData;
   dp::TitleDecl m_titleDecl;
+  bool m_followingMode = false;
 };
 
 class RouteUserMarkContainer : public UserMarkContainer
@@ -87,6 +90,7 @@ public:
   bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType destType, int8_t destIntermediateIndex);
   void PassRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void SetFollowingMode(bool enabled);
   void NotifyChanges();
 
 private:

@@ -280,6 +280,9 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   if (m_drapeEngine == nullptr)
     return;
 
+  if (deactivateFollowing)
+    SetPointsFollowingMode(false /* enabled */);
+
   std::lock_guard<std::mutex> lock(m_drapeSubroutesMutex);
   if (deactivateFollowing)
   {
@@ -373,6 +376,7 @@ void RoutingManager::FollowRoute()
   m_delegate.OnRouteFollow(m_currentRouterType);
 
   HideRoutePoint(RouteMarkType::Start);
+  SetPointsFollowingMode(true /* enabled */);
 }
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
@@ -483,6 +487,14 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentInt
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   routePoints.MoveRoutePoint(currentType, currentIntermediateIndex,
                              targetType, targetIntermediateIndex);
+  routePoints.NotifyChanges();
+}
+
+void RoutingManager::SetPointsFollowingMode(bool enabled)
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  routePoints.SetFollowingMode(enabled);
   routePoints.NotifyChanges();
 }
 

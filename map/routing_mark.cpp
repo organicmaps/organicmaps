@@ -80,7 +80,19 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 
 drape_ptr<dp::TitleDecl> RouteMarkPoint::GetTitleDecl() const
 {
+  if (m_followingMode)
+    return nullptr;
+
   return make_unique_dp<dp::TitleDecl>(m_titleDecl);
+}
+
+void RouteMarkPoint::SetFollowingMode(bool enabled)
+{
+  if (m_followingMode == enabled)
+    return;
+
+  SetDirty();
+  m_followingMode = enabled;
 }
 
 std::string RouteMarkPoint::GetSymbolName() const
@@ -252,6 +264,17 @@ void RoutePointsLayout::PassRoutePoint(RouteMarkType type, int8_t intermediateIn
     return;
   point->SetPassed(true);
   point->SetIsVisible(false);
+}
+
+void RoutePointsLayout::SetFollowingMode(bool enabled)
+{
+  for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
+  {
+    auto userMark = m_routeMarks.GetUserMarkForEdit(i);
+    ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
+    RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(userMark);
+    mark->SetFollowingMode(enabled);
+  }
 }
 
 RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, int8_t intermediateIndex)

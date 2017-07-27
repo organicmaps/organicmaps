@@ -229,6 +229,8 @@ private:
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
   uint32_t GenerateRoutePointsTransactionId() const;
 
+  void SetPointsFollowingMode(bool enabled);
+
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;
   ref_ptr<df::DrapeEngine> m_drapeEngine = nullptr;
