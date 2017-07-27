@@ -6,18 +6,14 @@
 
 #include <iostream>
 
-namespace
-{
-bool g_assertAbortIsEnabled = true;
-}
-
 namespace my
 {
-  void OnAssertFailedDefault(SrcPoint const & srcPoint, std::string const & msg)
+  bool OnAssertFailedDefault(SrcPoint const & srcPoint, std::string const & msg)
   {
     std::cerr << "ASSERT FAILED" << std::endl
               << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
               << msg << std::endl;
+    return true;
   }
 
   AssertFailedFn OnAssertFailed = &OnAssertFailedDefault;
@@ -27,7 +23,4 @@ namespace my
     std::swap(OnAssertFailed, fn);
     return fn;
   }
-
-  bool AssertAbortIsEnabled() { return g_assertAbortIsEnabled; }
-  void SwitchAssertAbort(bool enable) { g_assertAbortIsEnabled = enable; }
 }

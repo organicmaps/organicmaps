@@ -32,11 +32,12 @@ void IosLogMessage(my::LogLevel level, my::SrcPoint const & srcPoint, std::strin
   my::LogMessageDefault(level, srcPoint, msg);
 }
 
-void IosAssertMessage(my::SrcPoint const & srcPoint, std::string const & msg)
+bool IosAssertMessage(my::SrcPoint const & srcPoint, std::string const & msg)
 {
   LogMessageFabric(my::LCRITICAL, srcPoint, msg);
   std::cerr << "ASSERT FAILED" << std::endl
             << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
             << msg << std::endl;
+  return true;
 }
 }  //  namespace platform

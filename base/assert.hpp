@@ -11,58 +11,55 @@
 namespace my
 {
   // Called when ASSERT, CHECK or VERIFY failed.
-  typedef void (*AssertFailedFn)(SrcPoint const &, std::string const &);
+  // If returns true then crash application.
+  typedef bool (*AssertFailedFn)(SrcPoint const &, std::string const &);
   extern AssertFailedFn OnAssertFailed;
 
   /// @return Pointer to previous message function.
   AssertFailedFn SetAssertFunction(AssertFailedFn fn);
-
-  bool AssertAbortIsEnabled();
-  void SwitchAssertAbort(bool enable);
 }
 
 #ifdef DEBUG
-#define ABORT_ON_ASSERT() assert(false)
+#define ASSERT_CRASH() assert(false)
 #else
-#define ABORT_ON_ASSERT() std::abort()
+#define ASSERT_CRASH() std::abort()
 #endif
 
-#define ON_ASSERT_FAILED(msg)       \
-  ::my::OnAssertFailed(SRC(), msg); \
-  if (::my::AssertAbortIsEnabled()) \
-    ABORT_ON_ASSERT();
+#define ASSERT_FAIL(msg)                \
+  if (::my::OnAssertFailed(SRC(), msg)) \
+    ASSERT_CRASH();
 
 // TODO: Evaluate X only once in CHECK().
 #define CHECK(X, msg) do { if (X) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X")", ::my::impl::Message msg));} } while(false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X")", ::my::impl::Message msg));} } while(false)
 #define CHECK_EQUAL(X, Y, msg) do { if ((X) == (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" == "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" == "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_NOT_EQUAL(X, Y, msg) do { if ((X) != (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" != "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" != "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_LESS(X, Y, msg) do { if ((X) < (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" < "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" < "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_LESS_OR_EQUAL(X, Y, msg) do { if ((X) <= (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" <= "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" <= "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_GREATER(X, Y, msg) do { if ((X) > (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" > "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" > "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_GREATER_OR_EQUAL(X, Y, msg) do { if ((X) >= (Y)) {} else { \
-  ON_ASSERT_FAILED(::my::impl::Message("CHECK("#X" >= "#Y")", \
-                                        ::my::impl::Message(X, Y), \
-                                        ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" >= "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_OR_CALL(fail, call, X, msg) do { if (X) {} else { \
   if (fail) {\
-    ON_ASSERT_FAILED(::my::impl::Message(::my::impl::Message("CHECK("#X")"), \
-                                         ::my::impl::Message msg)); \
+    ASSERT_FAIL(::my::impl::Message(::my::impl::Message("CHECK("#X")"), \
+                                    ::my::impl::Message msg)); \
   } else { \
     call(); \
   } } } while (false)

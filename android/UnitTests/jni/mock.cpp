@@ -34,7 +34,7 @@ static void AndroidLogMessage(LogLevel l, SrcPoint const & src, std::string cons
   __android_log_write(pr, " MapsMeTests ", out.c_str());
 }
 
-static void AndroidAssertMessage(SrcPoint const & src, std::string const & s)
+static bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 {
 #if defined(MWM_LOG_TO_FILE)
   AndroidLogToFile(LERROR, src, s);
@@ -47,6 +47,7 @@ static void AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 #else
     MYTHROW(RootException, (s));
 #endif
+  return true;
 }
 
 static void InitSystemLog()

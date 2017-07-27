@@ -50,9 +50,10 @@ void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const &
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
-void AndroidAssertMessage(SrcPoint const & src, std::string const & s)
+bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(LCRITICAL, src, s);
+  return true;
 }
 
 void InitSystemLog()
