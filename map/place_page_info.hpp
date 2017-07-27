@@ -18,6 +18,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace ads
@@ -167,7 +168,12 @@ public:
   /// TODO(@a): use m_topmostCountryIds in exceptional case.
   void SetCountryId(storage::TCountryId const & countryId) { m_countryId = countryId; }
   storage::TCountryId const & GetCountryId() const { return m_countryId; }
-  void SetTopmostCountryIds(storage::TCountriesVec const & ids) { m_topmostCountryIds = ids; }
+  template <typename Countries>
+  void SetTopmostCountryIds(Countries && ids)
+  {
+    m_topmostCountryIds = std::forward<Countries>(ids);
+  }
+  storage::TCountriesVec const & GetTopmostCountryIds() const { return m_topmostCountryIds; }
 
   /// MapObject
   void SetFromFeatureType(FeatureType const & ft);

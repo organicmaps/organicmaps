@@ -852,4 +852,9 @@ private:
 
   void InitCityFinder();
   void InitTaxiEngine();
+
+  void SetPlacePageLocation(place_page::Info & info);
+
+  /// Find feature with viator near point, provided in |info|, and inject viator data into |info|.
+  void InjectViator(place_page::Info & info);
 };
