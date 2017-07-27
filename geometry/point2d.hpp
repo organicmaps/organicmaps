@@ -22,7 +22,7 @@ namespace m2
 
     T x, y;
 
-    Point() {}
+    Point() : x(T()), y(T()) {}
     Point(T x_, T y_) : x(x_), y(y_) {}
     template <typename U> Point(Point<U> const & u) : x(u.x), y(u.y) {}
 
