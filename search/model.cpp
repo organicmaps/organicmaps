@@ -17,7 +17,9 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
                     {"waterway", "waterfall"},
                     {"natural", "volcano"},
                     {"natural", "cave_entrance"},
-                    {"natural", "beach"}};
+                    {"natural", "beach"},
+                    {"emergency", "defibrillator"},
+                    {"emergency", "fire_hydrant"}};
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(arr[i]));

@@ -8315,7 +8315,7 @@ zh-Hant:^心臟電擊器
 
 emergency-fire_hydrant
 en:^Fire Hydrant
-ru:^Гидрант
+ru:^Гидрант|Пожарный гидрант
 ar:^صنبور الإطفاء
 cs:^Požární hydrant
 da:^Brandhane
