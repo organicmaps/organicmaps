@@ -5,12 +5,9 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
-#include "base/macros.hpp"
-#include "base/stl_add.hpp"
-
-#include "3party/pugixml/src/pugixml.hpp"
-
 #include <QItemSelection>
+
+#include <tuple>
 
 namespace
 {
@@ -128,9 +125,14 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
       auto const xmlSegment = xpathNode.node();
       auto & segment = m_segments.back();
 
-      // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
-      if (!openlr::SegmentFromXML(xmlSegment.child("reportSegments"), segment.GetPartnerSegment()))
-        MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
+      {
+        // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
+        auto const partnerSegment = xmlSegment.child("reportSegments");
+        if (!openlr::SegmentFromXML(partnerSegment, segment.GetPartnerSegment()))
+          MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
+
+        segment.SetPartnerXML(partnerSegment);
+      }
 
       if (auto const route = xmlSegment.child("Route"))
       {
@@ -157,8 +159,32 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
 
 bool TrafficMode::SaveSampleAs(std::string const & fileName) const
 {
-  // TODO(mgsergio): Remove #include "base/macros.hpp" when implemented;
-  NOTIMPLEMENTED();
+  CHECK(!fileName.empty(), ("Can't save to an empty file."));
+
+  pugi::xml_document result;
+
+  for (auto const & sc : m_segments)
+  {
+    auto segment = result.append_child("Segment");
+    segment.append_copy(sc.GetPartnerXML());
+    if (auto const & path = sc.GetMatchedPath())
+    {
+      auto node = segment.append_child("Route");
+      openlr::PathToXML(*path, node);
+    }
+    if (auto const & path = sc.GetFakePath())
+    {
+      auto node = segment.append_child("FakeRoute");
+      openlr::PathToXML(*path, node);
+    }
+    if (auto const & path = sc.GetGoldenPath())
+    {
+      auto node = segment.append_child("GoldenRoute");
+      openlr::PathToXML(*path, node);
+    }
+  }
+
+  result.save_file(fileName.data(), "  " /* indent */);
   return true;
 }
 
@@ -196,18 +222,18 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
   // TODO(mgsergio): Use algo for center calculation.
   // Now viewport is set to the first point of the first segment.
   CHECK_LESS(row, m_segments.size(), ());
-  auto & segment = m_segments[row];
-  auto const partnerSegmentId = segment.GetPartnerSegmentId();
+  m_currentSegment = &m_segments[row];
+  auto const partnerSegmentId = m_currentSegment->GetPartnerSegmentId();
 
   // TODO(mgsergio): Maybe we shold show empty paths.
-  CHECK(segment.GetMatchedPath(), ("Empty mwm segments for partner id", partnerSegmentId));
+  CHECK(m_currentSegment->GetMatchedPath(), ("Empty mwm segments for partner id", partnerSegmentId));
 
-  auto const & path = *segment.GetMatchedPath();
+  auto const & path = *m_currentSegment->GetMatchedPath();
   auto const & firstEdge = path.front();
 
   m_drawerDelegate->ClearAllPaths();
   m_drawerDelegate->SetViewportCenter(GetStart(firstEdge));
-  m_drawerDelegate->DrawEncodedSegment(GetPoints(segment.GetPartnerSegment()));
+  m_drawerDelegate->DrawEncodedSegment(GetPoints(m_currentSegment->GetPartnerSegment()));
   m_drawerDelegate->DrawDecodedSegments(GetPoints(path));
 }
 
@@ -218,7 +244,6 @@ Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
 
   return QAbstractItemModel::flags(index);
 }
-
 
 void TrafficMode::StartBuildingPath()
 {
@@ -232,21 +257,63 @@ void TrafficMode::StartBuildingPath()
 void TrafficMode::PushPoint(m2::PointD const & coord, std::vector<FeaturePoint> const & points)
 {
   impl::RoadPointCandidate point(points, coord);
-  if (!m_path.empty())
-    m_path.back().ActivatePoint(point);
-  m_path.push_back(point);
+  if (!m_goldenPath.empty())
+    m_goldenPath.back().ActivatePoint(point);
+  m_goldenPath.push_back(point);
 }
 
 void TrafficMode::PopPoint()
 {
-  CHECK(!m_path.empty(), ("Attempt to pop point from an empty path."));
-  m_path.pop_back();
+  CHECK(!m_goldenPath.empty(), ("Attempt to pop point from an empty path."));
+  m_goldenPath.pop_back();
 }
 
 void TrafficMode::CommitPath()
 {
+  // TODO(mgsergio): Make this situation impossible. Make the first segment selected by default
+  // for example.
+  CHECK(m_currentSegment, ("No segments selected"));
+
   if (!m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building is not started"));
+
+  if (m_goldenPath.empty())
+  {
+    LOG(LDEBUG, ("Golden path is empty :'("));
+    return;
+  }
+
+  CHECK_NOT_EQUAL(m_goldenPath.size(), 1, ("Path cannot consist of only one point"));
+
+  // Activate last point. Since no more points will be availabe we link it to the same
+  // feature as the previous one was linked to.
+  m_goldenPath.back().ActivatePoint(m_goldenPath[GetPointsCount() - 2]);
+
+  openlr::Path path;
+  for (size_t i = 1; i < GetPointsCount(); ++i)
+  {
+    FeatureID fid, prevFid;
+    size_t segId, prevSegId;
+
+    auto const prevPoint = m_goldenPath[i - 1];
+    auto point = m_goldenPath[i];
+
+    // The start and the end of the edge should lie on the same feature.
+    point.ActivatePoint(prevPoint);
+
+    std::tie(prevFid, prevSegId) = prevPoint.GetPoint();
+    std::tie(fid, segId) = point.GetPoint();
+
+    path.emplace_back(
+        fid,
+        prevSegId < segId /* forward */,
+        prevSegId,
+        routing::Junction(prevPoint.GetCoordinate(), 0 /* altitude */),
+        routing::Junction(point.GetCoordinate(), 0 /* altitude */)
+    );
+  }
+
+  m_currentSegment->GetGoldenPath() = path;
   m_buildingPath = false;
 }
 
@@ -256,30 +323,30 @@ void TrafficMode::RollBackPath()
 
 size_t TrafficMode::GetPointsCount() const
 {
-  return m_path.size();
+  return m_goldenPath.size();
 }
 
 m2::PointD const & TrafficMode::GetPoint(size_t const index) const
 {
-  return m_path[index].GetCoordinate();
+  return m_goldenPath[index].GetCoordinate();
 }
 
 m2::PointD const & TrafficMode::GetLastPoint() const
 {
-  CHECK(!m_path.empty(), ("Attempt to get point from an empty path."));
-  return m_path.back().GetCoordinate();
+  CHECK(!m_goldenPath.empty(), ("Attempt to get point from an empty path."));
+  return m_goldenPath.back().GetCoordinate();
 }
 
 std::vector<m2::PointD> TrafficMode::GetCoordinates() const
 {
   std::vector<m2::PointD> coordinates;
-  for (auto const & roadPoint : m_path)
+  for (auto const & roadPoint : m_goldenPath)
     coordinates.push_back(roadPoint.GetCoordinate());
   return coordinates;
 }
 
 // TODO(mgsergio): Draw the first point when the path size is 1.
-void TrafficMode::HandlePoint(m2::PointD clickPoint)
+void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button)
 {
   auto const currentPathLength = GetPointsCount();
   auto const lastClickedPoint = currentPathLength != 0
@@ -324,34 +391,35 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint)
       m_drawerDelegate->VisualizePoints(reachablePoints);
       m_drawerDelegate->VisualizePoints({clickPoint});
       break;
-    case ClickType::Remove:
-      // if (button == Qt::MouseButton::LeftButton)  // RemovePoint
-      // {
-      m_drawerDelegate->CleanAllVisualizedPoints();
-      // TODO(mgsergio): Remove only golden path.
-      m_drawerDelegate->ClearAllPaths();
-
-      PopPoint();
-      if (m_path.empty())
+    case ClickType::Remove:  // TODO(mgsergio): Rename this case.
+      if (button == Qt::MouseButton::LeftButton)  // RemovePoint
       {
-        m_drawerDelegate->VisualizePoints(
-            m_pointsDelegate->GetAllJunctionPointsInViewPort());
-      }
-      else
-      {
-        auto const & prevPoint = GetLastPoint();
-        m_drawerDelegate->VisualizePoints(
-            GetReachablePoints(GetLastPoint(), GetCoordinates(), *m_pointsDelegate,
-                               1 /* lookBackIndex */));
-      }
+        m_drawerDelegate->CleanAllVisualizedPoints();
+        // TODO(mgsergio): Remove only golden path.
+        m_drawerDelegate->ClearAllPaths();
 
-      if (GetPointsCount() > 1)
-        m_drawerDelegate->VisualizeGoldenPath(GetCoordinates());
-      // }
-      // else if (botton == Qt::MouseButton::RightButton)
-      // {
-      //   // TODO(mgsergio): Implement comit path.
-      // }
+        PopPoint();
+        if (m_goldenPath.empty())
+        {
+          m_drawerDelegate->VisualizePoints(
+              m_pointsDelegate->GetAllJunctionPointsInViewPort());
+        }
+        else
+        {
+          // TODO(mgsergioe): Warning unused! Check this staff.
+          auto const & prevPoint = GetLastPoint();
+          m_drawerDelegate->VisualizePoints(
+              GetReachablePoints(GetLastPoint(), GetCoordinates(), *m_pointsDelegate,
+                                 1 /* lookBackIndex */));
+        }
+
+        if (GetPointsCount() > 1)
+          m_drawerDelegate->VisualizeGoldenPath(GetCoordinates());
+      }
+      else if (button == Qt::MouseButton::RightButton)
+      {
+        CommitPath();
+      }
       break;
     case ClickType::Miss:
       LOG(LDEBUG, ("You miss"));

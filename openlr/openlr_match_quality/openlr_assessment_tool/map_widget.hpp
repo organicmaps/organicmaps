@@ -29,7 +29,7 @@ public:
   void SetTrafficMarkupMode() { m_mode = Mode::TrafficMarkup; }
 
 signals:
-  void TrafficMarkupClick(m2::PointD const & p);
+  void TrafficMarkupClick(m2::PointD const & p, Qt::MouseButton const b);
 
 protected:
   void mousePressEvent(QMouseEvent * e) override;

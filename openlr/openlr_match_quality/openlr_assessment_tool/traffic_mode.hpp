@@ -7,6 +7,8 @@
 
 #include "base/exception.hpp"
 
+#include "3party/pugixml/src/pugixml.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -15,6 +17,7 @@
 #include <boost/optional.hpp>
 
 #include <QAbstractTableModel>
+#include <Qt>
 
 class Index;
 class QItemSelection;
@@ -47,6 +50,7 @@ private:
 
   m2::PointD m_coord = m2::PointD::Zero();
   std::vector<FeaturePoint> m_candidates;
+
   size_t m_activePointIndex = kInvalidId;
 };
 }  // namespace impl
@@ -54,21 +58,46 @@ private:
 class SegmentCorrespondence
 {
 public:
+  SegmentCorrespondence() = default;
+
+  SegmentCorrespondence(SegmentCorrespondence const & sc)
+  {
+    m_partnerSegment = sc.m_partnerSegment;
+
+    m_matchedPath = sc.m_matchedPath;
+    m_fakePath = sc.m_fakePath;
+    m_goldenPath = sc.m_goldenPath;
+
+    m_partnerXMLSegment.reset(sc.m_partnerXMLSegment);
+  }
+
   boost::optional<openlr::Path> const & GetMatchedPath() const { return m_matchedPath; }
   boost::optional<openlr::Path> & GetMatchedPath() { return m_matchedPath; }
 
   boost::optional<openlr::Path> const & GetFakePath() const { return m_fakePath; }
   boost::optional<openlr::Path> & GetFakePath() { return m_fakePath; }
 
+  boost::optional<openlr::Path> const & GetGoldenPath() const { return m_goldenPath; }
+  boost::optional<openlr::Path> & GetGoldenPath() { return m_goldenPath; }
+
   openlr::LinearSegment const & GetPartnerSegment() const { return m_partnerSegment; }
   openlr::LinearSegment & GetPartnerSegment() { return m_partnerSegment; }
 
   uint32_t GetPartnerSegmentId() const { return m_partnerSegment.m_segmentId; }
 
+  pugi::xml_document const & GetPartnerXML() const { return m_partnerXMLSegment; }
+  void SetPartnerXML(pugi::xml_node const & n) { m_partnerXMLSegment.append_copy(n); }
+
 private:
   openlr::LinearSegment m_partnerSegment;
+  // TODO(mgsergio): Maybe get rid of boost::optional and rely on emptiness of the path instead?
   boost::optional<openlr::Path> m_matchedPath;
   boost::optional<openlr::Path> m_fakePath;
+  boost::optional<openlr::Path> m_goldenPath;
+
+  // A dirty hack to save back SegmentCorrespondence.
+  // TODO(mgsergio): Consider unifying xml serialization with one used in openlr_stat.
+  pugi::xml_document m_partnerXMLSegment;
 };
 
 /// This class is used to delegate segments drawing to the DrapeEngine.
@@ -154,17 +183,22 @@ public:
 
 public slots:
   void OnItemSelected(QItemSelection const & selected, QItemSelection const &);
-  void OnClick(m2::PointD const & clickPoint) { HandlePoint(clickPoint); }
+  void OnClick(m2::PointD const & clickPoint, Qt::MouseButton const button)
+  {
+    HandlePoint(clickPoint, button);
+  }
 
 private:
-  void HandlePoint(m2::PointD clickPoint);
+  void HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button);
 
   Index const & m_index;
   std::vector<SegmentCorrespondence> m_segments;
+  // Non-owning pointer to an element of m_segments.
+  SegmentCorrespondence * m_currentSegment = nullptr;
 
   std::unique_ptr<TrafficDrawerDelegateBase> m_drawerDelegate;
   std::unique_ptr<PointsControllerDelegateBase> m_pointsDelegate;
 
   bool m_buildingPath = false;
-  std::vector<impl::RoadPointCandidate> m_path;
+  std::vector<impl::RoadPointCandidate> m_goldenPath;
 };

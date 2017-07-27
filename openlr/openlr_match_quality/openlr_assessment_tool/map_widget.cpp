@@ -2,6 +2,8 @@
 
 #include "map/framework.hpp"
 
+#include <QMouseEvent>
+
 MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
   : Base(framework, apiOpenGLES3, parent)
 {
@@ -16,6 +18,6 @@ void MapWidget::mousePressEvent(QMouseEvent * e)
   if (m_mode == Mode::TrafficMarkup)
   {
     auto pt = GetDevicePoint(e);
-    emit TrafficMarkupClick(m_framework.PtoG(pt));
+    emit TrafficMarkupClick(m_framework.PtoG(pt), e->button());
   }
 }

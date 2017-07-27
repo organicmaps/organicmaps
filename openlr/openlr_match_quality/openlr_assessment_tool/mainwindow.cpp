@@ -67,7 +67,7 @@ public:
     m_drapeApi.Clear();
   }
 
-  void VisualizeGoldenPath(std::vector<m2::PointD> const & points)
+  void VisualizeGoldenPath(std::vector<m2::PointD> const & points) override
   {
     ClearAllPaths();
 
@@ -152,12 +152,12 @@ public:
         size_t pointIndex = 0;
         ft.ForEachPoint([&points, &p, &ft, &pointIndex](m2::PointD const & fp)
                         {
-                          ++pointIndex;
                           if (fp.EqualDxDy(p, 1e-4))
                           {
                             points.emplace_back(ft.GetID(), pointIndex);
                             p = fp;
                           }
+                          ++pointIndex;
                         },
                         FeatureType::BEST_GEOMETRY);
       },
@@ -253,8 +253,8 @@ void MainWindow::CreateTrafficPanel(string const & dataFilePath)
                                   make_unique<TrafficDrawerDelegate>(m_framework),
                                   make_unique<PointsControllerDelegate>(m_framework));
 
-  connect(m_mapWidget, SIGNAL(TrafficMarkupClick(m2::PointD const &)),
-          m_trafficMode, SLOT(OnClick(m2::PointD const &)));
+  connect(m_mapWidget, &MapWidget::TrafficMarkupClick,
+          m_trafficMode, &TrafficMode::OnClick);
 
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);
