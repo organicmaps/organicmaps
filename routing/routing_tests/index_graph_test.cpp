@@ -5,6 +5,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/index_router.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing/routing_tests/index_graph_tools.hpp"
@@ -579,5 +580,67 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
   vector<TestEdge> const expectedEdges = {{0, 1}};
 
   TestTopologyGraph(graph, 0, 1, true /* pathFound */, expectedWeight, expectedEdges);
+}
+
+//      ^ edge1 (-0.002, 0) - (-0.002, 0.002)
+//      |
+//      |       ^ direction vector (0, 0.001)
+//      |       |
+//      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
+//          point (0, 0)
+//
+// Test that a parallel edge is always better than others.
+UNIT_TEST(BestEdgeComparator_OneParallelEdge)
+{
+  Edge edge1 =
+    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
+  Edge edge2 =
+    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+
+  TEST(bestEdgeComparator.Compare(edge1, edge2), ());
+}
+
+//
+//      ^ edge1 (-0.002, 0) - (-0.002, 0.004)
+//      |
+//      |
+//      |
+//      ^       ^ edge2 (0, 0) - (0, 0.002)
+//      |       |
+//      |       ^ direction vector (0, 0.001)
+//      |       |
+//      *-------*
+//          point (0, 0)
+//
+// Test that if there are two parallel edges the closet one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoParallelEdges)
+{
+  Edge edge1 =
+    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({-0.002, 0.004}), true /* partOfRead */);
+  Edge edge2 =
+    Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}), MakeJunctionForTesting({0.0, 0.002}), true /* partOfRead */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+
+  TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
+}
+
+//      *--------------->  edge1 (-0.002, 0.002) - (-0.002, 0.002)
+//
+//              ^ direction vector (0, 0.001)
+//              |
+//      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
+//          point (0, 0)
+//
+// Test that if two edges are not parallel the closet one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoNotParallelEdges)
+{
+  Edge edge1 =
+    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}), MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
+  Edge edge2 =
+    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+
+  TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
 }
 }  // namespace routing_test
