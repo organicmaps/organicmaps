@@ -152,6 +152,48 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::Subroute
 
 namespace routing
 {
+// IndexRouter::BestEdgeComparator ----------------------------------------------------------------
+IndexRouter::BestEdgeComparator::BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction)
+  : m_point(point), m_direction(direction)
+{
+}
+
+bool IndexRouter::BestEdgeComparator::Compare(Edge const & edge1, Edge const & edge2) const
+{
+  if (!m_direction.IsAlmostZero())
+  {
+    bool const isEdge1Parallel = IsAlmostParallel(edge1);
+    if (isEdge1Parallel != IsAlmostParallel(edge2))
+      return isEdge1Parallel;
+  }
+
+  return GetSquaredDist(edge1) < GetSquaredDist(edge2);
+}
+
+bool IndexRouter::BestEdgeComparator::IsAlmostParallel(Edge const & edge) const
+{
+  CHECK(!m_direction.IsAlmostZero(), ());
+
+  m2::PointD const edgeDirection =
+      edge.GetEndJunction().GetPoint() - edge.GetStartJunction().GetPoint();
+  if (edgeDirection.IsAlmostZero())
+    return false;
+
+  double const cosAng =
+    m2::DotProduct(m_direction.Normalize(), edgeDirection.Normalize());
+  // Note. acos(0.97) ≈ 14 degrees.
+  double constexpr kMinCosAngForAlmostParallelVectors = 0.97;
+  return  cosAng >= kMinCosAngForAlmostParallelVectors;
+}
+
+double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
+{
+  m2::DistanceToLineSquare<m2::PointD> squaredDistance;
+  squaredDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
+  return squaredDistance(m_point);
+}
+
+// IndexRouter ------------------------------------------------------------------------------------
 IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
                          CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
                          unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
@@ -499,7 +541,7 @@ WorldGraph IndexRouter::MakeWorldGraph()
   return graph;
 }
 
-bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & startDirection,
+bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
                                   bool isOutgoing, WorldGraph & worldGraph,
                                   Segment & bestSegment) const
 {
@@ -514,74 +556,29 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & s
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
-  // Minimum distance to neighbouring segments.
-  double minDist = numeric_limits<double>::max();
-  size_t minIndex = candidates.size();
+  auto const getSegmentByEdge = [&numMwmId](Edge const & edge){
+      return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
+  };
 
-  // Minimum distance to neighbouring segments which are parallel to |startDirection|.
-  double minDistForParallel = numeric_limits<double>::max();
-  size_t minIndexForParallel = candidates.size();
+  // Getting rid of knowingly bad candidates.
+  candidates.erase(remove_if(candidates.begin(), candidates.end(), [&](pair<Edge, Junction> const & p){
+    Edge const & edge = p.first;
+    return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
+  }), candidates.end());
 
-  for (size_t i = 0; i < candidates.size(); ++i)
+  if (candidates.empty())
+    return false;
+
+  BestEdgeComparator bestEdgeComparator(point, direction);
+  Edge & bestEdge = candidates[0].first;
+  for (size_t i = 1; i < candidates.size(); ++i)
   {
     Edge const & edge = candidates[i].first;
-    Segment const segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
-
-    if (edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(segment, isOutgoing, worldGraph))
-      continue;
-
-    // Distance without taking into account angle.
-    m2::DistanceToLineSquare<m2::PointD> squaredDistance;
-    squaredDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
-    double const dist = squaredDistance(point);
-    auto const UpdateMinValuesIfNeeded = [&](double & minDistToUpdate, size_t & minIndexToUpdate) {
-      if (minDistToUpdate > dist)
-      {
-        minDistToUpdate = dist;
-        minIndexToUpdate = i;
-      }
-    };
-
-    UpdateMinValuesIfNeeded(minDist, minIndex);
-
-    // Distance for almost parallel vectors.
-    if (startDirection.IsAlmostZero())
-      continue;
-
-    m2::PointD const candidateDirection =
-        edge.GetEndJunction().GetPoint() - edge.GetStartJunction().GetPoint();
-    if (candidateDirection.IsAlmostZero())
-      continue;
-
-    double const cosAng =
-        m2::DotProduct(startDirection.Normalize(), candidateDirection.Normalize());
-    // Let us consider that vectors are almost parallel if cos of angle between them is more
-    // than |kMinCosAngForAlmostParallelVectors|.
-    // Note. If cosinus of an angle is more 0.97. The angle should be more than 14 degrees.
-    double constexpr kMinCosAngForAlmostParallelVectors = 0.97;
-    if (cosAng < kMinCosAngForAlmostParallelVectors)
-      continue;
-
-    // Vectors of |edge| and gps heading are almost parallel.
-    UpdateMinValuesIfNeeded(minDistForParallel, minIndexForParallel);
+    if (bestEdgeComparator.Compare(edge, bestEdge))
+      bestEdge = edge;
   }
 
-  if (minIndex == candidates.size())
-  {
-    CHECK_EQUAL(minIndexForParallel, candidates.size(), ());
-    return false;
-  }
-
-  // Note. The idea behind choosing |bestEdge| is
-  // * trying to find closest to |point| edge (segment) which is almost parallel to
-  // |startDirection|;
-  // * if there's no such edge (segment) trying to find the segment which is closest the |point|.
-  // * if anyway nothing is found - returns false.
-  Edge const & bestEdge =
-      (minIndexForParallel == candidates.size() ? candidates[minIndex].first
-                                                : candidates[minIndexForParallel].first);
-  bestSegment = Segment(m_numMwmIds->GetId(file), bestEdge.GetFeatureId().m_index,
-                        bestEdge.GetSegId(), true /* forward */);
+  bestSegment = getSegmentByEdge(bestEdge);
   return true;
 }
 

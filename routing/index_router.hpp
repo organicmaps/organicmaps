@@ -30,6 +30,27 @@ class IndexGraphStarter;
 class IndexRouter : public IRouter
 {
 public:
+  class BestEdgeComparator final
+  {
+  public:
+    BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction);
+
+    /// \returns true if |edge1| is closer to |m_point|, |m_direction| than |edge2|.
+    bool Compare(Edge const & edge1, Edge const & edge2) const;
+
+  private:
+    /// \returns true if |edge| is almost parallel with vector |m_direction|.
+    /// \note According to current implementation vectors |edge| and |m_direction|
+    /// are almost parallel if angle between them less than 14 degrees.
+    bool IsAlmostParallel(Edge const & edge) const;
+
+    /// \returns the square of shortest distance from |m_point| to |edge| in mercator.
+    double GetSquaredDist(Edge const & edge) const;
+
+    m2::PointD const m_point;
+    m2::PointD const m_direction;
+  };
+
   IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
               CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
               unique_ptr<m4::Tree<NumMwmId>> numMwmTree, shared_ptr<TrafficStash> trafficStash,
@@ -65,12 +86,13 @@ private:
 
   WorldGraph MakeWorldGraph();
 
-  /// \brief Finds best edges which may be considered as the start of the finish of the route.
-  /// If it's possible |bestSegment| will be filled with a segment which is almost parallel
-  /// to |startDirection|.
+  /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
+  /// According to current implementation if a segment is laying near |point| and is almost parallel
+  /// to |direction| vector, the segment will be better than others. If there's no an an almost parallel
+  /// segment in neighbourhoods the closest segment will be chosen.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  bool FindBestSegment(m2::PointD const & point, m2::PointD const & startDirection, bool isOutgoing,
+  bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
                        WorldGraph & worldGraph, Segment & bestSegment) const;
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.

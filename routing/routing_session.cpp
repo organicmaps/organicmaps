@@ -234,7 +234,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       }
     }
 
-    if (m_lastGoodPosition != m2::PointD::Zero())
+    if (m_lastGoodPosition != m2::PointD::Zero() && m_userCurrentPosition != m2::PointD::Zero())
       m_currentDirection = m_userCurrentPosition - m_lastGoodPosition;
 
     m_lastGoodPosition = m_userCurrentPosition;
