@@ -592,10 +592,10 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
 // Test that a parallel edge is always better than others.
 UNIT_TEST(BestEdgeComparator_OneParallelEdge)
 {
-  Edge edge1 =
-    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
-  Edge edge2 =
-    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
+  Edge edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                              MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
+  Edge edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), 
+                              MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
   IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
 
   TEST(bestEdgeComparator.Compare(edge1, edge2), ());

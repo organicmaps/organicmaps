@@ -27,6 +27,7 @@
 #include "platform/mwm_traits.hpp"
 
 #include "base/exception.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <map>
@@ -374,7 +375,8 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   auto const & finishCheckpoint = checkpoints.GetPoint(subrouteIdx + 1);
 
   Segment finishSegment;
-  if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero(), false /* isOutgoing */, graph, finishSegment))
+  if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero() /* direction */,
+                       false /* isOutgoing */, graph, finishSegment))
   {
     bool const isLastSubroute = subrouteIdx == checkpoints.GetNumSubroutes() - 1;
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
@@ -561,10 +563,10 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   };
 
   // Getting rid of knowingly bad candidates.
-  candidates.erase(remove_if(candidates.begin(), candidates.end(), [&](pair<Edge, Junction> const & p){
+  my::EraseIf(candidates, [&](pair<Edge, Junction> const & p){
     Edge const & edge = p.first;
     return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
-  }), candidates.end());
+  });
 
   if (candidates.empty())
     return false;

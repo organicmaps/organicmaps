@@ -39,7 +39,7 @@ public:
     bool Compare(Edge const & edge1, Edge const & edge2) const;
 
   private:
-    /// \returns true if |edge| is almost parallel with vector |m_direction|.
+    /// \returns true if |edge| is almost parallel to vector |m_direction|.
     /// \note According to current implementation vectors |edge| and |m_direction|
     /// are almost parallel if angle between them less than 14 degrees.
     bool IsAlmostParallel(Edge const & edge) const;
@@ -87,7 +87,7 @@ private:
   WorldGraph MakeWorldGraph();
 
   /// \brief Finds the best segment (edge) which may be considered as the start of the finish of the route.
-  /// According to current implementation if a segment is laying near |point| and is almost parallel
+  /// According to current implementation if a segment is near |point| and is almost parallel
   /// to |direction| vector, the segment will be better than others. If there's no an an almost parallel
   /// segment in neighbourhoods the closest segment will be chosen.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
