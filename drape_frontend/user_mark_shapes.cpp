@@ -92,6 +92,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   using UPV = UserPointVertex;
   size_t const vertexCount = marksId.size() * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
+  bool isAnimated = false;
 
   dp::TextureManager::SymbolRegion region;
   dp::GLState::DepthLayer depthLayer = dp::GLState::UserMarkLayer;
@@ -132,6 +133,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                                                      kShapeCoordScalar);
       glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
       bool const runAnim = renderInfo.m_runCreationAnim && renderInfo.m_justCreated;
+      isAnimated |= runAnim;
 
       glsl::vec2 left, right, up, down;
       AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
@@ -182,8 +184,9 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
   if (!buffer.empty())
   {
-    dp::GLState state(gpu::BOOKMARK_PROGRAM, depthLayer);
-    state.SetProgram3dIndex(gpu::BOOKMARK_BILLBOARD_PROGRAM);
+    dp::GLState state(isAnimated ? gpu::BOOKMARK_ANIM_PROGRAM : gpu::BOOKMARK_PROGRAM, depthLayer);
+    state.SetProgram3dIndex(isAnimated ? gpu::BOOKMARK_ANIM_BILLBOARD_PROGRAM
+                                       : gpu::BOOKMARK_BILLBOARD_PROGRAM);
     state.SetColorTexture(region.GetTexture());
     state.SetTextureFilter(gl_const::GLNearest);
 

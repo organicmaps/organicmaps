@@ -211,11 +211,15 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 
 UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
   : TBase(state, tileKey)
-  , m_animation(new OpacityAnimation(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/))
 {
-  m_mapping.AddRangePoint(0.6, 1.3);
-  m_mapping.AddRangePoint(0.85, 0.8);
-  m_mapping.AddRangePoint(1.0, 1.0);
+  if (state.GetProgramIndex() == gpu::BOOKMARK_ANIM_PROGRAM ||
+      state.GetProgram3dIndex() == gpu::BOOKMARK_ANIM_BILLBOARD_PROGRAM)
+  {
+    m_animation = make_unique<OpacityAnimation>(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/);
+    m_mapping.AddRangePoint(0.6f, 1.3f);
+    m_mapping.AddRangePoint(0.85f, 0.8f);
+    m_mapping.AddRangePoint(1.0f, 1.0f);
+  }
 }
 
 UserMarkRenderGroup::~UserMarkRenderGroup()
@@ -225,11 +229,13 @@ UserMarkRenderGroup::~UserMarkRenderGroup()
 void UserMarkRenderGroup::UpdateAnimation()
 {
   BaseRenderGroup::UpdateAnimation();
-  float t = 1.0f;
+  float interplationT = 1.0f;
   if (m_animation)
-    t = static_cast<float>(m_animation->GetOpacity());
-
-  m_uniforms.SetFloatValue("u_interpolationT", m_mapping.GetValue(t));
+  {
+    float const t = static_cast<float>(m_animation->GetOpacity());
+    interplationT = m_mapping.GetValue(t);
+  }
+  m_uniforms.SetFloatValue("u_interpolationT", interplationT);
 }
 
 bool UserMarkRenderGroup::IsUserPoint() const
