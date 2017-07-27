@@ -129,6 +129,8 @@ public:
   std::string const & GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
   void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
   SponsoredType GetSponsoredType() const { return m_sponsoredType; }
+  void SetPreviewIsExtended() { m_isPreviewExtended = true; }
+  bool IsPreviewExtended() const { return m_isPreviewExtended; }
 
   /// Banner
   bool HasBanner() const;
@@ -219,6 +221,7 @@ private:
   bool m_isRoutePoint = false;
 
   bool m_isMyPosition = false;
+  bool m_isPreviewExtended = false;
 
   /// Editor
   /// True if editing of a selected point is allowed by basic logic.
