@@ -4885,7 +4885,7 @@ sk:4^Kúpalisko|3bazén|aquapark|4kúpele
 sw:^Bwawa la kuogelea
 
 building|building-address
-en:^Building|U+1F3E0|U+1F3E1|U+1F3E2
+en:^Building|U+1F3E0|U+1F3E1|U+1F3E2|cian
 ru:^Здание
 ar:^مبنى
 cs:^Stavba
