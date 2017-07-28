@@ -467,7 +467,8 @@ public class SearchFragment extends BaseMwmFragment
       SearchResult.Description description = result.description;
       final MapObject point = new MapObject(FeatureId.EMPTY, MapObject.SEARCH, result.name, "",
                                             description != null ? description.featureType : "", "",
-                                            result.lat, result.lon, "", null, null, "", null, null);
+                                            result.lat, result.lon, "", null, null, "", null, null,
+                                            false /* isExtendedView */);
       RoutingController.get().onPoiSelected(point);
     }
 

@@ -28,10 +28,11 @@ public class Bookmark extends MapObject
                   @Nullable String subtitle, @Nullable String address, @Nullable Banner[] banners,
                   @TaxiManager.TaxiType int[] reachableByTaxiTypes,
                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                  @Nullable RoutePointInfo routePointInfo)
+                  @Nullable RoutePointInfo routePointInfo, boolean isExtendedView)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
-          banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo);
+          banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
+          isExtendedView);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

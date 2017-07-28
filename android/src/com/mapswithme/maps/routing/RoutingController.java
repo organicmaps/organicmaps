@@ -529,7 +529,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   {
     return new MapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
                          point.mTitle, null, point.mSubtitle, null, point.mLat, point.mLon, null,
-                         null, null, null, null, null);
+                         null, null, null, null, null, false /* isExtendedView */);
   }
 
   public boolean isStopPointAllowed()

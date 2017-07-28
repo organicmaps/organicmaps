@@ -342,6 +342,7 @@ public enum Statistics
     public static final String VIATOR = "Viator.Com";
     public static final String GEOCHAT = "Geochat";
     public static final String CIAN = "Cian";
+    public static final String NO_PRODUCTS = "no_products";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -746,10 +747,10 @@ public enum Statistics
     trackEvent(PP_SPONSORED_SHOWN, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
   }
 
-  public void trackSponsoredGalleryError(@Sponsored.SponsoredType int type)
+  public void trackSponsoredGalleryError(@Sponsored.SponsoredType int type, String errorCode)
   {
     trackEvent(PP_SPONSORED_ERROR, Statistics.params().add(PROVIDER, convertToSponsor(type))
-                                                   .add(ERROR, "N/A").get());
+                                             .add(ERROR, errorCode).get());
   }
 
   public void trackSponsoredGalleryItemSelected(@NonNull String eventName,

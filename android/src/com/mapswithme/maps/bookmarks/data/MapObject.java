@@ -56,17 +56,18 @@ public class MapObject implements Parcelable
   private LocalAdInfo mLocalAdInfo;
   @Nullable
   private RoutePointInfo mRoutePointInfo;
+  private boolean mExtendedView;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
                    double lat, double lon, String apiId,
                    @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo)
+                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         types, bookingSearchUrl, localAdInfo, routePointInfo);
+         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -74,7 +75,7 @@ public class MapObject implements Parcelable
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo)
+                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -89,6 +90,7 @@ public class MapObject implements Parcelable
     mBookingSearchUrl = bookingSearchUrl;
     mLocalAdInfo = localAdInfo;
     mRoutePointInfo = routePointInfo;
+    mExtendedView = isExtendedView;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
     if (taxiTypes != null)
@@ -116,7 +118,8 @@ public class MapObject implements Parcelable
          null, // mReachableByTaxiTypes
          source.readString(), // BookingSearchUrl
          (LocalAdInfo) source.readParcelable(LocalAdInfo.class.getClassLoader()), // LocalAdInfo
-         (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader())); // RoutePointInfo
+         (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
+         source.readInt() == 1);
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
 
@@ -274,6 +277,11 @@ public class MapObject implements Parcelable
     return mRoutePointInfo;
   }
 
+  public boolean isExtendedView()
+  {
+    return mExtendedView;
+  }
+
   @NonNull
   public FeatureId getFeatureId()
   {
@@ -313,6 +321,7 @@ public class MapObject implements Parcelable
     dest.writeString(mBookingSearchUrl);
     dest.writeParcelable(mLocalAdInfo, 0);
     dest.writeParcelable(mRoutePointInfo, 0);
+    dest.writeInt(mExtendedView ? 1 : 0);
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
   }

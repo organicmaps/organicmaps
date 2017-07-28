@@ -862,7 +862,7 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onErrorReceived(int httpCode)
+  public void onErrorReceived(int errorCode)
   {
     if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
     {
@@ -874,7 +874,7 @@ public class PlacePageView extends RelativeLayout
       mSponsoredAdapter.setLoadingError(Sponsored.TYPE_CIAN,
                                         mSponsored != null ? mSponsored.getUrl() : "");
     }
-    Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN);
+    Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN, String.valueOf(errorCode));
   }
 
   private void initSponsoredGalleryView()
@@ -904,7 +904,8 @@ public class PlacePageView extends RelativeLayout
       {
         mSponsoredAdapter.setLoadingError(Sponsored.TYPE_VIATOR, cityUrl);
       }
-      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_VIATOR);
+      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_VIATOR,
+                                                     Statistics.ParamValue.NO_PRODUCTS);
     }
     else
     {
@@ -942,7 +943,8 @@ public class PlacePageView extends RelativeLayout
       {
         mSponsoredAdapter.setLoadingError(Sponsored.TYPE_CIAN, url);
       }
-      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN);
+      Statistics.INSTANCE.trackSponsoredGalleryError(Sponsored.TYPE_CIAN,
+                                                     Statistics.ParamValue.NO_PRODUCTS);
     }
     else
     {

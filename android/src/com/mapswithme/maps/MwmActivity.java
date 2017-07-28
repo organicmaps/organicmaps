@@ -1286,9 +1286,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         {
           if (!mPlacePageRestored)
           {
-            mPlacePage.setState(State.PREVIEW);
             if (object != null)
+            {
+              mPlacePage.setState(object.isExtendedView() ? State.DETAILS : State.PREVIEW);
               Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
+            }
           }
           mPlacePageRestored = false;
         }
@@ -1514,10 +1516,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         final RoutePoint to = data.mPoints[1];
         RoutingController.get().prepare(new MapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName,
                                                       "", "", "", from.mLat, from.mLon, "", null,
-                                                      null, "", null, null),
+                                                      null, "", null, null, false /* isExtendedView */),
                                         new MapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName,
                                                       "", "", "", to.mLat, to.mLon, "", null,
-                                                      null, "", null, null),
+                                                      null, "", null, null, false /* isExtendedView */),
                                         true);
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
@@ -2254,7 +2256,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       return new MapObject(FeatureId.EMPTY, MapObject.API_POINT, "",
                            "", "", "", lat, lon, "", null,
-                           null, "", null, null);
+                           null, "", null, null, false /* isExtendedView */);
     }
 
     BuildRouteTask(double latTo, double lonTo)
