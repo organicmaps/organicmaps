@@ -26,10 +26,10 @@
       android:fontFamily="@string/robotoMedium"
       tools:text="@string/place_page_viator_title"
       tools:targetApi="jelly_bean"/>
-    <TextView
-      android:id="@+id/btn__sponsored_more"
+    <ImageView
+      android:id="@+id/btn__sponsored_logo"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:paddingLeft="@dimen/margin_half"
       android:paddingRight="@dimen/margin_half"
       android:layout_marginTop="@dimen/margin_half"
@@ -37,13 +37,10 @@
       android:layout_centerVertical="true"
       android:layout_alignParentRight="true"
       android:layout_alignParentEnd="true"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:fontFamily="@string/robotoMedium"
-      android:textColor="?colorAccent"
       android:textAllCaps="true"
       android:text="@string/placepage_more_button"
       android:background="?clickableBackground"
-      android:gravity="center"
+      tools:src="@drawable/ic_logo_viator_light"
       tools:targetApi="jelly_bean"/>
   </RelativeLayout>
 

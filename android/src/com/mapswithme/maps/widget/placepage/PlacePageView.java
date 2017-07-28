@@ -72,13 +72,13 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.taxi.TaxiManager;
-import com.mapswithme.maps.viator.Viator;
-import com.mapswithme.maps.viator.ViatorAdapter;
-import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.maps.ugc.UGCReviewAdapter;
 import com.mapswithme.maps.ugc.UgcAverageRatingController;
+import com.mapswithme.maps.viator.Viator;
+import com.mapswithme.maps.viator.ViatorAdapter;
+import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.LineCountTextView;
@@ -205,6 +205,7 @@ public class PlacePageView extends RelativeLayout
   @Nullable
   private BaseSponsoredAdapter mSponsoredAdapter;
   private TextView mTvSponsoredTitle;
+  private ImageView mIvSponsoredLogo;
   private View mUgcView;
   private View mUgcRating;
   private View mUgcMoreReviews;
@@ -866,7 +867,7 @@ public class PlacePageView extends RelativeLayout
   {
     if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
     {
-      mSponsoredAdapter = new CianAdapter(""/* url */ , true/* hasError */, this);
+      mSponsoredAdapter = new CianAdapter("" /* url */ , true /* hasError */, this);
       mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
     }
     else
@@ -881,13 +882,14 @@ public class PlacePageView extends RelativeLayout
   {
     mSponsoredGalleryView = findViewById(R.id.ll__place_sponsored_gallery);
     mTvSponsoredTitle = (TextView) mSponsoredGalleryView.findViewById(R.id.tv__sponsored_title);
+    mIvSponsoredLogo = (ImageView) mSponsoredGalleryView.findViewById(R.id.btn__sponsored_logo);
     mRvSponsoredProducts = (RecyclerView) mSponsoredGalleryView.findViewById(R.id.rv__sponsored_products);
     mRvSponsoredProducts.setLayoutManager(new LinearLayoutManager(getContext(),
                                                                   LinearLayoutManager.HORIZONTAL,
                                                                   false));
     Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider_transparent_half);
     mRvSponsoredProducts.addItemDecoration(new DividerItemDecoration(divider, true));
-    mSponsoredGalleryView.findViewById(R.id.btn__sponsored_more).setOnClickListener(this);
+    mIvSponsoredLogo.setOnClickListener(this);
   }
 
   private void updateViatorView(@NonNull final ViatorProduct[] products,
@@ -936,7 +938,7 @@ public class PlacePageView extends RelativeLayout
     {
       if (mSponsoredAdapter == null || !mSponsoredAdapter.containsLoading())
       {
-        mSponsoredAdapter = new CianAdapter(url, true/* hasError */, this);
+        mSponsoredAdapter = new CianAdapter(url, true /* hasError */, this);
         mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
       }
       else
@@ -969,6 +971,15 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
+  private void updateSponsoredLogo(int logoAttr)
+  {
+    TypedArray array = getActivity().getTheme().obtainStyledAttributes(new int[] {logoAttr});
+    int attributeResourceId = array.getResourceId(0, 0);
+    Drawable drawable = getResources().getDrawable(attributeResourceId);
+    array.recycle();
+    mIvSponsoredLogo.setImageDrawable(drawable);
+  }
+
   private void showLoadingViatorProducts(@NonNull String id, @NonNull String cityUrl)
   {
     UiUtils.show(mSponsoredGalleryView);
@@ -986,7 +997,7 @@ public class PlacePageView extends RelativeLayout
     mTvSponsoredTitle.setText(R.string.subtitle_rent);
     if (!Cian.hasCache(id))
     {
-      mSponsoredAdapter = new CianAdapter(url, false/* hasError */, this);
+      mSponsoredAdapter = new CianAdapter(url, false /* hasError */, this);
       mRvSponsoredProducts.setAdapter(mSponsoredAdapter);
     }
   }
@@ -1316,12 +1327,14 @@ public class PlacePageView extends RelativeLayout
           {
             Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
             showLoadingViatorProducts(mSponsored.getId(), mSponsored.getUrl());
+            updateSponsoredLogo(R.attr.viatorLogo);
           }
           else if (mSponsored.getType() == Sponsored.TYPE_CIAN)
           {
             Cian.getRentNearby(policy, mMapObject.getLat(), mMapObject.getLon(),
                                mMapObject.getFeatureId());
             showLoadingCianProducts(mMapObject.getFeatureId(), mSponsored.getUrl());
+            updateSponsoredLogo(R.attr.cianLogo);
           }
         }
         Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
@@ -1964,9 +1977,17 @@ public class PlacePageView extends RelativeLayout
           }
         }
         break;
-      case R.id.btn__sponsored_more:
-        if (mSponsored != null)
-          Utils.openUrl(getContext(), mSponsored.getUrl());
+      case R.id.btn__sponsored_logo:
+        if (mSponsored == null)
+          break;
+
+        String url = !TextUtils.isEmpty(mSponsored.getUrl()) ? mSponsored.getUrl()
+                                                             : mSponsored.getDescriptionUrl();
+        if (!TextUtils.isEmpty(url))
+        {
+          Utils.openUrl(getContext(), url);
+
+        }
         break;
     }
   }
