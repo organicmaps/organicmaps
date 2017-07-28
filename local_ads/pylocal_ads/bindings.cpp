@@ -38,11 +38,12 @@ BOOST_PYTHON_MODULE(pylocal_ads)
   to_python_converter<std::vector<uint8_t>, vector_uint8t_to_str>();
   vector_uint8t_from_python_str();
 
-  class_<Campaign>("Campaign", init<uint32_t, uint16_t, uint8_t, bool>())
+  class_<Campaign>("Campaign", init<uint32_t, uint16_t, uint8_t, uint8_t, uint8_t>())
       .def_readonly("m_featureId", &Campaign::m_featureId)
       .def_readonly("m_iconId", &Campaign::m_iconId)
       .def_readonly("m_daysBeforeExpired", &Campaign::m_daysBeforeExpired)
-      .def_readonly("m_priorityBit", &Campaign::m_priorityBit);
+      .def_readonly("m_minZoomLevel", &Campaign::m_minZoomLevel)
+      .def_readonly("m_priority", &Campaign::m_priority);
 
   class_<std::vector<Campaign>>("CampaignList")
       .def(vector_indexing_suite<std::vector<Campaign>>());
