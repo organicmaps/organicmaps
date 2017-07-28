@@ -243,7 +243,7 @@ void DrapeEngine::UpdateUserMarksGroup(MarkGroupID groupId, UserMarksProvider * 
       renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
       renderInfo->m_priority = mark->GetPriority();
       renderInfo->m_featureId = mark->GetFeatureID();
-      renderInfo->m_runCreationAnim = mark->RunCreationAnim();
+      renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
 
       marksRenderCollection->emplace(mark->GetId(), std::move(renderInfo));
       mark->AcceptChanges();

@@ -26,7 +26,7 @@ struct UserMarkRenderParams
   uint16_t m_priority = 0;
   float m_depth = 0.0;
   dp::GLState::DepthLayer m_depthLayer = dp::GLState::UserMarkLayer;
-  bool m_runCreationAnim = false;
+  bool m_hasCreationAnimation = false;
   bool m_justCreated = false;
   bool m_isVisible = true;
   FeatureID m_featureId;

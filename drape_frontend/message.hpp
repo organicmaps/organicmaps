@@ -24,7 +24,6 @@ public:
     ClearUserMarkGroup,
     ChangeUserMarkGroupVisibility,
     UpdateUserMarks,
-    SetCreatedUserMarks,
     InvalidateUserMarks,
     FlushUserMarks,
     GuiLayerRecached,

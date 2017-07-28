@@ -83,7 +83,7 @@ public:
 
   dp::Anchor GetAnchor() const override;
   std::string GetSymbolName() const override;
-  bool RunCreationAnim() const override;
+  bool HasCreationAnimation() const override;
 
   Type GetMarkType() const override;
 

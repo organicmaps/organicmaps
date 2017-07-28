@@ -231,21 +231,6 @@ private:
   bool m_isVisible;
 };
 
-class AnimateUserMarksMessage : public Message
-{
-public:
-  AnimateUserMarksMessage(drape_ptr<MarkIDCollection> && ids)
-    : m_ids(std::move(ids))
-  {}
-
-  Type GetType() const override { return Message::SetCreatedUserMarks; }
-
-  drape_ptr<MarkIDCollection> && AcceptIds() { return std::move(m_ids); }
-
-private:
-  drape_ptr<MarkIDCollection> m_ids;
-};
-
 class UpdateUserMarksMessage : public Message
 {
 public:

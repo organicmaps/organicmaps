@@ -60,7 +60,7 @@ std::string Bookmark::GetSymbolName() const
   return GetType();
 }
 
-bool Bookmark::RunCreationAnim() const
+bool Bookmark::HasCreationAnimation() const
 {
   return true;
 }

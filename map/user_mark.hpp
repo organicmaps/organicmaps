@@ -52,7 +52,7 @@ public:
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
   FeatureID GetFeatureID() const override { return FeatureID(); }
-  bool RunCreationAnim() const override { return false; }
+  bool HasCreationAnimation() const override { return false; }
 
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;

@@ -132,7 +132,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
                                                      kShapeCoordScalar);
       glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
-      bool const runAnim = renderInfo.m_runCreationAnim && renderInfo.m_justCreated;
+      bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
       isAnimated |= runAnim;
 
       glsl::vec2 left, right, up, down;

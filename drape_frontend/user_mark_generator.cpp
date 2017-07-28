@@ -46,10 +46,7 @@ void UserMarkGenerator::SetCreatedUserMarks(drape_ptr<MarkIDCollection> && ids)
   if (ids == nullptr)
     return;
   for (auto const & id : ids->m_marksID)
-  {
-    UserMarkRenderParams & params = *m_marks[id].get();
-    params.m_justCreated = true;
-  }
+    m_marks[id].get()->m_justCreated = true;
 }
 
 void UserMarkGenerator::SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks)
