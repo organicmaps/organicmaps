@@ -147,6 +147,7 @@ public enum Statistics
     public static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
     public static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
     public static final String PP_SPONSOR_MORE_SELECTED = "Placepage_SponsoredGallery_MoreItem_selected";
+    public static final String PP_SPONSOR_LOGO_SELECTED = "Placepage_SponsoredGallery_LogoItem_selected";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
@@ -753,8 +754,8 @@ public enum Statistics
                                              .add(ERROR, errorCode).get());
   }
 
-  public void trackSponsoredGalleryItemSelected(@NonNull String eventName,
-                                                @Sponsored.SponsoredType int type)
+  public void trackSponsoredGalleryEvent(@NonNull String eventName,
+                                         @Sponsored.SponsoredType int type)
   {
     trackEvent(eventName, Statistics.params().add(PROVIDER, convertToSponsor(type)).get());
   }

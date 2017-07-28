@@ -974,7 +974,7 @@ public class PlacePageView extends RelativeLayout
   private void updateSponsoredLogo(int logoAttr)
   {
     TypedArray array = getActivity().getTheme().obtainStyledAttributes(new int[] {logoAttr});
-    int attributeResourceId = array.getResourceId(0, 0);
+    int attributeResourceId = array.getResourceId(0 /* index */, 0 /* defValue */);
     Drawable drawable = getResources().getDrawable(attributeResourceId);
     array.recycle();
     mIvSponsoredLogo.setImageDrawable(drawable);
@@ -1017,16 +1017,14 @@ public class PlacePageView extends RelativeLayout
   public void onItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
-    Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
-                                                          type);
+    Statistics.INSTANCE.trackSponsoredGalleryEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
+                                                   type);
   }
 
   @Override
   public void onMoreItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
-    Statistics.INSTANCE.trackSponsoredGalleryItemSelected(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                                          type);
   }
 
   @Override
@@ -1986,7 +1984,8 @@ public class PlacePageView extends RelativeLayout
         if (!TextUtils.isEmpty(url))
         {
           Utils.openUrl(getContext(), url);
-
+          Statistics.INSTANCE.trackSponsoredGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
+                                                         mSponsored.getType());
         }
         break;
     }
