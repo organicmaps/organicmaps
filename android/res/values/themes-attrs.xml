@@ -88,6 +88,7 @@
     <attr name="sponsoredGalleryMore" format="reference"/>
 
     <attr name="cianLogo" format="reference"/>
+    <attr name="viatorLogo" format="reference" />
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

@@ -103,8 +103,8 @@
     <item name="tagBackground">@drawable/bg_tag</item>
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more</item>
-
     <item name="cianLogo">@drawable/logo_cian_light</item>
+    <item name="viatorLogo">@drawable/ic_logo_viator_light</item>
   </style>
 
   <!-- Night theme -->
@@ -210,7 +210,7 @@
     <item name="tagBackground">@drawable/bg_tag_night</item>
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more_night</item>
-
     <item name="cianLogo">@drawable/logo_cian_dark</item>
+    <item name="viatorLogo">@drawable/ic_logo_viator_dark</item>
   </style>
 </resources>
