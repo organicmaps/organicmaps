@@ -247,6 +247,8 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
           mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
         else if (item.mType == TYPE_MORE)
           mAdapter.mListener.onMoreItemSelected(item.mUrl, item.mSponsoredType);
+        else if (item.mType == TYPE_LOADING && item.mLoadingError)
+          mAdapter.mListener.onItemSelected(item.mUrl, item.mSponsoredType);
       }
     }
   }
