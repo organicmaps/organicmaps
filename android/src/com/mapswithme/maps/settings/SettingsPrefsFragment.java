@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.TwoStatePreference;
 import android.text.Spannable;
@@ -87,12 +88,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (singleStorageOnly())
     {
       if (old != null)
-        getPreferenceScreen().removePreference(old);
+      {
+        removePreference(getString(R.string.pref_settings_general), old);
+      }
     }
     else
     {
       if (old == null && mStoragePref != null)
+      {
         getPreferenceScreen().addPreference(mStoragePref);
+      }
     }
   }
 
@@ -129,7 +134,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       if (mPrefEnabled != null)
         mPrefEnabled.setTitle(R.string.on);
       if (mLangInfoLink != null)
-        getPreferenceScreen().removePreference(mLangInfoLink);
+        removePreference(getString(R.string.pref_navigation), mLangInfoLink);
 
       if (mCurrentLanguage != null && mCurrentLanguage.downloaded)
       {
@@ -220,7 +225,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mLangInfo.setSummary(enabled ? R.string.prefs_languages_information
                                  : R.string.prefs_languages_information_off);
     if (enabled)
-      getPreferenceScreen().removePreference(mLangInfoLink);
+      removePreference(getString(R.string.pref_navigation), mLangInfoLink);
     else if (isOnTtsScreen())
       getPreferenceScreen().addPreference(mLangInfoLink);
 
@@ -357,7 +362,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    getPreferenceScreen().removePreference(pref);
+    removePreference(getString(R.string.pref_settings_general), pref);
   }
 
   private void initLangInfoLink()
@@ -380,7 +385,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           return false;
         }
       });
-      mPreferenceScreen.removePreference(mLangInfoLink);
+      removePreference(getString(R.string.pref_navigation), mLangInfoLink);
     }
   }
 
@@ -511,7 +516,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (!MwmApplication.prefs().getBoolean(SearchFragment.PREFS_SHOW_ENABLE_LOGGING_SETTING,
                                            BuildConfig.BUILD_TYPE.equals("beta")))
     {
-      getPreferenceScreen().removePreference(pref);
+      removePreference(getString(R.string.pref_settings_general), pref);
     }
     else
     {
@@ -560,7 +565,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return;
 
     if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MwmApplication.get()) != ConnectionResult.SUCCESS)
-      getPreferenceScreen().removePreference(pref);
+    {
+      removePreference(getString(R.string.pref_settings_general), pref);
+    }
     else
     {
       ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
@@ -829,6 +836,15 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
+  }
+
+  private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
+  {
+    PreferenceCategory category = (PreferenceCategory) findPreference(categoryKey);
+    if (category == null)
+      return;
+
+    category.removePreference(preference);
   }
 
   @Override

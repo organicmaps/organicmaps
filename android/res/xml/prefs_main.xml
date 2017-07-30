@@ -88,7 +88,7 @@
       android:order="11"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
-      android:title="Enable logging"
+      android:title="@string/enable_logging"
       android:defaultValue="false"
       android:order="12"/>
     <ListPreference
