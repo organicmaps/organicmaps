@@ -32,6 +32,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -64,18 +65,15 @@ public final class HttpClient
     if (TextUtils.isEmpty(p.httpMethod))
       throw new IllegalArgumentException("Please set valid HTTP method for request at Params.httpMethod field.");
 
-    HttpsURLConnection connection = null;
+    HttpURLConnection connection = null;
 
     logUrlSafely(p.url);
 
     try
     {
-      connection = (HttpsURLConnection) new URL(p.url).openConnection();
-      // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
-      // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of used by us
-      // APIs (as Viator) requires TLSv1.2. For more info see https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        connection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(connection.getSSLSocketFactory()));
+      connection = (HttpURLConnection) new URL(p.url).openConnection();
+      setupTLSForPreLollipop(connection);
+
       // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
       // There is also a nasty bug on Androids before 4.4:
@@ -204,6 +202,21 @@ public final class HttpClient
         connection.disconnect();
     }
     return p;
+  }
+
+  private static void setupTLSForPreLollipop(@NonNull HttpURLConnection connection)
+  {
+    // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
+    // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of
+    // used by us APIs (as Viator) requires TLSv1.2. For more info see
+    // https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
+    if ((connection instanceof HttpsURLConnection)
+        && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+    {
+      HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
+      SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
+      sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
+    }
   }
 
   @NonNull
