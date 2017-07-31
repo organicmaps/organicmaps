@@ -206,7 +206,7 @@ namespace
       }
     }
 
-    UserMark const * GetFindedMark() const { return m_mark; }
+    UserMark const * GetFoundMark() const { return m_mark; }
 
   private:
     BookmarkManager::TTouchRectHolder const & m_rectHolder;
@@ -217,7 +217,7 @@ namespace
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
-  return FindNearestUserMark([&rect](UserMarkType) -> m2::AnyRectD const & { return rect; });
+  return FindNearestUserMark([&rect](UserMarkType) { return rect; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
@@ -231,7 +231,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
     finder(cat.get());
   }
 
-  return finder.GetFindedMark();
+  return finder.GetFoundMark();
 }
 
 bool BookmarkManager::UserMarksIsVisible(UserMarkType type) const

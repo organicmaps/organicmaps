@@ -53,10 +53,14 @@ class SelectObjectMessage;
 
 struct TapInfo
 {
-  m2::PointD const m_pixelPoint;
+  m2::PointD const m_mercator;
   bool const m_isLong;
   bool const m_isMyPositionTapped;
   FeatureID const m_featureTapped;
+
+  m2::AnyRectD GetDefaultSearchRect(ScreenBase const & screen) const;
+  m2::AnyRectD GetBookmarkSearchRect(ScreenBase const & screen) const;
+  m2::AnyRectD GetRoutingPointSearchRect(ScreenBase const & screen) const;
 };
 
 class FrontendRenderer : public BaseRenderer,

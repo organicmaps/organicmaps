@@ -126,7 +126,6 @@ Framework::FixedPosition::FixedPosition()
 
 namespace
 {
-static const int BM_TOUCH_PIXEL_INCREASE = 20;
 char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
@@ -212,7 +211,8 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
 void Framework::OnLocationError(TLocationError /*error*/)
 {
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
-  CallDrapeFunction(bind(&df::DrapeEngine::LoseLocation, _1));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->LoseLocation();
 }
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
@@ -251,12 +251,14 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CompassInfo const & rInfo = info;
 #endif
 
-  CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetCompassInfo(rInfo);
 }
 
 void Framework::SwitchMyPositionNextMode()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SwitchMyPositionNextMode, _1));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SwitchMyPositionNextMode();
 }
 
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
@@ -307,15 +309,10 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     m_viewportChanged(screen);
 }
 
-void Framework::CallDrapeFunction(TDrapeFunction const & fn) const
-{
-  if (m_drapeEngine)
-    fn(m_drapeEngine.get());
-}
-
 void Framework::StopLocationFollow()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->StopLocationFollow();
 }
 
 bool Framework::IsEnoughSpaceForMigrate() const
@@ -398,7 +395,8 @@ Framework::Framework(FrameworkParams const & params)
                       std::bind(&Framework::ReadFeatures, this, _1, _2))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
-    CallDrapeFunction(bind(&df::DrapeEngine::SetDisplacementMode, _1, mode));
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
 {
@@ -993,7 +991,7 @@ void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::In
     FillPointInfo(smp.GetPivot(), smp.GetMatchedName(), info);
 }
 
-void Framework::FillMyPositionInfo(place_page::Info & info, m2::PointD const & pt) const
+void Framework::FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const
 {
   double lat, lon;
   VERIFY(GetCurrentPosition(lat, lon), ());
@@ -1001,10 +999,10 @@ void Framework::FillMyPositionInfo(place_page::Info & info, m2::PointD const & p
   info.SetIsMyPosition();
   info.SetCustomName(m_stringsBundle.GetString("my_position"));
 
-  UserMark const * mark = FindUserMarkInTapPosition(pt);
+  UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
   {
-    RouteMarkPoint const * routingMark = static_cast<RouteMarkPoint const *>(mark);
+    auto routingMark = static_cast<RouteMarkPoint const *>(mark);
     info.SetIsRoutePoint();
     info.SetRouteMarkType(routingMark->GetRoutePointType());
     info.SetIntermediateIndex(routingMark->GetIntermediateIndex());
@@ -1023,20 +1021,20 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 {
   StopLocationFollow();
 
-  Bookmark const * mark = static_cast<Bookmark const *>(GetBmCategory(bnc.m_categoryIndex)->GetUserMark(bnc.m_bookmarkIndex));
+  auto mark = static_cast<Bookmark const *>(GetBmCategory(bnc.m_categoryIndex)->GetUserMark(bnc.m_bookmarkIndex));
 
   double scale = mark->GetScale();
   if (scale == -1.0)
     scale = scales::GetUpperComfortScale();
 
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, mark->GetPivot(), scale, true));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */);
 
   place_page::Info info;
   FillBookmarkInfo(*mark, bnc, info);
   ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, info);
-  //TODO
-  //We need to preserve bookmark id in the m_lastTapEvent.
-  //Because in one feature can be several bokmarks.
+  // TODO
+  // We need to preserve bookmark id in the m_lastTapEvent, because one feature can have several bookmarks.
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
 }
 
@@ -1162,14 +1160,20 @@ void Framework::LoadViewport()
 {
   m2::AnyRectD rect;
   if (settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
-    CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, false));
+  {
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->SetModelViewAnyRect(rect, false /* isAnim */);
+  }
   else
+  {
     ShowAll();
+  }
 }
 
 void Framework::ShowAll()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, m2::AnyRectD(m_model.GetWorldRect()), false));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetModelViewAnyRect(m2::AnyRectD(m_model.GetWorldRect()), false /* isAnim */);
 }
 
 m2::PointD Framework::GetPixelCenter() const
@@ -1195,7 +1199,8 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, zoomLevel, true));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */);
 }
 
 m2::RectD Framework::GetCurrentViewport() const
@@ -1213,13 +1218,17 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
 
 void Framework::ShowRect(m2::RectD const & rect, int maxScale, bool animation)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true /* applyRotation */,
-                         maxScale /* zoom */, animation));
+  if (m_drapeEngine == nullptr)
+    return;
+
+  m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */,
+                                  maxScale /* zoom */, animation);
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, true));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetModelViewAnyRect(rect, true /* isAnim */);
 }
 
 void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
@@ -1234,7 +1243,8 @@ void Framework::SetViewportListener(TViewportChanged const & fn)
 
 void Framework::OnSize(int w, int h)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Resize, _1, max(w, 2), max(h, 2)));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
 }
 
 namespace
@@ -1265,12 +1275,14 @@ void Framework::Scale(double factor, bool isAnim)
 
 void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Scale, _1, factor, pxPoint, isAnim));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Scale(factor, pxPoint, isAnim);
 }
 
 void Framework::TouchEvent(df::TouchEvent const & touch)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::AddTouchEvent, _1, touch));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->AddTouchEvent(touch);
 }
 
 int Framework::GetDrawScale() const
@@ -1304,7 +1316,8 @@ bool Framework::IsCountryLoadedByName(string const & name) const
 
 void Framework::InvalidateRect(m2::RectD const & rect)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::InvalidateRect, _1, rect));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->InvalidateRect(rect);
 }
 
 void Framework::ClearAllCaches()
@@ -1737,7 +1750,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   }
 
   m2::PointD const center = info.GetMercator();
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, scale, animation));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetModelViewCenter(center, scale, animation);
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
@@ -2141,7 +2155,8 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
   MarkMapStyle(mapStyle);
-  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
   UpdateMinBuildingsTapZoom();
 }
@@ -2360,10 +2375,11 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
-  CallDrapeFunction(bind(&df::DrapeEngine::SelectObject, _1, selectionType, info.GetMercator(), info.GetID(),
-                         needAnimation));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation);
 
-  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
+  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
+                      ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
 
   if (m_activateMapSelectionFn)
     m_activateMapSelectionFn(info);
@@ -2379,8 +2395,8 @@ void Framework::DeactivateMapSelection(bool notifyUI)
   if (notifyUI && m_deactivateMapSelectionFn)
     m_deactivateMapSelectionFn(!somethingWasAlreadySelected);
 
-  if (somethingWasAlreadySelected)
-    CallDrapeFunction(bind(&df::DrapeEngine::DeselectObject, _1));
+  if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
+    m_drapeEngine->DeselectObject();
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, false /* show */);
 }
@@ -2507,18 +2523,17 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     return df::SelectionShape::OBJECT_EMPTY;
 
   auto const & tapInfo = tapEvent.m_info;
-  m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(tapInfo.m_pixelPoint);
 
   if (tapInfo.m_isMyPositionTapped)
   {
-    FillMyPositionInfo(outInfo, pxPoint2d);
+    FillMyPositionInfo(outInfo, tapInfo);
     return df::SelectionShape::OBJECT_MY_POSITION;
   }
 
   outInfo.SetAdsEngine(m_adsEngine.get());
 
-  UserMark const * mark = FindUserMarkInTapPosition(pxPoint2d);
-  if (mark)
+  UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
+  if (mark != nullptr)
   {
     switch (mark->GetMarkType())
     {
@@ -2543,7 +2558,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   FeatureID featureTapped = tapInfo.m_featureTapped;
 
   if (!featureTapped.IsValid())
-    featureTapped = FindBuildingAtPoint(m_currentModelView.PtoG(pxPoint2d));
+    featureTapped = FindBuildingAtPoint(tapInfo.m_mercator);
 
   bool showMapSelection = false;
   if (featureTapped.IsValid())
@@ -2553,7 +2568,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   }
   else if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
   {
-    FillPointInfo(m_currentModelView.PtoG(pxPoint2d), {} /* customTitle */, outInfo);
+    FillPointInfo(tapInfo.m_mercator, {} /* customTitle */, outInfo);
     showMapSelection = true;
   }
 
@@ -2566,33 +2581,16 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   return df::SelectionShape::OBJECT_EMPTY;
 }
 
-UserMark const * Framework::FindUserMarkInTapPosition(m2::PointD const & pt) const
+UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const
 {
-  df::VisualParams const & vp = df::VisualParams::Instance();
-
-  m2::AnyRectD rect;
-  uint32_t const touchRadius = vp.GetTouchRectRadius();
-  m_currentModelView.GetTouchRect(pt, touchRadius, rect);
-
-  m2::AnyRectD bmSearchRect;
-  double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
-  double const pxWidth = touchRadius;
-  double const pxHeight = touchRadius + bmAddition;
-  m_currentModelView.GetTouchRect(pt + m2::PointD(0, bmAddition),
-                                  pxWidth, pxHeight, bmSearchRect);
-
-  m2::AnyRectD routingRect;
-  m_currentModelView.GetTouchRect(pt, touchRadius + bmAddition, routingRect);
-
-  UserMark const * mark = m_bmManager.FindNearestUserMark(
-    [&rect, &bmSearchRect, &routingRect](UserMarkType type) -> m2::AnyRectD const &
-    {
-      if (type == UserMarkType::BOOKMARK_MARK)
-        return bmSearchRect;
-      if (type == UserMarkType::ROUTING_MARK)
-        return routingRect;
-      return rect;
-    });
+  UserMark const * mark = m_bmManager.FindNearestUserMark([this, &tapInfo](UserMarkType type)
+  {
+    if (type == UserMarkType::BOOKMARK_MARK)
+      return tapInfo.GetBookmarkSearchRect(m_currentModelView);
+    if (type == UserMarkType::ROUTING_MARK)
+      return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
+    return tapInfo.GetDefaultSearchRect(m_currentModelView);
+  });
   return mark;
 }
 
@@ -2600,8 +2598,7 @@ unique_ptr<Framework::TapEvent> Framework::MakeTapEvent(m2::PointD const & cente
                                                         FeatureID const & fid,
                                                         TapEvent::Source source) const
 {
-  return make_unique<TapEvent>(df::TapInfo{m_currentModelView.GtoP(center), false, false, fid},
-                               source);
+  return make_unique<TapEvent>(df::TapInfo{center, false, false, fid}, source);
 }
 
 void Framework::PredictLocation(double & lat, double & lon, double accuracy,
@@ -2698,7 +2695,8 @@ void Framework::SaveTransliteration(bool allowTranslit)
 
 void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Allow3dMode, _1, allow3d, allow3dBuildings));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Allow3dMode(allow3d, allow3dBuildings);
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
@@ -2779,8 +2777,8 @@ void Framework::AllowAutoZoom(bool allowAutoZoom)
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
   bool const isTaxiRoute = type == RouterType::Taxi;
 
-  CallDrapeFunction(bind(&df::DrapeEngine::AllowAutoZoom, _1,
-                         allowAutoZoom && !isPedestrianRoute && !isTaxiRoute));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->AllowAutoZoom(allowAutoZoom && !isPedestrianRoute && !isTaxiRoute);
 }
 
 void Framework::SaveAutoZoom(bool allowAutoZoom)
@@ -2795,9 +2793,9 @@ void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool ap
                                             applyPosition, position);
 }
 
-vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
+std::vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 {
-  vector<m2::TriangleD> triangles;
+  std::vector<m2::TriangleD> triangles;
   if (!m_selectedFeature.IsValid())
     return triangles;
 
@@ -2810,9 +2808,9 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
   {
     triangles.reserve(10);
     ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-                       {
-                         triangles.push_back(m2::TriangleD(p1, p2, p3));
-                       }, scales::GetUpperScale());
+    {
+      triangles.emplace_back(p1, p2, p3);
+    }, scales::GetUpperScale());
   }
   m_selectedFeature = FeatureID();
 
@@ -2821,7 +2819,8 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 
 void Framework::BlockTapEvents(bool block)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::BlockTapEvents, _1, block));
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->BlockTapEvents(block);
 }
 
 m2::PointD Framework::GetSearchMarkSize(SearchMarkType searchMarkType)

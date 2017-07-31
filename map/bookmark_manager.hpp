@@ -67,7 +67,7 @@ public:
   void DeleteBmCategory(CategoryIter i);
   bool DeleteBmCategory(size_t index);
 
-  typedef function<m2::AnyRectD const & (UserMarkType)> TTouchRectHolder;
+  using TTouchRectHolder = function<m2::AnyRectD(UserMarkType)>;
 
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;

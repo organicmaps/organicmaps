@@ -216,8 +216,6 @@ protected:
 
   void OnViewportChanged(ScreenBase const & screen);
 
-  void CallDrapeFunction(TDrapeFunction const & fn) const;
-
   void InitTransliteration();
 
 public:
@@ -426,7 +424,10 @@ private:
       Other
     };
 
-    TapEvent(df::TapInfo const & info, Source source) : m_info(info), m_source(source) {}
+    TapEvent(df::TapInfo const & info, Source source)
+      : m_info(info)
+      , m_source(source)
+    {}
 
     df::TapInfo const m_info;
     Source const m_source;
@@ -441,7 +442,7 @@ private:
                                                      place_page::Info & outInfo) const;
   unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
                                     TapEvent::Source source) const;
-  UserMark const * FindUserMarkInTapPosition(m2::PointD const & pt) const;
+  UserMark const * FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
@@ -457,7 +458,7 @@ private:
   vector<m2::PointF> m_searchMarksSizes;
 
 private:
-  vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
+  std::vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
 
 public:
 
@@ -691,7 +692,7 @@ private:
   void FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
-  void FillMyPositionInfo(place_page::Info & info, m2::PointD const & pt) const;
+  void FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
 
 public:

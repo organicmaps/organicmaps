@@ -1478,19 +1478,25 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   if (m_blockTapEvents)
     return;
 
-  double halfSize = VisualParams::Instance().GetTouchRectRadius();
+  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
   m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   bool isMyPosition = false;
+
+  m2::PointD const pxPoint2d = screen.P3dtoP(pt);
+  m2::PointD mercator = screen.PtoG(pxPoint2d);
   if (m_myPositionController->IsModeHasPosition())
   {
-    m2::PointD const pt = screen.PtoP3d(screen.GtoP(m_myPositionController->Position()));
-    isMyPosition = selectRect.IsPointInside(pt);
+    m2::PointD const pixelPos = screen.PtoP3d(screen.GtoP(m_myPositionController->Position()));
+    isMyPosition = selectRect.IsPointInside(pixelPos);
+    if (isMyPosition)
+      mercator = m_myPositionController->Position();
   }
 
-  m_tapEventInfoFn({pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
+  ASSERT(m_tapEventInfoFn != nullptr, ());
+  m_tapEventInfoFn({mercator, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
 }
 
 void FrontendRenderer::OnForceTap(m2::PointD const & pt)
@@ -2084,4 +2090,36 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
   }
 }
 
-} // namespace df
+m2::AnyRectD TapInfo::GetDefaultSearchRect(ScreenBase const & screen) const
+{
+  m2::AnyRectD result;
+  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
+  screen.GetTouchRect(screen.GtoP(m_mercator), halfSize, result);
+  return result;
+}
+
+m2::AnyRectD TapInfo::GetBookmarkSearchRect(ScreenBase const & screen) const
+{
+  static int constexpr kBmTouchPixelIncrease = 20;
+
+  m2::AnyRectD result;
+  double const bmAddition = kBmTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
+  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
+  double const pxWidth = halfSize;
+  double const pxHeight = halfSize + bmAddition;
+  screen.GetTouchRect(screen.GtoP(m_mercator) + m2::PointD(0, bmAddition),
+                      pxWidth, pxHeight, result);
+  return result;
+}
+
+m2::AnyRectD TapInfo::GetRoutingPointSearchRect(ScreenBase const & screen) const
+{
+  static int constexpr kRoutingPointTouchPixelIncrease = 20;
+
+  m2::AnyRectD result;
+  double const bmAddition = kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
+  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
+  screen.GetTouchRect(screen.GtoP(m_mercator), halfSize + bmAddition, result);
+  return result;
+}
+}  // namespace df
