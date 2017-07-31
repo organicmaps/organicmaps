@@ -3,6 +3,7 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "std/shared_ptr.hpp"
+#include "std/string.hpp"
 #include "std/unordered_map.hpp"
 
 namespace routing
