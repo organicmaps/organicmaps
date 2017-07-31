@@ -21,9 +21,9 @@ import java.util.List;
 public final class CianAdapter extends BaseSponsoredAdapter
 {
   private static final String LOADING_TITLE = MwmApplication
-      .get().getString(R.string.title_cian_load_information);
+      .get().getString(R.string.preloader_cian_title);
   private static final String LOADING_SUBTITLE = MwmApplication
-      .get().getString(R.string.subtitle_cian_load_information);
+      .get().getString(R.string.preloader_cian_message);
 
   public CianAdapter(@NonNull String url, boolean hasError, @Nullable ItemSelectedListener listener)
   {

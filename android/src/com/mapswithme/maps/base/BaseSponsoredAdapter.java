@@ -36,7 +36,7 @@ public abstract class BaseSponsoredAdapter extends RecyclerView.Adapter<BaseSpon
   private static final int MARGING_QUARTER = UiUtils.dimen(MwmApplication.get(),
                                                              R.dimen.margin_quarter);
   private static final String ERROR_SUBTITLE = MwmApplication
-      .get().getString(R.string.error_load_information);
+      .get().getString(R.string.preloader_cian_message);
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_PRODUCT, TYPE_MORE, TYPE_LOADING })

@@ -44,6 +44,6 @@
     android:fontFamily="@string/robotoMedium"
     android:gravity="center"
     android:background="?windowBackgroundForced"
-    android:text="@string/details"
+    android:text="@string/preloader_cian_button"
     tools:targetApi="jelly_bean"/>
 </LinearLayout>
