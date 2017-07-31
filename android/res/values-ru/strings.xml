@@ -1159,11 +1159,18 @@
 	<string name="placepage_add_stop">Заехать</string>
 	<string name="whatsnew_intermediate_point_title">Промежуточная остановка</string>
 	<string name="whatsnew_intermediate_point_message">Планируйте маршрут с дополнительной остановкой.</string>
+	<!-- Only ru/en are needed -->
 	<string name="subtitle_rent">Аренда</string>
-	<string name="rub_month">₽/мес.</string>
-	<string name="room">%S-комн. кв.</string>
+	<!-- Only ru/en are needed -->
+	<string name="rub_month">руб./мес.</string>
+	<!-- Only ru/en are needed -->
+	<string name="room">%s-комн. кв.</string>
+	<!-- Only ru/en are needed -->
 	<string name="real_estate">Недвижимость</string>
-	<string name="title_cian_load_information">Проверенное жильё</string>
-	<string name="subtitle_cian_load_information">Узнай сколько стоят квартиры в этом доме</string>
-	<string name="error_load_information">Не удалось загрузить информацию</string>
+	<!-- Only ru/en are needed -->
+	<string name="preloader_cian_title">Проверенное жильё</string>
+	<!-- Only ru/en are needed -->
+	<string name="preloader_cian_message">Узнай стоимость аренды квартир в этом районе</string>
+	<!-- Only ru/en are needed -->
+	<string name="preloader_cian_button">Посмотреть цены</string>
 </resources>

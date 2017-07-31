@@ -1997,16 +1997,23 @@
 
 "whatsnew_intermediate_point_message" = "Naplánujte trasu s průjezdním bodem.";
 
+/* Only ru/en are needed */
 "subtitle_rent" = "Rent";
 
-"rub_month" = "₽/month";
+/* Only ru/en are needed */
+"rub_month" = "RUB/month";
 
-"room" = "%S room(s) apart.";
+/* Only ru/en are needed */
+"room" = "%s-room apt.";
 
+/* Only ru/en are needed */
 "real_estate" = "Real estate";
 
-"title_cian_load_information" = "Verified accommodation";
+/* Only ru/en are needed */
+"preloader_cian_title" = "Verified real estate";
 
-"subtitle_cian_load_information" = "Find out how much the apartments cost in this house";
+/* Only ru/en are needed */
+"preloader_cian_message" = "Find out rental prices in this area";
 
-"error_load_information" = "Could not load information";
+/* Only ru/en are needed */
+"preloader_cian_button" = "Learn more";
