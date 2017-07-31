@@ -102,8 +102,8 @@ namespace integration
     }
 
     auto indexRouter =
-        IndexRouter::CreateCarRouter(countryFileGetter, getMwmRectByName, numMwmIds,
-                                     MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
+        IndexRouter::Create(VehicleType::Car, countryFileGetter, getMwmRectByName, numMwmIds,
+                            MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
     return indexRouter;
   }
 

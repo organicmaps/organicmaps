@@ -54,7 +54,7 @@ std::string const kRoutePointsFile = "route_points.dat";
 
 uint32_t constexpr kInvalidTransactionId = 0;
 
-void FillTurnsDistancesForRendering(std::vector<routing::RouteSegment> const & segments,
+void FillTurnsDistancesForRendering(std::vector<RouteSegment> const & segments,
                                     std::vector<double> & turns)
 {
   using namespace routing::turns;
@@ -75,7 +75,7 @@ void FillTurnsDistancesForRendering(std::vector<routing::RouteSegment> const & s
   }
 }
 
-void FillTrafficForRendering(std::vector<routing::RouteSegment> const & segments,
+void FillTrafficForRendering(std::vector<RouteSegment> const & segments,
                              std::vector<traffic::SpeedGroup> & traffic)
 {
   traffic.clear();
@@ -199,11 +199,11 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
   return result;
 }
 
-routing::VehicleType GetVehicleType(RouterType routerType)
+VehicleType GetVehicleType(RouterType routerType)
 {
   switch (routerType)
   {
-  case routing::RouterType::Pedestrian: return VehicleType::Pedestrian;
+  case RouterType::Pedestrian: return VehicleType::Pedestrian;
   case RouterType::Bicycle: return VehicleType::Bicycle;
   case RouterType::Vehicle:
   case RouterType::Taxi: return VehicleType::Car;
@@ -347,7 +347,7 @@ RouterType RoutingManager::GetLastUsedRouter() const
   if (!settings::Get(kRouterTypeKey, routerTypeStr))
     return RouterType::Vehicle;
 
-  auto const routerType = routing::FromString(routerTypeStr);
+  auto const routerType = FromString(routerTypeStr);
 
   switch (routerType)
   {
@@ -359,8 +359,8 @@ RouterType RoutingManager::GetLastUsedRouter() const
 
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  auto const indexGetterFn = m_callbacks.m_featureIndexGetter;
-  CHECK(indexGetterFn, ("type:", type));
+  auto const indexGetterFn = m_callbacks.m_indexGetter;
+  CHECK(indexGetterFn, ("Type:", type));
 
   VehicleType const vehicleType = GetVehicleType(type);
 
@@ -370,13 +370,13 @@ void RoutingManager::SetRouterImpl(RouterType type)
     return m_callbacks.m_countryInfoGetter().GetRegionCountryId(p);
   };
 
-  auto numMwmIds = make_shared<routing::NumMwmIds>();
+  auto numMwmIds = make_shared<NumMwmIds>();
   m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
 
-  auto & index = m_callbacks.m_featureIndexGetter();
+  auto & index = m_callbacks.m_indexGetter();
 
   auto localFileChecker = [this](std::string const & countryFile) -> bool {
-    MwmSet::MwmId const mwmId = m_callbacks.m_featureIndexGetter().GetMwmIdByCountryFile(
+    MwmSet::MwmId const mwmId = m_callbacks.m_indexGetter().GetMwmIdByCountryFile(
       platform::CountryFile(countryFile));
     if (!mwmId.IsAlive())
       return false;
@@ -393,7 +393,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
                                     MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
                                     m_routingSession, index);
 
-  m_routingSession.SetRoutingSettings(routing::GetRoutingSettings(vehicleType));
+  m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(std::move(router), std::move(fetcher));
   m_currentRouterType = type;
 }
@@ -420,7 +420,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   m_drapeSubroutes.clear();
 }
 
-void RoutingManager::InsertRoute(routing::Route const & route)
+void RoutingManager::InsertRoute(Route const & route)
 {
   if (m_drapeEngine == nullptr)
     return;
@@ -485,7 +485,7 @@ void RoutingManager::InsertRoute(routing::Route const & route)
     m_drapeSubroutes.push_back(subrouteId);
 
     // TODO: we will send subrouteId to routing subsystem when we can partly update route.
-    //route.SetSubrouteUid(subrouteIndex, static_cast<routing::SubrouteUid>(subrouteId));
+    //route.SetSubrouteUid(subrouteIndex, static_cast<SubrouteUid>(subrouteId));
   }
 }
 
@@ -523,7 +523,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
 {
-  settings::Set(kRouterTypeKey, routing::ToString(type));
+  settings::Set(kRouterTypeKey, ToString(type));
 }
 
 void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex)
@@ -565,7 +565,7 @@ bool RoutingManager::CouldAddIntermediatePoint() const
     return false;
 
   // Now only car routing supports intermediate points.
-  if (m_currentRouterType != routing::RouterType::Vehicle)
+  if (m_currentRouterType != RouterType::Vehicle)
     return false;
 
   auto const & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
@@ -660,7 +660,7 @@ void RoutingManager::ReorderIntermediatePoints()
 
 void RoutingManager::GenerateTurnNotifications(std::vector<std::string> & turnNotifications)
 {
-  if (m_currentRouterType == routing::RouterType::Taxi)
+  if (m_currentRouterType == RouterType::Taxi)
     return;
 
   return m_routingSession.GenerateTurnNotifications(turnNotifications);
@@ -783,7 +783,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  auto const featureIndexGetterFn = m_callbacks.m_featureIndexGetter;
+  auto const featureIndexGetterFn = m_callbacks.m_indexGetter;
   ASSERT(featureIndexGetterFn, ());
   RoutingSession::State const state =
       m_routingSession.OnLocationPositionChanged(info, featureIndexGetterFn());
@@ -792,12 +792,12 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
     m_routingSession.RebuildRoute(
         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); },
-        0 /* timeoutSec */, routing::RoutingSession::State::RouteRebuilding,
+        0 /* timeoutSec */, RoutingSession::State::RouteRebuilding,
         true /* adjustToPrevRoute */);
   }
 }
 
-void RoutingManager::CallRouteBuilded(routing::IRouter::ResultCode code,
+void RoutingManager::CallRouteBuilded(IRouter::ResultCode code,
                                       storage::TCountriesVec const & absentCountries)
 {
   m_routingCallback(code, absentCountries);
@@ -900,7 +900,7 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
 
 bool RoutingManager::IsTrackingReporterEnabled() const
 {
-  if (m_currentRouterType != routing::RouterType::Vehicle)
+  if (m_currentRouterType != RouterType::Vehicle)
     return false;
 
   if (!m_routingSession.IsFollowing())

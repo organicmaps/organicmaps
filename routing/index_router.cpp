@@ -134,7 +134,15 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
 
-bool AllMwmsHaveRoutingIndex(Index & index, Route & route)
+bool MwmHasRoutingData(version::MwmTraits const & traits, VehicleType vehicleType)
+{
+  if (!traits.HasRoutingIndex())
+    return false;
+
+  return vehicleType == VehicleType::Car || traits.HasCrossMwmSection();
+}
+
+bool AllMwmsHaveRoutingIndex(VehicleType vehicleType, Index & index, Route & route)
 {
   vector<shared_ptr<MwmInfo>> infos;
   index.GetMwmsInfo(infos);
@@ -142,13 +150,13 @@ bool AllMwmsHaveRoutingIndex(Index & index, Route & route)
   bool result = true;
   for (auto const & info : infos)
   {
-    if (info->GetType() == MwmInfo::COUNTRY)
+    if (info->GetType() != MwmInfo::COUNTRY)
+      continue;
+
+    if (!MwmHasRoutingData(version::MwmTraits(info->m_version), vehicleType))
     {
-      if (!version::MwmTraits(info->m_version).HasRoutingIndex())
-      {
-        result = false;
-        route.AddAbsentCountry(info->GetCountryName());
-      }
+      result = false;
+      route.AddAbsentCountry(info->GetCountryName());
     }
   }
 
@@ -273,7 +281,7 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                                 bool adjustToPrevRoute,
                                                 RouterDelegate const & delegate, Route & route)
 {
-  if (!AllMwmsHaveRoutingIndex(m_index, route))
+  if (!AllMwmsHaveRoutingIndex(m_vehicleType, m_index, route))
     return IRouter::ResultCode::FileTooOld;
 
   auto const & startPoint = checkpoints.GetStart();
@@ -762,7 +770,7 @@ unique_ptr<IndexRouter> IndexRouter::Create(VehicleType vehicleType,TCountryFile
   auto estimator = EdgeEstimator::Create(vehicleType, maxSpeed, trafficStash);
   auto router = make_unique<IndexRouter>(
     "astar-bidirectional-" + ToString(vehicleType), countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
-    trafficStash,vehicleType, vehicleModelFactory, estimator, move(directionsEngine), index);
+    trafficStash, vehicleType, vehicleModelFactory, estimator, move(directionsEngine), index);
   return router;
 }
 }  // namespace routing

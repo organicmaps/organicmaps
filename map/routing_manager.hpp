@@ -63,15 +63,15 @@ public:
 
   struct Callbacks
   {
-    using FeatureIndexGetterFn = std::function<Index &()>;
+    using IndexGetterFn = std::function<Index &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
 
-    Callbacks(FeatureIndexGetterFn && featureIndexGetter, CountryInfoGetterFn && countryInfoGetter)
-      : m_featureIndexGetter(std::move(featureIndexGetter))
+    Callbacks(IndexGetterFn && featureIndexGetter, CountryInfoGetterFn && countryInfoGetter)
+      : m_indexGetter(std::move(featureIndexGetter))
       , m_countryInfoGetter(std::move(countryInfoGetter))
     {}
 
-    FeatureIndexGetterFn m_featureIndexGetter;
+    IndexGetterFn m_indexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
   };
 

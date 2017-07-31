@@ -281,9 +281,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   my::Timer timer;
 
   shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(country);
-  IndexGraph graph(
-      GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
-      EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed()));
+  IndexGraph graph(GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
+                   EdgeEstimator::Create(VehicleType::Car, vehicleModel->GetMaxSpeed(),
+                                         nullptr /* trafficStash */));
 
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
   DeserializeIndexGraph(mwmValue, kCarMask, graph);

@@ -106,6 +106,7 @@ set(
   routing_result_graph.hpp
   routing_session.cpp
   routing_session.hpp
+  routing_settings.cpp
   routing_settings.hpp
   segment.hpp
   segmented_route.cpp

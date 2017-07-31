@@ -57,6 +57,7 @@ SOURCES += \
     routing_helpers.cpp \
     routing_mapping.cpp \
     routing_session.cpp \
+    routing_settings.cpp \
     segmented_route.cpp \
     speed_camera.cpp \
     traffic_stash.cpp \

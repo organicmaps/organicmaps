@@ -14,7 +14,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/shared_ptr.hpp"
+#include <memory>
 
 namespace routing
 {
@@ -40,8 +40,8 @@ public:
   // Check wherether leap is allowed on specified mwm or not.
   virtual bool LeapIsAllowed(NumMwmId mwmId) const = 0;
 
-  static shared_ptr<EdgeEstimator> Create(VehicleType, double maxSpeedKMpH,
-                                          shared_ptr<TrafficStash>);
+  static std::shared_ptr<EdgeEstimator> Create(VehicleType, double maxSpeedKMpH,
+                                               std::shared_ptr<TrafficStash>);
 
 private:
   double const m_maxSpeedMPS;
