@@ -7,36 +7,13 @@ set(
 
 add_library(${PROJECT_NAME} MODULE ${SRC})
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-  )
-endif()
-
-if (PLATFORM_WIN OR PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-  )
-endif()
-
 omim_link_libraries(
   ${PROJECT_NAME}
   mwm_diff
-  indexer
-  editor
   platform
-  geometry
   coding
   base
   stats_client
-  jansson
-  oauthcpp
-  protobuf
-  pugixml
-  opening_hours
-  icu
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}

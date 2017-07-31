@@ -14,15 +14,13 @@ namespace
 // We could use my::CopyFileX but it fails if the file at |srcFile| is empty.
 bool CopyFile(string const & srcFile, string const & dstFile)
 {
-  size_t constexpr kBufferSize = 1024 * 1024;
-
   try
   {
     FileReader reader(srcFile, true /* withExceptions */);
     ReaderSource<FileReader> src(reader);
     FileWriter writer(dstFile);
 
-    rw::ReadAndWrite(src, writer, kBufferSize);
+    rw::ReadAndWrite(src, writer);
   }
   catch (Reader::Exception const & e)
   {

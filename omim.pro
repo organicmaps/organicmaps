@@ -32,6 +32,9 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
 !CONFIG(osrm) {
   SUBDIRS *= platform stats storage map
 
+  mwm_diff.subdir = generator/mwm_diff
+  SUBDIRS *= mwm_diff
+
   CONFIG(desktop) {
     SUBDIRS *= traffic generator
 
@@ -280,5 +283,9 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     ugc_tests.subdir = ugc/ugc_tests
     ugc_tests.depends = ugc indexer platform coding geometry base
     SUBDIRS *= ugc_tests
+
+    mwm_diff_tests.subdir = generator/mwm_diff/mwm_diff_tests
+    mwm_diff_tests.depends = mwm_diff generator platform coding base
+    SUBDIRS *= mwm_diff_tests
   } # !no-tests
 } # !gtool
