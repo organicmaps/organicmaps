@@ -54,23 +54,22 @@ public:
   IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
               CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
               unique_ptr<m4::Tree<NumMwmId>> numMwmTree, shared_ptr<TrafficStash> trafficStash,
-              shared_ptr<VehicleModelFactory> vehicleModelFactory,
+              VehicleType vehicleType, shared_ptr<VehicleModelFactory> vehicleModelFactory,
               shared_ptr<EdgeEstimator> estimator, unique_ptr<IDirectionsEngine> directionsEngine,
               Index & index);
 
   // IRouter overrides:
-  virtual string GetName() const override { return m_name; }
-  virtual ResultCode CalculateRoute(Checkpoints const & checkpoints,
-                                    m2::PointD const & startDirection, bool adjustToPrevRoute,
-                                    RouterDelegate const & delegate, Route & route) override;
+  string GetName() const override { return m_name; }
+  ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                            bool adjustToPrevRoute, RouterDelegate const & delegate,
+                            Route & route) override;
 
-  /// \note |numMwmIds| should not be null.
-  static unique_ptr<IndexRouter> CreateCarRouter(TCountryFileFn const & countryFileFn,
-                                                 CourntryRectFn const & coutryRectFn,
-                                                 shared_ptr<NumMwmIds> numMwmIds,
-                                                 unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                                                 traffic::TrafficCache const & trafficCache,
-                                                 Index & index);
+  static unique_ptr<IndexRouter> Create(VehicleType vehicleType,
+                                        TCountryFileFn const & countryFileFn,
+                                        CourntryRectFn const & coutryRectFn,
+                                        shared_ptr<NumMwmIds> numMwmIds,
+                                        unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                                        traffic::TrafficCache const & trafficCache, Index & index);
 
 private:
   IRouter::ResultCode DoCalculateRoute(Checkpoints const & checkpoints,
@@ -116,6 +115,7 @@ private:
   shared_ptr<TrafficStash> m_trafficStash;
   RoutingIndexManager m_indexManager;
   FeaturesRoadGraph m_roadGraph;
+  VehicleType m_vehicleType;
   shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unique_ptr<IDirectionsEngine> m_directionsEngine;

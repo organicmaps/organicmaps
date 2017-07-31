@@ -62,18 +62,6 @@ double WeightedEdgeEstimator::CalcSegmentWeight(Segment const & segment,
   return it->second;
 }
 
-double WeightedEdgeEstimator::CalcHeuristic(m2::PointD const & /* from */,
-                                            m2::PointD const & /* to */) const
-{
-  return 0.0;
-}
-
-double WeightedEdgeEstimator::CalcLeapWeight(m2::PointD const & /* from */,
-                                             m2::PointD const & /* to */) const
-{
-  return 0.0;
-}
-
 double WeightedEdgeEstimator::GetUTurnPenalty() const { return 0.0; }
 
 bool WeightedEdgeEstimator::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
@@ -278,8 +266,8 @@ shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & tr
 
 shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
 {
-  return EdgeEstimator::CreateForCar(trafficStash,
-                                     CarModelFactory().GetVehicleModel()->GetMaxSpeed());
+  return EdgeEstimator::Create(VehicleType::Car, CarModelFactory().GetVehicleModel()->GetMaxSpeed(),
+                               trafficStash);
 }
 
 AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & starter,

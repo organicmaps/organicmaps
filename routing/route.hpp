@@ -140,11 +140,11 @@ public:
   };
 
   explicit Route(std::string const & router)
-    : m_router(router), m_routingSettings(GetCarRoutingSettings()) {}
+    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)) {}
 
   template <class TIter>
   Route(std::string const & router, TIter beg, TIter end)
-    : m_router(router), m_routingSettings(GetCarRoutingSettings()), m_poly(beg, end)
+    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_poly(beg, end)
   {
   }
 

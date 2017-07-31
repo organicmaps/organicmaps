@@ -21,11 +21,20 @@ public:
   class Guard final
   {
   public:
-    Guard(TrafficStash & stash) : m_stash(stash) { m_stash.CopyTraffic(); }
-    ~Guard() { m_stash.Clear(); }
+    explicit Guard(std::shared_ptr<TrafficStash> stash) : m_stash(std::move(stash))
+    {
+      if (m_stash)
+        m_stash->CopyTraffic();
+    }
+
+    ~Guard()
+    {
+      if (m_stash)
+        m_stash->Clear();
+    }
 
   private:
-    TrafficStash & m_stash;
+    std::shared_ptr<TrafficStash> m_stash;
   };
 
   TrafficStash(traffic::TrafficCache const & source, std::shared_ptr<NumMwmIds> numMwmIds);

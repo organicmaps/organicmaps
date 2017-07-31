@@ -286,7 +286,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
       EdgeEstimator::CreateForCar(nullptr /* trafficStash */, vehicleModel->GetMaxSpeed()));
 
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
-  DeserializeIndexGraph(mwmValue, graph);
+  DeserializeIndexGraph(mwmValue, kCarMask, graph);
 
   map<Segment, map<Segment, double>> weights;
   auto const numEnters = connector.GetEnters().size();

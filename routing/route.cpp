@@ -42,7 +42,7 @@ bool IsNormalTurn(TurnItem const & turn)
 }  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_routingSettings(GetCarRoutingSettings()),
+  : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)),
     m_name(name), m_poly(points.begin(), points.end())
 {
 }

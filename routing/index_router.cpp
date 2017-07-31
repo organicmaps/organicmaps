@@ -8,6 +8,7 @@
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
+#include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
@@ -48,6 +49,48 @@ double constexpr kAdjustRangeM = 5000.0;
 double constexpr kMinDistanceToFinishM = 10000;
 // Limit of adjust in seconds.
 double constexpr kAdjustLimitSec = 5 * 60;
+
+double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactory const & vehicleModelFactory)
+{
+  double maxSpeed = 0.0;
+  numMwmIds.ForEachId([&](NumMwmId id) {
+    string const & country = numMwmIds.GetFile(id).GetName();
+    double const mwmMaxSpeed =
+        vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxSpeed();
+    maxSpeed = max(maxSpeed, mwmMaxSpeed);
+  });
+  CHECK_GREATER(maxSpeed, 0.0, ());
+  return maxSpeed;
+}
+
+shared_ptr<VehicleModelFactory> CreateVehicleModelFactory(VehicleType vehicleType)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Pedestrian: return make_shared<PedestrianModelFactory>();
+  case VehicleType::Bicycle: return make_shared<BicycleModelFactory>();
+  case VehicleType::Car: return make_shared<CarModelFactory>();
+  case VehicleType::Count:
+    CHECK(false, ("Can't create VehicleModelFactory for", vehicleType));
+    return nullptr;
+  }
+}
+
+unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
+                                                     shared_ptr<NumMwmIds> numMwmIds, Index & index)
+{
+  switch (vehicleType)
+  {
+  case VehicleType::Pedestrian: return make_unique<PedestrianDirectionsEngine>(numMwmIds);
+  case VehicleType::Bicycle:
+  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
+  // But later a special car turn generation engine should be implemented.
+  case VehicleType::Car: return make_unique<BicycleDirectionsEngine>(index, numMwmIds);
+  case VehicleType::Count:
+    CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
+    return nullptr;
+  }
+}
 
 template <typename Graph>
 IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result)
@@ -199,6 +242,7 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
                          CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
                          unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
                          shared_ptr<TrafficStash> trafficStash,
+                         VehicleType vehicleType,
                          shared_ptr<VehicleModelFactory> vehicleModelFactory,
                          shared_ptr<EdgeEstimator> estimator,
                          unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
@@ -206,19 +250,19 @@ IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFile
   , m_index(index)
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
-  , m_numMwmIds(numMwmIds)
+  , m_numMwmIds(move(numMwmIds))
   , m_numMwmTree(move(numMwmTree))
-  , m_trafficStash(trafficStash)
+  , m_trafficStash(move(trafficStash))
   , m_indexManager(countryFileFn, m_index)
   , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
+  , m_vehicleType(vehicleType)
   , m_vehicleModelFactory(vehicleModelFactory)
-  , m_estimator(estimator)
+  , m_estimator(move(estimator))
   , m_directionsEngine(move(directionsEngine))
 {
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
   CHECK(m_numMwmTree, ());
-  CHECK(m_trafficStash, ());
   CHECK(m_vehicleModelFactory, ());
   CHECK(m_estimator, ());
   CHECK(m_directionsEngine, ());
@@ -289,7 +333,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   if (!route.GetAbsentCountries().empty())
     return IRouter::NeedMoreMaps;
 
-  TrafficStash::Guard guard(*m_trafficStash);
+  TrafficStash::Guard guard(m_trafficStash);
   WorldGraph graph = MakeWorldGraph();
 
   vector<Segment> segments;
@@ -437,7 +481,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
                                              RouterDelegate const & delegate, Route & route)
 {
   my::Timer timer;
-  TrafficStash::Guard guard(*m_trafficStash);
+  TrafficStash::Guard guard(m_trafficStash);
   WorldGraph graph = MakeWorldGraph();
   graph.SetMode(WorldGraph::Mode::NoLeaps);
 
@@ -538,7 +582,7 @@ WorldGraph IndexRouter::MakeWorldGraph()
   WorldGraph graph(
       make_unique<CrossMwmGraph>(m_numMwmIds, m_numMwmTree, m_vehicleModelFactory, m_countryRectFn,
                                  m_index, m_indexManager),
-      IndexGraphLoader::Create(m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
+      IndexGraphLoader::Create(m_vehicleType, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index),
       m_estimator);
   return graph;
 }
@@ -700,7 +744,7 @@ bool IndexRouter::AreMwmsNear(NumMwmId startId, NumMwmId finishId) const
 }
 
 // static
-unique_ptr<IndexRouter> IndexRouter::CreateCarRouter(TCountryFileFn const & countryFileFn,
+unique_ptr<IndexRouter> IndexRouter::Create(VehicleType vehicleType,TCountryFileFn const & countryFileFn,
                                                      CourntryRectFn const & coutryRectFn,
                                                      shared_ptr<NumMwmIds> numMwmIds,
                                                      unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
@@ -708,25 +752,17 @@ unique_ptr<IndexRouter> IndexRouter::CreateCarRouter(TCountryFileFn const & coun
                                                      Index & index)
 {
   CHECK(numMwmIds, ());
-  auto vehicleModelFactory = make_shared<CarModelFactory>();
-  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
-  // But later a special car turn generation engine should be implemented.
-  auto directionsEngine = make_unique<BicycleDirectionsEngine>(index, numMwmIds);
-
-  double maxSpeed = 0.0;
-  numMwmIds->ForEachId([&](NumMwmId id) {
-    string const & country = numMwmIds->GetFile(id).GetName();
-    double const mwmMaxSpeed =
-        vehicleModelFactory->GetVehicleModelForCountry(country)->GetMaxSpeed();
-    maxSpeed = max(maxSpeed, mwmMaxSpeed);
-  });
-
-  auto trafficStash = make_shared<TrafficStash>(trafficCache, numMwmIds);
-
-  auto estimator = EdgeEstimator::CreateForCar(trafficStash, maxSpeed);
+  CHECK(numMwmTree, ());
+  auto vehicleModelFactory = CreateVehicleModelFactory(vehicleType);
+  auto directionsEngine = CreateDirectionsEngine(vehicleType, numMwmIds, index);
+  double const maxSpeed = CalcMaxSpeed(*numMwmIds, *vehicleModelFactory);
+  auto trafficStash = vehicleType == VehicleType::Car ?
+                          make_shared<TrafficStash>(trafficCache, numMwmIds) :
+                          nullptr;
+  auto estimator = EdgeEstimator::Create(vehicleType, maxSpeed, trafficStash);
   auto router = make_unique<IndexRouter>(
-      "astar-bidirectional-car", countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
-      trafficStash, vehicleModelFactory, estimator, move(directionsEngine), index);
+    "astar-bidirectional-" + ToString(vehicleType), countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
+    trafficStash,vehicleType, vehicleModelFactory, estimator, move(directionsEngine), index);
   return router;
 }
 }  // namespace routing

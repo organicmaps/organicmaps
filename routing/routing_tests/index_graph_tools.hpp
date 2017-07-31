@@ -94,16 +94,13 @@ private:
 class WeightedEdgeEstimator final : public EdgeEstimator
 {
 public:
-  WeightedEdgeEstimator(map<Segment, double> const & segmentWeights)
-    : m_segmentWeights(segmentWeights)
+  explicit WeightedEdgeEstimator(map<Segment, double> const & segmentWeights)
+    : EdgeEstimator(1e10 /* maxSpeedKMpH */), m_segmentWeights(segmentWeights)
   {
   }
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
-  double CalcHeuristic(m2::PointD const & /* from */, m2::PointD const & /* to */) const override;
-  double CalcLeapWeight(m2::PointD const & /* from */,
-                        m2::PointD const & /* to */) const override;
   double GetUTurnPenalty() const override;
   bool LeapIsAllowed(NumMwmId /* mwmId */) const override;
 

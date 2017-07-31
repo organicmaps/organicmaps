@@ -40,6 +40,8 @@
 
 #include <map>
 
+using namespace routing;
+
 namespace
 {
 //#define SHOW_ROUTE_DEBUG_MARKS
@@ -196,14 +198,24 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
 
   return result;
 }
+
+routing::VehicleType GetVehicleType(RouterType routerType)
+{
+  switch (routerType)
+  {
+  case routing::RouterType::Pedestrian: return VehicleType::Pedestrian;
+  case RouterType::Bicycle: return VehicleType::Bicycle;
+  case RouterType::Vehicle:
+  case RouterType::Taxi: return VehicleType::Car;
+  case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
+  }
+}
 }  // namespace
 
 namespace marketing
 {
 char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
 }  // namespace marketing
-
-using namespace routing;
 
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
@@ -345,12 +357,12 @@ RouterType RoutingManager::GetLastUsedRouter() const
   }
 }
 
-void RoutingManager::SetRouterImpl(routing::RouterType type)
+void RoutingManager::SetRouterImpl(RouterType type)
 {
   auto const indexGetterFn = m_callbacks.m_featureIndexGetter;
-  ASSERT(indexGetterFn, ());
-  std::unique_ptr<IRouter> router;
-  std::unique_ptr<OnlineAbsentCountriesFetcher> fetcher;
+  CHECK(indexGetterFn, ("type:", type));
+
+  VehicleType const vehicleType = GetVehicleType(type);
 
   auto const countryFileGetter = [this](m2::PointD const & p) -> std::string {
     // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
@@ -361,40 +373,27 @@ void RoutingManager::SetRouterImpl(routing::RouterType type)
   auto numMwmIds = make_shared<routing::NumMwmIds>();
   m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
 
-  if (type == RouterType::Pedestrian)
-  {
-    router = CreatePedestrianAStarBidirectionalRouter(indexGetterFn(), countryFileGetter, numMwmIds);
-    m_routingSession.SetRoutingSettings(routing::GetPedestrianRoutingSettings());
-  }
-  else if (type == RouterType::Bicycle)
-  {
-    router = CreateBicycleAStarBidirectionalRouter(indexGetterFn(), countryFileGetter, numMwmIds);
-    m_routingSession.SetRoutingSettings(routing::GetBicycleRoutingSettings());
-  }
-  else
-  {
-    auto & index = m_callbacks.m_featureIndexGetter();
+  auto & index = m_callbacks.m_featureIndexGetter();
 
-    auto localFileChecker = [this](std::string const & countryFile) -> bool {
-      MwmSet::MwmId const mwmId = m_callbacks.m_featureIndexGetter().GetMwmIdByCountryFile(
-          platform::CountryFile(countryFile));
-      if (!mwmId.IsAlive())
-        return false;
+  auto localFileChecker = [this](std::string const & countryFile) -> bool {
+    MwmSet::MwmId const mwmId = m_callbacks.m_featureIndexGetter().GetMwmIdByCountryFile(
+      platform::CountryFile(countryFile));
+    if (!mwmId.IsAlive())
+      return false;
 
-      return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
-    };
+    return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
+  };
 
-    auto const getMwmRectByName = [this](std::string const & countryId) -> m2::RectD {
-      return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId);
-    };
+  auto const getMwmRectByName = [this](std::string const & countryId) -> m2::RectD {
+    return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId);
+  };
 
-    router = IndexRouter::CreateCarRouter(
-        countryFileGetter, getMwmRectByName, numMwmIds,
-        MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()), m_routingSession, index);
-    fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
-    m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
-  }
+  auto fetcher = make_unique<OnlineAbsentCountriesFetcher>(countryFileGetter, localFileChecker);
+  auto router = IndexRouter::Create(vehicleType, countryFileGetter, getMwmRectByName, numMwmIds,
+                                    MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
+                                    m_routingSession, index);
 
+  m_routingSession.SetRoutingSettings(routing::GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(std::move(router), std::move(fetcher));
   m_currentRouterType = type;
 }
