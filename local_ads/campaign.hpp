@@ -29,15 +29,22 @@ struct Campaign
   std::string GetIconName() const { return IconsInfo::Instance().GetIcon(m_iconId); }
   uint32_t m_featureId = 0;
   uint16_t m_iconId = 0;
+  // Supported values range: 0-255. In case when accurate value is more than 255, we expect updated
+  // data will be received during this time interval. For ex. accurate value is 365, in this case
+  // first 110 days this field will store value 255.
   uint8_t m_daysBeforeExpired = 0;
-  uint8_t m_minZoomLevel = 16;  // supported values range: 10-17
-  uint8_t m_priority = 0;       // supported values range: 0-7
+  // Supported values range: 10-17.
+  uint8_t m_minZoomLevel = 16;
+  // Supported values range: 0-7
+  uint8_t m_priority = 0;
 };
 
 inline bool operator==(Campaign const & a, Campaign const & b)
 {
-  return a.m_featureId == b.m_featureId && a.m_iconId == b.m_iconId &&
-         a.m_daysBeforeExpired == b.m_daysBeforeExpired && a.m_minZoomLevel == b.m_minZoomLevel &&
+  return a.m_featureId == b.m_featureId &&
+         a.m_iconId == b.m_iconId &&
+         a.m_daysBeforeExpired == b.m_daysBeforeExpired &&
+         a.m_minZoomLevel == b.m_minZoomLevel &&
          a.m_priority == b.m_priority;
 }
 }  // namespace local_ads

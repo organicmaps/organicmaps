@@ -1,27 +1,22 @@
+import unittest
+
 from pylocal_ads import (Campaign, serialize, deserialize)
 
 
-def smoke():
-    campaigns = [
-        Campaign(10, 10, 10, 10, 0),
-        Campaign(1000, 100, 20, 17, 7),
-        Campaign(120003, 456, 15, 13, 6)
-    ]
+class PyLocalAdsTest(unittest.TestCase):
 
-    serialized = serialize(campaigns)
-    result = deserialize(serialized)
+    def test_smoke(self):
+        campaigns = [
+            Campaign(10, 10, 10, 10, 0),
+            Campaign(1000, 100, 20, 17, 7),
+            Campaign(120003, 456, 15, 13, 6)
+        ]
 
-    if campaigns.sort() == result.sort():
-        return True
+        serialized = serialize(campaigns)
+        result = deserialize(serialized)
 
-    return False
+        self.assertEqual(campaigns.sort(), result.sort())
 
-
-def main():
-    if smoke():
-        print "Smoke OK"
-    else:
-        print "Smoke FAIL"
 
 if __name__ == "__main__":
-    main()
+    unittest.main()

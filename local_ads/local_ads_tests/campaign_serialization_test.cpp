@@ -36,8 +36,8 @@ std::vector<Campaign> GenerateCampaignsV1(size_t number)
 
 std::vector<Campaign> GenerateCampaignsV2(size_t number)
 {
-  std::random_device rd;
-  std::mt19937 gen(rd());
+  int kSeed = 42;
+  std::mt19937 gen(kSeed);
   std::uniform_int_distribution<> featureIds(1, 600000);
   std::uniform_int_distribution<> icons(1, 4096);
   std::uniform_int_distribution<> expirationDays(1, 30);
@@ -64,19 +64,19 @@ UNIT_TEST(Serialization_Smoke)
         {10, 10, 10},
         {1000, 100, 20},
         {120003, 456, 15}
-      }, Version::v1), ());
+      }, Version::V1), ());
 
   TEST(TestSerialization({
         {10, 10, 10, 10, 0},
         {1000, 100, 20, 17, 7},
         {120003, 456, 15, 13, 6}
-      }, Version::v2), ());
+      }, Version::V2), ());
 
-  TEST(TestSerialization(GenerateCampaignsV1(100), Version::v1), ());
-  TEST(TestSerialization(GenerateCampaignsV1(1000), Version::v1), ());
-  TEST(TestSerialization(GenerateCampaignsV1(10000), Version::v1), ());
+  TEST(TestSerialization(GenerateCampaignsV1(100), Version::V1), ());
+  TEST(TestSerialization(GenerateCampaignsV1(1000), Version::V1), ());
+  TEST(TestSerialization(GenerateCampaignsV1(10000), Version::V1), ());
 
-  TEST(TestSerialization(GenerateCampaignsV2(100), Version::v2), ());
-  TEST(TestSerialization(GenerateCampaignsV2(1000), Version::v2), ());
-  TEST(TestSerialization(GenerateCampaignsV2(10000), Version::v2), ());
+  TEST(TestSerialization(GenerateCampaignsV2(100), Version::V2), ());
+  TEST(TestSerialization(GenerateCampaignsV2(1000), Version::V2), ());
+  TEST(TestSerialization(GenerateCampaignsV2(10000), Version::V2), ());
 }
