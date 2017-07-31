@@ -25860,24 +25860,37 @@
     sk = Naplánujte si trasu s zastávkou.
     sw = Panga njia ya kufuata yenye eneo la kati.
 
-  [subtitle_rent]
+ [subtitle_rent]
+    comment = Only ru/en are needed
     en = Rent
     ru = Аренда
-  [rub_month]
-    en = ₽/month
-    ru = ₽/мес.
-  [room]
-    en = %S room(s) apart.
-    ru = %S-комн. кв.
-  [real_estate]
+
+[rub_month]
+    comment = Only ru/en are needed
+    en = RUB/month
+    ru = руб./мес.
+
+[room]
+    comment = Only ru/en are needed
+    en = %s-room apt.
+    ru = %s-комн. кв.
+
+[real_estate]
+    comment = Only ru/en are needed
     en = Real estate
     ru = Недвижимость
-  [title_cian_load_information]
-    en = Verified accommodation
+
+[preloader_cian_title]
+    comment = Only ru/en are needed
+    en = Verified real estate
     ru = Проверенное жильё
-  [subtitle_cian_load_information]
-    en = Find out how much the apartments cost in this house
-    ru = Узнай сколько стоят квартиры в этом доме
-  [error_load_information]
-    en = Could not load information
-    ru = Не удалось загрузить информацию
+
+[preloader_cian_message]
+    comment = Only ru/en are needed
+    en = Find out rental prices in this area
+    ru = Узнай стоимость аренды квартир в этом районе
+
+[preloader_cian_button]
+    comment = Only ru/en are needed
+    en = Learn more
+    ru = Посмотреть цены
