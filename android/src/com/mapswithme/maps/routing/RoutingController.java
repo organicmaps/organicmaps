@@ -361,6 +361,21 @@ public class RoutingController implements TaxiManager.TaxiListener
         }).show();
   }
 
+  public void restoreRoute()
+  {
+    if (Framework.nativeHasSavedRoutePoints())
+    {
+      Framework.nativeLoadRoutePoints();
+      prepare(getStartPoint(), getEndPoint());
+    }
+  }
+
+  public void saveRoute()
+  {
+    if (isNavigating() || (isPlanning() && isBuilt()))
+      Framework.nativeSaveRoutePoints();
+  }
+
   public void prepare(@Nullable MapObject endPoint)
   {
     prepare(endPoint, false);

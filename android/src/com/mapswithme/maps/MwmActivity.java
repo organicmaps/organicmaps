@@ -520,6 +520,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     //  }
     //});
     //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
+    mTasks.add(new RestoreRouteTask());
   }
 
   private void initViews()
@@ -951,6 +952,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mFilterController != null)
       mFilterController.onSaveState(outState);
+
+    if (!isChangingConfigurations())
+      RoutingController.get().saveRoute();
 
     super.onSaveInstanceState(outState);
   }
@@ -2311,6 +2315,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo), true);
       }
+      return true;
+    }
+  }
+
+  private static class RestoreRouteTask implements MapTask
+  {
+
+    @Override
+    public boolean run(MwmActivity target)
+    {
+      RoutingController.get().restoreRoute();
       return true;
     }
   }
