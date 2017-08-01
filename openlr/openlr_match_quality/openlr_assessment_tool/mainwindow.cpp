@@ -13,6 +13,7 @@
 
 #include "routing_common/car_model.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include <QDockWidget>
@@ -101,6 +102,12 @@ private:
   BookmarkManager & m_bm;
 };
 
+bool PointsMatch(m2::PointD const & a, m2::PointD const & b)
+{
+  auto constexpr kToleraneDistanceM = 1.0;
+  return MercatorBounds::DistanceOnEarth(a, b) < kToleraneDistanceM;
+}
+
 class PointsControllerDelegate : public PointsControllerDelegateBase
 {
 public:
@@ -121,7 +128,7 @@ public:
         return;
       for (auto const & p : points)
       {
-        if (point.EqualDxDy(p, 1e-5))
+        if (PointsMatch(point, p))
           return;
       }
       points.push_back(point);
@@ -146,22 +153,29 @@ public:
   std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const
   {
     std::vector<FeaturePoint> points;
-    indexer::ForEachFeatureAtPoint(m_index, [&points, &p](FeatureType & ft) {
+    m2::PointD pointOnFt;
+    indexer::ForEachFeatureAtPoint(m_index, [&points, &p, &pointOnFt](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::GEOM_LINE)
           return;
         size_t pointIndex = 0;
-        ft.ForEachPoint([&points, &p, &ft, &pointIndex](m2::PointD const & fp)
-                        {
-                          if (fp.EqualDxDy(p, 1e-4))
-                          {
-                            points.emplace_back(ft.GetID(), pointIndex);
-                            p = fp;
-                          }
-                          ++pointIndex;
-                        },
-                        FeatureType::BEST_GEOMETRY);
+        auto minDistance = std::numeric_limits<double>::max();
+
+        ft.ForEachPoint(
+            [&points, &p, &ft, &pointIndex, &minDistance, &pointOnFt](m2::PointD const & fp)
+            {
+              auto const distance = MercatorBounds::DistanceOnEarth(fp, p);
+              if (PointsMatch(fp, p) && distance < minDistance)
+              {
+                points.emplace_back(ft.GetID(), pointIndex);
+                pointOnFt = fp;
+                minDistance = distance;
+              }
+              ++pointIndex;
+            },
+            FeatureType::BEST_GEOMETRY);
       },
       p);
+    p = pointOnFt;
     return points;
   }
 
@@ -182,13 +196,13 @@ public:
                        m2::PointD const & lastClickedPoint,
                        std::vector<m2::PointD> const & reachablePoints) const
   {
-    LOG(LDEBUG, (clickPoint, "vs", lastClickedPoint));
-    if (clickPoint.EqualDxDy(lastClickedPoint, 1e-4))
+    // == Comparison is safe here since |clickPoint| is adjusted by GetFeaturesPointsByPoint
+    // so to be equal the closest feature's one.
+    if (clickPoint == lastClickedPoint)
       return ClickType::Remove;
     for (auto const & p : reachablePoints)
     {
-      LOG(LDEBUG, (clickPoint, "vs", p));
-      if (clickPoint.EqualDxDy(p, 1e-4))
+      if (PointsMatch(clickPoint, p));
         return ClickType::Add;
     }
     return ClickType::Miss;

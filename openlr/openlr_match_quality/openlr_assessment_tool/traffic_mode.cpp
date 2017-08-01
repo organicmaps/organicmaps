@@ -54,6 +54,7 @@ RoadPointCandidate::RoadPointCandidate(std::vector<FeaturePoint> const & points,
   : m_coord(coord)
   , m_candidates(points)
 {
+  LOG(LDEBUG, ("Candidate points:", points));
 }
 
 void RoadPointCandidate::ActivatePoint(RoadPointCandidate const & rpc)
@@ -356,6 +357,9 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
   // Get candidates and also fix clickPoint to make it more accurate and sutable for
   // GetOutgoingEdges.
   auto const & candidatePoints = m_pointsDelegate->GetFeaturesPointsByPoint(clickPoint);
+  if (candidatePoints.empty())
+    return;
+
   auto reachablePoints = GetReachablePoints(clickPoint, GetCoordinates(), *m_pointsDelegate,
                                             0 /* lookBackIndex */);
   auto const & clickablePoints = currentPathLength != 0
@@ -422,7 +426,8 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       }
       break;
     case ClickType::Miss:
-      LOG(LDEBUG, ("You miss"));
+      // TODO(mgsergio): This situation should be handled by checking candidatePoitns.empty() above.
+      // Not shure though if all cases are handled by that check.
       return;
   }
 }
