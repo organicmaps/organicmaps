@@ -73,6 +73,7 @@ bool IsProtocolSpecified(string const & website)
 {
   return GetProtocolNameLength(website) > 0;
 }
+
 osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
                               vector<int8_t> const & mwmLanguages, StringUtf8Multilang & fakeSource)
 {
@@ -335,7 +336,10 @@ void EditableMapObject::SetName(string name, int8_t langCode)
       mwmInfo->GetRegionData().GetLanguages(mwmLanguages);
 
       if (CanUseAsDefaultName(langCode, mwmLanguages))
+      {
         m_name.AddString(StringUtf8Multilang::kDefaultCode, name);
+        return;
+      }
     }
   }
 
@@ -523,19 +527,22 @@ void EditableMapObject::SetOpeningHours(string const & openingHours)
 
 void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }
 
-
-void EditableMapObject::RemoveBlankNames()
+void EditableMapObject::RemoveBlankAndDuplicationsForDefault()
 {
-  StringUtf8Multilang nameWithoutBlanks;
-  m_name.ForEach([&nameWithoutBlanks](int8_t langCode, string const & name)
+  StringUtf8Multilang editedName;
+  string defaultName;
+  m_name.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
+
+  m_name.ForEach([&defaultName, &editedName](int8_t langCode, string const & name)
   {
-    if (!name.empty())
-      nameWithoutBlanks.AddString(langCode, name);
+    auto const duplicate = langCode != StringUtf8Multilang::kDefaultCode && defaultName == name;
+    if (!name.empty() && !duplicate)
+      editedName.AddString(langCode, name);
 
     return true;
   });
 
-  m_name = nameWithoutBlanks;
+  m_name = editedName;
 }
 
 void EditableMapObject::RemoveNeedlessNames()
@@ -543,7 +550,7 @@ void EditableMapObject::RemoveNeedlessNames()
   if (!IsNamesAdvancedModeEnabled())
     RemoveFakeNames(m_fakeNames, m_name);
 
-  RemoveBlankNames();
+  RemoveBlankAndDuplicationsForDefault();
 }
 
 // static

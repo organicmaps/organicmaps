@@ -151,8 +151,8 @@ public:
   /// Enables advanced mode with direct access to default name and disables any recalculations.
   void EnableNamesAdvancedMode() { m_namesAdvancedMode = true; }
   bool IsNamesAdvancedModeEnabled() const { return m_namesAdvancedMode; }
-  /// Remove blank names for advanced mode.
-  void RemoveBlankNames();
+  /// Remove blank names and default name duplications.
+  void RemoveBlankAndDuplicationsForDefault();
   /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
   void RemoveNeedlessNames();
 
