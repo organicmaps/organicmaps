@@ -2017,3 +2017,9 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
+
+"add_my_position" = "Add my position";
+
+"choose_start_point" = "Choose a starting point";
+
+"choose_destination" = "Choose a destination";

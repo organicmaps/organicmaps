@@ -2017,3 +2017,9 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Посмотреть цены";
+
+"add_my_position" = "Добавить мое местоположение";
+
+"choose_start_point" = "Выберите начало маршрута";
+
+"choose_destination" = "Выберите конец маршрута";
