@@ -215,9 +215,8 @@ public enum LocationHelper
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = new MapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "", "", "",
-                                  mSavedLocation.getLatitude(), mSavedLocation.getLongitude(), "",
-                                  null, null, "", null, null, false /* isExtendedView */);
+      mMyPosition = MapObject.createMapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "",
+                                  mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
 
     return mMyPosition;
   }

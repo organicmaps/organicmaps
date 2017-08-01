@@ -1298,12 +1298,12 @@ public class PlacePageView extends RelativeLayout
     detachCountry();
     if (mMapObject != null)
     {
-      // TODO: mock implementation for test only
-      FeatureId fid = mMapObject.getFeatureId();
-      if (fid.getFeatureIndex() == 218028)
+      // TODO: Be careful, shouldShowUgc can return true only when all ui work about UGC is done.
+      // Now (01.08.2017) UI is not ready for UGC yet.
+      if (mMapObject.shouldShowUGC())
       {
         UGC.setListener(this);
-        UGC.requestUGC(fid);
+        UGC.requestUGC(mMapObject.getFeatureId());
         refreshViews(policy);
         return;
       }

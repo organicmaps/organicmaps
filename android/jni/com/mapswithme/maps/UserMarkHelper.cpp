@@ -41,7 +41,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         double lon, string const & address, Metadata const & metadata,
                         string const & apiId, jobjectArray jbanners, jintArray jTaxiTypes,
                         string const & bookingSearchUrl, jobject const & localAdInfo,
-                        jobject const & routingPointInfo, bool isExtendedView)
+                        jobject const & routingPointInfo, bool isExtendedView, bool shouldShowUGC)
 {
   // public MapObject(@NonNull FeatureId featureId,
   //                  @MapObjectType int mapObjectType, String title, @Nullable String
@@ -56,7 +56,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       "String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/"
       "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
       "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-      "Lcom/mapswithme/maps/routing/RoutePointInfo;Z)V");
+      "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZ)V");
   //public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   static jmethodID const featureCtorId =
       jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -75,7 +75,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       env->NewObject(g_mapObjectClazz, ctorId, jFeatureId.get(), mapObjectType, jTitle.get(),
                      jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
                      jbanners, jTaxiTypes, jBookingSearchUrl.get(), localAdInfo, routingPointInfo,
-                     static_cast<jboolean>(isExtendedView));
+                     static_cast<jboolean>(isExtendedView), static_cast<jboolean>(shouldShowUGC));
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -109,7 +109,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                               "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                               "[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
                               "Lcom/mapswithme/maps/ads/LocalAdInfo;"
-                              "Lcom/mapswithme/maps/routing/RoutePointInfo;Z)V");
+                              "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZ)V");
     // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
     static jmethodID const featureCtorId =
         jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -132,7 +132,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jint>(bac.m_categoryIndex),
         static_cast<jint>(bac.m_bookmarkIndex), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
-        localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended());
+        localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC());
 
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -149,7 +149,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
                            info.GetAddress(), {}, "", jbanners.get(), jTaxiTypes.get(),
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-                           info.IsPreviewExtended());
+                           info.IsPreviewExtended(), info.ShouldShowUGC());
   }
 
   if (info.HasApiUrl())
@@ -158,7 +158,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index,
         kApiPoint, info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
-        info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended());
+        info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(),
+        info.ShouldShowUGC());
   }
 
   return CreateMapObject(
@@ -166,7 +167,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.lat, ll.lon,
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
-      info.IsPreviewExtended());
+      info.IsPreviewExtended(), info.ShouldShowUGC());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)

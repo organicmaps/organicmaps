@@ -1514,13 +1514,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().setRouterType(data.mRouterType);
         final RoutePoint from = data.mPoints[0];
         final RoutePoint to = data.mPoints[1];
-        RoutingController.get().prepare(new MapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName,
-                                                      "", "", "", from.mLat, from.mLon, "", null,
-                                                      null, "", null, null, false /* isExtendedView */),
-                                        new MapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName,
-                                                      "", "", "", to.mLat, to.mLon, "", null,
-                                                      null, "", null, null, false /* isExtendedView */),
-                                        true);
+        RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                                                  from.mName, "", from.mLat, from.mLon),
+                                        MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                                                  to.mName, "", to.mLat, to.mLon), true);
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
@@ -2254,9 +2251,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @NonNull
     private static MapObject fromLatLon(double lat, double lon)
     {
-      return new MapObject(FeatureId.EMPTY, MapObject.API_POINT, "",
-                           "", "", "", lat, lon, "", null,
-                           null, "", null, null, false /* isExtendedView */);
+      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, "", "", lat, lon);
     }
 
     BuildRouteTask(double latTo, double lonTo)

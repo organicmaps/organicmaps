@@ -524,9 +524,9 @@ public class RoutingController implements TaxiManager.TaxiListener
   @NonNull
   private MapObject toMapObject(@NonNull RouteMarkData point)
   {
-    return new MapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
-                         point.mTitle, null, point.mSubtitle, null, point.mLat, point.mLon, null,
-                         null, null, null, null, null, false /* isExtendedView */);
+    return MapObject.createMapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
+                         point.mTitle == null ? "" : point.mTitle,
+                         point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
   }
 
   public boolean isStopPointAllowed()

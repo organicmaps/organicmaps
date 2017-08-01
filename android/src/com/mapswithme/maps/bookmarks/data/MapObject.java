@@ -57,17 +57,19 @@ public class MapObject implements Parcelable
   @Nullable
   private RoutePointInfo mRoutePointInfo;
   private boolean mExtendedView;
+  private boolean mShouldShowUGC;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
                    double lat, double lon, String apiId,
                    @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView)
+                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
+                   boolean shouldShowUGC)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
-         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView);
+         types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -75,7 +77,8 @@ public class MapObject implements Parcelable
                    String subtitle, String address, double lat, double lon, Metadata metadata,
                    String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView)
+                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
+                   boolean shouldShowUGC)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -91,6 +94,7 @@ public class MapObject implements Parcelable
     mLocalAdInfo = localAdInfo;
     mRoutePointInfo = routePointInfo;
     mExtendedView = isExtendedView;
+    mShouldShowUGC = shouldShowUGC;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
     if (taxiTypes != null)
@@ -119,10 +123,21 @@ public class MapObject implements Parcelable
          source.readString(), // BookingSearchUrl
          (LocalAdInfo) source.readParcelable(LocalAdInfo.class.getClassLoader()), // LocalAdInfo
          (RoutePointInfo) source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
-         source.readInt() == 1);
+         source.readInt() == 1, // mExtendedView
+         source.readInt() == 1); // mShouldShowUGC
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
 
+  }
+
+  @NonNull
+  public static MapObject createMapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
+                                   @NonNull String title, @NonNull String subtitle, double lat, double lon)
+  {
+    return new MapObject(featureId, mapObjectType, title,
+                         "", subtitle, "", lat, lon, "", null,
+                         null, "", null, null, false /* isExtendedView */,
+                         false /* shouldShowUGC */);
   }
 
   @Nullable
@@ -282,6 +297,11 @@ public class MapObject implements Parcelable
     return mExtendedView;
   }
 
+  public boolean shouldShowUGC()
+  {
+    return mShouldShowUGC;
+  }
+
   @NonNull
   public FeatureId getFeatureId()
   {
@@ -322,6 +342,7 @@ public class MapObject implements Parcelable
     dest.writeParcelable(mLocalAdInfo, 0);
     dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeInt(mExtendedView ? 1 : 0);
+    dest.writeInt(mShouldShowUGC ? 1 : 0);
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
   }

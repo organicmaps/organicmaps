@@ -465,10 +465,9 @@ public class SearchFragment extends BaseMwmFragment
     if (RoutingController.get().isWaitingPoiPick())
     {
       SearchResult.Description description = result.description;
-      final MapObject point = new MapObject(FeatureId.EMPTY, MapObject.SEARCH, result.name, "",
-                                            description != null ? description.featureType : "", "",
-                                            result.lat, result.lon, "", null, null, "", null, null,
-                                            false /* isExtendedView */);
+      final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, result.name,
+                                            description != null ? description.featureType : "",
+                                            result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
     }
 
