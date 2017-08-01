@@ -109,14 +109,16 @@ bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
   if (m_errorsLeft >= rhs.m_errorsLeft)
     return false;
 
+  auto const errorsAvail = static_cast<uint8_t>(rhs.m_errorsLeft - m_errorsLeft);
+
   if (IsStandard() && rhs.IsStandard())
-    return AbsDiff(m_offset, rhs.m_offset) <= rhs.m_errorsLeft - m_errorsLeft;
+    return AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
 
   if (IsStandard() && rhs.IsTransposed())
     return m_offset == rhs.m_offset && m_errorsLeft == 0;
 
   if (IsTransposed() && rhs.IsStandard())
-    return AbsDiff(m_offset + 1, rhs.m_offset) <= rhs.m_errorsLeft - m_errorsLeft;
+    return AbsDiff(m_offset + 1, rhs.m_offset) <= errorsAvail;
 
   ASSERT(IsTransposed(), ());
   ASSERT(rhs.IsTransposed(), ());
