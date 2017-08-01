@@ -36,18 +36,20 @@ public:
   public:
     using IsOnewayFn = std::function<bool(FeatureID const & featureId)>;
 
-    BestEdgeComparator(m2::PointD const & point,  m2::PointD const & direction, IsOnewayFn const & isOnewayFn);
+    BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction,
+                       IsOnewayFn const & isOnewayFn);
 
     /// \returns true if |edge1| is closer to |m_point| and |m_direction| than |edge2|.
     bool Compare(Edge const & edge1, Edge const & edge2) const;
 
-    /// \returns true if |edge| has a oneway feature and if |edge| is almost parallel to vector |m_direction|.
-    /// returns true if |edge| has a twoway feature and if |edge| is almost collinear to vector |m_direction|.
+    /// \returns true if |edge| has a oneway feature and if |edge| is almost parallel to vector
+    /// |m_direction|.
+    /// returns true if |edge| has a twoway feature and if |edge| is almost collinear to vector
+    /// |m_direction|.
     /// returns false otherwise.
     bool IsAlmostConformed(Edge const & edge) const;
 
     bool IsDirectionValid() const { return !m_direction.IsAlmostZero(); }
-
     /// \brief According to current implementation vectors |edge| and |m_direction|
     /// are almost collinear if angle between line of the vectors less than 14 degrees.
     /// If also the angle between the vectors is less than 14 degrees |forward| will be set to true.
@@ -89,7 +91,8 @@ private:
                                        m2::PointD const & startDirection,
                                        RouterDelegate const & delegate, Route & route);
   IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                        Segment const & startSegment, bool startSegmentIsAlmostParallelDirection,
+                                        Segment const & startSegment,
+                                        bool startSegmentIsAlmostParallelDirection,
                                         RouterDelegate const & delegate, WorldGraph & graph,
                                         std::vector<Segment> & subroute, Junction & startJunction);
 
@@ -105,7 +108,8 @@ private:
   /// segment in neighbourhoods the closest segment to |point| will be chosen.
   /// \param isOutgoing == true is |point| is considered as the start of the route.
   /// isOutgoing == false is |point| is considered as the finish of the route.
-  /// \param bestSegmentIsAlmostConformDirection is filled with true if |bestSegment| is chosen because
+  /// \param bestSegmentIsAlmostConformDirection is filled with true if |bestSegment| is chosen
+  /// because
   /// vector |direction| and vector of |bestSegment| are almost equal and with false otherwise.
   bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
                        WorldGraph & worldGraph, Segment & bestSegment,
@@ -113,10 +117,8 @@ private:
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   IRouter::ResultCode ProcessLeaps(std::vector<Segment> const & input,
-                                   RouterDelegate const & delegate,
-                                   WorldGraph::Mode prevMode,
-                                   IndexGraphStarter & starter,
-                                   std::vector<Segment> & output);
+                                   RouterDelegate const & delegate, WorldGraph::Mode prevMode,
+                                   IndexGraphStarter & starter, std::vector<Segment> & output);
   IRouter::ResultCode RedressRoute(std::vector<Segment> const & segments,
                                    RouterDelegate const & delegate, IndexGraphStarter & starter,
                                    Route & route) const;
