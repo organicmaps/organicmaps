@@ -9,6 +9,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -37,6 +38,7 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
@@ -475,12 +477,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void addStop(@NonNull MapObject mapObject)
   {
-    // TODO(@alexzatsepin): set correct title and subtitle.
-    Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
-                                  RoutePointInfo.ROUTE_MARK_INTERMEDIATE,
-                                  0/* intermediateIndex */,
-                                  MapObject.isOfType(MapObject.MY_POSITION, mapObject),
-                                  mapObject.getLat(), mapObject.getLon());
+    addRoutePoint(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, mapObject);
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -761,11 +758,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (startPoint != null)
     {
       applyRemovingIntermediatePointsTransaction();
-      // TODO(@alexzatsepin): set correct title and subtitle.
-      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
-                                    RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
-                                    MapObject.isOfType(MapObject.MY_POSITION, startPoint),
-                                    startPoint.getLat(), startPoint.getLon());
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_START, startPoint);
       if (mContainer != null)
         mContainer.updateMenu();
     }
@@ -773,11 +766,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (endPoint != null)
     {
       applyRemovingIntermediatePointsTransaction();
-      // TODO(@alexzatsepin): set correct title and subtitle.
-      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
-                                    RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
-                                    MapObject.isOfType(MapObject.MY_POSITION, endPoint),
-                                    endPoint.getLat(), endPoint.getLon());
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_FINISH, endPoint);
       if (mContainer != null)
         mContainer.updateMenu();
     }
@@ -826,11 +815,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (point != null)
     {
       applyRemovingIntermediatePointsTransaction();
-      // TODO(@alexzatsepin): set correct title and subtitle.
-      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
-                                    RoutePointInfo.ROUTE_MARK_START, 0/* intermediateIndex */,
-                                    MapObject.isOfType(MapObject.MY_POSITION, point),
-                                    point.getLat(), point.getLon());
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_START, point);
       startPoint = getStartPoint();
     }
 
@@ -881,11 +866,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (point != null)
     {
       applyRemovingIntermediatePointsTransaction();
-      // TODO(@alexzatsepin): set correct title and subtitle.
-      Framework.nativeAddRoutePoint(""/* title */, ""/* subtitle */,
-                                    RoutePointInfo.ROUTE_MARK_FINISH, 0/* intermediateIndex */,
-                                    MapObject.isOfType(MapObject.MY_POSITION, point),
-                                    point.getLat(), point.getLon());
+
+      addRoutePoint(RoutePointInfo.ROUTE_MARK_FINISH, point);
       endPoint = getEndPoint();
     }
 
@@ -923,6 +905,42 @@ public class RoutingController implements TaxiManager.TaxiListener
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
     return true;
+  }
+
+  private static void addRoutePoint(@RoutePointInfo.RouteMarkType int type, @NonNull MapObject point)
+  {
+    Pair<String, String> description = getDescriptionForPoint(point);
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */,
+                                  type, 0 /* intermediateIndex */,
+                                  MapObject.isOfType(MapObject.MY_POSITION, point),
+                                  point.getLat(), point.getLon());
+  }
+
+  @NonNull
+  private static Pair<String, String> getDescriptionForPoint(@NonNull MapObject point)
+  {
+    String title, subtitle = "";
+    if (!TextUtils.isEmpty(point.getTitle()))
+    {
+      title = point.getTitle();
+      subtitle = point.getSubtitle();
+    }
+    else
+    {
+      if (!TextUtils.isEmpty(point.getSubtitle()))
+      {
+        title = point.getSubtitle();
+      }
+      else if (!TextUtils.isEmpty(point.getAddress()))
+      {
+        title = point.getAddress();
+      }
+      else
+      {
+        title = String.format(Locale.US, "%1$s, %2$s", point.getLat(), point.getLon());
+      }
+    }
+    return new Pair<>(title, subtitle);
   }
 
   private void swapPoints()
