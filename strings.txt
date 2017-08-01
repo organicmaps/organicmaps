@@ -25894,3 +25894,15 @@
     comment = Only ru/en are needed
     en = Learn more
     ru = Посмотреть цены
+
+[add_my_position]
+    en = Add my position
+    ru = Добавить мое местоположение
+
+[choose_start_point]
+    en = Choose a starting point
+    ru = Выберите начало маршрута
+
+[choose_destination]
+    en = Choose a destination
+    ru = Выберите конец маршрута
