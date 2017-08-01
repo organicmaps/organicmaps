@@ -166,6 +166,7 @@ protected:
   Mode m_mode;
   bool m_suggestsEnabled;
   shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+  bool m_cianMode = false;
   SearchParams::TOnResults m_onResults;
 
   /// @name Get ranking params.

@@ -314,9 +314,6 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 }
 }  // namespace
 
-// Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_mode(Mode::Everywhere) {}
-
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
                    PreRanker & preRanker, VillagesCache & villagesCache,
@@ -328,7 +325,6 @@ Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoG
   , m_hotelsCache(cancellable)
   , m_hotelsFilter(m_hotelsCache)
   , m_cancellable(cancellable)
-  , m_model(SearchModel::Instance())
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_filter(nullptr)
@@ -343,6 +339,10 @@ Geocoder::~Geocoder() {}
 void Geocoder::SetParams(Params const & params)
 {
   m_params = params;
+  if (m_params.m_cianMode)
+    m_model.EnableCian();
+  else
+    m_model.DisableCian();
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
@@ -1199,6 +1199,9 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
 
   if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
       return;
+
+  if (m_params.m_cianMode && type != SearchModel::SEARCH_TYPE_BUILDING)
+    return;
 
   // Distance and rank will be filled at the end, for all results at once.
   //

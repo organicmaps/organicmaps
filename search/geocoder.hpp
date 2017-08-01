@@ -80,11 +80,10 @@ class Geocoder
 public:
   struct Params : public QueryParams
   {
-    Params();
-
-    Mode m_mode;
+    Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+    bool m_cianMode = false;
   };
 
   Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
@@ -233,7 +232,7 @@ private:
 
   // This field is used to map features to a limited number of search
   // classes.
-  SearchModel const & m_model;
+  SearchModel m_model;
 
   // Following fields are set up by Search() method and can be
   // modified and used only from Search() or its callees.

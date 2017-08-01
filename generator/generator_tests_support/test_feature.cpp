@@ -257,6 +257,8 @@ void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 
   auto const & classificator = classif();
   fb.AddType(classificator.GetTypeByPath({"building"}));
+  for (auto const & type : m_types)
+    fb.AddType(classificator.GetTypeByPath(type));
 }
 
 string TestBuilding::ToString() const

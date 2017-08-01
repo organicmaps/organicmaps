@@ -1392,6 +1392,8 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
     strings::AsciiToLower(query);
     if (query == "cian")
       m_cianSearchMode = true;
+    else
+      m_cianSearchMode = false;
   }
 
   search::SearchParams p;
@@ -1401,6 +1403,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
   p.m_forceSearch = false;
   p.m_suggestsEnabled = false;
   p.m_hotelsFilter = params.m_hotelsFilter;
+  p.m_cianMode = m_cianSearchMode;
 
   p.m_onStarted = [params]() {
     if (params.m_onStarted)

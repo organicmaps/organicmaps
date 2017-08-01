@@ -47,16 +47,14 @@ public:
     SEARCH_TYPE_COUNT
   };
 
-  static SearchModel const & Instance();
-
   SearchType GetSearchType(FeatureType const & feature) const;
 
-private:
-  SearchModel() = default;
+  void EnableCian() { m_cianMode = true; }
+  void DisableCian() { m_cianMode = false; }
 
-  DISALLOW_COPY_AND_MOVE(SearchModel);
+private:
+  bool m_cianMode = false;
 };
 
 string DebugPrint(SearchModel::SearchType type);
-
 }  // namespace search

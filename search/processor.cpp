@@ -448,6 +448,7 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 
   SetSuggestsEnabled(params.m_suggestsEnabled);
   m_hotelsFilter = params.m_hotelsFilter;
+  m_cianMode = params.m_cianMode;
 
   SetInputLocale(params.m_inputLocale);
 
@@ -712,6 +713,7 @@ void Processor::InitGeocoder(Geocoder::Params & params)
   else
     params.m_pivot = GetPivotRect();
   params.m_hotelsFilter = m_hotelsFilter;
+  params.m_cianMode = m_cianMode;
   m_geocoder.SetParams(params);
 }
 

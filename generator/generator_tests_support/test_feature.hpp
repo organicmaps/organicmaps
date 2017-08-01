@@ -131,10 +131,14 @@ public:
   void Serialize(FeatureBuilder1 & fb) const override;
   std::string ToString() const override;
 
+  void AddType(std::vector<std::string> const & path) { m_types.push_back(path); }
+
 private:
   std::vector<m2::PointD> const m_boundary;
   std::string const m_houseNumber;
   std::string const m_streetName;
+
+  std::vector<std::vector<std::string>> m_types;
 };
 
 class TestPark : public TestFeature

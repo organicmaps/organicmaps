@@ -43,6 +43,7 @@ public:
   bool m_suggestsEnabled = true;
 
   shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+  bool m_cianMode = false;
 
   friend string DebugPrint(SearchParams const & params);
 

@@ -76,23 +76,41 @@ public:
 private:
   CustomIsBuildingChecker() {}
 };
-}  // namespace
 
-// static
-SearchModel const & SearchModel::Instance()
+class IsCianChecker
 {
-  static SearchModel model;
-  return model;
-}
+public:
+  static IsCianChecker const & Instance()
+  {
+    static const IsCianChecker instance;
+    return instance;
+  }
+
+  bool operator()(FeatureType const & ft) const
+  {
+    feature::TypesHolder th(ft);
+    return th.Size() == 1 && th.Has(m_type);
+  }
+
+private:
+  IsCianChecker() { m_type = classif().GetTypeByPath({"building"}); }
+
+  uint32_t m_type;
+};
+}  // namespace
 
 SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) const
 {
   static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
+  static auto const & cianChecker = IsCianChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
 
-  if (buildingChecker(feature))
+  if (m_cianMode && cianChecker(feature))
+    return SEARCH_TYPE_BUILDING;
+
+  if (!m_cianMode && buildingChecker(feature))
     return SEARCH_TYPE_BUILDING;
 
   if (streetChecker(feature))
