@@ -143,8 +143,10 @@ bool LevenshteinDFA::Position::operator==(Position const & rhs) const
 // LevenshteinDFA::State ---------------------------------------------------------------------------
 void LevenshteinDFA::State::Normalize()
 {
+  size_t i = 0;
   size_t j = m_positions.size();
-  for (size_t i = 0; i < j; ++i)
+
+  while (i < j)
   {
     auto const & cur = m_positions[i];
 
@@ -155,6 +157,10 @@ void LevenshteinDFA::State::Normalize()
       ASSERT_GREATER(j, 0, ());
       --j;
       std::swap(m_positions[i], m_positions[j]);
+    }
+    else
+    {
+      ++i;
     }
   }
 
