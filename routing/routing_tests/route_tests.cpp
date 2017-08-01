@@ -228,6 +228,10 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
 
   Route route("TestRouter");
   route.SetGeometry(kRouteGeometry.begin(), kRouteGeometry.end());
+  
+  vector<RouteSegment> routeSegments;
+  GetTestRouteSegments(kRouteGeometry, kTestTurns2, kTestNames2, kTestTimes2, routeSegments);
+  route.SetRouteSegments(routeSegments);
 
   auto const testMachedPos = [&](location::GpsInfo const & pos,
                                  location::GpsInfo const & expectedMatchingPos,
