@@ -1,6 +1,6 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "MWMTextToSpeech.h"
+#import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -29,6 +29,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65S-M4-TnM" customClass="NavigationInfoArea" customModule="cm_beta" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TdT-ia-GP9" customClass="MenuArea" customModule="cm_beta" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                            </view>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="cm_beta" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
@@ -55,8 +63,11 @@
                             <constraint firstAttribute="bottom" secondItem="QKu-4A-UgP" secondAttribute="bottom" priority="100" id="488-ng-pRw"/>
                             <constraint firstItem="QKu-4A-UgP" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" priority="100" constant="20" id="60l-kI-cp7"/>
                             <constraint firstAttribute="trailing" secondItem="awj-9E-eBS" secondAttribute="trailing" priority="100" id="6cS-mj-HcX"/>
+                            <constraint firstItem="TdT-ia-GP9" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="819-qB-GBD"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="AW8-cN-xzE"/>
+                            <constraint firstAttribute="trailing" secondItem="65S-M4-TnM" secondAttribute="trailing" priority="100" id="Bjn-UL-ALa"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="BqM-vp-EnJ"/>
+                            <constraint firstAttribute="bottom" secondItem="65S-M4-TnM" secondAttribute="bottom" priority="100" id="FU7-Pa-O3P"/>
                             <constraint firstItem="QKu-4A-UgP" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="Gw4-fq-sLY"/>
                             <constraint firstAttribute="bottom" secondItem="NI8-tV-i2B" secondAttribute="bottom" priority="100" id="HW4-dR-LNu"/>
                             <constraint firstAttribute="bottomMargin" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="Kf4-GM-1aY"/>
@@ -64,12 +75,17 @@
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="QQc-TF-hhE"/>
                             <constraint firstAttribute="trailing" secondItem="QKu-4A-UgP" secondAttribute="trailing" priority="100" id="SNy-Ck-trF"/>
                             <constraint firstItem="NI8-tV-i2B" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="Uf3-sL-39L"/>
+                            <constraint firstAttribute="trailing" secondItem="TdT-ia-GP9" secondAttribute="trailing" priority="100" id="UvG-fn-nF1"/>
+                            <constraint firstAttribute="bottom" secondItem="TdT-ia-GP9" secondAttribute="bottom" priority="100" id="Wmw-ON-0aO"/>
+                            <constraint firstAttribute="top" secondItem="65S-M4-TnM" secondAttribute="top" priority="100" id="XrN-7f-l3w"/>
                             <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="YBB-Wd-lq6"/>
+                            <constraint firstItem="65S-M4-TnM" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="YiU-Dr-KCp"/>
                             <constraint firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" priority="100" id="ZFU-IG-uZh"/>
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" priority="100" id="aOI-yX-CJY"/>
                             <constraint firstAttribute="trailing" secondItem="NI8-tV-i2B" secondAttribute="trailing" priority="100" id="bPj-dO-SIK"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="awj-9E-eBS" secondAttribute="bottom" id="dNo-wc-hvO"/>
                             <constraint firstItem="xJx-UU-IdV" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" priority="100" id="fUZ-NK-6GU"/>
+                            <constraint firstAttribute="top" secondItem="TdT-ia-GP9" secondAttribute="top" priority="100" id="ihO-7V-XPf"/>
                             <constraint firstAttribute="top" secondItem="NI8-tV-i2B" secondAttribute="top" priority="100" id="kvw-Gs-ady"/>
                             <constraint firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="pur-5a-SQA"/>
                             <constraint firstAttribute="trailing" secondItem="FFY-Dy-Wou" secondAttribute="trailing" priority="100" id="qdF-Ru-TYd"/>

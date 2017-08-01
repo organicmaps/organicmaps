@@ -3,7 +3,6 @@
 #import "MWMSearch.h"
 #import "UIButton+RuntimeAttributes.h"
 
-extern NSString * const kSearchStateWillChangeNotification;
 extern NSString * const kSearchStateKey;
 
 @interface MWMSearchChangeModeView ()<MWMSearchObserver>
@@ -21,17 +20,12 @@ extern NSString * const kSearchStateKey;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(searchStateWillChange:)
-                                               name:kSearchStateWillChangeNotification
-                                             object:nil];
   [MWMSearch addObserver:self];
   self.changeModeButton.titleLabel.textAlignment = NSTextAlignmentNatural;
   self.filterButton.titleLabel.textAlignment = NSTextAlignmentNatural;
   self.filterButtoniPadX.priority = IPAD ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 }
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
 - (void)updateForState:(MWMSearchManagerState)state
 {
   UIButton * changeModeButton = self.changeModeButton;
@@ -88,13 +82,5 @@ extern NSString * const kSearchStateKey;
 
 - (void)onSearchStarted { [self updateFilterButtons:[MWMSearch isHotelResults]]; }
 - (void)onSearchCompleted { [self updateFilterButtons:[MWMSearch isHotelResults]]; }
-#pragma mark - Notifications
-
-- (void)searchStateWillChange:(NSNotification *)notification
-{
-  MWMSearchManagerState const state =
-      MWMSearchManagerState([[notification userInfo][kSearchStateKey] unsignedIntegerValue]);
-  [self updateForState:state];
-}
 
 @end

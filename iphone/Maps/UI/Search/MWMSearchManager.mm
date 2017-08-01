@@ -26,7 +26,6 @@
 #include "Framework.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
-extern NSString * const kSearchStateWillChangeNotification = @"SearchStateWillChangeNotification";
 extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 namespace
@@ -36,7 +35,16 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   MWMSearchManagerActionBarStateTabBar,
   MWMSearchManagerActionBarStateModeFilter
 };
+
+using TObserver = id<MWMSearchManagerObserver>;
+using TObservers = NSHashTable<__kindof TObserver>;
 }  // namespace
+
+@interface MWMMapViewControlsManager ()
+
+@property(nonatomic) MWMSearchManager * searchManager;
+
+@end
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchTabbedViewProtocol,
                                MWMSearchTabButtonsViewProtocol, UITextFieldDelegate,
@@ -72,10 +80,13 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 
 @property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
 
+@property(nonatomic) TObservers * observers;
+
 @end
 
 @implementation MWMSearchManager
 
++ (MWMSearchManager *)manager { return [MWMMapViewControlsManager manager].searchManager; }
 - (nullable instancetype)init
 {
   self = [super init];
@@ -84,6 +95,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
     [NSBundle.mainBundle loadNibNamed:@"MWMSearchView" owner:self options:nil];
     self.state = MWMSearchManagerStateHidden;
     [MWMSearch addObserver:self];
+    _observers = [TObservers weakObjectsHashTable];
   }
   return self;
 }
@@ -326,6 +338,26 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   }];
 }
 
+#pragma mark - Add/Remove Observers
+
++ (void)addObserver:(id<MWMSearchManagerObserver>)observer
+{
+  [[MWMSearchManager manager].observers addObject:observer];
+}
+
++ (void)removeObserver:(id<MWMSearchManagerObserver>)observer
+{
+  [[MWMSearchManager manager].observers removeObject:observer];
+}
+
+#pragma mark - MWMSearchManagerObserver
+
+- (void)onSearchManagerStateChanged
+{
+  for (TObserver observer in self.observers)
+    [observer onSearchManagerStateChanged];
+}
+
 #pragma mark - Filters
 
 - (IBAction)changeMode
@@ -410,11 +442,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
 {
   if (_state == state)
     return;
-  [[NSNotificationCenter defaultCenter] postNotificationName:kSearchStateWillChangeNotification
-                                                      object:nil
-                                                    userInfo:@{
-                                                      kSearchStateKey : @(state)
-                                                    }];
   if (_state == MWMSearchManagerStateHidden)
     [self endSearch];
   _state = state;
@@ -438,7 +465,9 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
     [self changeToMapSearchState];
     break;
   }
-  [[MWMMapViewControlsManager manager] searchViewDidEnterState:state];
+  [self onSearchManagerStateChanged];
+  [self.changeModeView updateForState:state];
+  [[MapViewController controller] updateStatusBarStyle];
 }
 
 - (void)viewHidden:(BOOL)hidden
@@ -448,11 +477,7 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   UIView * contentView = self.contentView;
   UIView * parentView = self.ownerController.view;
 
-  if (hidden)
-  {
-    [[MWMMapViewControlsManager manager] searchFrameUpdated:{}];
-  }
-  else
+  if (!hidden)
   {
     if (searchBarView.superview)
     {
@@ -467,7 +492,6 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
     [self layoutTopViews];
     CGRect searchAndStatusBarFrame = self.searchBarView.frame;
     searchAndStatusBarFrame.size.height += statusBarHeight();
-    [[MWMMapViewControlsManager manager] searchFrameUpdated:searchAndStatusBarFrame];
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{

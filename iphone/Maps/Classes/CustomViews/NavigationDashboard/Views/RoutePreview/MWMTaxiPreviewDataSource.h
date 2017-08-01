@@ -1,4 +1,4 @@
-#import "SwiftBridge.h"
+#import "MWMRoutePreviewTaxiCellType.h"
 
 @class MWMRoutePoint;
 

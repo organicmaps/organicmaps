@@ -134,8 +134,10 @@ BOOL gIsFirstMyPositionMode = YES;
   if ([MapsAppDelegate theApp].hasApiURL)
     return;
 
-  MWMMapViewControlsManager * cm = self.controlsManager;
-  if (cm.searchHidden && cm.navigationState == MWMNavigationDashboardStateHidden)
+  BOOL const isSearchHidden = ([MWMSearchManager manager].state == MWMSearchManagerStateHidden);
+  BOOL const isNavigationDashboardHidden =
+      ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden);
+  if (isSearchHidden && isNavigationDashboardHidden)
     self.controlsManager.hidden = !self.controlsManager.hidden;
 }
 
@@ -262,7 +264,8 @@ BOOL gIsFirstMyPositionMode = YES;
                                                   name:UIDeviceOrientationDidChangeNotification
                                                 object:nil];
 
-  self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+  if (![MWMRouter isRoutingActive])
+    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
@@ -516,15 +519,15 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.navigationController popToRootViewControllerAnimated:NO];
   if (self.isViewLoaded)
   {
-    BOOL isSearchHidden = YES;
+    auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
     if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
       [self openBookmarks];
     else if ([action isEqualToString:@"me.maps.3daction.search"])
-      isSearchHidden = NO;
+      searchState = MWMSearchManagerStateDefault;
     else if ([action isEqualToString:@"me.maps.3daction.route"])
       [self.controlsManager onRoutePrepare];
-    self.controlsManager.searchHidden = isSearchHidden;
+    [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
   }
   else
   {

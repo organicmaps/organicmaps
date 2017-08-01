@@ -1,13 +1,15 @@
 #import "MWMTaxiPreviewDataSource.h"
 #import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
+#import "MWMRoutePoint.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
-#include "geometry/mercator.hpp"
-
 #include "partners_api/taxi_provider.hpp"
+
+#include "geometry/mercator.hpp"
 
 @interface MWMTaxiCollectionView ()
 

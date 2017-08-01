@@ -1,5 +1,3 @@
-#import "MWMNavigationDashboardInfoProtocol.h"
-
 enum class NavigationSearchState
 {
   Maximized,
@@ -18,13 +16,15 @@ typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
   MWMNavigationInfoViewStateNavigation
 };
 
-@interface MWMNavigationInfoView : UIView<MWMNavigationDashboardInfoProtocol>
+@class MWMNavigationDashboardEntity;
 
-@property(nonatomic) CGFloat topBound;
-@property(nonatomic) CGFloat leftBound;
+@interface MWMNavigationInfoView : UIView
+
 @property(nonatomic, readonly) NavigationSearchState searchState;
 @property(nonatomic) MWMNavigationInfoViewState state;
 @property(weak, nonatomic) UIView * ownerView;
+
+- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info;
 
 - (void)setMapSearch;
 

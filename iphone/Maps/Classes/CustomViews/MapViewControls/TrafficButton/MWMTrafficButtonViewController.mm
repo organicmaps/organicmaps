@@ -123,43 +123,37 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   [iv stopAnimating];
   switch ([MWMTrafficManager state])
   {
-  case TrafficManager::TrafficState::Disabled:
-    btn.imageName = @"btn_traffic_off";
-    break;
-  case TrafficManager::TrafficState::Enabled:
-    btn.imageName = @"btn_traffic_on";
-    break;
-  case TrafficManager::TrafficState::WaitingData:
+  case MWMTrafficManagerStateDisabled: btn.imageName = @"btn_traffic_off"; break;
+  case MWMTrafficManagerStateEnabled: btn.imageName = @"btn_traffic_on"; break;
+  case MWMTrafficManagerStateWaitingData:
     iv.animationImages = imagesWithName(@"btn_traffic_update");
     iv.animationDuration = 0.8;
     [iv startAnimating];
     break;
-  case TrafficManager::TrafficState::Outdated:
-    btn.imageName = @"btn_traffic_outdated";
-    break;
-  case TrafficManager::TrafficState::NoData:
+  case MWMTrafficManagerStateOutdated: btn.imageName = @"btn_traffic_outdated"; break;
+  case MWMTrafficManagerStateNoData:
     btn.imageName = @"btn_traffic_on";
     [MWMToast showWithText:L(@"traffic_data_unavailable")];
     break;
-  case TrafficManager::TrafficState::NetworkError:
+  case MWMTrafficManagerStateNetworkError:
     btn.imageName = @"btn_traffic_off";
     [MWMTrafficManager enableTraffic:NO];
     [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
     break;
-  case TrafficManager::TrafficState::ExpiredApp:
-    btn.imageName = @"btn_traffic_on";
-    [MWMToast showWithText:L(@"traffic_update_app_message")];
-    break;
-  case TrafficManager::TrafficState::ExpiredData:
+  case MWMTrafficManagerStateExpiredData:
     btn.imageName = @"btn_traffic_on";
     [MWMToast showWithText:L(@"traffic_update_maps_text")];
+    break;
+  case MWMTrafficManagerStateExpiredApp:
+    btn.imageName = @"btn_traffic_on";
+    [MWMToast showWithText:L(@"traffic_update_app_message")];
     break;
   }
 }
 
 - (IBAction)buttonTouchUpInside
 {
-  if ([MWMTrafficManager state] == TrafficManager::TrafficState::Disabled)
+  if ([MWMTrafficManager state] == MWMTrafficManagerStateDisabled)
     [MWMTrafficManager enableTraffic:YES];
   else
     [MWMTrafficManager enableTraffic:NO];

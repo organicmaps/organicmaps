@@ -1,10 +1,3 @@
-@objc(MWMRoutePreviewTaxiCellType)
-enum RoutePreviewTaxiCellType: Int {
-  case taxi
-  case uber
-  case yandex
-}
-
 @objc(MWMRoutePreviewTaxiCell)
 final class RoutePreviewTaxiCell: UICollectionViewCell {
 
@@ -22,7 +15,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
     }
   }
 
-  func config(type: RoutePreviewTaxiCellType, title: String, eta: String, price: String, currency: String) {
+  func config(type: MWMRoutePreviewTaxiCellType, title: String, eta: String, price: String, currency: String) {
     let iconImage = { () -> UIImage in
       switch type {
       case .taxi: return #imageLiteral(resourceName: "icTaxiTaxi")

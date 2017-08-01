@@ -5,6 +5,7 @@
 #import "MWMAlertViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMBottomMenuControllerProtocol.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMCommon.h"
@@ -12,11 +13,9 @@
 #import "MWMNetworkPolicy.h"
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageManager.h"
-#import "MWMRoutePreview.h"
 #import "MWMRouter.h"
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
-#import "MWMTaxiPreviewDataSource.h"
 #import "MWMToast.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
@@ -40,8 +39,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMMapViewControlsManager ()<MWMNavigationDashboardManagerProtocol,
-                                        MWMBottomMenuControllerProtocol>
+@interface MWMMapViewControlsManager ()<MWMBottomMenuControllerProtocol, MWMSearchManagerObserver>
 
 @property(nonatomic) MWMSideButtons * sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController * trafficButton;
@@ -53,9 +51,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) MapViewController * ownerController;
 
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
-
-@property(nonatomic) CGFloat topBound;
-@property(nonatomic) CGFloat leftBound;
 
 @end
 
@@ -74,7 +69,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtonsHidden = NO;
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
-  self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   return self;
 }
@@ -84,12 +78,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   if ([MWMToast affectsStatusBar])
     return [MWMToast preferredStatusBarStyle];
 
-  BOOL const isSearchUnderStatusBar = !self.searchHidden;
+  BOOL const isSearchUnderStatusBar = (self.searchManager.state != MWMSearchManagerStateHidden);
   BOOL const isNavigationUnderStatusBar =
       self.navigationManager.state != MWMNavigationDashboardStateHidden &&
       self.navigationManager.state != MWMNavigationDashboardStateNavigation;
-  BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive ||
-                                        self.menuState == MWMBottomMenuStateRoutingExpanded;
+  BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive;
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
   BOOL const isAddPlaceUnderStatusBar =
       [self.ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
@@ -123,11 +116,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.menuController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [coordinator animateAlongsideTransition:^(
-                   id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-    self.navigationManager.leftBound = self.leftBound;
-  }
-                               completion:nil];
 }
 
 #pragma mark - MWMPlacePageViewManager
@@ -156,30 +144,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     show(info);
   }
-}
-
-- (void)searchViewDidEnterState:(MWMSearchManagerState)state
-{
-  if (state == MWMSearchManagerStateMapSearch)
-  {
-    [self.navigationManager setMapSearch];
-  }
-  if (state == MWMSearchManagerStateHidden)
-  {
-    if (!IPAD)
-    {
-      self.hidden = NO;
-      self.leftBound = self.topBound = 0.0;
-    }
-  }
-  [self.ownerController setNeedsStatusBarAppearanceUpdate];
-}
-
-- (void)searchFrameUpdated:(CGRect)frame
-{
-  CGSize const s = frame.size;
-  self.leftBound = s.width;
-  self.topBound = s.height;
 }
 
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale
@@ -226,23 +190,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 }
 
-- (void)closeInfoScreens
-{
-  if (IPAD)
-  {
-    if (!self.searchHidden)
-      self.searchManager.state = MWMSearchManagerStateHidden;
-    else
-      [MWMRouter stopRouting];
-  }
-  else
-  {
-    CGSize const ownerViewSize = self.ownerController.view.size;
-    if (ownerViewSize.width > ownerViewSize.height)
-      [self dismissPlacePage];
-  }
-}
-
 - (void)didFinishAddingPlace
 {
   self.trafficButtonHidden = NO;
@@ -280,12 +227,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)routePreviewDidChangeFrame:(CGRect)newFrame
-{
-  if (IPAD)
-    self.navigationManager.leftBound = newFrame.origin.x + newFrame.size.width;
-}
-
 - (void)setDisableStandbyOnRouteFollowing:(BOOL)disableStandbyOnRouteFollowing
 {
   if (_disableStandbyOnRouteFollowing == disableStandbyOnRouteFollowing)
@@ -297,9 +238,13 @@ extern NSString * const kAlohalyticsTapEventKey;
     [[MapsAppDelegate theApp] enableStandby];
 }
 
-- (MWMTaxiCollectionView *)taxiCollectionView
+#pragma mark - MWMSearchManagerObserver
+
+- (void)onSearchManagerStateChanged
 {
-  return self.menuController.taxiCollectionView;
+  auto state = [MWMSearchManager manager].state;
+  if (!IPAD && state == MWMSearchManagerStateHidden)
+    self.hidden = NO;
 }
 
 #pragma mark - Routing
@@ -307,7 +252,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)onRoutePrepare
 {
   self.navigationManager.state = MWMNavigationDashboardStatePrepare;
-  self.menuController.p2pButton.selected = YES;
   [self onRoutePointsUpdated];
 }
 
@@ -321,7 +265,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRouteError
 {
-  self.navigationManager.state = MWMNavigationDashboardStateError;
+  if ([MWMRouter isTaxi])
+    return;
+  auto nm = self.navigationManager;
+  nm.errorMessage = L(@"routing_planning_error");
+  nm.state = MWMNavigationDashboardStateError;
 }
 
 - (void)onRouteReady
@@ -331,10 +279,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     dispatch_async(dispatch_get_main_queue(), ^{
       [MWMRouter disableFollowMode];
-      [self.navigationManager updateDashboard];
     });
   }
-  if (self.navigationManager.state != MWMNavigationDashboardStateNavigation)
+  [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
+  if (self.navigationManager.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
     self.navigationManager.state = MWMNavigationDashboardStateReady;
 }
 
@@ -354,7 +302,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
-  self.menuState = MWMBottomMenuStateInactive;
 }
 
 - (void)onRoutePointsUpdated { [self.navigationManager onRoutePointsUpdated]; }
@@ -393,19 +340,18 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (MWMNavigationDashboardManager *)navigationManager
 {
   if (!_navigationManager)
-  {
     _navigationManager =
-        [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view
-                                                         delegate:self];
-    [_navigationManager addInfoDisplay:self.menuController];
-  }
+        [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.view];
   return _navigationManager;
 }
 
 - (MWMSearchManager *)searchManager
 {
   if (!_searchManager)
+  {
     _searchManager = [[MWMSearchManager alloc] init];
+    [MWMSearchManager addObserver:self];
+  }
   return _searchManager;
 }
 
@@ -446,47 +392,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.menuController.state = self.hidden ? MWMBottomMenuStateHidden : menuState;
 }
 
-- (void)setRoutingErrorMessage:(NSString *)message
-{
-  [self.menuController setRoutingErrorMessage:message];
-}
-
 - (MWMBottomMenuState)menuState
 {
   MWMBottomMenuState const state = self.menuController.state;
   if (state != MWMBottomMenuStateHidden)
     return state;
   return _menuState;
-}
-
-- (MWMNavigationDashboardState)navigationState { return self.navigationManager.state; }
-- (void)setTopBound:(CGFloat)topBound
-{
-  if (IPAD)
-    return;
-  _topBound = topBound;
-  self.navigationManager.topBound = topBound;
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  if (!IPAD)
-    return;
-  if ([MWMRouter isRoutingActive])
-    return;
-  _leftBound = self.navigationManager.leftBound = self.menuController.leftBound = leftBound;
-}
-
-- (BOOL)searchHidden
-{
-  if (!_searchManager)
-    return YES;
-  return self.searchManager.state == MWMSearchManagerStateHidden;
-}
-- (void)setSearchHidden:(BOOL)searchHidden
-{
-  self.searchManager.state =
-      searchHidden ? MWMSearchManagerStateHidden : MWMSearchManagerStateDefault;
 }
 
 #pragma mark - MWMFeatureHolder

@@ -10,7 +10,7 @@
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNavigationDashboardManager.h"
+#import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMSearch.h"
 #import "MWMSettings.h"
@@ -115,7 +115,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 + (void)stopRouting
 {
   [self stop];
-  [MWMNavigationDashboardManager manager].taxiDataSource = nil;
 }
 
 + (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
@@ -440,23 +439,23 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  auto & rm = GetFramework().GetRoutingManager();
   // Don't save taxi routing type as default.
-  if ([[self class] isTaxi])
-    GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
+  if ([MWMRouter isTaxi])
+    rm.SetRouter(routing::RouterType::Vehicle);
 
   [self clearAltitudeImagesData];
-  GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
+  rm.CloseRouting(removeRoutePoints);
   [MWMThemeManager setAutoUpdates:NO];
   [MapsAppDelegate.theApp showAlertIfRequired];
 }
 
 - (void)updateFollowingInfo
 {
-  auto const & f = GetFramework();
-  if (!f.GetRoutingManager().IsRoutingActive())
+  if (![MWMRouter isRoutingActive])
     return;
   location::FollowingInfo info;
-  f.GetRoutingManager().GetRouteFollowingInfo(info);
+  GetFramework().GetRoutingManager().GetRouteFollowingInfo(info);
   if (info.IsValid())
     [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
 }
@@ -544,10 +543,6 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     f.DeactivateMapSelection(true);
     [mapViewControlsManager onRouteReady];
     [self updateFollowingInfo];
-    if (![MWMRouter isTaxi])
-      [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
-
-    mapViewControlsManager.searchHidden = YES;
     break;
   }
   case routing::IRouter::RouteFileNotExist:

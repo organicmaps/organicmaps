@@ -1,5 +1,4 @@
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#import "MWMTextToSpeechObserver.h"
 
 @interface MWMTextToSpeech : NSObject
 
@@ -8,13 +7,10 @@
 + (void)setTTSEnabled:(BOOL)enabled;
 + (NSString *)savedLanguage;
 
-+ (NSString *)ttsStatusNotificationKey;
++ (void)addObserver:(id<MWMTextToSpeechObserver>)observer;
++ (void)removeObserver:(id<MWMTextToSpeechObserver>)observer;
 
 @property(nonatomic) BOOL active;
-// Returns a list of available languages in the following format:
-// * name in bcp47;
-// * localized name;
-- (vector<std::pair<string, string>>)availableLanguages;
 - (void)setNotificationsLocale:(NSString *)locale;
 - (void)playTurnNotifications;
 
@@ -27,9 +23,3 @@
 + (instancetype) new __attribute__((unavailable("call tts instead")));
 
 @end
-
-namespace tts
-{
-string translatedTwine(string const & twine);
-
-}  // namespace tts

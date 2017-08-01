@@ -2,7 +2,7 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
 
-#include "map/user_mark.hpp"
+#include "map/place_page_info.hpp"
 
 @class MapViewController;
 @protocol MWMFeatureHolder;
@@ -18,8 +18,6 @@
 @property(nonatomic) BOOL trafficButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
-@property(nonatomic, readonly) MWMNavigationDashboardState navigationState;
-@property(nonatomic) BOOL searchHidden;
 @property(nonatomic) BOOL isDirectionViewHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
@@ -52,9 +50,7 @@
 
 #pragma mark - MWMSearchManager
 
-- (void)searchViewDidEnterState:(MWMSearchManagerState)state;
 - (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
-- (void)searchFrameUpdated:(CGRect)frame;
 - (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale;
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale;
 

@@ -3,7 +3,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMSettings.h"
-#import "MWMTextToSpeech.h"
+#import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"

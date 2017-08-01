@@ -1,7 +1,7 @@
-#import "MWMTextToSpeech.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMCommon.h"
 #import "MWMRouter.h"
+#import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
 
 #include "LocaleTranslator.h"
@@ -40,6 +40,9 @@ vector<pair<string, string>> availableLanguages()
   }
   return result;
 }
+
+using TObserver = id<MWMTextToSpeechObserver>;
+using TObservers = NSHashTable<__kindof TObserver>;
 }  // namespace
 
 @interface MWMTextToSpeech ()<AVSpeechSynthesizerDelegate>
@@ -51,6 +54,8 @@ vector<pair<string, string>> availableLanguages()
 @property(nonatomic) AVSpeechSynthesisVoice * speechVoice;
 @property(nonatomic) float speechRate;
 @property(nonatomic) AVAudioSession * audioSession;
+
+@property(nonatomic) TObservers * observers;
 
 @end
 
@@ -72,6 +77,7 @@ vector<pair<string, string>> availableLanguages()
   if (self)
   {
     _availableLanguages = availableLanguages();
+    _observers = [TObservers weakObjectsHashTable];
 
     NSString * saved = [[self class] savedLanguage];
     NSString * preferedLanguageBcp47;
@@ -112,12 +118,7 @@ vector<pair<string, string>> availableLanguages()
   return self;
 }
 
-- (void)dealloc
-{
-  self.speechSynthesizer.delegate = nil;
-}
-
-+ (NSString *)ttsStatusNotificationKey { return @"TTFStatusWasChangedFromSettingsNotification"; }
+- (void)dealloc { self.speechSynthesizer.delegate = nil; }
 - (vector<pair<string, string>>)availableLanguages { return _availableLanguages; }
 - (void)setNotificationsLocale:(NSString *)locale
 {
@@ -140,11 +141,11 @@ vector<pair<string, string>> availableLanguages()
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:enabled forKey:kIsTTSEnabled];
   [ud synchronize];
-  [[NSNotificationCenter defaultCenter] postNotificationName:[self ttsStatusNotificationKey]
-                                                      object:nil
-                                                    userInfo:nil];
+
+  auto tts = [MWMTextToSpeech tts];
+  [tts onTTSStatusUpdated];
   if (enabled)
-    [[self tts] setActive:YES];
+    [tts setActive:YES];
 }
 
 - (void)setActive:(BOOL)active
@@ -156,18 +157,11 @@ vector<pair<string, string>> availableLanguages()
   [self setAudioSessionActive:active];
   [MWMRouter enableTurnNotifications:active];
   runAsyncOnMainQueue(^{
-    [[NSNotificationCenter defaultCenter]
-        postNotificationName:[[self class] ttsStatusNotificationKey]
-                      object:nil
-                    userInfo:nil];
+    [self onTTSStatusUpdated];
   });
 }
 
-- (BOOL)active
-{
-  return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled];
-}
-
+- (BOOL)active { return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled]; }
 + (NSString *)savedLanguage
 {
   return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguageBcp47];
@@ -263,6 +257,26 @@ vector<pair<string, string>> availableLanguages()
     return NO;
   }
   return YES;
+}
+
+#pragma mark - MWMNavigationDashboardObserver
+
+- (void)onTTSStatusUpdated
+{
+  for (TObserver observer in self.observers)
+    [observer onTTSStatusUpdated];
+}
+
+#pragma mark - Add/Remove Observers
+
++ (void)addObserver:(id<MWMTextToSpeechObserver>)observer
+{
+  [[MWMTextToSpeech tts].observers addObject:observer];
+}
+
++ (void)removeObserver:(id<MWMTextToSpeechObserver>)observer
+{
+  [[MWMTextToSpeech tts].observers removeObject:observer];
 }
 
 @end

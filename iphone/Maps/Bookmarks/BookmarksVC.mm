@@ -237,8 +237,7 @@ extern NSString * const kBookmarkDeletedNotification = @"BookmarkDeletedNotifica
       {
         [Statistics logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
         // Same as "Close".
-        MapViewController * mapVC = self.navigationController.viewControllers.firstObject;
-        mapVC.controlsManager.searchHidden = YES;
+        [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
         f.ShowBookmark({static_cast<size_t>(indexPath.row), m_categoryIndex});
         [self.navigationController popToRootViewControllerAnimated:YES];
       }

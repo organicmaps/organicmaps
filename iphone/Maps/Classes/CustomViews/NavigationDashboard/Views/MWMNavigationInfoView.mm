@@ -8,6 +8,7 @@
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMMapWidgets.h"
+#import "MWMNavigationDashboardEntity.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
@@ -77,6 +78,7 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewHeight;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsToastOffset;
 @property(nonatomic) IBOutletCollection(UIButton) NSArray * searchButtons;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsSideSize;
 @property(weak, nonatomic) IBOutlet MWMButton * searchGasButton;
@@ -96,19 +98,11 @@ BOOL defaultOrientation(CGSize const & size)
 
 @property(nonatomic) BOOL hasLocation;
 
+@property(nonatomic) CGRect availableArea;
+
 @end
 
 @implementation MWMNavigationInfoView
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (!CGRectEqualToRect(self.frame, self.defaultFrame))
-  {
-    self.frame = self.defaultFrame;
-    [self setNeedsLayout];
-  }
-}
 
 - (void)setMapSearch { [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES]; }
 - (void)updateToastView
@@ -159,7 +153,7 @@ BOOL defaultOrientation(CGSize const & size)
   BOOL const isStart = ([MWMRouter startPoint] == nil);
   auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
   [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType : type}];
-  [MWMMapViewControlsManager manager].searchHidden = NO;
+  [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
 }
 
 - (IBAction)addLocationRoutePoint
@@ -187,14 +181,14 @@ BOOL defaultOrientation(CGSize const & size)
   switch (self.searchState)
   {
   case NavigationSearchState::Maximized:
-    [MWMMapViewControlsManager manager].searchHidden = NO;
+    [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
     [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModeOnRoute }];
     break;
   case NavigationSearchState::MinimizedNormal:
     if (self.state == MWMNavigationInfoViewStatePrepare)
     {
-      [MWMMapViewControlsManager manager].searchHidden = NO;
+      [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
       [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{ kStatRoutingMode : kStatRoutingModePlanning }];
     }
     else
@@ -209,7 +203,7 @@ BOOL defaultOrientation(CGSize const & size)
   case NavigationSearchState::MinimizedShop:
   case NavigationSearchState::MinimizedATM:
     [MWMSearch clear];
-    [MWMMapViewControlsManager manager].searchHidden = YES;
+    [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
     break;
   }
@@ -252,9 +246,38 @@ BOOL defaultOrientation(CGSize const & size)
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
 }
 
-#pragma mark - MWMNavigationDashboardInfoProtocol
+- (void)layoutSearch
+{
+  BOOL const defaultView = defaultOrientation(self.frame.size);
+  CGFloat alpha = 1;
+  CGFloat searchButtonsSideSize = kSearchButtonsSideSize;
+  if (self.searchState == NavigationSearchState::Maximized)
+  {
+    self.searchButtonsViewWidth.constant =
+        defaultView ? kSearchButtonsViewWidthPortrait : kSearchButtonsViewWidthLandscape;
+    self.searchButtonsViewHeight.constant =
+        defaultView ? kSearchButtonsViewHeightPortrait : kSearchButtonsViewHeightLandscape;
+  }
+  else
+  {
+    self.searchButtonsViewWidth.constant = 0;
+    self.searchButtonsViewHeight.constant = 0;
+    alpha = 0;
+    searchButtonsSideSize = 0;
+  }
+  for (UIButton * searchButton in self.searchButtons)
+    searchButton.alpha = alpha;
+  UILayoutPriority const priority =
+      defaultView ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+  for (NSLayoutConstraint * constraint in self.searchLandscapeConstraints)
+    constraint.priority = priority;
+  self.searchButtonsToastOffset.priority = priority + UILayoutPriorityFittingSizeLevel;
+  self.searchButtonsSideSize.constant = searchButtonsSideSize;
+}
 
-- (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
+#pragma mark - MWMNavigationDashboardManager
+
+- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info
 {
   self.navigationInfo = info;
   if (self.state != MWMNavigationInfoViewStateNavigation)
@@ -320,34 +343,6 @@ BOOL defaultOrientation(CGSize const & size)
   [self setNeedsLayout];
 }
 
-- (void)layoutSearch
-{
-  BOOL const defaultView = defaultOrientation(self.frame.size);
-  CGFloat alpha = 1;
-  CGFloat searchButtonsSideSize = kSearchButtonsSideSize;
-  if (self.searchState == NavigationSearchState::Maximized)
-  {
-    self.searchButtonsViewWidth.constant =
-        defaultView ? kSearchButtonsViewWidthPortrait : kSearchButtonsViewWidthLandscape;
-    self.searchButtonsViewHeight.constant =
-        defaultView ? kSearchButtonsViewHeightPortrait : kSearchButtonsViewHeightLandscape;
-  }
-  else
-  {
-    self.searchButtonsViewWidth.constant = 0;
-    self.searchButtonsViewHeight.constant = 0;
-    alpha = 0;
-    searchButtonsSideSize = 0;
-  }
-  for (UIButton * searchButton in self.searchButtons)
-    searchButton.alpha = alpha;
-  UILayoutPriority const priority =
-      defaultView ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
-  for (NSLayoutConstraint * constraint in self.searchLandscapeConstraints)
-    constraint.priority = priority;
-  self.searchButtonsSideSize.constant = searchButtonsSideSize;
-}
-
 #pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
@@ -364,10 +359,9 @@ BOOL defaultOrientation(CGSize const & size)
   if (lastLocation && self.state == MWMNavigationInfoViewStateNavigation &&
       [MWMRouter type] == MWMRouterTypePedestrian)
   {
-    auto const mercator =
-        location_helpers::ToMercator(self.navigationInfo.pedestrianDirectionPosition);
-    auto const angle = ang::AngleTo(lastLocation.mercator, mercator) + info.m_bearing;
-    transform = CATransform3DMakeRotation(M_PI_2 - angle, 0, 0, 1);
+    auto const angle = ang::AngleTo(lastLocation.mercator,
+                                    self.navigationInfo.pedestrianDirectionPosition.mercator);
+    transform = CATransform3DMakeRotation(M_PI_2 - angle + info.m_bearing, 0, 0, 1);
   }
   self.nextTurnImageView.layer.transform = transform;
 }
@@ -408,14 +402,10 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)setFrame:(CGRect)frame
 {
-  CGSize const & oldSize = self.frame.size;
-  CGSize const & size = frame.size;
-  if (CGRectEqualToRect(self.frame, frame) || (equalScreenDimensions(oldSize.width, size.width) &&
-                                               equalScreenDimensions(oldSize.height, size.height)))
-    return;
   super.frame = frame;
-  [self layoutIfNeeded];
+  [self setNeedsLayout];
   [self layoutSearch];
+  self.turnsTopOffset.constant = self.minY > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
   [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         self.searchButtonsView.layer.cornerRadius =
@@ -463,11 +453,14 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)setState:(MWMNavigationInfoViewState)state
 {
+  if (_state == state)
+    return;
   _state = state;
   switch (state)
   {
   case MWMNavigationInfoViewStateHidden:
     self.isVisible = NO;
+    [self setToastViewHidden:YES];
     [MWMLocationManager removeObserver:self];
     break;
   case MWMNavigationInfoViewStateNavigation:
@@ -502,10 +495,10 @@ BOOL defaultOrientation(CGSize const & size)
 
 - (void)setIsVisible:(BOOL)isVisible
 {
-  [self setNeedsLayout];
   if (_isVisible == isVisible)
     return;
   _isVisible = isVisible;
+  [self setNeedsLayout];
   if (isVisible)
   {
     self.bookmarksButton.imageName = @"ic_routing_bookmark";
@@ -517,29 +510,14 @@ BOOL defaultOrientation(CGSize const & size)
       return;
     [sv insertSubview:self atIndex:0];
   }
-  else
-  {
-    [self removeFromSuperview];
-  }
-}
-
-- (CGRect)defaultFrame
-{
-  return {{self.leftBound, self.topBound},
-          {self.superview.width - self.leftBound, self.superview.height - self.topBound}};
-}
-
-- (void)setTopBound:(CGFloat)topBound
-{
-  _topBound = MAX(topBound, 0.0);
-  self.turnsTopOffset.constant = topBound > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
-  [self setNeedsLayout];
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  _leftBound = MAX(leftBound, 0.0);
-  [self setNeedsLayout];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{
+        [self layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        if (!isVisible)
+          [self removeFromSuperview];
+      }];
 }
 
 - (void)setToastViewHidden:(BOOL)hidden
@@ -548,14 +526,15 @@ BOOL defaultOrientation(CGSize const & size)
     self.toastView.hidden = NO;
   [self setNeedsLayout];
   self.toastViewHideOffset.priority =
-      hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+      (hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow) + 20;
   [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     [self layoutIfNeeded];
-                   } completion:^(BOOL finished) {
-                     if (hidden)
-                       self.toastView.hidden = YES;
-                   }];
+      animations:^{
+        [self layoutIfNeeded];
+      }
+      completion:^(BOOL finished) {
+        if (hidden)
+          self.toastView.hidden = YES;
+      }];
 }
 
 @end
