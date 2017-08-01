@@ -225,6 +225,7 @@ private:
   // |m_currentDirection| is a vector from the position before last good position to last good position.
   m2::PointD m_currentDirection;
   m2::PointD m_userCurrentPosition;
+  m2::PointD m_userFormerPosition;
 
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;

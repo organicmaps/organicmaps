@@ -596,7 +596,8 @@ UNIT_TEST(BestEdgeComparator_OneParallelEdge)
                               MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
   Edge edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), 
                               MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001),
+                                                     [](FeatureID const & /* featureId */){ return true; });
 
   TEST(bestEdgeComparator.Compare(edge1, edge2), ());
 }
@@ -620,7 +621,8 @@ UNIT_TEST(BestEdgeComparator_TwoParallelEdges)
     Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({-0.002, 0.004}), true /* partOfRead */);
   Edge edge2 =
     Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}), MakeJunctionForTesting({0.0, 0.002}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001),
+                                                     [](FeatureID const & /* featureId */){ return true; });
 
   TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
 }
@@ -639,7 +641,8 @@ UNIT_TEST(BestEdgeComparator_TwoNotParallelEdges)
     Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}), MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
   Edge edge2 =
     Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001) /* direction vector */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0),  m2::PointD(0.0, 0.001),
+                                                     [](FeatureID const & /* featureId */){ return true; });
 
   TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
 }

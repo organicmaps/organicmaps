@@ -234,9 +234,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       }
     }
 
-    if (m_lastGoodPosition != m2::PointD::Zero() && m_userCurrentPosition != m2::PointD::Zero())
-      m_currentDirection = m_userCurrentPosition - m_lastGoodPosition;
-
     m_lastGoodPosition = m_userCurrentPosition;
   }
   else
@@ -269,6 +266,9 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
                                             MercatorBounds::XToLon(lastGoodPoint.x)));
     }
   }
+
+  if (m_userFormerPosition != m2::PointD::Zero() && m_userCurrentPosition != m2::PointD::Zero())
+    m_currentDirection = m_userCurrentPosition - m_userFormerPosition;
 
   return m_state;
 }
@@ -516,6 +516,7 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
+  m_userFormerPosition = m_userCurrentPosition;
   m_userCurrentPosition = position;
 }
 
