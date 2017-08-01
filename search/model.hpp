@@ -49,11 +49,10 @@ public:
 
   SearchType GetSearchType(FeatureType const & feature) const;
 
-  void EnableCian() { m_cianMode = true; }
-  void DisableCian() { m_cianMode = false; }
+  void SetCianEnabled(bool enabled) { m_cianEnabled = enabled; }
 
 private:
-  bool m_cianMode = false;
+  bool m_cianEnabled = false;
 };
 
 string DebugPrint(SearchModel::SearchType type);

@@ -339,10 +339,7 @@ Geocoder::~Geocoder() {}
 void Geocoder::SetParams(Params const & params)
 {
   m_params = params;
-  if (m_params.m_cianMode)
-    m_model.EnableCian();
-  else
-    m_model.DisableCian();
+  m_model.SetCianEnabled(m_params.m_cianMode);
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();

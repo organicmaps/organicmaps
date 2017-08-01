@@ -107,10 +107,10 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
 
-  if (m_cianMode && cianChecker(feature))
+  if (m_cianEnabled && cianChecker(feature))
     return SEARCH_TYPE_BUILDING;
 
-  if (!m_cianMode && buildingChecker(feature))
+  if (!m_cianEnabled && buildingChecker(feature))
     return SEARCH_TYPE_BUILDING;
 
   if (streetChecker(feature))

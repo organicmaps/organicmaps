@@ -1390,10 +1390,7 @@ bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
     std::string query = params.m_query;
     strings::Trim(query);
     strings::AsciiToLower(query);
-    if (query == "cian")
-      m_cianSearchMode = true;
-    else
-      m_cianSearchMode = false;
+    m_cianSearchMode = (query == "cian");
   }
 
   search::SearchParams p;
