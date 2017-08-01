@@ -103,7 +103,7 @@ CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId c
 
     LocalAdsMarkData markData;
     markData.m_symbolName = iconName;
-    markData.m_minZoomLevel = 10; // TODO(@milchakov): Set value received from server.
+    markData.m_minZoomLevel = campaign.m_minZoomLevel;
     data.insert(std::make_pair(FeatureID(mwmId, campaign.m_featureId), std::move(markData)));
   }
 
