@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape_frontend/shape_view_params.hpp"
-#include "drape_frontend/intrusive_vector.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"

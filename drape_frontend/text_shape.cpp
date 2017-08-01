@@ -301,6 +301,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2)
                                   : dp::OverlayRank0);
   handle->SetExtendingSize(m_params.m_extendingSize);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    handle->SetUserMarkOverlay(true);
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));

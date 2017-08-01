@@ -155,6 +155,8 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
                                                                          true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    handle->SetUserMarkOverlay(true);
   return handle;
 }
 

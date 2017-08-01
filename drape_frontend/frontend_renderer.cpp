@@ -118,7 +118,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_trafficRenderer(new TrafficRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
-  , m_overlayTree(new dp::OverlayTree())
+  , m_overlayTree(new dp::OverlayTree(VisualParams::Instance().GetVisualScale()))
   , m_enablePerspectiveInNavigation(false)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
@@ -1655,7 +1655,10 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
 
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
-  m2::RectD const & rect = screen.ClipRect();
+  m2::RectD rect = screen.ClipRect();
+  double const vs = VisualParams::Instance().GetVisualScale();
+  double const extension = vs * dp::kScreenPixelRectExtension * screen.GetScale();
+  rect.Inflate(extension, extension);
   int const dataZoomLevel = ClipTileZoomByMaxDataZoom(m_currentZoomLevel);
 
   m_notFinishedTiles.clear();
@@ -1663,8 +1666,8 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
   // Request new tiles.
   TTilesCollection tiles;
   buffer_vector<TileKey, 8> tilesToDelete;
-  CoverageResult result = CalcTilesCoverage(rect, dataZoomLevel,
-                                            [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
+  auto result = CalcTilesCoverage(rect, dataZoomLevel,
+                                  [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
   {
     TileKey const key(tileX, tileY, m_currentZoomLevel);
     if (rect.IsIntersect(key.GetGlobalRect()))

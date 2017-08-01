@@ -144,6 +144,12 @@ public:
   void SetReady(bool isReady) { m_isReady = isReady; }
   bool IsReady() const { return m_isReady; }
 
+  void SetDisplayFlag(bool display) { m_displayFlag = display; }
+  bool GetDisplayFlag() const { return m_displayFlag; }
+
+  void SetUserMarkOverlay(bool isUserMarkOverlay) { m_isUserMarkOverlay = isUserMarkOverlay; }
+  bool IsUserMarkOverlay() const { return m_isUserMarkOverlay; }
+
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual std::string GetOverlayDebugInfo() { return ""; }
 #endif
@@ -187,6 +193,8 @@ private:
   mutable bool m_extendedRectDirty;
 
   bool m_isReady = false;
+  bool m_isUserMarkOverlay = false;
+  bool m_displayFlag = false;
 };
 
 class SquareHandle : public OverlayHandle

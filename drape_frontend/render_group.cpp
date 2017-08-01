@@ -53,7 +53,7 @@ void RenderGroup::Update(ScreenBase const & modelView)
 {
   ASSERT(m_shader != nullptr, ());
   ASSERT(m_generalUniforms != nullptr, ());
-  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
+  for (auto & renderBucket : m_renderBuckets)
     renderBucket->Update(modelView);
 }
 

@@ -166,7 +166,6 @@ HEADERS += \
     frontend_renderer.hpp \
     gps_track_point.hpp \
     gps_track_renderer.hpp \
-    intrusive_vector.hpp \
     line_shape.hpp \
     line_shape_helper.hpp \
     map_data_provider.hpp \

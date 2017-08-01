@@ -113,7 +113,6 @@ set(
   gui/shape.hpp
   gui/skin.cpp
   gui/skin.hpp
-  intrusive_vector.hpp
   kinetic_scroller.cpp
   kinetic_scroller.hpp
   line_shape.cpp

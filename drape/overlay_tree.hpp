@@ -8,27 +8,39 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/array.hpp"
-#include "std/vector.hpp"
-#include "std/unordered_set.hpp"
+#include <array>
+#include <memory>
+#include <unordered_set>
+#include <vector>
 
 namespace dp
 {
 namespace detail
 {
-struct OverlayTraits
+class OverlayTraits
 {
-  ScreenBase m_modelView;
-
-  inline m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle)
+public:
+  m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle)
   {
     return handle->GetExtendedPixelRect(m_modelView);
   }
+  ScreenBase const & GetModelView() const { return m_modelView; }
+  m2::RectD const & GetExtendedScreenRect() const { return m_extendedScreenRect; }
+  m2::RectD const & GetDisplacersFreeRect() const { return m_displacersFreeRect; }
+
+  void SetVisualScale(double visualScale);
+  void SetModelView(ScreenBase const & modelView);
+
+private:
+  double m_visualScale;
+  ScreenBase m_modelView;
+  m2::RectD m_extendedScreenRect;
+  m2::RectD m_displacersFreeRect;
 };
 
 struct OverlayHasher
 {
-  hash<OverlayHandle*> m_hasher;
+  std::hash<OverlayHandle *> m_hasher;
 
   size_t operator()(ref_ptr<OverlayHandle> const & handle) const
   {
@@ -44,9 +56,9 @@ class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTrait
   using TBase = m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>;
 
 public:
-  using HandlesCache = unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher>;
+  using HandlesCache = std::unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher>;
 
-  OverlayTree();
+  OverlayTree(double visualScale);
 
   void Clear();
   bool Frame();
@@ -81,7 +93,7 @@ public:
   TDisplacementInfo const & GetDisplacementInfo() const;
 
 private:
-  ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
+  ScreenBase const & GetModelView() const { return m_traits.GetModelView(); }
   void InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                     ref_ptr<OverlayHandle> const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
@@ -91,8 +103,10 @@ private:
   ref_ptr<OverlayHandle> FindParent(ref_ptr<OverlayHandle> handle, int searchingRank) const;
   void DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int currentRank);
 
+  void StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> displacerHandle,
+                             ref_ptr<OverlayHandle> displacedHandle);
   int m_frameCounter;
-  array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
+  std::array<std::vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   HandlesCache m_handlesCache;
 
   bool m_isDisplacementEnabled;
@@ -100,5 +114,7 @@ private:
   FeatureID m_selectedFeatureID;
 
   TDisplacementInfo m_displacementInfo;
+
+  HandlesCache m_displacers;
 };
 }  // namespace dp

@@ -1,5 +1,4 @@
 #include "drape_frontend/path_text_shape.hpp"
-#include "drape_frontend/intrusive_vector.hpp"
 #include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/text_handle.hpp"
 

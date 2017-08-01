@@ -134,7 +134,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
     m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
-    uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::MY_POSITION_MARK);
+    uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
     RenderPart(mng, uniforms, MY_POSITION_POINT);
