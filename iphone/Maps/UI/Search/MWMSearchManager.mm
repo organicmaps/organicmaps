@@ -36,8 +36,8 @@ typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {
   MWMSearchManagerActionBarStateModeFilter
 };
 
-using TObserver = id<MWMSearchManagerObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMSearchManagerObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -80,7 +80,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 @property(nonatomic) MWMSearchFilterTransitioningManager * filterTransitioningManager;
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 
 @end
 
@@ -95,7 +95,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
     [NSBundle.mainBundle loadNibNamed:@"MWMSearchView" owner:self options:nil];
     self.state = MWMSearchManagerStateHidden;
     [MWMSearch addObserver:self];
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
   }
   return self;
 }
@@ -354,7 +354,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchManagerStateChanged
 {
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
     [observer onSearchManagerStateChanged];
 }
 

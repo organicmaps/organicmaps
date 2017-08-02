@@ -41,8 +41,8 @@ vector<pair<string, string>> availableLanguages()
   return result;
 }
 
-using TObserver = id<MWMTextToSpeechObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMTextToSpeechObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMTextToSpeech ()<AVSpeechSynthesizerDelegate>
@@ -55,7 +55,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 @property(nonatomic) float speechRate;
 @property(nonatomic) AVAudioSession * audioSession;
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 
 @end
 
@@ -77,7 +77,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   if (self)
   {
     _availableLanguages = availableLanguages();
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
 
     NSString * saved = [[self class] savedLanguage];
     NSString * preferedLanguageBcp47;
@@ -263,7 +263,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onTTSStatusUpdated
 {
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
     [observer onTTSStatusUpdated];
 }
 

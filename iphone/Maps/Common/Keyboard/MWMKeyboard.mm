@@ -2,13 +2,13 @@
 
 namespace
 {
-using TObserver = id<MWMKeyboardObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMKeyboardObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMKeyboard ()
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 @property(nonatomic) CGFloat keyboardHeight;
 
 @end
@@ -31,7 +31,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   self = [super init];
   if (self)
   {
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
     NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self
            selector:@selector(keyboardWillShow:)
@@ -64,8 +64,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onKeyboardWillAnimate
 {
-  TObservers * observers = self.observers.copy;
-  for (TObserver observer in observers)
+  Observers * observers = self.observers.copy;
+  for (Observer observer in observers)
   {
     if ([observer respondsToSelector:@selector(onKeyboardWillAnimate)])
       [observer onKeyboardWillAnimate];
@@ -74,8 +74,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onKeyboardAnimation
 {
-  TObservers * observers = self.observers.copy;
-  for (TObserver observer in observers)
+  Observers * observers = self.observers.copy;
+  for (Observer observer in observers)
     [observer onKeyboardAnimation];
 }
 

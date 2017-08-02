@@ -251,8 +251,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)onRoutePrepare
 {
-  self.navigationManager.state = MWMNavigationDashboardStatePrepare;
-  [self onRoutePointsUpdated];
+  auto nm = self.navigationManager;
+  [nm onRoutePrepare];
+  [nm onRoutePointsUpdated];
 }
 
 - (void)onRouteRebuild
@@ -260,30 +261,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
 
-  self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-}
-
-- (void)onRouteError
-{
-  if ([MWMRouter isTaxi])
-    return;
-  auto nm = self.navigationManager;
-  nm.errorMessage = L(@"routing_planning_error");
-  nm.state = MWMNavigationDashboardStateError;
+  [self.navigationManager onRoutePlanning];
 }
 
 - (void)onRouteReady
 {
-  auto startPoint = [MWMRouter startPoint];
-  if (!startPoint || !startPoint.isMyPosition)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [MWMRouter disableFollowMode];
-    });
-  }
-  [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
-  if (self.navigationManager.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
-    self.navigationManager.state = MWMNavigationDashboardStateReady;
+  self.searchManager.state = MWMSearchManagerStateHidden;
+  [self.navigationManager onRouteReady];
 }
 
 - (void)onRouteStart
@@ -293,18 +277,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.sideButtonsHidden = NO;
   self.disableStandbyOnRouteFollowing = YES;
   self.trafficButtonHidden = YES;
-  self.navigationManager.state = MWMNavigationDashboardStateNavigation;
+  [self.navigationManager onRouteStart];
 }
 
 - (void)onRouteStop
 {
   self.sideButtons.zoomHidden = self.zoomHidden;
-  self.navigationManager.state = MWMNavigationDashboardStateHidden;
+  [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
 }
 
-- (void)onRoutePointsUpdated { [self.navigationManager onRoutePointsUpdated]; }
 #pragma mark - Properties
 
 - (MWMSideButtons *)sideButtons

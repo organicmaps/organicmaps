@@ -46,7 +46,6 @@
 - (void)onRouteReady;
 - (void)onRouteStart;
 - (void)onRouteStop;
-- (void)onRoutePointsUpdated;
 
 #pragma mark - MWMSearchManager
 

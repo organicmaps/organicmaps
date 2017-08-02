@@ -247,7 +247,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 {
   [self applyTaxiTransaction];
   GetFramework().GetRoutingManager().RemoveRoutePoint(type, intermediateIndex);
-  [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
+  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
 }
 
 + (void)addPoint:(MWMRoutePoint *)point intermediateIndex:(int8_t)intermediateIndex
@@ -256,7 +256,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   RouteMarkData pt = point.routeMarkData;
   pt.m_intermediateIndex = intermediateIndex;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
-  [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
+  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
 }
 
 + (void)addPoint:(MWMRoutePoint *)point
@@ -269,7 +269,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
-  [[MWMMapViewControlsManager manager] onRoutePointsUpdated];
+  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
 }
 
 + (void)removeStartPointAndRebuild:(int8_t)intermediateIndex
@@ -539,8 +539,16 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   {
   case routing::IRouter::ResultCode::NoError:
   {
-    auto & f = GetFramework();
-    f.DeactivateMapSelection(true);
+    GetFramework().DeactivateMapSelection(true);
+
+    auto startPoint = [MWMRouter startPoint];
+    if (!startPoint || !startPoint.isMyPosition)
+    {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [MWMRouter disableFollowMode];
+      });
+    }
+
     [mapViewControlsManager onRouteReady];
     [self updateFollowingInfo];
     break;
@@ -550,8 +558,10 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   case routing::IRouter::NeedMoreMaps:
   case routing::IRouter::FileTooOld:
   case routing::IRouter::RouteNotFound:
+    if ([MWMRouter isTaxi])
+      return;
     [self presentDownloaderAlert:code countries:absentCountries];
-    [mapViewControlsManager onRouteError];
+    [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
   case routing::IRouter::Cancelled:
     [mapViewControlsManager onRoutePrepare];
@@ -561,9 +571,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   case routing::IRouter::NoCurrentPosition:
   case routing::IRouter::PointsInDifferentMWM:
   case routing::IRouter::InternalError:
-  case routing::IRouter::IntermediatePointNotFound: 
+  case routing::IRouter::IntermediatePointNotFound:
+    if ([MWMRouter isTaxi])
+      return;
     [[MWMAlertViewController activeAlertController] presentAlert:code];
-    [mapViewControlsManager onRouteError];
+    [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
   }
 }

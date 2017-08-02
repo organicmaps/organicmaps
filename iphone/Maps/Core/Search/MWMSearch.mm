@@ -18,8 +18,8 @@
 
 namespace
 {
-using TObserver = id<MWMSearchObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMSearchObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMSearch ()
@@ -29,7 +29,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 @property(nonatomic) BOOL textChanged;
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 
 @property(nonatomic) NSUInteger lastSearchStamp;
 
@@ -72,7 +72,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 {
   self = [super init];
   if (self)
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
   return self;
 }
 
@@ -333,7 +333,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onSearchStarted
 {
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchStarted)])
       [observer onSearchStarted];
@@ -355,7 +355,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 //   [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
 
   [self updateItemsIndexWithBannerReload:YES];
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
       [observer onSearchCompleted];
@@ -365,7 +365,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 - (void)onSearchResultsUpdated
 {
   [self updateItemsIndexWithBannerReload:NO];
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
       [observer onSearchResultsUpdated];

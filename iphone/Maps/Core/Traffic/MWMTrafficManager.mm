@@ -7,13 +7,13 @@
 
 namespace
 {
-using TObserver = id<MWMTrafficManagerObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMTrafficManagerObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMTrafficManager ()
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 
 @property(nonatomic) TrafficManager::TrafficState state;
 
@@ -38,11 +38,11 @@ using TObservers = NSHashTable<__kindof TObserver>;
   self = [super init];
   if (self)
   {
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
     auto & m = GetFramework().GetTrafficManager();
     m.SetStateListener([self](TrafficManager::TrafficState state) {
       self.state = state;
-      for (TObserver observer in self.observers)
+      for (Observer observer in self.observers)
         [observer onTrafficStateUpdated];
     });
   }
@@ -51,12 +51,12 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(TObserver)observer
++ (void)addObserver:(Observer)observer
 {
   [[MWMTrafficManager manager].observers addObject:observer];
 }
 
-+ (void)removeObserver:(TObserver)observer
++ (void)removeObserver:(Observer)observer
 {
   [[MWMTrafficManager manager].observers removeObject:observer];
 }

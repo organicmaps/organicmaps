@@ -153,10 +153,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (IBAction)buttonTouchUpInside
 {
-  if ([MWMTrafficManager state] == MWMTrafficManagerStateDisabled)
-    [MWMTrafficManager enableTraffic:YES];
-  else
-    [MWMTrafficManager enableTraffic:NO];
+  [MWMTrafficManager enableTraffic:[MWMTrafficManager state] == MWMTrafficManagerStateDisabled];
 }
 
 + (void)updateAvailableArea:(CGRect)frame

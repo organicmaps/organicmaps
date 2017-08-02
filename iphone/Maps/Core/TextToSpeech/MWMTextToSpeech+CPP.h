@@ -1,18 +1,18 @@
 #import "MWMTextToSpeech.h"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 @interface MWMTextToSpeech (CPP)
 
 // Returns a list of available languages in the following format:
 // * name in bcp47;
 // * localized name;
-- (vector<std::pair<string, string>>)availableLanguages;
+- (std::vector<std::pair<std::string, std::string>>)availableLanguages;
 
 @end
 
 namespace tts
 {
-string translatedTwine(string const & twine);
+std::string translatedTwine(std::string const & twine);
 }  // namespace tts

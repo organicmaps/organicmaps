@@ -7,23 +7,23 @@
 
 namespace
 {
-using TObserver = id<MWMFrameworkObserver>;
+using Observer = id<MWMFrameworkObserver>;
 using TRouteBuildingObserver = id<MWMFrameworkRouteBuilderObserver>;
 using TStorageObserver = id<MWMFrameworkStorageObserver>;
 using TDrapeObserver = id<MWMFrameworkDrapeObserver>;
 
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observers = NSHashTable<Observer>;
 
 Protocol * pRouteBuildingObserver = @protocol(MWMFrameworkRouteBuilderObserver);
 Protocol * pStorageObserver = @protocol(MWMFrameworkStorageObserver);
 Protocol * pDrapeObserver = @protocol(MWMFrameworkDrapeObserver);
 
-using TLoopBlock = void (^)(__kindof TObserver observer);
+using TLoopBlock = void (^)(__kindof Observer observer);
 
-void loopWrappers(TObservers * observers, TLoopBlock block)
+void loopWrappers(Observers * observers, TLoopBlock block)
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    for (TObserver observer in observers)
+    for (Observer observer in observers)
     {
       if (observer)
         block(observer);
@@ -34,9 +34,9 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 
 @interface MWMFrameworkListener ()
 
-@property(nonatomic) TObservers * routeBuildingObservers;
-@property(nonatomic) TObservers * storageObservers;
-@property(nonatomic) TObservers * drapeObservers;
+@property(nonatomic) Observers * routeBuildingObservers;
+@property(nonatomic) Observers * storageObservers;
+@property(nonatomic) Observers * drapeObservers;
 
 @end
 
@@ -52,7 +52,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   return listener;
 }
 
-+ (void)addObserver:(TObserver)observer
++ (void)addObserver:(Observer)observer
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
@@ -65,7 +65,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   });
 }
 
-+ (void)removeObserver:(TObserver)observer
++ (void)removeObserver:(Observer)observer
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
@@ -80,9 +80,9 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   self = [super init];
   if (self)
   {
-    _routeBuildingObservers = [TObservers weakObjectsHashTable];
-    _storageObservers = [TObservers weakObjectsHashTable];
-    _drapeObservers = [TObservers weakObjectsHashTable];
+    _routeBuildingObservers = [Observers weakObjectsHashTable];
+    _storageObservers = [Observers weakObjectsHashTable];
+    _drapeObservers = [Observers weakObjectsHashTable];
 
     [self registerRouteBuilderListener];
     [self registerStorageObserver];
@@ -97,7 +97,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 {
   using namespace routing;
   using namespace storage;
-  TObservers * observers = self.routeBuildingObservers;
+  Observers * observers = self.routeBuildingObservers;
   auto & f = GetFramework();
   // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does
   // not guarantee
@@ -124,7 +124,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 
 - (void)registerStorageObserver
 {
-  TObservers * observers = self.storageObservers;
+  Observers * observers = self.storageObservers;
   auto & s = GetFramework().GetStorage();
   s.Subscribe(
       [observers](TCountryId const & countryId) {
@@ -144,7 +144,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 
 - (void)registerDrapeObserver
 {
-  TObservers * observers = self.drapeObservers;
+  Observers * observers = self.drapeObservers;
   auto & f = GetFramework();
   f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId) {
     for (TDrapeObserver observer in observers)

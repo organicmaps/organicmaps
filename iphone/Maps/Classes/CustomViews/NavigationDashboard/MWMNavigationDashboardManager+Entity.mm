@@ -4,13 +4,18 @@
 #import "MWMRouter.h"
 #import "SwiftBridge.h"
 
-#include "geometry/distance_on_sphere.hpp"
 #include "routing/turns.hpp"
+
+#include "platform/location.hpp"
+
+#include "geometry/distance_on_sphere.hpp"
 
 namespace
 {
 UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 {
+  if (![MWMLocationManager lastLocation])
+    return nil;
   if ([MWMRouter type] == MWMRouterTypePedestrian)
     return [UIImage imageNamed:@"ic_direction"];
 
@@ -44,25 +49,25 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 
 @interface MWMNavigationDashboardEntity ()
 
-@property(nonatomic, readwrite) CLLocation * pedestrianDirectionPosition;
+@property(copy, nonatomic, readwrite) NSAttributedString * estimate;
+@property(copy, nonatomic, readwrite) NSString * distanceToTurn;
+@property(copy, nonatomic, readwrite) NSString * streetName;
+@property(copy, nonatomic, readwrite) NSString * targetDistance;
+@property(copy, nonatomic, readwrite) NSString * targetUnits;
+@property(copy, nonatomic, readwrite) NSString * turnUnits;
 @property(nonatomic, readwrite) BOOL isValid;
-@property(nonatomic, readwrite) NSString * targetDistance;
-@property(nonatomic, readwrite) NSString * targetUnits;
-@property(nonatomic, readwrite) NSString * distanceToTurn;
-@property(nonatomic, readwrite) NSString * turnUnits;
-@property(nonatomic, readwrite) NSString * streetName;
-@property(nonatomic, readwrite) UIImage * turnImage;
-@property(nonatomic, readwrite) UIImage * nextTurnImage;
+@property(nonatomic, readwrite) CGFloat progress;
+@property(nonatomic, readwrite) CLLocation * pedestrianDirectionPosition;
 @property(nonatomic, readwrite) NSUInteger roundExitNumber;
 @property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) BOOL isPedestrian;
-@property(nonatomic, readwrite) NSAttributedString * estimate;
+@property(nonatomic, readwrite) UIImage * nextTurnImage;
+@property(nonatomic, readwrite) UIImage * turnImage;
 
 @end
 
 @interface MWMNavigationDashboardManager ()
 
+@property(copy, nonatomic) NSDictionary * etaAttributes;
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
 
 - (void)onNavigationInfoUpdated;
@@ -87,49 +92,18 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
     entity.targetDistance = @(info.m_distToTarget.c_str());
     entity.targetUnits = @(info.m_targetUnitsSuffix.c_str());
     entity.progress = info.m_completionPercent;
-    CLLocation * lastLocation = [MWMLocationManager lastLocation];
-    if (lastLocation && [MWMRouter type] == MWMRouterTypePedestrian)
-    {
-      entity.isPedestrian = YES;
-      string distance;
-      CLLocationCoordinate2D const & coordinate = lastLocation.coordinate;
+    entity.distanceToTurn = @(info.m_distToTurn.c_str());
+    entity.turnUnits = @(info.m_turnUnitsSuffix.c_str());
+    entity.streetName = @(info.m_targetName.c_str());
+    entity.nextTurnImage = image(info.m_nextTurn, true);
 
-      auto const lat = info.m_pedestrianDirectionPos.lat;
-      auto const lon = info.m_pedestrianDirectionPos.lon;
-      entity.pedestrianDirectionPosition = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-      // TODO: Not the best solution, but this solution is temporary and will be replaced in future
-      measurement_utils::FormatDistance(
-          ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude, lat, lon), distance);
-      istringstream is(distance);
-      string dist;
-      string units;
-      is >> dist;
-      is >> units;
-      entity.nextTurnImage = nil;
-      entity.distanceToTurn = @(dist.c_str());
-      entity.turnUnits = @(units.c_str());
-      entity.streetName = @"";
-    }
-    else
-    {
-      entity.isPedestrian = NO;
-      entity.distanceToTurn = @(info.m_distToTurn.c_str());
-      entity.turnUnits = @(info.m_turnUnitsSuffix.c_str());
-      entity.streetName = @(info.m_targetName.c_str());
-      entity.nextTurnImage = image(info.m_nextTurn, true);
-    }
-
-    NSDictionary * etaAttributes = @{
-      NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-      NSFontAttributeName : UIFont.medium17
-    };
     NSString * eta = [NSDateComponentsFormatter etaStringFrom:entity.timeToTarget];
     NSString * resultString =
         [NSString stringWithFormat:@"%@ • %@ %@", eta, entity.targetDistance, entity.targetUnits];
     NSMutableAttributedString * result =
         [[NSMutableAttributedString alloc] initWithString:resultString];
-    [result addAttributes:etaAttributes range:NSMakeRange(0, resultString.length)];
-    entity.estimate = [result copy];
+    [result addAttributes:self.etaAttributes range:NSMakeRange(0, resultString.length)];
+    entity.estimate = result;
 
     using namespace routing::turns;
     CarDirection const turn = info.m_turn;

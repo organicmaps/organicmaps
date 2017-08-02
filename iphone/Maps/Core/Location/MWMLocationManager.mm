@@ -19,8 +19,8 @@
 
 namespace
 {
-using TObserver = id<MWMLocationObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMLocationObserver>;
+using Observers = NSHashTable<Observer>;
 
 location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocationSource source)
 {
@@ -158,7 +158,7 @@ void setPermissionRequested()
 @property(nonatomic) CLLocation * lastLocationInfo;
 @property(nonatomic) location::TLocationError lastLocationStatus;
 @property(nonatomic) MWMLocationPredictor * predictor;
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 @property(nonatomic) MWMLocationFrameworkUpdate frameworkUpdateMode;
 @property(nonatomic) location::TLocationSource locationSource;
 
@@ -182,7 +182,7 @@ void setPermissionRequested()
 {
   self = [super init];
   if (self)
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
   return self;
 }
 
@@ -194,7 +194,7 @@ void setPermissionRequested()
 + (void)start { [self manager].started = YES; }
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(TObserver)observer
++ (void)addObserver:(Observer)observer
 {
   runAsyncOnMainQueue(^{
     MWMLocationManager * manager = [self manager];
@@ -203,7 +203,7 @@ void setPermissionRequested()
   });
 }
 
-+ (void)removeObserver:(TObserver)observer
++ (void)removeObserver:(Observer)observer
 {
   runAsyncOnMainQueue(^{
     [[self manager].observers removeObject:observer];
@@ -265,7 +265,7 @@ void setPermissionRequested()
   self.lastLocationStatus = locationError;
   if (self.lastLocationStatus != location::TLocationError::ENoError)
     self.frameworkUpdateMode |= MWMLocationFrameworkUpdateStatus;
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationError:)])
       [observer onLocationError:self.lastLocationStatus];
@@ -277,7 +277,7 @@ void setPermissionRequested()
   self.lastHeadingInfo = headingInfo;
   self.frameworkUpdateMode |= MWMLocationFrameworkUpdateHeading;
   location::CompassInfo const compassInfo = compassInfoFromHeading(headingInfo);
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
       [observer onHeadingUpdate:compassInfo];
@@ -301,7 +301,7 @@ void setPermissionRequested()
   self.lastLocationInfo = locationInfo;
   self.locationSource = source;
   self.frameworkUpdateMode |= MWMLocationFrameworkUpdateLocation;
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:gpsInfo];

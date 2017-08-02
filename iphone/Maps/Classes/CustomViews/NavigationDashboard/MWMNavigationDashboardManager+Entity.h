@@ -1,6 +1,9 @@
 #import "MWMNavigationDashboardManager.h"
 
-#include "platform/location.hpp"
+namespace location
+{
+struct FollowingInfo;
+}
 
 @interface MWMNavigationDashboardManager (Entity)
 

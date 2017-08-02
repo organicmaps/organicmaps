@@ -13,8 +13,8 @@ using namespace locale_translator;
 
 @interface MWMTTSSettingsViewController ()
 {
-  pair<string, string> _additionalTTSLanguage;
-  vector<pair<string, string>> _languages;
+  std::pair<std::string, std::string> _additionalTTSLanguage;
+  std::vector<std::pair<std::string, std::string>> _languages;
 }
 
 @property(nonatomic) BOOL isLocaleLanguageAbsent;

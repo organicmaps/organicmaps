@@ -28,8 +28,8 @@ NSString * const kRoutePreviewIPhoneXibName = @"MWMiPhoneRoutePreview";
 NSString * const kNavigationInfoViewXibName = @"MWMNavigationInfoView";
 NSString * const kNavigationControlViewXibName = @"NavigationControlView";
 
-using TObserver = id<MWMNavigationDashboardObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMNavigationDashboardObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMMapViewControlsManager ()
@@ -40,13 +40,15 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 @interface MWMNavigationDashboardManager ()<MWMSearchManagerObserver>
 
+@property(copy, nonatomic) NSDictionary * etaAttributes;
+@property(copy, nonatomic) NSString * errorMessage;
 @property(nonatomic) IBOutlet MWMNavigationControlView * navigationControlView;
 @property(nonatomic) IBOutlet MWMNavigationInfoView * navigationInfoView;
 @property(nonatomic) IBOutlet MWMRoutePreview * routePreview;
 @property(nonatomic) IBOutlet MWMRoutePreviewStatus * statusBox;
 @property(nonatomic) IBOutlet MWMRouteStartButton * goButton;
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 @property(nonatomic, readwrite) MWMTaxiPreviewDataSource * taxiDataSource;
 @property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 @property(weak, nonatomic) UIView * ownerView;
@@ -66,7 +68,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   if (self)
   {
     _ownerView = view;
-    _observers = [TObservers weakObjectsHashTable];
+    _observers = [Observers weakObjectsHashTable];
   }
   return self;
 }
@@ -100,7 +102,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
   [self.goButton setTitle:title forState:UIControlStateNormal];
 }
 
-- (void)onRoutePointsUpdated { [self.navigationInfoView updateToastView]; }
 - (void)mwm_refreshUI
 {
   [_routePreview mwm_refreshUI];
@@ -119,6 +120,23 @@ using TObservers = NSHashTable<__kindof TObserver>;
   [_navigationControlView onNavigationInfoUpdated:entity];
 }
 
+#pragma mark - On route updates
+
+- (void)onRoutePrepare { self.state = MWMNavigationDashboardStatePrepare; }
+- (void)onRoutePlanning { self.state = MWMNavigationDashboardStatePlanning; }
+- (void)onRouteError:(NSString *)error
+{
+  self.errorMessage = error;
+  self.state = MWMNavigationDashboardStateError;
+}
+
+- (void)onRouteReady
+{
+  if (self.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
+    self.state = MWMNavigationDashboardStateReady;
+}
+
+- (void)onRoutePointsUpdated { [self.navigationInfoView updateToastView]; }
 #pragma mark - State changes
 
 - (void)stateHidden
@@ -154,15 +172,6 @@ using TObservers = NSHashTable<__kindof TObserver>;
   if (![MWMRouter isTaxi])
     return;
 
-  __weak auto wSelf = self;
-  auto showError = ^(NSString * errorMessage) {
-    __strong auto self = wSelf;
-    if (!self)
-      return;
-    self.errorMessage = errorMessage;
-    self.state = MWMNavigationDashboardStateError;
-  };
-
   auto pFrom = [MWMRouter startPoint];
   auto pTo = [MWMRouter finishPoint];
   if (!pFrom || !pTo)
@@ -170,16 +179,17 @@ using TObservers = NSHashTable<__kindof TObserver>;
   if (!Platform::IsConnected())
   {
     [[MapViewController controller].alertController presentNoConnectionAlert];
-    showError(L(@"dialog_taxi_offline"));
+    [self onRouteError:L(@"dialog_taxi_offline")];
     return;
   }
+  __weak auto wSelf = self;
   [self.taxiDataSource requestTaxiFrom:pFrom
       to:pTo
       completion:^{
         wSelf.state = MWMNavigationDashboardStateReady;
       }
-      failure:^(NSString * errorMessage) {
-        showError(errorMessage);
+      failure:^(NSString * error) {
+        [wSelf onRouteError:error];
       }];
 }
 
@@ -202,6 +212,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
   [self.statusBox stateReady];
 }
 
+- (void)onRouteStart { self.state = MWMNavigationDashboardStateNavigation; }
+- (void)onRouteStop { self.state = MWMNavigationDashboardStateHidden; }
 - (void)stateNavigation
 {
   [self.routePreview remove];
@@ -210,6 +222,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   self.navigationControlView.isVisible = YES;
   [self.statusBox stateNavigation];
   self.statusBox = nil;
+  [self onNavigationInfoUpdated];
 }
 
 #pragma mark - MWMNavigationControlView
@@ -252,7 +265,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)onNavigationDashboardStateChanged
 {
-  for (TObserver observer in self.observers)
+  for (Observer observer in self.observers)
     [observer onNavigationDashboardStateChanged];
 }
 
@@ -274,6 +287,18 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame { _navigationInfoView.frame = frame; }
 #pragma mark - Properties
+
+- (NSDictionary *)etaAttributes
+{
+  if (!_etaAttributes)
+  {
+    _etaAttributes = @{
+      NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+      NSFontAttributeName : UIFont.medium17
+    };
+  }
+  return _etaAttributes;
+}
 
 - (void)setState:(MWMNavigationDashboardState)state
 {

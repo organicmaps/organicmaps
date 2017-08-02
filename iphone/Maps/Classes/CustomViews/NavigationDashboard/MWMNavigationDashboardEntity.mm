@@ -8,20 +8,19 @@
 
 @interface MWMNavigationDashboardEntity ()
 
-@property(nonatomic, readwrite) CLLocation * pedestrianDirectionPosition;
+@property(copy, nonatomic, readwrite) NSAttributedString * estimate;
+@property(copy, nonatomic, readwrite) NSString * distanceToTurn;
+@property(copy, nonatomic, readwrite) NSString * streetName;
+@property(copy, nonatomic, readwrite) NSString * targetDistance;
+@property(copy, nonatomic, readwrite) NSString * targetUnits;
+@property(copy, nonatomic, readwrite) NSString * turnUnits;
 @property(nonatomic, readwrite) BOOL isValid;
-@property(nonatomic, readwrite) NSString * targetDistance;
-@property(nonatomic, readwrite) NSString * targetUnits;
-@property(nonatomic, readwrite) NSString * distanceToTurn;
-@property(nonatomic, readwrite) NSString * turnUnits;
-@property(nonatomic, readwrite) NSString * streetName;
-@property(nonatomic, readwrite) UIImage * turnImage;
-@property(nonatomic, readwrite) UIImage * nextTurnImage;
+@property(nonatomic, readwrite) CGFloat progress;
+@property(nonatomic, readwrite) CLLocation * pedestrianDirectionPosition;
 @property(nonatomic, readwrite) NSUInteger roundExitNumber;
 @property(nonatomic, readwrite) NSUInteger timeToTarget;
-@property(nonatomic, readwrite) CGFloat progress;
-@property(nonatomic, readwrite) BOOL isPedestrian;
-@property(nonatomic, readwrite) NSAttributedString * estimate;
+@property(nonatomic, readwrite) UIImage * nextTurnImage;
+@property(nonatomic, readwrite) UIImage * turnImage;
 
 @end
 
