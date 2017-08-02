@@ -1010,7 +1010,7 @@ public class PlacePageView extends RelativeLayout
   private void clearSponsoredGalleryViews()
   {
     mSponsoredAdapter = null;
-    mRvSponsoredProducts.setAdapter(new ViatorAdapter(new ViatorProduct[]{}, "", null));
+    mRvSponsoredProducts.swapAdapter(null /* adapter */, false /* removeAndRecycleExistingViews */);
   }
 
   @Override
