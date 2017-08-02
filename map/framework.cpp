@@ -1178,8 +1178,7 @@ void Framework::ShowAll()
 
 m2::PointD Framework::GetPixelCenter() const
 {
-  return m_currentModelView.isPerspective() ? m_currentModelView.PixelRectIn3d().Center()
-                                            : m_currentModelView.PixelRect().Center();
+  return m_currentModelView.PixelRectIn3d().Center();
 }
 
 m2::PointD Framework::GetVisiblePixelCenter() const

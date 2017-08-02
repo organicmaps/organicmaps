@@ -184,7 +184,7 @@ void MyPositionController::UpdatePosition()
 
 void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
 {
-  m_pixelRect = screen.isPerspective() ? screen.PixelRectIn3d() : screen.PixelRect();
+  m_pixelRect = screen.PixelRectIn3d();
   m_positionYOffset = screen.isPerspective() ? kPositionOffsetYIn3D : kPositionOffsetY;
   if (m_visiblePixelRect.IsEmptyInterior())
     m_visiblePixelRect = m_pixelRect;

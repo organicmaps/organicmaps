@@ -454,12 +454,10 @@ void detail::OverlayTraits::SetModelView(ScreenBase const & modelView)
 
   double const extension = m_visualScale * kScreenPixelRectExtension;
   double const doubleExtension = 2.0 * extension;
-  m2::RectD screenRect = modelView.isPerspective() ? modelView.PixelRectIn3d()
-                                                   : modelView.PixelRect();
-  m_extendedScreenRect = screenRect;
+  m_extendedScreenRect = modelView.PixelRectIn3d();
   m_extendedScreenRect.Inflate(extension, extension);
 
-  m_displacersFreeRect = screenRect;
+  m_displacersFreeRect = modelView.PixelRectIn3d();
   if (m_displacersFreeRect.SizeX() > doubleExtension && m_displacersFreeRect.SizeY() > doubleExtension)
     m_displacersFreeRect.Inflate(-extension, -extension);
   else
