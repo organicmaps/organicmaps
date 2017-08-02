@@ -5,7 +5,10 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "3party/pugixml/src/utils.hpp"
+
 #include <QItemSelection>
+#include <QMessageBox>
 
 #include <tuple>
 
@@ -141,10 +144,15 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
         path.emplace();
         openlr::PathFromXML(route, m_index, *path);
       }
-
       if (auto const route = xmlSegment.child("FakeRoute"))
       {
         auto & path = segment.GetFakePath();
+        path.emplace();
+        openlr::PathFromXML(route, m_index, *path);
+      }
+      if (auto const route = xmlSegment.child("GoldenRoute"))
+      {
+        auto & path = segment.GetGoldenPath();
         path.emplace();
         openlr::PathFromXML(route, m_index, *path);
       }
@@ -167,7 +175,8 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
   for (auto const & sc : m_segments)
   {
     auto segment = result.append_child("Segment");
-    segment.append_copy(sc.GetPartnerXML());
+    segment.append_copy(sc.GetPartnerXMLSegment());
+
     if (auto const & path = sc.GetMatchedPath())
     {
       auto node = segment.append_child("Route");
@@ -236,6 +245,8 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
   m_drawerDelegate->SetViewportCenter(GetStart(firstEdge));
   m_drawerDelegate->DrawEncodedSegment(GetPoints(m_currentSegment->GetPartnerSegment()));
   m_drawerDelegate->DrawDecodedSegments(GetPoints(path));
+  if (auto const & path = m_currentSegment->GetGoldenPath())
+    m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
 }
 
 Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
@@ -248,9 +259,25 @@ Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
 
 void TrafficMode::StartBuildingPath()
 {
+  CHECK(m_currentSegment, ("A segment should be selected before path building is started."));
+
   if (m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building already in progress."));
+
+  if (m_currentSegment->GetGoldenPath())
+  {
+    auto const btn = QMessageBox::question(
+        nullptr,
+        "Override warning",
+        "The selected segment already have a golden path. Do you want to override?");
+    if (btn == QMessageBox::No)
+      return;
+  }
+
+  m_currentSegment->GetGoldenPath() = boost::none;
+
   m_buildingPath = true;
+  m_drawerDelegate->ClearGoldenPath();
   m_drawerDelegate->VisualizePoints(
       m_pointsDelegate->GetAllJunctionPointsInViewPort());
 }
@@ -277,6 +304,9 @@ void TrafficMode::CommitPath()
 
   if (!m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building is not started"));
+
+  m_buildingPath = false;
+  m_drawerDelegate->ClearAllVisualizedPoints();
 
   if (m_goldenPath.empty())
   {
@@ -315,11 +345,23 @@ void TrafficMode::CommitPath()
   }
 
   m_currentSegment->GetGoldenPath() = path;
-  m_buildingPath = false;
 }
 
 void TrafficMode::RollBackPath()
 {
+  CHECK(m_currentSegment, ("No segments selected"));
+
+  // TODO(mgsergio): CHECK ?
+  if (!m_buildingPath)
+    MYTHROW(TrafficModeError, ("No path building is in progress."));
+
+  m_buildingPath = false;
+
+  // TODO(mgsergio): Add a method for common visual manipulations.
+  m_drawerDelegate->ClearAllVisualizedPoints();
+  m_drawerDelegate->ClearGoldenPath();
+  if (auto const & path = m_currentSegment->GetGoldenPath())
+    m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
 }
 
 size_t TrafficMode::GetPointsCount() const
@@ -349,6 +391,9 @@ std::vector<m2::PointD> TrafficMode::GetCoordinates() const
 // TODO(mgsergio): Draw the first point when the path size is 1.
 void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button)
 {
+  if (!m_buildingPath)
+    return;
+
   auto const currentPathLength = GetPointsCount();
   auto const lastClickedPoint = currentPathLength != 0
       ? GetLastPoint()
@@ -388,19 +433,18 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
                         return p.EqualDxDy(lastClickedPoint, 1e-6);
                       }),
             end(reachablePoints));
-        m_drawerDelegate->VisualizeGoldenPath(GetCoordinates());
+        m_drawerDelegate->DrawGoldenPath(GetCoordinates());
       }
 
-      m_drawerDelegate->CleanAllVisualizedPoints();
+      m_drawerDelegate->ClearAllVisualizedPoints();
       m_drawerDelegate->VisualizePoints(reachablePoints);
       m_drawerDelegate->VisualizePoints({clickPoint});
       break;
     case ClickType::Remove:  // TODO(mgsergio): Rename this case.
       if (button == Qt::MouseButton::LeftButton)  // RemovePoint
       {
-        m_drawerDelegate->CleanAllVisualizedPoints();
-        // TODO(mgsergio): Remove only golden path.
-        m_drawerDelegate->ClearAllPaths();
+        m_drawerDelegate->ClearAllVisualizedPoints();
+        m_drawerDelegate->ClearGoldenPath();
 
         PopPoint();
         if (m_goldenPath.empty())
@@ -418,7 +462,7 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
         }
 
         if (GetPointsCount() > 1)
-          m_drawerDelegate->VisualizeGoldenPath(GetCoordinates());
+          m_drawerDelegate->DrawGoldenPath(GetCoordinates());
       }
       else if (button == Qt::MouseButton::RightButton)
       {

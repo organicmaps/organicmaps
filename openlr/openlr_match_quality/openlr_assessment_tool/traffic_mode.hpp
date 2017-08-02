@@ -68,7 +68,8 @@ public:
     m_fakePath = sc.m_fakePath;
     m_goldenPath = sc.m_goldenPath;
 
-    m_partnerXMLSegment.reset(sc.m_partnerXMLSegment);
+    m_partnerXMLDoc.reset(sc.m_partnerXMLDoc);
+    m_partnerXMLSegment = m_partnerXMLDoc.child("reportSegments");
   }
 
   boost::optional<openlr::Path> const & GetMatchedPath() const { return m_matchedPath; }
@@ -85,8 +86,14 @@ public:
 
   uint32_t GetPartnerSegmentId() const { return m_partnerSegment.m_segmentId; }
 
-  pugi::xml_document const & GetPartnerXML() const { return m_partnerXMLSegment; }
-  void SetPartnerXML(pugi::xml_node const & n) { m_partnerXMLSegment.append_copy(n); }
+  pugi::xml_document const & GetPartnerXML() const { return m_partnerXMLDoc; }
+  pugi::xml_node const & GetPartnerXMLSegment() const { return m_partnerXMLSegment; }
+  void SetPartnerXML(pugi::xml_node const & n)
+  {
+    m_partnerXMLDoc.append_copy(n);
+    m_partnerXMLSegment = m_partnerXMLDoc.child("reportSegments");
+    CHECK(m_partnerXMLSegment, ("Node should contain <reportSegments> part"));
+  }
 
 private:
   openlr::LinearSegment m_partnerSegment;
@@ -97,7 +104,10 @@ private:
 
   // A dirty hack to save back SegmentCorrespondence.
   // TODO(mgsergio): Consider unifying xml serialization with one used in openlr_stat.
-  pugi::xml_document m_partnerXMLSegment;
+  pugi::xml_document m_partnerXMLDoc;
+  // This is used by GetPartnerXMLSegment shortcut to return const ref. pugi::xml_node is
+  // just a wrapper so returning by value won't guarantee constness.
+  pugi::xml_node m_partnerXMLSegment;
 };
 
 /// This class is used to delegate segments drawing to the DrapeEngine.
@@ -110,12 +120,13 @@ public:
 
   virtual void DrawDecodedSegments(std::vector<m2::PointD> const & points) = 0;
   virtual void DrawEncodedSegment(std::vector<m2::PointD> const & points) = 0;
+  virtual void DrawGoldenPath(std::vector<m2::PointD> const & points) = 0;
+
+  virtual void ClearGoldenPath() = 0;
   virtual void ClearAllPaths() = 0;
 
-  virtual void VisualizeGoldenPath(std::vector<m2::PointD> const & points) = 0;
-
   virtual void VisualizePoints(std::vector<m2::PointD> const & points) = 0;
-  virtual void CleanAllVisualizedPoints() = 0;
+  virtual void ClearAllVisualizedPoints() = 0;
 };
 
 class BookmarkManager;

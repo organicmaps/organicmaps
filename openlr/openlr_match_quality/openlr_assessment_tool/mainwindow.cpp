@@ -32,6 +32,10 @@ namespace
 {
 class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
 {
+  static auto constexpr kEncodedLineId = "encodedPath";
+  static auto constexpr kDecodedLineId = "decodedPath";
+  static auto constexpr kGoldenLineId = "goldenPath";
+
 public:
   TrafficDrawerDelegate(Framework & framework)
     : m_framework(framework)
@@ -50,7 +54,7 @@ public:
     CHECK(!points.empty(), ("Points must not be empty."));
 
     LOG(LINFO, ("Decoded segment", points));
-    m_drapeApi.AddLine(NextLineId(),
+    m_drapeApi.AddLine(kDecodedLineId,
                        df::DrapeApiLineData(points, dp::Color(0, 0, 255, 255))
                        .Width(3.0f).ShowPoints(true /* markPoints */));
   }
@@ -58,9 +62,21 @@ public:
   void DrawEncodedSegment(std::vector<m2::PointD> const & points) override
   {
     LOG(LINFO, ("Encoded segment", points));
-    m_drapeApi.AddLine(NextLineId(),
+    m_drapeApi.AddLine(kEncodedLineId,
                        df::DrapeApiLineData(points, dp::Color(255, 0, 0, 255))
                        .Width(3.0f).ShowPoints(true /* markPoints */));
+  }
+
+  void DrawGoldenPath(std::vector<m2::PointD> const & points) override
+  {
+    m_drapeApi.AddLine(kGoldenLineId,
+                       df::DrapeApiLineData(points, dp::Color(255, 127, 36, 255))
+                       .Width(4.0f).ShowPoints(true /* markPoints */));
+  }
+
+  void ClearGoldenPath() override
+  {
+    m_drapeApi.RemoveLine(kGoldenLineId);
   }
 
   void ClearAllPaths() override
@@ -68,14 +84,6 @@ public:
     m_drapeApi.Clear();
   }
 
-  void VisualizeGoldenPath(std::vector<m2::PointD> const & points) override
-  {
-    ClearAllPaths();
-
-    m_drapeApi.AddLine(NextLineId(),
-                       df::DrapeApiLineData(points, dp::Color(255, 127, 36, 255))
-                       .Width(4.0f).ShowPoints(true /* markPoints */));
-  }
 
   void VisualizePoints(std::vector<m2::PointD> const & points) override
   {
@@ -86,17 +94,13 @@ public:
       g.m_controller.CreateUserMark(p);
   }
 
-  void CleanAllVisualizedPoints() override
+  void ClearAllVisualizedPoints() override
   {
     UserMarkControllerGuard g(m_bm, UserMarkType::DEBUG_MARK);
     g.m_controller.Clear();
   }
 
 private:
-  string NextLineId() { return strings::to_string(m_lineId++); }
-
-  uint32_t m_lineId = 0;
-
   Framework & m_framework;
   df::DrapeApi & m_drapeApi;
   BookmarkManager & m_bm;
@@ -202,7 +206,7 @@ public:
       return ClickType::Remove;
     for (auto const & p : reachablePoints)
     {
-      if (PointsMatch(clickPoint, p));
+      if (PointsMatch(clickPoint, p))
         return ClickType::Add;
     }
     return ClickType::Miss;
