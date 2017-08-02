@@ -13,7 +13,7 @@ import com.mapswithme.util.UiUtils;
 
 public class SingleChangeItemAnimator extends SimpleItemAnimator
 {
-  private static final int DURATION = 1000;
+  private static final int DURATION = 700;
 
   @Nullable
   private ViewPropertyAnimatorCompat mAnimation;
