@@ -33,7 +33,7 @@ public:
   // Note 3. It's assumed here that CalcLeapWeight(p1, p2) == CalcLeapWeight(p2, p1).
   double CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const;
 
-  virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const;
+  virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double GetUTurnPenalty() const = 0;
   // The leap is the shortcut edge from mwm border enter to exit.
   // Router can't use leaps on some mwms: e.g. mwm with loaded traffic data.

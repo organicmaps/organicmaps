@@ -23,6 +23,8 @@ public:
 
   bool HasAltitudes() const;
 
+  void ClearCache() { m_cache.clear(); }
+
 private:
   unique_ptr<CopiedMemoryRegion> m_altitudeAvailabilityRegion;
   unique_ptr<CopiedMemoryRegion> m_featureTableRegion;

@@ -133,11 +133,13 @@ namespace m2
       return m2::Point<T>((x + p.x) * 0.5, (y + p.y) * 0.5);
     }
 
+    T SquaredLength() const { return x * x + y * y; }
+
     /// @name VectorOperationsOnPoint
     // @{
     double Length() const
     {
-      return sqrt(x*x + y*y);
+      return sqrt(SquaredLength());
     }
 
     Point<T> Normalize() const

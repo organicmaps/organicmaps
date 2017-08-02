@@ -2,6 +2,8 @@
 
 #include "routing/routing_exceptions.hpp"
 
+#include "indexer/altitude_loader.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -17,26 +19,32 @@ class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
   GeometryLoaderImpl(Index const & index, MwmSet::MwmId const & mwmId, string const & country,
-                     shared_ptr<IVehicleModel> vehicleModel);
+                     shared_ptr<IVehicleModel> vehicleModel, bool loadAltitudes);
 
   // GeometryLoader overrides:
-  void Load(uint32_t featureId, RoadGeometry & road) const override;
+  void Load(uint32_t featureId, RoadGeometry & road) override;
 
 private:
   shared_ptr<IVehicleModel> m_vehicleModel;
   Index::FeaturesLoaderGuard m_guard;
   string const m_country;
+  feature::AltitudeLoader altitudeLoader;
+  bool const m_loadAltitudes;
 };
 
 GeometryLoaderImpl::GeometryLoaderImpl(Index const & index, MwmSet::MwmId const & mwmId,
                                        string const & country,
-                                       shared_ptr<IVehicleModel> vehicleModel)
-  : m_vehicleModel(vehicleModel), m_guard(index, mwmId), m_country(country)
+                                       shared_ptr<IVehicleModel> vehicleModel, bool loadAltitudes)
+  : m_vehicleModel(vehicleModel)
+  , m_guard(index, mwmId)
+  , m_country(country)
+  , altitudeLoader(m_guard.GetMwmValue())
+  , m_loadAltitudes(loadAltitudes)
 {
-  CHECK(m_vehicleModel, ());
+  CHECK(m_vehicleModel, ("country:", country));
 }
 
-void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road) const
+void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
 {
   FeatureType feature;
   bool const isFound = m_guard.GetFeatureByIndex(featureId, feature);
@@ -44,7 +52,13 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road) const
     MYTHROW(RoutingException, ("Feature", featureId, "not found in ", m_country));
 
   feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  road.Load(*m_vehicleModel, feature);
+
+  feature::TAltitudes const * altitudes = nullptr;
+  if (m_loadAltitudes)
+    altitudes = &(altitudeLoader.GetAltitudes(featureId, feature.GetPointsCount()));
+
+  road.Load(*m_vehicleModel, feature, altitudes);
+  altitudeLoader.ClearCache();
 }
 
 // FileGeometryLoader ------------------------------------------------------------------------------
@@ -54,7 +68,7 @@ public:
   FileGeometryLoader(string const & fileName, shared_ptr<IVehicleModel> vehicleModel);
 
   // GeometryLoader overrides:
-  void Load(uint32_t featureId, RoadGeometry & road) const override;
+  void Load(uint32_t featureId, RoadGeometry & road) override;
 
 private:
   FeaturesVectorTest m_featuresVector;
@@ -69,12 +83,12 @@ FileGeometryLoader::FileGeometryLoader(string const & fileName,
   CHECK(m_vehicleModel, ());
 }
 
-void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
+void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 {
   FeatureType feature;
   m_featuresVector.GetVector().GetByIndex(featureId, feature);
   feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  road.Load(*m_vehicleModel, feature);
+  road.Load(*m_vehicleModel, feature, nullptr /* altitudes */);
 }
 }  // namespace
 
@@ -82,29 +96,39 @@ namespace routing
 {
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
-  : m_points(points), m_speed(speed), m_isOneWay(oneWay), m_valid(true)
+  : m_speed(speed), m_isOneWay(oneWay), m_valid(true)
 {
   ASSERT_GREATER(speed, 0.0, ());
+
+  m_junctions.reserve(points.size());
+  for (auto const & point : points)
+    m_junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
 }
 
-void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature)
+void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature,
+                        feature::TAltitudes const * altitudes)
 {
+  CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
+
   m_valid = vehicleModel.IsRoad(feature);
   m_isOneWay = vehicleModel.IsOneWay(feature);
   m_speed = vehicleModel.GetSpeed(feature);
   m_isTransitAllowed = vehicleModel.IsTransitAllowed(feature);
 
-  m_points.clear();
-  m_points.reserve(feature.GetPointsCount());
+  m_junctions.clear();
+  m_junctions.reserve(feature.GetPointsCount());
   for (size_t i = 0; i < feature.GetPointsCount(); ++i)
-    m_points.emplace_back(feature.GetPoint(i));
+  {
+    m_junctions.emplace_back(feature.GetPoint(i),
+                             altitudes ? (*altitudes)[i] : feature::kDefaultAltitudeMeters);
+  }
 
   if (m_valid && m_speed <= 0.0)
   {
     auto const & id = feature.GetID();
-    CHECK(!m_points.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
-    auto const begin = MercatorBounds::ToLatLon(m_points.front());
-    auto const end = MercatorBounds::ToLatLon(m_points.back());
+    CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
+    auto const begin = MercatorBounds::ToLatLon(m_junctions.front().GetPoint());
+    auto const end = MercatorBounds::ToLatLon(m_junctions.back().GetPoint());
     LOG(LERROR, ("Invalid speed", m_speed, "mwm:", id.GetMwmName(), ", featureId:", id.m_index,
                  ", begin:", begin, "end:", end));
     m_valid = false;
@@ -114,7 +138,7 @@ void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & 
 // Geometry ----------------------------------------------------------------------------------------
 Geometry::Geometry(unique_ptr<GeometryLoader> loader) : m_loader(move(loader))
 {
-  ASSERT(m_loader, ());
+  CHECK(m_loader, ());
 }
 
 RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
@@ -130,11 +154,12 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 
 // static
 unique_ptr<GeometryLoader> GeometryLoader::Create(Index const & index, MwmSet::MwmId const & mwmId,
-                                                  shared_ptr<IVehicleModel> vehicleModel)
+                                                  shared_ptr<IVehicleModel> vehicleModel,
+                                                  bool loadAltitudes)
 {
   CHECK(mwmId.IsAlive(), ());
   return make_unique<GeometryLoaderImpl>(index, mwmId, mwmId.GetInfo()->GetCountryName(),
-                                         vehicleModel);
+                                         vehicleModel, loadAltitudes);
 }
 
 // static

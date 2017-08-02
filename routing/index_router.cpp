@@ -134,6 +134,37 @@ bool IsDeadEnd(Segment const & segment, bool isOutgoing, WorldGraph & worldGraph
                                  getVertexByEdgeFn, getOutgoingEdgesFn);
 }
 
+Junction InterpolateJunction(Segment const & segment, m2::PointD const & point, WorldGraph & graph)
+{
+  Junction const & begin = graph.GetJunction(segment, false /* front */);
+  Junction const & end = graph.GetJunction(segment, true /* front */);
+
+  m2::PointD const segmentDir = end.GetPoint() - begin.GetPoint();
+  if (segmentDir.IsAlmostZero())
+    return Junction(point, begin.GetAltitude());
+
+  m2::PointD const pointDir = point - begin.GetPoint();
+
+  double const ratio = m2::DotProduct(segmentDir, pointDir) / segmentDir.SquaredLength();
+  if (ratio <= 0.0)
+    return Junction(point, begin.GetAltitude());
+
+  if (ratio >= 1.0)
+    return Junction(point, end.GetAltitude());
+
+  return Junction(point,
+                  begin.GetAltitude() + static_cast<feature::TAltitude>(
+                                            ratio * (static_cast<double>(end.GetAltitude()) -
+                                                     static_cast<double>(begin.GetAltitude()))));
+}
+
+IndexGraphStarter::FakeVertex MakeFakeVertex(Segment const & segment, m2::PointD const & point,
+                                             bool strictForward, WorldGraph & graph)
+{
+  return IndexGraphStarter::FakeVertex(segment, InterpolateJunction(segment, point, graph),
+                                       strictForward);
+}
+
 bool MwmHasRoutingData(version::MwmTraits const & traits, VehicleType vehicleType)
 {
   if (!traits.HasRoutingIndex())
@@ -358,9 +389,9 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
   {
     vector<Segment> subroute;
-    m2::PointD startPoint = m2::PointD::Zero();
+    Junction startJunction;
     auto const result =
-        CalculateSubroute(checkpoints, i, startSegment, delegate, graph, subroute, startPoint);
+        CalculateSubroute(checkpoints, i, startSegment, delegate, graph, subroute, startJunction);
     if (result != IRouter::NoError)
       return result;
 
@@ -377,9 +408,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     if (i + 1 == checkpoints.GetNumSubroutes())
       ++subrouteSegmentsEnd;
 
-    subroutes.emplace_back(Junction(startPoint, feature::kDefaultAltitudeMeters),
-                           Junction(graph.GetPoint(*nonFakeFinishIt, true /* front */),
-                                    feature::kDefaultAltitudeMeters),
+    subroutes.emplace_back(startJunction, graph.GetJunction(*nonFakeFinishIt, true /* front */),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
 
     startSegment = *nonFakeFinishIt;
@@ -394,10 +423,10 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   IndexGraphStarter::CheckValidRoute(segments);
 
   IndexGraphStarter starter(
-      IndexGraphStarter::FakeVertex(*IndexGraphStarter::GetNonFakeStartIt(segments),
-                                    checkpoints.GetStart(), false /* strictForward */),
-      IndexGraphStarter::FakeVertex(*IndexGraphStarter::GetNonFakeFinishIt(segments),
-                                    checkpoints.GetFinish(), false /* strictForward */),
+      MakeFakeVertex(*IndexGraphStarter::GetNonFakeStartIt(segments), checkpoints.GetStart(),
+                     false /* strictForward */, graph),
+      MakeFakeVertex(*IndexGraphStarter::GetNonFakeFinishIt(segments), checkpoints.GetFinish(),
+                     false /* strictForward */, graph),
       graph);
 
   auto redressResult = RedressRoute(segments, delegate, starter, route);
@@ -419,7 +448,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
                                                    size_t subrouteIdx, Segment const & startSegment,
                                                    RouterDelegate const & delegate,
                                                    WorldGraph & graph, vector<Segment> & subroute,
-                                                   m2::PointD & startPoint)
+                                                   Junction & startJunction)
 {
   subroute.clear();
 
@@ -440,14 +469,14 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   IndexGraphStarter starter(
-      IndexGraphStarter::FakeVertex(startSegment, startCheckpoint,
-                                    subrouteIdx != checkpoints.GetPassedIdx()),
-      IndexGraphStarter::FakeVertex(finishSegment, finishCheckpoint, false /* strictForward */), graph);
+      MakeFakeVertex(startSegment, startCheckpoint, subrouteIdx != checkpoints.GetPassedIdx(),
+                     graph),
+      MakeFakeVertex(finishSegment, finishCheckpoint, false /* strictForward */, graph), graph);
 
   if (subrouteIdx == checkpoints.GetPassedIdx())
-    startPoint = starter.GetStartVertex().GetPoint();
+    startJunction = starter.GetStartVertex().GetJunction();
   else
-    startPoint = starter.GetPoint(startSegment, false /* front */);
+    startJunction = starter.GetJunction(startSegment, false /* front */);
 
   auto const progressRange = CalcProgressRange(checkpoints, subrouteIdx);
   AStarProgress progress(progressRange.startValue, progressRange.stopValue);
@@ -506,9 +535,9 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   CHECK(!steps.empty(), ());
 
   IndexGraphStarter starter(
-      IndexGraphStarter::FakeVertex(startSegment, pointFrom, false /* strictForward */),
-      IndexGraphStarter::FakeVertex(steps[lastSubroute.GetEndSegmentIdx() - 1].GetSegment(),
-                                    checkpoints.GetPointTo(), false /* strictForward */),
+      MakeFakeVertex(startSegment, pointFrom, false /* strictForward */, graph),
+      MakeFakeVertex(steps[lastSubroute.GetEndSegmentIdx() - 1].GetSegment(),
+                     checkpoints.GetPointTo(), false /* strictForward */, graph),
       graph);
 
   AStarProgress progress(0, 95);
@@ -554,10 +583,8 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   PushPassedSubroutes(checkpoints, subroutes);
 
   size_t subrouteOffset = result.path.size() - 1;  // -1 for the fake start.
-  subroutes.emplace_back(
-      Junction(starter.GetStartVertex().GetPoint(), feature::kDefaultAltitudeMeters),
-      Junction(starter.GetFinishVertex().GetPoint(), feature::kDefaultAltitudeMeters), 0,
-      subrouteOffset);
+  subroutes.emplace_back(starter.GetStartVertex().GetJunction(),
+                         starter.GetFinishVertex().GetJunction(), 0, subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
@@ -707,10 +734,7 @@ IRouter::ResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   junctions.reserve(numPoints);
 
   for (size_t i = 0; i < numPoints; ++i)
-  {
-    // TODO: Use real altitudes for pedestrian and bicycle routing.
-    junctions.emplace_back(starter.GetRoutePoint(segments, i), feature::kDefaultAltitudeMeters);
-  }
+    junctions.emplace_back(starter.GetRouteJunction(segments, i));
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
   starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);

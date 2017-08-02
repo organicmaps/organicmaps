@@ -58,7 +58,7 @@ class TestGeometryLoader final : public routing::GeometryLoader
 {
 public:
   // GeometryLoader overrides:
-  void Load(uint32_t featureId, routing::RoadGeometry & road) const override;
+  void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 
   void AddRoad(uint32_t featureId, bool oneWay, float speed,
                routing::RoadGeometry::Points const & points);
@@ -71,7 +71,7 @@ class ZeroGeometryLoader final : public routing::GeometryLoader
 {
 public:
   // GeometryLoader overrides:
-  void Load(uint32_t featureId, routing::RoadGeometry & road) const override;
+  void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 };
 
 class TestIndexGraphLoader final : public IndexGraphLoader

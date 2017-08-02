@@ -7,13 +7,13 @@ namespace
 using namespace routing;
 using namespace std;
 
-m2::PointD CalcProjectionToSegment(Segment const & segment, m2::PointD const & point,
-                                   WorldGraph & graph)
+Junction CalcProjectionToSegment(Segment const & segment, Junction const & junction,
+                                 WorldGraph & graph)
 {
   m2::ProjectionToSection<m2::PointD> projection;
   projection.SetBounds(graph.GetPoint(segment, false /* front */),
                        graph.GetPoint(segment, true /* front */));
-  return projection(point);
+  return Junction(projection(junction.GetPoint()), junction.GetAltitude());
 }
 }  // namespace
 
@@ -27,23 +27,28 @@ IndexGraphStarter::IndexGraphStarter(FakeVertex const & start, FakeVertex const 
                                      WorldGraph & graph)
   : m_graph(graph)
   , m_start(start.GetSegment(),
-            CalcProjectionToSegment(start.GetSegment(), start.GetPoint(), graph),
+            CalcProjectionToSegment(start.GetSegment(), start.GetJunction(), graph),
             start.GetStrictForward())
   , m_finish(finish.GetSegment(),
-             CalcProjectionToSegment(finish.GetSegment(), finish.GetPoint(), graph),
+             CalcProjectionToSegment(finish.GetSegment(), finish.GetJunction(), graph),
              finish.GetStrictForward())
 {
 }
 
-m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front)
+Junction const & IndexGraphStarter::GetJunction(Segment const & segment, bool front)
 {
   if (segment == kStartFakeSegment)
-    return m_start.GetPoint();
+    return m_start.GetJunction();
 
   if (segment == kFinishFakeSegment)
-    return m_finish.GetPoint();
+    return m_finish.GetJunction();
 
-  return m_graph.GetPoint(segment, front);
+  return m_graph.GetJunction(segment, front);
+}
+
+m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front)
+{
+  return GetJunction(segment, front).GetPoint();
 }
 
 // static
@@ -79,17 +84,17 @@ size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
   return segments.size() - 1;
 }
 
-m2::PointD const & IndexGraphStarter::GetRoutePoint(vector<Segment> const & segments,
-                                                    size_t pointIndex)
+Junction const & IndexGraphStarter::GetRouteJunction(vector<Segment> const & segments,
+                                                     size_t pointIndex)
 {
   if (pointIndex == 0)
-    return m_start.GetPoint();
+    return m_start.GetJunction();
 
   if (pointIndex + 1 == GetRouteNumPoints(segments))
-    return m_finish.GetPoint();
+    return m_finish.GetJunction();
 
   CHECK_LESS(pointIndex, segments.size(), ());
-  return GetPoint(segments[pointIndex], true /* front */);
+  return GetJunction(segments[pointIndex], true /* front */);
 }
 
 void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,

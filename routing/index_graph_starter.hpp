@@ -25,18 +25,27 @@ public:
   {
   public:
     FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_segment(mwmId, featureId, segmentIdx, true /* forward */), m_point(point)
+      : m_segment(mwmId, featureId, segmentIdx, true /* forward */)
+      , m_junction(point, feature::kDefaultAltitudeMeters)
     {
     }
 
     FakeVertex(Segment const & segment, m2::PointD const & point, bool strictForward)
-      : m_segment(segment), m_point(point), m_strictForward(strictForward)
+      : m_segment(segment)
+      , m_junction(point, feature::kDefaultAltitudeMeters)
+      , m_strictForward(strictForward)
+    {
+    }
+
+    FakeVertex(Segment const & segment, Junction const & junction, bool strictForward)
+      : m_segment(segment), m_junction(junction), m_strictForward(strictForward)
     {
     }
 
     NumMwmId GetMwmId() const { return m_segment.GetMwmId(); }
     uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
-    m2::PointD const & GetPoint() const { return m_point; }
+    Junction const & GetJunction() const { return m_junction; }
+    m2::PointD const & GetPoint() const { return m_junction.GetPoint(); }
     Segment const & GetSegment() const { return m_segment; }
 
     Segment GetSegmentWithDirection(bool forward) const
@@ -58,7 +67,7 @@ public:
 
   private:
     Segment m_segment;
-    m2::PointD m_point = m2::PointD::Zero();
+    Junction m_junction;
     // This flag specifies which fake edges should be placed from the fake vertex.
     // true: place exactly one fake edge to the m_segment with indicated m_forward.
     // false: place two fake edges to the m_segment with both directions.
@@ -79,6 +88,7 @@ public:
   Segment const & GetFinish() const { return kFinishFakeSegment; }
   FakeVertex const & GetStartVertex() const { return m_start; }
   FakeVertex const & GetFinishVertex() const { return m_finish; }
+  Junction const & GetJunction(Segment const & segment, bool front);
   m2::PointD const & GetPoint(Segment const & segment, bool front);
   bool FitsStart(Segment const & s) const { return m_start.Fits(s); }
   bool FitsFinish(Segment const & s) const { return m_finish.Fits(s); }
@@ -87,7 +97,7 @@ public:
   static size_t GetRouteNumPoints(vector<Segment> const & route);
   static vector<Segment>::const_iterator GetNonFakeStartIt(vector<Segment> const & segments);
   static vector<Segment>::const_iterator GetNonFakeFinishIt(vector<Segment> const & segments);
-  m2::PointD const & GetRoutePoint(vector<Segment> const & route, size_t pointIndex);
+  Junction const & GetRouteJunction(vector<Segment> const & route, size_t pointIndex);
 
   void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
 

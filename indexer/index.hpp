@@ -278,7 +278,8 @@ public:
   public:
     FeaturesLoaderGuard(Index const & index, MwmId const & id);
 
-    inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+    MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+    MwmValue const & GetMwmValue() const { return *m_handle.GetValue<MwmValue>(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
 

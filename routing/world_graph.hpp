@@ -46,6 +46,7 @@ public:
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
   EdgeEstimator const & GetEstimator() const { return *m_estimator; }
 
+  Junction const & GetJunction(Segment const & segment, bool front);
   m2::PointD const & GetPoint(Segment const & segment, bool front);
   RoadGeometry const & GetRoadGeometry(NumMwmId mwmId, uint32_t featureId);
 

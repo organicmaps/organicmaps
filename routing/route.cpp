@@ -55,6 +55,7 @@ void Route::Swap(Route & rhs)
   m_name.swap(rhs.m_name);
   m_absentCountries.swap(rhs.m_absentCountries);
   m_routeSegments.swap(rhs.m_routeSegments);
+  swap(m_haveAltitudes, rhs.m_haveAltitudes);
 
   swap(m_subrouteUid, rhs.m_subrouteUid);
   swap(m_currentSubrouteIdx, rhs.m_currentSubrouteIdx);
@@ -340,6 +341,10 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
 void Route::GetAltitudes(feature::TAltitudes & altitudes) const
 {
   altitudes.clear();
+
+  CHECK(!m_subrouteAttrs.empty(), ());
+  altitudes.push_back(m_subrouteAttrs.front().GetStart().GetAltitude());
+
   for (auto const & s : m_routeSegments)
     altitudes.push_back(s.GetJunction().GetAltitude());
 }

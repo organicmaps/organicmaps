@@ -11,7 +11,7 @@ namespace routing_test
 using namespace routing;
 
 // TestGeometryLoader ------------------------------------------------------------------------------
-void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road) const
+void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 {
   auto it = m_roads.find(featureId);
   if (it == m_roads.cend())
@@ -29,7 +29,7 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
 }
 
 // ZeroGeometryLoader ------------------------------------------------------------------------------
-void ZeroGeometryLoader::Load(uint32_t featureId, routing::RoadGeometry & road) const
+void ZeroGeometryLoader::Load(uint32_t /* featureId */, routing::RoadGeometry & road)
 {
   // Any valid road will do.
   auto const points = routing::RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}});

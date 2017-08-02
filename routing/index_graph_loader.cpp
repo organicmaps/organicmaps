@@ -71,8 +71,8 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
   auto const mwmId = MwmSet::MwmId(handle.GetInfo());
-  auto graphPtr =
-      make_unique<IndexGraph>(GeometryLoader::Create(m_index, mwmId, vehicleModel), m_estimator);
+  auto graphPtr = make_unique<IndexGraph>(
+      GeometryLoader::Create(m_index, mwmId, vehicleModel, m_vehicleMask != kCarMask), m_estimator);
   IndexGraph & graph = *graphPtr;
 
   my::Timer timer;

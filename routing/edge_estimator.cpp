@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <unordered_map>
 
+using namespace routing;
 using namespace std;
 using namespace traffic;
 
@@ -34,6 +35,44 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   CHECK_GREATER(percentage, 0.0, ("Speed group:", speedGroup));
   return 1.0 / percentage;
 }
+
+double GetPedestrianClimbPenalty(double tangent)
+{
+  if (tangent < 0)
+    return 1.0 + 2.0 * (-tangent);
+
+  return 1.0 + 5.0 * tangent;
+}
+
+double GetBicycleClimbPenalty(double tangent)
+{
+  if (tangent <= 0)
+    return 1.0;
+
+  return 1.0 + 10.0 * tangent;
+}
+
+double GetCarClimbPenalty(double /* tangent */) { return 1.0; }
+
+template <typename GetClimbPenalty>
+double CalcClimbSegmentWeight(Segment const & segment, RoadGeometry const & road,
+                              GetClimbPenalty && getClimbPenalty)
+{
+  Junction const & from = road.GetJunction(segment.GetPointId(false /* front */));
+  Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
+
+  double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
+  double const speedMPS = road.GetSpeed() * kKMPH2MPS;
+  CHECK_GREATER(speedMPS, 0.0, ());
+  double const timeSec = distance / speedMPS;
+
+  if (my::AlmostEqualAbs(distance, 0.0, 0.1))
+    return timeSec;
+
+  double const altitudeDiff =
+      static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
+  return timeSec * getClimbPenalty(altitudeDiff / distance);
+}
 }  // namespace
 
 namespace routing
@@ -42,18 +81,6 @@ namespace routing
 EdgeEstimator::EdgeEstimator(double maxSpeedKMpH) : m_maxSpeedMPS(maxSpeedKMpH * kKMPH2MPS)
 {
   CHECK_GREATER(m_maxSpeedMPS, 0.0, ());
-}
-
-double EdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const
-{
-  ASSERT_LESS(segment.GetPointId(true /* front */), road.GetPointsCount(), ());
-  ASSERT_LESS(segment.GetPointId(false /* front */), road.GetPointsCount(), ());
-
-  double const speedMPS = road.GetSpeed() * kKMPH2MPS;
-  double result = TimeBetweenSec(road.GetPoint(segment.GetPointId(false /* front */)),
-                                 road.GetPoint(segment.GetPointId(true /* front */)), speedMPS);
-
-  return result;
 }
 
 double EdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
@@ -79,6 +106,11 @@ public:
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 0.0 /* seconds */; }
   bool LeapIsAllowed(NumMwmId /* mwmId */) const override { return false; }
+
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
+  {
+    return CalcClimbSegmentWeight(segment, road, GetPedestrianClimbPenalty);
+  }
 };
 
 // BicycleEstimator --------------------------------------------------------------------------------
@@ -90,6 +122,11 @@ public:
   // EdgeEstimator overrides:
   double GetUTurnPenalty() const override { return 20.0 /* seconds */; }
   bool LeapIsAllowed(NumMwmId /* mwmId */) const override { return false; }
+
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
+  {
+    return CalcClimbSegmentWeight(segment, road, GetBicycleClimbPenalty);
+  }
 };
 
 // CarEstimator ------------------------------------------------------------------------------------
@@ -121,7 +158,7 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
   // TODO: make accurate tuning, remove penalty.
   double constexpr kTimePenalty = 1.8;
 
-  double result = EdgeEstimator::CalcSegmentWeight(segment, road);
+  double result = CalcClimbSegmentWeight(segment, road, GetCarClimbPenalty);
 
   if (m_trafficStash)
   {

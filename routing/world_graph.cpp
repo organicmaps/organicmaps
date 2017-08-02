@@ -32,10 +32,15 @@ void WorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool isLe
     GetTwins(segment, isOutgoing, edges);
 }
 
-m2::PointD const & WorldGraph::GetPoint(Segment const & segment, bool front)
+Junction const & WorldGraph::GetJunction(Segment const & segment, bool front)
 {
   return GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
-      .GetPoint(segment.GetPointId(front));
+      .GetJunction(segment.GetPointId(front));
+}
+
+m2::PointD const & WorldGraph::GetPoint(Segment const & segment, bool front)
+{
+  return GetJunction(segment, front).GetPoint();
 }
 
 RoadGeometry const & WorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
