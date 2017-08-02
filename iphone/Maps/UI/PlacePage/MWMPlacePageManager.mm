@@ -598,6 +598,16 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   auto url = [NSURL URLWithString:data.localAdsURL];
   if (!url)
     return;
+
+  auto const & feature = data.featureId;
+  [Statistics logEvent:kStatPlacePageOwnershipButtonClick
+        withParameters:@{
+                         @"mwm_name" : @(feature.GetMwmName().c_str()),
+                         @"mwm_version" : @(feature.GetMwmVersion()),
+                         @"feature_id" : @(feature.m_index)
+                         }
+            atLocation:[MWMLocationManager lastLocation]];
+
   [self.ownerViewController openUrl:url];
 }
 

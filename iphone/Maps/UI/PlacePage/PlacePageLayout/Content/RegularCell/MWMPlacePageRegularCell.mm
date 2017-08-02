@@ -156,18 +156,9 @@
   case MetainfoRows::Operator:
   case MetainfoRows::OpeningHours:
   case MetainfoRows::Address:
-  case MetainfoRows::Internet: break;
+  case MetainfoRows::Internet:
   case MetainfoRows::LocalAdsCustomer: 
-  case MetainfoRows::LocalAdsCandidate:
-    auto const & feature = data.featureId;
-    [Statistics logEvent:kStatPlacePageOwnershipButtonClick
-          withParameters:@{
-                           @"mwm_name" : @(feature.GetMwmName().c_str()),
-                           @"mwm_version" : @(feature.GetMwmVersion()),
-                           @"feature_id" : @(feature.m_index)
-                           }
-              atLocation:[MWMLocationManager lastLocation]];
-    break;
+  case MetainfoRows::LocalAdsCandidate: break;
   }
 }
 
