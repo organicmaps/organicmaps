@@ -27,8 +27,8 @@ public:
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    bool const displayFlagLeft = (l->IsUserMarkOverlay() ? true : l->GetDisplayFlag());
-    bool const displayFlagRight = (r->IsUserMarkOverlay() ? true : r->GetDisplayFlag());
+    bool const displayFlagLeft = ((!m_enableMask || l->IsUserMarkOverlay()) ? true : l->GetDisplayFlag());
+    bool const displayFlagRight = ((!m_enableMask || r->IsUserMarkOverlay()) ? true : r->GetDisplayFlag());
     if (displayFlagLeft > displayFlagRight)
       return true;
 
