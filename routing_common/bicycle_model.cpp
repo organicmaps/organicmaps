@@ -7,6 +7,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
+using namespace routing;
+
 namespace
 {
 
@@ -49,7 +51,7 @@ double constexpr kSpeedPlatformKMpH = 3.0;
 double constexpr kSpeedPierKMpH = 7.0;
 
 // Default
-routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
+VehicleModel::InitListT const g_bicycleLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* transitAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -72,7 +74,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsDefault =
 };
 
 // All options available.
-routing::VehicleModel::InitListT const g_bicycleLimitsAll =
+VehicleModel::InitListT const g_bicycleLimitsAll =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -98,7 +100,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsAll =
 };
 
 // Same as defaults except trunk and trunk_link are not allowed
-routing::VehicleModel::InitListT const g_bicycleLimitsNoTrunk =
+VehicleModel::InitListT const g_bicycleLimitsNoTrunk =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
@@ -119,7 +121,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsNoTrunk =
 };
 
 // Same as defaults except pedestrian is allowed
-routing::VehicleModel::InitListT const g_bicycleLimitsPedestrianAllowed =
+VehicleModel::InitListT const g_bicycleLimitsPedestrianAllowed =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -143,7 +145,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsPedestrianAllowed =
 };
 
 // Same as defaults except bridleway is allowed
-routing::VehicleModel::InitListT const g_bicycleLimitsBridlewayAllowed =
+VehicleModel::InitListT const g_bicycleLimitsBridlewayAllowed =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -167,10 +169,10 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBridlewayAllowed =
 };
 
 // Australia
-routing::VehicleModel::InitListT const g_bicycleLimitsAustralia = g_bicycleLimitsAll;
+VehicleModel::InitListT const g_bicycleLimitsAustralia = g_bicycleLimitsAll;
 
 // Austria
-routing::VehicleModel::InitListT const g_bicycleLimitsAustria =
+VehicleModel::InitListT const g_bicycleLimitsAustria =
 {
   // No trunk, trunk_link, path
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
@@ -191,7 +193,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsAustria =
 };
 
 // Belarus
-routing::VehicleModel::InitListT const g_bicycleLimitsBelarus =
+VehicleModel::InitListT const g_bicycleLimitsBelarus =
 {
   // Footway and pedestrian are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -217,7 +219,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBelarus =
 };
 
 // Belgium
-routing::VehicleModel::InitListT const g_bicycleLimitsBelgium =
+VehicleModel::InitListT const g_bicycleLimitsBelgium =
 {
   // No trunk, trunk_link
   // Pedestrian is allowed
@@ -241,7 +243,7 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBelgium =
 };
 
 // Brazil
-routing::VehicleModel::InitListT const g_bicycleLimitsBrazil =
+VehicleModel::InitListT const g_bicycleLimitsBrazil =
 {
   // Bridleway and fotway are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -267,10 +269,10 @@ routing::VehicleModel::InitListT const g_bicycleLimitsBrazil =
 };
 
 // Denmark
-routing::VehicleModel::InitListT const g_bicycleLimitsDenmark = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsDenmark = g_bicycleLimitsNoTrunk;
 
 // France
-routing::VehicleModel::InitListT const g_bicycleLimitsFrance =
+VehicleModel::InitListT const g_bicycleLimitsFrance =
 {
   // No trunk, trunk_link
   // Pedestrian is allowed
@@ -294,34 +296,34 @@ routing::VehicleModel::InitListT const g_bicycleLimitsFrance =
 };
 
 // Finland
-routing::VehicleModel::InitListT const g_bicycleLimitsFinland = g_bicycleLimitsPedestrianAllowed;
+VehicleModel::InitListT const g_bicycleLimitsFinland = g_bicycleLimitsPedestrianAllowed;
 
 // Germany
-routing::VehicleModel::InitListT const g_bicycleLimitsGermany = g_bicycleLimitsDefault;
+VehicleModel::InitListT const g_bicycleLimitsGermany = g_bicycleLimitsDefault;
 
 // Hungary
-routing::VehicleModel::InitListT const g_bicycleLimitsHungary = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsHungary = g_bicycleLimitsNoTrunk;
 
 // Iceland
-routing::VehicleModel::InitListT const g_bicycleLimitsIceland = g_bicycleLimitsAll;
+VehicleModel::InitListT const g_bicycleLimitsIceland = g_bicycleLimitsAll;
 
 // Netherlands
-routing::VehicleModel::InitListT const g_bicycleLimitsNetherlands = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsNetherlands = g_bicycleLimitsNoTrunk;
 
 // Norway
-routing::VehicleModel::InitListT const g_bicycleLimitsNorway = g_bicycleLimitsAll;
+VehicleModel::InitListT const g_bicycleLimitsNorway = g_bicycleLimitsAll;
 
 // Oman
-routing::VehicleModel::InitListT const g_bicycleLimitsOman = g_bicycleLimitsBridlewayAllowed;
+VehicleModel::InitListT const g_bicycleLimitsOman = g_bicycleLimitsBridlewayAllowed;
 
 // Poland
-routing::VehicleModel::InitListT const g_bicycleLimitsPoland = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsPoland = g_bicycleLimitsNoTrunk;
 
 // Romania
-routing::VehicleModel::InitListT const g_bicycleLimitsRomania = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsRomania = g_bicycleLimitsNoTrunk;
 
 // Russian Federation
-routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
+VehicleModel::InitListT const g_bicycleLimitsRussia =
 {
   // Footway and pedestrian are allowed
   // No transit for service and living_street
@@ -348,19 +350,19 @@ routing::VehicleModel::InitListT const g_bicycleLimitsRussia =
 };
 
 // Slovakia
-routing::VehicleModel::InitListT const g_bicycleLimitsSlovakia = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsSlovakia = g_bicycleLimitsNoTrunk;
 
 // Spain
-routing::VehicleModel::InitListT const g_bicycleLimitsSpain = g_bicycleLimitsPedestrianAllowed;
+VehicleModel::InitListT const g_bicycleLimitsSpain = g_bicycleLimitsPedestrianAllowed;
 
 // Switzerland
-routing::VehicleModel::InitListT const g_bicycleLimitsSwitzerland = g_bicycleLimitsNoTrunk;
+VehicleModel::InitListT const g_bicycleLimitsSwitzerland = g_bicycleLimitsNoTrunk;
 
 // Turkey
-routing::VehicleModel::InitListT const g_bicycleLimitsTurkey = g_bicycleLimitsDefault;
+VehicleModel::InitListT const g_bicycleLimitsTurkey = g_bicycleLimitsDefault;
 
 // Ukraine
-routing::VehicleModel::InitListT const g_bicycleLimitsUkraine =
+VehicleModel::InitListT const g_bicycleLimitsUkraine =
 {
   // No trunk
   // Footway and perestrian are allowed
@@ -386,10 +388,10 @@ routing::VehicleModel::InitListT const g_bicycleLimitsUkraine =
 };
 
 // United Kingdom
-routing::VehicleModel::InitListT const g_bicycleLimitsUK = g_bicycleLimitsBridlewayAllowed;
+VehicleModel::InitListT const g_bicycleLimitsUK = g_bicycleLimitsBridlewayAllowed;
 
 // United States of America
-routing::VehicleModel::InitListT const g_bicycleLimitsUS =
+VehicleModel::InitListT const g_bicycleLimitsUS =
 {
   // Bridleway and pedesprian are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -484,7 +486,7 @@ BicycleModel const & BicycleModel::AllLimitsInstance()
 BicycleModelFactory::BicycleModelFactory()
 {
   // Names must be the same with country names from countries.txt
-  m_models[string()] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
+  m_models[""] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
   m_models["Australia"] = make_shared<BicycleModel>(g_bicycleLimitsAustralia);
   m_models["Austria"] = make_shared<BicycleModel>(g_bicycleLimitsAustria);
   m_models["Belarus"] = make_shared<BicycleModel>(g_bicycleLimitsBelarus);
@@ -513,7 +515,7 @@ BicycleModelFactory::BicycleModelFactory()
 
 shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModel() const
 {
-  auto const itr = m_models.find(string());
+  auto const itr = m_models.find("");
   ASSERT(itr != m_models.end(), ());
   return itr->second;
 }
@@ -527,6 +529,6 @@ shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModelForCountry(string 
     return itr->second;
   }
   LOG(LDEBUG, ("Bicycle model wasn't found, default bicycle model is used instead:", country));
-  return BicycleModelFactory::GetVehicleModel();
+  return GetVehicleModel();
 }
 }  // routing
