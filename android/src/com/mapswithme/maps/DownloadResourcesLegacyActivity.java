@@ -101,7 +101,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       new Ge0IntentProcessor(),
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
-      new LeadUrlIntentProcessor(),
+      new OldLeadUrlIntentProcessor(),
+      new DeepLinkIntentProcessor(),
       new OpenCountryTaskProcessor(),
       new KmzKmlProcessor(),
       new ShowOnMapProcessor(),
@@ -625,7 +626,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private class LeadUrlIntentProcessor implements IntentProcessor
+  private class OldLeadUrlIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(Intent intent)
@@ -649,7 +650,48 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
       mMapTaskToForward = new OpenUrlTask(url);
-      org.alohalytics.Statistics.logEvent("LeadUrlIntentProcessor::process", url);
+      org.alohalytics.Statistics.logEvent("OldLeadUrlIntentProcessor::process", url);
+      return true;
+    }
+  }
+
+  private class DeepLinkIntentProcessor implements IntentProcessor
+  {
+    private static final String SCHEME_HTTP = "http";
+    private static final String SCHEME_HTTPS = "https";
+    private static final String HOST = "dlink.maps.me";
+    private static final String SCHEME_CORE = "mapsme";
+
+    @Override
+    public boolean isSupported(Intent intent)
+    {
+      final Uri data = intent.getData();
+
+      if (data == null)
+        return false;
+
+      String scheme = intent.getScheme();
+      String host = data.getHost();
+      if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
+        return false;
+
+      return (scheme.equals(SCHEME_HTTP) || scheme.equals(SCHEME_HTTPS)) && HOST.equals(host);
+    }
+
+    @Override
+    public boolean process(Intent intent)
+    {
+      String url = intent.getData().toString();
+      LOGGER.i(TAG, "HTTP deeplink = " + url);
+      // Transform deeplink to the core expected format,
+      // i.e http(s)://host/path?query -> mapsme://path?query.
+      url = url.replace(SCHEME_HTTPS, SCHEME_CORE)
+               .replace(SCHEME_HTTP, SCHEME_CORE)
+               .replace(HOST, "");
+
+      LOGGER.i(TAG, "MAPSME URL = " + url);
+      mMapTaskToForward = new OpenUrlTask(url);
+      org.alohalytics.Statistics.logEvent(this.getClass().getSimpleName() + "::process", url);
       return true;
     }
   }

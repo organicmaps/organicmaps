@@ -109,12 +109,19 @@ public enum SearchEngine implements NativeSearchListener,
     return false;
   }
 
-  public static void searchInteractive(String query, long timestamp, boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter)
+  public static void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
+                                       boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter)
   {
     try
     {
-      nativeRunInteractiveSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter);
+      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable, hotelsFilter);
     } catch (UnsupportedEncodingException ignored) { }
+  }
+
+  public static void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
+                                       @Nullable HotelsFilter hotelsFilter)
+  {
+    searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter);
   }
 
   public static void searchMaps(String query, long timestamp)

@@ -179,6 +179,9 @@ public class SearchFragment extends BaseMwmFragment
   private boolean mSearchRunning;
   private String mInitialQuery;
   @Nullable
+  private String mInitialLocale;
+  private boolean mInitialSearchOnMap = false;
+  @Nullable
   private HotelsFilter mInitialHotelsFilter;
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -379,6 +382,9 @@ public class SearchFragment extends BaseMwmFragment
         mToolbarController.deactivate();
       }
     });
+
+    if (mInitialSearchOnMap)
+      showAllResultsOnMap();
   }
 
   @Override
@@ -432,6 +438,8 @@ public class SearchFragment extends BaseMwmFragment
       return;
 
     mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
+    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
+    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
     mInitialHotelsFilter = arguments.getParcelable(SearchActivity.EXTRA_HOTELS_FILTER);
   }
 
@@ -502,7 +510,9 @@ public class SearchFragment extends BaseMwmFragment
       hotelsFilter = mFilterController.getFilter();
 
     SearchEngine.searchInteractive(
-        query, mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter);
+        query, !TextUtils.isEmpty(mInitialLocale)
+               ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
+        mLastQueryTimestamp, false /* isMapAndTable */, hotelsFilter);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 

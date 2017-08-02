@@ -143,6 +143,21 @@
           android:scheme="mapswithme"/>
       </intent-filter>
 
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+          android:host="dlink.maps.me"
+          android:scheme="https"/>
+
+        <data
+          android:host="dlink.maps.me"
+          android:scheme="http"/>
+      </intent-filter>
+
       <!-- API CALL -->
       <intent-filter>
         <action android:name="com.mapswithme.maps.api.request"/>

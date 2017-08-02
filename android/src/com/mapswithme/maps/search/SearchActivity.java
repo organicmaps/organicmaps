@@ -18,13 +18,23 @@ import com.mapswithme.util.ThemeUtils;
 public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
 {
   public static final String EXTRA_QUERY = "search_query";
+  public static final String EXTRA_LOCALE = "locale";
+  public static final String EXTRA_SEARCH_ON_MAP = "search_on_map";
   public static final String EXTRA_HOTELS_FILTER = "hotels_filter";
 
   public static void start(@NonNull Activity activity, @Nullable String query,
                            @Nullable HotelsFilter filter)
   {
+    start(activity, query, null /* locale */, false /* isSearchOnMap */, filter);
+  }
+
+  public static void start(@NonNull Activity activity, @Nullable String query, @Nullable String locale,
+                           boolean isSearchOnMap, @Nullable HotelsFilter filter)
+  {
     final Intent i = new Intent(activity, SearchActivity.class);
     i.putExtra(EXTRA_QUERY, query);
+    i.putExtra(EXTRA_LOCALE, locale);
+    i.putExtra(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
     i.putExtra(EXTRA_HOTELS_FILTER, filter);
     activity.startActivity(i);
     activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
