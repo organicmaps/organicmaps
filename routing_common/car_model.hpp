@@ -2,8 +2,9 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 namespace routing
 {
@@ -12,8 +13,12 @@ class CarModel : public VehicleModel
 {
 public:
   CarModel();
+  CarModel(VehicleModel::InitListT const & roadLimits);
 
   static CarModel const & AllLimitsInstance();
+
+private:
+  void InitAdditionalRoadTypes();
 };
 
 class CarModelFactory : public VehicleModelFactory
@@ -22,10 +27,10 @@ public:
   CarModelFactory();
 
   // VehicleModelFactory overrides:
-  shared_ptr<IVehicleModel> GetVehicleModel() const override;
-  shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
+  std::shared_ptr<IVehicleModel> GetVehicleModel() const override;
+  std::shared_ptr<IVehicleModel> GetVehicleModelForCountry(std::string const & country) const override;
 
 private:
-  shared_ptr<IVehicleModel> m_model;
+  std::unordered_map<std::string, std::shared_ptr<IVehicleModel>> m_models;
 };
 }  // namespace routing

@@ -2,9 +2,9 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unordered_map.hpp"
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 namespace routing
 {
@@ -36,11 +36,11 @@ public:
 
   /// @name Overrides from VehicleModelFactory.
   //@{
-  shared_ptr<IVehicleModel> GetVehicleModel() const override;
-  shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
+  std::shared_ptr<IVehicleModel> GetVehicleModel() const override;
+  std::shared_ptr<IVehicleModel> GetVehicleModelForCountry(std::string const & country) const override;
   //@}
 
 private:
-  unordered_map<string, shared_ptr<IVehicleModel>> m_models;
+  std::unordered_map<std::string, std::shared_ptr<IVehicleModel>> m_models;
 };
 }  // namespace routing
