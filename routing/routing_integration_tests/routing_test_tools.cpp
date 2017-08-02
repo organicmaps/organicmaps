@@ -100,10 +100,11 @@ namespace integration
       if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
         numMwmIds->RegisterFile(countryFile);
     }
+    
+    auto vehicleType = VehicleType::Car;
+    auto indexRouter = make_unique<IndexRouter>(vehicleType, countryFileGetter, getMwmRectByName, numMwmIds,
+      MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
 
-    auto indexRouter =
-        IndexRouter::Create(VehicleType::Car, countryFileGetter, getMwmRectByName, numMwmIds,
-                            MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
     return indexRouter;
   }
 

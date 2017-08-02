@@ -54,9 +54,9 @@ UNIT_TEST(MiddleSegmentTest_Mock1Graph)
                      MakeJunctionForTesting(m2::PointD(10, 0)),
                      MakeJunctionForTesting(m2::PointD(15, 0))),
                 MakeJunctionForTesting(m2::PointD(12.5, 0))),
-      make_pair(Edge(MakeTestFeatureID(1), true /* forward */, 2,
-                     MakeJunctionForTesting(m2::PointD(10, 0)),
-                     MakeJunctionForTesting(m2::PointD(10, 5))),
-                MakeJunctionForTesting(m2::PointD(10, 2.5)))};
+      make_pair(Edge(MakeTestFeatureID(0), false /* forward */, 2,
+                     MakeJunctionForTesting(m2::PointD(15, 0)),
+                     MakeJunctionForTesting(m2::PointD(10, 0))),
+                MakeJunctionForTesting(m2::PointD(12.5, 0)))};
   TestNearestOnMock1(m2::PointD(12.5, 2.5), 2, expected);
 }

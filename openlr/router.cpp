@@ -22,7 +22,7 @@ namespace openlr
 {
 namespace
 {
-size_t const kMaxRoadCandidates = 10;
+size_t const kMaxRoadCandidates = 20;
 double const kDistanceAccuracyM = 1000;
 double const kEps = 1e-9;
 double const kBearingDist = 25;

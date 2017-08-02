@@ -40,7 +40,7 @@ using namespace std;
 
 namespace
 {
-size_t constexpr kMaxRoadCandidates = 6;
+size_t constexpr kMaxRoadCandidates = 12;
 float constexpr kProgressInterval = 2;
 uint32_t constexpr kVisitPeriod = 40;
 
@@ -91,6 +91,15 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
     return nullptr;
   }
+}
+
+shared_ptr<TrafficStash> CreateTrafficStash(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
+                                            traffic::TrafficCache const & trafficCache)
+{
+  if (vehicleType != VehicleType::Car)
+    return nullptr;
+
+  return make_shared<TrafficStash>(trafficCache, numMwmIds);
 }
 
 template <typename Graph>
@@ -230,60 +239,40 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::Subroute
 namespace routing
 {
 // IndexRouter::BestEdgeComparator ----------------------------------------------------------------
-IndexRouter::BestEdgeComparator::BestEdgeComparator(m2::PointD const & point,
-                                                    m2::PointD const & direction,
-                                                    IsOnewayFn const & isOnewayFn)
-  : m_point(point), m_direction(direction), m_isOnewayFn(isOnewayFn)
+IndexRouter::BestEdgeComparator::BestEdgeComparator(m2::PointD const & point, m2::PointD const & direction)
+  : m_point(point), m_direction(direction)
 {
 }
 
-bool IndexRouter::BestEdgeComparator::Compare(Edge const & edge1, Edge const & edge2) const
+int IndexRouter::BestEdgeComparator::Compare(Edge const & edge1, Edge const & edge2) const
 {
   if (IsDirectionValid())
   {
-    bool const isEdge1Parallel = IsAlmostConformed(edge1);
-    if (isEdge1Parallel != IsAlmostConformed(edge2))
-      return isEdge1Parallel;
+    bool const isEdge1Codirectional = IsAlmostCodirectional(edge1);
+    if (isEdge1Codirectional != IsAlmostCodirectional(edge2))
+      return isEdge1Codirectional ? -1 : 1;
   }
 
-  return GetSquaredDist(edge1) < GetSquaredDist(edge2);
+  double const squaredDistFromEdge1 = GetSquaredDist(edge1);
+  double const squaredDistFromEdge2 = GetSquaredDist(edge2);
+  if (squaredDistFromEdge1 == squaredDistFromEdge2)
+    return 0;
+
+  return squaredDistFromEdge1 < squaredDistFromEdge2 ? -1 : 1;
 }
 
-bool IndexRouter::BestEdgeComparator::IsAlmostConformed(Edge const & edge) const
-{
-  bool forward;
-  if (!IsAlmostCollinear(edge, forward))
-    return false;
-
-  // Note. In case of oneway edges |edge| is conformed to |m_direction| iff vector of |edge|
-  // and vector |m_direction| are almost collinear and have the same direction.
-  return m_isOnewayFn(edge.GetFeatureId()) ? forward : true;
-}
-
-bool IndexRouter::BestEdgeComparator::IsAlmostCollinear(Edge const & edge, bool & forward) const
+bool IndexRouter::BestEdgeComparator::IsAlmostCodirectional(Edge const & edge) const
 {
   CHECK(IsDirectionValid(), ());
 
-  forward = true;
-  m2::PointD const edgeDirection =
-      edge.GetEndJunction().GetPoint() - edge.GetStartJunction().GetPoint();
+  auto const edgeDirection = edge.GetDirection();
   if (edgeDirection.IsAlmostZero())
     return false;
 
-  double const cosAng =
-    m2::DotProduct(m_direction.Normalize(), edgeDirection.Normalize());
-
+  double const cosAng = m2::DotProduct(m_direction.Normalize(), edgeDirection.Normalize());
   // Note. acos(0.97) ≈ 14 degrees.
-  double constexpr kMinCosAngForAlmostParallelVectors = 0.97;
-  if (cosAng >= kMinCosAngForAlmostParallelVectors)
-    return true;
-
-  if (cosAng <= -kMinCosAngForAlmostParallelVectors)
-  {
-    forward = false;
-    return true;
-  }
-  return false;
+  double constexpr kMinCosAngForAlmostCodirectionalVectors = 0.97;
+  return cosAng >= kMinCosAngForAlmostCodirectionalVectors;
 }
 
 double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
@@ -294,27 +283,23 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 }
 
 // IndexRouter ------------------------------------------------------------------------------------
-IndexRouter::IndexRouter(string const & name, TCountryFileFn const & countryFileFn,
+IndexRouter::IndexRouter(VehicleType vehicleType, TCountryFileFn const & countryFileFn,
                          CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
-                         unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                         shared_ptr<TrafficStash> trafficStash,
-                         VehicleType vehicleType,
-                         shared_ptr<VehicleModelFactory> vehicleModelFactory,
-                         shared_ptr<EdgeEstimator> estimator,
-                         unique_ptr<IDirectionsEngine> directionsEngine, Index & index)
-  : m_name(name)
+                         unique_ptr<m4::Tree<NumMwmId>> numMwmTree, traffic::TrafficCache const & trafficCache,
+                         Index & index)
+  : m_vehicleType(vehicleType)
+  , m_name("astar-bidirectional-" + ToString(m_vehicleType))
   , m_index(index)
+  , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
   , m_numMwmIds(move(numMwmIds))
   , m_numMwmTree(move(numMwmTree))
-  , m_trafficStash(move(trafficStash))
+  , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
   , m_indexManager(countryFileFn, m_index)
-  , m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, vehicleModelFactory)
-  , m_vehicleType(vehicleType)
-  , m_vehicleModelFactory(vehicleModelFactory)
-  , m_estimator(move(estimator))
-  , m_directionsEngine(move(directionsEngine))
+  , m_roadGraph(m_index, IRoadGraph::Mode::ObeyOnewayTag, m_vehicleModelFactory)
+  , m_estimator(EdgeEstimator::Create(m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory), m_trafficStash))
+  , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_index))
 {
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
@@ -416,9 +401,9 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
   segments.push_back(IndexGraphStarter::kStartFakeSegment);
 
   Segment startSegment;
-  bool startSegmentIsAlmostParallelDirection = false;
+  bool startSegmentIsAlmostCodirectionalDirection = false;
   if (!FindBestSegment(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, graph,
-                       startSegment, startSegmentIsAlmostParallelDirection))
+                       startSegment, startSegmentIsAlmostCodirectionalDirection))
   {
     return IRouter::StartPointNotFound;
   }
@@ -432,7 +417,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
     vector<Segment> subroute;
     Junction startJunction;
     auto const result =
-        CalculateSubroute(checkpoints, i, startSegment, startSegmentIsAlmostParallelDirection,
+        CalculateSubroute(checkpoints, i, startSegment, startSegmentIsAlmostCodirectionalDirection,
                           delegate, graph, subroute, startJunction);
 
     if (result != IRouter::NoError)
@@ -489,7 +474,7 @@ IRouter::ResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoint
 
 IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                    size_t subrouteIdx, Segment const & startSegment,
-                                                   bool startSegmentIsAlmostParallelDirection,
+                                                   bool startSegmentIsAlmostCodirectional,
                                                    RouterDelegate const & delegate,
                                                    WorldGraph & graph, vector<Segment> & subroute,
                                                    Junction & startJunction)
@@ -501,8 +486,8 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
 
   Segment finishSegment;
   bool dummy = false;
-  if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero(), false /* isOutgoing */, graph,
-                       finishSegment, dummy))
+  if (!FindBestSegment(finishCheckpoint, m2::PointD::Zero() /* direction */, false /* isOutgoing */, graph,
+                       finishSegment, dummy /* bestSegmentIsAlmostCodirectional */))
   {
     bool const isLastSubroute = subrouteIdx == checkpoints.GetNumSubroutes() - 1;
     return isLastSubroute ? IRouter::EndPointNotFound : IRouter::IntermediatePointNotFound;
@@ -514,7 +499,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   LOG(LINFO, ("Routing in mode:", graph.GetMode()));
 
   bool const isStartSegmentStrictForward =
-      subrouteIdx == checkpoints.GetPassedIdx() ? startSegmentIsAlmostParallelDirection : true;
+      subrouteIdx == checkpoints.GetPassedIdx() ? startSegmentIsAlmostCodirectional : true;
   IndexGraphStarter starter(
       MakeFakeVertex(startSegment, startCheckpoint, isStartSegmentStrictForward, graph),
       MakeFakeVertex(finishSegment, finishCheckpoint, false /* strictForward */, graph), graph);
@@ -570,9 +555,9 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   Segment startSegment;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
-  bool bestSegmentIsAlmostConformDirection = false;
-  if (!FindBestSegment(pointFrom, startDirection, true, graph, startSegment,
-                       bestSegmentIsAlmostConformDirection))
+  bool bestSegmentIsAlmostCodirectional = false;
+  if (!FindBestSegment(pointFrom, startDirection, true /* isOutgoing */, graph, startSegment,
+                       bestSegmentIsAlmostCodirectional))
     return IRouter::StartPointNotFound;
 
   auto const & lastSubroutes = m_lastRoute->GetSubroutes();
@@ -583,7 +568,7 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   CHECK(!steps.empty(), ());
 
   IndexGraphStarter starter(
-      MakeFakeVertex(startSegment, pointFrom, bestSegmentIsAlmostConformDirection, graph),
+      MakeFakeVertex(startSegment, pointFrom, bestSegmentIsAlmostCodirectional, graph),
       MakeFakeVertex(steps[lastSubroute.GetEndSegmentIdx() - 1].GetSegment(),
                      checkpoints.GetPointTo(), false /* strictForward */, graph), graph);
 
@@ -674,7 +659,7 @@ WorldGraph IndexRouter::MakeWorldGraph()
 
 bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
                                   bool isOutgoing, WorldGraph & worldGraph, Segment & bestSegment,
-                                  bool & bestSegmentIsAlmostConformDirection) const
+                                  bool & bestSegmentIsAlmostCodirectional) const
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
   MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
@@ -687,39 +672,31 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   vector<pair<Edge, Junction>> candidates;
   m_roadGraph.FindClosestEdges(point, kMaxRoadCandidates, candidates);
 
-  auto const getSegmentByEdge = [&numMwmId](Edge const & edge, bool isForward) {
-    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), isForward);
+  auto const getSegmentByEdge = [&numMwmId](Edge const & edge) {
+    return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
   };
 
   // Getting rid of knowingly bad candidates.
   my::EraseIf(candidates, [&](pair<Edge, Junction> const & p){
     Edge const & edge = p.first;
-    return edge.GetFeatureId().m_mwmId != mwmId ||
-           IsDeadEnd(getSegmentByEdge(edge, edge.IsForward()), isOutgoing, worldGraph);
+    return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
   });
 
   if (candidates.empty())
     return false;
 
-  BestEdgeComparator bestEdgeComparator(point, direction, [this](FeatureID const & featureId) {
-    return this->IsOneWayFeature(featureId);
-  });
+  BestEdgeComparator bestEdgeComparator(point, direction);
   Edge bestEdge = candidates[0].first;
   for (size_t i = 1; i < candidates.size(); ++i)
   {
     Edge const & edge = candidates[i].first;
-    if (bestEdgeComparator.Compare(edge, bestEdge))
+    if (bestEdgeComparator.Compare(edge, bestEdge) < 0)
       bestEdge = edge;
   }
 
-  bestSegmentIsAlmostConformDirection =
-      bestEdgeComparator.IsDirectionValid() && bestEdgeComparator.IsAlmostConformed(bestEdge);
-
-  bool bestSegmentForward = true;
-  if (bestEdgeComparator.IsDirectionValid())
-    bestEdgeComparator.IsAlmostCollinear(bestEdge, bestSegmentForward);
-
-  bestSegment = getSegmentByEdge(bestEdge, bestSegmentForward);
+  bestSegmentIsAlmostCodirectional =
+      bestEdgeComparator.IsDirectionValid() && bestEdgeComparator.IsAlmostCodirectional(bestEdge);
+  bestSegment = getSegmentByEdge(bestEdge);
   return true;
 }
 
@@ -833,43 +810,5 @@ bool IndexRouter::AreMwmsNear(NumMwmId startId, NumMwmId finishId) const
       areMwmsNear = true;
   });
   return areMwmsNear;
-}
-
-bool IndexRouter::IsOneWayFeature(FeatureID const & featureId) const
-{
-  Index::FeaturesLoaderGuard const guard(m_index, featureId.m_mwmId);
-  FeatureType ft;
-  if (!guard.GetFeatureByIndex(featureId.m_index, ft))
-  {
-    LOG(LERROR, ("Feature can't be loaded:", featureId));
-    return false;
-  }
-  shared_ptr<IVehicleModel> model =
-      m_vehicleModelFactory->GetVehicleModelForCountry(featureId.GetMwmName());
-  CHECK(model, ());
-  return model->IsOneWay(ft);
-}
-
-// static
-unique_ptr<IndexRouter> IndexRouter::Create(VehicleType vehicleType,TCountryFileFn const & countryFileFn,
-                                                     CourntryRectFn const & coutryRectFn,
-                                                     shared_ptr<NumMwmIds> numMwmIds,
-                                                     unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                                                     traffic::TrafficCache const & trafficCache,
-                                                     Index & index)
-{
-  CHECK(numMwmIds, ());
-  CHECK(numMwmTree, ());
-  auto vehicleModelFactory = CreateVehicleModelFactory(vehicleType);
-  auto directionsEngine = CreateDirectionsEngine(vehicleType, numMwmIds, index);
-  double const maxSpeed = CalcMaxSpeed(*numMwmIds, *vehicleModelFactory);
-  auto trafficStash = vehicleType == VehicleType::Car ?
-                          make_shared<TrafficStash>(trafficCache, numMwmIds) :
-                          nullptr;
-  auto estimator = EdgeEstimator::Create(vehicleType, maxSpeed, trafficStash);
-  auto router = make_unique<IndexRouter>(
-    "astar-bidirectional-" + ToString(vehicleType), countryFileFn, coutryRectFn, numMwmIds, move(numMwmTree),
-    trafficStash, vehicleType, vehicleModelFactory, estimator, move(directionsEngine), index);
-  return router;
 }
 }  // namespace routing

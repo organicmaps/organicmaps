@@ -53,14 +53,15 @@ inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
 class Edge
 {
 public:
-  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction,
-                       bool partOfReal);
-
   Edge();
   Edge(FeatureID const & featureId, bool forward, uint32_t segId, Junction const & startJunction,
        Junction const & endJunction);
   Edge(Edge const &) = default;
   Edge & operator=(Edge const &) = default;
+
+  static Edge MakeFake(Junction const & startJunction, Junction const & endJunction, bool partOfReal);
+  static Edge MakeFakeForTesting(Junction const & startJunction, Junction const & endJunction,
+                                 bool partOfReal, bool forward);
 
   inline FeatureID GetFeatureId() const { return m_featureId; }
   inline bool IsForward() const { return m_forward; }
@@ -69,6 +70,7 @@ public:
   inline Junction const & GetEndJunction() const { return m_endJunction; }
   inline bool IsFake() const { return !m_featureId.IsValid(); }
   inline bool IsPartOfReal() const { return m_partOfReal; }
+  inline m2::PointD GetDirection() const { return GetEndJunction().GetPoint() - GetStartJunction().GetPoint(); }
 
   Edge GetReverseEdge() const;
 
@@ -80,6 +82,9 @@ public:
 
 private:
   friend string DebugPrint(Edge const & r);
+
+  static Edge MakeFakeWithForward(Junction const & startJunction, Junction const & endJunction,
+                                  bool partOfReal, bool forward);
 
   // Feature for which edge is defined.
   FeatureID m_featureId;
@@ -98,6 +103,11 @@ private:
 
   // End junction of the segment on the road.
   Junction m_endJunction;
+
+  // Note. If |m_forward| == true index of |m_startJunction| point at the feature |m_featureId|
+  // is less than index |m_endJunction|.
+  // If |m_forward| == false index of |m_startJunction| point at the feature |m_featureId|
+  // is more than index |m_endJunction|.
 };
 
 class RoadGraphBase

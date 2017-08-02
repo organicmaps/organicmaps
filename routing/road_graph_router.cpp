@@ -40,7 +40,7 @@ namespace routing
 
 namespace
 {
-size_t constexpr kMaxRoadCandidates = 6;
+size_t constexpr kMaxRoadCandidates = 12;
 
 size_t constexpr kTestConnectivityVisitJunctionsLimit = 25;
 

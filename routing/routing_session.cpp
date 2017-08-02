@@ -234,7 +234,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       }
     }
 
-    m_lastGoodPosition = m_userCurrentPosition;
+    if (m_userCurrentPositionValid)
+      m_lastGoodPosition = m_userCurrentPosition;
   }
   else
   {
@@ -267,7 +268,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     }
   }
 
-  if (m_userFormerPosition != m2::PointD::Zero() && m_userCurrentPosition != m2::PointD::Zero())
+  if (m_userCurrentPositionValid && m_userFormerPositionValid)
     m_currentDirection = m_userCurrentPosition - m_userFormerPosition;
 
   return m_state;
@@ -517,12 +518,10 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
   m_userFormerPosition = m_userCurrentPosition;
-  m_userCurrentPosition = position;
-}
+  m_userFormerPositionValid = m_userCurrentPositionValid;
 
-m2::PointD const & RoutingSession::GetUserCurrentPosition() const
-{
-  return m_userCurrentPosition;
+  m_userCurrentPosition = position;
+  m_userCurrentPositionValid = true;
 }
 
 void RoutingSession::EnableTurnNotifications(bool enable)

@@ -52,10 +52,24 @@ string DebugPrint(Junction const & r)
 }
 
 // Edge ------------------------------------------------------------------------
-
+// static
 Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction, bool partOfReal)
 {
-  Edge edge(FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction);
+  return MakeFakeWithForward(startJunction, endJunction, partOfReal, true /* forward */);
+}
+
+// static
+Edge Edge::MakeFakeForTesting(Junction const & startJunction, Junction const & endJunction,
+                              bool partOfReal, bool forward)
+{
+  return MakeFakeWithForward(startJunction, endJunction, partOfReal, forward);
+}
+
+// static
+Edge Edge::MakeFakeWithForward(Junction const & startJunction, Junction const & endJunction,
+                               bool partOfReal, bool forward)
+{
+  Edge edge(FeatureID(), forward, 0 /* segId */, startJunction, endJunction);
   edge.m_partOfReal = partOfReal;
   return edge;
 }

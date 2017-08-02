@@ -589,18 +589,16 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
 //      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
 //          point (0, 0)
 //
-// Test that a parallel edge is always better than others.
-UNIT_TEST(BestEdgeComparator_OneParallelEdge)
+// Test that a codirectional edge is always better than others.
+UNIT_TEST(BestEdgeComparator_OneCodirectionalEdge)
 {
-  Edge edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                              MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
-  Edge edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), 
-                              MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(
-      m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001),
-      [](FeatureID const & /* featureId */) { return true; });
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({-0.002, 0.002}), true /* partOfReal */);
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({0.002, 0.0}), true /* partOfReal */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
-  TEST(bestEdgeComparator.Compare(edge1, edge2), ());
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
 }
 
 //
@@ -615,38 +613,55 @@ UNIT_TEST(BestEdgeComparator_OneParallelEdge)
 //      *-------*
 //          point (0, 0)
 //
-// Test that if there are two parallel edges the closet one to |point| is better.
-UNIT_TEST(BestEdgeComparator_TwoParallelEdges)
+// Test that if there are two codirectional edges the closest one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoCodirectionalEdges)
 {
-  Edge edge1 =
-    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({-0.002, 0.004}), true /* partOfRead */);
-  Edge edge2 =
-    Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}), MakeJunctionForTesting({0.0, 0.002}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(
-      m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001),
-      [](FeatureID const & /* featureId */) { return true; });
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({-0.002, 0.004}), true /* partOfReal */);
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}),
+                                    MakeJunctionForTesting({0.0, 0.002}), true /* partOfReal */);
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
-  TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
 }
 
-//      *--------------->  edge1 (-0.002, 0.002) - (-0.002, 0.002)
+//      *--------------->  edge1 (-0.002, 0.002) - (0.002, 0.002)
 //
 //              ^ direction vector (0, 0.001)
 //              |
 //      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
 //          point (0, 0)
 //
-// Test that if two edges are not parallel the closet one to |point| is better.
-UNIT_TEST(BestEdgeComparator_TwoNotParallelEdges)
+// Test that if two edges are not codirectional the closet one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoNotCodirectionalEdges)
 {
-  Edge edge1 =
-    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}), MakeJunctionForTesting({-0.002, 0.002}), true /* partOfRead */);
-  Edge edge2 =
-    Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}), MakeJunctionForTesting({0.002, 0.0}), true /* partOfRead */);
-  IndexRouter::BestEdgeComparator bestEdgeComparator(
-      m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001),
-      [](FeatureID const & /* featureId */) { return true; });
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}),
+                                    MakeJunctionForTesting({0.002, 0.002}), true /* partOfReal */);
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({0.002, 0.0}), true) /* partOfReal */;
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
-  TEST(!bestEdgeComparator.Compare(edge1, edge2), ());
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
+}
+
+//                                     point(0, 0.001)
+//                                         *-->  direction vector (0.001, 0)
+//
+//  edge1 (-0.002, 0) - (0.002, 0)  <------------->  edge2 (0.002, 0) - (-0.002, 0)
+//                                       (0, 0)
+//
+// Test that if two edges are made by one bidirectional feature the one which have almost the same direction is better.
+UNIT_TEST(BestEdgeComparator_TwoEdgesOfOneFeature)
+{
+  // Please see a note in class Edge definition about start and end point of Edge.
+  Edge const edge1 = Edge::MakeFakeForTesting(MakeJunctionForTesting({-0.002, 0.0}),
+                                              MakeJunctionForTesting({0.002, 0.0}),
+                                              true /* partOfReal */, true /* forward */);
+  Edge const edge2 = edge1.GetReverseEdge();
+
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.001), m2::PointD(0.001, 0.0));
+
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
+  TEST_EQUAL(bestEdgeComparator.Compare(edge2, edge1), 1, ());
 }
 }  // namespace routing_test

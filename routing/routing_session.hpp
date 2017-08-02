@@ -132,7 +132,6 @@ public:
   traffic::SpeedGroup MatchTraffic(location::RouteMatchingInfo const & routeMatchingInfo) const;
 
   void SetUserCurrentPosition(m2::PointD const & position);
-  m2::PointD const & GetUserCurrentPosition() const;
 
   void ActivateAdditionalFeatures() {}
 
@@ -226,6 +225,8 @@ private:
   m2::PointD m_currentDirection;
   m2::PointD m_userCurrentPosition;
   m2::PointD m_userFormerPosition;
+  bool m_userCurrentPositionValid = false;
+  bool m_userFormerPositionValid = false;
 
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;
