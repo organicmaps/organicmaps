@@ -11,16 +11,17 @@
 #include "pyhelpers/vector_list_conversion.hpp"
 
 #include <boost/python.hpp>
+#include <boost/python/enum.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 using namespace local_ads;
 
 namespace
 {
-std::vector<uint8_t> PySerialize(boost::python::list const & cs)
+std::vector<uint8_t> PySerialize(boost::python::list const & cs, Version const version)
 {
   auto const campaigns = python_list_to_std_vector<Campaign>(cs);
-  return Serialize(campaigns);
+  return Serialize(campaigns, version);
 }
 
 boost::python::list PyDeserialize(std::vector<uint8_t> const & blob)
@@ -39,6 +40,7 @@ BOOST_PYTHON_MODULE(pylocal_ads)
   vector_uint8t_from_python_str();
 
   class_<Campaign>("Campaign", init<uint32_t, uint16_t, uint8_t, uint8_t, uint8_t>())
+      .def(init<uint32_t, uint16_t, uint8_t>())
       .def_readonly("m_featureId", &Campaign::m_featureId)
       .def_readonly("m_iconId", &Campaign::m_iconId)
       .def_readonly("m_daysBeforeExpired", &Campaign::m_daysBeforeExpired)
@@ -47,6 +49,13 @@ BOOST_PYTHON_MODULE(pylocal_ads)
 
   class_<std::vector<Campaign>>("CampaignList")
       .def(vector_indexing_suite<std::vector<Campaign>>());
+
+  enum_<Version>("Version")
+      .value("UNKNOWN", Version::Unknown)
+      .value("V1", Version::V1)
+      .value("V2", Version::V2)
+      .value("LATEST", Version::Latest)
+      .export_values();
 
   def("serialize", PySerialize);
   def("deserialize", PyDeserialize);
