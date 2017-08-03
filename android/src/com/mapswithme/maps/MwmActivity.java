@@ -507,10 +507,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mSearchController = new FloatingSearchToolbarController(this);
     mSearchController.setVisibilityListener(this);
-    processIntent(getIntent());
-    SharingHelper.prepare();
-
     SearchEngine.INSTANCE.addListener(this);
+
+    SharingHelper.prepare();
 
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
@@ -520,7 +519,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     //  }
     //});
     //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
-    mTasks.add(new RestoreRouteTask());
+    boolean isConsumed = processIntent(getIntent());
+    // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
+    // we haven't to try restoring the route.
+    if (!isConsumed)
+      addTask(new RestoreRouteTask());
   }
 
   private void initViews()
@@ -1028,25 +1031,36 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);
+    setIntent(intent);
     processIntent(intent);
   }
 
-  private void processIntent(Intent intent)
+  private boolean processIntent(Intent intent)
   {
     if (intent == null)
-      return;
+      return false;
 
     if (intent.hasExtra(EXTRA_TASK))
+    {
       addTask(intent);
-    else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
+      return true;
+    }
+
+    if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
+    {
       showDownloader(true);
+      return true;
+    }
 
     HotelsFilter filter = intent.getParcelableExtra(SearchActivity.EXTRA_HOTELS_FILTER);
     if (mFilterController != null)
     {
       mFilterController.show(filter != null || !TextUtils.isEmpty(SearchEngine.getQuery()), true);
       mFilterController.setFilter(filter);
+      return filter != null;
     }
+
+    return false;
   }
 
   private void addTask(Intent intent)
