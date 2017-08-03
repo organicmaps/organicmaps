@@ -7,12 +7,25 @@
 // hence the error. See https://bugs.python.org/issue10910
 #include <locale>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wreorder"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-local-typedef"
+#endif
+
 #include "pyhelpers/vector_uint8.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
 
 #include <boost/python.hpp>
 #include <boost/python/enum.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
+#pragma GCC diagnostic pop
 
 using namespace local_ads;
 

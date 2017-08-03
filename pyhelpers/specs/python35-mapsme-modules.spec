@@ -21,10 +21,9 @@
     %{!?__jar_repack:/usr/lib/rpm/redhat/brp-java-repack-jars} \
 %{nil}
 
-%define unmangled_version 0.1.7
-%define version %{unmangled_version}
-%define release 1
-%define tag py-modules-%{unmangled_version}
+%define version %(echo $VERSION)
+%define release %(echo $RELEASE)
+%define tag py-modules-%{version}
 
 Name:           python35-mapsme-modules
 Version:        %{version}
@@ -35,7 +34,7 @@ Vendor:         Mail.Ru Group
 
 Group:          Development/Languages/Python
 URL:		https://github.com/mapsme/omim
-Source:		omim-py-modules-%{unmangled_version}.tar.gz
+Source:		omim-py-modules-%{version}.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix:         %{_prefix}
@@ -82,11 +81,13 @@ cd ..
 %{__mkdir_p} build && cd build
 # TODO(mgergio, yershov): Why should we stills specify PYTHON_LIBRARY and
 # PYTHON_INCLUDE_DIR manually?
-%{__cmake3} -DPYTHON_LIBRARY=/usr/local/python35/lib/libpython3.so -DPYTHON_INCLUDE_DIR=/usr/local/python35/include/python3.5m/ -DPYTHON_VERSION=3.5 -DBOOST_INCLUDEDIR=/usr/local/boost_1.54.0/include/ -DPYBINDINGS=ON ../omim
+%{__cmake3} -DPYTHON_LIBRARY=/usr/local/python35/lib/libpython3.so -DPYTHON_INCLUDE_DIR=/usr/local/python35/include/python3.5m/ -DPYTHON_VERSION=3.5 -DBOOST_INCLUDEDIR=/usr/local/boost_1.54.0/include/ -DPYBINDINGS=ON -DSKIP_DESKTOP=ON ../omim
 %{__make} %{?_smp_mflags} pylocal_ads
+%{__make} %{?_smp_mflags} pymwm_diff
 
 %install
 %{__install} -m 755 -D %{_builddir}/%{name}-%{version}/build/pylocal_ads.so %{buildroot}/%{python_sitelib}/pylocal_ads.so
+%{__install} -m 755 -D %{_builddir}/%{name}-%{version}/build/pymwm_diff.so %{buildroot}/%{python_sitelib}/pymwm_diff.so
 
 %clean
 rm -rf %{buildroot}
@@ -94,6 +95,7 @@ rm -rf %{buildroot}
 %files -n python35-pylocal_ads
 %defattr(-,root,root)
 %{python_sitelib}/pylocal_ads.so
+%{python_sitelib}/pymwm_diff.so
 
 %changelog
 * Wed Apr 26 2017 Magidovich Sergey <s.magidovich@corp.mail.ru> - 0.1b-1
