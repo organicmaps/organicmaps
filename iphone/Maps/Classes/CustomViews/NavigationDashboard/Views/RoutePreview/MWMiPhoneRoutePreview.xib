@@ -138,7 +138,7 @@
             <point key="canvasLocation" x="448" y="341"/>
         </view>
         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIE-BJ-nFm" userLabel="Status Box" customClass="MWMRoutePreviewStatus">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="152"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fD2-1N-x27" userLabel="Error Box">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -175,6 +175,12 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-Yo-BvL">
+                            <rect key="frame" x="89" y="8" width="119" height="32"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                        </button>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQB-xn-DSM" userLabel="Go" customClass="MWMRouteStartButton">
                             <rect key="frame" x="228" y="8" width="80" height="32"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
@@ -204,10 +210,13 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="CQB-xn-DSM" firstAttribute="leading" secondItem="Zzm-Yo-BvL" secondAttribute="trailing" constant="20" id="6Lz-mp-yW2"/>
                         <constraint firstItem="sjQ-Sc-mtN" firstAttribute="centerY" secondItem="Tai-sE-6DC" secondAttribute="centerY" id="Aer-5j-lt1"/>
                         <constraint firstAttribute="trailing" secondItem="CQB-xn-DSM" secondAttribute="trailing" constant="12" id="Any-Qx-9mT"/>
+                        <constraint firstItem="Zzm-Yo-BvL" firstAttribute="bottom" secondItem="CQB-xn-DSM" secondAttribute="bottom" id="V0p-f2-5K1"/>
                         <constraint firstItem="CQB-xn-DSM" firstAttribute="centerY" secondItem="Tai-sE-6DC" secondAttribute="centerY" id="XI7-0e-bgf"/>
                         <constraint firstItem="CQB-xn-DSM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sjQ-Sc-mtN" secondAttribute="trailing" constant="16" id="Xqn-Rd-gR3"/>
+                        <constraint firstItem="Zzm-Yo-BvL" firstAttribute="top" secondItem="CQB-xn-DSM" secondAttribute="top" id="cyE-HM-Ovf"/>
                         <constraint firstItem="sjQ-Sc-mtN" firstAttribute="leading" secondItem="Tai-sE-6DC" secondAttribute="leading" constant="16" id="gdz-UZ-QkO"/>
                         <constraint firstAttribute="height" constant="48" id="tqy-f7-E4I"/>
                     </constraints>
@@ -238,6 +247,23 @@
                         <constraint firstItem="Z94-gs-dwB" firstAttribute="leading" secondItem="FBs-iT-nWY" secondAttribute="leading" constant="16" id="h5e-gY-AhN"/>
                         <constraint firstAttribute="trailing" secondItem="Z94-gs-dwB" secondAttribute="trailing" constant="16" id="xNl-p8-3J5"/>
                         <constraint firstItem="Z94-gs-dwB" firstAttribute="top" secondItem="FBs-iT-nWY" secondAttribute="top" constant="14" id="zAG-Jd-mUl"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzb-1W-zFB">
+                    <rect key="frame" x="0.0" y="108" width="320" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K37-2W-GE8">
+                            <rect key="frame" x="20" y="13" width="119" height="18"/>
+                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="K37-2W-GE8" firstAttribute="centerY" secondItem="fzb-1W-zFB" secondAttribute="centerY" id="2ok-5H-yIR"/>
+                        <constraint firstAttribute="height" constant="44" id="P98-xe-1Mu"/>
+                        <constraint firstItem="K37-2W-GE8" firstAttribute="leading" secondItem="fzb-1W-zFB" secondAttribute="leading" constant="20" id="UJ8-Kj-MhJ"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5a5-vb-p6T" userLabel="Taxi Box">
@@ -271,6 +297,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="0pP-L9-PjJ"/>
                 <constraint firstItem="5a5-vb-p6T" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="378-vg-65G"/>
+                <constraint firstItem="fzb-1W-zFB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="939-g8-UFV"/>
                 <constraint firstAttribute="trailing" secondItem="fD2-1N-x27" secondAttribute="trailing" id="Alb-Vc-3pV"/>
                 <constraint firstItem="5a5-vb-p6T" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="C3e-aL-kQq"/>
                 <constraint firstItem="Tai-sE-6DC" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="D1o-4y-GV6"/>
@@ -278,13 +305,18 @@
                 <constraint firstAttribute="trailing" secondItem="5a5-vb-p6T" secondAttribute="trailing" id="I7D-Xr-4Bd"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5a5-vb-p6T" secondAttribute="bottom" id="LNP-ys-o3e"/>
                 <constraint firstItem="fD2-1N-x27" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="OkZ-n1-6M1"/>
+                <constraint firstItem="fzb-1W-zFB" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" priority="100" id="PEO-jz-737"/>
+                <constraint firstItem="fzb-1W-zFB" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="Tfi-eh-yc6"/>
                 <constraint firstItem="FBs-iT-nWY" firstAttribute="top" secondItem="Tai-sE-6DC" secondAttribute="bottom" id="UK2-a3-v7h"/>
                 <constraint firstAttribute="trailing" secondItem="Tai-sE-6DC" secondAttribute="trailing" id="a1W-Je-BvX"/>
                 <constraint firstAttribute="trailing" secondItem="FBs-iT-nWY" secondAttribute="trailing" id="aFh-Oh-dMW"/>
                 <constraint firstItem="Tai-sE-6DC" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="k8m-8C-aK9"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fzb-1W-zFB" secondAttribute="bottom" id="kPq-9v-D4c"/>
                 <constraint firstItem="fD2-1N-x27" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="rcc-1j-0Af"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Tai-sE-6DC" secondAttribute="bottom" id="trf-mi-xeb"/>
                 <constraint firstItem="FBs-iT-nWY" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="vEM-Q6-T7g"/>
+                <constraint firstAttribute="trailing" secondItem="fzb-1W-zFB" secondAttribute="trailing" id="vuc-5v-tGe"/>
+                <constraint firstItem="fzb-1W-zFB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Tai-sE-6DC" secondAttribute="bottom" id="x6f-8l-CgL"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fD2-1N-x27" secondAttribute="bottom" id="x7F-TL-lJx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -304,7 +336,12 @@
                 <outlet property="errorLabel" destination="vGz-fB-9Oi" id="Ojx-cU-Jpc"/>
                 <outlet property="heightBox" destination="FBs-iT-nWY" id="1Vi-nB-gGz"/>
                 <outlet property="heightBoxBottom" destination="0pP-L9-PjJ" id="BP0-zq-7kV"/>
+                <outlet property="heightBoxBottomManageRouteBoxTop" destination="939-g8-UFV" id="gmW-wu-meb"/>
                 <outlet property="heightProfileImage" destination="OqA-sS-wmI" id="NdN-LR-j7e"/>
+                <outlet property="manageRouteBox" destination="fzb-1W-zFB" id="yqc-27-U2m"/>
+                <outlet property="manageRouteBoxBottom" destination="kPq-9v-D4c" id="FPP-Hc-DGv"/>
+                <outlet property="manageRouteButtonCompact" destination="Zzm-Yo-BvL" id="MAs-VL-pR0"/>
+                <outlet property="manageRouteButtonRegular" destination="K37-2W-GE8" id="I40-pl-MM4"/>
                 <outlet property="resultLabel" destination="sjQ-Sc-mtN" id="XIY-sS-M2V"/>
                 <outlet property="resultsBox" destination="Tai-sE-6DC" id="l4p-m2-z4z"/>
                 <outlet property="resultsBoxBottom" destination="trf-mi-xeb" id="tdb-sa-2ak"/>
@@ -315,6 +352,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_24px_manager" width="16" height="16"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
     </resources>
 </document>

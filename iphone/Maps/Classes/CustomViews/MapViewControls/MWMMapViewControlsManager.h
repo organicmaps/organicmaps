@@ -42,7 +42,6 @@
 
 - (void)onRoutePrepare;
 - (void)onRouteRebuild;
-- (void)onRouteError;
 - (void)onRouteReady;
 - (void)onRouteStart;
 - (void)onRouteStop;

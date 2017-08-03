@@ -329,6 +329,9 @@
 		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
+		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
+		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
+		347BFA911F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		347E1A881F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A891F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
 		347E1A8A1F1F5DD7002BF7A8 /* CianItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */; };
@@ -344,9 +347,6 @@
 		347E1A991F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
 		347E1A9A1F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
 		347E1A9B1F1F7404002BF7A8 /* CianElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347E1A951F1F7404002BF7A8 /* CianElement.xib */; };
-		347BFA8F1F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
-		347BFA901F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
-		347BFA911F27909200E5531F /* MenuArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347BFA8E1F27909200E5531F /* MenuArea.swift */; };
 		34845DAE1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
 		34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
 		34845DB01E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
@@ -1887,16 +1887,15 @@
 		34763F0B1F30CCAC00F4D2D3 /* MWMEditorCellType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCellType.h; sourceTree = "<group>"; };
 		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
 		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
+		347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerObserver.h; sourceTree = "<group>"; };
+		347BFA8E1F27909200E5531F /* MenuArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuArea.swift; sourceTree = "<group>"; };
+		347BFA921F27923200E5531F /* MWMBottomMenuControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuControllerProtocol.h; sourceTree = "<group>"; };
+		347BFA931F28842300E5531F /* MWMNavigationDashboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardObserver.h; sourceTree = "<group>"; };
 		347E1A871F1F5DD7002BF7A8 /* CianItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianItemModel.swift; sourceTree = "<group>"; };
 		347E1A8C1F1F71F1002BF7A8 /* PPCianCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPCianCarouselCell.swift; sourceTree = "<group>"; };
 		347E1A901F1F72AD002BF7A8 /* PPCianCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCianCarouselCell.xib; sourceTree = "<group>"; };
 		347E1A941F1F7404002BF7A8 /* CianElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CianElement.swift; sourceTree = "<group>"; };
 		347E1A951F1F7404002BF7A8 /* CianElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CianElement.xib; sourceTree = "<group>"; };
-		348320CC1B6A2C52007EC039 /* MWMNavigationViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationViewProtocol.h; sourceTree = "<group>"; };
-		347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerObserver.h; sourceTree = "<group>"; };
-		347BFA8E1F27909200E5531F /* MenuArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuArea.swift; sourceTree = "<group>"; };
-		347BFA921F27923200E5531F /* MWMBottomMenuControllerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuControllerProtocol.h; sourceTree = "<group>"; };
-		347BFA931F28842300E5531F /* MWMNavigationDashboardObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardObserver.h; sourceTree = "<group>"; };
 		34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderNoResultsEmbedViewController.swift; sourceTree = "<group>"; };
 		34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
 		34845DB51E166084003D55B9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -3074,10 +3073,10 @@
 				340708471F28EDD100029ECC /* MWMTaxiPreviewDataSource.h */,
 				340708481F28EDD100029ECC /* MWMTaxiPreviewDataSource.mm */,
 				34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */,
+				34763F011F30749000F4D2D3 /* RoutePreviewStatus.swift */,
 				340708491F28EDD100029ECC /* RoutePreviewTaxiCell.swift */,
 				3407086C1F2B427400029ECC /* RoutePreviewTaxiCell.xib */,
 				34763EFD1F3069BB00F4D2D3 /* RouteStartButton.swift */,
-				34763F011F30749000F4D2D3 /* RoutePreviewStatus.swift */,
 			);
 			path = RoutePreview;
 			sourceTree = "<group>";
@@ -3297,6 +3296,17 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		34763EE31F2F392300F4D2D3 /* TextToSpeech */ = {
+			isa = PBXGroup;
+			children = (
+				34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */,
+				34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */,
+				34763EE91F2F394D00F4D2D3 /* MWMTextToSpeech+CPP.h */,
+				34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */,
+			);
+			path = TextToSpeech;
+			sourceTree = "<group>";
+		};
 		347E1A861F1F5DD7002BF7A8 /* Cian */ = {
 			isa = PBXGroup;
 			children = (
@@ -3307,17 +3317,6 @@
 				347E1A951F1F7404002BF7A8 /* CianElement.xib */,
 			);
 			path = Cian;
-			sourceTree = "<group>";
-		};
-		34763EE31F2F392300F4D2D3 /* TextToSpeech */ = {
-			isa = PBXGroup;
-			children = (
-				34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */,
-				34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */,
-				34763EE91F2F394D00F4D2D3 /* MWMTextToSpeech+CPP.h */,
-				34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */,
-			);
-			path = TextToSpeech;
 			sourceTree = "<group>";
 		};
 		3486B5041E27A4B50069C126 /* Notifications */ = {
@@ -5428,7 +5427,6 @@
 				34ABA6281C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */,
 				34F4073D1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */,
-				560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */,
 				347E1A961F1F7404002BF7A8 /* CianElement.swift in Sources */,
 				F6E2FECF1E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */,

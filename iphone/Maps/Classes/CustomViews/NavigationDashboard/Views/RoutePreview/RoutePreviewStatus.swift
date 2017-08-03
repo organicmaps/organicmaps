@@ -3,17 +3,36 @@ final class RoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var errorBox: UIView!
   @IBOutlet private weak var resultsBox: UIView!
   @IBOutlet private weak var heightBox: UIView!
+  @IBOutlet private weak var manageRouteBox: UIView! {
+    didSet {
+      iPhoneSpecific {
+        manageRouteBox.backgroundColor = UIColor.blackOpaque()
+      }
+    }
+  }
   @IBOutlet private weak var taxiBox: UIView!
   @IBOutlet private weak var errorLabel: UILabel!
   @IBOutlet private weak var resultLabel: UILabel!
   @IBOutlet private weak var arriveLabel: UILabel?
   @IBOutlet private weak var heightProfileImage: UIImageView!
   @IBOutlet private weak var heightProfileElevationHeight: UILabel?
+  @IBOutlet private weak var manageRouteButtonRegular: UIButton! {
+    didSet {
+      configManageRouteButton(manageRouteButtonRegular)
+    }
+  }
+  @IBOutlet private weak var manageRouteButtonCompact: UIButton? {
+    didSet {
+      configManageRouteButton(manageRouteButtonCompact!)
+    }
+  }
 
   @IBOutlet private var errorBoxBottom: NSLayoutConstraint!
   @IBOutlet private var resultsBoxBottom: NSLayoutConstraint!
   @IBOutlet private var heightBoxBottom: NSLayoutConstraint!
   @IBOutlet private var taxiBoxBottom: NSLayoutConstraint!
+  @IBOutlet private var manageRouteBoxBottom: NSLayoutConstraint!
+  @IBOutlet private var heightBoxBottomManageRouteBoxTop: NSLayoutConstraint!
 
   private var hiddenConstraint: NSLayoutConstraint!
   weak var ownerView: UIView!
@@ -64,9 +83,29 @@ final class RoutePreviewStatus: SolidTouchView {
       self.errorBoxBottom.isActive = !self.errorBox.isHidden
       self.resultsBoxBottom.isActive = !self.resultsBox.isHidden
       self.heightBoxBottom.isActive = !self.heightBox.isHidden
+      self.heightBoxBottomManageRouteBoxTop.isActive = !self.heightBox.isHidden
       self.taxiBoxBottom.isActive = !self.taxiBox.isHidden
+      self.manageRouteBoxBottom.isActive = !self.manageRouteBox.isHidden
       UIView.animate(withDuration: kDefaultAnimationDuration) { self.layoutIfNeeded() }
     }
+  }
+
+  private func configManageRouteButton(_ button: UIButton) {
+    button.titleLabel?.font = UIFont.medium14()
+    button.setTitle(L("planning_route_manage_route"), for: .normal)
+    button.tintColor = UIColor.blackSecondaryText()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateManageRouteVisibility()
+    updateHeight()
+  }
+
+  private func updateManageRouteVisibility() {
+    let isCompact = traitCollection.verticalSizeClass == .compact
+    manageRouteBox.isHidden = isCompact || resultsBox.isHidden
+    manageRouteButtonCompact?.isHidden = !isCompact
   }
 
   func stateHidden() {
@@ -83,6 +122,7 @@ final class RoutePreviewStatus: SolidTouchView {
     resultsBox.isHidden = true
     heightBox.isHidden = true
     taxiBox.isHidden = true
+    manageRouteBox.isHidden = true
 
     errorLabel.text = message
 
@@ -111,7 +151,7 @@ final class RoutePreviewStatus: SolidTouchView {
         heightBox.isHidden = true
       }
     }
-
+    updateManageRouteVisibility()
     updateHeight()
   }
 

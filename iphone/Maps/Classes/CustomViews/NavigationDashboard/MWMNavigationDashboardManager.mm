@@ -148,7 +148,7 @@ using Observers = NSHashTable<Observer>;
   self.navigationInfoView = nil;
   self.navigationControlView.isVisible = NO;
   self.navigationControlView = nil;
-  [self.statusBox stateNavigation];
+  [self.statusBox stateHidden];
   self.statusBox = nil;
 }
 

@@ -122,7 +122,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87p-Qg-8f3" userLabel="Status Box" customClass="MWMRoutePreviewStatus">
-                    <rect key="frame" x="0.0" y="100" width="375" height="132"/>
+                    <rect key="frame" x="0.0" y="100" width="375" height="180"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEP-6s-YTM" userLabel="Error Box">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
@@ -242,6 +242,36 @@
                                 <constraint firstItem="Apa-nH-KWJ" firstAttribute="leading" secondItem="6iM-A6-4JK" secondAttribute="leading" constant="16" id="cR5-Kq-pEJ"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EY6-SY-ner">
+                            <rect key="frame" x="0.0" y="132" width="375" height="48"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LyQ-pQ-XyG">
+                                    <rect key="frame" x="16" y="0.0" width="359" height="1"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="ZFh-zw-f9W"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAs-km-8uw">
+                                    <rect key="frame" x="20" y="15" width="119" height="18"/>
+                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="LyQ-pQ-XyG" secondAttribute="trailing" id="Inl-w6-cF4"/>
+                                <constraint firstAttribute="height" constant="48" id="akp-Zy-mlV"/>
+                                <constraint firstItem="LyQ-pQ-XyG" firstAttribute="top" secondItem="EY6-SY-ner" secondAttribute="top" id="cox-ec-1O6"/>
+                                <constraint firstItem="NAs-km-8uw" firstAttribute="leading" secondItem="EY6-SY-ner" secondAttribute="leading" constant="20" id="dQV-wI-Rs3"/>
+                                <constraint firstItem="NAs-km-8uw" firstAttribute="centerY" secondItem="EY6-SY-ner" secondAttribute="centerY" id="f3q-59-sF0"/>
+                                <constraint firstItem="LyQ-pQ-XyG" firstAttribute="leading" secondItem="EY6-SY-ner" secondAttribute="leading" constant="16" id="fSG-dw-XFn"/>
+                            </constraints>
+                        </view>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-RW-zvp" userLabel="Taxi Box">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
                             <subviews>
@@ -274,7 +304,9 @@
                         <constraint firstItem="xAP-RW-zvp" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="4Zu-Ow-GQe"/>
                         <constraint firstAttribute="height" priority="100" constant="64" id="4qT-ha-p75"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="82W-n1-9wJ"/>
+                        <constraint firstItem="EY6-SY-ner" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="8we-Hd-BFi"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xAP-RW-zvp" secondAttribute="bottom" id="CCT-23-3wk"/>
+                        <constraint firstItem="EY6-SY-ner" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" priority="100" id="DLg-g3-d3N"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="Fkj-U2-xyQ"/>
                         <constraint firstItem="6iM-A6-4JK" firstAttribute="top" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="HfZ-Ca-Mmj"/>
                         <constraint firstItem="QEP-6s-YTM" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="LrP-YM-0DL"/>
@@ -283,13 +315,17 @@
                         <constraint firstAttribute="trailing" secondItem="Rqr-bu-crx" secondAttribute="trailing" id="QH4-pv-oKn"/>
                         <constraint firstAttribute="trailing" secondItem="QEP-6s-YTM" secondAttribute="trailing" id="QOg-C7-dgi"/>
                         <constraint firstItem="rXP-rM-9cx" firstAttribute="centerY" secondItem="zml-eW-DsI" secondAttribute="centerY" id="SAf-Qy-9uj"/>
+                        <constraint firstItem="EY6-SY-ner" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6iM-A6-4JK" secondAttribute="bottom" id="Szo-VK-580"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6iM-A6-4JK" secondAttribute="bottom" id="a6M-h3-DzB"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QEP-6s-YTM" secondAttribute="bottom" id="c3U-eM-8ig"/>
                         <constraint firstItem="rXP-rM-9cx" firstAttribute="leading" secondItem="zml-eW-DsI" secondAttribute="trailing" constant="4" id="fqI-7g-oBJ"/>
                         <constraint firstAttribute="trailing" secondItem="xAP-RW-zvp" secondAttribute="trailing" id="hFn-i8-Do8"/>
+                        <constraint firstItem="EY6-SY-ner" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="iIn-NA-fpZ"/>
                         <constraint firstAttribute="trailing" secondItem="6iM-A6-4JK" secondAttribute="trailing" id="kek-Gu-EN2"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="trailing" secondItem="rXP-rM-9cx" secondAttribute="trailing" constant="16" id="mHh-IV-b00"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EY6-SY-ner" secondAttribute="bottom" id="n6D-xw-Kge"/>
                         <constraint firstItem="6iM-A6-4JK" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="oeU-OH-ezY"/>
+                        <constraint firstAttribute="trailing" secondItem="EY6-SY-ner" secondAttribute="trailing" id="u9T-89-RZi"/>
                         <constraint firstItem="QEP-6s-YTM" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="x6v-27-R7O"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -308,8 +344,12 @@
                         <outlet property="errorLabel" destination="VNi-4g-9gz" id="BPc-Ib-vTt"/>
                         <outlet property="heightBox" destination="6iM-A6-4JK" id="pYC-Jp-UQT"/>
                         <outlet property="heightBoxBottom" destination="a6M-h3-DzB" id="qEw-fx-cle"/>
+                        <outlet property="heightBoxBottomManageRouteBoxTop" destination="Szo-VK-580" id="niN-mR-8WR"/>
                         <outlet property="heightProfileElevationHeight" destination="JtS-om-arD" id="a8J-z7-RsP"/>
                         <outlet property="heightProfileImage" destination="zhI-92-6JG" id="MKv-4F-F9A"/>
+                        <outlet property="manageRouteBox" destination="EY6-SY-ner" id="Yhf-jH-avh"/>
+                        <outlet property="manageRouteBoxBottom" destination="n6D-xw-Kge" id="07u-YL-OU1"/>
+                        <outlet property="manageRouteButtonRegular" destination="NAs-km-8uw" id="nTT-uS-9ud"/>
                         <outlet property="resultLabel" destination="zml-eW-DsI" id="lP5-pC-IIe"/>
                         <outlet property="resultsBox" destination="Rqr-bu-crx" id="iaF-Im-C5p"/>
                         <outlet property="resultsBoxBottom" destination="82W-n1-9wJ" id="RLp-VX-RD7"/>
@@ -401,6 +441,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_24px_manager" width="16" height="16"/>
         <image name="ic_elevation" width="10" height="12"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
     </resources>
