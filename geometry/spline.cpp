@@ -116,6 +116,13 @@ double Spline::GetLength() const
   return accumulate(m_length.begin(), m_length.end(), 0.0);
 }
 
+void Spline::Clear()
+{
+  m_position.clear();
+  m_direction.clear();
+  m_length.clear();
+}
+
 Spline::iterator::iterator()
   : m_checker(false)
   , m_spl(NULL)

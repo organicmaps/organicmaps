@@ -70,6 +70,7 @@ SOURCES += \
     overlay_batcher.cpp \
     overlays_tracker.cpp \
     path_symbol_shape.cpp \
+    path_text_handle.cpp \
     path_text_shape.cpp \
     poi_symbol_shape.cpp \
     postprocess_renderer.cpp \
@@ -181,6 +182,7 @@ HEADERS += \
     overlay_batcher.hpp \
     overlays_tracker.hpp \
     path_symbol_shape.hpp \
+    path_text_handle.hpp \
     path_text_shape.hpp \
     poi_symbol_shape.hpp \
     postprocess_renderer.hpp \

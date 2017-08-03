@@ -158,7 +158,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   }
 
   // Clip handles which are out of screen if these handles were not displacers
-  // last time. Also clip all handles in reserve projection.
+  // last time. Also clip all handles in reverse projection.
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
   if (modelView.IsReverseProjection3d(pixelRect.Center()) ||
       (m_displacers.find(handle) == m_displacers.end() &&

@@ -49,7 +49,6 @@
 		45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580AB91E28DB2600CD535D /* scenario_manager.hpp */; };
 		456B3F991ED464FE009B3D1F /* postprocess_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */; };
 		456B3F9A1ED464FE009B3D1F /* postprocess_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */; };
-		457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457D89241E7AE89500049500 /* custom_symbol.hpp */; };
 		45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */; };
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
@@ -60,7 +59,6 @@
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
 		56D545671C74A44900E3719C /* overlay_batcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D545651C74A44900E3719C /* overlay_batcher.hpp */; };
-		670947911BDF9BE1005014C0 /* intrusive_vector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947421BDF9BE0005014C0 /* intrusive_vector.hpp */; };
 		670947921BDF9BE1005014C0 /* kinetic_scroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947431BDF9BE0005014C0 /* kinetic_scroller.cpp */; };
 		670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947441BDF9BE0005014C0 /* kinetic_scroller.hpp */; };
 		670947941BDF9BE1005014C0 /* line_shape_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947451BDF9BE0005014C0 /* line_shape_helper.cpp */; };
@@ -215,6 +213,9 @@
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
+		BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */; };
+		BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */; };
+		BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */; };
 		BBD8F8791E96A51A00BAEB72 /* drape_hints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */; };
 		BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */; };
 		BBD9E2D41F009D9E00DF189A /* user_mark_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */; };
@@ -275,7 +276,6 @@
 		4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shaders_lib.glsl; path = shaders/shaders_lib.glsl; sourceTree = "<group>"; };
 		456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocess_renderer.cpp; sourceTree = "<group>"; };
 		456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = postprocess_renderer.hpp; sourceTree = "<group>"; };
-		457D89241E7AE89500049500 /* custom_symbol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_symbol.hpp; sourceTree = "<group>"; };
 		45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_animations.cpp; sourceTree = "<group>"; };
 		45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_animations.hpp; sourceTree = "<group>"; };
 		45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_operations.cpp; sourceTree = "<group>"; };
@@ -341,7 +341,6 @@
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
 		56D545651C74A44900E3719C /* overlay_batcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = overlay_batcher.hpp; sourceTree = "<group>"; };
 		6709473A1BDF9B82005014C0 /* libdrape_frontend.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdrape_frontend.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		670947421BDF9BE0005014C0 /* intrusive_vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrusive_vector.hpp; sourceTree = "<group>"; };
 		670947431BDF9BE0005014C0 /* kinetic_scroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kinetic_scroller.cpp; sourceTree = "<group>"; };
 		670947441BDF9BE0005014C0 /* kinetic_scroller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kinetic_scroller.hpp; sourceTree = "<group>"; };
 		670947451BDF9BE0005014C0 /* line_shape_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = line_shape_helper.cpp; sourceTree = "<group>"; };
@@ -497,6 +496,9 @@
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
+		BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = custom_features_context.hpp; sourceTree = "<group>"; };
+		BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = path_text_handle.cpp; sourceTree = "<group>"; };
+		BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = path_text_handle.hpp; sourceTree = "<group>"; };
 		BBD8F8781E96A51A00BAEB72 /* drape_hints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_hints.hpp; sourceTree = "<group>"; };
 		BBD9E2D11F009D9E00DF189A /* user_mark_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_generator.cpp; sourceTree = "<group>"; };
 		BBD9E2D21F009D9E00DF189A /* user_mark_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_generator.hpp; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				EB2B77FE1EEDD418002697B6 /* metaline_manager.hpp */,
 				451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */,
 				451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */,
+				BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */,
 				456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */,
 				456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */,
 				45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */,
@@ -620,7 +623,6 @@
 				45BB02221EB8BE1400FE5C0C /* shaders */,
 				672D24981E892768004BB7B1 /* overlays_tracker.cpp */,
 				672D24991E892768004BB7B1 /* overlays_tracker.hpp */,
-				457D89241E7AE89500049500 /* custom_symbol.hpp */,
 				453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */,
 				453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */,
 				347F52071DC2334A0064B273 /* drape_api_builder.cpp */,
@@ -680,7 +682,6 @@
 				670947E11BDF9BEC005014C0 /* engine_context.hpp */,
 				670947E21BDF9BEC005014C0 /* frontend_renderer.cpp */,
 				670947E31BDF9BEC005014C0 /* frontend_renderer.hpp */,
-				670947421BDF9BE0005014C0 /* intrusive_vector.hpp */,
 				670947431BDF9BE0005014C0 /* kinetic_scroller.cpp */,
 				670947441BDF9BE0005014C0 /* kinetic_scroller.hpp */,
 				670947451BDF9BE0005014C0 /* line_shape_helper.cpp */,
@@ -704,6 +705,8 @@
 				670947591BDF9BE0005014C0 /* navigator.hpp */,
 				6709475A1BDF9BE0005014C0 /* path_symbol_shape.cpp */,
 				6709475B1BDF9BE0005014C0 /* path_symbol_shape.hpp */,
+				BB7D67D01F34A62C002FD122 /* path_text_handle.cpp */,
+				BB7D67D11F34A62C002FD122 /* path_text_handle.hpp */,
 				6709475C1BDF9BE0005014C0 /* path_text_shape.cpp */,
 				6709475D1BDF9BE0005014C0 /* path_text_shape.hpp */,
 				6709475E1BDF9BE0005014C0 /* poi_symbol_shape.cpp */,
@@ -864,6 +867,7 @@
 			files = (
 				670947971BDF9BE1005014C0 /* line_shape.hpp in Headers */,
 				56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */,
+				BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */,
 				EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */,
 				45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */,
 				670948031BDF9BF5005014C0 /* drape_engine.hpp in Headers */,
@@ -903,7 +907,6 @@
 				670947AA1BDF9BE1005014C0 /* path_symbol_shape.hpp in Headers */,
 				6709483E1BDF9C48005014C0 /* copyright_label.hpp in Headers */,
 				675D21921BFB871D00717E4F /* text_engine.h in Headers */,
-				457D89251E7AE89500049500 /* custom_symbol.hpp in Headers */,
 				675D218D1BFB871D00717E4F /* proto_to_styles.hpp in Headers */,
 				670947951BDF9BE1005014C0 /* line_shape_helper.hpp in Headers */,
 				EB2B78041EEDD439002697B6 /* read_metaline_task.hpp in Headers */,
@@ -941,7 +944,6 @@
 				670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */,
 				670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */,
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
-				670947911BDF9BE1005014C0 /* intrusive_vector.hpp in Headers */,
 				670947F71BDF9BF5005014C0 /* apply_feature_functors.hpp in Headers */,
 				670947CD1BDF9BE1005014C0 /* tile_info.hpp in Headers */,
 				6709486B1BDF9C7F005014C0 /* circle_info.hpp in Headers */,
@@ -956,6 +958,7 @@
 				670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */,
 				670948441BDF9C48005014C0 /* drape_gui.hpp in Headers */,
 				670947B41BDF9BE1005014C0 /* render_group.hpp in Headers */,
+				BB7D67D41F34A62C002FD122 /* path_text_handle.hpp in Headers */,
 				452C9EE51CEDCF3200A55E57 /* sequence_animation.hpp in Headers */,
 				670948771BDF9C7F005014C0 /* glyph_cache_impl.hpp in Headers */,
 				670947A11BDF9BE1005014C0 /* message_subclasses.hpp in Headers */,
@@ -1127,6 +1130,7 @@
 				670947AD1BDF9BE1005014C0 /* poi_symbol_shape.cpp in Sources */,
 				6709479F1BDF9BE1005014C0 /* message_queue.cpp in Sources */,
 				452C9EE41CEDCF3200A55E57 /* sequence_animation.cpp in Sources */,
+				BB7D67D31F34A62C002FD122 /* path_text_handle.cpp in Sources */,
 				452C9ED41CEDCF3200A55E57 /* animation.cpp in Sources */,
 				670947A71BDF9BE1005014C0 /* navigator.cpp in Sources */,
 				6709484F1BDF9C48005014C0 /* skin.cpp in Sources */,

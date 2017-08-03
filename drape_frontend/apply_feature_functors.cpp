@@ -393,7 +393,7 @@ m2::PointF GetShieldOffset(dp::Anchor anchor, double borderWidth, double borderH
   return offset;
 }
 
-void CalculateRoadShieldPositions(std::vector<float> const & offsets,
+void CalculateRoadShieldPositions(std::vector<double> const & offsets,
                                   m2::SharedSpline const & spline,
                                   std::vector<m2::PointD> & shieldPositions)
 {
@@ -1150,10 +1150,10 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   {
     for (auto const & spline : m_clippedSplines)
     {
-      float const pixelLength = 300.0f * vs;
-      std::vector<float> offsets;
-      PathTextLayout::CalculatePositions(static_cast<float>(spline->GetLength()),
-                                         m_currentScaleGtoP, pixelLength, offsets);
+      double const pixelLength = 300.0 * vs;
+      std::vector<double> offsets;
+      PathTextLayout::CalculatePositions(spline->GetLength(), m_currentScaleGtoP,
+                                         pixelLength, offsets);
       if (!offsets.empty())
         CalculateRoadShieldPositions(offsets, spline, shieldPositions);
     }

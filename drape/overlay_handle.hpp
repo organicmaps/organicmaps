@@ -103,6 +103,7 @@ public:
 
   virtual m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const;
 
+  virtual void BeforeUpdate() {}
   virtual bool Update(ScreenBase const & /*screen*/) { return true; }
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const = 0;

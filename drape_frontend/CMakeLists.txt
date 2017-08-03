@@ -142,6 +142,8 @@ set(
   overlays_tracker.hpp
   path_symbol_shape.cpp
   path_symbol_shape.hpp
+  path_text_handle.cpp
+  path_text_handle.hpp
   path_text_shape.cpp
   path_text_shape.hpp
   poi_symbol_shape.cpp

@@ -94,31 +94,12 @@ public:
                             m2::PointD const & globalPivot,
                             gpu::TTextDynamicVertexBuffer & buffer) const;
 
-  static bool CalculatePerspectivePosition(float pixelSplineLength, float textPixelLength,
-                                           uint32_t textIndex, float & offset);
-
-  static void CalculatePositions(float splineLength, float splineScaleToPixel,
-                                 float textPixelLength, std::vector<float> & offsets);
+  static void CalculatePositions(double splineLength, double splineScaleToPixel,
+                                 double textPixelLength, std::vector<double> & offsets);
 private:
-  static float CalculateTextLength(float textPixelLength);
+  static double CalculateTextLength(double textPixelLength);
 
   m2::PointD m_tileCenter;
 };
 
-class SharedTextLayout
-{
-public:
-  SharedTextLayout() = default;
-  SharedTextLayout(PathTextLayout * layout);
-
-  bool IsNull() const;
-  void Reset(PathTextLayout * layout);
-  PathTextLayout * GetRaw();
-
-  PathTextLayout * operator->();
-  PathTextLayout const * operator->() const;
-
-private:
-  std::shared_ptr<PathTextLayout> m_layout;
-};
 }  // namespace df

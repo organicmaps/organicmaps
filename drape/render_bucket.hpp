@@ -56,6 +56,9 @@ public:
   int GetMinZoom() const { return m_featuresMinZoom; }
 
 private:
+  void BeforeUpdate();
+
+private:
   int m_featuresMinZoom = numeric_limits<int>::max();
 
   vector<drape_ptr<OverlayHandle> > m_overlay;

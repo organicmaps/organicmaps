@@ -56,6 +56,8 @@ public:
   size_t GetSize() const;
   vector<PointD> const & GetPath() const { return m_position; }
   vector<double> const & GetLengths() const { return m_length; }
+  vector<PointD> const & GetDirections() const { return m_direction; }
+  void Clear();
 
   iterator GetPoint(double step) const;
 
