@@ -864,6 +864,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     private static final String EXTRA_LON_TO = "lon_to";
     private static final String EXTRA_LAT_FROM = "lat_from";
     private static final String EXTRA_LON_FROM = "lon_from";
+    private static final String EXTRA_SADDR = "saddr";
+    private static final String EXTRA_DADDR = "daddr";
     private static final String EXTRA_ROUTER = "router";
 
     @Override
@@ -878,6 +880,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
         return false;
 
+      String saddr = intent.getStringExtra(EXTRA_SADDR);
+      String daddr = intent.getStringExtra(EXTRA_DADDR);
       double latTo = getCoordinateFromIntent(intent, EXTRA_LAT_TO);
       double lonTo = getCoordinateFromIntent(intent, EXTRA_LON_TO);
       boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
@@ -887,14 +891,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom,
-                                                           intent.getStringExtra(EXTRA_ROUTER));
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
+                                                           daddr, intent.getStringExtra(EXTRA_ROUTER));
       }
       else if (hasFrom)
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, latFrom,lonFrom);
+        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr,
+                                                           latFrom,lonFrom, daddr);
       }
       else
       {

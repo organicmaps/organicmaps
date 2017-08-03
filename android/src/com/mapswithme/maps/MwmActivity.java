@@ -2265,31 +2265,39 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Nullable
     private final Double mLonFrom;
     @Nullable
+    private final String mSaddr;
+    @Nullable
+    private final String mDaddr;
     private final String mRouter;
 
     @NonNull
-    private static MapObject fromLatLon(double lat, double lon)
+    private static MapObject fromLatLon(double lat, double lon, @Nullable String addr)
     {
-      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, "", "", lat, lon);
+      return MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
+                                       TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
     }
 
     BuildRouteTask(double latTo, double lonTo)
     {
-      this(latTo, lonTo, null, null, null);
+      this(latTo, lonTo, null, null, null, null, null);
     }
 
-    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom)
+    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr)
     {
-      this(latTo, lonTo, latFrom, lonFrom, null);
+      this(latTo, lonTo, saddr, latFrom, lonFrom, daddr, null);
     }
 
-    BuildRouteTask(double latTo, double lonTo, @Nullable Double latFrom, @Nullable Double lonFrom,
+    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+                   @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr,
                    @Nullable String router)
     {
       mLatTo = latTo;
       mLonTo = lonTo;
       mLatFrom = latFrom;
       mLonFrom = lonFrom;
+      mSaddr = saddr;
+      mDaddr = daddr;
       mRouter = router;
     }
 
@@ -2318,17 +2326,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (mLatFrom != null && mLonFrom != null && routerType >= 0)
       {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo), routerType, true);
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType, true);
       }
       else if (mLatFrom != null && mLonFrom != null)
       {
-        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom),
-                                        fromLatLon(mLatTo, mLonTo), true);
+        RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), true);
       }
       else
       {
-        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo), true);
+        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo, mDaddr), true);
       }
       return true;
     }
