@@ -72,8 +72,9 @@ public:
 
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
-  // mwmId should be alive: it is caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(Index const & index, MwmSet::MwmId const & mwmId,
+  // handle should be alive: it is caller responsibility to check it.
+  static std::unique_ptr<GeometryLoader> Create(Index const & index,
+                                                MwmSet::MwmHandle const & handle,
                                                 std::shared_ptr<IVehicleModel> vehicleModel,
                                                 bool loadAltitudes);
 

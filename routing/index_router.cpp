@@ -152,17 +152,15 @@ Junction InterpolateJunction(Segment const & segment, m2::PointD const & point, 
   if (ratio >= 1.0)
     return Junction(point, end.GetAltitude());
 
-  return Junction(point,
-                  begin.GetAltitude() + static_cast<feature::TAltitude>(
-                                            ratio * (static_cast<double>(end.GetAltitude()) -
-                                                     static_cast<double>(begin.GetAltitude()))));
+  return Junction(point, static_cast<feature::TAltitude>(
+                             (1.0 - ratio) * static_cast<double>(begin.GetAltitude()) +
+                             ratio * (static_cast<double>(end.GetAltitude()))));
 }
 
 IndexGraphStarter::FakeVertex MakeFakeVertex(Segment const & segment, m2::PointD const & point,
                                              bool strictForward, WorldGraph & graph)
 {
-  return IndexGraphStarter::FakeVertex(segment, InterpolateJunction(segment, point, graph),
-                                       strictForward);
+  return {segment, InterpolateJunction(segment, point, graph), strictForward};
 }
 
 bool MwmHasRoutingData(version::MwmTraits const & traits, VehicleType vehicleType)
@@ -584,7 +582,8 @@ IRouter::ResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   size_t subrouteOffset = result.path.size() - 1;  // -1 for the fake start.
   subroutes.emplace_back(starter.GetStartVertex().GetJunction(),
-                         starter.GetFinishVertex().GetJunction(), 0, subrouteOffset);
+                         starter.GetFinishVertex().GetJunction(), 0 /* beginSegmentIdx */,
+                         subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
