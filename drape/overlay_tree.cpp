@@ -7,7 +7,12 @@
 
 namespace dp
 {
-int const kFrameUpdatePeriod = 10;
+uint32_t const kMinFrameUpdatePeriod = 5;
+uint32_t const kAvgFrameUpdatePeriod = 10;
+uint32_t const kMaxFrameUpdatePeriod = 15;
+uint32_t const kMinHandlesCount = 100;
+uint32_t const kMaxHandlesCount = 1000;
+
 size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 int const kInvalidFrame = -1;
 
@@ -64,6 +69,7 @@ private:
 OverlayTree::OverlayTree(double visualScale)
   : m_frameCounter(kInvalidFrame)
   , m_isDisplacementEnabled(true)
+  , m_frameUpdatePeriod(kMinFrameUpdatePeriod)
 {
   m_traits.SetVisualScale(visualScale);
   for (size_t i = 0; i < m_handles.size(); i++)
@@ -85,8 +91,20 @@ bool OverlayTree::Frame()
   if (IsNeedUpdate())
     return true;
 
+  // Choose optimal frame update period.
+  if (m_frameCounter == 0)
+  {
+    auto const handlesCount = m_handlesCache.size();
+    if (handlesCount > kMaxHandlesCount)
+      m_frameUpdatePeriod = kMaxFrameUpdatePeriod;
+    else if (handlesCount < kMinHandlesCount)
+      m_frameUpdatePeriod = kMinFrameUpdatePeriod;
+    else
+      m_frameUpdatePeriod = kAvgFrameUpdatePeriod;
+  }
+
   m_frameCounter++;
-  if (m_frameCounter >= kFrameUpdatePeriod)
+  if (m_frameCounter >= m_frameUpdatePeriod)
     m_frameCounter = kInvalidFrame;
 
   return IsNeedUpdate();
@@ -277,7 +295,7 @@ void OverlayTree::EndOverlayPlacing()
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
-    sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
+    std::sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
     for (auto const & handle : m_handles[rank])
     {
       ref_ptr<OverlayHandle> parentOverlay;
@@ -407,6 +425,8 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
 
 void OverlayTree::SetDisplacementEnabled(bool enabled)
 {
+  if (m_isDisplacementEnabled == enabled)
+    return;
   m_isDisplacementEnabled = enabled;
   m_frameCounter = kInvalidFrame;
 }

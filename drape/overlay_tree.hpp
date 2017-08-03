@@ -116,5 +116,6 @@ private:
   TDisplacementInfo m_displacementInfo;
 
   HandlesCache m_displacers;
+  uint32_t m_frameUpdatePeriod;
 };
 }  // namespace dp
