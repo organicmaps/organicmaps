@@ -127,7 +127,7 @@ if (PYBINDINGS)
   include_directories(${PYTHON_INCLUDE_DIRS})
 endif()
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID AND NOT PYBINDINGS)
   find_package(Qt5Core)
   if (NOT Qt5Core_FOUND)
     message(FATAL_ERROR "Qt5 cmake files were not found, please set QT_PATH environment variable")
