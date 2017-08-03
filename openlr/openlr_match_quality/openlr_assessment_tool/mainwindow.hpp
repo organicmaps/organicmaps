@@ -33,6 +33,7 @@ private:
   void OnOpenTrafficSample();
   void OnCloseTrafficSample();
   void OnSaveTrafficSample();
+  void OnPathEditingStop();
 
   Framework & m_framework;
 
@@ -41,6 +42,9 @@ private:
 
   QAction * m_saveTrafficSampleAction = nullptr;
   QAction * m_closeTrafficSampleAction = nullptr;
+  QAction * m_startEditingAction = nullptr;
+  QAction * m_commitPathAction  = nullptr;
+  QAction * m_cancelPathAction = nullptr;
 
   MapWidget * m_mapWidget = nullptr;
 };

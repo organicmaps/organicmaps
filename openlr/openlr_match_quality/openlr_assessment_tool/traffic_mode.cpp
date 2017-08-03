@@ -166,6 +166,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
   // TODO(mgsergio): LOG(LINFO, (xxx, "segments are loaded"));
 }
 
+// TODO(mgsergio): Check if a path was commited, or commit it.
 bool TrafficMode::SaveSampleAs(std::string const & fileName) const
 {
   CHECK(!fileName.empty(), ("Can't save to an empty file."));
@@ -311,6 +312,7 @@ void TrafficMode::CommitPath()
   if (m_goldenPath.empty())
   {
     LOG(LDEBUG, ("Golden path is empty :'("));
+    emit EditingStopped();
     return;
   }
 
@@ -345,6 +347,7 @@ void TrafficMode::CommitPath()
   }
 
   m_currentSegment->GetGoldenPath() = path;
+  emit EditingStopped();
 }
 
 void TrafficMode::RollBackPath()
@@ -362,6 +365,8 @@ void TrafficMode::RollBackPath()
   m_drawerDelegate->ClearGoldenPath();
   if (auto const & path = m_currentSegment->GetGoldenPath())
     m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
+
+  emit EditingStopped();
 }
 
 size_t TrafficMode::GetPointsCount() const

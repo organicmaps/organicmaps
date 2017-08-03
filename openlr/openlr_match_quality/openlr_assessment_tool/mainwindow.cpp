@@ -239,29 +239,30 @@ MainWindow::MainWindow(Framework & framework)
   m_closeTrafficSampleAction = fileMenu->addAction(
       "Close sample", this, &MainWindow::OnCloseTrafficSample
   );
-  m_closeTrafficSampleAction->setEnabled(false /* enabled */);
-
   m_saveTrafficSampleAction = fileMenu->addAction(
       "Save sample", this, &MainWindow::OnSaveTrafficSample
   );
-
-  fileMenu->addAction("Start editing", [this] {
+  m_startEditingAction = fileMenu->addAction("Start editing", [this] {
       m_trafficMode->StartBuildingPath();
       m_mapWidget->SetTrafficMarkupMode();
+      m_commitPathAction->setEnabled(true /* enabled */);
+      m_cancelPathAction->setEnabled(true /* enabled */);
       //m_mapWidget->ShowPointsInViewPort();
   });
-  fileMenu->addAction("Commit path", [this] {
+  m_commitPathAction = fileMenu->addAction("Commit path", [this] {
       m_trafficMode->CommitPath();
       m_mapWidget->SetNormalMode();
-      //TODO m_mapWidget->ClearShownPoints();
   });
-  fileMenu->addAction("Cancel path", [this] {
+  m_cancelPathAction = fileMenu->addAction("Cancel path", [this] {
       m_trafficMode->RollBackPath();
       m_mapWidget->SetNormalMode();
-      // TODO m_mapWidget->ClearShownPoints();
   });
 
+  m_closeTrafficSampleAction->setEnabled(false /* enabled */);
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
+  m_startEditingAction->setEnabled(false /* enabled */);
+  m_commitPathAction->setEnabled(false /* enabled */);
+  m_cancelPathAction->setEnabled(false /* enabled */);
 }
 
 void MainWindow::CreateTrafficPanel(string const & dataFilePath)
@@ -273,6 +274,8 @@ void MainWindow::CreateTrafficPanel(string const & dataFilePath)
 
   connect(m_mapWidget, &MapWidget::TrafficMarkupClick,
           m_trafficMode, &TrafficMode::OnClick);
+  connect(m_trafficMode, &TrafficMode::EditingStopped,
+          this, &MainWindow::OnPathEditingStop);
 
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);
@@ -315,6 +318,7 @@ void MainWindow::OnOpenTrafficSample()
 
   m_closeTrafficSampleAction->setEnabled(true /* enabled */);
   m_saveTrafficSampleAction->setEnabled(true /* enabled */);
+  m_startEditingAction->setEnabled(true /* enabled */);
 }
 
 void MainWindow::OnCloseTrafficSample()
@@ -325,6 +329,10 @@ void MainWindow::OnCloseTrafficSample()
 
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
+  m_startEditingAction->setEnabled(false /* enabled */);
+  m_commitPathAction->setEnabled(false /* enabled */);
+  m_cancelPathAction->setEnabled(false /* enabled */);
+
   DestroyTrafficPanel();
 }
 
@@ -341,4 +349,10 @@ void MainWindow::OnSaveTrafficSample()
         this, "Saving error",
         QString("Can't save file: ") + strerror(errno));
   }
+}
+
+void MainWindow::OnPathEditingStop()
+{
+  m_commitPathAction->setEnabled(false /* enabled */);
+  m_cancelPathAction->setEnabled(false /* enabled */);
 }

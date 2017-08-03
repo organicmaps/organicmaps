@@ -199,6 +199,9 @@ public slots:
     HandlePoint(clickPoint, button);
   }
 
+signals:
+  void EditingStopped();
+
 private:
   void HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button);
 

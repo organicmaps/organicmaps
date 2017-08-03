@@ -52,6 +52,10 @@ TrafficPanel::TrafficPanel(QAbstractItemModel * trafficModel, QWidget * parent)
   auto * layout = new QVBoxLayout();
   layout->addWidget(m_table);
   setLayout(layout);
+
+  // Select first segment by default;
+  auto const & index = m_table->model()->index(0, 0);
+  m_table->selectionModel()->select(index, QItemSelectionModel::Select);
 }
 
 void TrafficPanel::CreateTable(QAbstractItemModel * trafficModel)
