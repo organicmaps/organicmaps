@@ -14,17 +14,16 @@ if [ -z "$RELEASE" ]; then
 	RELEASE=1
 fi
 
-basedir=`dirname $0`
+basedir=$(dirname "$0")
+
 PROJECT=$PROJECT VERSION=$VERSION RELEASE=$RELEASE rpmbuild -ba python35-mapsme-modules.spec
 if [ $? -ne 0 ]; then
 	echo "Build failed!"
 	exit
 fi
 
-#rsync -av $HOME/rpmbuild/RPMS/noarch/$PROJECT.maps.me-{meta,front,devel}-$VERSION-$RELEASE.el6.noarch.rpm mapsme-team@pkg.corp.mail.ru::c6-mapsme-noarch
-#rsync -av $HOME/rpmbuild/RPMS/x86_64/$PROJECT.maps.me-$VERSION-$RELEASE.el6.x86_64.rpm mapsme-team@pkg.corp.mail.ru::c6-mapsme-x64
+rsync -av $HOME/rpmbuild/RPMS/x86_64/python35-$PROJECT-$VERSION-$RELEASE.portal.el6.x86_64.rpm mapsme-team@pkg.corp.mail.ru::c6-mapsme-x64
 
-#echo "c6-mapsme-noarch" | nc pkg.corp.mail.ru 12222 | grep -v '^* c'
-#echo "c6-mapsme-x64" | nc pkg.corp.mail.ru 12222 | grep -v '^* c'
-#echo
+echo "c6-mapsme-x64" | nc pkg.corp.mail.ru 12222 | grep -v '^* c'
+echo
 echo "$PROJECT packages version $VERSION-$RELEASE build done, ready to deploy"
