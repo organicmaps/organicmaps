@@ -5,6 +5,7 @@
 
 #include "base/stl_add.hpp"
 
+#include <climits>
 #include <cstdint>
 #include <type_traits>
 #include <vector>
@@ -227,5 +228,7 @@ std::string DebugPrint(local_ads::Version version)
   case Version::V2: return "Version 2";
   default: ASSERT(false, ("Unknown version"));
   }
+
+  return {};
 }
 }  // namespace local_ads
