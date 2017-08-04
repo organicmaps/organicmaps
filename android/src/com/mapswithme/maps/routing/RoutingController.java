@@ -947,7 +947,7 @@ public class RoutingController implements TaxiManager.TaxiListener
       }
       else
       {
-        title = String.format(Locale.US, "%1$s, %2$s", point.getLat(), point.getLon());
+        title = Framework.nativeFormatLatLon(point.getLat(), point.getLon(), false /* useDmsFormat */);
       }
     }
     return new Pair<>(title, subtitle);
