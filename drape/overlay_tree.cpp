@@ -149,6 +149,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   // Skip not-ready handles.
   if (!handle->Update(modelView))
   {
+    m_frameCounter == kInvalidFrame;
     handle->SetReady(false);
     return;
   }
