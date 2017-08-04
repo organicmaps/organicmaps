@@ -98,6 +98,7 @@ public:
 
   /// UI setters
   void SetCustomName(std::string const & name);
+  void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string const & address) { m_address = address; }
   void SetIsMyPosition() { m_isMyPosition = true; }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }

@@ -879,9 +879,10 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   }
   else
   {
-    auto const customName =
-        customTitle.empty() ? m_stringsBundle.GetString("placepage_unknown_place") : customTitle;
-    info.SetCustomName(customName);
+    if (customTitle.empty())
+      info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("placepage_unknown_place"));
+    else
+      info.SetCustomName(customTitle);
     info.SetCanEditOrAdd(CanEditMap());
   }
 
