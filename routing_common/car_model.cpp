@@ -213,6 +213,7 @@ void CarModel::InitAdditionalRoadTypes()
       {{"route", "ferry", "motor_vehicle"}, kSpeedFerryMotorcarVehicleKMpH},
       {{"railway", "rail", "motor_vehicle"}, kSpeedRailMotorcarVehicleKMpH},
       {{"route", "shuttle_train"}, kSpeedShuttleTrainKMpH},
+      {{"route", "ferry"}, kSpeedFerryMotorcarKMpH},
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);
