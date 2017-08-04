@@ -2,12 +2,13 @@
 
 #include "search/dummy_rank_table.hpp"
 #include "search/lazy_centers_table.hpp"
-#include "search/nearby_points_sweeper.hpp"
 #include "search/pre_ranking_info.hpp"
 
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 #include "indexer/scales.hpp"
+
+#include "geometry/nearby_points_sweeper.hpp"
 
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
@@ -49,7 +50,7 @@ struct ComparePreResult1
 
 void SweepNearbyResults(double eps, vector<PreResult1> & results)
 {
-  NearbyPointsSweeper sweeper(eps);
+  m2::NearbyPointsSweeper sweeper(eps);
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & p = results[i].GetInfo().m_center;

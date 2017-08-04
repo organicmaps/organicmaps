@@ -9,8 +9,6 @@ MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
 {
 }
 
-MapWidget::~MapWidget() {}
-
 void MapWidget::mousePressEvent(QMouseEvent * e)
 {
   Base::mousePressEvent(e);

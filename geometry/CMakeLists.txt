@@ -20,6 +20,8 @@ set(
   latlon.hpp
   mercator.cpp
   mercator.hpp
+  nearby_points_sweeper.cpp
+  nearby_points_sweeper.hpp
   packer.cpp
   packer.hpp
   point2d.hpp

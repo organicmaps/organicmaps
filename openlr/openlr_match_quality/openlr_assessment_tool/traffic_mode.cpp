@@ -22,22 +22,24 @@ std::vector<m2::PointD> GetPoints(openlr::LinearSegment const & segment)
   return result;
 }
 
-// TODO(mgsergio): Optimize this.
+void RemovePointFromPull(m2::PointD const & toBeRemoved, std::vector<m2::PointD> & pool)
+{
+  pool.erase(
+      remove_if(begin(pool), end(pool),
+                [&toBeRemoved](m2::PointD const & p) { return p.EqualDxDy(toBeRemoved, 1e-6); }),
+      end(pool));
+}
+
 std::vector<m2::PointD> GetReachablePoints(m2::PointD const & srcPoint,
                                            std::vector<m2::PointD> const path,
                                            PointsControllerDelegateBase const & pointsDelegate,
-                                           size_t const lookBackIndex)
+                                           size_t const lookbackIndex)
 {
   auto reachablePoints = pointsDelegate.GetReachablePoints(srcPoint);
-  if (lookBackIndex < path.size())
+  if (lookbackIndex < path.size())
   {
-    auto const & toBeRemoved = path[path.size() - lookBackIndex - 1];
-    reachablePoints.erase(
-        remove_if(begin(reachablePoints), end(reachablePoints),
-                  [&toBeRemoved](m2::PointD const & p) {
-                    return p.EqualDxDy(toBeRemoved, 1e-6);
-                  }),
-        end(reachablePoints));
+    auto const & toBeRemoved = path[path.size() - lookbackIndex - 1];
+    RemovePointFromPull(toBeRemoved, reachablePoints);
   }
   return reachablePoints;
 }
@@ -55,16 +57,16 @@ size_t const RoadPointCandidate::kInvalidId = std::numeric_limits<size_t>::max()
 RoadPointCandidate::RoadPointCandidate(std::vector<FeaturePoint> const & points,
                                        m2::PointD const & coord)
   : m_coord(coord)
-  , m_candidates(points)
+  , m_points(points)
 {
   LOG(LDEBUG, ("Candidate points:", points));
 }
 
 void RoadPointCandidate::ActivatePoint(RoadPointCandidate const & rpc)
 {
-  for (auto const & fp1 : m_candidates)
+  for (auto const & fp1 : m_points)
   {
-    for (auto const & fp2 : rpc.m_candidates)
+    for (auto const & fp2 : rpc.m_points)
     {
       if (fp1.first == fp2.first)
       {
@@ -73,13 +75,13 @@ void RoadPointCandidate::ActivatePoint(RoadPointCandidate const & rpc)
       }
     }
   }
-  CHECK(false, ("One mutual featrue id should exist."));
+  CHECK(false, ("One common featrue id should exist."));
 }
 
 FeaturePoint const & RoadPointCandidate::GetPoint() const
 {
   CHECK_NOT_EQUAL(m_activePointIndex, kInvalidId, ("No point is active."));
-  return m_candidates[m_activePointIndex];
+  return m_points[m_activePointIndex];
 }
 
 m2::PointD const & RoadPointCandidate::GetCoordinate() const
@@ -89,9 +91,9 @@ m2::PointD const & RoadPointCandidate::GetCoordinate() const
 
 void RoadPointCandidate::SetActivePoint(FeatureID const & fid)
 {
-  for (size_t i = 0; i < m_candidates.size(); ++i)
+  for (size_t i = 0; i < m_points.size(); ++i)
   {
-    if (m_candidates[i].first == fid)
+    if (m_points[i].first == fid)
     {
       m_activePointIndex = i;
       return;
@@ -270,7 +272,7 @@ void TrafficMode::StartBuildingPath()
     auto const btn = QMessageBox::question(
         nullptr,
         "Override warning",
-        "The selected segment already have a golden path. Do you want to override?");
+        "The selected segment already has a golden path. Do you want to override?");
     if (btn == QMessageBox::No)
       return;
   }
@@ -280,7 +282,7 @@ void TrafficMode::StartBuildingPath()
   m_buildingPath = true;
   m_drawerDelegate->ClearGoldenPath();
   m_drawerDelegate->VisualizePoints(
-      m_pointsDelegate->GetAllJunctionPointsInViewPort());
+      m_pointsDelegate->GetAllJunctionPointsInViewport());
 }
 
 void TrafficMode::PushPoint(m2::PointD const & coord, std::vector<FeaturePoint> const & points)
@@ -311,12 +313,12 @@ void TrafficMode::CommitPath()
 
   if (m_goldenPath.empty())
   {
-    LOG(LDEBUG, ("Golden path is empty :'("));
+    LOG(LDEBUG, ("Golden path is empty"));
     emit EditingStopped();
     return;
   }
 
-  CHECK_NOT_EQUAL(m_goldenPath.size(), 1, ("Path cannot consist of only one point"));
+  CHECK_GREATER(m_goldenPath.size(), 1, ("Path cannot consist of only one point"));
 
   // Activate last point. Since no more points will be availabe we link it to the same
   // feature as the previous one was linked to.
@@ -404,7 +406,7 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       ? GetLastPoint()
       : m2::PointD::Zero();
 
-  // Get candidates and also fix clickPoint to make it more accurate and sutable for
+  // Get candidates and also fix clickPoint to make it more accurate and suitable for
   // GetOutgoingEdges.
   auto const & candidatePoints = m_pointsDelegate->GetFeaturesPointsByPoint(clickPoint);
   if (candidatePoints.empty())
@@ -414,69 +416,59 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
                                             0 /* lookBackIndex */);
   auto const & clickablePoints = currentPathLength != 0
       ? GetReachablePoints(lastClickedPoint, GetCoordinates(), *m_pointsDelegate,
-                           1 /* lookBackIndex */)
+                           1 /* lookbackIndex */)
       // TODO(mgsergio): This is not quite correct since view port can change
       // since first call to visualize points. But it's ok in general.
-      : m_pointsDelegate->GetAllJunctionPointsInViewPort();
+      : m_pointsDelegate->GetAllJunctionPointsInViewport();
 
   using ClickType = PointsControllerDelegateBase::ClickType;
-  switch(m_pointsDelegate->CheckClick(clickPoint, lastClickedPoint, clickablePoints))
+  switch (m_pointsDelegate->CheckClick(clickPoint, lastClickedPoint, clickablePoints))
   {
-    case ClickType::Add:
-      LOG(LDEBUG, ("Adding point", clickPoint));
-      // TODO(mgsergio): Think of refactoring this with if (accumulator.empty)
-      // instead of pushing point first ad then removing last selection.
-      PushPoint(clickPoint, candidatePoints);
+  case ClickType::Add:
+    // TODO(mgsergio): Think of refactoring this with if (accumulator.empty)
+    // instead of pushing point first ad then removing last selection.
+    PushPoint(clickPoint, candidatePoints);
 
-      if (currentPathLength > 0)
-      {
-        // TODO(mgsergio): Should I remove lastClickedPoint from clickablePoints
-        // as well?
-        reachablePoints.erase(
-            remove_if(begin(reachablePoints), end(reachablePoints),
-                      [&lastClickedPoint](m2::PointD const & p) {
-                        return p.EqualDxDy(lastClickedPoint, 1e-6);
-                      }),
-            end(reachablePoints));
-        m_drawerDelegate->DrawGoldenPath(GetCoordinates());
-      }
+    if (currentPathLength > 0)
+    {
+      // TODO(mgsergio): Should I remove lastClickedPoint from clickablePoints
+      // as well?
+      RemovePointFromPull(lastClickedPoint, reachablePoints);
+      m_drawerDelegate->DrawGoldenPath(GetCoordinates());
+    }
 
+    m_drawerDelegate->ClearAllVisualizedPoints();
+    m_drawerDelegate->VisualizePoints(reachablePoints);
+    m_drawerDelegate->VisualizePoints({clickPoint});
+    break;
+  case ClickType::Remove:                       // TODO(mgsergio): Rename this case.
+    if (button == Qt::MouseButton::LeftButton)  // RemovePoint
+    {
       m_drawerDelegate->ClearAllVisualizedPoints();
-      m_drawerDelegate->VisualizePoints(reachablePoints);
-      m_drawerDelegate->VisualizePoints({clickPoint});
-      break;
-    case ClickType::Remove:  // TODO(mgsergio): Rename this case.
-      if (button == Qt::MouseButton::LeftButton)  // RemovePoint
-      {
-        m_drawerDelegate->ClearAllVisualizedPoints();
-        m_drawerDelegate->ClearGoldenPath();
+      m_drawerDelegate->ClearGoldenPath();
 
-        PopPoint();
-        if (m_goldenPath.empty())
-        {
-          m_drawerDelegate->VisualizePoints(
-              m_pointsDelegate->GetAllJunctionPointsInViewPort());
-        }
-        else
-        {
-          // TODO(mgsergioe): Warning unused! Check this staff.
-          auto const & prevPoint = GetLastPoint();
-          m_drawerDelegate->VisualizePoints(
-              GetReachablePoints(GetLastPoint(), GetCoordinates(), *m_pointsDelegate,
-                                 1 /* lookBackIndex */));
-        }
-
-        if (GetPointsCount() > 1)
-          m_drawerDelegate->DrawGoldenPath(GetCoordinates());
-      }
-      else if (button == Qt::MouseButton::RightButton)
+      PopPoint();
+      if (m_goldenPath.empty())
       {
-        CommitPath();
+        m_drawerDelegate->VisualizePoints(m_pointsDelegate->GetAllJunctionPointsInViewport());
       }
-      break;
-    case ClickType::Miss:
-      // TODO(mgsergio): This situation should be handled by checking candidatePoitns.empty() above.
-      // Not shure though if all cases are handled by that check.
-      return;
+      else
+      {
+        m_drawerDelegate->VisualizePoints(GetReachablePoints(
+            GetLastPoint(), GetCoordinates(), *m_pointsDelegate, 1 /* lookBackIndex */));
+      }
+
+      if (GetPointsCount() > 1)
+        m_drawerDelegate->DrawGoldenPath(GetCoordinates());
+    }
+    else if (button == Qt::MouseButton::RightButton)
+    {
+      CommitPath();
+    }
+    break;
+  case ClickType::Miss:
+    // TODO(mgsergio): This situation should be handled by checking candidatePoitns.empty() above.
+    // Not shure though if all cases are handled by that check.
+    return;
   }
 }

@@ -14,6 +14,7 @@ SOURCES += \
   clipping.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
+  nearby_points_sweeper.cpp \
   mercator.cpp \
   packer.cpp \
   region2d/binary_operators.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
   distance.hpp \
   distance_on_sphere.hpp \
   latlon.hpp \
+  nearby_points_sweeper.hpp \
   mercator.hpp \
   packer.hpp \
   point2d.hpp \

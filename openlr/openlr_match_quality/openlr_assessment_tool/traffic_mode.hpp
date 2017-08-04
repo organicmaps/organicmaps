@@ -35,8 +35,6 @@ namespace impl
 /// Only one point at a time is considered active.
 class RoadPointCandidate
 {
-  static size_t const kInvalidId;
-
 public:
   RoadPointCandidate(std::vector<FeaturePoint> const & points,
                      m2::PointD const & coord);
@@ -46,10 +44,12 @@ public:
   m2::PointD const & GetCoordinate() const;
 
 private:
+  static size_t const kInvalidId;
+
   void SetActivePoint(FeatureID const & fid);
 
   m2::PointD m_coord = m2::PointD::Zero();
-  std::vector<FeaturePoint> m_candidates;
+  std::vector<FeaturePoint> m_points;
 
   size_t m_activePointIndex = kInvalidId;
 };
@@ -143,7 +143,7 @@ public:
     Remove
   };
 
-  virtual std::vector<m2::PointD> GetAllJunctionPointsInViewPort() const = 0;
+  virtual std::vector<m2::PointD> GetAllJunctionPointsInViewport() const = 0;
   /// Returns all junction points at a given location in the form of feature id and
   /// point index in the feature. And meke p equal to the neares junction.
   virtual std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const = 0;
@@ -161,7 +161,7 @@ class TrafficMode : public QAbstractTableModel
   Q_OBJECT
 
 public:
-  // TODO(mgsergio): Check we are on the right mwm. I.E. right mwm version an everything.
+  // TODO(mgsergio): Check we are on the right mwm. I.e. right mwm version and everything.
   TrafficMode(std::string const & dataFileName,
               Index const & index,
               std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,

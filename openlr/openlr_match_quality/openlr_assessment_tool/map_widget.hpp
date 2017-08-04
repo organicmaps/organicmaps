@@ -23,7 +23,7 @@ class MapWidget : public qt::common::MapWidget
 
 public:
   MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
-  ~MapWidget() override;
+  ~MapWidget() override = default;
 
   void SetNormalMode() { m_mode = Mode::Normal; }
   void SetTrafficMarkupMode() { m_mode = Mode::TrafficMarkup; }

@@ -30,6 +30,7 @@ SOURCES += \
   distance_test.cpp \
   intersect_test.cpp \
   latlon_test.cpp \
+  nearby_points_sweeper_test.cpp \
   mercator_test.cpp \
   packer_test.cpp \
   point_test.cpp \

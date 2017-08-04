@@ -32,9 +32,9 @@ namespace
 {
 class TrafficDrawerDelegate : public TrafficDrawerDelegateBase
 {
-  static auto constexpr kEncodedLineId = "encodedPath";
-  static auto constexpr kDecodedLineId = "decodedPath";
-  static auto constexpr kGoldenLineId = "goldenPath";
+  static constexpr char const * kEncodedLineId = "encodedPath";
+  static constexpr char const * kDecodedLineId = "decodedPath";
+  static constexpr char const * kGoldenLineId = "goldenPath";
 
 public:
   TrafficDrawerDelegate(Framework & framework)
@@ -123,7 +123,7 @@ public:
   {
   }
 
-  std::vector<m2::PointD> GetAllJunctionPointsInViewPort() const
+  std::vector<m2::PointD> GetAllJunctionPointsInViewport() const override
   {
     std::vector<m2::PointD> points;
     auto const & rect = m_framework.GetCurrentViewport();
@@ -154,40 +154,39 @@ public:
     return points;
   }
 
-  std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const
+  std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const override
   {
     std::vector<FeaturePoint> points;
     m2::PointD pointOnFt;
     indexer::ForEachFeatureAtPoint(m_index, [&points, &p, &pointOnFt](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::GEOM_LINE)
           return;
-        size_t pointIndex = 0;
-        auto minDistance = std::numeric_limits<double>::max();
 
-        ft.ForEachPoint(
-            [&points, &p, &ft, &pointIndex, &minDistance, &pointOnFt](m2::PointD const & fp)
-            {
-              auto const distance = MercatorBounds::DistanceOnEarth(fp, p);
-              if (PointsMatch(fp, p) && distance < minDistance)
-              {
-                points.emplace_back(ft.GetID(), pointIndex);
-                pointOnFt = fp;
-                minDistance = distance;
-              }
-              ++pointIndex;
-            },
-            FeatureType::BEST_GEOMETRY);
+        ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+        auto minDistance = std::numeric_limits<double>::max();
+        for (size_t i = 0; i < ft.GetPointsCount(); ++i)
+        {
+          auto const & fp = ft.GetPoint(i);
+          auto const distance = MercatorBounds::DistanceOnEarth(fp, p);
+          if (PointsMatch(fp, p) && distance < minDistance)
+          {
+            points.emplace_back(ft.GetID(), i);
+            pointOnFt = fp;
+            minDistance = distance;
+          }
+        }  // for
       },
       p);
     p = pointOnFt;
     return points;
   }
 
-  std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const
+  std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const override
   {
     routing::FeaturesRoadGraph::TEdgeVector edges;
     m_roadGraph.GetOutgoingEdges(
-        routing::Junction(p, 0 /* altitude */),
+        routing::Junction(p, feature::kDefaultAltitudeMeters),
         edges);
 
     std::vector<m2::PointD> points;
@@ -198,7 +197,7 @@ public:
 
   ClickType CheckClick(m2::PointD const & clickPoint,
                        m2::PointD const & lastClickedPoint,
-                       std::vector<m2::PointD> const & reachablePoints) const
+                       std::vector<m2::PointD> const & reachablePoints) const override
   {
     // == Comparison is safe here since |clickPoint| is adjusted by GetFeaturesPointsByPoint
     // so to be equal the closest feature's one.
@@ -247,7 +246,6 @@ MainWindow::MainWindow(Framework & framework)
       m_mapWidget->SetTrafficMarkupMode();
       m_commitPathAction->setEnabled(true /* enabled */);
       m_cancelPathAction->setEnabled(true /* enabled */);
-      //m_mapWidget->ShowPointsInViewPort();
   });
   m_commitPathAction = fileMenu->addAction("Commit path", [this] {
       m_trafficMode->CommitPath();

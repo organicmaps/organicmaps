@@ -2,15 +2,15 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cmath.hpp"
-#include "std/cstdint.hpp"
-#include "std/limits.hpp"
-#include "std/set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <limits>
+#include <set>
+#include <utility>
+#include <vector>
 
-namespace search
+namespace m2
 {
 // This class can be used to greedily sweep points on a plane that are
 // too close to each other.  Two points are considered to be "too
@@ -37,7 +37,7 @@ public:
   {
     sort(m_events.begin(), m_events.end());
 
-    set<pair<double, size_t>> line;
+    std::set<std::pair<double, size_t>> line;
 
     for (auto const & event : m_events)
     {
@@ -51,7 +51,7 @@ public:
           break;
         }
 
-        auto it = line.upper_bound(make_pair(event.m_x, numeric_limits<size_t>::max()));
+        auto it = line.upper_bound(std::make_pair(event.m_x, std::numeric_limits<size_t>::max()));
 
         bool add = true;
         while (true)
@@ -89,7 +89,7 @@ public:
 
       case Event::TYPE_SEGMENT_END:
       {
-        auto it = line.find(make_pair(event.m_x, event.m_index));
+        auto it = line.find(std::make_pair(event.m_x, event.m_index));
         if (it != line.end())
         {
           emitter(event.m_index);
@@ -123,8 +123,8 @@ private:
     size_t m_index;
   };
 
-  vector<Event> m_events;
+  std::vector<Event> m_events;
   double const m_eps;
   double const m_heps;
 };
-}  // namespace search
+}  // namespace m2

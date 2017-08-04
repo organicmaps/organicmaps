@@ -9,6 +9,7 @@
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #define THROW_IF_NODE_IS_EMPTY(node, exc, msg) \
   if (!node)                                   \
@@ -60,13 +61,13 @@ namespace openlr
 {
 void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPath> const & paths)
 {
-  std::ofstream ost(fileName);
-  if (!ost.is_open())
+  std::ofstream ofs(fileName);
+  if (!ofs.is_open())
     MYTHROW(DecodedPathSaveError, ("Can't write to file", fileName, strerror(errno)));
 
-  WriteAsMappingForSpark(ost, paths);
+  WriteAsMappingForSpark(ofs, paths);
 
-  if (ost.fail())
+  if (ofs.fail())
   {
     MYTHROW(DecodedPathSaveError,
             ("An error occured while writing file", fileName, strerror(errno)));
@@ -75,7 +76,10 @@ void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPat
 
 void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const & paths)
 {
+  auto const flags = ost.flags();
   ost << std::fixed;  // Avoid scientific notation cause '-' is used as fields separator.
+  MY_SCOPE_GUARD(guard, ([&ost, &flags] { ost.flags(flags); }));
+
   for (auto const & p : paths)
   {
     if (p.m_path.empty())
@@ -118,9 +122,10 @@ void PathFromXML(pugi::xml_node const & node, Index const & index, Path & p)
     LatLonFromXML(e.child("StartJunction"), start);
     LatLonFromXML(e.child("EndJunction"), end);
 
-    p.emplace_back(fid, isForward, segmentId,
-                   routing::Junction(MercatorBounds::FromLatLon(start), 0 /* altitude */),
-                   routing::Junction(MercatorBounds::FromLatLon(end), 0 /* altitude */));
+    p.emplace_back(
+        fid, isForward, segmentId,
+        routing::Junction(MercatorBounds::FromLatLon(start), feature::kDefaultAltitudeMeters),
+        routing::Junction(MercatorBounds::FromLatLon(end), feature::kDefaultAltitudeMeters));
   }
 }
 

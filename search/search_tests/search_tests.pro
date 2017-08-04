@@ -35,7 +35,6 @@ SOURCES += \
     locality_finder_test.cpp \
     locality_scorer_test.cpp \
     locality_selector_test.cpp \
-    nearby_points_sweeper_test.cpp \
     query_saver_tests.cpp \
     ranking_tests.cpp \
     string_intersection_test.cpp \

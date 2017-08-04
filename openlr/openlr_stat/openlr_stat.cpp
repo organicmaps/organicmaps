@@ -29,10 +29,9 @@
 #include <vector>
 
 DEFINE_string(input, "", "Path to OpenLR file.");
-DEFINE_string(output, "output.txt", "Path to output file");
-DEFINE_bool(assessment_output, false,
-            "Write an output in a format sutable for the assessment tool."
-            "Stick to the spark oriented format if set to false.");
+DEFINE_string(spark_output, "", "Path to output file in spark-oriented format");
+DEFINE_string(assessment_output, "", "Path to output file in assessment-tool oriented format");
+
 DEFINE_string(non_matched_ids, "non-matched-ids.txt",
               "Path to a file ids of non-matched segments will be saved to");
 DEFINE_string(mwms_path, "", "Path to a folder with mwms.");
@@ -177,9 +176,6 @@ std::vector<LinearSegment> LoadSegments(pugi::xml_document & document)
 void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & doc,
                          std::vector<DecodedPath> const & paths)
 {
-  if (fileName.empty())
-    return;
-
   std::unordered_map<uint32_t, pugi::xml_node> xmlSegments;
   for (auto const & xpathNode : doc.select_nodes("//reportSegments"))
   {
@@ -237,10 +233,10 @@ int main(int argc, char * argv[])
   decoder.Decode(segments, numThreads, paths);
 
   SaveNonMatchedIds(FLAGS_non_matched_ids, paths);
-  if (FLAGS_assessment_output)
-    WriteAssessmentFile(FLAGS_output, document, paths);
-  else
-    WriteAsMappingForSpark(FLAGS_output, paths);
+  if (!FLAGS_assessment_output.empty())
+    WriteAssessmentFile(FLAGS_spark_output, document, paths);
+  if (!FLAGS_spark_output.empty())
+    WriteAsMappingForSpark(FLAGS_assessment_output, paths);
 
   return 0;
 }

@@ -81,8 +81,6 @@ set(
   model.hpp
   mwm_context.cpp
   mwm_context.hpp
-  nearby_points_sweeper.cpp
-  nearby_points_sweeper.hpp
   nested_rects_cache.cpp
   nested_rects_cache.hpp
   pre_ranker.cpp

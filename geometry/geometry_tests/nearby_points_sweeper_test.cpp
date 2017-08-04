@@ -1,13 +1,14 @@
 #include "testing/testing.hpp"
 
-#include "search/nearby_points_sweeper.hpp"
-
+#include "geometry/nearby_points_sweeper.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/stl_add.hpp"
 
 #include "std/set.hpp"
 #include "std/vector.hpp"
+
+using namespace m2;
 
 namespace search
 {

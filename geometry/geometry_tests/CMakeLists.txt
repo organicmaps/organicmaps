@@ -17,6 +17,7 @@ set(
   intersect_test.cpp
   large_polygon.hpp
   latlon_test.cpp
+  nearby_points_sweeper_test.cpp
   mercator_test.cpp
   packer_test.cpp
   point_test.cpp
