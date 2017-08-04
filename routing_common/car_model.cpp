@@ -37,6 +37,7 @@ double constexpr kSpeedFerryMotorcarKMpH = 15.0;
 double constexpr kSpeedFerryMotorcarVehicleKMpH = 15.0;
 double constexpr kSpeedRailMotorcarVehicleKMpH = 25.0;
 double constexpr kSpeedShuttleTrainKMpH = 25.0;
+double constexpr kSpeedPierKMpH = 10.0;
 
 VehicleModel::InitListT const g_carLimitsDefault =
 {
@@ -214,6 +215,7 @@ void CarModel::InitAdditionalRoadTypes()
       {{"railway", "rail", "motor_vehicle"}, kSpeedRailMotorcarVehicleKMpH},
       {{"route", "shuttle_train"}, kSpeedShuttleTrainKMpH},
       {{"route", "ferry"}, kSpeedFerryMotorcarKMpH},
+      {{"man_made", "pier"}, kSpeedPierKMpH},
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);
