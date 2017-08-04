@@ -753,14 +753,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void startLocationToPoint(String statisticsEvent, String alohaEvent, final @Nullable MapObject endPoint)
+  public void startLocationToPoint(String statisticsEvent, String alohaEvent,
+                                   final @Nullable MapObject endPoint,
+                                   final boolean canUseMyPositionAsStart)
   {
     closeMenu(statisticsEvent, alohaEvent, new Runnable()
     {
       @Override
       public void run()
       {
-        RoutingController.get().prepare(endPoint);
+        RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
 
         if (mPlacePage != null && (mPlacePage.isDocked() || !mPlacePage.isFloating()))
           closePlacePage();
@@ -838,7 +840,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case P2P:
-          startLocationToPoint(Statistics.EventName.MENU_P2P, AlohaHelper.MENU_POINT2POINT, null);
+          startLocationToPoint(Statistics.EventName.MENU_P2P, AlohaHelper.MENU_POINT2POINT,
+                               null /* endPoint */, false /* canUseMyPositionAsStart */);
           break;
 
         case BOOKMARKS:
@@ -2327,16 +2330,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (mLatFrom != null && mLonFrom != null && routerType >= 0)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType, true);
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), routerType,
+                                        true /* fromApi */);
       }
       else if (mLatFrom != null && mLonFrom != null)
       {
         RoutingController.get().prepare(fromLatLon(mLatFrom, mLonFrom, mSaddr),
-                                        fromLatLon(mLatTo, mLonTo, mDaddr), true);
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
       }
       else
       {
-        RoutingController.get().prepare(fromLatLon(mLatTo, mLonTo, mDaddr), true);
+        RoutingController.get().prepare(true /* canUseMyPositionAsStart */,
+                                        fromLatLon(mLatTo, mLonTo, mDaddr), true /* fromApi */);
       }
       return true;
     }

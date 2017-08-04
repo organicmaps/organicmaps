@@ -376,14 +376,15 @@ public class RoutingController implements TaxiManager.TaxiListener
       Framework.nativeSaveRoutePoints();
   }
 
-  public void prepare(@Nullable MapObject endPoint)
+  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
   {
-    prepare(endPoint, false);
+    prepare(canUseMyPositionAsStart, endPoint, false);
   }
 
-  public void prepare(@Nullable MapObject endPoint, boolean fromApi)
+  public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint, boolean fromApi)
   {
-    prepare(LocationHelper.INSTANCE.getMyPosition(), endPoint, fromApi);
+    MapObject startPoint = canUseMyPositionAsStart ? LocationHelper.INSTANCE.getMyPosition() : null;
+    prepare(startPoint, endPoint, fromApi);
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
@@ -888,9 +889,6 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     if (isSamePoint)
     {
-      if (getStartPoint() == null)
-        return setStartFromMyPosition();
-
       mLogger.d(TAG, "setEndPoint: skip the same end point");
       return false;
     }
@@ -913,9 +911,6 @@ public class RoutingController implements TaxiManager.TaxiListener
     if (endPoint != null)
       trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, isPlanning(), isNavigating(),
                     false);
-
-    if (startPoint == null)
-      return setStartFromMyPosition();
 
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
