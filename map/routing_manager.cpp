@@ -564,10 +564,6 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   if (!IsRoutingActive())
     return false;
 
-  // Now only car routing supports intermediate points.
-  if (m_currentRouterType != RouterType::Vehicle)
-    return false;
-
   auto const & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
   return controller.GetUserMarkCount() <
          static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);
