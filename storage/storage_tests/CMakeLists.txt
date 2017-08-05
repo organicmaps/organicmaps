@@ -47,6 +47,7 @@ omim_link_libraries(
   freetype
   expat
   icu
+  agg
   jansson
   tess2
   protobuf

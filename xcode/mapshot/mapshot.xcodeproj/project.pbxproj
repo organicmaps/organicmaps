@@ -12,6 +12,8 @@
 		346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D41DC1ED4D00C7C87E /* libpugixml.a */; };
 		346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */; };
 		346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D81DC1ED7A00C7C87E /* libtracking.a */; };
+		453FEE221F35E87B005C1BB4 /* libsoftware_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */; };
+		453FEE241F35E8C1005C1BB4 /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE231F35E8C1005C1BB4 /* libagg.a */; };
 		675D213D1BFB717400717E4F /* mapshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D213C1BFB717400717E4F /* mapshot.cpp */; };
 		675D21411BFB76B000717E4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D213E1BFB76B000717E4F /* libbase.a */; };
 		675D21431BFB76B000717E4F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21401BFB76B000717E4F /* libmap.a */; };
@@ -65,6 +67,8 @@
 		346B76D81DC1ED7A00C7C87E /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-build/xcode/Debug/libtracking.a"; sourceTree = "<group>"; };
 		3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoftware_renderer.a; path = ../software_renderer/build/Debug/libsoftware_renderer.a; sourceTree = "<group>"; };
+		453FEE231F35E8C1005C1BB4 /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = ../agg/build/Release/libagg.a; sourceTree = "<group>"; };
 		675D21311BFB6F3D00717E4F /* mapshot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mapshot; sourceTree = BUILT_PRODUCTS_DIR; };
 		675D213C1BFB717400717E4F /* mapshot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapshot.cpp; sourceTree = "<group>"; };
 		675D213E1BFB76B000717E4F /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				453FEE241F35E8C1005C1BB4 /* libagg.a in Frameworks */,
+				453FEE221F35E87B005C1BB4 /* libsoftware_renderer.a in Frameworks */,
 				346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */,
 				346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */,
 				346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */,
@@ -148,6 +154,8 @@
 		346B76CF1DC1ED0B00C7C87E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				453FEE231F35E8C1005C1BB4 /* libagg.a */,
+				453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */,
 				346B76D81DC1ED7A00C7C87E /* libtracking.a */,
 				346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */,
 				346B76D41DC1ED4D00C7C87E /* libpugixml.a */,

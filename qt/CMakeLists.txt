@@ -99,6 +99,7 @@ omim_link_libraries(
   expat
   gflags
   icu
+  agg
   jansson
   protobuf
   osrm

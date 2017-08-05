@@ -2,9 +2,7 @@
 
 #include "std/bind.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 base_screen::base_screen(params const & p)
@@ -275,5 +273,4 @@ bool area_tess_points::IsExist() const
   return !m_points.empty();
 }
 
-}
 }

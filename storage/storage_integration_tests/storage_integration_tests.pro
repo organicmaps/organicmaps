@@ -9,7 +9,7 @@ ROOT_DIR = ../..
 DEPENDENCIES = map drape_frontend routing search storage tracking traffic routing_common ugc indexer drape \
                partners_api local_ads platform_tests_support platform editor opening_hours geometry \
                coding base freetype expat jansson protobuf osrm stats_client \
-               minizip succinct pugixml oauthcpp stb_image sdf_image icu
+               minizip succinct pugixml oauthcpp stb_image sdf_image icu agg
 
 include($$ROOT_DIR/common.pri)
 

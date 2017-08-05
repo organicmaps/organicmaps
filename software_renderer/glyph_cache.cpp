@@ -1,9 +1,7 @@
-#include "drape_frontend/watch/glyph_cache.hpp"
-#include "drape_frontend/watch/glyph_cache_impl.hpp"
+#include "software_renderer/glyph_cache.hpp"
+#include "software_renderer/glyph_cache_impl.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 GlyphKey::GlyphKey(strings::UniChar symbolCode,
@@ -96,5 +94,4 @@ double GlyphCache::getTextLength(double fontSize, string const & text)
   return len;
 }
 
-}
 }

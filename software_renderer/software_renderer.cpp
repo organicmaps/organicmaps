@@ -1,5 +1,5 @@
-#include "drape_frontend/watch/software_renderer.hpp"
-#include "drape_frontend/watch/proto_to_styles.hpp"
+#include "software_renderer/software_renderer.hpp"
+#include "software_renderer/proto_to_styles.hpp"
 
 #include "drape/symbols_texture.hpp"
 #include "drape/texture_manager.hpp"
@@ -29,9 +29,7 @@
 
 #include "3party/stb_image/stb_image_write.h"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 #define BLENDER_TYPE agg::comp_op_src_over
@@ -715,5 +713,4 @@ void PathWrapper::Render(SoftwareRenderer::TSolidRenderer & renderer,
   }
 }
 
-}
 }

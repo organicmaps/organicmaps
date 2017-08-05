@@ -1,4 +1,4 @@
-#include "drape_frontend/watch/glyph_cache_impl.hpp"
+#include "software_renderer/glyph_cache_impl.hpp"
 
 #include "platform/platform.hpp"
 
@@ -15,9 +15,7 @@
 #define FREETYPE_CHECK(x) x
 #define FREETYPE_CHECK_RETURN(x, msg) FREETYPE_CHECK(x)
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 UnicodeBlock::UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
@@ -587,5 +585,4 @@ FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_P
   return font->CreateFaceID(library, face);
 }
 
-}
 }

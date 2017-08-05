@@ -8,7 +8,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator map routing traffic routing_common storage ugc indexer \
-               platform geometry coding base minizip succinct protobuf gflags stats_client icu
+               platform geometry coding base minizip succinct protobuf gflags stats_client icu agg
 
 include($$ROOT_DIR/common.pri)
 

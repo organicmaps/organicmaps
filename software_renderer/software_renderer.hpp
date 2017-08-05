@@ -1,14 +1,14 @@
 #pragma once
 
-#include "drape_frontend/watch/path_info.hpp"
-#include "drape_frontend/watch/area_info.hpp"
-#include "drape_frontend/watch/frame_image.hpp"
-#include "drape_frontend/watch/text_engine.h"
-#include "drape_frontend/watch/glyph_cache.hpp"
-#include "drape_frontend/watch/icon_info.hpp"
-#include "drape_frontend/watch/circle_info.hpp"
-#include "drape_frontend/watch/pen_info.hpp"
-#include "drape_frontend/watch/brush_info.hpp"
+#include "software_renderer/path_info.hpp"
+#include "software_renderer/area_info.hpp"
+#include "software_renderer/frame_image.hpp"
+#include "software_renderer/text_engine.h"
+#include "software_renderer/glyph_cache.hpp"
+#include "software_renderer/icon_info.hpp"
+#include "software_renderer/circle_info.hpp"
+#include "software_renderer/pen_info.hpp"
+#include "software_renderer/brush_info.hpp"
 
 #include "drape/drape_global.hpp"
 
@@ -27,9 +27,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 class PathWrapper;
@@ -174,5 +172,4 @@ private:
   vector<PathParams> m_params;
 };
 
-}
 }

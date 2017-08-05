@@ -17,7 +17,6 @@
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-#include "drape_frontend/watch/frame_image.hpp"
 
 #include "drape/oglcontextfactory.hpp"
 
@@ -89,14 +88,6 @@ struct DownloaderSearchParams;
 }
 
 namespace routing { namespace turns{ class Settings; } }
-
-namespace df
-{
-  namespace watch
-  {
-    class CPUDrawer;
-  }
-}
 
 namespace platform
 {
@@ -172,7 +163,6 @@ protected:
   TViewportChanged m_viewportChanged;
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
-  drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
   double m_startBackgroundTime;
@@ -236,26 +226,6 @@ public:
   storage::TCountryId PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
                   storage::Storage::TProgressFunction const & progress);
   void Migrate(bool keepDownloaded = true);
-
-  void InitWatchFrameRenderer(float visualScale);
-
-  /// @param center - map center in Mercator
-  /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
-  ///                       if we are have search result "base zoom" calculate that my position and search result
-  ///                       will be see with some bottom clamp.
-  ///                       if we are't have search result "base zoom" == scales::GetUpperComfortScale() - 1
-  /// @param pxWidth - result image width.
-  ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
-  /// @param pxHeight - result image height.
-  ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
-  /// @param symbols - configuration for symbols on the frame
-  /// @param image [out] - result image
-  void DrawWatchFrame(m2::PointD const & center, int zoomModifier,
-                      uint32_t pxWidth, uint32_t pxHeight,
-                      df::watch::FrameSymbols const & symbols,
-                      df::watch::FrameImage & image);
-  void ReleaseWatchFrameRenderer();
-  bool IsWatchFrameRendererInited() const;
 
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.

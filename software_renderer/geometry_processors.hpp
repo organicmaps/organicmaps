@@ -17,9 +17,7 @@
 
 class ScreenBase;
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 /// @name Base class policies (use by inheritance) for points processing.
@@ -342,5 +340,4 @@ public:
   void SetCenter(m2::PointD const & p) { m_center = this->g2p(p); }
 };
 
-}
 }

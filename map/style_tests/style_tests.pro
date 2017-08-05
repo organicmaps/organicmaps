@@ -9,7 +9,7 @@ CONFIG += console warn_on
 INCLUDEPATH += ../../3party/protobuf/protobuf/src
 
 ROOT_DIR = ../..
-DEPENDENCIES = map traffic ugc indexer platform geometry coding base expat protobuf stats_client icu
+DEPENDENCIES = map traffic ugc indexer platform geometry coding base expat protobuf stats_client icu agg
 
 macx-*: LIBS *= "-framework IOKit"
 

@@ -14,7 +14,6 @@ INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
 
 SOURCES += \
-    $$ROOT_DIR/3party/agg/agg_curves.cpp \
     animation/animation.cpp \
     animation/arrow_animation.cpp \
     animation/base_interpolator.cpp \
@@ -107,16 +106,6 @@ SOURCES += \
     user_marks_provider.cpp \
     visual_params.cpp \
     kinetic_scroller.cpp \
-    watch/cpu_drawer.cpp \
-    watch/software_renderer.cpp \
-    watch/proto_to_styles.cpp \
-    watch/text_engine.cpp \
-    watch/feature_styler.cpp \
-    watch/glyph_cache.cpp \
-    watch/glyph_cache_impl.cpp \
-    watch/geometry_processors.cpp \
-    watch/feature_processor.cpp \
-    watch/default_font.cpp \
 
 HEADERS += \
     animation/animation.hpp \
@@ -221,25 +210,6 @@ HEADERS += \
     user_marks_provider.hpp \
     visual_params.hpp \
     kinetic_scroller.hpp \
-    watch/cpu_drawer.hpp \
-    watch/software_renderer.hpp \
-    watch/proto_to_styles.hpp \
-    watch/text_engine.h \
-    watch/point.h \
-    watch/rect.h \
-    watch/path_info.hpp \
-    watch/area_info.hpp \
-    watch/frame_image.hpp \
-    watch/feature_styler.hpp \
-    watch/glyph_cache.hpp \
-    watch/glyph_cache_impl.hpp \
-    watch/freetype.hpp \
-    watch/circle_info.hpp \
-    watch/pen_info.hpp \
-    watch/icon_info.hpp \
-    watch/brush_info.hpp \
-    watch/geometry_processors.hpp \
-    watch/feature_processor.hpp \
 
 OTHER_FILES += \
     shaders/area.vsh.glsl \

@@ -311,6 +311,9 @@
       location = "group:ugc/ugc.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:software_renderer/software_renderer.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:../iphone/Maps/Maps.xcodeproj">
    </FileRef>
 </Workspace>

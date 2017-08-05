@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/watch/glyph_cache.hpp"
+#include "software_renderer/glyph_cache.hpp"
 
 #include <ft2build.h>
 #include FT_TYPES_H
@@ -17,9 +17,7 @@
 #include "std/vector.hpp"
 #include "std/shared_ptr.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct Font
@@ -101,5 +99,4 @@ struct GlyphCacheImpl
   ~GlyphCacheImpl();
 };
 
-}
 }

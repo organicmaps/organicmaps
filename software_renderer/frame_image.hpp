@@ -5,9 +5,7 @@
 #include "std/cstdint.hpp"
 #include "std/vector.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct FrameSymbols
@@ -28,5 +26,4 @@ struct FrameImage
   uint32_t m_stride = 0;      // row stride in bytes
 };
 
-}
 }

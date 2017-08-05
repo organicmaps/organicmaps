@@ -27,6 +27,7 @@ omim_link_libraries(
   opening_hours
   freetype
   icu
+  agg
   expat
   oauthcpp
   protobuf

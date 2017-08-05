@@ -2,9 +2,7 @@
 
 #include "std/string.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct IconInfo
@@ -15,5 +13,4 @@ struct IconInfo
   explicit IconInfo(string const & name) : m_name(name) {}
 };
 
-}
 }

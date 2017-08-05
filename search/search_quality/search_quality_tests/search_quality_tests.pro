@@ -9,7 +9,7 @@ ROOT_DIR = ../../..
 # todo(@m) revise
 DEPENDENCIES = map drape_frontend routing traffic routing_common search_tests_support search_quality search storage indexer drape platform geometry coding base \
                freetype expat gflags jansson protobuf osrm stats_client minizip succinct \
-               opening_hours stb_image sdf_image icu
+               opening_hours stb_image sdf_image icu agg
 
 include($$ROOT_DIR/common.pri)
 

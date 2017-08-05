@@ -39,6 +39,7 @@ omim_link_libraries(
   gflags
   pugixml
   icu
+  agg
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )

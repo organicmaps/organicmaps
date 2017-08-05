@@ -57,6 +57,7 @@ omim_link_libraries(
   expat
   freetype
   icu
+  agg
   gflags
   jansson
   minizip

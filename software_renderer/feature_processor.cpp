@@ -1,14 +1,12 @@
-#include "drape_frontend/watch/feature_processor.hpp"
-#include "drape_frontend/watch/geometry_processors.hpp"
-#include "drape_frontend/watch/feature_styler.hpp"
-#include "drape_frontend/watch/cpu_drawer.hpp"
+#include "software_renderer/feature_processor.hpp"
+#include "software_renderer/geometry_processors.hpp"
+#include "software_renderer/feature_styler.hpp"
+#include "software_renderer/cpu_drawer.hpp"
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_algo.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 namespace
@@ -168,5 +166,4 @@ bool FeatureProcessor::operator()(FeatureType const & f)
   return true;
 }
 
-}
 }

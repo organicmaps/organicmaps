@@ -2,9 +2,7 @@
 
 #include "drape/drape_global.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct CircleInfo
@@ -35,5 +33,4 @@ struct CircleInfo
   }
 };
 
-}
 }

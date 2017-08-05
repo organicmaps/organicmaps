@@ -15,9 +15,7 @@ double ConvertWidth(double w, double scale)
 
 }
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 dp::Color ConvertColor(uint32_t c)
@@ -132,5 +130,4 @@ uint8_t GetFontSize(CaptionDefProto const * pSrc)
   return pSrc->height();
 }
 
-}
 }

@@ -50,6 +50,7 @@ omim_link_libraries(
   freetype
   expat
   icu
+  agg
   jansson
   protobuf
   osrm

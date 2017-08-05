@@ -9,9 +9,7 @@
 #include "std/string.hpp"
 #include "std/utility.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 /// metrics of the single glyph
@@ -93,5 +91,4 @@ public:
   double getTextLength(double fontSize, string const & text);
 };
 
-}
 }

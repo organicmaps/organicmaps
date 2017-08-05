@@ -5,9 +5,7 @@
 #include "std/vector.hpp"
 #include "std/algorithm.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 class AreaInfo
@@ -40,9 +38,8 @@ public:
 };
 
 }
-}
 
-inline void swap(df::watch::AreaInfo & p1, df::watch::AreaInfo & p2)
+inline void swap(software_renderer::AreaInfo & p1, software_renderer::AreaInfo & p2)
 {
   p1.swap(p2);
 }

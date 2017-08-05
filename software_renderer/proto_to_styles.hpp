@@ -1,9 +1,9 @@
 #pragma once
 
-#include "drape_frontend/watch/pen_info.hpp"
-#include "drape_frontend/watch/brush_info.hpp"
-#include "drape_frontend/watch/icon_info.hpp"
-#include "drape_frontend/watch/circle_info.hpp"
+#include "software_renderer/pen_info.hpp"
+#include "software_renderer/brush_info.hpp"
+#include "software_renderer/icon_info.hpp"
+#include "software_renderer/circle_info.hpp"
 
 #include "drape/drape_global.hpp"
 
@@ -15,9 +15,7 @@ class SymbolRuleProto;
 class CaptionDefProto;
 class ShieldRuleProto;
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 dp::Color ConvertColor(uint32_t c);
@@ -30,5 +28,4 @@ void ConvertStyle(ShieldRuleProto const * pSrc, double scale, dp::FontDecl & des
 
 uint8_t GetFontSize(CaptionDefProto const * pSrc);
 
-}
 }

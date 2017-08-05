@@ -43,6 +43,7 @@ omim_link_libraries(
   base
   freetype
   icu
+  agg
   expat
   protobuf
   jansson

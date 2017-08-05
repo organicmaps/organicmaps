@@ -83,14 +83,13 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
   CONFIG(desktop) {
     benchmark_tool.subdir = map/benchmark_tool
     benchmark_tool.depends = 3party base coding geometry platform indexer search map
-    mapshot.depends = $$SUBDIRS
 
     qt_common.subdir = qt/qt_common
     qt_common.depends = $$SUBDIRS
 
     qt.depends = $$SUBDIRS qt_common
 
-    SUBDIRS *= benchmark_tool mapshot qt qt_common
+    SUBDIRS *= benchmark_tool qt qt_common
   }
 
   CONFIG(desktop) {
@@ -288,4 +287,10 @@ SUBDIRS = 3party base coding geometry editor ugc indexer routing routing_common 
     mwm_diff_tests.depends = mwm_diff generator platform coding base
     SUBDIRS *= mwm_diff_tests
   } # !no-tests
+
+  CONFIG(map_shot) {
+    mapshot.depends = 3party base coding geometry editor platform storage indexer search map \
+                      routing_common drape drape_frontend software_renderer
+    SUBDIRS *= software_renderer mapshot
+  }
 } # !gtool

@@ -30,6 +30,7 @@ omim_link_libraries(
   base
   protobuf
   icu
+  agg
   stats_client
   ${LIBZ}
 )

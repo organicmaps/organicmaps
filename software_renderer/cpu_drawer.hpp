@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape_frontend/watch/frame_image.hpp"
-#include "drape_frontend/watch/feature_processor.hpp"
+#include "software_renderer/frame_image.hpp"
+#include "software_renderer/feature_processor.hpp"
 
 #include "drape/drape_global.hpp"
 
@@ -13,9 +13,7 @@
 #include "std/list.hpp"
 #include "std/unique_ptr.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 class SoftwareRenderer;
@@ -218,5 +216,4 @@ private:
   FeatureID m_currentFeatureID;
 };
 
-}
 }

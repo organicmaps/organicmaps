@@ -6,9 +6,7 @@
 #include "std/vector.hpp"
 #include "std/algorithm.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 class PathInfo
@@ -93,9 +91,8 @@ public:
 };
 
 }
-}
 
-inline void swap(df::watch::PathInfo & p1, df::watch::PathInfo & p2)
+inline void swap(software_renderer::PathInfo & p1, software_renderer::PathInfo & p2)
 {
   p1.swap(p2);
 }

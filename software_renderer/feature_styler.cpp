@@ -1,7 +1,7 @@
-#include "drape_frontend/watch/feature_styler.hpp"
-#include "drape_frontend/watch/proto_to_styles.hpp"
-#include "drape_frontend/watch/glyph_cache.hpp"
-#include "drape_frontend/watch/geometry_processors.hpp"
+#include "software_renderer/feature_styler.hpp"
+#include "software_renderer/proto_to_styles.hpp"
+#include "software_renderer/glyph_cache.hpp"
+#include "software_renderer/geometry_processors.hpp"
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
@@ -22,7 +22,7 @@ namespace
 
 struct less_depth
 {
-  bool operator() (df::watch::DrawRule const & r1, df::watch::DrawRule const & r2) const
+  bool operator() (software_renderer::DrawRule const & r1, software_renderer::DrawRule const & r2) const
   {
     return (r1.m_depth < r2.m_depth);
   }
@@ -30,9 +30,7 @@ struct less_depth
 
 }
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 DrawRule::DrawRule(drule::BaseRule const * p, double depth)
   : m_rule(p)
@@ -407,5 +405,4 @@ bool FeatureStyler::FilterTextSize(drule::BaseRule const * pRule) const
   }
 }
 
-}
 }

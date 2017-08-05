@@ -2,9 +2,7 @@
 
 #include "drape/drape_global.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct BrushInfo
@@ -15,5 +13,4 @@ struct BrushInfo
   explicit BrushInfo(dp::Color const & color) : m_color(color) {}
 };
 
-}
 }

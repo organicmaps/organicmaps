@@ -20,7 +20,6 @@ include_directories(
 
 set(
   SRC
-  ${OMIM_ROOT}/3party/agg/agg_curves.cpp
   animation/animation.cpp
   animation/animation.hpp
   animation/arrow_animation.cpp
@@ -215,34 +214,6 @@ set(
   user_marks_provider.hpp
   visual_params.cpp
   visual_params.hpp
-  watch/area_info.hpp
-  watch/brush_info.hpp
-  watch/circle_info.hpp
-  watch/cpu_drawer.cpp
-  watch/cpu_drawer.hpp
-  watch/default_font.cpp
-  watch/feature_processor.cpp
-  watch/feature_processor.hpp
-  watch/feature_styler.cpp
-  watch/feature_styler.hpp
-  watch/frame_image.hpp
-  watch/geometry_processors.cpp
-  watch/geometry_processors.hpp
-  watch/glyph_cache.cpp
-  watch/glyph_cache.hpp
-  watch/glyph_cache_impl.cpp
-  watch/glyph_cache_impl.hpp
-  watch/icon_info.hpp
-  watch/path_info.hpp
-  watch/pen_info.hpp
-  watch/point.h
-  watch/proto_to_styles.cpp
-  watch/proto_to_styles.hpp
-  watch/rect.h
-  watch/software_renderer.cpp
-  watch/software_renderer.hpp
-  watch/text_engine.cpp
-  watch/text_engine.h
 )
 
 add_library(${PROJECT_NAME} ${SRC})

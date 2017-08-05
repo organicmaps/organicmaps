@@ -8,7 +8,7 @@ TEMPLATE = subdirs
 }
 
 SUBDIRS = freetype minizip jansson protobuf osrm expat succinct pugixml liboauthcpp stb_image sdf_image \
-    icu
+    icu agg
 
 # TODO(mgsrergio): Move opening hours out of 3party to the main project tree.
 # See https://trello.com/c/tWYSnXSS/22-opening-hours-3party-boost-test-framework.

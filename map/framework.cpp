@@ -38,8 +38,6 @@
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
-#include "drape_frontend/watch/cpu_drawer.hpp"
-#include "drape_frontend/watch/feature_processor.hpp"
 
 #include "drape/constants.hpp"
 
@@ -545,71 +543,6 @@ cian::Api * Framework::GetCianApi(platform::NetworkPolicy const & policy)
     return m_cianApi.get();
 
   return nullptr;
-}
-
-void Framework::DrawWatchFrame(m2::PointD const & center, int zoomModifier,
-                               uint32_t pxWidth, uint32_t pxHeight,
-                               df::watch::FrameSymbols const & symbols,
-                               df::watch::FrameImage & image)
-{
-  ASSERT(IsWatchFrameRendererInited(), ());
-
-  int resultZoom = -1;
-  ScreenBase screen = m_cpuDrawer->CalculateScreen(center, zoomModifier, pxWidth, pxHeight, symbols, resultZoom);
-  ASSERT_GREATER(resultZoom, 0, ());
-
-  uint32_t const bgColor = drule::rules().GetBgColor(resultZoom);
-  m_cpuDrawer->BeginFrame(pxWidth, pxHeight, dp::Extract(bgColor, 255 - (bgColor >> 24)));
-
-  m2::RectD renderRect = m2::RectD(0, 0, pxWidth, pxHeight);
-  m2::RectD selectRect;
-  m2::RectD clipRect;
-  double const inflationSize = 24 * m_cpuDrawer->GetVisualScale();
-  screen.PtoG(m2::Inflate(renderRect, inflationSize, inflationSize), clipRect);
-  screen.PtoG(renderRect, selectRect);
-
-  uint32_t const tileSize = static_cast<uint32_t>(df::CalculateTileSize(pxWidth, pxHeight));
-  int const drawScale = df::GetDrawTileScale(screen, tileSize, m_cpuDrawer->GetVisualScale());
-  df::watch::FeatureProcessor doDraw(make_ref(m_cpuDrawer), clipRect, screen, drawScale);
-
-  int const upperScale = scales::GetUpperScale();
-  m_model.ForEachFeature(selectRect, doDraw, min(upperScale, drawScale));
-
-  m_cpuDrawer->Flush();
-  m_cpuDrawer->DrawMyPosition(screen.GtoP(center));
-
-  if (symbols.m_showSearchResult)
-  {
-    if (!screen.PixelRect().IsPointInside(screen.GtoP(symbols.m_searchResult)))
-      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(center, symbols.m_searchResult));
-    else
-      m_cpuDrawer->DrawSearchResult(screen.GtoP(symbols.m_searchResult));
-  }
-
-  m_cpuDrawer->EndFrame(image);
-}
-
-void Framework::InitWatchFrameRenderer(float visualScale)
-{
-  using namespace df::watch;
-
-  ASSERT(!IsWatchFrameRendererInited(), ());
-  if (m_cpuDrawer == nullptr)
-  {
-    string resPostfix = df::VisualParams::GetResourcePostfix(visualScale);
-    m_cpuDrawer = make_unique_dp<CPUDrawer>(CPUDrawer::Params(resPostfix, visualScale));
-  }
-}
-
-void Framework::ReleaseWatchFrameRenderer()
-{
-  if (IsWatchFrameRendererInited())
-    m_cpuDrawer.reset();
-}
-
-bool Framework::IsWatchFrameRendererInited() const
-{
-  return m_cpuDrawer != nullptr;
 }
 
 void Framework::ShowNode(storage::TCountryId const & countryId)

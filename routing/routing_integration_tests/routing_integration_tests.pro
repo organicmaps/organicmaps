@@ -12,7 +12,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map routing traffic routing_common search storage ugc indexer platform editor geometry coding base \
-               osrm jansson protobuf succinct stats_client pugixml icu
+               osrm jansson protobuf succinct stats_client pugixml icu agg
 
 DEPENDENCIES += opening_hours
 

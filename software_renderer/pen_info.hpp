@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/watch/icon_info.hpp"
+#include "software_renderer/icon_info.hpp"
 
 #include "drape/drape_global.hpp"
 
@@ -10,9 +10,7 @@
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct PenInfo
@@ -121,5 +119,4 @@ struct PenInfo
   }
 };
 
-}
 }

@@ -9,9 +9,7 @@
 class FeatureType;
 class ScreenBase;
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 const int maxDepth = 20000;
@@ -81,5 +79,4 @@ private:
   void LayoutTexts(double pathLength);
 };
 
-}
 }

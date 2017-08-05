@@ -1,8 +1,8 @@
 #pragma once
 
-#include "drape_frontend/watch/feature_styler.hpp"
-#include "drape_frontend/watch/area_info.hpp"
-#include "drape_frontend/watch/path_info.hpp"
+#include "software_renderer/feature_styler.hpp"
+#include "software_renderer/area_info.hpp"
+#include "software_renderer/path_info.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -17,9 +17,7 @@
 
 class ScreenBase;
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 struct FeatureData
@@ -55,5 +53,4 @@ private:
   void PreProcessKeys(vector<drule::Key> & keys) const;
 };
 
-}
 }

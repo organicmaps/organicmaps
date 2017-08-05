@@ -1,6 +1,6 @@
-#include "drape_frontend/watch/cpu_drawer.hpp"
-#include "drape_frontend/watch/proto_to_styles.hpp"
-#include "drape_frontend/watch/software_renderer.hpp"
+#include "software_renderer/cpu_drawer.hpp"
+#include "software_renderer/proto_to_styles.hpp"
+#include "software_renderer/software_renderer.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -94,9 +94,7 @@ TInfo const & GetInfo(FeatureID const & id, map<FeatureID, TInfo> & m)
 
 }
 
-namespace df
-{
-namespace watch
+namespace software_renderer
 {
 
 class CPUDrawer::CPUOverlayTree
@@ -714,10 +712,10 @@ void CPUDrawer::Draw(FeatureData const & data)
   bool const isArea = !data.m_areas.empty();
 
   drule::BaseRule const * pSymbolRule = nullptr;
-  double symbolDepth = df::watch::minDepth;
+  double symbolDepth = software_renderer::minDepth;
 
   drule::BaseRule const * pShieldRule = nullptr;
-  double shieldDepth = df::watch::minDepth;
+  double shieldDepth = software_renderer::minDepth;
 
   // separating path rules from other
   for (size_t i = 0; i < rules.size(); ++i)
@@ -831,5 +829,4 @@ void CPUDrawer::Draw(FeatureData const & data)
   DrawFeatureEnd(data.m_id);
 }
 
-}
 }
