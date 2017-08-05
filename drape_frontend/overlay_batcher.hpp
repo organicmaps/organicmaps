@@ -1,10 +1,10 @@
 #pragma once
 
-#include "drape/batcher.hpp"
-#include "drape/glstate.hpp"
-#include "drape/pointers.hpp"
-
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/tile_key.hpp"
+
+#include "drape/batcher.hpp"
+#include "drape/pointers.hpp"
 
 #include "std/vector.hpp"
 

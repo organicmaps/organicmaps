@@ -104,7 +104,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
     CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  dp::GLState state(gpu::TEXTURING_GUI_PROGRAM, dp::GLState::Gui);
+  auto state = df::CreateGLState(gpu::TEXTURING_GUI_PROGRAM, df::RenderState::GuiLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);

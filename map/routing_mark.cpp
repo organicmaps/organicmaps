@@ -38,9 +38,9 @@ dp::Anchor RouteMarkPoint::GetAnchor() const
   return dp::Center;
 }
 
-dp::GLState::DepthLayer RouteMarkPoint::GetDepthLayer() const
+df::RenderState::DepthLayer RouteMarkPoint::GetDepthLayer() const
 {
-  return dp::GLState::RoutingMarkLayer;
+  return df::RenderState::RoutingMarkLayer;
 }
 
 void RouteMarkPoint::SetRoutePointType(RouteMarkType type)

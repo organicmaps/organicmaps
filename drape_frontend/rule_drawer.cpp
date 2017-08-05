@@ -427,9 +427,9 @@ void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TIn
   if (isSpeedCamera && !GetStyleReader().IsCarNavigationStyle())
     return;
 
-  dp::GLState::DepthLayer depthLayer = dp::GLState::OverlayLayer;
+  RenderState::DepthLayer depthLayer = RenderState::OverlayLayer;
   if (isSpeedCamera)
-    depthLayer = dp::GLState::NavigationLayer;
+    depthLayer = RenderState::NavigationLayer;
 
   minVisibleScale = feature::GetMinDrawableScale(f);
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
@@ -538,7 +538,7 @@ void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Red();
   p.m_depth = 20000;
-  p.m_depthLayer = dp::GLState::GeometryLayer;
+  p.m_depthLayer = RenderState::GeometryLayer;
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
 
@@ -548,7 +548,7 @@ void RuleDrawer::DrawTileNet(TInsertShapeFn const & insertShape)
   tp.m_tileCenter = m_globalRect.Center();
   tp.m_titleDecl.m_anchor = dp::Center;
   tp.m_depth = 20000;
-  tp.m_depthLayer = dp::GLState::OverlayLayer;
+  tp.m_depthLayer = RenderState::OverlayLayer;
   tp.m_titleDecl.m_primaryText = strings::to_string(key.m_x) + " " +
                                  strings::to_string(key.m_y) + " " +
                                  strings::to_string(key.m_zoomLevel);

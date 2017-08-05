@@ -32,9 +32,9 @@ float UserMark::GetDepth() const
   return GetContainer()->GetPointDepth();
 }
 
-dp::GLState::DepthLayer UserMark::GetDepthLayer() const
+df::RenderState::DepthLayer UserMark::GetDepthLayer() const
 {
-  return dp::GLState::UserMarkLayer;
+  return df::RenderState::UserMarkLayer;
 }
 
 UserMarkContainer const * UserMark::GetContainer() const

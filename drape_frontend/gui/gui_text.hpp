@@ -1,11 +1,11 @@
 #pragma once
 
-#include "shape.hpp"
+#include "drape_frontend/gui/shape.hpp"
+#include "drape_frontend/render_state.hpp"
 
 #include "drape/binding_info.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/glstate.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "std/cstdint.hpp"

@@ -943,9 +943,7 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
                                         drape_ptr<dp::RenderBucket> && renderBucket,
                                         TileKey const & newTile)
 {
-  RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(state);
-  RenderLayer & layer = m_layers[id];
-
+  RenderLayer & layer = m_layers[GetDepthLayer(state)];
   for (auto const & g : layer.m_renderGroups)
   {
     if (!g->IsPendingOnDelete() && g->GetState() == state && g->GetTileKey().EqualStrict(newTile))
@@ -1124,7 +1122,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit | gl_const::GLStencilBit);
 
   Render2dLayer(modelView);
-  RenderUserMarksLayer(modelView, RenderLayer::UserLineID);
+  RenderUserMarksLayer(modelView, RenderState::UserLineLayer);
 
   if (m_buildingsFramebuffer->IsSupported())
   {
@@ -1160,7 +1158,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   {
     StencilWriterGuard guard(make_ref(m_postprocessRenderer));
     RenderOverlayLayer(modelView);
-    RenderUserMarksLayer(modelView, RenderLayer::LocalAdsMarkID);
+    RenderUserMarksLayer(modelView, RenderState::LocalAdsMarkLayer);
   }
 
   m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
@@ -1175,8 +1173,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   {
     StencilWriterGuard guard(make_ref(m_postprocessRenderer));
-    RenderUserMarksLayer(modelView, RenderLayer::UserMarkID);
-    RenderUserMarksLayer(modelView, RenderLayer::RoutingMarkID);
+    RenderUserMarksLayer(modelView, RenderState::UserMarkLayer);
+    RenderUserMarksLayer(modelView, RenderState::RoutingMarkLayer);
   }
 
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
@@ -1205,7 +1203,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 {
-  RenderLayer & layer2d = m_layers[RenderLayer::Geometry2dID];
+  RenderLayer & layer2d = m_layers[RenderState::GeometryLayer];
   layer2d.Sort(make_ref(m_overlayTree));
 
   for (drape_ptr<RenderGroup> const & group : layer2d.m_renderGroups)
@@ -1214,7 +1212,7 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFramebuffer)
 {
-  RenderLayer & layer = m_layers[RenderLayer::Geometry3dID];
+  RenderLayer & layer = m_layers[RenderState::Geometry3dLayer];
   if (layer.m_renderGroups.empty())
     return;
 
@@ -1248,7 +1246,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
 
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
-  RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
+  RenderLayer & overlay = m_layers[RenderState::OverlayLayer];
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
@@ -1259,7 +1257,7 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
 {
-  RenderLayer & navOverlayLayer = m_layers[RenderLayer::NavigationID];
+  RenderLayer & navOverlayLayer = m_layers[RenderState::NavigationLayer];
   for (auto & group : navOverlayLayer.m_renderGroups)
   {
     if (group->HasOverlayHandles())
@@ -1281,7 +1279,7 @@ void FrontendRenderer::RenderTrafficAndRouteLayer(ScreenBase const & modelView)
                                make_ref(m_gpuProgramManager), m_generalUniforms);
 }
 
-void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderLayer::RenderLayerID layerId)
+void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId)
 {
   auto & renderGroups = m_layers[layerId].m_renderGroups;
   if (renderGroups.empty())
@@ -1294,24 +1292,12 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, Render
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
-void FrontendRenderer::RenderUserLinesLayer(ScreenBase const & modelView)
-{
-  auto & renderGroups = m_layers[RenderLayer::UserLineID].m_renderGroups;
-  if (renderGroups.empty())
-    return;
-
-  GLFunctions::glClear(gl_const::GLDepthBit);
-  GLFunctions::glEnable(gl_const::GLDepthTest);
-  for (drape_ptr<RenderGroup> & group : renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
-}
-
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
-  static std::vector<RenderLayer::RenderLayerID> layers = {RenderLayer::OverlayID,
-                                                           RenderLayer::LocalAdsMarkID,
-                                                           RenderLayer::NavigationID,
-                                                           RenderLayer::RoutingMarkID};
+  static std::vector<RenderState::DepthLayer> layers = {RenderState::OverlayLayer,
+                                                        RenderState::LocalAdsMarkLayer,
+                                                        RenderState::NavigationLayer,
+                                                        RenderState::RoutingMarkLayer};
   BeginUpdateOverlayTree(modelView);
   for (auto const & layerId : layers)
   {
@@ -1363,8 +1349,10 @@ void FrontendRenderer::MergeBuckets()
       ref_ptr<RenderGroup> group = make_ref(layer.m_renderGroups[i]);
       if (!group->IsPendingOnDelete())
       {
-        dp::GLState state = group->GetState();
-        ASSERT_EQUAL(state.GetDepthLayer(), dp::GLState::GeometryLayer, ());
+        dp::GLState const state = group->GetState();
+        auto const depthLayer = GetDepthLayer(state);
+        if (depthLayer != RenderState::GeometryLayer && depthLayer != RenderState::Geometry3dLayer)
+          ASSERT(false, ("Invalid depth layer for merging buckets"));
         MergedGroupKey const k(state, group->GetTileKey());
         forMerge[k].push_back(std::move(layer.m_renderGroups[i]));
       }
@@ -1387,8 +1375,8 @@ void FrontendRenderer::MergeBuckets()
   };
 
   bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-  mergeFn(m_layers[RenderLayer::Geometry2dID], isPerspective);
-  mergeFn(m_layers[RenderLayer::Geometry3dID], isPerspective);
+  mergeFn(m_layers[RenderState::GeometryLayer], isPerspective);
+  mergeFn(m_layers[RenderState::Geometry3dLayer], isPerspective);
 }
 
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
@@ -2055,26 +2043,6 @@ void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos =  m_myPositionController->GetDrawablePosition();
   AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */));
-}
-
-FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)
-{
-  switch (state.GetDepthLayer())
-  {
-  case dp::GLState::OverlayLayer: return OverlayID;
-  case dp::GLState::UserMarkLayer: return UserMarkID;
-  case dp::GLState::UserLineLayer: return UserLineID;
-  case dp::GLState::RoutingMarkLayer: return RoutingMarkID;
-  case dp::GLState::NavigationLayer: return NavigationID;
-  case dp::GLState::LocalAdsMarkLayer: return LocalAdsMarkID;
-  default: break;
-  }
-
-  if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM ||
-      state.GetProgram3dIndex() == gpu::AREA_3D_OUTLINE_PROGRAM)
-    return Geometry3dID;
-
-  return Geometry2dID;
 }
 
 void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)

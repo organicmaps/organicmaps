@@ -160,6 +160,8 @@ set(
   render_group.hpp
   render_node.cpp
   render_node.hpp
+  render_state.cpp
+  render_state.hpp
   requested_tiles.cpp
   requested_tiles.hpp
   route_builder.cpp

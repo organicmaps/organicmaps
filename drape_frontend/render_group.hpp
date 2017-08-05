@@ -2,9 +2,9 @@
 
 #include "drape_frontend/animation/opacity_animation.hpp"
 #include "drape_frontend/animation/value_mapping.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 
@@ -98,7 +98,7 @@ class UserMarkRenderGroup : public RenderGroup
 
 public:
   UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey);
-  ~UserMarkRenderGroup() override;
+  ~UserMarkRenderGroup() override {}
 
   void UpdateAnimation() override;
 

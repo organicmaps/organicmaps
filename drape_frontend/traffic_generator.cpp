@@ -132,11 +132,11 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
   ASSERT(m_colorsCacheValid, ());
   auto const texture = m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture();
 
-  dp::GLState state(gpu::TRAFFIC_PROGRAM, dp::GLState::GeometryLayer);
+  auto state = CreateGLState(gpu::TRAFFIC_PROGRAM, RenderState::GeometryLayer);
   state.SetColorTexture(texture);
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
-  dp::GLState lineState(gpu::TRAFFIC_LINE_PROGRAM, dp::GLState::GeometryLayer);
+  auto lineState = CreateGLState(gpu::TRAFFIC_LINE_PROGRAM, RenderState::GeometryLayer);
   lineState.SetColorTexture(texture);
   lineState.SetDrawAsLine(true);
 

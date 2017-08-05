@@ -45,7 +45,7 @@ public:
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
   float GetDepth() const override;
-  dp::GLState::DepthLayer GetDepthLayer() const override;
+  df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<dp::TitleDecl> GetTitleDecl() const override { return nullptr; }
   uint16_t GetPriority() const override { return kDefaultUserMarkProirity; }
   bool HasSymbolPriority() const override { return false; }

@@ -21,7 +21,7 @@ struct BlendingParams
 
 struct Blending
 {
-  Blending(bool isEnabled = true);
+  explicit Blending(bool isEnabled = true);
 
   void Apply() const;
 
@@ -31,25 +31,25 @@ struct Blending
   bool m_isEnabled;
 };
 
+class BaseRenderState
+{
+public:
+  virtual ~BaseRenderState() = default;
+  virtual bool Less(ref_ptr<dp::BaseRenderState> other) const = 0;
+  virtual bool Equal(ref_ptr<dp::BaseRenderState> other) const = 0;
+};
+
 class GLState
 {
 public:
-  enum DepthLayer
+  GLState(int gpuProgramIndex, ref_ptr<BaseRenderState> renderState);
+
+  template <typename RenderStateType>
+  ref_ptr<RenderStateType> GetRenderState() const
   {
-    /// Do not change order
-    GeometryLayer,
-    UserLineLayer,
-    OverlayLayer,
-    LocalAdsMarkLayer,
-    UserMarkLayer,
-    NavigationLayer,
-    RoutingMarkLayer,
-    Gui
-  };
-
-  GLState(int gpuProgramIndex, DepthLayer depthLayer);
-
-  DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
+    ASSERT(dynamic_cast<RenderStateType *>(m_renderState.get()) != nullptr, ());
+    return make_ref(static_cast<RenderStateType *>(m_renderState.get()));
+  }
 
   void SetColorTexture(ref_ptr<Texture> tex) { m_colorTexture = tex; }
   ref_ptr<Texture> GetColorTexture() const { return m_colorTexture; }
@@ -81,9 +81,9 @@ public:
   bool operator!=(GLState const & other) const;
 
 private:
+  ref_ptr<BaseRenderState> m_renderState;
   int m_gpuProgramIndex;
   int m_gpuProgram3dIndex;
-  DepthLayer m_depthLayer;
   Blending m_blending;
   glConst m_depthFunction;
   glConst m_textureFilter;
@@ -106,7 +106,6 @@ private:
 };
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
-void ApplyState(GLState state, ref_ptr<GpuProgram> program);
-void ApplyBlending(GLState state);
-
-} // namespace dp
+void ApplyState(GLState const & state, ref_ptr<GpuProgram> program);
+void ApplyBlending(GLState const & sstate);
+}  // namespace dp

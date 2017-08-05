@@ -214,7 +214,7 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
   data.push_back(RulerVertex(glsl::vec2(0.0, h), normals[1], texCoord));
   data.push_back(RulerVertex(glsl::vec2(0.0, -h), normals[1], texCoord));
 
-  dp::GLState state(gpu::RULER_PROGRAM, dp::GLState::Gui);
+  auto state = df::CreateGLState(gpu::RULER_PROGRAM, df::RenderState::GuiLayer);
   state.SetColorTexture(reg.GetTexture());
 
   dp::AttributeProvider provider(1, 4);

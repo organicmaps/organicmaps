@@ -1,8 +1,9 @@
 #pragma once
 
+#include "drape_frontend/render_state.hpp"
+
 #include "drape/color.hpp"
 #include "drape/drape_global.hpp"
-#include "drape/glstate.hpp"
 #include "drape/stipple_pen_resource.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -19,7 +20,7 @@ int constexpr kBuildingOutlineSize = 16;
 
 struct CommonViewParams
 {
-  dp::GLState::DepthLayer m_depthLayer = dp::GLState::GeometryLayer;
+  RenderState::DepthLayer m_depthLayer = RenderState::GeometryLayer;
   float m_depth = 0.0f;
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;

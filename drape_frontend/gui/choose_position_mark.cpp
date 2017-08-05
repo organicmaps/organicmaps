@@ -59,7 +59,7 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> te
     ChoosePositionMarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  dp::GLState state(gpu::TEXTURING_GUI_PROGRAM, dp::GLState::Gui);
+  auto state = df::CreateGLState(gpu::TEXTURING_GUI_PROGRAM, df::RenderState::GuiLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1 /*streamCount*/, 4 /*vertexCount*/);

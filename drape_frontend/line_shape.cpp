@@ -60,7 +60,7 @@ struct BaseBuilderParams
   dp::TextureManager::ColorRegion m_color;
   float m_pxHalfWidth;
   float m_depth;
-  dp::GLState::DepthLayer m_depthLayer;
+  RenderState::DepthLayer m_depthLayer;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
 };
@@ -179,7 +179,7 @@ public:
 
   dp::GLState GetState() override
   {
-    dp::GLState state(gpu::LINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::LINE_PROGRAM, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     return state;
   }
@@ -208,7 +208,7 @@ public:
     if (m_params.m_cap == dp::ButtCap)
       return TBase::GetCapState();
 
-    dp::GLState state(gpu::CAP_JOIN_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::CAP_JOIN_PROGRAM, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDepthFunction(gl_const::GLLess);
     return state;
@@ -279,7 +279,7 @@ public:
 
   dp::GLState GetState() override
   {
-    dp::GLState state(gpu::AREA_OUTLINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::AREA_OUTLINE_PROGRAM, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDrawAsLine(true);
     state.SetLineWidth(m_lineWidth);
@@ -322,7 +322,7 @@ public:
 
   dp::GLState GetState() override
   {
-    dp::GLState state(gpu::DASHED_LINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::DASHED_LINE_PROGRAM, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
     return state;

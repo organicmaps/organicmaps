@@ -1,6 +1,7 @@
 #pragma once
 
-#include "drape/glstate.hpp"
+#include "drape_frontend/render_state.hpp"
+
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"

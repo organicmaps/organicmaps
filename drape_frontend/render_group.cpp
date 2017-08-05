@@ -154,16 +154,18 @@ void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 
 bool RenderGroup::IsOverlay() const
 {
-  return (m_state.GetDepthLayer() == dp::GLState::OverlayLayer) ||
-         (m_state.GetDepthLayer() == dp::GLState::NavigationLayer && HasOverlayHandles());
+  auto const depthLayer = GetDepthLayer(m_state);
+  return (depthLayer == RenderState::OverlayLayer) ||
+         (depthLayer == RenderState::NavigationLayer && HasOverlayHandles());
 }
 
 bool RenderGroup::IsUserMark() const
 {
-  return m_state.GetDepthLayer() == dp::GLState::UserLineLayer ||
-         m_state.GetDepthLayer() == dp::GLState::UserMarkLayer ||
-         m_state.GetDepthLayer() == dp::GLState::RoutingMarkLayer ||
-         m_state.GetDepthLayer() == dp::GLState::LocalAdsMarkLayer;
+  auto const depthLayer = GetDepthLayer(m_state);
+  return depthLayer == RenderState::UserLineLayer ||
+         depthLayer == RenderState::UserMarkLayer ||
+         depthLayer == RenderState::RoutingMarkLayer ||
+         depthLayer == RenderState::LocalAdsMarkLayer;
 }
 
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
@@ -197,10 +199,10 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 
   if (rCanBeDeleted == lCanBeDeleted)
   {
-    dp::GLState const & lState = l->GetState();
-    dp::GLState const & rState = r->GetState();
-    dp::GLState::DepthLayer lDepth = lState.GetDepthLayer();
-    dp::GLState::DepthLayer rDepth = rState.GetDepthLayer();
+    auto const & lState = l->GetState();
+    auto const & rState = r->GetState();
+    auto const lDepth = GetDepthLayer(lState);
+    auto const rDepth = GetDepthLayer(rState);
     if (lDepth != rDepth)
       return lDepth < rDepth;
 
@@ -222,17 +224,13 @@ UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey cons
   }
 }
 
-UserMarkRenderGroup::~UserMarkRenderGroup()
-{
-}
-
 void UserMarkRenderGroup::UpdateAnimation()
 {
   BaseRenderGroup::UpdateAnimation();
   float interplationT = 1.0f;
   if (m_animation)
   {
-    float const t = static_cast<float>(m_animation->GetOpacity());
+    auto const t = static_cast<float>(m_animation->GetOpacity());
     interplationT = m_mapping.GetValue(t);
   }
   m_uniforms.SetFloatValue("u_interpolationT", interplationT);

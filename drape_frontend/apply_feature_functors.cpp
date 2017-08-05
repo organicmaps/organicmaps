@@ -483,7 +483,7 @@ void BaseApplyFeature::SetHotelData(HotelData && hotelData)
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                      FeatureID const & id, int minVisibleScale, uint8_t rank,
                                      CaptionDescription const & captions, float posZ,
-                                     int displacementMode, dp::GLState::DepthLayer depthLayer)
+                                     int displacementMode, RenderState::DepthLayer depthLayer)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
@@ -564,7 +564,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     specialDisplacementMode = true;
     specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
   }
-  else if (m_depthLayer == dp::GLState::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
+  else if (m_depthLayer == RenderState::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
   {
     specialDisplacementMode = true;
     specialModePriority = CalculateNavigationPoiPriority();
@@ -614,7 +614,7 @@ ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ,
-          dp::displacement::kDefaultMode, dp::GLState::OverlayLayer)
+          dp::displacement::kDefaultMode, RenderState::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -978,7 +978,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depth = m_depth;
-  textParams.m_depthLayer = dp::GLState::OverlayLayer;
+  textParams.m_depthLayer = RenderState::OverlayLayer;
   textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
   textParams.m_rank = m_rank;
   textParams.m_featureID = m_id;
@@ -1007,7 +1007,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_featureID = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depth = m_depth;
-    symbolParams.m_depthLayer = dp::GLState::OverlayLayer;
+    symbolParams.m_depthLayer = RenderState::OverlayLayer;
     symbolParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
@@ -1034,7 +1034,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     std::string symbolName = GetRoadShieldSymbolName(shield, fontScale);
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_depth;
-    poiParams.m_depthLayer = dp::GLState::OverlayLayer;
+    poiParams.m_depthLayer = RenderState::OverlayLayer;
     poiParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;

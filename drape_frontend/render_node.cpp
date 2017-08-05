@@ -5,13 +5,11 @@
 
 namespace df
 {
-
 RenderNode::RenderNode(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
   : m_state(state)
   , m_buffer(move(buffer))
   , m_isBuilded(false)
-{
-}
+{}
 
 void RenderNode::Render(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms,
                         dp::IndicesRange const & range)
@@ -39,5 +37,4 @@ void RenderNode::Apply(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStor
   dp::ApplyState(m_state, prg);
   dp::ApplyUniforms(uniforms, prg);
 }
-
-}
+}  // namespace df

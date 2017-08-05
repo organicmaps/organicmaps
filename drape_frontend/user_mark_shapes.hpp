@@ -25,7 +25,7 @@ struct UserMarkRenderParams
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
   float m_depth = 0.0;
-  dp::GLState::DepthLayer m_depthLayer = dp::GLState::UserMarkLayer;
+  RenderState::DepthLayer m_depthLayer = RenderState::UserMarkLayer;
   bool m_hasCreationAnimation = false;
   bool m_justCreated = false;
   bool m_isVisible = true;
@@ -49,7 +49,7 @@ struct LineLayer
 struct UserLineRenderParams
 {
   int m_minZoom = 1;
-  dp::GLState::DepthLayer m_depthLayer = dp::GLState::UserLineLayer;
+  RenderState::DepthLayer m_depthLayer = RenderState::UserLineLayer;
   std::vector<LineLayer> m_layers;
   m2::SharedSpline m_spline;
 };

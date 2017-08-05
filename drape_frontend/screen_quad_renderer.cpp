@@ -1,11 +1,11 @@
 #include "drape_frontend/screen_quad_renderer.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shader_def.hpp"
 
 #include "drape/data_buffer.hpp"
 #include "drape/glconstants.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 

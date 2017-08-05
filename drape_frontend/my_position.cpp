@@ -164,7 +164,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
     buffer.emplace_back(nextNormal, colorCoord);
   }
 
-  dp::GLState state(gpu::ACCURACY_PROGRAM, dp::GLState::OverlayLayer);
+  auto state = CreateGLState(gpu::ACCURACY_PROGRAM, RenderState::OverlayLayer);
   state.SetColorTexture(color.GetTexture());
 
   {
@@ -215,7 +215,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 
   m_arrow3d.SetTexture(mng);
 
-  dp::GLState state(gpu::MY_POSITION_PROGRAM, dp::GLState::OverlayLayer);
+  auto state = CreateGLState(gpu::MY_POSITION_PROGRAM, RenderState::OverlayLayer);
   state.SetColorTexture(pointSymbol.GetTexture());
 
   dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol };

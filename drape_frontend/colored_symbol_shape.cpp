@@ -1,4 +1,6 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
+
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -6,7 +8,6 @@
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
@@ -235,7 +236,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
                                          m_params.m_offset, GetOverlayPriority(), true /* isBound */,
                                          debugName, true /* isBillboard */) : nullptr;
 
-  dp::GLState state(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
+  auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
   state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
   state.SetColorTexture(colorRegion.GetTexture());
   state.SetDepthFunction(gl_const::GLLess);

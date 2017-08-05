@@ -95,7 +95,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   bool isAnimated = false;
 
   dp::TextureManager::SymbolRegion region;
-  dp::GLState::DepthLayer depthLayer = dp::GLState::UserMarkLayer;
+  RenderState::DepthLayer depthLayer = RenderState::UserMarkLayer;
   for (auto const id : marksId)
   {
     auto const it = renderParams.find(id);
@@ -184,7 +184,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
   if (!buffer.empty())
   {
-    dp::GLState state(isAnimated ? gpu::BOOKMARK_ANIM_PROGRAM : gpu::BOOKMARK_PROGRAM, depthLayer);
+    auto state = CreateGLState(isAnimated ? gpu::BOOKMARK_ANIM_PROGRAM
+                                          : gpu::BOOKMARK_PROGRAM, depthLayer);
     state.SetProgram3dIndex(isAnimated ? gpu::BOOKMARK_ANIM_BILLBOARD_PROGRAM
                                        : gpu::BOOKMARK_BILLBOARD_PROGRAM);
     state.SetColorTexture(region.GetTexture());

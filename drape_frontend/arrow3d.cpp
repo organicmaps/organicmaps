@@ -9,7 +9,6 @@
 #include "drape/glfunctions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
@@ -37,7 +36,7 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : m_state(gpu::ARROW_3D_PROGRAM, dp::GLState::OverlayLayer)
+  : m_state(CreateGLState(gpu::ARROW_3D_PROGRAM, RenderState::OverlayLayer))
 {
   m_vertices = {
     0.0f, 0.0f, -1.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, 2.0f, 0.0f, 1.0f,

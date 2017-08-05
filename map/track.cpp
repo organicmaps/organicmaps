@@ -42,9 +42,9 @@ double Track::GetLengthMeters() const
   return res;
 }
 
-dp::GLState::DepthLayer Track::GetDepthLayer() const
+df::RenderState::DepthLayer Track::GetDepthLayer() const
 {
-  return dp::GLState::UserLineLayer;
+  return df::RenderState::UserLineLayer;
 }
 
 size_t Track::GetLayerCount() const

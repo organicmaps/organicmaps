@@ -12,6 +12,7 @@
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
@@ -20,7 +21,6 @@
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
@@ -151,21 +151,6 @@ private:
 
   struct RenderLayer
   {
-    enum RenderLayerID
-    {
-      Geometry2dID,
-      UserLineID,
-      OverlayID,
-      LocalAdsMarkID,
-      Geometry3dID,
-      UserMarkID,
-      NavigationID,
-      RoutingMarkID,
-      LayerCountID
-    };
-
-    static RenderLayerID GetLayerID(dp::GLState const & renderGroup);
-
     std::vector<drape_ptr<RenderGroup>> m_renderGroups;
     bool m_isDirty = false;
 
@@ -176,8 +161,7 @@ private:
   void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
-  void RenderUserMarksLayer(ScreenBase const & modelView, RenderLayer::RenderLayerID layerId);
-  void RenderUserLinesLayer(ScreenBase const & modelView);
+  void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId);
   void RenderTrafficAndRouteLayer(ScreenBase const & modelView);
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
@@ -261,7 +245,7 @@ private:
 
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
-  std::array<RenderLayer, RenderLayer::LayerCountID> m_layers;
+  std::array<RenderLayer, RenderState::LayersCount> m_layers;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;

@@ -375,7 +375,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
   TArrowGeometryBuffer joinsGeometry;
   dp::TextureManager::SymbolRegion region;
   GetArrowTextureRegion(mng, region);
-  dp::GLState state = dp::GLState(gpu::ROUTE_ARROW_PROGRAM, dp::GLState::GeometryLayer);
+  auto state = CreateGLState(gpu::ROUTE_ARROW_PROGRAM, RenderState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
   // Generate arrow geometry.
@@ -415,9 +415,9 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
   PrepareGeometry(routeData.m_subroute->m_polyline.GetPoints(), routeData.m_pivot, segmentsColors,
                   geometry, joinsGeometry, routeData.m_length);
 
-  dp::GLState state = dp::GLState(routeData.m_subroute->m_pattern.m_isDashed ?
-                                  gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
-                                  dp::GLState::GeometryLayer);
+  auto state = CreateGLState(routeData.m_subroute->m_pattern.m_isDashed ?
+                             gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM,
+                             RenderState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),

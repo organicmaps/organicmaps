@@ -66,7 +66,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()) },
   };
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, params.m_depthLayer);
+  auto state = df::CreateGLState(gpu::TEXTURING_PROGRAM, params.m_depthLayer);
   state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
@@ -99,7 +99,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
   };
 
-  dp::GLState state(gpu::MASKED_TEXTURING_PROGRAM, params.m_depthLayer);
+  auto state = df::CreateGLState(gpu::MASKED_TEXTURING_PROGRAM, params.m_depthLayer);
   state.SetProgram3dIndex(gpu::MASKED_TEXTURING_BILLBOARD_PROGRAM);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.

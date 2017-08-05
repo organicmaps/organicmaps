@@ -42,6 +42,8 @@
 		452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */; };
 		453EEA6D1E3A28F400505E09 /* colored_symbol_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */; };
 		453EEA6E1E3A28F400505E09 /* colored_symbol_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */; };
+		453FEDAC1F34C257005C1BB4 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 453FEDAA1F34C257005C1BB4 /* render_state.cpp */; };
+		453FEDAD1F34C257005C1BB4 /* render_state.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453FEDAB1F34C257005C1BB4 /* render_state.hpp */; };
 		454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */; };
 		454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454C19B91CCE3EC0002A2C86 /* animation_system.cpp */; };
 		454C19BD1CCE3EC0002A2C86 /* animation_system.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */; };
@@ -268,6 +270,8 @@
 		452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_quad_renderer.hpp; sourceTree = "<group>"; };
 		453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colored_symbol_shape.cpp; sourceTree = "<group>"; };
 		453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = colored_symbol_shape.hpp; sourceTree = "<group>"; };
+		453FEDAA1F34C257005C1BB4 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
+		453FEDAB1F34C257005C1BB4 /* render_state.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_state.hpp; sourceTree = "<group>"; };
 		454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_constants.hpp; sourceTree = "<group>"; };
 		454C19B91CCE3EC0002A2C86 /* animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_system.cpp; sourceTree = "<group>"; };
 		454C19BA1CCE3EC0002A2C86 /* animation_system.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_system.hpp; sourceTree = "<group>"; };
@@ -609,6 +613,8 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				453FEDAA1F34C257005C1BB4 /* render_state.cpp */,
+				453FEDAB1F34C257005C1BB4 /* render_state.hpp */,
 				EB2B78011EEDD439002697B6 /* read_metaline_task.cpp */,
 				EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */,
 				EB2B77FD1EEDD418002697B6 /* metaline_manager.cpp */,
@@ -967,6 +973,7 @@
 				670947D71BDF9BE1005014C0 /* user_event_stream.hpp in Headers */,
 				6709479E1BDF9BE1005014C0 /* message_acceptor.hpp in Headers */,
 				6709484A1BDF9C48005014C0 /* ruler_helper.hpp in Headers */,
+				453FEDAD1F34C257005C1BB4 /* render_state.hpp in Headers */,
 				6743D36E1C3A9F090095054B /* arrow3d.hpp in Headers */,
 				670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */,
 				45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */,
@@ -1137,6 +1144,7 @@
 				670947B91BDF9BE1005014C0 /* route_renderer.cpp in Sources */,
 				670E393C1C46C59000E9C0A6 /* color_constants.cpp in Sources */,
 				677A2DE51C0DD55D00635A00 /* requested_tiles.cpp in Sources */,
+				453FEDAC1F34C257005C1BB4 /* render_state.cpp in Sources */,
 				45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */,
 				670947B31BDF9BE1005014C0 /* render_group.cpp in Sources */,
 				675D21911BFB871D00717E4F /* text_engine.cpp in Sources */,

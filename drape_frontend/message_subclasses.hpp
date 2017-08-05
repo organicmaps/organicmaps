@@ -11,6 +11,7 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -18,7 +19,6 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/viewport.hpp"

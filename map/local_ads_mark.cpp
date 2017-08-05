@@ -30,9 +30,9 @@ LocalAdsMark::LocalAdsMark(m2::PointD const & ptOrg,
   m_titleDecl.m_secondaryOffset = m2::PointF(0, kSecondaryOffsetY);
 }
 
-dp::GLState::DepthLayer LocalAdsMark::GetDepthLayer() const
+df::RenderState::DepthLayer LocalAdsMark::GetDepthLayer() const
 {
-  return dp::GLState::LocalAdsMarkLayer;
+  return df::RenderState::LocalAdsMarkLayer;
 }
 
 drape_ptr<dp::TitleDecl> LocalAdsMark::GetTitleDecl() const

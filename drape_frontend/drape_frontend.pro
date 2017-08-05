@@ -79,6 +79,7 @@ SOURCES += \
     read_mwm_task.cpp \
     render_group.cpp \
     render_node.cpp \
+    render_state.cpp \
     requested_tiles.cpp \
     route_builder.cpp \
     route_renderer.cpp \
@@ -191,6 +192,7 @@ HEADERS += \
     read_mwm_task.hpp \
     render_group.hpp \
     render_node.hpp \
+    render_state.hpp \
     requested_tiles.hpp \
     route_builder.hpp \
     route_renderer.hpp \

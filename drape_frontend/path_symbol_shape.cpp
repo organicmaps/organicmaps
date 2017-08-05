@@ -1,4 +1,5 @@
 #include "drape_frontend/path_symbol_shape.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -8,7 +9,6 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/glstate.hpp"
 #include "drape/batcher.hpp"
 
 namespace df
@@ -54,7 +54,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   if (buffer.empty())
     return;
 
-  dp::GLState state(gpu::PATH_SYMBOL_LINE, dp::GLState::GeometryLayer);
+  auto state = CreateGLState(gpu::PATH_SYMBOL_LINE, RenderState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));

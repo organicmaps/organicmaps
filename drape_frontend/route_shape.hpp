@@ -2,9 +2,9 @@
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/pointers.hpp"
@@ -80,7 +80,9 @@ struct RouteRenderProperty
 {
   dp::GLState m_state;
   std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
-  RouteRenderProperty() : m_state(0, dp::GLState::GeometryLayer) {}
+  RouteRenderProperty()
+    : m_state(CreateGLState(0, RenderState::GeometryLayer))
+  {}
 };
 
 struct BaseRouteData

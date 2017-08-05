@@ -2,8 +2,8 @@
 
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/render_state.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
@@ -24,7 +24,9 @@ struct CirclesPackRenderData
 
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
-  CirclesPackRenderData() : m_pointsCount(0), m_state(0, dp::GLState::OverlayLayer) {}
+  CirclesPackRenderData()
+    : m_pointsCount(0), m_state(CreateGLState(0, RenderState::OverlayLayer))
+  {}
 };
 
 struct CirclesPackDynamicVertex

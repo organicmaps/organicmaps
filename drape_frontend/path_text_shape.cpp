@@ -1,10 +1,10 @@
 #include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/path_text_handle.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shader_def.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
-#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 
 #include "base/math.hpp"
@@ -81,9 +81,8 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
   dp::TextureManager::ColorRegion color;
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
 
-
-  dp::GLState state(layout->GetFixedHeight() > 0 ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM,
-                    dp::GLState::OverlayLayer);
+  auto state = CreateGLState(layout->GetFixedHeight() > 0 ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM,
+                             RenderState::OverlayLayer);
   state.SetProgram3dIndex(layout->GetFixedHeight() > 0 ? gpu::TEXT_FIXED_BILLBOARD_PROGRAM :
                                                          gpu::TEXT_BILLBOARD_PROGRAM);
   state.SetColorTexture(color.GetTexture());
@@ -122,7 +121,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
   textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
 
-  dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
+  auto state = CreateGLState(gpu::TEXT_OUTLINED_PROGRAM, RenderState::OverlayLayer);
   state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());

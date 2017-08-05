@@ -34,7 +34,7 @@ public:
   void SetIsVisible(bool isVisible) { m_markData.m_isVisible = isVisible; }
 
   dp::Anchor GetAnchor() const override;
-  dp::GLState::DepthLayer GetDepthLayer() const override;
+  df::RenderState::DepthLayer GetDepthLayer() const override;
 
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }

@@ -22,7 +22,7 @@ public:
   LocalAdsMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~LocalAdsMark() {}
 
-  dp::GLState::DepthLayer GetDepthLayer() const override;
+  df::RenderState::DepthLayer GetDepthLayer() const override;
 
   std::string GetSymbolName() const override { return m_data.m_symbolName; }
   UserMark::Type GetMarkType() const override { return Type::LOCAL_ADS; }

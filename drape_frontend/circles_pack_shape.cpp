@@ -25,7 +25,7 @@ struct CirclesPackStaticVertex
 
 dp::GLState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
 {
-  dp::GLState state(gpu::CIRCLE_POINT_PROGRAM, dp::GLState::OverlayLayer);
+  auto state = CreateGLState(gpu::CIRCLE_POINT_PROGRAM, RenderState::OverlayLayer);
   state.SetColorTexture(texMng->GetSymbolsTexture());
   return state;
 }

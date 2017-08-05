@@ -1,10 +1,10 @@
 #pragma once
 
-#include "arrow3d.hpp"
-#include "render_node.hpp"
+#include "drape_frontend/arrow3d.hpp"
+#include "drape_frontend/render_node.hpp"
+#include "drape_frontend/render_state.hpp"
 
 #include "drape/vertex_array_buffer.hpp"
-#include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"

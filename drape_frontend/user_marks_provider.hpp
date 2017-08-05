@@ -1,16 +1,14 @@
 #pragma once
 
+#include "drape_frontend/render_state.hpp"
+
 #include "drape/drape_global.hpp"
-#include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/polyline2d.hpp"
 
-#include "base/mutex.hpp"
-
-#include <atomic>
 #include <vector>
 
 namespace df
@@ -53,7 +51,7 @@ public:
   virtual std::string GetSymbolName() const  = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual float GetDepth() const = 0;
-  virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
+  virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<dp::TitleDecl> GetTitleDecl() const = 0;
   virtual uint16_t GetPriority() const = 0;
@@ -79,7 +77,7 @@ public:
   virtual MarkID GetId() const { return m_id; }
 
   virtual int GetMinZoom() const = 0;
-  virtual dp::GLState::DepthLayer GetDepthLayer() const = 0;
+  virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual size_t GetLayerCount() const = 0;
   virtual dp::Color const & GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;

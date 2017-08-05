@@ -85,7 +85,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
     buffer.emplace_back(nextNormal, colorCoord);
   }
 
-  dp::GLState state(gpu::ACCURACY_PROGRAM, dp::GLState::OverlayLayer);
+  auto state = CreateGLState(gpu::ACCURACY_PROGRAM, RenderState::OverlayLayer);
   state.SetColorTexture(color.GetTexture());
 
   {
