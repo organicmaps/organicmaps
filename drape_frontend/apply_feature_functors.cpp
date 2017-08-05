@@ -1015,7 +1015,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_shape = ColoredSymbolViewParams::Shape::RoundedRectangle;
     symbolParams.m_radiusInPixels = static_cast<float>(2.5 * mainScale);
     symbolParams.m_color = ToDrapeColor(m_shieldRule->color());
-    if (m_shieldRule->stroke_color() != 0)
+    if (m_shieldRule->stroke_color() != m_shieldRule->color())
     {
       symbolParams.m_outlineColor = ToDrapeColor(m_shieldRule->stroke_color());
       symbolParams.m_outlineWidth = static_cast<float>(1.0 * mainScale);
