@@ -15,7 +15,7 @@ void PathTextContext::SetLayout(drape_ptr<PathTextLayout> && layout, double base
   PathTextLayout::CalculatePositions(m_globalSpline->GetLength(), baseGtoPScale,
                                      m_layout->GetPixelLength(), m_globalOffsets);
   m_globalPivots.reserve(m_globalOffsets.size());
-  for (auto offset : m_globalOffsets)
+  for (auto const offset : m_globalOffsets)
     m_globalPivots.push_back(m_globalSpline->GetPoint(offset).m_pos);
 }
 
@@ -110,12 +110,12 @@ m2::Spline::iterator PathTextContext::GetProjectedPoint(std::vector<m2::Spline> 
 
     double step = 0;
 
-    for (size_t i = 0, sz = path.size(); i < sz - 1; ++i)
+    for (size_t i = 0, sz = path.size(); i + 1 < sz; ++i)
     {
       double const segLength = spline.GetLengths()[i];
       m2::PointD const segDir = spline.GetDirections()[i];
 
-       m2::PointD v = pt - path[i];
+      m2::PointD const v = pt - path[i];
       double const t = m2::DotProduct(segDir, v);
 
       m2::PointD nearestPt;
@@ -248,7 +248,7 @@ void PathTextHandle::GetPixelShape(ScreenBase const & screen, bool perspective, 
 
 void PathTextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  // for visible text paths we always update normals
+  // We always update normals for visible text paths.
   SetForceUpdateNormals(IsVisible());
   TextHandle::GetAttributeMutation(mutator);
 }

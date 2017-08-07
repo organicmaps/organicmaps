@@ -7,9 +7,9 @@
 
 namespace dp
 {
-uint32_t const kMinFrameUpdatePeriod = 5;
-uint32_t const kAvgFrameUpdatePeriod = 10;
-uint32_t const kMaxFrameUpdatePeriod = 15;
+int const kMinFrameUpdatePeriod = 5;
+int const kAvgFrameUpdatePeriod = 10;
+int const kMaxFrameUpdatePeriod = 15;
 uint32_t const kMinHandlesCount = 100;
 uint32_t const kMaxHandlesCount = 1000;
 

@@ -58,14 +58,14 @@ void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
 
 void RenderBucket::BeforeUpdate()
 {
-  for (drape_ptr<OverlayHandle> & overlayHandle : m_overlay)
+  for (auto & overlayHandle : m_overlay)
     overlayHandle->BeforeUpdate();
 }
 
 void RenderBucket::Update(ScreenBase const & modelView)
 {
   BeforeUpdate();
-  for (drape_ptr<OverlayHandle> & overlayHandle : m_overlay)
+  for (auto & overlayHandle : m_overlay)
   {
     if (overlayHandle->IsVisible())
       overlayHandle->Update(modelView);
@@ -75,7 +75,7 @@ void RenderBucket::Update(ScreenBase const & modelView)
 void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   BeforeUpdate();
-  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+  for (auto const & overlayHandle : m_overlay)
     tree->Add(make_ref(overlayHandle));
 }
 
@@ -86,7 +86,7 @@ bool RenderBucket::HasOverlayHandles() const
 
 void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
 {
-  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+  for (auto const & overlayHandle : m_overlay)
     tree->Remove(make_ref(overlayHandle));
 }
 
