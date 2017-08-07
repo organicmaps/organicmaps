@@ -17,6 +17,8 @@ HEADERS += \
   country_name_getter.hpp \
   country_polygon.hpp \
   country_tree.hpp \
+  diff_scheme_checker.hpp \
+  diff_types.hpp \
   downloader_search_params.hpp \
   downloading_policy.hpp \
   http_map_files_downloader.hpp \
@@ -32,6 +34,7 @@ SOURCES += \
   country_decl.cpp \
   country_info_getter.cpp \
   country_name_getter.cpp \
+  diff_scheme_checker.cpp \
   downloading_policy.cpp \
   http_map_files_downloader.cpp \
   index.cpp \
