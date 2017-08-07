@@ -65,6 +65,7 @@ RoutingSession::RoutingSession()
 void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn,
                           RouterDelegate::TPointCheckCallback const & pointCheckCallback)
 {
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_router == nullptr, ());
   m_router.reset(new AsyncRouter(routingStatisticsFn, pointCheckCallback));
 }
@@ -72,11 +73,15 @@ void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn
 void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
                                 uint32_t timeoutSec)
 {
-  ASSERT(m_router != nullptr, ());
-  m_checkpoints = checkpoints;
-  m_router->ClearState();
-  m_isFollowing = false;
-  m_routingRebuildCount = -1; // -1 for the first rebuild.
+  {
+    threads::MutexGuard guard(m_routingSessionMutex);
+    ASSERT(m_router != nullptr, ());
+    m_checkpoints = checkpoints;
+    m_router->ClearState();
+    m_isFollowing = false;
+    m_routingRebuildCount = -1; // -1 for the first rebuild.
+  }
+
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, timeoutSec, RouteBuilding,
                false /* adjust */);
 }
@@ -85,13 +90,20 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                                   TReadyCallback const & readyCallback, uint32_t timeoutSec,
                                   State routeRebuildingState, bool adjustToPrevRoute)
 {
-  CHECK(m_router, ());
-  RemoveRoute();
-  SetState(routeRebuildingState);
-  m_routingRebuildCount++;
-  m_lastCompletionPercent = 0;
+  {
+    // @TODO(bykoianko) After moving all routing callbacks to single thread this guard can be
+    // removed.
+    threads::MutexGuard guard(m_routingSessionMutex);
 
-  m_checkpoints.SetPointFrom(startPoint);
+    CHECK(m_router, ());
+    RemoveRoute();
+    SetState(routeRebuildingState);
+
+    ++m_routingRebuildCount;
+    m_lastCompletionPercent = 0;
+    m_checkpoints.SetPointFrom(startPoint);
+  }
+
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(m_checkpoints, m_currentDirection, adjustToPrevRoute,
@@ -99,10 +111,21 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
                            m_progressCallback, timeoutSec);
 }
 
+m2::PointD RoutingSession::GetStartPoint() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_checkpoints.GetStart();
+}
+
+m2::PointD RoutingSession::GetEndPoint() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_checkpoints.GetFinish();
+}
+
 void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
 {
   threads::MutexGuard guard(m_routeSessionMutexInner);
-  UNUSED_VALUE(guard);
 
   ASSERT(m_rs.m_route, ());
 
@@ -119,7 +142,7 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultC
   m_callback(*m_rs.m_route, e);
 }
 
-void RoutingSession::RemoveRouteImpl()
+void RoutingSession::RemoveRoute()
 {
   SetState(RoutingNotActive);
   m_lastDistance = 0.0;
@@ -129,44 +152,50 @@ void RoutingSession::RemoveRouteImpl()
   m_route = make_shared<Route>(string());
 }
 
-void RoutingSession::RemoveRoute()
-{
-  threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
-
-  RemoveRouteImpl();
-}
-
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
-  switch (m_state.load())
-  {
-  case RoutingNotActive:
-  case RouteNotReady:
-  case RouteFinished: return;
+  m2::PointD startPoint;
 
-  case RouteBuilding:
-  case RouteNotStarted:
-  case OnRoute:
-  case RouteNeedRebuild:
-  case RouteNoFollowing:
-  case RouteRebuilding: break;
+  {
+    // @TODO(bykoianko) After moving all routing callbacks to single thread this guard can be
+    // removed.
+    threads::MutexGuard guard(m_routingSessionMutex);
+    startPoint = m_lastGoodPosition;
+
+    switch (m_state.load())
+    {
+    case RoutingNotActive:
+    case RouteNotReady:
+    case RouteFinished: return;
+
+    case RouteBuilding:
+    case RouteNotStarted:
+    case RouteNoFollowing:
+    case RouteRebuilding: startPoint = m_checkpoints.GetPointFrom();
+
+    case OnRoute:
+    case RouteNeedRebuild: break;
+    }
+
+    // Cancel current route building.
+    m_router->ClearState();
   }
 
-  // Cancel current route building if going.
-  m_router->ClearState();
-  RebuildRoute(m_lastGoodPosition, m_rebuildReadyCallback, 0 /* timeoutSec */,
+  RebuildRoute(startPoint, m_rebuildReadyCallback, 0 /* timeoutSec */,
                routing::RoutingSession::State::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
 void RoutingSession::Reset()
 {
+  threads::MutexGuard guard(m_routingSessionMutex);
+  ResetImpl();
+}
+
+void RoutingSession::ResetImpl()
+{
   ASSERT(m_router != nullptr, ());
 
-  threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
-
-  RemoveRouteImpl();
+  RemoveRoute();
   m_router->ClearState();
 
   m_passedDistanceOnRouteMeters = 0.0;
@@ -189,7 +218,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     return m_state;
 
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   ASSERT(m_route, ());
   ASSERT(m_route->IsValid(), ());
 
@@ -288,7 +316,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   };
 
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
 
@@ -393,7 +420,6 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
   turnNotifications.clear();
 
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
 
@@ -438,8 +464,9 @@ void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
                                unique_ptr<OnlineAbsentCountriesFetcher> && fetcher)
 {
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_router != nullptr, ());
-  Reset();
+  ResetImpl();
   m_router->SetRouter(move(router), move(fetcher));
 }
 
@@ -450,7 +477,6 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
     return;
 
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
 
   ASSERT(m_route, ());
 
@@ -495,13 +521,19 @@ bool RoutingSession::EnableFollowMode()
 void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   m_routingSettings = routingSettings;
 }
 
 void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback, TReadyCallback const & rebuildReadyCallback)
 {
   m_buildReadyCallback = buildReadyCallback;
+  // m_rebuildReadyCallback used from multiple threads but it's the only place we write m_rebuildReadyCallback
+  // and this method is called from RoutingManager constructor before it can be used from any other place.
+  // We can use mutex
+  //   1) here to protect m_rebuildReadyCallback
+  //   2) and inside BuldRoute & RebuildRouteOnTrafficUpdate to safely copy m_rebuildReadyCallback to temporary
+  //      variable cause we need pass it to RebuildRoute and do not want to execute route rebuild with mutex.
+  // But it'll make code worse and will not improve safety.
   m_rebuildReadyCallback = rebuildReadyCallback;
 }
 
@@ -517,6 +549,7 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
+  // All methods which read/write m_userCurrentPosition*, m_userFormerPosition*  work in RoutingManager thread
   m_userFormerPosition = m_userCurrentPosition;
   m_userFormerPositionValid = m_userCurrentPositionValid;
 
@@ -527,21 +560,18 @@ void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 void RoutingSession::EnableTurnNotifications(bool enable)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   m_turnNotificationsMgr.Enable(enable);
 }
 
 bool RoutingSession::AreTurnNotificationsEnabled() const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   return m_turnNotificationsMgr.IsEnabled();
 }
 
 void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const units)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
@@ -549,14 +579,12 @@ void RoutingSession::SetTurnNotificationsLocale(string const & locale)
 {
   LOG(LINFO, ("The language for turn notifications is", locale));
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   m_turnNotificationsMgr.SetLocale(locale);
 }
 
 string RoutingSession::GetTurnNotificationsLocale() const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   return m_turnNotificationsMgr.GetLocale();
 }
 
@@ -642,7 +670,6 @@ void RoutingSession::OnTrafficInfoClear()
 {
   {
     threads::MutexGuard guard(m_routingSessionMutex);
-    UNUSED_VALUE(guard);
     Clear();
   }
   RebuildRouteOnTrafficUpdate();
@@ -660,7 +687,6 @@ void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 
   {
     threads::MutexGuard guard(m_routingSessionMutex);
-    UNUSED_VALUE(guard);
     Set(info.GetMwmId(), move(coloring));
   }
   RebuildRouteOnTrafficUpdate();
@@ -670,7 +696,6 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 {
   {
     threads::MutexGuard guard(m_routingSessionMutex);
-    UNUSED_VALUE(guard);
     Remove(mwmId);
   }
   RebuildRouteOnTrafficUpdate();
@@ -679,7 +704,6 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
-  UNUSED_VALUE(guard);
   return TrafficCache::GetTrafficInfo(mwmId);
 }
 

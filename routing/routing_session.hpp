@@ -93,8 +93,8 @@ public:
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
                     uint32_t timeoutSec, State routeRebuildingState, bool adjustToPrevRoute);
 
-  m2::PointD GetStartPoint() const { return m_checkpoints.GetStart(); }
-  m2::PointD GetEndPoint() const { return m_checkpoints.GetFinish(); }
+  m2::PointD GetStartPoint() const;
+  m2::PointD GetEndPoint() const;
   bool IsActive() const { return (m_state != RoutingNotActive); }
   bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild); }
@@ -194,8 +194,10 @@ private:
 
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
-  void RemoveRouteImpl();
   void RebuildRouteOnTrafficUpdate();
+
+  // Must be called with locked m_routingSessionMutex
+  void ResetImpl();
 
   double GetCompletionPercent() const;
   void PassCheckpoints();
