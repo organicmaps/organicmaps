@@ -25,12 +25,12 @@ namespace routing
 class FeaturesRoadGraph : public IRoadGraph
 {
 private:
-  class CrossCountryVehicleModel : public IVehicleModel
+  class CrossCountryVehicleModel : public VehicleModelInterface
   {
   public:
-    CrossCountryVehicleModel(shared_ptr<VehicleModelFactory> vehicleModelFactory);
+    CrossCountryVehicleModel(shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
-    // IVehicleModel overrides:
+    // VehicleModelInterface overrides:
     double GetSpeed(FeatureType const & f) const override;
     double GetMaxSpeed() const override;
     bool IsOneWay(FeatureType const & f) const override;
@@ -40,12 +40,12 @@ private:
     void Clear();
 
   private:
-    IVehicleModel * GetVehicleModel(FeatureID const & featureId) const;
+    VehicleModelInterface * GetVehicleModel(FeatureID const & featureId) const;
 
-    shared_ptr<VehicleModelFactory> const m_vehicleModelFactory;
+    shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
     double const m_maxSpeedKMPH;
 
-    mutable map<MwmSet::MwmId, shared_ptr<IVehicleModel>> m_cache;
+    mutable map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
   };
 
   class RoadInfoCache
@@ -62,7 +62,7 @@ private:
 
 public:
   FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                    shared_ptr<VehicleModelFactory> vehicleModelFactory);
+                    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
   static int GetStreetReadScale();
 

@@ -236,7 +236,8 @@ vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditiona
   return kAdditionalTags;
 }
 
-CarModelFactory::CarModelFactory()
+CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
+  : VehicleModelFactory(countryParentNameGetterFn)
 {
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<CarModel>(g_carLimitsDefault);
@@ -264,24 +265,5 @@ CarModelFactory::CarModelFactory()
   m_models["Ukraine"] = make_shared<CarModel>(g_carLimitsUkraine);
   m_models["United Kingdom"] = make_shared<CarModel>(g_carLimitsUK);
   m_models["United States of America"] = make_shared<CarModel>(g_carLimitsUS);
-}
-
-shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModel() const
-{
-  auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ());
-  return itr->second;
-}
-
-shared_ptr<IVehicleModel> CarModelFactory::GetVehicleModelForCountry(string const & country) const
-{
-  auto const itr = m_models.find(country);
-  if (itr != m_models.end())
-  {
-    LOG(LDEBUG, ("Car model was found:", country));
-    return itr->second;
-  }
-  LOG(LDEBUG, ("Car model wasn't found, default car model is used instead:", country));
-  return GetVehicleModel();
 }
 }  // namespace routing

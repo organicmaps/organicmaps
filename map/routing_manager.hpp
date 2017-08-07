@@ -68,14 +68,19 @@ public:
   {
     using IndexGetterFn = std::function<Index &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
+    using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 
-    Callbacks(IndexGetterFn && featureIndexGetter, CountryInfoGetterFn && countryInfoGetter)
-      : m_indexGetter(std::move(featureIndexGetter))
-      , m_countryInfoGetter(std::move(countryInfoGetter))
+    template <typename IndexGetter, typename CountryInfoGetter, typename CountryParentNameGetter>
+    Callbacks(IndexGetter && featureIndexGetter, CountryInfoGetter && countryInfoGetter,
+              CountryParentNameGetter && countryParentNameGetter)
+      : m_indexGetter(std::forward<IndexGetter>(featureIndexGetter))
+      , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
+      , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
     {}
 
     IndexGetterFn m_indexGetter;
     CountryInfoGetterFn m_countryInfoGetter;
+    CountryParentNameGetterFn m_countryParentNameGetterFn;
   };
 
   using RouteBuildingCallback =

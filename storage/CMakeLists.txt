@@ -13,6 +13,8 @@ set(
   country_info_getter.hpp
   country_name_getter.cpp
   country_name_getter.hpp
+  country_parent_getter.cpp
+  country_parent_getter.hpp
   country_polygon.hpp
   country_tree.hpp
   diff_scheme/diff_scheme_checker.cpp

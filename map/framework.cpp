@@ -96,7 +96,6 @@
 #include "std/bind.hpp"
 #include "std/target_os.hpp"
 #include "std/utility.hpp"
-#include "std/vector.hpp"
 
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
@@ -391,13 +390,16 @@ Framework::Framework(FrameworkParams const & params)
   , m_bmManager(*this)
   , m_isRenderingEnabled(true)
   , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
-                                               std::bind(&Framework::GetCountryInfoGetter, this)),
+                                               [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
+                                               [this](string const & id) -> string {
+                                                 return m_storage.GetParentIdFor(id);
+                                               }),
                      static_cast<RoutingManager::Delegate &>(*this))
-  , m_trafficManager(std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
+  , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_localAdsManager(std::bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
-                      std::bind(&Framework::GetMwmIdByName, this, _1),
-                      std::bind(&Framework::ReadFeatures, this, _1, _2))
+  , m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
+                      bind(&Framework::GetMwmIdByName, this, _1),
+                      bind(&Framework::ReadFeatures, this, _1, _2))
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     if (m_drapeEngine != nullptr)
@@ -409,7 +411,7 @@ Framework::Framework(FrameworkParams const & params)
 
   // Restore map style before classificator loading
   MapStyle mapStyle = kDefaultMapStyle;
-  std::string mapStyleStr;
+  string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
     mapStyle = MapStyleFromSettings(mapStyleStr);
   GetStyleReader().SetCurrentStyle(mapStyle);
@@ -1503,7 +1505,7 @@ void Framework::InitTransliteration()
     try
     {
       ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
-                               std::string("assets/") + kICUDataFile,
+                               string("assets/") + kICUDataFile,
                                GetPlatform().WritableDir() + kICUDataFile);
     }
     catch (RootException const & e)
@@ -1564,7 +1566,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   ASSERT(m_cityFinder, ());
 
   ms::LatLon latlon;
-  std::string city;
+  string city;
 
   if (GetCurrentPosition(latlon.lat, latlon.lon))
   {
@@ -1894,12 +1896,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     });
   };
 
-  auto overlaysShowStatsFn = [this](std::list<df::OverlayShowEvent> && events)
+  auto overlaysShowStatsFn = [this](list<df::OverlayShowEvent> && events)
   {
     if (events.empty())
       return;
 
-    std::list<local_ads::Event> statEvents;
+    list<local_ads::Event> statEvents;
     for (auto const & event : events)
     {
       auto const & mwmInfo = event.m_feature.m_mwmId.GetInfo();
@@ -2090,7 +2092,7 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
   ASSERT_NOT_EQUAL(mapStyle, MapStyle::MapStyleMerged, ());
 
   // Store current map style before classificator reloading
-  std::string mapStyleStr = MapStyleToString(mapStyle);
+  string mapStyleStr = MapStyleToString(mapStyle);
   if (mapStyleStr.empty())
   {
     mapStyle = kDefaultMapStyle;
@@ -2374,7 +2376,7 @@ void Framework::InvalidateUserMarks()
 {
   m_bmManager.InitBookmarks();
 
-  std::vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
+  vector<UserMarkType> const types = {UserMarkType::SEARCH_MARK, UserMarkType::API_MARK,
                                            UserMarkType::DEBUG_MARK,  UserMarkType::ROUTING_MARK,
                                            UserMarkType::LOCAL_ADS_MARK};
   for (size_t typeIndex = 0; typeIndex < types.size(); typeIndex++)
@@ -2744,9 +2746,9 @@ void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool ap
                                             applyPosition, position);
 }
 
-std::vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
+vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 {
-  std::vector<m2::TriangleD> triangles;
+  vector<m2::TriangleD> triangles;
   if (!m_selectedFeature.IsValid())
     return triangles;
 
@@ -2798,7 +2800,7 @@ uint32_t GetBestType(FeatureType const & ft)
 }
 }
 
-bool Framework::ParseDrapeDebugCommand(std::string const & query)
+bool Framework::ParseDrapeDebugCommand(string const & query)
 {
   MapStyle desiredStyle = MapStyleCount;
   if (query == "?dark" || query == "mapstyle:dark")
@@ -3325,15 +3327,15 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
   return result;
 }
 
-MwmSet::MwmId Framework::GetMwmIdByName(std::string const & name) const
+MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
 {
   return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
-void Framework::ReadFeatures(std::function<void(FeatureType const &)> const & reader,
-                             std::set<FeatureID> const & features)
+void Framework::ReadFeatures(function<void(FeatureType const &)> const & reader,
+                             set<FeatureID> const & features)
 {
-  m_model.ReadFeatures(reader, std::vector<FeatureID>(features.begin(), features.end()));
+  m_model.ReadFeatures(reader, vector<FeatureID>(features.begin(), features.end()));
 }
 
 // RoutingManager::Delegate
@@ -3359,7 +3361,7 @@ void Framework::OnRouteFollow(routing::RouterType type)
 }
 
 // RoutingManager::Delegate
-void Framework::RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const
+void Framework::RegisterCountryFilesOnRoute(shared_ptr<routing::NumMwmIds> ptr) const
 {
   m_storage.ForEachCountryFile(
       [&ptr](platform::CountryFile const & file) { ptr->RegisterFile(file); });

@@ -19,7 +19,7 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 {
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
-                       shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                       shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                        shared_ptr<EdgeEstimator> estimator, Index & index);
 
   // IndexGraphLoader overrides:
@@ -32,13 +32,13 @@ private:
   VehicleMask m_vehicleMask;
   Index & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
-  shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
+  shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unordered_map<NumMwmId, unique_ptr<IndexGraph>> m_graphs;
 };
 
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
-                                           shared_ptr<VehicleModelFactory> vehicleModelFactory,
+                                           shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                                            shared_ptr<EdgeEstimator> estimator, Index & index)
   : m_vehicleMask(GetVehicleMask(vehicleType))
   , m_index(index)
@@ -67,7 +67,7 @@ IndexGraph & IndexGraphLoaderImpl::Load(NumMwmId numMwmId)
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-  shared_ptr<IVehicleModel> vehicleModel =
+  shared_ptr<VehicleModelInterface> vehicleModel =
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
   auto graphPtr = make_unique<IndexGraph>(
@@ -112,7 +112,7 @@ namespace routing
 // static
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
-    shared_ptr<VehicleModelFactory> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
+    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
     Index & index)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, numMwmIds, vehicleModelFactory, estimator,

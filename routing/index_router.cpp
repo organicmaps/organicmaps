@@ -51,7 +51,7 @@ double constexpr kMinDistanceToFinishM = 10000;
 // Limit of adjust in seconds.
 double constexpr kAdjustLimitSec = 5 * 60;
 
-double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactory const & vehicleModelFactory)
+double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactoryInterface const & vehicleModelFactory)
 {
   double maxSpeed = 0.0;
   numMwmIds.ForEachId([&](NumMwmId id) {
@@ -64,15 +64,17 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds, VehicleModelFactory const & veh
   return maxSpeed;
 }
 
-shared_ptr<VehicleModelFactory> CreateVehicleModelFactory(VehicleType vehicleType)
+shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
+    VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
   switch (vehicleType)
   {
-  case VehicleType::Pedestrian: return make_shared<PedestrianModelFactory>();
-  case VehicleType::Bicycle: return make_shared<BicycleModelFactory>();
-  case VehicleType::Car: return make_shared<CarModelFactory>();
+  case VehicleType::Pedestrian:
+    return make_shared<PedestrianModelFactory>(countryParentNameGetterFn);
+  case VehicleType::Bicycle: return make_shared<BicycleModelFactory>(countryParentNameGetterFn);
+  case VehicleType::Car: return make_shared<CarModelFactory>(countryParentNameGetterFn);
   case VehicleType::Count:
-    CHECK(false, ("Can't create VehicleModelFactory for", vehicleType));
+    CHECK(false, ("Can't create VehicleModelFactoryInterface for", vehicleType));
     return nullptr;
   }
 }
@@ -283,14 +285,14 @@ double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 }
 
 // IndexRouter ------------------------------------------------------------------------------------
-IndexRouter::IndexRouter(VehicleType vehicleType, TCountryFileFn const & countryFileFn,
-                         CourntryRectFn const & countryRectFn, shared_ptr<NumMwmIds> numMwmIds,
-                         unique_ptr<m4::Tree<NumMwmId>> numMwmTree, traffic::TrafficCache const & trafficCache,
-                         Index & index)
+IndexRouter::IndexRouter(VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn,
+                         TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
+                         shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                         traffic::TrafficCache const & trafficCache, Index & index)
   : m_vehicleType(vehicleType)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
   , m_index(index)
-  , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType))
+  , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
   , m_numMwmIds(move(numMwmIds))

@@ -2,10 +2,6 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include <memory>
-#include <string>
-#include <unordered_map>
-
 namespace routing
 {
 
@@ -37,15 +33,8 @@ private:
 class BicycleModelFactory : public VehicleModelFactory
 {
 public:
-  BicycleModelFactory();
-
-  /// @name Overrides from VehicleModelFactory.
-  //@{
-  std::shared_ptr<IVehicleModel> GetVehicleModel() const override;
-  std::shared_ptr<IVehicleModel> GetVehicleModelForCountry(std::string const & country) const override;
-  //@}
-
-private:
-  std::unordered_map<std::string, std::shared_ptr<IVehicleModel>> m_models;
+  // TODO: remove countryParentNameGetterFn default value after removing unused bicycle routing
+  // from road_graph_router
+  BicycleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn = {});
 };
 }  // namespace routing

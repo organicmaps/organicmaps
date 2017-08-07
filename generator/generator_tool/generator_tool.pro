@@ -18,6 +18,10 @@ TEMPLATE = app
 # needed for Platform::WorkingDir() and unicode combining
 QT *= core
 
+!iphone*:!android*:!tizen:!macx-* {
+  QT *= network
+}
+
 macx-* {
   LIBS *= "-framework IOKit" "-framework SystemConfiguration"
 }

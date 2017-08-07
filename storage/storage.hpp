@@ -365,6 +365,10 @@ public:
   /// Puts |countryId| to |nodes| when |level| is greater than the level of |countyId|. 
   void GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & nodes, size_t level = 0) const;
 
+  /// \brief Returns parent id for node if node has single parent. Otherwise (if node is disputed
+  /// territory and has multiple parents or does not exist) returns empty TCountryId
+  TCountryId const GetParentIdFor(TCountryId const & countryId) const;
+
   /// \brief Returns current version for mwms which are used by storage.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 

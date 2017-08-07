@@ -1680,4 +1680,22 @@ void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & n
   }
 }
 
+TCountryId const Storage::GetParentIdFor(TCountryId const & countryId) const
+{
+  vector<TCountryTreeNode const *> nodes;
+  m_countries.Find(countryId, nodes);
+  if (nodes.empty())
+  {
+    LOG(LWARNING, ("TCountryId =", countryId, "not found in m_countries."));
+    return string();
+  }
+
+  if (nodes.size() > 1)
+  {
+    // Disputed territory. Has multiple parents.
+    return string();
+  }
+
+  return nodes[0]->Value().GetParent();
+}
 }  // namespace storage

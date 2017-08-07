@@ -5,6 +5,7 @@
 #include <routing/road_graph.hpp>
 
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <unordered_set>
 #include <vector>
@@ -21,6 +22,8 @@ DECLARE_EXCEPTION(DecoderError, RootException);
 class OpenLRSimpleDecoder
 {
 public:
+  using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
+
   class SegmentsFilter
   {
   public:
@@ -34,7 +37,8 @@ public:
     bool const m_multipointsOnly;
   };
 
-  OpenLRSimpleDecoder(std::vector<Index> const & indexes);
+  OpenLRSimpleDecoder(std::vector<Index> const & indexes,
+                      CountryParentNameGetterFn const & countryParentNameGetterFn);
 
   // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
   void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
@@ -42,5 +46,6 @@ public:
 
 private:
   std::vector<Index> const & m_indexes;
+  CountryParentNameGetterFn m_countryParentNameGetterFn;
 };
 }  // namespace openlr

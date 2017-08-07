@@ -389,8 +389,10 @@ void RoutingManager::SetRouterImpl(RouterType type)
   };
 
   auto fetcher = make_unique<OnlineAbsentCountriesFetcher>(countryFileGetter, localFileChecker);
-  auto router = make_unique<IndexRouter>(vehicleType, countryFileGetter, getMwmRectByName, numMwmIds,
-    MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()), m_routingSession, index);
+  auto router = make_unique<IndexRouter>(vehicleType, m_callbacks.m_countryParentNameGetterFn,
+                                         countryFileGetter, getMwmRectByName, numMwmIds,
+                                         MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
+                                         m_routingSession, index);
 
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(move(router), move(fetcher));

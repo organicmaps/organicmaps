@@ -116,7 +116,7 @@ void FindClosestEdges(IRoadGraph const & graph, m2::PointD const & point,
 RoadGraphRouter::~RoadGraphRouter() {}
 RoadGraphRouter::RoadGraphRouter(string const & name, Index const & index,
                                  TCountryFileFn const & countryFileFn, IRoadGraph::Mode mode,
-                                 unique_ptr<VehicleModelFactory> && vehicleModelFactory,
+                                 unique_ptr<VehicleModelFactoryInterface> && vehicleModelFactory,
                                  unique_ptr<IRoutingAlgorithm> && algorithm,
                                  unique_ptr<IDirectionsEngine> && directionsEngine)
   : m_name(name)
@@ -236,7 +236,7 @@ unique_ptr<IRouter> CreatePedestrianAStarRouter(Index & index,
                                                 TCountryFileFn const & countryFileFn,
                                                 shared_ptr<NumMwmIds> numMwmIds)
 {
-  unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
+  unique_ptr<VehicleModelFactoryInterface> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(
       new PedestrianDirectionsEngine(std::move(numMwmIds)));
@@ -250,7 +250,7 @@ unique_ptr<IRouter> CreatePedestrianAStarBidirectionalRouter(Index & index,
                                                              TCountryFileFn const & countryFileFn,
                                                              shared_ptr<NumMwmIds> numMwmIds)
 {
-  unique_ptr<VehicleModelFactory> vehicleModelFactory(new PedestrianModelFactory());
+  unique_ptr<VehicleModelFactoryInterface> vehicleModelFactory(new PedestrianModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(
       new PedestrianDirectionsEngine(std::move(numMwmIds)));
@@ -264,7 +264,7 @@ unique_ptr<IRouter> CreateBicycleAStarBidirectionalRouter(Index & index,
                                                           TCountryFileFn const & countryFileFn,
                                                           shared_ptr<NumMwmIds> numMwmIds)
 {
-  unique_ptr<VehicleModelFactory> vehicleModelFactory(new BicycleModelFactory());
+  unique_ptr<VehicleModelFactoryInterface> vehicleModelFactory(new BicycleModelFactory());
   unique_ptr<IRoutingAlgorithm> algorithm(new AStarBidirectionalRoutingAlgorithm());
   unique_ptr<IDirectionsEngine> directionsEngine(
     new BicycleDirectionsEngine(index, numMwmIds));

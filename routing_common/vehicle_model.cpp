@@ -136,7 +136,7 @@ bool VehicleModel::IsRoadType(uint32_t type) const
          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
 }
 
-IVehicleModel::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
+VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
 {
   return RoadAvailability::Unknown;
 }
@@ -148,17 +148,57 @@ vector<VehicleModel::AdditionalRoadType>::const_iterator VehicleModel::FindRoadT
                  [&type](AdditionalRoadType const & t) { return t.m_type == type; });
 }
 
-string DebugPrint(IVehicleModel::RoadAvailability const l)
+VehicleModelFactory::VehicleModelFactory(
+    CountryParentNameGetterFn const & countryParentNameGetterFn)
+  : m_countryParentNameGetterFn(countryParentNameGetterFn)
+{
+}
+
+shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
+{
+  auto const itr = m_models.find("");
+  ASSERT(itr != m_models.end(), ("No default vehicle model. VehicleModelFactory was not "
+                                 "properly constructed"));
+  return itr->second;
+}
+
+shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModelForCountry(
+    string const & country) const
+{
+  string parent = country;
+  while (!parent.empty())
+  {
+    auto it = m_models.find(parent);
+    if (it != m_models.end())
+    {
+      LOG(LDEBUG, ("Vehicle model for", country, " was found:", parent));
+      return it->second;
+    }
+    parent = GetParent(parent);
+  }
+
+  LOG(LDEBUG, ("Vehicle model wasn't found, default model is used instead:", country));
+  return GetVehicleModel();
+}
+
+string VehicleModelFactory::GetParent(string const & country) const
+{
+  if (!m_countryParentNameGetterFn)
+    return string();
+  return m_countryParentNameGetterFn(country);
+}
+
+string DebugPrint(VehicleModelInterface::RoadAvailability const l)
 {
   switch (l)
   {
-  case IVehicleModel::RoadAvailability::Available: return "Available";
-  case IVehicleModel::RoadAvailability::NotAvailable: return "NotAvailable";
-  case IVehicleModel::RoadAvailability::Unknown: return "Unknown";
+  case VehicleModelInterface::RoadAvailability::Available: return "Available";
+  case VehicleModelInterface::RoadAvailability::NotAvailable: return "NotAvailable";
+  case VehicleModelInterface::RoadAvailability::Unknown: return "Unknown";
   }
 
   stringstream out;
-  out << "Unknown IVehicleModel::RoadAvailability (" << static_cast<int>(l) << ")";
+  out << "Unknown VehicleModelInterface::RoadAvailability (" << static_cast<int>(l) << ")";
   return out.str();
 }
 }  // namespace routing

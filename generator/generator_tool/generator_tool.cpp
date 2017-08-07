@@ -28,11 +28,18 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
 
+#include "storage/country_parent_getter.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
 
 #include "base/timer.hpp"
+
+#include "std/unique_ptr.hpp"
+
+#include <cstdlib>
+#include <string>
 
 #include "defines.hpp"
 
@@ -175,6 +182,14 @@ int main(int argc, char ** argv)
     classif().SortClassificator();
   }
 
+  // Load mwm tree only if we need it
+  std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
+  if (FLAGS_make_routing_index || FLAGS_make_cross_mwm)
+  {
+    countryParentGetter =
+        make_unique<storage::CountryParentGetter>();
+  }
+
   // Generate dat file.
   if (FLAGS_generate_features || FLAGS_make_coasts)
   {
@@ -269,6 +284,14 @@ int main(int argc, char ** argv)
 
     if (FLAGS_make_routing_index)
     {
+      if (!countryParentGetter)
+      {
+        // All the mwms should use proper VehicleModels.
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
+                        "countries_obsolete.txt). File must be located in data directory."));
+        return -1;
+      }
+
       std::string const restrictionsFilename =
           genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
       std::string const roadAccessFilename =
@@ -276,13 +299,21 @@ int main(int argc, char ** argv)
 
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
       routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
-      routing::BuildRoutingIndex(datFile, country);
+      routing::BuildRoutingIndex(datFile, country, *countryParentGetter);
     }
 
     if (FLAGS_make_cross_mwm)
     {
-      if (!routing::BuildCrossMwmSection(path, datFile, country, osmToFeatureFilename,
-                                         FLAGS_disable_cross_mwm_progress))
+      if (!countryParentGetter)
+      {
+        // All the mwms should use proper VehicleModels.
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt or "
+                        "countries_obsolete.txt). File must be located in data directory."));
+        return -1;
+      }
+
+      if (!routing::BuildCrossMwmSection(path, datFile, country, *countryParentGetter,
+                                         osmToFeatureFilename, FLAGS_disable_cross_mwm_progress))
         LOG(LCRITICAL, ("Error generating cross mwm section."));
     }
 

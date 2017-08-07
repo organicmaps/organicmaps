@@ -12,6 +12,7 @@ omim_link_libraries(${PROJECT_NAME}
   openlr
   routing
   routing_common
+  storage
   indexer
   editor
   platform

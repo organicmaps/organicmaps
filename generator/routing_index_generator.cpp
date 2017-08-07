@@ -30,7 +30,9 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <functional>
+#include <map>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -45,10 +47,13 @@ namespace
 class VehicleMaskBuilder final
 {
 public:
-  explicit VehicleMaskBuilder(string const & country)
-    : m_pedestrianModel(PedestrianModelFactory().GetVehicleModelForCountry(country))
-    , m_bicycleModel(BicycleModelFactory().GetVehicleModelForCountry(country))
-    , m_carModel(CarModelFactory().GetVehicleModelForCountry(country))
+  VehicleMaskBuilder(string const & country,
+                              CountryParentNameGetterFn const & countryParentNameGetterFn)
+    : m_pedestrianModel(
+          PedestrianModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
+    , m_bicycleModel(
+          BicycleModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
+    , m_carModel(CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
   {
     CHECK(m_pedestrianModel, ());
     CHECK(m_bicycleModel, ());
@@ -58,13 +63,13 @@ public:
   VehicleMask CalcRoadMask(FeatureType const & f) const
   {
     return CalcMask(
-        f, [&](IVehicleModel const & model, FeatureType const & f) { return model.IsRoad(f); });
+        f, [&](VehicleModelInterface const & model, FeatureType const & f) { return model.IsRoad(f); });
   }
 
   VehicleMask CalcOneWayMask(FeatureType const & f) const
   {
     return CalcMask(
-        f, [&](IVehicleModel const & model, FeatureType const & f) { return model.IsOneWay(f); });
+        f, [&](VehicleModelInterface const & model, FeatureType const & f) { return model.IsOneWay(f); });
   }
 
 private:
@@ -82,15 +87,18 @@ private:
     return mask;
   }
 
-  shared_ptr<IVehicleModel> const m_pedestrianModel;
-  shared_ptr<IVehicleModel> const m_bicycleModel;
-  shared_ptr<IVehicleModel> const m_carModel;
+  shared_ptr<VehicleModelInterface> const m_pedestrianModel;
+  shared_ptr<VehicleModelInterface> const m_bicycleModel;
+  shared_ptr<VehicleModelInterface> const m_carModel;
 };
 
 class Processor final
 {
 public:
-  explicit Processor(string const & country) : m_maskBuilder(country) {}
+  Processor(string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn)
+    : m_maskBuilder(country, countryParentNameGetterFn)
+  {
+  }
 
   void ProcessAllFeatures(string const & filename)
   {
@@ -200,6 +208,7 @@ RouteWeight CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 }
 
 void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string const & country,
+                             CountryParentNameGetterFn const & countryParentNameGetterFn,
                              map<uint32_t, osm::Id> const & featureIdToOsmId,
                              vector<CrossMwmConnectorSerializer::Transition> & transitions,
                              CrossMwmConnectorPerVehicleType & connectors)
@@ -209,7 +218,7 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
   vector<m2::RegionD> borders;
   osm::LoadBorders(polyFile, borders);
 
-  VehicleMaskBuilder const maskMaker(country);
+  VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
 
   feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
@@ -266,11 +275,13 @@ void CalcCrossMwmTransitions(string const & path, string const & mwmFile, string
 }
 
 void FillWeights(string const & path, string const & mwmFile, string const & country,
+                 CountryParentNameGetterFn const & countryParentNameGetterFn,
                  bool disableCrossMwmProgress, CrossMwmConnector & connector)
 {
   my::Timer timer;
 
-  shared_ptr<IVehicleModel> vehicleModel = CarModelFactory().GetVehicleModelForCountry(country);
+  shared_ptr<VehicleModelInterface> vehicleModel =
+      CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
   IndexGraph graph(GeometryLoader::CreateFromFile(mwmFile, vehicleModel),
                    EdgeEstimator::Create(VehicleType::Car, vehicleModel->GetMaxSpeed(),
                                          nullptr /* trafficStash */));
@@ -335,12 +346,13 @@ serial::CodingParams LoadCodingParams(string const & mwmFile)
 
 namespace routing
 {
-bool BuildRoutingIndex(string const & filename, string const & country)
+bool BuildRoutingIndex(string const & filename, string const & country,
+                       CountryParentNameGetterFn const & countryParentNameGetterFn)
 {
   LOG(LINFO, ("Building routing index for", filename));
   try
   {
-    Processor processor(country);
+    Processor processor(country, countryParentNameGetterFn);
     processor.ProcessAllFeatures(filename);
 
     IndexGraph graph;
@@ -365,6 +377,7 @@ bool BuildRoutingIndex(string const & filename, string const & country)
 }
 
 bool BuildCrossMwmSection(string const & path, string const & mwmFile, string const & country,
+                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                           string const & osmToFeatureFile, bool disableCrossMwmProgress)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
@@ -376,7 +389,8 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
   CrossMwmConnectorPerVehicleType connectors;
 
   vector<CrossMwmConnectorSerializer::Transition> transitions;
-  CalcCrossMwmTransitions(path, mwmFile, country, featureIdToOsmId, transitions, connectors);
+  CalcCrossMwmTransitions(path, mwmFile, country, countryParentNameGetterFn, featureIdToOsmId,
+                          transitions, connectors);
 
   for (size_t i = 0; i < connectors.size(); ++i)
   {
@@ -386,7 +400,7 @@ bool BuildCrossMwmSection(string const & path, string const & mwmFile, string co
                 connector.GetExits().size()));
   }
 
-  FillWeights(path, mwmFile, country, disableCrossMwmProgress,
+  FillWeights(path, mwmFile, country, countryParentNameGetterFn, disableCrossMwmProgress,
               connectors[static_cast<size_t>(VehicleType::Car)]);
 
   serial::CodingParams const codingParams = LoadCodingParams(mwmFile);

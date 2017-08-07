@@ -20,13 +20,13 @@ class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
   GeometryLoaderImpl(Index const & index, MwmSet::MwmHandle const & handle,
-                     shared_ptr<IVehicleModel> vehicleModel, bool loadAltitudes);
+                     shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes);
 
   // GeometryLoader overrides:
   void Load(uint32_t featureId, RoadGeometry & road) override;
 
 private:
-  shared_ptr<IVehicleModel> m_vehicleModel;
+  shared_ptr<VehicleModelInterface> m_vehicleModel;
   Index::FeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
@@ -34,7 +34,7 @@ private:
 };
 
 GeometryLoaderImpl::GeometryLoaderImpl(Index const & index, MwmSet::MwmHandle const & handle,
-                                       shared_ptr<IVehicleModel> vehicleModel, bool loadAltitudes)
+                                       shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
   , m_guard(index, handle.GetId())
   , m_country(handle.GetInfo()->GetCountryName())
@@ -66,18 +66,18 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
 class FileGeometryLoader final : public GeometryLoader
 {
 public:
-  FileGeometryLoader(string const & fileName, shared_ptr<IVehicleModel> vehicleModel);
+  FileGeometryLoader(string const & fileName, shared_ptr<VehicleModelInterface> vehicleModel);
 
   // GeometryLoader overrides:
   void Load(uint32_t featureId, RoadGeometry & road) override;
 
 private:
   FeaturesVectorTest m_featuresVector;
-  shared_ptr<IVehicleModel> m_vehicleModel;
+  shared_ptr<VehicleModelInterface> m_vehicleModel;
 };
 
 FileGeometryLoader::FileGeometryLoader(string const & fileName,
-                                       shared_ptr<IVehicleModel> vehicleModel)
+                                       shared_ptr<VehicleModelInterface> vehicleModel)
   : m_featuresVector(FilesContainerR(make_unique<FileReader>(fileName)))
   , m_vehicleModel(vehicleModel)
 {
@@ -106,7 +106,7 @@ RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
     m_junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
 }
 
-void RoadGeometry::Load(IVehicleModel const & vehicleModel, FeatureType const & feature,
+void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType const & feature,
                         feature::TAltitudes const * altitudes)
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
@@ -156,7 +156,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 // static
 unique_ptr<GeometryLoader> GeometryLoader::Create(Index const & index,
                                                   MwmSet::MwmHandle const & handle,
-                                                  shared_ptr<IVehicleModel> vehicleModel,
+                                                  shared_ptr<VehicleModelInterface> vehicleModel,
                                                   bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
@@ -165,7 +165,7 @@ unique_ptr<GeometryLoader> GeometryLoader::Create(Index const & index,
 
 // static
 unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(string const & fileName,
-                                                          shared_ptr<IVehicleModel> vehicleModel)
+                                                          shared_ptr<VehicleModelInterface> vehicleModel)
 {
   return make_unique<FileGeometryLoader>(fileName, vehicleModel);
 }

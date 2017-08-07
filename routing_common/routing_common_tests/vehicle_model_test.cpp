@@ -18,6 +18,12 @@ routing::VehicleModel::InitListT const s_testLimits = {
     {{"highway", "service"}, 50, false},
 };
 
+class  VehicleModelTest
+{
+public:
+  VehicleModelTest() { classificator::Load(); }
+};
+
 class TestVehicleModel : public routing::VehicleModel
 {
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
@@ -71,15 +77,13 @@ void CheckTransitAllowed(initializer_list<uint32_t> const & types, bool expected
 }
 }  // namespace
 
-UNIT_TEST(VehicleModel_MaxSpeed)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 {
-  classificator::Load();
-
   TestVehicleModel vehicleModel;
   TEST_EQUAL(vehicleModel.GetMaxSpeed(), 150, ());
 }
 
-UNIT_TEST(VehicleModel_Speed)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
 {
   CheckSpeed({GetType("highway", "secondary", "bridge")}, 80.0);
   CheckSpeed({GetType("highway", "secondary", "tunnel")}, 80.0);
@@ -90,7 +94,7 @@ UNIT_TEST(VehicleModel_Speed)
   CheckSpeed({GetType("highway", "residential")}, 50.0);
 }
 
-UNIT_TEST(VehicleModel_Speed_MultiTypes)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed_MultiTypes)
 {
   uint32_t const typeTunnel = GetType("highway", "secondary", "tunnel");
   uint32_t const typeSecondary = GetType("highway", "secondary");
@@ -101,7 +105,7 @@ UNIT_TEST(VehicleModel_Speed_MultiTypes)
   CheckSpeed({typeHighway, typeTunnel}, 80.0);
 }
 
-UNIT_TEST(VehicleModel_OneWay)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_OneWay)
 {
   uint32_t const typeBridge = GetType("highway", "secondary", "bridge");
   uint32_t const typeOneway = GetOnewayType();
@@ -114,7 +118,7 @@ UNIT_TEST(VehicleModel_OneWay)
   CheckOneWay({typeOneway}, true);
 }
 
-UNIT_TEST(VehicleModel_DifferentSpeeds)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_DifferentSpeeds)
 {
   uint32_t const typeSecondary = GetType("highway", "secondary");
   uint32_t const typePrimary = GetType("highway", "primary");
@@ -127,7 +131,7 @@ UNIT_TEST(VehicleModel_DifferentSpeeds)
   CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
 }
 
-UNIT_TEST(VehicleModel_TransitAllowed)
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_TransitAllowed)
 {
   CheckTransitAllowed({GetType("highway", "secondary")}, true);
   CheckTransitAllowed({GetType("highway", "primary")}, true);

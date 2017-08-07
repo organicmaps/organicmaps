@@ -420,14 +420,7 @@ VehicleModel::InitListT const g_bicycleLimitsUS =
 
 namespace routing
 {
-
-// If one of feature types will be disabled for bicycles, features of this type will be simplyfied
-// in generator. Look FeatureBuilder1::IsRoad() for more details.
-BicycleModel::BicycleModel()
-  : VehicleModel(classif(), g_bicycleLimitsAll)
-{
-  Init();
-}
+BicycleModel::BicycleModel() : VehicleModel(classif(), g_bicycleLimitsDefault) { Init(); }
 
 BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
   : VehicleModel(classif(), speedLimits)
@@ -452,7 +445,7 @@ void BicycleModel::Init()
   SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
-IVehicleModel::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
+VehicleModelInterface::RoadAvailability BicycleModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
   if (types.Has(m_yesBicycleType))
     return RoadAvailability::Available;
@@ -476,14 +469,18 @@ bool BicycleModel::IsOneWay(FeatureType const & f) const
   return VehicleModel::IsOneWay(f);
 }
 
+// If one of feature types will be disabled for bicycles, features of this type will be simplyfied
+// in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
 BicycleModel const & BicycleModel::AllLimitsInstance()
 {
-  static BicycleModel const instance;
+  static BicycleModel const instance(g_bicycleLimitsAll);
   return instance;
 }
 
-BicycleModelFactory::BicycleModelFactory()
+BicycleModelFactory::BicycleModelFactory(
+    CountryParentNameGetterFn const & countryParentNameGetterFn)
+  : VehicleModelFactory(countryParentNameGetterFn)
 {
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<BicycleModel>(g_bicycleLimitsDefault);
@@ -513,22 +510,4 @@ BicycleModelFactory::BicycleModelFactory()
   m_models["United States of America"] = make_shared<BicycleModel>(g_bicycleLimitsUS);
 }
 
-shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModel() const
-{
-  auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ());
-  return itr->second;
-}
-
-shared_ptr<IVehicleModel> BicycleModelFactory::GetVehicleModelForCountry(string const & country) const
-{
-  auto const itr = m_models.find(country);
-  if (itr != m_models.end())
-  {
-    LOG(LDEBUG, ("Bicycle model was found:", country));
-    return itr->second;
-  }
-  LOG(LDEBUG, ("Bicycle model wasn't found, default bicycle model is used instead:", country));
-  return GetVehicleModel();
-}
 }  // routing

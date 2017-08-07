@@ -27,7 +27,7 @@ public:
   RoadGeometry() = default;
   RoadGeometry(bool oneWay, double speed, Points const & points);
 
-  void Load(IVehicleModel const & vehicleModel, FeatureType const & feature,
+  void Load(VehicleModelInterface const & vehicleModel, FeatureType const & feature,
             feature::TAltitudes const * altitudes);
 
   bool IsOneWay() const { return m_isOneWay; }
@@ -75,13 +75,13 @@ public:
   // handle should be alive: it is caller responsibility to check it.
   static std::unique_ptr<GeometryLoader> Create(Index const & index,
                                                 MwmSet::MwmHandle const & handle,
-                                                std::shared_ptr<IVehicleModel> vehicleModel,
+                                                std::shared_ptr<VehicleModelInterface> vehicleModel,
                                                 bool loadAltitudes);
 
   /// This is for stand-alone work.
   /// Use in generator_tool and unit tests.
   static std::unique_ptr<GeometryLoader> CreateFromFile(
-      std::string const & fileName, std::shared_ptr<IVehicleModel> vehicleModel);
+      std::string const & fileName, std::shared_ptr<VehicleModelInterface> vehicleModel);
 };
 
 class Geometry final

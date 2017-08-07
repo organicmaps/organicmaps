@@ -33,7 +33,7 @@ public:
 protected:
   virtual unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
       shared_ptr<routing::NumMwmIds> numMwmIds) = 0;
-  virtual unique_ptr<routing::VehicleModelFactory> CreateModelFactory() = 0;
+  virtual unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() = 0;
 
   template <typename Algorithm>
   unique_ptr<routing::IRouter> CreateRouter(string const & name)
@@ -57,7 +57,7 @@ protected:
 };
 
 template <typename Model>
-class SimplifiedModelFactory : public routing::VehicleModelFactory
+class SimplifiedModelFactory : public routing::VehicleModelFactoryInterface
 {
 public:
   // Since for test purposes we compare routes lengths to check
@@ -66,7 +66,7 @@ public:
   class SimplifiedModel : public Model
   {
   public:
-    // IVehicleModel overrides:
+    // VehicleModelInterface overrides:
     //
     // SimplifiedModel::GetSpeed() filters features and returns zero
     // speed if feature is not allowed by the base model, or otherwise
@@ -83,9 +83,10 @@ public:
   };
 
   SimplifiedModelFactory() : m_model(make_shared<SimplifiedModel>()) {}
-  // VehicleModelFactory overrides:
-  shared_ptr<routing::IVehicleModel> GetVehicleModel() const override { return m_model; }
-  shared_ptr<routing::IVehicleModel> GetVehicleModelForCountry(
+
+  // VehicleModelFactoryInterface overrides:
+  shared_ptr<routing::VehicleModelInterface> GetVehicleModel() const override { return m_model; }
+  shared_ptr<routing::VehicleModelInterface> GetVehicleModelForCountry(
       string const & /*country*/) const override
   {
     return m_model;

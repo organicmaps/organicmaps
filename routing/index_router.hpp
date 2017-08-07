@@ -55,8 +55,10 @@ public:
     m2::PointD const m_direction;
   };
 
-  IndexRouter(VehicleType vehicleType, TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
-              shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree, traffic::TrafficCache const & trafficCache, Index & index);
+  IndexRouter(VehicleType vehicleType, CountryParentNameGetterFn const & countryParentNameGetterFn,
+              TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
+              shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
+              traffic::TrafficCache const & trafficCache, Index & index);
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
@@ -105,7 +107,7 @@ private:
   VehicleType m_vehicleType;
   std::string const m_name;
   Index & m_index;
-  std::shared_ptr<VehicleModelFactory> m_vehicleModelFactory;
+  std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
   TCountryFileFn const m_countryFileFn;
   CourntryRectFn const m_countryRectFn;

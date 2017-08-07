@@ -17,6 +17,7 @@ namespace routing
 
 using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
 using CourntryRectFn = std::function<m2::RectD(std::string const & countryId)>;
+using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 
 class Route;
 

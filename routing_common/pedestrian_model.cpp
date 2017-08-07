@@ -270,14 +270,7 @@ VehicleModel::InitListT const g_pedestrianLimitsUS = g_pedestrianLimitsAll;
 
 namespace routing
 {
-
-// If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
-// in generator. Look FeatureBuilder1::IsRoad() for more details.
-PedestrianModel::PedestrianModel()
-  : VehicleModel(classif(), g_pedestrianLimitsAll)
-{
-  Init();
-}
+PedestrianModel::PedestrianModel() : VehicleModel(classif(), g_pedestrianLimitsDefault) { Init(); }
 
 PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
   : VehicleModel(classif(), speedLimits)
@@ -301,7 +294,7 @@ void PedestrianModel::Init()
   SetAdditionalRoadTypes(classif(), additionalTags);
 }
 
-IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
+VehicleModelInterface::RoadAvailability PedestrianModel::GetRoadAvailability(feature::TypesHolder const & types) const
 {
   if (types.Has(m_yesFootType))
     return RoadAvailability::Available;
@@ -310,14 +303,18 @@ IVehicleModel::RoadAvailability PedestrianModel::GetRoadAvailability(feature::Ty
   return RoadAvailability::Unknown;
 }
 
+// If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
+// in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
 PedestrianModel const & PedestrianModel::AllLimitsInstance()
 {
-  static PedestrianModel const instance;
+  static PedestrianModel const instance(g_pedestrianLimitsAll);
   return instance;
 }
 
-PedestrianModelFactory::PedestrianModelFactory()
+PedestrianModelFactory::PedestrianModelFactory(
+    CountryParentNameGetterFn const & countryParentNameGetterFn)
+  : VehicleModelFactory(countryParentNameGetterFn)
 {
   // Names must be the same with country names from countries.txt
   m_models[""] = make_shared<PedestrianModel>(g_pedestrianLimitsDefault);
@@ -345,24 +342,5 @@ PedestrianModelFactory::PedestrianModelFactory()
   m_models["Ukraine"] = make_shared<PedestrianModel>(g_pedestrianLimitsUkraine);
   m_models["United Kingdom"] = make_shared<PedestrianModel>(g_pedestrianLimitsUK);
   m_models["United States of America"] = make_shared<PedestrianModel>(g_pedestrianLimitsUS);
-}
-
-shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModel() const
-{
-  auto const itr = m_models.find("");
-  ASSERT(itr != m_models.end(), ());
-  return itr->second;
-}
-
-shared_ptr<IVehicleModel> PedestrianModelFactory::GetVehicleModelForCountry(string const & country) const
-{
-  auto const itr = m_models.find(country);
-  if (itr != m_models.end())
-  {
-    LOG(LDEBUG, ("Pedestrian model was found:", country));
-    return itr->second;
-  }
-  LOG(LDEBUG, ("Pedestrian model wasn't found, default model is used instead:", country));
-  return GetVehicleModel();
 }
 }  // routing

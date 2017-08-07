@@ -5,6 +5,8 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index.hpp"
 
+#include "storage/country_parent_getter.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -19,6 +21,8 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 #include "3party/pugixml/src/pugixml.hpp"
+
+#include "std/unique_ptr.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -39,6 +43,9 @@ DEFINE_int32(limit, -1, "Max number of segments to handle. -1 for all.");
 DEFINE_bool(multipoints_only, false, "Only segments with multiple points to handle.");
 DEFINE_int32(num_threads, 1, "Number of threads.");
 DEFINE_string(ids_path, "", "Path to a file with segment ids to process.");
+DEFINE_string(countries_filename, "",
+              "Name of countries file which describes mwm tree. Used to get country specific "
+              "routing restrictions.");
 
 using namespace openlr;
 
@@ -214,7 +221,8 @@ int main(int argc, char * argv[])
   std::vector<Index> indexes(numThreads);
   LoadIndexes(FLAGS_mwms_path, indexes);
 
-  OpenLRSimpleDecoder decoder(indexes);
+  OpenLRSimpleDecoder decoder(indexes, storage::CountryParentGetter(FLAGS_countries_filename,
+                                                                    GetPlatform().ResourcesDir()));
 
   pugi::xml_document document;
   auto const load_result = document.load_file(FLAGS_input.data());

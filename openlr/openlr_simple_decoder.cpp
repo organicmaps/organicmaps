@@ -77,7 +77,11 @@ bool OpenLRSimpleDecoder::SegmentsFilter::Matches(LinearSegment const & segment)
 }
 
 // OpenLRSimpleDecoder -----------------------------------------------------------------------------
-OpenLRSimpleDecoder::OpenLRSimpleDecoder(vector<Index> const & indexes) : m_indexes(indexes) {}
+OpenLRSimpleDecoder::OpenLRSimpleDecoder(
+    vector<Index> const & indexes, CountryParentNameGetterFn const & countryParentNameGetterFn)
+  : m_indexes(indexes), m_countryParentNameGetterFn(countryParentNameGetterFn)
+{
+}
 
 void OpenLRSimpleDecoder::Decode(std::vector<LinearSegment> const & segments,
                                  uint32_t const numThreads, std::vector<DecodedPath> & paths)
@@ -95,7 +99,7 @@ void OpenLRSimpleDecoder::Decode(std::vector<LinearSegment> const & segments,
   auto worker = [&segments, &paths, kBatchSize, kProgressFrequency, kOffsetToleranceM, numThreads,
                  this](size_t threadNum, Index const & index, Stats & stats) {
     FeaturesRoadGraph roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag,
-                                make_unique<CarModelFactory>());
+                                make_unique<CarModelFactory>(m_countryParentNameGetterFn));
     RoadInfoGetter roadInfoGetter(index);
     Router router(roadGraph, roadInfoGetter);
 
