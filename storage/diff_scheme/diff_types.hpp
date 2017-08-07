@@ -20,5 +20,5 @@ struct FileInfo final
   uint64_t m_version;
 };
 
-using NameFileMap = std::unordered_map<std::string, FileInfo>;
+using NameFileInfoMap = std::unordered_map<std::string, FileInfo>;
 }  // namespace diff_scheme

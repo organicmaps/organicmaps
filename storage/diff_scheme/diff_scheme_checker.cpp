@@ -1,4 +1,4 @@
-#include "storage/diff_scheme_checker.hpp"
+#include "storage/diff_scheme/diff_scheme_checker.hpp"
 
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
@@ -19,11 +19,11 @@ namespace
 {
 using namespace diff_scheme;
 
-char const * const kMaxVersionKey = "max_version";
-char const * const kMwmsKey = "mwms";
-char const * const kNameKey = "name";
-char const * const kSizeKey = "size";
-char const * const kVersionKey = "version";
+char const kMaxVersionKey[] = "max_version";
+char const kMwmsKey[] = "mwms";
+char const kNameKey[] = "name";
+char const kSizeKey[] = "size";
+char const kVersionKey[] = "version";
 
 string SerializeCheckerData(Checker::LocalMapsInfo const & info)
 {
@@ -43,11 +43,11 @@ string SerializeCheckerData(Checker::LocalMapsInfo const & info)
   return buffer.get();
 }
 
-NameFileMap DeserializeResponse(string const & response, Checker::NameVersionMap const & nameVersionMap)
+NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersionMap const & nameVersionMap)
 {
   if (response.empty())
   {
-    LOG(LERROR, ("Diff responce shouldn't be empty."));
+    LOG(LERROR, ("Diff response shouldn't be empty."));
     return {};
   }
 
@@ -66,7 +66,7 @@ NameFileMap DeserializeResponse(string const & response, Checker::NameVersionMap
     return {};
   }
 
-  NameFileMap diffs;
+  NameFileInfoMap diffs;
 
   for (size_t i = 0; i < size; ++i)
   {
@@ -75,7 +75,7 @@ NameFileMap DeserializeResponse(string const & response, Checker::NameVersionMap
     if (!node)
     {
       LOG(LERROR, ("Incorrect server response."));
-      return diffs;
+      return {};
     }
 
     string name;
@@ -83,7 +83,7 @@ NameFileMap DeserializeResponse(string const & response, Checker::NameVersionMap
     int64_t size;
     FromJSONObject(node, kSizeKey, size);
     // Invalid size. The diff is not available.
-    if (size == -1)
+    if (size < 0)
       continue;
 
     if (nameVersionMap.find(name) == nameVersionMap.end())
@@ -118,7 +118,7 @@ void Checker::Check(LocalMapsInfo const & info, Callback const & fn)
     string const body = SerializeCheckerData(info);
     ASSERT(!body.empty(), ());
     request.SetBodyData(body, "application/json");
-    NameFileMap diffs;
+    NameFileInfoMap diffs;
     if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
       diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);
 

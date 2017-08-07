@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/diff_types.hpp"
+#include "storage/diff_scheme/diff_types.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -20,7 +20,7 @@ public:
     NameVersionMap m_localMaps;
   };
 
-  using Callback = std::function<void(NameFileMap const & diffs)>;
+  using Callback = std::function<void(NameFileInfoMap const & diffs)>;
 
   static void Check(LocalMapsInfo const & info, Callback const & fn);
 };
