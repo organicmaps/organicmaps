@@ -36,6 +36,7 @@ import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -595,7 +596,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    ((TwoStatePreference)pref).setChecked(Config.isStatisticsEnabled());
+    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override

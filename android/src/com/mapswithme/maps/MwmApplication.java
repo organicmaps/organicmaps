@@ -13,9 +13,6 @@ import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.File;
-import java.util.List;
-
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -35,6 +32,7 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -46,6 +44,9 @@ import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
+
+import java.io.File;
+import java.util.List;
 
 public class MwmApplication extends Application
 {
@@ -193,6 +194,8 @@ public class MwmApplication extends Application
     nativePreparePlatform(settingsPath);
     nativeInitPlatform(getApkPath(), getStoragePath(settingsPath), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, UiUtils.isTablet());
+
+    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 
     @SuppressWarnings("unused")
     Statistics s = Statistics.INSTANCE;

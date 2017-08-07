@@ -24,7 +24,7 @@ public final class Config
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
-  private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
+  static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
@@ -170,14 +170,9 @@ public final class Config
     setBool(KEY_PREF_ZOOM_BUTTONS, show);
   }
 
-  public static boolean isStatisticsEnabled()
-  {
-    return MwmApplication.prefs().getBoolean(KEY_PREF_STATISTICS, true);
-  }
-
   public static void setStatisticsEnabled(boolean enabled)
   {
-    MwmApplication.prefs().edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
+    setBool(KEY_PREF_STATISTICS, enabled);
   }
 
   public static boolean useGoogleServices()

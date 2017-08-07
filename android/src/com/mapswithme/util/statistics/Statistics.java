@@ -34,6 +34,7 @@ import com.mapswithme.util.BatteryState;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.my.tracker.MyTracker;
 
 import java.lang.annotation.Retention;
@@ -353,8 +354,7 @@ public enum Statistics
 
   Statistics()
   {
-    mEnabled = Config.isStatisticsEnabled();
-    Config.setStatisticsEnabled(mEnabled);
+    mEnabled = SharedPropertiesUtils.isStatisticsEnabled();
     final Context context = MwmApplication.get();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
@@ -445,6 +445,7 @@ public enum Statistics
 
   public void setStatEnabled(boolean isEnabled)
   {
+    SharedPropertiesUtils.setStatisticsEnabled(isEnabled);
     Config.setStatisticsEnabled(isEnabled);
 
     // We track if user turned on/off statistics to understand data better.
