@@ -274,7 +274,12 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       return;
     }
 
-    if (distance >= 0.0f) // drag up
+    boolean isDragUp = distance >= 0.0f;
+
+    if (isDragUp && mPlacePage.getState() == State.FULLSCREEN)
+      return;
+
+    if (isDragUp) // drag up
     {
       if (mPlacePage.getState() == State.PREVIEW)
       {
