@@ -280,6 +280,10 @@
 @implementation UINavigationController (Autorotate)
 
 - (BOOL)shouldAutorotate { return [[self.viewControllers lastObject] shouldAutorotate]; }
+@end
+
+@implementation UIViewController (Autorotate)
+
 - (NSUInteger)supportedInterfaceOrientations { return UIInterfaceOrientationMaskAll; }
 @end
 

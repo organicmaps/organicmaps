@@ -180,6 +180,9 @@
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                            <connections>
+                                <action selector="showRouteManager" destination="-1" eventType="touchUpInside" id="KZh-LJ-k72"/>
+                            </connections>
                         </button>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQB-xn-DSM" userLabel="Go" customClass="MWMRouteStartButton">
                             <rect key="frame" x="228" y="8" width="80" height="32"/>
@@ -257,6 +260,9 @@
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                            <connections>
+                                <action selector="showRouteManager" destination="-1" eventType="touchUpInside" id="Nvr-ZO-h84"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

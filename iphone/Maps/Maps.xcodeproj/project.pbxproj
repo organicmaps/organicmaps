@@ -181,6 +181,27 @@
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
 		34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */; };
 		34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34201E0B1DC0E33100D24118 /* libtracking.a */; };
+		342360931F3456E200AFE44D /* RouteManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360911F3456E200AFE44D /* RouteManagerViewController.swift */; };
+		342360941F3456E200AFE44D /* RouteManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360911F3456E200AFE44D /* RouteManagerViewController.swift */; };
+		342360951F3456E200AFE44D /* RouteManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360911F3456E200AFE44D /* RouteManagerViewController.swift */; };
+		342360961F3456E200AFE44D /* RouteManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360921F3456E200AFE44D /* RouteManagerViewController.xib */; };
+		342360971F3456E200AFE44D /* RouteManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360921F3456E200AFE44D /* RouteManagerViewController.xib */; };
+		342360981F3456E200AFE44D /* RouteManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360921F3456E200AFE44D /* RouteManagerViewController.xib */; };
+		3423609A1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360991F34585A00AFE44D /* RouteManagerFooterView.swift */; };
+		3423609B1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360991F34585A00AFE44D /* RouteManagerFooterView.swift */; };
+		3423609C1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360991F34585A00AFE44D /* RouteManagerFooterView.swift */; };
+		3423609E1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423609D1F34787F00AFE44D /* RouteManagerTableView.swift */; };
+		3423609F1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423609D1F34787F00AFE44D /* RouteManagerTableView.swift */; };
+		342360A01F34787F00AFE44D /* RouteManagerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423609D1F34787F00AFE44D /* RouteManagerTableView.swift */; };
+		342360A21F34840500AFE44D /* RouteManagerDimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A11F34840500AFE44D /* RouteManagerDimView.swift */; };
+		342360A31F34840500AFE44D /* RouteManagerDimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A11F34840500AFE44D /* RouteManagerDimView.swift */; };
+		342360A41F34840500AFE44D /* RouteManagerDimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A11F34840500AFE44D /* RouteManagerDimView.swift */; };
+		342360A71F34906700AFE44D /* RouteManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A51F34906700AFE44D /* RouteManagerCell.swift */; };
+		342360A81F34906700AFE44D /* RouteManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A51F34906700AFE44D /* RouteManagerCell.swift */; };
+		342360A91F34906700AFE44D /* RouteManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342360A51F34906700AFE44D /* RouteManagerCell.swift */; };
+		342360AA1F34906700AFE44D /* RouteManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360A61F34906700AFE44D /* RouteManagerCell.xib */; };
+		342360AB1F34906700AFE44D /* RouteManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360A61F34906700AFE44D /* RouteManagerCell.xib */; };
+		342360AC1F34906700AFE44D /* RouteManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342360A61F34906700AFE44D /* RouteManagerCell.xib */; };
 		342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		342CC5F11C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
@@ -402,6 +423,12 @@
 		3495433E1EB22DAC00F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
 		3495433F1EB22DAD00F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
+		349993FA1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F81F388F970064CFBE /* RouteManageriPadPresentationController.swift */; };
+		349993FB1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F81F388F970064CFBE /* RouteManageriPadPresentationController.swift */; };
+		349993FC1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F81F388F970064CFBE /* RouteManageriPadPresentationController.swift */; };
+		349993FD1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F91F388F970064CFBE /* RouteManageriPhonePresentationController.swift */; };
+		349993FE1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F91F388F970064CFBE /* RouteManageriPhonePresentationController.swift */; };
+		349993FF1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349993F91F388F970064CFBE /* RouteManageriPhonePresentationController.swift */; };
 		349A13821DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
 		349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
 		349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
@@ -478,6 +505,18 @@
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
 		34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */; };
+		34C5B80F1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
+		34C5B8101F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
+		34C5B8111F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */; };
+		34C5B8131F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */; };
+		34C5B8141F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */; };
+		34C5B8151F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */; };
+		34C5B81B1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */; };
+		34C5B81C1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */; };
+		34C5B81D1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */; };
+		34C5B8231F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8221F336DF5005E50B6 /* RouteManagerTransitioning.swift */; };
+		34C5B8241F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8221F336DF5005E50B6 /* RouteManagerTransitioning.swift */; };
+		34C5B8251F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C5B8221F336DF5005E50B6 /* RouteManagerTransitioning.swift */; };
 		34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */; };
 		34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */; };
 		34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BD011C6DB693000DC38D /* MWMViewController.mm */; };
@@ -562,6 +601,9 @@
 		34D4FA661E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA671E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
 		34D4FA681E265749003F53EF /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D4FA651E265749003F53EF /* WhatsNewController.swift */; };
+		34D7F3411F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D7F3401F33903F001D5ED5 /* RouteManagerHeaderView.swift */; };
+		34D7F3421F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D7F3401F33903F001D5ED5 /* RouteManagerHeaderView.swift */; };
+		34D7F3431F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D7F3401F33903F001D5ED5 /* RouteManagerHeaderView.swift */; };
 		34D8087B1E793606002F0584 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087A1E793606002F0584 /* Alamofire.framework */; };
 		34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087C1E79360D002F0584 /* AlamofireImage.framework */; };
 		34D8087E1E79361A002F0584 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D8087C1E79360D002F0584 /* AlamofireImage.framework */; };
@@ -1797,6 +1839,14 @@
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		341F09831C20138100F18AC5 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		34201E0B1DC0E33100D24118 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<group>"; };
+		342360911F3456E200AFE44D /* RouteManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewController.swift; sourceTree = "<group>"; };
+		342360921F3456E200AFE44D /* RouteManagerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteManagerViewController.xib; sourceTree = "<group>"; };
+		342360991F34585A00AFE44D /* RouteManagerFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerFooterView.swift; sourceTree = "<group>"; };
+		3423609D1F34787F00AFE44D /* RouteManagerTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerTableView.swift; sourceTree = "<group>"; };
+		342360A11F34840500AFE44D /* RouteManagerDimView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerDimView.swift; sourceTree = "<group>"; };
+		342360A51F34906700AFE44D /* RouteManagerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerCell.swift; sourceTree = "<group>"; };
+		342360A61F34906700AFE44D /* RouteManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteManagerCell.xib; sourceTree = "<group>"; };
+		342360B11F349F9800AFE44D /* MWMRouteManagerPointType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouteManagerPointType.h; sourceTree = "<group>"; };
 		342639461EA0FDB30025EB89 /* MWMSearchItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchItemType.h; sourceTree = "<group>"; };
 		3427AF0B1E49E3A500D466DB /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		342CC5EF1C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationLoginViewController.h; sourceTree = "<group>"; };
@@ -1927,6 +1977,8 @@
 		3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = 3party/MoPubSDK/Internal/Common/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
 		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		349993F81F388F970064CFBE /* RouteManageriPadPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManageriPadPresentationController.swift; sourceTree = "<group>"; };
+		349993F91F388F970064CFBE /* RouteManageriPhonePresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManageriPhonePresentationController.swift; sourceTree = "<group>"; };
 		349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetAlert.h; sourceTree = "<group>"; };
 		349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMobileInternetAlert.mm; sourceTree = "<group>"; };
 		349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMobileInternetAlert.xib; sourceTree = "<group>"; };
@@ -1981,6 +2033,10 @@
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationCommon.mm; sourceTree = "<group>"; };
 		34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationCommon.h; sourceTree = "<group>"; };
+		34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModelProtocol.swift; sourceTree = "<group>"; };
+		34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModel.swift; sourceTree = "<group>"; };
+		34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerTransitioningManager.swift; sourceTree = "<group>"; };
+		34C5B8221F336DF5005E50B6 /* RouteManagerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerTransitioning.swift; sourceTree = "<group>"; };
 		34C9BCFE1C6DB693000DC38D /* MWMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewController.h; sourceTree = "<group>"; };
 		34C9BCFF1C6DB693000DC38D /* MWMTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMTableViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		34C9BD001C6DB693000DC38D /* MWMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMViewController.h; sourceTree = "<group>"; };
@@ -2025,6 +2081,7 @@
 		34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Init.swift"; sourceTree = "<group>"; };
 		34D4FA611E26572D003F53EF /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		34D4FA651E265749003F53EF /* WhatsNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
+		34D7F3401F33903F001D5ED5 /* RouteManagerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerHeaderView.swift; sourceTree = "<group>"; };
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
@@ -3059,6 +3116,7 @@
 		3409C9B11F28D3870038F2A9 /* RoutePreview */ = {
 			isa = PBXGroup;
 			children = (
+				34C5B8051F335AC7005E50B6 /* RouteManager */,
 				3407085E1F28FE2800029ECC /* MWMiPadRoutePreview.h */,
 				3407085F1F28FE2800029ECC /* MWMiPadRoutePreview.mm */,
 				340708441F28EDD100029ECC /* MWMiPadRoutePreview.xib */,
@@ -3471,6 +3529,28 @@
 			);
 			name = MapViewControls;
 			path = CustomViews/MapViewControls;
+			sourceTree = "<group>";
+		};
+		34C5B8051F335AC7005E50B6 /* RouteManager */ = {
+			isa = PBXGroup;
+			children = (
+				342360B11F349F9800AFE44D /* MWMRouteManagerPointType.h */,
+				342360A51F34906700AFE44D /* RouteManagerCell.swift */,
+				342360A61F34906700AFE44D /* RouteManagerCell.xib */,
+				342360A11F34840500AFE44D /* RouteManagerDimView.swift */,
+				342360991F34585A00AFE44D /* RouteManagerFooterView.swift */,
+				34D7F3401F33903F001D5ED5 /* RouteManagerHeaderView.swift */,
+				349993F81F388F970064CFBE /* RouteManageriPadPresentationController.swift */,
+				349993F91F388F970064CFBE /* RouteManageriPhonePresentationController.swift */,
+				3423609D1F34787F00AFE44D /* RouteManagerTableView.swift */,
+				34C5B8221F336DF5005E50B6 /* RouteManagerTransitioning.swift */,
+				34C5B81A1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift */,
+				342360911F3456E200AFE44D /* RouteManagerViewController.swift */,
+				342360921F3456E200AFE44D /* RouteManagerViewController.xib */,
+				34C5B8121F335BCA005E50B6 /* RouteManagerViewModel.swift */,
+				34C5B80E1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift */,
+			);
+			path = RouteManager;
 			sourceTree = "<group>";
 		};
 		34D3AFFC1E389D05004100F9 /* Cells */ = {
@@ -4746,6 +4826,7 @@
 				340E1EEB1E2F614400CE49BF /* Authorization.storyboard in Resources */,
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
+				342360961F3456E200AFE44D /* RouteManagerViewController.xib in Resources */,
 				452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				4A300ED41C6DCFD400140018 /* countries-strings in Resources */,
@@ -4812,6 +4893,7 @@
 				F6E2FD6D1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				F6E2FD731E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13841DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
+				342360AA1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				34D3B04A1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEE1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
 				F6E2FDF41E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
@@ -4928,6 +5010,7 @@
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
+				342360971F3456E200AFE44D /* RouteManagerViewController.xib in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
@@ -4994,6 +5077,7 @@
 				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
+				342360AB1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
@@ -5110,6 +5194,7 @@
 				849CF5ED1DE842290024A8A5 /* classificator.txt in Resources */,
 				849CF5EC1DE842290024A8A5 /* colors.txt in Resources */,
 				849CF6391DE842290024A8A5 /* copyright.html in Resources */,
+				342360981F3456E200AFE44D /* RouteManagerViewController.xib in Resources */,
 				849CF6581DE842290024A8A5 /* countries-strings in Resources */,
 				849CF5F41DE842290024A8A5 /* countries.txt in Resources */,
 				849CF6571DE842290024A8A5 /* countries_obsolete.txt in Resources */,
@@ -5176,6 +5261,7 @@
 				F6E2FD751E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				34D3B04C1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDF01E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
+				342360AC1F34906700AFE44D /* RouteManagerCell.xib in Resources */,
 				F6E2FDF61E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				F6E2FDFC1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				342639381EA0E60B0025EB89 /* local_ads_symbols.txt in Resources */,
@@ -5388,9 +5474,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				34845DB61E166084003D55B9 /* Common.swift in Sources */,
+				349993FD1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				34D3B04E1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				340837161B72451A00B5C185 /* MWMShareActivityItem.mm in Sources */,
+				342360931F3456E200AFE44D /* RouteManagerViewController.swift in Sources */,
 				F6E2FF531E097BA00083EBEC /* MWMHelpController.mm in Sources */,
 				F6E2FF591E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				3454D7B81E07F045004AF2AD /* CALayer+RuntimeAttributes.mm in Sources */,
@@ -5417,6 +5505,7 @@
 				F6150E511EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				F6E2FE0F1E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */,
+				3423609A1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
 				34F742311E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */,
 				340475801E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				3486B51D1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
@@ -5424,6 +5513,7 @@
 				34D3B0201E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */,
 				F6E2FE481E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				3404754F1E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
+				34C5B81B1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
 				34ABA6281C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */,
 				34F4073D1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F69018B81E9E601400B3C10B /* MWMAutoupdateController.mm in Sources */,
@@ -5461,6 +5551,7 @@
 				34763F061F3092E700F4D2D3 /* String+Format.swift in Sources */,
 				F6E2FE4B1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				346DB8391E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
+				34D7F3411F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */,
 				3404757D1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				F6150E311EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */,
 				34D3AFF11E37945B004100F9 /* UITableView+Cells.swift in Sources */,
@@ -5489,6 +5580,7 @@
 				34D3B0171E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
 				346DB8271E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
+				342360A21F34840500AFE44D /* RouteManagerDimView.swift in Sources */,
 				F6E2FECC1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				F6E2FF111E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
@@ -5510,6 +5602,7 @@
 				F6E2FE271E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				34F407341E9E1AFF00E57AC0 /* CoreBanner.swift in Sources */,
 				F6E2FE241E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
+				342360A71F34906700AFE44D /* RouteManagerCell.swift in Sources */,
 				34D3B0351E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				F6E2FD8B1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
 				F6E2FD701E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
@@ -5565,6 +5658,7 @@
 				3454D7C11E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				340E1EFA1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				F6E2FE7B1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
+				34C5B8131F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */,
 				34E776321F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF351E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE391E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
@@ -5601,6 +5695,7 @@
 				F6E2FE031E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				F6E2FE661E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE121E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
+				34C5B80F1F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
 				340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */,
 				3486B5181E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756A1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
@@ -5616,12 +5711,14 @@
 				F6E2FED81E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD881E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
+				34C5B8231F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				F6E2FF4A1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				3407087B1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
 				3470402F1EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FE781E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6BD1D201CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				F6B97B261CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
+				349993FA1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7C1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED21E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				34ABA6201C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
@@ -5655,6 +5752,7 @@
 				340475701E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404756D1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				3486B5071E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
+				3423609E1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
 				F6E2FEFC1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3454D7CA1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
 				3454D7BE1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
@@ -5713,9 +5811,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				34845DB71E166084003D55B9 /* Common.swift in Sources */,
+				349993FE1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				34D3B04F1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				F6E2FF541E097BA00083EBEC /* MWMHelpController.mm in Sources */,
+				342360941F3456E200AFE44D /* RouteManagerViewController.swift in Sources */,
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				340708581F28F1F000029ECC /* MWMTaxiCollectionLayout.mm in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
@@ -5742,6 +5842,7 @@
 				F6150E521EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */,
+				3423609B1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
 				34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */,
 				340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				6741A9B11BF340DE002C974C /* MWMAPIBarView.mm in Sources */,
@@ -5749,6 +5850,7 @@
 				34D3B0211E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */,
 				3486B51E1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
 				F6E2FE491E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
+				34C5B81C1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
 				340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
@@ -5786,6 +5888,7 @@
 				34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */,
 				346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.mm in Sources */,
+				34D7F3421F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
 				F6150E321EF953A6000B955D /* MWMUGCReviewVM.mm in Sources */,
 				34D3B0301E389D05004100F9 /* MWMEditorCategoryCell.mm in Sources */,
@@ -5814,6 +5917,7 @@
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDC1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,
+				342360A31F34840500AFE44D /* RouteManagerDimView.swift in Sources */,
 				346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				34943BB71E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5F1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
@@ -5835,6 +5939,7 @@
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				F6E2FD711E097BA00083EBEC /* MWMMapDownloaderTableViewCell.mm in Sources */,
+				342360A81F34906700AFE44D /* RouteManagerCell.swift in Sources */,
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.mm in Sources */,
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
@@ -5890,6 +5995,7 @@
 				F6664C021E6459DA00E703C2 /* PPReviewHeaderCell.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
+				34C5B8141F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */,
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				F6E2FE3A1E097BA00083EBEC /* MWMMigrationView.mm in Sources */,
@@ -5926,6 +6032,7 @@
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				F6E2FE671E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
+				34C5B8101F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
@@ -5941,12 +6048,14 @@
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD891E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
+				34C5B8241F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
 				3407087C1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				F6E2FE791E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				F6B97B271CD0CA990009B612 /* MWMBookmarkNameCell.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
+				349993FB1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7D1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED31E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				340475741E081A4600C92850 /* MWMStorage.mm in Sources */,
@@ -5980,6 +6089,7 @@
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
+				3423609F1F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
 				F6E2FEFD1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
@@ -6038,9 +6148,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				34845DB81E166084003D55B9 /* Common.swift in Sources */,
+				349993FF1F388F970064CFBE /* RouteManageriPhonePresentationController.swift in Sources */,
 				849CF6821DE842290024A8A5 /* main.mm in Sources */,
 				34D3B0501E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				3454D7D51E07F045004AF2AD /* UIImageView+Coloring.mm in Sources */,
+				342360951F3456E200AFE44D /* RouteManagerViewController.swift in Sources */,
 				F6E2FF551E097BA00083EBEC /* MWMHelpController.mm in Sources */,
 				340708591F28F1F000029ECC /* MWMTaxiCollectionLayout.mm in Sources */,
 				F6E2FF5B1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
@@ -6067,6 +6179,7 @@
 				F6E2FDED1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				F6150E531EFA7352000B955D /* MWUGCCommentsController.mm in Sources */,
 				F6E2FE111E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
+				3423609C1F34585A00AFE44D /* RouteManagerFooterView.swift in Sources */,
 				3404755A1E081A4600C92850 /* WebViewController.mm in Sources */,
 				34F742331E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */,
 				849CF6911DE842290024A8A5 /* MWMSideButtons.mm in Sources */,
@@ -6074,6 +6187,7 @@
 				34F407301E9E1AFF00E57AC0 /* BannersCache.swift in Sources */,
 				34D3B0221E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.mm in Sources */,
 				3486B51F1E27AD590069C126 /* MWMFrameworkHelper.mm in Sources */,
+				34C5B81D1F3367E1005E50B6 /* RouteManagerTransitioningManager.swift in Sources */,
 				F6E2FE4A1E097BA00083EBEC /* MWMPlacePageData.mm in Sources */,
 				849CF6981DE842290024A8A5 /* MWMAPIBarView.mm in Sources */,
 				34F4073F1E9E1AFF00E57AC0 /* MPNativeAd+MWM.mm in Sources */,
@@ -6111,6 +6225,7 @@
 				34763F081F3092E700F4D2D3 /* String+Format.swift in Sources */,
 				849CF6B11DE842290024A8A5 /* MWMMapWidgets.mm in Sources */,
 				F6E2FE4D1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
+				34D7F3431F33903F001D5ED5 /* RouteManagerHeaderView.swift in Sources */,
 				346DB83B1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				340475631E081A4600C92850 /* MWMNetworkPolicy.mm in Sources */,
 				34D3AFF31E37945B004100F9 /* UITableView+Cells.swift in Sources */,
@@ -6139,6 +6254,7 @@
 				346DB8291E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				340475781E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				F6E2FECE1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
+				342360A41F34840500AFE44D /* RouteManagerDimView.swift in Sources */,
 				F6E2FF131E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				849CF6D21DE842290024A8A5 /* MWMNavigationController.mm in Sources */,
 				346DB8351E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
@@ -6160,6 +6276,7 @@
 				34F407361E9E1AFF00E57AC0 /* CoreBanner.swift in Sources */,
 				849CF6D31DE842290024A8A5 /* MWMMapDownloadDialog.mm in Sources */,
 				F6E2FE261E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
+				342360A91F34906700AFE44D /* RouteManagerCell.swift in Sources */,
 				34D3B0371E389D05004100F9 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				849CF6D51DE842290024A8A5 /* MWMTableViewController.mm in Sources */,
 				F6E2FD8D1E097BA00083EBEC /* MWMNoMapsView.mm in Sources */,
@@ -6215,6 +6332,7 @@
 				F6664C031E6459DA00E703C2 /* PPReviewHeaderCell.swift in Sources */,
 				849CF6F61DE842290024A8A5 /* MWMNavigationDashboardEntity.mm in Sources */,
 				340E1EFC1E2F614400CE49BF /* Storyboard.swift in Sources */,
+				34C5B8151F335BCA005E50B6 /* RouteManagerViewModel.swift in Sources */,
 				F6E2FE7D1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				34E776341F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				F6E2FF371E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
@@ -6251,6 +6369,7 @@
 				F6E2FE051E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				F6E2FE681E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				F6E2FE141E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
+				34C5B8111F335BA8005E50B6 /* RouteManagerViewModelProtocol.swift in Sources */,
 				849CF7151DE842290024A8A5 /* MWMInputEmailValidator.mm in Sources */,
 				3486B51A1E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				845E4B1D1DEC83AE00D6BED8 /* MWMMobileInternetAlert.mm in Sources */,
@@ -6266,12 +6385,14 @@
 				3454D7C91E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
 				F6E2FEDA1E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD8A1E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
+				34C5B8251F336DF5005E50B6 /* RouteManagerTransitioning.swift in Sources */,
 				F6E2FF4C1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				3407087D1F2B6F5200029ECC /* NavigationControlView.swift in Sources */,
 				347040311EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FE7A1E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
 				849CF7251DE842290024A8A5 /* MWMMapViewControlsManager.mm in Sources */,
 				849CF7281DE842290024A8A5 /* MWMOsmAuthAlert.mm in Sources */,
+				349993FC1F388F970064CFBE /* RouteManageriPadPresentationController.swift in Sources */,
 				F6E2FD7E1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
 				F6E2FED41E097BA00083EBEC /* MWMSearchHotelsFilterViewController.mm in Sources */,
 				849CF72B1DE842290024A8A5 /* MWMBookmarkNameCell.mm in Sources */,
@@ -6305,6 +6426,7 @@
 				3404165D1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				340475571E081A4600C92850 /* Statistics.mm in Sources */,
 				3486B5091E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
+				342360A01F34787F00AFE44D /* RouteManagerTableView.swift in Sources */,
 				F6E2FEFE1E097BA00083EBEC /* MWMSearchCategoryCell.mm in Sources */,
 				3404754B1E081A4600C92850 /* AppInfo.mm in Sources */,
 				849CF73C1DE842290024A8A5 /* MWMMultilineLabel.mm in Sources */,

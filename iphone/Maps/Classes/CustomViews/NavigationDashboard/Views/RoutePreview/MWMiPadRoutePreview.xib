@@ -19,6 +19,7 @@
             <connections>
                 <outlet property="goButton" destination="4IJ-pR-Ztp" id="WdQ-Nn-rm4"/>
                 <outlet property="routePreview" destination="u2u-Vb-2eH" id="VZw-5q-2P6"/>
+                <outlet property="showRouteManagerButton" destination="NAs-km-8uw" id="pJx-0l-Skz"/>
                 <outlet property="statusBox" destination="87p-Qg-8f3" id="dze-gL-fnK"/>
                 <outlet property="taxiCollectionView" destination="t6d-gI-JcN" id="b5y-vn-rwV"/>
             </connections>
@@ -260,6 +261,9 @@
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
+                                    <connections>
+                                        <action selector="showRouteManager" destination="-1" eventType="touchUpInside" id="eOk-zR-QEb"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

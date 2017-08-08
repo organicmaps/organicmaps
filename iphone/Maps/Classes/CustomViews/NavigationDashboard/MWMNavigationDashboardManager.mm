@@ -51,7 +51,9 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) Observers * observers;
 @property(nonatomic, readwrite) MWMTaxiPreviewDataSource * taxiDataSource;
 @property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
+@property(weak, nonatomic) IBOutlet UIButton * showRouteManagerButton;
 @property(weak, nonatomic) UIView * ownerView;
+@property(nonatomic) MWMRouteManagerTransitioningManager * routeManagerTransitioningManager;
 
 @end
 
@@ -223,6 +225,28 @@ using Observers = NSHashTable<Observer>;
   [self.statusBox stateNavigation];
   self.statusBox = nil;
   [self onNavigationInfoUpdated];
+}
+
+#pragma mark - MWMRoutePreviewStatus
+
+- (IBAction)showRouteManager
+{
+  auto routeManagerViewModel = [[MWMRouteManagerViewModel alloc] init];
+  auto routeManager =
+      [[MWMRouteManagerViewController alloc] initWithViewModel:routeManagerViewModel];
+  routeManager.modalPresentationStyle = UIModalPresentationCustom;
+  if (IPAD)
+  {
+    self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc]
+        initWithPopoverSourceView:self.showRouteManagerButton
+         permittedArrowDirections:UIPopoverArrowDirectionLeft];
+  }
+  else
+  {
+    self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc] init];
+  }
+  routeManager.transitioningDelegate = self.routeManagerTransitioningManager;
+  [[MapViewController controller] presentViewController:routeManager animated:YES completion:nil];
 }
 
 #pragma mark - MWMNavigationControlView
