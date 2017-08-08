@@ -8,8 +8,11 @@
 @property(nonatomic, readonly) RouteMarkData routeMarkData;
 
 - (instancetype)initWithURLSchemeRoutePoint:(url_scheme::RoutePoint const &)point
-                                       type:(MWMRoutePointType)type;
+                                       type:(MWMRoutePointType)type
+                          intermediateIndex:(int8_t)intermediateIndex;
 - (instancetype)initWithRouteMarkData:(RouteMarkData const &)point;
-- (instancetype)initWithPoint:(m2::PointD const &)point type:(MWMRoutePointType)type;
+- (instancetype)initWithPoint:(m2::PointD const &)point
+                         type:(MWMRoutePointType)type
+            intermediateIndex:(int8_t)intermediateIndex;
 
 @end

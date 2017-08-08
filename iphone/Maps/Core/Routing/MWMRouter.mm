@@ -179,20 +179,21 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   if (type == self.type)
     return;
   
-  // Try to cancel transaction if we switched router type back.
-  [self cancelTaxiTransaction];
-  
-  // Taxi routing does not support intermediate points.
-  auto & rm = GetFramework().GetRoutingManager();
   if (type == MWMRouterTypeTaxi)
-  {
-    auto router = [MWMRouter router];
-    router.taxiRoutePointTransactionId = rm.OpenRoutePointsTransaction();
-    rm.RemoveIntermediateRoutePoints();
-  }
-  
+    [self openTaxiTransaction];
+  else
+    [self cancelTaxiTransaction];
+
   [self doStop:NO];
-  rm.SetRouter(coreRouterType(type));
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
+}
+
++ (void)openTaxiTransaction
+{
+  auto & rm = GetFramework().GetRoutingManager();
+  auto router = [MWMRouter router];
+  router.taxiRoutePointTransactionId = rm.OpenRoutePointsTransaction();
+  rm.RemoveIntermediateRoutePoints();
 }
 
 + (void)cancelTaxiTransaction
@@ -243,20 +244,20 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   return [turnNotifications copy];
 }
 
-+ (void)removePoint:(RouteMarkType)type intermediateIndex:(int8_t)intermediateIndex
-{
-  [self applyTaxiTransaction];
-  GetFramework().GetRoutingManager().RemoveRoutePoint(type, intermediateIndex);
-  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
-}
-
-+ (void)addPoint:(MWMRoutePoint *)point intermediateIndex:(int8_t)intermediateIndex
++ (void)removePoint:(MWMRoutePoint *)point
 {
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
-  pt.m_intermediateIndex = intermediateIndex;
-  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  GetFramework().GetRoutingManager().RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
   [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
+}
+
++ (void)removePointAndRebuild:(MWMRoutePoint *)point
+{
+  if (!point)
+    return;
+  [self removePoint:point];
+  [self rebuildWithBestRouter:NO];
 }
 
 + (void)addPoint:(MWMRoutePoint *)point
@@ -272,30 +273,11 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
 }
 
-+ (void)removeStartPointAndRebuild:(int8_t)intermediateIndex
-{
-  [self removePoint:RouteMarkType::Start intermediateIndex:intermediateIndex];
-  [self rebuildWithBestRouter:NO];
-}
-
-+ (void)removeFinishPointAndRebuild:(int8_t)intermediateIndex
-{
-  [self removePoint:RouteMarkType::Finish intermediateIndex:intermediateIndex];
-  [self rebuildWithBestRouter:NO];
-}
-
-+ (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point
-                     intermediateIndex:(int8_t)intermediateIndex
++ (void)addPointAndRebuild:(MWMRoutePoint *)point
 {
   if (!point)
     return;
-  [self addPoint:point intermediateIndex:intermediateIndex];
-  [self rebuildWithBestRouter:NO];
-}
-
-+ (void)removeIntermediatePointAndRebuild:(int8_t)intermediateIndex
-{
-  [self removePoint:RouteMarkType::Intermediate intermediateIndex:intermediateIndex];
+  [self addPoint:point];
   [self rebuildWithBestRouter:NO];
 }
 
@@ -313,7 +295,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     return;
   [self addPoint:finishPoint];
   if (![self startPoint] && [MWMLocationManager lastLocation])
-    [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]];
+    [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                    intermediateIndex:0]];
   [self rebuildWithBestRouter:bestRouter];
 }
 
@@ -398,7 +381,8 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
                                    !p2.isMyPosition;
         [alertController presentPoint2PointAlertWithOkBlock:^{
           [self buildFromPoint:[[MWMRoutePoint alloc]
-                                   initWithLastLocationAndType:MWMRoutePointTypeStart]
+                                   initWithLastLocationAndType:MWMRoutePointTypeStart
+                                             intermediateIndex:0]
                     bestRouter:NO];
         }
                                               needToRebuild:needToRebuild];

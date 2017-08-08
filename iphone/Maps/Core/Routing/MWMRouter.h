@@ -32,11 +32,9 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)setTurnNotificationsLocale:(NSString *)locale;
 + (NSArray<NSString *> *)turnNotifications;
 
-+ (void)removeStartPointAndRebuild:(int8_t)intermediateIndex;
-+ (void)removeFinishPointAndRebuild:(int8_t)intermediateIndex;
-+ (void)addIntermediatePointAndRebuild:(MWMRoutePoint *)point
-                     intermediateIndex:(int8_t)intermediateIndex;
-+ (void)removeIntermediatePointAndRebuild:(int8_t)intermediateIndex;
++ (void)addPointAndRebuild:(MWMRoutePoint *)point;
++ (void)removePointAndRebuild:(MWMRoutePoint *)point;
+
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 + (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
 + (void)buildFromPoint:(MWMRoutePoint *)startPoint

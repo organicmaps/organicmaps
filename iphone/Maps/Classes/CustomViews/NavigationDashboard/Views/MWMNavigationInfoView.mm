@@ -169,7 +169,8 @@ BOOL defaultOrientation(CGSize const & size)
           kStatRoutingMode : kStatRoutingModePlanning
         }];
   [MWMRouter
-      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart]
+      buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                      intermediateIndex:0]
           bestRouter:NO];
 }
 

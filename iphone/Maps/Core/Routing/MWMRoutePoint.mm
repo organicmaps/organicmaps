@@ -15,6 +15,7 @@
 @implementation MWMRoutePoint
 
 - (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
+                          intermediateIndex:(int8_t)intermediateIndex
 {
   auto lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
@@ -28,13 +29,14 @@
     _subtitle = L(@"");
     _isMyPosition = YES;
     _type = type;
-    _intermediateIndex = 0;
+    _intermediateIndex = intermediateIndex;
   }
   return self;
 }
 
 - (instancetype)initWithURLSchemeRoutePoint:(url_scheme::RoutePoint const &)point
                                        type:(MWMRoutePointType)type
+                          intermediateIndex:(int8_t)intermediateIndex
 {
   self = [super init];
   if (self)
@@ -44,7 +46,7 @@
     _subtitle = L(@"");
     _isMyPosition = NO;
     _type = type;
-    _intermediateIndex = 0;
+    _intermediateIndex = intermediateIndex;
   }
   return self;
 }
@@ -69,7 +71,9 @@
   return self;
 }
 
-- (instancetype)initWithPoint:(m2::PointD const &)point type:(MWMRoutePointType)type
+- (instancetype)initWithPoint:(m2::PointD const &)point
+                         type:(MWMRoutePointType)type
+            intermediateIndex:(int8_t)intermediateIndex
 {
   self = [super init];
   if (self)
@@ -84,7 +88,7 @@
     _subtitle = L(@"");
     _isMyPosition = NO;
     _type = type;
-    _intermediateIndex = 0;
+    _intermediateIndex = intermediateIndex;
   }
   return self;
 }

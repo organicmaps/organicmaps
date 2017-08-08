@@ -62,13 +62,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [Statistics logEvent:eventName withParameters:stat atLocation:[MWMLocationManager lastLocation]];
 }
 
-void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
+void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
-  if (pt == nullptr)
+  if (point == nullptr)
     return;
   
   NSString * pointTypeStr = @"";
-  switch (pt.type)
+  switch (point.type)
   {
   case MWMRoutePointTypeStart: pointTypeStr = kStatRoutingPointTypeStart; break;
   case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
@@ -82,7 +82,7 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
         withParameters:@{
           kStatRoutingPointType : pointTypeStr,
           kStatRoutingPointValue :
-              (pt.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
+              (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
           kStatRoutingPointMethod :
               (isPlanning ? kStatRoutingPointMethodPlanning : kStatRoutingPointMethodNoPlanning),
           kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
@@ -330,9 +330,9 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatSource}];
 
-  MWMRoutePoint * pt = [self routePointWithType:MWMRoutePointTypeStart];
-  logPointEvent(pt, kStatRoutingAddPoint);
-  [MWMRouter buildFromPoint:pt bestRouter:YES];
+  MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeStart intermediateIndex:0];
+  logPointEvent(point, kStatRoutingAddPoint);
+  [MWMRouter buildFromPoint:point bestRouter:YES];
   [self close];
 }
 
@@ -341,38 +341,42 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
 
-  MWMRoutePoint * pt = [self routePointWithType:MWMRoutePointTypeFinish];
-  logPointEvent(pt, kStatRoutingAddPoint);
-  [MWMRouter buildToPoint:pt bestRouter:YES];
+  MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:0];
+  logPointEvent(point, kStatRoutingAddPoint);
+  [MWMRouter buildToPoint:point bestRouter:YES];
   [self close];
 }
 
 - (void)addStop
 {
-  MWMRoutePoint * pt = [self routePointWithType:MWMRoutePointTypeIntermediate];
-  logPointEvent(pt, kStatRoutingAddPoint);
-  [MWMRouter addIntermediatePointAndRebuild:pt intermediateIndex:0];
+  MWMRoutePoint * point =
+      [self routePointWithType:MWMRoutePointTypeIntermediate intermediateIndex:0];
+  logPointEvent(point, kStatRoutingAddPoint);
+  [MWMRouter addPointAndRebuild:point];
   [self shouldClose];
 }
 
 - (void)removeStop
 {
   auto data = self.data;
+  MWMRoutePoint * point = nil;
   switch (data.routeMarkType)
   {
   case RouteMarkType::Start:
-    logPointEvent([self routePointWithType:MWMRoutePointTypeStart], kStatRoutingRemovePoint);
-    [MWMRouter removeStartPointAndRebuild:data.intermediateIndex];
+    point =
+        [self routePointWithType:MWMRoutePointTypeStart intermediateIndex:data.intermediateIndex];
     break;
   case RouteMarkType::Finish:
-    logPointEvent([self routePointWithType:MWMRoutePointTypeFinish], kStatRoutingRemovePoint);
-    [MWMRouter removeFinishPointAndRebuild:data.intermediateIndex];
+    point =
+        [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:data.intermediateIndex];
     break;
   case RouteMarkType::Intermediate:
-    logPointEvent([self routePointWithType:MWMRoutePointTypeIntermediate], kStatRoutingRemovePoint);
-    [MWMRouter removeIntermediatePointAndRebuild:data.intermediateIndex];
+    point = [self routePointWithType:MWMRoutePointTypeIntermediate
+                   intermediateIndex:data.intermediateIndex];
     break;
   }
+  logPointEvent(point, kStatRoutingRemovePoint);
+  [MWMRouter removePointAndRebuild:point];
   [self shouldClose];
 }
 
@@ -391,18 +395,22 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];
   [MWMRouter setType:MWMRouterTypeTaxi];
-  [MWMRouter buildToPoint:[self routePointWithType:MWMRoutePointTypeFinish] bestRouter:NO];
+  MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:0];
+  logPointEvent(point, kStatRoutingAddPoint);
+  [MWMRouter buildToPoint:point bestRouter:NO];
   [self close];
 }
 
 - (MWMRoutePoint *)routePointWithType:(MWMRoutePointType)type
+                    intermediateIndex:(int8_t)intermediateIndex
 {
   auto data = self.data;
   if (!data)
     return nil;
 
   if (data.isMyPosition)
-    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type];
+    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type
+                                            intermediateIndex:intermediateIndex];
 
   NSString * name = nil;
   if (data.title.length > 0)
@@ -416,7 +424,9 @@ void logPointEvent(MWMRoutePoint * pt, NSString * eventType)
   else
     name = L(@"placepage_unknown_place");
 
-  return [[MWMRoutePoint alloc] initWithPoint:data.mercator type:type];
+  return [[MWMRoutePoint alloc] initWithPoint:data.mercator
+                                         type:type
+                            intermediateIndex:intermediateIndex];
 }
 
 - (void)share

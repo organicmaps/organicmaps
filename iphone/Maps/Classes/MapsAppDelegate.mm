@@ -255,9 +255,11 @@ using namespace osm_auth_ios;
               }];
 
         auto p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
-                                                                type:MWMRoutePointTypeStart];
+                                                                type:MWMRoutePointTypeStart
+                                                   intermediateIndex:0];
         auto p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
-                                                                type:MWMRoutePointTypeFinish];
+                                                                type:MWMRoutePointTypeFinish
+                                                   intermediateIndex:0];
         [MWMRouter buildFromPoint:p1 toPoint:p2 bestRouter:NO];
       }
       else
