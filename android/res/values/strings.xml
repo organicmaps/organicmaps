@@ -1188,4 +1188,7 @@
 	<string name="add_my_position">Add my position</string>
 	<string name="choose_start_point">Choose a starting point</string>
 	<string name="choose_destination">Choose a destination</string>
+	<string name="preloader_viator_title">Discover tours and unusual activities</string>
+	<string name="preloader_viator_message">Tours, activities, sightseeing and more</string>
+	<string name="preloader_viator_button">Learn more</string>
 </resources>

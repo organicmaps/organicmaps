@@ -1176,4 +1176,7 @@
 	<string name="add_my_position">Добавить мое местоположение</string>
 	<string name="choose_start_point">Выберите начало маршрута</string>
 	<string name="choose_destination">Выберите конец маршрута</string>
+	<string name="preloader_viator_title">Откройте для себя экскурсии и необычные туры</string>
+	<string name="preloader_viator_message">Туры, достопримечательности, экскурсии и многое другое</string>
+	<string name="preloader_viator_button">Посмотреть</string>
 </resources>

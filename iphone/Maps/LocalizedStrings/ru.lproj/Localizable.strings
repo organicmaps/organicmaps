@@ -2023,3 +2023,9 @@
 "choose_start_point" = "Выберите начало маршрута";
 
 "choose_destination" = "Выберите конец маршрута";
+
+"preloader_viator_title" = "Откройте для себя экскурсии и необычные туры";
+
+"preloader_viator_message" = "Туры, достопримечательности, экскурсии и многое другое";
+
+"preloader_viator_button" = "Посмотреть";
