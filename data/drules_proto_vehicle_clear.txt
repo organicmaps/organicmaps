@@ -38488,6 +38488,10 @@ cont {
 }
 colors {
   value {
+    name: "RouteMaskPedestrian"
+    color: 2147483648
+  }
+  value {
     name: "DefaultTrackColor"
     color: 2004720
   }
@@ -38508,6 +38512,10 @@ colors {
     color: 16777215
   }
   value {
+    name: "GuiText"
+    color: 609045837
+  }
+  value {
     name: "PoiHotelTextOutline"
     color: 1728053247
   }
@@ -38516,7 +38524,8 @@ colors {
     color: 3019898879
   }
   value {
-    name: "LocalAdsPrimaryText"
+    name: "RouteMaskBicycle"
+    color: 2147483648
   }
   value {
     name: "RoadShieldUKYellowText"
@@ -38529,6 +38538,10 @@ colors {
   value {
     name: "TrackHumanSpeed"
     color: 1913758
+  }
+  value {
+    name: "RouteArrowsMaskCar"
+    color: 3422763904
   }
   value {
     name: "TrafficArrowDark"
@@ -38591,12 +38604,20 @@ colors {
     color: 8263442
   }
   value {
+    name: "RouteArrowsMaskBicycle"
+    color: 3432785840
+  }
+  value {
     name: "RoutePreview"
     color: 3003121664
   }
   value {
     name: "LocalAdsSecondaryTextOutline"
     color: 16777215
+  }
+  value {
+    name: "RouteMaskCar"
+    color: 3003121664
   }
   value {
     name: "Arrow3D"
@@ -38646,8 +38667,7 @@ colors {
     color: 3183362
   }
   value {
-    name: "GuiText"
-    color: 609045837
+    name: "LocalAdsPrimaryText"
   }
   value {
     name: "RouteTrafficG1"

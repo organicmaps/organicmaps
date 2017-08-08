@@ -35633,45 +35633,51 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -35684,12 +35690,13 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -35702,12 +35709,13 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -35756,68 +35764,52 @@ cont {
   name: "man_made-cutline"
   element {
     scale: 14
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
+      cap: BUTTCAP
     }
   }
   element {
     scale: 15
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
+      cap: BUTTCAP
     }
   }
   element {
     scale: 16
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
     }
   }
   element {
     scale: 17
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
     }
   }
   element {
     scale: 18
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
     }
   }
   element {
     scale: 19
-    area {
+    lines {
+      width: 2.0
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
-      priority: -15816
+      priority: 1184
     }
   }
 }
@@ -35933,45 +35925,51 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: -15544
     }
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -35984,12 +35982,13 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -36002,12 +36001,13 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 2.0
+      color: 14934482
+      priority: 1456
+    }
     area {
       color: 14934482
-      border {
-        width: 2.0
-        color: 14934482
-      }
       priority: 16000
     }
     caption {
@@ -64793,6 +64793,10 @@ cont {
 }
 colors {
   value {
+    name: "RouteMaskPedestrian"
+    color: 2147483648
+  }
+  value {
     name: "DefaultTrackColor"
     color: 2004720
   }
@@ -64813,6 +64817,10 @@ colors {
     color: 16777215
   }
   value {
+    name: "GuiText"
+    color: 609045837
+  }
+  value {
     name: "PoiHotelTextOutline"
     color: 1728053247
   }
@@ -64821,7 +64829,8 @@ colors {
     color: 3019898879
   }
   value {
-    name: "LocalAdsPrimaryText"
+    name: "RouteMaskBicycle"
+    color: 2147483648
   }
   value {
     name: "RoadShieldUKYellowText"
@@ -64834,6 +64843,10 @@ colors {
   value {
     name: "TrackHumanSpeed"
     color: 1913758
+  }
+  value {
+    name: "RouteArrowsMaskCar"
+    color: 3422763904
   }
   value {
     name: "TrafficArrowDark"
@@ -64896,12 +64909,20 @@ colors {
     color: 8263442
   }
   value {
+    name: "RouteArrowsMaskBicycle"
+    color: 3432785840
+  }
+  value {
     name: "RoutePreview"
     color: 3003121664
   }
   value {
     name: "LocalAdsSecondaryTextOutline"
     color: 16777215
+  }
+  value {
+    name: "RouteMaskCar"
+    color: 3003121664
   }
   value {
     name: "Arrow3D"
@@ -64951,8 +64972,7 @@ colors {
     color: 3183362
   }
   value {
-    name: "GuiText"
-    color: 609045837
+    name: "LocalAdsPrimaryText"
   }
   value {
     name: "RouteTrafficG1"

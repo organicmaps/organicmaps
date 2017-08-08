@@ -35787,37 +35787,43 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -35830,10 +35836,11 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -35846,10 +35853,11 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -35898,56 +35906,46 @@ cont {
   name: "man_made-cutline"
   element {
     scale: 14
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
+      cap: BUTTCAP
     }
   }
   element {
     scale: 15
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
+      cap: BUTTCAP
     }
   }
   element {
     scale: 16
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
     }
   }
   element {
     scale: 17
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
     }
   }
   element {
     scale: 18
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
     }
   }
   element {
     scale: 19
-    area {
-      border {
-        width: 2.0
-      }
-      priority: -15816
+    lines {
+      width: 2.0
+      priority: 1184
     }
   }
 }
@@ -36061,37 +36059,43 @@ cont {
   }
   element {
     scale: 14
+    lines {
+      width: 2.0
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 15
+    lines {
+      width: 2.0
+      priority: 1456
+      cap: BUTTCAP
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 16
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: -15544
     }
   }
   element {
     scale: 17
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -36104,10 +36108,11 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -36120,10 +36125,11 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 2.0
+      priority: 1456
+    }
     area {
-      border {
-        width: 2.0
-      }
       priority: 16000
     }
     caption {
@@ -64879,6 +64885,10 @@ cont {
 }
 colors {
   value {
+    name: "RouteMaskPedestrian"
+    color: 2147483648
+  }
+  value {
     name: "DefaultTrackColor"
     color: 2004720
   }
@@ -64899,6 +64909,10 @@ colors {
     color: 12895428
   }
   value {
+    name: "GuiText"
+    color: 1308622847
+  }
+  value {
     name: "PoiHotelTextOutline"
     color: 1711276032
   }
@@ -64907,8 +64921,8 @@ colors {
     color: 3019898879
   }
   value {
-    name: "LocalAdsPrimaryText"
-    color: 16777215
+    name: "RouteMaskBicycle"
+    color: 2147483648
   }
   value {
     name: "RoadShieldUKYellowText"
@@ -64921,6 +64935,10 @@ colors {
   value {
     name: "TrackHumanSpeed"
     color: 16750592
+  }
+  value {
+    name: "RouteArrowsMaskCar"
+    color: 3003473869
   }
   value {
     name: "TrafficArrowDark"
@@ -64986,11 +65004,19 @@ colors {
     color: 4985359
   }
   value {
+    name: "RouteArrowsMaskBicycle"
+    color: 2164214668
+  }
+  value {
     name: "RoutePreview"
     color: 3019898879
   }
   value {
     name: "LocalAdsSecondaryTextOutline"
+  }
+  value {
+    name: "RouteMaskCar"
+    color: 2147483648
   }
   value {
     name: "Arrow3D"
@@ -65040,8 +65066,8 @@ colors {
     color: 1272880
   }
   value {
-    name: "GuiText"
-    color: 1308622847
+    name: "LocalAdsPrimaryText"
+    color: 16777215
   }
   value {
     name: "RouteTrafficG1"
