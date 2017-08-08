@@ -19,7 +19,10 @@ void RouteBuilder::Build(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute
   routeData->m_pivot = routeData->m_subroute->m_polyline.GetLimitRect().Center();
   routeData->m_recacheId = recacheId;
   RouteShape::CacheRoute(textures, *routeData.get());
-  m_routeCache.insert(std::make_pair(subrouteId, routeData->m_subroute->m_polyline));
+  RouteCacheData cacheData;
+  cacheData.m_polyline = routeData->m_subroute->m_polyline;
+  cacheData.m_baseDepthIndex = routeData->m_subroute->m_baseDepthIndex;
+  m_routeCache.insert(std::make_pair(subrouteId, std::move(cacheData)));
 
   // Flush route geometry.
   GLFunctions::glFlush();
@@ -42,9 +45,10 @@ void RouteBuilder::BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders>
 
   drape_ptr<RouteArrowsData> routeArrowsData = make_unique_dp<RouteArrowsData>();
   routeArrowsData->m_subrouteId = subrouteId;
-  routeArrowsData->m_pivot = it->second.GetLimitRect().Center();
+  routeArrowsData->m_pivot = it->second.m_polyline.GetLimitRect().Center();
   routeArrowsData->m_recacheId = recacheId;
-  RouteShape::CacheRouteArrows(textures, it->second, borders, *routeArrowsData.get());
+  RouteShape::CacheRouteArrows(textures, it->second.m_polyline, borders,
+                               it->second.m_baseDepthIndex, *routeArrowsData.get());
 
   // Flush route arrows geometry.
   GLFunctions::glFlush();

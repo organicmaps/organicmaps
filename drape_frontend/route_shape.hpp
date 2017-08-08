@@ -64,16 +64,8 @@ struct Subroute
   std::vector<double> m_turns;
   std::vector<traffic::SpeedGroup> m_traffic;
   double m_baseDistance = 0.0;
+  double m_baseDepthIndex = 0.0;
   df::RoutePattern m_pattern;
-
-  Subroute() = default;
-  Subroute(m2::PolylineD const & polyline, df::ColorConstant color,
-           std::vector<double> const & turns,
-           std::vector<traffic::SpeedGroup> const & traffic,
-           double baseDistance, df::RoutePattern pattern = df::RoutePattern())
-    : m_polyline(polyline), m_color(color), m_turns(turns), m_traffic(traffic)
-    , m_baseDistance(baseDistance), m_pattern(pattern)
-  {}
 };
 
 struct RouteRenderProperty
@@ -119,12 +111,12 @@ public:
   static void CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & routeData);
 
   static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
-                               std::vector<ArrowBorders> const & borders,
+                               std::vector<ArrowBorders> const & borders, double baseDepthIndex,
                                RouteArrowsData & routeArrowsData);
 
 private:
   static void PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
-                              std::vector<glsl::vec4> const & segmentsColors,
+                              std::vector<glsl::vec4> const & segmentsColors, float baseDepth,
                               TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                               double & outputLength);
   static void PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,

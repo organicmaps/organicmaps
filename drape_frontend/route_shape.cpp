@@ -23,6 +23,7 @@ float const kRightSide = -1.0f;
 
 float const kRouteDepth = 100.0f;
 float const kArrowsDepth = 200.0f;
+float const kDepthPerSubroute = 200.0f;
 
 void GetArrowTextureRegion(ref_ptr<dp::TextureManager> textures,
                            dp::TextureManager::SymbolRegion & region)
@@ -133,7 +134,7 @@ void GenerateArrowsTriangles(glsl::vec4 const & pivot, std::vector<glsl::vec2> c
 } // namespace
 
 void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
-                                 std::vector<glsl::vec4> const & segmentsColors,
+                                 std::vector<glsl::vec4> const & segmentsColors, float baseDepth,
                                  TGeometryBuffer & geometry, TGeometryBuffer & joinsGeometry,
                                  double & outputLength)
 {
@@ -153,7 +154,7 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
     length += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
   outputLength = length;
 
-  float depth = 0.0f;
+  float depth = baseDepth;
   float const depthStep = kRouteDepth / (1 + segments.size());
   for (int i = static_cast<int>(segments.size() - 1); i >= 0; i--)
   {
@@ -368,7 +369,7 @@ void RouteShape::PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::
 }
 
 void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
-                                  std::vector<ArrowBorders> const & borders,
+                                  std::vector<ArrowBorders> const & borders, double baseDepthIndex,
                                   RouteArrowsData & routeArrowsData)
 {
   TArrowGeometryBuffer geometry;
@@ -379,7 +380,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
   state.SetColorTexture(region.GetTexture());
 
   // Generate arrow geometry.
-  float depth = kArrowsDepth;
+  auto depth = static_cast<float>(baseDepthIndex * kDepthPerSubroute) + kArrowsDepth;
   float const depthStep = (kArrowsDepth - kRouteDepth) / (1 + borders.size());
   for (ArrowBorders const & b : borders)
   {
@@ -407,12 +408,13 @@ void RouteShape::CacheRoute(ref_ptr<dp::TextureManager> textures, RouteData & ro
     float const alpha = (speedGroup == traffic::SpeedGroup::G4 ||
                          speedGroup == traffic::SpeedGroup::G5 ||
                          speedGroup == traffic::SpeedGroup::Unknown) ? 0.0f : 1.0f;
-    segmentsColors.push_back(glsl::vec4(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), alpha));
+    segmentsColors.emplace_back(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), alpha);
   }
 
   TGeometryBuffer geometry;
   TGeometryBuffer joinsGeometry;
   PrepareGeometry(routeData.m_subroute->m_polyline.GetPoints(), routeData.m_pivot, segmentsColors,
+                  static_cast<float>(routeData.m_subroute->m_baseDepthIndex * kDepthPerSubroute),
                   geometry, joinsGeometry, routeData.m_length);
 
   auto state = CreateGLState(routeData.m_subroute->m_pattern.m_isDashed ?

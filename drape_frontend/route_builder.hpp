@@ -37,6 +37,11 @@ private:
   TFlushRouteFn m_flushRouteFn;
   TFlushRouteArrowsFn m_flushRouteArrowsFn;
 
-  std::unordered_map<dp::DrapeID, m2::PolylineD> m_routeCache;
+  struct RouteCacheData
+  {
+    m2::PolylineD m_polyline;
+    double m_baseDepthIndex = 0.0;
+  };
+  std::unordered_map<dp::DrapeID, RouteCacheData> m_routeCache;
 };
 }  // namespace df

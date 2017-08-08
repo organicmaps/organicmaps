@@ -71,9 +71,11 @@ public:
 private:
   struct RouteAdditional
   {
+    RouteType m_routeType = RouteType::Car;
     drape_ptr<RouteArrowsData> m_arrowsData;
     std::vector<ArrowBorders> m_arrowBorders;
     float m_currentHalfWidth = 0.0f;
+    double m_baseDistance = 0.0;
   };
 
   void RenderRouteData(drape_ptr<RouteData> const & routeData, ScreenBase const & screen,
@@ -86,6 +88,7 @@ private:
                          dp::UniformValuesStorage const & commonUniforms);
   void ClearPreviewHandles();
   CirclesPackHandle * GetPreviewHandle(size_t & index);
+  dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;
 
   double m_distanceFromBegin;
   std::vector<drape_ptr<RouteData>> m_routeData;

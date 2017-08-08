@@ -22,6 +22,11 @@ std::string const kRouteOutlineColor = "RouteOutline";
 std::string const kRoutePedestrian = "RoutePedestrian";
 std::string const kRouteBicycle = "RouteBicycle";
 std::string const kRoutePreview = "RoutePreview";
+std::string const kRouteMaskCar = "RouteMaskCar";
+std::string const kRouteArrowsMaskCar = "RouteArrowsMaskCar";
+std::string const kRouteMaskBicycle = "RouteMaskBicycle";
+std::string const kRouteArrowsMaskBicycle = "RouteArrowsMaskBicycle";
+std::string const kRouteMaskPedestrian = "RouteMaskPedestrian";
 
 namespace
 {
@@ -255,7 +260,9 @@ void RouteRenderer::UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallb
     double zoom = 0.0;
     float halfWidth = 0.0;
     InterpolateByZoom(routeData->m_subroute, screen, halfWidth, zoom);
+    additional.m_routeType = routeData->m_subroute->m_routeType;
     additional.m_currentHalfWidth = halfWidth;
+    additional.m_baseDistance = routeData->m_subroute->m_baseDistance;
 
     if (zoom < kArrowAppearingZoomLevel)
     {
@@ -312,15 +319,15 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
     auto const & info = previewSegment.second;
     m2::PolylineD polyline = {info.m_startPoint, info.m_finishPoint};
     double const segmentLen = polyline.GetLength();
-    size_t circlesCount = static_cast<size_t>(segmentLen / (diameterMercator + gapMercator));
+    auto circlesCount = static_cast<size_t>(segmentLen / (diameterMercator + gapMercator));
     if (circlesCount == 0)
       circlesCount = 1;
     double const distDelta = segmentLen / circlesCount;
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
-      float const r = static_cast<float>(radiusMercator);
       m2::PointD const pt = polyline.GetPointByDistance(d);
-      m2::RectD const circleRect(pt.x - r, pt.y - r, pt.x + r, pt.y + r);
+      m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator,
+                                 pt.x + radiusMercator, pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
         continue;
 
@@ -363,6 +370,21 @@ CirclesPackHandle * RouteRenderer::GetPreviewHandle(size_t & index)
   return nullptr;
 }
 
+dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
+                                      bool arrows) const
+{
+  if (baseDistance != 0.0 && m_distanceFromBegin < baseDistance)
+  {
+    if (routeType == RouteType::Car)
+      return GetColorConstant(arrows ? kRouteArrowsMaskCar : kRouteMaskCar);
+    else if (routeType == RouteType::Bicycle)
+      return GetColorConstant(arrows ? kRouteArrowsMaskBicycle : kRouteMaskBicycle);
+    else if (routeType == RouteType::Pedestrian)
+      return GetColorConstant(kRouteMaskPedestrian);
+  }
+  return {0, 0, 0, 0};
+}
+
 void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
                                     ScreenBase const & screen, bool trafficShown,
                                     ref_ptr<dp::GpuProgramManager> mng,
@@ -376,8 +398,8 @@ void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
     return;
 
   float const currentHalfWidth = m_routeAdditional[routeData->m_subrouteId].m_currentHalfWidth;
-  float const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
-  float dist = static_cast<float>(kInvalidDistance);
+  auto const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
+  auto dist = static_cast<float>(kInvalidDistance);
   if (m_followingEnabled)
     dist = static_cast<float>(m_distanceFromBegin - routeData->m_subroute->m_baseDistance);
 
@@ -394,6 +416,11 @@ void RouteRenderer::RenderRouteData(drape_ptr<RouteData> const & routeData,
 
   uniforms.SetFloatValue("u_routeParams", currentHalfWidth, screenHalfWidth, dist,
                          trafficShown ? 1.0f : 0.0f);
+
+  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(routeData->m_subroute->m_routeType,
+                                                         routeData->m_subroute->m_baseDistance,
+                                                         false /* arrows */));
+  uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
   if (subroute->m_pattern.m_isDashed)
   {
@@ -440,6 +467,11 @@ void RouteRenderer::RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
   uniforms.SetFloatValue("u_arrowHalfWidth", static_cast<float>(currentHalfWidth * kArrowHeightFactor));
   uniforms.SetFloatValue("u_opacity", 1.0f);
+
+  glsl::vec4 const maskColor = glsl::ToVec4(GetMaskColor(routeAdditional.m_routeType,
+                                                         routeAdditional.m_baseDistance,
+                                                         true /* arrows */));
+  uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
   prg->Bind();
@@ -502,6 +534,11 @@ void RouteRenderer::AddRouteData(drape_ptr<RouteData> && routeData,
   // Add new route data.
   m_routeData.push_back(std::move(routeData));
   BuildBuckets(m_routeData.back()->m_renderProperty, mng);
+  std::sort(m_routeData.begin(), m_routeData.end(),
+            [](drape_ptr<RouteData> const & d1, drape_ptr<RouteData> const & d2)
+  {
+    return d1->m_subroute->m_baseDistance > d2->m_subroute->m_baseDistance;
+  });
 }
 
 std::vector<drape_ptr<RouteData>> const & RouteRenderer::GetRouteData() const
@@ -542,9 +579,9 @@ void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && ren
   // Save handle in the cache.
   auto & bucket = m_previewRenderData.back()->m_bucket;
   ASSERT_EQUAL(bucket->GetOverlayHandlesCount(), 1, ());
-  CirclesPackHandle * handle = static_cast<CirclesPackHandle *>(bucket->GetOverlayHandle(0).get());
+  auto handle = static_cast<CirclesPackHandle *>(bucket->GetOverlayHandle(0).get());
   handle->Clear();
-  m_previewHandlesCache.push_back(std::make_pair(handle, 0));
+  m_previewHandlesCache.emplace_back(std::make_pair(handle, 0));
 }
 
 void RouteRenderer::ClearRouteData()

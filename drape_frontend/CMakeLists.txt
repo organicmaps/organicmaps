@@ -252,6 +252,7 @@ set(
   shaders/position_accuracy3d.vsh.glsl
   shaders/route.fsh.glsl
   shaders/route.vsh.glsl
+  shaders/route_arrow.fsh.glsl
   shaders/route_arrow.vsh.glsl
   shaders/route_dash.fsh.glsl
   shaders/ruler.vsh.glsl

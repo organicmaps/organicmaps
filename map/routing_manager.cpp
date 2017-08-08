@@ -431,7 +431,8 @@ void RoutingManager::InsertRoute(Route const & route)
   std::vector<RouteSegment> segments;
   std::vector<m2::PointD> points;
   double distance = 0.0;
-  for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < route.GetSubrouteCount(); ++subrouteIndex)
+  auto const subroutesCount = route.GetSubrouteCount();
+  for (size_t subrouteIndex = route.GetCurrentSubrouteIdx(); subrouteIndex < subroutesCount; ++subrouteIndex)
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
@@ -452,6 +453,7 @@ void RoutingManager::InsertRoute(Route const & route)
     auto subroute = make_unique_dp<df::Subroute>();
     subroute->m_polyline = m2::PolylineD(points);
     subroute->m_baseDistance = currentBaseDistance;
+    subroute->m_baseDepthIndex = static_cast<double>(subroutesCount - subrouteIndex - 1);
     switch (m_currentRouterType)
     {
       case RouterType::Vehicle:
