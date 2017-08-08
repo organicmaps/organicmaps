@@ -71,9 +71,12 @@ unique_ptr<WorldGraph> BuildXYGraph()
 UNIT_TEST(XYGraph)
 {
   unique_ptr<WorldGraph> graph = BuildXYGraph();
-  IndexGraphStarter starter(
-      IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */, *graph);
+  auto const start = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, 1, 0, true /* forward */), m2::PointD(2, 0), *graph);
+  auto const finish = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, 5, 0, true /* forward */), m2::PointD(2, 3), *graph);
+  IndexGraphStarter starter(start, finish, 0 /* fakeNumerationStart */, false /* strictForward */,
+                            *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRouteGeometry(starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
@@ -88,8 +91,10 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF1F3Only)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
+                                                 m2::PointD(2, 0), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 5, 0, true /* forward */),
+                                                 m2::PointD(2, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -103,8 +108,10 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5Only)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
+                                                 m2::PointD(2, 0), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 5, 0, true /* forward */),
+                                                 m2::PointD(2, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -120,8 +127,10 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyF1F3Only)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
+                                                 m2::PointD(2, 0), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 5, 0, true /* forward */),
+                                                 m2::PointD(2, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -137,8 +146,10 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyAndF0F2No)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 1}, {2, 2}, {2, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
+                                                 m2::PointD(2, 0), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 5, 0, true /* forward */),
+                                                 m2::PointD(2, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -154,8 +165,10 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
 
   TestRestrictions(
       {} /* expectedGeom */, AStarAlgorithm<IndexGraphStarter>::Result::NoPath,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0, m2::PointD(2, 0)) /* start */,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 5, 0, m2::PointD(2, 3)) /* finish */,
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, true /* forward */),
+                                                 m2::PointD(2, 0), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 5, 0, true /* forward */),
+                                                 m2::PointD(2, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -230,8 +243,10 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                                 m2::PointD(2, -1), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                                 m2::PointD(3, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -247,8 +262,10 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3OnlyAndF3F6Only)
   vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                                 m2::PointD(2, -1), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                                 m2::PointD(3, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -263,8 +280,10 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_RestrictionF1F3No)
 
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                                 m2::PointD(2, -1), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                                 m2::PointD(3, 3), *m_graph),
       move(restrictions), *this);
 }
 
@@ -283,8 +302,10 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F6O
       {2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRestrictions(
       expectedGeom, AStarAlgorithm<IndexGraphStarter>::Result::OK,
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 9, 0, m2::PointD(2, -1)), /* start */
-      routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 6, 0, m2::PointD(3, 3)),  /* finish */
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 9, 0, true /* forward */),
+                                                 m2::PointD(2, -1), *m_graph),
+      routing::IndexGraphStarter::MakeFakeEnding(Segment(kTestNumMwmId, 6, 0, true /* forward */),
+                                                 m2::PointD(3, 3), *m_graph),
       move(restrictions), *this);
 }
 }  // namespace

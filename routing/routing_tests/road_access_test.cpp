@@ -108,12 +108,13 @@ UNIT_TEST(RoadAccess_BarrierBypassing)
   vector<TestEdge> expectedEdges;
 
   expectedWeight = 3.0;
-  expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
+  // First and last edges are projectios
+  expectedEdges = {{0, 0}, {0, 1}, {1, 2}, {2, 5}, {5, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.BlockEdge(1, 2);
   expectedWeight = 4.0;
-  expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
+  expectedEdges = {{0, 0}, {0, 3}, {3, 4}, {4, 5}, {5, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.BlockEdge(3, 4);

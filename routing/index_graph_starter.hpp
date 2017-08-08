@@ -6,12 +6,17 @@
 #include "routing/route_point.hpp"
 #include "routing/world_graph.hpp"
 
-#include "std/limits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <limits>
+#include <map>
+#include <set>
+#include <utility>
+#include <vector>
 
 namespace routing
 {
+class FakeEdgesContainer;
+
 // IndexGraphStarter adds fake start and finish vertexes for AStarAlgorithm.
 class IndexGraphStarter final
 {
@@ -21,113 +26,73 @@ public:
   using TEdgeType = IndexGraph::TEdgeType;
   using TWeightType = IndexGraph::TWeightType;
 
-  class FakeVertex final
+  struct FakeEnding
   {
-  public:
-    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
-      : m_segment(mwmId, featureId, segmentIdx, true /* forward */)
-      , m_junction(point, feature::kDefaultAltitudeMeters)
-    {
-    }
-
-    FakeVertex(Segment const & segment, m2::PointD const & point, bool strictForward)
-      : m_segment(segment)
-      , m_junction(point, feature::kDefaultAltitudeMeters)
-      , m_strictForward(strictForward)
-    {
-    }
-
-    FakeVertex(Segment const & segment, Junction const & junction, bool strictForward)
-      : m_segment(segment), m_junction(junction), m_strictForward(strictForward)
-    {
-    }
-
-    NumMwmId GetMwmId() const { return m_segment.GetMwmId(); }
-    uint32_t GetFeatureId() const { return m_segment.GetFeatureId(); }
-    Junction const & GetJunction() const { return m_junction; }
-    m2::PointD const & GetPoint() const { return m_junction.GetPoint(); }
-    Segment const & GetSegment() const { return m_segment; }
-
-    Segment GetSegmentWithDirection(bool forward) const
-    {
-      return Segment(m_segment.GetMwmId(), m_segment.GetFeatureId(), m_segment.GetSegmentIdx(),
-                     forward);
-    }
-
-    bool Fits(Segment const & segment) const
-    {
-      return segment.GetMwmId() == m_segment.GetMwmId() &&
-             segment.GetFeatureId() == m_segment.GetFeatureId() &&
-             segment.GetSegmentIdx() == m_segment.GetSegmentIdx() &&
-             (!m_strictForward || segment.IsForward() == m_segment.IsForward());
-    }
-
-    uint32_t GetSegmentIdxForTesting() const { return m_segment.GetSegmentIdx(); }
-    bool GetStrictForward() const { return m_strictForward; }
-
-  private:
-    Segment m_segment;
-    Junction m_junction;
-    // This flag specifies which fake edges should be placed from the fake vertex.
-    // true: place exactly one fake edge to the m_segment with indicated m_forward.
-    // false: place two fake edges to the m_segment with both directions.
-    bool m_strictForward = false;
+    Junction m_originJunction;
+    std::vector<Junction> m_projectionJunctions;
+    std::vector<Segment> m_projectionSegments;
   };
 
-  static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
-  static uint32_t constexpr kFakeSegmentIdx = numeric_limits<uint32_t>::max();
-  static Segment constexpr kStartFakeSegment =
-    Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, false);
-  static Segment constexpr kFinishFakeSegment =
-    Segment(kFakeNumMwmId, kFakeFeatureId, kFakeSegmentIdx, true);
+  friend class FakeEdgesContainer;
 
-  IndexGraphStarter(FakeVertex const & start, FakeVertex const & finish, WorldGraph & graph);
+  static uint32_t constexpr kFakeFeatureId = numeric_limits<uint32_t>::max();
+
+  static FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
+                                   WorldGraph & graph);
+  static void CheckValidRoute(std::vector<Segment> const & segments);
+  static size_t GetRouteNumPoints(std::vector<Segment> const & route);
+
+  // strictForward flag specifies which parts of real segment should be placed from the start
+  // vertex. true: place exactly one fake edge to the m_segment with indicated m_forward. false:
+  // place two fake edges to the m_segment with both directions.
+  IndexGraphStarter(FakeEnding const & startEnding, FakeEnding const & finishEnding,
+                    uint32_t fakeNumerationStart, bool strictForward, WorldGraph & graph);
+
+  // Merge starters to single IndexGraphStarter.
+  // Expects starters[0] has WorldGraph which is valid for all starters, starters.size() >= 1.
+  IndexGraphStarter(std::vector<IndexGraphStarter> starters);
+
+  void Append(FakeEdgesContainer const & container);
 
   WorldGraph & GetGraph() { return m_graph; }
-  Segment const & GetStart() const { return kStartFakeSegment; }
-  Segment const & GetFinish() const { return kFinishFakeSegment; }
-  FakeVertex const & GetStartVertex() const { return m_start; }
-  FakeVertex const & GetFinishVertex() const { return m_finish; }
-  Junction const & GetJunction(Segment const & segment, bool front);
-  m2::PointD const & GetPoint(Segment const & segment, bool front);
-  bool FitsStart(Segment const & s) const { return m_start.Fits(s); }
-  bool FitsFinish(Segment const & s) const { return m_finish.Fits(s); }
+  Junction const & GetStartJunction() const;
+  Junction const & GetFinishJunction() const;
+  Segment GetStartSegment() const { return GetFakeSegment(m_startId); }
+  Segment GetFinishSegment() const { return GetFakeSegment(m_finishId); }
+  // If segment is real return true and does not modify segment.
+  // If segment is part of real converts it to real and returns true.
+  // Otherwise returns false and does not modify segment.
+  bool ConvertToReal(Segment & segment) const;
+  Junction const & GetJunction(Segment const & segment, bool front) const;
+  Junction const & GetRouteJunction(std::vector<Segment> const & route, size_t pointIndex) const;
+  m2::PointD const & GetPoint(Segment const & segment, bool front) const;
+  size_t GetNumFakeSegments() const { return m_fake.m_segmentToVertex.size(); }
 
-  static void CheckValidRoute(vector<Segment> const &segments);
-  static size_t GetRouteNumPoints(vector<Segment> const & route);
-  static vector<Segment>::const_iterator GetNonFakeStartIt(vector<Segment> const & segments);
-  static vector<Segment>::const_iterator GetNonFakeFinishIt(vector<Segment> const & segments);
-  Junction const & GetRouteJunction(vector<Segment> const & route, size_t pointIndex);
+  std::set<NumMwmId> GetMwms() const;
 
-  void GetEdgesList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+  void GetEdgesList(Segment const & segment, bool isOutgoing,
+                    std::vector<SegmentEdge> & edges) const;
 
-  void GetOutgoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
+  void GetOutgoingEdgesList(TVertexType const & segment, std::vector<TEdgeType> & edges) const
   {
     GetEdgesList(segment, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(TVertexType const & segment, vector<TEdgeType> & edges)
+  void GetIngoingEdgesList(TVertexType const & segment, std::vector<TEdgeType> & edges) const
   {
     GetEdgesList(segment, false /* isOutgoing */, edges);
   }
 
-  RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to)
+  RouteWeight HeuristicCostEstimate(TVertexType const & from, TVertexType const & to) const
   {
     return RouteWeight(m_graph.GetEstimator().CalcHeuristic(GetPoint(from, true /* front */),
                                                             GetPoint(to, true /* front */)));
   }
 
-  double CalcSegmentWeight(Segment const & segment) const
-  {
-    return m_graph.GetEstimator().CalcSegmentWeight(
-        segment, m_graph.GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
-  }
+  double CalcSegmentWeight(Segment const & segment) const;
+  double CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
 
-  bool IsLeap(NumMwmId mwmId) const
-  {
-    return mwmId != kFakeNumMwmId && mwmId != m_start.GetMwmId() && mwmId != m_finish.GetMwmId() &&
-           m_graph.GetEstimator().LeapIsAllowed(mwmId);
-  }
+  bool IsLeap(NumMwmId mwmId) const;
 
   static bool IsFakeSegment(Segment const & segment)
   {
@@ -135,22 +100,107 @@ public:
   }
 
 private:
-  void GetFakeToNormalEdges(FakeVertex const & fakeVertex, bool isOutgoing,
-                            vector<SegmentEdge> & edges);
-  void GetFakeToNormalEdge(FakeVertex const & fakeVertex, bool forward,
-                           vector<SegmentEdge> & edges);
-  void GetNormalToFakeEdge(Segment const & segment, FakeVertex const & fakeVertex,
-                           Segment const & fakeSegment, bool isOutgoing,
-                           vector<SegmentEdge> & edges);
+  static Segment GetFakeSegment(uint32_t i)
+  {
+    return Segment(kFakeNumMwmId, kFakeFeatureId, i, false);
+  }
+
+  class FakeVertex final
+  {
+  public:
+    enum class Type
+    {
+      PureFake,
+      Projection,
+      PartOfReal,
+    };
+    // For unit tests only.
+    FakeVertex(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point)
+      : m_junctionFrom(point, feature::kDefaultAltitudeMeters)
+      , m_junctionTo(point, feature::kDefaultAltitudeMeters)
+    {
+    }
+
+    FakeVertex(Junction const & junctionFrom, Junction const & junctionTo, Type type)
+      : m_junctionFrom(junctionFrom), m_junctionTo(junctionTo), m_type(type)
+    {
+    }
+
+    FakeVertex(FakeVertex const &) = default;
+    FakeVertex() = default;
+
+    bool operator==(FakeVertex const & rhs) const
+    {
+      return m_junctionFrom == rhs.m_junctionFrom && m_junctionTo == rhs.m_junctionTo &&
+             m_type == rhs.m_type;
+    }
+
+    Type GetType() const { return m_type; }
+
+    Junction const & GetJunctionFrom() const { return m_junctionFrom; }
+    m2::PointD const & GetPointFrom() const { return m_junctionFrom.GetPoint(); }
+    Junction const & GetJunctionTo() const { return m_junctionTo; }
+    m2::PointD const & GetPointTo() const { return m_junctionTo.GetPoint(); }
+
+  private:
+    Junction m_junctionFrom;
+    Junction m_junctionTo;
+    Type m_type = Type::PureFake;
+  };
+
+  struct FakeGraph
+  {
+    std::map<Segment, std::set<Segment>> m_outgoing;
+    std::map<Segment, std::set<Segment>> m_ingoing;
+    std::map<Segment, FakeVertex> m_segmentToVertex;
+    std::map<Segment, Segment> m_fakeToReal;
+    std::map<Segment, std::set<Segment>> m_realToFake;
+  };
+
+  void AddFakeVertex(Segment const & existentSegment, Segment const & newSegment,
+                     FakeVertex const & newVertex, bool isOutgoing, bool isPartOfReal,
+                     Segment const & realSegment);
+  void AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding, bool isStart,
+                 uint32_t & fakeNumerationStart, bool strictForward);
+  void AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding,
+                uint32_t & fakeNumerationStart, bool strictForward);
+  void AddFinish(FakeEnding const & finishEnding, FakeEnding const & startEnding,
+                 uint32_t & fakeNumerationStart);
+
+  // Returns existent segment if possible. If segment does not exist makes new segment,
+  // increments newNumber.
+  Segment GetSegment(FakeVertex const & vertex, uint32_t & newNumber) const;
+
+  void AddFakeEdges(vector<SegmentEdge> & edges) const;
+  void AddRealEdges(Segment const & segment, bool isOutgoing,
+                    std::vector<SegmentEdge> & edges) const;
   /// \brief If |isOutgoing| == true fills |edges| with SegmentEdge(s) which connects
   /// |fakeVertex| with all exits of mwm.
   /// \brief If |isOutgoing| == false fills |edges| with SegmentEdge(s) which connects
   /// all enters to mwm with |fakeVertex|.
   void ConnectLeapToTransitions(Segment const & segment, bool isOutgoing,
-                                vector<SegmentEdge> & edges);
+                                std::vector<SegmentEdge> & edges) const;
 
   WorldGraph & m_graph;
-  FakeVertex const m_start;
-  FakeVertex const m_finish;
+  uint32_t m_startId;
+  uint32_t m_finishId;
+  FakeGraph m_fake;
+};
+
+class FakeEdgesContainer final
+{
+  friend class IndexGraphStarter;
+
+public:
+  FakeEdgesContainer(IndexGraphStarter && starter)
+    : m_finishId(move(starter.m_finishId)), m_fake(move(starter.m_fake))
+  {
+  }
+
+  size_t GetNumFakeEdges() const { return m_fake.m_segmentToVertex.size(); }
+
+private:
+  uint32_t m_finishId;
+  IndexGraphStarter::FakeGraph m_fake;
 };
 }  // namespace routing

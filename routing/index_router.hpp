@@ -4,6 +4,7 @@
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/features_road_graph.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/joint.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/router.hpp"
@@ -20,6 +21,7 @@
 
 #include <functional>
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -72,8 +74,7 @@ private:
                                        RouterDelegate const & delegate, Route & route);
   IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                         Segment const & startSegment,
-                                        bool startSegmentIsAlmostCodirectional,
-                                        RouterDelegate const & delegate, WorldGraph & graph,
+                                        RouterDelegate const & delegate, IndexGraphStarter & graph,
                                         std::vector<Segment> & subroute, Junction & startJunction);
 
   IRouter::ResultCode AdjustRoute(Checkpoints const & checkpoints,
@@ -102,7 +103,7 @@ private:
                                    RouterDelegate const & delegate, IndexGraphStarter & starter,
                                    Route & route) const;
 
-  bool AreMwmsNear(NumMwmId startId, NumMwmId finishId) const;
+  bool AreMwmsNear(std::set<NumMwmId> mwmIds) const;
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
@@ -121,5 +122,6 @@ private:
   std::shared_ptr<EdgeEstimator> m_estimator;
   std::unique_ptr<IDirectionsEngine> m_directionsEngine;
   std::unique_ptr<SegmentedRoute> m_lastRoute;
+  std::unique_ptr<FakeEdgesContainer> m_lastFakeEdges;
 };
 }  // namespace routing

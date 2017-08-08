@@ -293,7 +293,7 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
 {
   size_t const pathSize = path.size();
   CHECK_GREATER(pathSize, 1, ());
-  CHECK_EQUAL(routeEdges.size(), pathSize - 1, ());
+  CHECK_EQUAL(routeEdges.size() + 1, pathSize, ());
   // Filling |m_adjacentEdges|.
   auto constexpr kInvalidSegId = numeric_limits<uint32_t>::max();
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.

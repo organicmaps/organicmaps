@@ -2,6 +2,13 @@
 
 #include "routing/routing_exceptions.hpp"
 
+#include <cstdint>
+
+namespace
+{
+using namespace std;
+}  // namespace
+
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
@@ -9,13 +16,17 @@ IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarte
                                Index & index)
   : m_index(index), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
 {
-  CHECK_EQUAL(segments.size(), junctions.size() + 1, ());
+  //    j0     j1     j2     j3
+  //    *--s0--*--s1--*--s2--*
+  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   for (size_t i = 0; i < junctions.size(); ++i)
   {
     Junction const & junction = junctions[i];
-    m_endToSegment[junction].push_back(segments[i]);
-    m_beginToSegment[junction].push_back(segments[i + 1]);
+    if (i > 0)
+      m_endToSegment[junction].push_back(segments[i - 1]);
+    if (i < segments.size())
+      m_beginToSegment[junction].push_back(segments[i]);
   }
 }
 
@@ -78,18 +89,20 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
 
   for (Segment const & segment : m_segments)
   {
-    if (IndexGraphStarter::IsFakeSegment(segment))
-      continue;
+    auto featureIdHandle = FeatureID();
 
-    platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-    MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
-    if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+    if (!IndexGraphStarter::IsFakeSegment(segment))
+    {
+      platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
+      MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
+      if (!handle.IsAlive())
+        MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-    auto featureId = FeatureID(handle.GetId(), segment.GetFeatureId());
-    edges.emplace_back(featureId, segment.IsForward(), segment.GetSegmentIdx(),
-                       GetJunction(segment, false /* front */),
-                       GetJunction(segment, true /* front */));
+      featureIdHandle = FeatureID(handle.GetId(), segment.GetFeatureId());
+    }
+    edges.emplace_back(featureIdHandle, segment.IsForward(), segment.GetSegmentIdx(),
+                       m_starter.GetJunction(segment, false /* front */),
+                       m_starter.GetJunction(segment, true /* front */));
   }
 }
 
@@ -122,17 +135,6 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
                        m_starter.GetJunction(segment, false /* front */),
                        m_starter.GetJunction(segment, true /* front */));
   }
-}
-
-Junction const & IndexRoadGraph::GetJunction(Segment const & segment, bool front) const
-{
-  if (!front && m_starter.FitsStart(segment))
-    return m_starter.GetStartVertex().GetJunction();
-
-  if (front && m_starter.FitsFinish(segment))
-    return m_starter.GetFinishVertex().GetJunction();
-
-  return m_starter.GetJunction(segment, front);
 }
 
 vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,

@@ -39,10 +39,11 @@ struct RestrictionTest
 {
   RestrictionTest() { classificator::Load(); }
   void Init(unique_ptr<WorldGraph> graph) { m_graph = move(graph); }
-  void SetStarter(IndexGraphStarter::FakeVertex const & start,
-                  IndexGraphStarter::FakeVertex const & finish)
+  void SetStarter(IndexGraphStarter::FakeEnding const & start,
+                  IndexGraphStarter::FakeEnding const & finish)
   {
-    m_starter = make_unique<IndexGraphStarter>(start, finish, *m_graph);
+    m_starter = make_unique<IndexGraphStarter>(start, finish, 0 /* fakeNumerationStart */,
+                                               false /* strictForward */, *m_graph);
   }
 
   void SetRestrictions(RestrictionVec && restrictions)
@@ -199,8 +200,8 @@ void TestRouteGeometry(
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                      routing::IndexGraphStarter::FakeVertex const & start,
-                      routing::IndexGraphStarter::FakeVertex const & finish,
+                      routing::IndexGraphStarter::FakeEnding const & start,
+                      routing::IndexGraphStarter::FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
 
 // Tries to find a unique path from |from| to |to| in |graph|.

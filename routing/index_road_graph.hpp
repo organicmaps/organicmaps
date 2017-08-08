@@ -7,16 +7,17 @@
 
 #include "indexer/index.hpp"
 
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <memory>
+#include <vector>
 
 namespace routing
 {
 class IndexRoadGraph : public RoadGraphBase
 {
 public:
-  IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
-                 vector<Segment> const & segments, vector<Junction> const & junctions,
+  IndexRoadGraph(std::shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
+                 std::vector<Segment> const & segments, std::vector<Junction> const & junctions,
                  Index & index);
 
   // IRoadGraphBase overrides:
@@ -33,13 +34,13 @@ public:
 private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
   Junction const & GetJunction(Segment const & segment, bool front) const;
-  vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
+  std::vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
   Index & m_index;
-  shared_ptr<NumMwmIds> m_numMwmIds;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
   IndexGraphStarter & m_starter;
-  vector<Segment> m_segments;
-  map<Junction, vector<Segment>> m_beginToSegment;
-  map<Junction, vector<Segment>> m_endToSegment;
+  std::vector<Segment> m_segments;
+  std::map<Junction, std::vector<Segment>> m_beginToSegment;
+  std::map<Junction, std::vector<Segment>> m_endToSegment;
 };
 }  // namespace routing

@@ -113,12 +113,15 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   auto const worldGraph = builder.PrepareIndexGraph();
   CHECK(worldGraph != nullptr, ());
 
-  auto const fakeStart = IndexGraphStarter::FakeVertex(kTestNumMwmId, startFeatureId,
-                                                       0 /* pointId */, m2::PointD::Zero());
-  auto const fakeFinish = IndexGraphStarter::FakeVertex(kTestNumMwmId, finishFeatureId,
-                                                        0 /* pointId */, m2::PointD::Zero());
+  auto const fakeStart = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, startFeatureId, 0 /* segmentIdx */, true /* forward */),
+      m2::PointD::Zero(), *worldGraph);
+  auto const fakeFinish = IndexGraphStarter::MakeFakeEnding(
+      Segment(kTestNumMwmId, finishFeatureId, 0 /* segmentIdx */, true /* forward */),
+      m2::PointD::Zero(), *worldGraph);
 
-  IndexGraphStarter starter(fakeStart, fakeFinish, *worldGraph);
+  IndexGraphStarter starter(fakeStart, fakeFinish, 0 /* fakeNumerationStart */,
+                            false /* strictForward */, *worldGraph);
 
   vector<Segment> routeSegs;
   double timeSec;
@@ -129,15 +132,20 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
   CHECK_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
   CHECK_GREATER_OR_EQUAL(routeSegs.size(), 2, ());
-  CHECK_EQUAL(routeSegs.front(), starter.GetStart(), ());
-  CHECK_EQUAL(routeSegs.back(), starter.GetFinish(), ());
+  CHECK_EQUAL(routeSegs.front(), starter.GetStartSegment(), ());
+  CHECK_EQUAL(routeSegs.back(), starter.GetFinishSegment(), ());
 
   // We are not interested in the fake start and finish.
   pathEdges.resize(routeSegs.size() - 2);
   pathWeight = 0.0;
   for (size_t i = 1; i + 1 < routeSegs.size(); ++i)
   {
-    auto const & seg = routeSegs[i];
+    auto seg = routeSegs[i];
+    if (IndexGraphStarter::IsFakeSegment(seg))
+    {
+      if (!starter.ConvertToReal(seg))
+        continue;
+    }
     auto const it = builder.m_segmentToEdge.find(seg);
     CHECK(it != builder.m_segmentToEdge.cend(), ());
     auto const & edge = it->second;
@@ -278,8 +286,8 @@ AStarAlgorithm<IndexGraphStarter>::Result CalculateRoute(IndexGraphStarter & sta
   RoutingResult<Segment, RouteWeight> routingResult;
 
   auto const resultCode = algorithm.FindPathBidirectional(
-      starter, starter.GetStart(), starter.GetFinish(), routingResult, {} /* cancellable */,
-      {} /* onVisitedVertexCallback */);
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(), routingResult,
+      {} /* cancellable */, {} /* onVisitedVertexCallback */);
 
   timeSec = routingResult.distance.GetWeight();
   roadPoints = routingResult.path;
@@ -328,8 +336,8 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<IndexGraphStarter>::Result expectedRouteResult,
-                      routing::IndexGraphStarter::FakeVertex const & start,
-                      routing::IndexGraphStarter::FakeVertex const & finish,
+                      routing::IndexGraphStarter::FakeEnding const & start,
+                      routing::IndexGraphStarter::FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest)
 {
   restrictionTest.SetRestrictions(move(restrictions));
