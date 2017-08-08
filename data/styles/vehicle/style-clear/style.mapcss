@@ -37,6 +37,16 @@ colors
   RouteBicycle-opacity: 0.8;
   RoutePreview-color: #000000;
   RoutePreview-opacity: 0.3;
+  RouteMaskCar-color: #000000;
+  RouteMaskCar-opacity: 0.3;
+  RouteArrowsMaskCar-color: #033B80;
+  RouteArrowsMaskCar-opacity: 0.2;
+  RouteMaskBicycle-color: #000000;
+  RouteMaskBicycle-opacity: 0.5;
+  RouteArrowsMaskBicycle-color: #9C27B0;
+  RouteArrowsMaskBicycle-opacity: 0.2;
+  RouteMaskPedestrian-color: #000000;
+  RouteMaskPedestrian-opacity: 0.5;
   Arrow3D-color: #50AAFF;
   Arrow3DObsolete-color: #82AAC8;
   Arrow3DObsolete-opacity: 0.72;
