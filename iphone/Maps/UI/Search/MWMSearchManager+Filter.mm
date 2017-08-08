@@ -34,7 +34,6 @@
   {
     navController.modalPresentationStyle = UIModalPresentationCustom;
     self.filterTransitioningManager = [[MWMSearchFilterTransitioningManager alloc] init];
-    ownerController.transitioningDelegate = self.filterTransitioningManager;
     navController.transitioningDelegate = self.filterTransitioningManager;
   }
 
