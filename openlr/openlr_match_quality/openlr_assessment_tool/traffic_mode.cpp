@@ -5,6 +5,8 @@
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include "3party/pugixml/src/utils.hpp"
 
 #include <QItemSelection>
@@ -48,7 +50,7 @@ std::vector<m2::PointD> GetReachablePoints(m2::PointD const & srcPoint,
 namespace impl
 {
 // static
-size_t const RoadPointCandidate::kInvalidId = std::numeric_limits<size_t>::max();;
+size_t const RoadPointCandidate::kInvalidId = std::numeric_limits<size_t>::max();
 
 /// This class denotes a "non-deterministic" feature point.
 /// I.e. it is a set of all pairs <FeatureID, point index>
@@ -62,7 +64,7 @@ RoadPointCandidate::RoadPointCandidate(std::vector<FeaturePoint> const & points,
   LOG(LDEBUG, ("Candidate points:", points));
 }
 
-void RoadPointCandidate::ActivatePoint(RoadPointCandidate const & rpc)
+void RoadPointCandidate::ActivateCommonPoint(RoadPointCandidate const & rpc)
 {
   for (auto const & fp1 : m_points)
   {
@@ -75,7 +77,7 @@ void RoadPointCandidate::ActivatePoint(RoadPointCandidate const & rpc)
       }
     }
   }
-  CHECK(false, ("One common featrue id should exist."));
+  CHECK(false, ("One common feature id should exist."));
 }
 
 FeaturePoint const & RoadPointCandidate::GetPoint() const
@@ -289,7 +291,7 @@ void TrafficMode::PushPoint(m2::PointD const & coord, std::vector<FeaturePoint> 
 {
   impl::RoadPointCandidate point(points, coord);
   if (!m_goldenPath.empty())
-    m_goldenPath.back().ActivatePoint(point);
+    m_goldenPath.back().ActivateCommonPoint(point);
   m_goldenPath.push_back(point);
 }
 
@@ -308,13 +310,14 @@ void TrafficMode::CommitPath()
   if (!m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building is not started"));
 
+  MY_SCOPE_GUARD(guard, [this]{ emit EditingStopped(); });
+
   m_buildingPath = false;
   m_drawerDelegate->ClearAllVisualizedPoints();
 
-  if (m_goldenPath.empty())
+  if (m_goldenPath.size() == 1)
   {
     LOG(LDEBUG, ("Golden path is empty"));
-    emit EditingStopped();
     return;
   }
 
@@ -322,7 +325,7 @@ void TrafficMode::CommitPath()
 
   // Activate last point. Since no more points will be availabe we link it to the same
   // feature as the previous one was linked to.
-  m_goldenPath.back().ActivatePoint(m_goldenPath[GetPointsCount() - 2]);
+  m_goldenPath.back().ActivateCommonPoint(m_goldenPath[GetPointsCount() - 2]);
 
   openlr::Path path;
   for (size_t i = 1; i < GetPointsCount(); ++i)
@@ -334,7 +337,7 @@ void TrafficMode::CommitPath()
     auto point = m_goldenPath[i];
 
     // The start and the end of the edge should lie on the same feature.
-    point.ActivatePoint(prevPoint);
+    point.ActivateCommonPoint(prevPoint);
 
     std::tie(prevFid, prevSegId) = prevPoint.GetPoint();
     std::tie(fid, segId) = point.GetPoint();
@@ -349,7 +352,7 @@ void TrafficMode::CommitPath()
   }
 
   m_currentSegment->GetGoldenPath() = path;
-  emit EditingStopped();
+  m_goldenPath.clear();
 }
 
 void TrafficMode::RollBackPath()
@@ -368,6 +371,7 @@ void TrafficMode::RollBackPath()
   if (auto const & path = m_currentSegment->GetGoldenPath())
     m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
 
+  m_goldenPath.clear();
   emit EditingStopped();
 }
 
@@ -387,7 +391,7 @@ m2::PointD const & TrafficMode::GetLastPoint() const
   return m_goldenPath.back().GetCoordinate();
 }
 
-std::vector<m2::PointD> TrafficMode::GetCoordinates() const
+std::vector<m2::PointD> TrafficMode::GetGoldenPathPoints() const
 {
   std::vector<m2::PointD> coordinates;
   for (auto const & roadPoint : m_goldenPath)
@@ -406,16 +410,16 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       ? GetLastPoint()
       : m2::PointD::Zero();
 
-  // Get candidates and also fix clickPoint to make it more accurate and suitable for
-  // GetOutgoingEdges.
-  auto const & candidatePoints = m_pointsDelegate->GetFeaturesPointsByPoint(clickPoint);
+  auto const & p = m_pointsDelegate->GetCandidatePoints(clickPoint);
+  auto const & candidatePoints = p.first;
+  clickPoint = p.second;
   if (candidatePoints.empty())
     return;
 
-  auto reachablePoints = GetReachablePoints(clickPoint, GetCoordinates(), *m_pointsDelegate,
+  auto reachablePoints = GetReachablePoints(clickPoint, GetGoldenPathPoints(), *m_pointsDelegate,
                                             0 /* lookBackIndex */);
   auto const & clickablePoints = currentPathLength != 0
-      ? GetReachablePoints(lastClickedPoint, GetCoordinates(), *m_pointsDelegate,
+      ? GetReachablePoints(lastClickedPoint, GetGoldenPathPoints(), *m_pointsDelegate,
                            1 /* lookbackIndex */)
       // TODO(mgsergio): This is not quite correct since view port can change
       // since first call to visualize points. But it's ok in general.
@@ -434,7 +438,7 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       // TODO(mgsergio): Should I remove lastClickedPoint from clickablePoints
       // as well?
       RemovePointFromPull(lastClickedPoint, reachablePoints);
-      m_drawerDelegate->DrawGoldenPath(GetCoordinates());
+      m_drawerDelegate->DrawGoldenPath(GetGoldenPathPoints());
     }
 
     m_drawerDelegate->ClearAllVisualizedPoints();
@@ -455,11 +459,11 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       else
       {
         m_drawerDelegate->VisualizePoints(GetReachablePoints(
-            GetLastPoint(), GetCoordinates(), *m_pointsDelegate, 1 /* lookBackIndex */));
+            GetLastPoint(), GetGoldenPathPoints(), *m_pointsDelegate, 1 /* lookBackIndex */));
       }
 
       if (GetPointsCount() > 1)
-        m_drawerDelegate->DrawGoldenPath(GetCoordinates());
+        m_drawerDelegate->DrawGoldenPath(GetGoldenPathPoints());
     }
     else if (button == Qt::MouseButton::RightButton)
     {

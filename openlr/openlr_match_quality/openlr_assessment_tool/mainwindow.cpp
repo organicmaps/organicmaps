@@ -108,8 +108,8 @@ private:
 
 bool PointsMatch(m2::PointD const & a, m2::PointD const & b)
 {
-  auto constexpr kToleraneDistanceM = 1.0;
-  return MercatorBounds::DistanceOnEarth(a, b) < kToleraneDistanceM;
+  auto constexpr kToleranceDistanceM = 1.0;
+  return MercatorBounds::DistanceOnEarth(a, b) < kToleranceDistanceM;
 }
 
 class PointsControllerDelegate : public PointsControllerDelegateBase
@@ -154,8 +154,11 @@ public:
     return points;
   }
 
-  std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const override
+  std::pair<std::vector<FeaturePoint>, m2::PointD> GetCandidatePoints(
+      m2::PointD const & p) const override
   {
+    auto constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
+
     std::vector<FeaturePoint> points;
     m2::PointD pointOnFt;
     indexer::ForEachFeatureAtPoint(m_index, [&points, &p, &pointOnFt](FeatureType & ft) {
@@ -165,21 +168,27 @@ public:
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
         auto minDistance = std::numeric_limits<double>::max();
+        auto bestPointIndex = kInvalidIndex;
         for (size_t i = 0; i < ft.GetPointsCount(); ++i)
         {
           auto const & fp = ft.GetPoint(i);
           auto const distance = MercatorBounds::DistanceOnEarth(fp, p);
           if (PointsMatch(fp, p) && distance < minDistance)
           {
-            points.emplace_back(ft.GetID(), i);
-            pointOnFt = fp;
+            bestPointIndex = i;
             minDistance = distance;
           }
-        }  // for
+        }
+
+        if (bestPointIndex != kInvalidIndex)
+        {
+          points.emplace_back(ft.GetID(), bestPointIndex);
+          pointOnFt = ft.GetPoint(bestPointIndex);
+        }
       },
       p);
-    p = pointOnFt;
-    return points;
+    return std::make_pair(points, pointOnFt);
+
   }
 
   std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const override
@@ -243,17 +252,17 @@ MainWindow::MainWindow(Framework & framework)
   );
   m_startEditingAction = fileMenu->addAction("Start editing", [this] {
       m_trafficMode->StartBuildingPath();
-      m_mapWidget->SetTrafficMarkupMode();
+      m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
       m_commitPathAction->setEnabled(true /* enabled */);
       m_cancelPathAction->setEnabled(true /* enabled */);
   });
   m_commitPathAction = fileMenu->addAction("Commit path", [this] {
       m_trafficMode->CommitPath();
-      m_mapWidget->SetNormalMode();
+      m_mapWidget->SetMode(MapWidget::Mode::Normal);
   });
   m_cancelPathAction = fileMenu->addAction("Cancel path", [this] {
       m_trafficMode->RollBackPath();
-      m_mapWidget->SetNormalMode();
+      m_mapWidget->SetMode(MapWidget::Mode::Normal);
   });
 
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
@@ -293,7 +302,7 @@ void MainWindow::DestroyTrafficPanel()
   delete m_trafficMode;
   m_trafficMode = nullptr;
 
-  m_mapWidget->SetNormalMode();
+  m_mapWidget->SetMode(MapWidget::Mode::Normal);
 }
 
 void MainWindow::OnOpenTrafficSample()

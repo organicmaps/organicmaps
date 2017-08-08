@@ -15,18 +15,17 @@ class MapWidget : public qt::common::MapWidget
 
   using Base = qt::common::MapWidget;
 
+public:
   enum class Mode
   {
     Normal,
     TrafficMarkup
   };
 
-public:
   MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent);
   ~MapWidget() override = default;
 
-  void SetNormalMode() { m_mode = Mode::Normal; }
-  void SetTrafficMarkupMode() { m_mode = Mode::TrafficMarkup; }
+  void SetMode(Mode const mode) { m_mode = mode; }
 
 signals:
   void TrafficMarkupClick(m2::PointD const & p, Qt::MouseButton const b);

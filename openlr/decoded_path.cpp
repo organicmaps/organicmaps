@@ -8,8 +8,8 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
 #define THROW_IF_NODE_IS_EMPTY(node, exc, msg) \
   if (!node)                                   \

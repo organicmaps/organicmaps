@@ -35,7 +35,7 @@ public:
   template <typename TEmitter>
   void Sweep(TEmitter && emitter)
   {
-    sort(m_events.begin(), m_events.end());
+    std::sort(m_events.begin(), m_events.end());
 
     std::set<std::pair<double, size_t>> line;
 

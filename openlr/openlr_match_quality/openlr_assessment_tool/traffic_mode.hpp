@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 #include <boost/optional.hpp>
 
@@ -39,7 +40,7 @@ public:
   RoadPointCandidate(std::vector<FeaturePoint> const & points,
                      m2::PointD const & coord);
 
-  void ActivatePoint(RoadPointCandidate const & rpc);
+  void ActivateCommonPoint(RoadPointCandidate const & rpc);
   FeaturePoint const & GetPoint() const;
   m2::PointD const & GetCoordinate() const;
 
@@ -145,8 +146,9 @@ public:
 
   virtual std::vector<m2::PointD> GetAllJunctionPointsInViewport() const = 0;
   /// Returns all junction points at a given location in the form of feature id and
-  /// point index in the feature. And meke p equal to the neares junction.
-  virtual std::vector<FeaturePoint> GetFeaturesPointsByPoint(m2::PointD & p) const = 0;
+  /// point index in the feature.
+  virtual std::pair<std::vector<FeaturePoint>, m2::PointD> GetCandidatePoints(
+      m2::PointD const & p) const = 0;
   virtual std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const = 0;
 
   virtual ClickType CheckClick(m2::PointD const & clickPoint,
@@ -190,7 +192,7 @@ public:
   size_t GetPointsCount() const;
   m2::PointD const & GetPoint(size_t const index) const;
   m2::PointD const & GetLastPoint() const;
-  std::vector<m2::PointD> GetCoordinates() const;
+  std::vector<m2::PointD> GetGoldenPathPoints() const;
 
 public slots:
   void OnItemSelected(QItemSelection const & selected, QItemSelection const &);
