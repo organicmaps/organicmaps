@@ -10,6 +10,7 @@
 #include "routing/index_road_graph.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
+#include "routing/road_graph_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns_generator.hpp"
@@ -171,25 +172,20 @@ bool MwmHasRoutingData(version::MwmTraits const & traits, VehicleType vehicleTyp
   return vehicleType == VehicleType::Car || traits.HasCrossMwmSection();
 }
 
-bool AllMwmsHaveRoutingIndex(VehicleType vehicleType, Index & index, Route & route)
+void GetOutdatedMwms(VehicleType vehicleType, Index & index, vector<string> & outdatedMwms)
 {
+  outdatedMwms.clear();
   vector<shared_ptr<MwmInfo>> infos;
   index.GetMwmsInfo(infos);
 
-  bool result = true;
   for (auto const & info : infos)
   {
     if (info->GetType() != MwmInfo::COUNTRY)
       continue;
 
     if (!MwmHasRoutingData(version::MwmTraits(info->m_version), vehicleType))
-    {
-      result = false;
-      route.AddAbsentCountry(info->GetCountryName());
-    }
+      outdatedMwms.push_back(info->GetCountryName());
   }
-
-  return result;
 }
 
 struct ProgressRange final
@@ -310,8 +306,28 @@ IRouter::ResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                                 bool adjustToPrevRoute,
                                                 RouterDelegate const & delegate, Route & route)
 {
-  if (!AllMwmsHaveRoutingIndex(m_vehicleType, m_index, route))
+  vector<string> outdatedMwms;
+  GetOutdatedMwms(m_vehicleType, m_index, outdatedMwms);
+  if (!outdatedMwms.empty())
+  {
+    // Backward compatibility with outdated mwm versions.
+    if (m_vehicleType == VehicleType::Pedestrian)
+    {
+      return CreatePedestrianAStarBidirectionalRouter(m_index, m_countryFileFn, m_numMwmIds)
+          ->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegate, route);
+    }
+
+    if (m_vehicleType == VehicleType::Bicycle)
+    {
+      return CreateBicycleAStarBidirectionalRouter(m_index, m_countryFileFn, m_numMwmIds)
+          ->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute, delegate, route);
+    }
+
+    for (string const & mwm : outdatedMwms)
+      route.AddAbsentCountry(mwm);
+
     return IRouter::ResultCode::FileTooOld;
+  }
 
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
