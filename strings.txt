@@ -25906,3 +25906,15 @@
 [choose_destination]
     en = Choose a destination
     ru = Выберите конец маршрута
+
+[preloader_viator_title]
+    en = Discover tours and unusual activities
+    ru = Откройте для себя экскурсии и необычные туры
+
+[preloader_viator_message]
+    en = Tours, activities, sightseeing and more
+    ru = Туры, достопримечательности, экскурсии и многое другое
+
+[preloader_viator_button]
+    en = Learn more
+    ru = Посмотреть
