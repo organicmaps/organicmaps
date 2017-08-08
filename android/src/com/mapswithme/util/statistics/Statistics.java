@@ -343,7 +343,7 @@ public enum Statistics
     public static final String OPENTABLE = "OpenTable";
     public static final String VIATOR = "Viator.Com";
     public static final String GEOCHAT = "Geochat";
-    public static final String CIAN = "Cian";
+    public static final String CIAN = "Cian.Ru";
     public static final String NO_PRODUCTS = "no_products";
   }
 
