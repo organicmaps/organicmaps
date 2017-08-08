@@ -352,4 +352,5 @@ public class Framework
   public static native boolean nativeHasSavedRoutePoints();
   public static native boolean nativeLoadRoutePoints();
   public static native void nativeSaveRoutePoints();
+  public static native void nativeDeleteSavedRoutePoints();
 }

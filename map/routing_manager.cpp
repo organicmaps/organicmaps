@@ -1060,3 +1060,11 @@ void RoutingManager::SaveRoutePoints() const
     LOG(LWARNING, ("Saving road points failed:", ex.Msg()));
   }
 }
+
+void RoutingManager::DeleteSavedRoutePoints()
+{
+  if (!HasSavedRoutePoints())
+    return;
+  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+  FileWriter::DeleteFileX(fileName);
+}

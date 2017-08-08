@@ -1450,4 +1450,10 @@ Java_com_mapswithme_maps_Framework_nativeSaveRoutePoints()
 {
   frm()->GetRoutingManager().SaveRoutePoints();
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
+{
+  frm()->GetRoutingManager().DeleteSavedRoutePoints();
+}
 }  // extern "C"

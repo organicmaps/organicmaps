@@ -228,6 +228,8 @@ public:
   bool LoadRoutePoints();
   /// \brief It saves route points to file.
   void SaveRoutePoints() const;
+  /// \brief It deletes file with saved route points if it exists.
+  void DeleteSavedRoutePoints();
 
 private:
   void InsertRoute(routing::Route const & route);
