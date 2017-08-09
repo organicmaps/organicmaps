@@ -26,7 +26,7 @@
   {
     _point = lastLocation.mercator;
     _title = L(@"p2p_your_location");
-    _subtitle = L(@"");
+    _subtitle = @"";
     _isMyPosition = YES;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -43,7 +43,7 @@
   {
     _point = point.m_org;
     _title = @(point.m_name.c_str());
-    _subtitle = L(@"");
+    _subtitle = @"";
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -72,6 +72,8 @@
 }
 
 - (instancetype)initWithPoint:(m2::PointD const &)point
+                        title:(NSString *)title
+                     subtitle:(NSString *)subtitle
                          type:(MWMRoutePointType)type
             intermediateIndex:(int8_t)intermediateIndex
 {
@@ -79,13 +81,8 @@
   if (self)
   {
     _point = point;
-    switch (type)
-    {
-    case MWMRoutePointTypeStart: _title = @"Source"; break;
-    case MWMRoutePointTypeIntermediate: _title = @"Intermediate"; break;
-    case MWMRoutePointTypeFinish: _title = @"Destination"; break;
-    }
-    _subtitle = L(@"");
+    _title = title;
+    _subtitle = subtitle ?: @"";
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
@@ -105,7 +102,7 @@
   case MWMRoutePointTypeFinish: pt.m_pointType = RouteMarkType::Finish; break;
   }
   pt.m_position = self.point;
-  pt.m_isMyPosition = static_cast<bool>(self.isMyPosition);
+  pt.m_isMyPosition = self.isMyPosition;
   pt.m_title = self.title.UTF8String;
   pt.m_subTitle = self.subtitle.UTF8String;
   pt.m_intermediateIndex = self.intermediateIndex;

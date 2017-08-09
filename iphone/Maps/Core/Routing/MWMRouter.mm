@@ -42,6 +42,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 @property(nonatomic) NSString * altitudeElevation;
 @property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
 @property(nonatomic) uint32_t taxiRoutePointTransactionId;
+@property(nonatomic) uint32_t routeManagerTransactionId;
 
 @end
 
@@ -131,7 +132,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   return [points copy];
 }
 
-+ (NSInteger)pointsCount { return GetFramework().GetRoutingManager().GetRoutePoints().size(); }
++ (NSInteger)pointsCount { return GetFramework().GetRoutingManager().GetRoutePointsCount(); }
 + (MWMRoutePoint *)startPoint
 {
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
@@ -168,6 +169,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     self.renderAltitudeImagesQueue =
         dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
     self.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+    self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
   }
@@ -260,6 +262,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   [self rebuildWithBestRouter:NO];
 }
 
++ (void)removePoints { GetFramework().GetRoutingManager().RemoveRoutePoints(); }
 + (void)addPoint:(MWMRoutePoint *)point
 {
   if (!point)

@@ -412,19 +412,25 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     return [[MWMRoutePoint alloc] initWithLastLocationAndType:type
                                             intermediateIndex:intermediateIndex];
 
-  NSString * name = nil;
+  NSString * title = nil;
   if (data.title.length > 0)
-    name = data.title;
+    title = data.title;
   else if (data.address.length > 0)
-    name = data.address;
+    title = data.address;
   else if (data.subtitle.length > 0)
-    name = data.subtitle;
+    title = data.subtitle;
   else if (data.isBookmark)
-    name = data.externalTitle;
+    title = data.externalTitle;
   else
-    name = L(@"placepage_unknown_place");
+    title = L(@"placepage_unknown_place");
+
+  NSString * subtitle = nil;
+  if (data.subtitle.length > 0 && ![title isEqualToString:data.subtitle])
+    subtitle = data.subtitle;
 
   return [[MWMRoutePoint alloc] initWithPoint:data.mercator
+                                        title:title
+                                     subtitle:subtitle
                                          type:type
                             intermediateIndex:intermediateIndex];
 }

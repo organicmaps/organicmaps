@@ -23,7 +23,6 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 + (void)setType:(MWMRouterType)type;
 + (MWMRouterType)type;
-- (uint32_t)taxiRoutePointTransactionId;
 
 + (void)disableFollowMode;
 
@@ -32,8 +31,11 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)setTurnNotificationsLocale:(NSString *)locale;
 + (NSArray<NSString *> *)turnNotifications;
 
++ (void)addPoint:(MWMRoutePoint *)point;
++ (void)removePoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;
++ (void)removePoints;
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
 + (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
@@ -44,5 +46,14 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 + (BOOL)hasRouteAltitude;
 + (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
+
+@end
+
+@interface MWMRouter (RouteManager)
+
++ (void)openRouteManagerTransaction;
++ (void)applyRouteManagerTransaction;
++ (void)cancelRouteManagerTransaction;
++ (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
 
 @end
