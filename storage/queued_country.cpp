@@ -39,6 +39,13 @@ void QueuedCountry::RemoveOptions(MapOptions opt)
     m_current = LeastSignificantOption(m_left);
 }
 
+void QueuedCountry::ResetToDefaultOptions()
+{
+  m_init = MapOptions::MapWithCarRouting;
+  m_left = MapOptions::MapWithCarRouting;
+  m_current = LeastSignificantOption(m_left);
+}
+
 bool QueuedCountry::SwitchToNextFile()
 {
   ASSERT(HasOptions(m_left, m_current),

@@ -40,5 +40,7 @@ string DebugPrint(MapOptions options)
       return "CarRouting";
     case MapOptions::MapWithCarRouting:
       return "MapWithCarRouting";
+    case MapOptions::Diff:
+      return "Diff";
   }
 }

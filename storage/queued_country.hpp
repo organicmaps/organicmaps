@@ -16,6 +16,8 @@ public:
 
   void AddOptions(MapOptions opt);
   void RemoveOptions(MapOptions opt);
+  /// In case we can't update file using diff scheme.
+  void ResetToDefaultOptions();
   bool SwitchToNextFile();
 
   inline TCountryId const & GetCountryId() const { return m_countryId; }

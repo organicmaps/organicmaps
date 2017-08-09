@@ -20,6 +20,8 @@ string GetNameWithExt(string const & countryFile, MapOptions file)
       return countryFile + DATA_FILE_EXTENSION;
     case MapOptions::CarRouting:
       return countryFile + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
+    case MapOptions::Diff:
+      return countryFile + DIFF_FILE_EXTENSION;
     default:
       ASSERT(false, ("Can't get name for:", file));
       return string();
@@ -51,11 +53,12 @@ TMwmSize CountryFile::GetRemoteSize(MapOptions filesMask) const
   return size;
 }
 
-
 string GetFileName(string const & countryFile, MapOptions opt, int64_t version)
 {
-  return version::IsSingleMwm(version) ? GetNameWithExt(countryFile, MapOptions::Map)
-                                       : GetNameWithExt(countryFile, opt);
+  if (version::IsSingleMwm(version))
+    opt = opt == MapOptions::Diff ? MapOptions::Diff : MapOptions::Map;
+
+  return GetNameWithExt(countryFile, opt);
 }
 
 string DebugPrint(CountryFile const & file)
