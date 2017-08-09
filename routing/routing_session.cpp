@@ -689,6 +689,14 @@ void RoutingSession::CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic
   TrafficCache::CopyTraffic(trafficColoring);
 }
 
+m2::PointD RoutingSession::GetCurrentPos() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  UNUSED_VALUE(guard);
+
+  return m_currentDirection;
+}
+
 string DebugPrint(RoutingSession::State state)
 {
   switch (state)

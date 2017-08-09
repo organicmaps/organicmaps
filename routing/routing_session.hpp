@@ -199,6 +199,8 @@ private:
   double GetCompletionPercent() const;
   void PassCheckpoints();
 
+  m2::PointD GetCurrentPos() const;
+
 private:
   unique_ptr<AsyncRouter> m_router;
   shared_ptr<Route> m_route;

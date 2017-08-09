@@ -8,6 +8,7 @@
 
 #include "tracking/reporter.hpp"
 
+#include "routing/checkpoint_predictor.hpp"
 #include "routing/index_router.hpp"
 #include "routing/num_mwm_id.hpp"
 #include "routing/online_absent_fetcher.hpp"
@@ -594,7 +595,6 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateInd
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   routePoints.RemoveRoutePoint(type, intermediateIndex);
-  ReorderIntermediatePoints();
   routePoints.NotifyChanges();
 }
 
@@ -632,16 +632,6 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
   routePoints.NotifyChanges();
 }
 
-vector<int8_t> RoutingManager::PredictIntermediatePointsOrder(vector<m2::PointD> const & points)
-{
-  //TODO(@bykoianko) Implement it
-  vector<int8_t> result;
-  result.reserve(points.size());
-  for (size_t i = 0; i < points.size(); ++i)
-    result.push_back(static_cast<int8_t>(i));
-  return result;
-}
-
 void RoutingManager::ReorderIntermediatePoints()
 {
   vector<RouteMarkPoint *> points;
@@ -660,7 +650,8 @@ void RoutingManager::ReorderIntermediatePoints()
   if (points.empty())
     return;
 
-  vector<int8_t> const order = PredictIntermediatePointsOrder(positions);
+  CheckpointPredictor predictor(m_routingSession.GetUserCurrentPosition(), m_routingSession.GetEndPoint());
+  vector<int8_t> const order = predictor(positions);
   ASSERT_EQUAL(order.size(), points.size(), ());
   for (size_t i = 0; i < order.size(); ++i)
     points[i]->SetIntermediateIndex(order[i]);

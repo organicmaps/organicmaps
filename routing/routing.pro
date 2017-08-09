@@ -16,6 +16,7 @@ SOURCES += \
     async_router.cpp \
     base/followed_polyline.cpp \
     bicycle_directions.cpp \
+    checkpoint_predictor.cpp \
     checkpoints.cpp \
     cross_mwm_connector.cpp \
     cross_mwm_connector_serialization.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     base/astar_weight.hpp \
     base/followed_polyline.hpp \
     bicycle_directions.hpp \
+    checkpoint_predictor.hpp \
     checkpoints.hpp \
     coding.hpp \
     cross_mwm_connector.hpp \

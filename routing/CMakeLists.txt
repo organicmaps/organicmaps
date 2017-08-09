@@ -17,6 +17,8 @@ set(
   base/followed_polyline.hpp
   bicycle_directions.cpp
   bicycle_directions.hpp
+  checkpoint_predictor.cpp
+  checkpoint_predictor.hpp
   checkpoints.cpp
   checkpoints.hpp
   coding.hpp
