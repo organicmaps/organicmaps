@@ -23,8 +23,7 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/margin_base"
           android:layout_gravity="center_horizontal"
-          android:tag="@string/tag_height_limited"
-          tools:src="@drawable/img_whats_new_traffic_roaming"/>
+          android:tag="@string/tag_height_limited"/>
 
         <TextView
           android:id="@+id/title"

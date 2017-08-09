@@ -12,8 +12,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_double_plus"
     android:layout_marginStart="@dimen/margin_double_plus"
-    android:layout_gravity="center_vertical"
-    tools:src="@drawable/img_whats_new_traffic_roaming"/>
+    android:layout_gravity="center_vertical"/>
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
