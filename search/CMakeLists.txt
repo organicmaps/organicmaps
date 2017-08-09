@@ -83,6 +83,7 @@ set(
   mwm_context.hpp
   nested_rects_cache.cpp
   nested_rects_cache.hpp
+  point_rect_matcher.hpp
   pre_ranker.cpp
   pre_ranker.hpp
   pre_ranking_info.cpp
@@ -114,6 +115,8 @@ set(
   search_params.cpp
   search_params.hpp
   search_trie.hpp
+  segment_tree.cpp
+  segment_tree.hpp
   stats_cache.hpp
   street_vicinity_loader.cpp
   street_vicinity_loader.hpp
