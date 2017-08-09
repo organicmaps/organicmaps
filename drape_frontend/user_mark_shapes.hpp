@@ -72,6 +72,9 @@ struct UserMarkRenderData
 
 using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 
+void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
+                               std::function<bool(m2::RectD const & segmentRect)> const & func);
+
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     IDCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher);

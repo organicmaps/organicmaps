@@ -39,6 +39,16 @@ private:
   ref_ptr<MarkIDCollection> GetIdCollection(TileKey const & tileKey, MarkGroupID groupId);
   void CleanIndex();
 
+  int GetNearestLineIndexZoom(int zoom) const;
+
+  ref_ptr<MarksIDGroups> GetUserMarksGroups(TileKey const & tileKey);
+  ref_ptr<MarksIDGroups> GetUserLinesGroups(TileKey const & tileKey);
+
+  void CacheUserMarks(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
+                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
+  void CacheUserLines(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
+                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
+
   std::unordered_set<MarkGroupID> m_groupsVisibility;
   MarksIDGroups m_groups;
 

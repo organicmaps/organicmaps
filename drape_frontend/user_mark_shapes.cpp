@@ -16,9 +16,17 @@
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
+
+#include <vector>
 
 namespace df
 {
+std::vector<double> const kLineWidthZoomFactor = {
+// 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19
+  0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+};
+int const kLineSimplifyLevelEnd = 15;
 
 namespace
 {
@@ -198,12 +206,41 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   }
 }
 
+void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
+                               const std::function<bool(const m2::RectD & segmentRect)> & func)
+{
+  double const splineFullLength = spline->GetLength();
+  double length = 0;
+  while (length < splineFullLength)
+  {
+    m2::RectD splineRect;
+
+    auto const itBegin = spline->GetPoint(length);
+    auto itEnd = spline->GetPoint(length + maxSegmentLength);
+    if (itEnd.BeginAgain())
+    {
+      double const lastSegmentLength = spline->GetLengths().back();
+      itEnd = spline->GetPoint(splineFullLength - lastSegmentLength / 2.0);
+      splineRect.Add(spline->GetPath().back());
+    }
+
+    spline->ForEachNode(itBegin, itEnd, [&splineRect](m2::PointD const & pt)
+    {
+      splineRect.Add(pt);
+    });
+
+    length += maxSegmentLength;
+
+    if (!func(splineRect))
+      return;
+  }
+}
+
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     IDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  int const kLineSimplifyLevelEnd = 15;
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
   double sqrScale;
@@ -218,6 +255,23 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     auto const it = renderParams.find(id);
     ASSERT(it != renderParams.end(), ());
     UserLineRenderParams const & renderInfo = *it->second.get();
+
+    m2::RectD const tileRect = tileKey.GetGlobalRect();
+
+    double const range = MercatorBounds::maxX - MercatorBounds::minX;
+    double const maxLength = range / (1 << (tileKey.m_zoomLevel - 1));
+
+    bool intersected = false;
+    ProcessSplineSegmentRects(renderInfo.m_spline, maxLength,
+                              [&tileRect, &intersected](m2::RectD const & segmentRect) -> bool
+    {
+      if (segmentRect.IsIntersect(tileRect))
+        intersected = true;
+      return !intersected;
+    });
+
+    if (!intersected)
+      continue;
 
     m2::SharedSpline spline = renderInfo.m_spline;
     if (simplify)
@@ -240,7 +294,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       }
     }
 
-    auto const clippedSplines = m2::ClipSplineByRect(tileKey.GetGlobalRect(), spline);
+    auto const clippedSplines = m2::ClipSplineByRect(tileRect, spline);
     for (auto const & clippedSpline : clippedSplines)
     {
       for (auto const & layer : renderInfo.m_layers)
@@ -253,7 +307,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;
-        params.m_width = layer.m_width * vs;
+        params.m_width = layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel];
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 
