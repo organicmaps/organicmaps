@@ -93,6 +93,7 @@ public:
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallback const & readyCallback,
                     uint32_t timeoutSec, State routeRebuildingState, bool adjustToPrevRoute);
 
+  m2::PointD GetStartPoint() const { return m_checkpoints.GetStart(); }
   m2::PointD GetEndPoint() const { return m_checkpoints.GetFinish(); }
   bool IsActive() const { return (m_state != RoutingNotActive); }
   bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
@@ -198,8 +199,6 @@ private:
 
   double GetCompletionPercent() const;
   void PassCheckpoints();
-
-  m2::PointD GetCurrentPos() const;
 
 private:
   unique_ptr<AsyncRouter> m_router;

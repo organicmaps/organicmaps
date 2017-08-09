@@ -634,27 +634,44 @@ void RoutingManager::SetPointsFollowingMode(bool enabled)
 
 void RoutingManager::ReorderIntermediatePoints()
 {
-  vector<RouteMarkPoint *> points;
-  vector<m2::PointD> positions;
-  points.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
-  positions.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
+  vector<RouteMarkPoint *> prevPoints;
+  vector<m2::PointD> prevPositions;
+  prevPoints.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
+  prevPositions.reserve(RoutePointsLayout::kMaxIntermediatePointsCount);
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+
+  RouteMarkPoint * addedPoint = nullptr;
+  m2::PointD addedPosition;
+
   for (auto const & p : routePoints.GetRoutePoints())
   {
+    CHECK(p, ());
     if (p->GetRoutePointType() == RouteMarkType::Intermediate)
     {
-      points.push_back(p);
-      positions.push_back(p->GetPivot());
+      // Note. An added (new) intermediate point is the first intermediate point at |routePoints.GetRoutePoints()|.
+      // The other intermediate points are former ones.
+      if (addedPoint == nullptr)
+      {
+        addedPoint = p;
+        addedPosition = p->GetPivot();
+      }
+      else
+      {
+        prevPoints.push_back(p);
+        prevPositions.push_back(p->GetPivot());
+      }
     }
   }
-  if (points.empty())
+  if (addedPoint == nullptr)
     return;
 
-  CheckpointPredictor predictor(m_routingSession.GetUserCurrentPosition(), m_routingSession.GetEndPoint());
-  vector<int8_t> const order = predictor(positions);
-  ASSERT_EQUAL(order.size(), points.size(), ());
-  for (size_t i = 0; i < order.size(); ++i)
-    points[i]->SetIntermediateIndex(order[i]);
+  CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
+
+  auto const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
+  addedPoint->SetIntermediateIndex(static_cast<int8_t>(insertIndex));
+  for (size_t i = 0; i < prevPoints.size(); ++i)
+    prevPoints[i]->SetIntermediateIndex(static_cast<int8_t>(i < insertIndex ? i : i + 1));
+
   routePoints.NotifyChanges();
 }
 
