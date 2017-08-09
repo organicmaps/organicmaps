@@ -226,6 +226,7 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
   return true;
 }
 
+void RoutePointsLayout::RemoveRoutePoints() { m_routeMarks.Clear(); }
 void RoutePointsLayout::RemoveIntermediateRoutePoints()
 {
   for (size_t i = 0; i < m_routeMarks.GetUserMarkCount();)

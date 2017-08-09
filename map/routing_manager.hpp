@@ -169,6 +169,7 @@ public:
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
