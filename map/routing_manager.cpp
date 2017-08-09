@@ -905,7 +905,7 @@ bool RoutingManager::IsTrackingReporterEnabled() const
   if (!m_routingSession.IsFollowing())
     return false;
 
-  bool enableTracking = false;
+  bool enableTracking = true;
   UNUSED_VALUE(settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking));
   return enableTracking;
 }
