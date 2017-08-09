@@ -154,5 +154,4 @@ string DebugPrint(SearchModel::SearchType type)
   ASSERT(false, ("Unknown search type:", static_cast<int>(type)));
   return string();
 }
-
 }  // namespace search

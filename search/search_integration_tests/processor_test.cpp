@@ -922,12 +922,14 @@ UNIT_CLASS_TEST(ProcessorTest, Cian)
   TestBuilding plainBuilding(m2::PointD(0, 0), "Plain building", "1", "en");
   TestBuilding garage(m2::PointD(0.001, 0.001), "Garage", "2", "en");
   garage.AddType({"building", "garage"});
+  TestBuilding nonameBuilding(m2::PointD(0.002, 0.002), "", "3", "en");
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(cianCity); });
 
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(plainBuilding);
     builder.Add(garage);
+    builder.Add(nonameBuilding);
   });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
@@ -941,13 +943,13 @@ UNIT_CLASS_TEST(ProcessorTest, Cian)
   params.m_cianMode = false;
   {
     TRules rules = {ExactMatch(worldId, cianCity), ExactMatch(countryId, plainBuilding),
-                    ExactMatch(countryId, garage)};
+                    ExactMatch(countryId, garage), ExactMatch(countryId, nonameBuilding)};
     TEST(ResultsMatch(params, rules), ());
   }
 
   params.m_cianMode = true;
   {
-    TRules rules = {ExactMatch(countryId, plainBuilding)};
+    TRules rules = {ExactMatch(countryId, plainBuilding), ExactMatch(countryId, nonameBuilding)};
     TEST(ResultsMatch(params, rules), ());
   }
 }
