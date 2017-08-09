@@ -2,7 +2,7 @@
 
 namespace location
 {
-struct FollowingInfo;
+class FollowingInfo;
 }
 
 @interface MWMNavigationDashboardManager (Entity)
