@@ -961,6 +961,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!isChangingConfigurations())
       RoutingController.get().saveRoute();
+    else
+      // We no longer need in a saved route if it's a configuration changing: theme switching,
+      // orientation changing, etc. Otherwise, the saved route might be restored at undesirable moment.
+      RoutingController.get().deleteSavedRoute();
 
     super.onSaveInstanceState(outState);
   }

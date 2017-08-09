@@ -376,6 +376,11 @@ public class RoutingController implements TaxiManager.TaxiListener
       Framework.nativeSaveRoutePoints();
   }
 
+  public void deleteSavedRoute()
+  {
+    Framework.nativeDeleteSavedRoutePoints();
+  }
+
   public void prepare(boolean canUseMyPositionAsStart, @Nullable MapObject endPoint)
   {
     prepare(canUseMyPositionAsStart, endPoint, false);
