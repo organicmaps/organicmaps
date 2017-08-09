@@ -8,13 +8,13 @@
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whatsnew_intermediate_point_title</item>
-    <item>@string/whatsnew_viator_title</item>
+    <item>@string/whats_new_title_route</item>
+    <item>@string/whats_new_message_title_update</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_intermediate_point_message</item>
-    <item>@string/whatsnew_viator_message</item>
+    <item>@string/whats_new_message_route</item>
+    <item>@string/whats_new_message_maps_update</item>
   </string-array>
 
   <string-array name="news_messages_2">
