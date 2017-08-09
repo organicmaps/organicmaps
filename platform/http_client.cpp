@@ -71,6 +71,11 @@ HttpClient & HttpClient::SetRawHeader(string const & key, string const & value)
   return *this;
 }
 
+void HttpClient::SetTimeout(double timeoutSec)
+{
+  m_timeoutSec = timeoutSec;
+}
+
 string const & HttpClient::UrlRequested() const
 {
   return m_urlRequested;

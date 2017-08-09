@@ -56,8 +56,6 @@ public final class HttpClient
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
-  // Globally accessible for faster unit-testing
-  private static int TIMEOUT_IN_MILLISECONDS = 30000;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
@@ -91,8 +89,8 @@ public final class HttpClient
       // Looks like this bug was fixed by switching to OkHttp implementation in this commit:
       // https://android.googlesource.com/platform/libcore/+/2503556d17b28c7b4e6e514540a77df1627857d0
       connection.setInstanceFollowRedirects(p.followRedirects);
-      connection.setConnectTimeout(TIMEOUT_IN_MILLISECONDS);
-      connection.setReadTimeout(TIMEOUT_IN_MILLISECONDS);
+      connection.setConnectTimeout(p.timeoutMillisec);
+      connection.setReadTimeout(p.timeoutMillisec);
       connection.setUseCaches(false);
       connection.setRequestMethod(p.httpMethod);
 
@@ -289,6 +287,7 @@ public final class HttpClient
     int httpResponseCode = -1;
     boolean followRedirects = true;
     boolean loadHeaders;
+    int timeoutMillisec = 30000;
 
     // Simple GET request constructor.
     public Params(String url)

@@ -190,6 +190,8 @@ bool HttpClient::RunHttpRequest()
   if (!m_cookies.empty())
     cmd += "-b '" + m_cookies + "' ";
 
+  cmd += "-m '" + m_timeoutSec + "' ";
+
   if (!m_bodyData.empty())
   {
     body_deleter.m_fileName = GetTmpFileName();

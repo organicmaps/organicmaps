@@ -77,6 +77,7 @@ public:
   // TODO: "false" is now supported on Android only.
   HttpClient & SetHandleRedirects(bool handle_redirects);
   HttpClient & SetRawHeader(string const & key, string const & value);
+  void SetTimeout(double timeoutSec);
 
   string const & UrlRequested() const;
   // @returns empty string in the case of error
@@ -117,6 +118,8 @@ private:
   unordered_map<string, string> m_headers;
   bool m_handleRedirects = true;
   bool m_loadHeaders = false;
+  // Use 30 seconds timeout by default.
+  double m_timeoutSec = 30.0;
 
   DISALLOW_COPY_AND_MOVE(HttpClient);
 };

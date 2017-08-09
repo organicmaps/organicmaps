@@ -75,6 +75,12 @@ void SetBoolean(ScopedEnv & env, jobject params, jfieldID const fieldId, bool co
   RethrowOnJniException(env);
 }
 
+void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const value)
+{
+  env->SetIntField(params, fieldId, value);
+  RethrowOnJniException(env);
+}
+
 // Get string value from HttpClient.Params object, throws JniException.
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
@@ -160,7 +166,8 @@ public:
     {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
     {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
     {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
-    {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")}};
+    {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
+    {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
   }
 
   jfieldID GetId(std::string const & fieldName) const
@@ -232,6 +239,8 @@ bool HttpClient::RunHttpRequest()
     SetString(env, httpParamsObject.get(), ids.GetId("cookies"), m_cookies);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("followRedirects"), m_handleRedirects);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
+    SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"),
+           static_cast<int>(m_timeoutSec * 1000));
 
     SetHeaders(env, httpParamsObject.get(), m_headers);
   }

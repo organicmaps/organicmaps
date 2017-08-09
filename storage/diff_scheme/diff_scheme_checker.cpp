@@ -25,6 +25,8 @@ char const kNameKey[] = "name";
 char const kSizeKey[] = "size";
 char const kVersionKey[] = "version";
 
+auto const kTimeoutInSeconds = 5.0;
+
 string SerializeCheckerData(Checker::LocalMapsInfo const & info)
 {
   auto mwmsArrayNode = my::NewJSONArray();
@@ -114,10 +116,10 @@ void Checker::Check(LocalMapsInfo const & info, Callback const & fn)
 
   threads::SimpleThread thread([info, fn] {
     platform::HttpClient request(DIFF_LIST_URL);
-    // TODO(Vlad): Check request's time.
     string const body = SerializeCheckerData(info);
     ASSERT(!body.empty(), ());
     request.SetBodyData(body, "application/json");
+    request.SetTimeout(kTimeoutInSeconds);
     NameFileInfoMap diffs;
     if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
       diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);
