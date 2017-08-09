@@ -31,13 +31,14 @@ public:
     size_t m_id = 0;
   };
 
-  // Finds matching between |points| and |rects|, calls |fn| on
-  // matched pairs.
+  // For each point tries to find a rect containing the point. If
+  // there are several rects containing the point, selects an
+  // arbitrary one. Calls |fn| on matched pairs (point-id, rect-id).
   //
   // Complexity: O(n * log(n)), where n = |points| + |rects|.
   template <typename Fn>
-  void Match(std::vector<PointIdPair> const & points, std::vector<RectIdPair> const & rects,
-             Fn && fn)
+  static void Match(std::vector<PointIdPair> const & points, std::vector<RectIdPair> const & rects,
+                    Fn && fn)
   {
     std::vector<Event> events;
     events.reserve(points.size() + 2 * rects.size());

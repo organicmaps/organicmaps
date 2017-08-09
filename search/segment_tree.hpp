@@ -15,9 +15,9 @@ namespace search
 class SegmentTree
 {
 public:
-  double static constexpr kNegativeInfinity = -std::numeric_limits<double>::max();
-  double static constexpr kPositiveInfinity = std::numeric_limits<double>::max();
-  size_t static constexpr kInvalidId = std::numeric_limits<size_t>::max();
+  auto static constexpr kNegativeInfinity = -std::numeric_limits<double>::max();
+  auto static constexpr kPositiveInfinity = std::numeric_limits<double>::max();
+  auto static constexpr kInvalidId = std::numeric_limits<size_t>::max();
 
   struct Segment
   {
@@ -47,8 +47,14 @@ public:
 
   struct Node
   {
+    // Segment corresponding to the node.
     Segment m_segment;
+
+    // Maximum value among all right bounds of non-deleted segments in
+    // the subtree.
     double m_to = kNegativeInfinity;
+
+    // True when corresponding segment is deleted.
     bool m_deleted = true;
   };
 
@@ -58,7 +64,7 @@ public:
   void Add(Segment const & segment);
   void Erase(Segment const & segment);
 
-  // Calls |fn| on any segment containing |x|.
+  // Calls |fn| on arbitrary segment containing |x|.
   template <typename Fn>
   void Find(double x, Fn && fn) const
   {

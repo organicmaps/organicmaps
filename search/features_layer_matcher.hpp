@@ -143,8 +143,7 @@ private:
       }
     }
 
-    PointRectMatcher matcher;
-    matcher.Match(poiCenters, buildingRects, [&](size_t poiId, size_t buildingId) {
+    PointRectMatcher::Match(poiCenters, buildingRects, [&](size_t poiId, size_t buildingId) {
       ASSERT_LESS(poiId, pois.size(), ());
       ASSERT_LESS(buildingId, buildings.size(), ());
       fn(pois[poiId], buildings[buildingId]);

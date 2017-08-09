@@ -40,9 +40,9 @@ UNIT_TEST(SegmentTree_Smoke)
 
 UNIT_TEST(SegmentTree_Simple)
 {
-  vector<Segment> segments = {Segment(-10000, -10000, 0 /* id */), Segment(-10, -6, 1 /* id */),
-                              Segment(-5, -2, 2 /* id */)};
-  TEST(is_sorted(segments.begin(), segments.end()), ());
+  vector<Segment> segments = {Segment(-10000 /* from */, -10000 /* to */, 0 /* id */),
+                              Segment(-10, -6, 1), Segment(-5, -2, 2)};
+  CHECK(is_sorted(segments.begin(), segments.end()), ());
 
   SegmentTree tree(segments);
 

@@ -24,8 +24,8 @@ size_t CeilPow2Minus1(size_t n)
 
 SegmentTree::SegmentTree(vector<Segment> const & segments) : m_tree(CeilPow2Minus1(segments.size()))
 {
-  BuildTree(0 /* index */, segments, 0 /* left */, m_tree.size() /* right */);
   ASSERT(is_sorted(segments.begin(), segments.end()), ());
+  BuildTree(0 /* index */, segments, 0 /* left */, m_tree.size() /* right */);
 }
 
 void SegmentTree::Add(Segment const & segment)
