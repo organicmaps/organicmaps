@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseSponsoredAdapter;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -22,6 +23,10 @@ import java.util.List;
 
 public final class ViatorAdapter extends BaseSponsoredAdapter
 {
+  private static final String LOADING_TITLE = MwmApplication
+      .get().getString(R.string.preloader_viator_title);
+  private static final String LOADING_SUBTITLE = MwmApplication
+      .get().getString(R.string.preloader_viator_message);
   public ViatorAdapter(@NonNull String url, boolean hasError,
                        @Nullable ItemSelectedListener listener)
   {
@@ -59,26 +64,29 @@ public final class ViatorAdapter extends BaseSponsoredAdapter
 
   @NonNull
   @Override
-  protected ViewHolder createLoadingViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
+  protected View inflateLoadingView(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent)
   {
-    return new LoadingViewHolder(inflater.inflate(R.layout.item_viator_loading, parent, false),
-                                 this);
+    return inflater.inflate(R.layout.item_viator_loading, parent, false);
+  }
+
+  @Override
+  protected int getMoreLabelForLoadingView()
+  {
+    return R.string.preloader_viator_button;
   }
 
   @NonNull
   @Override
   protected String getLoadingTitle()
   {
-    //TODO return localized resource
-    return "title";
+    return LOADING_TITLE;
   }
 
   @Nullable
   @Override
   protected String getLoadingSubtitle()
   {
-    //TODO return localized resource
-    return "subtitle";
+    return LOADING_SUBTITLE;
   }
 
   @LayoutRes
