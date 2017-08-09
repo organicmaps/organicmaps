@@ -45,7 +45,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
     if (m_mwms.empty() || lastMwm != id.m_mwmId)
     {
       auto result = m_mwms.insert(id.m_mwmId);
-      ASSERT(result.second, ());
+      VERIFY(result.second, ());
       lastMwm = id.m_mwmId;
     }
     m_featureInfo.push_back(id);

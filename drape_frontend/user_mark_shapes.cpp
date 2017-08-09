@@ -243,7 +243,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
-  double sqrScale;
+  double sqrScale = 1.0;
   if (simplify)
   {
     double const currentScaleGtoP = 1.0 / GetScale(tileKey.m_zoomLevel);

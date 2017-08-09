@@ -53,8 +53,8 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
 
   CFDictionaryRef attrsRef = (__bridge CFDictionaryRef)attrs;
 
-  CVPixelBufferRef result;
-  CVReturn cvRetval;
+  CVPixelBufferRef result = nullptr;
+  CVReturn cvRetval = 0;
   switch (format)
   {
   case dp::RGBA8:
