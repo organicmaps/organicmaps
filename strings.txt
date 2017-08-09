@@ -25860,74 +25860,73 @@
     sk = Naplánujte si trasu s zastávkou.
     sw = Panga njia ya kufuata yenye eneo la kati.
 
- [subtitle_rent]
+  [subtitle_rent]
     comment = Only ru/en are needed
     en = Rent
     ru = Аренда
 
-[rub_month]
+  [rub_month]
     comment = Only ru/en are needed
     en = RUB/month
     ru = руб./мес.
 
-[room]
+  [room]
     comment = Only ru/en are needed
     en = %s-room apt.
     ru = %s-комн. кв.
 
-[real_estate]
+  [real_estate]
     comment = Only ru/en are needed
     en = Real estate
     ru = Недвижимость
 
-[preloader_cian_title]
+  [preloader_cian_title]
     comment = Only ru/en are needed
     en = Verified real estate
     ru = Проверенное жильё
 
-[preloader_cian_message]
+  [preloader_cian_message]
     comment = Only ru/en are needed
     en = Find out rental prices in this area
     ru = Узнай стоимость аренды квартир в этом районе
 
-[preloader_cian_button]
+  [preloader_cian_button]
     comment = Only ru/en are needed
     en = Learn more
     ru = Посмотреть цены
 
-[add_my_position]
+  [add_my_position]
     en = Add my position
     ru = Добавить мое местоположение
 
-[choose_start_point]
+  [choose_start_point]
     en = Choose a starting point
     ru = Выберите начало маршрута
 
-[choose_destination]
+  [choose_destination]
     en = Choose a destination
     ru = Выберите конец маршрута
 
-[preloader_viator_title]
+  [preloader_viator_title]
     en = Discover tours and unusual activities
     ru = Откройте для себя экскурсии и необычные туры
 
-[preloader_viator_message]
+  [preloader_viator_message]
     en = Tours, activities, sightseeing and more
     ru = Туры, достопримечательности, экскурсии и многое другое
 
-[preloader_viator_button]
+  [preloader_viator_button]
     en = Learn more
     ru = Посмотреть
 
-
-[whats_new_title_route]
+  [whats_new_title_route]
     ru = Вело и пешеходные маршруты стали лучше
 
-[whats_new_message_route]
+  [whats_new_message_route]
     ru = Исправили ошибки, ускорили построение маршрутов в несколько раз, а также добавили промежуточные остановки
 
-[whats_new_message_title_update]
+  [whats_new_message_title_update]
     ru = Мы уменьшили обновления карт в 10 раз
 
-[whats_new_message_maps_update]
+  [whats_new_message_maps_update]
     ru = Обновите карты, чтобы не прийти в кафе, которого уже нет. И строить кратчайшие маршруты к популярным местам
