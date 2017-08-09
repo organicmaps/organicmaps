@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -50,9 +51,15 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       {
         // TODO: remove this code after "cian" feature is obsoleted.
         if (key.equals("cian"))
+        {
+          Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
+                                                  Sponsored.TYPE_CIAN);
           mCategoryResIds[i] = R.string.real_estate;
+        }
         else
+        {
           throw new IllegalStateException("Can't get string resource id for category:" + key);
+        }
       }
 
       String iconId = "ic_category_" + key;

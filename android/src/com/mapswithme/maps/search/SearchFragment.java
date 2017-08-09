@@ -34,6 +34,7 @@ import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.LoggerFactory;
@@ -588,7 +589,11 @@ public class SearchFragment extends BaseMwmFragment
   {
     mToolbarController.setQuery(category);
     if (!TextUtils.isEmpty(category) && category.equals("cian "))
+    {
+      Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
+                                              Sponsored.TYPE_CIAN);
       showAllResultsOnMap();
+    }
   }
 
   private void updateFilterButton(boolean isHotel)

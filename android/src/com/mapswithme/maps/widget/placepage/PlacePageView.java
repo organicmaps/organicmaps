@@ -1018,14 +1018,16 @@ public class PlacePageView extends RelativeLayout
   public void onItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
-    Statistics.INSTANCE.trackSponsoredGalleryEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
-                                                   type);
+    Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_ITEM_SELECTED,
+                                            type);
   }
 
   @Override
   public void onMoreItemSelected(@NonNull String url, @Sponsored.SponsoredType int type)
   {
     Utils.openUrl(getContext(), url);
+    Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                            type);
   }
 
   @Override
@@ -1985,8 +1987,8 @@ public class PlacePageView extends RelativeLayout
         if (!TextUtils.isEmpty(url))
         {
           Utils.openUrl(getContext(), url);
-          Statistics.INSTANCE.trackSponsoredGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
-                                                         mSponsored.getType());
+          Statistics.INSTANCE.trackSponsoredEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
+                                                  mSponsored.getType());
         }
         break;
     }
