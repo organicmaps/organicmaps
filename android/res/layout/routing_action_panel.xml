@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_block_base"
-  android:background="?windowBackgroundForced">
+  android:background="?cardBackground">
   <LinearLayout
     android:id="@+id/btn__search_point"
     android:layout_width="0dp"
