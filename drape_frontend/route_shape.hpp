@@ -13,6 +13,7 @@
 
 #include "geometry/polyline2d.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace df
@@ -68,6 +69,8 @@ struct Subroute
   df::RoutePattern m_pattern;
 };
 
+using SubrouteConstPtr = std::shared_ptr<Subroute const>;
+
 struct RouteRenderProperty
 {
   dp::GLState m_state;
@@ -87,7 +90,7 @@ struct BaseRouteData
 
 struct RouteData : public BaseRouteData
 {
-  drape_ptr<Subroute> m_subroute;
+  SubrouteConstPtr m_subroute;
   double m_length = 0.0;
 };
 

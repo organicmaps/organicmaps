@@ -485,7 +485,7 @@ void RoutingManager::InsertRoute(Route const & route)
       default: ASSERT(false, ("Unknown router type"));
     }
 
-    auto const subrouteId = m_drapeEngine->AddSubroute(std::move(subroute));
+    auto const subrouteId = m_drapeEngine->AddSubroute(df::SubrouteConstPtr(subroute.release()));
     m_drapeSubroutes.push_back(subrouteId);
 
     // TODO: we will send subrouteId to routing subsystem when we can partly update route.

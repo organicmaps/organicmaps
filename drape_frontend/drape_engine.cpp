@@ -469,11 +469,11 @@ void DrapeEngine::DeselectObject()
                                   MessagePriority::Normal);
 }
 
-dp::DrapeID DrapeEngine::AddSubroute(drape_ptr<Subroute> && subroute)
+dp::DrapeID DrapeEngine::AddSubroute(SubrouteConstPtr subroute)
 {
   dp::DrapeID const id = GenerateDrapeID();
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddSubrouteMessage>(id, std::move(subroute)),
+                                  make_unique_dp<AddSubrouteMessage>(id, subroute),
                                   MessagePriority::Normal);
   return id;
 }

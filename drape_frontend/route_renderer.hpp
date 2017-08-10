@@ -57,6 +57,7 @@ public:
 
   void Clear();
   void ClearRouteData();
+  void ClearObsoleteRouteData(int currentRecacheId);
   void ClearGLDependentResources();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);

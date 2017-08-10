@@ -25,7 +25,7 @@ public:
   RouteBuilder(TFlushRouteFn const & flushRouteFn,
                TFlushRouteArrowsFn const & flushRouteArrowsFn);
 
-  void Build(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute,
+  void Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
              ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,

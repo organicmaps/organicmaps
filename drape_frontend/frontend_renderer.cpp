@@ -432,8 +432,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteMessage> msg = message;
       drape_ptr<RouteData> routeData = msg->AcceptRouteData();
+
+      if (routeData->m_recacheId < 0)
+        routeData->m_recacheId = m_lastRecacheRouteId;
+
       if (!CheckRouteRecaching(make_ref(routeData)))
         break;
+
+      m_routeRenderer->ClearObsoleteRouteData(m_lastRecacheRouteId);
 
       m_routeRenderer->AddRouteData(std::move(routeData), make_ref(m_gpuProgramManager));
 
@@ -821,12 +827,11 @@ void FrontendRenderer::UpdateGLResources()
   for (auto const & routeData : m_routeRenderer->GetRouteData())
   {
     auto msg = make_unique_dp<AddSubrouteMessage>(routeData->m_subrouteId,
-                                                  std::move(routeData->m_subroute),
+                                                  routeData->m_subroute,
                                                   m_lastRecacheRouteId);
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg),
                               MessagePriority::Normal);
   }
-  m_routeRenderer->ClearRouteData();
 
   m_trafficRenderer->ClearGLDependentResources();
 
@@ -858,9 +863,6 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
 
 bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseRouteData> routeData)
 {
-  if (routeData->m_recacheId < 0)
-    return true;
-
   return routeData->m_recacheId >= m_lastRecacheRouteId;
 }
 
@@ -2017,7 +2019,7 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 void FrontendRenderer::OnCacheRouteArrows(int routeIndex, std::vector<ArrowBorders> const & borders)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders),
+                            make_unique_dp<CacheRouteArrowsMessage>(routeIndex, borders, m_lastRecacheRouteId),
                             MessagePriority::Normal);
 }
 

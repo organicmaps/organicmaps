@@ -156,7 +156,7 @@ public:
                     FeatureID const & featureID, bool isAnim);
   void DeselectObject();
   
-  dp::DrapeID AddSubroute(drape_ptr<Subroute> &&segment);
+  dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
   void DeactivateRouteFollowing();

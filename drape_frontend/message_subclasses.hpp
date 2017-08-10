@@ -547,35 +547,31 @@ private:
 class AddSubrouteMessage : public Message
 {
 public:
-  AddSubrouteMessage(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute)
-    : AddSubrouteMessage(subrouteId, std::move(subroute), -1 /* invalid recache id */)
+  AddSubrouteMessage(dp::DrapeID subrouteId, SubrouteConstPtr subroute)
+    : AddSubrouteMessage(subrouteId, subroute, -1 /* invalid recache id */)
   {}
 
-  AddSubrouteMessage(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute, int recacheId)
+  AddSubrouteMessage(dp::DrapeID subrouteId, SubrouteConstPtr subroute, int recacheId)
     : m_subrouteId(subrouteId)
-    , m_subroute(std::move(subroute))
+    , m_subroute(subroute)
     , m_recacheId(recacheId)
   {}
 
   Type GetType() const override { return Message::AddSubroute; }
 
   dp::DrapeID GetSubrouteId() const { return m_subrouteId; };
-  drape_ptr<Subroute> && GetSubroute() { return std::move(m_subroute); }
+  SubrouteConstPtr GetSubroute() const { return m_subroute; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
   dp::DrapeID m_subrouteId;
-  drape_ptr<Subroute> m_subroute;
+  SubrouteConstPtr m_subroute;
   int const m_recacheId;
 };
 
 class CacheRouteArrowsMessage : public Message
 {
 public:
-  CacheRouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders)
-    : CacheRouteArrowsMessage(subrouteId, borders, -1 /* invalid recache id */)
-  {}
-
   CacheRouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
                           int recacheId)
     : m_subrouteId(subrouteId)

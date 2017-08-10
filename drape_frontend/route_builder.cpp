@@ -10,12 +10,12 @@ RouteBuilder::RouteBuilder(TFlushRouteFn const & flushRouteFn,
   , m_flushRouteArrowsFn(flushRouteArrowsFn)
 {}
 
-void RouteBuilder::Build(dp::DrapeID subrouteId, drape_ptr<Subroute> && subroute,
+void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
                          ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   drape_ptr<RouteData> routeData = make_unique_dp<RouteData>();
   routeData->m_subrouteId = subrouteId;
-  routeData->m_subroute = std::move(subroute);
+  routeData->m_subroute = subroute;
   routeData->m_pivot = routeData->m_subroute->m_polyline.GetLimitRect().Center();
   routeData->m_recacheId = recacheId;
   RouteShape::CacheRoute(textures, *routeData.get());

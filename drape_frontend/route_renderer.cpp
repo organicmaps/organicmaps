@@ -61,7 +61,7 @@ uint32_t const kPreviewPointsCount = 512;
 
 double const kInvalidDistance = -1.0;
 
-void InterpolateByZoom(drape_ptr<Subroute> const & subroute, ScreenBase const & screen,
+void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen,
                        float & halfWidth, double & zoom)
 {
   int index = 0;
@@ -88,9 +88,9 @@ float CalculateRadius(ScreenBase const & screen)
 
 void ClipBorders(std::vector<ArrowBorders> & borders)
 {
-  auto invalidBorders = [](ArrowBorders const & borders)
+  auto invalidBorders = [](ArrowBorders const & arrowBorders)
   {
-    return borders.m_groupIndex == kInvalidGroup;
+    return arrowBorders.m_groupIndex == kInvalidGroup;
   };
   borders.erase(std::remove_if(borders.begin(), borders.end(), invalidBorders), borders.end());
 }
@@ -231,7 +231,7 @@ void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<dp::GpuPro
     bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgramIndex()));
 }
 
-dp::Color GetOutlineColor(drape_ptr<Subroute> const & subroute)
+dp::Color GetOutlineColor(SubrouteConstPtr const & subroute)
 {
   if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
     return df::GetColorConstant(kRouteOutlineColor);
@@ -377,9 +377,9 @@ dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
   {
     if (routeType == RouteType::Car)
       return GetColorConstant(arrows ? kRouteArrowsMaskCar : kRouteMaskCar);
-    else if (routeType == RouteType::Bicycle)
+    if (routeType == RouteType::Bicycle)
       return GetColorConstant(arrows ? kRouteArrowsMaskBicycle : kRouteMaskBicycle);
-    else if (routeType == RouteType::Pedestrian)
+    if (routeType == RouteType::Pedestrian)
       return GetColorConstant(kRouteMaskPedestrian);
   }
   return {0, 0, 0, 0};
@@ -589,6 +589,29 @@ void RouteRenderer::ClearRouteData()
   m_routeData.clear();
   m_routeAdditional.clear();
   m_hiddenSubroutes.clear();
+}
+
+void RouteRenderer::ClearObsoleteRouteData(int currentRecacheId)
+{
+  std::vector<dp::DrapeID> deletedSubroutes;
+  deletedSubroutes.reserve(m_routeData.size());
+  auto const functor = [&deletedSubroutes, &currentRecacheId](drape_ptr<RouteData> const & data)
+  {
+    if (data->m_recacheId < currentRecacheId)
+    {
+      deletedSubroutes.push_back(data->m_subrouteId);
+      return true;
+    }
+    return false;
+  };
+  m_routeData.erase(std::remove_if(m_routeData.begin(), m_routeData.end(), functor),
+                    m_routeData.end());
+
+  for (auto const & subrouteId : deletedSubroutes)
+  {
+    m_routeAdditional[subrouteId].m_arrowsData.reset();
+    m_routeAdditional[subrouteId].m_arrowBorders.clear();
+  }
 }
 
 void RouteRenderer::Clear()
