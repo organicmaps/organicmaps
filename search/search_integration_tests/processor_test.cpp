@@ -949,7 +949,7 @@ UNIT_CLASS_TEST(ProcessorTest, Cian)
 
   params.m_cianMode = true;
   {
-    TRules rules = {ExactMatch(countryId, plainBuilding), ExactMatch(countryId, nonameBuilding)};
+    TRules rules = {ExactMatch(countryId, nonameBuilding)};
     TEST(ResultsMatch(params, rules), ());
   }
 }

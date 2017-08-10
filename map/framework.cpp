@@ -197,6 +197,13 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
 
   return bookingApi.GetSearchUrl(city, name);
 }
+
+bool IsCianMode(string query)
+{
+  strings::Trim(query);
+  strings::AsciiToLower(query);
+  return query == "cian";
+}
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -1303,6 +1310,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
   p.m_forceSearch = true;
   p.m_suggestsEnabled = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
+  p.m_cianMode = IsCianMode(params.m_query);
 
   p.m_onResults = search::EverywhereSearchCallback(
       static_cast<search::EverywhereSearchCallback::Delegate &>(*this),
@@ -1319,12 +1327,7 @@ bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
 bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
 {
   // TODO: delete me after Cian project is finished.
-  {
-    std::string query = params.m_query;
-    strings::Trim(query);
-    strings::AsciiToLower(query);
-    m_cianSearchMode = (query == "cian");
-  }
+  m_cianSearchMode = IsCianMode(params.m_query);
 
   search::SearchParams p;
   p.m_query = params.m_query;

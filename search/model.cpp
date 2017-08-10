@@ -89,7 +89,7 @@ public:
   bool operator()(FeatureType const & ft) const
   {
     feature::TypesHolder th(ft);
-    return th.Size() == 1 && th.Has(m_type);
+    return !ft.HasName() && th.Size() == 1 && th.Has(m_type);
   }
 
 private:
