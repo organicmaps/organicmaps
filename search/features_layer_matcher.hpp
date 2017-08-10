@@ -6,6 +6,7 @@
 #include "search/house_numbers_matcher.hpp"
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
+#include "search/point_rect_matcher.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/street_vicinity_loader.hpp"
 
@@ -112,40 +113,41 @@ private:
 
     BailIfCancelled(m_cancellable);
 
-    vector<m2::PointD> poiCenters(pois.size());
-
-    size_t const numPOIs = pois.size();
-    vector<bool> isPOIProcessed(numPOIs);
-    size_t processedPOIs = 0;
+    vector<PointRectMatcher::PointIdPair> poiCenters;
+    poiCenters.reserve(pois.size());
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
       FeatureType poiFt;
       GetByIndex(pois[i], poiFt);
-      poiCenters[i] = feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY);
+      poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
     }
 
-    for (size_t i = 0; i < buildings.size() && processedPOIs != numPOIs; ++i)
+    vector<PointRectMatcher::RectIdPair> buildingRects;
+    buildingRects.reserve(buildings.size());
+    for (size_t i = 0; i < buildings.size(); ++i)
     {
-      BailIfCancelled(m_cancellable);
-
       FeatureType buildingFt;
       GetByIndex(buildings[i], buildingFt);
-
-      for (size_t j = 0; j < pois.size(); ++j)
+      if (buildingFt.GetFeatureType() == feature::GEOM_POINT)
       {
-        if (isPOIProcessed[j])
-          continue;
-
-        double const distMeters = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
-        if (distMeters <= kBuildingRadiusMeters)
-        {
-          fn(pois[j], buildings[i]);
-          isPOIProcessed[j] = true;
-          ++processedPOIs;
-        }
+        auto const center = feature::GetCenter(buildingFt, FeatureType::WORST_GEOMETRY);
+        buildingRects.emplace_back(
+            MercatorBounds::RectByCenterXYAndSizeInMeters(center, kBuildingRadiusMeters),
+            i /* id */);
+      }
+      else
+      {
+        buildingRects.emplace_back(buildingFt.GetLimitRect(FeatureType::WORST_GEOMETRY),
+                                   i /* id */);
       }
     }
+
+    PointRectMatcher::Match(poiCenters, buildingRects, [&](size_t poiId, size_t buildingId) {
+      ASSERT_LESS(poiId, pois.size(), ());
+      ASSERT_LESS(buildingId, buildings.size(), ());
+      fn(pois[poiId], buildings[buildingId]);
+    });
 
     if (!parent.m_hasDelayedFeatures)
       return;
@@ -161,16 +163,15 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       m_context->ForEachFeature(
-          MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kBuildingRadiusMeters),
-          [&](FeatureType & ft)
-          {
+          MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point, kBuildingRadiusMeters),
+          [&](FeatureType & ft) {
             if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index))
               return;
             if (house_numbers::HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()),
                                                  queryParse))
             {
               double const distanceM =
-                  MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i]);
+                  MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i].m_point);
               if (distanceM < kBuildingRadiusMeters)
                 fn(pois[i], ft.GetID().m_index);
             }
@@ -242,8 +243,7 @@ private:
     ParseQuery(child.m_subQuery, child.m_lastTokenIsPrefix, queryParse);
 
     uint32_t numFilterInvocations = 0;
-    auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
-    {
+    auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool {
       ++numFilterInvocations;
       if ((numFilterInvocations & 0xFF) == 0)
         BailIfCancelled(m_cancellable);
@@ -268,8 +268,7 @@ private:
     };
 
     unordered_map<uint32_t, bool> cache;
-    auto cachingHouseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
-    {
+    auto cachingHouseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool {
       auto const it = cache.find(id);
       if (it != cache.cend())
         return it->second;

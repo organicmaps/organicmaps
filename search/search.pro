@@ -54,6 +54,7 @@ HEADERS += \
     model.hpp \
     mwm_context.hpp \
     nested_rects_cache.hpp \
+    point_rect_matcher.hpp \
     pre_ranker.hpp \
     pre_ranking_info.hpp \
     processor.hpp \
@@ -71,6 +72,7 @@ HEADERS += \
     search_index_values.hpp \
     search_params.hpp \
     search_trie.hpp \
+    segment_tree.hpp \
     stats_cache.hpp \
     street_vicinity_loader.hpp \
     streets_matcher.hpp \
@@ -134,6 +136,7 @@ SOURCES += \
     retrieval.cpp \
     reverse_geocoder.cpp \
     search_params.cpp \
+    segment_tree.cpp \
     street_vicinity_loader.cpp \
     streets_matcher.cpp \
     token_slice.cpp \

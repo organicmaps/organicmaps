@@ -206,4 +206,6 @@ namespace bits
     return numBits == 64 ? std::numeric_limits<uint64_t>::max()
                          : (static_cast<uint64_t>(1) << numBits) - 1;
   }
+
+  inline bool IsPow2Minus1(uint64_t n) { return (n & (n + 1)) == 0; }
 }  // namespace bits
