@@ -16,6 +16,26 @@ WorkerThread::~WorkerThread()
   m_thread.join();
 }
 
+bool WorkerThread::Push(Task && t)
+{
+  std::lock_guard<std::mutex> lk(m_mu);
+  if (m_shutdown)
+    return false;
+  m_queue.emplace(std::forward<Task>(t));
+  m_cv.notify_one();
+  return true;
+}
+
+bool WorkerThread::Push(Task const & t)
+{
+  std::lock_guard<std::mutex> lk(m_mu);
+  if (m_shutdown)
+    return false;
+  m_queue.emplace(t);
+  m_cv.notify_one();
+  return true;
+}
+
 void WorkerThread::ProcessTasks()
 {
   queue<Task> pending;

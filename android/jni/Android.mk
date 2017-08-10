@@ -71,6 +71,7 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/opengl/androidoglcontext.hpp \
 	com/mapswithme/opengl/androidoglcontextfactory.hpp \
 	com/mapswithme/opengl/gl3stub.h \
+	com/mapswithme/platform/GuiThread.hpp \
 	com/mapswithme/platform/Platform.hpp \
 
 LOCAL_SRC_FILES := \
@@ -108,11 +109,12 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 	com/mapswithme/opengl/gl3stub.c \
 	com/mapswithme/platform/HttpThread.cpp \
-	com/mapswithme/platform/SocketImpl.cpp \
+	com/mapswithme/platform/GuiThread.cpp \
 	com/mapswithme/platform/Language.cpp \
 	com/mapswithme/platform/MarketingService.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \
+	com/mapswithme/platform/SocketImpl.cpp \
 	com/mapswithme/util/Config.cpp \
 	com/mapswithme/util/HttpClient.cpp \
 	com/mapswithme/util/LoggerFactory.cpp \

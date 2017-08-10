@@ -103,6 +103,8 @@ Platform::Platform()
   m_tmpDir = [tempDir UTF8String];
   m_tmpDir += '/';
 
+  m_guiThread = make_unique<platform::GuiThread>();
+
   LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
@@ -118,9 +120,16 @@ static void PerformImpl(void * obj)
   delete f;
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  dispatch_async_f(dispatch_get_main_queue(), new TFunctor(fn), &PerformImpl);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(std::move(task));
+}
+
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
+{
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(task);
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
@@ -161,5 +170,10 @@ Platform::EConnectionType Platform::ConnectionStatus()
 Platform::ChargingStatus Platform::GetChargingStatus()
 {
   return Platform::ChargingStatus::Plugged;
+}
+
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = move(guiThread);
 }
 

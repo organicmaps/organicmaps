@@ -121,6 +121,8 @@ Platform::Platform()
     m_tmpDir = "/tmp";
   m_tmpDir += '/';
 
+  m_guiThread = make_unique<platform::GuiThread>();
+
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));

@@ -4,6 +4,13 @@
 
 #include "platform/platform.hpp"
 
+#include <memory>
+
+namespace base
+{
+class TaskLoop;
+}
+
 namespace android
 {
 class Platform : public ::Platform
@@ -16,6 +23,8 @@ public:
                   jstring flavorName, jstring buildType,
                   bool isTablet);
 
+  ~Platform();
+
   void ProcessFunctor(jlong functionPointer);
 
   void OnExternalStorageStatusChanged(bool isAvailable);
@@ -27,18 +36,27 @@ public:
   void SetSettingsDir(std::string const & dir);
 
   bool HasAvailableSpaceForWriting(uint64_t size) const;
-  void RunOnGuiThread(TFunctor const & fn);
+
+  template <typename Task>
+  void RunOnGuiThread(Task && task)
+  {
+    ASSERT(m_guiThread, ());
+    m_guiThread->Push(std::forward<Task>(task));
+  }
 
   void SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values);
   void SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params);
 
+  void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
+
   static Platform & Instance();
 
 private:
-  jobject m_functorProcessObject;
-  jmethodID m_functorProcessMethod;
-  jmethodID m_sendPushWooshTagsMethod;
-  jmethodID m_myTrackerTrackMethod;
+  jobject m_functorProcessObject = nullptr;
+  jmethodID m_sendPushWooshTagsMethod = nullptr;
+  jmethodID m_myTrackerTrackMethod = nullptr;
+
+  std::unique_ptr<base::TaskLoop> m_guiThread;
 };
 
 extern int GetAndroidSdkVersion();

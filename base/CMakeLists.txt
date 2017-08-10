@@ -71,6 +71,7 @@ set(
   suffix_array.hpp
   sunrise_sunset.cpp
   sunrise_sunset.hpp
+  task_loop.hpp
   thread.cpp
   thread.hpp
   thread_checker.cpp

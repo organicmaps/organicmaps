@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/task_loop.hpp"
 #include "base/thread.hpp"
 #include "base/thread_checker.hpp"
 
@@ -15,7 +16,7 @@ namespace base
 //
 // *NOTE* This class IS thread-safe, but it must be destroyed on the
 // same thread it was created.
-class WorkerThread
+class WorkerThread : public TaskLoop
 {
 public:
   enum class Exit
@@ -24,23 +25,13 @@ public:
     SkipPending
   };
 
-  using Task = std::function<void()>;
-
   WorkerThread();
-  ~WorkerThread();
+  ~WorkerThread() override;
 
   // Pushes task to the end of the thread's queue. Returns false when
   // the thread is shut down.
-  template <typename T>
-  bool Push(T && t)
-  {
-    std::lock_guard<std::mutex> lk(m_mu);
-    if (m_shutdown)
-      return false;
-    m_queue.emplace(std::forward<T>(t));
-    m_cv.notify_one();
-    return true;
-  }
+  bool Push(Task && t) override;
+  bool Push(Task const & t) override;
 
   // Sends a signal to the thread to shut down. Returns false when the
   // thread was shut down previously.

@@ -1,10 +1,13 @@
 #include "platform/constants.hpp"
+#include "platform/gui_thread.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/file_reader.hpp"
+
+#include <utility>
 
 #include <ifaddrs.h>
 
@@ -57,6 +60,8 @@ Platform::Platform()
     m_tmpDir = [NSHomeDirectory() UTF8String];
     m_tmpDir += "/tmp/";
   }
+
+  m_guiThread = make_unique<platform::GuiThread>();
 
   UIDevice * device = [UIDevice currentDevice];
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
@@ -127,9 +132,16 @@ string Platform::GetMemoryInfo() const
   return ss.str();
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  dispatch_async_f(dispatch_get_main_queue(), new TFunctor(fn), &PerformImpl);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(std::move(task));
+}
+
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
+{
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(task);
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
@@ -190,6 +202,11 @@ void Platform::SetupMeasurementSystem() const
       [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
   settings::Set(settings::kMeasurementUnits, units);
+}
+
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = std::move(guiThread);
 }
 
 ////////////////////////////////////////////////////////////////////////

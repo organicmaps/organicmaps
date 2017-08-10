@@ -1,16 +1,19 @@
 #pragma once
 
 #include "platform/country_defines.hpp"
+#include "platform/gui_thread.hpp"
 #include "platform/marketing_service.hpp"
 
 #include "coding/reader.hpp"
 
 #include "base/exception.hpp"
+#include "base/task_loop.hpp"
 
 #include "std/bitset.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -90,6 +93,8 @@ protected:
 
   /// Platform-dependent marketing services.
   MarketingService m_marketingService;
+
+  unique_ptr<base::TaskLoop> m_guiThread;
 
 public:
   Platform();
@@ -188,8 +193,9 @@ public:
 
   /// @name Functions for concurrent tasks.
   //@{
-  typedef function<void()> TFunctor;
-  void RunOnGuiThread(TFunctor const & fn);
+  void RunOnGuiThread(base::TaskLoop::Task && task);
+  void RunOnGuiThread(base::TaskLoop::Task const & task);
+
   enum Priority
   {
     EPriorityBackground,
@@ -197,6 +203,7 @@ public:
     EPriorityDefault,
     EPriorityHigh
   };
+  using TFunctor = function<void()>;
   void RunAsync(TFunctor const & fn, Priority p = EPriorityDefault);
   //@}
 
@@ -238,6 +245,9 @@ public:
   void SetupMeasurementSystem() const;
 
   MarketingService & GetMarketingService() { return m_marketingService; }
+
+  // Use this method for testing purposes only.
+  void SetGuiThread(unique_ptr<base::TaskLoop> guiThread);
 
 private:
   void GetSystemFontNames(FilesList & res) const;

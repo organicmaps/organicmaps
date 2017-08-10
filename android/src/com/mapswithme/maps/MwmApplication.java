@@ -424,14 +424,14 @@ public class MwmApplication extends Application
   }
 
   @SuppressWarnings("unused")
-  void forwardToMainThread(final long functorPointer)
+  void forwardToMainThread(final long taskPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {
       @Override
       public void run()
       {
-        nativeProcessFunctor(functorPointer);
+        nativeProcessTask(taskPointer);
       }
     });
     m.obj = mMainQueueToken;
@@ -443,7 +443,7 @@ public class MwmApplication extends Application
                                          String flavorName, String buildType, boolean isTablet);
 
   private static native void nativeInitFramework();
-  private static native void nativeProcessFunctor(long functorPointer);
+  private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
 
   @UiThread

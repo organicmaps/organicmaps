@@ -261,7 +261,8 @@ void Platform::SetupMeasurementSystem() const
 }
 
 /// @see implementation of methods below in android/jni/com/.../Platform.cpp
-// void Platform::RunOnGuiThread(TFunctor const & fn){}
+//  void RunOnGuiThread(base::TaskLoop::Task && task);
+//  void RunOnGuiThread(base::TaskLoop::Task const & task);
 
 namespace
 {

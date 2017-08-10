@@ -29,14 +29,17 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
     SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
   } else:macx-* {
-    OBJECTIVE_SOURCES += platform_mac.mm \
-                         apple_location_service.mm
+    OBJECTIVE_SOURCES += apple_location_service.mm \
+                         gui_thread_apple.mm \
+                         platform_mac.mm
   } else:linux* {
-    SOURCES += platform_linux.cpp
+    SOURCES += gui_thread_linux.cpp \
+               platform_linux.cpp
   }
 } else:iphone* {
   OBJECTIVE_SOURCES += marketing_service_ios.mm \
-                       platform_ios.mm
+                       platform_ios.mm \
+                       gui_thread_apple.mm
 } else:android* {
   SOURCES += platform_android.cpp
 } else:tizen* {
@@ -76,6 +79,7 @@ HEADERS += \
     country_file.hpp \
     file_logging.hpp \
     get_text_by_id.hpp \
+    gui_thread.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
     http_client.hpp \

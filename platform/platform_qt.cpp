@@ -83,20 +83,28 @@ void Platform::SetupMeasurementSystem() const
 }
 
 #if defined(OMIM_OS_LINUX)
-void Platform::RunOnGuiThread(TFunctor const & fn)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  // Following hack is used to post on main message loop |fn| when
-  // |source| is destroyed (at the exit of the code block).
-  QObject source;
-  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), fn);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(std::move(task));
+}
+
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
+{
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(task);
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
   async(fn);
 }
-
 #endif  // defined(OMIM_OS_LINUX)
+
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = move(guiThread);
+}
 
 extern Platform & GetPlatform()
 {

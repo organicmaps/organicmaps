@@ -89,6 +89,7 @@ HEADERS += \
     strings_bundle.hpp \
     suffix_array.hpp \
     sunrise_sunset.hpp \
+    task_loop.hpp \
     thread.hpp \
     thread_checker.hpp \
     thread_pool.hpp \

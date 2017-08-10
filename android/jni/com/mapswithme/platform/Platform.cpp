@@ -1,14 +1,17 @@
-#include "Platform.hpp"
+#include "android/jni/com/mapswithme/platform/Platform.hpp"
+#include "android/jni/com/mapswithme/platform/GuiThread.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
 #include "platform/settings.hpp"
 
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <utility>
 
 #include <sys/system_properties.h>
 
@@ -38,9 +41,14 @@ std::string Platform::GetMemoryInfo() const
   return jni::ToNativeString(env, memInfoString);
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  android::Platform::Instance().RunOnGuiThread(fn);
+  android::Platform::Instance().RunOnGuiThread(std::move(task));
+}
+
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
+{
+  android::Platform::Instance().RunOnGuiThread(task);
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()
@@ -72,6 +80,11 @@ Platform::ChargingStatus Platform::GetChargingStatus()
       env->CallStaticIntMethod(clazzBatteryState, getChargingMethodId));
 }
 
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  android::Platform::Instance().SetGuiThread(move(guiThread));
+}
+
 namespace android
 {
 void Platform::Initialize(JNIEnv * env,
@@ -83,9 +96,10 @@ void Platform::Initialize(JNIEnv * env,
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
   jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
-  m_functorProcessMethod = env->GetMethodID(functorProcessClass, "forwardToMainThread", "(J)V");
   m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
   m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
+
+  m_guiThread = my::make_unique<GuiThread>(m_functorProcessObject);
 
   std::string const flavor = jni::ToNativeString(env, flavorName);
   std::string const build = jni::ToNativeString(env, buildType);
@@ -121,6 +135,14 @@ void Platform::Initialize(JNIEnv * env,
 
   // IMPORTANT: This method SHOULD be called from UI thread to cache static jni ID-s inside.
   (void) ConnectionStatus();
+}
+
+Platform::~Platform()
+{
+  JNIEnv * env = jni::GetEnv();
+
+  if (m_functorProcessObject)
+    env->DeleteGlobalRef(m_functorProcessObject);
 }
 
 void Platform::ProcessFunctor(jlong functionPointer)
@@ -169,15 +191,11 @@ Platform & Platform::Instance()
   return platform;
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
-{
-  // Pointer will be deleted in Platform::ProcessFunctor
-  TFunctor * functor = new TFunctor(fn);
-  jni::GetEnv()->CallVoidMethod(m_functorProcessObject, m_functorProcessMethod, reinterpret_cast<jlong>(functor));
-}
-
 void Platform::SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values)
 {
+  ASSERT(m_functorProcessObject, ());
+  ASSERT(m_sendPushWooshTagsMethod, ());
+
   if (values.empty())
     return;
 
@@ -189,6 +207,8 @@ void Platform::SendPushWooshTag(std::string const & tag, std::vector<std::string
 
 void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params)
 {
+  ASSERT(m_myTrackerTrackMethod, ());
+
   JNIEnv * env = jni::GetEnv();
   std::string eventData = tag;
   for (auto const & item : params)
@@ -196,6 +216,11 @@ void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string,
 
   env->CallStaticVoidMethod(g_myTrackerClazz, m_myTrackerTrackMethod,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
+}
+
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = std::move(guiThread);
 }
 
 int GetAndroidSdkVersion()

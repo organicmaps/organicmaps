@@ -17,6 +17,7 @@ set(
   file_logging.hpp
   get_text_by_id.cpp
   get_text_by_id.hpp
+  gui_thread.hpp
   http_client.cpp
   http_client.hpp
   http_request.cpp
@@ -51,6 +52,7 @@ set(
 if(${PLATFORM_IPHONE})
   append(
     SRC
+    gui_thread_apple.mm
     http_thread_apple.h
     http_thread_apple.mm
     http_client_apple.mm
@@ -92,6 +94,7 @@ else() # neither iPhone nor Android
     append(
       SRC
       apple_location_service.mm
+      gui_thread_apple.mm
       http_client_apple.mm
       http_thread_apple.h
       http_thread_apple.mm
@@ -104,6 +107,7 @@ else() # neither iPhone nor Android
   elseif(${PLATFORM_LINUX})
     append(
       SRC
+      gui_thread_linux.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
