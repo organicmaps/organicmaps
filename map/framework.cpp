@@ -883,7 +883,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     LOG(LINFO, (url));
   }
   else if (cian::Api::IsCitySupported(city) &&
-           (buildingHolder.Equals({ft}) || ftypes::IsPublicTransportStopChecker::Instance()(ft)))
+           ((buildingHolder.Equals({ft}) && !ft.HasName()) ||
+             ftypes::IsPublicTransportStopChecker::Instance()(ft)))
   {
     info.SetSponsoredType(SponsoredType::Cian);
     info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
