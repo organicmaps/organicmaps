@@ -222,8 +222,8 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withCellClass: RouteManagerCell.self, indexPath: indexPath) as! RouteManagerCell
-    cell.model = viewModel.routePoints[indexPath.row]
-//    cell.isHidden = indexPath == dragCell?.indexPath
+    let row = indexPath.row
+    cell.set(model: viewModel.routePoints[row], atIndex: row)
     return cell
   }
 

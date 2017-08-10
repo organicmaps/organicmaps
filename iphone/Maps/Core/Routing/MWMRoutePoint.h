@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, MWMRoutePointType) {
 
 @property(copy, nonatomic, readonly) NSString * title;
 @property(copy, nonatomic, readonly) NSString * subtitle;
+@property(copy, nonatomic, readonly) NSString * latLonString;
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic) MWMRoutePointType type;
 @property(nonatomic) int8_t intermediateIndex;

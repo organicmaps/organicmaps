@@ -167,4 +167,8 @@ final class RoutePreviewStatus: SolidTouchView {
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return alternative(iPhone: .bottom, iPad: [])
   }
+
+  override var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    return alternative(iPhone: .bottom, iPad: [])
+  }
 }

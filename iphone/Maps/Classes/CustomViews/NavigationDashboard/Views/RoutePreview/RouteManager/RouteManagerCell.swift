@@ -15,7 +15,7 @@ final class RouteManagerCell: MWMTableViewCell {
   @IBOutlet private weak var dragImage: UIImageView! {
     didSet {
       dragImage.image = #imageLiteral(resourceName: "ic_route_manager_move")
-      dragImage.tintColor = UIColor.blackSecondaryText()
+      dragImage.tintColor = UIColor.blackHintText()
     }
   }
   @IBOutlet private weak var separator1: UIView! {
@@ -30,15 +30,8 @@ final class RouteManagerCell: MWMTableViewCell {
     }
   }
 
-  var model: MWMRoutePoint! {
-    didSet {
-      guard model != nil else { return }
-      backgroundColor = UIColor.white()
-      setupTypeImage()
-      setupLabels()
-      setupSeparators()
-    }
-  }
+  private var index: Int!
+  private var model: MWMRoutePoint!
   @IBOutlet var subtitleConstraints: [NSLayoutConstraint]!
 
   override var snapshot: UIView {
@@ -51,8 +44,18 @@ final class RouteManagerCell: MWMTableViewCell {
     return snapshot
   }
 
+  func set(model: MWMRoutePoint, atIndex index: Int) {
+    self.model = model
+    self.index = index
+
+    backgroundColor = UIColor.white()
+    setupTypeImage()
+    setupLabels()
+    setupSeparators()
+  }
+
   private func setupTypeImage() {
-    if model.isMyPosition {
+    if model.isMyPosition && index == 0 {
       typeImage.image = #imageLiteral(resourceName: "ic_route_manager_my_position")
       typeImage.tintColor = UIColor.linkBlue()
     } else {
@@ -81,7 +84,11 @@ final class RouteManagerCell: MWMTableViewCell {
   }
 
   private func setupLabels() {
-    titleLabel.text = model.title
+    if model.isMyPosition && index != 0 {
+      titleLabel.text = model.latLonString
+    } else {
+      titleLabel.text = model.title
+    }
     var subtitleConstraintsActive = false
     if let subtitle = model.subtitle, !subtitle.isEmpty {
       subtitleLabel.text = subtitle

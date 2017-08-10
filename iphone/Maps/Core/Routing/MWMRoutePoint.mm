@@ -3,6 +3,8 @@
 #import "MWMLocationManager.h"
 #import "MWMRoutePoint+CPP.h"
 
+#include "platform/measurement_utils.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
@@ -92,6 +94,12 @@
 
 - (double)latitude { return MercatorBounds::YToLat(self.point.y); }
 - (double)longitude { return MercatorBounds::XToLon(self.point.x); }
+
+- (NSString *)latLonString
+{
+  return @(measurement_utils::FormatLatLon(self.latitude, self.longitude, true).c_str());
+}
+
 - (RouteMarkData)routeMarkData
 {
   RouteMarkData pt;
