@@ -190,7 +190,7 @@ bool HttpClient::RunHttpRequest()
   if (!m_cookies.empty())
     cmd += "-b '" + m_cookies + "' ";
 
-  cmd += "-m '" + m_timeoutSec + "' ";
+  cmd += "-m '" + strings::to_string(m_timeoutSec) + "' ";
 
   if (!m_bodyData.empty())
   {
