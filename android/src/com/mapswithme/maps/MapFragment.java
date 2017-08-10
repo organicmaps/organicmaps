@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -59,6 +61,10 @@ public class MapFragment extends BaseMwmFragment
   private boolean mContextCreated;
   private boolean mLaunchByDeepLink;
   private static boolean sWasCopyrightDisplayed;
+  @Nullable
+  private String mUiThemeOnPause;
+  @NonNull
+  private SurfaceView mSurfaceView;
 
   interface MapRenderingListener
   {
@@ -214,21 +220,16 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
-    if (!mContextCreated)
-      return;
-
-    if (getActivity() == null || !getActivity().isChangingConfigurations())
-      destroyContext();
-    else
-      nativeDetachSurface(false);
+    destroyContext();
   }
 
   void destroyContext()
   {
-    if (!mContextCreated)
+    if (!mContextCreated || !isAdded())
       return;
 
-    nativeDetachSurface(true);
+    mSurfaceView.getHolder().removeCallback(this);
+    nativeDetachSurface(!getActivity().isChangingConfigurations());
     mContextCreated = false;
   }
 
@@ -243,17 +244,33 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public void onResume()
   {
-    return inflater.inflate(R.layout.fragment_map, container, false);
+    super.onResume();
+    if (isGoingToBeRecreated())
+      return;
+
+    mSurfaceView.getHolder().addCallback(this);
+  }
+
+  private boolean isGoingToBeRecreated()
+  {
+    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getCurrentUiTheme());
   }
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onPause()
   {
-    super.onViewCreated(view, savedInstanceState);
-    final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
-    surfaceView.getHolder().addCallback(this);
+    mUiThemeOnPause = Config.getCurrentUiTheme();
+    super.onPause();
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  {
+    View view = inflater.inflate(R.layout.fragment_map, container, false);
+    mSurfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
+    return view;
   }
 
   @Override
