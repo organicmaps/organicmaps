@@ -22,7 +22,8 @@
 
 namespace df
 {
-std::vector<double> const kLineWidthZoomFactor = {
+std::vector<double> const kLineWidthZoomFactor =
+{
 // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19
   0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
 };
@@ -263,7 +264,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     bool intersected = false;
     ProcessSplineSegmentRects(renderInfo.m_spline, maxLength,
-                              [&tileRect, &intersected](m2::RectD const & segmentRect) -> bool
+                              [&tileRect, &intersected](m2::RectD const & segmentRect)
     {
       if (segmentRect.IsIntersect(tileRect))
         intersected = true;

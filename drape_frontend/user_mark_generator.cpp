@@ -120,7 +120,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
       double const maxLength = range / (1 << (zoomLevel - 1));
 
       df::ProcessSplineSegmentRects(params.m_spline, maxLength,
-                                    [&](m2::RectD const & segmentRect) -> bool
+                                    [&](m2::RectD const & segmentRect)
       {
         CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
         {
@@ -274,10 +274,10 @@ void UserMarkGenerator::CacheUserMarks(TileKey const & tileKey, MarksIDGroups co
 int UserMarkGenerator::GetNearestLineIndexZoom(int zoom) const
 {
   int nearestZoom = kLineIndexingLevels[0];
-  for (int zoomLevel : kLineIndexingLevels)
+  for (size_t i = 1; i < kLineIndexingLevels.size(); ++i)
   {
-    if (zoomLevel <= zoom)
-      nearestZoom = zoomLevel;
+    if (kLineIndexingLevels[i] <= zoom)
+      nearestZoom = kLineIndexingLevels[i];
     else
       break;
   }
