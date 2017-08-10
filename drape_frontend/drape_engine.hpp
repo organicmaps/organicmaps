@@ -214,6 +214,7 @@ public:
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
+  void PostUserEvent(drape_ptr<UserEvent> && e);
   void ModelViewChanged(ScreenBase const & screen);
 
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);

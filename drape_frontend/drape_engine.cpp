@@ -180,17 +180,17 @@ void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim)
 {
-  AddUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim));
 }
 
 void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim)
 {
-  AddUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim));
+  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim));
 }
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  AddUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
+  PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
 void DrapeEngine::ClearUserMarksGroup(size_t layerId)
@@ -355,6 +355,13 @@ void DrapeEngine::RecacheGui(bool needResetOldGui)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::PostUserEvent(drape_ptr<UserEvent> && e)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<PostUserEventMessage>(std::move(e)),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::AddUserEvent(drape_ptr<UserEvent> && e)
 {
   m_frontend->AddUserEvent(std::move(e));
@@ -389,7 +396,7 @@ void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
   m_viewport.SetViewport(0, 0, w, h);
-  AddUserEvent(make_unique_dp<ResizeEvent>(w, h));
+  PostUserEvent(make_unique_dp<ResizeEvent>(w, h));
 }
 
 void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)

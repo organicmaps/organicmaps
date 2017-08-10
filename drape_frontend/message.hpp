@@ -82,6 +82,7 @@ public:
     SetPosteffectEnabled,
     RunFirstLaunchAnimation,
     UpdateMetalines,
+    PostUserEvent,
   };
 
   virtual ~Message() {}

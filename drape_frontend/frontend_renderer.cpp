@@ -810,6 +810,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::PostUserEvent:
+    {
+      ref_ptr<PostUserEventMessage> msg = message;
+      AddUserEvent(msg->AcceptEvent());
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }

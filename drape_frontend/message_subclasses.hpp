@@ -16,6 +16,7 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+#include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
@@ -1205,5 +1206,20 @@ class UpdateMetalinesMessage : public Message
 {
 public:
   Type GetType() const override { return Message::UpdateMetalines; }
+};
+
+class PostUserEventMessage : public Message
+{
+public:
+  PostUserEventMessage(drape_ptr<UserEvent> && event)
+    : m_event(std::move(event))
+  {}
+
+  Type GetType() const override { return Message::PostUserEvent; }
+
+  drape_ptr<UserEvent> && AcceptEvent() { return std::move(m_event); }
+
+private:
+  drape_ptr<UserEvent> m_event;
 };
 }  // namespace df
