@@ -59,8 +59,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   BOOL const isPhoneCallAvailable =
       [AppInfo sharedInfo].canMakeCalls && data.phoneNumber.length > 0;
   BOOL const isApi = data.isApi;
-  BOOL const isP2P =
-      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
+  auto const navigationState = [MWMNavigationDashboardManager manager].state;
+  BOOL const isNavigationActive = navigationState == MWMNavigationDashboardStateNavigation;
+  BOOL const isP2P = !isNavigationActive && navigationState != MWMNavigationDashboardStateHidden;
   BOOL const isMyPosition = data.isMyPosition;
   BOOL const isRoutePoint = data.isRoutePoint;
   BOOL const isNeedToAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
@@ -80,12 +81,19 @@ extern NSString * const kAlohalyticsTapEventKey;
   else if (isNeedToAddIntermediatePoint)
   {
     thereAreExtraButtons = false;
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+    {
+      m_visibleButtons.push_back(EButton::RouteFrom);
+      m_additionalButtons.push_back(EButton::Bookmark);
+    }
+    else
+    {
+      m_visibleButtons.push_back(EButton::Bookmark);
+    }
     m_visibleButtons.push_back(EButton::RouteTo);
     m_visibleButtons.push_back(EButton::AddStop);
     m_visibleButtons.push_back(EButton::More);
 
-    m_additionalButtons.push_back(EButton::Bookmark);
     if (isSponsored)
       m_additionalButtons.push_back(sponsoredButton);
     if (isPhoneCallAvailable)
@@ -115,7 +123,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     thereAreExtraButtons = false;
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_visibleButtons.push_back(EButton::RouteFrom);
     m_visibleButtons.push_back(EButton::Share);
   }
   else if (isApi && isSponsored)
@@ -123,7 +132,8 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::Api);
     m_visibleButtons.push_back(sponsoredButton);
     m_additionalButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (isApi && isPhoneCallAvailable)
@@ -131,13 +141,15 @@ extern NSString * const kAlohalyticsTapEventKey;
     m_visibleButtons.push_back(EButton::Api);
     m_visibleButtons.push_back(EButton::Call);
     m_additionalButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (isApi && isP2P)
   {
     m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_visibleButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Bookmark);
     m_additionalButtons.push_back(EButton::Share);
   }
@@ -145,20 +157,23 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     m_visibleButtons.push_back(EButton::Api);
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (isSponsored && isP2P)
   {
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_visibleButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(sponsoredButton);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (isPhoneCallAvailable && isP2P)
   {
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_visibleButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Call);
     m_additionalButtons.push_back(EButton::Share);
   }
@@ -166,20 +181,23 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     m_visibleButtons.push_back(sponsoredButton);
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
   else if (isPhoneCallAvailable)
   {
     m_visibleButtons.push_back(EButton::Call);
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_additionalButtons.push_back(EButton::RouteFrom);
     m_additionalButtons.push_back(EButton::Share);
   }
   else
   {
     m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
+    if (!isNavigationActive)
+      m_visibleButtons.push_back(EButton::RouteFrom);
   }
 
 

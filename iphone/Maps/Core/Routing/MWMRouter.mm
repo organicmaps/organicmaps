@@ -354,6 +354,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   auto const pointsCount = points.size();
   if (pointsCount < 2)
   {
+    [self stopRouting];
     [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
   }
