@@ -41,6 +41,7 @@ static NSString * const kStatChangeNightMode = @"Change night mode";
 static NSString * const kStatChangeRecentTrack = @"Change recent track";
 static NSString * const kStatChangeRoutingMode = @"Change routing mode";
 static NSString * const kStatCharging = @"charging";
+static NSString * const kStatCian = @"Cian.ru";
 static NSString * const kStatClear = @"Clear";
 static NSString * const kStatClose = @"Close";
 static NSString * const kStatCollapse = @"Collapse";
@@ -183,11 +184,15 @@ static NSString * const kStatPlacePageNonBuilding = @"placepage_nonbuilding";
 static NSString * const kStatPlacePageOwnershipButtonClick = @"Placepage_OwnershipButton_click";
 static NSString * const kStatPlacePageRestaurantBook = @"Placepage_Restaurant_book";
 static NSString * const kStatPlacePageTaxiClick = @"Placepage_Taxi_click";
-static NSString * const kStatPlacepageSponsoredError = @"Placepage_sponsored_error";
-static NSString * const kStatPlacepageSponsoredItemSelected = @"Placepage_Viator_item_selected";
-static NSString * const kStatPlacepageSponsoredMoreSelected = @"Placepage_Viator_more_selected";
-static NSString * const kStatPlacepageSponsoredOpen = @"Placepage_sponsored_open";
-static NSString * const kStatPlacepageSponsoredShow = @"Placepage_sponsored_shown";
+static NSString * const kStatPlacepageSponsoredError = @"Placepage_SponsoredGallery_error";
+static NSString * const kStatPlacepageSponsoredItemSelected =
+    @"Placepage_SponsoredGallery_ProductItem_selected";
+static NSString * const kStatPlacepageSponsoredLogoSelected =
+    @"Placepage_SponsoredGallery_LogoItem_selected";
+static NSString * const kStatPlacepageSponsoredMoreSelected =
+    @"Placepage_SponsoredGallery_MoreItem_selected";
+static NSString * const kStatPlacepageSponsoredOpen = @"Placepage_SponsoredGalleryPage_opened";
+static NSString * const kStatPlacepageSponsoredShow = @"Placepage_SponsoredGallery_shown";
 static NSString * const kStatPlacepageTaxiShow = @"Placepage_Taxi_show";
 static NSString * const kStatPointToPoint = @"Point to point";
 static NSString * const kStatPortrait = @"Portrait";

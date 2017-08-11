@@ -20,9 +20,11 @@ final class PPViatorCarouselCell: MWMTableViewCell {
   fileprivate let kMaximumNumberOfElements = 5
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
 
+  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider : kStatViator] }
+
   func config(with ds: [ViatorItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     if ds.isEmpty {
-      Statistics.logEvent(kStatPlacepageSponsoredError)
+      Statistics.logEvent(kStatPlacepageSponsoredError, withParameters: statisticsParameters)
     }
     dataSource = ds
     delegate = d
@@ -42,6 +44,7 @@ final class PPViatorCarouselCell: MWMTableViewCell {
 
   @IBAction
   func onMore() {
+    Statistics.logEvent(kStatPlacepageSponsoredLogoSelected, withParameters: statisticsParameters)
     delegate?.openSponsoredURL(nil)
   }
 }
@@ -65,6 +68,6 @@ extension PPViatorCarouselCell: UICollectionViewDelegate, UICollectionViewDataSo
     let isMore = isLastCell(indexPath)
     let url: URL? = isMore ? nil : dataSource[indexPath.item].pageURL
     delegate?.openSponsoredURL(url)
-    Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected)
+    Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected, withParameters: statisticsParameters)
   }
 }

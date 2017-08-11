@@ -1,3 +1,5 @@
+import MyTrackerSDK
+
 @objc(MWMPPCianCarouselCell)
 final class PPCianCarouselCell: MWMTableViewCell {
   @IBOutlet private weak var title: UILabel! {
@@ -25,6 +27,8 @@ final class PPCianCarouselCell: MWMTableViewCell {
   }
   fileprivate let kMaximumNumberOfElements = 5
   fileprivate var delegate: MWMPlacePageButtonsProtocol?
+
+  fileprivate var statisticsParameters: [AnyHashable: Any] { return [kStatProvider : kStatCian] }
 
   func config(delegate d: MWMPlacePageButtonsProtocol?) {
     delegate = d
@@ -68,6 +72,8 @@ final class PPCianCarouselCell: MWMTableViewCell {
 
   @IBAction
   fileprivate func onMore() {
+    MRMyTracker.trackEvent(withName: "Placepage_SponsoredGallery_LogoItem_selected_Cian.Ru")
+    Statistics.logEvent(kStatPlacepageSponsoredLogoSelected, withParameters: statisticsParameters)
     delegate?.openSponsoredURL(nil)
   }
 }
@@ -78,16 +84,28 @@ extension PPCianCarouselCell: UICollectionViewDelegate, UICollectionViewDataSour
                                                   indexPath: indexPath) as! CianElement
     if let data = data {
       if data.isEmpty {
-        cell.state = .error(onButtonAction: onMore)
+        cell.state = .error(onButtonAction: { [unowned self] in
+          Statistics.logEvent(kStatPlacepageSponsoredError, withParameters: self.statisticsParameters)
+          self.delegate?.openSponsoredURL(nil)
+        })
       } else {
         let model = isLastCell(indexPath) ? nil : data[indexPath.item]
         cell.state = .offer(model: model,
                             onButtonAction: { [unowned self] model in
+                              let isMore = model == nil
+                              MRMyTracker.trackEvent(withName: isMore ? "Placepage_SponsoredGallery_MoreItem_selected_Cian.Ru" :
+                                "Placepage_SponsoredGallery_ProductItem_selected_Cian.Ru")
+                              Statistics.logEvent(isMore ? kStatPlacepageSponsoredMoreSelected : kStatPlacepageSponsoredItemSelected,
+                                                  withParameters: self.statisticsParameters)
                               self.delegate?.openSponsoredURL(model?.pageURL)
-                            })
+        })
       }
     } else {
-      cell.state = .pending(onButtonAction: onMore)
+      cell.state = .pending(onButtonAction: { [unowned self] in
+        MRMyTracker.trackEvent(withName: "Placepage_SponsoredGallery_MoreItem_selected_Cian.Ru")
+        Statistics.logEvent(kStatPlacepageSponsoredMoreSelected, withParameters: self.statisticsParameters)
+        self.delegate?.openSponsoredURL(nil)
+      })
     }
     return cell
   }

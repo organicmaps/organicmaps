@@ -1,7 +1,7 @@
 #import "MWMPlacePageLayout.h"
+#import <MyTrackerSDK/MRMyTracker.h>
 #import "MWMBookmarkCell.h"
 #import "MWMCircularProgress.h"
-#import "MWMUGCCommentCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMPPReviewCell.h"
@@ -10,6 +10,7 @@
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayoutImpl.h"
 #import "MWMPlacePageRegularCell.h"
+#import "MWMUGCCommentCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
 #import "MWMiPhonePlacePageLayoutImpl.h"
 #import "MapViewController.h"
@@ -585,7 +586,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       NSAssert(NO, @"Viator is shown but items are empty.");
       return;
     }
-    [Statistics logEvent:kStatPlacepageSponsoredShow];
+    [Statistics logEvent:kStatPlacepageSponsoredShow withParameters:@{kStatProvider : kStatViator}];
+  });
+
+  checkCell(self.cianCell, ^{
+    self.cianCell = nil;
+    [MRMyTracker trackEventWithName:@"Placepage_SponsoredGallery_shown_Cian.Ru"];
+    [Statistics logEvent:kStatPlacepageSponsoredShow withParameters:@{kStatProvider : kStatCian}];
   });
 }
 

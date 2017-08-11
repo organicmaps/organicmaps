@@ -253,9 +253,11 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
   NSMutableDictionary * parameters = [@{} mutableCopy];
   if (data.isViator)
-    parameters[kStatSponsor] = kStatViator;
+    parameters[kStatProvider] = kStatViator;
   else if (data.isBooking)
-    parameters[kStatSponsor] = kStatBooking;
+    parameters[kStatProvider] = kStatBooking;
+  else if (data.isCian)
+    parameters[kStatProvider] = kStatCian;
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_NONE:
@@ -264,6 +266,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   case Platform::EConnectionType::CONNECTION_WIFI: parameters[kStatConnection] = kStatWifi; break;
   case Platform::EConnectionType::CONNECTION_WWAN: parameters[kStatConnection] = kStatMobile; break;
   }
+  parameters[kStatTags] = data.statisticsTags;
   [Statistics logEvent:kStatPlacepageSponsoredOpen withParameters:parameters];
 }
 
