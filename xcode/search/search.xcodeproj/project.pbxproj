@@ -16,6 +16,8 @@
 		3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4C1CFC1D7000CF30D4 /* processor.hpp */; };
 		3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3441CE4D1CFC1D7000CF30D4 /* query_params.cpp */; };
 		3441CE531CFC1D7000CF30D4 /* query_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4E1CFC1D7000CF30D4 /* query_params.hpp */; };
+		344A71381F3DA03200B8DDB8 /* segment_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344A71361F3DA03200B8DDB8 /* segment_tree.cpp */; };
+		344A71391F3DA03200B8DDB8 /* segment_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 344A71371F3DA03200B8DDB8 /* segment_tree.hpp */; };
 		3453BD591DAF91C100380ECB /* emitter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3453BD561DAF91C100380ECB /* emitter.hpp */; };
 		3453BD5A1DAF91C100380ECB /* hotels_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3453BD571DAF91C100380ECB /* hotels_filter.cpp */; };
 		3453BD5B1DAF91C100380ECB /* hotels_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3453BD581DAF91C100380ECB /* hotels_filter.hpp */; };
@@ -24,7 +26,6 @@
 		34586B8B1DCB1E8300CF7FC9 /* interval_set_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B841DCB1E8300CF7FC9 /* interval_set_test.cpp */; };
 		34586B8C1DCB1E8300CF7FC9 /* locality_scorer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B851DCB1E8300CF7FC9 /* locality_scorer_test.cpp */; };
 		34586B8D1DCB1E8300CF7FC9 /* locality_selector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B861DCB1E8300CF7FC9 /* locality_selector_test.cpp */; };
-		34586B8E1DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B871DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp */; };
 		34586B8F1DCB1E8300CF7FC9 /* ranking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34586B881DCB1E8300CF7FC9 /* ranking_tests.cpp */; };
 		3459A7A71E4C4D0200ED235F /* geocoder_locality.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3459A7A51E4C4D0200ED235F /* geocoder_locality.cpp */; };
 		3459A7A81E4C4D0200ED235F /* geocoder_locality.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3459A7A61E4C4D0200ED235F /* geocoder_locality.hpp */; };
@@ -44,8 +45,6 @@
 		3465B2851D5DE71A0021E14D /* viewport_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */; };
 		3465B2861D5DE71A0021E14D /* viewport_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3465B2811D5DE71A0021E14D /* viewport_search_params.hpp */; };
 		3469FAD31D6C5D9C00F35A88 /* everywhere_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */; };
-		3469FAD41D6C5D9C00F35A88 /* nearby_points_sweeper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3469FAD11D6C5D9C00F35A88 /* nearby_points_sweeper.cpp */; };
-		3469FAD51D6C5D9C00F35A88 /* nearby_points_sweeper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3469FAD21D6C5D9C00F35A88 /* nearby_points_sweeper.hpp */; };
 		347F33161C4540A8009758CC /* cancel_exception.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32FB1C4540A8009758CC /* cancel_exception.hpp */; };
 		347F33191C4540A8009758CC /* dummy_rank_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F32FE1C4540A8009758CC /* dummy_rank_table.cpp */; };
 		347F331A1C4540A8009758CC /* dummy_rank_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32FF1C4540A8009758CC /* dummy_rank_table.hpp */; };
@@ -198,6 +197,8 @@
 		3441CE4C1CFC1D7000CF30D4 /* processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor.hpp; sourceTree = "<group>"; };
 		3441CE4D1CFC1D7000CF30D4 /* query_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = query_params.cpp; sourceTree = "<group>"; };
 		3441CE4E1CFC1D7000CF30D4 /* query_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = query_params.hpp; sourceTree = "<group>"; };
+		344A71361F3DA03200B8DDB8 /* segment_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment_tree.cpp; sourceTree = "<group>"; };
+		344A71371F3DA03200B8DDB8 /* segment_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segment_tree.hpp; sourceTree = "<group>"; };
 		3453BD561DAF91C100380ECB /* emitter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = emitter.hpp; sourceTree = "<group>"; };
 		3453BD571DAF91C100380ECB /* hotels_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hotels_filter.cpp; sourceTree = "<group>"; };
 		3453BD581DAF91C100380ECB /* hotels_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hotels_filter.hpp; sourceTree = "<group>"; };
@@ -206,7 +207,6 @@
 		34586B841DCB1E8300CF7FC9 /* interval_set_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interval_set_test.cpp; sourceTree = "<group>"; };
 		34586B851DCB1E8300CF7FC9 /* locality_scorer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_scorer_test.cpp; sourceTree = "<group>"; };
 		34586B861DCB1E8300CF7FC9 /* locality_selector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_selector_test.cpp; sourceTree = "<group>"; };
-		34586B871DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearby_points_sweeper_test.cpp; sourceTree = "<group>"; };
 		34586B881DCB1E8300CF7FC9 /* ranking_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ranking_tests.cpp; sourceTree = "<group>"; };
 		3459A7A51E4C4D0200ED235F /* geocoder_locality.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geocoder_locality.cpp; sourceTree = "<group>"; };
 		3459A7A61E4C4D0200ED235F /* geocoder_locality.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geocoder_locality.hpp; sourceTree = "<group>"; };
@@ -226,8 +226,6 @@
 		3465B2801D5DE71A0021E14D /* viewport_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_callback.hpp; sourceTree = "<group>"; };
 		3465B2811D5DE71A0021E14D /* viewport_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_params.hpp; sourceTree = "<group>"; };
 		3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_params.hpp; sourceTree = "<group>"; };
-		3469FAD11D6C5D9C00F35A88 /* nearby_points_sweeper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearby_points_sweeper.cpp; sourceTree = "<group>"; };
-		3469FAD21D6C5D9C00F35A88 /* nearby_points_sweeper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nearby_points_sweeper.hpp; sourceTree = "<group>"; };
 		347F32FB1C4540A8009758CC /* cancel_exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cancel_exception.hpp; sourceTree = "<group>"; };
 		347F32FE1C4540A8009758CC /* dummy_rank_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dummy_rank_table.cpp; sourceTree = "<group>"; };
 		347F32FF1C4540A8009758CC /* dummy_rank_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dummy_rank_table.hpp; sourceTree = "<group>"; };
@@ -445,7 +443,6 @@
 				34586B841DCB1E8300CF7FC9 /* interval_set_test.cpp */,
 				34586B851DCB1E8300CF7FC9 /* locality_scorer_test.cpp */,
 				34586B861DCB1E8300CF7FC9 /* locality_selector_test.cpp */,
-				34586B871DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp */,
 				34586B881DCB1E8300CF7FC9 /* ranking_tests.cpp */,
 				A1347D541B8758E9009050FF /* query_saver_tests.cpp */,
 				670D04A61B0B94F90013A7AC /* libs */,
@@ -490,9 +487,6 @@
 		675346B21A4055CF00A0A8C3 /* search */ = {
 			isa = PBXGroup;
 			children = (
-				3DFEBF751EF2D55800317D5C /* city_finder.hpp */,
-				3DF37FA81EA11B380012CB31 /* everywhere_search_callback.cpp */,
-				3DF37FA91EA11B380012CB31 /* everywhere_search_callback.hpp */,
 				675346BE1A40560D00A0A8C3 /* algos.hpp */,
 				675346BF1A40560D00A0A8C3 /* approximate_string_match.cpp */,
 				675346C01A40560D00A0A8C3 /* approximate_string_match.hpp */,
@@ -502,6 +496,7 @@
 				3461C99E1D79949600E6E6F5 /* categories_set.hpp */,
 				345C8DA91D2D15A50037E3A6 /* cbv.cpp */,
 				345C8DAA1D2D15A50037E3A6 /* cbv.hpp */,
+				3DFEBF751EF2D55800317D5C /* city_finder.hpp */,
 				F652D8BA1CFDE1E800FC29A0 /* common.hpp */,
 				0810EC341D6D9D2E00ABFEE7 /* displayed_categories.cpp */,
 				0810EC351D6D9D2E00ABFEE7 /* displayed_categories.hpp */,
@@ -514,6 +509,8 @@
 				3453BD561DAF91C100380ECB /* emitter.hpp */,
 				F652D8BB1CFDE1E800FC29A0 /* engine.cpp */,
 				F652D8BC1CFDE1E800FC29A0 /* engine.hpp */,
+				3DF37FA81EA11B380012CB31 /* everywhere_search_callback.cpp */,
+				3DF37FA91EA11B380012CB31 /* everywhere_search_callback.hpp */,
 				3469FAD01D6C5D9C00F35A88 /* everywhere_search_params.hpp */,
 				675346C11A40560D00A0A8C3 /* feature_offset_match.hpp */,
 				F652D8BD1CFDE1E800FC29A0 /* features_filter.cpp */,
@@ -567,8 +564,6 @@
 				F652D8D61CFDE21900FC29A0 /* model.hpp */,
 				F652D8D71CFDE21900FC29A0 /* mwm_context.cpp */,
 				F652D8D81CFDE21900FC29A0 /* mwm_context.hpp */,
-				3469FAD11D6C5D9C00F35A88 /* nearby_points_sweeper.cpp */,
-				3469FAD21D6C5D9C00F35A88 /* nearby_points_sweeper.hpp */,
 				F652D8D91CFDE21900FC29A0 /* nested_rects_cache.cpp */,
 				F652D8DA1CFDE21900FC29A0 /* nested_rects_cache.hpp */,
 				F659FC6B1CF4A30B000A06B1 /* pre_ranker.cpp */,
@@ -602,6 +597,8 @@
 				3465B27D1D5DE71A0021E14D /* search_params.cpp */,
 				3465B27E1D5DE71A0021E14D /* search_params.hpp */,
 				347F33141C4540A8009758CC /* search_trie.hpp */,
+				344A71361F3DA03200B8DDB8 /* segment_tree.cpp */,
+				344A71371F3DA03200B8DDB8 /* segment_tree.hpp */,
 				F652D8E31CFDE21900FC29A0 /* stats_cache.hpp */,
 				F652D8E41CFDE21900FC29A0 /* street_vicinity_loader.cpp */,
 				F652D8E51CFDE21900FC29A0 /* street_vicinity_loader.hpp */,
@@ -665,7 +662,6 @@
 				F652D8BE1CFDE1E800FC29A0 /* common.hpp in Headers */,
 				F652D8E91CFDE21900FC29A0 /* features_filter.hpp in Headers */,
 				F652D90F1CFDE21900FC29A0 /* token_slice.hpp in Headers */,
-				3469FAD51D6C5D9C00F35A88 /* nearby_points_sweeper.hpp in Headers */,
 				F652D9031CFDE21900FC29A0 /* pre_ranking_info.hpp in Headers */,
 				675346E61A40560D00A0A8C3 /* intermediate_result.hpp in Headers */,
 				347F33301C4540A8009758CC /* suggest.hpp in Headers */,
@@ -706,6 +702,7 @@
 				347F331A1C4540A8009758CC /* dummy_rank_table.hpp in Headers */,
 				3461C9A41D79949600E6E6F5 /* editor_delegate.hpp in Headers */,
 				349B658A1D4F21E5001798E2 /* lazy_centers_table.hpp in Headers */,
+				344A71391F3DA03200B8DDB8 /* segment_tree.hpp in Headers */,
 				3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */,
 				3441CE531CFC1D7000CF30D4 /* query_params.hpp in Headers */,
 				3DF37FAB1EA11B380012CB31 /* everywhere_search_callback.hpp in Headers */,
@@ -852,7 +849,6 @@
 				F652D8F21CFDE21900FC29A0 /* geometry_cache.cpp in Sources */,
 				34586B8C1DCB1E8300CF7FC9 /* locality_scorer_test.cpp in Sources */,
 				34EEAD721E55AE5C00E95575 /* utils.cpp in Sources */,
-				34586B8E1DCB1E8300CF7FC9 /* nearby_points_sweeper_test.cpp in Sources */,
 				345C8DB11D2D15A50037E3A6 /* geocoder_context.cpp in Sources */,
 				3461C9A31D79949600E6E6F5 /* editor_delegate.cpp in Sources */,
 				F652D8BF1CFDE1E800FC29A0 /* engine.cpp in Sources */,
@@ -877,10 +873,10 @@
 				F652D8C11CFDE1E800FC29A0 /* features_filter.cpp in Sources */,
 				F652D8F81CFDE21900FC29A0 /* intersection_result.cpp in Sources */,
 				34586B891DCB1E8300CF7FC9 /* hotels_filter_test.cpp in Sources */,
-				3469FAD41D6C5D9C00F35A88 /* nearby_points_sweeper.cpp in Sources */,
 				F652D9061CFDE21900FC29A0 /* ranking_info.cpp in Sources */,
 				F652D9001CFDE21900FC29A0 /* nested_rects_cache.cpp in Sources */,
 				34586B8D1DCB1E8300CF7FC9 /* locality_selector_test.cpp in Sources */,
+				344A71381F3DA03200B8DDB8 /* segment_tree.cpp in Sources */,
 				3441CE501CFC1D7000CF30D4 /* processor.cpp in Sources */,
 				F652D9041CFDE21900FC29A0 /* rank_table_cache.cpp in Sources */,
 				F652D8EE1CFDE21900FC29A0 /* features_layer.cpp in Sources */,
