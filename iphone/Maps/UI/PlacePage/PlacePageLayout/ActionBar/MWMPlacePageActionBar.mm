@@ -114,10 +114,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   else if (isMyPosition)
   {
     thereAreExtraButtons = false;
-    m_visibleButtons.push_back(EButton::Spacer);
     m_visibleButtons.push_back(EButton::Bookmark);
+    m_visibleButtons.push_back(EButton::RouteFrom);
     m_visibleButtons.push_back(EButton::Share);
-    m_visibleButtons.push_back(EButton::Spacer);
   }
   else if (isApi && isSponsored)
   {
