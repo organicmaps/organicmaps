@@ -11,10 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="goButton" destination="CQB-xn-DSM" id="Vb1-tV-AR9"/>
                 <outlet property="routePreview" destination="aNH-vh-DPz" id="ORz-pz-7sV"/>
                 <outlet property="statusBox" destination="hIE-BJ-nFm" id="j6g-xk-RgK"/>
                 <outlet property="taxiCollectionView" destination="Dm8-yS-U68" id="crw-jv-vGq"/>
+                <outletCollection property="goButtons" destination="ZXz-KM-xQz" id="14O-qB-UJl"/>
+                <outletCollection property="goButtons" destination="CQB-xn-DSM" id="FPU-6h-5CN"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -176,7 +177,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-Yo-BvL">
-                            <rect key="frame" x="89" y="8" width="119" height="32"/>
+                            <rect key="frame" x="81" y="8" width="127" height="32"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
@@ -256,7 +257,7 @@
                     <rect key="frame" x="0.0" y="108" width="320" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K37-2W-GE8">
-                            <rect key="frame" x="20" y="13" width="119" height="18"/>
+                            <rect key="frame" x="20" y="10" width="127" height="24"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="ManageRoute" image="ic_24px_manager"/>
@@ -276,7 +277,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dm8-yS-U68" customClass="MWMTaxiCollectionView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yr1-ni-nMn" customClass="MWMTaxiCollectionLayout">
                                 <size key="itemSize" width="320" height="100"/>
@@ -288,14 +289,42 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                             </userDefinedRuntimeAttributes>
                         </collectionView>
+                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXz-KM-xQz" userLabel="Go" customClass="MWMRouteStartButton">
+                            <rect key="frame" x="228" y="14" width="80" height="32"/>
+                            <accessibility key="accessibilityConfiguration" identifier="goButton"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="COX-gy-Yq7"/>
+                                <constraint firstAttribute="height" constant="32" id="qWi-sH-wKR"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                            <state key="normal" title="Start"/>
+                            <state key="selected">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="routingStartTouchUpInside" destination="-1" eventType="touchUpInside" id="zAg-HJ-CL1"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Dm8-yS-U68" firstAttribute="top" secondItem="5a5-vb-p6T" secondAttribute="top" id="1BT-nc-NyC"/>
-                        <constraint firstAttribute="trailing" secondItem="Dm8-yS-U68" secondAttribute="trailing" id="9jL-oy-VfM"/>
+                        <constraint firstItem="ZXz-KM-xQz" firstAttribute="centerY" secondItem="5a5-vb-p6T" secondAttribute="centerY" id="5PF-pY-ZFu"/>
                         <constraint firstItem="Dm8-yS-U68" firstAttribute="leading" secondItem="5a5-vb-p6T" secondAttribute="leading" id="GAn-kd-ghT"/>
                         <constraint firstAttribute="height" constant="60" id="NNM-cn-dVc"/>
+                        <constraint firstAttribute="trailing" secondItem="ZXz-KM-xQz" secondAttribute="trailing" constant="12" id="Ufj-hl-7zb"/>
                         <constraint firstAttribute="bottom" secondItem="Dm8-yS-U68" secondAttribute="bottom" id="bnt-sj-3pO"/>
+                        <constraint firstItem="ZXz-KM-xQz" firstAttribute="leading" secondItem="Dm8-yS-U68" secondAttribute="trailing" constant="8" id="kmB-Ak-gu0"/>
                     </constraints>
                 </view>
             </subviews>
@@ -358,7 +387,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_24px_manager" width="16" height="16"/>
+        <image name="ic_24px_manager" width="24" height="24"/>
         <image name="ic_nav_bar_back" width="14" height="22"/>
     </resources>
 </document>

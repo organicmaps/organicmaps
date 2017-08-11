@@ -46,14 +46,14 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) IBOutlet MWMNavigationInfoView * navigationInfoView;
 @property(nonatomic) IBOutlet MWMRoutePreview * routePreview;
 @property(nonatomic) IBOutlet MWMRoutePreviewStatus * statusBox;
-@property(nonatomic) IBOutlet MWMRouteStartButton * goButton;
+@property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray * goButtons;
 @property(nonatomic) MWMNavigationDashboardEntity * entity;
+@property(nonatomic) MWMRouteManagerTransitioningManager * routeManagerTransitioningManager;
 @property(nonatomic) Observers * observers;
 @property(nonatomic, readwrite) MWMTaxiPreviewDataSource * taxiDataSource;
 @property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
 @property(weak, nonatomic) IBOutlet UIButton * showRouteManagerButton;
 @property(weak, nonatomic) UIView * ownerView;
-@property(nonatomic) MWMRouteManagerTransitioningManager * routeManagerTransitioningManager;
 
 @end
 
@@ -101,7 +101,8 @@ using Observers = NSHashTable<Observer>;
   else
     title = L(@"p2p_start");
 
-  [self.goButton setTitle:title forState:UIControlStateNormal];
+  for (MWMRouteStartButton * button in self.goButtons)
+    [button setTitle:title forState:UIControlStateNormal];
 }
 
 - (void)mwm_refreshUI
@@ -162,8 +163,9 @@ using Observers = NSHashTable<Observer>;
   [routePreview statePrepare];
   [routePreview selectRouter:[MWMRouter type]];
   [self updateGoButtonTitle];
-  [self.goButton statePrepare];
   [self.statusBox statePrepare];
+  for (MWMRouteStartButton * button in self.goButtons)
+    [button statePrepare];
 }
 
 - (void)statePlanning
@@ -201,8 +203,9 @@ using Observers = NSHashTable<Observer>;
   auto routePreview = self.routePreview;
   [routePreview router:[MWMRouter type] setState:MWMCircularProgressStateFailed];
   [self updateGoButtonTitle];
-  [self.goButton stateError];
   [self.statusBox stateErrorWithMessage:self.errorMessage];
+  for (MWMRouteStartButton * button in self.goButtons)
+    [button stateError];
 }
 
 - (void)stateReady
@@ -210,8 +213,9 @@ using Observers = NSHashTable<Observer>;
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
-  [self.goButton stateReady];
   [self.statusBox stateReady];
+  for (MWMRouteStartButton * button in self.goButtons)
+    [button stateReady];
 }
 
 - (void)onRouteStart { self.state = MWMNavigationDashboardStateNavigation; }
