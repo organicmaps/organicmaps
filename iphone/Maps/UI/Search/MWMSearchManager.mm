@@ -6,6 +6,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
+#import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
@@ -206,8 +207,26 @@ using Observers = NSHashTable<Observer>;
 - (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
-  [MWMSearch showResult:result];
-  if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
+  auto const navigationState = [MWMNavigationDashboardManager manager].state;
+  if (navigationState == MWMNavigationDashboardStatePrepare)
+  {
+    BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+    auto point = [[MWMRoutePoint alloc]
+            initWithPoint:result.GetFeatureCenter()
+                    title:@(result.GetString().c_str())
+                 subtitle:@(result.GetAddress().c_str())
+                     type:hasFinish ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
+        intermediateIndex:0];
+    if (hasFinish)
+      [MWMRouter buildFromPoint:point bestRouter:NO];
+    else
+      [MWMRouter buildToPoint:point bestRouter:NO];
+  }
+  else
+  {
+    [MWMSearch showResult:result];
+  }
+  if (!IPAD || navigationState != MWMNavigationDashboardStateHidden)
     self.state = MWMSearchManagerStateHidden;
 }
 

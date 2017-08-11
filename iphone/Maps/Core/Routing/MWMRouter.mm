@@ -34,6 +34,33 @@ using namespace routing;
 namespace
 {
 char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
+
+void logPointEvent(MWMRoutePoint * point, NSString * eventType)
+{
+  if (point == nullptr)
+    return;
+
+  NSString * pointTypeStr = @"";
+  switch (point.type)
+  {
+  case MWMRoutePointTypeStart: pointTypeStr = kStatRoutingPointTypeStart; break;
+  case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
+  case MWMRoutePointTypeFinish: pointTypeStr = kStatRoutingPointTypeFinish; break;
+  }
+  BOOL const isPlanning =
+      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
+  BOOL const isOnRoute =
+      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateNavigation;
+  [Statistics logEvent:eventType
+        withParameters:@{
+          kStatRoutingPointType : pointTypeStr,
+          kStatRoutingPointValue :
+              (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
+          kStatRoutingPointMethod :
+              (isPlanning ? kStatRoutingPointMethodPlanning : kStatRoutingPointMethodNoPlanning),
+          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+        }];
+}
 }  // namespace
 
 @interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
@@ -248,6 +275,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
 
 + (void)removePoint:(MWMRoutePoint *)point
 {
+  logPointEvent(point, kStatRoutingRemovePoint);
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
@@ -270,6 +298,7 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
     NSAssert(NO, @"Point can not be nil");
     return;
   }
+  logPointEvent(point, kStatRoutingAddPoint);
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
@@ -321,8 +350,14 @@ char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeI
   [self clearAltitudeImagesData];
 
   auto & rm = GetFramework().GetRoutingManager();
-  auto points = rm.GetRoutePoints();
-  if (points.size() == 2)
+  auto const & points = rm.GetRoutePoints();
+  auto const pointsCount = points.size();
+  if (pointsCount < 2)
+  {
+    [[MWMMapViewControlsManager manager] onRoutePrepare];
+    return;
+  }
+  if (pointsCount == 2)
   {
     if (points.front().m_isMyPosition)
     {
