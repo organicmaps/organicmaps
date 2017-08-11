@@ -36,12 +36,12 @@ public:
 
 UNIT_CLASS_TEST(CheckpointPredictorTest, CalculateDeltaMetersTest)
 {
-  TestAlmostEqual(
-      CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {1.0, 0.0} /* between */), 0.0);
-  TestAlmostEqual(
-    CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {3.0, 0.0} /* between */), 222634.0);
-  TestAlmostEqual(
-    CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {-1.0, 0.0} /* between */), 222634.0);
+  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
+                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {1.0, 0.0} /* between */), 0.0);
+  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
+                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {3.0, 0.0} /* between */), 222634.0);
+  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
+                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {-1.0, 0.0} /* between */), 222634.0);
 }
 
 // Zero intermediate point test.

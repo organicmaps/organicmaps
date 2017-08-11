@@ -23,22 +23,22 @@ public:
   {
   }
 
-  /// \brief finds the best position for |point| between |intermediatePoints| to minimize the length
-  /// of broken line of |intermediatePoints| with inserted |point| between them.
-  /// \param intermediatePoints is a sequence of points on the map.
+  /// \returns difference between distance |from|->|between| + |between|->|to| and distance |from|->|to|.
+  static double CalculateDeltaMeters(m2::PointD const & from, m2::PointD const & to, m2::PointD const & between);
+
+  /// \brief finds the best position for |point| between |points| to minimize the length
+  /// of broken line of |m_start|, |points| and |m_finish| with inserted |point| between them.
+  /// \param points is a sequence of points on the map.
   /// \param point is a point to be inserted between |points|.
   /// \returns zero based index of a line segment between two points at |points|.
-  size_t PredictPosition(std::vector<m2::PointD> const & intermediatePoints, m2::PointD const & point) const;
+  size_t PredictPosition(std::vector<m2::PointD> const & points, m2::PointD const & point) const;
 
 private:
   /// \returns checkpoint by its |index|.
-  /// \note checkpoints is a sequence of points: |m_start|, |intermediatePoints|, |m_finish|.
-  m2::PointD const & GetCheckpoint(std::vector<m2::PointD> const & intermediatePoints, size_t index) const;
+  /// \note checkpoints is a sequence of points: |m_start|, |points|, |m_finish|.
+  m2::PointD const & GetCheckpoint(std::vector<m2::PointD> const & points, size_t index) const;
 
   m2::PointD const m_start;
   m2::PointD const m_finish;
 };
-
-/// \returns difference between distance |from|->|between| + |between|->|to| and distance |from|->|to|.
-double CalculateDeltaMeters(m2::PointD const & from, m2::PointD const & to, m2::PointD const & between);
 }  // namespace routing
