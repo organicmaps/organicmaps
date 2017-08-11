@@ -234,6 +234,9 @@ public:
   /// \brief It deletes file with saved route points if it exists.
   void DeleteSavedRoutePoints();
 
+  void UpdatePreviewMode();
+  void CancelPreviewMode();
+
 private:
   void InsertRoute(routing::Route const & route);
   bool IsTrackingReporterEnabled() const;
@@ -245,6 +248,9 @@ private:
   void SetPointsFollowingMode(bool enabled);
 
   void ReorderIntermediatePoints();
+
+  m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
+  void HidePreviewSegments();
 
   RouteBuildingCallback m_routingCallback = nullptr;
   Callbacks m_callbacks;

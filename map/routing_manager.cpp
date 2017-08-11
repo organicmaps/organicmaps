@@ -278,8 +278,7 @@ void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
 void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
 {
   // Hide preview.
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  HidePreviewSegments();
 
   storage::TCountriesVec absentCountries;
   if (code == IRouter::NoError)
@@ -314,8 +313,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
 void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCode code)
 {
   // Hide preview.
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  HidePreviewSegments();
 
   if (code != IRouter::NoError)
     return;
@@ -511,8 +509,7 @@ void RoutingManager::FollowRoute()
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
   // Hide preview.
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  HidePreviewSegments();
   
   if (m_routingSession.IsBuilt())
     m_routingSession.EmitCloseRoutingEvent();
@@ -757,14 +754,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   // Show preview.
   if (m_drapeEngine != nullptr)
   {
-    m2::RectD rect;
-    for (size_t pointIndex = 0; pointIndex + 1 < routePoints.size(); pointIndex++)
-    {
-      rect.Add(routePoints[pointIndex].m_position);
-      rect.Add(routePoints[pointIndex + 1].m_position);
-      m_drapeEngine->AddRoutePreviewSegment(routePoints[pointIndex].m_position,
-                                            routePoints[pointIndex + 1].m_position);
-    }
+    m2::RectD rect = ShowPreviewSegments(routePoints);
     rect.Scale(kRouteScaleMultiplier);
     m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */,
                                     true /* isAnim */);
@@ -936,8 +926,7 @@ void RoutingManager::SetRouter(RouterType type)
     return;
 
   // Hide preview.
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->RemoveAllRoutePreviewSegments();
+  HidePreviewSegments();
 
   SetLastUsedRouter(type);
   SetRouterImpl(type);
@@ -1084,4 +1073,51 @@ void RoutingManager::DeleteSavedRoutePoints()
     return;
   auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
   FileWriter::DeleteFileX(fileName);
+}
+
+void RoutingManager::UpdatePreviewMode()
+{
+  // Hide all subroutes.
+  {
+    lock_guard<mutex> lock(m_drapeSubroutesMutex);
+    for (auto const & subrouteId : m_drapeSubroutes)
+      m_drapeEngine->SetSubrouteVisibility(subrouteId, false /* isVisible */);
+  }
+
+  HidePreviewSegments();
+  ShowPreviewSegments(GetRoutePoints());
+}
+
+void RoutingManager::CancelPreviewMode()
+{
+  // Show all subroutes.
+  {
+    lock_guard<mutex> lock(m_drapeSubroutesMutex);
+    for (auto const & subrouteId : m_drapeSubroutes)
+      m_drapeEngine->SetSubrouteVisibility(subrouteId, true /* isVisible */);
+  }
+
+  HidePreviewSegments();
+}
+
+m2::RectD RoutingManager::ShowPreviewSegments(vector<RouteMarkData> const & routePoints)
+{
+  if (m_drapeEngine == nullptr)
+    return MercatorBounds::FullRect();
+
+  m2::RectD rect;
+  for (size_t pointIndex = 0; pointIndex + 1 < routePoints.size(); pointIndex++)
+  {
+    rect.Add(routePoints[pointIndex].m_position);
+    rect.Add(routePoints[pointIndex + 1].m_position);
+    m_drapeEngine->AddRoutePreviewSegment(routePoints[pointIndex].m_position,
+                                          routePoints[pointIndex + 1].m_position);
+  }
+  return rect;
+}
+
+void RoutingManager::HidePreviewSegments()
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->RemoveAllRoutePreviewSegments();
 }
