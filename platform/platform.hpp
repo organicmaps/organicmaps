@@ -98,6 +98,7 @@ protected:
 
 public:
   Platform();
+  virtual ~Platform() = default;
 
   static bool IsFileExistsByFullPath(string const & filePath);
 

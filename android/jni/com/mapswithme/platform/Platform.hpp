@@ -23,7 +23,7 @@ public:
                   jstring flavorName, jstring buildType,
                   bool isTablet);
 
-  ~Platform();
+  ~Platform() override;
 
   void ProcessFunctor(jlong functionPointer);
 

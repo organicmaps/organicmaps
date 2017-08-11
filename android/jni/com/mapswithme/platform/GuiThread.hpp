@@ -10,7 +10,7 @@ class GuiThread : public base::TaskLoop
 {
 public:
   explicit GuiThread(jobject processObject);
-  ~GuiThread();
+  ~GuiThread() override;
 
   static void ProcessTask(jlong task);
 
