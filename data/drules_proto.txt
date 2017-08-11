@@ -30447,6 +30447,12 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 20
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -30454,6 +30460,21 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -30461,6 +30482,21 @@ cont {
       color: 11781233
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -30500,6 +30536,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 14
+    area {
+      color: 11453035
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 15
     area {
       color: 11584112
@@ -30537,6 +30594,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 15
+    area {
+      color: 11584112
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 16
     area {
       color: 11190117
@@ -30572,6 +30650,27 @@ cont {
       priority: -15923
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 17
@@ -30611,6 +30710,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 18
     area {
       color: 11190117
@@ -30652,6 +30772,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 19
     area {
       color: 11190117
@@ -30691,6 +30832,27 @@ cont {
       priority: 16077
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
 }
 cont {
@@ -30708,6 +30870,12 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 20
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -30715,6 +30883,21 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -30722,6 +30905,21 @@ cont {
       color: 11781233
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -30761,6 +30959,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 14
+    area {
+      color: 11453035
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 15
     area {
       color: 11584112
@@ -30798,6 +31017,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 15
+    area {
+      color: 11584112
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 16
     area {
       color: 11190117
@@ -30833,6 +31073,27 @@ cont {
       priority: -15923
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 17
@@ -30872,6 +31133,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 18
     area {
       color: 11190117
@@ -30913,6 +31195,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 19
     area {
       color: 11190117
@@ -30952,6 +31255,27 @@ cont {
       priority: 16077
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
 }
 cont {
@@ -30969,6 +31293,12 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 20
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -30976,6 +31306,21 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -30983,6 +31328,21 @@ cont {
       color: 11781233
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -31022,6 +31382,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 14
+    area {
+      color: 11453035
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 15
     area {
       color: 11584112
@@ -31059,6 +31440,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 15
+    area {
+      color: 11584112
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 16
     area {
       color: 11190117
@@ -31094,6 +31496,27 @@ cont {
       priority: -15923
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 17
@@ -31133,6 +31556,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 18
     area {
       color: 11190117
@@ -31174,6 +31618,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 19
     area {
       color: 11190117
@@ -31213,6 +31678,27 @@ cont {
       priority: 16077
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
 }
 cont {
@@ -31230,6 +31716,12 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 20
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -31237,6 +31729,21 @@ cont {
       color: 12372094
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -31244,6 +31751,21 @@ cont {
       color: 11781233
       priority: -15923
     }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -31283,6 +31805,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 14
+    area {
+      color: 11453035
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-s"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 15
     area {
       color: 11584112
@@ -31320,6 +31863,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 15
+    area {
+      color: 11584112
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 16
     area {
       color: 11190117
@@ -31355,6 +31919,27 @@ cont {
       priority: -15923
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-m"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 17
@@ -31394,6 +31979,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 18
     area {
       color: 11190117
@@ -31435,6 +32041,27 @@ cont {
     apply_if: "!name"
   }
   element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
+  }
+  element {
     scale: 19
     area {
       color: 11190117
@@ -31474,6 +32101,27 @@ cont {
       priority: 16077
     }
     apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15923
+    }
+    symbol {
+      name: "nparkf-l"
+      priority: 16077
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 452984831
+        offset_y: 1
+      }
+      priority: 15077
+    }
+    apply_if: "extra_tag=boundary=national_park"
   }
 }
 cont {
