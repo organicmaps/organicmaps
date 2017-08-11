@@ -404,6 +404,8 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
+  [MWMRouter restoreRouteIfNeeded];
+
   return returnValue;
 }
 
@@ -524,6 +526,7 @@ using namespace osm_auth_ios;
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   [self.mapViewController onTerminate];
+  [MWMRouter saveRouteIfNeeded];
 
 #ifdef OMIM_PRODUCTION
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain

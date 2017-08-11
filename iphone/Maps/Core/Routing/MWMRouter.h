@@ -47,6 +47,9 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (BOOL)hasRouteAltitude;
 + (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
 
++ (void)saveRouteIfNeeded;
++ (void)restoreRouteIfNeeded;
+
 @end
 
 @interface MWMRouter (RouteManager)

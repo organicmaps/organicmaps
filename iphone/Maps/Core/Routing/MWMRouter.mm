@@ -645,4 +645,30 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 }
 
+#pragma mark - Save / Load route points
+
++ (void)saveRouteIfNeeded
+{
+  if ([self isRoutingActive])
+    GetFramework().GetRoutingManager().SaveRoutePoints();
+}
+
++ (void)restoreRouteIfNeeded
+{
+  if ([MapsAppDelegate theApp].isDrapeEngineCreated)
+  {
+    auto & rm = GetFramework().GetRoutingManager();
+    if ([self isRoutingActive] || !rm.HasSavedRoutePoints())
+      return;
+    rm.LoadRoutePoints();
+    [self rebuildWithBestRouter:YES];
+  }
+  else
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self restoreRouteIfNeeded];
+    });
+  }
+}
+
 @end
