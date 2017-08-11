@@ -101,11 +101,6 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 }
 #endif  // defined(OMIM_OS_LINUX)
 
-void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
-{
-  m_guiThread = move(guiThread);
-}
-
 extern Platform & GetPlatform()
 {
   static Platform platform;
