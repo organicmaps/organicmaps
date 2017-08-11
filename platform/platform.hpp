@@ -8,6 +8,7 @@
 
 #include "base/exception.hpp"
 #include "base/task_loop.hpp"
+#include "base/worker_thread.hpp"
 
 #include "std/bitset.hpp"
 #include "std/function.hpp"
@@ -95,6 +96,8 @@ protected:
   MarketingService m_marketingService;
 
   unique_ptr<base::TaskLoop> m_guiThread;
+
+  base::WorkerThread m_networkThread;
 
 public:
   Platform();
@@ -196,6 +199,9 @@ public:
   //@{
   void RunOnGuiThread(base::TaskLoop::Task && task);
   void RunOnGuiThread(base::TaskLoop::Task const & task);
+
+  template <typename Task>
+  void RunOnNetworkThread(Task && task) { m_networkThread.Push(forward<Task>(task)); }
 
   enum Priority
   {
