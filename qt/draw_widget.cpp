@@ -45,6 +45,12 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * paren
   m_framework.GetRoutingManager().SetRouteBuildingListener(
       [](routing::IRouter::ResultCode, storage::TCountriesVec const &) {});
 
+  m_framework.GetRoutingManager().SetRouteRecommendationListener(
+    [this](RoutingManager::Recommendation r)
+  {
+    OnRouteRecommendation(r);
+  });
+
   m_framework.SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId) {
     m_countryId = countryId;
     UpdateCountryStatus(countryId);
@@ -405,6 +411,22 @@ void DrawWidget::ClearRoute()
       SetMapStyle(MapStyle::MapStyleClear);
     else if (style == MapStyle::MapStyleVehicleDark)
       SetMapStyle(MapStyle::MapStyleDark);
+  }
+}
+
+void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommendation)
+{
+  if (recommendation == RoutingManager::Recommendation::RebuildAfterPointsLoading)
+  {
+    auto & routingManager = m_framework.GetRoutingManager();
+
+    RouteMarkData startPoint;
+    startPoint.m_pointType = RouteMarkType::Start;
+    startPoint.m_isMyPosition = true;
+    routingManager.AddRoutePoint(std::move(startPoint));
+
+    if (routingManager.GetRoutePoints().size() >= 2)
+      routingManager.BuildRoute(0 /* timeoutSec */);
   }
 }
 

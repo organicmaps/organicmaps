@@ -504,6 +504,8 @@ void RoutingManager::FollowRoute()
 
   HideRoutePoint(RouteMarkType::Start);
   SetPointsFollowingMode(true /* enabled */);
+
+  CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
 }
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
@@ -521,6 +523,8 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
     auto & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
     controller.Clear();
     controller.NotifyChanges();
+
+    CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
 }
 
@@ -807,6 +811,19 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
 {
   if (IsRoutingActive())
     m_routingSession.SetUserCurrentPosition(position);
+
+  if (m_routeRecommendCallback != nullptr)
+  {
+    // Check if we've found my position almost immediately after route points loading.
+    auto constexpr kFoundLocationInterval = 2.0;
+    auto const elapsed = chrono::steady_clock::now() - m_loadRoutePointsTimestamp;
+    auto const sec = chrono::duration_cast<chrono::duration<double>>(elapsed).count();
+    if (sec <= kFoundLocationInterval)
+    {
+      m_routeRecommendCallback(Recommendation::RebuildAfterPointsLoading);
+      CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+    }
+  }
 }
 
 bool RoutingManager::DisableFollowMode()
@@ -1075,6 +1092,12 @@ bool RoutingManager::LoadRoutePoints()
       AddRoutePoint(move(p));
     }
   }
+
+  // If we don't have my position, save loading timestamp. Probably
+  // we will get my position soon.
+  if (!myPosMark->HasPosition())
+    m_loadRoutePointsTimestamp = chrono::steady_clock::now();
+
   return true;
 }
 
@@ -1153,4 +1176,10 @@ void RoutingManager::HidePreviewSegments()
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->RemoveAllRoutePreviewSegments();
+}
+
+void RoutingManager::CancelRecommendation(Recommendation recommendation)
+{
+  if (recommendation == Recommendation::RebuildAfterPointsLoading)
+    m_loadRoutePointsTimestamp = chrono::steady_clock::time_point();
 }

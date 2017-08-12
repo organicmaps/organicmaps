@@ -3,6 +3,7 @@
 #include "qt/qt_common/map_widget.hpp"
 
 #include "map/place_page_info.hpp"
+#include "map/routing_manager.hpp"
 
 #include "search/everywhere_search_params.hpp"
 #include "search/result.hpp"
@@ -77,6 +78,7 @@ public:
   void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
   void FollowRoute();
   void ClearRoute();
+  void OnRouteRecommendation(RoutingManager::Recommendation recommendation);
 
   void RefreshDrawingRules();
 

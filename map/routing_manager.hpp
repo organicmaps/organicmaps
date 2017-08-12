@@ -16,6 +16,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include <chrono>
 #include <functional>
 #include <map>
 #include <memory>
@@ -81,6 +82,15 @@ public:
       std::function<void(routing::IRouter::ResultCode, storage::TCountriesVec const &)>;
   using RouteProgressCallback = std::function<void(float)>;
 
+  enum class Recommendation
+  {
+    // It can be recommended if location is found almost immediately
+    // after restoring route points from file. In this case we can
+    // rebuild route using "my position".
+    RebuildAfterPointsLoading = 0,
+  };
+  using RouteRecommendCallback = std::function<void(Recommendation)>;
+
   RoutingManager(Callbacks && callbacks, Delegate & delegate);
 
   void SetBookmarkManager(BookmarkManager * bmManager);
@@ -123,6 +133,10 @@ public:
   void SetRouteProgressListener(RouteProgressCallback const & progressCallback)
   {
     m_routingSession.SetProgressCallback(progressCallback);
+  }
+  void SetRouteRecommendationListener(RouteRecommendCallback const & recommendCallback)
+  {
+    m_routeRecommendCallback = recommendCallback;
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
@@ -253,7 +267,10 @@ private:
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
 
+  void CancelRecommendation(Recommendation recommendation);
+
   RouteBuildingCallback m_routingCallback = nullptr;
+  RouteRecommendCallback m_routeRecommendCallback = nullptr;
   Callbacks m_callbacks;
   ref_ptr<df::DrapeEngine> m_drapeEngine = nullptr;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
@@ -272,6 +289,7 @@ private:
     std::vector<RouteMarkData> m_routeMarks;
   };
   std::map<uint32_t, RoutePointsTransaction> m_routePointsTransactions;
+  std::chrono::steady_clock::time_point m_loadRoutePointsTimestamp;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
