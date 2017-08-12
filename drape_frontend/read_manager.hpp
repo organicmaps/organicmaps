@@ -38,6 +38,7 @@ public:
 
   void Start();
   void Stop();
+  void Restart();
 
   void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
                       bool forceUpdate, bool forceUpdateUserMarks,

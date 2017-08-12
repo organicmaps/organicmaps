@@ -125,8 +125,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
-      if (msg->NeedInvalidateAll())
-        m_readManager->InvalidateAll();
+      if (msg->NeedRestartReading())
+        m_readManager->Restart();
       else
         m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;

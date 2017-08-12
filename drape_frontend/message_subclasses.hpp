@@ -182,22 +182,22 @@ public:
   InvalidateReadManagerRectMessage(Blocker & blocker, TTilesCollection const & tiles)
     : BaseBlockingMessage(blocker)
     , m_tiles(tiles)
-    , m_needInvalidateAll(false)
+    , m_needRestartReading(false)
   {}
 
   InvalidateReadManagerRectMessage(Blocker & blocker)
     : BaseBlockingMessage(blocker)
-    , m_needInvalidateAll(true)
+    , m_needRestartReading(true)
   {}
 
   Type GetType() const override { return Message::InvalidateReadManagerRect; }
 
   TTilesCollection const & GetTilesForInvalidate() const { return m_tiles; }
-  bool NeedInvalidateAll() const { return m_needInvalidateAll; }
+  bool NeedRestartReading() const { return m_needRestartReading; }
 
 private:
   TTilesCollection m_tiles;
-  bool m_needInvalidateAll;
+  bool m_needRestartReading;
 };
 
 class ClearUserMarkGroupMessage : public Message

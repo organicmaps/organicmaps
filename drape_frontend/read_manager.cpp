@@ -78,10 +78,16 @@ void ReadManager::Stop()
   m_pool.reset();
 }
 
+void ReadManager::Restart()
+{
+  Stop();
+  Start();
+}
+
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
   ASSERT(dynamic_cast<ReadMWMTask *>(task) != NULL, ());
-  ReadMWMTask * t = static_cast<ReadMWMTask *>(task);
+  auto t = static_cast<ReadMWMTask *>(task);
 
   // finish tiles
   {
