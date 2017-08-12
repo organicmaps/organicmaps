@@ -642,6 +642,14 @@ void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
   env->CallVoidMethod(*listener, methodId, progress);
 }
 
+void CallRouteRecommendationListener(shared_ptr<jobject> listener,
+                                     RoutingManager::Recommendation recommendation)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRecommend", "(I)V");
+  env->CallVoidMethod(*listener, methodId, static_cast<int>(recommendation));
+}
+
 /// @name JNI EXPORTS
 //@{
 JNIEXPORT jstring JNICALL
@@ -1128,6 +1136,15 @@ Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, 
   CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteProgressListener(
       bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRoutingRecommendationListener(JNIEnv * env, jclass,
+                                                                          jobject listener)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  frm()->GetRoutingManager().SetRouteRecommendationListener(
+      bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), _1));
 }
 
 JNIEXPORT void JNICALL

@@ -70,6 +70,12 @@ public class Framework
   public static final int LOCAL_ADS_EVENT_CLICKED_PHONE = 2;
   public static final int LOCAL_ADS_EVENT_CLICKED_WEBSITE = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ROUTE_REBUILD_AFTER_POINTS_LOADING})
+  public @interface RouteRecommendationType {}
+
+  public static final int ROUTE_REBUILD_AFTER_POINTS_LOADING = 0;
+
   @SuppressWarnings("unused")
   public interface MapObjectListener
   {
@@ -88,6 +94,12 @@ public class Framework
   public interface RoutingProgressListener
   {
     void onRouteBuildingProgress(float progress);
+  }
+
+  @SuppressWarnings("unused")
+  public interface RoutingRecommendationListener
+  {
+    void onRecommend(@RouteRecommendationType int recommendation);
   }
 
   public static class Params3dMode
@@ -250,6 +262,8 @@ public class Framework
   public static native void nativeSetRoutingListener(RoutingListener listener);
 
   public static native void nativeSetRouteProgressListener(RoutingProgressListener listener);
+
+  public static native void nativeSetRoutingRecommendationListener(RoutingRecommendationListener listener);
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 

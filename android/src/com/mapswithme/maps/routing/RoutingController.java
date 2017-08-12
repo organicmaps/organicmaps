@@ -164,6 +164,25 @@ public class RoutingController implements TaxiManager.TaxiListener
     }
   };
 
+  @SuppressWarnings("FieldCanBeLocal")
+  private final Framework.RoutingRecommendationListener mRoutingRecommendationListener =
+      new Framework.RoutingRecommendationListener()
+  {
+    @Override
+    public void onRecommend(@Framework.RouteRecommendationType final int recommendation)
+    {
+      UiThread.run(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          if (recommendation == Framework.ROUTE_REBUILD_AFTER_POINTS_LOADING)
+            setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+        }
+      });
+    }
+  };
+
   public static RoutingController get()
   {
     return sInstance;
@@ -258,6 +277,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
+    Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
     TaxiManager.INSTANCE.setTaxiListener(this);
   }
 
