@@ -12,9 +12,8 @@ varying vec2 v_colorTexCoords;
 
 void main()
 {
-  float normalLen = length(a_normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
-  if (normalLen != 0.0)
+  if (dot(a_normal, a_normal) != 0.0)
   {
     vec2 norm = a_normal * u_arrowHalfWidth;
     transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + norm,

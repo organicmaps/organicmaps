@@ -30,7 +30,11 @@ vec4 applyBillboardPivotTransform(vec4 pivot, mat4 pivotTransform, float pivotRe
 vec2 calcLineTransformedAxisPos(vec2 originalAxisPos, vec2 shiftedPos, mat4 modelView, float halfWidth)
 {
   vec2 p = (vec4(shiftedPos, 0.0, 1.0) * modelView).xy;
-  return originalAxisPos + normalize(p - originalAxisPos) * halfWidth;
+  vec2 d = p - originalAxisPos;
+  if (dot(d, d) != 0.0)
+    return originalAxisPos + normalize(d) * halfWidth;
+  else
+    return originalAxisPos;
 }
 
 // FS (DO NOT modify this comment, it marks up block of fragment shader functions).

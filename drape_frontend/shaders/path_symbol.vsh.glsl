@@ -13,8 +13,10 @@ void main()
   vec4 pos = vec4(a_position.xyz, 1) * modelView;
 
   float normalLen = length(a_normal);
-  vec4 n = normalize(vec4(a_position.xy + a_normal * kShapeCoordScalar, 0, 0) * modelView);
-  vec4 norm = n * normalLen;
+  vec4 n = vec4(a_position.xy + a_normal * kShapeCoordScalar, 0.0, 0.0) * modelView;
+  vec4 norm = vec4(0.0, 0.0, 0.0, 0.0);
+  if (dot(n, n) != 0.0)
+    norm = normalize(n) * normalLen;
 
   vec4 shiftedPos = norm + pos;
   gl_Position = applyPivotTransform(shiftedPos * projection, pivotTransform, 0.0);

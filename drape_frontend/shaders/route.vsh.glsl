@@ -14,10 +14,9 @@ varying vec4 v_color;
 
 void main()
 {
-  float normalLen = length(a_normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
   vec2 len = vec2(a_length.x, a_length.z);
-  if (u_routeParams.x != 0.0 && normalLen != 0.0)
+  if (dot(a_normal, a_normal) != 0.0)
   {
     vec2 norm = a_normal * u_routeParams.x;
     transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + norm,

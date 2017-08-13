@@ -10,7 +10,7 @@ uniform float zScale;
 varying vec2 v_colorTexCoords;
 varying float v_intensity;
 
-const vec4 lightDir = vec4(1.0, 0.0, 3.0, 0.0);
+const vec4 kNormalizedLightDir = vec4(0.3162, 0.0, 0.9486, 0.0);
 
 void main()
 {
@@ -22,8 +22,12 @@ void main()
 
   pos.xyw = (pos * projection).xyw;
   pos.z = a_position.z * zScale;
-  
-  v_intensity = max(0.0, -dot(normalize(lightDir), normalize(normal - pos)));
+
+  vec4 normDir = normal - pos;
+  if (dot(normDir, normDir) != 0.0)
+    v_intensity = max(0.0, -dot(kNormalizedLightDir, normalize(normDir)));
+  else
+    v_intensity = 0.0;
 
   gl_Position = pivotTransform * pos;
   v_colorTexCoords = a_colorTexCoords;

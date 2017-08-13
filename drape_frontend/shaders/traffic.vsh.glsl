@@ -17,9 +17,8 @@ const float kArrowVSize = 0.25;
 void main()
 {
   vec2 normal = a_normal.xy;
-  float halfWidth = length(normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
-  if (halfWidth != 0.0)
+  if (dot(normal, normal) != 0.0)
   {
     vec2 norm = normal * u_trafficParams.x;
     if (a_normal.z < 0.0)
