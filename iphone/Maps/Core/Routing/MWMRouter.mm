@@ -350,19 +350,22 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [self rebuildWithBestRouter:bestRouter];
 }
 
-+ (void)buildFromPoint:(MWMRoutePoint *)startPoint
-               toPoint:(MWMRoutePoint *)finishPoint
-            bestRouter:(BOOL)bestRouter
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+                  finishPoint:(MWMRoutePoint *)finishPoint
 {
   if (!startPoint || !finishPoint)
     return;
 
-  [MWMRouter router].isAPICall = YES;
+  [MWMRouter setType:type];
+
+  auto router = [MWMRouter router];
+  router.isAPICall = YES;
   [self addPoint:startPoint];
   [self addPoint:finishPoint];
-  [MWMRouter router].isAPICall = NO;
+  router.isAPICall = NO;
 
-  [self rebuildWithBestRouter:bestRouter];
+  [self rebuildWithBestRouter:NO];
 }
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter

@@ -235,7 +235,6 @@ using namespace osm_auth_ios;
     case ParsedMapApi::ParsingResult::Route:
     {
       auto const parsedData = f.GetParsedRoutingData();
-      MWMRouter.type = routerType(parsedData.m_type);
       auto const points = parsedData.m_points;
       if (points.size() == 2)
       {
@@ -245,7 +244,9 @@ using namespace osm_auth_ios;
         auto p2 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.back()
                                                                 type:MWMRoutePointTypeFinish
                                                    intermediateIndex:0];
-        [MWMRouter buildFromPoint:p1 toPoint:p2 bestRouter:NO];
+        [MWMRouter buildApiRouteWithType:routerType(parsedData.m_type)
+                              startPoint:p1
+                             finishPoint:p2];
       }
       else
       {
