@@ -33,14 +33,18 @@
   auto router = [MWMRouter router];
   if (router.routeManagerTransactionId == RoutingManager::InvalidRoutePointsTransactionId())
     return;
-  GetFramework().GetRoutingManager().CancelRoutePointsTransaction(router.routeManagerTransactionId);
+  auto & rm = GetFramework().GetRoutingManager();
+  rm.CancelRoutePointsTransaction(router.routeManagerTransactionId);
   router.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+  rm.CancelPreviewMode();
 }
 
 + (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex
 {
   NSAssert(index != newIndex, @"Route manager moves point to its' current position.");
-  GetFramework().GetRoutingManager().MoveRoutePoint(index, newIndex);
+  auto & rm = GetFramework().GetRoutingManager();
+  rm.MoveRoutePoint(index, newIndex);
+  rm.UpdatePreviewMode();
 }
 
 @end

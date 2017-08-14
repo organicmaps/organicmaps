@@ -185,12 +185,9 @@ static NSString * const kStatPlacePageOwnershipButtonClick = @"Placepage_Ownersh
 static NSString * const kStatPlacePageRestaurantBook = @"Placepage_Restaurant_book";
 static NSString * const kStatPlacePageTaxiClick = @"Placepage_Taxi_click";
 static NSString * const kStatPlacepageSponsoredError = @"Placepage_SponsoredGallery_error";
-static NSString * const kStatPlacepageSponsoredItemSelected =
-    @"Placepage_SponsoredGallery_ProductItem_selected";
-static NSString * const kStatPlacepageSponsoredLogoSelected =
-    @"Placepage_SponsoredGallery_LogoItem_selected";
-static NSString * const kStatPlacepageSponsoredMoreSelected =
-    @"Placepage_SponsoredGallery_MoreItem_selected";
+static NSString * const kStatPlacepageSponsoredItemSelected = @"Placepage_SponsoredGallery_ProductItem_selected";
+static NSString * const kStatPlacepageSponsoredLogoSelected = @"Placepage_SponsoredGallery_LogoItem_selected";
+static NSString * const kStatPlacepageSponsoredMoreSelected = @"Placepage_SponsoredGallery_MoreItem_selected";
 static NSString * const kStatPlacepageSponsoredOpen = @"Placepage_SponsoredGalleryPage_opened";
 static NSString * const kStatPlacepageSponsoredShow = @"Placepage_SponsoredGallery_shown";
 static NSString * const kStatPlacepageTaxiShow = @"Placepage_Taxi_show";
@@ -212,6 +209,9 @@ static NSString * const kStatReport = @"Report";
 static NSString * const kStatRestaurant = @"restaurant";
 static NSString * const kStatRestaurantLocation = @"restaurant_location";
 static NSString * const kStatRetry = @"retry";
+static NSString * const kStatRouteManagerClose = @"Routing_RouteManager_close";
+static NSString * const kStatRouteManagerOpen = @"Routing_RouteManager_open";
+static NSString * const kStatRouteManagerRearrange = @"Routing_RouteManager_rearrange";
 static NSString * const kStatRouting = @"routing";
 static NSString * const kStatRoutingAddPoint = @"Routing_Point_add";
 static NSString * const kStatRoutingBookmarksClicked = @"Routing_Bookmarks_click";

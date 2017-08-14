@@ -31,6 +31,20 @@
 
 using namespace routing;
 
+@interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+
+@property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
+@property(nonatomic) NSString * altitudeElevation;
+@property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
+@property(nonatomic) uint32_t taxiRoutePointTransactionId;
+@property(nonatomic) uint32_t routeManagerTransactionId;
+@property(nonatomic) BOOL canAutoAddLastLocation;
+@property(nonatomic) BOOL isAPICall;
+
++ (MWMRouter *)router;
+
+@end
+
 namespace
 {
 char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
@@ -47,32 +61,25 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
   case MWMRoutePointTypeFinish: pointTypeStr = kStatRoutingPointTypeFinish; break;
   }
-  BOOL const isPlanning =
-      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
   BOOL const isOnRoute =
       [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateNavigation;
+  NSString * method = nil;
+  if ([MWMRouter router].isAPICall)
+    method = kStatRoutingPointMethodApi;
+  else if ([MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
+    method = kStatRoutingPointMethodPlanning;
+  else
+    method = kStatRoutingPointMethodNoPlanning;
   [Statistics logEvent:eventType
         withParameters:@{
           kStatRoutingPointType : pointTypeStr,
           kStatRoutingPointValue :
               (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
-          kStatRoutingPointMethod :
-              (isPlanning ? kStatRoutingPointMethodPlanning : kStatRoutingPointMethodNoPlanning),
+          kStatRoutingPointMethod : method,
           kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
 }
 }  // namespace
-
-@interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
-
-@property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
-@property(nonatomic) NSString * altitudeElevation;
-@property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
-@property(nonatomic) uint32_t taxiRoutePointTransactionId;
-@property(nonatomic) uint32_t routeManagerTransactionId;
-@property(nonatomic) BOOL canAutoAddLastLocation;
-
-@end
 
 @implementation MWMRouter
 
@@ -350,8 +357,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (!startPoint || !finishPoint)
     return;
 
+  [MWMRouter router].isAPICall = YES;
   [self addPoint:startPoint];
   [self addPoint:finishPoint];
+  [MWMRouter router].isAPICall = NO;
 
   [self rebuildWithBestRouter:bestRouter];
 }

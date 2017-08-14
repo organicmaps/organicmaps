@@ -161,13 +161,6 @@ BOOL defaultOrientation(CGSize const & size)
   NSAssert([MWMLocationManager lastLocation],
            @"Action button is active while my location is not available");
 
-  [Statistics logEvent:kStatRoutingAddPoint
-        withParameters:@{
-          kStatRoutingPointType : kStatRoutingPointTypeStart,
-          kStatRoutingPointValue : kStatRoutingPointValueMyPosition,
-          kStatRoutingPointMethod : kStatRoutingPointMethodPlanning,
-          kStatRoutingMode : kStatRoutingModePlanning
-        }];
   [MWMRouter
       buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
                                                       intermediateIndex:0]

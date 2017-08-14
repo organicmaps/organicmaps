@@ -239,21 +239,6 @@ using namespace osm_auth_ios;
       auto const points = parsedData.m_points;
       if (points.size() == 2)
       {
-        [Statistics logEvent:kStatRoutingAddPoint
-              withParameters:@{
-                kStatRoutingPointType : kStatRoutingPointTypeStart,
-                kStatRoutingPointValue : kStatRoutingPointValuePoint,
-                kStatRoutingPointMethod : kStatRoutingPointMethodApi,
-                kStatRoutingMode : kStatRoutingModePlanning
-              }];
-        [Statistics logEvent:kStatRoutingAddPoint
-              withParameters:@{
-                kStatRoutingPointType : kStatRoutingPointTypeFinish,
-                kStatRoutingPointValue : kStatRoutingPointValuePoint,
-                kStatRoutingPointMethod : kStatRoutingPointMethodApi,
-                kStatRoutingMode : kStatRoutingModePlanning
-              }];
-
         auto p1 = [[MWMRoutePoint alloc] initWithURLSchemeRoutePoint:points.front()
                                                                 type:MWMRoutePointTypeStart
                                                    intermediateIndex:0];
