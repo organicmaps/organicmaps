@@ -283,6 +283,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
   BOOL const isSelected = !sender.isSelected;
+  [MWMRouter enableAutoAddLastLocation:NO];
   if (isSelected)
     [[MWMMapViewControlsManager manager] onRoutePrepare];
   else

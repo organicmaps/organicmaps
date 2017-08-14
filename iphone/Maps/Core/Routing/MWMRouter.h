@@ -21,6 +21,8 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (MWMRoutePoint *)startPoint;
 + (MWMRoutePoint *)finishPoint;
 
++ (void)enableAutoAddLastLocation:(BOOL)enable;
+
 + (void)setType:(MWMRouterType)type;
 + (MWMRouterType)type;
 

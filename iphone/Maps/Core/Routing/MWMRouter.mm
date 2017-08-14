@@ -70,6 +70,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 @property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
 @property(nonatomic) uint32_t taxiRoutePointTransactionId;
 @property(nonatomic) uint32_t routeManagerTransactionId;
+@property(nonatomic) BOOL canAutoAddLastLocation;
 
 @end
 
@@ -182,6 +183,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   return nil;
 }
 
++ (void)enableAutoAddLastLocation:(BOOL)enable
+{
+  [MWMRouter router].canAutoAddLastLocation = enable;
+}
+
 + (BOOL)canAddIntermediatePoint
 {
   return GetFramework().GetRoutingManager().CouldAddIntermediatePoint() && ![MWMRouter isTaxi];
@@ -199,6 +205,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
+    _canAutoAddLastLocation = YES;
   }
   return self;
 }
@@ -326,10 +333,14 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (!finishPoint)
     return;
   [self addPoint:finishPoint];
-  if (![self startPoint] && [MWMLocationManager lastLocation])
+  if (![self startPoint] && [MWMLocationManager lastLocation] &&
+      [MWMRouter router].canAutoAddLastLocation)
+  {
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
                                                     intermediateIndex:0]];
-  [self rebuildWithBestRouter:bestRouter];
+  }
+  if ([self startPoint] && [self finishPoint])
+    [self rebuildWithBestRouter:bestRouter];
 }
 
 + (void)buildFromPoint:(MWMRoutePoint *)startPoint
@@ -458,6 +469,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   [MWMSearch clear];
   [self doStop:YES];
   [[MWMMapViewControlsManager manager] onRouteStop];
+  [MWMRouter router].canAutoAddLastLocation = YES;
 }
 
 + (void)doStop:(BOOL)removeRoutePoints
