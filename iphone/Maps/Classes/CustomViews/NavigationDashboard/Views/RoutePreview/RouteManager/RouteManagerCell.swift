@@ -84,13 +84,16 @@ final class RouteManagerCell: MWMTableViewCell {
   }
 
   private func setupLabels() {
+    let subtitle: String?
     if model.isMyPosition && index != 0 {
       titleLabel.text = model.latLonString
+      subtitle = model.title
     } else {
       titleLabel.text = model.title
+      subtitle = model.subtitle
     }
     var subtitleConstraintsActive = false
-    if let subtitle = model.subtitle, !subtitle.isEmpty {
+    if let subtitle = subtitle, !subtitle.isEmpty {
       subtitleLabel.text = subtitle
       subtitleConstraintsActive = true
     }

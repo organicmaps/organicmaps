@@ -621,6 +621,39 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentInt
   routePoints.NotifyChanges();
 }
 
+void RoutingManager::MoveRoutePoint(int8_t currentIndex, int8_t targetIndex)
+{
+  ASSERT(m_bmManager != nullptr, ());
+
+  RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
+  size_t const sz = routePoints.GetRoutePointsCount();
+  auto const convertIndex = [sz](RouteMarkType & type, int8_t & index) {
+    if (index == 0)
+    {
+      type = RouteMarkType::Start;
+      index = 0;
+    }
+    else if (index == sz - 1)
+    {
+      type = RouteMarkType::Finish;
+      index = 0;
+    }
+    else
+    {
+      type = RouteMarkType::Intermediate;
+      --index;
+    }
+  };
+  RouteMarkType currentType;
+  RouteMarkType targetType;
+
+  convertIndex(currentType, currentIndex);
+  convertIndex(targetType, targetIndex);
+
+  routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
+  routePoints.NotifyChanges();
+}
+
 void RoutingManager::SetPointsFollowingMode(bool enabled)
 {
   ASSERT(m_bmManager != nullptr, ());

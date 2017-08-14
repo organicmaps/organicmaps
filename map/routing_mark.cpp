@@ -177,7 +177,10 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
     auto userMark = m_routeMarks.GetUserMarkForEdit(index);
     ASSERT(dynamic_cast<RouteMarkPoint *>(userMark) != nullptr, ());
     RouteMarkPoint * mark = static_cast<RouteMarkPoint *>(userMark);
-    if (mark->GetRoutePointType() == type && mark->GetIntermediateIndex() == intermediateIndex)
+    auto const markPointType = mark->GetRoutePointType();
+    if (markPointType == type && (markPointType == RouteMarkType::Intermediate
+                                      ? mark->GetIntermediateIndex() == intermediateIndex
+                                      : true))
     {
       point = mark;
       break;

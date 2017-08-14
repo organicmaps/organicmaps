@@ -173,6 +173,7 @@ public:
   void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
+  void MoveRoutePoint(int8_t currentIndex, int8_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
                       RouteMarkType targetType, int8_t targetIntermediateIndex);
   void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);

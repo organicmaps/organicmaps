@@ -50,9 +50,9 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
     func move(dragPoint: CGPoint, indexPath: IndexPath?, inManagerView: Bool) {
       snapshot.center = dragPoint
       controller.dimView.state = inManagerView ? .visible : .binOpenned
-      guard let indexPath = indexPath else { return }
+      guard let newIP = indexPath else { return }
       let tv = controller.tableView!
-      let cell = tv.cellForRow(at: indexPath)
+      let cell = tv.cellForRow(at: newIP)
       let canMoveCell: Bool
       if let cell = cell {
         let (centerX, centerY) = (snapshot.width / 2, snapshot.height / 2)
@@ -62,15 +62,17 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
         canMoveCell = true
       }
       guard canMoveCell else { return }
-      let selfIndexPath = self.indexPath
-      if indexPath != selfIndexPath {
-        controller.viewModel.movePoint(at: selfIndexPath.row, to: indexPath.row)
+      let currentIP = self.indexPath
+      if newIP != currentIP {
+        let (currentRow, newRow) = (currentIP.row, newIP.row)
+        controller.viewModel.movePoint(at: currentRow, to: newRow)
 
-        tv.moveRow(at: selfIndexPath, to: indexPath)
-        tv.reloadRows(at: [selfIndexPath, indexPath], with: .fade)
-        tv.cellForRow(at: indexPath)?.isHidden = true
+        tv.moveRow(at: currentIP, to: newIP)
+        let reloadRows = (min(currentRow, newRow)...max(currentRow, newRow)).map { IndexPath(row: $0, section: 0) }
+        tv.reloadRows(at: reloadRows, with: .fade)
+        tv.cellForRow(at: newIP)?.isHidden = true
 
-        self.indexPath = indexPath
+        self.indexPath = newIP
       }
     }
 
