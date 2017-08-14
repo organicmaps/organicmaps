@@ -70,6 +70,7 @@
 #define COURGETTE_THIRD_PARTY_BSDIFF_BSDIFF_H_
 
 #include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
 #include "base/checked_cast.hpp"

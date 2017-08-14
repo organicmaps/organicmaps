@@ -10,6 +10,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   mwm_diff
+  bsdiff
   platform
   coding
   base
