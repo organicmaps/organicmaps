@@ -50,22 +50,22 @@ NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersio
   if (response.empty())
   {
     LOG(LERROR, ("Diff response shouldn't be empty."));
-    return {};
+    return NameFileInfoMap{};
   }
 
   my::Json const json(response.c_str());
   if (json.get() == nullptr)
-    return {};
+    return NameFileInfoMap{};
 
   auto const root = json_object_get(json.get(), kMwmsKey);
   if (root == nullptr || !json_is_array(root))
-    return {};
+    return NameFileInfoMap{};
 
   auto const size = json_array_size(root);
   if (size == 0 || size != nameVersionMap.size())
   {
     LOG(LERROR, ("Diff list size in response must be equal to mwm list size in request."));
-    return {};
+    return NameFileInfoMap{};
   }
 
   NameFileInfoMap diffs;
@@ -77,7 +77,7 @@ NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersio
     if (!node)
     {
       LOG(LERROR, ("Incorrect server response."));
-      return {};
+      return NameFileInfoMap{};
     }
 
     string name;
@@ -91,7 +91,7 @@ NameFileInfoMap DeserializeResponse(string const & response, Checker::NameVersio
     if (nameVersionMap.find(name) == nameVersionMap.end())
     {
       LOG(LERROR, ("Incorrect country name in response:", name));
-      return {};
+      return NameFileInfoMap{};
     }
 
     FileInfo info(size, nameVersionMap.at(name));
@@ -110,7 +110,7 @@ void Checker::Check(LocalMapsInfo const & info, Callback const & fn)
   // TODO(Vlad): Log falling back to old scheme.
   if (info.m_localMaps.empty())
   {
-    fn({});
+    fn(NameFileInfoMap{});
     return;
   }
 
