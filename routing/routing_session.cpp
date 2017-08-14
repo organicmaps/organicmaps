@@ -409,6 +409,7 @@ void RoutingSession::PassCheckpoints()
 {
   while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
   {
+    m_route->PassNextSubroute();
     m_checkpoints.PassNextPoint();
     LOG(LINFO, ("Pass checkpoint, ", m_checkpoints));
     m_checkpointCallback(m_checkpoints.GetPassedIdx());

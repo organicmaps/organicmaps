@@ -5,13 +5,15 @@
 #include "routing/segment.hpp"
 #include "routing/turns.hpp"
 
+#include "routing/base/followed_polyline.hpp"
+
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/polyline2d.hpp"
 
-#include "base/followed_polyline.hpp"
+#include "base/assert.hpp"
 
 #include <limits>
 #include <set>
@@ -156,9 +158,15 @@ public:
   template <class TIter> void SetGeometry(TIter beg, TIter end)
   {
     if (beg == end)
+    {
       FollowedPolyline().Swap(m_poly);
+    }
     else
+    {
+      ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
       FollowedPolyline(beg, end).Swap(m_poly);
+      m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+    }
   }
 
   template <class SI>
@@ -180,7 +188,19 @@ public:
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 
   template <class V>
-  void SetSubroteAttrs(V && subroutes) { m_subrouteAttrs = std::forward<V>(subroutes); }
+  void SetSubroteAttrs(V && subroutes)
+  {
+    m_subrouteAttrs = std::forward<V>(subroutes);
+    ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
+    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+  }
+
+  void PassNextSubroute()
+  {
+    ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
+    m_currentSubrouteIdx = std::min(m_currentSubrouteIdx + 1, m_subrouteAttrs.size() - 1);
+    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+  }
 
   /// \returns estimated time for the whole route.
   double GetTotalTimeSec() const;
