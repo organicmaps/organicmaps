@@ -114,11 +114,6 @@ http::Result RawApi::GetRentNearby(m2::RectD const & rect,
 
 Api::Api(std::string const & baseUrl /* = kBaseUrl */) : m_baseUrl(baseUrl) {}
 
-Api::~Api()
-{
-  m_worker.Shutdown(base::WorkerThread::Exit::SkipPending);
-}
-
 uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & onSuccess,
                             ErrorCallback const & onError)
 {
@@ -129,7 +124,7 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
   auto const mercatorRect = MercatorBounds::MetresToXY(latlon.lat, latlon.lon, kSearchRadius);
   auto const rect = MercatorBounds::ToLatLonRect(mercatorRect);
 
-  m_worker.Push([reqId, rect, onSuccess, onError, baseUrl]() {
+  GetPlatform().RunOnNetworkThread([reqId, rect, onSuccess, onError, baseUrl]() {
     std::vector<RentPlace> result;
 
     auto const rawResult = RawApi::GetRentNearby(rect, baseUrl);

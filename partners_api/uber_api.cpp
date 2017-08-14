@@ -1,6 +1,8 @@
 #include "partners_api/uber_api.hpp"
 #include "partners_api/utils.hpp"
 
+#include "platform/platform.hpp"
+
 #include "geometry/latlon.hpp"
 
 #include "base/logging.hpp"
@@ -250,7 +252,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   maker->Reset(reqId);
 
-  threads::SimpleThread([maker, from, reqId, baseUrl, successFn, errorFn]()
+  GetPlatform().RunOnNetworkThread([maker, from, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
     if (!RawApi::GetEstimatedTime(from, result, baseUrl))
@@ -258,9 +260,9 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
     maker->SetTimes(reqId, result);
     maker->MakeProducts(reqId, successFn, errorFn);
-  }).detach();
+  });
 
-  threads::SimpleThread([maker, from, to, reqId, baseUrl, successFn, errorFn]()
+  GetPlatform().RunOnNetworkThread([maker, from, to, reqId, baseUrl, successFn, errorFn]()
   {
     string result;
     if (!RawApi::GetEstimatedPrice(from, to, result, baseUrl))
@@ -268,7 +270,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
     maker->SetPrices(reqId, result);
     maker->MakeProducts(reqId, successFn, errorFn);
-  }).detach();
+  });
 }
 
 RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon const & from,

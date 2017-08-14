@@ -57,7 +57,6 @@ public:
   using ErrorCallback = std::function<void(int httpCode, uint64_t const requestId)>;
 
   explicit Api(std::string const & baseUrl = kBaseUrl);
-  virtual ~Api();
 
   uint64_t GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const & onSuccess,
                          ErrorCallback const & onError);
@@ -68,6 +67,5 @@ public:
 private:
   uint64_t m_requestId = 0;
   std::string m_baseUrl;
-  base::WorkerThread m_worker;
 };
 }  // namespace cian

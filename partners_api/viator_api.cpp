@@ -1,6 +1,7 @@
 #include "partners_api/viator_api.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -213,7 +214,7 @@ void Api::GetTop5Products(std::string const & destId, std::string const & curren
   std::string curr =
       kSupportedCurrencies.find(currency) == kSupportedCurrencies.cend() ? "USD" : currency;
 
-  threads::SimpleThread([destId, curr, fn]()
+  GetPlatform().RunOnNetworkThread([destId, curr, fn]()
   {
     string result;
     if (!RawApi::GetTopProducts(destId, curr, 5, result))
@@ -233,7 +234,7 @@ void Api::GetTop5Products(std::string const & destId, std::string const & curren
     SortProducts(products);
 
     fn(destId, products);
-  }).detach();
+  });
 }
 
 bool operator<(Product const & lhs, Product const & rhs)

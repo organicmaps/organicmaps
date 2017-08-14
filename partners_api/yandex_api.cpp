@@ -1,6 +1,7 @@
 #include "partners_api/yandex_api.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/platform.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -84,7 +85,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   auto const baseUrl = m_baseUrl;
 
-  threads::SimpleThread([from, to, baseUrl, successFn, errorFn]()
+  GetPlatform().RunOnNetworkThread([from, to, baseUrl, successFn, errorFn]()
   {
     std::string result;
     if (!RawApi::GetTaxiInfo(from, to, result, baseUrl))
@@ -109,7 +110,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     else
       successFn(products);
 
-  }).detach();
+  });
 }
 
 /// Returns link which allows you to launch the Yandex app.

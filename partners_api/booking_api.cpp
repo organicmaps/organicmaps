@@ -311,7 +311,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
 void Api::GetMinPrice(string const & hotelId, string const & currency,
                       GetMinPriceCallback const & fn)
 {
-  threads::SimpleThread([hotelId, currency, fn]()
+  GetPlatform().RunOnNetworkThread([hotelId, currency, fn]()
   {
     string minPrice;
     string priceCurrency;
@@ -333,12 +333,12 @@ void Api::GetMinPrice(string const & hotelId, string const & currency,
       priceCurrency.clear();
     }
     fn(hotelId, minPrice, priceCurrency);
-  }).detach();
+  });
 }
 
 void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfoCallback const & fn)
 {
-  threads::SimpleThread([hotelId, lang, fn]()
+  GetPlatform().RunOnNetworkThread([hotelId, lang, fn]()
   {
     HotelInfo info;
     info.m_hotelId = hotelId;
@@ -361,7 +361,7 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang, GetHotelInfo
     }
 
     fn(info);
-  }).detach();
+  });
 }
 
 void SetBookingUrlForTesting(string const & url)
