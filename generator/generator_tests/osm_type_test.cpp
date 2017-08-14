@@ -620,7 +620,7 @@ UNIT_TEST(OsmType_Ferry)
 
   type = GetType({"route", "ferry"});
   TEST(!params.IsTypeExist(type), ());
-  TEST(!carModel.IsRoadType(type), ());
+  TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"hwtag", "yescar"});
   TEST(params.IsTypeExist(type), ());
