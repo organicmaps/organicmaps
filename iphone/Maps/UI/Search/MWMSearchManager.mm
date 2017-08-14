@@ -347,8 +347,10 @@ using Observers = NSHashTable<Observer>;
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   [self animateConstraints:^{
-    BOOL hideActionBar = false;
-    if (IPAD)
+    BOOL hideActionBar = NO;
+    if ([MWMSearch resultsCount] == 0)
+      hideActionBar = YES;
+    else if (IPAD)
       hideActionBar = !([MWMSearch isHotelResults] || [MWMSearch hasFilter]);
     else
       hideActionBar = ([MWMSearch suggestionsCount] != 0);
