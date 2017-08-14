@@ -22,32 +22,32 @@ public:
 // This class is used to map feature types to a restricted set of
 // different search classes (do not confuse these classes with search
 // categories - they are completely different things).
-class SearchModel
+class Model
 {
 public:
-  enum SearchType
+  enum Type
   {
     // Low-level features such as amenities, offices, shops, buildings
     // without house number, etc.
-    SEARCH_TYPE_POI,
+    TYPE_POI,
 
     // All features with set house number.
-    SEARCH_TYPE_BUILDING,
+    TYPE_BUILDING,
 
-    SEARCH_TYPE_STREET,
+    TYPE_STREET,
 
     // All low-level features except POI, BUILDING and STREET.
-    SEARCH_TYPE_UNCLASSIFIED,
+    TYPE_UNCLASSIFIED,
 
-    SEARCH_TYPE_VILLAGE,
-    SEARCH_TYPE_CITY,
-    SEARCH_TYPE_STATE,  // US or Canadian states
-    SEARCH_TYPE_COUNTRY,
+    TYPE_VILLAGE,
+    TYPE_CITY,
+    TYPE_STATE,  // US or Canadian states
+    TYPE_COUNTRY,
 
-    SEARCH_TYPE_COUNT
+    TYPE_COUNT
   };
 
-  SearchType GetSearchType(FeatureType const & feature) const;
+  Type GetType(FeatureType const & feature) const;
 
   void SetCianEnabled(bool enabled) { m_cianEnabled = enabled; }
 
@@ -55,5 +55,5 @@ private:
   bool m_cianEnabled = false;
 };
 
-string DebugPrint(SearchModel::SearchType type);
+string DebugPrint(Model::Type type);
 }  // namespace search

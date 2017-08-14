@@ -36,7 +36,7 @@ void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & s
 }
 
 NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
-                       TokenRange const & range, SearchModel::SearchType type)
+                       TokenRange const & range, Model::Type type)
 {
   NameScore bestScore = NAME_SCORE_ZERO;
   TokenSlice slice(params, range);
@@ -54,7 +54,7 @@ NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
     UpdateNameScore(tokens, sliceNoCategories, bestScore);
   }
 
-  if (type == SearchModel::SEARCH_TYPE_BUILDING)
+  if (type == Model::TYPE_BUILDING)
     UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, bestScore);
 
   return bestScore;
@@ -209,19 +209,18 @@ class PreResult2Maker
 
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
-    info.m_searchType = preInfo.m_searchType;
-    info.m_nameScore = GetNameScore(ft, m_params, preInfo.InnermostTokenRange(), info.m_searchType);
+    info.m_type = preInfo.m_type;
+    info.m_nameScore = GetNameScore(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
 
-    if (info.m_searchType != SearchModel::SEARCH_TYPE_STREET &&
+    if (info.m_type != Model::TYPE_STREET &&
         preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
     {
       auto const & mwmId = ft.GetID().m_mwmId;
       FeatureType street;
       if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
       {
-        NameScore const nameScore =
-            GetNameScore(street, m_params, preInfo.m_tokenRange[SearchModel::SEARCH_TYPE_STREET],
-                         SearchModel::SEARCH_TYPE_STREET);
+        NameScore const nameScore = GetNameScore(
+            street, m_params, preInfo.m_tokenRange[Model::TYPE_STREET], Model::TYPE_STREET);
         info.m_nameScore = min(info.m_nameScore, nameScore);
       }
     }
@@ -247,13 +246,13 @@ class PreResult2Maker
                               });
   }
 
-  uint8_t NormalizeRank(uint8_t rank, SearchModel::SearchType type, m2::PointD const & center,
+  uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
                         string const & country)
   {
     switch (type)
     {
-    case SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
-    case SearchModel::SEARCH_TYPE_CITY:
+    case Model::TYPE_VILLAGE: return rank /= 1.5;
+    case Model::TYPE_CITY:
     {
       if (m_ranker.m_params.m_viewport.IsPointInside(center))
         return rank * 2;
@@ -266,7 +265,7 @@ class PreResult2Maker
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return rank *= 1.7;
     }
-    case SearchModel::SEARCH_TYPE_COUNTRY:
+    case Model::TYPE_COUNTRY:
       return rank /= 1.5;
 
     // For all other search types, rank should be zero for now.
@@ -297,7 +296,7 @@ public:
 
     search::RankingInfo info;
     InitRankingInfo(ft, center, res1, info);
-    info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
     res2->SetRankingInfo(move(info));
 
     return res2;

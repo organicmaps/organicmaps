@@ -48,7 +48,7 @@ struct Region : public Locality
 
   Region(Locality const & locality, Type type) : Locality(locality), m_center(0, 0), m_type(type) {}
 
-  static SearchModel::SearchType ToSearchType(Type type);
+  static Model::Type ToModelType(Type type);
 
   storage::CountryInfoGetter::TRegionIdSet m_ids;
   std::string m_defaultName;
@@ -63,12 +63,12 @@ struct Region : public Locality
 // states and Locality for smaller settlements.
 struct City : public Locality
 {
-  City(Locality const & locality, SearchModel::SearchType type) : Locality(locality), m_type(type)
+  City(Locality const & locality, Model::Type type) : Locality(locality), m_type(type)
   {
   }
 
   m2::RectD m_rect;
-  SearchModel::SearchType m_type;
+  Model::Type m_type;
 
 #if defined(DEBUG)
   std::string m_defaultName;

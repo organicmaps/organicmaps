@@ -549,8 +549,7 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
 }
 
-void Geocoder::InitLayer(SearchModel::SearchType type, TokenRange const & tokenRange,
-                         FeaturesLayer & layer)
+void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer)
 {
   layer.Clear();
   layer.m_type = type;
@@ -613,9 +612,9 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       }
     };
 
-    switch (m_model.GetSearchType(ft))
+    switch (m_model.GetType(ft))
     {
-    case SearchModel::SEARCH_TYPE_CITY:
+    case Model::TYPE_CITY:
     {
       if (numCities < kMaxNumCities && ft.GetFeatureType() == feature::GEOM_POINT)
       {
@@ -625,7 +624,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         auto const population = ftypes::GetPopulation(ft);
         auto const radius = ftypes::GetRadiusByPopulation(population);
 
-        City city(l, SearchModel::SEARCH_TYPE_CITY);
+        City city(l, Model::TYPE_CITY);
         city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
 
 #if defined(DEBUG)
@@ -637,12 +636,12 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       }
       break;
     }
-    case SearchModel::SEARCH_TYPE_STATE:
+    case Model::TYPE_STATE:
     {
       addRegionMaps(kMaxNumStates, Region::TYPE_STATE, numStates);
       break;
     }
-    case SearchModel::SEARCH_TYPE_COUNTRY:
+    case Model::TYPE_COUNTRY:
     {
       addRegionMaps(kMaxNumCountries, Region::TYPE_COUNTRY, numCountries);
       break;
@@ -665,13 +664,13 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     if (!m_context->GetFeature(l.m_featureId, ft))
       continue;
 
-    if (m_model.GetSearchType(ft) != SearchModel::SEARCH_TYPE_VILLAGE)
+    if (m_model.GetType(ft) != Model::TYPE_VILLAGE)
       continue;
 
     // We accept lines and areas as village features.
     auto const center = feature::GetCenter(ft);
     ++numVillages;
-    City village(l, SearchModel::SEARCH_TYPE_VILLAGE);
+    City village(l, Model::TYPE_VILLAGE);
 
     auto const population = ftypes::GetPopulation(ft);
     auto const radius = ftypes::GetRadiusByPopulation(population);
@@ -917,7 +916,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
 
   auto & layer = layers.back();
-  InitLayer(SearchModel::SEARCH_TYPE_STREET, prediction.m_tokenRange, layer);
+  InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(prediction.m_features.PopCount());
@@ -953,17 +952,17 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         filtered = m_filter->Filter(m_postcodes.m_features);
       filtered.ForEach([&](uint64_t bit) {
         auto const featureId = base::asserted_cast<uint32_t>(bit);
-        SearchModel::SearchType searchType;
-        if (GetSearchTypeInGeocoding(ctx, featureId, searchType))
+        Model::Type type;
+        if (GetTypeInGeocoding(ctx, featureId, type))
         {
-          EmitResult(ctx, m_context->GetId(), featureId, searchType, m_postcodes.m_tokenRange,
+          EmitResult(ctx, m_context->GetId(), featureId, type, m_postcodes.m_tokenRange,
                      nullptr /* geoParts */);
         }
       });
       return;
     }
 
-    if (!(layers.size() == 1 && layers[0].m_type == SearchModel::SEARCH_TYPE_STREET))
+    if (!(layers.size() == 1 && layers[0].m_type == Model::TYPE_STREET))
       return FindPaths(ctx);
 
     // If there're only one street layer but user also entered a
@@ -978,8 +977,8 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       {
         if (!m_postcodes.m_features.HasBit(id))
           continue;
-        EmitResult(ctx, m_context->GetId(), id, SearchModel::SEARCH_TYPE_STREET,
-                   layers.back().m_tokenRange, nullptr /* geoParts */);
+        EmitResult(ctx, m_context->GetId(), id, Model::TYPE_STREET, layers.back().m_tokenRange,
+                   nullptr /* geoParts */);
       }
     }
 
@@ -989,7 +988,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
 
     auto & layer = layers.back();
-    InitLayer(SearchModel::SEARCH_TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
+    InitLayer(Model::TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
 
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach([&features](uint64_t bit) {
@@ -1004,7 +1003,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 
   // Clusters of features by search type. Each cluster is a sorted
   // list of ids.
-  size_t const kNumClusters = SearchModel::SEARCH_TYPE_BUILDING + 1;
+  size_t const kNumClusters = Model::TYPE_BUILDING + 1;
   vector<uint32_t> clusters[kNumClusters];
 
   // Appends |featureId| to the end of the corresponding cluster, if
@@ -1012,17 +1011,16 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   auto clusterize = [&](uint64_t bit)
   {
     auto const featureId = base::asserted_cast<uint32_t>(bit);
-    SearchModel::SearchType searchType;
-    if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
+    Model::Type type;
+    if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
 
-    // All SEARCH_TYPE_CITY features were filtered in
-    // MatchCities().  All SEARCH_TYPE_STREET features were
-    // filtered in GreedilyMatchStreets().
-    if (searchType < kNumClusters)
+    // All TYPE_CITY features were filtered in MatchCities().  All
+    // TYPE_STREET features were filtered in GreedilyMatchStreets().
+    if (type < kNumClusters)
     {
       if (m_postcodes.m_features.IsEmpty() || m_postcodes.m_features.HasBit(featureId))
-        clusters[searchType].push_back(featureId);
+        clusters[type].push_back(featureId);
     }
   };
 
@@ -1099,7 +1097,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       auto & layer = layers.back();
       layer.m_sortedFeatures = &clusters[i];
 
-      if (i == SearchModel::SEARCH_TYPE_BUILDING)
+      if (i == Model::TYPE_BUILDING)
       {
         if (layer.m_sortedFeatures->empty() && !looksLikeHouseNumber)
           continue;
@@ -1109,7 +1107,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         continue;
       }
 
-      layer.m_type = static_cast<SearchModel::SearchType>(i);
+      layer.m_type = static_cast<Model::Type>(i);
       if (IsLayerSequenceSane(layers))
         MatchPOIsAndBuildings(ctx, curToken + n);
     }
@@ -1119,8 +1117,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
 {
   ASSERT(!layers.empty(), ());
-  static_assert(SearchModel::SEARCH_TYPE_COUNT <= 32,
-                "Select a wider type to represent search types mask.");
+  static_assert(Model::TYPE_COUNT <= 32, "Select a wider type to represent search types mask.");
   uint32_t mask = 0;
   size_t buildingIndex = layers.size();
   size_t streetIndex = layers.size();
@@ -1130,7 +1127,7 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
   for (size_t i = 0; i < layers.size(); ++i)
   {
     auto const & layer = layers[i];
-    ASSERT_NOT_EQUAL(layer.m_type, SearchModel::SEARCH_TYPE_COUNT, ());
+    ASSERT_NOT_EQUAL(layer.m_type, Model::TYPE_COUNT, ());
 
     // TODO (@y): probably it's worth to check belongs-to-locality here.
     uint32_t bit = 1U << layer.m_type;
@@ -1138,9 +1135,9 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
       return false;
     mask |= bit;
 
-    if (layer.m_type == SearchModel::SEARCH_TYPE_BUILDING)
+    if (layer.m_type == Model::TYPE_BUILDING)
       buildingIndex = i;
-    else if (layer.m_type == SearchModel::SEARCH_TYPE_STREET)
+    else if (layer.m_type == Model::TYPE_STREET)
       streetIndex = i;
   }
 
@@ -1189,7 +1186,7 @@ void Geocoder::FindPaths(BaseContext const & ctx)
 }
 
 void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                          SearchModel::SearchType type, TokenRange const & tokenRange,
+                          Model::Type type, TokenRange const & tokenRange,
                           IntersectionResult const * geoParts)
 {
   FeatureID id(mwmId, ftId);
@@ -1197,7 +1194,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
   if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
       return;
 
-  if (m_params.m_cianMode && type != SearchModel::SEARCH_TYPE_BUILDING)
+  if (m_params.m_cianMode && type != Model::TYPE_BUILDING)
     return;
 
   // Distance and rank will be filled at the end, for all results at once.
@@ -1211,13 +1208,13 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
 
   for (auto const * region : ctx.m_regions)
   {
-    auto const regionType = Region::ToSearchType(region->m_type);
-    ASSERT_NOT_EQUAL(regionType, SearchModel::SEARCH_TYPE_COUNT, ());
+    auto const regionType = Region::ToModelType(region->m_type);
+    ASSERT_NOT_EQUAL(regionType, Model::TYPE_COUNT, ());
     info.m_tokenRange[regionType] = region->m_tokenRange;
   }
 
   if (ctx.m_city)
-    info.m_tokenRange[SearchModel::SEARCH_TYPE_CITY] = ctx.m_city->m_tokenRange;
+    info.m_tokenRange[Model::TYPE_CITY] = ctx.m_city->m_tokenRange;
 
   if (geoParts)
     info.m_geoParts = *geoParts;
@@ -1228,7 +1225,7 @@ void Geocoder::EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, 
 void Geocoder::EmitResult(BaseContext const & ctx, Region const & region,
                           TokenRange const & tokenRange)
 {
-  auto const type = Region::ToSearchType(region.m_type);
+  auto const type = Region::ToModelType(region.m_type);
   EmitResult(ctx, region.m_countryId, region.m_featureId, type, tokenRange, nullptr /* geoParts */);
 }
 
@@ -1268,12 +1265,12 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
   auto emitUnclassified = [&](uint64_t bit)
   {
     auto const featureId = base::asserted_cast<uint32_t>(bit);
-    SearchModel::SearchType searchType;
-    if (!GetSearchTypeInGeocoding(ctx, featureId, searchType))
+    Model::Type type;
+    if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
-    if (searchType == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
+    if (type == Model::TYPE_UNCLASSIFIED)
     {
-      EmitResult(ctx, m_context->GetId(), featureId, searchType, TokenRange(startToken, curToken),
+      EmitResult(ctx, m_context->GetId(), featureId, type, TokenRange(startToken, curToken),
                  nullptr /* geoParts */);
     }
   };
@@ -1296,24 +1293,23 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
   }
 }
 
-bool Geocoder::GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
-                                        SearchModel::SearchType & searchType)
+bool Geocoder::GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId, Model::Type & type)
 {
   if (ctx.m_streets.HasBit(featureId))
   {
-    searchType = SearchModel::SEARCH_TYPE_STREET;
+    type = Model::TYPE_STREET;
     return true;
   }
   if (ctx.m_villages.HasBit(featureId))
   {
-    searchType = SearchModel::SEARCH_TYPE_VILLAGE;
+    type = Model::TYPE_VILLAGE;
     return true;
   }
 
   FeatureType feature;
   if (m_context->GetFeature(featureId, feature))
   {
-    searchType = m_model.GetSearchType(feature);
+    type = m_model.GetType(feature);
     return true;
   }
 

@@ -116,7 +116,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
 
     FeaturesLayer child(*layers[i - 1]);
     child.m_hasDelayedFeatures =
-        child.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
+        child.m_type == Model::TYPE_BUILDING &&
         house_numbers::LooksLikeHouseNumber(child.m_subQuery, child.m_lastTokenIsPrefix);
 
     buffer.clear();
@@ -164,7 +164,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
     FeaturesLayer parent(*layers[i + 1]);
     parent.m_hasDelayedFeatures =
-        parent.m_type == SearchModel::SEARCH_TYPE_BUILDING &&
+        parent.m_type == Model::TYPE_BUILDING &&
         house_numbers::LooksLikeHouseNumber(parent.m_subQuery, parent.m_lastTokenIsPrefix);
 
     buffer.clear();

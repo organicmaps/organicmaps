@@ -24,7 +24,7 @@ struct RankingInfo
   NameScore m_nameScore = NAME_SCORE_ZERO;
 
   // Search type for the feature.
-  SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
+  Model::Type m_type = Model::TYPE_COUNT;
 
   // True if all of the tokens that the feature was matched by
   // correspond to this feature's categories.

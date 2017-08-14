@@ -70,24 +70,23 @@ public:
       return;
     switch (parent.m_type)
     {
-    case SearchModel::SEARCH_TYPE_POI:
-    case SearchModel::SEARCH_TYPE_CITY:
-    case SearchModel::SEARCH_TYPE_VILLAGE:
-    case SearchModel::SEARCH_TYPE_STATE:
-    case SearchModel::SEARCH_TYPE_COUNTRY:
-    case SearchModel::SEARCH_TYPE_UNCLASSIFIED:
-    case SearchModel::SEARCH_TYPE_COUNT:
+    case Model::TYPE_POI:
+    case Model::TYPE_CITY:
+    case Model::TYPE_VILLAGE:
+    case Model::TYPE_STATE:
+    case Model::TYPE_COUNTRY:
+    case Model::TYPE_UNCLASSIFIED:
+    case Model::TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
-    case SearchModel::SEARCH_TYPE_BUILDING:
-      ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
+    case Model::TYPE_BUILDING:
+      ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
       MatchPOIsWithBuildings(child, parent, forward<TFn>(fn));
       break;
-    case SearchModel::SEARCH_TYPE_STREET:
-      ASSERT(child.m_type == SearchModel::SEARCH_TYPE_POI ||
-                 child.m_type == SearchModel::SEARCH_TYPE_BUILDING,
+    case Model::TYPE_STREET:
+      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING,
              ("Invalid child layer type:", child.m_type));
-      if (child.m_type == SearchModel::SEARCH_TYPE_POI)
+      if (child.m_type == Model::TYPE_POI)
         MatchPOIsWithStreets(child, parent, forward<TFn>(fn));
       else
         MatchBuildingsWithStreets(child, parent, forward<TFn>(fn));
@@ -105,8 +104,8 @@ private:
     // each building, tries to find all POIs located at distance less
     // than kBuildingRadiusMeters.
 
-    ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
-    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
+    ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
+    ASSERT_EQUAL(parent.m_type, Model::TYPE_BUILDING, ());
 
     auto const & pois = *child.m_sortedFeatures;
     auto const & buildings = *parent.m_sortedFeatures;
@@ -182,8 +181,8 @@ private:
   template <typename TFn>
   void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
   {
-    ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_POI, ());
-    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
+    ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
+    ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
 
     auto const & pois = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;
@@ -218,8 +217,8 @@ private:
   void MatchBuildingsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent,
                                  TFn && fn)
   {
-    ASSERT_EQUAL(child.m_type, SearchModel::SEARCH_TYPE_BUILDING, ());
-    ASSERT_EQUAL(parent.m_type, SearchModel::SEARCH_TYPE_STREET, ());
+    ASSERT_EQUAL(child.m_type, Model::TYPE_BUILDING, ());
+    ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
 
     auto const & buildings = *child.m_sortedFeatures;
     auto const & streets = *parent.m_sortedFeatures;

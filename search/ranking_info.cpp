@@ -22,7 +22,7 @@ double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
     , 0.05384830009390816 /* Full Match */
 };
 
-double const kSearchType[SearchModel::SEARCH_TYPE_COUNT] = {
+double const kType[Model::TYPE_COUNT] = {
       -0.09164609318265761 /* POI */
     , -0.09164609318265761 /* Building */
     , -0.0805969548653964 /* Street */
@@ -60,7 +60,7 @@ string DebugPrint(RankingInfo const & info)
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
-  os << "m_searchType:" << DebugPrint(info.m_searchType) << ",";
+  os << "m_type:" << DebugPrint(info.m_type) << ",";
   os << "m_pureCats:" << info.m_pureCats << ",";
   os << "m_falseCats:" << info.m_falseCats;
   os << "]";
@@ -71,7 +71,7 @@ void RankingInfo::ToCSV(ostream & os) const
 {
   os << fixed;
   os << m_distanceToPivot << "," << static_cast<int>(m_rank) << "," << DebugPrint(m_nameScore)
-     << "," << DebugPrint(m_searchType) << "," << m_pureCats << "," << m_falseCats;
+     << "," << DebugPrint(m_type) << "," << m_pureCats << "," << m_falseCats;
 }
 
 double RankingInfo::GetLinearModelRank() const
@@ -95,8 +95,8 @@ double RankingInfo::GetLinearModelRank() const
     nameScore = NAME_SCORE_ZERO;
   }
 
-  return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] +
-         kSearchType[m_searchType] + m_falseCats * kFalseCats;
+  return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] + kType[m_type] +
+         m_falseCats * kFalseCats;
 }
 
 }  // namespace search

@@ -133,8 +133,7 @@ private:
   // for each token and saves it to m_addressFeatures.
   void InitBaseContext(BaseContext & ctx);
 
-  void InitLayer(SearchModel::SearchType type, TokenRange const & tokenRange,
-                 FeaturesLayer & layer);
+  void InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer);
 
   void FillLocalityCandidates(BaseContext const & ctx,
                               CBV const & filter, size_t const maxNumLocalities,
@@ -195,7 +194,7 @@ private:
 
   // Forms result and feeds it to |m_preRanker|.
   void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                  SearchModel::SearchType type, TokenRange const & tokenRange,
+                  Model::Type type, TokenRange const & tokenRange,
                   IntersectionResult const * geoParts);
   void EmitResult(BaseContext const & ctx, Region const & region, TokenRange const & tokenRange);
   void EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange);
@@ -213,8 +212,8 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  WARN_UNUSED_RESULT bool GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
-                                                   SearchModel::SearchType & searchType);
+  WARN_UNUSED_RESULT bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
+                                             Model::Type & type);
 
   Index const & m_index;
 
@@ -232,7 +231,7 @@ private:
 
   // This field is used to map features to a limited number of search
   // classes.
-  SearchModel m_model;
+  Model m_model;
 
   // Following fields are set up by Search() method and can be
   // modified and used only from Search() or its callees.

@@ -13,7 +13,7 @@ void FeaturesLayer::Clear()
   m_sortedFeatures = nullptr;
   m_subQuery.clear();
   m_tokenRange.Clear();
-  m_type = SearchModel::SEARCH_TYPE_COUNT;
+  m_type = Model::TYPE_COUNT;
   m_hasDelayedFeatures = false;
   m_lastTokenIsPrefix = false;
 }
