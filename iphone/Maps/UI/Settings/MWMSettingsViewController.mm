@@ -90,8 +90,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:on];
 
   [self.autoDownloadCell configWithDelegate:self
-                                      title:L(@"autodownload")
-                                       isOn:[MWMSettings autoDownloadEnabled]];
+                                      title:L(@"disable_autodownload")
+                                       isOn:![MWMSettings autoDownloadEnabled]];
 
   NSString * mobileInternet = nil;
   using stage = platform::NetworkPolicy::Stage;
@@ -217,7 +217,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-    [MWMSettings setAutoDownloadEnabled:value];
+    [MWMSettings setAutoDownloadEnabled:!value];
   }
   else if (cell == self.fontScaleCell)
   {
