@@ -53,65 +53,61 @@ void PrepareClassRefs(JNIEnv * env)
 
 void OnTaxiInfoReceived(taxi::ProvidersContainer const & providers, uint64_t const requestId)
 {
-  GetPlatform().RunOnGuiThread([=]() {
-    if (g_lastRequestId != requestId)
-      return;
+  if (g_lastRequestId != requestId)
+    return;
 
-    JNIEnv * env = jni::GetEnv();
+  JNIEnv * env = jni::GetEnv();
 
-    auto const productBuilder = [](JNIEnv * env, taxi::Product const & item)
-      {
-        jni::TScopedLocalRef jProductId(env, jni::ToJavaString(env, item.m_productId));
-        jni::TScopedLocalRef jName(env, jni::ToJavaString(env, item.m_name));
-        jni::TScopedLocalRef jTime(env, jni::ToJavaString(env, item.m_time));
-        jni::TScopedLocalRef jPrice(env, jni::ToJavaString(env, item.m_price));
-        jni::TScopedLocalRef jCurrency(env, jni::ToJavaString(env, item.m_currency));
-        return env->NewObject(g_productClass, g_productConstructor, jProductId.get(), jName.get(),
-                              jTime.get(), jPrice.get(), jCurrency.get());
-      };
+  auto const productBuilder = [](JNIEnv * env, taxi::Product const & item)
+  {
+    jni::TScopedLocalRef jProductId(env, jni::ToJavaString(env, item.m_productId));
+    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, item.m_name));
+    jni::TScopedLocalRef jTime(env, jni::ToJavaString(env, item.m_time));
+    jni::TScopedLocalRef jPrice(env, jni::ToJavaString(env, item.m_price));
+    jni::TScopedLocalRef jCurrency(env, jni::ToJavaString(env, item.m_currency));
+    return env->NewObject(g_productClass, g_productConstructor, jProductId.get(), jName.get(),
+                          jTime.get(), jPrice.get(), jCurrency.get());
+  };
 
-    auto const providerBuilder = [productBuilder](JNIEnv * env, taxi::Provider const & item)
-      {
-        return env->NewObject(g_taxiInfoClass, g_taxiInfoConstructor, item.GetType(),
-                              jni::ToJavaArray(env, g_productClass, item.GetProducts(), productBuilder));
-      };
+  auto const providerBuilder = [productBuilder](JNIEnv * env, taxi::Provider const & item)
+  {
+    return env->NewObject(g_taxiInfoClass, g_taxiInfoConstructor, item.GetType(),
+                          jni::ToJavaArray(env, g_productClass, item.GetProducts(), productBuilder));
+  };
 
-    jni::TScopedLocalObjectArrayRef jProviders(env, jni::ToJavaArray(env, g_taxiInfoClass, providers,
-                                               providerBuilder));
+  jni::TScopedLocalObjectArrayRef jProviders(env, jni::ToJavaArray(env, g_taxiInfoClass, providers,
+                                             providerBuilder));
 
-    jobject const taxiManagerInstance = env->GetStaticObjectField(g_taxiManagerClass,
-                                                                  g_taxiManagerInstanceField);
-    env->CallVoidMethod(taxiManagerInstance, g_taxiInfoCallbackMethod, jProviders.get());
+  jobject const taxiManagerInstance = env->GetStaticObjectField(g_taxiManagerClass,
+                                                                g_taxiManagerInstanceField);
+  env->CallVoidMethod(taxiManagerInstance, g_taxiInfoCallbackMethod, jProviders.get());
 
-    jni::HandleJavaException(env);
-  });
+  jni::HandleJavaException(env);
 }
 
 void OnTaxiError(taxi::ErrorsContainer const & errors, uint64_t const requestId)
 {
-  GetPlatform().RunOnGuiThread([=]() {
-    if (g_lastRequestId != requestId)
-      return;
+  if (g_lastRequestId != requestId)
+    return;
 
-    JNIEnv * env = jni::GetEnv();
+  JNIEnv * env = jni::GetEnv();
 
-    jobject const taxiManagerInstance = env->GetStaticObjectField(g_taxiManagerClass,
-                                                                   g_taxiManagerInstanceField);
+  jobject const taxiManagerInstance = env->GetStaticObjectField(g_taxiManagerClass,
+                                                                 g_taxiManagerInstanceField);
 
-    auto const errorBuilder = [](JNIEnv * env, taxi::ProviderError const & error)
-      {
-        jni::TScopedLocalRef jErrorCode(env, jni::ToJavaString(env, taxi::DebugPrint(error.m_code)));
-        return env->NewObject(g_taxiInfoErrorClass, g_taxiInfoErrorConstructor, error.m_type,
-                              jErrorCode.get());
-      };
+  auto const errorBuilder = [](JNIEnv * env, taxi::ProviderError const & error)
+  {
+    jni::TScopedLocalRef jErrorCode(env, jni::ToJavaString(env, taxi::DebugPrint(error.m_code)));
+    return env->NewObject(g_taxiInfoErrorClass, g_taxiInfoErrorConstructor, error.m_type,
+                          jErrorCode.get());
+  };
 
 
-    jni::TScopedLocalObjectArrayRef jErrors(env, jni::ToJavaArray(env, g_taxiInfoErrorClass, errors, errorBuilder));
+  jni::TScopedLocalObjectArrayRef jErrors(env, jni::ToJavaArray(env, g_taxiInfoErrorClass, errors, errorBuilder));
 
-    env->CallVoidMethod(taxiManagerInstance, g_taxiErrorCallbackMethod, jErrors.get());
+  env->CallVoidMethod(taxiManagerInstance, g_taxiErrorCallbackMethod, jErrors.get());
 
-    jni::HandleJavaException(env);
-  });
+  jni::HandleJavaException(env);
 }
 }  // namespace
 

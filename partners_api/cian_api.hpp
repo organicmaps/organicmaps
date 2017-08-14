@@ -5,6 +5,8 @@
 #include "geometry/latlon.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "platform/safe_callback.hpp"
+
 #include "base/worker_thread.hpp"
 
 #include <cstdint>
@@ -51,10 +53,11 @@ struct RentPlace
 class Api
 {
 public:
-  using RentNearbyCallback =
-      std::function<void(std::vector<RentPlace> const & places, uint64_t const requestId)>;
 
-  using ErrorCallback = std::function<void(int httpCode, uint64_t const requestId)>;
+  using RentNearbyCallback =
+      platform::SafeCallback<void(std::vector<RentPlace> const & places, uint64_t const requestId)>;
+
+  using ErrorCallback = platform::SafeCallback<void(int httpCode, uint64_t const requestId)>;
 
   explicit Api(std::string const & baseUrl = kBaseUrl);
 

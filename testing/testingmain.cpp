@@ -4,7 +4,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
+#include "base/waiter.hpp"
 
+#include "std/chrono.hpp"
 #include "std/cstring.hpp"
 #include "std/iomanip.hpp"
 #include "std/iostream.hpp"
@@ -32,6 +34,10 @@
   #endif
 #endif
 
+namespace
+{
+base::Waiter g_waiter;
+}  // namespace
 namespace testing
 {
 
@@ -53,6 +59,16 @@ void StopEventLoop()
 #endif
 }
 
+void Wait()
+{
+  g_waiter.Wait();
+  g_waiter.Reset();
+}
+
+void Notify()
+{
+  g_waiter.Notify();
+}
 } //  namespace testing
 
 namespace

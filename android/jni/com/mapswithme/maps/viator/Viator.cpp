@@ -30,31 +30,29 @@ void PrepareClassRefs(JNIEnv * env)
 void OnViatorProductsReceived(std::string const & destId,
                               std::vector<viator::Product> const & products)
 {
-  GetPlatform().RunOnGuiThread([=]() {
-    if (g_lastDestId != destId)
-      return;
+  if (g_lastDestId != destId)
+    return;
 
-    JNIEnv * env = jni::GetEnv();
+  JNIEnv * env = jni::GetEnv();
 
-    jni::TScopedLocalRef jDestId(env, jni::ToJavaString(env, destId));
-    jni::TScopedLocalRef jProducts(
-        env,
-        jni::ToJavaArray(env, g_viatorProductClass, products, [](JNIEnv * env,
-                                                                 viator::Product const & item) {
-          jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, item.m_title));
-          jni::TScopedLocalRef jDuration(env, jni::ToJavaString(env, item.m_duration));
-          jni::TScopedLocalRef jPriceFormatted(env, jni::ToJavaString(env, item.m_priceFormatted));
-          jni::TScopedLocalRef jCurrency(env, jni::ToJavaString(env, item.m_currency));
-          jni::TScopedLocalRef jPhotoUrl(env, jni::ToJavaString(env, item.m_photoUrl));
-          jni::TScopedLocalRef jPageUrl(env, jni::ToJavaString(env, item.m_pageUrl));
-          return env->NewObject(g_viatorProductClass, g_viatorProductConstructor, jTitle.get(),
-                                item.m_rating, item.m_reviewCount, jDuration.get(), item.m_price,
-                                jPriceFormatted.get(), jCurrency.get(), jPhotoUrl.get(),
-                                jPageUrl.get());
-        }));
+  jni::TScopedLocalRef jDestId(env, jni::ToJavaString(env, destId));
+  jni::TScopedLocalRef jProducts(
+      env,
+      jni::ToJavaArray(env, g_viatorProductClass, products, [](JNIEnv * env,
+                                                               viator::Product const & item) {
+        jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, item.m_title));
+        jni::TScopedLocalRef jDuration(env, jni::ToJavaString(env, item.m_duration));
+        jni::TScopedLocalRef jPriceFormatted(env, jni::ToJavaString(env, item.m_priceFormatted));
+        jni::TScopedLocalRef jCurrency(env, jni::ToJavaString(env, item.m_currency));
+        jni::TScopedLocalRef jPhotoUrl(env, jni::ToJavaString(env, item.m_photoUrl));
+        jni::TScopedLocalRef jPageUrl(env, jni::ToJavaString(env, item.m_pageUrl));
+        return env->NewObject(g_viatorProductClass, g_viatorProductConstructor, jTitle.get(),
+                              item.m_rating, item.m_reviewCount, jDuration.get(), item.m_price,
+                              jPriceFormatted.get(), jCurrency.get(), jPhotoUrl.get(),
+                              jPageUrl.get());
+      }));
 
-    env->CallStaticVoidMethod(g_viatorClass, g_viatorCallback, jDestId.get(), jProducts.get());
-  });
+  env->CallStaticVoidMethod(g_viatorClass, g_viatorCallback, jDestId.get(), jProducts.get());
 }
 }  // namespace
 

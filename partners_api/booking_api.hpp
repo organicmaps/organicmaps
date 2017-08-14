@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/safe_callback.hpp"
+
 #include "std/chrono.hpp"
 #include "std/function.hpp"
 #include "std/shared_ptr.hpp"
@@ -52,8 +54,8 @@ public:
   static bool GetExtendedInfo(string const & hotelId, string const & lang, string & result);
 };
 
-using GetMinPriceCallback = function<void(string const & hotelId, string const & price, string const & currency)>;
-using GetHotelInfoCallback = function<void(HotelInfo const & hotelInfo)>;
+using GetMinPriceCallback = platform::SafeCallback<void(string const & hotelId, string const & price, string const & currency)>;
+using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotelInfo)>;
 
 class Api
 {

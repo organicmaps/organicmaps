@@ -2,6 +2,8 @@
 
 #include "partners_api/taxi_base.hpp"
 
+#include "platform/safe_callback.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <mutex>
@@ -10,9 +12,10 @@
 namespace taxi
 {
 using SuccessCallback =
-    std::function<void(ProvidersContainer const & products, uint64_t const requestId)>;
+    platform::SafeCallback<void(ProvidersContainer const & products, uint64_t const requestId)>;
 
-using ErrorCallback = std::function<void(ErrorsContainer const & errors, uint64_t const requestId)>;
+using ErrorCallback =
+    platform::SafeCallback<void(ErrorsContainer const & errors, uint64_t const requestId)>;
 
 class Delegate
 {

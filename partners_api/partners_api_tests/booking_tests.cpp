@@ -1,8 +1,12 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/partners_api_tests/async_gui_thread.hpp"
+
 #include "partners_api/booking_api.hpp"
 
 #include "base/scope_guard.hpp"
+
+using namespace partners_api;
 
 namespace
 {
@@ -22,7 +26,7 @@ UNIT_TEST(Booking_GetExtendedInfo)
   TEST(!result.empty(), ());
 }
 
-UNIT_TEST(Booking_GetMinPrice)
+UNIT_CLASS_TEST(AsyncGuiThread, Booking_GetMinPrice)
 {
   booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
   MY_SCOPE_GUARD(cleanup, []() { booking::SetBookingUrlForTesting(""); });
@@ -38,9 +42,9 @@ UNIT_TEST(Booking_GetMinPrice)
                       hotelId = id;
                       price = val;
                       currency = curr;
-                      testing::StopEventLoop();
+                      testing::Notify();
                     });
-    testing::RunEventLoop();
+    testing::Wait();
 
     TEST_EQUAL(hotelId, kHotelId, ());
     TEST(!price.empty(), ());
@@ -57,9 +61,9 @@ UNIT_TEST(Booking_GetMinPrice)
                       hotelId = id;
                       price = val;
                       currency = curr;
-                      testing::StopEventLoop();
+                      testing::Notify();
                     });
-    testing::RunEventLoop();
+    testing::Wait();
 
     TEST_EQUAL(hotelId, kHotelId, ());
     TEST(!price.empty(), ());
@@ -76,9 +80,9 @@ UNIT_TEST(Booking_GetMinPrice)
                       hotelId = id;
                       price = val;
                       currency = curr;
-                      testing::StopEventLoop();
+                      testing::Notify();
                     });
-    testing::RunEventLoop();
+    testing::Wait();
 
     TEST_EQUAL(hotelId, kHotelId, ());
     TEST(!price.empty(), ());
@@ -87,23 +91,23 @@ UNIT_TEST(Booking_GetMinPrice)
   }
 }
 
-UNIT_TEST(GetHotelInfo)
+UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
 {
-//  string const kHotelId = "0";  // Internal hotel id for testing.
-//  booking::Api api;
-//  booking::HotelInfo info;
+  string const kHotelId = "0";  // Internal hotel id for testing.
+  booking::Api api;
+  booking::HotelInfo info;
 
-//  api.GetHotelInfo(kHotelId, "en", [&info](booking::HotelInfo const & i)
-//  {
-//    info = i;
-//    testing::StopEventLoop();
-//  });
-//  testing::RunEventLoop();
+  api.GetHotelInfo(kHotelId, "en", [&info](booking::HotelInfo const & i)
+  {
+    info = i;
+    testing::Notify();
+  });
+  testing::Wait();
 
-//  TEST_EQUAL(info.m_hotelId, kHotelId, ());
-//  TEST(!info.m_description.empty(), ());
-//  TEST_EQUAL(info.m_photos.size(), 2, ());
-//  TEST_EQUAL(info.m_facilities.size(), 7, ());
-//  TEST_EQUAL(info.m_reviews.size(), 4, ());
+  TEST_EQUAL(info.m_hotelId, kHotelId, ());
+  TEST(!info.m_description.empty(), ());
+  TEST_EQUAL(info.m_photos.size(), 2, ());
+  TEST_EQUAL(info.m_facilities.size(), 7, ());
+  TEST_EQUAL(info.m_reviews.size(), 4, ());
 }
 }

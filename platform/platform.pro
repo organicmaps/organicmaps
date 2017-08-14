@@ -93,6 +93,7 @@ HEADERS += \
     network_policy.hpp \
     platform.hpp \
     preferred_languages.hpp \
+    safe_callback.hpp \
     servers_list.hpp \
     settings.hpp \
     socket.hpp \

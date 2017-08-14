@@ -44,6 +44,9 @@ namespace testing
 {
 void RunEventLoop();
 void StopEventLoop();
+
+void Wait();
+void Notify();
 }  // namespace testing
 
 // This struct contains parsed command line options. It may contain pointers to argc contents.

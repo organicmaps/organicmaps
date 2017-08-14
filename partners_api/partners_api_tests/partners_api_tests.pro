@@ -36,3 +36,6 @@ SOURCES += \
     uber_tests.cpp \
     viator_tests.cpp \
     yandex_tests.cpp \
+
+HEADERS += \
+    async_gui_thread.hpp

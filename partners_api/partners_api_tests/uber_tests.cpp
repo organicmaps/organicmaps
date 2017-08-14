@@ -178,14 +178,14 @@ UNIT_TEST(Uber_GetAvailableProducts)
                            [&resultProducts, &counter](std::vector<taxi::Product> const & products) {
                              resultProducts = products;
                              ++counter;
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
+                             testing::Notify();
                            },
                            [](taxi::ErrorCode const code) {
                              TEST(false, (code));
-                             GetPlatform().RunOnGuiThread([=] { testing::StopEventLoop(); });
+                             testing::Notify();
                            });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST(!resultProducts.empty(), ());
   TEST_EQUAL(counter, 1, ());
@@ -196,15 +196,15 @@ UNIT_TEST(Uber_GetAvailableProducts)
   api.GetAvailableProducts(from, farPos,
                            [](std::vector<taxi::Product> const & products) {
                              TEST(false, ());
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
+                             testing::Notify();
                            },
                            [&errorCode, &counter](taxi::ErrorCode const code) {
                              errorCode = code;
                              ++counter;
-                             GetPlatform().RunOnGuiThread([=] { testing::StopEventLoop(); });
+                             testing::Notify();
                            });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
   TEST_EQUAL(counter, 1, ());

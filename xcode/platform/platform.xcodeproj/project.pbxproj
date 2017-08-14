@@ -17,6 +17,7 @@
 		3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D30587E1D880910004AC712 /* http_client_apple.mm */; };
 		3D78156E1F3A14090068B6AC /* gui_thread_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */; };
 		3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78156C1F3A14090068B6AC /* gui_thread.hpp */; };
+		3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */; };
 		3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D97F64A1D9C05E800380945 /* http_client.cpp */; };
 		3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DE8B98E1DEC3115000E6083 /* network_policy.hpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
@@ -119,6 +120,7 @@
 		3D30587E1D880910004AC712 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_client_apple.mm; sourceTree = "<group>"; };
 		3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gui_thread_apple.mm; sourceTree = "<group>"; };
 		3D78156C1F3A14090068B6AC /* gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gui_thread.hpp; sourceTree = "<group>"; };
+		3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = safe_callback.hpp; sourceTree = "<group>"; };
 		3D97F64A1D9C05E800380945 /* http_client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_client.cpp; sourceTree = "<group>"; };
 		3DE8B98E1DEC3115000E6083 /* network_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network_policy.hpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */,
 				3D78156B1F3A14090068B6AC /* gui_thread_apple.mm */,
 				3D78156C1F3A14090068B6AC /* gui_thread.hpp */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
@@ -444,6 +447,7 @@
 				676C84211C64CD3300DC9603 /* mwm_traits.hpp in Headers */,
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
 				67247FFE1C60BD6500EDE56A /* writable_dir_changer.hpp in Headers */,
+				3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */,
 				3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,

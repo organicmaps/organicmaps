@@ -308,8 +308,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
   return resultStream.str();
 }
 
-void Api::GetMinPrice(string const & hotelId, string const & currency,
-                      GetMinPriceCallback const & fn)
+void Api::GetMinPrice(string const & hotelId, string const & currency, GetMinPriceCallback const & fn)
 {
   GetPlatform().RunOnNetworkThread([hotelId, currency, fn]()
   {

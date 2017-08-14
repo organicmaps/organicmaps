@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/partners_api_tests/async_gui_thread.hpp"
+
 #include "partners_api/viator_api.hpp"
 
 #include <algorithm>
@@ -8,6 +10,8 @@
 #include <vector>
 
 #include "3party/jansson/myjansson.hpp"
+
+using namespace partners_api;
 
 namespace
 {
@@ -24,7 +28,7 @@ UNIT_TEST(Viator_GetTopProducts)
   TEST(success, ());
 }
 
-UNIT_TEST(Viator_GetTop5Products)
+UNIT_CLASS_TEST(AsyncGuiThread, Viator_GetTop5Products)
 {
   viator::Api api;
   std::string const kSofia = "5630";
@@ -37,10 +41,10 @@ UNIT_TEST(Viator_GetTop5Products)
                         resultId = destId;
                         resultProducts = products;
 
-                        testing::StopEventLoop();
+                        testing::Notify();
                       });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST_EQUAL(resultId, kSofia, ());
   TEST(!resultProducts.empty(), ());
@@ -57,10 +61,10 @@ UNIT_TEST(Viator_GetTop5Products)
                         resultId = destId;
                         resultProducts = products;
 
-                        testing::StopEventLoop();
+                        testing::Notify();
                       });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST_EQUAL(resultId, kSofia, ());
   TEST(!resultProducts.empty(), ());
@@ -77,10 +81,10 @@ UNIT_TEST(Viator_GetTop5Products)
                         resultId = destId;
                         resultProducts = products;
 
-                        testing::StopEventLoop();
+                        testing::Notify();
                       });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST_EQUAL(resultId, kSofia, ());
   TEST(!resultProducts.empty(), ());

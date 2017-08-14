@@ -131,7 +131,7 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
     if (!rawResult)
     {
       auto & code = rawResult.m_errorCode;
-      GetPlatform().RunOnGuiThread([onError, code, reqId]() { onError(code, reqId); });
+      onError(code, reqId);
       return;
     }
 
@@ -144,7 +144,7 @@ uint64_t Api::GetRentNearby(ms::LatLon const & latlon, RentNearbyCallback const 
       LOG(LERROR, (e.Msg()));
       result.clear();
     }
-    GetPlatform().RunOnGuiThread([onSuccess, result, reqId]() { onSuccess(result, reqId); });
+    onSuccess(result, reqId);
   });
 
   return reqId;

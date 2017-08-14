@@ -1,12 +1,20 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/partners_api_tests/async_gui_thread.hpp"
+
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
 
+#include "platform/gui_thread.hpp"
+
 #include "geometry/latlon.hpp"
 
+#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/worker_thread.hpp"
+
+using namespace partners_api;
 
 namespace
 {
@@ -159,7 +167,7 @@ bool CompareProviders(taxi::ProvidersContainer const & lhs, taxi::ProvidersConta
   return true;
 }
 
-UNIT_TEST(TaxiEngine_ResultMaker)
+UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
 {
   taxi::ResultMaker maker;
   uint64_t reqId = 1;
@@ -170,6 +178,7 @@ UNIT_TEST(TaxiEngine_ResultMaker)
                                                     uint64_t const requestId) {
     TEST_EQUAL(reqId, requestId, ());
     providers = products;
+    testing::Notify();
   };
 
   auto const successNotPossibleCallback =
@@ -181,6 +190,7 @@ UNIT_TEST(TaxiEngine_ResultMaker)
                                                uint64_t const requestId) {
     TEST_EQUAL(reqId, requestId, ());
     errors = e;
+    testing::Notify();
   };
 
   auto const errorNotPossibleCallback = [&reqId](taxi::ErrorsContainer const errors,
@@ -217,6 +227,8 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.DecrementRequestCount(reqId);
   maker.MakeResult(reqId);
 
+  testing::Wait();
+
   TEST_EQUAL(providers.size(), 2, ());
   TEST_EQUAL(providers[0].GetType(), taxi::Provider::Type::Uber, ());
   TEST_EQUAL(providers[1].GetType(), taxi::Provider::Type::Yandex, ());
@@ -232,6 +244,8 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
   maker.MakeResult(reqId);
 
+  testing::Wait();
+
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0].GetType(), taxi::Provider::Type::Yandex, ());
   TEST_EQUAL(providers[0][0].m_productId, "4", ());
@@ -243,6 +257,8 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.ProcessError(reqId, taxi::Provider::Type::Yandex, taxi::ErrorCode::RemoteError);
   maker.MakeResult(reqId);
 
+  testing::Wait();
+
   TEST_EQUAL(errors.size(), 2, ());
   TEST_EQUAL(errors[0].m_type, taxi::Provider::Type::Uber, ());
   TEST_EQUAL(errors[0].m_code, taxi::ErrorCode::NoProducts, ());
@@ -253,9 +269,11 @@ UNIT_TEST(TaxiEngine_ResultMaker)
   maker.DecrementRequestCount(reqId);
   maker.DecrementRequestCount(reqId);
   maker.MakeResult(reqId);
+
+  testing::Wait();
 }
 
-UNIT_TEST(TaxiEngine_Smoke)
+UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
 {
   // Used to synchronize access into GetAvailableProducts callback method.
   std::mutex resultsMutex;

@@ -1,8 +1,12 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/partners_api_tests/async_gui_thread.hpp"
+
 #include "partners_api/cian_api.hpp"
 
 #include "3party/jansson/myjansson.hpp"
+
+using namespace partners_api;
 
 namespace
 {
@@ -16,7 +20,7 @@ UNIT_TEST(Cian_GetRentNearbyRaw)
   TEST(json_is_object(root.get()), ());
 }
 
-UNIT_TEST(Cian_GetRentNearby)
+UNIT_CLASS_TEST(AsyncGuiThread, Cian_GetRentNearby)
 {
   ms::LatLon latlon(55.807385, 37.505554);
   uint64_t reqId = 0;
@@ -30,14 +34,14 @@ UNIT_TEST(Cian_GetRentNearby)
         [&reqId, &result](std::vector<cian::RentPlace> const & places, uint64_t const requestId) {
           TEST_EQUAL(reqId, requestId, ());
           result = places;
-          testing::StopEventLoop();
+          testing::Notify();
         },
         [&reqId](int httpCode, uint64_t const requestId) {
           TEST_EQUAL(reqId, requestId, ());
           TEST(false, (httpCode));
         });
 
-    testing::RunEventLoop();
+    testing::Wait();
 
     TEST(!result.empty(), ());
     for (auto const & r : result)
@@ -62,10 +66,10 @@ UNIT_TEST(Cian_GetRentNearby)
         [&reqId, &httpCode](int code, uint64_t const requestId) {
           TEST_EQUAL(reqId, requestId, ());
           httpCode = code;
-          testing::StopEventLoop();
+          testing::Notify();
         });
 
-    testing::RunEventLoop();
+    testing::Wait();
 
     TEST_NOT_EQUAL(httpCode, -1, ());
   }

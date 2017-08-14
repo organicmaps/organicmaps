@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/safe_callback.hpp"
+
 #include <functional>
 #include <string>
 #include <vector>
@@ -28,7 +30,7 @@ struct Product
 };
 
 using GetTop5ProductsCallback =
-    std::function<void(std::string const & destId, std::vector<Product> const & products)>;
+    platform::SafeCallback<void(std::string const & destId, std::vector<Product> const & products)>;
 
 class Api
 {

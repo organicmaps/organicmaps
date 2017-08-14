@@ -30,14 +30,13 @@ UNIT_TEST(Yandex_GetAvailableProducts)
   api.GetAvailableProducts(from, to,
                            [&resultProducts](std::vector<taxi::Product> const & products) {
                              resultProducts = products;
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
+                             testing::Notify();
                            },
                            [](taxi::ErrorCode const code) {
                              TEST(false, (code));
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
                            });
 
-  testing::RunEventLoop();
+  testing::Wait();
 
   TEST(!resultProducts.empty(), ());
 
@@ -46,15 +45,14 @@ UNIT_TEST(Yandex_GetAvailableProducts)
   api.GetAvailableProducts(from, farPos,
                            [](std::vector<taxi::Product> const & products) {
                              TEST(false, ());
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
                            },
                            [&errorCode](taxi::ErrorCode const code) {
                              errorCode = code;
-                             GetPlatform().RunOnGuiThread([] { testing::StopEventLoop(); });
+                             testing::Notify();
                            });
 
-  TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
+  testing::Wait();
 
-  testing::RunEventLoop();
+  TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
 }
 }  // namespace
