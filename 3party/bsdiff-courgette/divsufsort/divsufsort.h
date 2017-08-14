@@ -30,7 +30,7 @@
 
 #include <stdint.h>
 
-#include "courgette/third_party/bsdiff/paged_array.h"
+#include "3party/bsdiff-courgette/bsdiff/paged_array.h"
 
 namespace divsuf {
 

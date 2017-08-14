@@ -25,7 +25,7 @@
 // 2016-07-22 - Initial commit and adaption to use PagedArray.
 //                --Samuel Huang <huangs@chromium.org>
 
-#include "courgette/third_party/divsufsort/divsufsort_private.h"
+#include "3party/bsdiff-courgette/divsufsort/divsufsort_private.h"
 
 #include <stdlib.h>
 

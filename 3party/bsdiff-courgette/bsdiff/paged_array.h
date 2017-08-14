@@ -12,12 +12,11 @@
 #define COURGETTE_THIRD_PARTY_BSDIFF_PAGED_ARRAY_H_
 
 #include <cstddef>
+#include <cstdlib>
 #include <iterator>
 #include <type_traits>
 
-#include "base/logging.h"
-#include "base/macros.h"
-#include "base/process/memory.h"
+#include "base/macros.hpp"
 
 namespace courgette {
 
@@ -102,7 +101,7 @@ class PagedArray_iterator {
 
   template <typename ContainerType2, typename T2>
   bool operator<(const PagedArray_iterator<ContainerType2, T2>& it) const {
-#ifndef NDEBUG
+#ifdef DEBUG
     // For performance, skip the |array_| check in Release builds.
     if (array_ != it.array_)
       return false;
@@ -111,7 +110,7 @@ class PagedArray_iterator {
   }
   template <typename ContainerType2, typename T2>
   bool operator<=(const PagedArray_iterator<ContainerType2, T2>& it) const {
-#ifndef NDEBUG
+#ifdef DEBUG
     // For performance, skip the |array_| check in Release builds.
     if (array_ != it.array_)
       return false;
@@ -120,7 +119,7 @@ class PagedArray_iterator {
   }
   template <typename ContainerType2, typename T2>
   bool operator>(const PagedArray_iterator<ContainerType2, T2>& it) const {
-#ifndef NDEBUG
+#ifdef DEBUG
     // For performance, skip the |array_| check in Release builds.
     if (array_ != it.array_)
       return false;
@@ -129,7 +128,7 @@ class PagedArray_iterator {
   }
   template <typename ContainerType2, typename T2>
   bool operator>=(const PagedArray_iterator<ContainerType2, T2>& it) const {
-#ifndef NDEBUG
+#ifdef DEBUG
     // For performance, skip the |array_| check in Release builds.
     if (array_ != it.array_)
       return false;
@@ -176,11 +175,11 @@ class PagedArray {
   T& operator[](size_t i) {
     size_t page = i >> kLogPageSize;
     size_t offset = i & (kPageSize - 1);
-#ifndef NDEBUG
-    // Without the #ifndef, DCHECK() will significaltly slow down bsdiff_create
+
+    // *NOTE* CHECK() would significaltly slow down bsdiff_create
     // even in optimized Release build (about 1.4x).
-    DCHECK(page < page_count_);
-#endif
+    ASSERT_LESS(page, page_count_, ());
+
     return pages_[page][offset];
   }
 
@@ -189,11 +188,11 @@ class PagedArray {
     // then bsdiff_create slows down by ~5% in optimized Release build.
     size_t page = i >> kLogPageSize;
     size_t offset = i & (kPageSize - 1);
-#ifndef NDEBUG
-    // Without the #ifndef, DCHECK() will significaltly slow down bsdiff_create
+
+    // *NOTE* CHECK() would significaltly slow down bsdiff_create
     // even in optimized Release build (about 1.4x).
-    DCHECK(page < page_count_);
-#endif
+    ASSERT_LESS(page, page_count_, ());
+
     return pages_[page][offset];
   }
 
@@ -203,14 +202,14 @@ class PagedArray {
     clear();
     size_ = size;
     size_t pages_needed = (size_ + kPageSize - 1) >> kLogPageSize;
-    if (!base::UncheckedMalloc(sizeof(T*) * pages_needed,
+    if (!UncheckedMalloc(sizeof(T*) * pages_needed,
                                reinterpret_cast<void**>(&pages_))) {
       return false;
     }
 
     for (page_count_ = 0; page_count_ < pages_needed; ++page_count_) {
       T* block = nullptr;
-      if (!base::UncheckedMalloc(sizeof(T) * kPageSize,
+      if (!UncheckedMalloc(sizeof(T) * kPageSize,
                                  reinterpret_cast<void**>(&block))) {
         clear();
         return false;
@@ -237,7 +236,12 @@ class PagedArray {
   size_t size_ = 0U;
   size_t page_count_ = 0U;
 
-  DISALLOW_COPY_AND_ASSIGN(PagedArray);
+  bool UncheckedMalloc(size_t size, void** result) {
+    *result = malloc(size);
+    return *result != NULL;
+  }
+
+  DISALLOW_COPY_AND_MOVE(PagedArray);
 };
 
 }  // namespace courgette

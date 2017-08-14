@@ -32,7 +32,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "courgette/third_party/divsufsort/divsufsort.h"
+#include "3party/bsdiff-courgette/divsufsort/divsufsort.h"
 
 namespace divsuf {
 
