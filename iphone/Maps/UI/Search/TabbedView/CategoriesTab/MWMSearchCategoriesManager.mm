@@ -1,4 +1,5 @@
 #import "MWMSearchCategoriesManager.h"
+#import <MyTrackerSDK/MRMyTracker.h>
 #import "AppInfo.h"
 #import "MWMSearchCategoryCell.h"
 #import "Statistics.h"
@@ -56,6 +57,18 @@ extern NSString * const kCianCategory = @"cian";
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView
+      willDisplayCell:(UITableViewCell *)cell
+    forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSString * string = @(m_categories[indexPath.row].c_str());
+  if ([string isEqualToString:kCianCategory])
+  {
+    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_Cian"];
+    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatCian}];
+  }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
@@ -66,7 +79,11 @@ extern NSString * const kCianCategory = @"cian";
         forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
   if ([string isEqualToString:kCianCategory])
+  {
     delegate.state = MWMSearchManagerStateMapSearch;
+    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_selected_Cian"];
+    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : kStatCian}];
+  }
 }
 
 @end
