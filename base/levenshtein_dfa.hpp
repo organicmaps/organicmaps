@@ -2,7 +2,7 @@
 
 #include "base/string_utils.hpp"
 
-#include <cstdint>
+#include <cstddef>
 #include <vector>
 
 namespace strings
@@ -34,7 +34,7 @@ public:
   struct Position
   {
     Position() = default;
-    Position(size_t offset, uint8_t errorsLeft, bool transposed);
+    Position(size_t offset, size_t errorsLeft, bool transposed);
 
     // SubsumedBy is a relation on two positions, which allows to
     // efficiently remove unnecessary positions in a state. When the
@@ -50,7 +50,7 @@ public:
     inline bool IsTransposed() const { return m_transposed; }
 
     size_t m_offset = 0;
-    uint8_t m_errorsLeft = 0;
+    size_t m_errorsLeft = 0;
     bool m_transposed = false;
   };
 
@@ -89,10 +89,10 @@ public:
     LevenshteinDFA const & m_dfa;
   };
 
-  LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
-  LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, uint8_t maxErrors);
-  LevenshteinDFA(UniString const & s, uint8_t maxErrors);
-  LevenshteinDFA(std::string const & s, uint8_t maxErrors);
+  LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, size_t maxErrors);
+  LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, size_t maxErrors);
+  LevenshteinDFA(UniString const & s, size_t maxErrors);
+  LevenshteinDFA(std::string const & s, size_t maxErrors);
 
   inline Iterator Begin() const { return Iterator(*this); }
 
@@ -118,7 +118,7 @@ private:
   size_t Move(size_t s, UniChar c) const;
 
   size_t const m_size;
-  uint8_t const m_maxErrors;
+  size_t const m_maxErrors;
 
   std::vector<UniChar> m_alphabet;
 

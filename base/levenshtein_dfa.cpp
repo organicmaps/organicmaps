@@ -77,8 +77,7 @@ private:
 
   bool FindRelevant(LevenshteinDFA::Position const & p, UniChar c, size_t & i) const
   {
-    size_t const limit =
-      std::min(m_size - p.m_offset, static_cast<size_t>(p.m_errorsLeft) + 1);
+    size_t const limit = std::min(m_size - p.m_offset, p.m_errorsLeft + 1);
 
     for (i = 0; i < limit; ++i)
     {
@@ -99,7 +98,7 @@ size_t const LevenshteinDFA::kStartingState = 0;
 size_t const LevenshteinDFA::kRejectingState = 1;
 
 // LevenshteinDFA::Position ------------------------------------------------------------------------
-LevenshteinDFA::Position::Position(size_t offset, uint8_t errorsLeft, bool transposed)
+LevenshteinDFA::Position::Position(size_t offset, size_t errorsLeft, bool transposed)
   : m_offset(offset), m_errorsLeft(errorsLeft), m_transposed(transposed)
 {
 }
@@ -109,7 +108,7 @@ bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
   if (m_errorsLeft >= rhs.m_errorsLeft)
     return false;
 
-  auto const errorsAvail = static_cast<uint8_t>(rhs.m_errorsLeft - m_errorsLeft);
+  auto const errorsAvail = rhs.m_errorsLeft - m_errorsLeft;
 
   if (IsStandard() && rhs.IsStandard())
     return AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
@@ -170,7 +169,7 @@ void LevenshteinDFA::State::Normalize()
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
 // static
-LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, size_t maxErrors)
   : m_size(s.size()), m_maxErrors(maxErrors)
 {
   m_alphabet.assign(s.begin(), s.end());
@@ -239,17 +238,17 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, ui
   }
 }
 
-LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, size_t maxErrors)
   : LevenshteinDFA(MakeUniString(s), prefixCharsToKeep, maxErrors)
 {
 }
 
-LevenshteinDFA::LevenshteinDFA(UniString const & s, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t maxErrors)
   : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
 {
 }
 
-LevenshteinDFA::LevenshteinDFA(std::string const & s, uint8_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t maxErrors)
   : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
 {
 }
@@ -315,8 +314,7 @@ size_t LevenshteinDFA::Move(size_t s, UniChar c) const
 std::string DebugPrint(LevenshteinDFA::Position const & p)
 {
   std::ostringstream os;
-  os << "Position [" << p.m_offset << ", " << static_cast<uint32_t>(p.m_errorsLeft) << ", "
-     << p.m_transposed << "]";
+  os << "Position [" << p.m_offset << ", " << p.m_errorsLeft << ", " << p.m_transposed << "]";
   return os.str();
 }
 
