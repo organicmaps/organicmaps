@@ -227,6 +227,11 @@ void CaptionDescription::Init(FeatureType const & f,
   else
     f.GetReadableName(true /* allowTranslit */, deviceLang, m_mainText);
 
+  // Set max text size to avoid VB/IB overflow in rendering.
+  size_t constexpr kMaxTextSize = 200;
+  if (m_mainText.size() > kMaxTextSize)
+    m_mainText = m_mainText.substr(0, kMaxTextSize) + "...";
+
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
 
