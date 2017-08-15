@@ -223,10 +223,6 @@ area[shop=pawnbroker],
 node[amenity=library]
 {z-index: 2500;}
 
-node[sponsored=tinkoff],
-area[sponsored=tinkoff]
-{z-index: 2510;}
-
 node[amenity=fuel],
 area[amenity=fuel],
 node[amenity=charging_station],
@@ -3153,13 +3149,3 @@ area|z17-[amenity=bicycle_parking]
 node|z17-[amenity=motorcycle_parking],
 area|z17-[amenity=motorcycle_parking]
 {icon-image: motorcycle-parking-l.svg;icon-min-distance: 20;}
-
-/* 8 Sponsored */
-
-node|z18-[sponsored=tinkoff],
-area|z18-[sponsored=tinkoff]
-{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
-
-node|z14-[sponsored=tinkoff],
-area|z14-[sponsored=tinkoff]
-{icon-image: atm-tinkoff-shield-l.svg;font-size: 11;}
