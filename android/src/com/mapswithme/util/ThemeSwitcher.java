@@ -91,9 +91,7 @@ public final class ThemeSwitcher
 
     if (!newTheme.equals(oldTheme))
     {
-      // Activity and drape engine will be recreated so we have to mark new map style.
-      // Changes will be applied in process of recreation.
-      Framework.nativeMarkMapStyle(style);
+      SetMapStyle(style);
 
       DownloaderStatusIcon.clearCache();
 
@@ -107,11 +105,17 @@ public final class ThemeSwitcher
       int currentStyle = Framework.nativeGetMapStyle();
       if (currentStyle == style)
         return;
-
-      if (sRendererActive)
-        Framework.nativeSetMapStyle(style);
-      else
-        Framework.nativeMarkMapStyle(style);
+      SetMapStyle(style);
     }
+  }
+
+  private static void SetMapStyle(@Framework.MapStyle int style)
+  {
+    // If rendering is not active we can mark map style, because all graphics
+    // will be recreated after rendering activation.
+    if (sRendererActive)
+      Framework.nativeSetMapStyle(style);
+    else
+      Framework.nativeMarkMapStyle(style);
   }
 }
