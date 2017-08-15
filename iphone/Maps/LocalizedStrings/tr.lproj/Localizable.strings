@@ -190,7 +190,7 @@
 "settings" = "Ayarlar";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Haritaları kaydet";
+"maps_storage" = "Haritaları depolama";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Haritaların indirileceği yeri seçin";
@@ -405,7 +405,7 @@
 
 "duration_1_day" = "1 gün";
 
-"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
+"recent_track_help_text" = "Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.";
 
 "search_show_on_map" = "Haritada görüntüle";
 
@@ -1112,7 +1112,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.";
+"allow_statistics_hint" = "Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.";
 
 "general_settings" = "Genel ayarlar";
 

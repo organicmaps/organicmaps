@@ -119,7 +119,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Haritaları kaydet</string>
+	<string name="maps_storage">Haritaları depolama</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -252,7 +252,7 @@
 	<string name="duration_6_hours">6 saat</string>
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
-	<string name="recent_track_help_text">Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.</string>
+	<string name="recent_track_help_text">Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki MAPS.ME klasörüne artık ihtiyaç yok; silebilirsiniz.</string>
@@ -651,7 +651,7 @@
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.</string>
+	<string name="allow_statistics_hint">Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.</string>
 	<string name="general_settings">Genel ayarlar</string>
 	<string name="date">Tarih %d</string>
 	<!-- For the first routing -->
