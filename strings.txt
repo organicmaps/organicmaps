@@ -3017,7 +3017,7 @@
     tags = android
     en = Save maps to
     ru = Сохранять карты в
-    ar = حفظ الخرائط إلى
+    ar = تخزين الخرائط
     cs = Uložit mapy na
     da = Gem kort på
     nl = Kaarten opslaan in
@@ -3036,7 +3036,7 @@
     es = Guardar mapas en
     sv = Spara kartor i
     th = บันทึกแผนที่ไปยัง
-    tr = Haritaları kaydet
+    tr = Haritaları depolama
     uk = Зберігати карти до
     vi = Lưu bản đồ vào
     zh-Hans = 将地图保存到
@@ -6101,7 +6101,7 @@
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
     th = ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด
-    tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
+    tr = Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.
     uk = Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.
     vi = Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.
     zh-Hans = 它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。
@@ -20857,7 +20857,7 @@
     tags = ios,android
     en = Collecting anonymous usage statistics helps us improve the app.
     ru = Сбор анонимной статистики помогает нам совершенствовать приложение.
-    ar = يساعدنا تجميع إحصاءات استخدام بدون التعرف على الهوية في تحسين التطبيق.
+    ar = تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.
     cs = Shromažďování anonymních statistik využívání nám pomáhá zlepšovat aplikaci.
     da = Indsamling af anonym anvendelsesstatistik hjælper os med at forbedre appen.
     nl = Het verzamelen van anonieme gebruiksstatistieken helpt ons de app verbeteren.
@@ -20876,7 +20876,7 @@
     es = La recopilación de estadísticas de uso anónimas nos ayuda a mejorar la aplicación.
     sv = Genom att samla in anonym användningsstatistik kan vi förbättra appen.
     th = การเก็บรวบรวมสถิติการใช้งานแบบไม่ระบุตัวตนจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น
-    tr = Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.
+    tr = Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.
     uk = Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.
     vi = Việc thu thập số liệu sử dụng ẩn danh giúp chúng tôi cải thiện ứng dụng.
     zh-Hans = 收集匿名使用统计数据有助于我们改进应用。
@@ -24693,7 +24693,7 @@
   [prefs_languages_information_off]
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
     ru = Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.
-    ar = بالنسبة لبعض اللغات، ستحتاج إلى تثبيت مازج صوت آخر أو حزمة لغة إضافية من متجر التطبيقات (سوق Google Play وSamsung Apps).\nافتح إعدادات الجهاز → اللغة والإدخال → الكلام→ إخراج النص إلى كلام.\nهنا يمكنك إدارة إعدادات مزج الكلام (على سبيل المثال، تنزيل حزمة اللغة للاستخدام بدون اتصال) وتحديد محرك نص إلى كلام آخر.
+    ar =  (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.
     cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
     da = For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.
     nl = Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.
