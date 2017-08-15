@@ -20,6 +20,8 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   weak var containerView: UIView!
 
+  private var canDeleteRow: Bool { return viewModel.routePoints.count > 2 }
+
   final class DragCell {
     weak var controller: RouteManagerViewController!
     let snapshot: UIView
@@ -200,6 +202,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
   }
 
   @IBAction private func longPressGestureRecognized(_ longPress: UILongPressGestureRecognizer) {
+    guard canDeleteRow else { return }
     let locationInView = gestureLocation(longPress, in: containerView)
     let locationInTableView = gestureLocation(longPress, in: tableView)
     switch longPress.state {
@@ -245,6 +248,6 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   // MARK: - UITableViewDelegate
   func tableView(_: UITableView, editingStyleForRowAt _: IndexPath) -> UITableViewCellEditingStyle {
-    return .delete
+    return canDeleteRow ? .delete : .none
   }
 }
