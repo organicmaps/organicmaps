@@ -49,7 +49,7 @@ void RouteMarkPoint::SetRoutePointType(RouteMarkType type)
   m_markData.m_pointType = type;
 }
 
-void RouteMarkPoint::SetIntermediateIndex(int8_t index)
+void RouteMarkPoint::SetIntermediateIndex(size_t index)
 {
   SetDirty();
   m_markData.m_intermediateIndex = index;
@@ -123,7 +123,7 @@ UserMark * RouteUserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
   return new RouteMarkPoint(ptOrg, this);
 }
 
-int8_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
+size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
 
 RoutePointsLayout::RoutePointsLayout(UserMarksController & routeMarks)
   : m_routeMarks(routeMarks)
@@ -139,18 +139,18 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
   {
     if (data.m_pointType == RouteMarkType::Finish)
     {
-      int const intermediatePointsCount = std::max(static_cast<int>(m_routeMarks.GetUserMarkCount()) - 2, 0);
+      size_t const intermediatePointsCount = std::max(m_routeMarks.GetUserMarkCount() - 2, size_t(0));
       sameTypePoint->SetRoutePointType(RouteMarkType::Intermediate);
-      sameTypePoint->SetIntermediateIndex(static_cast<int8_t>(intermediatePointsCount));
+      sameTypePoint->SetIntermediateIndex(intermediatePointsCount);
     }
     else
     {
-      int const offsetIndex = data.m_pointType == RouteMarkType::Start ? 0 : data.m_intermediateIndex;
+      size_t const offsetIndex = data.m_pointType == RouteMarkType::Start ? 0 : data.m_intermediateIndex;
 
       ForEachIntermediatePoint([offsetIndex](RouteMarkPoint * mark)
       {
         if (mark->GetIntermediateIndex() >= offsetIndex)
-          mark->SetIntermediateIndex(static_cast<int8_t>(mark->GetIntermediateIndex() + 1));
+          mark->SetIntermediateIndex(mark->GetIntermediateIndex() + 1);
       });
 
       if (data.m_pointType == RouteMarkType::Start)
@@ -168,7 +168,7 @@ RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
   return newPoint;
 }
 
-bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   RouteMarkPoint * point = nullptr;
   size_t index = 0;
@@ -193,10 +193,10 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
   if (type == RouteMarkType::Finish)
   {
     RouteMarkPoint * lastIntermediate = nullptr;
-    int8_t maxIntermediateIndex = -1;
+    size_t maxIntermediateIndex = 0;
     ForEachIntermediatePoint([&lastIntermediate, &maxIntermediateIndex](RouteMarkPoint * mark)
     {
-      if (mark->GetIntermediateIndex() > maxIntermediateIndex)
+      if (lastIntermediate == nullptr || mark->GetIntermediateIndex() > maxIntermediateIndex)
       {
         lastIntermediate = mark;
         maxIntermediateIndex = mark->GetIntermediateIndex();
@@ -213,7 +213,7 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
       if (mark->GetIntermediateIndex() == 0)
         mark->SetRoutePointType(RouteMarkType::Start);
       else
-        mark->SetIntermediateIndex(static_cast<int8_t>(mark->GetIntermediateIndex() - 1));
+        mark->SetIntermediateIndex(mark->GetIntermediateIndex() - 1);
     });
   }
   else
@@ -221,7 +221,7 @@ bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, int8_t intermediate
     ForEachIntermediatePoint([point](RouteMarkPoint * mark)
     {
       if (mark->GetIntermediateIndex() > point->GetIntermediateIndex())
-        mark->SetIntermediateIndex(static_cast<int8_t>(mark->GetIntermediateIndex() - 1));
+        mark->SetIntermediateIndex(mark->GetIntermediateIndex() - 1);
     });
   }
 
@@ -244,8 +244,8 @@ void RoutePointsLayout::RemoveIntermediateRoutePoints()
   }
 }
 
-bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
-                                       RouteMarkType destType, int8_t destIntermediateIndex)
+bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
+                                       RouteMarkType destType, size_t destIntermediateIndex)
 {
   RouteMarkPoint * point = GetRoutePoint(currentType, currentIntermediateIndex);
   if (point == nullptr)
@@ -261,7 +261,7 @@ bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, int8_t current
   return true;
 }
 
-void RoutePointsLayout::PassRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+void RoutePointsLayout::PassRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   RouteMarkPoint * point = GetRoutePoint(type, intermediateIndex);
   if (point == nullptr)
@@ -281,7 +281,7 @@ void RoutePointsLayout::SetFollowingMode(bool enabled)
   }
 }
 
-RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+RouteMarkPoint * RoutePointsLayout::GetRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   for (size_t i = 0, sz = m_routeMarks.GetUserMarkCount(); i < sz; ++i)
   {

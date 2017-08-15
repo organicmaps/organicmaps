@@ -46,7 +46,7 @@ struct RoutePointInfo
 {
   std::string m_name;
   RouteMarkType m_markType = RouteMarkType::Start;
-  int8_t m_intermediateIndex = 0;
+  size_t m_intermediateIndex = 0;
   bool m_isPassed = false;
   bool m_isMyPosition = false;
   m2::PointD m_position;
@@ -184,15 +184,15 @@ public:
   void AddRoutePoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
   size_t GetRoutePointsCount() const;
-  void RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
-  void MoveRoutePoint(int8_t currentIndex, int8_t targetIndex);
-  void MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
-                      RouteMarkType targetType, int8_t targetIntermediateIndex);
-  void HideRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
+  void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
+                      RouteMarkType targetType, size_t targetIntermediateIndex);
+  void HideRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   bool CouldAddIntermediatePoint() const;
-  bool IsMyPosition(RouteMarkType type, int8_t intermediateIndex = 0);
+  bool IsMyPosition(RouteMarkType type, size_t intermediateIndex = 0);
 
   void SetRouterImpl(routing::RouterType type);
   void RemoveRoute(bool deactivateFollowing);
@@ -202,7 +202,7 @@ public:
                         storage::TCountriesVec const & absentCountries);
   void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
-  void OnRoutePointPassed(RouteMarkType type, int8_t intermediateIndex);
+  void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo & info);
   void SetAllowSendingPoints(bool isAllowed)
   {

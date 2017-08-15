@@ -1213,7 +1213,7 @@ Java_com_mapswithme_maps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jst
   data.m_title = jni::ToNativeString(env, title);
   data.m_subTitle = jni::ToNativeString(env, subtitle);
   data.m_pointType = static_cast<RouteMarkType>(markType);
-  data.m_intermediateIndex = static_cast<int8_t>(intermediateIndex);
+  data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(MercatorBounds::FromLatLon(lat, lon));
 
@@ -1225,7 +1225,7 @@ Java_com_mapswithme_maps_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass,
                                                           jint markType, jint intermediateIndex)
 {
   frm()->GetRoutingManager().RemoveRoutePoint(static_cast<RouteMarkType>(markType),
-                                              static_cast<int8_t>(intermediateIndex));
+                                              static_cast<size_t>(intermediateIndex));
 }
 
 JNIEXPORT void JNICALL

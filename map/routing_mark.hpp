@@ -17,7 +17,7 @@ struct RouteMarkData
   std::string m_title;
   std::string m_subTitle;
   RouteMarkType m_pointType = RouteMarkType::Start;
-  int8_t m_intermediateIndex = 0;
+  size_t m_intermediateIndex = 0;
   bool m_isVisible = true;
   bool m_isMyPosition = false;
   bool m_isPassed = false;
@@ -42,8 +42,8 @@ public:
   RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
   void SetRoutePointType(RouteMarkType type);
 
-  void SetIntermediateIndex(int8_t index);
-  int8_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
+  void SetIntermediateIndex(size_t index);
+  size_t GetIntermediateIndex() const { return m_markData.m_intermediateIndex; }
 
   void SetIsMyPosition(bool isMyPosition);
   bool IsMyPosition() const { return m_markData.m_isMyPosition; }
@@ -78,20 +78,20 @@ protected:
 class RoutePointsLayout
 {
 public:
-  static int8_t const kMaxIntermediatePointsCount;
+  static size_t const kMaxIntermediatePointsCount;
 
   RoutePointsLayout(UserMarksController & routeMarks);
 
   RouteMarkPoint * AddRoutePoint(RouteMarkData && data);
-  RouteMarkPoint * GetRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  RouteMarkPoint * GetRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   std::vector<RouteMarkPoint *> GetRoutePoints();
   size_t GetRoutePointsCount() const;
-  bool RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
-  bool MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
-                      RouteMarkType destType, int8_t destIntermediateIndex);
-  void PassRoutePoint(RouteMarkType type, int8_t intermediateIndex = 0);
+  bool MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
+                      RouteMarkType destType, size_t destIntermediateIndex);
+  void PassRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void SetFollowingMode(bool enabled);
   void NotifyChanges();
 

@@ -265,7 +265,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
       else if (passedCheckpointIdx + 1 == pointsCount)
         OnRoutePointPassed(RouteMarkType::Finish, 0);
       else
-        OnRoutePointPassed(RouteMarkType::Intermediate, static_cast<int8_t>(passedCheckpointIdx - 1));
+        OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
     });
   });
 }
@@ -322,7 +322,7 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCod
   CallRouteBuilded(code, storage::TCountriesVec());
 }
 
-void RoutingManager::OnRoutePointPassed(RouteMarkType type, int8_t intermediateIndex)
+void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
 {
   // Remove route point.
   ASSERT(m_bmManager != nullptr, ());
@@ -533,7 +533,7 @@ void RoutingManager::SetLastUsedRouter(RouterType type)
   settings::Set(kRouterTypeKey, ToString(type));
 }
 
-void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+void RoutingManager::HideRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
@@ -544,7 +544,7 @@ void RoutingManager::HideRoutePoint(RouteMarkType type, int8_t intermediateIndex
   }
 }
 
-bool RoutingManager::IsMyPosition(RouteMarkType type, int8_t intermediateIndex)
+bool RoutingManager::IsMyPosition(RouteMarkType type, size_t intermediateIndex)
 {
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   RouteMarkPoint * mark = routePoints.GetRoutePoint(type, intermediateIndex);
@@ -572,8 +572,7 @@ bool RoutingManager::CouldAddIntermediatePoint() const
     return false;
 
   auto const & controller = m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK);
-  return controller.GetUserMarkCount() <
-         static_cast<size_t>(RoutePointsLayout::kMaxIntermediatePointsCount + 2);
+  return controller.GetUserMarkCount() < RoutePointsLayout::kMaxIntermediatePointsCount + 2;
 }
 
 void RoutingManager::AddRoutePoint(RouteMarkData && markData)
@@ -591,7 +590,7 @@ void RoutingManager::AddRoutePoint(RouteMarkData && markData)
   routePoints.NotifyChanges();
 }
 
-void RoutingManager::RemoveRoutePoint(RouteMarkType type, int8_t intermediateIndex)
+void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
@@ -615,8 +614,8 @@ void RoutingManager::RemoveIntermediateRoutePoints()
   routePoints.NotifyChanges();
 }
 
-void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentIntermediateIndex,
-                                    RouteMarkType targetType, int8_t targetIntermediateIndex)
+void RoutingManager::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
+                                    RouteMarkType targetType, size_t targetIntermediateIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
@@ -625,13 +624,13 @@ void RoutingManager::MoveRoutePoint(RouteMarkType currentType, int8_t currentInt
   routePoints.NotifyChanges();
 }
 
-void RoutingManager::MoveRoutePoint(int8_t currentIndex, int8_t targetIndex)
+void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 {
   ASSERT(m_bmManager != nullptr, ());
 
   RoutePointsLayout routePoints(m_bmManager->GetUserMarksController(UserMarkType::ROUTING_MARK));
   size_t const sz = routePoints.GetRoutePointsCount();
-  auto const convertIndex = [sz](RouteMarkType & type, int8_t & index) {
+  auto const convertIndex = [sz](RouteMarkType & type, size_t & index) {
     if (index == 0)
     {
       type = RouteMarkType::Start;
@@ -701,10 +700,10 @@ void RoutingManager::ReorderIntermediatePoints()
 
   CheckpointPredictor predictor(m_routingSession.GetStartPoint(), m_routingSession.GetEndPoint());
 
-  auto const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
-  addedPoint->SetIntermediateIndex(static_cast<int8_t>(insertIndex));
+  size_t const insertIndex = predictor.PredictPosition(prevPositions, addedPosition);
+  addedPoint->SetIntermediateIndex(insertIndex);
   for (size_t i = 0; i < prevPoints.size(); ++i)
-    prevPoints[i]->SetIntermediateIndex(static_cast<int8_t>(i < insertIndex ? i : i + 1));
+    prevPoints[i]->SetIntermediateIndex(i < insertIndex ? i : i + 1);
 
   routePoints.NotifyChanges();
 }
