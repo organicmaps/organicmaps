@@ -6101,7 +6101,7 @@
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
     th = ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด
-    tr = Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.
+    tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
     uk = Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.
     vi = Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.
     zh-Hans = 它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。
@@ -20876,7 +20876,7 @@
     es = La recopilación de estadísticas de uso anónimas nos ayuda a mejorar la aplicación.
     sv = Genom att samla in anonym användningsstatistik kan vi förbättra appen.
     th = การเก็บรวบรวมสถิติการใช้งานแบบไม่ระบุตัวตนจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น
-    tr = Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.
+    tr = Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.
     uk = Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.
     vi = Việc thu thập số liệu sử dụng ẩn danh giúp chúng tôi cải thiện ứng dụng.
     zh-Hans = 收集匿名使用统计数据有助于我们改进应用。
