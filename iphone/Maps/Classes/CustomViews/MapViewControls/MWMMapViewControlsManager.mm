@@ -1,29 +1,17 @@
 #import "MWMMapViewControlsManager.h"
-#import "EAGLView.h"
-#import "MWMAPIBar.h"
 #import "MWMAddPlaceNavigationBar.h"
-#import "MWMAlertViewController.h"
-#import "MWMAlertViewController.h"
-#import "MWMAuthorizationCommon.h"
 #import "MWMBottomMenuControllerProtocol.h"
-#import "MWMBottomMenuViewController.h"
-#import "MWMButton.h"
 #import "MWMCommon.h"
-#import "MWMFrameworkListener.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMObjectsCategorySelectorController.h"
 #import "MWMPlacePageManager.h"
-#import "MWMRouter.h"
+#import "MWMPlacePageProtocol.h"
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMToast.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
@@ -31,6 +19,8 @@
 #include "platform/platform.hpp"
 
 #include "storage/storage_helpers.hpp"
+
+#include "map/place_page_info.hpp"
 
 namespace
 {
@@ -166,7 +156,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMBottomMenuControllerProtocol
 
-- (void)actionDownloadMaps:(mwm::DownloaderMode)mode
+- (void)actionDownloadMaps:(MWMMapDownloaderMode)mode
 {
   MapViewController * ownerController = self.ownerController;
   if (platform::migrate::NeedMigrate())

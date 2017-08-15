@@ -1,10 +1,8 @@
 #import "MWMStorage.h"
-#import "MWMCommon.h"
+#import "MWMAlertViewController.h"
 #import "MWMRouter.h"
 
 #include "Framework.h"
-
-#include "platform/platform.hpp"
 
 #include "storage/storage_helpers.hpp"
 

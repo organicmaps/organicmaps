@@ -1,10 +1,7 @@
 #import "MWMNightModeController.h"
 #import "MWMSettings.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-#include "Framework.h"
 
 @interface MWMNightModeController ()
 

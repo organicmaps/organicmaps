@@ -3,9 +3,7 @@
 #import "BookmarksVC.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
-#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
 #import "MWMCommon.h"
@@ -13,37 +11,17 @@
 #import "MWMEditorViewController.h"
 #import "MWMFacilitiesController.h"
 #import "MWMFrameworkListener.h"
-#import "MWMKeyboard.h"
 #import "MWMLocationHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageData.h"
 #import "MWMPlacePageProtocol.h"
-#import "MWMRouter.h"
-#import "MWMSettings.h"
-#import "MWMSideButtons.h"
-#import "MWMStorage.h"
-#import "MWMTableViewController.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
-#import "UIViewController+Navigation.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
-
-#include "indexer/osm_editor.hpp"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
-#include "map/user_mark.hpp"
-
 #include "drape_frontend/user_event_stream.hpp"
-
-#include "platform/file_logging.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
-#include "platform/settings.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -394,10 +372,10 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)openMapsDownloader:(mwm::DownloaderMode)mode
+- (void)openMapsDownloader:(MWMMapDownloaderMode)mode
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  [self performSegueWithIdentifier:kDownloaderSegue sender:@(static_cast<NSInteger>(mode))];
+  [self performSegueWithIdentifier:kDownloaderSegue sender:@(mode)];
 }
 
 - (void)openEditor
@@ -580,7 +558,7 @@ BOOL gIsFirstMyPositionMode = YES;
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
     [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
-                       mode:static_cast<mwm::DownloaderMode>(mode.integerValue)];
+                       mode:static_cast<MWMMapDownloaderMode>(mode.integerValue)];
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
   {

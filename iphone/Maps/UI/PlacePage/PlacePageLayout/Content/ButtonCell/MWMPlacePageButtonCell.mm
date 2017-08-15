@@ -1,6 +1,5 @@
 #import "MWMPlacePageButtonCell.h"
-#import "MWMCommon.h"
-#import "MWMPlacePageProtocol.h"
+#import "MWMPlacePageData.h"
 #import "SwiftBridge.h"
 
 @interface MWMPlacePageButtonCell ()

@@ -99,7 +99,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)refreshLayout
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     auto const availableArea = self.availableArea;
     auto const leftOffset =
         self.hidden ? -self.view.width : availableArea.origin.x + kViewControlsOffsetToBounds;

@@ -1,12 +1,7 @@
-#import "MWMMapWidgets.h"
-
 #include "drape/pointers.hpp"
 #include "drape/drape_global.hpp"
 
-#include "indexer/map_style.hpp"
-
-#include "std/shared_ptr.hpp"
-
+@class MWMMapWidgets;
 namespace dp
 {
   class ThreadSafeFactory;

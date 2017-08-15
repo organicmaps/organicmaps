@@ -1,11 +1,5 @@
 #import "MWMDefaultAlert.h"
-#import "MWMAlertViewController.h"
-#import "MWMDefaultAlert_Protected.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIButton+RuntimeAttributes.h"
-#import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"
 

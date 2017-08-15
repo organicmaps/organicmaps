@@ -1,10 +1,9 @@
-#import "Framework.h"
 #import "MWMUGCReviewVM.h"
 #import "SwiftBridge.h"
 
-#include "ugc/api.hpp"
+#include "Framework.h"
 
-#include <vector>
+#include "ugc/types.hpp"
 
 @interface MWMUGCReviewVM () <MWMUGCSpecificReviewDelegate, MWMUGCTextReviewDelegate>
 {

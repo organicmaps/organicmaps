@@ -63,7 +63,7 @@
                                   unselectedAttrs:unselectedTitleAttrs];
 
   TMwmSize size = nodeAttrs.m_mwmSize;
-  bool const isModeDownloaded = self.mode == mwm::DownloaderMode::Downloaded;
+  bool const isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
 
   switch (nodeAttrs.m_status)
   {
@@ -93,7 +93,7 @@
 {
   MWMCircularProgress * progress = self.progress;
   MWMButtonColoring const coloring =
-      self.mode == mwm::DownloaderMode::Downloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
+      self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:

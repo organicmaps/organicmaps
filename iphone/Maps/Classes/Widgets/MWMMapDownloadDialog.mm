@@ -4,13 +4,14 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
+#import "MWMConsts.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"
+#import "MWMRouter.h"
 #import "MWMSettings.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #include "Framework.h"
@@ -21,7 +22,7 @@ namespace
 {
 CGSize constexpr kInitialDialogSize = {200, 200};
 
-BOOL canAutoDownload(TCountryId const & countryId)
+BOOL canAutoDownload(storage::TCountryId const & countryId)
 {
   if (![MWMSettings autoDownloadEnabled])
     return NO;

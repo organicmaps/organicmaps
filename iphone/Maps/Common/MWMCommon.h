@@ -56,11 +56,6 @@ static inline CGFloat statusBarHeight()
   return MIN(statusBarSize.height, statusBarSize.width);
 }
 
-static inline void runAsyncOnMainQueue(dispatch_block_t block)
-{
-  dispatch_async(dispatch_get_main_queue(), block);
-}
-
 static inline void setStatusBarBackgroundColor(UIColor * color)
 {
   UIView * statusBar =

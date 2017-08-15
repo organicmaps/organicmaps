@@ -1,7 +1,6 @@
 #import "AddSetVC.h"
 #import "AddSetTableViewCell.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 

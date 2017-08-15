@@ -1,9 +1,6 @@
 #import "MWMSearch.h"
 #import <Crashlytics/Crashlytics.h>
-#import "MWMAlertViewController.h"
 #import "MWMBannerHelpers.h"
-#import "MWMCommon.h"
-#import "MWMLocationManager.h"
 #import "MWMSearchHotelsFilterViewController.h"
 #import "SwiftBridge.h"
 
@@ -12,8 +9,6 @@
 #include "partners_api/ads_engine.hpp"
 
 #include "search/everywhere_search_params.hpp"
-#include "search/hotels_classifier.hpp"
-#include "search/query_saver.hpp"
 #include "search/viewport_search_params.hpp"
 
 namespace

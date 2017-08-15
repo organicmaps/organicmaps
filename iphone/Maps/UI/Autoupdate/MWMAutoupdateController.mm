@@ -6,8 +6,6 @@
 #import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"
 
-#include <vector>
-
 namespace
 {
 string RootId() { return GetFramework().GetStorage().GetRootId(); }

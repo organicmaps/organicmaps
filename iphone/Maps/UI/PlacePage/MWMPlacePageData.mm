@@ -1,22 +1,18 @@
 #import "MWMPlacePageData.h"
-#import "AppInfo.h"
 #import "MWMBannerHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMSettings.h"
 #import "MWMUGCReviewVM.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 #include "Framework.h"
 
-#include "partners_api/banner.hpp"
+#include "local_ads/event.hpp"
 
-#include "ugc/api.hpp"
+#include "partners_api/booking_api.hpp"
 
-#include "base/string_utils.hpp"
+#include "ugc/types.hpp"
+
+#include "map/place_page_info.hpp"
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -185,6 +181,7 @@ using namespace place_page;
     case Props::Stars:
     case Props::Flats:
     case Props::BuildingLevels:
+    case Props::Level:
     case Props::Fax: break;
     }
   }
@@ -698,7 +695,7 @@ using namespace place_page;
   return m_info.IsBookmark() ? @(m_info.GetBookmarkCategoryName().c_str()) : nil;
 }
 
-- (BookmarkAndCategory)bac;
+- (BookmarkAndCategory)bookmarkAndCategory
 {
   return m_info.IsBookmark() ? m_info.GetBookmarkAndCategory() : BookmarkAndCategory();
 }

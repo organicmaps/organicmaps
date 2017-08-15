@@ -1,11 +1,8 @@
 #import "MWMPlacePageManager.h"
-#import <Pushwoosh/PushNotificationManager.h>
 #import "CLLocation+Mercator.h"
 #import "MapViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
-#import "MWMCircularProgress.h"
-#import "MWMEditBookmarkController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
@@ -15,21 +12,16 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSideButtons.h"
 #import "MWMStorage.h"
 #import "MWMUGCReviewController.h"
 #import "MWMUGCReviewVM.h"
-#import "MWMViewController.h"
 #import "Statistics.h"
-#import "SwiftBridge.h"
+
+#include "Framework.h"
+
+#include "map/bookmark.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/point2d.hpp"
-
-#include "platform/measurement_utils.hpp"
-#include "platform/platform.hpp"
-
-#include "ugc/api.hpp"
 
 extern NSString * const kBookmarkDeletedNotification;
 extern NSString * const kBookmarkCategoryDeletedNotification;
@@ -128,11 +120,13 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
 
   auto value = static_cast<NSValue *>(notification.object);
-  auto deletedBac = BookmarkAndCategory();
-  [value getValue:&deletedBac];
-  NSAssert(deletedBac.IsValid(), @"Place page must have valid bookmark and category.");
-  auto bac = data.bac;
-  if (bac.m_bookmarkIndex != deletedBac.m_bookmarkIndex || bac.m_categoryIndex != deletedBac.m_categoryIndex)
+  auto deletedBookmarkAndCategory = BookmarkAndCategory();
+  [value getValue:&deletedBookmarkAndCategory];
+  NSAssert(deletedBookmarkAndCategory.IsValid(),
+           @"Place page must have valid bookmark and category.");
+  auto bookmarkAndCategory = data.bookmarkAndCategory;
+  if (bookmarkAndCategory.m_bookmarkIndex != deletedBookmarkAndCategory.m_bookmarkIndex ||
+      bookmarkAndCategory.m_categoryIndex != deletedBookmarkAndCategory.m_categoryIndex)
     return;
 
   [self shouldClose];
@@ -146,7 +140,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
 
   auto deletedIndex = static_cast<NSNumber *>(notification.object).integerValue;
-  auto index = data.bac.m_categoryIndex;
+  auto index = data.bookmarkAndCategory.m_categoryIndex;
   if (index != deletedIndex)
     return;
 

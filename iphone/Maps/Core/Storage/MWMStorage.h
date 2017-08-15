@@ -1,5 +1,3 @@
-#import "MWMAlertViewController.h"
-
 #include "storage/index.hpp"
 
 @interface MWMStorage : NSObject

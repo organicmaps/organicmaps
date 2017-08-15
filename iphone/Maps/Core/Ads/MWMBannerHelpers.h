@@ -3,6 +3,8 @@
 
 #include "partners_api/banner.hpp"
 
+#include <vector>
+
 namespace banner_helpers
 {
 static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
@@ -22,7 +24,8 @@ static inline MWMCoreBanner * MatchBanner(ads::Banner const & banner)
                                        bannerID:@(banner.m_bannerId.c_str())];
 }
 
-static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(vector<ads::Banner> const & banners)
+static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(
+    std::vector<ads::Banner> const & banners)
 {
   NSMutableArray<MWMCoreBanner *> * mBanners = [@[] mutableCopy];
   for (auto const & banner : banners)

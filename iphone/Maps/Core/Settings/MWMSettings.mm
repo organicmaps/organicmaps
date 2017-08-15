@@ -1,10 +1,7 @@
 #import "MWMSettings.h"
 #import "MWMCoreUnits.h"
-#import "MWMFrameworkHelper.h"
 #import "MWMMapViewControlsManager.h"
-#import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"

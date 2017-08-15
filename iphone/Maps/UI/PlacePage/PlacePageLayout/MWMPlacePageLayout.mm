@@ -1,14 +1,12 @@
 #import "MWMPlacePageLayout.h"
-#import <MyTrackerSDK/MRMyTracker.h>
 #import "MWMBookmarkCell.h"
-#import "MWMCircularProgress.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMPPReviewCell.h"
+#import "MWMPPView.h"
 #import "MWMPlacePageButtonCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
 #import "MWMPlacePageData.h"
-#import "MWMPlacePageLayoutImpl.h"
 #import "MWMPlacePageRegularCell.h"
 #import "MWMUGCCommentCell.h"
 #import "MWMiPadPlacePageLayoutImpl.h"
@@ -18,10 +16,9 @@
 
 #include "ugc/types.hpp"
 
-#include "storage/storage.hpp"
+#include "partners_api/booking_api.hpp"
 
-#include "std/array.hpp"
-#include "std/map.hpp"
+#include "storage/storage_defines.hpp"
 
 namespace
 {

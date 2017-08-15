@@ -2,10 +2,7 @@
 #import "MWMSearchFilterViewController_Protected.h"
 #import "SwiftBridge.h"
 
-#include "base/stl_helpers.hpp"
-
-#include <array>
-#include <vector>
+#include "search/hotels_filter.hpp"
 
 namespace
 {

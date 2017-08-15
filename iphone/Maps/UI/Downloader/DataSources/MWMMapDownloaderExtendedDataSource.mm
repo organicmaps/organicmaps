@@ -1,7 +1,6 @@
 #import "MWMMapDownloaderExtendedDataSource.h"
 #import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
-#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
@@ -34,7 +33,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
 - (void)load
 {
   [super load];
-  if (self.mode == mwm::DownloaderMode::Available)
+  if (self.mode == MWMMapDownloaderModeAvailable)
     [self configNearMeSection];
 }
 

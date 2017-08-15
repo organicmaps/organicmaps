@@ -1,7 +1,8 @@
-#import "MWMAlertViewController.h"
+#import "MWMBaseMapDownloaderViewController.h"
 #import "MWMButton.h"
 #import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
@@ -10,20 +11,15 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
-#import "MWMMapDownloaderViewController.h"
 #import "MWMMigrationViewController.h"
 #import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
 #import "MWMToast.h"
-#import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
-
-#include "storage/index.hpp"
 
 namespace
 {
@@ -58,7 +54,6 @@ NSString * const kControllerIdentifier = @"MWMMapDownloaderViewController";
 } // namespace
 
 using namespace storage;
-using namespace mwm;
 
 @interface MWMBaseMapDownloaderViewController ()<UIScrollViewDelegate, MWMFrameworkStorageObserver,
                                                  MWMMyTargetDelegate>
@@ -82,7 +77,7 @@ using namespace mwm;
 @property (nonatomic) BOOL forceFullReload;
 
 @property (nonatomic, readonly) NSString * parentCountryId;
-@property (nonatomic, readonly) DownloaderMode mode;
+@property(nonatomic, readonly) MWMMapDownloaderMode mode;
 
 @property (nonatomic) BOOL showAllMapsButtons;
 
@@ -132,7 +127,7 @@ using namespace mwm;
 
 - (void)configNavBar
 {
-  BOOL const downloaded = self.mode == DownloaderMode::Downloaded;
+  BOOL const downloaded = self.mode == MWMMapDownloaderModeDownloaded;
   if (self.dataSource.isParentRoot)
   {
     self.title = downloaded ? L(@"downloader_my_maps_title") : L(@"download_maps");
@@ -260,7 +255,7 @@ using namespace mwm;
   {
     self.showAllMapsButtons = NO;
   }
-  else if (self.mode == DownloaderMode::Downloaded)
+  else if (self.mode == MWMMapDownloaderModeDownloaded)
   {
     Storage::UpdateInfo updateInfo{};
     s.GetUpdateInfo(parentCountryId, updateInfo);
@@ -357,7 +352,7 @@ using namespace mwm;
 {
   self.skipCountryEventProcessing = YES;
   TCountryId const parentCountryId = self.parentCountryId.UTF8String;
-  if (self.mode == DownloaderMode::Downloaded)
+  if (self.mode == MWMMapDownloaderModeDownloaded)
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
@@ -630,7 +625,7 @@ using namespace mwm;
   BOOL const isParentRoot = [self.parentCountryId isEqualToString:@(GetFramework().GetStorage().GetRootId().c_str())];
   NSString * identifier = isParentRoot ? kControllerIdentifier : kBaseControllerIdentifier;
   MWMBaseMapDownloaderViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
-  [vc setParentCountryId:self.parentCountryId mode:DownloaderMode::Available];
+  [vc setParentCountryId:self.parentCountryId mode:MWMMapDownloaderModeAvailable];
   [MWMSegue segueFrom:self to:vc];
 }
 
@@ -735,7 +730,7 @@ using namespace mwm;
 
 #pragma mark - Configuration
 
-- (void)setParentCountryId:(NSString *)parentId mode:(DownloaderMode)mode
+- (void)setParentCountryId:(NSString *)parentId mode:(MWMMapDownloaderMode)mode
 {
   self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId
                                                                                   delegate:self
@@ -761,12 +756,7 @@ using namespace mwm;
 {
   return self.dataSource.parentCountryId;
 }
-
-- (DownloaderMode)mode
-{
-  return self.dataSource.mode;
-}
-
+- (MWMMapDownloaderMode)mode { return self.dataSource.mode; }
 - (void)setDataSource:(MWMMapDownloaderDataSource *)dataSource
 {
   self.forceFullReload = YES;

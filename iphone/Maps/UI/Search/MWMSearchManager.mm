@@ -1,14 +1,10 @@
 #import "MWMSearchManager.h"
-#import "CLLocation+Mercator.h"
 #import "MWMCommon.h"
-#import "MWMConsole.h"
 #import "MWMFrameworkListener.h"
-#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSearch.h"
 #import "MWMSearchChangeModeView.h"
 #import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchManager+Filter.h"
@@ -17,14 +13,8 @@
 #import "MWMSearchTabbedViewController.h"
 #import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
-
-#include "storage/storage_helpers.hpp"
-
-#include "Framework.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateKey = @"SearchStateKey";
@@ -141,15 +131,8 @@ using Observers = NSHashTable<Observer>;
   if (text.length > 0)
   {
     [self clearFilter];
-    if ([MWMConsole performCommand:text])
-    {
-      self.state = MWMSearchManagerStateHidden;
-    }
-    else
-    {
-      [self beginSearch];
-      [MWMSearch searchQuery:text forInputLocale:textField.textInputMode.primaryLanguage];
-    }
+    [self beginSearch];
+    [MWMSearch searchQuery:text forInputLocale:textField.textInputMode.primaryLanguage];
   }
   else
   {

@@ -1,14 +1,10 @@
 #import "MWMSettingsViewController.h"
-#import "LocaleTranslator.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMSettings.h"
 #import "MWMTextToSpeech+CPP.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-#import "WebViewController.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+#include "LocaleTranslator.h"
 
 #include "Framework.h"
 

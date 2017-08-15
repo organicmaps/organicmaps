@@ -1,6 +1,6 @@
-#import "MWMCommon.h"
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
+#import "MWMCommon.h"
 #import "Statistics.h"
 
 #include "Framework.h"

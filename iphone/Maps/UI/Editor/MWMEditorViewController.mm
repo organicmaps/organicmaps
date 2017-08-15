@@ -21,15 +21,11 @@
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
 #import "MapViewController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
 #include "indexer/osm_editor.hpp"
-
-#include "std/algorithm.hpp"
 
 namespace
 {
@@ -146,7 +142,8 @@ vector<MWMEditorCellType> cellsForProperties(vector<osm::Props> const & props)
     case Props::Stars:
     case Props::Elevation:
     case Props::Flats:
-    case Props::BuildingLevels: break;
+    case Props::BuildingLevels:
+    case Props::Level: break;
     }
   }
   return res;
@@ -317,8 +314,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
 - (void)showDropDown
 {
-  UIViewController * parent = static_cast<UIViewController *>([MapViewController controller]);
-  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:parent.view];
+  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:[MapViewController controller].view];
   [dd showWithMessage:L(@"editor_edits_sent_message")];
 }
 

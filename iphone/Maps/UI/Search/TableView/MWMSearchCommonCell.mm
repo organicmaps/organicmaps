@@ -1,10 +1,6 @@
 #import "MWMSearchCommonCell.h"
 #import "CLLocation+Mercator.h"
-#import "MWMCommon.h"
 #import "MWMLocationManager.h"
-#import "MapsAppDelegate.h"
-
-#include "Framework.h"
 
 #include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"

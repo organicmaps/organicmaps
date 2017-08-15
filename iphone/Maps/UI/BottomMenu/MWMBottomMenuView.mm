@@ -1,15 +1,7 @@
 #import "MWMBottomMenuView.h"
-#import "EAGLView.h"
 #import "MWMAvailableAreaAffectDirection.h"
-#import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMCommon.h"
-#import "MWMRouter.h"
-#import "MWMSideButtons.h"
-#import "MapsAppDelegate.h"
-#import "UIButton+RuntimeAttributes.h"
-#import "UIImageView+Coloring.h"
-#import "UIView+RuntimeAttributes.h"
 
 #include "Framework.h"
 
@@ -37,8 +29,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
 
 @property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * mainButtonConstraintsLeftToRight;
-
-@property(weak, nonatomic) IBOutlet MWMBottomMenuViewController * owner;
 
 @property(nonatomic) CGFloat layoutDuration;
 @property(nonatomic) CGRect availableArea;

@@ -1,11 +1,6 @@
 #import "MWMMapWidgets.h"
-#import "MWMCommon.h"
 #import "EAGLView.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MapViewController.h"
-
-#include "drape_frontend/gui/skin.hpp"
-#include "std/unique_ptr.hpp"
 
 @interface MWMMapWidgets ()
 

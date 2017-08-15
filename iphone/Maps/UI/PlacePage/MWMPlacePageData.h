@@ -1,10 +1,10 @@
 #import "MWMPlacePageActionBar.h"
 
-#include "local_ads/event.hpp"
+#include "partners_api/taxi_provider.hpp"
 
-#include "partners_api/booking_api.hpp"
+#include "storage/index.hpp"
 
-#include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 
 #include <vector>
 
@@ -12,13 +12,29 @@
 @class MWMUGCReviewVM;
 @class MWMCianItemModel;
 
+struct BookmarkAndCategory;
+struct FeatureID;
+
 namespace ugc
 {
 struct Review;
-}
+}  // ugc
+
+namespace local_ads
+{
+enum class EventType;
+}  // local_ads
+
+namespace booking
+{
+struct HotelReview;
+struct HotelFacility;
+}  // namespace booking
 
 namespace place_page
 {
+class Info;
+
 enum class Sections
 {
   Preview,
@@ -126,7 +142,6 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 
 }  // namespace place_page
 
-
 @class MWMGalleryItemModel;
 @class MWMViatorItemModel;
 @class MWMCianItemModel;
@@ -201,7 +216,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 - (NSString *)bookmarkColor;
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
-- (BookmarkAndCategory)bac;
+- (BookmarkAndCategory)bookmarkAndCategory;
 
 // Local Ads
 - (NSString *)localAdsURL;

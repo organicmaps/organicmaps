@@ -1,5 +1,4 @@
 #import "MWMFrameworkHelper.h"
-#import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
 #import "MapViewController.h"
 

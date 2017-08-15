@@ -1,12 +1,16 @@
 #import "MWMBottomMenuViewController.h"
+#import "MWMMapDownloaderMode.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
-
-#include "map/place_page_info.hpp"
 
 @class MapViewController;
 @protocol MWMFeatureHolder;
 @protocol MWMBookingInfoHolder;
+
+namespace place_page
+{
+class Info;
+}  // namespace place_page
 
 @interface MWMMapViewControlsManager : NSObject
 
@@ -48,7 +52,7 @@
 
 #pragma mark - MWMSearchManager
 
-- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
+- (void)actionDownloadMaps:(MWMMapDownloaderMode)mode;
 - (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale;
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale;
 

@@ -1,5 +1,4 @@
 #import "MWMRecentTrackSettingsController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"

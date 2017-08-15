@@ -1,15 +1,11 @@
 #import "MWMPlacePageActionBar.h"
 #import "AppInfo.h"
 #import "MWMActionBarButton.h"
-#import "MWMCommon.h"
+#import "MWMCircularProgress.h"
+#import "MWMNavigationDashboardManager.h"
 #import "MWMPlacePageProtocol.h"
 #import "MWMRouter.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
-
-#include "Framework.h"
-
-#include "std/vector.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 

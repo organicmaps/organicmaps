@@ -1,17 +1,13 @@
 #import "MWMSideButtons.h"
 #import "MWMButton.h"
-#import "MWMCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRouter.h"
 #import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
 #import "Statistics.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
-#include "indexer/scales.hpp"
-#include "platform/settings.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 

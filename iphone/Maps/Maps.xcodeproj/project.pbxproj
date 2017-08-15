@@ -1465,9 +1465,6 @@
 		F6E2FEBD1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */; };
 		F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */; };
 		F6E2FEBF1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */; };
-		F6E2FEC01E097BA00083EBEC /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE41E097B9F0083EBEC /* MWMConsole.mm */; };
-		F6E2FEC11E097BA00083EBEC /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE41E097B9F0083EBEC /* MWMConsole.mm */; };
-		F6E2FEC21E097BA00083EBEC /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE41E097B9F0083EBEC /* MWMConsole.mm */; };
 		F6E2FEC31E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */; };
 		F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */; };
 		F6E2FEC51E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */; };
@@ -2401,7 +2398,7 @@
 		F6E2FC1E1E097B9F0083EBEC /* MWMBaseMapDownloaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBaseMapDownloaderViewController.h; sourceTree = "<group>"; };
 		F6E2FC1F1E097B9F0083EBEC /* MWMBaseMapDownloaderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMBaseMapDownloaderViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6E2FC201E097B9F0083EBEC /* MWMMapDownloaderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderProtocol.h; sourceTree = "<group>"; };
-		F6E2FC211E097B9F0083EBEC /* MWMMapDownloaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderTypes.h; sourceTree = "<group>"; };
+		F6E2FC211E097B9F0083EBEC /* MWMMapDownloaderMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderMode.h; sourceTree = "<group>"; };
 		F6E2FC221E097B9F0083EBEC /* MWMMapDownloaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderViewController.h; sourceTree = "<group>"; };
 		F6E2FC231E097B9F0083EBEC /* MWMMapDownloaderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderViewController.mm; sourceTree = "<group>"; };
 		F6E2FC251E097B9F0083EBEC /* MWMNoMapsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapsView.h; sourceTree = "<group>"; };
@@ -2536,8 +2533,6 @@
 		F6E2FCDE1E097B9F0083EBEC /* _MWMPPPTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _MWMPPPTitle.xib; sourceTree = "<group>"; };
 		F6E2FCDF1E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPPPreviewLayoutHelper.h; sourceTree = "<group>"; };
 		F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMPPPreviewLayoutHelper.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F6E2FCE31E097B9F0083EBEC /* MWMConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMConsole.h; sourceTree = "<group>"; };
-		F6E2FCE41E097B9F0083EBEC /* MWMConsole.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMConsole.mm; sourceTree = "<group>"; };
 		F6E2FCE61E097B9F0083EBEC /* MWMSearchFilterPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterPresentationController.h; sourceTree = "<group>"; };
 		F6E2FCE71E097B9F0083EBEC /* MWMSearchFilterPresentationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFilterPresentationController.mm; sourceTree = "<group>"; };
 		F6E2FCE91E097B9F0083EBEC /* MWMSearchFilterTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFilterTransitioning.h; sourceTree = "<group>"; };
@@ -3990,7 +3985,7 @@
 				F6E2FC1E1E097B9F0083EBEC /* MWMBaseMapDownloaderViewController.h */,
 				F6E2FC1F1E097B9F0083EBEC /* MWMBaseMapDownloaderViewController.mm */,
 				F6E2FC201E097B9F0083EBEC /* MWMMapDownloaderProtocol.h */,
-				F6E2FC211E097B9F0083EBEC /* MWMMapDownloaderTypes.h */,
+				F6E2FC211E097B9F0083EBEC /* MWMMapDownloaderMode.h */,
 				F6E2FC221E097B9F0083EBEC /* MWMMapDownloaderViewController.h */,
 				F6E2FC231E097B9F0083EBEC /* MWMMapDownloaderViewController.mm */,
 				F6E2FC241E097B9F0083EBEC /* NoMaps */,
@@ -4354,7 +4349,6 @@
 		F6E2FCE11E097B9F0083EBEC /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F6E2FCE21E097B9F0083EBEC /* Console */,
 				F6E2FCE51E097B9F0083EBEC /* Filters */,
 				F6E2FCF21E097B9F0083EBEC /* MWMSearchChangeModeView.h */,
 				F6E2FCF31E097B9F0083EBEC /* MWMSearchChangeModeView.mm */,
@@ -4381,15 +4375,6 @@
 				347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		F6E2FCE21E097B9F0083EBEC /* Console */ = {
-			isa = PBXGroup;
-			children = (
-				F6E2FCE31E097B9F0083EBEC /* MWMConsole.h */,
-				F6E2FCE41E097B9F0083EBEC /* MWMConsole.mm */,
-			);
-			path = Console;
 			sourceTree = "<group>";
 		};
 		F6E2FCE51E097B9F0083EBEC /* Filters */ = {
@@ -5499,7 +5484,6 @@
 				F68BDF1B1EF80DE90009BB81 /* MWMUGCCommentCell.mm in Sources */,
 				F63AF50E1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				34D3AFF51E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
-				F6E2FEC01E097BA00083EBEC /* MWMConsole.mm in Sources */,
 				3490D2DE1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
 				340708771F2B5D6C00029ECC /* DimBackground.swift in Sources */,
 				F6E2FDF71E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
@@ -5838,7 +5822,6 @@
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
-				F6E2FEC11E097BA00083EBEC /* MWMConsole.mm in Sources */,
 				340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */,
 				3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
 				F6E2FDF81E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
@@ -6178,7 +6161,6 @@
 				34D3AFF71E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				340475601E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				340708791F2B5D6C00029ECC /* DimBackground.swift in Sources */,
-				F6E2FEC21E097BA00083EBEC /* MWMConsole.mm in Sources */,
 				845E4B1C1DEC839800D6BED8 /* MWMTrafficButtonViewController.mm in Sources */,
 				340B33C71F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				34763EF41F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */,
@@ -6587,7 +6569,6 @@
 		6741AA551BF340DE002C974C /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6601,7 +6582,6 @@
 		6741AA561BF340DE002C974C /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6615,7 +6595,6 @@
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6630,7 +6609,6 @@
 		6741AA591BF340DE002C974C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6644,7 +6622,6 @@
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6659,7 +6636,6 @@
 		6741AA5C1BF340DE002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7028,7 +7004,6 @@
 		FAAB411A149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -7132,7 +7107,6 @@
 		FAAB411C149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -7239,7 +7213,6 @@
 		FAAB411E149BA85500C245B1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -7346,7 +7319,6 @@
 		FAAB4120149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -7453,7 +7425,6 @@
 		FABB561F149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",
@@ -7561,7 +7532,6 @@
 		FACFE54515F8F35600CE8B20 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/Facebook/SDK",

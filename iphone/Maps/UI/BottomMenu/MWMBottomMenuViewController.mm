@@ -1,33 +1,15 @@
 #import "MWMBottomMenuViewController.h"
-#import <Pushwoosh/PushNotificationManager.h>
-#import "EAGLView.h"
 #import "MWMActivityViewController.h"
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "MWMBottomMenuControllerProtocol.h"
 #import "MWMBottomMenuLayout.h"
-#import "MWMBottomMenuView.h"
 #import "MWMButton.h"
 #import "MWMCommon.h"
-#import "MWMFrameworkListener.h"
-#import "MWMFrameworkObservers.h"
-#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMRouter.h"
-#import "MWMSearchManager.h"
-#import "MWMSettingsViewController.h"
-#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIImageView+Coloring.h"
-#import "UIViewController+Navigation.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
-
-#include "platform/mwm_version.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateKey;
@@ -245,7 +227,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
   self.state = MWMBottomMenuStateInactive;
-  [self.delegate actionDownloadMaps:mwm::DownloaderMode::Downloaded];
+  [self.delegate actionDownloadMaps:MWMMapDownloaderModeDownloaded];
 }
 
 - (IBAction)menuActionOpenSettings
@@ -350,7 +332,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)setState:(MWMBottomMenuState)state
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     [self.controller setNeedsStatusBarAppearanceUpdate];
   });
   MWMBottomMenuView * view = self.menuView;

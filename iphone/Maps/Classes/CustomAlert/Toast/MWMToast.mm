@@ -118,7 +118,7 @@ NSUInteger const kWordsPerSecond = 3;
   [self configLayout];
 
   UIView * ov = [UIViewController topViewController].view;
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     [ov layoutIfNeeded];
     self.bottomOffset.priority = UILayoutPriorityFittingSizeLevel;
     [UIView animateWithDuration:kDefaultAnimationDuration

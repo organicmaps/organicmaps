@@ -2,7 +2,6 @@
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
-#import "MWMCommon.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageData.h"
 #import "SelectSetVC.h"
@@ -35,7 +34,7 @@ enum RowInMetaInfo
 @interface MWMEditBookmarkController () <MWMButtonCellDelegate, MWMNoteCelLDelegate, MWMBookmarkColorDelegate,
                                          MWMSelectSetDelegate, MWMBookmarkTitleDelegate>
 {
-  BookmarkAndCategory m_cachedBac;
+  BookmarkAndCategory m_cachedBookmarkAndCategory;
 }
 
 @property (nonatomic) MWMNoteCell * cachedNote;
@@ -57,7 +56,7 @@ enum RowInMetaInfo
   self.cachedTitle = data.externalTitle ?: data.title;
   self.cachedCategory = data.bookmarkCategory;
   self.cachedColor = data.bookmarkColor;
-  m_cachedBac = data.bac;
+  m_cachedBookmarkAndCategory = data.bookmarkAndCategory;
   [self configNavBar];
   [self registerCells];
 }
@@ -90,11 +89,12 @@ enum RowInMetaInfo
 {
   [self.view endEditing:YES];
   auto & f = GetFramework();
-  BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
+  BookmarkCategory * category = f.GetBmCategory(m_cachedBookmarkAndCategory.m_categoryIndex);
   if (!category)
     return;
 
-  auto bookmark = static_cast<Bookmark *>(category->GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
+  auto bookmark = static_cast<Bookmark *>(
+      category->GetUserMarkForEdit(m_cachedBookmarkAndCategory.m_bookmarkIndex));
   if (!bookmark)
     return;
 
@@ -227,7 +227,7 @@ enum RowInMetaInfo
   case Category:
   {
     SelectSetVC * svc = [[SelectSetVC alloc] initWithCategory:self.cachedCategory
-                                                          bac:m_cachedBac
+                                                          bac:m_cachedBookmarkAndCategory
                                                      delegate:self];
     [self.navigationController pushViewController:svc animated:YES];
     break;
@@ -276,7 +276,7 @@ enum RowInMetaInfo
 - (void)didSelectCategory:(NSString *)category withBac:(BookmarkAndCategory const &)bac
 {
   self.cachedCategory = category;
-  m_cachedBac = bac;
+  m_cachedBookmarkAndCategory = bac;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Category inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

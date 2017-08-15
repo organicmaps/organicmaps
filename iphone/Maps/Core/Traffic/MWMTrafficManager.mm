@@ -1,9 +1,6 @@
 #import "MWMTrafficManager.h"
-#import "MWMCommon.h"
 
 #include "Framework.h"
-
-#include "map/traffic_manager.hpp"
 
 namespace
 {

@@ -1,21 +1,16 @@
 #import "MWMLocationManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
 #import "MWMAlertViewController.h"
-#import "MWMCommon.h"
-#import "MWMController.h"
 #import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
 #import "MWMRouter.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
 #include "map/gps_tracker.hpp"
-
-#include "std/map.hpp"
 
 namespace
 {
@@ -196,7 +191,7 @@ void setPermissionRequested()
 
 + (void)addObserver:(Observer)observer
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
     [manager processLocationUpdate:manager.lastLocationInfo];
@@ -205,7 +200,7 @@ void setPermissionRequested()
 
 + (void)removeObserver:(Observer)observer
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     [[self manager].observers removeObject:observer];
   });
 }
@@ -561,7 +556,7 @@ void setPermissionRequested()
   }
   else
   {
-    runAsyncOnMainQueue(^{
+    dispatch_async(dispatch_get_main_queue(), ^{
       [self updateFrameworkInfo];
     });
   }

@@ -1,8 +1,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageButtonsProtocol.h"
 
-#include "Framework.h"
-
 @class MWMViewController;
 
 @protocol MWMActionBarProtocol<NSObject>

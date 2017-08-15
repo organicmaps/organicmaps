@@ -1,6 +1,6 @@
-@class MWMPlacePageData;
+#import "MWMCircularProgressState.h"
 
-#import "MWMCircularProgress.h"
+@class MWMPlacePageData;
 
 @protocol MWMActionBarSharedData<NSObject>
 

@@ -1,5 +1,4 @@
 #import "MWMDownloadTransitMapAlert.h"
-#import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
 #import "MWMDownloaderDialogCell.h"

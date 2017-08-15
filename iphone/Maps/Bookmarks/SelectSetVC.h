@@ -1,5 +1,6 @@
 #import "MWMTableViewController.h"
-#include "Framework.h"
+
+struct BookmarkAndCategory;
 
 @protocol MWMSelectSetDelegate <NSObject>
 

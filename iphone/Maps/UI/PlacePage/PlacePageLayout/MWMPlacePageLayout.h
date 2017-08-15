@@ -1,4 +1,7 @@
-#include "storage/storage_defines.hpp"
+namespace storage
+{
+enum class NodeStatus;
+}  // namespace storage
 
 @protocol MWMPlacePageLayoutDelegate<NSObject>
 

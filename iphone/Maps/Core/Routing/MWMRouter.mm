@@ -1,8 +1,5 @@
 #import "MWMRouter.h"
 #import <Crashlytics/Crashlytics.h>
-#import <Pushwoosh/PushNotificationManager.h>
-#import "CLLocation+Mercator.h"
-#import "MWMAlertViewController.h"
 #import "MWMConsts.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
@@ -13,9 +10,7 @@
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMSearch.h"
-#import "MWMSettings.h"
 #import "MWMStorage.h"
-#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -25,9 +20,6 @@
 #include "Framework.h"
 
 #include "platform/local_country_file_utils.hpp"
-#include "platform/measurement_utils.hpp"
-
-#include "map/routing_manager.hpp"
 
 using namespace routing;
 

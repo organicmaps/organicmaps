@@ -1,20 +1,10 @@
 #import "MWMNavigationDashboardManager.h"
 #import <AudioToolbox/AudioServices.h>
 #import <Crashlytics/Crashlytics.h>
-#import "MWMCommon.h"
-#import "MWMLocationHelpers.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationInfoView.h"
-#import "MWMRoutePoint+CPP.h"
 #import "MWMRoutePreview.h"
-#import "MWMRouter.h"
-#import "MWMSearchManager.h"
-#import "MWMTextToSpeech.h"
-#import "MWMTrafficManager.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "platform/platform.hpp"

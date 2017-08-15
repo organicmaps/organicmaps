@@ -3,7 +3,10 @@
 #import "MWMSearchItemType.h"
 #import "MWMSearchObserver.h"
 
-#include "search/result.hpp"
+namespace search
+{
+class Result;
+}  // namespace search
 
 @interface MWMSearch : NSObject
 

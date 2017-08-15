@@ -6,6 +6,8 @@
 #import "Statistics.h"
 #import "UIImageView+Coloring.h"
 
+#include "local_ads/event.hpp"
+
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 

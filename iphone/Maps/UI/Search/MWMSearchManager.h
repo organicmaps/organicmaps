@@ -1,5 +1,4 @@
 #import "MWMAlertViewController.h"
-#import "MWMMapDownloaderTypes.h"
 #import "MWMSearchManagerObserver.h"
 #import "MWMSearchManagerState.h"
 #import "MWMSearchTextField.h"

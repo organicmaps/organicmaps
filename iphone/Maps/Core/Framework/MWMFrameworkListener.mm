@@ -1,9 +1,6 @@
 #import "MWMFrameworkListener.h"
-#import "MapsAppDelegate.h"
 
 #include "Framework.h"
-
-#include "std/mutex.hpp"
 
 namespace
 {

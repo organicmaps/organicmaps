@@ -1,5 +1,5 @@
-#import "MWMCommon.h"
 #import "MWMAddPlaceNavigationBar.h"
+#import "MWMCommon.h"
 
 #include "Framework.h"
 

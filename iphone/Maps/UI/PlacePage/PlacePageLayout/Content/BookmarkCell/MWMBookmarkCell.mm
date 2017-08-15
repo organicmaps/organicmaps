@@ -1,6 +1,5 @@
 #import "MWMBookmarkCell.h"
 #import "MWMPlacePageCellUpdateProtocol.h"
-
 #import "MWMPlacePageProtocol.h"
 
 namespace

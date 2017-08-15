@@ -1,8 +1,5 @@
 #import "MWMTaxiPreviewDataSource.h"
-#import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMRoutePoint.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -55,7 +52,7 @@ using namespace taxi;
 
 @interface MWMTaxiPreviewDataSource() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-  vector<Product> m_products;
+  std::vector<Product> m_products;
   ms::LatLon m_from;
   ms::LatLon m_to;
   uint64_t m_requestId;
@@ -107,7 +104,8 @@ using namespace taxi;
 
           auto success = [self, completion, failure](taxi::ProvidersContainer const & providers,
                                                      uint64_t const requestId) {
-            runAsyncOnMainQueue([self, completion, failure, providers, requestId] {
+            dispatch_async(dispatch_get_main_queue(), [self, completion, failure, providers,
+                                                       requestId] {
               if (self->m_requestId != requestId)
                 return;
               if (providers.empty())
@@ -152,7 +150,7 @@ using namespace taxi;
 
           auto error = [self, failure](taxi::ErrorsContainer const & errors,
                                        uint64_t const requestId) {
-            runAsyncOnMainQueue([self, failure, errors, requestId] {
+            dispatch_async(dispatch_get_main_queue(), [self, failure, errors, requestId] {
               if (self->m_requestId != requestId)
                 return;
               if (errors.empty())

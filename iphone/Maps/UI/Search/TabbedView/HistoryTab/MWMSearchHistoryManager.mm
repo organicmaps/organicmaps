@@ -1,10 +1,6 @@
 #import "MWMSearchHistoryManager.h"
-#import "MWMCommon.h"
-#import "MWMLocationManager.h"
 #import "MWMSearchHistoryClearCell.h"
 #import "MWMSearchHistoryRequestCell.h"
-#import "MWMSearchNoResults.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 

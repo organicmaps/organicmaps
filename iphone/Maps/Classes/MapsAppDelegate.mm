@@ -1,43 +1,27 @@
 #import "MapsAppDelegate.h"
 #import <CoreSpotlight/CoreSpotlight.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "AppInfo.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
-#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCommon.h"
-#import "MWMController.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
-#import "MWMKeyboard.h"
-#import "MWMLocationManager.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPushNotifications.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearch+CoreSpotlight.h"
-#import "MWMSettings.h"
-#import "MWMStorage.h"
-#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include <sys/xattr.h>
+#include "Framework.h"
 
-#include "indexer/osm_editor.hpp"
 #include "map/gps_tracker.hpp"
 #include "platform/http_thread_apple.h"
-#include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
-#include "platform/settings.hpp"
-#include "std/target_os.hpp"
-#include "storage/storage_defines.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -144,8 +128,6 @@ using namespace osm_auth_ios;
 @interface MapsAppDelegate ()<MWMFrameworkStorageObserver>
 
 @property(nonatomic) NSInteger standbyCounter;
-
-@property(nonatomic, readwrite) LocationManager * locationManager;
 
 @end
 
@@ -731,7 +713,6 @@ using namespace osm_auth_ios;
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)setMapStyle:(MapStyle)mapStyle { GetFramework().SetMapStyle(mapStyle); }
 + (NSDictionary *)navigationBarTextAttributes
 {
   return @{

@@ -13,9 +13,7 @@
 
 #include "Framework.h"
 
-#include "indexer/search_string_utils.hpp"
-
-#include "platform/platform.hpp"
+#include "indexer/new_feature_categories.hpp"
 
 using namespace osm;
 

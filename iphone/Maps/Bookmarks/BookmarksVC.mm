@@ -2,28 +2,18 @@
 #import "CircleView.h"
 #import "ColorPickerView.h"
 #import "MWMBookmarkNameCell.h"
-#import "MWMCommon.h"
 #import "MWMLocationHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMMailViewController.h"
-#import "MWMMapViewControlsManager.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
-#import "Statistics.h"
+#import "MWMSearchManager.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
-
-#include "platform/measurement_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
 #include "coding/zip_creator.hpp"
 #include "coding/internal/file_data.hpp"
-
-#include <fstream>
-#include <vector>
 
 #define PINDIAMETER 18
 

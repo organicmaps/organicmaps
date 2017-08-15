@@ -168,7 +168,6 @@
                 <outlet property="mainButtonsHeight" destination="HtR-j8-Qpc" id="eF8-KH-F9n"/>
                 <outlet property="menuButton" destination="YLY-C4-SBu" id="A5G-Bc-IlQ"/>
                 <outlet property="menuButtonWidth" destination="ams-2s-vhw" id="Til-tN-VJX"/>
-                <outlet property="owner" destination="-1" id="qBx-4k-WvI"/>
                 <outlet property="searchButton" destination="IzQ-aQ-aPH" id="2dy-QI-T39"/>
                 <outlet property="separatorHeight" destination="Kgm-bO-O6Q" id="RGg-dL-lKg"/>
                 <outletCollection property="mainButtonConstraintsLeftToRight" destination="RMv-Kx-9s6" id="bdV-lr-UW4"/>

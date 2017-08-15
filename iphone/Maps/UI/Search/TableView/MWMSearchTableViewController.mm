@@ -1,10 +1,7 @@
 #import "MWMSearchTableViewController.h"
-#import "MWMLocationManager.h"
-#import "MWMSearchChangeModeView.h"
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 

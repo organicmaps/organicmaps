@@ -1,7 +1,8 @@
 #import "MWMNoMapsViewController.h"
+#import "MWMMapDownloaderMode.h"
 #import "MWMMapViewControlsManager.h"
-#import "UIViewController+Navigation.h"
 #import "SwiftBridge.h"
+#import "UIViewController+Navigation.h"
 
 @implementation MWMNoMapsViewController
 
@@ -13,7 +14,7 @@
 
 - (IBAction)downloadMaps
 {
-  [[MWMMapViewControlsManager manager] actionDownloadMaps:mwm::DownloaderMode::Available];
+  [[MWMMapViewControlsManager manager] actionDownloadMaps:MWMMapDownloaderModeAvailable];
 }
 
 @end

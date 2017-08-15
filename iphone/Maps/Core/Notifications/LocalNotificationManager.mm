@@ -1,18 +1,12 @@
 #import "LocalNotificationManager.h"
 #import "CLLocation+Mercator.h"
-#import "MWMCommon.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
-#include "platform/platform.hpp"
-#include "storage/country_info_getter.hpp"
-#include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
 
 namespace

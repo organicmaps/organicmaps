@@ -1,11 +1,9 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
-#import "MWMCommon.h"
 #import "Statistics.h"
 #import "UIImageView+Coloring.h"
 
 #include "Framework.h"
-#include "platform/platform.hpp"
 
 #define TEXTFIELD_TAG 999
 

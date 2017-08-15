@@ -1,13 +1,10 @@
 #import "MWMSearchCategoriesManager.h"
 #import <MyTrackerSDK/MRMyTracker.h>
-#import "AppInfo.h"
 #import "MWMSearchCategoryCell.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
-
-#include "base/macros.hpp"
 
 extern NSString * const kCianCategory = @"cian";
 

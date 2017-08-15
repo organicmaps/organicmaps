@@ -2,10 +2,7 @@
 #import "MWMCommon.h"
 #import "MWMSearchCategoriesManager.h"
 #import "MWMSearchHistoryManager.h"
-#import "MWMSearchTabbedCollectionViewCell.h"
 #import "MWMSearchTabbedViewLayout.h"
-#import "MWMSearchTabbedViewProtocol.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -117,7 +114,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     [self.tablesCollectionView
         scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:sender.tag inSection:0]
                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
@@ -131,7 +128,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   CGFloat const btnMid = position + 0.5 * scrollIndicatorWidth;
   if (isInterfaceRightToLeft())
     position = scrollIndicatorWidth - position;
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     self.scrollIndicatorOffset.constant = nearbyint(position);
   });
   MWMSearchTabButtonsView * selectedButton = self.selectedButton;

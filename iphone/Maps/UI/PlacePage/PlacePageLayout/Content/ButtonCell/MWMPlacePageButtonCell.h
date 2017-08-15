@@ -1,8 +1,12 @@
-#import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
 #import "MWMTypes.h"
 
 @protocol MWMPlacePageButtonsProtocol;
+
+namespace place_page
+{
+enum class ButtonsRows;
+}  // namespace place_page
 
 @interface MWMPlacePageButtonCell : MWMTableViewCell
 

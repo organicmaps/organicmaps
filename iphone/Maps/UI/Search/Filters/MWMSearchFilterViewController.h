@@ -1,6 +1,14 @@
 #import "MWMTableViewController.h"
 
-#include "search/hotels_filter.hpp"
+#include "std/shared_ptr.hpp"
+
+namespace search
+{
+namespace hotels_filter
+{
+struct Rule;
+}  // namespace hotels_filter
+}  // namespace search
 
 @interface MWMSearchFilterViewController : MWMTableViewController
 

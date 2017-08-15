@@ -1,5 +1,4 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
-#import "MWMCommon.h"
 
 #include "Framework.h"
 

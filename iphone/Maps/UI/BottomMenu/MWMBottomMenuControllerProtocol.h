@@ -1,10 +1,10 @@
-#import "MWMMapDownloaderTypes.h"
+#import "MWMMapDownloaderMode.h"
 
-#include "platform/location.hpp"
+#include "geometry/point2d.hpp"
 
 @protocol MWMBottomMenuControllerProtocol<NSObject>
 
-- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
+- (void)actionDownloadMaps:(MWMMapDownloaderMode)mode;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 - (void)didFinishAddingPlace;
 

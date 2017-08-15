@@ -2,12 +2,7 @@
 #import "MWMMyTarget.h"
 #import "MWMNavigationController.h"
 
-#include "indexer/map_style.hpp"
-
-#include "storage/index.hpp"
-
 @class MapViewController;
-@class LocationManager;
 
 @interface MapsAppDelegate
     : UIResponder<UIApplicationDelegate, UIAlertViewDelegate, DownloadIndicatorProtocol>
@@ -40,7 +35,5 @@
 
 - (void)showMap;
 - (void)showAlertIfRequired;
-
-- (void)setMapStyle:(MapStyle)mapStyle;
 
 @end

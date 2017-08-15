@@ -1,22 +1,14 @@
-#import "MWMCommon.h"
 #import "EAGLView.h"
-#import "MapsAppDelegate.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "MWMDirectionView.h"
-
+#import "MWMMapWidgets.h"
 #import "iosOGLContextFactory.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
-
 #include "Framework.h"
-#include "indexer/classificator_loader.hpp"
-
-#include "platform/platform.hpp"
 
 #include "drape/visual_scale.hpp"
 
-#include "std/bind.hpp"
-#include "std/limits.hpp"
-#include "std/unique_ptr.hpp"
+#include "base/logging.hpp"
 
 @implementation EAGLView
 

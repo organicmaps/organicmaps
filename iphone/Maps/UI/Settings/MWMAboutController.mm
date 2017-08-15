@@ -4,12 +4,9 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
-
-#include "platform/platform.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 

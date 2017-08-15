@@ -24,7 +24,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
 - (void)load
 {
   [super load];
-  if (self.mode == mwm::DownloaderMode::Available)
+  if (self.mode == MWMMapDownloaderModeAvailable)
     [self configAdsSection];
 }
 
