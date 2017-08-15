@@ -37,7 +37,6 @@ public:
     string m_hotelRating;
     int m_stars = 0;
     bool m_isSponsoredHotel = false;
-    bool m_isSponsoredBank = false;
     bool m_isHotel = false;
 
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.

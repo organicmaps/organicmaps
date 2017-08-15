@@ -72,7 +72,6 @@ enum SearchMarkType
 {
   DefaultSearchMark = 0,
   BookingSearchMark,
-  TinkoffSearchMark,
   LocalAdsSearchMark,
 
   SearchMarkTypesCount
