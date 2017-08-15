@@ -982,7 +982,8 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
     scale = scales::GetUpperComfortScale();
 
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */);
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */,
+                                      true /* trackVisibleViewport */);
 
   place_page::Info info;
   FillBookmarkInfo(*mark, bnc, info);
@@ -1153,7 +1154,7 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */);
+    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, true /* isAnim */, false /* trackVisibleViewport */);
 }
 
 m2::RectD Framework::GetCurrentViewport() const
@@ -1700,7 +1701,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   m2::PointD const center = info.GetMercator();
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(center, scale, animation);
+    m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
   UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
   ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);

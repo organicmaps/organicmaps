@@ -138,11 +138,13 @@ private:
 class SetCenterEvent : public UserEvent
 {
 public:
-  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim,
+  SetCenterEvent(m2::PointD const & center, int zoom,
+                 bool isAnim, bool trackVisibleViewport,
                  TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_center(center)
     , m_zoom(zoom)
     , m_isAnim(isAnim)
+    , m_trackVisibleViewport(trackVisibleViewport)
     , m_parallelAnimCreator(parallelAnimCreator)
   {
   }
@@ -152,12 +154,14 @@ public:
   m2::PointD const & GetCenter() const { return m_center; }
   int GetZoom() const { return m_zoom; }
   bool IsAnim() const { return m_isAnim; }
+  bool TrackVisibleViewport() const { return m_trackVisibleViewport; }
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
   m2::PointD m_center; // center point in mercator
   int m_zoom; // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
+  bool m_trackVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
 };
 
@@ -396,6 +400,7 @@ private:
   bool OnSetRect(ref_ptr<SetRectEvent> rectEvent);
   bool OnSetCenter(ref_ptr<SetCenterEvent> centerEvent);
   bool OnRotate(ref_ptr<RotateEvent> rotateEvent);
+  bool OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent);
 
   bool SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator = nullptr);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
@@ -464,6 +469,8 @@ private:
   mutable mutex m_lock;
 
   m2::RectD m_visibleViewport;
+  m2::PointD m_trackedCenter;
+  bool m_needTrackCenter = false;
 
   Navigator m_navigator;
   my::Timer m_touchTimer;

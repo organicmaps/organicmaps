@@ -348,7 +348,7 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
 {
   ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
   if (engine)
-    engine->SetModelViewCenter(centerPt, targetZoom, animate);
+    engine->SetModelViewCenter(centerPt, targetZoom, animate, false);
 }
 
 ::Framework * Framework::NativeFramework()

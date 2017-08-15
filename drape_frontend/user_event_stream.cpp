@@ -191,6 +191,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EventType::SetAnyRect:
       {
+        m_needTrackCenter = false;
         ref_ptr<SetAnyRectEvent> anyRectEvent = make_ref(e);
         breakAnim = OnSetAnyRect(anyRectEvent);
         TouchCancel(m_touches);
@@ -198,6 +199,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EventType::SetRect:
       {
+        m_needTrackCenter = false;
         ref_ptr<SetRectEvent> rectEvent = make_ref(e);
         breakAnim = OnSetRect(rectEvent);
         TouchCancel(m_touches);
@@ -205,6 +207,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EventType::SetCenter:
       {
+        m_needTrackCenter = false;
         ref_ptr<SetCenterEvent> centerEvent = make_ref(e);
         breakAnim = OnSetCenter(centerEvent);
         TouchCancel(m_touches);
@@ -212,20 +215,22 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EventType::Touch:
       {
+        m_needTrackCenter = false;
         ref_ptr<TouchEvent> touchEvent = make_ref(e);
         breakAnim = ProcessTouch(*touchEvent.get());
       }
       break;
     case UserEvent::EventType::Rotate:
       {
+        m_needTrackCenter = false;
         ref_ptr<RotateEvent> rotateEvent = make_ref(e);
         breakAnim = OnRotate(rotateEvent);
       }
       break;
     case UserEvent::EventType::FollowAndRotate:
       {
+        m_needTrackCenter = false;
         ref_ptr<FollowAndRotateEvent> followEvent = make_ref(e);
-
         breakAnim = SetFollowAndRotate(followEvent->GetUserPos(), followEvent->GetPixelZero(),
                                        followEvent->GetAzimuth(), followEvent->GetPreferredZoomLelel(),
                                        followEvent->GetAutoScale(), followEvent->IsAnim(), followEvent->IsAutoScale(),
@@ -234,6 +239,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       break;
     case UserEvent::EventType::AutoPerspective:
       {
+        m_needTrackCenter = false;
         ref_ptr<SetAutoPerspectiveEvent> perspectiveEvent = make_ref(e);
         SetAutoPerspective(perspectiveEvent->IsAutoPerspective());
       }
@@ -241,15 +247,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
     case UserEvent::EventType::VisibleViewport:
       {
         ref_ptr<SetVisibleViewportEvent> viewportEvent = make_ref(e);
-        m2::RectD const prevVisibleViewport = m_visibleViewport;
-        m_visibleViewport = viewportEvent->GetRect();
-        m2::PointD gOffset;
-        if (m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, gOffset))
-        {
-          ScreenBase screen = GetCurrentScreen();
-          screen.MoveG(gOffset);
-          SetScreen(screen, true /* isAnim */);
-        }
+        breakAnim = OnNewVisibleViewport(viewportEvent);
       }
       break;
 
@@ -376,6 +374,12 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   m2::PointD const & center = centerEvent->GetCenter();
   double zoom = centerEvent->GetZoom();
 
+  if (centerEvent->TrackVisibleViewport())
+  {
+    m_needTrackCenter = true;
+    m_trackedCenter = center;
+  }
+
   ScreenBase screen = GetCurrentScreen();
 
   if (zoom == kDoNotChangeZoom)
@@ -397,6 +401,28 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 bool UserEventStream::OnRotate(ref_ptr<RotateEvent> rotateEvent)
 {
   return SetAngle(rotateEvent->GetTargetAzimuth(), rotateEvent->GetParallelAnimCreator());
+}
+
+bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> viewportEvent)
+{
+  m2::RectD const prevVisibleViewport = m_visibleViewport;
+  m_visibleViewport = viewportEvent->GetRect();
+  m2::PointD gOffset;
+  ScreenBase screen;
+  if (m_needTrackCenter)
+  {
+    GetTargetScreen(screen);
+    screen.MatchGandP3d(m_trackedCenter, m_visibleViewport.Center());
+    ShrinkAndScaleInto(screen, df::GetWorldRect());
+    return SetScreen(screen, true /* isAnim */);
+  }
+  else if (m_listener->OnNewVisibleViewport(prevVisibleViewport, m_visibleViewport, gOffset))
+  {
+    screen = GetCurrentScreen();
+    screen.MoveG(gOffset);
+    return SetScreen(screen, true /* isAnim */);
+  }
+  return false;
 }
 
 bool UserEventStream::SetAngle(double azimuth, TAnimationCreator const & parallelAnimCreator)
