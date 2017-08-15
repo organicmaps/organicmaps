@@ -405,7 +405,7 @@
 
 "duration_1_day" = "1 gün";
 
-"recent_track_help_text" = "Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.";
+"recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
 
 "search_show_on_map" = "Haritada görüntüle";
 
@@ -1112,7 +1112,7 @@
 "blog" = "Blog";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Kullanım istatistiklerinin toplanması uygulamayı geliştirmemize yardımcı olur.";
+"allow_statistics_hint" = "Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.";
 
 "general_settings" = "Genel ayarlar";
 
