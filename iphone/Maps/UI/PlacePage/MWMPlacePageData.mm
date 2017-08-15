@@ -485,25 +485,22 @@ using namespace place_page;
 
     auto category = f.GetBmCategory(categoryIndex);
     NSAssert(category, @"Category can't be nullptr!");
-    {
-      auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
-      f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
-      category->NotifyChanges();
-    }
+    auto bookmark = static_cast<Bookmark const *>(category->GetUserMark(bookmarkIndex));
+    f.FillBookmarkInfo(*bookmark, {bookmarkIndex, categoryIndex}, m_info);
+    category->NotifyChanges();
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
   else
   {
-    auto const & bac = m_info.GetBookmarkAndCategory();
+    auto const bac = m_info.GetBookmarkAndCategory();
     auto category = bmManager.GetBmCategory(bac.m_categoryIndex);
+    f.ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)),
+                        m_info);
     NSAssert(category, @"Category can't be nullptr!");
-    {
-      category->DeleteUserMark(bac.m_bookmarkIndex);
-      category->NotifyChanges();
-    }
+    category->DeleteUserMark(bac.m_bookmarkIndex);
+    category->NotifyChanges();
     category->SaveToKMLFile();
 
-    m_info.SetBac({});
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
   }
 }

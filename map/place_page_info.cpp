@@ -163,8 +163,7 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
 void Info::SetBac(BookmarkAndCategory const & bac)
 {
   m_bac = bac;
-  if (!bac.IsValid())
-    m_uiSubtitle = FormatSubtitle(true /* withType */);
+  m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
 }
 
 bool Info::ShouldShowEditPlace() const

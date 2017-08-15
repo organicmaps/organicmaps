@@ -674,6 +674,7 @@ private:
 
 public:
   void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
+  void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
 
   /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;

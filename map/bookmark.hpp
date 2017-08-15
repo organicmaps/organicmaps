@@ -166,13 +166,15 @@ protected:
 struct BookmarkAndCategory
 {
   BookmarkAndCategory() = default;
-  BookmarkAndCategory(size_t bookmarkIndex, size_t categoryIndex) : m_bookmarkIndex(bookmarkIndex),
-                                                              m_categoryIndex(categoryIndex) {}
+  BookmarkAndCategory(size_t bookmarkIndex, size_t categoryIndex)
+    : m_bookmarkIndex(bookmarkIndex)
+    , m_categoryIndex(categoryIndex)
+  {}
 
   bool IsValid() const
   {
     return m_bookmarkIndex != numeric_limits<size_t>::max() &&
-                          m_categoryIndex != numeric_limits<size_t>::max();
+           m_categoryIndex != numeric_limits<size_t>::max();
   };
 
   size_t m_bookmarkIndex = numeric_limits<size_t>::max();

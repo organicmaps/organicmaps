@@ -770,11 +770,19 @@ bool Framework::DeleteBmCategory(size_t index)
 
 void Framework::FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const
 {
-  info.SetBac(bac);
   BookmarkCategory * cat = GetBmCategory(bac.m_categoryIndex);
   info.SetBookmarkCategoryName(cat->GetName());
   BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.m_bookmarkIndex))->GetData();
   info.SetBookmarkData(data);
+  info.SetBac(bac);
+  FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
+}
+
+void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
+{
+  info.SetBookmarkCategoryName("");
+  info.SetBookmarkData({});
+  info.SetBac({});
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 

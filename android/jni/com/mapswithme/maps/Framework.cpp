@@ -1356,9 +1356,10 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
-  auto const & bac = info.GetBookmarkAndCategory();
+  auto const bac = info.GetBookmarkAndCategory();
+  BookmarkCategory * category = frm()->GetBmCategory(bac.m_categoryIndex);
+  frm()->ResetBookmarkInfo(*static_cast<Bookmark const *>(category->GetUserMark(bac.m_bookmarkIndex)), info);
   bookmarks_helper::RemoveBookmark(bac.m_categoryIndex, bac.m_bookmarkIndex);
-  info.SetBac({});
   return usermark_helper::CreateMapObject(env, info);
 }
 
