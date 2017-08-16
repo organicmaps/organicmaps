@@ -17,11 +17,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
             <connections>
-                <outlet property="goButton" destination="4IJ-pR-Ztp" id="WdQ-Nn-rm4"/>
                 <outlet property="routePreview" destination="u2u-Vb-2eH" id="VZw-5q-2P6"/>
                 <outlet property="showRouteManagerButton" destination="NAs-km-8uw" id="pJx-0l-Skz"/>
                 <outlet property="statusBox" destination="87p-Qg-8f3" id="dze-gL-fnK"/>
                 <outlet property="taxiCollectionView" destination="t6d-gI-JcN" id="b5y-vn-rwV"/>
+                <outletCollection property="goButtons" destination="4IJ-pR-Ztp" id="ePc-jh-SfE"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
