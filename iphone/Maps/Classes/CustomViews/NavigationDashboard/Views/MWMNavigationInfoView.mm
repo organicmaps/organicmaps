@@ -146,7 +146,9 @@ BOOL defaultOrientation(CGSize const & size)
   BOOL const isStart = ([MWMRouter startPoint] == nil);
   auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
   [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType : type}];
-  [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
+  auto searchManager = [MWMSearchManager manager];
+  searchManager.isRoutingTooltipSearch = YES;
+  searchManager.state = MWMSearchManagerStateDefault;
 }
 
 - (IBAction)addLocationRoutePoint

@@ -190,8 +190,7 @@ using Observers = NSHashTable<Observer>;
 - (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
-  auto const navigationState = [MWMNavigationDashboardManager manager].state;
-  if (navigationState == MWMNavigationDashboardStatePrepare)
+  if (self.isRoutingTooltipSearch)
   {
     BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
     auto point = [[MWMRoutePoint alloc]
@@ -209,7 +208,7 @@ using Observers = NSHashTable<Observer>;
   {
     [MWMSearch showResult:result];
   }
-  if (!IPAD || navigationState != MWMNavigationDashboardStateHidden)
+  if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
     self.state = MWMSearchManagerStateHidden;
 }
 
@@ -247,6 +246,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)changeToHiddenState
 {
+  self.isRoutingTooltipSearch = NO;
   [self endSearch];
   [self.tabbedController resetSelectedTab];
 

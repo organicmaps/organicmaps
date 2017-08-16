@@ -12,6 +12,7 @@
 @property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
+@property(nonatomic) BOOL isRoutingTooltipSearch;
 
 @property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray * topViews;
 
