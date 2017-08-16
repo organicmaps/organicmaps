@@ -17213,6 +17213,37 @@
     en = Learn more
     ru = Посмотреть цены
 
+  [disable_autodownload]
+    tags = ios, android
+    en = Disable autodownload
+    ru = Запретить автозагрузку
+    ar = تعطيل التنزيل التلقائي
+    cs = Zakázat automatické stahování
+    da = Deaktiver automatisk download
+    nl = Automatisch downloaden uitschakelen
+    fi = Poista käytöstä automaattinen lataus
+    fr = Désactiver téléchargement automatique
+    de = Automatischen Download deaktivieren
+    hu = Automatikus letöltés tiltása
+    id = Nonaktifkan unduh otomatis
+    it = Disattiva download automatico
+    ja = 自動ダウンロードを無効にする
+    ko = 자동 다운로드 해제
+    nb = Deaktiver automatisk nedlasting
+    pl = Wyłącz automatyczne pobieranie
+    pt = Desativar o download automático
+    pt-BR = Desativar o download automático
+    ro = Dezactivare descărcare automată
+    es = Inhabilitar descarga automática
+    sv = Avaktivera automatisk nedladdning
+    th = หยุดการดาวน์โหลดแบบอัตโนมัติ
+    tr = Otomatik indirmeyi devre dışı bırak
+    uk = Заборонити автозавантаження
+    vi = Tắt chế độ tự động tải xuống
+    zh-Hans = 禁用自动下载
+    zh-Hant = 停用自動下載
+    sk = Zrušiť automatické preberanie
+
   [add_my_position]
     en = Add my position
     ru = Добавить мое местоположение
