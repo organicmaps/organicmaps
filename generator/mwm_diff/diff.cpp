@@ -19,8 +19,63 @@ using namespace std;
 
 namespace
 {
-// Format Version 0: bsdiff+gzip.
-uint32_t const kLatestVersion = 0;
+enum Version
+{
+  // Format Version 0: bsdiff+gzip.
+  VERSION_V0 = 0,
+  VERSION_LATEST = VERSION_V0
+};
+
+bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter & diffFileWriter)
+{
+  vector<uint8_t> diffBuf;
+  MemWriter<vector<uint8_t>> diffMemWriter(diffBuf);
+
+  auto const status = bsdiff::CreateBinaryPatch(oldReader, newReader, diffMemWriter);
+
+  if (status != bsdiff::BSDiffStatus::OK)
+  {
+    LOG(LERROR, ("Could not create patch with bsdiff:", status));
+    return false;
+  }
+
+  using Deflate = coding::ZLib::Deflate;
+  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
+
+  vector<uint8_t> deflatedDiffBuf;
+  deflate(diffBuf.data(), diffBuf.size(), back_inserter(deflatedDiffBuf));
+
+  // A basic header that holds only version.
+  WriteToSink(diffFileWriter, static_cast<uint32_t>(VERSION_V0));
+  diffFileWriter.Write(deflatedDiffBuf.data(), deflatedDiffBuf.size());
+
+  return true;
+}
+
+bool ApplyDiffVersion0(FileReader & oldReader, FileWriter & newWriter,
+                       ReaderSource<FileReader> & diffFileSource)
+{
+  vector<uint8_t> deflatedDiff(diffFileSource.Size());
+  diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
+
+  using Inflate = coding::ZLib::Inflate;
+  vector<uint8_t> decompressedData;
+  Inflate inflate(Inflate::Format::ZLib);
+  vector<uint8_t> diffBuf;
+  inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));
+
+  MemReader diffMemReader(diffBuf.data(), diffBuf.size());
+
+  auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader);
+
+  if (status != bsdiff::BSDiffStatus::OK)
+  {
+    LOG(LERROR, ("Could not apply patch with bsdiff:", status));
+    return false;
+  }
+
+  return true;
+}
 }  // namespace
 
 namespace generator
@@ -35,26 +90,13 @@ bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const
     FileReader newReader(newMwmPath);
     FileWriter diffFileWriter(diffPath);
 
-    vector<uint8_t> diffBuf;
-    MemWriter<vector<uint8_t>> diffMemWriter(diffBuf);
-
-    auto const status = bsdiff::CreateBinaryPatch(oldReader, newReader, diffMemWriter);
-
-    if (status != bsdiff::BSDiffStatus::OK)
+    switch (VERSION_LATEST)
     {
-      LOG(LERROR, ("Could not create patch with bsdiff:", status));
-      return false;
+    case VERSION_V0: return MakeDiffVersion0(oldReader, newReader, diffFileWriter);
+    default:
+      LOG(LERROR,
+          ("Making mwm diffs with diff format version", VERSION_LATEST, "is not implemented"));
     }
-
-    using Deflate = coding::ZLib::Deflate;
-    Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
-
-    vector<uint8_t> deflatedDiffBuf;
-    deflate(diffBuf.data(), diffBuf.size(), back_inserter(deflatedDiffBuf));
-
-    uint32_t const header = kLatestVersion;
-    WriteToSink(diffFileWriter, header);
-    diffFileWriter.Write(deflatedDiffBuf.data(), deflatedDiffBuf.size());
   }
   catch (Reader::Exception const & e)
   {
@@ -67,7 +109,7 @@ bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const
     return false;
   }
 
-  return true;
+  return false;
 }
 
 bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string const & diffPath)
@@ -79,30 +121,12 @@ bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string cons
     FileReader diffFileReader(diffPath);
 
     ReaderSource<FileReader> diffFileSource(diffFileReader);
-    auto const header = ReadPrimitiveFromSource<uint32_t>(diffFileSource);
-    if (header != kLatestVersion)
+    auto const version = ReadPrimitiveFromSource<uint32_t>(diffFileSource);
+
+    switch (version)
     {
-      LOG(LERROR, ("Unknown version format of mwm diff:", header));
-      return false;
-    }
-
-    vector<uint8_t> deflatedDiff(diffFileSource.Size());
-    diffFileSource.Read(deflatedDiff.data(), deflatedDiff.size());
-
-    using Inflate = coding::ZLib::Inflate;
-    vector<uint8_t> decompressedData;
-    Inflate inflate(Inflate::Format::ZLib);
-    vector<uint8_t> diffBuf;
-    inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));
-
-    MemReader diffMemReader(diffBuf.data(), diffBuf.size());
-
-    auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader);
-
-    if (status != bsdiff::BSDiffStatus::OK)
-    {
-      LOG(LERROR, ("Could not apply patch with bsdiff:", status));
-      return false;
+    case VERSION_V0: return ApplyDiffVersion0(oldReader, newWriter, diffFileSource);
+    default: LOG(LERROR, ("Unknown version format of mwm diff:", version));
     }
   }
   catch (Reader::Exception const & e)
@@ -116,7 +140,7 @@ bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string cons
     return false;
   }
 
-  return true;
+  return false;
 }
 }  // namespace mwm_diff
 }  // namespace generator

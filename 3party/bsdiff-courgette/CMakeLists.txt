@@ -1,7 +1,5 @@
 project(bsdiff)
 
-set(CMAKE_PREFIX_PATH ./)
-
 add_clang_compile_options("-Wno-shorten-64-to-32")
 
 include_directories(bsdiff divsufsort)

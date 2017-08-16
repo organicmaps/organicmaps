@@ -34,6 +34,10 @@
 //                --Stephen Adams <sra@chromium.org>
 // 2013-04-10 - Added wrapper to apply a patch directly to files.
 //                --Joshua Pawlicki <waffles@chromium.org>
+// 2017-08-14 - Moved "apply" and "create" to the header file, rewrote
+//              all routines to use MAPS.ME readers and writers instead
+//              of Courgette streams and files.
+//                --Maxim Pimenov <m@maps.me>
 
 // Changelog for bsdiff_apply:
 // 2009-03-31 - Change to use Streams.  Move CRC code to crc.{h,cc}
@@ -123,6 +127,7 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 
   my::Timer bsdiff_timer;
 
+  CHECK_GREATER_OR_EQUAL(kNumStreams, 6, ());
   std::array<MemStream, kNumStreams> mem_streams;
   auto & control_stream_copy_counts = mem_streams[0];
   auto & control_stream_extra_counts = mem_streams[1];
@@ -405,6 +410,7 @@ BSDiffStatus ApplyBinaryPatch(OldReader & old_reader,
   if (CalculateCrc(old_start, old_size) != header.scrc32)
     return CRC_ERROR;
 
+  CHECK_GREATER_OR_EQUAL(kNumStreams, 6, ());
   vector<uint32_t> stream_sizes(kNumStreams);
   for (auto & s : stream_sizes)
     s = ReadPrimitiveFromSource<uint32_t>(patch_source);
