@@ -294,12 +294,18 @@ using namespace place_page;
   [self insertSpecialProjectsSectionWithProject:SpecialProject::Cian];
 
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    self.cianIsReadyCallback(@[]);
     return;
+  }
 
   network_policy::CallPartnersApi([self](platform::NetworkPolicy const & canUseNetwork) {
     auto api = GetFramework().GetCianApi(canUseNetwork);
     if (!api)
+    {
+      self.cianIsReadyCallback(@[]);
       return;
+    }
     auto const latLon = [self latLon];
 
     __weak auto wSuccessSelf = self;
