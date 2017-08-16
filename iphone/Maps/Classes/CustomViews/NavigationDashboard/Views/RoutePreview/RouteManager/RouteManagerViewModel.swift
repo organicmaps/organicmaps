@@ -2,6 +2,7 @@
 final class RouteManagerViewModel: NSObject, RouteManagerViewModelProtocol {
   var routePoints: [MWMRoutePoint] { return MWMRouter.points() }
   var refreshControlsCallback: (() -> Void)!
+  var reloadCallback: (() -> Void)!
 
   func startTransaction() { MWMRouter.openRouteManagerTransaction() }
 
@@ -26,5 +27,6 @@ final class RouteManagerViewModel: NSObject, RouteManagerViewModelProtocol {
     MWMRouter.removePoint(routePoints[index])
     MWMRouter.updatePreviewMode()
     refreshControlsCallback()
+    reloadCallback()
   }
 }

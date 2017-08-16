@@ -33,7 +33,9 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
       self.indexPath = indexPath
       addSubView(cell: cell, dragPoint: dragPoint)
       controller.tableView.heightUpdateStyle = .off
-      controller.dimView.state = .visible
+      if controller.canDeleteRow {
+        controller.dimView.state = .visible
+      }
     }
 
     private func addSubView(cell: UITableViewCell, dragPoint: CGPoint) {
@@ -51,7 +53,9 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
     func move(dragPoint: CGPoint, indexPath: IndexPath?, inManagerView: Bool) {
       snapshot.center = dragPoint
-      controller.dimView.state = inManagerView ? .visible : .binOpenned
+      if controller.canDeleteRow {
+        controller.dimView.state = inManagerView ? .visible : .binOpenned
+      }
       guard let newIP = indexPath else { return }
       let tv = controller.tableView!
       let cell = tv.cellForRow(at: newIP)
@@ -87,7 +91,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
       }
       let containerView = controller.containerView!
       let tv = controller.tableView!
-      if inManagerView {
+      if inManagerView || !controller.canDeleteRow {
         let dropCenter = tv.cellForRow(at: indexPath)?.center ?? snapshot.center
         UIView.animate(withDuration: kDefaultAnimationDuration,
                        animations: { [snapshot] in
@@ -99,9 +103,11 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
                          removeSnapshot()
         })
       } else {
-        controller.viewModel.deletePoint(at: indexPath.row)
         tv.heightUpdateStyle = .animated
-        tv.deleteRows(at: [indexPath], with: .automatic)
+        tv.update {
+          controller.viewModel.deletePoint(at: indexPath.row)
+          tv.deleteRows(at: [indexPath], with: .automatic)
+        }
         let dimView = controller.dimView!
         UIView.animate(withDuration: kDefaultAnimationDuration,
                        animations: { [snapshot] in
@@ -147,6 +153,11 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
       }
     }
     viewModel.refreshControlsCallback()
+
+    viewModel.reloadCallback = { [tableView] in
+      tableView?.reloadSections(IndexSet(integer: 0), with: .fade)
+    }
+
     viewModel.startTransaction()
   }
 
@@ -201,8 +212,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
     })
   }
 
-  @IBAction private func longPressGestureRecognized(_ longPress: UILongPressGestureRecognizer) {
-    guard canDeleteRow else { return }
+  @IBAction private func gestureRecognized(_ longPress: UIGestureRecognizer) {
     let locationInView = gestureLocation(longPress, in: containerView)
     let locationInTableView = gestureLocation(longPress, in: tableView)
     switch longPress.state {

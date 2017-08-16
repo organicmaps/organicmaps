@@ -197,7 +197,7 @@
                                 <outlet property="dataSource" destination="-1" id="RZu-Qk-qvN"/>
                                 <outlet property="delegate" destination="-1" id="QdP-tL-Afh"/>
                                 <outlet property="tableViewHeight" destination="69R-bB-eQ7" id="iLN-YX-m5u"/>
-                                <outletCollection property="gestureRecognizers" destination="0VI-xg-BIO" appends="YES" id="Cfs-BN-Jen"/>
+                                <outletCollection property="gestureRecognizers" destination="iVR-Au-pTp" appends="YES" id="abb-Ql-z0p"/>
                             </connections>
                         </tableView>
                     </subviews>
@@ -229,16 +229,16 @@
             </constraints>
             <point key="canvasLocation" x="-239.5" y="-48.5"/>
         </view>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="0VI-xg-BIO">
-            <connections>
-                <action selector="longPressGestureRecognized:" destination="-1" id="Cmo-Jl-HLk"/>
-            </connections>
-        </pongPressGestureRecognizer>
-        <tapGestureRecognizer id="deN-Z9-rbS">
+        <tapGestureRecognizer id="deN-Z9-rbS" userLabel="Cancel Tap Gesture Recognizer">
             <connections>
                 <action selector="onCancel" destination="-1" id="QyM-e1-7JM"/>
             </connections>
         </tapGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000001" id="iVR-Au-pTp">
+            <connections>
+                <action selector="gestureRecognized:" destination="-1" id="osy-Ks-njV"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
     <resources>
         <image name="ic_get_position" width="20" height="20"/>

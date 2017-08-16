@@ -32,6 +32,8 @@
     _isMyPosition = YES;
     _type = type;
     _intermediateIndex = intermediateIndex;
+
+    [self validatePoint];
   }
   return self;
 }
@@ -49,6 +51,8 @@
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
+
+    [self validatePoint];
   }
   return self;
 }
@@ -69,6 +73,8 @@
     case RouteMarkType::Intermediate: _type = MWMRoutePointTypeIntermediate; break;
     case RouteMarkType::Finish: _type = MWMRoutePointTypeFinish; break;
     }
+
+    [self validatePoint];
   }
   return self;
 }
@@ -88,8 +94,15 @@
     _isMyPosition = NO;
     _type = type;
     _intermediateIndex = intermediateIndex;
+
+    [self validatePoint];
   }
   return self;
+}
+
+- (void)validatePoint
+{
+  NSAssert(_intermediateIndex >= 0 && _intermediateIndex <= 2, @"Invalid intermediateIndex");
 }
 
 - (double)latitude { return MercatorBounds::YToLat(self.point.y); }
@@ -102,6 +115,8 @@
 
 - (RouteMarkData)routeMarkData
 {
+  [self validatePoint];
+
   RouteMarkData pt;
   switch (self.type)
   {
@@ -115,6 +130,23 @@
   pt.m_subTitle = self.subtitle.UTF8String;
   pt.m_intermediateIndex = self.intermediateIndex;
   return pt;
+}
+
+- (NSString *)debugDescription
+{
+  NSString * type = nil;
+  switch (_type)
+  {
+  case MWMRoutePointTypeStart: type = @"Start"; break;
+  case MWMRoutePointTypeIntermediate: type = @"Intermediate"; break;
+  case MWMRoutePointTypeFinish: type = @"Finish"; break;
+  }
+
+  return [NSString stringWithFormat:@"<%@: %p> Position: [%@, %@] | IsMyPosition: %@ | Type: %@ | "
+                                    @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@",
+                                    [self class], self, @(_point.x), @(_point.y),
+                                    _isMyPosition ? @"true" : @"false", type, @(_intermediateIndex),
+                                    _title, _subtitle];
 }
 
 @end

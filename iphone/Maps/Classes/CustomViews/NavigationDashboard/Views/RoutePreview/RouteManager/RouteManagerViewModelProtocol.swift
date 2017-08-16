@@ -3,6 +3,7 @@ protocol RouteManagerViewModelProtocol: class {
   var routePoints: [MWMRoutePoint] { get }
 
   var refreshControlsCallback: (() -> Void)! { get set }
+  var reloadCallback: (() -> Void)! { get set }
 
   func startTransaction()
   func finishTransaction()
