@@ -638,7 +638,7 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
       type = RouteMarkType::Start;
       index = 0;
     }
-    else if (index == sz - 1)
+    else if (index + 1 == sz)
     {
       type = RouteMarkType::Finish;
       index = 0;
