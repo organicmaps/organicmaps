@@ -163,9 +163,14 @@ public:
     }
     else
     {
-      ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
       FollowedPolyline(beg, end).Swap(m_poly);
-      m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+      // If there are no intermediate points it's acceptable to have an empty m_subrouteAttrs.
+      // Constructed m_poly will have the last point index as next checkpoint index, it's right.
+      if (!m_subrouteAttrs.empty())
+      {
+        ASSERT_GREATER(m_subrouteAttrs.size(), m_currentSubrouteIdx, ());
+        m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+      }
     }
   }
 
