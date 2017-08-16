@@ -670,7 +670,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
     isMapTouch = TouchDown(touchEvent.GetTouches());
     break;
   case TouchEvent::TOUCH_MOVE:
-    isMapTouch = TouchMove(touchEvent.GetTouches(), touch.GetTimeStamp());
+    isMapTouch = TouchMove(touchEvent.GetTouches());
     break;
   case TouchEvent::TOUCH_CANCEL:
     isMapTouch = TouchCancel(touchEvent.GetTouches());
@@ -754,7 +754,7 @@ bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshol
   return m_startDragOrg.SquareLength(touches[0].m_location) > threshold;
 }
 
-bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestamp)
+bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
   if (m_listener)
     m_listener->OnTouchMapAction();
@@ -769,7 +769,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     if (touchCount == 1)
     {
       if (CheckDrag(touches, kDragThreshold))
-        BeginDrag(touches[0], timestamp);
+        BeginDrag(touches[0]);
       else
         isMapTouch = false;
     }
@@ -815,7 +815,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
     }
     else
     {
-      Drag(touches[0], timestamp);
+      Drag(touches[0]);
     }
     break;
   case STATE_SCALE:
@@ -965,7 +965,7 @@ void UserEventStream::EndTwoFingersTap()
     m_listener->OnTwoFingersTap();
 }
 
-void UserEventStream::BeginDrag(Touch const & t, double timestamp)
+void UserEventStream::BeginDrag(Touch const & t)
 {
   TEST_CALL(BEGIN_DRAG);
   ASSERT_EQUAL(m_state, STATE_EMPTY, ());
@@ -978,18 +978,15 @@ void UserEventStream::BeginDrag(Touch const & t, double timestamp)
   if (m_kineticScrollEnabled && !m_scroller.IsActive())
   {
     ResetMapPlaneAnimations();
-    m_scroller.InitGrab(m_navigator.Screen(), timestamp);
+    m_scroller.Init(m_navigator.Screen());
   }
 }
 
-void UserEventStream::Drag(Touch const & t, double timestamp)
+void UserEventStream::Drag(Touch const & t)
 {
   TEST_CALL(DRAG);
   ASSERT_EQUAL(m_state, STATE_DRAG, ());
   m_navigator.DoDrag(t.m_location);
-
-  if (m_kineticScrollEnabled && m_scroller.IsActive())
-    m_scroller.GrabViewRect(m_navigator.Screen(), timestamp);
 }
 
 bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
@@ -1005,21 +1002,16 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
 
   CheckAutoRotate();
 
-  if (cancelled)
-  {
-    m_scroller.CancelGrab();
-    return true;
-  }
-
-  if (m_kineticScrollEnabled && m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
+  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() &&
+      m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
   {
     drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (anim != nullptr)
       m_animationSystem.CombineAnimation(move(anim));
-    m_scroller.CancelGrab();
     return false;
   }
 
+  m_scroller.Cancel();
   return true;
 }
 
@@ -1251,7 +1243,7 @@ void UserEventStream::SetKineticScrollEnabled(bool enabled)
   m_kineticScrollEnabled = enabled;
   m_kineticTimer.Reset();
   if (!m_kineticScrollEnabled)
-    m_scroller.CancelGrab();
+    m_scroller.Cancel();
 }
 
 }

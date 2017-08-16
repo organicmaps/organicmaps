@@ -422,13 +422,13 @@ private:
   bool ProcessTouch(TouchEvent const & touch);
 
   bool TouchDown(array<Touch, 2> const & touches);
-  bool TouchMove(array<Touch, 2> const & touches, double timestamp);
+  bool TouchMove(array<Touch, 2> const & touches);
   bool TouchCancel(array<Touch, 2> const & touches);
   bool TouchUp(array<Touch, 2> const & touches);
   void UpdateTouches(array<Touch, 2> const & touches);
 
-  void BeginDrag(Touch const & t, double timestamp);
-  void Drag(Touch const & t, double timestamp);
+  void BeginDrag(Touch const & t);
+  void Drag(Touch const & t);
   // EndDrag returns false in case of kinetic moving after dragging has begun.
   bool EndDrag(Touch const & t, bool cancelled);
 
