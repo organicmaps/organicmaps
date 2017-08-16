@@ -452,7 +452,8 @@ void RouteRenderer::RenderRouteArrowData(dp::DrapeID subrouteId, RouteAdditional
                                          dp::UniformValuesStorage const & commonUniforms)
 {
   if (routeAdditional.m_arrowsData == nullptr ||
-      routeAdditional.m_arrowsData->m_renderProperty.m_buckets.empty())
+      routeAdditional.m_arrowsData->m_renderProperty.m_buckets.empty() ||
+      m_hiddenSubroutes.find(subrouteId) != m_hiddenSubroutes.end())
   {
     return;
   }

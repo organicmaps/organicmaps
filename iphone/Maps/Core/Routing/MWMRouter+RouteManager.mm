@@ -42,9 +42,12 @@
 + (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex
 {
   NSAssert(index != newIndex, @"Route manager moves point to its' current position.");
-  auto & rm = GetFramework().GetRoutingManager();
-  rm.MoveRoutePoint(index, newIndex);
-  rm.UpdatePreviewMode();
+  GetFramework().GetRoutingManager().MoveRoutePoint(index, newIndex);
+}
+
++ (void)updatePreviewMode
+{
+  GetFramework().GetRoutingManager().UpdatePreviewMode();
 }
 
 @end
