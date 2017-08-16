@@ -2,6 +2,7 @@
 
 #include "local_ads/campaign_serialization.hpp"
 
+#include <limits>
 #include <random>
 #include <vector>
 
@@ -9,6 +10,9 @@ using namespace local_ads;
 
 namespace
 {
+template <typename T>
+using Limits = typename std::numeric_limits<T>;
+
 bool TestSerialization(std::vector<Campaign> const & cs, Version const v)
 {
   auto const bytes = Serialize(cs, v);
@@ -19,9 +23,9 @@ std::vector<Campaign> GenerateCampaignsV1(size_t number)
 {
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::uniform_int_distribution<> featureIds(1, 600000);
-  std::uniform_int_distribution<> icons(1, 4096);
-  std::uniform_int_distribution<> expirationDays(1, 30);
+  std::uniform_int_distribution<> featureIds(1, Limits<uint32_t>::max());
+  std::uniform_int_distribution<> icons(1, Limits<uint16_t>::max());
+  std::uniform_int_distribution<> expirationDays(1, Limits<uint8_t>::max());
 
   std::vector<Campaign> cs;
   while (number--)
@@ -38,9 +42,9 @@ std::vector<Campaign> GenerateCampaignsV2(size_t number)
 {
   int kSeed = 42;
   std::mt19937 gen(kSeed);
-  std::uniform_int_distribution<> featureIds(1, 600000);
-  std::uniform_int_distribution<> icons(1, 4096);
-  std::uniform_int_distribution<> expirationDays(1, 30);
+  std::uniform_int_distribution<> featureIds(1, Limits<uint32_t>::max());
+  std::uniform_int_distribution<> icons(1, Limits<uint16_t>::max());
+  std::uniform_int_distribution<> expirationDays(1, Limits<uint8_t>::max());
   std::uniform_int_distribution<> zoomLevels(10, 17);
   std::uniform_int_distribution<> priorities(0, 7);
 
@@ -61,14 +65,15 @@ std::vector<Campaign> GenerateCampaignsV2(size_t number)
 UNIT_TEST(Serialization_Smoke)
 {
   TEST(TestSerialization({
-        {10, 10, 10},
-        {1000, 100, 20},
+        {0, 0, 0},
+        {Limits<uint32_t>::max(), Limits<uint16_t>::max(), Limits<uint8_t>::max()},
         {120003, 456, 15}
       }, Version::V1), ());
 
   TEST(TestSerialization({
-        {10, 10, 10, 10, 0},
-        {1000, 100, 20, 17, 7},
+        {0, 0, 0, 10, 0},
+        {Limits<uint32_t>::max(), Limits<uint16_t>::max(), Limits<uint8_t>::max()},
+        {1000, 100, 255, 17, 7},
         {120003, 456, 15, 13, 6}
       }, Version::V2), ());
 

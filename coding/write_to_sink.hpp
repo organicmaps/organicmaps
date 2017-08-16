@@ -6,7 +6,8 @@
 
 
 template <class TSink, typename T>
-typename enable_if<is_integral<T>::value, void>::type WriteToSink(TSink & sink, T const & v)
+typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type
+WriteToSink(TSink & sink, T const & v)
 {
   T const t = SwapIfBigEndian(v);
   sink.Write(&t, sizeof(T));
