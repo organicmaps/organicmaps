@@ -255,6 +255,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)changeToDefaultState
 {
+  [self.tabbedController resetCategories];
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   [self animateConstraints:^{

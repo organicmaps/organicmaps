@@ -11,5 +11,6 @@
 
 - (void)tabButtonPressed:(MWMSearchTabButtonsView *)sender;
 - (void)resetSelectedTab;
+- (void)resetCategories;
 
 @end

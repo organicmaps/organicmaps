@@ -67,6 +67,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
         [[NSUserDefaults standardUserDefaults] integerForKey:kSelectedButtonTagKey];
 }
 
+- (void)resetCategories { [self.categoriesManager resetCategories]; }
 - (void)viewWillAppear:(BOOL)animated
 {
   self.scrollIndicator.hidden = YES;

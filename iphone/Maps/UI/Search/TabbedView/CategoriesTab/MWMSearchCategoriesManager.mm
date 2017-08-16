@@ -13,16 +13,10 @@ extern NSString * const kCianCategory = @"cian";
   vector<string> m_categories;
 }
 
-- (instancetype)init
-{
-  self = [super init];
-  if (self)
-    m_categories = GetFramework().GetDisplayedCategories().GetKeys();
-  return self;
-}
-
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell
 {
+  if (m_categories.empty())
+    m_categories = GetFramework().GetDisplayedCategories().GetKeys();
   [cell removeNoResultsView];
   UITableView * tableView = cell.tableView;
   tableView.estimatedRowHeight = 44.;
@@ -35,6 +29,7 @@ extern NSString * const kCianCategory = @"cian";
   [tableView reloadData];
 }
 
+- (void)resetCategories { m_categories.clear(); }
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
