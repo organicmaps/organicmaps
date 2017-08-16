@@ -665,7 +665,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)saveRouteIfNeeded
 {
-  if ([self isRoutingActive])
+  if ([self isOnRoute])
     GetFramework().GetRoutingManager().SaveRoutePoints();
 }
 
