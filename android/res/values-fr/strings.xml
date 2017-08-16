@@ -756,4 +756,5 @@
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
 	<string name="whatsnew_intermediate_point_title">Arrêt supplémentaire</string>
 	<string name="whatsnew_intermediate_point_message">Planifiez un itinéraire avec un point intermédiaire.</string>
+	<string name="disable_autodownload">Désactiver téléchargement automatique</string>
 </resources>

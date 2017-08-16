@@ -753,4 +753,5 @@
 	<string name="placepage_add_stop">Додати зупинку</string>
 	<string name="whatsnew_intermediate_point_title">Додаткова зупинка</string>
 	<string name="whatsnew_intermediate_point_message">Прокласти маршрут з додатковою зупинкою посередині маршруту.</string>
+	<string name="disable_autodownload">Заборонити автозавантаження</string>
 </resources>

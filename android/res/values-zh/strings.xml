@@ -753,4 +753,5 @@
 	<string name="placepage_add_stop">添加经停点</string>
 	<string name="whatsnew_intermediate_point_title">其他经停点</string>
 	<string name="whatsnew_intermediate_point_message">规划带中间点的路线。</string>
+	<string name="disable_autodownload">禁用自动下载</string>
 </resources>

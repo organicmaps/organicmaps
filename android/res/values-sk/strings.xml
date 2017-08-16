@@ -748,4 +748,5 @@
 	<string name="placepage_add_stop">Pridať zastávku</string>
 	<string name="whatsnew_intermediate_point_title">Ďalšie zastávky</string>
 	<string name="whatsnew_intermediate_point_message">Naplánujte si trasu s zastávkou.</string>
+	<string name="disable_autodownload">Zrušiť automatické preberanie</string>
 </resources>

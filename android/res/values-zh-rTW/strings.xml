@@ -757,4 +757,5 @@
 	<string name="placepage_add_stop">新增應用程式</string>
 	<string name="whatsnew_intermediate_point_title">其他站點</string>
 	<string name="whatsnew_intermediate_point_message">計劃有中途休息站的路線。</string>
+	<string name="disable_autodownload">停用自動下載</string>
 </resources>

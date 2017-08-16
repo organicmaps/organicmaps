@@ -1339,6 +1339,8 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Посмотреть цены";
 
+"disable_autodownload" = "Запретить автозагрузку";
+
 "add_my_position" = "Добавить мое местоположение";
 
 "choose_start_point" = "Выберите начало маршрута";

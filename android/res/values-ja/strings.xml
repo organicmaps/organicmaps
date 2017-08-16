@@ -750,4 +750,5 @@
 	<string name="placepage_add_stop">停止地点を追加</string>
 	<string name="whatsnew_intermediate_point_title">その他の停止地点</string>
 	<string name="whatsnew_intermediate_point_message">中間地点のあるルートを計画します。</string>
+	<string name="disable_autodownload">自動ダウンロードを無効にする</string>
 </resources>

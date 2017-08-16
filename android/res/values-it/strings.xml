@@ -750,4 +750,5 @@
 	<string name="placepage_add_stop">Aggiungi sosta</string>
 	<string name="whatsnew_intermediate_point_title">Ulteriore sosta</string>
 	<string name="whatsnew_intermediate_point_message">Pianifica un percorso con un punto intermedio.</string>
+	<string name="disable_autodownload">Disattiva download automatico</string>
 </resources>

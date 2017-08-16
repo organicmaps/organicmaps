@@ -749,4 +749,5 @@
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
 	<string name="whatsnew_intermediate_point_title">Extra stop</string>
 	<string name="whatsnew_intermediate_point_message">Plan een route met een tussenstop.</string>
+	<string name="disable_autodownload">Automatisch downloaden uitschakelen</string>
 </resources>

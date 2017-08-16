@@ -755,4 +755,5 @@
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
 	<string name="whatsnew_intermediate_point_title">نقطة توقف إضافية</string>
 	<string name="whatsnew_intermediate_point_message">خطط مسارًا مع نقطة وسيطة.</string>
+	<string name="disable_autodownload">تعطيل التنزيل التلقائي</string>
 </resources>

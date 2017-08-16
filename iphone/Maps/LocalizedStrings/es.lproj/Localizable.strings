@@ -1339,6 +1339,8 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
+"disable_autodownload" = "Inhabilitar descarga automática";
+
 "add_my_position" = "Add my position";
 
 "choose_start_point" = "Choose a starting point";

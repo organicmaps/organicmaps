@@ -751,4 +751,5 @@
 	<string name="placepage_add_stop">Hozzáad megállót</string>
 	<string name="whatsnew_intermediate_point_title">További megálló</string>
 	<string name="whatsnew_intermediate_point_message">Útvonaltervezés egy közbenső ponttal.</string>
+	<string name="disable_autodownload">Automatikus letöltés tiltása</string>
 </resources>

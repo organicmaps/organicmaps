@@ -778,6 +778,7 @@
 	<string name="preloader_cian_message">Узнай стоимость аренды квартир в этом районе</string>
 	<!-- Only ru/en are needed -->
 	<string name="preloader_cian_button">Посмотреть цены</string>
+	<string name="disable_autodownload">Запретить автозагрузку</string>
 	<string name="add_my_position">Добавить мое местоположение</string>
 	<string name="choose_start_point">Выберите начало маршрута</string>
 	<string name="choose_destination">Выберите конец маршрута</string>

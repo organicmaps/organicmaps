@@ -755,4 +755,5 @@
 	<string name="placepage_add_stop">Lisää pysähdys</string>
 	<string name="whatsnew_intermediate_point_title">Lisäpysähdys</string>
 	<string name="whatsnew_intermediate_point_message">Suunnittele reitti välipisteellä.</string>
+	<string name="disable_autodownload">Poista käytöstä automaattinen lataus</string>
 </resources>

@@ -748,4 +748,5 @@
 	<string name="placepage_add_stop">Añadir parada</string>
 	<string name="whatsnew_intermediate_point_title">Parada adicional</string>
 	<string name="whatsnew_intermediate_point_message">Planifique una ruta con una parada intermedia.</string>
+	<string name="disable_autodownload">Inhabilitar descarga automática</string>
 </resources>

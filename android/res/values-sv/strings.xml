@@ -751,4 +751,5 @@
 	<string name="placepage_add_stop">Lägg till stopp</string>
 	<string name="whatsnew_intermediate_point_title">Ytterligare stopp</string>
 	<string name="whatsnew_intermediate_point_message">Planera rutter med ett uppehåll.</string>
+	<string name="disable_autodownload">Avaktivera automatisk nedladdning</string>
 </resources>

@@ -753,4 +753,5 @@
 	<string name="placepage_add_stop">Angi stopp</string>
 	<string name="whatsnew_intermediate_point_title">Ekstra mellomstopp</string>
 	<string name="whatsnew_intermediate_point_message">Planlegg rute med mellomstopp.</string>
+	<string name="disable_autodownload">Deaktiver automatisk nedlasting</string>
 </resources>

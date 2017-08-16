@@ -755,4 +755,5 @@
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
 	<string name="whatsnew_intermediate_point_title">จุดแวะพักเพิ่มเติม</string>
 	<string name="whatsnew_intermediate_point_message">วางแผนเส้นทางด้วยจุดแวะพักระหว่างทาง</string>
+	<string name="disable_autodownload">หยุดการดาวน์โหลดแบบอัตโนมัติ</string>
 </resources>

@@ -753,4 +753,5 @@
 	<string name="placepage_add_stop">스톱 추가</string>
 	<string name="whatsnew_intermediate_point_title">추가 스톱</string>
 	<string name="whatsnew_intermediate_point_message">중간 지점을 사용하여 경로를 계획하세요.</string>
+	<string name="disable_autodownload">자동 다운로드 해제</string>
 </resources>

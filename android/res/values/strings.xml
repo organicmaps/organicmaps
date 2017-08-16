@@ -790,6 +790,7 @@
 	<string name="preloader_cian_message">Find out rental prices in this area</string>
 	<!-- Only ru/en are needed -->
 	<string name="preloader_cian_button">Learn more</string>
+	<string name="disable_autodownload">Disable autodownload</string>
 	<string name="add_my_position">Add my position</string>
 	<string name="choose_start_point">Choose a starting point</string>
 	<string name="choose_destination">Choose a destination</string>
