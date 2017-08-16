@@ -80,6 +80,8 @@ public:
     bool Accepts() const { return m_dfa.IsAccepting(m_s); }
     bool Rejects() const { return m_dfa.IsRejecting(m_s); }
 
+    size_t ErrorsMade() const { return m_dfa.ErrorsMade(m_s); }
+
   private:
     friend class LevenshteinDFA;
 
@@ -115,6 +117,10 @@ private:
   inline bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
   inline bool IsRejecting(size_t s) const { return s == kRejectingState; }
 
+  // Returns minimum number of made errors among accepting positions in |s|.
+  size_t ErrorsMade(State const & s) const;
+  size_t ErrorsMade(size_t s) const { return m_errorsMade[s]; }
+
   size_t Move(size_t s, UniChar c) const;
 
   size_t const m_size;
@@ -124,6 +130,7 @@ private:
 
   std::vector<std::vector<size_t>> m_transitions;
   std::vector<bool> m_accepting;
+  std::vector<size_t> m_errorsMade;
 };
 
 std::string DebugPrint(LevenshteinDFA::Position const & p);

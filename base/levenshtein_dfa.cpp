@@ -191,10 +191,14 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, si
     ASSERT_EQUAL(id, m_transitions.size(), ());
     ASSERT_EQUAL(visited.count(state), 0, (state, id));
 
+    ASSERT_EQUAL(m_transitions.size(), m_accepting.size(), ());
+    ASSERT_EQUAL(m_transitions.size(), m_errorsMade.size(), ());
+
     states.emplace(state);
     visited[state] = id;
     m_transitions.emplace_back(m_alphabet.size());
     m_accepting.push_back(false);
+    m_errorsMade.push_back(ErrorsMade(state));
   };
 
   pushState(MakeStart(), kStartingState);
@@ -294,6 +298,19 @@ bool LevenshteinDFA::IsAccepting(State const & s) const
       return true;
   }
   return false;
+}
+
+size_t LevenshteinDFA::ErrorsMade(State const & s) const
+{
+  size_t errorsMade = m_maxErrors;
+  for (auto const & p : s.m_positions)
+  {
+    if (!IsAccepting(p))
+      continue;
+    auto const errorsLeft = p.m_errorsLeft - (m_size - p.m_offset);
+    errorsMade = std::min(errorsMade, m_maxErrors - errorsLeft);
+  }
+  return errorsMade;
 }
 
 size_t LevenshteinDFA::Move(size_t s, UniChar c) const
