@@ -238,7 +238,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)playTurnNotifications
 {
-  if (![MWMRouter isRoutingActive] || ![self isValid])
+  if (![MWMRouter isOnRoute] || ![self isValid])
     return;
 
   NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
