@@ -186,15 +186,12 @@ void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & 
   pugi::xml_document result;
   for (auto const p : paths)
   {
-    // TODO(mgsergio): Should we keep empty paths to assess them as well?
-    if (p.m_path.empty())
-      continue;
-
     auto segment = result.append_child("Segment");
     {
       auto const xmlSegment = xmlSegments[p.m_segmentId.Get()];
       segment.append_copy(xmlSegment);
     }
+    if (!p.m_path.empty())
     {
       auto node = segment.append_child("Route");
       openlr::PathToXML(p.m_path, node);
@@ -234,9 +231,9 @@ int main(int argc, char * argv[])
 
   SaveNonMatchedIds(FLAGS_non_matched_ids, paths);
   if (!FLAGS_assessment_output.empty())
-    WriteAssessmentFile(FLAGS_spark_output, document, paths);
+    WriteAssessmentFile(FLAGS_assessment_output, document, paths);
   if (!FLAGS_spark_output.empty())
-    WriteAsMappingForSpark(FLAGS_assessment_output, paths);
+    WriteAsMappingForSpark(FLAGS_spark_output, paths);
 
   return 0;
 }

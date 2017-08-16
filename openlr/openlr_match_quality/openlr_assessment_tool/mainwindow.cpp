@@ -84,7 +84,6 @@ public:
     m_drapeApi.Clear();
   }
 
-
   void VisualizePoints(std::vector<m2::PointD> const & points) override
   {
     UserMarkNotificationGuard g(m_bm, UserMarkType::DEBUG_MARK);

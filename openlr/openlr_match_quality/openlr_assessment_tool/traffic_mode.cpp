@@ -16,14 +16,6 @@
 
 namespace
 {
-std::vector<m2::PointD> GetPoints(openlr::LinearSegment const & segment)
-{
-  std::vector<m2::PointD> result;
-  for (auto const & lrp : segment.m_locationReference.m_points)
-    result.push_back(MercatorBounds::FromLatLon(lrp.m_latLon));
-  return result;
-}
-
 void RemovePointFromPull(m2::PointD const & toBeRemoved, std::vector<m2::PointD> & pool)
 {
   pool.erase(
@@ -234,22 +226,18 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
 
   auto const row = selected.front().top();
 
-  // TODO(mgsergio): Use algo for center calculation.
-  // Now viewport is set to the first point of the first segment.
   CHECK_LESS(row, m_segments.size(), ());
   m_currentSegment = &m_segments[row];
-  auto const partnerSegmentId = m_currentSegment->GetPartnerSegmentId();
 
-  // TODO(mgsergio): Maybe we shold show empty paths.
-  CHECK(m_currentSegment->GetMatchedPath(), ("Empty mwm segments for partner id", partnerSegmentId));
-
-  auto const & path = *m_currentSegment->GetMatchedPath();
-  auto const & firstEdge = path.front();
+  auto const & partnerSegment = m_currentSegment->GetPartnerSegment().GetMercatorPoints();
+  auto const & viewportCenter = partnerSegment.front();
 
   m_drawerDelegate->ClearAllPaths();
-  m_drawerDelegate->SetViewportCenter(GetStart(firstEdge));
-  m_drawerDelegate->DrawEncodedSegment(GetPoints(m_currentSegment->GetPartnerSegment()));
-  m_drawerDelegate->DrawDecodedSegments(GetPoints(path));
+  // TODO(mgsergio): Use a better way to set viewport and scale.
+  m_drawerDelegate->SetViewportCenter(viewportCenter);
+  m_drawerDelegate->DrawEncodedSegment(partnerSegment);
+  if (auto const & path = m_currentSegment->GetMatchedPath())
+    m_drawerDelegate->DrawDecodedSegments(GetPoints(*path));
   if (auto const & path = m_currentSegment->GetGoldenPath())
     m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
 }
@@ -303,8 +291,6 @@ void TrafficMode::PopPoint()
 
 void TrafficMode::CommitPath()
 {
-  // TODO(mgsergio): Make this situation impossible. Make the first segment selected by default
-  // for example.
   CHECK(m_currentSegment, ("No segments selected"));
 
   if (!m_buildingPath)
