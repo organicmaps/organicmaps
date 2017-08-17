@@ -4,8 +4,10 @@ namespace
 {
 #if defined(OMIM_OS_IPHONE)
   auto const kSearchbannerId = "mobile-app-mapsme";
-#else
+#elif defined(OMIM_OS_ANDROID)
   auto const kSearchbannerId = "mobile-app-mapsme";
+#else
+  auto const kSearchbannerId = "dummy";
 #endif
 }  // namespace
 
