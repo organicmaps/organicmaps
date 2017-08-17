@@ -20,6 +20,7 @@
 
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QKeySequence>
 #include <QLayout>
 #include <QMenu>
 #include <QMenuBar>
@@ -243,28 +244,36 @@ MainWindow::MainWindow(Framework & framework)
   QMenu * fileMenu = new QMenu("File", this);
   menuBar()->addMenu(fileMenu);
 
-  fileMenu->addAction("Open sample", this, &MainWindow::OnOpenTrafficSample);
+  fileMenu->addAction("Open sample", this, &MainWindow::OnOpenTrafficSample,
+                      QKeySequence("Ctrl+O"));
 
   m_closeTrafficSampleAction = fileMenu->addAction(
-      "Close sample", this, &MainWindow::OnCloseTrafficSample
-  );
+      "Close sample", this, &MainWindow::OnCloseTrafficSample, QKeySequence("Ctrl+W"));
   m_saveTrafficSampleAction = fileMenu->addAction(
-      "Save sample", this, &MainWindow::OnSaveTrafficSample
-  );
-  m_startEditingAction = fileMenu->addAction("Start editing", [this] {
-      m_trafficMode->StartBuildingPath();
-      m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
-      m_commitPathAction->setEnabled(true /* enabled */);
-      m_cancelPathAction->setEnabled(true /* enabled */);
-  });
-  m_commitPathAction = fileMenu->addAction("Commit path", [this] {
-      m_trafficMode->CommitPath();
-      m_mapWidget->SetMode(MapWidget::Mode::Normal);
-  });
-  m_cancelPathAction = fileMenu->addAction("Cancel path", [this] {
-      m_trafficMode->RollBackPath();
-      m_mapWidget->SetMode(MapWidget::Mode::Normal);
-  });
+      "Save sample", this, &MainWindow::OnSaveTrafficSample, QKeySequence("Ctrl+S"));
+
+  fileMenu->addSeparator();
+
+  m_startEditingAction = fileMenu->addAction("Edit",
+                                             [this] {
+                                               m_trafficMode->StartBuildingPath();
+                                               m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
+                                               m_commitPathAction->setEnabled(true /* enabled */);
+                                               m_cancelPathAction->setEnabled(true /* enabled */);
+                                             },
+                                             QKeySequence("Ctrl+E"));
+  m_commitPathAction = fileMenu->addAction("Accept path",
+                                           [this] {
+                                             m_trafficMode->CommitPath();
+                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
+                                           },
+                                           QKeySequence("Ctrl+A"));
+  m_cancelPathAction = fileMenu->addAction("Revert path",
+                                           [this] {
+                                             m_trafficMode->RollBackPath();
+                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
+                                           },
+                                           QKeySequence("Ctrl+R"));
 
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
