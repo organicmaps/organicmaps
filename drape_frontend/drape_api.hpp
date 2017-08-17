@@ -1,24 +1,25 @@
 #pragma once
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "drape/color.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include "std/mutex.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <mutex>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace df
 {
-
-class DrapeEngine;
-
 struct DrapeApiLineData
 {
   DrapeApiLineData() = default;
 
-  DrapeApiLineData(vector<m2::PointD> const & points, dp::Color const & color)
+  DrapeApiLineData(std::vector<m2::PointD> const & points,
+                   dp::Color const & color)
     : m_points(points)
     , m_color(color)
   {}
@@ -42,7 +43,7 @@ struct DrapeApiLineData
     return *this;
   }
 
-  vector<m2::PointD> m_points;
+  std::vector<m2::PointD> m_points;
   float m_width = 1.0f;
   dp::Color m_color;
 
@@ -54,21 +55,19 @@ struct DrapeApiLineData
 class DrapeApi
 {
 public:
-  using TLines = unordered_map<string, DrapeApiLineData>;
+  using TLines = std::unordered_map<std::string, DrapeApiLineData>;
 
   DrapeApi() = default;
 
-  void SetEngine(ref_ptr<DrapeEngine> engine);
+  void SetDrapeEngine(ref_ptr<DrapeEngine> engine);
 
-  void AddLine(string const & id, DrapeApiLineData const & data);
-  void RemoveLine(string const & id);
+  void AddLine(std::string const & id, DrapeApiLineData const & data);
+  void RemoveLine(std::string const & id);
   void Clear();
   void Invalidate();
 
 private:
-  ref_ptr<DrapeEngine> m_engine;
+  DrapeEngineSafePtr m_engine;
   TLines m_lines;
-  mutex m_mutex;
 };
-
-} // namespace df
+}  // namespace df

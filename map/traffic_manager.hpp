@@ -2,6 +2,7 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 
 #include "drape/pointers.hpp"
@@ -23,11 +24,6 @@
 #include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-
-namespace df
-{
-class DrapeEngine;
-}  // namespace df
 
 class TrafficManager final
 {
@@ -149,8 +145,7 @@ private:
   GetMwmsByRectFn m_getMwmsByRectFn;
   traffic::TrafficObserver & m_observer;
 
-  ref_ptr<df::DrapeEngine> m_drapeEngine;
-  mutex m_drapeEngineMutex;
+  df::DrapeEngineSafePtr m_drapeEngine;
   atomic<int64_t> m_currentDataVersion;
 
   // These fields have a flag of their initialization.

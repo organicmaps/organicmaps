@@ -8,6 +8,8 @@
 
 #include "storage/index.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "drape/pointers.hpp"
 
 #include "tracking/reporter.hpp"
@@ -24,11 +26,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-
-namespace df
-{
-class DrapeEngine;
-}
 
 namespace storage
 {
@@ -272,12 +269,15 @@ private:
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
 
+  std::vector<dp::DrapeID> GetSubrouteIds() const;
+  void SetSubroutesVisibility(bool visible);
+
   void CancelRecommendation(Recommendation recommendation);
 
   RouteBuildingCallback m_routingCallback = nullptr;
   RouteRecommendCallback m_routeRecommendCallback = nullptr;
   Callbacks m_callbacks;
-  ref_ptr<df::DrapeEngine> m_drapeEngine = nullptr;
+  df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
@@ -285,7 +285,7 @@ private:
   BookmarkManager * m_bmManager = nullptr;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
-  std::mutex m_drapeSubroutesMutex;
+  mutable std::mutex m_drapeSubroutesMutex;
 
   std::unique_ptr<location::GpsInfo> m_gpsInfoCache;
 

@@ -2,6 +2,8 @@
 
 #include "local_ads/statistics.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -21,11 +23,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-namespace df
-{
-class DrapeEngine;
-}
 
 namespace feature
 {
@@ -98,8 +95,7 @@ private:
 
   std::atomic<BookmarkManager *> m_bmManager;
 
-  ref_ptr<df::DrapeEngine> m_drapeEngine;
-  std::mutex m_drapeEngineMutex;
+  df::DrapeEngineSafePtr m_drapeEngine;
 
   std::map<std::string, bool> m_campaigns;
   struct CampaignInfo

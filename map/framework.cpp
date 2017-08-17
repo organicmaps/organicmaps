@@ -1984,7 +1984,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread([this, sizes](){ m_searchMarksSizes = sizes; });
   });
 
-  m_drapeApi.SetEngine(make_ref(m_drapeEngine));
+  m_drapeApi.SetDrapeEngine(make_ref(m_drapeEngine));
   m_routingManager.SetDrapeEngine(make_ref(m_drapeEngine), allow3d);
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
@@ -2023,7 +2023,11 @@ void Framework::DestroyDrapeEngine()
 {
   if (m_drapeEngine != nullptr)
   {
-    m_drapeApi.SetEngine(nullptr);
+    m_drapeApi.SetDrapeEngine(nullptr);
+    m_routingManager.SetDrapeEngine(nullptr, false);
+    m_trafficManager.SetDrapeEngine(nullptr);
+    m_localAdsManager.SetDrapeEngine(nullptr);
+
     m_trafficManager.Teardown();
     m_localAdsManager.Teardown();
     GpsTracker::Instance().Disconnect();

@@ -316,10 +316,7 @@ void LocalAdsManager::SetBookmarkManager(BookmarkManager * bmManager)
 
 void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
-  {
-    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
-    m_drapeEngine = engine;
-  }
+  m_drapeEngine.Set(engine);
   UpdateFeaturesCache({});
 }
 
@@ -571,11 +568,7 @@ void LocalAdsManager::WriteCampaignFile(std::string const & campaignFile)
 void LocalAdsManager::Invalidate()
 {
   DeleteAllLocalAdsMarks(m_bmManager);
-  {
-    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->RemoveAllCustomFeatures();
-  }
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
 
   CampaignData campaignData;
   {
@@ -600,14 +593,10 @@ void LocalAdsManager::UpdateFeaturesCache(std::set<FeatureID> && ids)
       m_featuresCache.insert(ids.begin(), ids.end());
     featuresCache = m_featuresCache;
   }
-  {
-    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->SetCustomFeatures(std::move(featuresCache));
-  }
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetCustomFeatures, std::move(featuresCache));
 }
 
-void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const &mwmId)
+void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const & mwmId)
 {
   // Clear feature cache.
   {
@@ -622,11 +611,7 @@ void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const &mwmId)
   }
 
   // Remove custom features in graphics engine.
-  {
-    std::lock_guard<std::mutex> lock(m_drapeEngineMutex);
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->RemoveCustomFeatures(mwmId);
-  }
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveCustomFeatures, mwmId);
 
   // Delete marks.
   DeleteLocalAdsMarks(m_bmManager, mwmId);

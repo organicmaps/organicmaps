@@ -252,5 +252,4 @@ private:
 
   friend class DrapeApi;
 };
-
-} // namespace df
+}  // namespace df
