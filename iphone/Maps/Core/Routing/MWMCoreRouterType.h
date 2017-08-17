@@ -1,3 +1,5 @@
+#import "MWMRouterType.h"
+
 #include "routing/router.hpp"
 
 static inline routing::RouterType coreRouterType(MWMRouterType type)

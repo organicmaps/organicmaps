@@ -1873,6 +1873,7 @@
 		342360A61F34906700AFE44D /* RouteManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteManagerCell.xib; sourceTree = "<group>"; };
 		342360B11F349F9800AFE44D /* MWMRouteManagerPointType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouteManagerPointType.h; sourceTree = "<group>"; };
 		342639461EA0FDB30025EB89 /* MWMSearchItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchItemType.h; sourceTree = "<group>"; };
+		3426DEB11F45AE2800D1C43C /* MWMRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterType.h; sourceTree = "<group>"; };
 		3427AF0B1E49E3A500D466DB /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		342CC5EF1C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationLoginViewController.h; sourceTree = "<group>"; };
 		342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationLoginViewController.mm; sourceTree = "<group>"; };
@@ -3083,6 +3084,7 @@
 				340475351E081A4600C92850 /* MWMRouter.h */,
 				340475361E081A4600C92850 /* MWMRouter.mm */,
 				340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */,
+				3426DEB11F45AE2800D1C43C /* MWMRouterType.h */,
 			);
 			path = Routing;
 			sourceTree = "<group>";

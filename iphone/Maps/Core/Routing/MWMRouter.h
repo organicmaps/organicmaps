@@ -1,4 +1,5 @@
 #import "MWMRoutePoint.h"
+#import "MWMRouterType.h"
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
