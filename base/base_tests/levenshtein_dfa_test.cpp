@@ -21,7 +21,7 @@ enum class Status
 struct Result
 {
   Result() = default;
-  Result(Status status, size_t errorsMade): m_status(status), m_errorsMade(errorsMade) {}
+  Result(Status status, size_t errorsMade) : m_status(status), m_errorsMade(errorsMade) {}
 
   bool operator==(Result const & rhs) const
   {
