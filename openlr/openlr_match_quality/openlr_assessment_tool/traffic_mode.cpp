@@ -120,37 +120,31 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
   {
     for (auto const xpathNode : segments)
     {
-      m_segments.emplace_back();
-
       auto const xmlSegment = xpathNode.node();
-      auto & segment = m_segments.back();
 
-      {
-        // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
-        auto const partnerSegment = xmlSegment.child("reportSegments");
-        if (!openlr::SegmentFromXML(partnerSegment, segment.GetPartnerSegment()))
-          MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
+      openlr::Path matchedPath;
+      openlr::Path fakePath;
+      openlr::Path goldenPath;
 
-        segment.SetPartnerXML(partnerSegment);
-      }
+      openlr::LinearSegment segment;
+
+      // TODO(mgsergio): Unify error handling interface of openlr_xml_mode and decoded_path parsers.
+      auto const partnerSegmentXML = xmlSegment.child("reportSegments");
+      if (!openlr::SegmentFromXML(partnerSegmentXML, segment))
+        MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
 
       if (auto const route = xmlSegment.child("Route"))
-      {
-        auto & path = segment.GetMatchedPath();
-        path.emplace();
-        openlr::PathFromXML(route, m_index, *path);
-      }
+        openlr::PathFromXML(route, m_index, matchedPath);
       if (auto const route = xmlSegment.child("FakeRoute"))
-      {
-        auto & path = segment.GetFakePath();
-        path.emplace();
-        openlr::PathFromXML(route, m_index, *path);
-      }
+        openlr::PathFromXML(route, m_index, fakePath);
       if (auto const route = xmlSegment.child("GoldenRoute"))
+        openlr::PathFromXML(route, m_index, goldenPath);
+
+      m_segments.emplace_back(segment, matchedPath, fakePath, goldenPath, partnerSegmentXML);
+      if (auto const status = xmlSegment.child("Ignored"))
       {
-        auto & path = segment.GetGoldenPath();
-        path.emplace();
-        openlr::PathFromXML(route, m_index, *path);
+        if (status.text().as_bool())
+          m_segments.back().Ignore();
       }
     }
   }
@@ -174,20 +168,24 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
     auto segment = result.append_child("Segment");
     segment.append_copy(sc.GetPartnerXMLSegment());
 
-    if (auto const & path = sc.GetMatchedPath())
+    if (sc.GetStatus() == SegmentCorrespondence::Status::Ignored)
+    {
+      result.append_child("Ignored").text() = true;
+    }
+    if (!sc.GetMatchedPath().empty())
     {
       auto node = segment.append_child("Route");
-      openlr::PathToXML(*path, node);
+      openlr::PathToXML(sc.GetMatchedPath(), node);
     }
-    if (auto const & path = sc.GetFakePath())
+    if (!sc.GetFakePath().empty())
     {
       auto node = segment.append_child("FakeRoute");
-      openlr::PathToXML(*path, node);
+      openlr::PathToXML(sc.GetFakePath(), node);
     }
-    if (auto const & path = sc.GetGoldenPath())
+    if (!sc.GetGoldenPath().empty())
     {
       auto node = segment.append_child("GoldenRoute");
-      openlr::PathToXML(*path, node);
+      openlr::PathToXML(sc.GetGoldenPath(), node);
     }
   }
 
@@ -236,10 +234,10 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
   // TODO(mgsergio): Use a better way to set viewport and scale.
   m_drawerDelegate->SetViewportCenter(viewportCenter);
   m_drawerDelegate->DrawEncodedSegment(partnerSegment);
-  if (auto const & path = m_currentSegment->GetMatchedPath())
-    m_drawerDelegate->DrawDecodedSegments(GetPoints(*path));
-  if (auto const & path = m_currentSegment->GetGoldenPath())
-    m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
+  if (!m_currentSegment->GetMatchedPath().empty())
+    m_drawerDelegate->DrawDecodedSegments(GetPoints(m_currentSegment->GetMatchedPath()));
+  if (!m_currentSegment->GetGoldenPath().empty())
+    m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
 }
 
 Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const
@@ -257,7 +255,7 @@ void TrafficMode::StartBuildingPath()
   if (m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building already in progress."));
 
-  if (m_currentSegment->GetGoldenPath())
+  if (!m_currentSegment->GetGoldenPath().empty())
   {
     auto const btn = QMessageBox::question(
         nullptr,
@@ -267,7 +265,7 @@ void TrafficMode::StartBuildingPath()
       return;
   }
 
-  m_currentSegment->GetGoldenPath() = boost::none;
+  m_currentSegment->SetGoldenPath({});
 
   m_buildingPath = true;
   m_drawerDelegate->ClearGoldenPath();
@@ -337,26 +335,48 @@ void TrafficMode::CommitPath()
     );
   }
 
-  m_currentSegment->GetGoldenPath() = path;
+  m_currentSegment->SetGoldenPath(path);
   m_goldenPath.clear();
 }
 
 void TrafficMode::RollBackPath()
 {
   CHECK(m_currentSegment, ("No segments selected"));
-
-  // TODO(mgsergio): CHECK ?
-  if (!m_buildingPath)
-    MYTHROW(TrafficModeError, ("No path building is in progress."));
+  CHECK(m_buildingPath, ("No path building is in progress."));
 
   m_buildingPath = false;
 
   // TODO(mgsergio): Add a method for common visual manipulations.
   m_drawerDelegate->ClearAllVisualizedPoints();
   m_drawerDelegate->ClearGoldenPath();
-  if (auto const & path = m_currentSegment->GetGoldenPath())
-    m_drawerDelegate->DrawGoldenPath(GetPoints(*path));
+  if (!m_currentSegment->GetGoldenPath().empty())
+    m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
 
+  m_goldenPath.clear();
+  emit EditingStopped();
+}
+
+void TrafficMode::IgnorePath()
+{
+  CHECK(m_currentSegment, ("No segments selected"));
+
+  if (!m_currentSegment->GetGoldenPath().empty())
+  {
+    auto const btn = QMessageBox::question(
+        nullptr,
+        "Override warning",
+        "The selected segment has a golden path. Do you want to discard it?");
+    if (btn == QMessageBox::No)
+      return;
+  }
+
+  m_buildingPath = false;
+
+  // TODO(mgsergio): Add a method for common visual manipulations.
+  m_drawerDelegate->ClearAllVisualizedPoints();
+  m_drawerDelegate->ClearGoldenPath();
+
+  m_currentSegment->Ignore();
   m_goldenPath.clear();
   emit EditingStopped();
 }

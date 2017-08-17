@@ -274,12 +274,19 @@ MainWindow::MainWindow(Framework & framework)
                                              m_mapWidget->SetMode(MapWidget::Mode::Normal);
                                            },
                                            QKeySequence("Ctrl+R"));
+  m_ignorePathAction = fileMenu->addAction("Ignore path",
+                                           [this] {
+                                             m_trafficMode->IgnorePath();
+                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
+                                           },
+                                           QKeySequence("Ctrl+I"));
 
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
   m_saveTrafficSampleAction->setEnabled(false /* enabled */);
   m_startEditingAction->setEnabled(false /* enabled */);
   m_commitPathAction->setEnabled(false /* enabled */);
   m_cancelPathAction->setEnabled(false /* enabled */);
+  m_ignorePathAction->setEnabled(false /* enabled */);
 }
 
 void MainWindow::CreateTrafficPanel(string const & dataFilePath)
@@ -336,6 +343,7 @@ void MainWindow::OnOpenTrafficSample()
   m_closeTrafficSampleAction->setEnabled(true /* enabled */);
   m_saveTrafficSampleAction->setEnabled(true /* enabled */);
   m_startEditingAction->setEnabled(true /* enabled */);
+  m_ignorePathAction->setEnabled(true /* enabled */);
 }
 
 void MainWindow::OnCloseTrafficSample()
@@ -349,6 +357,7 @@ void MainWindow::OnCloseTrafficSample()
   m_startEditingAction->setEnabled(false /* enabled */);
   m_commitPathAction->setEnabled(false /* enabled */);
   m_cancelPathAction->setEnabled(false /* enabled */);
+  m_ignorePathAction->setEnabled(false /* enabled */);
 
   DestroyTrafficPanel();
 }
@@ -371,5 +380,6 @@ void MainWindow::OnSaveTrafficSample()
 void MainWindow::OnPathEditingStop()
 {
   m_commitPathAction->setEnabled(false /* enabled */);
+  m_cancelPathAction->setEnabled(false /* enabled */);
   m_cancelPathAction->setEnabled(false /* enabled */);
 }

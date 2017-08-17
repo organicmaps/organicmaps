@@ -15,8 +15,6 @@
 #include <unordered_map>
 #include <utility>
 
-#include <boost/optional.hpp>
-
 #include <QAbstractTableModel>
 #include <Qt>
 
@@ -59,7 +57,12 @@ private:
 class SegmentCorrespondence
 {
 public:
-  SegmentCorrespondence() = default;
+  enum class Status
+  {
+    Untouched,
+    Assessed,
+    Ignored
+  };
 
   SegmentCorrespondence(SegmentCorrespondence const & sc)
   {
@@ -71,37 +74,55 @@ public:
 
     m_partnerXMLDoc.reset(sc.m_partnerXMLDoc);
     m_partnerXMLSegment = m_partnerXMLDoc.child("reportSegments");
+
+    m_status = sc.m_status;
   }
 
-  boost::optional<openlr::Path> const & GetMatchedPath() const { return m_matchedPath; }
-  boost::optional<openlr::Path> & GetMatchedPath() { return m_matchedPath; }
+  SegmentCorrespondence(openlr::LinearSegment const & segment,
+                        openlr::Path const & matchedPath,
+                        openlr::Path const & fakePath,
+                        openlr::Path const & goldenPath,
+                        pugi::xml_node const & partnerSegmentXML)    : m_partnerSegment(segment)
+    , m_matchedPath(matchedPath)
+    , m_fakePath(fakePath)
+  {
+    SetGoldenPath(goldenPath);
 
-  boost::optional<openlr::Path> const & GetFakePath() const { return m_fakePath; }
-  boost::optional<openlr::Path> & GetFakePath() { return m_fakePath; }
+    m_partnerXMLDoc.append_copy(partnerSegmentXML);
+    m_partnerXMLSegment = m_partnerXMLDoc.child("reportSegments");
+    CHECK(m_partnerXMLSegment, ("Node should contain <reportSegments> part"));
+  }
 
-  boost::optional<openlr::Path> const & GetGoldenPath() const { return m_goldenPath; }
-  boost::optional<openlr::Path> & GetGoldenPath() { return m_goldenPath; }
+  openlr::Path const & GetMatchedPath() const { return m_matchedPath; }
+  openlr::Path const & GetFakePath() const { return m_fakePath; }
+
+  openlr::Path const & GetGoldenPath() const { return m_goldenPath; }
+  void SetGoldenPath(openlr::Path const & p) {
+    m_goldenPath = p;
+    m_status = p.empty() ? Status::Untouched : Status::Assessed;
+  }
 
   openlr::LinearSegment const & GetPartnerSegment() const { return m_partnerSegment; }
-  openlr::LinearSegment & GetPartnerSegment() { return m_partnerSegment; }
 
   uint32_t GetPartnerSegmentId() const { return m_partnerSegment.m_segmentId; }
 
   pugi::xml_document const & GetPartnerXML() const { return m_partnerXMLDoc; }
   pugi::xml_node const & GetPartnerXMLSegment() const { return m_partnerXMLSegment; }
-  void SetPartnerXML(pugi::xml_node const & n)
+
+  Status GetStatus() const { return m_status; }
+
+  void Ignore()
   {
-    m_partnerXMLDoc.append_copy(n);
-    m_partnerXMLSegment = m_partnerXMLDoc.child("reportSegments");
-    CHECK(m_partnerXMLSegment, ("Node should contain <reportSegments> part"));
+    m_status = Status::Ignored;
+    m_goldenPath.clear();
   }
 
 private:
   openlr::LinearSegment m_partnerSegment;
-  // TODO(mgsergio): Maybe get rid of boost::optional and rely on emptiness of the path instead?
-  boost::optional<openlr::Path> m_matchedPath;
-  boost::optional<openlr::Path> m_fakePath;
-  boost::optional<openlr::Path> m_goldenPath;
+
+  openlr::Path m_matchedPath;
+  openlr::Path m_fakePath;
+  openlr::Path m_goldenPath;
 
   // A dirty hack to save back SegmentCorrespondence.
   // TODO(mgsergio): Consider unifying xml serialization with one used in openlr_stat.
@@ -109,6 +130,8 @@ private:
   // This is used by GetPartnerXMLSegment shortcut to return const ref. pugi::xml_node is
   // just a wrapper so returning by value won't guarantee constness.
   pugi::xml_node m_partnerXMLSegment;
+
+  Status m_status = Status::Untouched;
 };
 
 /// This class is used to delegate segments drawing to the DrapeEngine.
@@ -188,6 +211,7 @@ public:
   void PopPoint();
   void CommitPath();
   void RollBackPath();
+  void IgnorePath();
 
   size_t GetPointsCount() const;
   m2::PointD const & GetPoint(size_t const index) const;

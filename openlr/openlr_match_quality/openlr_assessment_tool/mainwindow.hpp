@@ -45,6 +45,7 @@ private:
   QAction * m_startEditingAction = nullptr;
   QAction * m_commitPathAction  = nullptr;
   QAction * m_cancelPathAction = nullptr;
+  QAction * m_ignorePathAction = nullptr;
 
   MapWidget * m_mapWidget = nullptr;
 };
