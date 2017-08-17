@@ -17,7 +17,7 @@
 @implementation MWMRoutePoint
 
 - (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
-                          intermediateIndex:(int8_t)intermediateIndex
+                          intermediateIndex:(size_t)intermediateIndex
 {
   auto lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
@@ -40,7 +40,7 @@
 
 - (instancetype)initWithURLSchemeRoutePoint:(url_scheme::RoutePoint const &)point
                                        type:(MWMRoutePointType)type
-                          intermediateIndex:(int8_t)intermediateIndex
+                          intermediateIndex:(size_t)intermediateIndex
 {
   self = [super init];
   if (self)
@@ -83,7 +83,7 @@
                         title:(NSString *)title
                      subtitle:(NSString *)subtitle
                          type:(MWMRoutePointType)type
-            intermediateIndex:(int8_t)intermediateIndex
+            intermediateIndex:(size_t)intermediateIndex
 {
   self = [super init];
   if (self)

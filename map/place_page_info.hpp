@@ -171,8 +171,8 @@ public:
   /// Routing
   void SetRouteMarkType(RouteMarkType type) { m_routeMarkType = type; }
   RouteMarkType GetRouteMarkType() const { return m_routeMarkType; }
-  void SetIntermediateIndex(int8_t index) { m_intermediateIndex = index; }
-  int8_t GetIntermediateIndex() const { return m_intermediateIndex; }
+  void SetIntermediateIndex(size_t index) { m_intermediateIndex = index; }
+  size_t GetIntermediateIndex() const { return m_intermediateIndex; }
   void SetIsRoutePoint() { m_isRoutePoint = true; }
 
   /// CountryId
@@ -236,7 +236,7 @@ private:
 
   /// Routing
   RouteMarkType m_routeMarkType;
-  int8_t m_intermediateIndex = 0;
+  size_t m_intermediateIndex = 0;
   bool m_isRoutePoint = false;
 
   bool m_isMyPosition = false;

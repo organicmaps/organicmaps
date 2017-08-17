@@ -731,7 +731,7 @@ using namespace place_page;
 #pragma mark - Getters
 
 - (RouteMarkType)routeMarkType { return m_info.GetRouteMarkType(); }
-- (int8_t)intermediateIndex { return m_info.GetIntermediateIndex(); }
+- (size_t)intermediateIndex { return m_info.GetIntermediateIndex(); }
 - (NSString *)address { return @(m_info.GetAddress().c_str()); }
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }

@@ -367,7 +367,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 }
 
 - (MWMRoutePoint *)routePointWithType:(MWMRoutePointType)type
-                    intermediateIndex:(int8_t)intermediateIndex
+                    intermediateIndex:(size_t)intermediateIndex
 {
   auto data = self.data;
   if (!data)
