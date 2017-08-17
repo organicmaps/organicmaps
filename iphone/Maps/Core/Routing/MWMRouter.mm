@@ -9,6 +9,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
+#import "MWMRouterRecommendation.h"
 #import "MWMSearch.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
@@ -623,6 +624,18 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
   if (![MWMRouter isTaxi])
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
+}
+
+- (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation
+{
+  switch (recommendation)
+  {
+  case MWMRouterRecommendationRebuildAfterPointsLoading:
+    [MWMRouter
+        addPointAndRebuild:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                            intermediateIndex:0]];
+    break;
+  }
 }
 
 #pragma mark - Alerts
