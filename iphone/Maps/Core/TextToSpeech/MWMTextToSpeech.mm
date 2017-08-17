@@ -72,6 +72,12 @@ using Observers = NSHashTable<Observer>;
   return tts;
 }
 
++ (void)applicationDidBecomeActive
+{
+  [MWMTextToSpeech tts].speechSynthesizer = nil;
+  [MWMTextToSpeech tts].speechVoice = nil;
+}
+
 - (instancetype)initTTS
 {
   self = [super init];
@@ -154,7 +160,7 @@ using Observers = NSHashTable<Observer>;
   if (![[self class] isTTSEnabled] || self.active == active)
     return;
   if (active && ![self isValid])
-    [self createSynthesizer];
+    [self createVoice:[MWMTextToSpeech savedLanguage]];
   [self setAudioSessionActive:active];
   [MWMRouter enableTurnNotifications:active];
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -168,21 +174,14 @@ using Observers = NSHashTable<Observer>;
   return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
-- (void)createSynthesizer
-{
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
-    self.speechSynthesizer.delegate = self;
-    [self createVoice:[[self class] savedLanguage]];
-  });
-  // TODO(vbykoianko) Use [NSLocale preferredLanguages] instead of [AVSpeechSynthesisVoice
-  // currentLanguageCode].
-  // [AVSpeechSynthesisVoice currentLanguageCode] is used now because of we need a language code in
-  // BCP-47.
-}
-
 - (void)createVoice:(NSString *)locale
 {
+  if (!self.speechSynthesizer)
+  {
+    self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    self.speechSynthesizer.delegate = self;
+  }
+
   NSMutableArray<NSString *> * candidateLocales = [@[ kDefaultLanguage, @"en-GB" ] mutableCopy];
 
   if (locale)
@@ -238,7 +237,13 @@ using Observers = NSHashTable<Observer>;
 
 - (void)playTurnNotifications
 {
-  if (![MWMRouter isOnRoute] || ![self isValid])
+  if (![MWMRouter isOnRoute])
+    return;
+
+  if (self.active && ![self isValid])
+    [self createVoice:[MWMTextToSpeech savedLanguage]];
+
+  if (!self.active || ![self isValid])
     return;
 
   NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];

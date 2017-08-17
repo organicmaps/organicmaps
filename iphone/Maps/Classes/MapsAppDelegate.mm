@@ -1,6 +1,7 @@
 #import "MapsAppDelegate.h"
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAuthorizationCommon.h"
@@ -13,10 +14,10 @@
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearch+CoreSpotlight.h"
+#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
@@ -606,6 +607,7 @@ using namespace osm_auth_ios;
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
   [MWMKeyboard applicationDidBecomeActive];
+  [MWMTextToSpeech applicationDidBecomeActive];
   LOG(LINFO, ("applicationDidBecomeActive - end"));
 }
 

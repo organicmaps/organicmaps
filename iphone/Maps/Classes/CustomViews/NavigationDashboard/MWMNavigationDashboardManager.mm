@@ -139,8 +139,8 @@ using Observers = NSHashTable<Observer>;
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateHidden;
   self.navigationInfoView = nil;
-  self.navigationControlView.isVisible = NO;
-  self.navigationControlView = nil;
+  _navigationControlView.isVisible = NO;
+  _navigationControlView = nil;
   [self.statusBox stateHidden];
   self.statusBox = nil;
 }
