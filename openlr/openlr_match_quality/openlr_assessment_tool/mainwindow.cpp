@@ -1,8 +1,10 @@
 #include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
 
+#include "openlr/openlr_match_quality/openlr_assessment_tool/map_widget.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/points_controller_delegate_base.hpp"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_drawer_delegate_base.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_panel.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/trafficmodeinitdlg.h"
-#include "openlr/openlr_match_quality/openlr_assessment_tool/map_widget.hpp"
 
 #include "map/framework.hpp"
 

@@ -16,6 +16,10 @@ set(
   mainwindow.hpp
   map_widget.cpp
   map_widget.hpp
+  points_controller_delegate_base.hpp
+  segment_correspondence.cpp
+  segment_correspondence.hpp
+  traffic_drawer_delegate_base.hpp
   traffic_mode.cpp
   traffic_mode.hpp
   traffic_panel.cpp
