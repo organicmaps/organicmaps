@@ -358,7 +358,7 @@ TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, Ma
   {
     sizes.first =
         m_downloader->GetDownloadingProgress().first +
-        GetRemoteSize(countryFile, queuedCountry->GetDownloadedFiles(), GetCurrentDataVersion());
+        GetRemoteSize(countryFile, queuedCountry->GetDownloadedFilesOptions(), GetCurrentDataVersion());
   }
   return sizes;
 }
@@ -614,7 +614,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   TCountryId const & countryId = country.GetCountryId();
   CountryFile const & countryFile = GetCountryFile(countryId);
 
-  string const filePath = GetFileDownloadPath(countryId, country.GetCurrentFile());
+  string const filePath = GetFileDownloadPath(countryId, country.GetCurrentFileOptions());
   uint64_t size;
 
   // It may happen that the file already was downloaded, so there're
@@ -801,7 +801,7 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
     fileUrls.push_back(GetFileDownloadUrl(url, queuedCountry));
 
   string const filePath =
-      GetFileDownloadPath(queuedCountry.GetCountryId(), queuedCountry.GetCurrentFile());
+      GetFileDownloadPath(queuedCountry.GetCountryId(), queuedCountry.GetCurrentFileOptions());
   m_downloader->DownloadMapFile(fileUrls, filePath, GetDownloadSize(queuedCountry),
                                 bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
                                 bind(&Storage::OnMapFileDownloadProgress, this, _1));
@@ -941,7 +941,7 @@ string Storage::GetFileDownloadUrl(string const & baseUrl,
   auto const & countryId = queuedCountry.GetCountryId();
   CountryFile const & countryFile = GetCountryFile(countryId);
 
-  auto const currentFileOpt = queuedCountry.GetCurrentFile();
+  auto const currentFileOpt = queuedCountry.GetCurrentFileOptions();
   string const fileName =
       GetFileName(countryFile.GetName(), currentFileOpt, GetCurrentDataVersion());
 
@@ -1164,7 +1164,7 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, Map
   if (IsCountryFirstInQueue(countryId))
   {
     // Abrupt downloading of the current file if it should be removed.
-    if (HasOptions(opt, queuedCountry->GetCurrentFile()))
+    if (HasOptions(opt, queuedCountry->GetCurrentFileOptions()))
       m_downloader->Reset();
 
     // Remove all files downloader had been created for a country.
@@ -1208,13 +1208,13 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
     return m_diffManager.InfoFor(countryId).m_size;
 
   CountryFile const & file = GetCountryFile(countryId);
-  return GetRemoteSize(file, queuedCountry.GetCurrentFile(), GetCurrentDataVersion());
+  return GetRemoteSize(file, queuedCountry.GetCurrentFileOptions(), GetCurrentDataVersion());
 }
 
-string Storage::GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const
+string Storage::GetFileDownloadPath(TCountryId const & countryId, MapOptions options) const
 {
   return platform::GetFileDownloadPath(GetCurrentDataVersion(), m_dataDir,
-                                       GetCountryFile(countryId), file);
+                                       GetCountryFile(countryId), options);
 }
 
 bool Storage::CheckFailedCountries(TCountriesVec const & countries) const

@@ -331,15 +331,15 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
 
-string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file)
+string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions options)
 {
-  return GetFileDownloadPath(version, string(), countryFile, file);
+  return GetFileDownloadPath(version, string(), countryFile, options);
 }
 
 string GetFileDownloadPath(int64_t version, string const & dataDir,
-                           CountryFile const & countryFile, MapOptions file)
+                           CountryFile const & countryFile, MapOptions options)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), file, version) + READY_FILE_EXTENSION;
+  string const readyFile = GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return my::JoinFoldersToPath(dir, readyFile);

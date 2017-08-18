@@ -22,8 +22,8 @@ public:
 
   inline TCountryId const & GetCountryId() const { return m_countryId; }
   inline MapOptions GetInitOptions() const { return m_init; }
-  inline MapOptions GetCurrentFile() const { return m_current; }
-  inline MapOptions GetDownloadedFiles() const { return UnsetOptions(m_init, m_left); }
+  inline MapOptions GetCurrentFileOptions() const { return m_current; }
+  inline MapOptions GetDownloadedFilesOptions() const { return UnsetOptions(m_init, m_left); }
 
   inline bool operator==(TCountryId const & countryId) const { return m_countryId == countryId; }
 

@@ -41,6 +41,7 @@ omim_link_libraries(
   oauthcpp
   platform
   opening_hours
+  mwm_diff
   geometry
   coding
   base

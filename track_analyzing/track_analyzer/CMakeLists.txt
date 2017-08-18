@@ -26,6 +26,7 @@ omim_link_libraries(
   indexer
   editor
   platform
+  mwm_diff
   geometry
   coding
   base

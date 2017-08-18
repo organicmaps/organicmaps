@@ -38,10 +38,10 @@ void Manager::Load(LocalMapsInfo && info)
       m_status = Status::Available;
     }
 
-    auto const & observers = m_observers;
+    auto & observers = m_observers;
     GetPlatform().RunOnGuiThread([observers]() mutable
     {
-      //observers.ForEach(&Observer::OnDiffStatusReceived);
+      observers.ForEach(&Observer::OnDiffStatusReceived);
     });
   });
 }
