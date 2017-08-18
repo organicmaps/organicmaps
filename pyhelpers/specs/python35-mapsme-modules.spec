@@ -42,6 +42,7 @@ BuildRequires:  python35 >= %{py_version}
 # BuildRequires:  python35-setuptools
 BuildRequires:  cmake3
 BuildRequires:  boost_prefix-devel >= 1.54.0-3
+BuildRequires:  redhat-rpm-config
 Requires:       python35 >= %{py_version}
 Requires:	python35-%{project} = %{version}-%{release}
 
