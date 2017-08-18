@@ -938,17 +938,22 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
 string Storage::GetFileDownloadUrl(string const & baseUrl,
                                    QueuedCountry const & queuedCountry) const
 {
-  auto const & countryId = queuedCountry.GetCountryId();
+  return GetFileDownloadUrl(baseUrl, queuedCountry.GetCountryId(),
+                            queuedCountry.GetCurrentFileOptions());
+}
+
+string Storage::GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId,
+                                   MapOptions options) const
+{
   CountryFile const & countryFile = GetCountryFile(countryId);
 
-  auto const currentFileOpt = queuedCountry.GetCurrentFileOptions();
   string const fileName =
-      GetFileName(countryFile.GetName(), currentFileOpt, GetCurrentDataVersion());
+    GetFileName(countryFile.GetName(), options, GetCurrentDataVersion());
 
   ostringstream url;
   url << baseUrl;
   string const currentVersion = strings::to_string(GetCurrentDataVersion());
-  if (currentFileOpt == MapOptions::Diff)
+  if (options == MapOptions::Diff)
     url << "diffs/" << currentVersion << "/"  << strings::to_string(m_diffManager.InfoFor(countryId).m_version);
   else
     url << OMIM_OS_NAME "/" << currentVersion;
