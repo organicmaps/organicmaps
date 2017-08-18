@@ -45,6 +45,7 @@ omim_link_libraries(
   platform
   editor
   mwm_diff
+  bsdiff
   geometry
   coding
   base

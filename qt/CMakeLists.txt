@@ -78,6 +78,7 @@ omim_link_libraries(
   ${PROJECT_NAME}
   qt_common
   mwm_diff
+  bsdiff
   map
   drape_frontend
   routing

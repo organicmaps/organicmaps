@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map drape_frontend routing traffic routing_common search storage tracking drape \
-               ugc indexer partners_api local_ads platform editor mwm_diff geometry coding base \
+               ugc indexer partners_api local_ads platform editor mwm_diff bsdiff geometry coding base \
                freetype expat protobuf jansson osrm stats_client minizip succinct pugixml \
                stats_client stb_image sdf_image icu agg
 

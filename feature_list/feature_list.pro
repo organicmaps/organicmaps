@@ -2,7 +2,7 @@
 
 ROOT_DIR = ..
 DEPENDENCIES = map traffic search_tests_support search search_quality storage ugc indexer platform \
-               editor mwm_diff geometry coding base jansson protobuf stats_client succinct \
+               editor mwm_diff bsdiff geometry coding base jansson protobuf stats_client succinct \
                opening_hours pugixml icu agg
 
 include($$ROOT_DIR/common.pri)
