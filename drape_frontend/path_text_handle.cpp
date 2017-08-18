@@ -1,7 +1,106 @@
 #include "drape_frontend/path_text_handle.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "base/math.hpp"
 
 namespace df
 {
+
+namespace
+{
+double const kValidSplineTurn = 15 * math::pi / 180;
+double const kCosTurn = cos(kValidSplineTurn);
+double const kSinTurn = sin(kValidSplineTurn);
+double const kRoundStep = 23;
+int const kMaxStepsCount = 7;
+
+bool RoundCorner(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                 int leftStepsCount, std::vector<m2::PointD> & roundedCorner)
+{
+  roundedCorner.clear();
+
+  double p1p2Length = (p2 - p1).Length();
+  double const p2p3Length = (p3 - p2).Length();
+
+  auto const dir1 = (p2 - p1) / p1p2Length;
+  auto const dir2 = (p3 - p2) / p2p3Length;
+
+  if (IsValidSplineTurn(dir1, dir2))
+    return false;
+
+  double const vs = df::VisualParams::Instance().GetVisualScale();
+  double const kMinCornerDist = 1.0;
+  if ((p3 - p1).SquaredLength() < kMinCornerDist * vs)
+  {
+    roundedCorner.push_back(p1);
+    return false;
+  }
+  m2::PointD const np1 = p2 - dir1 * std::min(kRoundStep * vs,
+                                              p1p2Length - p1p2Length / max(leftStepsCount - 1, 2));
+  p1p2Length = (p2 - np1).Length();
+  double const cosCorner = m2::DotProduct(-dir1, dir2);
+  double const sinCorner = fabs(m2::CrossProduct(-dir1, dir2));
+
+  double const p2p3IntersectionLength = (p1p2Length * kSinTurn) / (kSinTurn * cosCorner + kCosTurn * sinCorner);
+
+  if (p2p3IntersectionLength >= p2p3Length)
+  {
+    roundedCorner.push_back(np1);
+    return false;
+  }
+  else
+  {
+    m2::PointD const p = p2 + dir2 * p2p3IntersectionLength;
+    roundedCorner.push_back(np1);
+    roundedCorner.push_back(p);
+    return !IsValidSplineTurn((p - np1).Normalize(), dir2);
+  }
+}
+
+void ReplaceLastCorner(std::vector<m2::PointD> const & roundedCorner, m2::Spline & spline)
+{
+  if (roundedCorner.empty())
+    return;
+  spline.ReplacePoint(roundedCorner.front());
+  for (size_t i = 1, sz = roundedCorner.size(); i < sz; ++i)
+    spline.AddPoint(roundedCorner[i]);
+}
+}  // namespace
+
+bool IsValidSplineTurn(m2::PointD const & normalizedDir1,
+                       m2::PointD const & normalizedDir2)
+{
+  double const dotProduct = m2::DotProduct(normalizedDir1, normalizedDir2);
+  double const kEps = 1e-5;
+  return dotProduct > kCosTurn || fabs(dotProduct - kCosTurn) < kEps;
+}
+
+void AddPointAndRound(m2::Spline & spline, m2::PointD const & pt)
+{
+  if (spline.GetSize() < 2)
+  {
+    spline.AddPoint(pt);
+    return;
+  }
+
+  auto const dir1 = spline.GetDirections().back();
+  auto const dir2 = (pt - spline.GetPath().back()).Normalize();
+
+  double const dotProduct = m2::DotProduct(dir1, dir2);
+  if (dotProduct < kCosTurn)
+  {
+    int leftStepsCount = static_cast<int>(acos(dotProduct) / kValidSplineTurn);
+    std::vector<m2::PointD> roundedCorner;
+    while (leftStepsCount > 0 && leftStepsCount <= kMaxStepsCount &&
+           RoundCorner(spline.GetPath()[spline.GetSize() - 2],
+                       spline.GetPath().back(), pt, leftStepsCount--, roundedCorner))
+    {
+      ReplaceLastCorner(roundedCorner, spline);
+    }
+    ReplaceLastCorner(roundedCorner, spline);
+  }
+  spline.AddPoint(pt);
+}
 
 PathTextContext::PathTextContext(m2::SharedSpline const & spline)
   : m_globalSpline(spline)
@@ -68,7 +167,7 @@ void PathTextContext::Update(ScreenBase const & screen)
       }
       continue;
     }
-    pixelSpline.AddPoint(screen.PtoP3d(pos));
+    AddPointAndRound(pixelSpline, screen.PtoP3d(pos));
   }
 
   if (pixelSpline.GetSize() > 1)
@@ -79,18 +178,10 @@ void PathTextContext::Update(ScreenBase const & screen)
 
   for (size_t i = 0, sz = m_globalOffsets.size(); i < sz; ++i)
   {
-    if (screen.isPerspective())
+    m2::PointD const pt2d = screen.GtoP(m_globalPivots[i]);
+    if (!screen.IsReverseProjection3d(pt2d))
     {
-      m2::PointD const pt2d = screen.GtoP(m_globalPivots[i]);
-      if (!screen.IsReverseProjection3d(pt2d))
-      {
-        m_centerPointIters.push_back(GetProjectedPoint(m_pixel3dSplines, screen.PtoP3d(pt2d)));
-        m_centerGlobalPivots.push_back(m_globalPivots[i]);
-      }
-    }
-    else
-    {
-      m_centerPointIters.push_back(m_pixel3dSplines.front().GetPoint(m_globalOffsets[i] / screen.GetScale()));
+      m_centerPointIters.push_back(GetProjectedPoint(m_pixel3dSplines, screen.PtoP3d(pt2d)));
       m_centerGlobalPivots.push_back(m_globalPivots[i]);
     }
   }

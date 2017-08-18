@@ -25,6 +25,7 @@ set(
   SRC
   compile_shaders_test.cpp
   navigator_test.cpp
+  path_text_test.cpp
   shader_def_for_tests.cpp
   shader_def_for_tests.hpp
   user_event_stream_tests.cpp
