@@ -9,6 +9,9 @@
 #include "map/chart_generator.hpp"
 #include "map/user_mark.hpp"
 
+#include "partners_api/ads_engine.hpp"
+#include "partners_api/banner.hpp"
+
 #include "search/everywhere_search_params.hpp"
 
 #include "storage/storage_helpers.hpp"
@@ -1472,5 +1475,11 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
 {
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
+{
+  return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
 }  // extern "C"

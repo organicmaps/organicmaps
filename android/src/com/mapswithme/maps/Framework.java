@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
 
+import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
@@ -367,4 +368,6 @@ public class Framework
   public static native boolean nativeLoadRoutePoints();
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
+
+  public static native Banner[] nativeGetSearchBanners();
 }
