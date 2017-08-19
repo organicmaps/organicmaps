@@ -47,6 +47,8 @@ public:
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
 private:
+  bool HasDiffForUnsafe(storage::TCountryId const & countryId) const;
+
   mutable std::mutex m_mutex;
   Status m_status = Status::Undefined;
   NameFileInfoMap m_diffs;

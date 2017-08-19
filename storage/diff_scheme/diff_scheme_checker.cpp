@@ -120,7 +120,14 @@ NameFileInfoMap Checker::Check(LocalMapsInfo const & info)
   request.SetTimeout(kTimeoutInSeconds);
   NameFileInfoMap diffs;
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
+  {
     diffs = DeserializeResponse(request.ServerResponse(), info.m_localMaps);
+  }
+  else
+  {
+    LOG(LINFO, ("Request to diffs server failed. Code =", request.ErrorCode(),
+      ", Redirection =", request.WasRedirected()));
+  }
 
   return diffs;
 }

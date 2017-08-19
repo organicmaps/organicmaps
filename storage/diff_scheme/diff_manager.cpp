@@ -99,13 +99,18 @@ void Manager::SetStatus(Status status)
 FileInfo const & Manager::InfoFor(storage::TCountryId const & countryId) const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  ASSERT(HasDiffFor(countryId), ());
+  ASSERT(HasDiffForUnsafe(countryId), ());
   return m_diffs.at(countryId);
 }
 
 bool Manager::HasDiffFor(storage::TCountryId const & countryId) const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
+  return HasDiffForUnsafe(countryId);
+}
+
+bool Manager::HasDiffForUnsafe(storage::TCountryId const & countryId) const
+{
   return m_diffs.find(countryId) != m_diffs.end();
 }
 
