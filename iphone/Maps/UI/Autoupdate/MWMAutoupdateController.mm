@@ -6,6 +6,8 @@
 #import "Statistics.h"
 #import "UIButton+RuntimeAttributes.h"
 
+#include <unordered_set>
+
 namespace
 {
 string RootId() { return GetFramework().GetStorage().GetRootId(); }
@@ -110,10 +112,13 @@ enum class State
 @property(nonatomic) Framework::DoAfterUpdate todo;
 @property(nonatomic) TMwmSize sizeInMB;
 @property(nonatomic) NodeErrorCode errorCode;
+@property(nonatomic) BOOL progressFinished;
 
 @end
 
 @implementation MWMAutoupdateController
+
+std::unordered_set<TCountryId> updatingCountries;
 
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
@@ -124,11 +129,11 @@ enum class State
   view.delegate = controller;
   auto & f = GetFramework();
   auto const & s = f.GetStorage();
-  NodeAttrs attrs;
-  s.GetNodeAttrs(s.GetRootId(), attrs);
-  TMwmSize const countrySizeInBytes = attrs.m_localMwmSize;
-  view.updateSize = formattedSize(countrySizeInBytes);
-  controller.sizeInMB = countrySizeInBytes * MB;
+  storage::Storage::UpdateInfo updateInfo;
+  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  TMwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
+  view.updateSize = formattedSize(updateSizeInBytes);
+  controller.sizeInMB = updateSizeInBytes / MB;
   [MWMFrameworkListener addObserver:controller];
   return controller;
 }
@@ -136,6 +141,7 @@ enum class State
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  self.progressFinished = NO;
   [Statistics logEvent:kStatDownloaderOnStartScreenShow
         withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   auto view = static_cast<MWMAutoupdateView *>(self.view);
@@ -204,11 +210,26 @@ enum class State
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status == NodeStatus::Error)
   {
+    if (!nodeStatuses.m_groupNode)
+      updatingCountries.erase(countryId);
     self.errorCode = nodeStatuses.m_error;
     SEL const process = @selector(processError);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:process object:nil];
     [self performSelector:process withObject:nil afterDelay:0.2];
   }
+  else if (nodeStatuses.m_status == NodeStatus::OnDisk)
+  {
+    if (!nodeStatuses.m_groupNode)
+      updatingCountries.erase(countryId);
+  }
+  else
+  {
+    if (!nodeStatuses.m_groupNode)
+      updatingCountries.insert(countryId);
+  }
+  
+  if (self.progressFinished && updatingCountries.empty())
+    [self dismiss];
 }
 
 - (void)processError
@@ -244,9 +265,11 @@ enum class State
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(RootId(), nodeAttrs);
   auto const p = nodeAttrs.m_downloadingProgress;
-  static_cast<MWMAutoupdateView *>(self.view).progress = static_cast<CGFloat>(p.first) / p.second;
+  auto view = static_cast<MWMAutoupdateView *>(self.view);
+  // Here we left 5% for diffs applying.
+  view.progress = 0.95f * static_cast<CGFloat>(p.first) / p.second;
   if (p.first == p.second)
-    [self dismiss];
+    self.progressFinished = YES;
 }
 
 @end
