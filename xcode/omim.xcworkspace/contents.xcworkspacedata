@@ -187,43 +187,46 @@
       location = "container:"
       name = "3party">
       <FileRef
-         location = "group:icu/icu.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "container:agg/agg.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:gflags/gflags.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:jansson/jansson.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:freetype/freetype.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:osrm/osrm.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:opening_hours/opening_hours.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "container:succinct/succinct.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:alohalitics/alohalitics.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:protobuf/protobuf.xcodeproj">
+         location = "container:bsdiff/bsdiff.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:expat/expat.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:freetype/freetype.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:gflags/gflags.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:icu/icu.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:jansson/jansson.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:minizip/minizip.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:tess2/tess2.xcodeproj">
+         location = "container:oauthcpp/oauthcpp.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:opening_hours/opening_hours.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:osrm/osrm.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:protobuf/protobuf.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:pugixml/pugixml.xcodeproj">
       </FileRef>
       <FileRef
          location = "container:sdf_image/sdf_image.xcodeproj">
@@ -232,10 +235,10 @@
          location = "container:stb_image/stb_image.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:pugixml/pugixml.xcodeproj">
+         location = "container:succinct/succinct.xcodeproj">
       </FileRef>
       <FileRef
-         location = "container:oauthcpp/oauthcpp.xcodeproj">
+         location = "container:tess2/tess2.xcodeproj">
       </FileRef>
    </Group>
    <FileRef
@@ -263,13 +266,16 @@
       location = "container:generator/generator.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:mwm_diff/mwm_diff.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:generator_tool/generator_tool.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:indexer/indexer.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:local_ads/local_ads.xcodeproj">
+      location = "container:local_ads/local_ads.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:map/map.xcodeproj">
@@ -308,10 +314,10 @@
       location = "container:qtMapsMe/qtMapsMe.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ugc/ugc.xcodeproj">
+      location = "container:ugc/ugc.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:software_renderer/software_renderer.xcodeproj">
+      location = "container:software_renderer/software_renderer.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:../iphone/Maps/Maps.xcodeproj">
