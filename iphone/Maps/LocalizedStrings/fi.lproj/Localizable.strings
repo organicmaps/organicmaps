@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "Poista";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "Älä kysy uudelleen";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "Jatka";
+
 "download_maps" = "Lataa karttoja";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "Lataa %qu Kt";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "Lataa %qu Mt";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Lataus epäonnistui, yritä uudelleen koskettamalla";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "Ladattu (%1$qu %2$@), poista koskettamalla";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "Ladataan %qu%%, peruuta koskettamalla";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Ladataan…";
 
+"get_it_now" = "Hanki nyt";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "Kt";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometrit";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "Kartat:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "Merkitty ladattavaksi, peruuta koskettamalla";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "Mt";
@@ -57,11 +83,20 @@
 
 "ok" = "OK";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "Vapauta tilaa laitteellasi ladataksesi tiedoston %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Muistuta myöhemmin";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Myöhemmin";
+
+/* Don't show some dialog any more */
+"never" = "Ei koskaan";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "Ilmoita virheestä";
 
 /* View and button titles for accessibility */
 "search" = "Haku";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "Hae kartalta";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "Lataa koskettamalla";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Kyllä";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "WiFi-yhteyttä suositellaan suurten karttojen lataamiseen";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "Mitä mittayksikköä haluat käyttää?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "Laitteesi ei tue sijaintipalveluita";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Näytä kartalla";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "Tietoa MAPS.ME:stä";
 
+"downloading_touch_to_cancel" = "Ladataan %d%%, peruuta koskettamalla";
+
+"downloaded_touch_to_delete" = "Ladattu (%@), poista koskettamalla";
+
 "connection_settings" = "Yhteysasetukset";
+
+"download_mb_or_kb" = "Lataa %@";
 
 "close" = "Sulje";
 
@@ -111,11 +164,15 @@
 
 "download" = "Lataa";
 
+"external_storage_is_not_available" = "SD-kortti/USB-massamuisti, jolle kartat on ladattu, ei ole käytettävissä";
+
 "disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi MAPS.ME -sovellusta";
 
 "not_enough_free_space_on_sdcard" = "Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta";
 
 "not_enough_memory" = "Ei tarpeeksi muistia sovelluksen avaamiseksi";
+
+"free_space_for_country" = "Ole hyvä ja vapauta ensin %1$@ laitteeltasi ladataksesi %2$@";
 
 "download_resources" = "Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ dataa.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Jatka";
 
+"downloaded_touch_to_update" = "Ladattu (%@), päivitä tai poista koskettamalla";
+
+"update_mb_or_kb" = "Päivitä %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Hakutoimintoa varten tarvitset päivitetyt kartat:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Päivitys saatavissa seuraaville kartoille:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "Et tarvitse enää MAPS.ME Lite:ä, joten voit poistaa sen.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ ladattu onnistuneesti";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ lataus epäonnistui";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Lisää uusi valikoima";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "Lisää Kirjanmerkkeihin";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Kirjanmerkin väri";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "Kirjanmerkit";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "Väri";
+
 /* Default bookmarks set name */
 "my_places" = "Paikkani";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "Osoite";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "Poista nasta";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Aseta";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Näkyvä";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS on pois käytöstä. Voit ottaa sen käyttöön asetusvalikosta.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "Mittayksiköt";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Valitse mailit tai kilometrit";
+
+/* Do search in all sources */
+"search_mode_all" = "Everywhere";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Near Me";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "On the Screen";
 
 /* Search Suggestion */
 "food" = "Ruoka";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "Poliisi";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Tuloksia ei löytynyt";
+
 /* Notes field in Bookmarks view */
 "description" = "Muistiinpanot";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Lataa nykyisen sijainnin (%@) maa";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Lataa hakemasi sijainnin (%@) maa";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Valitettavasti karttatallennusasetukset ovat pois päältä.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Maata ladataan parhaillaan.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Toivottavasti nautit MAPS.ME -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!";
+
+/* No, thanks */
+"no_thanks" = "Ei kiitos";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Hei, katso merkintäni MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://maps.me/get";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, katso merkintäni MAPS.ME-kartalla";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Hei,\n\nnastoitin kohteen %1$@ MAPS.ME:ssä, koko maailman kattavassa offline-karttasovelluksessa. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. \n\nKiitos. kaikki";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini MAPS.ME:n kartalla!";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Jaa";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "Viesti";
+
 /* Share by email button text, also used in editor. */
 "email" = "Sähköposti";
+
+/* Copy Link */
+"copy_link" = "Kopioi linkki";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Näytä lisätietoja";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopioitu leikepöydälle: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "Valmis";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Valitse tausta-asetukset";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Tausta-asetukset";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Näytä taustalla";
 
 /* Prints version number in About dialog */
 "version" = "Versio: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "Jaa sijaintini";
 
+"menu_search" = "Haku";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Kartta";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Muut";
 
 "prefs_group_route" = "Navigaatio";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-rakennukset";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Vaikuttaa akun kestoon";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ääniohjeistukset";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.";
 
+"pref_track_ios_caption" = "Viimeisin reitti näyttää kulkemasi matkan.";
+
+"pref_track_ios_subcaption" = "Valitse reitin tallennuksen aikaväli.";
+
+"placepage_distance" = "Etäisyys";
+
+"placepage_coordinates" = "Koordinaatit";
+
+"placepage_unsorted" = "Järjestelemätön";
+
 "search_show_on_map" = "Näytä kartalla";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "Android 4.4 -järjestelmästä johtuvien muutosten tähden tallennetut kartat täytyy optimoida, mutta laitteellasi ei ole tarpeeksi vapaata tilaa karttojen kopioimiseen.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "Vapauta muistia, sillä muuten karttoja voidaan käyttää vain lukutilassa. Kirjanmerkkisi pitää siirtää laitteen sisäiseen muistiin, mutta vapaata muistia ei ole tarpeeksi. Vapauta muistia, sillä muuten kirjanmerkkejä ei voida käyttää.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Tallennettuja karttoja optimoidaan parhaillaan. Odota hetkinen, tämä voi kestää muutamia minuutteja.";
+
+/* Used in More Apps menu */
+"free" = "Free";
+
+/* Used in More Apps menu */
+"buy" = "Buy";
+
+/* 1st search button-like result */
+"search_on_map" = "Etsi kartalta";
+
+/* toast with an error */
+"no_route_found" = "Reittiä ei löydy";
+
+/* route title */
+"route" = "Reitti";
 
 /* category title */
 "routes" = "Reitit";
 
+/* Show on first launch. */
+"maps_licence_info" = "Tämä sovellus käyttää maantieteellistä dataa (mukaan lukien karttoja, yrityslistauksia, mielenkiinnon kohteita, maiden ja alueiden rajoja jne.), joka on noudettu OpenStreetMap-järjestelmästä. Emme takaa OpenStreetMapin datan johdonmukaisuutta, täsmällisyyttä, täydellisyyttä tai sovellettavuutta.";
+
+/* Show on first launch. */
+"agree" = "Hyväksyn";
+
+/* Show on first launch */
+"disagree" = "En hyväksy";
+
 /* text of notification */
 "download_map_notification" = "Lataa sijaintisi kartta";
 
+/* text of notification */
+"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.";
+
+/* Text in menu */
+"settings_and_more" = "Asetukset &amp; Lisää";
+
 /* Text in menu */
 "website" = "Kotisivut";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.ME -yhteisö";
 
 /* Text in menu */
 "like_on_facebook" = "Tykkää meistä Facebookissa";
 
 /* Text in menu */
 "follow_on_twitter" = "Seuraa meitä Twitterissä";
+
+/* Text in menu */
+"contact_us" = "Ota yhteyttä";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Palaute";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
 
+/* About text */
+"about_text" = "MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa http://openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.";
+
 /* Alert text */
 "email_error_body" = "Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Päivitä kartta luodaksesi reitin";
+
+/* Update maps suggestion */
+"routing_update_maps" = "Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "Ladataan:";
 
 "downloader_search_results" = "Löytyi";
+
+/* Disclaimer message */
+"routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Vanhentunut";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Ajan tasalla";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Päivitä";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@maps.me.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Lataa kartta + reititys";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Lataa reititys";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Poista reititys";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "Lataa kartta";
+
+"downloader_download_map_no_routing" = "Lataa kartta ilman reititystä";
+
+/* Button for routing. */
+"routing_go" = "Lähde!";
 
 /* Item status in downloader. */
 "downloader_retry" = "Yritä uudelleen";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Kartta + reititys";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Poista kartta";
 
 /* Item in context menu. */
 "downloader_update_map" = "Päivitä kartta";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Päivitä kartta + reititys";
+
+/* Item in context menu. */
+"downloader_map_only" = "Vain kartta";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Sovellusvalikko";
 
 /* Preference text */
 "pref_use_google_play" = "Käytä Google Play -palveluita sijaintisi selvittämiseksi";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "Lataa karttoja matkalla";
 
 /* Text for routing error dialog */
+"routing_download_map" = "Hanki kartta";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Hanki reitityskartta";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Lisädata, jotka vaaditaan reittien luomiseen sijainnistasi.";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Ei tarpeeksi tilaa";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Sinun täytyy ladata %@ MB, mutta saatavilla on vain %@ MB.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Olet lataamassa %@ MB Mobiilidatan (roaming-lataus) avulla. Tämä voi johtaa lisämaksuihin, riippuen matkapuhelinliittymäsi palveluntarjoajasta.";
 
 /* bookmark button text */
 "bookmark" = "kirjanmerkki";
 
+/* map is not downloaded */
+"not_found_map" = "Nykyisen sijaintisi karttaa ei ole ladattu";
+
 /* location service disabled */
 "enable_location_services" = "Ota sijaintipalvelut käyttöön";
+
+/* download map */
+"download_map" = "Lataa nykyisen sijaintisi kartta";
+
+/* download map on iPhone */
+"download_map_iphone" = "Lataa tämän hetkisen sijaintisi kartta iPhoneesi";
+
+/* clear pin */
+"nearby" = "Lähellä";
+
+/* clear pin */
+"clear_pin" = "Tyhjennä kiinnitys";
+
+/* location is undefined */
+"undefined_location" = "Tämänhetkinen sijainti ei ole tiedossa.";
+
+/* download country of your location */
+"download_country" = "Lataa nykyisen sijainnin maa";
 
 /* download failed */
 "download_failed" = "Lataus epäonnistui";
 
+/* get the map */
+"get_the_map" = "Hanki kartta";
+
 "save" = "Tallenna";
 
 "edit_description_hint" = "Kuvauksesi (teksti tai html)";
+
+"new_group" = "uusi ryhmä";
+
+"create" = "luo";
 
 /* red color */
 "red" = "Punainen";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.";
 
+"dialog_routing_location_unknown" = "Tämänhetkisiä GPS-koordinaatteja ei löydy.";
+
 "dialog_routing_download_files" = "Lataa tarvittavat tiedostot";
 
 "dialog_routing_download_and_update_all" = "Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.";
+
+"dialog_routing_routes_size" = "Reititystiedostot";
 
 "dialog_routing_unable_locate_route" = "Reitin paikannus ei onnistu";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "Yritä uudelleen";
 
+"dialog_routing_send_error" = "Ilmoita ongelmasta";
+
+"dialog_routing_if_get_cross_route" = "Haluatko luoda suoremman reitin, joka ylettyy usealle kartalle?";
+
+"dialog_routing_cross_route_is_optimal" = "Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.";
+
 "not_now" = "Ei nyt";
+
+"dialog_routing_build_route" = "Luo";
 
 "dialog_routing_download_and_build_cross_route" = "Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?";
 
 "dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
+
+"dialog_routing_cross_route_always" = "Ylitä aina tämä raja";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.";
 
 "search_select_map" = "Valitse kartta";
+
+"search_select_other_map" = "Valitse toinen kartta";
 
 /* «Show» context menu */
 "show" = "Näytä";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "Nimeä uudelleen";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "Lisää…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Reitin suunnittelu epäonnistui";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Saavut: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
 
 "rate_alert_title" = "Pidätkö sovelluksesta?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "Historia";
 
+"next_turn_then" = "Sitten";
+
 "closed" = "Suljettu";
 
 "back_to" = "Takaisin sovellukseen %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "Pahoittelut, hakutuloksia ei ole.";
 
 "search_not_found_query" = "Yritä jotain toista hakusanaa.";
+
+"search_not_found_map" = "Lataa kartat sille alueelle jolta haet.";
+
+"search_not_found_location" = "Lataa nykyisen sijaintisi kartta.";
 
 "search_history_title" = "Hakuhistoria";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "Reittisuunnittelu";
+
 "p2p_your_location" = "Sijaintisi";
 
+"p2p_from" = "Lähtöpiste";
+
+"p2p_to" = "Päämäärä";
+
 "p2p_start" = "Aloita";
+
+"p2p_planning" = "Lasketaan…";
 
 "p2p_from_here" = "Lähtöpaikka";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "Korjaa virhe";
 
+"editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen tilaan.";
+
 "editor_add_select_location" = "Sijainti";
 
 "editor_done_dialog_1" = "Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.";
 
 "editor_done_dialog_2" = "Tämä on toinen kerta, kun paransit karttaa. Nyt olet %d. sijalla kartan muokkaajien listalla. Kerro siitä ystävillesi.";
+
+"editor_done_dialog_3" = "Olet parantanut karttaa, kerro siitä ystävillesi ja muokatkaa karttaa yhdessä.";
 
 "share_with_friends" = "Jaa kavereille";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "Paikan kaksoiskappale";
 
+"first_launch_congrats_title" = "MAPS.ME on valmiina käyttöön";
+
+"first_launch_congrats_text" = "Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.";
+
 "migrate_title" = "Tärkeää!";
 
+/* Android uses image instead of text. */
+"download_all" = "Lataa kaikki";
+
+"delete_all" = "Poista kaikki";
+
 "autodownload" = "Lataa automaattisesti";
+
+"disable_autodownload" = "Poista käytöstä automaattinen lataus";
 
 /* Place Page opening hours text */
 "closed_now" = "Suljettu nyt";
@@ -803,6 +1140,10 @@
 "day_off" = "Suljettu";
 
 "today" = "Tänään";
+
+"sunrise_to_sunset" = "Auringonnoususta auringonlaskuun";
+
+"sunset_to_sunrise" = "Auringonnoususta auringonlaskuun";
 
 "add_opening_hours" = "Lisää aukioloajat";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "Unohtuiko salasana?";
 
+/* Forgot Password dialog title */
+"restore_password" = "Palauta salasana";
+
+"enter_email_address_to_reset_password" = "Syötä rekisteröitymisessä käyttämäsi sähköpostiosoite, niin lähetämme sinulle linkin salasanasi vaihtamista varten.";
+
+"reset_password" = "Aseta salasana uudelleen";
+
+"username" = "Käyttäjänimi";
+
 "osm_account" = "OSM-tili";
 
 "logout" = "Kirjaudu ulos";
 
+"login_and_edit_map_motivation_message" = "Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Viimeisin lisäys";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Olet muokannut ensimmäistä kohdettasi!";
+
 "thank_you" = "Kiitos";
+
+"login_with_google" = "Kirjaudu sisään Google-tunnuksillasi";
+
+"login_with_facebook" = "Kirjaudu sisään Facebook-tunnuksillasi";
+
+"login_with_openstreetmap" = "Kirjaudu sisään osoitteessa www.openstreetmap.org";
 
 "edit_place" = "Muokkaa kohdetta";
 
 "place_name" = "Paikan nimi";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Muut Kielet";
+
+/* small button to open list with names in different languages */
+"show_more" = "Näytä enemmän";
+
+/* small button to close list with names in different languages */
+"show_less" = "Näytä vähemmän";
 
 "add_language" = "Lisää kieli";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "Valitse katu";
 
+"postal_code" = "Postinumero";
+
 "cuisine" = "Ruokalaji";
 
 "select_cuisine" = "Valitse ruokalaji";
@@ -863,6 +1235,8 @@
 "phone" = "Puhelinnumero";
 
 "please_note" = "Huomaathan, että";
+
+"common_no_wifi_dialog" = "Ei Wi-Fi -yhteyttä. Haluatko jatkaa mobiilidatan avulla?";
 
 "downloader_delete_map_dialog" = "Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "Poista tarpeeton data";
 
+"editor_general_auth_error_dialog" = "Yleinen kirjautumisvirhe.";
+
 "editor_login_error_dialog" = "Kirjautumisvirhe.";
 
+"editor_login_failed_dialog" = "Kirjautuminen epäonnistui";
+
+"editor_username_error_dialog" = "Käyttäjätunnus on virheellinen";
+
+"editor_place_edited_dialog" = "Olet muokannut kohdetta!";
+
+"editor_login_with_osm" = "Kirjaudu sisään OpenStreetMapissa";
+
 "editor_profile_changes" = "Vahvistetut karttamuutokset";
+
+"editor_profile_unsent_changes" = "Ei lähetetty:";
 
 "editor_focus_map_on_location" = "Vedä karttaa valitaksesi kohteelle oikean sijainnin.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "Eri ongelma";
 
+"placepage_report_problem_button" = "Ilmoita ongelmasta";
+
 "placepage_add_business_button" = "Lisää organisaatio";
 
 "whatsnew_smallmwm_header" = "Sitä on pyydetty, ja nyt se on tarjolla";
 
 "whatsnew_smallmwm_message" = "Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.";
 
+"whatsnew_search_header" = "Uusittu haku";
+
+"whatsnew_search_message" = "Olemme selkeästi parantaneet osoitehakua - kokeile vaikka itse.";
+
+"whatsnew_editor_title" = "Muokkaa karttaa*";
+
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME käyttää OpenStreetMap -yhteisön dataa.";
 
 "onboarding_offline_navigation_title" = "Et eksy enää koskaan";
 
 "onboarding_offline_navigation_message" = "Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!";
 
+"onboarding_offline_navigation_title_2" = "Offline-navigointi";
+
+"onboarding_offline_navigation_message_2" = "Suunnittele ihanteelliset autoilu- ja kävelyreitit.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — koko maailman kartat ilman Internet-yhteyttä";
 
 "onboarding_offline_maps_message" = "Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.";
+
+"onboarding_notifications_message" = "Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat";
+
+"onboarding_notifications_title" = "Ota päivitysilmoitukset käyttöön";
+
+"onboarding_location_title" = "Auta meitä löytämään sinut";
+
+"onboarding_location_message" = "Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.";
 
 "onboarding_permissions_title" = "Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.";
 
 "editor_sharing_title" = "Paransin MAPS.ME-karttoja";
+
+"editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
+
+"editor_unsupported_category_message" = "Olet lisännyt sijainnin katergoriaan jota emme vielä tue. Se tulee näkyviin kartalle hieman myöhemmin.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "Operaattori";
 
+"editor_tag_description" = "Syötä tiloista vastuussa oleva yhtiö, organisaatio tai henkilö";
+
+"editor_no_local_edits_title" = "Sinulla ei ole paikallisia muokkauksia";
+
+"editor_no_local_edits_description" = "Tämä näyttää ehdottamiesi muutosten lukumäärän tällä hetkellä vain sinun laitteessasi saatavissa olevassa kartassa.";
+
+"editor_send_to_osm" = "Lähetä OSM:ään";
+
+"editor_remove" = "Poista";
+
 "downloader_my_maps_title" = "Omat kartat";
 
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
 "downloader_no_downloaded_maps_message" = "Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
+
+"downloader_find_place_hint" = "Etsi kaupunki tai maa";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Jatketaanko nykyisen sijaintisi havaitsemista?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
 
+"whatsnew_update_editor_title" = "Olemme päivittäneet karttamuokkaimen";
+
+"whatsnew_update_editor_message" = "MAPS.ME -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Päivitä kaikki kartat käyttääksesi Karttamuokkainta.";
+
 "location_services_disabled_header" = "Sijaintipalvelut on poistettu käytöstä";
 
 "location_services_disabled_message" = "Schakel de toegang tot geolocaties in in de instellingen van het apparaat";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Valitse sovellusta käytettäessä";
 
+"placepage_parking_surface" = "Pinta";
+
+"placepage_parking_multistorey" = "Monikerroksinen";
+
+"placepage_parking_underground" = "Maan alla";
+
+"placepage_parking_rooftop" = "Katolla";
+
+"placepage_parking_sheds" = "Suojat";
+
+"placepage_parking_carports" = "Autokatokset";
+
+"placepage_parking_boxes" = "Autotalliruudut";
+
+"placepage_parking_pay" = "Maksullinen";
+
+"placepage_parking_free" = "Ilmainen";
+
+"placepage_parking_interval" = "Aikamaksu";
+
+"placepage_entrance_number" = "Nro.";
+
+"placepage_entrance_type" = "Sisäänkäynti";
+
+"placepage_flat" = "sov.";
+
+"placepage_open_24_7" = "24 / 7";
+
 "place_page_booking_rating" = "Luokitus: %s";
 
 "place_page_starting_from" = "%s:stä";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "p";
 
 "hour" = "t";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "Poista";
 
+"editor_status_sending" = "Lähetetään…";
+
 "editor_place_doesnt_exist" = "Paikkaa ei ole olemassa";
 
 "text_more_button" = "…Näytä";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "Syötä kelvollinen sähköpostiosoite";
 
+"error_enter_correct" = "Syötä kelvollinen arvo";
+
 "editor_profile_changes_for_next_place" = "Muutokset paikkaan: %d";
 
 "editor_profile_rating_place" = "Luokitussija";
 
+"booking_dialog_not_connect_header" = "Ota käyttöön internet-yhteytesi varataksesi hotellin";
+
+"button_try" = "Kokeile sitä";
+
 "refresh" = "Päivitä";
 
 "last_update" = "Viimeisin päivitys: %s";
+
+"booking_checkin" = "kirjaudu sisään: %s";
+
+"booking_checkout" = "kirjaudu ulos: %s";
 
 "placepage_add_place_button" = "Lisää paikka kartalle";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.";
 
+"navigation_overview_button" = "yleiskatsaus";
+
+"navigation_stop_button" = "lopeta";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "Tallenna Kirjanmerkit";
+
+"bookmarks_empty_message_1" = "Napsauta ★ tallentaaksesi suosikkipaikkoja.";
+
+"bookmarks_empty_message_2" = "Tuo kirjanmerkit sähköpostista ja webistä.";
+
+"bookmarks_empty_message_3" = "kirjaudu ulos: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Varatut hotellit";
+
+"place_page_button_read_descriprion" = "Lue";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Poistetaanko viimeisen matkareitin tallennus?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Tarkastele";
 
+"continue_recent_track_background_button" = "Jatka";
+
 "recent_track_background_dialog_message" = "MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.";
+
+"whatsnew_car_navigation_header" = "Käyttäjäystävällinen kulkuneuvon navigointi";
+
+"whatsnew_car_navigation_message" = "• Navigointielementit vievät vähemmän tilaa.\n• Näytämme nopeutesi ja lisäsimme automaattisen zoomauksen.";
+
+"whatsnew_cycle_navigation_2_header" = "Pyörän navigointi";
+
+"whatsnew_cycle_navigation_2_message" = "• Pyörän navigointi ottaa maaperän huomioon.\n• Loimme helpompia reittejä huomioiden mäet.";
+
+"whatsnew_booking_2_header" = "Helppo hotellihaku";
+
+"whatsnew_booking_2_message" = "Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.";
+
+"whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
+
+"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Arvioi Google Playssa";
@@ -1118,6 +1632,9 @@
 
 "date" = "Päivämäärä %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Jokin ei toimi";
+
 /* For the first routing */
 "accept" = "Hyväksy";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "Hylkää";
+
+"whats_new_route_profile_title" = "Parempi katsoa kuin katua";
+
+"whats_new_route_profile_message" = "Näytämme nyt maaston korkeuden kävely- ja pyöräilyreittejä varten.";
+
+"whats_new_booking_improve_title" = "Säästä hotellivarauksissa";
+
+"whats_new_booking_improve_message" = "Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "Palvelut";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "Näytä lisää";
 
+"booking_reviews" = "Arviot";
+
+"booking_hotel" = "Hotelli";
+
+/* hotel room */
+"booking_hotel_room" = "Huone";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Avaa";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Tilaa Uber -taksi suoraan sovelluksesta!";
+
 "dialog_taxi_offline" = "Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.";
 
 "dialog_taxi_error" = "Taksin tilaaminen ei ole tällä hetkellä mahdollista.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "Liikennetietojen näyttämiseksi kartat on päivitettävä.";
 
+"traffic_outdated" = "Liikennetiedot ovat vanhentuneet.";
+
 "big_font" = "Suurenna fonttikokoa kartalla";
 
 "traffic_update_app" = "Päivitä MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
+
+"banner_deliveryclub_title" = "Ruoan toimitus";
+
+"banner_deliveryclub_message" = "Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.";
+
+"banner_lamoda_title" = "Vaate- ja kenkäkauppa verkossa";
+
+"banner_lamoda_message" = "Yli 1 000 merkkiä. Jopa 70 % alea. Ilmainen toimitus kaikkialle maahan.";
+
+"banner_tutu_title" = "Junaliput verkossa";
+
+"banner_tutu_message" = "Junaliput kaikkiin kaupunkeihin verkossa – hinnat, haku ja varaus.";
+
+"banner_geerbest_title" = "Elektroniikkaliike verkossa";
+
+"banner_geerbest_message" = "Hae nopeasti yli 50 000 kohteesta edullisin hinnoin.";
+
+"banner_rentalcars_title" = "Autonvuokraus verkossa";
+
+"banner_rentalcars_message" = "800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.";
+
+"banner_viator_title" = "Kierrosten haku verkossa";
+
+"banner_viator_message" = "Hae yli 50 000 kierroksesta ympäri maailmaa.";
+
+/* december */
+"whatsnew_traffic" = "Liikennetiedot 36 maassa";
+
+/* december */
+"whatsnew_traffic_text" = "Ajankohtaiset liikennetiedot ja parhaat ajoreitit sen perusteella!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Liikennetiedot verkkovierailussa";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Vaatii alle 1 MB mobiilidataa per matka.";
+
+/* december */
+"whatsnew_order_taxi" = "Taksin tilaaminen";
+
+/* december */
+"whatsnew_order_taxi_text" = "Useimpien sijaintien sivulla on nyt painike taksin tilaamiseen.";
+
+/* january */
+"whatsnew_improved_search" = "Parannettu haku";
+
+/* january */
+"whatsnew_improved_search_text" = "Jopa väärin kirjoitetut kyselyt antavat tarkat hakutulokset.";
+
+/* january */
+"whatsnew_filters_in_search" = "Hakusuodattimet";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Hotellien haku hinnan ja arvion perusteella.";
+
+/* january */
+"whatsnew_font_size" = "Fonttikoko";
+
+/* january */
+"whatsnew_font_size_text" = "Kartan selityksiä voi suurentaa.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "Ota loki käyttöön";
 
+"whatsnew_more_info_on_hotels_title" = "Lisätietoa hotelleista";
+
+"whatsnew_more_info_on_hotels_message" = "Hotellisivujen uusi ulkoasu: katsele kuvia, käyttäjäarvioita ja muuta tietoa verkossa.";
+
+"whatsnew_better_routing_title" = "Parannettu reittisuunnittelu";
+
+"whatsnew_better_routing_message" = "• Tarkempi arvioitu saapumisaika.\n• Sovellus huomioi kielletyt alueet ja liikennemerkit.";
+
+"whatsnew_smaller_mwm_title" = "Kartat ovat pienempiä";
+
+"whatsnew_smaller_mwm_message" = "Kartat vaativat jopa 20 % vähemmän tilaa.";
+
+"whatsnew_waypoints_title" = "Reittipisteet reitillä";
+
+"whatsnew_waypoints_message" = "Lisää reittiisi reittipisteitä napauttamalla paikkoja.";
+
 "whatsnew_viator_title" = "Varaa kierros";
 
 "whatsnew_viator_message" = "Valitse suosittuja kierroksia turistikaupungeissa ympäri maailman.";
+
+"whatsnew_driving_style_title" = "Uusi karttatyyli ajettaessa";
+
+"whatsnew_driving_style_message" = "Auton navigointitila on helppokäyttöisempi.";
 
 "more_on_bookingcom" = "Lisää osoitteessa Booking.com";
 
 "details_on_bookingcom" = "Lisätietoa osoitteessa Booking.com";
 
 "reviews_on_bookingcom" = "Lisää arvosteluja osoitteessa Booking.com";
+
+"offline_place_page_more_information" = "Yhdistä internetiin saadaksesi lisätietoa paikasta.";
+
+"failed_load_information" = "Tietojen lataaminen epäonnistui.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "Päivitä (%s)";
 
 "whats_new_auto_update_button_later" = "Päivitä manuaalisesti myöhemmin";
+
+"search_hotel_filter_apartment" = "Loma-asunnot";
+
+"search_hotel_filter_camp_site" = "Retkeily";
+
+"search_hotel_filter_chalet" = "Alppimaja";
+
+"search_hotel_filter_guest_house" = "Majatalo";
+
+"search_hotel_filter_hostel" = "Hostelli";
+
+"search_hotel_filter_resort" = "Lomakohteet";
+
+"search_hotel_filter_hotel" = "Hotelli";
+
+"search_hotel_filter_motel" = "Motelli";
 
 "create_campaign_button" = "Ilmoittaudu yrityksen omistajaksi";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "Translitterointi latinaksi";
 
+"whatsnew_transliteration_message" = "Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Lisätietoja";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
 
+"onboarding_welcome_message" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.";
+
+"button_accept_and_continue" = "Hyväksy ja jatka";
+
+"button_learn_more" = "Lisätietoja";
+
 "onboarding_storage_permissions_title" = "Myönnä käyttöoikeus";
 
 "onboarding_storage_permissions_message" = "Muuta laitteesi käyttöoikeusasetuksia. MAPS:ME:n käyttö edellyttää tallennustilan käyttöoikeutta.";
+
+"button_exit" = "Poistu";
 
 "onboarding_detail_permissions_title" = "MAPS.ME tarvitsee seuraavat käyttöoikeudet:";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.";
 
+"settings_device_memory" = "Laitteen muisti";
+
+"settings_card_memory" = "Muistkortti";
+
+"settings_storage_available" = "%s käytettävissä";
+
+"toast_location_permission_denied" = "Sovelluksen sijainnin käyttöoikeus evättiin";
+
 "place_page_viator_title" = "Nähtävyydet ja kierrokset";
 
+"button_use" = "Käytä";
+
+"planning_route_manage_route" = "Hallitse reittiä";
+
+"button_plan" = "Suunnittele";
+
+"button_add" = "Lisää";
+
 "placepage_remove_stop" = "Poista";
+
+"planning_route_remove_title" = "Vedä tähän poistaaksesi";
+
+"dialog_change_start_point_message" = "Haluatko korvata alkupisteen nykyisellä sijainnilla?";
+
+"button_replace" = "Korvaa";
 
 "placepage_add_stop" = "Lisää pysähdys";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "Poista käytöstä automaattinen lataus";
 
 "add_my_position" = "Add my position";
 

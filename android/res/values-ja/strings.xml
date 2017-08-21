@@ -14,11 +14,24 @@
 	<string name="cancel_download">ダウンロードをキャンセル</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">削除</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">以後、このメッセージを表示しない</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">何もしない</string>
 	<string name="download_maps">マップをダウンロード</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">%quをダウンロード</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">%quをダウンロード</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s)をダウンロードしました。削除するには画面をタッチしてください。</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">%qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">ダウンロード中…</string>
+	<string name="get_it_now">今すぐ入手</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,22 +42,38 @@
 	<string name="maps">マップ</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">マップ：</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">ダウンロードを開始します。キャンセルするには画面をタッチしてください。</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">現在地</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">%sをダウンロードするため、デバイスの空き容量を確認してください</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">後で通知</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">次の機会に</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">今後表示しない</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">問題を報告</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">マップを検索</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">タッチしてダウンロード</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">はい</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">大きなマップをダウンロードする際はWiFiの使用をおすすめします。</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">どちらの距離単位を使いますか？</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">ご使用中の端末は位置情報サービスをサポートしていません。</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">地図に表示</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -62,13 +91,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再実行</string>
 	<string name="about_menu_title">MAPS.MEについて</string>
+	<string name="downloading_touch_to_cancel">%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。</string>
+	<string name="downloaded_touch_to_delete">(%s)をダウンロードしました。削除するには画面をタッチしてください。</string>
 	<string name="connection_settings">接続設定</string>
+	<string name="download_mb_or_kb">%sをダウンロード</string>
 	<string name="close">閉じる</string>
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
 	<string name="download">ダウンロード</string>
+	<string name="external_storage_is_not_available">マップをダウンロードしたSDカード/USBストレージへ接続できません</string>
 	<string name="disconnect_usb_cable">MAPS.MEを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
 	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
+	<string name="free_space_for_country">%2$sをダウンロードするにはデバイスに%1$sの空き容量が必要です</string>
 	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="getting_position">現在地を取得中</string>
 	<string name="download_resources_continue">マップを表示</string>
@@ -85,14 +119,22 @@
 	<string name="pause">一時停止</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">続行</string>
+	<string name="downloaded_touch_to_update">(%s)をダウンロードしました。タップして更新、削除できます</string>
+	<string name="update_mb_or_kb">%sを更新</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">検索機能を利用するにはマップを更新する必要があります</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下のマップが更新されています:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">MAPS.ME Liteは削除してもかまいません</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%sのダウンロードが成功しました</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">新しいセットを作成</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">ブックマークに追加</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">ブックマーク表示色</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -101,12 +143,16 @@
 	<string name="bookmark_sets">ブックマークセット</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">ブックマーク</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">表示色</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名称</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">住所</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">ピンを削除</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">セット</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -125,10 +171,18 @@
 	<string name="wait_several_minutes">数分かかる場合があります。\nしばらくお待ち下さい…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">マップに表示</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS機能が無効です。端末の設定画面から有効にしてください。</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">距離計測単位</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">全マップから検索</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">現在地周辺</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">マップ表示範囲</string>
 	<!-- Search Suggestion -->
 	<string name="food">飲食</string>
 	<!-- Search Suggestion -->
@@ -159,6 +213,8 @@
 	<string name="post">郵便局</string>
 	<!-- Search Suggestion -->
 	<string name="police">警察</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">検索結果が見つかりませんでした</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">メモ</string>
 	<!-- Button text -->
@@ -177,16 +233,24 @@
 	<string name="unknown_current_position">現在の座標が未確定です</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">現在の地域をダウンロード(%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">現在マップで検索している国をダウンロード(%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">恐れ入ります、マップストレージ設定が無効になっています。</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">ダウンロードを実行中です</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">いいえ</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">私のピン情報はこの位置です。リンク: %1$s, %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s, %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">MAPS.MEでピン情報を確認</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$s\n\nリンク %2$s または %3$s をクリックするとマップ上で確認できます。</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">MAPS.MEで現在地を確認</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -195,8 +259,14 @@
 	<string name="share_by_message">メッセージで共有</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">その他の共有</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">メッセージ</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Eメール</string>
+	<!-- Copy Link -->
+	<string name="copy_link">リンクをコピー</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">詳細情報を表示</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -214,6 +284,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">距離</string>
 	<string name="share_my_location">位置情報を共有する</string>
+	<string name="menu_search">検索</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">地図</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">その他</string>
 	<string name="prefs_group_route">ナビゲーション</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
@@ -229,6 +304,8 @@
 	<string name="pref_map_3d_title">パースペクティブ表示</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3Dビルディング</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">電池の持ち時間に影響します</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">音声指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -248,23 +325,60 @@
 	<string name="duration_12_hours">12時間</string>
 	<string name="duration_1_day">1日</string>
 	<string name="recent_track_help_text">移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。</string>
+	<string name="pref_track_ios_caption">最近ルートは、使用した道のりを表示する機能です。</string>
+	<string name="pref_track_ios_subcaption">ルートを保存する期間を選択してください。</string>
+	<string name="placepage_distance">距離</string>
+	<string name="placepage_coordinates">コーディネート</string>
+	<string name="placepage_unsorted">未分類</string>
 	<string name="search_show_on_map">地図に表示</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">無料</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">購入</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">地図を検索</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">一致する経路がありません</string>
+	<!-- route title -->
+	<string name="route">経路</string>
 	<!-- category title -->
 	<string name="routes">ルート</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。</string>
+	<!-- Show on first launch. -->
+	<string name="agree">同意する</string>
+	<!-- Show on first launch -->
+	<string name="disagree">同意しない</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">あなたがいる場所のマップをダウンロードしよう</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.MEのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">ダウンロード済みの地図は無事MAPS.MEに転送されました</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">設定&amp;その他</string>
 	<!-- Text in menu -->
 	<string name="website">ウェブサイト</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.MEコミュニティ</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebookでいいねをクリック</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitterでフォロー</string>
+	<!-- Text in menu -->
+	<string name="contact_us">お問い合わせ</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">フィードバック</string>
 	<!-- Text in menu -->
@@ -281,6 +395,8 @@
 	<string name="subscribe_me_subject">MAPS.MEニュースレターを購読します</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport\@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">このメールクライアントはセットアップされていません。設定するか、他の方法で%sにご連絡ください。</string>
 	<!-- Alert title -->
@@ -289,6 +405,10 @@
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線LAN</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">ルートを作成するためにマップを更新してください。</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->
@@ -304,6 +424,12 @@
 	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<string name="downloader_downloading">ダウンロード中：</string>
 	<string name="downloader_search_results">見つかりました</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">旧式</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">最新</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">を更新</string>
 	<!-- Status of failed country in the list -->
@@ -325,13 +451,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support\@maps.meまでご連絡ください。</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">地図とルートをダウンロード</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">ルートをダウンロード</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">ルートを削除</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">地図をダウンロード</string>
+	<string name="downloader_download_map_no_routing">ルートなしで地図をダウンロード</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">リピート</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">地図とルート</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">地図を削除</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">地図を更新</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">地図とルートを更新</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">地図のみ</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">アプリケーションメニュー</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">現在のロケーションを取得するためにGoogle Playのサービスを使う</string>
 	<!-- Text for rating dialog -->
@@ -353,15 +496,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">ルート上の地図をダウンロード</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">地図を入手</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">最新の地図とルートデータを入手して、MAPS.MEの全機能をご利用ください。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">ルートデータを入手</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">現在位置からのルート作成に必要な追加データです。</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">空き容量が足りません</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">%1$s MBダウンロードする必要がありますが、%2$s MBしか空いていません。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">携帯のデータ通信（ローミング）を使用して%s MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">お気に入り</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">現在地の地図が見つかりません</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">位置情報サービスを有効化してください</string>
+	<!-- download map -->
+	<string name="download_map">あなたがいる場所のマップをダウンロードしよう</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">iPhoneに現在位置の地図をダウンロード</string>
+	<!-- clear pin -->
+	<string name="nearby">近くに</string>
+	<!-- clear pin -->
+	<string name="clear_pin">ピンをクリア</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">現在地が設定されていません。</string>
+	<!-- download country of your location -->
+	<string name="download_country">現在の地域をダウンロード</string>
 	<!-- download failed -->
 	<string name="download_failed">のダウンロードが失敗しました</string>
+	<!-- get the map -->
+	<string name="get_the_map">地図を入手</string>
 	<string name="save">保存</string>
 	<string name="edit_description_hint">説明（テキストまたはHTML）</string>
+	<string name="new_group">新規グループ</string>
+	<string name="create">作成</string>
 	<!-- red color -->
 	<string name="red">赤</string>
 	<!-- yellow color -->
@@ -393,8 +568,10 @@
 	<string name="dialog_routing_location_turn_wifi">GPS信号をご確認ください。Wi-Fiを有効にするとより正確な位置情報を取得できます。</string>
 	<string name="dialog_routing_location_turn_on">位置情報サービスを有効にしてください</string>
 	<string name="dialog_routing_location_unknown_turn_on">現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。</string>
+	<string name="dialog_routing_location_unknown">現在地のGPSコードを確認できません。</string>
 	<string name="dialog_routing_download_files">必要なファイルをダウンロードしてください</string>
 	<string name="dialog_routing_download_and_update_all">案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。</string>
+	<string name="dialog_routing_routes_size">ルート情報ファイル</string>
 	<string name="dialog_routing_unable_locate_route">ルートの位置を確認できません</string>
 	<string name="dialog_routing_cant_build_route">案内ルートを作成できません。</string>
 	<string name="dialog_routing_change_start_or_end">出発地または目的地の位置調整をしてください。</string>
@@ -409,21 +586,33 @@
 	<string name="dialog_routing_system_error">システムエラー</string>
 	<string name="dialog_routing_application_error">アプリケーションのエラーにより案内ルートを作成できませんでした。</string>
 	<string name="dialog_routing_try_again">もう一度お試しください</string>
+	<string name="dialog_routing_send_error">問題を報告する</string>
+	<string name="dialog_routing_if_get_cross_route">複数マップを利用してより最適なルートを作成しますか？</string>
+	<string name="dialog_routing_cross_route_is_optimal">このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。</string>
 	<string name="not_now">あとで</string>
+	<string name="dialog_routing_build_route">作成する</string>
 	<string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
+	<string name="dialog_routing_cross_route_always">常にこの境界を越える</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。</string>
 	<string name="search_select_map">地図を選択</string>
+	<string name="search_select_other_map">別の地図を選択</string>
 	<!-- «Show» context menu -->
 	<string name="show">表示する</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隠す</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">名前を変更する</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">さらに…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">ルート検索に失敗</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">到着予定: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
 	<string name="rate_alert_title">このアプリが好きですか?</string>
 	<string name="rate_alert_default_message">MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。</string>
 	<string name="rate_alert_five_star_message">やったー! 相思相愛!</string>
@@ -431,17 +620,24 @@
 	<string name="rate_alert_less_than_four_star_message">改善のためのアイデアはございますか?</string>
 	<string name="categories">カテゴリー</string>
 	<string name="history">履歴</string>
+	<string name="next_turn_then">その後</string>
 	<string name="closed">閉鎖</string>
 	<string name="back_to">%sに戻る</string>
 	<string name="search_not_found">申し訳ありませんが該当するものは見つかりませんでした。</string>
 	<string name="search_not_found_query">別のクエリをお試しください。</string>
+	<string name="search_not_found_map">検索する地図をダウンロードしてください。</string>
+	<string name="search_not_found_location">現在地の地図をダウンロードしてください。</string>
 	<string name="search_history_title">検索履歴</string>
 	<string name="search_history_text">最近の検索クエリに素早くアクセス。</string>
 	<string name="clear_search">検索履歴を消去</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">オファーを表示</string>
+	<string name="p2p_route_planning">ルート作成</string>
 	<string name="p2p_your_location">現在位置</string>
+	<string name="p2p_from">出発地</string>
+	<string name="p2p_to">目的地</string>
 	<string name="p2p_start">開始</string>
+	<string name="p2p_planning">作成中…</string>
 	<string name="p2p_from_here">出発地</string>
 	<string name="p2p_to_here">へのルート</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
@@ -460,9 +656,11 @@
 	<string name="editor_hours_closed">閉店時間</string>
 	<string name="editor_example_values">値の例</string>
 	<string name="editor_correct_mistake">間違いの訂正</string>
+	<string name="editor_correct_mistake_message">編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。</string>
 	<string name="editor_add_select_location">現在位置</string>
 	<string name="editor_done_dialog_1">世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。</string>
 	<string name="editor_done_dialog_2">これは2回目の地図改善。現在地図編集者リストで%d位です。</string>
+	<string name="editor_done_dialog_3">地図を改善したので、友達に教えて一緒に編集しましょう。</string>
 	<string name="share_with_friends">友達にシェア</string>
 	<string name="editor_report_problem_desription_1">OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
 	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください http://www.openstreetmap.org/</string>
@@ -471,8 +669,14 @@
 	<string name="editor_report_problem_no_place_title">この場所は存在しません</string>
 	<string name="editor_report_problem_under_construction_title">メンテナンスのため使えません</string>
 	<string name="editor_report_problem_duplicate_place_title">重複している場所</string>
+	<string name="first_launch_congrats_title">MAPS.MEを使用する準備が整いました</string>
+	<string name="first_launch_congrats_text">世界中どこでも無料で検索・ナビゲーションできます。</string>
 	<string name="migrate_title">重要！</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全てをダウンロード</string>
+	<string name="delete_all">すべて削除</string>
 	<string name="autodownload">自動ダウンロード</string>
+	<string name="disable_autodownload">自動ダウンロードを無効にする</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">現在閉店</string>
 	<!-- Place Page opening hours text -->
@@ -481,6 +685,8 @@
 	<string name="day_off_today">本日終業</string>
 	<string name="day_off">終業</string>
 	<string name="today">今日は</string>
+	<string name="sunrise_to_sunset">日の出から日没まで</string>
+	<string name="sunset_to_sunrise">日の出から日没まで</string>
 	<string name="add_opening_hours">営業時間を追加</string>
 	<string name="edit_opening_hours">営業時間を編集</string>
 	<string name="profile">プロフィール</string>
@@ -491,13 +697,30 @@
 	<string name="login">ログイン</string>
 	<string name="password">パスワード</string>
 	<string name="forgot_password">パスワードをお忘れですか？</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">パスワードを復元</string>
+	<string name="enter_email_address_to_reset_password">登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。</string>
+	<string name="reset_password">パスワードをリセット</string>
+	<string name="username">ユーザー名</string>
 	<string name="osm_account">OSMアカウント</string>
 	<string name="logout">ログアウト</string>
+	<string name="login_and_edit_map_motivation_message">ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">最終更新</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
 	<string name="thank_you">ありがとうございます</string>
+	<string name="login_with_google">Googleでログイン</string>
+	<string name="login_with_facebook">Facebookでログイン</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.orgでログインしてください</string>
 	<string name="edit_place">場所を編集</string>
 	<string name="place_name">場所の名前</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">その他の言語</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">もっと表示</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">少なく表示</string>
 	<string name="add_language">言語を追加</string>
 	<string name="street">通り</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -507,12 +730,14 @@
 	<string name="add_street">通りを追加</string>
 	<string name="choose_language">言語を選択</string>
 	<string name="choose_street">通りを選択</string>
+	<string name="postal_code">郵便番号</string>
 	<string name="cuisine">料理</string>
 	<string name="select_cuisine">料理を選択</string>
 	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
 	<string name="phone">電話</string>
 	<string name="please_note">ご注意ください</string>
+	<string name="common_no_wifi_dialog">WiFi接続がありません。モバイルデータ通信を続行しますか?</string>
 	<string name="downloader_delete_map_dialog">この地図を削除すると、今まで行った変更の全ても一緒に削除されます。</string>
 	<string name="downloader_update_maps">地図をアップデート</string>
 	<string name="downloader_mwm_migration_dialog">ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。</string>
@@ -523,8 +748,14 @@
 	<string name="common_check_internet_connection_dialog">設定をチェックし、デバイスがインターネットに接続されているか確認してください。</string>
 	<string name="downloader_no_space_title">十分な空き容量がありません</string>
 	<string name="downloader_no_space_message">不必要なデータを削除してください</string>
+	<string name="editor_general_auth_error_dialog">一般的なログインエラー。</string>
 	<string name="editor_login_error_dialog">ログインエラー。</string>
+	<string name="editor_login_failed_dialog">ログインに失敗しました</string>
+	<string name="editor_username_error_dialog">ユーザー名が無効です</string>
+	<string name="editor_place_edited_dialog">オブジェクトを編集しました!</string>
+	<string name="editor_login_with_osm">OpenStreetMapを使ってログイン</string>
 	<string name="editor_profile_changes">確認された変更</string>
+	<string name="editor_profile_unsent_changes">未送信：</string>
 	<string name="editor_focus_map_on_location">地図をプルしてオブジェクトの正しい場所を選択します。</string>
 	<string name="editor_add_select_category">カテゴリを選択</string>
 	<string name="editor_add_select_category_popular_subtitle">人気</string>
@@ -535,14 +766,25 @@
 	<string name="editor_edit_place_category_title">カテゴリ</string>
 	<string name="detailed_problem_description">問題の詳細な説明</string>
 	<string name="editor_report_problem_other_title">異なる問題</string>
+	<string name="placepage_report_problem_button">問題を報告</string>
 	<string name="placepage_add_business_button">団体を追加</string>
 	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
 	<string name="whatsnew_smallmwm_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。</string>
+	<string name="whatsnew_search_header">新しい検索機能</string>
+	<string name="whatsnew_search_message">住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。</string>
+	<string name="whatsnew_editor_title">地図を編集*</string>
 	<string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
+	<string name="whatsnew_editor_message_2">* MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。</string>
 	<string name="onboarding_offline_navigation_title">もう道に迷うことは絶対ありません</string>
 	<string name="onboarding_offline_navigation_message">インターネット接続がなくても、車や徒歩での最短ルートを計画できます!</string>
+	<string name="onboarding_offline_navigation_title_2">オフラインナビゲーション</string>
+	<string name="onboarding_offline_navigation_message_2">車や徒歩での最短ルートを計画できます。</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — 世界中の地図にインターネットなしでアクセス</string>
 	<string name="onboarding_offline_maps_message">希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。</string>
+	<string name="onboarding_notifications_message">最新地図の入手のためにアップデート通知を受信</string>
+	<string name="onboarding_notifications_title">アップデート通知を有効にする</string>
+	<string name="onboarding_location_title">現在地判定のお手伝い</string>
+	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
 	<string name="onboarding_permissions_title">MAPS.ME によるストレージと位置情報へのアクセスを許可する</string>
 	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
 	<string name="onboarding_welcome_title">MAPS.ME へようこそ</string>
@@ -555,6 +797,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。</string>
 	<string name="editor_sharing_title">MAPS.MEの地図を改善しました</string>
+	<string name="editor_comment_will_be_sent">いただいたコメントを地図製作者に送ります。</string>
+	<string name="editor_unsupported_category_message">現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d中%1$d</string>
 	<string name="download_over_mobile_header">携帯通信ネットワークで接続してダウンロードしますか？</string>
@@ -572,9 +816,15 @@
 	<string name="editor_detailed_description">あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
 	<string name="editor_operator">オペレーター</string>
+	<string name="editor_tag_description">施設を管理する企業、組織または個人を入力してください。</string>
+	<string name="editor_no_local_edits_title">ローカル編集はできません</string>
+	<string name="editor_no_local_edits_description">これは、現在お使いのデバイスでのみアクセス可能な、マップ上に提案された変更の数を示しています。</string>
+	<string name="editor_send_to_osm">OSMに送信</string>
+	<string name="editor_remove">削除</string>
 	<string name="downloader_my_maps_title">マイマップ</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
+	<string name="downloader_find_place_hint">都市や国を検索</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">あなたの現在地を検出し続けますか？</string>
 	<!-- Error that appears after certain time without location. -->
@@ -583,16 +833,39 @@
 	<string name="current_location_unknown_stop_button">止める</string>
 	<string name="current_location_unknown_error_title">現在地は不明です。</string>
 	<string name="current_location_unknown_error_message">お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。</string>
+	<string name="whatsnew_update_editor_title">マップエディタを更新しました</string>
+	<string name="whatsnew_update_editor_message">MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">マップエディタを利用するには、全てのアップをアップデートしてください。</string>
 	<string name="location_services_disabled_header">位置情報認識機能が無効になっています</string>
 	<string name="location_services_disabled_message">デバイスの設定で位置情報へのアクセスを有効にしてください</string>
 	<string name="location_services_disabled_1">1. 設定を開きます</string>
 	<string name="location_services_disabled_2">2. 位置情報をタップします</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. アプリの使用中を選択してください</string>
+	<string name="placepage_parking_surface">表面</string>
+	<string name="placepage_parking_multistorey">複数階</string>
+	<string name="placepage_parking_underground">地下</string>
+	<string name="placepage_parking_rooftop">屋上</string>
+	<string name="placepage_parking_sheds">小屋</string>
+	<string name="placepage_parking_carports">カーポート</string>
+	<string name="placepage_parking_boxes">ガレージボックス</string>
+	<string name="placepage_parking_pay">支払い</string>
+	<string name="placepage_parking_free">無料</string>
+	<string name="placepage_parking_interval">支払間隔</string>
+	<string name="placepage_entrance_number">番号</string>
+	<string name="placepage_entrance_type">エントランス</string>
+	<string name="placepage_flat">アプリ</string>
+	<string name="placepage_open_24_7">24時間体制</string>
 	<string name="place_page_booking_rating">評価：%s</string>
 	<string name="place_page_starting_from">%sから</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">キロメートル毎時</string>
+	<string name="mile">マイル</string>
 	<string name="foot">フィート</string>
+	<string name="miles_per_hour">マイル毎時</string>
+	<string name="day">日</string>
 	<string name="hour">時間</string>
 	<string name="minute">分</string>
 	<string name="placepage_place_description">説明</string>
@@ -609,24 +882,38 @@
 	<string name="editor_reset_edits_button">リセット</string>
 	<string name="editor_remove_place_message">追加された場所を削除しますか？</string>
 	<string name="editor_remove_place_button">削除</string>
+	<string name="editor_status_sending">送信中…</string>
 	<string name="editor_place_doesnt_exist">存在しない場所</string>
 	<string name="text_more_button">…続き</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">正しい電話番号を入力してください</string>
 	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
 	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
+	<string name="error_enter_correct">有効な値を入力してください</string>
 	<string name="editor_profile_changes_for_next_place">次の場所への変更：%d</string>
 	<string name="editor_profile_rating_place">ランキングポジション</string>
+	<string name="booking_dialog_not_connect_header">ホテルを予約するには、インターネット接続を有効にしてください</string>
+	<string name="button_try">試してみる</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">最終更新日: %s</string>
+	<string name="booking_checkin">チェックイン：%s</string>
+	<string name="booking_checkout">チェックアウト：%s</string>
 	<string name="placepage_add_place_button">地図上に場所を追加</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
+	<string name="navigation_overview_button">概要</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">ブックマークを保存</string>
+	<string name="bookmarks_empty_message_1">★をタップしてお気に入りの場所にクイックアクセス。</string>
+	<string name="bookmarks_empty_message_2">メールやウェブからブックマークをインポートする。</string>
+	<string name="bookmarks_empty_message_3">チェックアウト：%s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">予約したホテル</string>
+	<string name="place_page_button_read_descriprion">詳細</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">最近の走行ルートの記録を無効にしますか？</string>
 	<!-- If a hotel is being shared -->
@@ -634,7 +921,16 @@
 	<string name="off_recent_track_background_button">無効にする</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">ご覧ください</string>
+	<string name="continue_recent_track_background_button">続行</string>
 	<string name="recent_track_background_dialog_message">MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
+	<string name="whatsnew_car_navigation_header">ユーザーフレンドリーなカーナビゲーション</string>
+	<string name="whatsnew_car_navigation_message">• ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。</string>
+	<string name="whatsnew_cycle_navigation_2_header">自転車用ナビゲーション</string>
+	<string name="whatsnew_cycle_navigation_2_message">• 自転車用ナビゲーションはサイクリングコースのデータも使用します。\n• 道の傾斜を考え、最も走りやすいルートを作成します。</string>
+	<string name="whatsnew_booking_2_header">簡単ホテル検索</string>
+	<string name="whatsnew_booking_2_message">検索結果にホテルの評価と宿泊料カテゴリーが表示されます。</string>
+	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
+	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play で評価</string>
 	<!-- Share with friends: menu item title -->
@@ -649,10 +945,16 @@
 	<string name="allow_statistics_hint">収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。</string>
 	<string name="general_settings">一般設定</string>
 	<string name="date">日付 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">動作が変です</string>
 	<!-- For the first routing -->
 	<string name="accept">了解</string>
 	<!-- For the first routing -->
 	<string name="decline">拒否</string>
+	<string name="whats_new_route_profile_title">時は金なり。古きを捨て新しきを得よう。</string>
+	<string name="whats_new_route_profile_message">歩行者とバイク用のルートに高度プロファイルが表示されるようになりました。</string>
+	<string name="whats_new_booking_improve_title">ホテル予約時に節約しましょう</string>
+	<string name="whats_new_booking_improve_message">ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">施設</string>
 	<!-- For place page hotel nearby block -->
@@ -684,6 +986,16 @@
 	<string name="search_in_table">一覧</string>
 	<string name="booking_based_on_reviews">%d 件のホテルのレビューに基づいています</string>
 	<string name="booking_show_more">さらに表示</string>
+	<string name="booking_reviews">レビュー</string>
+	<string name="booking_hotel">ホテル</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">部屋</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">ジオチャット</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">開始</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>
 	<string name="dialog_taxi_error">タクシーの予約が一時的に使用できません。</string>
 	<string name="mobile_data_dialog">モバイルインターネットを使用して詳細な情報を表示しますか？</string>
@@ -695,12 +1007,49 @@
 	<string name="mobile_data_option_never">使用しない</string>
 	<string name="mobile_data_option_ask">常に確認</string>
 	<string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
+	<string name="traffic_outdated">交通データが古くなっています。</string>
 	<string name="big_font">地図上のフォントサイズを大きく</string>
 	<string name="traffic_update_app">MAPS.ME をアップデートしてください</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">交通データを表示するには、アプリケーションをアップデートする必要があります。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">交通データは利用できません</string>
+	<string name="banner_deliveryclub_title">出前・宅配</string>
+	<string name="banner_deliveryclub_message">4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。</string>
+	<string name="banner_lamoda_title">衣料品と靴のオンライン店舗</string>
+	<string name="banner_lamoda_message">1,000 件を超えるブランド。最大 70% オフ。全国無料配送。</string>
+	<string name="banner_tutu_title">オンライン鉄道チケット</string>
+	<string name="banner_tutu_message">どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。</string>
+	<string name="banner_geerbest_title">オンライン家電量販店</string>
+	<string name="banner_geerbest_message">低価格で 50,000 件を超えるアイテムを素早く検索。</string>
+	<string name="banner_rentalcars_title">オンラインでレンタカーを予約</string>
+	<string name="banner_rentalcars_message">800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。</string>
+	<string name="banner_viator_title">オンラインツアー検索</string>
+	<string name="banner_viator_message">世界中から 50,000 件を超えるツアーを検索してください。</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36か国の交通データ</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">最新の交通データと、データに基づく最速のドライブルートをご提供致します！</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">ローミング中の交通情報</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">移動毎に 1 MB 未満のモバイル帯域幅が必要です。</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">タクシーの呼び出し</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">検索機能の向上</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">スペルミスのある検索を行なっても、正確な検索結果を表示します。</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">検索フィルター</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">価格と評価に基づくホテルの検索。</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">フォントサイズ</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">地図上のラベルを大きくすることができます。</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -710,16 +1059,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">簡易的な交通状況色</string>
 	<string name="enable_logging">ログを有効化</string>
+	<string name="whatsnew_more_info_on_hotels_title">ホテルの詳細情報</string>
+	<string name="whatsnew_more_info_on_hotels_message">ホテルページの見映えを一新: 写真、ユーザーレビューやその他の情報をオンラインでチェックしてください。</string>
+	<string name="whatsnew_better_routing_title">ルート選定処理を改善</string>
+	<string name="whatsnew_better_routing_message">• より正確な到着時間の見積もりを出せるようになりました。\n• このアプリは制限区域や道路標識を考慮に入れています。</string>
+	<string name="whatsnew_smaller_mwm_title">地図のサイズが小さくなりました</string>
+	<string name="whatsnew_smaller_mwm_message">地図が必要とするストレージ容量が最大で 20% 少なくなりました。</string>
+	<string name="whatsnew_waypoints_title">ルート上の経由地</string>
+	<string name="whatsnew_waypoints_message">場所をタップしてルートに経由地を追加します。</string>
 	<string name="whatsnew_viator_title">ツアーの予約</string>
 	<string name="whatsnew_viator_message">世界中の観光都市で人気のツアーを選択してください。</string>
+	<string name="whatsnew_driving_style_title">運転用の新しい地図のスタイル</string>
+	<string name="whatsnew_driving_style_message">カーナビゲーションモードの使用がより簡単になりました。</string>
 	<string name="more_on_bookingcom">さらに Booking.com で表示</string>
 	<string name="details_on_bookingcom">Booking.com で詳細表示</string>
 	<string name="reviews_on_bookingcom">Booking.com の詳細レビュー</string>
+	<string name="offline_place_page_more_information">この場所に関する詳細情報を取得するには、インターネットに接続してください。</string>
+	<string name="failed_load_information">情報の読み込みに失敗しました。</string>
 	<string name="whats_new_auto_update_updating_maps">地図を更新中</string>
 	<string name="whats_new_auto_update_title">ダウンロード済みのマップを更新してください</string>
 	<string name="whats_new_auto_update_message">地図を更新することで物件情報を最新の状態に保ちます</string>
 	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
 	<string name="whats_new_auto_update_button_later">あとで手動で更新</string>
+	<string name="search_hotel_filter_apartment">アパート</string>
+	<string name="search_hotel_filter_camp_site">^キャンプ場</string>
+	<string name="search_hotel_filter_chalet">シャレー|山小屋</string>
+	<string name="search_hotel_filter_guest_house">ゲストハウス</string>
+	<string name="search_hotel_filter_hostel">ホステル</string>
+	<string name="search_hotel_filter_resort">リゾート</string>
+	<string name="search_hotel_filter_hotel">ホテル</string>
+	<string name="search_hotel_filter_motel">モーテル</string>
 	<string name="create_campaign_button">この企業の所有者であることを報告</string>
 	<string name="view_campaign_button">企業は宣伝中です</string>
 	<string name="search_hotel_filters_type">種類</string>
@@ -731,12 +1100,19 @@
 	<string name="prefs_languages_information_off">いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Samsung Apps) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="whatsnew_transliteration_title">ラテン文字への字訳</string>
+	<string name="whatsnew_transliteration_message">通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。</string>
 	<string name="learn_more">詳細情報</string>
 	<string name="exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
 	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください</string>
+	<string name="onboarding_welcome_message">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。</string>
+	<string name="button_accept_and_continue">同意して続ける</string>
+	<string name="button_learn_more">詳細情報</string>
 	<string name="onboarding_storage_permissions_title">アクセス権の付与</string>
 	<string name="onboarding_storage_permissions_message">お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。</string>
+	<string name="button_exit">終了</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME がアクセス許可を必要とする項目</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">ストレージ</string>
@@ -745,10 +1121,20 @@
 	<string name="onboarding_detail_permissions_location_title">位置情報</string>
 	<string name="onboarding_detail_permissions_location_message">近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。</string>
 	<string name="onboarding_detail_permissions_storage_path_message">また、設定でダウンロードした地図の保存先を変更することもできます。</string>
+	<string name="settings_device_memory">デバイスのメモリ</string>
+	<string name="settings_card_memory">カードのメモリ</string>
+	<string name="settings_storage_available">%s 使用可能</string>
+	<string name="toast_location_permission_denied">アプリの位置情報へのアクセスが拒否されました</string>
 	<string name="place_page_viator_title">観光地およびツアー</string>
+	<string name="button_use">使う</string>
+	<string name="planning_route_manage_route">ルートを管理</string>
+	<string name="button_plan">計画する</string>
+	<string name="button_add">追加</string>
 	<string name="placepage_remove_stop">削除</string>
+	<string name="planning_route_remove_title">ここにドラッグして削除</string>
+	<string name="dialog_change_start_point_message">出発地点を現在の場所に変更しますか？</string>
+	<string name="button_replace">変更する</string>
 	<string name="placepage_add_stop">停止地点を追加</string>
 	<string name="whatsnew_intermediate_point_title">その他の停止地点</string>
 	<string name="whatsnew_intermediate_point_message">中間地点のあるルートを計画します。</string>
-	<string name="disable_autodownload">自動ダウンロードを無効にする</string>
 </resources>

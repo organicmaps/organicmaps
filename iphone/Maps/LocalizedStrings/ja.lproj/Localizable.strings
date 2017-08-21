@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "削除";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "以後、このメッセージを表示しない";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "何もしない";
+
 "download_maps" = "マップをダウンロード";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "%quをダウンロード";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "%quをダウンロード";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "(%1$qu %2$@)をダウンロードしました。削除するには画面をタッチしてください。";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "%qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "ダウンロード中…";
 
+"get_it_now" = "今すぐ入手";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "キロメートル";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "マップ：";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "ダウンロードを開始します。キャンセルするには画面をタッチしてください。";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "OK";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "%@をダウンロードするため、デバイスの空き容量を確認してください";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "後で通知";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "次の機会に";
+
+/* Don't show some dialog any more */
+"never" = "今後表示しない";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "問題を報告";
 
 /* View and button titles for accessibility */
 "search" = "検索";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "マップを検索";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "タッチしてダウンロード";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "はい";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "大きなマップをダウンロードする際はWiFiの使用をおすすめします。";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "どちらの距離単位を使いますか？";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "ご使用中の端末は位置情報サービスをサポートしていません。";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "地図に表示";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "MAPS.MEについて";
 
+"downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
+
+"downloaded_touch_to_delete" = "(%@)をダウンロードしました。削除するには画面をタッチしてください。";
+
 "connection_settings" = "接続設定";
+
+"download_mb_or_kb" = "%@をダウンロード";
 
 "close" = "閉じる";
 
@@ -111,11 +164,15 @@
 
 "download" = "ダウンロード";
 
+"external_storage_is_not_available" = "マップをダウンロードしたSDカード/USBストレージへ接続できません";
+
 "disconnect_usb_cable" = "MAPS.MEを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
 
 "not_enough_free_space_on_sdcard" = "アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります";
 
 "not_enough_memory" = "メモリ不足のためアプリを起動できません";
+
+"free_space_for_country" = "%2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です";
 
 "download_resources" = "利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "続行";
 
+"downloaded_touch_to_update" = "(%@)をダウンロードしました。タップして更新、削除できます";
+
+"update_mb_or_kb" = "%@を更新";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "検索機能を利用するにはマップを更新する必要があります";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "以下のマップが更新されています:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "MAPS.ME Liteは削除してもかまいません";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@のダウンロードが成功しました";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@のダウンロードが失敗しました";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "新しいセットを作成";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "ブックマークに追加";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "ブックマーク表示色";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "ブックマーク";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "表示色";
+
 /* Default bookmarks set name */
 "my_places" = "マイロケーション";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "住所";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "ピンを削除";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "セット";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "マップに表示";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS機能が無効です。端末の設定画面から有効にしてください。";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "距離計測単位";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "マイルまたはキロメートルを選択";
+
+/* Do search in all sources */
+"search_mode_all" = "全マップから検索";
+
+/* Do search near my position only */
+"search_mode_nearme" = "現在地周辺";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "マップ表示範囲";
 
 /* Search Suggestion */
 "food" = "飲食";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "警察";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "検索結果が見つかりませんでした";
+
 /* Notes field in Bookmarks view */
 "description" = "メモ";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "現在の地域をダウンロード(%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "現在マップで検索している国をダウンロード(%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "恐れ入ります、マップストレージ設定が無効になっています。";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "ダウンロードを実行中です";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
+
+/* No, thanks */
+"no_thanks" = "いいえ";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "私のピン情報はこの位置です。リンク: %1$@, %2$@";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "MAPS.MEでピン情報を確認";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "MAPS.MEで現在地を確認";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "その他の共有";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "メッセージ";
+
 /* Share by email button text, also used in editor. */
 "email" = "Eメール";
+
+/* Copy Link */
+"copy_link" = "リンクをコピー";
+
+/* Text for the button that returns to caller application */
+"more_info" = "詳細情報を表示";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "クリップボードにコピーしました: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "完了";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Choose Back Screen settings";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Back Screen Settings";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Show on Back screen";
 
 /* Prints version number in About dialog */
 "version" = "バージョン： %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "位置情報を共有する";
 
+"menu_search" = "検索";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "地図";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "その他";
 
 "prefs_group_route" = "ナビゲーション";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3Dビルディング";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "電池の持ち時間に影響します";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
+"pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
+
+"pref_track_ios_subcaption" = "ルートを保存する期間を選択してください。";
+
+"placepage_distance" = "距離";
+
+"placepage_coordinates" = "コーディネート";
+
+"placepage_unsorted" = "未分類";
+
 "search_show_on_map" = "地図に表示";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。";
+
+/* Used in More Apps menu */
+"free" = "無料";
+
+/* Used in More Apps menu */
+"buy" = "購入";
+
+/* 1st search button-like result */
+"search_on_map" = "地図を検索";
+
+/* toast with an error */
+"no_route_found" = "一致する経路がありません";
+
+/* route title */
+"route" = "経路";
 
 /* category title */
 "routes" = "ルート";
 
+/* Show on first launch. */
+"maps_licence_info" = "このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。";
+
+/* Show on first launch. */
+"agree" = "同意する";
+
+/* Show on first launch */
+"disagree" = "同意しない";
+
 /* text of notification */
 "download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";
 
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.MEのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事MAPS.MEに転送されました";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。";
+
+/* Text in menu */
+"settings_and_more" = "設定&その他";
+
 /* Text in menu */
 "website" = "ウェブサイト";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.MEコミュニティ";
 
 /* Text in menu */
 "like_on_facebook" = "Facebookでいいねをクリック";
 
 /* Text in menu */
 "follow_on_twitter" = "Twitterでフォロー";
+
+/* Text in menu */
+"contact_us" = "お問い合わせ";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "フィードバック";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
 
+/* About text */
+"about_text" = "MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。";
+
 /* Alert text */
 "email_error_body" = "このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "無線LAN";
+
+/* Update map suggestion */
+"routing_map_outdated" = "ルートを作成するためにマップを更新してください。";
+
+/* Update maps suggestion */
+"routing_update_maps" = "新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
 
 /* Update all button text */
 "downloader_update_all_button" = "全てをアップデート";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "ダウンロード中：";
 
 "downloader_search_results" = "見つかりました";
+
+/* Disclaimer message */
+"routing_disclaimer" = "MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "旧式";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "最新";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "を更新";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@maps.meまでご連絡ください。";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "地図とルートをダウンロード";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "ルートをダウンロード";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "ルートを削除";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "地図をダウンロード";
+
+"downloader_download_map_no_routing" = "ルートなしで地図をダウンロード";
+
+/* Button for routing. */
+"routing_go" = "開始！";
 
 /* Item status in downloader. */
 "downloader_retry" = "リピート";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "地図とルート";
 
 /* Item in context menu. */
 "downloader_delete_map" = "地図を削除";
 
 /* Item in context menu. */
 "downloader_update_map" = "地図を更新";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "地図とルートを更新";
+
+/* Item in context menu. */
+"downloader_map_only" = "地図のみ";
+
+/* Toolbar title */
+"toolbar_application_menu" = "アプリケーションメニュー";
 
 /* Preference text */
 "pref_use_google_play" = "現在のロケーションを取得するためにGoogle Playのサービスを使う";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "ルート上の地図をダウンロード";
 
 /* Text for routing error dialog */
+"routing_download_map" = "地図を入手";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、MAPS.MEの全機能をご利用ください。";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "ルートデータを入手";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "現在位置からのルート作成に必要な追加データです。";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "空き容量が足りません";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MBダウンロードする必要がありますが、%@ MBしか空いていません。";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "携帯のデータ通信（ローミング）を使用して%@ MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。";
 
 /* bookmark button text */
 "bookmark" = "お気に入り";
 
+/* map is not downloaded */
+"not_found_map" = "現在地の地図が見つかりません";
+
 /* location service disabled */
 "enable_location_services" = "位置情報サービスを有効化してください";
+
+/* download map */
+"download_map" = "あなたがいる場所のマップをダウンロードしよう";
+
+/* download map on iPhone */
+"download_map_iphone" = "iPhoneに現在位置の地図をダウンロード";
+
+/* clear pin */
+"nearby" = "近くに";
+
+/* clear pin */
+"clear_pin" = "ピンをクリア";
+
+/* location is undefined */
+"undefined_location" = "現在地が設定されていません。";
+
+/* download country of your location */
+"download_country" = "現在の地域をダウンロード";
 
 /* download failed */
 "download_failed" = "のダウンロードが失敗しました";
 
+/* get the map */
+"get_the_map" = "地図を入手";
+
 "save" = "保存";
 
 "edit_description_hint" = "説明（テキストまたはHTML）";
+
+"new_group" = "新規グループ";
+
+"create" = "作成";
 
 /* red color */
 "red" = "赤";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。";
 
+"dialog_routing_location_unknown" = "現在地のGPSコードを確認できません。";
+
 "dialog_routing_download_files" = "必要なファイルをダウンロードしてください";
 
 "dialog_routing_download_and_update_all" = "案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。";
+
+"dialog_routing_routes_size" = "ルート情報ファイル";
 
 "dialog_routing_unable_locate_route" = "ルートの位置を確認できません";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "もう一度お試しください";
 
+"dialog_routing_send_error" = "問題を報告する";
+
+"dialog_routing_if_get_cross_route" = "複数マップを利用してより最適なルートを作成しますか？";
+
+"dialog_routing_cross_route_is_optimal" = "このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。";
+
 "not_now" = "あとで";
+
+"dialog_routing_build_route" = "作成する";
 
 "dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
 
 "dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
+
+"dialog_routing_cross_route_always" = "常にこの境界を越える";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。";
 
 "search_select_map" = "地図を選択";
+
+"search_select_other_map" = "別の地図を選択";
 
 /* «Show» context menu */
 "show" = "表示する";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "名前を変更する";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "さらに…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "ルート検索に失敗";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "到着予定: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
 
 "rate_alert_title" = "このアプリが好きですか?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "履歴";
 
+"next_turn_then" = "その後";
+
 "closed" = "閉鎖";
 
 "back_to" = "%@に戻る";
@@ -712,6 +1022,10 @@
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
 
 "search_not_found_query" = "別のクエリをお試しください。";
+
+"search_not_found_map" = "検索する地図をダウンロードしてください。";
+
+"search_not_found_location" = "現在地の地図をダウンロードしてください。";
 
 "search_history_title" = "検索履歴";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "ルート作成";
+
 "p2p_your_location" = "現在位置";
 
+"p2p_from" = "出発地";
+
+"p2p_to" = "目的地";
+
 "p2p_start" = "開始";
+
+"p2p_planning" = "作成中…";
 
 "p2p_from_here" = "出発地";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "間違いの訂正";
 
+"editor_correct_mistake_message" = "編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。";
+
 "editor_add_select_location" = "現在位置";
 
 "editor_done_dialog_1" = "世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。";
 
 "editor_done_dialog_2" = "これは2回目の地図改善。現在地図編集者リストで%d位です。";
+
+"editor_done_dialog_3" = "地図を改善したので、友達に教えて一緒に編集しましょう。";
 
 "share_with_friends" = "友達にシェア";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "重複している場所";
 
+"first_launch_congrats_title" = "MAPS.MEを使用する準備が整いました";
+
+"first_launch_congrats_text" = "世界中どこでも無料で検索・ナビゲーションできます。";
+
 "migrate_title" = "重要！";
 
+/* Android uses image instead of text. */
+"download_all" = "全てをダウンロード";
+
+"delete_all" = "すべて削除";
+
 "autodownload" = "自動ダウンロード";
+
+"disable_autodownload" = "自動ダウンロードを無効にする";
 
 /* Place Page opening hours text */
 "closed_now" = "現在閉店";
@@ -803,6 +1140,10 @@
 "day_off" = "終業";
 
 "today" = "今日は";
+
+"sunrise_to_sunset" = "日の出から日没まで";
+
+"sunset_to_sunrise" = "日の出から日没まで";
 
 "add_opening_hours" = "営業時間を追加";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "パスワードをお忘れですか？";
 
+/* Forgot Password dialog title */
+"restore_password" = "パスワードを復元";
+
+"enter_email_address_to_reset_password" = "登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。";
+
+"reset_password" = "パスワードをリセット";
+
+"username" = "ユーザー名";
+
 "osm_account" = "OSMアカウント";
 
 "logout" = "ログアウト";
 
+"login_and_edit_map_motivation_message" = "ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "最終更新";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "初めてオブジェクトを編集しました！";
+
 "thank_you" = "ありがとうございます";
+
+"login_with_google" = "Googleでログイン";
+
+"login_with_facebook" = "Facebookでログイン";
+
+"login_with_openstreetmap" = "www.openstreetmap.orgでログインしてください";
 
 "edit_place" = "場所を編集";
 
 "place_name" = "場所の名前";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "その他の言語";
+
+/* small button to open list with names in different languages */
+"show_more" = "もっと表示";
+
+/* small button to close list with names in different languages */
+"show_less" = "少なく表示";
 
 "add_language" = "言語を追加";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "通りを選択";
 
+"postal_code" = "郵便番号";
+
 "cuisine" = "料理";
 
 "select_cuisine" = "料理を選択";
@@ -863,6 +1235,8 @@
 "phone" = "電話";
 
 "please_note" = "ご注意ください";
+
+"common_no_wifi_dialog" = "WiFi接続がありません。モバイルデータ通信を続行しますか?";
 
 "downloader_delete_map_dialog" = "この地図を削除すると、今まで行った変更の全ても一緒に削除されます。";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "不必要なデータを削除してください";
 
+"editor_general_auth_error_dialog" = "一般的なログインエラー。";
+
 "editor_login_error_dialog" = "ログインエラー。";
 
+"editor_login_failed_dialog" = "ログインに失敗しました";
+
+"editor_username_error_dialog" = "ユーザー名が無効です";
+
+"editor_place_edited_dialog" = "オブジェクトを編集しました!";
+
+"editor_login_with_osm" = "OpenStreetMapを使ってログイン";
+
 "editor_profile_changes" = "確認された変更";
+
+"editor_profile_unsent_changes" = "未送信：";
 
 "editor_focus_map_on_location" = "地図をプルしてオブジェクトの正しい場所を選択します。";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "異なる問題";
 
+"placepage_report_problem_button" = "問題を報告";
+
 "placepage_add_business_button" = "団体を追加";
 
 "whatsnew_smallmwm_header" = "皆様のご要望にお応えして、実現を果たしました";
 
 "whatsnew_smallmwm_message" = "マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。";
 
+"whatsnew_search_header" = "新しい検索機能";
+
+"whatsnew_search_message" = "住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。";
+
+"whatsnew_editor_title" = "地図を編集*";
+
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
+
+"whatsnew_editor_message_2" = "* MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。";
 
 "onboarding_offline_navigation_title" = "もう道に迷うことは絶対ありません";
 
 "onboarding_offline_navigation_message" = "インターネット接続がなくても、車や徒歩での最短ルートを計画できます!";
 
+"onboarding_offline_navigation_title_2" = "オフラインナビゲーション";
+
+"onboarding_offline_navigation_message_2" = "車や徒歩での最短ルートを計画できます。";
+
 "onboarding_offline_maps_title" = "MAPS.ME — 世界中の地図にインターネットなしでアクセス";
 
 "onboarding_offline_maps_message" = "希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。";
+
+"onboarding_notifications_message" = "最新地図の入手のためにアップデート通知を受信";
+
+"onboarding_notifications_title" = "アップデート通知を有効にする";
+
+"onboarding_location_title" = "現在地判定のお手伝い";
+
+"onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
 
 "onboarding_permissions_title" = "MAPS.ME によるストレージと位置情報へのアクセスを許可する";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。";
 
 "editor_sharing_title" = "MAPS.MEの地図を改善しました";
+
+"editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
+
+"editor_unsupported_category_message" = "現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$d中%1$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "オペレーター";
 
+"editor_tag_description" = "施設を管理する企業、組織または個人を入力してください。";
+
+"editor_no_local_edits_title" = "ローカル編集はできません";
+
+"editor_no_local_edits_description" = "これは、現在お使いのデバイスでのみアクセス可能な、マップ上に提案された変更の数を示しています。";
+
+"editor_send_to_osm" = "OSMに送信";
+
+"editor_remove" = "削除";
+
 "downloader_my_maps_title" = "マイマップ";
 
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
+
+"downloader_find_place_hint" = "都市や国を検索";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "あなたの現在地を検出し続けますか？";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。";
 
+"whatsnew_update_editor_title" = "マップエディタを更新しました";
+
+"whatsnew_update_editor_message" = "MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "マップエディタを利用するには、全てのアップをアップデートしてください。";
+
 "location_services_disabled_header" = "位置情報認識機能が無効になっています";
 
 "location_services_disabled_message" = "デバイスの設定で位置情報へのアクセスを有効にしてください";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. アプリの使用中を選択してください";
 
+"placepage_parking_surface" = "表面";
+
+"placepage_parking_multistorey" = "複数階";
+
+"placepage_parking_underground" = "地下";
+
+"placepage_parking_rooftop" = "屋上";
+
+"placepage_parking_sheds" = "小屋";
+
+"placepage_parking_carports" = "カーポート";
+
+"placepage_parking_boxes" = "ガレージボックス";
+
+"placepage_parking_pay" = "支払い";
+
+"placepage_parking_free" = "無料";
+
+"placepage_parking_interval" = "支払間隔";
+
+"placepage_entrance_number" = "番号";
+
+"placepage_entrance_type" = "エントランス";
+
+"placepage_flat" = "アプリ";
+
+"placepage_open_24_7" = "24時間体制";
+
 "place_page_booking_rating" = "評価：%s";
 
 "place_page_starting_from" = "%sから";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "キロメートル毎時";
+
+"mile" = "マイル";
+
 "foot" = "フィート";
+
+"miles_per_hour" = "マイル毎時";
+
+"day" = "日";
 
 "hour" = "時間";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "削除";
 
+"editor_status_sending" = "送信中…";
+
 "editor_place_doesnt_exist" = "存在しない場所";
 
 "text_more_button" = "…続き";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "有効なメールアドレスを入力してください";
 
+"error_enter_correct" = "有効な値を入力してください";
+
 "editor_profile_changes_for_next_place" = "次の場所への変更：%d";
 
 "editor_profile_rating_place" = "ランキングポジション";
 
+"booking_dialog_not_connect_header" = "ホテルを予約するには、インターネット接続を有効にしてください";
+
+"button_try" = "試してみる";
+
 "refresh" = "更新";
 
 "last_update" = "最終更新日: %s";
+
+"booking_checkin" = "チェックイン：%s";
+
+"booking_checkout" = "チェックアウト：%s";
 
 "placepage_add_place_button" = "地図上に場所を追加";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
 
+"navigation_overview_button" = "概要";
+
+"navigation_stop_button" = "停止";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "ブックマークを保存";
+
+"bookmarks_empty_message_1" = "★をタップしてお気に入りの場所にクイックアクセス。";
+
+"bookmarks_empty_message_2" = "メールやウェブからブックマークをインポートする。";
+
+"bookmarks_empty_message_3" = "チェックアウト：%s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "予約したホテル";
+
+"place_page_button_read_descriprion" = "詳細";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "ご覧ください";
 
+"continue_recent_track_background_button" = "続行";
+
 "recent_track_background_dialog_message" = "MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
+
+"whatsnew_car_navigation_header" = "ユーザーフレンドリーなカーナビゲーション";
+
+"whatsnew_car_navigation_message" = "• ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。";
+
+"whatsnew_cycle_navigation_2_header" = "自転車用ナビゲーション";
+
+"whatsnew_cycle_navigation_2_message" = "• 自転車用ナビゲーションはサイクリングコースのデータも使用します。\n• 道の傾斜を考え、最も走りやすいルートを作成します。";
+
+"whatsnew_booking_2_header" = "簡単ホテル検索";
+
+"whatsnew_booking_2_message" = "検索結果にホテルの評価と宿泊料カテゴリーが表示されます。";
+
+"whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
+
+"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play で評価";
@@ -1118,6 +1632,9 @@
 
 "date" = "日付 %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "動作が変です";
+
 /* For the first routing */
 "accept" = "了解";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "拒否";
+
+"whats_new_route_profile_title" = "時は金なり。古きを捨て新しきを得よう。";
+
+"whats_new_route_profile_message" = "歩行者とバイク用のルートに高度プロファイルが表示されるようになりました。";
+
+"whats_new_booking_improve_title" = "ホテル予約時に節約しましょう";
+
+"whats_new_booking_improve_message" = "ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "施設";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "さらに表示";
 
+"booking_reviews" = "レビュー";
+
+"booking_hotel" = "ホテル";
+
+/* hotel room */
+"booking_hotel_room" = "部屋";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "ジオチャット";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "開始";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "アプリから直接Uberの配車リクエストができます！";
+
 "dialog_taxi_offline" = "タクシーの予約がオフラインモードでは使用できません。";
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "交通データを表示するには、地図を更新する必要があります。";
 
+"traffic_outdated" = "交通データが古くなっています。";
+
 "big_font" = "地図上のフォントサイズを大きく";
 
 "traffic_update_app" = "MAPS.ME をアップデートしてください";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
+
+"banner_deliveryclub_title" = "出前・宅配";
+
+"banner_deliveryclub_message" = "4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。";
+
+"banner_lamoda_title" = "衣料品と靴のオンライン店舗";
+
+"banner_lamoda_message" = "1,000 件を超えるブランド。最大 70% オフ。全国無料配送。";
+
+"banner_tutu_title" = "オンライン鉄道チケット";
+
+"banner_tutu_message" = "どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。";
+
+"banner_geerbest_title" = "オンライン家電量販店";
+
+"banner_geerbest_message" = "低価格で 50,000 件を超えるアイテムを素早く検索。";
+
+"banner_rentalcars_title" = "オンラインでレンタカーを予約";
+
+"banner_rentalcars_message" = "800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。";
+
+"banner_viator_title" = "オンラインツアー検索";
+
+"banner_viator_message" = "世界中から 50,000 件を超えるツアーを検索してください。";
+
+/* december */
+"whatsnew_traffic" = "36か国の交通データ";
+
+/* december */
+"whatsnew_traffic_text" = "最新の交通データと、データに基づく最速のドライブルートをご提供致します！";
+
+/* december */
+"whatsnew_traffic_roaming" = "ローミング中の交通情報";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "移動毎に 1 MB 未満のモバイル帯域幅が必要です。";
+
+/* december */
+"whatsnew_order_taxi" = "タクシーの呼び出し";
+
+/* december */
+"whatsnew_order_taxi_text" = "ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。";
+
+/* january */
+"whatsnew_improved_search" = "検索機能の向上";
+
+/* january */
+"whatsnew_improved_search_text" = "スペルミスのある検索を行なっても、正確な検索結果を表示します。";
+
+/* january */
+"whatsnew_filters_in_search" = "検索フィルター";
+
+/* january */
+"whatsnew_filters_in_search_text" = "価格と評価に基づくホテルの検索。";
+
+/* january */
+"whatsnew_font_size" = "フォントサイズ";
+
+/* january */
+"whatsnew_font_size_text" = "地図上のラベルを大きくすることができます。";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "ログを有効化";
 
+"whatsnew_more_info_on_hotels_title" = "ホテルの詳細情報";
+
+"whatsnew_more_info_on_hotels_message" = "ホテルページの見映えを一新: 写真、ユーザーレビューやその他の情報をオンラインでチェックしてください。";
+
+"whatsnew_better_routing_title" = "ルート選定処理を改善";
+
+"whatsnew_better_routing_message" = "• より正確な到着時間の見積もりを出せるようになりました。\n• このアプリは制限区域や道路標識を考慮に入れています。";
+
+"whatsnew_smaller_mwm_title" = "地図のサイズが小さくなりました";
+
+"whatsnew_smaller_mwm_message" = "地図が必要とするストレージ容量が最大で 20% 少なくなりました。";
+
+"whatsnew_waypoints_title" = "ルート上の経由地";
+
+"whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
+
 "whatsnew_viator_title" = "ツアーの予約";
 
 "whatsnew_viator_message" = "世界中の観光都市で人気のツアーを選択してください。";
+
+"whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
+
+"whatsnew_driving_style_message" = "カーナビゲーションモードの使用がより簡単になりました。";
 
 "more_on_bookingcom" = "さらに Booking.com で表示";
 
 "details_on_bookingcom" = "Booking.com で詳細表示";
 
 "reviews_on_bookingcom" = "Booking.com の詳細レビュー";
+
+"offline_place_page_more_information" = "この場所に関する詳細情報を取得するには、インターネットに接続してください。";
+
+"failed_load_information" = "情報の読み込みに失敗しました。";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "更新 (%s)";
 
 "whats_new_auto_update_button_later" = "あとで手動で更新";
+
+"search_hotel_filter_apartment" = "アパート";
+
+"search_hotel_filter_camp_site" = "^キャンプ場";
+
+"search_hotel_filter_chalet" = "シャレー|山小屋";
+
+"search_hotel_filter_guest_house" = "ゲストハウス";
+
+"search_hotel_filter_hostel" = "ホステル";
+
+"search_hotel_filter_resort" = "リゾート";
+
+"search_hotel_filter_hotel" = "ホテル";
+
+"search_hotel_filter_motel" = "モーテル";
 
 "create_campaign_button" = "この企業の所有者であることを報告";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "ラテン文字への字訳";
 
+"whatsnew_transliteration_message" = "通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "詳細情報";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "ルートを計画するには到着地点を追加してください";
 
+"onboarding_welcome_message" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。";
+
+"button_accept_and_continue" = "同意して続ける";
+
+"button_learn_more" = "詳細情報";
+
 "onboarding_storage_permissions_title" = "アクセス権の付与";
 
 "onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
+
+"button_exit" = "終了";
 
 "onboarding_detail_permissions_title" = "MAPS.ME がアクセス許可を必要とする項目";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
 
+"settings_device_memory" = "デバイスのメモリ";
+
+"settings_card_memory" = "カードのメモリ";
+
+"settings_storage_available" = "%s 使用可能";
+
+"toast_location_permission_denied" = "アプリの位置情報へのアクセスが拒否されました";
+
 "place_page_viator_title" = "観光地およびツアー";
 
+"button_use" = "使う";
+
+"planning_route_manage_route" = "ルートを管理";
+
+"button_plan" = "計画する";
+
+"button_add" = "追加";
+
 "placepage_remove_stop" = "削除";
+
+"planning_route_remove_title" = "ここにドラッグして削除";
+
+"dialog_change_start_point_message" = "出発地点を現在の場所に変更しますか？";
+
+"button_replace" = "変更する";
 
 "placepage_add_stop" = "停止地点を追加";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "自動ダウンロードを無効にする";
 
 "add_my_position" = "Add my position";
 

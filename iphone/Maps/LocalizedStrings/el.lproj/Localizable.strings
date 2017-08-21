@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "Διαγραφή";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "Do not ask me again";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "Continue";
+
 "download_maps" = "Λήψη χαρτών";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "Download %qu kB";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "Download %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "Downloaded (%1$qu %2$@), touch to delete";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "Downloading %qu%%, touch to cancel";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Λήψη…";
 
+"get_it_now" = "Get it now";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Χιλιόμετρα";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "Χάρτες:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "Marked for downloading, touch to cancel";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "OK";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "Please free some space on your device first in order to download %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Υπενθύμιση αργότερα";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Αργότερα";
+
+/* Don't show some dialog any more */
+"never" = "Never";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "Report an issue";
 
 /* View and button titles for accessibility */
 "search" = "Αναζήτηση";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "Αναζήτηση χάρτη";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "Touch to download";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ναι";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "We recommend using WiFi to download large maps";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "Which measurement system do you prefer?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "Your device doesn't support Location Services";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Εμφάνιση στο χάρτη";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "Σχετικά με το MAPS.ME";
 
+"downloading_touch_to_cancel" = "Downloading %d%%, touch to cancel";
+
+"downloaded_touch_to_delete" = "Downloaded (%@), touch to delete";
+
 "connection_settings" = "Ρυθμίσεις σύνδεσης";
+
+"download_mb_or_kb" = "Download %@";
 
 "close" = "Κλείσιμο";
 
@@ -111,11 +164,15 @@
 
 "download" = "Λήψη";
 
+"external_storage_is_not_available" = "SD card/USB storage with downloaded maps is not available";
+
 "disconnect_usb_cable" = "Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το MAPS.ME";
 
 "not_enough_free_space_on_sdcard" = "Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή";
 
 "not_enough_memory" = "Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής";
+
+"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
 
 "download_resources" = "Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Συνέχεια";
 
+"downloaded_touch_to_update" = "Downloaded (%@), touch to update or delete";
+
+"update_mb_or_kb" = "Update %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "You need updated maps for search function:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "Δε χρειάζεστε το MAPS.ME Lite πλέον, μπορείτε να το απεγκαταστήσετε.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ downloaded successfully";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "η λήψη %@ απέτυχε";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Προσθέστε νέο σύνολο";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "Add to Bookmarks";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Χρώμα αγαπημένου";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "Αγαπημένα";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "Color";
+
 /* Default bookmarks set name */
 "my_places" = "Οι τοποθεσίες μου";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "Διεύθυνση";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "Remove Pin";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Σύνολο";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Ορατό";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "Μονάδες μέτρησης";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα";
+
+/* Do search in all sources */
+"search_mode_all" = "Everywhere";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Near Me";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "On the Screen";
 
 /* Search Suggestion */
 "food" = "Φαγητό";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "Αστυνομία";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "No results found";
+
 /* Notes field in Bookmarks view */
 "description" = "Σημειώσεις";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Κατεβάστε τον χάρτη για την τρέχουσα τοποθεσία σας (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Download the country you are searching on (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Λήψη χάρτη σε εξέλιξη.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!";
+
+/* No, thanks */
+"no_thanks" = "No, thanks";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://maps.me/get";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME!";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ on the MAPS.ME offline map of the world. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη MAPS.ME!";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Κοινοποίηση";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "Message";
+
 /* Share by email button text, also used in editor. */
 "email" = "Email";
+
+/* Copy Link */
+"copy_link" = "Copy Link";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Show More Info";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Αντιγράφηκε στο Πρόχειρο: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "Ολοκληρώθηκε";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Choose Back Screen settings";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Back Screen Settings";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Show on Back screen";
 
 /* Prints version number in About dialog */
 "version" = "Έκδοση: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "Κοινοποίηση της τοποθεσίας μου";
 
+"menu_search" = "Search";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Χάρτης";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Διάφορα";
 
 "prefs_group_route" = "Πλοήγηση";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Τρισδιάστατα κτίρια";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Affects battery life";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Φωνητικές οδηγίες";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.";
 
+"pref_track_ios_caption" = "Recent track shows your traveled path.";
+
+"pref_track_ios_subcaption" = "Please select the time range of saving the track.";
+
+"placepage_distance" = "Distance";
+
+"placepage_coordinates" = "Coordinates";
+
+"placepage_unsorted" = "Unsorted";
+
 "search_show_on_map" = "Προβολή στο χάρτη";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.";
+
+/* Used in More Apps menu */
+"free" = "Free";
+
+/* Used in More Apps menu */
+"buy" = "Buy";
+
+/* 1st search button-like result */
+"search_on_map" = "Αναζήτηση στο χάρτη";
+
+/* toast with an error */
+"no_route_found" = "Δεν βρέθηκε διαδρομή";
+
+/* route title */
+"route" = "Διαδρομή";
 
 /* category title */
 "routes" = "Διαδρομές";
 
+/* Show on first launch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first launch. */
+"agree" = "I agree";
+
+/* Show on first launch */
+"disagree" = "I disagree";
+
 /* text of notification */
 "download_map_notification" = "Κατεβάστε τον χάρτη της τοποθεσίας που βρίσκεστε";
 
+/* text of notification */
+"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Your downloaded maps are successfully transferred to MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.";
+
+/* Text in menu */
+"settings_and_more" = "Settings & More";
+
 /* Text in menu */
 "website" = "Ιστότοπος";
+
+/* Text in menu */
+"maps_me_community" = "Κοινότητα MAPS.ME ";
 
 /* Text in menu */
 "like_on_facebook" = "Κάντε Like στο Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Ακολουθήστε στο Twitter";
+
+/* Text in menu */
+"contact_us" = "Επικοινωνήστε μαζί μας";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Σχόλια";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "Θέλω να μαθαίνω πρώτος(η) τις τελευταίες ειδήσεις, ενημερώσεις εφαρμογών και προωθητικές ενέργειεςς. Καταλαβαίνω ότι μπορώ να ακυρώσω τη συνδρομή μου ανά πάσα στιγμή.";
 
+/* About text */
+"about_text" = "MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.";
+
 /* Alert text */
 "email_error_body" = "Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Please update the map to create a route";
+
+/* Update maps suggestion */
+"routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Ενημέρωση όλων";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "Λήψη:";
 
 "downloader_search_results" = "Βρέθηκαν";
+
+/* Disclaimer message */
+"routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Outdated";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Up-to-date";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Ενημέρωση";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "Παρουσιάστηκε εσωτερικό σφάλμα. Δοκιμάστε να διαγράψετε και να κατεβάσετε το χάρτη ξανά. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας στη διεύθυνση support@maps.me.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Download Map + Routing";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Download Routing";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Delete Routing";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "Λήψη χάρτη";
+
+"downloader_download_map_no_routing" = "Download map without routing";
+
+/* Button for routing. */
+"routing_go" = "Go!";
 
 /* Item status in downloader. */
 "downloader_retry" = "Επανάληψη";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Map + Routing";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Διαγραφή χάρτη";
 
 /* Item in context menu. */
 "downloader_update_map" = "Ενημέρωση χάρτη";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Update Map + Routing";
+
+/* Item in context menu. */
+"downloader_map_only" = "Map Only";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Application menu";
 
 /* Preference text */
 "pref_use_google_play" = "Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας";
 
 /* Text for routing error dialog */
+"routing_download_map" = "Λήψη χάρτη";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Κάντε λήψη ενημερωμένου χάρτη και δεδομένων πλοήγησης για να έχετε όλα τα χαρακτηριστικά του MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Λήψη δεδομένων πλοήγησης";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Απαιτούνται επιπλέον δεδομένα για τη δημιουργία διαδρομών από την τοποθεσία σας.";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Δεν υπάρχει αρκετός χώρος";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Πρέπει να κάνετε λήψη %@ MB, αλλά μόνο %@ MB είναι διαθέσιμα.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Πρόκειται να κάνετε λήψη %@ MB χρησιμοποιώντας Δεδομένα Δικτύου Κινητής Τηλεφωνίας (σε Περιαγωγή). Αυτό μπορεί να προκαλέσει επιπρόσθετες χρεώσεις, που εξαρτώνται από το πρόγραμμα δεδομένων δικτύου κινητής τηλεφωνίας του παρόχου σας.";
 
 /* bookmark button text */
 "bookmark" = "αγαπημένο";
 
+/* map is not downloaded */
+"not_found_map" = "The map for your location is not downloaded";
+
 /* location service disabled */
 "enable_location_services" = "Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας";
+
+/* download map */
+"download_map" = "Download the map for your location";
+
+/* download map on iPhone */
+"download_map_iphone" = "Download a current location map on your iPhone";
+
+/* clear pin */
+"nearby" = "Nearby";
+
+/* clear pin */
+"clear_pin" = "Clear Pin";
+
+/* location is undefined */
+"undefined_location" = "Current location is undefined.";
+
+/* download country of your location */
+"download_country" = "Download the country of your current location";
 
 /* download failed */
 "download_failed" = "download has failed";
 
+/* get the map */
+"get_the_map" = "Get the map";
+
 "save" = "Αποθήκευση";
 
 "edit_description_hint" = "Οι περιγραφές σας (κείμενο ή html)";
+
+"new_group" = "νέα ομάδα";
+
+"create" = "δημιουργήστε";
 
 /* red color */
 "red" = "Κόκκινο";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.";
 
+"dialog_routing_location_unknown" = "Unable to locate current GPS coordinates.";
+
 "dialog_routing_download_files" = "Κατεβάστε τα απαιτούμενα αρχεία";
 
 "dialog_routing_download_and_update_all" = "Κατεβάσετε και να ενημερώσετε όλους τους χάρτες και τις πληροφορίες δρομολόγησης για όλη την απόσταση της προβαλλόμενης διαδρομής για τον υπολογισμό της.";
+
+"dialog_routing_routes_size" = "Routing information files";
 
 "dialog_routing_unable_locate_route" = "Δε μπορεί να εντοπιστεί η διαδρομή";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "Προσπαθήστε ξανά";
 
+"dialog_routing_send_error" = "Report the Problem";
+
+"dialog_routing_if_get_cross_route" = "Would you like to create a more direct route that spans more than one map?";
+
+"dialog_routing_cross_route_is_optimal" = "A more optimal route that crosses the edge of this map is available.";
+
 "not_now" = "Όχι τώρα";
+
+"dialog_routing_build_route" = "Create";
 
 "dialog_routing_download_and_build_cross_route" = "Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνονται σε περισσότερους από έναν χάρτη;";
 
 "dialog_routing_download_cross_route" = "Κατεβάσετε επιπλέον χάρτες για να δημιουργήσετε μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.";
+
+"dialog_routing_cross_route_always" = "Always cross this boundary";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.";
 
 "search_select_map" = "Επιλέξτε χάρτη";
+
+"search_select_other_map" = "Select Another Map";
 
 /* «Show» context menu */
 "show" = "Εμφάνιση";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "Μετονομασία";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "More…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ο σχεδιασμός διαδρομής απέτυχε";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Άφιξη στις %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 
 "rate_alert_title" = "Σας αρέσει η εφαρμογή;";
 
@@ -705,6 +1013,8 @@
 
 "history" = "Ιστορικό";
 
+"next_turn_then" = "Then";
+
 "closed" = "Κλειστό";
 
 "back_to" = "Επιστροφή στο %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "Ωχ, δεν βρέθηκαν αποτελέσματα.";
 
 "search_not_found_query" = "Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησής σας.";
+
+"search_not_found_map" = "Please download the map you are searching in.";
+
+"search_not_found_location" = "Download the map of your current location.";
 
 "search_history_title" = "Ιστορικό αναζήτησης";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "Route Planning";
+
 "p2p_your_location" = "Η τοποθεσία σας";
 
+"p2p_from" = "Από";
+
+"p2p_to" = "Έως";
+
 "p2p_start" = "Έναρξη";
+
+"p2p_planning" = "Σχεδιασμός…";
 
 "p2p_from_here" = "Διαδρομή από";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "Διόρθωση λάθους";
 
+"editor_correct_mistake_message" = "You made an editing mistake. Please correct it or switch to simple mode.";
+
 "editor_add_select_location" = "Τοποθεσία";
 
 "editor_done_dialog_1" = "Έχετε αλλάξει τον παγκόμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε τις αλλαγές μαζί.";
 
 "editor_done_dialog_2" = "Αυτή είναι η δεύτερη φορά που επεξεργαστήκατε το χάρτη. Είστε πλέον %d στην κατάταξη των επεξεργαστών του χάρτη. Πείτε το στους φίλους σας.";
+
+"editor_done_dialog_3" = "You’ve improved the map, tell your friends about it, and edit the map together.";
 
 "share_with_friends" = "Μοιραστείτε με φίλους";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "Διπλότυπη τοποθεσία";
 
+"first_launch_congrats_title" = "Το MAPS.ME είναι έτοιμο για χρήση";
+
+"first_launch_congrats_text" = "Κάντε αναζήτηση και πλοηγηθείτε παντού στον κόσμο χωρίς σύνδεση και χωρίς χρέωση.";
+
 "migrate_title" = "Σημαντικό!";
 
+/* Android uses image instead of text. */
+"download_all" = "Download all";
+
+"delete_all" = "Delete all";
+
 "autodownload" = "Αυτόματη λήψη";
+
+"disable_autodownload" = "Disable autodownload";
 
 /* Place Page opening hours text */
 "closed_now" = "Τώρα είναι κλειστό";
@@ -803,6 +1140,10 @@
 "day_off" = "Κλειστό";
 
 "today" = "Σήμερα";
+
+"sunrise_to_sunset" = "From sunrise to sunset";
+
+"sunset_to_sunrise" = "From sunset to sunrise";
 
 "add_opening_hours" = "Προσθέστε ώρες λειτουργίας";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "Ξαχάσατε τον κωδικό πρόσβασης;";
 
+/* Forgot Password dialog title */
+"restore_password" = "Restore password";
+
+"enter_email_address_to_reset_password" = "Enter the email address you used during registration and we will send you the link to reset your password.";
+
+"reset_password" = "Reset Password";
+
+"username" = "Username";
+
 "osm_account" = "Λογαριασμός OSM  ";
 
 "logout" = "Αποσύνδεση";
 
+"login_and_edit_map_motivation_message" = "Log in and edit objects on the map, and we will make them available for millions of users. Let’s make the world better together.";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Τελευταία μεταφόρτωση";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "You’ve edited your first object!";
+
 "thank_you" = "Σας ευχαριστούμε";
+
+"login_with_google" = "Login with Google";
+
+"login_with_facebook" = "Login with Facebook";
+
+"login_with_openstreetmap" = "Log in with www.openstreetmap.org";
 
 "edit_place" = "Επεξεργασία μέρους";
 
 "place_name" = "Όνομα μέρους";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Περισσότερα";
+
+/* small button to close list with names in different languages */
+"show_less" = "Λιγότερα";
 
 "add_language" = "Προσθήκη γλώσσας";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "Επιλέξτε μια οδό";
 
+"postal_code" = "Postal Code";
+
 "cuisine" = "Κουζίνα";
 
 "select_cuisine" = "Επιλέξτε κουζίνα";
@@ -863,6 +1235,8 @@
 "phone" = "Τηλέφωνο";
 
 "please_note" = "Λάβετε υπόψη";
+
+"common_no_wifi_dialog" = "No WiFi connection. Do you want to continue with mobile data?";
 
 "downloader_delete_map_dialog" = "Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "Διαγράψτε τυχόν μη απαραίτητα δεδομένα";
 
+"editor_general_auth_error_dialog" = "General login error.";
+
 "editor_login_error_dialog" = "Σφάλμα σύνδεσης.";
 
+"editor_login_failed_dialog" = "Login failed";
+
+"editor_username_error_dialog" = "Username is invalid";
+
+"editor_place_edited_dialog" = "You’ve edited an object!";
+
+"editor_login_with_osm" = "Login with OpenStreetMap";
+
 "editor_profile_changes" = "Επαληθευμένες αλλαγές";
+
+"editor_profile_unsent_changes" = "Not sent:";
 
 "editor_focus_map_on_location" = "Σύρετε τον χάρτη για να επιλέξετε τη σωστή θέση του αντικειμένου.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "Διαφορετικό πρόβλημα";
 
+"placepage_report_problem_button" = "Report a problem";
+
 "placepage_add_business_button" = "Προσθήκη επιχείρησης";
 
 "whatsnew_smallmwm_header" = "Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά";
 
 "whatsnew_smallmwm_message" = "Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.";
 
+"whatsnew_search_header" = "Νέα αναζήτηση";
+
+"whatsnew_search_message" = "Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.";
+
+"whatsnew_editor_title" = "Επεξεργαστείτε το χάρτη*";
+
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";
+
+"whatsnew_editor_message_2" = "* Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Δεν θα χαθείτε ποτέ ξανά";
 
 "onboarding_offline_navigation_message" = "Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!";
 
+"onboarding_offline_navigation_title_2" = "Offline navigation";
+
+"onboarding_offline_navigation_message_2" = "Plan optimal car and pedestrian routes.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet";
 
 "onboarding_offline_maps_message" = "Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.";
+
+"onboarding_notifications_message" = "Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων";
+
+"onboarding_notifications_title" = "Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις";
+
+"onboarding_location_title" = "Βοηθήστε μας να σας βρούμε";
+
+"onboarding_location_message" = "Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.";
 
 "onboarding_permissions_title" = "Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.";
 
 "editor_sharing_title" = "Βελτίωσα τους χάρτες MAPS.ME";
+
+"editor_comment_will_be_sent" = "We will make sure to send your comments to the map editors.";
+
+"editor_unsupported_category_message" = "You have added an object whose category we do not support yet. It will appear on the map in the future.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d από %2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "Ιδιοκτήτης";
 
+"editor_tag_description" = "Enter company, organization or individual responsible for the facilities.";
+
+"editor_no_local_edits_title" = "You don't have local edits";
+
+"editor_no_local_edits_description" = "This shows the number of your suggested changes on the map that are currently accessible only on your device.";
+
+"editor_send_to_osm" = "Send to OSM";
+
+"editor_remove" = "Remove";
+
 "downloader_my_maps_title" = "Οι χάρτες μου";
 
 "downloader_no_downloaded_maps_title" = "Δεν έχετε κατεβάσει χάρτες";
 
 "downloader_no_downloaded_maps_message" = "Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.";
+
+"downloader_find_place_hint" = "Search city or country";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Να συνεχίσει να ανιχνεύεται η τρέχουσα θέση σας;";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.";
 
+"whatsnew_update_editor_title" = "Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη";
+
+"whatsnew_update_editor_message" = "Οι χρήστες MAPS.ME έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.";
+
 "location_services_disabled_header" = "Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες";
 
 "location_services_disabled_message" = "Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Επιλέξτε ενώ χρησιμοποιείτε την εφαρμογή";
 
+"placepage_parking_surface" = "Surface";
+
+"placepage_parking_multistorey" = "Multi-storey";
+
+"placepage_parking_underground" = "Underground";
+
+"placepage_parking_rooftop" = "Rooftop";
+
+"placepage_parking_sheds" = "Sheds";
+
+"placepage_parking_carports" = "Carports";
+
+"placepage_parking_boxes" = "Garage boxes";
+
+"placepage_parking_pay" = "Pay";
+
+"placepage_parking_free" = "Free";
+
+"placepage_parking_interval" = "Interval Pay";
+
+"placepage_entrance_number" = "No.";
+
+"placepage_entrance_type" = "Entrance";
+
+"placepage_flat" = "app.";
+
+"placepage_open_24_7" = "24 / 7";
+
 "place_page_booking_rating" = "Βαθμολογία: %s";
 
 "place_page_starting_from" = "από %s";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "km/h";
+
+"mile" = "mi";
+
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
 
 "hour" = "h";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "Διαγραφή";
 
+"editor_status_sending" = "Sending…";
+
 "editor_place_doesnt_exist" = "Η τοποθεσία δεν υπάρχει";
 
 "text_more_button" = "…περισσότερα";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "Εισάγετε ένα έγκυρο email";
 
+"error_enter_correct" = "Enter a valid value";
+
 "editor_profile_changes_for_next_place" = "Αλλάζει στην επόμενη τοποθεσία: %d";
 
 "editor_profile_rating_place" = "Θέση στην κατάταξη";
 
+"booking_dialog_not_connect_header" = "To book the hotel, please enable your Internet connection";
+
+"button_try" = "Try it";
+
 "refresh" = "Ενημέρωση";
 
 "last_update" = "Τελευταία ενημέρωση: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
 
 "placepage_add_place_button" = "Να προστεθεί η τοποθεσία στο χάρτη";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.";
 
+"navigation_overview_button" = "overview";
+
+"navigation_stop_button" = "stop";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "Save Bookmarks";
+
+"bookmarks_empty_message_1" = "Tap on ★ to save favorite places for quick access.";
+
+"bookmarks_empty_message_2" = "Import Bookmarks from email and web.";
+
+"bookmarks_empty_message_3" = "check out: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Booked hotels";
+
+"place_page_button_read_descriprion" = "Read";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Αναχώρηση";
 
+"continue_recent_track_background_button" = "Continue";
+
 "recent_track_background_dialog_message" = "Το MAPS.ME χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
+
+"whatsnew_car_navigation_header" = "Πλοήγηση οχήματος φιλική προς το χρήστη";
+
+"whatsnew_car_navigation_message" = "• Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.";
+
+"whatsnew_cycle_navigation_2_header" = "Πλοήγηση με ποδήλατο";
+
+"whatsnew_cycle_navigation_2_message" = "• Η πλοήγηση με ποδήλατο λαμβάνει υπόψη τα δεδομένα της μορφολογίας του εδάφους. \n• Δημιουργούνται πιο εύκολες διαδρομές λαμβάνοντας υπόψη την κλίση του εδάφους.";
+
+"whatsnew_booking_2_header" = "Εύκολη αναζήτηση ξενοδοχείου";
+
+"whatsnew_booking_2_message" = "Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.";
+
+"whatsnew_cycle_navigation_header" = "Πλοήγηση με ποδήλατο (έκδοση beta)";
+
+"whatsnew_cycle_navigation_message" = "Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το MAPS.ME και μοιραστείτε τη γνώμη σας μαζί μας.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Βαθμολογήστε το στο Google Play";
@@ -1118,6 +1632,9 @@
 
 "date" = "Ημερομηνία %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Κάτι δεν λειτουργεί";
+
 /* For the first routing */
 "accept" = "Συμφωνώ";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "Διαφωνώ";
+
+"whats_new_route_profile_title" = "Καλύτερα να ξέρεις παρά να εμπιστεύεσαι";
+
+"whats_new_route_profile_message" = "Για διαδρομές πεζών και ποδηλατών, υπάρχει πλέον διαθέσιμο προφίλ υψόμετρου.";
+
+"whats_new_booking_improve_title" = "Εξοικονομήστε χρήματα όταν κάνετε κράτηση σε ξενοδοχεία";
+
+"whats_new_booking_improve_message" = "Τα αποτελέσματα αναζήτησης για ξενοδοχεία περιέχουν πλέον κατηγορία τιμής. \nΠροσθέσαμε επίσης περισσότερα από 110.000 ξενοδοχεία.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "Παροχές";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "Εμφάνιση περισσοτέρων";
 
+"booking_reviews" = "Κριτικές";
+
+"booking_hotel" = "Ξενοδοχείο";
+
+/* hotel room */
+"booking_hotel_room" = "Δωμάτιο";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Άνοιγμα";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!";
+
 "dialog_taxi_offline" = "Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.";
 
 "dialog_taxi_error" = "Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.";
 
+"traffic_outdated" = "Οι πληροφορίες για την κίνηση είναι παλιές.";
+
 "big_font" = "Αύξηση μεγέθους γραμματοσειράς στο χάρτη";
 
 "traffic_update_app" = "Κάντε ενημέρωση του MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
+
+"banner_deliveryclub_title" = "Παράδοση φαγητού";
+
+"banner_deliveryclub_message" = "Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.";
+
+"banner_lamoda_title" = "Κατάστημα υποδημάτων και ρούχων online";
+
+"banner_lamoda_message" = "Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.";
+
+"banner_tutu_title" = "Εισιτήρια τρένων online";
+
+"banner_tutu_message" = "Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.";
+
+"banner_geerbest_title" = "Κατάστημα ηλεκτρονικών online";
+
+"banner_geerbest_message" = "Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.";
+
+"banner_rentalcars_title" = "Ενοικίαση αυτοκινήτων online";
+
+"banner_rentalcars_message" = "800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.";
+
+"banner_viator_title" = "Αναζήτηση οργανωμένων εκδρομών online";
+
+"banner_viator_message" = "Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.";
+
+/* december */
+"whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
+
+/* december */
+"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Πληροφορίες για την κίνηση κατά την περιαγωγή";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.";
+
+/* december */
+"whatsnew_order_taxi" = "Παραγγελία ταξί";
+
+/* december */
+"whatsnew_order_taxi_text" = "Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.";
+
+/* january */
+"whatsnew_improved_search" = "Βελτιωμένη αναζήτηση";
+
+/* january */
+"whatsnew_improved_search_text" = "Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.";
+
+/* january */
+"whatsnew_filters_in_search" = "Φίλτρα αναζήτησης";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.";
+
+/* january */
+"whatsnew_font_size" = "Μέγεθος γραμματοσειράς";
+
+/* january */
+"whatsnew_font_size_text" = "Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
 
+"whatsnew_more_info_on_hotels_title" = "Περισσότερες πληροφορίες για τα ξενοδοχεία";
+
+"whatsnew_more_info_on_hotels_message" = "Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.";
+
+"whatsnew_better_routing_title" = "Βελτιωμένη σχεδίαση διαδρομής";
+
+"whatsnew_better_routing_message" = "• Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.";
+
+"whatsnew_smaller_mwm_title" = "Μικρότερο μέγεθος χαρτών";
+
+"whatsnew_smaller_mwm_message" = "Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.";
+
+"whatsnew_waypoints_title" = "Ενδιάμεσα σημεία στη διαδρομή";
+
+"whatsnew_waypoints_message" = "Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.";
+
 "whatsnew_viator_title" = "Κάντε κράτηση σε μια ξενάγηση";
 
 "whatsnew_viator_message" = "Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.";
+
+"whatsnew_driving_style_title" = "Νέο στυλ χάρτη για την οδήγηση";
+
+"whatsnew_driving_style_message" = "Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.";
 
 "more_on_bookingcom" = "Περισσότερα στο Booking.com";
 
 "details_on_bookingcom" = "Λεπτομέρειες στο Booking.com";
 
 "reviews_on_bookingcom" = "Περισσότερες κριτικές στο Booking.com";
+
+"offline_place_page_more_information" = "Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.";
+
+"failed_load_information" = "Η φόρτωση πληροφοριών απέτυχε.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "Ενημέρωση (%s)";
 
 "whats_new_auto_update_button_later" = "Χειροκίνητη ενημέρωση αργότερα";
+
+"search_hotel_filter_apartment" = "Διαμερίσματα";
+
+"search_hotel_filter_camp_site" = "Κάμπινγκ";
+
+"search_hotel_filter_chalet" = "Σαλέ";
+
+"search_hotel_filter_guest_house" = "Ξενώνας";
+
+"search_hotel_filter_hostel" = "Πανδοχείο";
+
+"search_hotel_filter_resort" = "Θέρετρο";
+
+"search_hotel_filter_hotel" = "Ξενοδοχείο";
+
+"search_hotel_filter_motel" = "Μοτέλ";
 
 "create_campaign_button" = "Καταχωρήστε αυτήν την επιχείρηση";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "Μεταγραφή στα Λατινικά";
 
+"whatsnew_transliteration_message" = "Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Μάθετε περισσότερα";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή";
 
+"onboarding_welcome_message" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.";
+
+"button_accept_and_continue" = "Αποδοχή και συνέχεια";
+
+"button_learn_more" = "Μάθετε περισσότερα";
+
 "onboarding_storage_permissions_title" = "Εκχώρηση άδειας";
 
 "onboarding_storage_permissions_message" = "Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME";
+
+"button_exit" = "Έξοδος";
 
 "onboarding_detail_permissions_title" = "Το MAPS.ME χρειάζεται πρόσβαση στο";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.";
 
+"settings_device_memory" = "Μνήμη συσκευής";
+
+"settings_card_memory" = "Κάρτα μνήμης";
+
+"settings_storage_available" = "%s διαθέσιμα";
+
+"toast_location_permission_denied" = "Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας";
+
 "place_page_viator_title" = "Αξιοθέατα και περιηγήσεις";
 
+"button_use" = "Χρήση";
+
+"planning_route_manage_route" = "Διαχείριση διαδρομής";
+
+"button_plan" = "Σχέδιο";
+
+"button_add" = "Προσθήκη";
+
 "placepage_remove_stop" = "Κατάργηση";
+
+"planning_route_remove_title" = "Σύρετε εδώ για κατάργηση";
+
+"dialog_change_start_point_message" = "Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;";
+
+"button_replace" = "Αλλαγή";
 
 "placepage_add_stop" = "Προσθήκη στάσης";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "Disable autodownload";
 
 "add_my_position" = "Add my position";
 

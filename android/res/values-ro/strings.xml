@@ -14,13 +14,28 @@
 	<string name="cancel_download">Anulare descărcare</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Ștergere</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Nu mă mai întreba</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Continuare</string>
 	<string name="download_maps">Descărcare hărți</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Descărcare %qu kB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Descărcare %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Descărcarea a eșuat. Atingeți pentru a încerca din nou.</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Descărcat (%1$qu %2$s). Atingeți pentru a șterge.</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Se descarcă %qu%%. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Se descarcă…</string>
+	<string name="get_it_now">Obțineți acum</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometri</string>
 	<!-- Leave Review dialog - Review button -->
@@ -29,6 +44,8 @@
 	<string name="maps">Hărţi</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Hărţi:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Marcat pentru descărcare. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -36,18 +53,32 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Poziția mea</string>
 	<string name="ok">OK</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %s.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Amintește-mi mai târziu</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Mai târziu</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Niciodată</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Raportează o problemă</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Căutare</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Căutare hartă</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Atingeți pentru a descărca.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Da</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Ce sistem de măsură preferați?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Dispozitivul dvs. nu acceptă servicii de localizare.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Afișare pe hartă</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -65,13 +96,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Încercați din nou</string>
 	<string name="about_menu_title">Despre MAPS.ME</string>
+	<string name="downloading_touch_to_cancel">Se descarcă %d%%. Atingeți pentru a anula.</string>
+	<string name="downloaded_touch_to_delete">Descărcat (%s). Atingeți pentru a șterge.</string>
 	<string name="connection_settings">Setări conexiune</string>
+	<string name="download_mb_or_kb">Descărcare %s</string>
 	<string name="close">Închidere</string>
 	<string name="unsupported_phone">Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.</string>
 	<string name="download">Descărcare</string>
+	<string name="external_storage_is_not_available">Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.</string>
 	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza MAPS.ME.</string>
 	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
 	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
+	<string name="free_space_for_country">Vă rugăm să eliberați %1$s spațiu pe dispozitivul dvs., pentru a putea descărca %2$s.</string>
 	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.</string>
 	<string name="getting_position">Se obține poziția actuală</string>
 	<string name="download_resources_continue">Mergeți la hartă.</string>
@@ -88,14 +124,22 @@
 	<string name="pause">Pauză</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Continuare</string>
+	<string name="downloaded_touch_to_update">Descărcat (%s). Atingeți pentru a actualiza sau a șterge.</string>
+	<string name="update_mb_or_kb">Actualizați %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Aveți nevoie de hărți actualizate pentru funcția de căutare:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Actualizări disponibile pentru aceste hărți:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s, descărcată cu succes</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s - descărcarea a eșuat</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Adăugare la „Marcaje”</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Adăugare la „Marcaje”</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Culoare marcaj</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -104,12 +148,16 @@
 	<string name="bookmark_sets">Seturi marcaje</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Marcaje</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Culoare</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nume</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresă</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Poziție eliminată</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -128,6 +176,8 @@
 	<string name="wait_several_minutes">Aceasta poate dura câteva minute.\nVă rugăm să așteptați…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Vizibil</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS-ul este dezactivat. Vă rugăm să îl activați din setări.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unități de măsură</string>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -162,6 +212,8 @@
 	<string name="post">Poştă</string>
 	<!-- Search Suggestion -->
 	<string name="police">Poliție</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Nu s-a găsit niciun rezultat.</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Note</string>
 	<!-- Button text -->
@@ -182,16 +234,24 @@
 	<string name="unknown_current_position">Poziția dvs. nu a fost stabilită încă.</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Descărcați hărțile pentru țara în care vă aflați (%s).</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Descărcați hărțile pentru țara pe care o căutați pe (%s).</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Ne pare rău. Setările pentru stocarea hărților sunt dezactivate în acest moment.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Descărcarea hărților pentru țara dorită este în curs.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nu, mulțumesc</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe MAPS.ME! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta MAPS.ME!</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Salut,\n\nAm fixat poziția: %1$s pe MAPS.ME, hărțile offline din întreaga lume. Clic pe acest link %2$s sau pe acesta %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -200,8 +260,14 @@
 	<string name="share_by_message">Partajare ca mesaj</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Partajare</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Tin nhắn</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Copiați link-ul</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Afișează mai multe informații</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiat în clipboard: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -210,6 +276,12 @@
 	<string name="info">Informații</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gata</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Alegeți setările pentru ecranul din spate</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Setări ecran spate</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Afișare pe ecranul din spate</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Versiune: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -219,6 +291,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lungime</string>
 	<string name="share_my_location">Partajează-mi poziția</string>
+	<string name="menu_search">Căutare</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Hartă</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Diverse</string>
 	<string name="prefs_group_route">Navigație</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Afișare pe ecran</string>
@@ -234,6 +311,8 @@
 	<string name="pref_map_3d_title">Vizualizare în perspectivă</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">Clădiri 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Afectează durata de funcționare a bateriei</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -253,23 +332,52 @@
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 zi</string>
 	<string name="recent_track_help_text">Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.</string>
+	<string name="pref_track_ios_caption">Opțiunea Rută recentă vă afișează ruta folosită anterior.</string>
+	<string name="pref_track_ios_subcaption">Vă rugăm să selectați intervalul orar corespunzător salvării rutei.</string>
+	<string name="placepage_distance">Distanță</string>
+	<string name="placepage_coordinates">Coordonate</string>
+	<string name="placepage_unsorted">Nesortate</string>
 	<string name="search_show_on_map">Vizualizare pe hartă</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">Trebuie să vă mutăm marcajele în memoria internă, dar nu există spațiu suficient pentru ele. Vă rugăm să eliberați memoria, altfel marcajele nu vor fi disponibile.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Căutare pe hartă</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Nu a fost găsit nici un traseu</string>
+	<!-- route title -->
+	<string name="route">Traseu</string>
 	<!-- category title -->
 	<string name="routes">Trasee</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.</string>
+	<!-- Show on first launch. -->
+	<string name="agree">Sunt de acord</string>
+	<!-- Show on first launch -->
+	<string name="disagree">Nu sunt de acord</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Descărcați harta locului în care vă aflați</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Setări și altele</string>
 	<!-- Text in menu -->
 	<string name="website">Site web</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Comunitatea MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Apreciați-ne pe Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Urmăriți-ne pe Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Contactați-ne</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -286,6 +394,8 @@
 	<string name="subscribe_me_subject">Abonează-mă la buletinul informativ MAPS.ME.</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
@@ -294,6 +404,10 @@
 	<string name="pref_calibration_title">Calibrare busolă</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizați toate</string>
 	<!-- Cancel all button text -->
@@ -309,6 +423,12 @@
 	<string name="downloader_download_all_button">Descărcați toate</string>
 	<string name="downloader_downloading">Descărcare:</string>
 	<string name="downloader_search_results">S-au găsit</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Neactualizată</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Actualizată</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Actualizare</string>
 	<!-- Status of failed country in the list -->
@@ -330,13 +450,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support\@maps.me.</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Descărcare hartă + traseu</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Descărcare traseu</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Ștergere traseu</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Descărcați harta</string>
+	<string name="downloader_download_map_no_routing">Descărcare hartă fără rutare</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">Pornește!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Repetare</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Hartă + trasee</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Ștergere hartă</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Actualizare hartă</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Actualizare hartă + trasee</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Doar harta</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Meniu aplicație</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Utilizați serviciile Google Play, pentru a vă obține poziția actuală.</string>
 	<!-- Text for rating dialog -->
@@ -358,14 +495,46 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Descarcă hărțile adiacente rutei</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Descărcați harta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Descărcați informațiile pentru direcționare</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Datele suplimentare necesare pentru a crea trasee de la locația dvs.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Crearea unui traseu necesită ca toate hărțile de la locația dvs. până la destinație să fie descărcate și actualizate.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Nu există spațiu suficient</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Trebuie să descărcați %1$s MB, dar numai un spațiu de %2$s MB este disponibil.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Urmează să descărcați %s MB folosind abonamentul de date pentru mobil (în roaming). Acest lucru poate genera costuri suplimentare, în funcție de abonamentul dvs. de date, activat de operatorul de telefonie mobilă.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">marcaj</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Harta pentru poziția dvs. nu este descărcată</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Vă rugăm să activați serviciile de localizare</string>
+	<!-- download map -->
+	<string name="download_map">Descărcați harta pentru poziția dvs.</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Descărcați o hartă pentru poziția dvs. actuală pe iPhone-ul dvs.</string>
+	<!-- clear pin -->
+	<string name="nearby">În apropiere</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Ștergeți semnul de poziție</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Poziția dvs. curentă este nedefinită.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Descărcați hărțile pentru țara în care vă aflați</string>
 	<!-- download failed -->
 	<string name="download_failed">descărcarea a eșuat</string>
+	<!-- get the map -->
+	<string name="get_the_map">Obțineți harta</string>
 	<string name="save">Salvare</string>
+	<string name="new_group">grup nou</string>
+	<string name="create">creează</string>
 	<!-- red color -->
 	<string name="red">Roșu</string>
 	<!-- yellow color -->
@@ -397,8 +566,10 @@
 	<string name="dialog_routing_location_turn_wifi">Verificaţi semnalul GPS. Pentru a îmbunătăţi precizia localizării, activaţi Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Activaţi serviciile de localizare</string>
 	<string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activaţi serviciile de localizare.</string>
+	<string name="dialog_routing_location_unknown">Localizarea coordonatelor GPS curente a eşuat.</string>
 	<string name="dialog_routing_download_files">Descărcaţi fişierele necesare</string>
 	<string name="dialog_routing_download_and_update_all">Pentru calcularea traseului, descărcaţi şi actualizaţi toate hărţile şi informaţiile de stabilire a traseului pentru calea estimată.</string>
+	<string name="dialog_routing_routes_size">Fişiere cu informaţii de stabilire a traseului</string>
 	<string name="dialog_routing_unable_locate_route">Localizarea traseului a eşuat</string>
 	<string name="dialog_routing_cant_build_route">Crearea traseului a eşuat.</string>
 	<string name="dialog_routing_change_start_or_end">Ajustaţi punctul iniţial sau destinaţia.</string>
@@ -413,21 +584,33 @@
 	<string name="dialog_routing_system_error">Eroare sistem</string>
 	<string name="dialog_routing_application_error">Crearea traseului a eşuat din cauza unei erori a aplicaţiei.</string>
 	<string name="dialog_routing_try_again">Încercaţi din nou</string>
+	<string name="dialog_routing_send_error">Raportaţi problema</string>
+	<string name="dialog_routing_if_get_cross_route">Doriţi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.</string>
 	<string name="not_now">Nu acum</string>
+	<string name="dialog_routing_build_route">Creare</string>
 	<string name="dialog_routing_download_and_build_cross_route">Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
 	<string name="dialog_routing_download_cross_route">Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.</string>
+	<string name="dialog_routing_cross_route_always">Întotdeauna să se treacă această limită</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.</string>
 	<string name="search_select_map">Selectați harta</string>
+	<string name="search_select_other_map">Selectați altă hartă</string>
 	<!-- «Show» context menu -->
 	<string name="show">Afișare</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ascundere</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Redenumire</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mai multe…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Planificarea rutei a eșuat</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Sosire: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
 	<string name="rate_alert_title">Vă place aplicația?</string>
 	<string name="rate_alert_default_message">Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
 	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
@@ -435,17 +618,24 @@
 	<string name="rate_alert_less_than_four_star_message">Aveți vreo idee prin care putem să îmbunătățim aplicația?</string>
 	<string name="categories">Categorii</string>
 	<string name="history">Istoric</string>
+	<string name="next_turn_then">Apoi</string>
 	<string name="closed">Închis</string>
 	<string name="back_to">Înapoi la %s</string>
 	<string name="search_not_found">Ne pare rău, nu s-au găsit rezultate.</string>
 	<string name="search_not_found_query">Vă rugăm să încercați altă căutare.</string>
+	<string name="search_not_found_map">Vă rugăm să descărcați harta pe care doriți să căutați.</string>
+	<string name="search_not_found_location">Descărcați harta locului în care vă aflați acum.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
 	<string name="search_history_text">Accesare rapidă a căutărilor recente.</string>
 	<string name="clear_search">Ștergere istoric de căutare</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Afișare oferte</string>
+	<string name="p2p_route_planning">Planificare rută</string>
 	<string name="p2p_your_location">Locația dvs.</string>
+	<string name="p2p_from">Punctul de plecare</string>
+	<string name="p2p_to">Punctul de sosire</string>
 	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Se planifică…</string>
 	<string name="p2p_from_here">Din</string>
 	<string name="p2p_to_here">Ruta la</string>
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
@@ -464,9 +654,11 @@
 	<string name="editor_hours_closed">Ora închiderii</string>
 	<string name="editor_example_values">Exemple de valori</string>
 	<string name="editor_correct_mistake">Corectare greșeală</string>
+	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
 	<string name="editor_add_select_location">Locație</string>
 	<string name="editor_done_dialog_1">Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.</string>
 	<string name="editor_done_dialog_2">Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.</string>
+	<string name="editor_done_dialog_3">Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.</string>
 	<string name="share_with_friends">Partajează cu prietenii</string>
 	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
 	<string name="editor_report_problem_desription_2">Sau faceți-o pe http://www.openstreetmap.org/</string>
@@ -475,8 +667,14 @@
 	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
 	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
 	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
+	<string name="first_launch_congrats_title">MAPS.ME este gata pentru utilizare</string>
+	<string name="first_launch_congrats_text">Căutați și navigați în regim offline oriunde în lume, în mod gratuit.</string>
 	<string name="migrate_title">Important!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Descarcă toate</string>
+	<string name="delete_all">Ștergere toate</string>
 	<string name="autodownload">Descărcare automată</string>
+	<string name="disable_autodownload">Dezactivare descărcare automată</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Închis acum</string>
 	<!-- Place Page opening hours text -->
@@ -485,6 +683,8 @@
 	<string name="day_off_today">Astăzi închis</string>
 	<string name="day_off">Închis</string>
 	<string name="today">Azi</string>
+	<string name="sunrise_to_sunset">De la răsărit până la apus</string>
+	<string name="sunset_to_sunrise">De la apus până la răsărit</string>
 	<string name="add_opening_hours">Adăugare ore de funcționare</string>
 	<string name="edit_opening_hours">Editare ore de funcționare</string>
 	<string name="profile">Profil</string>
@@ -495,13 +695,30 @@
 	<string name="login">Autentificare</string>
 	<string name="password">Parolă</string>
 	<string name="forgot_password">Ați uitat parola?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Recuperare parolă</string>
+	<string name="enter_email_address_to_reset_password">Introduceți adresa de email pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.</string>
+	<string name="reset_password">Resetare parolă</string>
+	<string name="username">Nume de utilizator</string>
 	<string name="osm_account">Cont OSM</string>
 	<string name="logout">Ieșire</string>
+	<string name="login_and_edit_map_motivation_message">Autentificați-vă și editați informația despre obiectele de pe hartă, iar noi le vom face disponibile pentru milioane de alți utilizatori. Să facem împreună lumea mai bună.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Ultima încărcare</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Ați editat primul dvs. obiect!</string>
 	<string name="thank_you">Vă mulțumim</string>
+	<string name="login_with_google">Logați-vă cu contul de Google</string>
+	<string name="login_with_facebook">Logați-vă cu contul de Facebook</string>
+	<string name="login_with_openstreetmap">Logați-vă cu contul de www.openstreetmap.org</string>
 	<string name="edit_place">Editați loc</string>
 	<string name="place_name">Denumire loc</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Alte limbi</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Afișează mai mult</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Afișează mai puțin</string>
 	<string name="add_language">Adăugare limbă</string>
 	<string name="street">Stradă</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -511,12 +728,14 @@
 	<string name="add_street">Adăugare stradă</string>
 	<string name="choose_language">Alegeți o limbă</string>
 	<string name="choose_street">Alegeți o stradă</string>
+	<string name="postal_code">Cod postal</string>
 	<string name="cuisine">Bucătărie</string>
 	<string name="select_cuisine">Selectați tipul de bucătărie</string>
 	<!-- login text field -->
 	<string name="email_or_username">Adresa de email sau numele de utilizator</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Actualizați hărțile</string>
+	<string name="common_no_wifi_dialog">Nu există conexiune WiFi. Doriți să continuați cu conexiunea de pe mobil?</string>
 	<string name="downloader_delete_map_dialog">Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.</string>
 	<string name="downloader_update_maps">Actualizați hărțile</string>
 	<string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.</string>
@@ -527,8 +746,14 @@
 	<string name="common_check_internet_connection_dialog">Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.</string>
 	<string name="downloader_no_space_title">Spațiu insuficient</string>
 	<string name="downloader_no_space_message">Vă rugăm să ștergeți datele care nu sunt necesare</string>
+	<string name="editor_general_auth_error_dialog">Eroare generală de conectare.</string>
 	<string name="editor_login_error_dialog">Eroare de conectare.</string>
+	<string name="editor_login_failed_dialog">Conectare eșuată</string>
+	<string name="editor_username_error_dialog">Nume de utilizator nevalid</string>
+	<string name="editor_place_edited_dialog">Ați editat un obiect!</string>
+	<string name="editor_login_with_osm">Conectați-vă cu OpenStreetMap</string>
 	<string name="editor_profile_changes">Modificări confirmate</string>
+	<string name="editor_profile_unsent_changes">Netrimis:</string>
 	<string name="editor_focus_map_on_location">Trageți de hartă pentru a selecta locația corectă a obiectului.</string>
 	<string name="editor_add_select_category">Selectați categoria</string>
 	<string name="editor_add_select_category_popular_subtitle">Popular</string>
@@ -539,14 +764,25 @@
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Descrierea detaliată a problemei</string>
 	<string name="editor_report_problem_other_title">O problemă diferită</string>
+	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="placepage_add_business_button">Adăugare organizație</string>
 	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
 	<string name="whatsnew_smallmwm_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.</string>
+	<string name="whatsnew_search_header">Căutare nouă</string>
+	<string name="whatsnew_search_message">Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.</string>
+	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME folosește datele comunității OpenStreetMap community.</string>
 	<string name="onboarding_offline_navigation_title">Niciodată nu vă veți rătăci din nou</string>
 	<string name="onboarding_offline_navigation_message">Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Navigare offline</string>
+	<string name="onboarding_offline_navigation_message_2">Planificați traseele optime cu mașina și cele pietonale.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet</string>
 	<string name="onboarding_offline_maps_message">Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.</string>
+	<string name="onboarding_notifications_message">Pentru a obține cele mai recente hărți, obțineți notificările de actualizări</string>
+	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
+	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
+	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
 	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
@@ -559,6 +795,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.</string>
 	<string name="editor_sharing_title">Am îmbunătățit hărțile MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Vom trimite comentariul dumneavoastră cartografilor.</string>
+	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>
 	<string name="download_over_mobile_header">Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?</string>
@@ -576,9 +814,15 @@
 	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
+	<string name="editor_tag_description">Introduceți compania, organizația sau persoana responsabilă de facilități.</string>
+	<string name="editor_no_local_edits_title">Nu aveți modificări locale</string>
+	<string name="editor_no_local_edits_description">Acesta arată numărul de modificări sugerate pe hartă care sunt momentan accesibile doar pe dispozitivul dvs.</string>
+	<string name="editor_send_to_osm">Trimitere la OSM</string>
+	<string name="editor_remove">Eliminare</string>
 	<string name="downloader_my_maps_title">Hărțile mele</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ați descărcat nicio hartă</string>
 	<string name="downloader_no_downloaded_maps_message">Descărcați hărți pt. a găsi locația și navigați offline.</string>
+	<string name="downloader_find_place_hint">Căutare oraș sau țară</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Continuați cu detectarea locației dvs. curente?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -587,16 +831,38 @@
 	<string name="current_location_unknown_stop_button">Oprire</string>
 	<string name="current_location_unknown_error_title">Locația curentă este necunoscută.</string>
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
+	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
+	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
 	<string name="location_services_disabled_message">Activaţi accesul la geolocalizare din setările dispozitivului</string>
 	<string name="location_services_disabled_1">1. Deschideți setările</string>
 	<string name="location_services_disabled_2">2. Apăsați pe Localizare</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Selectați în timp ce folosiți aplicația</string>
+	<string name="placepage_parking_surface">Suprafață</string>
+	<string name="placepage_parking_multistorey">Multi-etajat</string>
+	<string name="placepage_parking_underground">Subteran</string>
+	<string name="placepage_parking_rooftop">Pe acoperiș</string>
+	<string name="placepage_parking_sheds">Garaj</string>
+	<string name="placepage_parking_carports">Garaje</string>
+	<string name="placepage_parking_pay">Cu plată</string>
+	<string name="placepage_parking_free">Gratuit</string>
+	<string name="placepage_parking_interval">Interval de plată</string>
+	<string name="placepage_entrance_number">Nr.</string>
+	<string name="placepage_entrance_type">Intrare</string>
+	<string name="placepage_flat">ap.</string>
+	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="place_page_booking_rating">Evaluare: %s</string>
 	<string name="place_page_starting_from">din %s</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">z</string>
 	<string name="hour">o</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descriere</string>
@@ -613,24 +879,38 @@
 	<string name="editor_reset_edits_button">Resetare</string>
 	<string name="editor_remove_place_message">Eliminați locul adăugat?</string>
 	<string name="editor_remove_place_button">Eliminare</string>
+	<string name="editor_status_sending">Se trimite…</string>
 	<string name="editor_place_doesnt_exist">Locul nu există</string>
 	<string name="text_more_button">…mai multe</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Introduceți numărul de telefon corect</string>
 	<string name="error_enter_correct_web">Introduceți o adresă web validă</string>
 	<string name="error_enter_correct_email">Introduceți o adresă de email validă</string>
+	<string name="error_enter_correct">Introduceți o valoare validă</string>
 	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
 	<string name="editor_profile_rating_place">Poziţie în clasament</string>
+	<string name="booking_dialog_not_connect_header">Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet</string>
+	<string name="button_try">Încercaţi-o</string>
 	<string name="refresh">Actualizați</string>
 	<string name="last_update">Ultima actualizare: %s</string>
+	<string name="booking_checkin">check in: %s</string>
+	<string name="booking_checkout">check out: %s</string>
 	<string name="placepage_add_place_button">Adăugați un loc pe hartă</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Doriți să îl trimiteți tuturor utilizatorilor?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asigurați-vă că nu ați introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vom verifica modificările. Dacă vor apărea întrebări, vă vom contacta prin email.</string>
+	<string name="navigation_overview_button">rezumat</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">Salvare marcaje</string>
+	<string name="bookmarks_empty_message_1">Atingeți ★ pentru a salva locurile preferate, pentru un acces rapid.</string>
+	<string name="bookmarks_empty_message_2">Importare marcaje din Mail și web.</string>
+	<string name="bookmarks_empty_message_3">check out: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Hoteluri rezervate</string>
+	<string name="place_page_button_read_descriprion">Citiți</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Dezactivați înregistrarea celui mai recent traseu urmat?</string>
 	<!-- If a hotel is being shared -->
@@ -638,7 +918,16 @@
 	<string name="off_recent_track_background_button">Dezactivare</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Aruncați o privire</string>
+	<string name="continue_recent_track_background_button">Continuare</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
+	<string name="whatsnew_car_navigation_header">Navigație pentru vehicule, ușor de folosit</string>
+	<string name="whatsnew_car_navigation_message">• Elementele aparținând navigației ocupă mai puțin spațiu.\n• Afișăm viteza și am adăugat o funcție de zoom automat.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navigație pentru biciclete</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Navigația pentru biciclete ia în considerare caracteristicile traseului.\n• Creăm trasee mai ușoare, luând în considerare gradul de înclinare al drumului.</string>
+	<string name="whatsnew_booking_2_header">Căutarea hotelurilor este mai ușoară</string>
+	<string name="whatsnew_booking_2_message">Rezultatele de căutare indică nota hotelului și categoria de preț.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
+	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Dați un calificativ pe Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -653,10 +942,16 @@
 	<string name="allow_statistics_hint">Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.</string>
 	<string name="general_settings">Setări generale</string>
 	<string name="date">Data %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Ceva nu funcționează corect</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptați</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuzați</string>
+	<string name="whats_new_route_profile_title">Mai bine căutați soluții decât să greșiți</string>
+	<string name="whats_new_route_profile_message">Pentru rutele pentru pietoni și bicicliști, afișam acum profilul de elevație.</string>
+	<string name="whats_new_booking_improve_title">Economisiți bani când rezervați hoteluri</string>
+	<string name="whats_new_booking_improve_message">Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Facilităţi</string>
 	<!-- For place page hotel nearby block -->
@@ -688,6 +983,16 @@
 	<string name="search_in_table">Listă</string>
 	<string name="booking_based_on_reviews">Bazat pe comentariile privind hotelul %d</string>
 	<string name="booking_show_more">Arată mai multe</string>
+	<string name="booking_reviews">Comentarii</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Cameră</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Deschideți</string>
+	<string name="whatsnew_uber_header">MAPS.ME și Uber</string>
+	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
 	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
 	<string name="mobile_data_dialog">Folosiți internetul mobil pentru a afişa informaţii detaliate?</string>
@@ -699,12 +1004,49 @@
 	<string name="mobile_data_option_never">Nu utilizați niciodată</string>
 	<string name="mobile_data_option_ask">Întrebați întotdeauna</string>
 	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
+	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
 	<string name="big_font">Măriți dimensiunea fontului pe hartă</string>
 	<string name="traffic_update_app">Vă rugăm să actualizaţi MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
+	<string name="banner_deliveryclub_title">Livrare mâncare</string>
+	<string name="banner_deliveryclub_message">Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.</string>
+	<string name="banner_lamoda_title">Îmbrăcăminte și magazin de pantofi online</string>
+	<string name="banner_lamoda_message">Peste 1.000 de branduri. Până la 70% reducere. Livrare gratuită în toată țara.</string>
+	<string name="banner_tutu_title">Bilete de tren online</string>
+	<string name="banner_tutu_message">Bilete de tren către orice oraș online - prețuri, căutare şi rezervare.</string>
+	<string name="banner_geerbest_title">Magazin de produse electronice online</string>
+	<string name="banner_geerbest_message">Căutare instantanee printre peste 50.000 de articole la prețuri mici.</string>
+	<string name="banner_rentalcars_title">Închiriere mașini online</string>
+	<string name="banner_rentalcars_message">800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.</string>
+	<string name="banner_viator_title">Căutare excursii online</string>
+	<string name="banner_viator_message">Căutați în peste 50.000 de excursii din întreaga lume.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Date privind traficul în 36 de țări</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Informații privind traficul în roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Comandați un taxi</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Căutare îmbunătățită</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Chiar și căutările scrise greșit aduc rezultate de căutare precise.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Filtre de căutare</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Căutați hoteluri în funcție de preț și calificare.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Dimensiunea fontului</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Etichetele de pe hartă pot fi făcute mai mari.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -714,16 +1056,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Culori trafic simplificate</string>
 	<string name="enable_logging">Activare jurnalizare</string>
+	<string name="whatsnew_more_info_on_hotels_title">Informaţii suplimentare despre hoteluri</string>
+	<string name="whatsnew_more_info_on_hotels_message">Un aspect nou al paginilor hotelurilor: fotografii, recenzii ale utilizatorilor și alte informații online.</string>
+	<string name="whatsnew_better_routing_title">Planificare îmbunătățită a rutei</string>
+	<string name="whatsnew_better_routing_message">• Estimare mai exactă a timpului de sosire.\n• Aplicația ia în calcul zonele cu restricții și semnele de circulație.</string>
+	<string name="whatsnew_smaller_mwm_title">Hărţile sunt acum mai mici</string>
+	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
+	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
+	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
 	<string name="whatsnew_viator_title">Rezervați un tur</string>
 	<string name="whatsnew_viator_message">Selectați dintre tururile populare din orașe turistice din întreaga lume.</string>
+	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
+	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
 	<string name="details_on_bookingcom">Detalii pe Booking.com</string>
 	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
+	<string name="offline_place_page_more_information">Conectați-vă la internet pentru a primi mai multe informații despre locație.</string>
+	<string name="failed_load_information">Încărcarea informațiilor a eșuat.</string>
 	<string name="whats_new_auto_update_updating_maps">Se actualizează hărțile</string>
 	<string name="whats_new_auto_update_title">Actualizați hărțile descărcate</string>
 	<string name="whats_new_auto_update_message">Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte</string>
 	<string name="whats_new_auto_update_button_size">Actualizare (%s)</string>
 	<string name="whats_new_auto_update_button_later">Actualizare manuală mai târziu</string>
+	<string name="search_hotel_filter_apartment">Apartamente</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Cabană</string>
+	<string name="search_hotel_filter_guest_house">Pensiune</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Stațiuni</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
 	<string name="create_campaign_button">Revendicați această afacere</string>
 	<string name="view_campaign_button">Afacerea este promovată</string>
 	<string name="search_hotel_filters_type">Tip</string>
@@ -735,12 +1097,19 @@
 	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.</string>
 	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
+	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
 	<string name="learn_more">Mai multe</string>
 	<string name="exit">Ieșire</string>
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
+	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.</string>
+	<string name="button_accept_and_continue">Acceptare și continuare</string>
+	<string name="button_learn_more">Aflați mai multe</string>
 	<string name="onboarding_storage_permissions_title">Acordați acces</string>
 	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.</string>
+	<string name="button_exit">Ieșire</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME necesită acces la</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Stocare</string>
@@ -749,10 +1118,20 @@
 	<string name="onboarding_detail_permissions_location_title">Locație</string>
 	<string name="onboarding_detail_permissions_location_message">Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.</string>
+	<string name="settings_device_memory">Memoria dispozitivului</string>
+	<string name="settings_card_memory">Card</string>
+	<string name="settings_storage_available">%s disponibil</string>
+	<string name="toast_location_permission_denied">Permisiune de accesare a locației respinsă</string>
 	<string name="place_page_viator_title">Atracții și tururi</string>
+	<string name="button_use">Utilizare</string>
+	<string name="planning_route_manage_route">Administrare traseu</string>
+	<string name="button_plan">Planificare</string>
+	<string name="button_add">Adăugare</string>
 	<string name="placepage_remove_stop">Eliminare</string>
+	<string name="planning_route_remove_title">Trageți aici pentru a elimina</string>
+	<string name="dialog_change_start_point_message">Înlocuiți punctul de plecare cu locația curentă?</string>
+	<string name="button_replace">Înlocuire</string>
 	<string name="placepage_add_stop">Adăugare oprire</string>
 	<string name="whatsnew_intermediate_point_title">Oprire suplimentară</string>
 	<string name="whatsnew_intermediate_point_message">Planificați o rută cu un punct intermediar.</string>
-	<string name="disable_autodownload">Dezactivare descărcare automată</string>
 </resources>

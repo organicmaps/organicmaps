@@ -221,6 +221,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Μήκος</string>
 	<string name="share_my_location">Κοινοποίηση της τοποθεσίας μου</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Χάρτης</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Διάφορα</string>
 	<string name="prefs_group_route">Πλοήγηση</string>
 	<string name="pref_zoom_title">Πλήκτρα μεγέθυνσης</string>
 	<string name="pref_zoom_summary">Εμφάνιση στο χάρτη</string>
@@ -262,6 +266,12 @@
 	<string name="kitkat_migrate_failed">Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Αναζήτηση στο χάρτη</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Δεν βρέθηκε διαδρομή</string>
+	<!-- route title -->
+	<string name="route">Διαδρομή</string>
 	<!-- category title -->
 	<string name="routes">Διαδρομές</string>
 	<!-- text of notification -->
@@ -269,9 +279,13 @@
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
 	<!-- Text in menu -->
+	<string name="maps_me_community">Κοινότητα MAPS.ME\u0020</string>
+	<!-- Text in menu -->
 	<string name="like_on_facebook">Κάντε Like στο Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Επικοινωνήστε μαζί μας</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Σχόλια</string>
 	<!-- Text in menu -->
@@ -360,13 +374,29 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Λήψη χάρτη</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Κάντε λήψη ενημερωμένου χάρτη και δεδομένων πλοήγησης για να έχετε όλα τα χαρακτηριστικά του MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Λήψη δεδομένων πλοήγησης</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Απαιτούνται επιπλέον δεδομένα για τη δημιουργία διαδρομών από την τοποθεσία σας.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Για να δημιουργήσετε μια διαδρομή, πρέπει να κατεβάσετε και να ενημερώσετε όλους τους χάρτες από τη θέση σας στον προορισμό σας.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Δεν υπάρχει αρκετός χώρος</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Πρέπει να κάνετε λήψη %1$s MB, αλλά μόνο %2$s MB είναι διαθέσιμα.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Πρόκειται να κάνετε λήψη %s MB χρησιμοποιώντας Δεδομένα Δικτύου Κινητής Τηλεφωνίας (σε Περιαγωγή). Αυτό μπορεί να προκαλέσει επιπρόσθετες χρεώσεις, που εξαρτώνται από το πρόγραμμα δεδομένων δικτύου κινητής τηλεφωνίας του παρόχου σας.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">αγαπημένο</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
 	<string name="save">Αποθήκευση</string>
 	<string name="edit_description_hint">Οι περιγραφές σας (κείμενο ή html)</string>
+	<string name="new_group">νέα ομάδα</string>
+	<string name="create">δημιουργήστε</string>
 	<!-- red color -->
 	<string name="red">Κόκκινο</string>
 	<!-- yellow color -->
@@ -429,6 +459,8 @@
 	<string name="rename">Μετονομασία</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ο σχεδιασμός διαδρομής απέτυχε</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Άφιξη στις %s</string>
 	<string name="rate_alert_title">Σας αρέσει η εφαρμογή;</string>
 	<string name="rate_alert_default_message">Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.</string>
 	<string name="rate_alert_five_star_message">Ζήτω! Σας ευχαριστούμε πάρα πολύ!</string>
@@ -448,7 +480,10 @@
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>
 	<string name="p2p_your_location">Η τοποθεσία σας</string>
+	<string name="p2p_from">Από</string>
+	<string name="p2p_to">Έως</string>
 	<string name="p2p_start">Έναρξη</string>
+	<string name="p2p_planning">Σχεδιασμός…</string>
 	<string name="p2p_from_here">Διαδρομή από</string>
 	<string name="p2p_to_here">Διαδρομή στο</string>
 	<string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
@@ -478,6 +513,8 @@
 	<string name="editor_report_problem_no_place_title">Η τοποθεσία δεν υπάρχει</string>
 	<string name="editor_report_problem_under_construction_title">Εκτός λειτουργίας για συντήρηση</string>
 	<string name="editor_report_problem_duplicate_place_title">Διπλότυπη τοποθεσία</string>
+	<string name="first_launch_congrats_title">Το MAPS.ME είναι έτοιμο για χρήση</string>
+	<string name="first_launch_congrats_text">Κάντε αναζήτηση και πλοηγηθείτε παντού στον κόσμο χωρίς σύνδεση και χωρίς χρέωση.</string>
 	<string name="migrate_title">Σημαντικό!</string>
 	<string name="autodownload">Αυτόματη λήψη</string>
 	<!-- Place Page opening hours text -->
@@ -505,6 +542,10 @@
 	<string name="thank_you">Σας ευχαριστούμε</string>
 	<string name="edit_place">Επεξεργασία μέρους</string>
 	<string name="place_name">Όνομα μέρους</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Περισσότερα</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Λιγότερα</string>
 	<string name="add_language">Προσθήκη γλώσσας</string>
 	<string name="street">Οδός</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -545,11 +586,19 @@
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="whatsnew_smallmwm_header">Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά</string>
 	<string name="whatsnew_smallmwm_message">Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.</string>
+	<string name="whatsnew_search_header">Νέα αναζήτηση</string>
+	<string name="whatsnew_search_message">Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.</string>
+	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη*</string>
 	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
+	<string name="whatsnew_editor_message_2">* Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Δεν θα χαθείτε ποτέ ξανά</string>
 	<string name="onboarding_offline_navigation_message">Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet</string>
 	<string name="onboarding_offline_maps_message">Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.</string>
+	<string name="onboarding_notifications_message">Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων</string>
+	<string name="onboarding_notifications_title">Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις</string>
+	<string name="onboarding_location_title">Βοηθήστε μας να σας βρούμε</string>
+	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
 	<string name="onboarding_permissions_title">Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
 	<string name="onboarding_welcome_title">Καλωσήρθατε στο MAPS.ME</string>
@@ -590,6 +639,10 @@
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
 	<string name="current_location_unknown_error_message">Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.</string>
+	<string name="whatsnew_update_editor_title">Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη</string>
+	<string name="whatsnew_update_editor_message">Οι χρήστες MAPS.ME έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.</string>
 	<string name="location_services_disabled_header">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες</string>
 	<string name="location_services_disabled_message">Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής</string>
 	<string name="location_services_disabled_1">1. Ανοίξτε τις ρυθμίσεις</string>
@@ -635,6 +688,14 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Αναχώρηση</string>
 	<string name="recent_track_background_dialog_message">Το MAPS.ME χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
+	<string name="whatsnew_car_navigation_header">Πλοήγηση οχήματος φιλική προς το χρήστη</string>
+	<string name="whatsnew_car_navigation_message">• Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Πλοήγηση με ποδήλατο</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Η πλοήγηση με ποδήλατο λαμβάνει υπόψη τα δεδομένα της μορφολογίας του εδάφους. \n• Δημιουργούνται πιο εύκολες διαδρομές λαμβάνοντας υπόψη την κλίση του εδάφους.</string>
+	<string name="whatsnew_booking_2_header">Εύκολη αναζήτηση ξενοδοχείου</string>
+	<string name="whatsnew_booking_2_message">Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.</string>
+	<string name="whatsnew_cycle_navigation_header">Πλοήγηση με ποδήλατο (έκδοση beta)</string>
+	<string name="whatsnew_cycle_navigation_message">Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το MAPS.ME και μοιραστείτε τη γνώμη σας μαζί μας.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Βαθμολογήστε το στο Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -649,10 +710,16 @@
 	<string name="allow_statistics_hint">Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.</string>
 	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<string name="date">Ημερομηνία %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Κάτι δεν λειτουργεί</string>
 	<!-- For the first routing -->
 	<string name="accept">Συμφωνώ</string>
 	<!-- For the first routing -->
 	<string name="decline">Διαφωνώ</string>
+	<string name="whats_new_route_profile_title">Καλύτερα να ξέρεις παρά να εμπιστεύεσαι</string>
+	<string name="whats_new_route_profile_message">Για διαδρομές πεζών και ποδηλατών, υπάρχει πλέον διαθέσιμο προφίλ υψόμετρου.</string>
+	<string name="whats_new_booking_improve_title">Εξοικονομήστε χρήματα όταν κάνετε κράτηση σε ξενοδοχεία</string>
+	<string name="whats_new_booking_improve_message">Τα αποτελέσματα αναζήτησης για ξενοδοχεία περιέχουν πλέον κατηγορία τιμής. \nΠροσθέσαμε επίσης περισσότερα από 110.000 ξενοδοχεία.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Παροχές</string>
 	<!-- For place page hotel nearby block -->
@@ -684,6 +751,16 @@
 	<string name="search_in_table">Λίστα</string>
 	<string name="booking_based_on_reviews">Σύμφωνα με %d κριτικές ξενοδοχείων</string>
 	<string name="booking_show_more">Εμφάνιση περισσοτέρων</string>
+	<string name="booking_reviews">Κριτικές</string>
+	<string name="booking_hotel">Ξενοδοχείο</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Δωμάτιο</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Άνοιγμα</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!</string>
 	<string name="dialog_taxi_offline">Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.</string>
 	<string name="dialog_taxi_error">Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
@@ -695,12 +772,49 @@
 	<string name="mobile_data_option_never">Να μην χρησιμοποιείται ποτέ</string>
 	<string name="mobile_data_option_ask">Να γίνεται ερώτηση πάντα</string>
 	<string name="traffic_update_maps_text">Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
+	<string name="traffic_outdated">Οι πληροφορίες για την κίνηση είναι παλιές.</string>
 	<string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
 	<string name="traffic_update_app">Κάντε ενημέρωση του MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες</string>
+	<string name="banner_deliveryclub_title">Παράδοση φαγητού</string>
+	<string name="banner_deliveryclub_message">Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.</string>
+	<string name="banner_lamoda_title">Κατάστημα υποδημάτων και ρούχων online</string>
+	<string name="banner_lamoda_message">Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.</string>
+	<string name="banner_tutu_title">Εισιτήρια τρένων online</string>
+	<string name="banner_tutu_message">Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.</string>
+	<string name="banner_geerbest_title">Κατάστημα ηλεκτρονικών online</string>
+	<string name="banner_geerbest_message">Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.</string>
+	<string name="banner_rentalcars_title">Ενοικίαση αυτοκινήτων online</string>
+	<string name="banner_rentalcars_message">800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.</string>
+	<string name="banner_viator_title">Αναζήτηση οργανωμένων εκδρομών online</string>
+	<string name="banner_viator_message">Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Πληροφορίες για την κίνηση σε 36 χώρες</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Πληροφορίες για την κίνηση κατά την περιαγωγή</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Παραγγελία ταξί</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Βελτιωμένη αναζήτηση</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Φίλτρα αναζήτησης</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Μέγεθος γραμματοσειράς</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -710,16 +824,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Εύκολα χρώματα για την κίνηση</string>
 	<string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
+	<string name="whatsnew_more_info_on_hotels_title">Περισσότερες πληροφορίες για τα ξενοδοχεία</string>
+	<string name="whatsnew_more_info_on_hotels_message">Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.</string>
+	<string name="whatsnew_better_routing_title">Βελτιωμένη σχεδίαση διαδρομής</string>
+	<string name="whatsnew_better_routing_message">• Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.</string>
+	<string name="whatsnew_smaller_mwm_title">Μικρότερο μέγεθος χαρτών</string>
+	<string name="whatsnew_smaller_mwm_message">Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.</string>
+	<string name="whatsnew_waypoints_title">Ενδιάμεσα σημεία στη διαδρομή</string>
+	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
 	<string name="whatsnew_viator_title">Κάντε κράτηση σε μια ξενάγηση</string>
 	<string name="whatsnew_viator_message">Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.</string>
+	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
+	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
 	<string name="more_on_bookingcom">Περισσότερα στο Booking.com</string>
 	<string name="details_on_bookingcom">Λεπτομέρειες στο Booking.com</string>
 	<string name="reviews_on_bookingcom">Περισσότερες κριτικές στο Booking.com</string>
+	<string name="offline_place_page_more_information">Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.</string>
+	<string name="failed_load_information">Η φόρτωση πληροφοριών απέτυχε.</string>
 	<string name="whats_new_auto_update_updating_maps">Ενημέρωση χαρτών</string>
 	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
 	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
 	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
 	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
+	<string name="search_hotel_filter_apartment">Διαμερίσματα</string>
+	<string name="search_hotel_filter_camp_site">Κάμπινγκ</string>
+	<string name="search_hotel_filter_chalet">Σαλέ</string>
+	<string name="search_hotel_filter_guest_house">Ξενώνας</string>
+	<string name="search_hotel_filter_hostel">Πανδοχείο</string>
+	<string name="search_hotel_filter_resort">Θέρετρο</string>
+	<string name="search_hotel_filter_hotel">Ξενοδοχείο</string>
+	<string name="search_hotel_filter_motel">Μοτέλ</string>
 	<string name="create_campaign_button">Καταχωρήστε αυτήν την επιχείρηση</string>
 	<string name="view_campaign_button">Η επιχείριση διαφημίζεται</string>
 	<string name="search_hotel_filters_type">Τύπος</string>
@@ -731,12 +865,19 @@
 	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
+	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
 	<string name="exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
+	<string name="onboarding_welcome_message">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.</string>
+	<string name="button_accept_and_continue">Αποδοχή και συνέχεια</string>
+	<string name="button_learn_more">Μάθετε περισσότερα</string>
 	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
 	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME</string>
+	<string name="button_exit">Έξοδος</string>
 	<string name="onboarding_detail_permissions_title">Το MAPS.ME χρειάζεται πρόσβαση στο</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Αποθηκευτικός χώρος</string>
@@ -745,8 +886,19 @@
 	<string name="onboarding_detail_permissions_location_title">Τοποθεσία</string>
 	<string name="onboarding_detail_permissions_location_message">Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.</string>
+	<string name="settings_device_memory">Μνήμη συσκευής</string>
+	<string name="settings_card_memory">Κάρτα μνήμης</string>
+	<string name="settings_storage_available">%s διαθέσιμα</string>
+	<string name="toast_location_permission_denied">Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας</string>
 	<string name="place_page_viator_title">Αξιοθέατα και περιηγήσεις</string>
+	<string name="button_use">Χρήση</string>
+	<string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
+	<string name="button_plan">Σχέδιο</string>
+	<string name="button_add">Προσθήκη</string>
 	<string name="placepage_remove_stop">Κατάργηση</string>
+	<string name="planning_route_remove_title">Σύρετε εδώ για κατάργηση</string>
+	<string name="dialog_change_start_point_message">Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;</string>
+	<string name="button_replace">Αλλαγή</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
 	<string name="whatsnew_intermediate_point_title">Επιπλέον στάση</string>
 	<string name="whatsnew_intermediate_point_message">Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.</string>

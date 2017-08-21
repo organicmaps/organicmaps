@@ -14,13 +14,28 @@
 	<string name="cancel_download">Herunterladen abbrechen</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Löschen</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Nicht mehr fragen</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Herunterladen fortsetzen</string>
 	<string name="download_maps">Karten herunterladen</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Herunterladen %qu kB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Herunterladen %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Heruntergeladen (%1$qu %2$s). Antippen, um zu löschen</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Herunterladen %qu%%. Antippen, um abzubrechen</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Wird heruntergeladen…</string>
+	<string name="get_it_now">Installieren</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Danke, dass Sie MAPS.ME nutzen! Gefällt Ihnen die App? Erzählen Sie Ihren Freunden davon! Das ist der beste Dank für uns.</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometer</string>
 	<!-- Leave Review dialog - Review button -->
@@ -29,6 +44,8 @@
 	<string name="maps">Karten</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Karten:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Zum Herunterladen vorgemerkt. Antippen, um abzubrechen</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -36,18 +53,32 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mein Standort</string>
 	<string name="ok">OK</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %s herunterzuladen.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Später erinnern</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Später</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Nie</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Problem melden</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Suche</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Auf der Karte suchen</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Antippen, um herunterzuladen</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Welches Einheitensystem bevorzugen Sie?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Ihr Gerät unterstützt keine Ortungsdienste</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Auf der Karte anzeigen</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -65,13 +96,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Erneut versuchen</string>
 	<string name="about_menu_title">Über MAPS.ME</string>
+	<string name="downloading_touch_to_cancel">Herunterladen %d%%. Antippen, um abzubrechen</string>
+	<string name="downloaded_touch_to_delete">Heruntergeladen (%s). Antippen, um zu löschen</string>
 	<string name="connection_settings">Verbindungseinstellungen</string>
+	<string name="download_mb_or_kb">Herunterladen %s</string>
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
 	<string name="download">Herunterladen</string>
+	<string name="external_storage_is_not_available">SD-Karte/USB-Speicher mit heruntergeladenen Karten nicht verfügbar</string>
 	<string name="disconnect_usb_cable">Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um MAPS.ME zu verwenden</string>
 	<string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
 	<string name="not_enough_memory">Nicht genügend Speicher, um die Anwendung zu starten</string>
+	<string name="free_space_for_country">Bitte zuerst %1$s Platz schaffen, um %2$s herunterzuladen</string>
 	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.</string>
 	<string name="getting_position">Ermittle momentane Position</string>
 	<string name="download_resources_continue">Zur Karte</string>
@@ -88,14 +124,22 @@
 	<string name="pause">Pause</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Fortfahren</string>
+	<string name="downloaded_touch_to_update">Heruntergeladen (%s), antippen zum Aktualisieren oder Löschen</string>
+	<string name="update_mb_or_kb">%s aktualisieren</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Sie benötigen aktualisierte Karten für die Suchfunktion:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Aktualisierung für diese Karten erhältlich:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Sie benötigen MAPS.ME Lite nicht mehr und können es deinstallieren.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s erfolgreich heruntergeladen</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s Herunterladen fehlgeschlagen</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Neue Gruppe hinzufügen</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Zu den Lesezeichen hinzufügen</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Lesezeichen-Farbe</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -104,12 +148,16 @@
 	<string name="bookmark_sets">Lesezeichenmappe</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Lesezeichengruppen</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Farbe</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Stecknadel entfernen</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Gruppe</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -128,10 +176,18 @@
 	<string name="wait_several_minutes">Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Sichtbar</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS ist deaktiviert. Bitte aktivieren Sie es in den Einstellungen.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Maßeinheiten</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Wählen Sie zwischen Kilometern und Meilen</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Überall</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">In meiner Nähe</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Auf dem Bildschirm</string>
 	<!-- Search Suggestion -->
 	<string name="food">Essen</string>
 	<!-- Search Suggestion -->
@@ -162,6 +218,8 @@
 	<string name="post">Post</string>
 	<!-- Search Suggestion -->
 	<string name="police">Polizeistation</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Keine Ergebnisse gefunden</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notizen</string>
 	<!-- Button text -->
@@ -182,16 +240,24 @@
 	<string name="unknown_current_position">Ihr Standort konnte noch nicht ermittelt werden</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Land Ihres derzeitigen Standorts herunterladen (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Land herunterladen, in dem Sie suchen (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Das Land wird gerade heruntergeladen.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nein danke</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Siehe meine Markierung auf MAPS.ME an. %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Schau dir meine Stecknadel auf der MAPS.ME-Karte an</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Hi,\n\nIch habe %1$s auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -200,8 +266,14 @@
 	<string name="share_by_message">Als Nachricht teilen</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Teilen</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Nachricht</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Link kopieren</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Weitere Infos anzeigen</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -210,6 +282,12 @@
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Fertig</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Einstellungen für den rückseitigen Bildschirm wählen</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Einstellungen für rückseitigen Bildschirm</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Auf dem rückseitigen Bildschirm anzeigen</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
 	<!-- Data version in «About» screen -->
@@ -221,6 +299,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Länge</string>
 	<string name="share_my_location">Meinen Standort teilen</string>
+	<string name="menu_search">Suche</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Karte</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Verschiedenes</string>
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom-Tasten</string>
 	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
@@ -236,6 +319,8 @@
 	<string name="pref_map_3d_title">Perspektivische Ansicht</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-Gebäude</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Beeinträchtigt die Akkulaufzeit</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Sprachführung</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -255,23 +340,60 @@
 	<string name="duration_12_hours">12 Stunden</string>
 	<string name="duration_1_day">1 Tag</string>
 	<string name="recent_track_help_text">So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.</string>
+	<string name="pref_track_ios_caption">Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.</string>
+	<string name="pref_track_ios_subcaption">Bitte wählen Sie die Zeitspanne, für die die Strecke gespeichert wird.</string>
+	<string name="placepage_distance">Entfernung</string>
+	<string name="placepage_coordinates">Koordinaten</string>
+	<string name="placepage_unsorted">Unsortiert</string>
 	<string name="search_show_on_map">Auf der Karte ansehen</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren. Es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, sonst sind Karten nur im Lesemodus verfügbar.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es steht dafür keinen Speicherplatz zur Verfügung. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, da das ein paar Minuten dauern kann.</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Kostenlos</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Kaufen</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Auf der Karte anzeigen</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Keine Route gefunden</string>
+	<!-- route title -->
+	<string name="route">Route</string>
 	<!-- category title -->
 	<string name="routes">Routen</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.</string>
+	<!-- Show on first launch. -->
+	<string name="agree">Ich stimme zu</string>
+	<!-- Show on first launch -->
+	<string name="disagree">Ich stimme nicht zu</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Laden Sie die Karte Ihres Standortes herunter</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME heute gratis! Jetzt runterladen &amp; Ihre Freunde informieren</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Dieser Vorgang kann einige Minuten in Anspruch nehmen.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Einstellungen &amp; mehr</string>
 	<!-- Text in menu -->
 	<string name="website">Webseite</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME-Gemeinschaft</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">„Gefällt mir“ auf Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Bei Twitter folgen</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontaktieren Sie uns</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -288,6 +410,8 @@
 	<string name="subscribe_me_subject">Ich möchte gerne den MAPS.ME-Newsletter abonnieren</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support\@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
 	<!-- Alert title -->
@@ -296,6 +420,10 @@
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WLAN</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Karten, um diese Funktion nutzen zu können.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Alle aktualisieren</string>
 	<!-- Cancel all button text -->
@@ -311,6 +439,12 @@
 	<string name="downloader_download_all_button">Alle herunterladen</string>
 	<string name="downloader_downloading">Gerade wird heruntergeladen:</string>
 	<string name="downloader_search_results">Gefunden</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Veraltet</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Aktuell</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualisieren</string>
 	<!-- Status of failed country in the list -->
@@ -332,13 +466,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Karte + Routenplanung herunterladen</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Routenplanung herunterladen</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Routenplanung löschen</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Karte herunterladen</string>
+	<string name="downloader_download_map_no_routing">Karte ohne Routenplanung herunterladen</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">Los!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Wiederholen</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Karte + Routenplanung</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Karte löschen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Karte aktualisieren</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Karte + Routenplanung aktualisieren</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Nur Karte</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Anwendungs-Menü</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten</string>
 	<!-- Text for rating dialog -->
@@ -360,15 +511,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Karten entlang der Route herunterladen</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Karte abrufen</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle MAPS.ME-Funktionen zu nutzen.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Daten für Routenplanung abrufen</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Es sind Zusatzdaten erforderlich, um die Route ab Ihrem Standort zu erstellen.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Nicht genug Speicherplatz</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Sie wollen %1$s MB herunterladen, der Speicherplatz reicht aber nur für %2$s MB.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Sie sind im Begriff, %s MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">Lesezeichen</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Es gibt keine Karte für Ihren Standort</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Aktivieren Sie bitte Ortungsdienste</string>
+	<!-- download map -->
+	<string name="download_map">Laden Sie die Karte für Ihren Standort herunter</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Laden Sie eine Karte für Ihre aktuelle Position auf Ihrem iPhone herunter</string>
+	<!-- clear pin -->
+	<string name="nearby">In der Nähe</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Stecknadel löschen</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Der aktuelle Standort ist nicht definiert.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Land Ihres derzeitigen Standorts herunterladen</string>
 	<!-- download failed -->
 	<string name="download_failed">Herunterladen fehlgeschlagen</string>
+	<!-- get the map -->
+	<string name="get_the_map">Karte abrufen</string>
 	<string name="save">Speichern</string>
 	<string name="edit_description_hint">Ihre Beschreibungen (Text oder HTML)</string>
+	<string name="new_group">Neue Gruppe</string>
+	<string name="create">erstellen</string>
 	<!-- red color -->
 	<string name="red">Rot</string>
 	<!-- yellow color -->
@@ -400,8 +583,10 @@
 	<string name="dialog_routing_location_turn_wifi">Bitte prüfen Sie Ihr GPS-Signal. WLAN verbessert Ihre Standortgenauigkeit.</string>
 	<string name="dialog_routing_location_turn_on">Ortungsdienste aktivieren</string>
 	<string name="dialog_routing_location_unknown_turn_on">Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.</string>
+	<string name="dialog_routing_location_unknown">Aktuelle GPS-Koordinaten können nicht ermittelt werden.</string>
 	<string name="dialog_routing_download_files">Erforderliche Dateien herunterladen</string>
 	<string name="dialog_routing_download_and_update_all">Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter und aktualisieren Sie sie, um die Route zu berechnen.</string>
+	<string name="dialog_routing_routes_size">Routeninformationsdateien</string>
 	<string name="dialog_routing_unable_locate_route">Route kann nicht ermittelt werden</string>
 	<string name="dialog_routing_cant_build_route">Route kann nicht erstellt werden.</string>
 	<string name="dialog_routing_change_start_or_end">Bitte passen Sie Ihren Startpunkt oder Ihr Ziel an.</string>
@@ -416,21 +601,33 @@
 	<string name="dialog_routing_system_error">Systemfehler</string>
 	<string name="dialog_routing_application_error">Route kann wegen eines Anwendungsfehlers nicht erstellt werden.</string>
 	<string name="dialog_routing_try_again">Bitte versuchen Sie es erneut</string>
+	<string name="dialog_routing_send_error">Dieses Problem melden</string>
+	<string name="dialog_routing_if_get_cross_route">Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Es ist eine bessere Route verfügbar, die den Rand dieser Karte überschreitet.</string>
 	<string name="not_now">Nicht jetzt</string>
+	<string name="dialog_routing_build_route">Erstellen</string>
 	<string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
 	<string name="dialog_routing_download_cross_route">Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.</string>
+	<string name="dialog_routing_cross_route_always">Diese Grenze immer überschreiten</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
 	<string name="search_select_map">Karte auswählen</string>
+	<string name="search_select_other_map">Eine andere Karte auswählen</string>
 	<!-- «Show» context menu -->
 	<string name="show">Anzeigen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Ausblenden</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Umbenennen</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mehr…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Routenplanung fehlgeschlagen</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Ankunft: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.</string>
 	<string name="rate_alert_title">Gefällt Ihnen die App?</string>
 	<string name="rate_alert_default_message">Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.</string>
 	<string name="rate_alert_five_star_message">Hurra! Wir lieben Sie auch!</string>
@@ -438,17 +635,24 @@
 	<string name="rate_alert_less_than_four_star_message">Haben Sie eine Idee, wie wir besser werden können?</string>
 	<string name="categories">Kategorien</string>
 	<string name="history">Verlauf</string>
+	<string name="next_turn_then">Dann</string>
 	<string name="closed">Geschlossen</string>
 	<string name="back_to">Zurück zu %s</string>
 	<string name="search_not_found">Leider wurde nichts gefunden.</string>
 	<string name="search_not_found_query">Versuchen Sie bitte eine andere Suchanfrage.</string>
+	<string name="search_not_found_map">Laden Sie bitte die Karte herunter, auf der Sie suchen.</string>
+	<string name="search_not_found_location">Laden Sie die Karte Ihres aktuellen Standorts herunter.</string>
 	<string name="search_history_title">Suchverlauf</string>
 	<string name="search_history_text">Hier werden Ihre letzten Suchanfragen angezeigt.</string>
 	<string name="clear_search">Suchverlauf löschen</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Angebote anzeigen</string>
+	<string name="p2p_route_planning">Routenplanung</string>
 	<string name="p2p_your_location">Ihr Standort</string>
+	<string name="p2p_from">Startpunkt</string>
+	<string name="p2p_to">Zielort</string>
 	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Route wird geplant…</string>
 	<string name="p2p_from_here">Von</string>
 	<string name="p2p_to_here">Nach</string>
 	<string name="p2p_only_from_current">Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.</string>
@@ -467,9 +671,11 @@
 	<string name="editor_hours_closed">Schließzeiten</string>
 	<string name="editor_example_values">Beispiele</string>
 	<string name="editor_correct_mistake">Fehler korrigieren</string>
+	<string name="editor_correct_mistake_message">Es ist ein Bearbeitungsfehler aufgetreten. Bitte korrigieren oder zum Einfachmodus wechseln.</string>
 	<string name="editor_add_select_location">Position</string>
 	<string name="editor_done_dialog_1">Sie haben die Weltkarte geändert. Blenden Sie das nicht aus! Erzählen Sie Ihren Freunden davon und bearbeiten Sie sie zusammen.</string>
 	<string name="editor_done_dialog_2">Das ist Ihre zweite Kartenverbesserung. Sie befinden sich jetzt auf Platz %d auf der Liste der Personen, die die Karte bearbeitet haben. Erzählen Sie Ihren Freunden davon.</string>
+	<string name="editor_done_dialog_3">Sie haben die Karte verbessert, erzählen Sie Ihren Freunden davon und bearbeiten Sie die Karte zusammen.</string>
 	<string name="share_with_friends">Mit Freunden teilen</string>
 	<string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Gemeinschaft den Fehler beheben kann.</string>
 	<string name="editor_report_problem_desription_2">Oder kümmern Sie sich selbst darum auf http://www.openstreetmap.org/</string>
@@ -478,8 +684,14 @@
 	<string name="editor_report_problem_no_place_title">Der Ort existiert nicht</string>
 	<string name="editor_report_problem_under_construction_title">Wegen Wartung geschlossen</string>
 	<string name="editor_report_problem_duplicate_place_title">Doppelter Ort</string>
+	<string name="first_launch_congrats_title">MAPS.ME kann verwendet werden</string>
+	<string name="first_launch_congrats_text">Suche und Navigation weltweit offline verfügbar, völlig kostenfrei.</string>
 	<string name="migrate_title">Wichtig!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Alle herunterladen</string>
+	<string name="delete_all">Alle löschen</string>
 	<string name="autodownload">Automatisch herunterladen</string>
+	<string name="disable_autodownload">Automatischen Download deaktivieren</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Jetzt geschlossen</string>
 	<!-- Place Page opening hours text -->
@@ -488,6 +700,8 @@
 	<string name="day_off_today">Heute geschlossen</string>
 	<string name="day_off">Geschlossen</string>
 	<string name="today">Heute</string>
+	<string name="sunrise_to_sunset">Von Sonnenauf- bis Sonnenuntergang</string>
+	<string name="sunset_to_sunrise">Von Sonnenuntergang bis Sonnenaufgang</string>
 	<string name="add_opening_hours">Geschäftszeiten hinzufügen</string>
 	<string name="edit_opening_hours">Geschäftszeiten bearbeiten</string>
 	<string name="profile">Profil</string>
@@ -498,13 +712,30 @@
 	<string name="login">Anmelden</string>
 	<string name="password">Passwort</string>
 	<string name="forgot_password">Passwort vergessen?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Passwort wiederherstellen</string>
+	<string name="enter_email_address_to_reset_password">Geben Sie bitte die Email-Adresse ein, die Sie zur Registrierung verwendet haben. Wir senden Ihnen dann den Link zur Erneuerung Ihres Passworts.</string>
+	<string name="reset_password">Passwort zurücksetzen</string>
+	<string name="username">Benutzername</string>
 	<string name="osm_account">OSM Konto</string>
 	<string name="logout">Abmelden</string>
+	<string name="login_and_edit_map_motivation_message">Anmelden und Informationen zu den Objekten auf der Karte bearbeiten. Wir werden sie für Millionen von anderen Nutzern verfügbar machen. Lassen Sie uns zusammen die Welt verbessern.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Zuletzt hochgeladen</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Sie haben Ihr erstes Objekt bearbeitet!</string>
 	<string name="thank_you">Danke</string>
+	<string name="login_with_google">Mit Google anmelden</string>
+	<string name="login_with_facebook">Mit Facebook anmelden</string>
+	<string name="login_with_openstreetmap">Mit www.openstreetmap.org anmelden</string>
 	<string name="edit_place">Platz bearbeiten</string>
 	<string name="place_name">Name des Platzes</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Andere Sprachen</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Mehr anzeigen</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Weniger anzeigen</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
 	<string name="street">Straße</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -514,12 +745,14 @@
 	<string name="add_street">Eine Straße hinzufügen</string>
 	<string name="choose_language">Eine Sprache wählen</string>
 	<string name="choose_street">Eine Straße wählen</string>
+	<string name="postal_code">Postleitzahl</string>
 	<string name="cuisine">Küche</string>
 	<string name="select_cuisine">Küche auswählen</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email oder Benutzername</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Bitte beachten</string>
+	<string name="common_no_wifi_dialog">Keine WLAN-Verbindung. Möchten Sie mit mobilen Daten fortfahren?</string>
 	<string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
 	<string name="downloader_update_maps">Karten aktualisieren</string>
 	<string name="downloader_mwm_migration_dialog">Um eine Strecke zu erstellen, müssen Sie alle Karten aktualisieren und dann die Strecken erneut planen.</string>
@@ -530,8 +763,14 @@
 	<string name="common_check_internet_connection_dialog">Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.</string>
 	<string name="downloader_no_space_title">Nicht genug Speicherplatz</string>
 	<string name="downloader_no_space_message">Bitte entfernen Sie unnötige Daten</string>
+	<string name="editor_general_auth_error_dialog">Allgemeiner Login-Fehler.</string>
 	<string name="editor_login_error_dialog">Login-Fehler.</string>
+	<string name="editor_login_failed_dialog">Login fehlgeschlagen</string>
+	<string name="editor_username_error_dialog">Benutzername ist ungültig</string>
+	<string name="editor_place_edited_dialog">Sie haben ein Objekt bearbeitet!</string>
+	<string name="editor_login_with_osm">Mit OpenStreetMap anmelden</string>
 	<string name="editor_profile_changes">Bestätigte Änderungen der Karte</string>
+	<string name="editor_profile_unsent_changes">Nicht gesendet:</string>
 	<string name="editor_focus_map_on_location">Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.</string>
 	<string name="editor_add_select_category">Kategorie auswählen</string>
 	<string name="editor_add_select_category_popular_subtitle">Beliebt</string>
@@ -542,14 +781,25 @@
 	<string name="editor_edit_place_category_title">Kategorie</string>
 	<string name="detailed_problem_description">Detaillierte Beschreibung eines Problems</string>
 	<string name="editor_report_problem_other_title">Ein anderes Problem</string>
+	<string name="placepage_report_problem_button">Problem melden</string>
 	<string name="placepage_add_business_button">Organisation hinzufügen</string>
 	<string name="whatsnew_smallmwm_header">Sie haben darum gebeten, und wir haben es geschafft</string>
 	<string name="whatsnew_smallmwm_message">Wir haben die Karten aufgeteilt. Jetzt können Sie einzelne Regionen herunterladen, ohne das ganze Land herunterzuladen.</string>
+	<string name="whatsnew_search_header">Neue Suche</string>
+	<string name="whatsnew_search_message">Wir haben die Adresssuche dramatisch verbessert. Sehen Sie selbst.</string>
+	<string name="whatsnew_editor_title">Karte bearbeiten*</string>
 	<string name="whatsnew_editor_message_1">Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Ort direkt in der App.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME verwendet Community-Daten von OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Sie werden sich nie wieder verfahren oder verlaufen</string>
 	<string name="onboarding_offline_navigation_message">Planen Sie die optimalen Auto- und Fußgängerstrecken, selbst wenn es keine Internetverbindung gibt!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline-Navigation</string>
+	<string name="onboarding_offline_navigation_message_2">Planen Sie optimale Auto- und Fußgängerstrecken.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — weltweit ohne Internetzugriff auf die Karte zugreifen</string>
 	<string name="onboarding_offline_maps_message">Laden Sie die Karten für das gewünschte Gebiet auf einmal herunter und verwenden Sie die Navigation- und Such-Funktion ohne eine Internetverbindung.</string>
+	<string name="onboarding_notifications_message">Erhalten Sie Aktualisierungsbenachrichtigungen, um die neuesten Karten zu erhalten</string>
+	<string name="onboarding_notifications_title">Aktualisierungsbenachrichtigungen aktivieren</string>
+	<string name="onboarding_location_title">Helfen Sie uns dabei, Sie zu finden</string>
+	<string name="onboarding_location_message">Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.</string>
 	<string name="onboarding_permissions_title">Erlauben Sie MAPS.ME, auf Speicher und Standort zuzugreifen</string>
 	<string name="onboarding_permissions_message">So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.</string>
 	<string name="onboarding_welcome_title">Willkommen bei MAPS.ME</string>
@@ -562,6 +812,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.</string>
 	<string name="editor_sharing_title">Ich habe die MAPS.ME-Karten verbessert</string>
+	<string name="editor_comment_will_be_sent">Wir werden Ihren Kommentar an die Kartografierer weiterleiten.</string>
+	<string name="editor_unsupported_category_message">Sie haben einen Ort in einer Kategorie hinzugefügt, die wir noch nicht unterstützten. Er wird zu einem späteren Zeitpunkt auf der Karte erscheinen.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d von %2$d</string>
 	<string name="download_over_mobile_header">Über eine Mobilfunknetzverbindung herunterladen?</string>
@@ -579,9 +831,15 @@
 	<string name="editor_detailed_description">Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in MAPS.ME nicht bearbeiten können.</string>
 	<string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
 	<string name="editor_operator">Betreiber oder Eigentümer</string>
+	<string name="editor_tag_description">Geben Sie die Firma, die Organisation oder die Person an, die den Betrieb des Objekts gewährleistet.</string>
+	<string name="editor_no_local_edits_title">Sie haben keine lokalen Korrekturen</string>
+	<string name="editor_no_local_edits_description">Hier erscheint die Anzahl Ihrer Änderungsvorschläge für die Karte, auf die Sie bislang nur von Ihrem Gerät aus zugreifen können.</string>
+	<string name="editor_send_to_osm">An OSM senden</string>
+	<string name="editor_remove">Löschen</string>
 	<string name="downloader_my_maps_title">Meine Karten</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten geladen</string>
 	<string name="downloader_no_downloaded_maps_message">Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.</string>
+	<string name="downloader_find_place_hint">Stadt oder Land suchen</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Standortsuche fortsetzen?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -590,16 +848,39 @@
 	<string name="current_location_unknown_stop_button">Anhalten</string>
 	<string name="current_location_unknown_error_title">Standort nicht gefunden.</string>
 	<string name="current_location_unknown_error_message">Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.</string>
+	<string name="whatsnew_update_editor_title">Der Editor wurde aktualisiert.</string>
+	<string name="whatsnew_update_editor_message">Die Benutzer haben schon mehr als 200.000 Korrekturen auf der Karte eingetragen. Die von uns gemeinsam erstellten Karten haben weltweit die meisten Details. Machen Sie mit!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Um den Karten-Editor zu nutzen, aktualisieren Sie bitte alle Karten.</string>
 	<string name="location_services_disabled_header">Standort-Identifizierung ist deaktiviert</string>
 	<string name="location_services_disabled_message">Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen</string>
 	<string name="location_services_disabled_1">1. Einstellungen öffnen</string>
 	<string name="location_services_disabled_2">2. Auf Standort tippen</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Wählen Sie „Beim Verwenden der App“</string>
+	<string name="placepage_parking_surface">Öffentlicher Parkplatz</string>
+	<string name="placepage_parking_multistorey">Tiefgarage mit mehreren Etagen</string>
+	<string name="placepage_parking_underground">Tiefgarage</string>
+	<string name="placepage_parking_rooftop">Parkdeck</string>
+	<string name="placepage_parking_sheds">Privater Carport</string>
+	<string name="placepage_parking_carports">Parkhalle</string>
+	<string name="placepage_parking_boxes">Garagenbox</string>
+	<string name="placepage_parking_pay">Gebührenpflichtig</string>
+	<string name="placepage_parking_free">Gebührenfrei</string>
+	<string name="placepage_parking_interval">Teilweise gebührenpflichtig</string>
+	<string name="placepage_entrance_number">Nr. der Einfahrt</string>
+	<string name="placepage_entrance_type">Typ der Einfahrt</string>
+	<string name="placepage_flat">Wohnung</string>
+	<string name="placepage_open_24_7">Durchgehend geöffnet</string>
 	<string name="place_page_booking_rating">Rating: %s</string>
 	<string name="place_page_starting_from">ab %s</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km / h</string>
+	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschreibung</string>
@@ -616,24 +897,38 @@
 	<string name="editor_reset_edits_button">Verwerfen</string>
 	<string name="editor_remove_place_message">Hinzugefügtes Objekt löschen?</string>
 	<string name="editor_remove_place_button">Löschen</string>
+	<string name="editor_status_sending">Senden…</string>
 	<string name="editor_place_doesnt_exist">Dieser Ort existiert nicht</string>
 	<string name="text_more_button">…Mehr</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Geben Sie die richtige Telefonnummer ein</string>
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
 	<string name="error_enter_correct_email">Geben Sie eine gültige Email-Adresse ein</string>
+	<string name="error_enter_correct">Geben Sie einen gültigen Wert ein</string>
 	<string name="editor_profile_changes_for_next_place">Erforderliche Änderungen für den nächsten Platz: %d</string>
 	<string name="editor_profile_rating_place">Platz im Rating</string>
+	<string name="booking_dialog_not_connect_header">Für die Hotelbuchung benötigen Sie eine Internetverbindung</string>
+	<string name="button_try">Probieren Sie es aus</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="last_update">Letzte Aktualisierung: %s</string>
+	<string name="booking_checkin">Einchecken: %s</string>
+	<string name="booking_checkout">Auschecken: %s</string>
 	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wollen Sie sie an alle Benutzer senden?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.</string>
+	<string name="navigation_overview_button">Überblick</string>
+	<string name="navigation_stop_button">Stop</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">Lesezeichen speichern</string>
+	<string name="bookmarks_empty_message_1">Tippen Sie auf ★, um Ihre Lieblingsorte für den Schnellzugriff zu speichern.</string>
+	<string name="bookmarks_empty_message_2">Lesezeichen aus Mail und Web importieren.</string>
+	<string name="bookmarks_empty_message_3">Auschecken: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Gebuchte Hotels</string>
+	<string name="place_page_button_read_descriprion">Lesen</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?</string>
 	<!-- If a hotel is being shared -->
@@ -641,7 +936,16 @@
 	<string name="off_recent_track_background_button">Deaktivieren</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Nachsehen</string>
+	<string name="continue_recent_track_background_button">Fortsetzen</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.</string>
+	<string name="whatsnew_car_navigation_header">Benutzerfreundliche Fahrzeug-Navigation</string>
+	<string name="whatsnew_car_navigation_message">• Die Navigationselemente benötigen weniger Platz.\n• Wir zeigen die Geschwindigkeit und haben Auto-Zoom hinzugefügt.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Fahrrad-Navigation</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Fahrrad-Navigation berechnet jetzt auch Geländedaten.\n• Wir erstellen weniger anstrengende Routen, um Gefälle zu berücksichtigen.</string>
+	<string name="whatsnew_booking_2_header">Einfache Hotelsuche</string>
+	<string name="whatsnew_booking_2_message">Die Suchergebnisse zeigen die Bewertung und die Preiskategorie des Hotels.</string>
+	<string name="whatsnew_cycle_navigation_header">Fahrradnavigation (Betaversion)</string>
+	<string name="whatsnew_cycle_navigation_message">Wir testen die Fahrradnavigation für die neue Saison. Testen Sie Ihre Lieblings-Fahrradroute mit MAPS.ME und teilen Sie Ihre Meinung mit uns.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Bei Google Play bewerten</string>
 	<!-- Share with friends: menu item title -->
@@ -656,10 +960,16 @@
 	<string name="allow_statistics_hint">Das Erfassen von anonymen Nutzungsstatistiken hilft uns beim Verbessern der App.</string>
 	<string name="general_settings">Allgemeine Einstellungen</string>
 	<string name="date">Datum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Etwas funktioniert nicht</string>
 	<!-- For the first routing -->
 	<string name="accept">Annehmen</string>
 	<!-- For the first routing -->
 	<string name="decline">Ablehnen</string>
+	<string name="whats_new_route_profile_title">Am besten den leichtesten Weg gehen</string>
+	<string name="whats_new_route_profile_message">Für Fußgänger- und Fahrradrouten zeigen wir nun das Höhenprofil an.</string>
+	<string name="whats_new_booking_improve_title">Beim Buchen von Hotels sparen</string>
+	<string name="whats_new_booking_improve_message">Suchergebnisse für Hotels enthalten jetzt die Kategorie Preis.\nAußerdem haben wir über 110.000 Hotels hinzugefügt.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Ausstattung</string>
 	<!-- For place page hotel nearby block -->
@@ -691,6 +1001,16 @@
 	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Basierend auf %d Hotelbewertungen</string>
 	<string name="booking_show_more">Mehr anzeigen</string>
+	<string name="booking_reviews">Bewertungen</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Zimmer</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Öffnen</string>
+	<string name="whatsnew_uber_header">MAPS.ME und Uber</string>
+	<string name="whatsnew_uber_message">Uber-Taxi direkt über die App bestellen!</string>
 	<string name="dialog_taxi_offline">Das Bestellen eines Taxis ist im Offline-Modus nicht verfügbar.</string>
 	<string name="dialog_taxi_error">Das Bestellen eines Taxis ist vorübergehend nicht verfügbar.</string>
 	<string name="mobile_data_dialog">Mobiles Internet verwenden, um genauere Informationen anzuzeigen?</string>
@@ -702,12 +1022,49 @@
 	<string name="mobile_data_option_never">Nie verwenden</string>
 	<string name="mobile_data_option_ask">Immer fragen</string>
 	<string name="traffic_update_maps_text">Um Verkehrsdaten anzuzeigen, müssen die Karten aktualisiert werden.</string>
+	<string name="traffic_outdated">Verkehrsdaten sind veraltet.</string>
 	<string name="big_font">Schriftgröße auf der Karte erhöhen</string>
 	<string name="traffic_update_app">Bitte aktualisieren Sie MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkehrsdaten sind nicht verfügbar</string>
+	<string name="banner_deliveryclub_title">Essensbringdienst</string>
+	<string name="banner_deliveryclub_message">Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.</string>
+	<string name="banner_lamoda_title">Onlinegeschäft für Kleidung und Schuhe</string>
+	<string name="banner_lamoda_message">Über 1000 Marken. Bis zu 70 % Rabatt. Kostenlose Lieferung landesweit.</string>
+	<string name="banner_tutu_title">Zugfahrkarten online</string>
+	<string name="banner_tutu_message">Zugfahrkarten in jede Stadt online – Preise, Suche und Buchung.</string>
+	<string name="banner_geerbest_title">Online-Elektronikgeschäft</string>
+	<string name="banner_geerbest_message">Sofortsuche bei über 50.000 Artikeln zu günstigen Preisen.</string>
+	<string name="banner_rentalcars_title">Autos online mieten</string>
+	<string name="banner_rentalcars_message">800 Autovermietungen mit über 49.000 Mietstationen.</string>
+	<string name="banner_viator_title">Online-Toursuche</string>
+	<string name="banner_viator_message">Suche bei über 50.000 Touren auf der ganzen Welt.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Verkehrsdaten in 36 Ländern</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Aktuelle Verkehrsinformationen und darauf basierende schnellste Routen!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Verkehrsinformationen bei Roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Erfordert weniger als 1 MB mobile Bandbreite pro Fahrt.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Taxi rufen</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Die meisten Standortseiten verfügen nun über eine Schaltfläche zum Rufen eines Taxis.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Verbesserte Suche</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Sogar falsch geschriebene Anfragen liefern präzise Suchergebnisse.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Suchfilter</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Hotels basierend auf Preis und Bewertung suchen.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Schriftgröße</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Bezeichnungen auf der Karte können vergrößert werden.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -717,16 +1074,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Vereinfachte Verkehrsfarben</string>
 	<string name="enable_logging">Protokollierung aktivieren</string>
+	<string name="whatsnew_more_info_on_hotels_title">Weitere Informationen über Hotels</string>
+	<string name="whatsnew_more_info_on_hotels_message">Ganz neues Aussehen der Hotelseiten: Schauen Sie sich online Fotos, Benutzerbewertungen und andere Informationen an.</string>
+	<string name="whatsnew_better_routing_title">Verbesserte Routenplanung</string>
+	<string name="whatsnew_better_routing_message">• Genauere Schätzung der Ankunftszeit.\n• Die App berücksichtigt Sperrgebiete und Straßenschilder.</string>
+	<string name="whatsnew_smaller_mwm_title">Die Karten sind kleiner geworden</string>
+	<string name="whatsnew_smaller_mwm_message">Karten benötigen bis zu 20 % weniger Speicherplatz.</string>
+	<string name="whatsnew_waypoints_title">Wegpunkte bei der Streckenführung</string>
+	<string name="whatsnew_waypoints_message">Tippen Sie auf Orte, um Wegpunkte zu Ihrer Route hinzuzufügen.</string>
 	<string name="whatsnew_viator_title">Tour buchen</string>
 	<string name="whatsnew_viator_message">Wählen Sie beliebte Touren in Touristenstädten auf der ganzen Welt.</string>
+	<string name="whatsnew_driving_style_title">Neuer Kartenstil zum Fahren</string>
+	<string name="whatsnew_driving_style_message">Der Modus Autonavigation ist jetzt einfacher zu nutzen.</string>
 	<string name="more_on_bookingcom">Mehr bei Booking.com</string>
 	<string name="details_on_bookingcom">Einzelheiten bei Booking.com</string>
 	<string name="reviews_on_bookingcom">Weitere Bewertungen bei Booking.com</string>
+	<string name="offline_place_page_more_information">Stellen Sie eine Verbindung zum Internet her, um weitere Informationen über den Ort zu erhalten.</string>
+	<string name="failed_load_information">Informationen konnten nicht geladen werden.</string>
 	<string name="whats_new_auto_update_updating_maps">Kartenaktualisierung</string>
 	<string name="whats_new_auto_update_title">Aktualisieren Sie Ihre heruntergeladenen Karten</string>
 	<string name="whats_new_auto_update_message">Das Aktualisieren der Karten sorgt dafür, dass die Objektinformationen stets auf dem neuesten Stand sind</string>
 	<string name="whats_new_auto_update_button_size">Aktualisieren (%s)</string>
 	<string name="whats_new_auto_update_button_later">Später manuell aktualisieren</string>
+	<string name="search_hotel_filter_apartment">Appartements</string>
+	<string name="search_hotel_filter_camp_site">Zeltplatz</string>
+	<string name="search_hotel_filter_chalet">Hütte</string>
+	<string name="search_hotel_filter_guest_house">Gästehaus</string>
+	<string name="search_hotel_filter_hostel">Herberge</string>
+	<string name="search_hotel_filter_resort">Resort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
 	<string name="create_campaign_button">Ist das Ihr Unternehmen?</string>
 	<string name="view_campaign_button">Es wird für das Unternehmen geworben</string>
 	<string name="search_hotel_filters_type">Art</string>
@@ -738,12 +1115,19 @@
 	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachsynthesizer oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play Market, Samsung Apps). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Versprachlichungsprogramm auswählen.</string>
 	<string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
 	<string name="whatsnew_transliteration_title">Transliteration ins Lateinische</string>
+	<string name="whatsnew_transliteration_message">Wenn eine Straße oder ein Objekt in Ihrer Sprache keinen Namen hat, wird er mit lateinischen Buchstaben geschrieben.</string>
 	<string name="learn_more">Weitere Informationen</string>
 	<string name="exit">Beenden</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
+	<string name="onboarding_welcome_message">Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Durch das Starten der App stimmen Sie den Nutzungsbedingungen und der Datenschutzrichtlinie zu.</string>
+	<string name="button_accept_and_continue">Zustimmen und fortfahren</string>
+	<string name="button_learn_more">Weitere Informationen</string>
 	<string name="onboarding_storage_permissions_title">Zugriff gewähren</string>
 	<string name="onboarding_storage_permissions_message">Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie MAPS.ME nutzen können.</string>
+	<string name="button_exit">Beenden</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME benötigt Zugriff auf</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Speicher</string>
@@ -752,10 +1136,20 @@
 	<string name="onboarding_detail_permissions_location_title">Standort</string>
 	<string name="onboarding_detail_permissions_location_message">Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.</string>
+	<string name="settings_device_memory">Gerätespeicher</string>
+	<string name="settings_card_memory">Speicherkarte</string>
+	<string name="settings_storage_available">%s verfügbar</string>
+	<string name="toast_location_permission_denied">App-Zugriff auf Standort verweigert</string>
 	<string name="place_page_viator_title">Attraktionen und Touren</string>
+	<string name="button_use">Nutzen</string>
+	<string name="planning_route_manage_route">Route verwalten</string>
+	<string name="button_plan">Planen</string>
+	<string name="button_add">Hinzufügen</string>
 	<string name="placepage_remove_stop">Entfernen</string>
+	<string name="planning_route_remove_title">Hierher ziehen zum Entfernen</string>
+	<string name="dialog_change_start_point_message">Startpunkt durch aktuellen Standort ersetzen?</string>
+	<string name="button_replace">Ersetzen</string>
 	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
 	<string name="whatsnew_intermediate_point_title">Zusätzlicher Stopp</string>
 	<string name="whatsnew_intermediate_point_message">Planen Sie eine Route mit Zwischenstopp.</string>
-	<string name="disable_autodownload">Automatischen Download deaktivieren</string>
 </resources>

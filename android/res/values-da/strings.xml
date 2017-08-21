@@ -14,11 +14,24 @@
 	<string name="cancel_download">Annuller download</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Slet</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Spørg mig ikke igen</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Fortsæt</string>
 	<string name="download_maps">Download kort</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Download %qu kB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Download %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Der skete en fejl ved download, tryk for at prøve igen.</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Downloaded (%1$qu %2$s), tryk for at slette</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Downloader %qu%%, tryk for at afbryde</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Downloader…</string>
+	<string name="get_it_now">Få det nu</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Tak for at du bruger MAPS.ME! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,6 +42,8 @@
 	<string name="maps">Kort</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Kort:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Markeret til download, tryk for at afbryde</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -36,18 +51,32 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min position</string>
 	<string name="ok">Ok</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Frigør venligst noget plads på din telefon først for at downloade %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Påmind mig senere</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senere</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Aldrig</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Rapporter et problem</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Søg</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Søg kort</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Tryk for at downloade</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Vi anbefaler, at du bruger WiFi for at downloade store kort</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Hvilken måleenhed foretrækker du?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Din enhed understøtter ikke lokationstjenester</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Vis på kortet</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -65,13 +94,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
 	<string name="about_menu_title">Om MAPS.ME</string>
+	<string name="downloading_touch_to_cancel">Downloader %d%%, tryk for at afbryde</string>
+	<string name="downloaded_touch_to_delete">Downloaded (%s), tryk for at slette</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
+	<string name="download_mb_or_kb">Download %s</string>
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>
+	<string name="external_storage_is_not_available">SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt</string>
 	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
 	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
+	<string name="free_space_for_country">Frigør venligst %1$s på din enhed først for at downloade %2$s</string>
 	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
 	<string name="getting_position">Henter nuværende lokation</string>
 	<string name="download_resources_continue">Gå til kort</string>
@@ -88,14 +122,22 @@
 	<string name="pause">Pause</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Fortsæt</string>
+	<string name="downloaded_touch_to_update">Downloadet (%s), tryk for at opdatere eller slet</string>
+	<string name="update_mb_or_kb">Opdater %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Du har brug for opdaterede kort for at benytte søgefunktionen:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Der er opdateringer klar til følgende kort:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s download succesfuldt</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download mislykkedes</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Tilføj nyt sæt</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Tilføj til Bogmærker</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bogmærke Farve</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -104,12 +146,16 @@
 	<string name="bookmark_sets">Bogmærk sæt</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bogmærker</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Farve</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Mine Steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Fjern knappenål</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Sæt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -128,10 +174,18 @@
 	<string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Synligt</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS er deaktiveret. Aktiver venligst i Indstillinger.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Måleenhed</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Overalt</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Tæt på mig</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">På skærmen</string>
 	<!-- Search Suggestion -->
 	<string name="food">Mad</string>
 	<!-- Search Suggestion -->
@@ -162,6 +216,8 @@
 	<string name="post">Post</string>
 	<!-- Search Suggestion -->
 	<string name="police">Politi</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Ingen resultater</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
 	<!-- Button text -->
@@ -182,16 +238,24 @@
 	<string name="unknown_current_position">Din lokation er ikke blevet bestemt endnu</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Download landet bestemt ud fra din nuværende lokation (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Download landet som du har søgt på (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Beklager, Kort Lagring er ikke slået til i indstillinger.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Download af kort over land er i gang nu.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nej, tak</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Hey, tjek min knappenål på MAPS.ME ud! %1$s or %2$s Har du ikke offline kort? Download her: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på MAPS.ME! %1$s or %2$s. Har du ikke offline kort? Download her: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på MAPS.ME kortet ud!</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Hej\n\nJeg markerede: %1$s på MAPS.ME, en verden af offline kort. Klik på dette link %2$s eller dette %3$s for at se stedet på kortet.\n\nTak.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på MAPS.ME kortet!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -200,8 +264,14 @@
 	<string name="share_by_message">Del via besked</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Del</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Besked</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Kopier link</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Vis mere info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Kopieret til udklipsholderen: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -210,6 +280,12 @@
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Færdig</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Vælg bagskærmsindstillinger</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Bagskærmsindstillinger</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Vis på bagskærm</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -219,6 +295,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Længde</string>
 	<string name="share_my_location">Del min lokation</string>
+	<string name="menu_search">Søg</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Kort</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Forskelligt</string>
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom knapper</string>
 	<string name="pref_zoom_summary">Vis på skærmen</string>
@@ -234,6 +315,8 @@
 	<string name="pref_map_3d_title">Perspektivvisning</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-bygninger</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Påvirker batteriets levetid</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Stemmeinstruktioner</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -253,23 +336,54 @@
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
 	<string name="recent_track_help_text">Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.</string>
+	<string name="pref_track_ios_caption">Seneste spor viser din rejste vej.</string>
+	<string name="pref_track_ios_subcaption">Vælg tidsinterval for at gemme sporet.</string>
+	<string name="placepage_distance">Afstand</string>
+	<string name="placepage_coordinates">Koordinater</string>
+	<string name="placepage_unsorted">Usorteret</string>
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nMAPS.ME mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Gratis</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Køb</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Søg på kort</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Ingen rute blev fundet</string>
+	<!-- route title -->
+	<string name="route">Rute</string>
 	<!-- category title -->
 	<string name="routes">Ruter</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Indstillinger &amp; Mere</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME Samfund</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Synes godt om på Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Følg på Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontakt os</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
 	<!-- Text in menu -->
@@ -286,6 +400,8 @@
 	<string name="subscribe_me_subject">Tilmeld mig MAPS.ME-nyhedsbrev</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
@@ -294,6 +410,10 @@
 	<string name="pref_calibration_title">Kalibrering af kompas</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->
@@ -309,6 +429,12 @@
 	<string name="downloader_download_all_button">Download alle</string>
 	<string name="downloader_downloading">Downloader:</string>
 	<string name="downloader_search_results">Fundet</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Uddateret</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Up-to-date</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Opdater</string>
 	<!-- Status of failed country in the list -->
@@ -330,13 +456,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support\@maps.me.</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Hent kort + ruteangivelse</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Hent ruteangivelse</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Slet ruteangivelse</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Download kortet</string>
+	<string name="downloader_download_map_no_routing">Download kort uden ruteplanlægning</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">Kør!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Gentag</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Kort og rutevejledning</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Slet kort</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Opdater kort</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Opdater kort og rutevejledning</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Kun kort</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Programmenu</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Anvend Google Play Services til at få din aktuelle placering</string>
 	<!-- Text for rating dialog -->
@@ -358,15 +501,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Download kort på vejen</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Få kort</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Få routing data</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Yderligere data er påkrævet for at oprette ruter fra din placering.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Ikke nok plads</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Du skal downloade %1$s MB, men kun %2$s MB er tilgængeligt.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Du kommer til at downloade %s MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bogmærke</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Kortet for dit område er ikke downloadet</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Aktiver venligst lokationstjenester</string>
+	<!-- download map -->
+	<string name="download_map">Download kortet for dit område</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Download kortet for din placering til din iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">I nærheden</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Slet nål</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Den nuværende placering er ikke defineret.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Download landet bestemt ud fra din nuværende lokation</string>
 	<!-- download failed -->
 	<string name="download_failed">download mislykkedes</string>
+	<!-- get the map -->
+	<string name="get_the_map">Få kort</string>
 	<string name="save">Gem</string>
 	<string name="edit_description_hint">Dine beskrivelser (tekst eller html)</string>
+	<string name="new_group">ny gruppe</string>
+	<string name="create">skabe</string>
 	<!-- red color -->
 	<string name="red">Rød</string>
 	<!-- yellow color -->
@@ -398,8 +573,10 @@
 	<string name="dialog_routing_location_turn_wifi">Tjek venligst dit GPS-signal. Din placering registreres mere præcist, hvis wi-fi er slået til.</string>
 	<string name="dialog_routing_location_turn_on">Slå lokaliseringstjenester til</string>
 	<string name="dialog_routing_location_unknown_turn_on">Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.</string>
+	<string name="dialog_routing_location_unknown">Det lykkedes ikke at finde de aktuelle GPS-koordinater.</string>
 	<string name="dialog_routing_download_files">Download de nødvendige filer</string>
 	<string name="dialog_routing_download_and_update_all">Download og opdatér alle kort og ruteoplysninger for at beregne en rute.</string>
+	<string name="dialog_routing_routes_size">Filer med ruteoplysninger</string>
 	<string name="dialog_routing_unable_locate_route">Der blev ikke fundet en rute</string>
 	<string name="dialog_routing_cant_build_route">Der blev ikke planlagt en rute.</string>
 	<string name="dialog_routing_change_start_or_end">Prøv at angive et andet startpunkt eller en anden destination.</string>
@@ -414,21 +591,33 @@
 	<string name="dialog_routing_system_error">Systemfejl</string>
 	<string name="dialog_routing_application_error">Det lykkedes ikke at planlægge en rute. Der opstod en fejl i systemet.</string>
 	<string name="dialog_routing_try_again">Prøv igen</string>
+	<string name="dialog_routing_send_error">Anmeld problemet</string>
+	<string name="dialog_routing_if_get_cross_route">Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.</string>
 	<string name="not_now">Ikke nu</string>
+	<string name="dialog_routing_build_route">Opret</string>
 	<string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
 	<string name="dialog_routing_download_cross_route">Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
+	<string name="dialog_routing_cross_route_always">Kryds altid denne grænse</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
 	<string name="search_select_map">Vælk kortet</string>
+	<string name="search_select_other_map">Vælg et andet kort</string>
 	<!-- «Show» context menu -->
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skjul</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Omdøb</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Mere…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ruteplanlægning mislykkedes</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Ankomst: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">For at oprette en rute skal du hente og opdatere alle kort langs ruten.</string>
 	<string name="rate_alert_title">Kan du lide appen?</string>
 	<string name="rate_alert_default_message">Tak for at du bruger MAPS.ME. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker også dig!</string>
@@ -436,17 +625,24 @@
 	<string name="rate_alert_less_than_four_star_message">Har du en idé om, hvordan vi kan gøre den bedre?</string>
 	<string name="categories">Kategorier</string>
 	<string name="history">Historik</string>
+	<string name="next_turn_then">Så</string>
 	<string name="closed">Lukket</string>
 	<string name="back_to">Tilbage til %s</string>
 	<string name="search_not_found">Desværre, jeg fandt ikke noget.</string>
 	<string name="search_not_found_query">Prøv en anden forespørgsel.</string>
+	<string name="search_not_found_map">Download kortet, som du søger i.</string>
+	<string name="search_not_found_location">Download kortet for din nuværende placering.</string>
 	<string name="search_history_title">Søgehistorik</string>
 	<string name="search_history_text">Gå hurtigt ind på seneste forespørgsel.</string>
 	<string name="clear_search">Ryd historiksøgning</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Vis tilbud</string>
+	<string name="p2p_route_planning">Ruteplanlægning</string>
 	<string name="p2p_your_location">Din lokalitet</string>
+	<string name="p2p_from">Afgangssted</string>
+	<string name="p2p_to">Bestemmelsesstedet</string>
 	<string name="p2p_start">Start</string>
+	<string name="p2p_planning">Planlægger…</string>
 	<string name="p2p_from_here">Fra</string>
 	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
@@ -465,9 +661,11 @@
 	<string name="editor_hours_closed">Lukket-timer</string>
 	<string name="editor_example_values">Eksempelværdier</string>
 	<string name="editor_correct_mistake">Ret fejl</string>
+	<string name="editor_correct_mistake_message">Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.</string>
 	<string name="editor_add_select_location">Sted</string>
 	<string name="editor_done_dialog_1">Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.</string>
 	<string name="editor_done_dialog_2">Dette er din anden kortforbedring. Nu er du på en %d. plads på listen over kortredaktører. Fortæl dine venner om det.</string>
+	<string name="editor_done_dialog_3">Du har forbedret kortet, fortæl dine venner om det og redigér kortet sammen.</string>
 	<string name="share_with_friends">Del med venner</string>
 	<string name="editor_report_problem_desription_1">Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.</string>
 	<string name="editor_report_problem_desription_2">Eller gør det selv på http://www.openstreetmap.org/</string>
@@ -476,8 +674,14 @@
 	<string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
 	<string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
+	<string name="first_launch_congrats_title">MAPS.ME er klart til brug</string>
+	<string name="first_launch_congrats_text">Søg og navigér i kort over alle verdens lande gratis.</string>
 	<string name="migrate_title">Vigtigt!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Download alle</string>
+	<string name="delete_all">Slet alle</string>
 	<string name="autodownload">Automatisk download</string>
+	<string name="disable_autodownload">Deaktiver automatisk download</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Lukket nu</string>
 	<!-- Place Page opening hours text -->
@@ -486,6 +690,8 @@
 	<string name="day_off_today">Fridag i dag</string>
 	<string name="day_off">Fridag</string>
 	<string name="today">I dag</string>
+	<string name="sunrise_to_sunset">Fra solopgang til solnedgang</string>
+	<string name="sunset_to_sunrise">Fra solnedgang til solopgang</string>
 	<string name="add_opening_hours">Tilføj arbejdstid</string>
 	<string name="edit_opening_hours">Rediger arbejdstid</string>
 	<string name="profile">Profil</string>
@@ -496,13 +702,30 @@
 	<string name="login">Log ind</string>
 	<string name="password">Adgangskode</string>
 	<string name="forgot_password">Glemt adgangskode?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Genopret adgangskode</string>
+	<string name="enter_email_address_to_reset_password">Indtast den emailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.</string>
+	<string name="reset_password">Nulstil adgangskode</string>
+	<string name="username">Brugernavn</string>
 	<string name="osm_account">OSM-konto</string>
 	<string name="logout">Log ud</string>
+	<string name="login_and_edit_map_motivation_message">Log ind og rediger oplysninger for objekter på kortet, så sørger vi for, at de er tilgængelige for millioner af andre brugere. Lad os sammen gøre verden bedre.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Sidste overførsel</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigeret dit første objekt!</string>
 	<string name="thank_you">Mange tak</string>
+	<string name="login_with_google">Log ind med Google</string>
+	<string name="login_with_facebook">Log ind med Facebook</string>
+	<string name="login_with_openstreetmap">Log ind med www.openstreetmap.org</string>
 	<string name="edit_place">Redigér stedet</string>
 	<string name="place_name">Navn på sted</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Andre sprog</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Vis mere</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Vis mindre</string>
 	<string name="add_language">Tilføj et sprog</string>
 	<string name="street">Gade</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -512,12 +735,14 @@
 	<string name="add_street">Tilføj en gade</string>
 	<string name="choose_language">Vælg et sprog</string>
 	<string name="choose_street">Vælg en gade</string>
+	<string name="postal_code">Postnummer</string>
 	<string name="cuisine">Køkken</string>
 	<string name="select_cuisine">Vælg køkken</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email eller brugernavn</string>
 	<string name="phone">Telefon</string>
 	<string name="please_note">Bemærk venligst</string>
+	<string name="common_no_wifi_dialog">Ingen WiFi-forbindelse. Vil du fortsætte med mobildata?</string>
 	<string name="downloader_delete_map_dialog">Alle kortændringer vil blive slettet sammen med kortet.</string>
 	<string name="downloader_update_maps">Opdatér kort</string>
 	<string name="downloader_mwm_migration_dialog">For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.</string>
@@ -528,8 +753,14 @@
 	<string name="common_check_internet_connection_dialog">Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.</string>
 	<string name="downloader_no_space_title">Ikke nok plads</string>
 	<string name="downloader_no_space_message">Fjern unødvendig data</string>
+	<string name="editor_general_auth_error_dialog">Generel fejl ved login.</string>
 	<string name="editor_login_error_dialog">Login-fejl.</string>
+	<string name="editor_login_failed_dialog">Login mislykkedes</string>
+	<string name="editor_username_error_dialog">Ugyldigt brugernavn</string>
+	<string name="editor_place_edited_dialog">Du har redigeret et objekt!</string>
+	<string name="editor_login_with_osm">Login med OpenStreetMap</string>
 	<string name="editor_profile_changes">Bekræftede ændringer</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt:</string>
 	<string name="editor_focus_map_on_location">Træk kortet for at vælge objektets korrekte placering.</string>
 	<string name="editor_add_select_category">Vælg kategori</string>
 	<string name="editor_add_select_category_popular_subtitle">Populær</string>
@@ -540,14 +771,25 @@
 	<string name="editor_edit_place_category_title">Kategori</string>
 	<string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
+	<string name="placepage_report_problem_button">Anmeld et problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>
 	<string name="whatsnew_smallmwm_message">Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.</string>
+	<string name="whatsnew_search_header">Ny søgning</string>
+	<string name="whatsnew_search_message">Vi har forbedret søgningen efter adresse betydeligt. Se selv.</string>
+	<string name="whatsnew_editor_title">Redigér kortet*</string>
 	<string name="whatsnew_editor_message_1">Tilføj nye steder til kortet og redigér eksisterende direkte fra app\'en.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME bruger fællesskabsdata fra OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Du vil aldrig fare vild igen</string>
 	<string name="onboarding_offline_navigation_message">Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline navigering</string>
+	<string name="onboarding_offline_navigation_message_2">Planlæg de optimale ruter i bil og til fods.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — adgang til verdensomspændende kort uden internet</string>
 	<string name="onboarding_offline_maps_message">Download kortene til det ønskede område en gang, og brug navigerings- og søgefunktionerne uden internetforbindelse.</string>
+	<string name="onboarding_notifications_message">For at modtage de nyeste kort kan du få opdateringsnotifikationer</string>
+	<string name="onboarding_notifications_title">Aktivér opdateringsnotifikationer</string>
+	<string name="onboarding_location_title">Hjælp os med at finde dig</string>
+	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
 	<string name="onboarding_permissions_title">Giv MAPS.ME adgang til lager og position</string>
 	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
 	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
@@ -560,6 +802,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">For at opdatere app\'en skal du bruge mere plads. Slet unødvendig data.</string>
 	<string name="editor_sharing_title">Jeg forbedrede MAPS.ME kortene</string>
+	<string name="editor_comment_will_be_sent">Vi vil sende dine kommentarer til kartograferne.</string>
+	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
 	<string name="download_over_mobile_header">Download ved brug af mobilnetværksforbindelse?</string>
@@ -577,9 +821,15 @@
 	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
 	<string name="editor_operator">Bruger</string>
+	<string name="editor_tag_description">Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.</string>
+	<string name="editor_no_local_edits_title">Du har ikke lokale ændringer</string>
+	<string name="editor_no_local_edits_description">Den viser antallet af dine foreslåede ændringer på kortet, der kun er tilgængelige på din enhed.</string>
+	<string name="editor_send_to_osm">Send til OSM</string>
+	<string name="editor_remove">Fjern</string>
 	<string name="downloader_my_maps_title">Mine kort</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke hentet alle kort</string>
 	<string name="downloader_no_downloaded_maps_message">Download kort for at finde position og navigere offline.</string>
+	<string name="downloader_find_place_hint">Søg by eller land</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Fortsæt med at registrere din aktuelle position?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -588,16 +838,39 @@
 	<string name="current_location_unknown_stop_button">Stop</string>
 	<string name="current_location_unknown_error_title">Aktuel position er ukendt.</string>
 	<string name="current_location_unknown_error_message">Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.</string>
+	<string name="whatsnew_update_editor_title">Har vi opdateret korteditoren</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">For at bruge kortredigering, bedes du opdatere alle kort.</string>
 	<string name="location_services_disabled_header">Placeringsservices er slået fra</string>
 	<string name="location_services_disabled_message">Slå adgang til geoposition til i enhedens indstillinger</string>
 	<string name="location_services_disabled_1">1. Åbn Indstillinger</string>
 	<string name="location_services_disabled_2">2. Tryk på Placering</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Vælg Mens app\'en bruges</string>
+	<string name="placepage_parking_surface">Overflade</string>
+	<string name="placepage_parking_multistorey">Flere etager</string>
+	<string name="placepage_parking_underground">Underjordisk</string>
+	<string name="placepage_parking_rooftop">Tagterrasse</string>
+	<string name="placepage_parking_sheds">Skure</string>
+	<string name="placepage_parking_carports">Carporte</string>
+	<string name="placepage_parking_boxes">Garagekasser</string>
+	<string name="placepage_parking_pay">Betal</string>
+	<string name="placepage_parking_free">Gratis</string>
+	<string name="placepage_parking_interval">Intervalbetaling</string>
+	<string name="placepage_entrance_number">Nr.</string>
+	<string name="placepage_entrance_type">Indgang</string>
+	<string name="placepage_flat">app.</string>
+	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="place_page_booking_rating">Bedømmelse: %s</string>
 	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/t</string>
+	<string name="mile">mil</string>
 	<string name="foot">fod</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">dag</string>
 	<string name="hour">time</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
@@ -614,24 +887,38 @@
 	<string name="editor_reset_edits_button">Nulstil</string>
 	<string name="editor_remove_place_message">Fjern en ekstra plads?</string>
 	<string name="editor_remove_place_button">Fjern</string>
+	<string name="editor_status_sending">Send…</string>
 	<string name="editor_place_doesnt_exist">Stedet eksisterer ikke</string>
 	<string name="text_more_button">…mere</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Indtast korrekt telefonnummer</string>
 	<string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
 	<string name="error_enter_correct_email">Indtast en gyldig emailadresse</string>
+	<string name="error_enter_correct">Indtast en gyldig værdi</string>
 	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangorden</string>
+	<string name="booking_dialog_not_connect_header">For at booke hotellet, bedes du aktivere din internetforbindelse</string>
+	<string name="button_try">Prøv det</string>
 	<string name="refresh">Opdater</string>
 	<string name="last_update">Sidste opdatering: %s</string>
+	<string name="booking_checkin">tjek ind: %s</string>
+	<string name="booking_checkout">tjek ud: %s</string>
 	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.</string>
+	<string name="navigation_overview_button">oversigt</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">Gem bogmærker</string>
+	<string name="bookmarks_empty_message_1">Tryk på ★ for at gemme foretrukne steder til hurtig adgang.</string>
+	<string name="bookmarks_empty_message_2">Importer bogmærker fra email og web.</string>
+	<string name="bookmarks_empty_message_3">tjek ud: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Bookede hoteller</string>
+	<string name="place_page_button_read_descriprion">Læs</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Vil du deaktivere gemningen af din seneste rejserute?</string>
 	<!-- If a hotel is being shared -->
@@ -639,7 +926,16 @@
 	<string name="off_recent_track_background_button">Deaktiver</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tjek</string>
+	<string name="continue_recent_track_background_button">Fortsæt</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
+	<string name="whatsnew_car_navigation_header">Brugervenlig navigation i køretøjer</string>
+	<string name="whatsnew_car_navigation_message">• Navigationselementerne fylder mindre.\n• Vi viser hastigheden og har tilføjet auto-zoom.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Cykelnavigation</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.</string>
+	<string name="whatsnew_booking_2_header">Enkel hotelsøgning</string>
+	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
+	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
+	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Bedøm på Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -654,10 +950,16 @@
 	<string name="allow_statistics_hint">Indsamling af anonym anvendelsesstatistik hjælper os med at forbedre appen.</string>
 	<string name="general_settings">Generelle indstillinger</string>
 	<string name="date">Dato %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Der er noget der ikke fungerer</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>
 	<!-- For the first routing -->
 	<string name="decline">Afvis</string>
+	<string name="whats_new_route_profile_title">Spring over hvor gærdet er lavest</string>
+	<string name="whats_new_route_profile_message">Vi viser nu højdeprofilen for fodgænger- og cykelruter.</string>
+	<string name="whats_new_booking_improve_title">Spar penge når du bestiller hotelværelser</string>
+	<string name="whats_new_booking_improve_message">Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Faciliteter</string>
 	<!-- For place page hotel nearby block -->
@@ -689,6 +991,16 @@
 	<string name="search_in_table">Liste</string>
 	<string name="booking_based_on_reviews">Baseret på %d hotelanmeldelser</string>
 	<string name="booking_show_more">Vis mere</string>
+	<string name="booking_reviews">Anmeldelser</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Værelse</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Åbn</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Bestil Uber taxi direkte fra app\'en!</string>
 	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
 	<string name="dialog_taxi_error">Bestilling af en taxi er ikke muligt lige nu.</string>
 	<string name="mobile_data_dialog">Skal mobilt internet bruges til at vise detaljerede oplysninger?</string>
@@ -700,12 +1012,49 @@
 	<string name="mobile_data_option_never">Brug aldrig</string>
 	<string name="mobile_data_option_ask">Spørg altid</string>
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
+	<string name="traffic_outdated">Trafikdata er forældede.</string>
 	<string name="big_font">Forøg skriftstørrelsen på kortet</string>
 	<string name="traffic_update_app">Opdater MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata er ikke tilgængelige</string>
+	<string name="banner_deliveryclub_title">Udbringning af mad</string>
+	<string name="banner_deliveryclub_message">Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.</string>
+	<string name="banner_lamoda_title">Online sko- og tøjbutik</string>
+	<string name="banner_lamoda_message">Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.</string>
+	<string name="banner_tutu_title">Togbilletter online</string>
+	<string name="banner_tutu_message">Køb togbilletter til enhver by online - priser, søgning og bestilling.</string>
+	<string name="banner_geerbest_title">Online elektronikbutik</string>
+	<string name="banner_geerbest_message">Hurtig søgning blandt over 50.000 varer til lave priser.</string>
+	<string name="banner_rentalcars_title">Udlejning biler online</string>
+	<string name="banner_rentalcars_message">800 biludlejningsselskaber på mere end 49.000 steder.</string>
+	<string name="banner_viator_title">Online rejsesøgning</string>
+	<string name="banner_viator_message">Søg blandt mere end 50.000 rejser over hele verden.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Trafikdata i 36 lande</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Opdateret trafikinformation og hurtigste ruter baseret på den!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Trafikinfo ved roaming</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Kræver mindre end 1 MB mobildata pr. tur.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Bestil en taxa</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">De fleste af siderne indeholder nu en knap til bestilling af en taxa.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Forbedret søgning</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Selv fejlstavede forespørgsler giver præcise søgeresultater.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Søgefiltre</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Søg hoteller baseret på pris og vurdering.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Skriftstørrelse</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Etiketterne på kortet kan gøres større.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -715,16 +1064,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Forenklede trafikfarver</string>
 	<string name="enable_logging">Aktiver logføring</string>
+	<string name="whatsnew_more_info_on_hotels_title">Flere oplysninger om hoteller</string>
+	<string name="whatsnew_more_info_on_hotels_message">Helt nyt look på hotelsider: Tjek billeder, brugeranmeldelser og andre oplysninger på nettet.</string>
+	<string name="whatsnew_better_routing_title">Forbedret ruteplanlægning</string>
+	<string name="whatsnew_better_routing_message">• Mere præcis beregning af ankomsttid.\n• App tager hensyn til utilgængelige områder og vejskilte.</string>
+	<string name="whatsnew_smaller_mwm_title">Maps er blevet mindre</string>
+	<string name="whatsnew_smaller_mwm_message">Maps kræver op til 20% mindre lager.</string>
+	<string name="whatsnew_waypoints_title">Vejpunkter i ruteføring</string>
+	<string name="whatsnew_waypoints_message">Tryk på positioner for at føje vejsteder til din rute.</string>
 	<string name="whatsnew_viator_title">Bestil en tur</string>
 	<string name="whatsnew_viator_message">Vælg populære ture i turistbyer over hele verden.</string>
+	<string name="whatsnew_driving_style_title">Nyt kortformat til kørsel</string>
+	<string name="whatsnew_driving_style_message">Bilnavigationstilstand er blevet lettere at bruge.</string>
 	<string name="more_on_bookingcom">Mere på Booking.com</string>
 	<string name="details_on_bookingcom">Detaljer på Booking.com</string>
 	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
+	<string name="offline_place_page_more_information">Opret forbindelse til internettet for at få flere oplysninger om stedet.</string>
+	<string name="failed_load_information">Kunne ikke indlæse oplysningerne.</string>
 	<string name="whats_new_auto_update_updating_maps">Opdaterer kort</string>
 	<string name="whats_new_auto_update_title">Opdater dine downloadede kort</string>
 	<string name="whats_new_auto_update_message">Opdatering af kort sikrer, at oplysningerne om objekter er aktuel</string>
 	<string name="whats_new_auto_update_button_size">Opdater (%s)</string>
 	<string name="whats_new_auto_update_button_later">Opdater manuelt senere</string>
+	<string name="search_hotel_filter_apartment">Lejligheder</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Hytte</string>
+	<string name="search_hotel_filter_guest_house">Gæstehus</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Resort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
 	<string name="create_campaign_button">Denne virksomhed tilhører mig</string>
 	<string name="view_campaign_button">Virksomhed er annonceret</string>
 	<string name="search_hotel_filters_type">Type</string>
@@ -736,12 +1105,19 @@
 	<string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
 	<string name="whatsnew_transliteration_title">Translitteration til latinsk</string>
+	<string name="whatsnew_transliteration_message">Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.</string>
 	<string name="learn_more">Flere oplysninger</string>
 	<string name="exit">Afslut</string>
 	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
 	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>
+	<string name="onboarding_welcome_message">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.</string>
+	<string name="button_accept_and_continue">Accepter og fortsæt</string>
+	<string name="button_learn_more">Flere oplysninger</string>
 	<string name="onboarding_storage_permissions_title">Giv adgang</string>
 	<string name="onboarding_storage_permissions_message">Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.</string>
+	<string name="button_exit">Afslut</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME skal have adgang til</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Lager</string>
@@ -750,10 +1126,20 @@
 	<string name="onboarding_detail_permissions_location_title">Position</string>
 	<string name="onboarding_detail_permissions_location_message">For at se steder og trafik i nærheden af dig og benytte navigation.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">Du kan også ændre placeringen af hentede kort i indstillingerne.</string>
+	<string name="settings_device_memory">Enhedens hukommelse</string>
+	<string name="settings_card_memory">Kortets hukommelse</string>
+	<string name="settings_storage_available">%s tilgængelig</string>
+	<string name="toast_location_permission_denied">App-position tilladelse nægtet</string>
 	<string name="place_page_viator_title">Seværdigheder og ture</string>
+	<string name="button_use">Brug</string>
+	<string name="planning_route_manage_route">Administrer rute</string>
+	<string name="button_plan">Planlæg</string>
+	<string name="button_add">Tilføj</string>
 	<string name="placepage_remove_stop">Fjern</string>
+	<string name="planning_route_remove_title">Træk herhen for at fjerne</string>
+	<string name="dialog_change_start_point_message">Flyt startpunktet til den aktuelle placering?</string>
+	<string name="button_replace">Flyt</string>
 	<string name="placepage_add_stop">Tilføj stop</string>
 	<string name="whatsnew_intermediate_point_title">Ekstra stop</string>
 	<string name="whatsnew_intermediate_point_message">Planlæg en rute med et mellemliggende punkt.</string>
-	<string name="disable_autodownload">Deaktiver automatisk download</string>
 </resources>

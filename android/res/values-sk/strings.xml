@@ -14,11 +14,24 @@
 	<string name="cancel_download">Zrušiť sťahovanie</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Zmazať</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Už sa nepýtať</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Pokračovať</string>
 	<string name="download_maps">Stiahnuť mapy</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Stiahnuť %qu kB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Stiahnuť %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Sťahovanie zlyhalo, skúste to znova.</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Stiahnuté (%1$qu %2$s), stlačte pre vymazanie.</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Sťahovanie %qu%%, stlačte pre zrušenie.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Sťahovanie…</string>
+	<string name="get_it_now">Získať teraz</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,22 +42,38 @@
 	<string name="maps">Mapy</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Mapy:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Pripravené k stiahnutiu, stlačte pre zrušenie.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Moja poloha</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Prosím, uvoľnite nejaké miesto vo svojom zariadení, kým začnete sťahovať %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Upozorniť ma neskôr</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Neskôr</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Nikdy</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Nahlásiť chybu</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hľadať</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Prehľadať mapu</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Stlačte pre stiahnutie</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Áno</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Doporučujeme použiť WiFi pre sťahovanie väčších máp</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Aký systém pre meranie preferujete?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Vaše zariadenie nepodporuje služby pre určovanie polohy</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Ukázať na mape</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -62,13 +91,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Skúsiť znova</string>
 	<string name="about_menu_title">O aplikácii MAPS.ME</string>
+	<string name="downloading_touch_to_cancel">Sťahovanie %d%%,stlačte pre zrušenie</string>
+	<string name="downloaded_touch_to_delete">Stiahnuté (%s), stlačte pre zmazanie</string>
 	<string name="connection_settings">Nastavenie pripojenia</string>
+	<string name="download_mb_or_kb">Stiahnuť %s</string>
 	<string name="close">Zavrieť</string>
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
 	<string name="download">Stiahnuť</string>
+	<string name="external_storage_is_not_available">SD karta/USB úložisko s uloženými mapami nie je k dispozícii</string>
 	<string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
 	<string name="not_enough_memory">Nedostatok pamäti k spusteniu aplikácie</string>
+	<string name="free_space_for_country">Prosím, uvoľnite najprv %1$s vo vašom zariadení, abyste mohol/a stiahnuť %2$s</string>
 	<string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.</string>
 	<string name="getting_position">Získavanie aktuálnej polohy</string>
 	<string name="download_resources_continue">Prejsť na mapu</string>
@@ -85,14 +119,22 @@
 	<string name="pause">Pauza</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Pokračovať</string>
+	<string name="downloaded_touch_to_update">Stiahnuté (%s), stlačte pre zmazanie/aktualizáciu</string>
+	<string name="update_mb_or_kb">Aktualizácia %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Pre funkciu vyhladávania musíte aktualizovať mapy:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">K dispozícii je aktualizácia pre tieto mapy:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">Úspešne stiahnuté: %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Sťahovanie zlyhalo: %s</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Pridať novú skupinu záložiek</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Pridať k záložkám</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Farba záložky</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -101,12 +143,16 @@
 	<string name="bookmark_sets">Skupiny záložiek</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Záložky</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Farba</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Moje miesta</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Názov</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adresa</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Odstrániť špendlík</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -125,10 +171,18 @@
 	<string name="wait_several_minutes">Táto akcia môže trvať niekoľko minút.\nProsím čakajte…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Viditeľné</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">Navigácia GPS deaktivovaná. Prosím, povoľte ju v Nastaveniach.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Meracie jednotky</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Vyberte si míle alebo kilometre</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Všade</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">V mojom okolí</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Na obrazovke</string>
 	<!-- Search Suggestion -->
 	<string name="food">Jedlo</string>
 	<!-- Search Suggestion -->
@@ -159,6 +213,8 @@
 	<string name="post">Pošta</string>
 	<!-- Search Suggestion -->
 	<string name="police">Polícia</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Žiadne výsledky</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmarks category -->
@@ -177,16 +233,24 @@
 	<string name="unknown_current_position">Vaša poloha zatiaľ nebola určená</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Sťahovanie krajiny vašej aktuálnej polohy (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Sťahovanie krajiny, v ktorej hľadáte (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Prepáčte, nastavenie uloženia máp je dočasne nedostupné.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Práve prebieha sťahovanie krajiny.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Nie, ďakujem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Pozrite na moju značku na mape. Otvoriť odkaz: %1$s alebo %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Pozri kde som. Otvor odkaz: %1$s alebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Pozri na moju značku na mape MAPS.ME</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Ahoj,\n\nOznačil/a som: %1$s v MAPS.ME, offline mapách celého sveta. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -195,8 +259,14 @@
 	<string name="share_by_message">Zdielať pomocou správy</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Zdielať</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Správa</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Skopírovať odkaz</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Zobraziť ďaľšie informácie</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Skopírované do schránky: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -205,6 +275,12 @@
 	<string name="info">Viacej informácií</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Hotovo</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Zvoliť nastavenie Zadnej obrazovky</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Nastavenie Zadnej obrazovky</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Zobraziť na Zadnej obrazovke</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Verzia: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -214,6 +290,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Diaľka</string>
 	<string name="share_my_location">Zdielať moje umiestnenie</string>
+	<string name="menu_search">Vyhľadávanie</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Mapa</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Iné</string>
 	<string name="prefs_group_route">Navigácia</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
@@ -229,6 +310,8 @@
 	<string name="pref_map_3d_title">Perspektívne zobrazenie</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D budovy</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Ovplyvňuje životnosť batérie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové povely</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -248,23 +331,60 @@
 	<string name="duration_12_hours">12 hodín</string>
 	<string name="duration_1_day">1 deň</string>
 	<string name="recent_track_help_text">Umožňuje zaznamenať precestovanú trasu za určité obdobie a zobraziť ju na mape. Upozornenie: zapnutie tejto funkcie spôsobí vyššiu spotrebu batérie. Trasa sa z mapy automaticky odstráni po uplynutí časového intervalu.</string>
+	<string name="pref_track_ios_caption">Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.</string>
+	<string name="pref_track_ios_subcaption">Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.</string>
+	<string name="placepage_distance">Vzdialenosť</string>
+	<string name="placepage_coordinates">Súradnice</string>
+	<string name="placepage_unsorted">Nezaradené</string>
 	<string name="search_show_on_map">Zobraziť na mape</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Úložisko máp bolo optimalizované. Prosím, reštartujte aplikáciu.\n\nAdresár MapsWithMe v koreňovej zložke SD karty už nie je potrebný, môžete ho zmazať.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Kvôli zmenám v Androide 4.4 musíme optimalizovať úložisko máp, lenže nie je dostatok priestoru pre ich skopírovanie.\n\nProsím, uvoľnite pamäť, inak budú mapy dostupné iba v režime na čítanie.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">Potrebujeme presunúť vaše záložky do internej pamäti zariadenia, ale nie je pre ne voľné miesto. Prosím, uvoľnite pamäť, inak nebudú záložky dostupné.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Úložisko máp sa práve optimalizuje. Môže to trvať aj pár minút. Prosíme o chvíľku strpenia.</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Zadarmo</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Kúpiť</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Hľadať na mape</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Nebola nájdená žiadna trasa</string>
+	<!-- route title -->
+	<string name="route">Trasa</string>
 	<!-- category title -->
 	<string name="routes">Trasy</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">Táto aplikácia používa geografické dáta (zahrňujúce mapy, obchodné zoznamy, body záujmov, hranice krajín a regiónov, atď.) prevzaté z OpenStreetMap projektu. Negarantujeme žiadnu jednotnosť, presnosť, úplnosť alebo použiteľnosť dát OpenStreetMap.</string>
+	<!-- Show on first launch. -->
+	<string name="agree">Súhlasím</string>
+	<!-- Show on first launch -->
+	<string name="disagree">Nesúhlasím</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Nastavenia a viac</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Komunita MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Označiť pomocou Páči sa mi to na Facebooku</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Sledovať na Twitteri</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontaktovať nás</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Spätná väzba</string>
 	<!-- Text in menu -->
@@ -281,6 +401,8 @@
 	<string name="subscribe_me_subject">Prihláste ma prosím k odberu spravodaja MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
 	<!-- Alert title -->
@@ -289,6 +411,10 @@
 	<string name="pref_calibration_title">Compass kalibrácia</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovať všetko</string>
 	<!-- Cancel all button text -->
@@ -304,6 +430,12 @@
 	<string name="downloader_download_all_button">Stiahnuť všetko</string>
 	<string name="downloader_downloading">Sťahovanie:</string>
 	<string name="downloader_search_results">Nájdených</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Zastarané</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Aktualizované</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualizácia</string>
 	<!-- Status of failed country in the list -->
@@ -325,13 +457,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support\@maps.me.</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Na stiahnutie Mapa + Trasa</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Trasa na stiahnutie</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Zmazať Trasu</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Stiahnuť mapu</string>
+	<string name="downloader_download_map_no_routing">Stiahnite si mapu bez smerovania</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">Štart!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Zopakovať</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mapa + Smerovanie</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Zmazať mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizovať mapu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Aktualizovať mapu + Smerovanie</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Iba mapa</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Ponuka aplikácie</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Pomocou Google Play služieb získajte svoju aktuálnu polohu</string>
 	<!-- Text for rating dialog -->
@@ -352,14 +501,46 @@
 	<string name="rating_google_plus">Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Stiahnuť mapu</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Získať trasové dáta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Dodatočné údaje potrebné na vytvorenie trasy zo vašej polohy.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Nedostatok miesta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Musíte stiahnuť %1$s MB, ale k dispozícií máte len %2$s MB.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Veľkosť súboru je %s MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">záložka</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Mapa vašej polohy nebola nájdená</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Prosím, povoľte Služby určovania polohy</string>
+	<!-- download map -->
+	<string name="download_map">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Stiahnite si mapu pre aktuálnu polohu na vašom iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">V blízkosti</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Vymazať špendlík</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Aktuálna lokácia nie je definovaná.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Sťahovanie krajiny vašej aktuálnej polohy</string>
 	<!-- download failed -->
 	<string name="download_failed">Sťahovanie zlyhalo</string>
+	<!-- get the map -->
+	<string name="get_the_map">Stiahnuť mapu</string>
 	<string name="save">Uložiť</string>
 	<string name="edit_description_hint">Váš popis (text alebo html)</string>
+	<string name="new_group">nová skupina</string>
+	<string name="create">vytvoriť</string>
 	<!-- red color -->
 	<string name="red">červená</string>
 	<!-- yellow color -->
@@ -391,8 +572,10 @@
 	<string name="dialog_routing_location_turn_wifi">Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.</string>
 	<string name="dialog_routing_location_turn_on">Zapnite lokalizačné služby</string>
 	<string name="dialog_routing_location_unknown_turn_on">Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.</string>
+	<string name="dialog_routing_location_unknown">Nedajú sa lokalizovať aktuálne súradnice GPS.</string>
 	<string name="dialog_routing_download_files">Prevezmite si požadované súbory</string>
 	<string name="dialog_routing_download_and_update_all">Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.</string>
+	<string name="dialog_routing_routes_size">Súbory s informáciami o trase</string>
 	<string name="dialog_routing_unable_locate_route">Trasa sa nedá lokalizovať</string>
 	<string name="dialog_routing_cant_build_route">Trasa sa nedá vytvoriť.</string>
 	<string name="dialog_routing_change_start_or_end">Prosím, upravte váš východiskový bod alebo cieľové miesto.</string>
@@ -407,21 +590,33 @@
 	<string name="dialog_routing_system_error">Systémová chyba</string>
 	<string name="dialog_routing_application_error">Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.</string>
 	<string name="dialog_routing_try_again">Skúste znova, prosím</string>
+	<string name="dialog_routing_send_error">Nahláste problém</string>
+	<string name="dialog_routing_if_get_cross_route">Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?</string>
+	<string name="dialog_routing_cross_route_is_optimal">K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.</string>
 	<string name="not_now">Nie teraz</string>
+	<string name="dialog_routing_build_route">Vytvoriť</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
 	<string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
+	<string name="dialog_routing_cross_route_always">Vždy prekročiť túto hranicu</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.</string>
 	<string name="search_select_map">Vybrať mapu</string>
+	<string name="search_select_other_map">Vybrať inú mapu</string>
 	<!-- «Show» context menu -->
 	<string name="show">Ukázať</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Skryť</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Premenovať</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Viac…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Plánovanie trasy zlyhalo</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Pricestovať: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
 	<string name="rate_alert_title">Páči sa vám aplikácia?</string>
 	<string name="rate_alert_default_message">Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
 	<string name="rate_alert_five_star_message">Hurá! Aj my vás taky páči!</string>
@@ -429,17 +624,24 @@
 	<string name="rate_alert_less_than_four_star_message">Nejaký nápad, ako ju môžeme vylepšiť?</string>
 	<string name="categories">Kategórie</string>
 	<string name="history">Archív</string>
+	<string name="next_turn_then">Potom</string>
 	<string name="closed">Zatvorené</string>
 	<string name="back_to">Späť do %s</string>
 	<string name="search_not_found">Ľutujeme, ale nič sme nenašli.</string>
 	<string name="search_not_found_query">Vyskúšajte, prosím, iný hľadaný výraz.</string>
+	<string name="search_not_found_map">Prosím, stiahnite si mapu, na ktorej vyhľadávate.</string>
+	<string name="search_not_found_location">Stiahnite si mapu svojej súčasnej polohy.</string>
 	<string name="search_history_title">História vyhľadávania</string>
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Zobraziť akcie</string>
+	<string name="p2p_route_planning">Plánovanie trasy</string>
 	<string name="p2p_your_location">Vaša poloha</string>
+	<string name="p2p_from">Východiskový bod</string>
+	<string name="p2p_to">Cieľový bod</string>
 	<string name="p2p_start">Štart</string>
+	<string name="p2p_planning">Plánovanie…</string>
 	<string name="p2p_from_here">Cesta z</string>
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
@@ -458,9 +660,11 @@
 	<string name="editor_hours_closed">Hodiny zatvorenia</string>
 	<string name="editor_example_values">Príklady hodnôt</string>
 	<string name="editor_correct_mistake">Opraviť chybu</string>
+	<string name="editor_correct_mistake_message">Chyba pri úprave. Opravte chybu, alebo sa prepnite do jednoduchého režimu.</string>
 	<string name="editor_add_select_location">Poloha</string>
 	<string name="editor_done_dialog_1">Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.</string>
 	<string name="editor_done_dialog_2">Toto je vaša druhá vylepšená mapa. Momentálne ste na %d. mieste zoznamu editorov máp. Povedzte o tom svojim priateľom.</string>
+	<string name="editor_done_dialog_3">Práve ste vylepšili mapu. Povedzte o tom svojim priateľom a môžete mapu upraviť aj spolu.</string>
 	<string name="share_with_friends">Zdieľaj s priateľmi</string>
 	<string name="editor_report_problem_desription_1">Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.</string>
 	<string name="editor_report_problem_desription_2">K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/</string>
@@ -469,8 +673,14 @@
 	<string name="editor_report_problem_no_place_title">Dané miesto neexistuje</string>
 	<string name="editor_report_problem_under_construction_title">Zatvorené kvôli prebiehajúcej údržbe</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitné miesto</string>
+	<string name="first_launch_congrats_title">Aplikácia MAPS.ME je pripravená na použitie</string>
+	<string name="first_launch_congrats_text">Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.</string>
 	<string name="migrate_title">Dôležité!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Stiahnuť všetko</string>
+	<string name="delete_all">Vymazať všetky</string>
 	<string name="autodownload">Automaticky stiahnuť</string>
+	<string name="disable_autodownload">Zrušiť automatické preberanie</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Teraz zatvorené</string>
 	<!-- Place Page opening hours text -->
@@ -479,6 +689,8 @@
 	<string name="day_off_today">Dnes deň voľna</string>
 	<string name="day_off">Deň voľna</string>
 	<string name="today">Dnes</string>
+	<string name="sunrise_to_sunset">Od východu do západu slnka</string>
+	<string name="sunset_to_sunrise">Od západu do východu slnka</string>
 	<string name="add_opening_hours">Pridať otváracie hodiny</string>
 	<string name="edit_opening_hours">Upraviť otváracie hodiny</string>
 	<string name="profile">Profil</string>
@@ -489,13 +701,30 @@
 	<string name="login">Prihlásiť sa</string>
 	<string name="password">Heslo</string>
 	<string name="forgot_password">Zabudli ste heslo?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Obnovenie hesla</string>
+	<string name="enter_email_address_to_reset_password">Zadajte emailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.</string>
+	<string name="reset_password">Obnoviť heslo</string>
+	<string name="username">Používateľské meno</string>
 	<string name="osm_account">OSM účet</string>
 	<string name="logout">Odhlásiť sa</string>
+	<string name="login_and_edit_map_motivation_message">Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Posledné nahrávanie</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Upravili ste svoj prvý objekt!</string>
 	<string name="thank_you">Ďakujeme Vám</string>
+	<string name="login_with_google">Prihlásiť sa cez Google</string>
+	<string name="login_with_facebook">Prihlásiť sa cez Facebook</string>
+	<string name="login_with_openstreetmap">Prihlásiť sa cez www.openstreetmap.org</string>
 	<string name="edit_place">Upraviť miesto</string>
 	<string name="place_name">Názov miesta</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Iné jazyky</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Zobraziť viac</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Zobraziť menej</string>
 	<string name="add_language">Pridať jazyk</string>
 	<string name="street">Ulica</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -505,12 +734,14 @@
 	<string name="add_street">Pridať ulicu</string>
 	<string name="choose_language">Vybrať jazyk</string>
 	<string name="choose_street">Vybrať ulicu</string>
+	<string name="postal_code">PSČ</string>
 	<string name="cuisine">Kuchyňa</string>
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email alebo používateľské meno</string>
 	<string name="phone">Telefón</string>
 	<string name="please_note">Upozorňujeme vás, že</string>
+	<string name="common_no_wifi_dialog">Pripojenie k WiFi nie je k dispozícii. Chcete pokračovať s využitím mobilných dát?</string>
 	<string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>
 	<string name="downloader_update_maps">Aktualizovať mapy</string>
 	<string name="downloader_mwm_migration_dialog">Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.</string>
@@ -521,8 +752,14 @@
 	<string name="common_check_internet_connection_dialog">Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.</string>
 	<string name="downloader_no_space_title">Nemáte dostatok miesta</string>
 	<string name="downloader_no_space_message">Prosím, odstráňte prebytočné dáta</string>
+	<string name="editor_general_auth_error_dialog">Pri prihlasovaní sa vyskytla všeobecná chyba.</string>
 	<string name="editor_login_error_dialog">Pri prihlasovaní sa vyskytla chyba.</string>
+	<string name="editor_login_failed_dialog">Prihlasovanie bolo neúspešné</string>
+	<string name="editor_username_error_dialog">Používateľské meno je neplatné</string>
+	<string name="editor_place_edited_dialog">Práve ste upravili objekt!</string>
+	<string name="editor_login_with_osm">Prihlásiť sa prostredníctvom OpenStreetMap</string>
 	<string name="editor_profile_changes">Overené zmeny</string>
+	<string name="editor_profile_unsent_changes">Neodoslané:</string>
 	<string name="editor_focus_map_on_location">Ak chcete nastaviť správnu polohu objektu, posuňte mapu.</string>
 	<string name="editor_add_select_category">Vybrať kategóriu</string>
 	<string name="editor_add_select_category_popular_subtitle">Obľúbené</string>
@@ -533,14 +770,25 @@
 	<string name="editor_edit_place_category_title">Kategória</string>
 	<string name="detailed_problem_description">Podrobný popis problému</string>
 	<string name="editor_report_problem_other_title">Iný problém</string>
+	<string name="placepage_report_problem_button">Nahlásiť problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="whatsnew_smallmwm_header">Dožadovali ste sa toho a my sme vám vyhoveli</string>
 	<string name="whatsnew_smallmwm_message">Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu.</string>
+	<string name="whatsnew_search_header">Nové vyhľadávanie</string>
+	<string name="whatsnew_search_message">Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.</string>
+	<string name="whatsnew_editor_title">Upraviť mapu*</string>
 	<string name="whatsnew_editor_message_1">Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME využíva dáta komunity OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Už sa nikdy nestratíte</string>
 	<string name="onboarding_offline_navigation_message">Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline navigácia</string>
+	<string name="onboarding_offline_navigation_message_2">Naplánujte si vhodné trasy na cestu autom alebo peši.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — globálny prístup k mapám bez internetu</string>
 	<string name="onboarding_offline_maps_message">Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.</string>
+	<string name="onboarding_notifications_message">Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií</string>
+	<string name="onboarding_notifications_title">Povoliť notifikácie aktualizácií</string>
+	<string name="onboarding_location_title">Pomôžte nám a my vás nájdeme</string>
+	<string name="onboarding_location_message">Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.</string>
 	<string name="onboarding_permissions_title">Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe</string>
 	<string name="onboarding_permissions_message">Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.</string>
 	<string name="onboarding_welcome_title">Vitajte v aplikácii MAPS.ME</string>
@@ -553,6 +801,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.</string>
 	<string name="editor_sharing_title">Vďaka mne sú mapy na MAPS.ME lepšie</string>
+	<string name="editor_comment_will_be_sent">Pošleme Váš príspevok kartografom.</string>
+	<string name="editor_unsupported_category_message">Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
 	<string name="download_over_mobile_header">Sťahovať prostredníctvom pripojenia na mobilnú sieť?</string>
@@ -570,9 +820,15 @@
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
 	<string name="editor_operator">Prevádzkovateľ</string>
+	<string name="editor_tag_description">Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.</string>
+	<string name="editor_no_local_edits_title">Nemáte miestne poznámky</string>
+	<string name="editor_no_local_edits_description">Tu sa zobrazuje počet navrhovaných zmien na mape momentálne dostupných len vo vašom zariadení.</string>
+	<string name="editor_send_to_osm">Odoslať do OSM</string>
+	<string name="editor_remove">Odstrániť</string>
 	<string name="downloader_my_maps_title">Moje mapy</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
+	<string name="downloader_find_place_hint">Hľadať mesto alebo krajinu</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Pokračovať v mazaní vašej súčasnej pozície?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -581,16 +837,39 @@
 	<string name="current_location_unknown_stop_button">Zastaviť</string>
 	<string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
 	<string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
+	<string name="whatsnew_update_editor_title">Aktualizovali sme program na úpravu máp</string>
+	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.</string>
 	<string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>
 	<string name="location_services_disabled_message">Povoliť prístup ku geolokalizácii v nastaveniach prístroja</string>
 	<string name="location_services_disabled_1">1. Otvorte Nastavenia</string>
 	<string name="location_services_disabled_2">2. Kliknite na položku Lokalita</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Vyberte si počas používania aplikácie</string>
+	<string name="placepage_parking_surface">Typ parkoviska</string>
+	<string name="placepage_parking_multistorey">Viacpodlažné</string>
+	<string name="placepage_parking_underground">Podzemné</string>
+	<string name="placepage_parking_rooftop">Na streche</string>
+	<string name="placepage_parking_sheds">Garáž</string>
+	<string name="placepage_parking_carports">Otvorené garáže</string>
+	<string name="placepage_parking_boxes">Hromadné garáže</string>
+	<string name="placepage_parking_pay">Platené</string>
+	<string name="placepage_parking_free">Zdarma</string>
+	<string name="placepage_parking_interval">Platba v intervaloch</string>
+	<string name="placepage_entrance_number">Číslo</string>
+	<string name="placepage_entrance_type">Vstup</string>
+	<string name="placepage_flat">Byt</string>
+	<string name="placepage_open_24_7">24 / 7</string>
 	<string name="place_page_booking_rating">Hodnotenie: %s</string>
 	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
+	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
@@ -607,24 +886,38 @@
 	<string name="editor_reset_edits_button">Resetovať</string>
 	<string name="editor_remove_place_message">Odstrániť pridané miesto?</string>
 	<string name="editor_remove_place_button">Odstrániť</string>
+	<string name="editor_status_sending">Odosiela sa…</string>
 	<string name="editor_place_doesnt_exist">Miesto neexistuje</string>
 	<string name="text_more_button">…viac</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Zadajte správne telefónne číslo</string>
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
 	<string name="error_enter_correct_email">Zadajte platný email</string>
+	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
 	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
 	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
+	<string name="booking_dialog_not_connect_header">Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu</string>
+	<string name="button_try">Vyskúšajte to</string>
 	<string name="refresh">Aktualizovať</string>
 	<string name="last_update">Naposledy aktualizované: %s</string>
+	<string name="booking_checkin">príchod: %s</string>
+	<string name="booking_checkout">odchod: %s</string>
 	<string name="placepage_add_place_button">Pridať miesto na mape</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.</string>
+	<string name="navigation_overview_button">zhrnutie</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">Uložiť záložky</string>
+	<string name="bookmarks_empty_message_1">Ak si chcete uložiť obľúbené miesta pre rýchly prístup, klepnite na ★.</string>
+	<string name="bookmarks_empty_message_2">Importujte si záložky z emailu a webu.</string>
+	<string name="bookmarks_empty_message_3">odchod: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Rezervované hotely</string>
+	<string name="place_page_button_read_descriprion">Prečítajte si</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
 	<!-- If a hotel is being shared -->
@@ -632,7 +925,16 @@
 	<string name="off_recent_track_background_button">Znemožniť</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Pozrite si</string>
+	<string name="continue_recent_track_background_button">Pokračovať</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+	<string name="whatsnew_car_navigation_header">Užívateľsky prívetivá navigácia do vozidiel</string>
+	<string name="whatsnew_car_navigation_message">• Navigačné prvky zaberajú menej miesta.\n• Zobrazujeme rýchlosť a pridali sme auto zoom.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Navigácia na bicykle</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Navigácia na bicykle berie do úvahy terénne dáta.\n• Tvoríme ľahšie trasy s prihliadnutím na sklon ciest.</string>
+	<string name="whatsnew_booking_2_header">Jednoduché vyhľadávanie hotelov</string>
+	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
+	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
+	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Ohodnotiť v službe Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -647,10 +949,16 @@
 	<string name="allow_statistics_hint">Zhromažďovanie anonymných štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.</string>
 	<string name="general_settings">Všeobecné nastavenia</string>
 	<string name="date">Dátum %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Niečo nefunguje</string>
 	<!-- For the first routing -->
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
 	<string name="decline">Odmietnuť</string>
+	<string name="whats_new_route_profile_title">Radšej dlhšia cesta, ale bezpečná</string>
+	<string name="whats_new_route_profile_message">Pre pešie trasy a cyklotrasy sa odteraz zobrazuje aj výškový profil.</string>
+	<string name="whats_new_booking_improve_title">Ušetriť pri rezervácii hotelov</string>
+	<string name="whats_new_booking_improve_message">Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Zariadenia</string>
 	<!-- For place page hotel nearby block -->
@@ -682,6 +990,16 @@
 	<string name="search_in_table">Zoznam</string>
 	<string name="booking_based_on_reviews">Na základe %d recenzií</string>
 	<string name="booking_show_more">Zobraziť viac</string>
+	<string name="booking_reviews">Recenzie</string>
+	<string name="booking_hotel">Hotel</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Izba</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">GeoChat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Otvoriť</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Objednajte si Uber priamo z aplikácie!</string>
 	<string name="dialog_taxi_offline">Objednanie taxíka nie je k dispozícii v režime offline.</string>
 	<string name="dialog_taxi_error">Objednanie taxíka je dočasne nedostupné.</string>
 	<string name="mobile_data_dialog">Použiť mobilný internet na zobrazenie podrobnejších informácií?</string>
@@ -693,12 +1011,49 @@
 	<string name="mobile_data_option_never">Nikdy nepoužiť</string>
 	<string name="mobile_data_option_ask">Vždy sa opýtať</string>
 	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
+	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
 	<string name="big_font">Zväčšiť veľkosť písma na mape</string>
 	<string name="traffic_update_app">Aktualizujte si aplikáciu MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dopravné informácie nie sú k dispozícii</string>
+	<string name="banner_deliveryclub_title">Donáška jedla</string>
+	<string name="banner_deliveryclub_message">Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.</string>
+	<string name="banner_lamoda_title">Online obchod s odevmi a obuvou</string>
+	<string name="banner_lamoda_message">Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.</string>
+	<string name="banner_tutu_title">Lístky na vlak online</string>
+	<string name="banner_tutu_message">Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.</string>
+	<string name="banner_geerbest_title">Online predajňa elektroniky</string>
+	<string name="banner_geerbest_message">Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.</string>
+	<string name="banner_rentalcars_title">Prenájom auta online</string>
+	<string name="banner_rentalcars_message">800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.</string>
+	<string name="banner_viator_title">Online vyhľadávanie zájazdov</string>
+	<string name="banner_viator_message">Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Dopravné informácie v 36 krajinách</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Aktuálne dopravné informácie a na základe nich najrýchlejšie trasy!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Dopravné informácie v roamingu</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Vyžaduje menej ako 1 MB mobilných dát na jazdu.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Objednajte si taxík</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">Väčšina stránok o lokalite odteraz obsahuje aj tlačidlo na objednávanie taxíka.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Vylepšené vyhľadávanie</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Presné výsledky vyhľadávania aj s nesprávne zadanými dotazmi.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Vyhľadávacie filtre</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Hľadať hotely podľa ceny a hodnotenia.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Veľkosť písma</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Nápisy na mape je možné zväčšiť.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0 a viac</string>
 	<!-- Eight points and higher -->
@@ -708,16 +1063,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Zjednodušené farby dopravy</string>
 	<string name="enable_logging">Zapnúť zaznamenávanie</string>
+	<string name="whatsnew_more_info_on_hotels_title">Viac informácií o hoteloch</string>
+	<string name="whatsnew_more_info_on_hotels_message">Úplne nový vzhľad stránok o hoteloch: pozrite si fotografie, recenzie a ďalšie informácie online.</string>
+	<string name="whatsnew_better_routing_title">Zlepšené plánovanie trás</string>
+	<string name="whatsnew_better_routing_message">• Presnejší odhad času príchodu.\\n • Aplikácia berie do úvahy obmedzenia a dopravné značky.</string>
+	<string name="whatsnew_smaller_mwm_title">Mapy Maps sa zmenšili</string>
+	<string name="whatsnew_smaller_mwm_message">Mapy Maps vyžadujú až o 20% menej ukladacieho priestoru.</string>
+	<string name="whatsnew_waypoints_title">Trasovanie cez určené body</string>
+	<string name="whatsnew_waypoints_message">Ťuknite na miesta, ak chcete do trasy pridať body.</string>
 	<string name="whatsnew_viator_title">Rezervovať prehliadku</string>
 	<string name="whatsnew_viator_message">Vyberte si obľúbené prehliadky po turistických mestách po celom svete.</string>
+	<string name="whatsnew_driving_style_title">Nový štýl máp pre jazdu</string>
+	<string name="whatsnew_driving_style_message">Režim navigácie v aute sa zjednodušil.</string>
 	<string name="more_on_bookingcom">Viac na Booking.com</string>
 	<string name="details_on_bookingcom">Podrobnosti na Booking.com</string>
 	<string name="reviews_on_bookingcom">Viac recenzií na Booking.com</string>
+	<string name="offline_place_page_more_information">Viac informácií o mieste získate po pripojení na internet.</string>
+	<string name="failed_load_information">Nepodarilo sa načítať informácie.</string>
 	<string name="whats_new_auto_update_updating_maps">Prebieha aktualizácia máp</string>
 	<string name="whats_new_auto_update_title">Aktualizujte svoje stiahnuté mapy</string>
 	<string name="whats_new_auto_update_message">Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované</string>
 	<string name="whats_new_auto_update_button_size">Aktualizovať (%s)</string>
 	<string name="whats_new_auto_update_button_later">Manuálne aktualizovať neskôr</string>
+	<string name="search_hotel_filter_apartment">Apartmány</string>
+	<string name="search_hotel_filter_camp_site">Camping</string>
+	<string name="search_hotel_filter_chalet">Chata</string>
+	<string name="search_hotel_filter_guest_house">Penzión</string>
+	<string name="search_hotel_filter_hostel">Hostel</string>
+	<string name="search_hotel_filter_resort">Rezort</string>
+	<string name="search_hotel_filter_hotel">Hotel</string>
+	<string name="search_hotel_filter_motel">Motel</string>
 	<string name="create_campaign_button">Nárokovať záznam firmy</string>
 	<string name="view_campaign_button">Firma sa inzeruje</string>
 	<string name="search_hotel_filters_type">Typ</string>
@@ -729,12 +1104,19 @@
 	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Samsung Apps). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
 	<string name="whatsnew_transliteration_title">Prepis do latinčiny</string>
+	<string name="whatsnew_transliteration_message">Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.</string>
 	<string name="learn_more">Zistiť viac</string>
 	<string name="exit">Ukončiť</string>
 	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
+	<string name="onboarding_welcome_message">Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.</string>
+	<string name="button_accept_and_continue">Prijať a pokračovať</string>
+	<string name="button_learn_more">Zistiť viac</string>
 	<string name="onboarding_storage_permissions_title">Prideliť prístup</string>
 	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.</string>
+	<string name="button_exit">Ukončiť</string>
 	<string name="onboarding_detail_permissions_title">Aplikácia MAPS.ME si vyžaduje prístup k</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Ukladací priestor</string>
@@ -743,10 +1125,20 @@
 	<string name="onboarding_detail_permissions_location_title">Poloha</string>
 	<string name="onboarding_detail_permissions_location_message">Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.</string>
+	<string name="settings_device_memory">Pamäť zariadenia</string>
+	<string name="settings_card_memory">Pamäť na karte</string>
+	<string name="settings_storage_available">K dispozícii %s</string>
+	<string name="toast_location_permission_denied">Zamietnutý prístup aplikácie k lokalite</string>
 	<string name="place_page_viator_title">Atrakcie a prehliadky</string>
+	<string name="button_use">Použiť</string>
+	<string name="planning_route_manage_route">Spravovať trasu</string>
+	<string name="button_plan">Naplánovať</string>
+	<string name="button_add">Pridať</string>
 	<string name="placepage_remove_stop">Odstrániť</string>
+	<string name="planning_route_remove_title">Presunutím sem odstránite</string>
+	<string name="dialog_change_start_point_message">Nahradiť štart na aktuálnou polohou?</string>
+	<string name="button_replace">Nahradiť</string>
 	<string name="placepage_add_stop">Pridať zastávku</string>
 	<string name="whatsnew_intermediate_point_title">Ďalšie zastávky</string>
 	<string name="whatsnew_intermediate_point_message">Naplánujte si trasu s zastávkou.</string>
-	<string name="disable_autodownload">Zrušiť automatické preberanie</string>
 </resources>

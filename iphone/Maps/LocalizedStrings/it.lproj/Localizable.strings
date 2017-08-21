@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "Cancella";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "Non me lo chiedere di nuovo";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "Continua";
+
 "download_maps" = "Scarica le mappe";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "Scarica %qu kB";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "Scarica %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Download fallito, tocca di nuovo per un altro tentativo";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "Scaricato (%1$qu %2$@), tocca per annullare";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "Download di %qu%%, tocca per annullare";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "In fase di download…";
 
+"get_it_now" = "Prendila ora";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Grazie per aver utilizzato MAPS.ME! Ti piace l’app? Dillo ai tuoi amici! Questo è il miglior segno di gratitudine.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Chilometri";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "Mappe:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "Contrassegnato per il download, tocca per cancellare";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "OK";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Ricordamelo in seguito";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Più tardi";
+
+/* Don't show some dialog any more */
+"never" = "Mai";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "Segnala un problema";
 
 /* View and button titles for accessibility */
 "search" = "Cerca";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "Ricerca Mappa";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "Tocca per scaricare";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Sì";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "Quale sistema di misura preferisci?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "Il tuo dispositivo non supporta i servizi di localizzazione";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Mostra sulla mappa";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "Informazioni su MAPS.ME";
 
+"downloading_touch_to_cancel" = "Download di %d%%, tocca per cancellare";
+
+"downloaded_touch_to_delete" = "Scaricato (%@), tocca per cancellare";
+
 "connection_settings" = "Impostazioni di connessione";
+
+"download_mb_or_kb" = "Scarica %@";
 
 "close" = "Chiudi";
 
@@ -111,11 +164,15 @@
 
 "download" = "Carica";
 
+"external_storage_is_not_available" = "La scheda/USB/di memoria SD con le mappe scaricate non è disponibile";
+
 "disconnect_usb_cable" = "Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app";
 
 "not_enough_free_space_on_sdcard" = "Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app";
 
 "not_enough_memory" = "Memoria insufficiente per lanciare l'app";
+
+"free_space_for_country" = "Libera %1$@ sul dispositivo prima per poter scaricare %2$@";
 
 "download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Continua";
 
+"downloaded_touch_to_update" = "Scaricato (%@), tocca per aggiornare o cancellare";
+
+"update_mb_or_kb" = "Aggiorna %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Hai bisogno di mappe aggiornate per la funzione di ricerca:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Aggiornamento disponibile per queste mappe:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "Non hai più bisogno di MAPS.ME Lite, quindi puoi disinstallarlo.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "Scaricato %@ con successo";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Il trasferimento di %@ non è riuscito";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Aggiungi un nuovo Set";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "Aggiungi al Segnalibri";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Colore del Segnalibro";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "Segnalibri";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "Colore";
+
 /* Default bookmarks set name */
 "my_places" = "I miei luoghi";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "Indirizzo";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "Rimuovi il Pin";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Seleziona";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Visibile";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "Unità di misura";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Scegli tra miglia e chilometri";
+
+/* Do search in all sources */
+"search_mode_all" = "Ovunque";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Vicino a me";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "Nella schermata";
 
 /* Search Suggestion */
 "food" = "Cibo";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "Polizia";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Nessun risultato trovato";
+
 /* Notes field in Bookmarks view */
 "description" = "Note";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Scarica il paese della tua posizione attuale (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Scarica il paese che stai cercando (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Il download della nazione è in corso.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Confidiamo nel fatto che sia piacevole utilizzare MAPS.ME! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!";
+
+/* No, thanks */
+"no_thanks" = "No, grazie";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Vedi pin sulla mappa. Apri %1$@ o %2$@";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Dai uno sguardo al mio pin sulla mappa di MAPS.ME";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Ciao,\n\nHo segnato %1$@ su MAPS.ME, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Guarda dove mi trovo attualmente sulla mappa MAPS.ME";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Condividi";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "Messaggio";
+
 /* Share by email button text, also used in editor. */
 "email" = "Email";
+
+/* Copy Link */
+"copy_link" = "Copia link";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Mostra più informazioni";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copiato sugli Appunti: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "Fine";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Selezionate le impostazioni Sfondo";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Impostazioni Sfondo";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Mostra Sfondo";
 
 /* Prints version number in About dialog */
 "version" = "Versione: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "Condividi la mia location";
 
+"menu_search" = "Cerca";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Mappa";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Miscellanea";
 
 "prefs_group_route" = "Navigazione";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Edifici in 3D";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Diminuisce la durata della batteria";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.";
 
+"pref_track_ios_caption" = "Il percorso recente mostra il tragitto effettuato.";
+
+"pref_track_ios_subcaption" = "Seleziona un intervallo temporale per la registrazione del percorso.";
+
+"placepage_distance" = "Distanza";
+
+"placepage_coordinates" = "Coordinate";
+
+"placepage_unsorted" = "Non classificato";
+
 "search_show_on_map" = "Visualizza sulla mappa";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c'è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.";
+
+/* Used in More Apps menu */
+"free" = "Gratis";
+
+/* Used in More Apps menu */
+"buy" = "Acquista";
+
+/* 1st search button-like result */
+"search_on_map" = "Cerca sulla mappa";
+
+/* toast with an error */
+"no_route_found" = "Nessun percorso trovato";
+
+/* route title */
+"route" = "Linea";
 
 /* category title */
 "routes" = "Percorsi";
 
+/* Show on first launch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first launch. */
+"agree" = "I agree";
+
+/* Show on first launch */
+"disagree" = "I disagree";
+
 /* text of notification */
 "download_map_notification" = "Scarica la mappa del luogo in cui ti trovi";
 
+/* text of notification */
+"pro_version_is_free_today" = "Versione completa di MAPS.ME è oggi gratis! Scaricala ora e dillo ai tuoi amici!";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Stiamo trasferendo le tue mappe scaricate da MAPS.ME Lite a MAPS.ME. Potrebbe richiedere alcuni minuti.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Le mappe che hai scaricato sono state trasferite con successo a MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Non è stato possibile trasferire le tue mappe. Cancella MAPS.ME Lite e scarica le mappe di nuovo.";
+
+/* Text in menu */
+"settings_and_more" = "Impostazioni e Altro";
+
 /* Text in menu */
 "website" = "Sito web";
+
+/* Text in menu */
+"maps_me_community" = "Comunità MAPS.ME";
 
 /* Text in menu */
 "like_on_facebook" = "Dai Mi Piace su Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Seguici su Twitter";
+
+/* Text in menu */
+"contact_us" = "Contattaci";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l'iscrizione in ogni momento.";
 
+/* About text */
+"about_text" = "MAPS.ME offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, MAPS.ME ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare MAPS.ME. Se avessi problemi con l'app, non esitare a contattarci a support@maps.me. Rispondiamo ad ogni richiesta!\n\nTi piace MAPS.ME e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a MAPS.ME con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su http://openstreetmap.org, e le modifiche appariranno nella prossima versione dell'app MAPS.ME.";
+
 /* Alert text */
 "email_error_body" = "Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all'indirizzo %@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Aggiorna la mappa per creare un itinerario.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "La nuova versione di MAPS.ME ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aggiorna tutte";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "In scaricamento:";
 
 "downloader_search_results" = "Trovate";
+
+/* Disclaimer message */
+"routing_disclaimer" = "Creando percorsi nell'app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Obsoleto";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Aggiornato";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Aggiorna";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all'indirizzo support@maps.me.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Scarica mappa e percorso";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Scarica percorso";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Elimina il percorso";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "Scarica mappa";
+
+"downloader_download_map_no_routing" = "Scarica mappa senza percorsi";
+
+/* Button for routing. */
+"routing_go" = "Andare!";
 
 /* Item status in downloader. */
 "downloader_retry" = "Ripeti";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Mappa + percorso";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Elimina mappa";
 
 /* Item in context menu. */
 "downloader_update_map" = "Aggiorna mappa";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Aggiorna mappa + percorso";
+
+/* Item in context menu. */
+"downloader_map_only" = "Solo mappa";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Menu applicazione";
 
 /* Preference text */
 "pref_use_google_play" = "Usa i servizi Google Play per ottenere la tua posizione attuale";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "Scarica le mappe lungo il percorso";
 
 /* Text for routing error dialog */
+"routing_download_map" = "Scarica la mappa";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Ottieni i dati del percorso";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Spazio non sufficiente";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Stai per scaricare %@ MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";
 
 /* bookmark button text */
 "bookmark" = "segnalibro";
 
+/* map is not downloaded */
+"not_found_map" = "La mappa del tuo posto non è stata trovata";
+
 /* location service disabled */
 "enable_location_services" = "Cortesemente abilita i servizi di localizzazione";
+
+/* download map */
+"download_map" = "Scarica la mappa per il tuo paese";
+
+/* download map on iPhone */
+"download_map_iphone" = "Scarica la mappa per la tua posizione corrente sul tuo iPhone";
+
+/* clear pin */
+"nearby" = "Nelle vicinanze";
+
+/* clear pin */
+"clear_pin" = "Annulla pin";
+
+/* location is undefined */
+"undefined_location" = "La posizione attuale non è definita.";
+
+/* download country of your location */
+"download_country" = "Scarica il paese della tua posizione attuale";
 
 /* download failed */
 "download_failed" = "Il trasferimento di non è riuscito";
 
+/* get the map */
+"get_the_map" = "Scarica la mappa";
+
 "save" = "Salva";
 
 "edit_description_hint" = "Le tue descrizioni (formato testo o html)";
+
+"new_group" = "nuovo gruppo";
+
+"create" = "crea";
 
 /* red color */
 "red" = "Rosso";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "Impossibile individuare le coordinate GPS attuali. Per calcolare il percorso, abilita i servizi di localizzazione.";
 
+"dialog_routing_location_unknown" = "Impossibile individuare le coordinate GPS attuali.";
+
 "dialog_routing_download_files" = "Scarica i file necessari";
 
 "dialog_routing_download_and_update_all" = "Per calcolare il percorso, scarica e aggiorna tutte le mappe e le informazioni di itinerario lungo la strada prevista.";
+
+"dialog_routing_routes_size" = "File di informazioni di itinerario";
 
 "dialog_routing_unable_locate_route" = "Impossibile individuare il percorso";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "Riprova";
 
+"dialog_routing_send_error" = "Segnala il problema";
+
+"dialog_routing_if_get_cross_route" = "Vuoi creare un percorso più diretto che si estende su più mappe?";
+
+"dialog_routing_cross_route_is_optimal" = "È disponibile un percorso migliore che oltrepassa il limite di questa mappa.";
+
 "not_now" = "Non ora";
+
+"dialog_routing_build_route" = "Crea";
 
 "dialog_routing_download_and_build_cross_route" = "Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?";
 
 "dialog_routing_download_cross_route" = "Per creare un percorso migliore che oltrepassa il limite di questa mappa, scarica la mappa.";
+
+"dialog_routing_cross_route_always" = "Oltrepassa sempre questo limite";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.";
 
 "search_select_map" = "Seleziona mappa";
+
+"search_select_other_map" = "Seleziona un'altra mappa";
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "Rinomina";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "Altro…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Pianificazione del percorso fallito";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Arrivo: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.";
 
 "rate_alert_title" = "Ti piace l’app?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "Cronologia";
 
+"next_turn_then" = "Poi";
+
 "closed" = "Chiuso";
 
 "back_to" = "Torna a %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "Spiacente, non ho trovato nulla.";
 
 "search_not_found_query" = "Prova con un'altra ricerca.";
+
+"search_not_found_map" = "Scarica la mappa nella quale stai cercando.";
+
+"search_not_found_location" = "Scarica la mappa del luogo in cui ti trovi.";
 
 "search_history_title" = "Cerca nella cronologia";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "Pianificazione percorso";
+
 "p2p_your_location" = "La tua posizione";
 
+"p2p_from" = "Il punto di partenza";
+
+"p2p_to" = "Il punto di destinazione";
+
 "p2p_start" = "Inizia";
+
+"p2p_planning" = "Pianificazione…";
 
 "p2p_from_here" = "Da";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "Correggi errore";
 
+"editor_correct_mistake_message" = "Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.";
+
 "editor_add_select_location" = "Posizione";
 
 "editor_done_dialog_1" = "Hai modificato la mappa del mondo. Non tenerlo per te! Dillo ai tuoi amici e modificatela insieme.";
 
 "editor_done_dialog_2" = "Questa è la tua seconda modifica alla mappa. Adesso sei al %d° posto nella lista di chi ha modificato la mappa. Dillo ai tuoi amici.";
+
+"editor_done_dialog_3" = "Hai migliorato la mappa. Dillo ai tuoi amici e modificate la mappa insieme.";
 
 "share_with_friends" = "Condividi con gli amici";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "Luogo duplicato";
 
+"first_launch_congrats_title" = "MAPS.ME è pronto per essere usato";
+
+"first_launch_congrats_text" = "Cerca e naviga offline, ovunque ti trovi nel mondo, gratis.";
+
 "migrate_title" = "Importante!";
 
+/* Android uses image instead of text. */
+"download_all" = "Scarica tutto";
+
+"delete_all" = "Elimina tutti";
+
 "autodownload" = "Scaricamento automatico";
+
+"disable_autodownload" = "Disattiva download automatico";
 
 /* Place Page opening hours text */
 "closed_now" = "Ora chiuso";
@@ -803,6 +1140,10 @@
 "day_off" = "Chiuso";
 
 "today" = "Oggi";
+
+"sunrise_to_sunset" = "Dall'alba al tramonto";
+
+"sunset_to_sunrise" = "Dal tramonto all'alba";
 
 "add_opening_hours" = "Aggiungi orari di apertura";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "Hai dimenticato la password?";
 
+/* Forgot Password dialog title */
+"restore_password" = "Ripristina password";
+
+"enter_email_address_to_reset_password" = "Inserisci l'indirizzo email utilizzato durante la registrazione e ti invieremo un link per recuperare la password.";
+
+"reset_password" = "Reimpostare password";
+
+"username" = "Nome utente";
+
 "osm_account" = "Account OSM";
 
 "logout" = "Esci";
 
+"login_and_edit_map_motivation_message" = "Accedi e modifica le informazioni degli oggetti sulla mappa e noi provvederemo a renderli disponibili a milioni di altri utenti. Creiamo un mondo migliore assieme.";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Ultimo caricamento";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Hai modificato il tuo primo oggetto!";
+
 "thank_you" = "Grazie";
+
+"login_with_google" = "Accedi con Google";
+
+"login_with_facebook" = "Accedi con Facebook";
+
+"login_with_openstreetmap" = "Accedi con www.openstreetmap.org";
 
 "edit_place" = "Modifica il luogo";
 
 "place_name" = "Nome del luogo";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Altre lingue";
+
+/* small button to open list with names in different languages */
+"show_more" = "Mostra più";
+
+/* small button to close list with names in different languages */
+"show_less" = "Mostra meno";
 
 "add_language" = "Aggiungi una lingua";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "Scegli una strada";
 
+"postal_code" = "Codice postale";
+
 "cuisine" = "Cucina";
 
 "select_cuisine" = "Seleziona la cucina";
@@ -863,6 +1235,8 @@
 "phone" = "Telefono";
 
 "please_note" = "Si prega di notare";
+
+"common_no_wifi_dialog" = "Nessuna connessione WiFi. Vuoi continuare con la connessione dati?";
 
 "downloader_delete_map_dialog" = "Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "Si prega di rimuovere i dati non necessari";
 
+"editor_general_auth_error_dialog" = "Errore generale di accesso.";
+
 "editor_login_error_dialog" = "Errore accesso.";
 
+"editor_login_failed_dialog" = "Accesso fallito";
+
+"editor_username_error_dialog" = "Nome utente non valido";
+
+"editor_place_edited_dialog" = "Hai modificato un oggetto!";
+
+"editor_login_with_osm" = "Accedi con OpenStreetMap";
+
 "editor_profile_changes" = "Modifiche approvate";
+
+"editor_profile_unsent_changes" = "Non inviato:";
 
 "editor_focus_map_on_location" = "Sposta la mappa per selezionare l’esatta posizione dell’oggetto.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "Un problema diverso";
 
+"placepage_report_problem_button" = "Riporta un problema";
+
 "placepage_add_business_button" = "Aggiungi organizzazione";
 
 "whatsnew_smallmwm_header" = "Ce lo avete chiesto e noi lo abbiamo fatto";
 
 "whatsnew_smallmwm_message" = "Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l'intero paese.";
 
+"whatsnew_search_header" = "Nuova ricerca";
+
+"whatsnew_search_message" = "Abbiamo migliorato significativamente la ricerca per indirizzo. Guarda tu stesso.";
+
+"whatsnew_editor_title" = "Modifica la mappa*";
+
 "whatsnew_editor_message_1" = "Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME usa i dati della community OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Non ti perderai mai più";
 
 "onboarding_offline_navigation_message" = "Pianifica percorsi ottimali in auto o a piedi, anche senza connessione internet!";
 
+"onboarding_offline_navigation_title_2" = "Navigazione offline";
+
+"onboarding_offline_navigation_message_2" = "Pianifica percorsi ottimali in auto o a piedi.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — accedi alla mappa in tutto il mondo senza Internet";
 
 "onboarding_offline_maps_message" = "Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.";
+
+"onboarding_notifications_message" = "Per ricevere le mappe aggiornate, attiva le notifiche di aggiornamento";
+
+"onboarding_notifications_title" = "Attiva notifiche di aggiornamento";
+
+"onboarding_location_title" = "Aiutaci a trovarti";
+
+"onboarding_location_message" = "Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.";
 
 "onboarding_permissions_title" = "Consenti a MAPS.ME di accedere a memoria e posizione";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.";
 
 "editor_sharing_title" = "Ho migliorato le mappe MAPS.ME";
+
+"editor_comment_will_be_sent" = "Invieremo i tuoi commenti ai cartografi.";
+
+"editor_unsupported_category_message" = "Hai aggiunto un luogo di una categoria che non è ancora disponibile. Apparirà sulla mappa in futuro.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d di %2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "Titolare";
 
+"editor_tag_description" = "Inserire la società, organizzazione o soggetto responsabile per la struttura.";
+
+"editor_no_local_edits_title" = "Non vi sono modifiche locali";
+
+"editor_no_local_edits_description" = "Qui è visualizzato il numero di modifiche suggerite sulla mappa che sono attualmente solo accessibili sul tuo dispositivo.";
+
+"editor_send_to_osm" = "Invia a OSM";
+
+"editor_remove" = "Rimuovi";
+
 "downloader_my_maps_title" = "Le mie mappe";
 
 "downloader_no_downloaded_maps_title" = "Non hai scaricato mappe";
 
 "downloader_no_downloaded_maps_message" = "Scarica mappe per trovare il luogo e navigare offline.";
+
+"downloader_find_place_hint" = "Cerca città o paese";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Continuare a rilevare la posizione attuale?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "Si è verificato un errore durante la ricerca della posizione. Controllare che il dispositivo utilizzato funzioni correttamente e riprovare.";
 
+"whatsnew_update_editor_title" = "Abbiamo aggiornato l'editor mappe";
+
+"whatsnew_update_editor_message" = "Gli utenti di MAPS.ME hanno apportato 200.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Per utilizzare l'editor delle mappe, aggiorna tutte le mappe.";
+
 "location_services_disabled_header" = "La geolocalizzazione è disabilitata";
 
 "location_services_disabled_message" = "Abilita l'accesso alla geolocalizzazione dalle impostazioni del dispositivo";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Seleziona mentre usi l'app";
 
+"placepage_parking_surface" = "Superficie";
+
+"placepage_parking_multistorey" = "Su più piani";
+
+"placepage_parking_underground" = "Sotterraneo";
+
+"placepage_parking_rooftop" = "Su terrazza";
+
+"placepage_parking_sheds" = "Coperto";
+
+"placepage_parking_carports" = "Tettoia";
+
+"placepage_parking_boxes" = "Box";
+
+"placepage_parking_pay" = "A pagamento";
+
+"placepage_parking_free" = "Gratis";
+
+"placepage_parking_interval" = "Pagamento a tempo";
+
+"placepage_entrance_number" = "N.";
+
+"placepage_entrance_type" = "Ingresso";
+
+"placepage_flat" = "app.";
+
+"placepage_open_24_7" = "24 / 7";
+
 "place_page_booking_rating" = "Valutazione: %s";
 
 "place_page_starting_from" = "da %s";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "chilometri orari (km/h)";
+
+"mile" = "mi";
+
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "g";
 
 "hour" = "h";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "Rimuovi";
 
+"editor_status_sending" = "Invio…";
+
 "editor_place_doesnt_exist" = "Luogo inesistente";
 
 "text_more_button" = "…continua";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "Inserisci un'email valida";
 
+"error_enter_correct" = "Inserisci un valore valido";
+
 "editor_profile_changes_for_next_place" = "Modifiche per posizione successiva: %d";
 
 "editor_profile_rating_place" = "Posizione in classifica";
 
+"booking_dialog_not_connect_header" = "Per prenotare l'hotel, attivare la connessione Internet";
+
+"button_try" = "Provalo";
+
 "refresh" = "Aggiornare";
 
 "last_update" = "Ultimo aggiornamento: %s";
+
+"booking_checkin" = "check in: %s";
+
+"booking_checkout" = "check out: %s";
 
 "placepage_add_place_button" = "Aggiungi un luogo sulla mappa";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via email.";
 
+"navigation_overview_button" = "panoramica";
+
+"navigation_stop_button" = "ferma";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "Salva i Segnalibri";
+
+"bookmarks_empty_message_1" = "Tocca su ★ per salvare i luoghi preferiti e accedervi rapidamente.";
+
+"bookmarks_empty_message_2" = "Importa i segnalibri dalla posta elettronica e dal web.";
+
+"bookmarks_empty_message_3" = "check out: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Hotel prenotati";
+
+"place_page_button_read_descriprion" = "Leggi";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disattivare la registrazione del tuo percorso effettuato di recente?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Dai uno sguardo";
 
+"continue_recent_track_background_button" = "Continua";
+
 "recent_track_background_dialog_message" = "MAPS.ME usa la tua posizione geografica in background per registrare il tuo percorso effettuato più di recente.";
+
+"whatsnew_car_navigation_header" = "Navigazione veicoli user-friendly";
+
+"whatsnew_car_navigation_message" = "• Gli elementi di navigazione occupano meno spazio\n• La velocità viene mostrata ed è stato aggiunto lo zoom automatico.";
+
+"whatsnew_cycle_navigation_2_header" = "Navigazione con biciclette";
+
+"whatsnew_cycle_navigation_2_message" = "• La navigazione con biciclette prende in considerazione i dati sul terreno.\n• Abbiamo creato dei percorsi più semplici che prendono in considerazione le pendenze del terreno.";
+
+"whatsnew_booking_2_header" = "Ricerca di hotel semplificata";
+
+"whatsnew_booking_2_message" = "I risultati di ricerca mostrano la valutazione dell'hotel e la categoria del prezzo.";
+
+"whatsnew_cycle_navigation_header" = "Navigazione in bici (versione beta)";
+
+"whatsnew_cycle_navigation_message" = "Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con MAPS.ME e condividi con noi le tue opinioni.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Vota su Google Play";
@@ -1118,6 +1632,9 @@
 
 "date" = "Data %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Qualcosa non funziona";
+
 /* For the first routing */
 "accept" = "Accetta";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "Rifiuta";
+
+"whats_new_route_profile_title" = "Meglio è tornar indietro, che correr male avanti";
+
+"whats_new_route_profile_message" = "Per gli itinerari pedonali e ciclabili, è ora visualizzato il profilo altimetrico.";
+
+"whats_new_booking_improve_title" = "Risparmia alla prenotazione degli hotel";
+
+"whats_new_booking_improve_message" = "I risultati della ricerca per gli hotel contengono ora la categoria di prezzo.\nInoltre, abbiamo aggiunto più di 110.000 hotel.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "Servizi";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "Mostra altro";
 
+"booking_reviews" = "Recensioni";
+
+"booking_hotel" = "Hotel";
+
+/* hotel room */
+"booking_hotel_room" = "Camera";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "GeoChat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Apri";
+
+"whatsnew_uber_header" = "MAPS.ME e Uber";
+
+"whatsnew_uber_message" = "Prenota un taxi Uber direttamente dalla app!";
+
 "dialog_taxi_offline" = "La chiamata taxi non è disponibile in modalità offline.";
 
 "dialog_taxi_error" = "La chiamata taxi è temporaneamente non disponibile.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.";
 
+"traffic_outdated" = "Dati sul traffico non aggiornati.";
+
 "big_font" = "Aumenta dimensione carattere sulla mappa";
 
 "traffic_update_app" = "Aggiorna MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dati sul traffico non disponibili";
+
+"banner_deliveryclub_title" = "Cibo a domicilio";
+
+"banner_deliveryclub_message" = "Consegna rapida da 4000 ristoranti. Ordina da Delivery Club.";
+
+"banner_lamoda_title" = "Store di abbigliamento e scarpe online";
+
+"banner_lamoda_message" = "Più di 1000 brand. Fino al 70% di sconto. Spedizione gratuita in tutto il Paese.";
+
+"banner_tutu_title" = "Biglietti ferroviari online";
+
+"banner_tutu_message" = "Biglietti ferroviari per qualsiasi città online: prezzi, ricerca e prenotazione.";
+
+"banner_geerbest_title" = "Store di elettronica online";
+
+"banner_geerbest_message" = "Ricerca istantanea fra oltre 50.000 articoli a prezzo scontato.";
+
+"banner_rentalcars_title" = "Autonoleggio online";
+
+"banner_rentalcars_message" = "800 società di autonoleggio in oltre 49.000 località.";
+
+"banner_viator_title" = "Ricerca viaggi online";
+
+"banner_viator_message" = "Ricerca di oltre 50.000 viaggi organizzati in tutto il mondo.";
+
+/* december */
+"whatsnew_traffic" = "Dati sul traffico in 36 Paesi";
+
+/* december */
+"whatsnew_traffic_text" = "Info sul traffico aggiornate e itinerari più veloci sulla loro base!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Info sul traffico in roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Richiede meno di 1 MB di larghezza di banda mobile per viaggio.";
+
+/* december */
+"whatsnew_order_taxi" = "Prenota un taxi";
+
+/* december */
+"whatsnew_order_taxi_text" = "La maggior parte delle pagine di posizione contiene ora un pulsante per prenotare un taxi.";
+
+/* january */
+"whatsnew_improved_search" = "Ricerca migliorata";
+
+/* january */
+"whatsnew_improved_search_text" = "Anche le query con errori di ortografia restituiscono risultati di ricerca accurati.";
+
+/* january */
+"whatsnew_filters_in_search" = "Filtri di ricerca";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Cerca hotel in base a prezzo e voto.";
+
+/* january */
+"whatsnew_font_size" = "Dimensione carattere";
+
+/* january */
+"whatsnew_font_size_text" = "Le etichette sulla mappa possono essere ingrandite.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "Abilita registrazione";
 
+"whatsnew_more_info_on_hotels_title" = "Maggiori info su Hotel";
+
+"whatsnew_more_info_on_hotels_message" = "Aspetto totalmente nuovo per le pagine dedicate agli hotel: online, per te, foto, recensioni degli utenti e molto altro.";
+
+"whatsnew_better_routing_title" = "Pianificazione percorso migliorata";
+
+"whatsnew_better_routing_message" = "• Stima più accurata del tempo di arrivo.\n• La app tiene in considerazione le zone con limitazione di velocità e i segnali stradali.";
+
+"whatsnew_smaller_mwm_title" = "Maps si fa più piccolo";
+
+"whatsnew_smaller_mwm_message" = "Maps richiede fino al 20% in meno di memoria.";
+
+"whatsnew_waypoints_title" = "Waypoint di percorso";
+
+"whatsnew_waypoints_message" = "Tocca i luoghi e aggiungi waypoint al tuo percorso.";
+
 "whatsnew_viator_title" = "Prenota un tour";
 
 "whatsnew_viator_message" = "Scegli i migliori tour nelle città turistiche di tutto il mondo.";
+
+"whatsnew_driving_style_title" = "Nuovo stile di mappa per la guida";
+
+"whatsnew_driving_style_message" = "Modalità di navigazione in auto più semplice da usare.";
 
 "more_on_bookingcom" = "Altro su Booking.com";
 
 "details_on_bookingcom" = "Dettagli su Booking.com";
 
 "reviews_on_bookingcom" = "Altre recensioni su Booking.com";
+
+"offline_place_page_more_information" = "Connettiti a Internet per ottenere maggiori informazioni sul luogo.";
+
+"failed_load_information" = "Impossibile caricare le informazioni.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "Aggiorna (%s)";
 
 "whats_new_auto_update_button_later" = "Aggiorna manualmente più tardi";
+
+"search_hotel_filter_apartment" = "Residence";
+
+"search_hotel_filter_camp_site" = "Campeggio";
+
+"search_hotel_filter_chalet" = "Chalet";
+
+"search_hotel_filter_guest_house" = "Guest house";
+
+"search_hotel_filter_hostel" = "Ostello";
+
+"search_hotel_filter_resort" = "Resort";
+
+"search_hotel_filter_hotel" = "Hôtel";
+
+"search_hotel_filter_motel" = "Motel";
 
 "create_campaign_button" = "Rivendica questa attività";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "Traslitterazione in latino";
 
+"whatsnew_transliteration_message" = "Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l'alfabeto latino.";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Ulteriori informazioni";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "Aggiungi un punto di arrivo per pianificare un percorso";
 
+"onboarding_welcome_message" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Lanciando l'applicazione, accetti i Termini di utilizzo e l'Informativa sulla privacy.";
+
+"button_accept_and_continue" = "Accetta e continua";
+
+"button_learn_more" = "Ulteriori informazioni";
+
 "onboarding_storage_permissions_title" = "Concedi l'accesso";
 
 "onboarding_storage_permissions_message" = "Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l'accesso alla memoria per utilizzare MAPS.ME.";
+
+"button_exit" = "Esci";
 
 "onboarding_detail_permissions_title" = "MAPS.ME richiede l'accesso a";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.";
 
+"settings_device_memory" = "Memoria del dispositivo";
+
+"settings_card_memory" = "Scheda di memoria";
+
+"settings_storage_available" = "%s disponibile";
+
+"toast_location_permission_denied" = "Autorizzazione a posizione app negata";
+
 "place_page_viator_title" = "Attrazioni e tour";
 
+"button_use" = "Usa";
+
+"planning_route_manage_route" = "Gestisci percorso";
+
+"button_plan" = "Pianifica";
+
+"button_add" = "Aggiungi";
+
 "placepage_remove_stop" = "Rimuovi";
+
+"planning_route_remove_title" = "Trascina qui per rimuovere";
+
+"dialog_change_start_point_message" = "Sostituire il punto di partenza con la posizione corrente?";
+
+"button_replace" = "Sostituisci";
 
 "placepage_add_stop" = "Aggiungi sosta";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "Disattiva download automatico";
 
 "add_my_position" = "Add my position";
 

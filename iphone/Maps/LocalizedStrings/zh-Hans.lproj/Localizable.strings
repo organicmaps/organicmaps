@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "删除";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "不要再问我";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "继续";
+
 "download_maps" = "下载地图";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "下载 %qu kB";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "下载 %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "下载失败，重新轻触再试一次";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "下载了(%1$qu %2$@)，轻触删除";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "下载%qu%%，轻触取消";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "下载…";
 
+"get_it_now" = "现在就获取它";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "感谢您使用 MAPS.ME！您喜欢此应用吗？告诉您的好友们吧！这会是对我们最好的感谢。";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "千米";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "地图：";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "标记为下载,轻触取消";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "确定";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "请在设备上先释放一些空间以便下载%@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "稍后提醒我";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "稍后";
+
+/* Don't show some dialog any more */
+"never" = "从来不";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "报告问题";
 
 /* View and button titles for accessibility */
 "search" = "搜索";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "搜索地图";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "轻触下载";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "是";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "我们推荐使用 WiFi 来下载大的地图";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "您喜欢哪种测量系统?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "您目前有此设备的所有位置服务或应用已禁用。请在设置中启用它们。";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "您的设备不支持位置服务。";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "在地图上显示";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "关于 MAPS.ME";
 
+"downloading_touch_to_cancel" = "正在下载 %d%%，触摸以取消";
+
+"downloaded_touch_to_delete" = "下载了(%@),轻触删除";
+
 "connection_settings" = "连接设置";
+
+"download_mb_or_kb" = "下载%@";
 
 "close" = "关闭";
 
@@ -111,11 +164,15 @@
 
 "download" = "下载";
 
+"external_storage_is_not_available" = "缺少包含已下载地图的 SD 卡/ USB 储存设备";
+
 "disconnect_usb_cable" = "请断开 USB 线或插入存储卡以使用 MAPS.ME";
 
 "not_enough_free_space_on_sdcard" = "请在 SD 卡/ USB 储存设备上释放一些空间以 使用此应用";
 
 "not_enough_memory" = "没有足够的内存来启动应用程序";
+
+"free_space_for_country" = "请在您的设备上释放%1$@ 以便于下载%2$@";
 
 "download_resources" = "在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%@的 数据。";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "继续";
 
+"downloaded_touch_to_update" = "下载 (%@),轻触更新或删除";
+
+"update_mb_or_kb" = "下载%@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "您需要为搜索功能获取已更新的地图。";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "这些地图有更新版本:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "您不再需要MAPS.ME Lite ，所以，您可以卸载它。";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@已成功下载";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@下载失败";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "添加新的集合";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "添加至书签";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "书签颜色";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "书签";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "色彩";
+
 /* Default bookmarks set name */
 "my_places" = "我的位置";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "地址";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "移除图钉";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "集合";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "可见";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS 已禁用。请在设置中启用它。";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "测量单位";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "选择英里或公里";
+
+/* Do search in all sources */
+"search_mode_all" = "到处";
+
+/* Do search near my position only */
+"search_mode_nearme" = "靠近我的";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "在屏幕上";
 
 /* Search Suggestion */
 "food" = "食物";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "警察";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "没有找到结果";
+
 /* Notes field in Bookmarks view */
 "description" = "注释";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "下载您所在位置的国家 (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "下载您所搜索的国家 (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "抱歉,地图存储设置目前被禁用";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "国家下载进行中。";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "希望您喜欢使用 MAPS.ME! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!";
+
+/* No, thanks */
+"no_thanks" = "不,谢谢";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿,在 MAPS.ME 上查看我标注的图钉吧!";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 MAPS.ME 查看我的当前位置！";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "分享";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "消息";
+
 /* Share by email button text, also used in editor. */
 "email" = "邮件";
+
+/* Copy Link */
+"copy_link" = "复制链接";
+
+/* Text for the button that returns to caller application */
+"more_info" = "显示更多资讯";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "复制到剪贴板:%1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "完成";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "选择背屏设置";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "背屏设置";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "显示在背屏上";
 
 /* Prints version number in About dialog */
 "version" = "版本:%@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "共享我的位置";
 
+"menu_search" = "搜索";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "地图";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "其他";
 
 "prefs_group_route" = "导航";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D 建筑";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "增加电池消耗";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。";
 
+"pref_track_ios_caption" = "近期轨迹显示您的行进道路。";
+
+"pref_track_ios_subcaption" = "请选择保存轨迹的时间范围。";
+
+"placepage_distance" = "距离";
+
+"placepage_coordinates" = "坐标";
+
+"placepage_unsorted" = "未分类";
+
 "search_show_on_map" = "在地图上查看";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "我们需要移动您的书签到内部存储器,但没 有可用的空间。请释放存储,否则书签将不 可用。";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。";
+
+/* Used in More Apps menu */
+"free" = "免费";
+
+/* Used in More Apps menu */
+"buy" = "购买";
+
+/* 1st search button-like result */
+"search_on_map" = "在地图上搜索";
+
+/* toast with an error */
+"no_route_found" = "未找到路线";
+
+/* route title */
+"route" = "路线";
 
 /* category title */
 "routes" = "路线";
 
+/* Show on first launch. */
+"maps_licence_info" = "这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。";
+
+/* Show on first launch. */
+"agree" = "我同意";
+
+/* Show on first launch */
+"disagree" = "我不同意";
+
 /* text of notification */
 "download_map_notification" = "下载您所在地方的地图";
 
+/* text of notification */
+"pro_version_is_free_today" = "完整版MAPS.ME是免费的今天! 立刻下载并告诉您的好友。";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "我们正在将您从MAPS.ME Lite 下载的地图传输至 MAPS.ME。这可能需要几分钟的时间。";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "您下载的地图已成功传输至 MAPS.ME。";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "您的地图传输失败。请删除 MAPS.ME Lite，然后再次下载地图。";
+
+/* Text in menu */
+"settings_and_more" = "设置及更多";
+
 /* Text in menu */
 "website" = "网站";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.ME社区";
 
 /* Text in menu */
 "like_on_facebook" = "在Facebook 上点赞";
 
 /* Text in menu */
 "follow_on_twitter" = "在Twitter 上关注";
+
+/* Text in menu */
+"contact_us" = "联系我们";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "反馈";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "我想率先了解最新新闻、更新及促销活动。订阅可随时取消。";
 
+/* About text */
+"about_text" = "MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
+
 /* Alert text */
 "email_error_body" = "电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "无线网络";
+
+/* Update map suggestion */
+"routing_map_outdated" = "请更新地图以创建一条路线。";
+
+/* Update maps suggestion */
+"routing_update_maps" = "使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "正在下载：";
 
 "downloader_search_results" = "找到";
+
+/* Disclaimer message */
+"routing_disclaimer" = "在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "过时的";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "最新的";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "下载";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "下载地图 + 路线";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "下载路线";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "删除路线";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "下载地图";
+
+"downloader_download_map_no_routing" = "下载不带路线的地图";
+
+/* Button for routing. */
+"routing_go" = "出发！";
 
 /* Item status in downloader. */
 "downloader_retry" = "重复";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "地图 + 布置路线";
 
 /* Item in context menu. */
 "downloader_delete_map" = "删除地图";
 
 /* Item in context menu. */
 "downloader_update_map" = "更新地图";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "更新地图 + 布置路线";
+
+/* Item in context menu. */
+"downloader_map_only" = "只有地图";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Application menu";
 
 /* Preference text */
 "pref_use_google_play" = "使用Google Play服务以获取您的当前位置。";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "下载沿线地图";
 
 /* Text for routing error dialog */
+"routing_download_map" = "获取地图";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "下载更新的地图和路线数据，获取所有 MAPS.ME 的特色功能。";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "获取所需的路线数据";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "更多数据，从您的位置创建路线。";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "创建路线需要下载并更新好所有从您的位置到目的地的地图。";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "空间不够";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "您需要下载%@ MB，但只有%@ MB空间。";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "您将使用移动数据下载%@ MB（漫游）。这取决于您的移动数据方案运营商，可能会产生额外的费用。";
 
 /* bookmark button text */
 "bookmark" = "书签";
 
+/* map is not downloaded */
+"not_found_map" = "您地点的地图没有被下载";
+
 /* location service disabled */
 "enable_location_services" = "请启用位置服务";
+
+/* download map */
+"download_map" = "为您的地点下载地图";
+
+/* download map on iPhone */
+"download_map_iphone" = "在您的iPhone上下载当前位置的地图";
+
+/* clear pin */
+"nearby" = "附近的";
+
+/* clear pin */
+"clear_pin" = "清除针";
+
+/* location is undefined */
+"undefined_location" = "当前地点未定。";
+
+/* download country of your location */
+"download_country" = "下载您所在位置的国家";
 
 /* download failed */
 "download_failed" = "下载失败";
 
+/* get the map */
+"get_the_map" = "获取地图";
+
 "save" = "保存";
 
 "edit_description_hint" = "您的描述（文本或html）";
+
+"new_group" = "新群組";
+
+"create" = "创建";
 
 /* red color */
 "red" = "红色";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "无法定位当前 GPS 坐标。请启用定位服务以计算路线。";
 
+"dialog_routing_location_unknown" = "无法定位当前 GPS 坐标。";
+
 "dialog_routing_download_files" = "下载所需文件";
 
 "dialog_routing_download_and_update_all" = "下载和更新所有地图和预定路径沿途的路线信息，以计算路线。";
+
+"dialog_routing_routes_size" = "路线信息文件";
 
 "dialog_routing_unable_locate_route" = "无法定位路线";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "请重试";
 
+"dialog_routing_send_error" = "报告问题";
+
+"dialog_routing_if_get_cross_route" = "您是否要创建一条跨越多张地图的更直接路线？";
+
+"dialog_routing_cross_route_is_optimal" = "有一条跨越本地图边缘的更佳路线可用。";
+
 "not_now" = "现在不用";
+
+"dialog_routing_build_route" = "创建";
 
 "dialog_routing_download_and_build_cross_route" = "您是否要下载地图并创建一条跨越多张地图的更佳路线？";
 
 "dialog_routing_download_cross_route" = "下载地图，创建一条跨越此地图边缘的更佳路线。";
+
+"dialog_routing_cross_route_always" = "始终跨越此边界线";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。";
 
 "search_select_map" = "选择地图";
+
+"search_select_other_map" = "选择另一个地图";
 
 /* «Show» context menu */
 "show" = "显示";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "重命名";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "更多…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "路线计划失败";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "抵達:%s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "要创建路线，请下载并更新所有沿路线的地图。";
 
 "rate_alert_title" = "喜欢这个应用吗？";
 
@@ -705,6 +1013,8 @@
 
 "history" = "历史";
 
+"next_turn_then" = "然后";
+
 "closed" = "已关闭";
 
 "back_to" = "回到 %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "抱歉，没有找到任何东西。";
 
 "search_not_found_query" = "请尝试其它查询。";
+
+"search_not_found_map" = "请下载您搜索的地图。";
+
+"search_not_found_location" = "下载您当前位置的地图。";
 
 "search_history_title" = "搜索历史";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "路线计划";
+
 "p2p_your_location" = "您的位置";
 
+"p2p_from" = "出发地点";
+
+"p2p_to" = "目的地点";
+
 "p2p_start" = "开始";
+
+"p2p_planning" = "计划中…";
 
 "p2p_from_here" = "从";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "纠正错误";
 
+"editor_correct_mistake_message" = "出现编辑错误，请纠正或切换至简单模式。";
+
 "editor_add_select_location" = "位置";
 
 "editor_done_dialog_1" = "您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。";
 
 "editor_done_dialog_2" = "这是您的第二个地图改进。现在您在地图编辑者排行榜中排在第%d名。把它告诉您的朋友们。";
+
+"editor_done_dialog_3" = "您已改进此地图，请把它告诉您的朋友们，并一起编辑此地图。";
 
 "share_with_friends" = "与朋友分享";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "重复的地点";
 
+"first_launch_congrats_title" = "MAPS.ME已经可用";
+
+"first_launch_congrats_text" = "在世界各地离线搜索和导航，免费。";
+
 "migrate_title" = "重要！";
 
+/* Android uses image instead of text. */
+"download_all" = "下载所有";
+
+"delete_all" = "删除全部";
+
 "autodownload" = "自动下载";
+
+"disable_autodownload" = "禁用自动下载";
 
 /* Place Page opening hours text */
 "closed_now" = "现在关门";
@@ -803,6 +1140,10 @@
 "day_off" = "没有营业";
 
 "today" = "今天";
+
+"sunrise_to_sunset" = "从日出到日落";
+
+"sunset_to_sunrise" = "从日落到日出";
 
 "add_opening_hours" = "添加工作时间";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "忘记密码";
 
+/* Forgot Password dialog title */
+"restore_password" = "恢复密码";
+
+"enter_email_address_to_reset_password" = "输入您在注册时所用的邮箱地址，我们会给您发送链接更新密码";
+
+"reset_password" = "重置密码";
+
+"username" = "用户名";
+
 "osm_account" = "OSM账户";
 
 "logout" = "登出";
 
+"login_and_edit_map_motivation_message" = "登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "上次上传";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "您已编辑您的第一件物品！";
+
 "thank_you" = "谢谢您";
+
+"login_with_google" = "用谷歌登陆";
+
+"login_with_facebook" = "用脸书登陆";
+
+"login_with_openstreetmap" = "登录到www.openstreetmap.org";
 
 "edit_place" = "编辑地点";
 
 "place_name" = "地点名";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "其他语言";
+
+/* small button to open list with names in different languages */
+"show_more" = "显示更多";
+
+/* small button to close list with names in different languages */
+"show_less" = "显示更少";
 
 "add_language" = "添加语言";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "选择街道";
 
+"postal_code" = "邮政编码";
+
 "cuisine" = "菜肴";
 
 "select_cuisine" = "选择菜肴";
@@ -863,6 +1235,8 @@
 "phone" = "电话";
 
 "please_note" = "请注意";
+
+"common_no_wifi_dialog" = "无 WiFi 连接。您想继续使用移动数据进行连接吗？";
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "请删除不必要的数据";
 
+"editor_general_auth_error_dialog" = "一般登录错误。";
+
 "editor_login_error_dialog" = "登录错误。";
 
+"editor_login_failed_dialog" = "登录失败";
+
+"editor_username_error_dialog" = "用户名不存在";
+
+"editor_place_edited_dialog" = "您已编辑了一个对象！";
+
+"editor_login_with_osm" = "使用OpenStreetMap进行登录";
+
 "editor_profile_changes" = "已验证的更改";
+
+"editor_profile_unsent_changes" = "未发送：";
 
 "editor_focus_map_on_location" = "拖动地图以选择此对象的正确位置。";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "一个不同的问题";
 
+"placepage_report_problem_button" = "报告一个问题";
+
 "placepage_add_business_button" = "添加组织";
 
 "whatsnew_smallmwm_header" = "我们满足了您一直以来的要求";
 
 "whatsnew_smallmwm_message" = "我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。";
 
+"whatsnew_search_header" = "新搜索";
+
+"whatsnew_search_message" = "我们已明显改进了按地址的搜索。亲自看看。";
+
+"whatsnew_editor_title" = "编辑此地图*";
+
 "whatsnew_editor_message_1" = "添加新地点到该地图，并直接通过此应用编辑已存在的地点。";
+
+"whatsnew_editor_message_2" = "* MAPS.ME使用OpenStreetMap社区的数据。";
 
 "onboarding_offline_navigation_title" = "您将不再迷路";
 
 "onboarding_offline_navigation_message" = "规划最佳的驾车和步行路线，即使在没有网络连接的情况下！";
 
+"onboarding_offline_navigation_title_2" = "离线导航";
+
+"onboarding_offline_navigation_message_2" = "规划最佳的驾车和步行路线。";
+
 "onboarding_offline_maps_title" = "MAPS.ME — 无需互联网获取全球地图";
 
 "onboarding_offline_maps_message" = "下载一次所需区域的地图，您便可以在无网络连接的情况下使用导航和搜索功能。";
+
+"onboarding_notifications_message" = "为了接收最新的地图，请获取更新通知";
+
+"onboarding_notifications_title" = "允许更新通知";
+
+"onboarding_location_title" = "帮助我们找到您";
+
+"onboarding_location_message" = "为了使用导航和其他功能，我们需要访问您的地理位置信息.";
 
 "onboarding_permissions_title" = "允许 MAPS.ME 访问存储空间和地点";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "为了下载，您需要更多的空间。请删除不必要的数据。";
 
 "editor_sharing_title" = "我改进了MAPS.ME地图";
+
+"editor_comment_will_be_sent" = "我们将把您的评论发送给地图制作者。";
+
+"editor_unsupported_category_message" = "您已添加了一个我们尚未支持类别的地点。它将在一段时间之后显示在地图上。";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d个/共%2$d个";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "运营者";
 
+"editor_tag_description" = "输入公司、组织或设施负责人。";
+
+"editor_no_local_edits_title" = "您没有本地编辑";
+
+"editor_no_local_edits_description" = "这显示了当前仅在您设备上能够访问的对地图建议修改的数量。";
+
+"editor_send_to_osm" = "发送至 OSM";
+
+"editor_remove" = "删除";
+
 "downloader_my_maps_title" = "我的地图";
 
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
+
+"downloader_find_place_hint" = "搜索城市或国家";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "继续检测您的当前位置？";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。";
 
+"whatsnew_update_editor_title" = "我们已经更新了地图编辑器";
+
+"whatsnew_update_editor_message" = "MAPS.ME 用户已经进行了 200 000 处地图修改。我们正在齐心协力打造世界上最详细的地图，加入我们吧！";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "如要使用地图编辑器，请更新所有地图";
+
 "location_services_disabled_header" = "地点定位被禁用";
 
 "location_services_disabled_message" = "启用设备设置中的地理位置定位";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. 使用应用时选择";
 
+"placepage_parking_surface" = "表面";
+
+"placepage_parking_multistorey" = "多层";
+
+"placepage_parking_underground" = "地下";
+
+"placepage_parking_rooftop" = "楼顶";
+
+"placepage_parking_sheds" = "小屋";
+
+"placepage_parking_carports" = "屋侧车库";
+
+"placepage_parking_boxes" = "停车房";
+
+"placepage_parking_pay" = "付款";
+
+"placepage_parking_free" = "免费";
+
+"placepage_parking_interval" = "间隔付款";
+
+"placepage_entrance_number" = "编号";
+
+"placepage_entrance_type" = "入口";
+
+"placepage_flat" = "公寓";
+
+"placepage_open_24_7" = "24 / 7";
+
 "place_page_booking_rating" = "评价: %s";
 
 "place_page_starting_from" = "从 %s";
 
 "meter" = "米";
 
+"kilometer" = "公里";
+
+"kilometers_per_hour" = "公里每小时";
+
+"mile" = "英里";
+
 "foot" = "英尺";
+
+"miles_per_hour" = "英里每小时";
+
+"day" = "天";
 
 "hour" = "小時";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "删除";
 
+"editor_status_sending" = "正在发送…";
+
 "editor_place_doesnt_exist" = "位置不存在";
 
 "text_more_button" = "…更多";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "输入有效电子邮箱";
 
+"error_enter_correct" = "输入有效值";
+
 "editor_profile_changes_for_next_place" = "升到下一级所需更改: %d";
 
 "editor_profile_rating_place" = "排名位置";
 
+"booking_dialog_not_connect_header" = "要预订酒店，请启用互联网连接";
+
+"button_try" = "试一试";
+
 "refresh" = "更新";
 
 "last_update" = "上次更新于：%s";
+
+"booking_checkin" = "入住： %s";
+
+"booking_checkout" = "退房： %s";
 
 "placepage_add_place_button" = "添加地点到地图上";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "我们会检查更改。如果我们有任何问题，我们会邮件与您联系。";
 
+"navigation_overview_button" = "概览";
+
+"navigation_stop_button" = "停止";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "保存书签";
+
+"bookmarks_empty_message_1" = "点击★保存收藏地点以便快速访问。";
+
+"bookmarks_empty_message_2" = "从邮箱和网页导入书签。";
+
+"bookmarks_empty_message_3" = "退房： %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "预订的酒店";
+
+"place_page_button_read_descriprion" = "阅读";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "禁止记录您最近去过的路径？";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "来看看";
 
+"continue_recent_track_background_button" = "继续";
+
 "recent_track_background_dialog_message" = "MAPS.ME使用背景中的地理位置记录您最近去过的路径。";
+
+"whatsnew_car_navigation_header" = "方便用户使用的车辆导航";
+
+"whatsnew_car_navigation_message" = "• 导航元素所占用的空间更小。\n• 我们显示了速度并且已经添加了自动缩放功能。";
+
+"whatsnew_cycle_navigation_2_header" = "自行车导航";
+
+"whatsnew_cycle_navigation_2_message" = "• 自行车导航考虑了地形数据。\n• 考虑到道路斜坡，我们创建了更加优化便捷的路线。";
+
+"whatsnew_booking_2_header" = "便捷的酒店搜索";
+
+"whatsnew_booking_2_message" = "该搜索结果显示酒店星级和价格分类。";
+
+"whatsnew_cycle_navigation_header" = "自行车导航 (beta 版)";
+
+"whatsnew_cycle_navigation_message" = "正在测试自行车导航。试一下使用 MAPS.ME 寻找您最喜爱的自行车路线并与我们分享您的意见。";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "在 Google Play 上的评分";
@@ -1118,6 +1632,9 @@
 
 "date" = "日期 %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "某些地方出错了";
+
 /* For the first routing */
 "accept" = "接受";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "拒绝";
+
+"whats_new_route_profile_title" = "与其循规蹈矩，不如奋起改变";
+
+"whats_new_route_profile_message" = "对于行人和自行车路线，我们现在显示纵剖面。";
+
+"whats_new_booking_improve_title" = "优惠预订酒店";
+
+"whats_new_booking_improve_message" = "酒店的搜索结果现在包含价格类别。\n我们还添加了超过 110,000 家酒店。";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "设施";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "显示更多";
 
+"booking_reviews" = "点评";
+
+"booking_hotel" = "酒店";
+
+/* hotel room */
+"booking_hotel_room" = "客房";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "开放";
+
+"whatsnew_uber_header" = "优步和MAPS.ME";
+
+"whatsnew_uber_message" = "从应用直接叫优步出租车！";
+
 "dialog_taxi_offline" = "叫出租车服务在离线模式下无法使用。";
 
 "dialog_taxi_error" = "叫出租车服务暂时无法使用。";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "要显示交通数据，必须更新地图。";
 
+"traffic_outdated" = "交通数据已过时。";
+
 "big_font" = "增大地图上的字体大小";
 
 "traffic_update_app" = "请更新 MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通数据不可用";
+
+"banner_deliveryclub_title" = "送餐";
+
+"banner_deliveryclub_message" = "4,000 家餐厅的快速送餐。从 Delivery Club 订餐。";
+
+"banner_lamoda_title" = "在线服装和鞋店";
+
+"banner_lamoda_message" = "超过 1,000 个品牌。最低三折起。全国免费派送。";
+
+"banner_tutu_title" = "在线火车票";
+
+"banner_tutu_message" = "在线购买前往任何城市的火车票 - 价格、搜索和预订。";
+
+"banner_geerbest_title" = "在线电子产品商店";
+
+"banner_geerbest_message" = "立即搜索价格超低的 50,000 余种商品。";
+
+"banner_rentalcars_title" = "在线租车";
+
+"banner_rentalcars_message" = "800 家租车公司，超过 49,000 个租车网点。";
+
+"banner_viator_title" = "在线导游搜索";
+
+"banner_viator_message" = "搜索全世界范围内的 50,000 多位导游。";
+
+/* december */
+"whatsnew_traffic" = "36 个国家/地区的交通数据";
+
+/* december */
+"whatsnew_traffic_text" = "最快的驾驶路线离不开最新的交通信息！";
+
+/* december */
+"whatsnew_traffic_roaming" = "交通信息漫游";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "每次旅行需要的移动带宽小于 1 MB。";
+
+/* december */
+"whatsnew_order_taxi" = "预订出租车";
+
+/* december */
+"whatsnew_order_taxi_text" = "大多数地点页面现在都包含一个用于预订出租车的按钮。";
+
+/* january */
+"whatsnew_improved_search" = "改进了搜索";
+
+/* january */
+"whatsnew_improved_search_text" = "即使查询存在拼写错误也能得到准确的搜索结果。";
+
+/* january */
+"whatsnew_filters_in_search" = "搜索筛选器";
+
+/* january */
+"whatsnew_filters_in_search_text" = "基于价格和评分搜索酒店。";
+
+/* january */
+"whatsnew_font_size" = "字体大小";
+
+/* january */
+"whatsnew_font_size_text" = "可以增大地图上的标签。";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "启用记录";
 
+"whatsnew_more_info_on_hotels_title" = "了解酒店的更多信息";
+
+"whatsnew_more_info_on_hotels_message" = "全新的酒店页面：在线查看照片、用户评论和其他信息。";
+
+"whatsnew_better_routing_title" = "改进的路线规划";
+
+"whatsnew_better_routing_message" = "• 更准确地估计到达时间。\n• 应用已经考虑到限制性区域和道路标志。";
+
+"whatsnew_smaller_mwm_title" = "地图变小";
+
+"whatsnew_smaller_mwm_message" = "地图需要的存储空间减少 20%。";
+
+"whatsnew_waypoints_title" = "在路线中添加路径点";
+
+"whatsnew_waypoints_message" = "点按地点即可向您的路线添加路径点。";
+
 "whatsnew_viator_title" = "预订游览";
 
 "whatsnew_viator_message" = "选择全世界旅游城市的热门游览。";
+
+"whatsnew_driving_style_title" = "新的驾驶地图样式";
+
+"whatsnew_driving_style_message" = "汽车导航模式更加易用。";
 
 "more_on_bookingcom" = "Booking.com 上的更多信息";
 
 "details_on_bookingcom" = "Booking.com 上的详细信息";
 
 "reviews_on_bookingcom" = "Booking.com 上的更多评价";
+
+"offline_place_page_more_information" = "连接到互联网来获取关于地点的更多信息。";
+
+"failed_load_information" = "无法加载信息。";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "更新 (%s)";
 
 "whats_new_auto_update_button_later" = "稍后手动更新";
+
+"search_hotel_filter_apartment" = "公寓";
+
+"search_hotel_filter_camp_site" = "露营";
+
+"search_hotel_filter_chalet" = "木屋";
+
+"search_hotel_filter_guest_house" = "招待所์|์旅馆์|์旅社|旅店";
+
+"search_hotel_filter_hostel" = "旅馆";
+
+"search_hotel_filter_resort" = "度假村";
+
+"search_hotel_filter_hotel" = "旅店";
+
+"search_hotel_filter_motel" = "汽车旅馆";
 
 "create_campaign_button" = "认领此商家";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "直译成拉丁文";
 
+"whatsnew_transliteration_message" = "如果某条街道或者某个对象在您的语言中没有对应的名称，它将使用拉丁字母拼写。";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "了解更多";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "添加终点以规划路线";
 
+"onboarding_welcome_message" = "免费、快速、详细且完全离线的地图，并且带有精细导航功能。";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "启动应用程序即表明同意“使用条款”和“隐私政策”。";
+
+"button_accept_and_continue" = "接受并继续";
+
+"button_learn_more" = "了解更多";
+
 "onboarding_storage_permissions_title" = "授予访问权限";
 
 "onboarding_storage_permissions_message" = "更改您的设备中的权限设置。需要存储空间访问权限才能使用 MAPS.ME。";
+
+"button_exit" = "退出";
 
 "onboarding_detail_permissions_title" = "MAPS.ME 需要以下访问权限";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "您还可以在设置中更改已下载地图的目标存储位置。";
 
+"settings_device_memory" = "设备内存";
+
+"settings_card_memory" = "存储卡";
+
+"settings_storage_available" = "%s 可用";
+
+"toast_location_permission_denied" = "应用已拒绝地点获取权限";
+
 "place_page_viator_title" = "景点和游览";
 
+"button_use" = "使用";
+
+"planning_route_manage_route" = "管理路线";
+
+"button_plan" = "规划";
+
+"button_add" = "添加";
+
 "placepage_remove_stop" = "移除";
+
+"planning_route_remove_title" = "拖动到此处以移除";
+
+"dialog_change_start_point_message" = "将起点替换为当前地点？";
+
+"button_replace" = "替换";
 
 "placepage_add_stop" = "添加经停点";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "禁用自动下载";
 
 "add_my_position" = "Add my position";
 

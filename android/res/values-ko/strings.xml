@@ -14,11 +14,24 @@
 	<string name="cancel_download">다운로드 취소하기</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">삭제하기</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">또 묻지 마세요.</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">아무것도 하지 마세요</string>
 	<string name="download_maps">지도 다운로드받기</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">%qu 다운로드하기</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">%qu 다운로드하기</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s)가 다운로드 되었습니다, 두드려 삭제하십시요.</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">%qu%%를 다운로드 중, 두드려 취소하십시요</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">다운로드 중…</string>
+	<string name="get_it_now">지금 가져오기</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">MAPS.ME를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,23 +42,39 @@
 	<string name="maps">지도</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">지도:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">다운로드로 표시하였습니다. 두드려 취소하십시요.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">마일</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">나의 위치</string>
 	<string name="ok">승인</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">이후에 기억시키기</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">후</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">거절</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">문제 보고하기</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">검색하기</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">지도 검색하기</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">두드려 다운로드하세요</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">네</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">어느 측정 시스템을 선호하십니까?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">귀하의장치가 위치 서비스를 지원하지 않습니다.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">지도에 표시</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -63,13 +92,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
 	<string name="about_menu_title">소개</string>
+	<string name="downloading_touch_to_cancel">%d%%를 다운로드 중, 두드려 취소하십시요</string>
+	<string name="downloaded_touch_to_delete">(%s)가 다운로드 되었습니다, 두드려 삭제하십시요.</string>
 	<string name="connection_settings">연결 설정</string>
+	<string name="download_mb_or_kb">%s 다운로드하기</string>
 	<string name="close">닫기</string>
 	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
 	<string name="download">다운로드</string>
+	<string name="external_storage_is_not_available">다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다</string>
 	<string name="disconnect_usb_cable">MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
 	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
+	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
 	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
 	<string name="getting_position">현재 위치 얻기</string>
 	<string name="download_resources_continue">지도로 이동</string>
@@ -86,14 +120,22 @@
 	<string name="pause">중지</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">계속</string>
+	<string name="downloaded_touch_to_update">다운로드 (%s), 터치를 업데이 트하거나 삭제하는 방법</string>
+	<string name="update_mb_or_kb">%s업데이트</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">당신은 검색 기능에 대한 업데이트된지도 필요</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s이 성공적으로 다운로드</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s다운로드가 실패했습니다</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">새로운 세트 추가</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">즐겨찾기에 추가</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">색상 즐겨찾기에 추가</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -102,12 +144,16 @@
 	<string name="bookmark_sets">세트를 즐겨찾기에 추가</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">북마크</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">색깔</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">이름</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">주소</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">핀 제거</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">집합</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -126,10 +172,18 @@
 	<string name="wait_several_minutes">이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">눈에 보이는</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">측정 단위</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">모든 곳</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">근처 검색</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">화면에</string>
 	<!-- Search Suggestion -->
 	<string name="food">음식</string>
 	<!-- Search Suggestion -->
@@ -160,6 +214,8 @@
 	<string name="post">우편</string>
 	<!-- Search Suggestion -->
 	<string name="police">치안대</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">결과 없음</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Button text -->
@@ -180,16 +236,24 @@
 	<string name="unknown_current_position">귀하의 위치를 아직 알아내지 못 했습니다</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">귀하께서 현재 계신 국가인 을(를) 다운로드 (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">귀하께서 검색 중인 국가인 을(를) 다운로드 (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">국가 다운로드가 지금 진행 중입니다.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">평가하지 않겠습니다</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">지도에서 내 PIN을 참조하십시오. %1$s 또는 %2$s 열기</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">현재 위치를 알아 보십시오. %1$s 또는 %2$s 열기</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">MAPS.ME 지도에서 내 핀 보기</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -198,8 +262,14 @@
 	<string name="share_by_message">메시지로 공유</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">공유</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">메시지</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">이메일</string>
+	<!-- Copy Link -->
+	<string name="copy_link">링크 복사하기</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">추가 정보 보기</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -217,6 +287,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">길이</string>
 	<string name="share_my_location">내 위치 공유</string>
+	<string name="menu_search">검색</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">지도</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">기타</string>
 	<string name="prefs_group_route">네비게이션</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
@@ -232,6 +307,8 @@
 	<string name="pref_map_3d_title">원근 보기</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">주변 건물 3D</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">배터리 수명에 영향</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">음성 지침</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -251,23 +328,54 @@
 	<string name="duration_12_hours">12시간</string>
 	<string name="duration_1_day">1일</string>
 	<string name="recent_track_help_text">특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.</string>
+	<string name="pref_track_ios_caption">최근 추적은 여행한 경로를 보여줍니다.</string>
+	<string name="pref_track_ios_subcaption">추적을 저장하는 시간 범위를 선택하십시오.</string>
+	<string name="placepage_distance">거리</string>
+	<string name="placepage_coordinates">좌표</string>
+	<string name="placepage_unsorted">분류되지 않음</string>
 	<string name="search_show_on_map">지도 보기</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">무료</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">구입</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">지도에서 검색</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">경로를 찾을 수 없음</string>
+	<!-- route title -->
+	<string name="route">경로</string>
 	<!-- category title -->
 	<string name="routes">경로</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">당신이 있는 장소의지도를 다운로드 하십시오</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">다운로드된 지도가 성공적으로 MAPS.ME에 전송됨</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">설정 및 기타</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME 커뮤니티</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook에서 좋아요</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitter에서 팔로우</string>
+	<!-- Text in menu -->
+	<string name="contact_us">연락처</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">피드백</string>
 	<!-- Text in menu -->
@@ -284,6 +392,8 @@
 	<string name="subscribe_me_subject">MAPS.ME 뉴스 레터로 나를 구독해 주십시오.</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support\@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, http://openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %s로 연락할 다른 방법을 사용하십시오.</string>
 	<!-- Alert title -->
@@ -292,6 +402,10 @@
 	<string name="pref_calibration_title">나침반 보정</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi 인터넷</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">경로를 생성하도록 지도를 업데이트하십시오.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
@@ -307,6 +421,12 @@
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<string name="downloader_downloading">다운로드 중:</string>
 	<string name="downloader_search_results">검색 결과</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">만료됨</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">최신</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">업데이트</string>
 	<!-- Status of failed country in the list -->
@@ -328,13 +448,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support\@maps.me로 문의하시기 바랍니다.</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">지도 + 라우팅 다운로드</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">라우팅 다운로드</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">라우팅 삭제</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">지도 다운로드</string>
+	<string name="downloader_download_map_no_routing">라우팅없이 지도 다운로드</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">이동!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">반복</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">지도 + 라우팅</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">지도 삭제</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">지도 업데이트</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">지도 + 라우팅 업데이트</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">지도만</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">애플리케이션 메뉴</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Google Play 서비스를 사용하여 현재 위치 정보 얻기</string>
 	<!-- Text for rating dialog -->
@@ -356,15 +493,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">경로를 따라 지도 다운로드</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">지도 가져오기</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 MAPS.ME 기능을 가져옵니다.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">라우팅 데이터 가져오기</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">추가 데이터는 사용자의 위치에서 경로를 생성하도록 필요합니다.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">여유 공간 부족</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">%1$s MB를 다운로드해야 하지만 %2$s MB만 사용할 수 있습니다.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">모바일 데이터(로밍시)를 사용하여 %s MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">북마크</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">위치에 대한 지도가 다운로드되지 않음</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
+	<!-- download map -->
+	<string name="download_map">위치에 대한 지도 다운로드</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">아이폰에서 현재 위치의 지도 다운로드</string>
+	<!-- clear pin -->
+	<string name="nearby">근처에</string>
+	<!-- clear pin -->
+	<string name="clear_pin">핀 지우기</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">현재 위치는 정의되지 않습니다.</string>
+	<!-- download country of your location -->
+	<string name="download_country">귀하께서 현재 계신 국가인 을(를) 다운로드</string>
 	<!-- download failed -->
 	<string name="download_failed">다운로드가 실패했습니다</string>
+	<!-- get the map -->
+	<string name="get_the_map">지도 가져오기</string>
 	<string name="save">저장</string>
 	<string name="edit_description_hint">설명(텍스트 또는 HTML)</string>
+	<string name="new_group">새 그룹</string>
+	<string name="create">만들기기</string>
 	<!-- red color -->
 	<string name="red">빨간색</string>
 	<!-- yellow color -->
@@ -396,8 +565,10 @@
 	<string name="dialog_routing_location_turn_wifi">GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.</string>
 	<string name="dialog_routing_location_turn_on">위치 서비스 활성화</string>
 	<string name="dialog_routing_location_unknown_turn_on">현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.</string>
+	<string name="dialog_routing_location_unknown">현재 GPS 좌표를 찾을 수 없습니다.</string>
 	<string name="dialog_routing_download_files">필수 파일 다운로드</string>
 	<string name="dialog_routing_download_and_update_all">경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.</string>
+	<string name="dialog_routing_routes_size">경로 정보 파일</string>
 	<string name="dialog_routing_unable_locate_route">경로를 찾을 수 없습니다</string>
 	<string name="dialog_routing_cant_build_route">경로를 찾을 수 없습니다.</string>
 	<string name="dialog_routing_change_start_or_end">출발지나 목적지를 조정하세요.</string>
@@ -412,21 +583,33 @@
 	<string name="dialog_routing_system_error">시스템 오류</string>
 	<string name="dialog_routing_application_error">애플리케이션 오류로 인해 경로를 설정하지 못했습니다.</string>
 	<string name="dialog_routing_try_again">다시 시도해주세요.</string>
+	<string name="dialog_routing_send_error">문제 신고</string>
+	<string name="dialog_routing_if_get_cross_route">두 개 이상의 지도를 통과하는 더 직접적인 경로를 설정하시겠습니까?</string>
+	<string name="dialog_routing_cross_route_is_optimal">이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.</string>
 	<string name="not_now">나중에</string>
+	<string name="dialog_routing_build_route">만들기</string>
 	<string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
 	<string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
+	<string name="dialog_routing_cross_route_always">항상 이 경계 통과</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
 	<string name="search_select_map">지도 선택</string>
+	<string name="search_select_other_map">다른 지도 선택</string>
 	<!-- «Show» context menu -->
 	<string name="show">표시</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">숨기기</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">다른 이름으로 변경</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">기타…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">경로 계획 실패</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">도착: %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.</string>
 	<string name="rate_alert_title">앱을 좋아하나요?</string>
 	<string name="rate_alert_default_message">MAPS.ME를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>
 	<string name="rate_alert_five_star_message">야호! 저희는 당신도 사랑합니다!</string>
@@ -434,17 +617,24 @@
 	<string name="rate_alert_less_than_four_star_message">더 낫게 만드는 아이디어가 있습니까?</string>
 	<string name="categories">범주</string>
 	<string name="history">내역</string>
+	<string name="next_turn_then">그런 다음</string>
 	<string name="closed">닫음</string>
 	<string name="back_to">%s(으)로 복귀</string>
 	<string name="search_not_found">죄송합니다. 아무것도 찾지 못했습니다.</string>
 	<string name="search_not_found_query">다른 쿼리를 시도하십시오.</string>
+	<string name="search_not_found_map">검색할 지도를 다운로드하십시오.</string>
+	<string name="search_not_found_location">현재 위치의 지도를 다운로드하십시오.</string>
 	<string name="search_history_title">검색 기록</string>
 	<string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
 	<string name="clear_search">이력 검색 지우기</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">추천 보기</string>
+	<string name="p2p_route_planning">경로 계획 중</string>
 	<string name="p2p_your_location">위치</string>
+	<string name="p2p_from">출발 지점</string>
+	<string name="p2p_to">도착 지점</string>
 	<string name="p2p_start">시작</string>
+	<string name="p2p_planning">계획 중…</string>
 	<string name="p2p_from_here">출발지</string>
 	<string name="p2p_to_here">목적지</string>
 	<string name="p2p_only_from_current">현재 위치에서만 네비게이션을 사용할 수 있습니다.</string>
@@ -463,9 +653,11 @@
 	<string name="editor_hours_closed">폐점 시간</string>
 	<string name="editor_example_values">예제</string>
 	<string name="editor_correct_mistake">입력 수정</string>
+	<string name="editor_correct_mistake_message">잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.</string>
 	<string name="editor_add_select_location">위치</string>
 	<string name="editor_done_dialog_1">세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.</string>
 	<string name="editor_done_dialog_2">이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 %d번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.</string>
+	<string name="editor_done_dialog_3">지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.</string>
 	<string name="share_with_friends">친구들과 공유</string>
 	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
 	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/</string>
@@ -474,8 +666,14 @@
 	<string name="editor_report_problem_no_place_title">장소가 존재하지 않음</string>
 	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
 	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
+	<string name="first_launch_congrats_title">MAPS.ME를 사용할 준비가 완료되었습니다</string>
+	<string name="first_launch_congrats_text">무료로 세계 어디에서나 오프라인으로 검색하고 탐색할 수 있습니다.</string>
 	<string name="migrate_title">중요!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">모두 다운로드</string>
+	<string name="delete_all">모두 삭제</string>
 	<string name="autodownload">자동 다운로드</string>
+	<string name="disable_autodownload">자동 다운로드 해제</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">지금 닫힘</string>
 	<!-- Place Page opening hours text -->
@@ -484,6 +682,8 @@
 	<string name="day_off_today">오늘 영업 종료됨</string>
 	<string name="day_off">종료됨</string>
 	<string name="today">오늘</string>
+	<string name="sunrise_to_sunset">일출에서 일몰로</string>
+	<string name="sunset_to_sunrise">일출에서 일몰까지</string>
 	<string name="add_opening_hours">영업일 추가</string>
 	<string name="edit_opening_hours">영업일 편집</string>
 	<string name="profile">프로필</string>
@@ -494,13 +694,30 @@
 	<string name="login">로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">암호 복원</string>
+	<string name="enter_email_address_to_reset_password">등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.</string>
+	<string name="reset_password">비밀번호 재 설정</string>
+	<string name="username">사용자 이름</string>
 	<string name="osm_account">OSM 계정</string>
 	<string name="logout">로그 아웃</string>
+	<string name="login_and_edit_map_motivation_message">로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">마지막 업로드</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
 	<string name="thank_you">고맙습니다.</string>
+	<string name="login_with_google">Google로 로그인</string>
+	<string name="login_with_facebook">Facebook으로 로그인</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="place_name">지명</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">다른 언어</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">더 많이 표시</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">더 적게 표시</string>
 	<string name="add_language">언어 추가</string>
 	<string name="street">거리</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -510,12 +727,14 @@
 	<string name="add_street">거리 추가</string>
 	<string name="choose_language">언어 선택</string>
 	<string name="choose_street">거리 선택</string>
+	<string name="postal_code">우편 번호</string>
 	<string name="cuisine">요리</string>
 	<string name="select_cuisine">요리 선택</string>
 	<!-- login text field -->
 	<string name="email_or_username">이메일 또는 사용자 이름</string>
 	<string name="phone">전화</string>
 	<string name="please_note">참고 사항</string>
+	<string name="common_no_wifi_dialog">WiFi 연결이 없습니다. 모바일 데이터를 계속하시겠습니까?</string>
 	<string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
 	<string name="downloader_update_maps">지도 업데이트</string>
 	<string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
@@ -526,8 +745,14 @@
 	<string name="common_check_internet_connection_dialog">설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.</string>
 	<string name="downloader_no_space_title">충분하지 않은 여유 공간</string>
 	<string name="downloader_no_space_message">불필요한 데이터를 제거하십시오.</string>
+	<string name="editor_general_auth_error_dialog">일반 로그인 오류.</string>
 	<string name="editor_login_error_dialog">로그인 오류.</string>
+	<string name="editor_login_failed_dialog">로그인 실패</string>
+	<string name="editor_username_error_dialog">잘못된 사용자 이름</string>
+	<string name="editor_place_edited_dialog">개체를 편집했습니다!</string>
+	<string name="editor_login_with_osm">OpenStreetMap으로 로그인</string>
 	<string name="editor_profile_changes">변경사항 승인</string>
+	<string name="editor_profile_unsent_changes">전송되지 않음:</string>
 	<string name="editor_focus_map_on_location">개체의 정확한 위치를 선택하려면 지도를 당깁니다.</string>
 	<string name="editor_add_select_category">범주 선택</string>
 	<string name="editor_add_select_category_popular_subtitle">인기있는</string>
@@ -538,14 +763,25 @@
 	<string name="editor_edit_place_category_title">범주</string>
 	<string name="detailed_problem_description">문제에 대한 자세한 설명</string>
 	<string name="editor_report_problem_other_title">다른 문제</string>
+	<string name="placepage_report_problem_button">문제 신고</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="whatsnew_smallmwm_header">여러분이 요청한 것을 저희가 해냈습니다</string>
 	<string name="whatsnew_smallmwm_message">지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.</string>
+	<string name="whatsnew_search_header">새로운 검색</string>
+	<string name="whatsnew_search_message">저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.</string>
+	<string name="whatsnew_editor_title">지도 편집*</string>
 	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
 	<string name="onboarding_offline_navigation_title">다시 손실되지 않을 것임</string>
 	<string name="onboarding_offline_navigation_message">인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!</string>
+	<string name="onboarding_offline_navigation_title_2">오프라인 탐색</string>
+	<string name="onboarding_offline_navigation_message_2">최적의 자동차와 보행자 경로를 계획합니다.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용</string>
 	<string name="onboarding_offline_maps_message">한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.</string>
+	<string name="onboarding_notifications_message">최신지도를 받으려면, 업데이트 알림 받기</string>
+	<string name="onboarding_notifications_title">업데이트 알림 활성화</string>
+	<string name="onboarding_location_title">사용자를 찾도록 돕기</string>
+	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
 	<string name="onboarding_permissions_title">저장소 및 위치에 대한 MAPS.ME 액세스 허용</string>
 	<string name="onboarding_permissions_message">따라서 지도를 다운로드하고, 근처의 장소와 교통 상황을 보고, 네비게이션을 사용할 수 있습니다.</string>
 	<string name="onboarding_welcome_title">MAPS.ME입니다.</string>
@@ -558,6 +794,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.</string>
 	<string name="editor_sharing_title">나는 MAPS.ME 지도를 향상함</string>
+	<string name="editor_comment_will_be_sent">지도 제작자에게 의견을 보낼 것입니다.</string>
+	<string name="editor_unsupported_category_message">아직 지원하지 않는 카테고리의 장소를 추가했습니다. 시간이 좀 흐른 나중에 이 지도에 표시될 것입니다.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>
 	<string name="download_over_mobile_header">셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?</string>
@@ -575,9 +813,15 @@
 	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
 	<string name="editor_more_about_osm">OpenStreetMap 정보</string>
 	<string name="editor_operator">소유자</string>
+	<string name="editor_tag_description">회사, 조직 또는 시설 책임자를 입력하세요.</string>
+	<string name="editor_no_local_edits_title">편집한 지역정보가 없습니다</string>
+	<string name="editor_no_local_edits_description">이는 현재 귀하의 장치에서만 액세스할 수 있으며, 지도에서 만든 변경사항를 보여줍니다.</string>
+	<string name="editor_send_to_osm">OSM에 전송</string>
+	<string name="editor_remove">삭제</string>
 	<string name="downloader_my_maps_title">내 지도</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
 	<string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
+	<string name="downloader_find_place_hint">도시/국가 검색</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">현재 위치검색을 계속하시겠습니까?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -586,16 +830,39 @@
 	<string name="current_location_unknown_stop_button">중지</string>
 	<string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
 	<string name="current_location_unknown_error_message">위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.</string>
+	<string name="whatsnew_update_editor_title">지도 편집기를 업데이트했습니다</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.</string>
 	<string name="location_services_disabled_header">위치 식별 사용할 수 없음</string>
 	<string name="location_services_disabled_message">장치 설정에서 위치 정보에 액세스할 수 있음</string>
 	<string name="location_services_disabled_1">1. 설정 열기</string>
 	<string name="location_services_disabled_2">2. 위치 누르기</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. 앱 사용 중에 선택</string>
+	<string name="placepage_parking_surface">주차공간</string>
+	<string name="placepage_parking_multistorey">주차장 건물</string>
+	<string name="placepage_parking_underground">지하</string>
+	<string name="placepage_parking_rooftop">옥상</string>
+	<string name="placepage_parking_sheds">창고</string>
+	<string name="placepage_parking_carports">간이 차고</string>
+	<string name="placepage_parking_boxes">차고</string>
+	<string name="placepage_parking_pay">유료</string>
+	<string name="placepage_parking_free">무료</string>
+	<string name="placepage_parking_interval">주차요금 간격</string>
+	<string name="placepage_entrance_number">번호</string>
+	<string name="placepage_entrance_type">입구</string>
+	<string name="placepage_flat">앱</string>
+	<string name="placepage_open_24_7">연중무휴</string>
 	<string name="place_page_booking_rating">평가: %s</string>
 	<string name="place_page_starting_from">%s에서</string>
 	<string name="meter">m</string>
+	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/시</string>
+	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
+	<string name="day">d</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
@@ -612,24 +879,38 @@
 	<string name="editor_reset_edits_button">재설정</string>
 	<string name="editor_remove_place_message">추가한 장소를 삭제하시겠습니까?</string>
 	<string name="editor_remove_place_button">삭제</string>
+	<string name="editor_status_sending">보내는 중…</string>
 	<string name="editor_place_doesnt_exist">존재하지 않는 장소입니다.</string>
 	<string name="text_more_button">…기타</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">올바른 전화 번호 입력</string>
 	<string name="error_enter_correct_web">유효한 웹 주소 입력</string>
 	<string name="error_enter_correct_email">유효한 이메일 주소 입력</string>
+	<string name="error_enter_correct">유효한 값 입력</string>
 	<string name="editor_profile_changes_for_next_place">다음 장소 변경: %d</string>
 	<string name="editor_profile_rating_place">평가 순위</string>
+	<string name="booking_dialog_not_connect_header">호텔을 예약하려면 인터넷에 연결하세요</string>
+	<string name="button_try">시도해보세요</string>
 	<string name="refresh">최신 정보</string>
 	<string name="last_update">마지막 업데이트: %s</string>
+	<string name="booking_checkin">체크인: %s</string>
+	<string name="booking_checkout">체크아웃: %s</string>
 	<string name="placepage_add_place_button">지도에 장소 추가</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">이를 모든 사용자에게 전송하시겠습니까?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
 	<string name="editor_share_to_all_dialog_message_2">저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.</string>
+	<string name="navigation_overview_button">개요</string>
+	<string name="navigation_stop_button">중지</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">북마크 저장</string>
+	<string name="bookmarks_empty_message_1">빠른 액세스를 위해 즐겨찾는 장소에 저장하기 위해 ★를 누릅니다.</string>
+	<string name="bookmarks_empty_message_2">이메일 및 웹에서 북마크를 가져옵니다.</string>
+	<string name="bookmarks_empty_message_3">체크아웃: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">호텔 예약함</string>
+	<string name="place_page_button_read_descriprion">읽기</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">최근 여행한 경로 녹음을 비활성화하시겠습니까?</string>
 	<!-- If a hotel is being shared -->
@@ -637,7 +918,16 @@
 	<string name="off_recent_track_background_button">비활성화</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">체크아웃</string>
+	<string name="continue_recent_track_background_button">계속</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.</string>
+	<string name="whatsnew_car_navigation_header">사용자 친화적인 차량 네비게이션</string>
+	<string name="whatsnew_car_navigation_message">• 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.</string>
+	<string name="whatsnew_cycle_navigation_2_header">자전거 네비게이션</string>
+	<string name="whatsnew_cycle_navigation_2_message">• 자전거 탐색은 계정 지형 데이터를 고려합니다.\n• 저희는 계정 도로 경사를 고려하여 쉽게 경로를 만들 수 있습니다.</string>
+	<string name="whatsnew_booking_2_header">쉬운 호텔 검색</string>
+	<string name="whatsnew_booking_2_message">검색 결과는 호텔 평가 및 가격 범주를 표시합니다.</string>
+	<string name="whatsnew_cycle_navigation_header">자전거 네비게이션 (베타 버전)</string>
+	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play에서 평가</string>
 	<!-- Share with friends: menu item title -->
@@ -652,10 +942,16 @@
 	<string name="allow_statistics_hint">익명의 사용 통계를 수집하면 앱을 개선하는 데 도움이 됩니다.</string>
 	<string name="general_settings">일반 설정</string>
 	<string name="date">날짜 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">문제가 발생했습니다.</string>
 	<!-- For the first routing -->
 	<string name="accept">동의</string>
 	<!-- For the first routing -->
 	<string name="decline">거부</string>
+	<string name="whats_new_route_profile_title">문제가 있으면 계속 어려움을 겪는 것보다 그만두는 게 낫습니다.</string>
+	<string name="whats_new_route_profile_message">보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.</string>
+	<string name="whats_new_booking_improve_title">호텔 예약 시 절약</string>
+	<string name="whats_new_booking_improve_message">이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">시설</string>
 	<!-- For place page hotel nearby block -->
@@ -687,6 +983,16 @@
 	<string name="search_in_table">목록</string>
 	<string name="booking_based_on_reviews">%d개 호텔 리뷰 기반</string>
 	<string name="booking_show_more">자세히 표시</string>
+	<string name="booking_reviews">리뷰</string>
+	<string name="booking_hotel">호텔</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">객실</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">열기</string>
+	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>
 	<string name="dialog_taxi_error">일시적으로 택시를 예약할 수 없습니다.</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
@@ -698,12 +1004,49 @@
 	<string name="mobile_data_option_never">전혀 사용 안 함</string>
 	<string name="mobile_data_option_ask">항상 표시</string>
 	<string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
+	<string name="traffic_outdated">교통 데이터가 오래되었습니다.</string>
 	<string name="big_font">지도에서 글꼴 크기 늘리기</string>
 	<string name="traffic_update_app">MAPS.ME를 업데이트하세요.</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
+	<string name="banner_deliveryclub_title">음식 배달</string>
+	<string name="banner_deliveryclub_message">4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.</string>
+	<string name="banner_lamoda_title">온라인 의류 및 신발 스토어</string>
+	<string name="banner_lamoda_message">1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.</string>
+	<string name="banner_tutu_title">온라인 기차표</string>
+	<string name="banner_tutu_message">온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.</string>
+	<string name="banner_geerbest_title">온라인 전자 기기 스토어</string>
+	<string name="banner_geerbest_message">저렴한 가격의 50,000개 이상 품목에서 즉시 검색.</string>
+	<string name="banner_rentalcars_title">온라인 자동차 렌트</string>
+	<string name="banner_rentalcars_message">800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점</string>
+	<string name="banner_viator_title">온라인 투어 검색</string>
+	<string name="banner_viator_message">전 세계 50,000개 이상의 투어에서 검색하세요.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">로밍의 교통 정보</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">승차당 모바일 대역폭 1MB 미만이 필요합니다.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">택시 주문</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">향상된 검색</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">검색 필터</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">가격 및 등급에 따라 호텔을 검색합니다.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">글꼴 크기</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">지도의 레이블을 더 크게 할 수 있습니다.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -713,16 +1056,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">단순화된 트래픽 색상</string>
 	<string name="enable_logging">로깅 사용</string>
+	<string name="whatsnew_more_info_on_hotels_title">호텔에 대한 자세한 정보</string>
+	<string name="whatsnew_more_info_on_hotels_message">호텔 페이지의 새로운 모습: 온라인으로 사진, 사용자 리뷰 및 기타 정보를 확인하세요.</string>
+	<string name="whatsnew_better_routing_title">향상된 경로 계획</string>
+	<string name="whatsnew_better_routing_message">• 보다 정확한 도착 시간 추정. \n• 앱이 제한 지역 및 도로 표지판을 고려합니다.</string>
+	<string name="whatsnew_smaller_mwm_title">더 작아진 지도</string>
+	<string name="whatsnew_smaller_mwm_message">지도가 저장소를 최대 20% 적게 필요로 합니다.</string>
+	<string name="whatsnew_waypoints_title">경로의 중간 지점</string>
+	<string name="whatsnew_waypoints_message">경로에 중간 지점을 추가할 위치를 탭하세요.</string>
 	<string name="whatsnew_viator_title">투어 예약</string>
 	<string name="whatsnew_viator_message">전 세계 관광 도시에서 인기 투어를 선택하세요.</string>
+	<string name="whatsnew_driving_style_title">운전을 위한 새로운 지도 스타일</string>
+	<string name="whatsnew_driving_style_message">자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.</string>
 	<string name="more_on_bookingcom">Booking.com의 추가 정보</string>
 	<string name="details_on_bookingcom">Booking.com의 세부 정보</string>
 	<string name="reviews_on_bookingcom">Booking.com의 추가 리뷰</string>
+	<string name="offline_place_page_more_information">인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.</string>
+	<string name="failed_load_information">정보를 로드하지 못했습니다.</string>
 	<string name="whats_new_auto_update_updating_maps">지도 업데이트</string>
 	<string name="whats_new_auto_update_title">다운로드한 지도를 업데이트해야 합니다</string>
 	<string name="whats_new_auto_update_message">지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.</string>
 	<string name="whats_new_auto_update_button_size">업데이트(%s)</string>
 	<string name="whats_new_auto_update_button_later">나중에 수동으로 업데이트</string>
+	<string name="search_hotel_filter_apartment">아파트</string>
+	<string name="search_hotel_filter_camp_site">^캠핑</string>
+	<string name="search_hotel_filter_chalet">별장</string>
+	<string name="search_hotel_filter_guest_house">영빈관|호스텔</string>
+	<string name="search_hotel_filter_hostel">호스텔</string>
+	<string name="search_hotel_filter_resort">리조트</string>
+	<string name="search_hotel_filter_hotel">호텔</string>
+	<string name="search_hotel_filter_motel">모텔</string>
 	<string name="create_campaign_button">이 비즈니스 클레임</string>
 	<string name="view_campaign_button">비즈니스 광고를 하고 있습니다.</string>
 	<string name="search_hotel_filters_type">유형</string>
@@ -734,12 +1097,19 @@
 	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play Market, Samsung Apps)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="whatsnew_transliteration_title">라틴어로 음역</string>
+	<string name="whatsnew_transliteration_message">거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.</string>
 	<string name="learn_more">자세히 알아보기</string>
 	<string name="exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
+	<string name="onboarding_welcome_message">턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">애플리케이션을 시작하면, 이용 약관 및 개인정보취급방침에 동의하는 것입니다.</string>
+	<string name="button_accept_and_continue">동의하고 계속 진행</string>
+	<string name="button_learn_more">자세히 알아보기</string>
 	<string name="onboarding_storage_permissions_title">액세스 승인</string>
 	<string name="onboarding_storage_permissions_message">장치에서 권한 설정을 변경하세요. MAPS.ME를 사용하려면 저장소 액세스가 필요합니다.</string>
+	<string name="button_exit">끝내기</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME에는 다음에 대한 액세스가 필요합니다:</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">저장소</string>
@@ -748,10 +1118,20 @@
 	<string name="onboarding_detail_permissions_location_title">위치</string>
 	<string name="onboarding_detail_permissions_location_message">근처의 장소와 교통 상황을 보고 네비게이션을 사용하기 위한 것입니다.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.</string>
+	<string name="settings_device_memory">장치 메모리</string>
+	<string name="settings_card_memory">카드 메모리</string>
+	<string name="settings_storage_available">%s 사용 가능</string>
+	<string name="toast_location_permission_denied">앱 위치 권한 거부됨</string>
 	<string name="place_page_viator_title">관광 명소 및 투어</string>
+	<string name="button_use">사용</string>
+	<string name="planning_route_manage_route">경로 관리</string>
+	<string name="button_plan">계획</string>
+	<string name="button_add">추가</string>
 	<string name="placepage_remove_stop">제거</string>
+	<string name="planning_route_remove_title">여기로 끌어와서 제거</string>
+	<string name="dialog_change_start_point_message">시작 지점을 현재 위치로 바꾸시겠습니까?</string>
+	<string name="button_replace">바꾸기</string>
 	<string name="placepage_add_stop">스톱 추가</string>
 	<string name="whatsnew_intermediate_point_title">추가 스톱</string>
 	<string name="whatsnew_intermediate_point_message">중간 지점을 사용하여 경로를 계획하세요.</string>
-	<string name="disable_autodownload">자동 다운로드 해제</string>
 </resources>

@@ -14,13 +14,28 @@
 	<string name="cancel_download">Отменить загрузку</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Удалить</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">Больше не спрашивать</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">Продолжить загрузку</string>
 	<string name="download_maps">Загрузить карты</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">Загрузить %qu кБ</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">Загрузить %qu МБ</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">Загружено (%1$qu %2$s), нажмите для удаления</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">Загружается %qu%%, нажмите, чтобы прервать</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Загружается…</string>
+	<string name="get_it_now">Установить</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километры</string>
 	<!-- Leave Review dialog - Review button -->
@@ -29,6 +44,8 @@
 	<string name="maps">Карты</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">Карты:</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
@@ -36,18 +53,32 @@
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Мое местоположение</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Напомнить позже</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не сейчас</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">Не показывать</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">Сообщить о проблеме</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">Нажмите для загрузки</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Да</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">Мы рекомендуем загружать большие страны через WiFi</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">Какую систему измерения вы предпочитаете?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">Ваше устройство не поддерживает геолокацию</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показать на карте</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -65,13 +96,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
 	<string name="about_menu_title">О программе</string>
+	<string name="downloading_touch_to_cancel">Загружается %d%%, нажмите, чтобы прервать</string>
+	<string name="downloaded_touch_to_delete">Загружено (%s), нажмите для удаления</string>
 	<string name="connection_settings">Настройки подключения</string>
+	<string name="download_mb_or_kb">Загрузить %s</string>
 	<string name="close">Закрыть</string>
 	<string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
 	<string name="download">Загрузить</string>
+	<string name="external_storage_is_not_available">Загруженные карты недоступны</string>
 	<string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
 	<string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
+	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
@@ -88,14 +124,22 @@
 	<string name="pause">Приостановить</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Продолжить</string>
+	<string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления или удаления</string>
+	<string name="update_mb_or_kb">Обновить %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Для функции поиска необходимо обновить устаревшие карты:</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">MAPS.ME Lite больше не нужна. Рекомендуем её удалить.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s успешно загружена</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Не удалось загрузить %s</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Добавить группу</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Сохранить метку</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Цвет метки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -104,12 +148,16 @@
 	<string name="bookmark_sets">Группы меток</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Метки</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Цвет</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Название</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Адрес</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Удалить метку</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -128,10 +176,18 @@
 	<string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показывать на карте</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Единицы измерения</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Использовать километры или мили</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Везде</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Возле меня</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">На экране</string>
 	<!-- Search Suggestion -->
 	<string name="food">Еда</string>
 	<!-- Search Suggestion -->
@@ -162,6 +218,8 @@
 	<string name="post">Почта</string>
 	<!-- Search Suggestion -->
 	<string name="police">Полиция</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Нет результатов поиска</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примечание</string>
 	<!-- Button text -->
@@ -182,16 +240,24 @@
 	<string name="unknown_current_position">Ваше местоположение еще не определено</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">Скачайте страну вашего текущего местоположения (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">Скачайте страну, на которой вы ищете (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Извините, настройки места хранения карт сейчас недоступны.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Идет процесс загрузки карт.</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">Нет, спасибо</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Моя метка на карте. Жми %1$s или %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Смотри мою метку на карте MAPS.ME</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MAPS.ME.\n\nСпасибо.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Посмотри на карте MAPS.ME, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -200,8 +266,14 @@
 	<string name="share_by_message">Отправить сообщением</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Поделиться</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">Сообщение</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
+	<!-- Copy Link -->
+	<string name="copy_link">Скопировать ссылку</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">Подробнее</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -210,6 +282,12 @@
 	<string name="info">Информация</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">Выберите настройки второго экрана</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">Настройки второго экрана</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">Показать на втором экране</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Версия: %s</string>
 	<!-- Data version in «About» screen -->
@@ -221,10 +299,15 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Длина</string>
 	<string name="share_my_location">Поделиться местоположением</string>
+	<string name="menu_search">Поиск</string>
 	<!-- Settings general group in settings screen -->
 	<string name="prefs_group_general">Общие настройки</string>
 	<!-- Settings information group in settings screen -->
 	<string name="prefs_group_information">Информация</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">Карта</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">Прочее</string>
 	<string name="prefs_group_route">Навигация</string>
 	<string name="pref_zoom_title">Кнопки масштаба</string>
 	<string name="pref_zoom_summary">Показать на карте</string>
@@ -240,6 +323,8 @@
 	<string name="pref_map_3d_title">Перспективный вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D здания</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">Увеличивает расход батареи</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Голосовые инструкции</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -259,23 +344,60 @@
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
 	<string name="recent_track_help_text">Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.</string>
+	<string name="pref_track_ios_caption">История пути покажет недавно пройденный маршрут.</string>
+	<string name="pref_track_ios_subcaption">Выберите длительность записи истории.</string>
+	<string name="placepage_distance">Расстояние</string>
+	<string name="placepage_coordinates">Координаты</string>
+	<string name="placepage_unsorted">Без категории</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете её удалить.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Бесплатно</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Купить</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">Искать на карте</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Маршрут не найден</string>
+	<!-- route title -->
+	<string name="route">Маршрут</string>
 	<!-- category title -->
 	<string name="routes">Маршруты</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
+	<!-- Show on first launch. -->
+	<string name="agree">Я согласен</string>
+	<!-- Show on first launch -->
+	<string name="disagree">Я не согласен</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Скачайте карту места, где вы находитесь</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">Полная версия MAPS.ME сегодня бесплатна! Скачай сейчас и расскажи друзьям.</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Ваши карты успешно перенесены в MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Настройки и другое</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Сообщество MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">MAPS.ME в Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">MAPS.ME в Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Свяжитесь с нами</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Связаться с нами</string>
 	<!-- Text in menu -->
@@ -292,6 +414,8 @@
 	<string name="subscribe_me_subject">Подпишите меня на email-рассылку MAPS.ME</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support\@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %s.</string>
 	<!-- Alert title -->
@@ -300,6 +424,10 @@
 	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Обновить все</string>
 	<!-- Cancel all button text -->
@@ -315,6 +443,12 @@
 	<string name="downloader_download_all_button">Загрузить все</string>
 	<string name="downloader_downloading">Загружается:</string>
 	<string name="downloader_search_results">Найдено</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Неактуальные</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Обновленные</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Обновить</string>
 	<!-- Status of failed country in the list -->
@@ -336,13 +470,30 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support\@maps.me</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Загрузить карту + маршруты</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Загрузить маршруты</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Удалить маршруты</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Загрузить карту</string>
+	<string name="downloader_download_map_no_routing">Загрузить карту без маршрутов</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">Поехали!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Повторить</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Карта + Маршруты</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Удалить карту</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Обновить карту</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Обновить карту + Маршруты</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Только карта</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Меню приложения</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Использовать Google Play Services для определения позиции</string>
 	<!-- Text for rating dialog -->
@@ -364,15 +515,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Загрузите карту</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Загрузите маршруты</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Загрузите данные для построения маршрутов</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Недостаточно места</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Необходимо загрузить %1$s МБ, но есть место только для %2$s МБ</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Будет загружено %s MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">метка</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Карта вашего местоположения не загружена</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Пожалуйста, включите геолокацию</string>
+	<!-- download map -->
+	<string name="download_map">Скачайте карту места, где вы находитесь</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Скачайте на вашем iPhone карту места, где вы находитесь</string>
+	<!-- clear pin -->
+	<string name="nearby">поблизости</string>
+	<!-- clear pin -->
+	<string name="clear_pin">убрать метку</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Не определено текущее местоположение.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Скачайте страну вашего местоположения</string>
 	<!-- download failed -->
 	<string name="download_failed">Не удалось загрузить</string>
+	<!-- get the map -->
+	<string name="get_the_map">Загрузить карту</string>
 	<string name="save">Сохранить</string>
 	<string name="edit_description_hint">Ваше описание (текст или html)</string>
+	<string name="new_group">новая группа</string>
+	<string name="create">создать</string>
 	<!-- red color -->
 	<string name="red">Красный</string>
 	<!-- yellow color -->
@@ -404,8 +587,10 @@
 	<string name="dialog_routing_location_turn_wifi">Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Включите режим определения геопозиции</string>
 	<string name="dialog_routing_location_unknown_turn_on">Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.</string>
+	<string name="dialog_routing_location_unknown">Текущая геопозиция не определена.</string>
 	<string name="dialog_routing_download_files">Загрузите необходимые файлы</string>
 	<string name="dialog_routing_download_and_update_all">Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.</string>
+	<string name="dialog_routing_routes_size">Файлы маршрутов</string>
 	<string name="dialog_routing_unable_locate_route">Маршрут не найден</string>
 	<string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
@@ -420,21 +605,33 @@
 	<string name="dialog_routing_system_error">Системная ошибка</string>
 	<string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
 	<string name="dialog_routing_try_again">Попробуйте снова</string>
+	<string name="dialog_routing_send_error">Сообщить об ошибке</string>
+	<string name="dialog_routing_if_get_cross_route">Построить более оптимальный маршрут с пересечением границы карты?</string>
+	<string name="dialog_routing_cross_route_is_optimal">Маршрут с пересечением границы карты более оптимальный.</string>
 	<string name="not_now">Не сейчас</string>
+	<string name="dialog_routing_build_route">Построить</string>
 	<string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
 	<string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
+	<string name="dialog_routing_cross_route_always">Всегда пересекать эту границу</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
 	<string name="search_select_map">Выбрать карту</string>
+	<string name="search_select_other_map">Выбрать другую карту</string>
 	<!-- «Show» context menu -->
 	<string name="show">Показать</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Скрыть</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Переименовать</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">Ещё…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Ошибка построения маршрута</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">Прибытие в %s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
 	<string name="rate_alert_title">Нравится приложение?</string>
 	<string name="rate_alert_default_message">Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.</string>
 	<string name="rate_alert_five_star_message">Ура! Мы вас тоже любим!</string>
@@ -442,17 +639,24 @@
 	<string name="rate_alert_less_than_four_star_message">Расскажите, что мы могли бы улучшить?</string>
 	<string name="categories">Категории</string>
 	<string name="history">История</string>
+	<string name="next_turn_then">Далее</string>
 	<string name="closed">Закрыто</string>
 	<string name="back_to">Назад к %s</string>
 	<string name="search_not_found">К сожалению, мы ничего не нашли.</string>
 	<string name="search_not_found_query">Попробуйте изменить условия поиска.</string>
+	<string name="search_not_found_map">Убедитесь, что карта области поиска загружена.</string>
+	<string name="search_not_found_location">Скачайте карту текущего местоположения.</string>
 	<string name="search_history_title">История поиска</string>
 	<string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
 	<string name="clear_search">Очистить историю поиска</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Показывать предложения</string>
+	<string name="p2p_route_planning">Планирование маршрута</string>
 	<string name="p2p_your_location">Ваше местоположение</string>
+	<string name="p2p_from">Пункт отправления</string>
+	<string name="p2p_to">Пункт назначения</string>
 	<string name="p2p_start">Начать</string>
+	<string name="p2p_planning">Планируем…</string>
 	<string name="p2p_from_here">Отсюда</string>
 	<string name="p2p_to_here">Сюда</string>
 	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
@@ -471,9 +675,11 @@
 	<string name="editor_hours_closed">Перерыв</string>
 	<string name="editor_example_values">Примеры значений</string>
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
+	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
 	<string name="editor_add_select_location">Местоположение</string>
 	<string name="editor_done_dialog_1">Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.</string>
 	<string name="editor_done_dialog_2">Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.</string>
+	<string name="editor_done_dialog_3">Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.</string>
 	<string name="share_with_friends">Поделиться с друзьями</string>
 	<string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
 	<string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте http://www.openstreetmap.org/</string>
@@ -482,8 +688,14 @@
 	<string name="editor_report_problem_no_place_title">Места не существует</string>
 	<string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
+	<string name="first_launch_congrats_title">MAPS.ME готов к работе</string>
+	<string name="first_launch_congrats_text">Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.</string>
 	<string name="migrate_title">Важно!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Загрузить все</string>
+	<string name="delete_all">Удалить все</string>
 	<string name="autodownload">Автоматическая загрузка</string>
+	<string name="disable_autodownload">Запретить автозагрузку</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Сейчас закрыто</string>
 	<!-- Place Page opening hours text -->
@@ -492,6 +704,8 @@
 	<string name="day_off_today">Сегодня закрыто</string>
 	<string name="day_off">Закрыто</string>
 	<string name="today">Сегодня</string>
+	<string name="sunrise_to_sunset">От рассвета до заката</string>
+	<string name="sunset_to_sunrise">От заката до рассвета</string>
 	<string name="add_opening_hours">Добавить время работы</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
 	<string name="profile">Профиль</string>
@@ -502,13 +716,30 @@
 	<string name="login">Войти</string>
 	<string name="password">Пароль</string>
 	<string name="forgot_password">Забыли пароль?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Восстановление пароля</string>
+	<string name="enter_email_address_to_reset_password">Введите почтовый ящик, который вы использовали для регистрации, и мы вышлем на него ссылку для сброса пароля.</string>
+	<string name="reset_password">Cбросить пароль</string>
+	<string name="username">Имя пользователя</string>
 	<string name="osm_account">OSM Аккаунт</string>
 	<string name="logout">Выйти</string>
+	<string name="login_and_edit_map_motivation_message">Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Последняя отправка</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Вы отредактировали свой первый объект!</string>
 	<string name="thank_you">Спасибо</string>
+	<string name="login_with_google">Войти через Google</string>
+	<string name="login_with_facebook">Войти через Facebook</string>
+	<string name="login_with_openstreetmap">Войти через www.openstreetmap.org</string>
 	<string name="edit_place">Редактировать место</string>
 	<string name="place_name">Название</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Другие языки</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Показать больше</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Показать меньше</string>
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -518,12 +749,14 @@
 	<string name="add_street">Добавить улицу</string>
 	<string name="choose_language">Выбрать язык</string>
 	<string name="choose_street">Выбрать улицу</string>
+	<string name="postal_code">Почтовый индекс</string>
 	<string name="cuisine">Кухня</string>
 	<string name="select_cuisine">Выбрать кухню</string>
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="phone">Телефон</string>
 	<string name="please_note">Обратите внимание</string>
+	<string name="common_no_wifi_dialog">Нет WiFi соединения. Вы хотите продолжить работу через мобильный интернет?</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
 	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
@@ -534,8 +767,14 @@
 	<string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
 	<string name="downloader_no_space_title">Недостаточно места</string>
 	<string name="downloader_no_space_message">Удалите ненужные данные</string>
+	<string name="editor_general_auth_error_dialog">Общая ошибка авторизации.</string>
 	<string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
+	<string name="editor_login_failed_dialog">Войти не удалось</string>
+	<string name="editor_username_error_dialog">Неверное имя пользователя</string>
+	<string name="editor_place_edited_dialog">Вы отредактировали объект!</string>
+	<string name="editor_login_with_osm">Войти через OpenStreetMap</string>
 	<string name="editor_profile_changes">Учтённые правки</string>
+	<string name="editor_profile_unsent_changes">Не отправлено:</string>
 	<string name="editor_focus_map_on_location">Потяните карту, чтобы выбрать правильное местоположение объекта.</string>
 	<string name="editor_add_select_category">Выбрать категорию</string>
 	<string name="editor_add_select_category_popular_subtitle">Популярные</string>
@@ -546,14 +785,25 @@
 	<string name="editor_edit_place_category_title">Категория</string>
 	<string name="detailed_problem_description">Подробное описание проблемы</string>
 	<string name="editor_report_problem_other_title">Другая проблема</string>
+	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
 	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.</string>
+	<string name="whatsnew_search_header">Новый поиск</string>
+	<string name="whatsnew_search_message">Качественно улучшили поиск по адресам. Проверяйте.</string>
+	<string name="whatsnew_editor_title">Редактируйте карту*</string>
 	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME использует данные открытых карт сообщества OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Вы никогда больше не заблудитесь</string>
 	<string name="onboarding_offline_navigation_message">Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!</string>
+	<string name="onboarding_offline_navigation_title_2">Оффлайн навигация</string>
+	<string name="onboarding_offline_navigation_message_2">Прокладывайте оптимальные автомобильные и пешеходные маршруты.</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — используй карты всего мира без интернета</string>
 	<string name="onboarding_offline_maps_message">Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.</string>
+	<string name="onboarding_notifications_message">Получайте уведомления об обновлениях, чтобы всегда иметь актуальные карты</string>
+	<string name="onboarding_notifications_title">Разрешите отправку уведомлений</string>
+	<string name="onboarding_location_title">Помогите найти вас</string>
+	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 	<string name="onboarding_permissions_title">Предоставьте MAPS.ME доступ к памяти и местоположению.</string>
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
 	<string name="onboarding_welcome_title">Добро пожаловать в MAPS.ME</string>
@@ -566,6 +816,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.</string>
 	<string name="editor_sharing_title">Я улучшил карты MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Мы обязательно отправим ваш комментарий картографам.</string>
+	<string name="editor_unsupported_category_message">Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d из %2$d</string>
 	<string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
@@ -583,9 +835,15 @@
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
+	<string name="editor_tag_description">Укажите компанию, организацию или лицо, которое отвечает за работоспособность объекта.</string>
+	<string name="editor_no_local_edits_title">У вас пока нет локальных правок</string>
+	<string name="editor_no_local_edits_description">Здесь отображается количество предложенных вами изменений на карте, которые доступны пока только на вашем устройстве.</string>
+	<string name="editor_send_to_osm">Отправить в OSM</string>
+	<string name="editor_remove">Удалить</string>
 	<string name="downloader_my_maps_title">Мои карты</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
 	<string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
+	<string name="downloader_find_place_hint">Найти город или страну</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Продолжить поиск местоположения?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -594,16 +852,39 @@
 	<string name="current_location_unknown_stop_button">Стоп</string>
 	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
+	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
+	<string name="whatsnew_update_editor_message">Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">Обновите все карты, чтобы использовать редактор.</string>
 	<string name="location_services_disabled_header">Определение местоположения отключено</string>
 	<string name="location_services_disabled_message">Разрешите доступ к геопозиции в настройках устройства.</string>
 	<string name="location_services_disabled_1">1. Откройте Настройки</string>
 	<string name="location_services_disabled_2">2. Нажмите Геопозиция</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Выберите «При использовании программы»</string>
+	<string name="placepage_parking_surface">Открытая парковка</string>
+	<string name="placepage_parking_multistorey">Многоэтажная наземная парковка</string>
+	<string name="placepage_parking_underground">Подземная парковка</string>
+	<string name="placepage_parking_rooftop">Парковка на крыше здания</string>
+	<string name="placepage_parking_sheds">Частное легкое укрытие для автомобилей</string>
+	<string name="placepage_parking_carports">Капитальный навес</string>
+	<string name="placepage_parking_boxes">Гаражный бокс</string>
+	<string name="placepage_parking_pay">Платная</string>
+	<string name="placepage_parking_free">Бесплатная</string>
+	<string name="placepage_parking_interval">Переменно платная</string>
+	<string name="placepage_entrance_number">№</string>
+	<string name="placepage_entrance_type">Подъезд</string>
+	<string name="placepage_flat">кв.</string>
+	<string name="placepage_open_24_7">Круглосуточно</string>
 	<string name="place_page_booking_rating">Рейтинг: %s</string>
 	<string name="place_page_starting_from">от %s</string>
 	<string name="meter">м</string>
+	<string name="kilometer">км</string>
+	<string name="kilometers_per_hour">км/ч</string>
+	<string name="mile">ми</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">ми/ч</string>
+	<string name="day">д</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
@@ -621,24 +902,38 @@
 	<string name="editor_reset_edits_button">Сбросить</string>
 	<string name="editor_remove_place_message">Удалить добавленный вами объект?</string>
 	<string name="editor_remove_place_button">Удалить</string>
+	<string name="editor_status_sending">Отправка…</string>
 	<string name="editor_place_doesnt_exist">Места не существует</string>
 	<string name="text_more_button">…ещё</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>
 	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
 	<string name="error_enter_correct_email">Введите корректный email</string>
+	<string name="error_enter_correct">Введите корректное значение</string>
 	<string name="editor_profile_changes_for_next_place">Правок до следующего места: %d</string>
 	<string name="editor_profile_rating_place">Место в рейтинге</string>
+	<string name="booking_dialog_not_connect_header">Для бронирования отелей необходим доступ в интернет</string>
+	<string name="button_try">Попробовать</string>
 	<string name="refresh">Обновить</string>
 	<string name="last_update">Последнее обновление: %s</string>
+	<string name="booking_checkin">заезд: %s</string>
+	<string name="booking_checkout">выезд: %s</string>
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<string name="navigation_overview_button">обзор</string>
+	<string name="navigation_stop_button">стоп</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">Сохраняйте метки</string>
+	<string name="bookmarks_empty_message_1">Нажмите ★, чтобы сохранить любимые места для быстрого доступа к ним.</string>
+	<string name="bookmarks_empty_message_2">Импортируйте метки из почты и интернета.</string>
+	<string name="bookmarks_empty_message_3">выезд: %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">Забронированные отели</string>
+	<string name="place_page_button_read_descriprion">Прочитать</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
 	<!-- If a hotel is being shared -->
@@ -646,7 +941,16 @@
 	<string name="off_recent_track_background_button">Выключить</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Посмотри</string>
+	<string name="continue_recent_track_background_button">Продолжить</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
+	<string name="whatsnew_car_navigation_header">Режим автонавигации стал удобнее</string>
+	<string name="whatsnew_car_navigation_message">• Элементы навигации занимают меньше места.\n• Показываем скорость и добавили автомасштабирование.</string>
+	<string name="whatsnew_cycle_navigation_2_header">Велонавигация</string>
+	<string name="whatsnew_cycle_navigation_2_message">• Велонавигация учитывает рельеф.\n• Мы строим оптимальный маршрут с учетом перепада высот.</string>
+	<string name="whatsnew_booking_2_header">Поиск отелей стал проще</string>
+	<string name="whatsnew_booking_2_message">При поиске отображается рейтинг и ценовая категория отеля.</string>
+	<string name="whatsnew_cycle_navigation_header">Велонавигация (бета-версия)</string>
+	<string name="whatsnew_cycle_navigation_message">К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с MAPS.ME и поделитесь с нами впечатлениями.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Оценить в Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -661,11 +965,17 @@
 	<string name="allow_statistics_hint">Сбор анонимной статистики помогает нам совершенствовать приложение.</string>
 	<string name="general_settings">Общие настройки</string>
 	<string name="date">Дата %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">Что-то не работает</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>
 	<string name="accept_and_continue">Принять и продолжить</string>
 	<!-- For the first routing -->
 	<string name="decline">Отклонить</string>
+	<string name="whats_new_route_profile_title">Умный в гору не пойдет</string>
+	<string name="whats_new_route_profile_message">На пеших и веломаршрутах отображается профиль рельефа.</string>
+	<string name="whats_new_booking_improve_title">Экономь на бронировании отеля</string>
+	<string name="whats_new_booking_improve_message">Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">Удобства</string>
 	<!-- For place page hotel nearby block -->
@@ -697,6 +1007,16 @@
 	<string name="search_in_table">Список</string>
 	<string name="booking_based_on_reviews">По %d отзывам об отеле</string>
 	<string name="booking_show_more">Показать еще</string>
+	<string name="booking_reviews">Отзывы</string>
+	<string name="booking_hotel">Отель</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">Номер</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Геочат</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">Открыть</string>
+	<string name="whatsnew_uber_header">MAPS.ME и Uber</string>
+	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>
 	<string name="dialog_taxi_error">Заказ такси временно недоступен.</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
@@ -708,12 +1028,49 @@
 	<string name="mobile_data_option_never">Никогда не использовать</string>
 	<string name="mobile_data_option_ask">Всегда спрашивать</string>
 	<string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
+	<string name="traffic_outdated">Данные о пробках устарели.</string>
 	<string name="big_font">Увеличить шрифт на карте</string>
 	<string name="traffic_update_app">Обновите MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
+	<string name="banner_deliveryclub_title">Доставка еды</string>
+	<string name="banner_deliveryclub_message">Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.</string>
+	<string name="banner_lamoda_title">Интернет-магазин одежды и обуви</string>
+	<string name="banner_lamoda_message">Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.</string>
+	<string name="banner_tutu_title">Ж/д билеты онлайн</string>
+	<string name="banner_tutu_message">Ж/д билеты в любой город онлайн – цены, поиск и бронирование.</string>
+	<string name="banner_geerbest_title">Интернет-магазин электроники</string>
+	<string name="banner_geerbest_message">Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.</string>
+	<string name="banner_rentalcars_title">Прокат автомобилей онлайн</string>
+	<string name="banner_rentalcars_message">800 прокатных компаний в более чем 49 тысячах пунктах проката.</string>
+	<string name="banner_viator_title">Онлайн-поиск экскурсий</string>
+	<string name="banner_viator_message">Поиск по более чем 50 тысячам экскурсий по всему миру.</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">Пробки в 36 странах мира</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">Пробки даже в роуминге</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">Требует менее 1 МБ мобильного трафика за поездку.</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">Вызов такси</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">В карточке большинства объектов появилась кнопка заказа такси.</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">Улучшен поиск</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">Опечатки в запросах не влияют на результаты поиска.</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">Фильтры в поиске</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">Можно искать отели с учетом цены и рейтинга.</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">Размер шрифта</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">Названия объектов на карте теперь можно сделать крупнее.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -723,16 +1080,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Простые цвета пробок</string>
 	<string name="enable_logging">Включить запись логов</string>
+	<string name="whatsnew_more_info_on_hotels_title">Подробная информация об отелях</string>
+	<string name="whatsnew_more_info_on_hotels_message">Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.</string>
+	<string name="whatsnew_better_routing_title">Улучшено построение маршрутов</string>
+	<string name="whatsnew_better_routing_message">• Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.</string>
+	<string name="whatsnew_smaller_mwm_title">Карты стали меньше</string>
+	<string name="whatsnew_smaller_mwm_message">Занимают на 20% меньше места на телефоне.</string>
+	<string name="whatsnew_waypoints_title">Маршруты с промежуточными точками</string>
+	<string name="whatsnew_waypoints_message">Нажмите на объекты, чтобы включить их в маршрут.</string>
 	<string name="whatsnew_viator_title">Забронируйте экскурсию</string>
 	<string name="whatsnew_viator_message">Выбирайте популярные экскурсии в туристических городах мира.</string>
+	<string name="whatsnew_driving_style_title">Новый автомобильный стиль карт</string>
+	<string name="whatsnew_driving_style_message">Режим автомобильной навигации стал удобнее.</string>
 	<string name="more_on_bookingcom">Больше на Booking.com</string>
 	<string name="details_on_bookingcom">Подробней на Booking.com</string>
 	<string name="reviews_on_bookingcom">Больше отзывов на Booking.com</string>
+	<string name="offline_place_page_more_information">Подключитесь к интернету, чтобы получить больше информации о месте.</string>
+	<string name="failed_load_information">Не удалось загрузить информацию.</string>
 	<string name="whats_new_auto_update_updating_maps">Обновляем карты</string>
 	<string name="whats_new_auto_update_title">Обновите ваши загруженные карты</string>
 	<string name="whats_new_auto_update_message">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
 	<string name="whats_new_auto_update_button_size">Обновить (%s)</string>
 	<string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
+	<string name="search_hotel_filter_apartment">Апартаменты</string>
+	<string name="search_hotel_filter_camp_site">Кемпинг</string>
+	<string name="search_hotel_filter_chalet">Шале</string>
+	<string name="search_hotel_filter_guest_house">Гостевой дом</string>
+	<string name="search_hotel_filter_hostel">Хостел</string>
+	<string name="search_hotel_filter_resort">Дом отдыха</string>
+	<string name="search_hotel_filter_hotel">Гостиница</string>
+	<string name="search_hotel_filter_motel">Мотель</string>
 	<string name="create_campaign_button">Я владелец компании</string>
 	<string name="view_campaign_button">Эта компания рекламируется</string>
 	<string name="search_hotel_filters_type">Тип</string>
@@ -744,13 +1121,20 @@
 	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
+	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
 	<string name="yandex_taxi_title">Яндекс.Такси</string>
 	<string name="learn_more">Узнать больше</string>
 	<string name="exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
+	<string name="onboarding_welcome_message">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">Запуская приложение, вы соглашаетесь с условиями использования и политикой конфиденциальности.</string>
+	<string name="button_accept_and_continue">Принять и продолжить</string>
+	<string name="button_learn_more">Подробнее</string>
 	<string name="onboarding_storage_permissions_title">Предоставьте доступ</string>
 	<string name="onboarding_storage_permissions_message">Предоставьте MAPS.ME доступ к памяти в настройках вашего устройства, иначе использовать MAPS.ME будет невозможно.</string>
+	<string name="button_exit">Выход</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME нужен доступ к</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Память</string>
@@ -759,8 +1143,19 @@
 	<string name="onboarding_detail_permissions_location_title">Местоположение</string>
 	<string name="onboarding_detail_permissions_location_message">Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.</string>
 	<string name="onboarding_detail_permissions_storage_path_message">В настройках можно изменить место хранения загруженных карт.</string>
+	<string name="settings_device_memory">Память устроства</string>
+	<string name="settings_card_memory">Карта памяти</string>
+	<string name="settings_storage_available">%s доступно</string>
+	<string name="toast_location_permission_denied">Определение местоположения запрещено</string>
 	<string name="place_page_viator_title">Экскурсии и достопримечательности</string>
+	<string name="button_use">Использовать</string>
+	<string name="planning_route_manage_route">Изменить маршрут</string>
+	<string name="button_plan">Построить</string>
+	<string name="button_add">Добавить</string>
 	<string name="placepage_remove_stop">Удалить</string>
+	<string name="planning_route_remove_title">Перетяните сюда, чтобы удалить</string>
+	<string name="dialog_change_start_point_message">Заменить стартовую точку на текущее местоположение?</string>
+	<string name="button_replace">Заменить</string>
 	<string name="placepage_add_stop">Заехать</string>
 	<string name="whatsnew_intermediate_point_title">Промежуточная остановка</string>
 	<string name="whatsnew_intermediate_point_message">Планируйте маршрут с дополнительной остановкой.</string>
@@ -778,7 +1173,6 @@
 	<string name="preloader_cian_message">Узнай стоимость аренды квартир в этом районе</string>
 	<!-- Only ru/en are needed -->
 	<string name="preloader_cian_button">Посмотреть цены</string>
-	<string name="disable_autodownload">Запретить автозагрузку</string>
 	<string name="add_my_position">Добавить мое местоположение</string>
 	<string name="choose_start_point">Выберите начало маршрута</string>
 	<string name="choose_destination">Выберите конец маршрута</string>

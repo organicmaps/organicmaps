@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "Удалить";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "Больше не спрашивать";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "Продолжить загрузку";
+
 "download_maps" = "Загрузить карты";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "Загрузить %qu кБ";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "Загрузить %qu МБ";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повторить попытку";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "Загружено (%1$qu %2$@), нажмите для удаления";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "Загружается %qu%%, нажмите, чтобы прервать";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Загружается…";
 
+"get_it_now" = "Установить";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "кБ";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Километры";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "Карты:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "Поставлено в очередь на загрузку, нажмите для отмены";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "МБ";
@@ -57,11 +83,20 @@
 
 "ok" = "OK";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Напомнить позже";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
+
+/* Don't show some dialog any more */
+"never" = "Не показывать";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "Сообщить о проблеме";
 
 /* View and button titles for accessibility */
 "search" = "Поиск";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "Нажмите для загрузки";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Да";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "Мы рекомендуем загружать большие страны через WiFi";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "Какую систему измерения вы предпочитаете?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "Ваше устройство не поддерживает геолокацию";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Показать на карте";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "О программе";
 
+"downloading_touch_to_cancel" = "Загружается %d%%, нажмите, чтобы прервать";
+
+"downloaded_touch_to_delete" = "Загружено (%@), нажмите для удаления";
+
 "connection_settings" = "Настройки подключения";
+
+"download_mb_or_kb" = "Загрузить %@";
 
 "close" = "Закрыть";
 
@@ -111,11 +164,15 @@
 
 "download" = "Загрузить";
 
+"external_storage_is_not_available" = "Загруженные карты недоступны";
+
 "disconnect_usb_cable" = "Отключите USB кабель или вставьте SD-карту";
 
 "not_enough_free_space_on_sdcard" = "Недостаточно свободного места на SD карте/в памяти устройства для использования программы";
 
 "not_enough_memory" = "Недостаточно памяти для запуска программы";
+
+"free_space_for_country" = "Для загрузки %2$@ нужно %1$@ свободного места";
 
 "download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Продолжить";
 
+"downloaded_touch_to_update" = "Загружено (%@), нажмите для обновления или удаления";
+
+"update_mb_or_kb" = "Обновить %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Для функции поиска необходимо обновить устаревшие карты:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Доступно обновление для следующих карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "MAPS.ME Lite больше не нужна. Рекомендуем её удалить.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ успешно загружена";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Не удалось загрузить %@";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Добавить группу";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "Сохранить метку";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Цвет метки";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "Метки";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "Цвет";
+
 /* Default bookmarks set name */
 "my_places" = "Мои Метки";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "Адрес";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "Удалить метку";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Группа";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Показывать на карте";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "Единицы измерения";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Использовать километры или мили";
+
+/* Do search in all sources */
+"search_mode_all" = "Везде";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Возле меня";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "На экране";
 
 /* Search Suggestion */
 "food" = "Еда";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "Полиция";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Нет результатов поиска";
+
 /* Notes field in Bookmarks view */
 "description" = "Примечание";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Скачайте страну вашего текущего местоположения (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Скачайте страну, на которой вы ищете (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Извините, настройки места хранения карт сейчас недоступны.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Идет процесс загрузки карт.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
+
+/* No, thanks */
+"no_thanks" = "Нет, спасибо";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Моя метка на карте. Жми %1$@ или %2$@";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Смотри мою метку на карте MAPS.ME";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MAPS.ME.\n\nСпасибо.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Посмотри на карте MAPS.ME, где я сейчас нахожусь";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Поделиться";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "Сообщение";
+
 /* Share by email button text, also used in editor. */
 "email" = "Email";
+
+/* Copy Link */
+"copy_link" = "Скопировать ссылку";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Подробнее";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопировано в буфер обмена: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "Готово";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Выберите настройки второго экрана";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Настройки второго экрана";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Показать на втором экране";
 
 /* Prints version number in About dialog */
 "version" = "Версия: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "Поделиться местоположением";
 
+"menu_search" = "Поиск";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "Общие настройки";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Информация";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Карта";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Прочее";
 
 "prefs_group_route" = "Навигация";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D здания";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Увеличивает расход батареи";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
 
+"pref_track_ios_caption" = "История пути покажет недавно пройденный маршрут.";
+
+"pref_track_ios_subcaption" = "Выберите длительность записи истории.";
+
+"placepage_distance" = "Расстояние";
+
+"placepage_coordinates" = "Координаты";
+
+"placepage_unsorted" = "Без категории";
+
 "search_show_on_map" = "Посмотреть на карте";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.";
+
+/* Used in More Apps menu */
+"free" = "Бесплатно";
+
+/* Used in More Apps menu */
+"buy" = "Купить";
+
+/* 1st search button-like result */
+"search_on_map" = "Искать на карте";
+
+/* toast with an error */
+"no_route_found" = "Маршрут не найден";
+
+/* route title */
+"route" = "Маршрут";
 
 /* category title */
 "routes" = "Маршруты";
 
+/* Show on first launch. */
+"maps_licence_info" = "Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.";
+
+/* Show on first launch. */
+"agree" = "Я согласен";
+
+/* Show on first launch */
+"disagree" = "Я не согласен";
+
 /* text of notification */
 "download_map_notification" = "Скачайте карту места, где вы находитесь";
 
+/* text of notification */
+"pro_version_is_free_today" = "Полная версия MAPS.ME сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.";
+
+/* Text in menu */
+"settings_and_more" = "Настройки и другое";
+
 /* Text in menu */
 "website" = "Вебсайт";
+
+/* Text in menu */
+"maps_me_community" = "Сообщество MAPS.ME";
 
 /* Text in menu */
 "like_on_facebook" = "MAPS.ME в Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "MAPS.ME в Twitter";
+
+/* Text in menu */
+"contact_us" = "Свяжитесь с нами";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Связаться с нами";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.";
 
+/* About text */
+"about_text" = "MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.";
+
 /* Alert text */
 "email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "Загружается:";
 
 "downloader_search_results" = "Найдено";
+
+/* Disclaimer message */
+"routing_disclaimer" = "Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Неактуальные";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Обновленные";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Обновить";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@maps.me";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Загрузить карту + маршруты";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Загрузить маршруты";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Удалить маршруты";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "Загрузить карту";
+
+"downloader_download_map_no_routing" = "Загрузить карту без маршрутов";
+
+/* Button for routing. */
+"routing_go" = "Поехали!";
 
 /* Item status in downloader. */
 "downloader_retry" = "Повторить";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Карта + Маршруты";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Удалить карту";
 
 /* Item in context menu. */
 "downloader_update_map" = "Обновить карту";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Обновить карту + Маршруты";
+
+/* Item in context menu. */
+"downloader_map_only" = "Только карта";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Меню приложения";
 
 /* Preference text */
 "pref_use_google_play" = "Использовать Google Play Services для определения позиции";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "Загрузите все карты по пути следования";
 
 /* Text for routing error dialog */
+"routing_download_map" = "Загрузите карту";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Загрузите маршруты";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Загрузите данные для построения маршрутов";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "Для создания маршрута необходимо загрузить и обновить все карты на пути следования.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Недостаточно места";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Необходимо загрузить %@ МБ, но есть место только для %@ МБ";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета";
 
 /* bookmark button text */
 "bookmark" = "метка";
 
+/* map is not downloaded */
+"not_found_map" = "Карта вашего местоположения не загружена";
+
 /* location service disabled */
 "enable_location_services" = "Пожалуйста, включите геолокацию";
+
+/* download map */
+"download_map" = "Скачайте карту места, где вы находитесь";
+
+/* download map on iPhone */
+"download_map_iphone" = "Скачайте на вашем iPhone карту места, где вы находитесь";
+
+/* clear pin */
+"nearby" = "поблизости";
+
+/* clear pin */
+"clear_pin" = "убрать метку";
+
+/* location is undefined */
+"undefined_location" = "Не определено текущее местоположение.";
+
+/* download country of your location */
+"download_country" = "Скачайте страну вашего местоположения";
 
 /* download failed */
 "download_failed" = "Не удалось загрузить";
 
+/* get the map */
+"get_the_map" = "Загрузить карту";
+
 "save" = "Сохранить";
 
 "edit_description_hint" = "Ваше описание (текст или html)";
+
+"new_group" = "новая группа";
+
+"create" = "создать";
 
 /* red color */
 "red" = "Красный";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.";
 
+"dialog_routing_location_unknown" = "Текущая геопозиция не определена.";
+
 "dialog_routing_download_files" = "Загрузите необходимые файлы";
 
 "dialog_routing_download_and_update_all" = "Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.";
+
+"dialog_routing_routes_size" = "Файлы маршрутов";
 
 "dialog_routing_unable_locate_route" = "Маршрут не найден";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "Попробуйте снова";
 
+"dialog_routing_send_error" = "Сообщить об ошибке";
+
+"dialog_routing_if_get_cross_route" = "Построить более оптимальный маршрут с пересечением границы карты?";
+
+"dialog_routing_cross_route_is_optimal" = "Маршрут с пересечением границы карты более оптимальный.";
+
 "not_now" = "Не сейчас";
+
+"dialog_routing_build_route" = "Построить";
 
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
+
+"dialog_routing_cross_route_always" = "Всегда пересекать эту границу";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.";
 
 "search_select_map" = "Выбрать карту";
+
+"search_select_other_map" = "Выбрать другую карту";
 
 /* «Show» context menu */
 "show" = "Показать";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "Переименовать";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "Ещё…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ошибка построения маршрута";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Прибытие в %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
 
 "rate_alert_title" = "Нравится приложение?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "История";
 
+"next_turn_then" = "Далее";
+
 "closed" = "Закрыто";
 
 "back_to" = "Назад к %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "К сожалению, мы ничего не нашли.";
 
 "search_not_found_query" = "Попробуйте изменить условия поиска.";
+
+"search_not_found_map" = "Убедитесь, что карта области поиска загружена.";
+
+"search_not_found_location" = "Скачайте карту текущего местоположения.";
 
 "search_history_title" = "История поиска";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "Планирование маршрута";
+
 "p2p_your_location" = "Ваше местоположение";
 
+"p2p_from" = "Пункт отправления";
+
+"p2p_to" = "Пункт назначения";
+
 "p2p_start" = "Начать";
+
+"p2p_planning" = "Планируем…";
 
 "p2p_from_here" = "Отсюда";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "Исправьте ошибку";
 
+"editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";
+
 "editor_add_select_location" = "Местоположение";
 
 "editor_done_dialog_1" = "Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.";
 
 "editor_done_dialog_2" = "Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.";
+
+"editor_done_dialog_3" = "Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.";
 
 "share_with_friends" = "Поделиться с друзьями";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "Повторяющееся место";
 
+"first_launch_congrats_title" = "MAPS.ME готов к работе";
+
+"first_launch_congrats_text" = "Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.";
+
 "migrate_title" = "Важно!";
 
+/* Android uses image instead of text. */
+"download_all" = "Загрузить все";
+
+"delete_all" = "Удалить все";
+
 "autodownload" = "Автоматическая загрузка";
+
+"disable_autodownload" = "Запретить автозагрузку";
 
 /* Place Page opening hours text */
 "closed_now" = "Сейчас закрыто";
@@ -803,6 +1140,10 @@
 "day_off" = "Закрыто";
 
 "today" = "Сегодня";
+
+"sunrise_to_sunset" = "От рассвета до заката";
+
+"sunset_to_sunrise" = "От заката до рассвета";
 
 "add_opening_hours" = "Добавить время работы";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "Забыли пароль?";
 
+/* Forgot Password dialog title */
+"restore_password" = "Восстановление пароля";
+
+"enter_email_address_to_reset_password" = "Введите почтовый ящик, который вы использовали для регистрации, и мы вышлем на него ссылку для сброса пароля.";
+
+"reset_password" = "Cбросить пароль";
+
+"username" = "Имя пользователя";
+
 "osm_account" = "OSM Аккаунт";
 
 "logout" = "Выйти";
 
+"login_and_edit_map_motivation_message" = "Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Последняя отправка";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Вы отредактировали свой первый объект!";
+
 "thank_you" = "Спасибо";
+
+"login_with_google" = "Войти через Google";
+
+"login_with_facebook" = "Войти через Facebook";
+
+"login_with_openstreetmap" = "Войти через www.openstreetmap.org";
 
 "edit_place" = "Редактировать место";
 
 "place_name" = "Название";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Другие языки";
+
+/* small button to open list with names in different languages */
+"show_more" = "Показать больше";
+
+/* small button to close list with names in different languages */
+"show_less" = "Показать меньше";
 
 "add_language" = "Добавить язык";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "Выбрать улицу";
 
+"postal_code" = "Почтовый индекс";
+
 "cuisine" = "Кухня";
 
 "select_cuisine" = "Выбрать кухню";
@@ -863,6 +1235,8 @@
 "phone" = "Телефон";
 
 "please_note" = "Обратите внимание";
+
+"common_no_wifi_dialog" = "Нет WiFi соединения. Вы хотите продолжить работу через мобильный интернет?";
 
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "Удалите ненужные данные";
 
+"editor_general_auth_error_dialog" = "Общая ошибка авторизации.";
+
 "editor_login_error_dialog" = "Произошла ошибка при авторизации.";
 
+"editor_login_failed_dialog" = "Войти не удалось";
+
+"editor_username_error_dialog" = "Неверное имя пользователя";
+
+"editor_place_edited_dialog" = "Вы отредактировали объект!";
+
+"editor_login_with_osm" = "Войти через OpenStreetMap";
+
 "editor_profile_changes" = "Учтённые правки";
+
+"editor_profile_unsent_changes" = "Не отправлено:";
 
 "editor_focus_map_on_location" = "Потяните карту, чтобы выбрать правильное местоположение объекта.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "Другая проблема";
 
+"placepage_report_problem_button" = "Сообщить о проблеме";
+
 "placepage_add_business_button" = "Добавить организацию";
 
 "whatsnew_smallmwm_header" = "Вы долго просили — мы наконец сделали";
 
 "whatsnew_smallmwm_message" = "Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.";
 
+"whatsnew_search_header" = "Новый поиск";
+
+"whatsnew_search_message" = "Качественно улучшили поиск по адресам. Проверяйте.";
+
+"whatsnew_editor_title" = "Редактируйте карту*";
+
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME использует данные открытых карт сообщества OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Вы никогда больше не заблудитесь";
 
 "onboarding_offline_navigation_message" = "Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!";
 
+"onboarding_offline_navigation_title_2" = "Оффлайн навигация";
+
+"onboarding_offline_navigation_message_2" = "Прокладывайте оптимальные автомобильные и пешеходные маршруты.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — используй карты всего мира без интернета";
 
 "onboarding_offline_maps_message" = "Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.";
+
+"onboarding_notifications_message" = "Получайте уведомления об обновлениях, чтобы всегда иметь актуальные карты";
+
+"onboarding_notifications_title" = "Разрешите отправку уведомлений";
+
+"onboarding_location_title" = "Помогите найти вас";
+
+"onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
 
 "onboarding_permissions_title" = "Предоставьте MAPS.ME доступ к памяти и местоположению.";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
 
 "editor_sharing_title" = "Я улучшил карты MAPS.ME";
+
+"editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
+
+"editor_unsupported_category_message" = "Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d из %2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "Владелец";
 
+"editor_tag_description" = "Укажите компанию, организацию или лицо, которое отвечает за работоспособность объекта.";
+
+"editor_no_local_edits_title" = "У вас пока нет локальных правок";
+
+"editor_no_local_edits_description" = "Здесь отображается количество предложенных вами изменений на карте, которые доступны пока только на вашем устройстве.";
+
+"editor_send_to_osm" = "Отправить в OSM";
+
+"editor_remove" = "Удалить";
+
 "downloader_my_maps_title" = "Мои карты";
 
 "downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
 
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
+
+"downloader_find_place_hint" = "Найти город или страну";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Продолжить поиск местоположения?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
 
+"whatsnew_update_editor_title" = "Мы обновили редактор";
+
+"whatsnew_update_editor_message" = "Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "Обновите все карты, чтобы использовать редактор.";
+
 "location_services_disabled_header" = "Определение местоположения отключено";
 
 "location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства.";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Выберите «При использовании программы»";
 
+"placepage_parking_surface" = "Открытая парковка";
+
+"placepage_parking_multistorey" = "Многоэтажная наземная парковка";
+
+"placepage_parking_underground" = "Подземная парковка";
+
+"placepage_parking_rooftop" = "Парковка на крыше здания";
+
+"placepage_parking_sheds" = "Частное легкое укрытие для автомобилей";
+
+"placepage_parking_carports" = "Капитальный навес";
+
+"placepage_parking_boxes" = "Гаражный бокс";
+
+"placepage_parking_pay" = "Платная";
+
+"placepage_parking_free" = "Бесплатная";
+
+"placepage_parking_interval" = "Переменно платная";
+
+"placepage_entrance_number" = "№";
+
+"placepage_entrance_type" = "Подъезд";
+
+"placepage_flat" = "кв.";
+
+"placepage_open_24_7" = "Круглосуточно";
+
 "place_page_booking_rating" = "Рейтинг: %s";
 
 "place_page_starting_from" = "от %s";
 
 "meter" = "м";
 
+"kilometer" = "км";
+
+"kilometers_per_hour" = "км/ч";
+
+"mile" = "ми";
+
 "foot" = "ft";
+
+"miles_per_hour" = "ми/ч";
+
+"day" = "д";
 
 "hour" = "ч";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "Удалить";
 
+"editor_status_sending" = "Отправка…";
+
 "editor_place_doesnt_exist" = "Места не существует";
 
 "text_more_button" = "…ещё";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "Введите корректный email";
 
+"error_enter_correct" = "Введите корректное значение";
+
 "editor_profile_changes_for_next_place" = "Правок до следующего места: %d";
 
 "editor_profile_rating_place" = "Место в рейтинге";
 
+"booking_dialog_not_connect_header" = "Для бронирования отелей необходим доступ в интернет";
+
+"button_try" = "Попробовать";
+
 "refresh" = "Обновить";
 
 "last_update" = "Последнее обновление: %s";
+
+"booking_checkin" = "заезд: %s";
+
+"booking_checkout" = "выезд: %s";
 
 "placepage_add_place_button" = "Добавить место на карту";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
 
+"navigation_overview_button" = "обзор";
+
+"navigation_stop_button" = "стоп";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "Сохраняйте метки";
+
+"bookmarks_empty_message_1" = "Нажмите ★, чтобы сохранить любимые места для быстрого доступа к ним.";
+
+"bookmarks_empty_message_2" = "Импортируйте метки из почты и интернета.";
+
+"bookmarks_empty_message_3" = "выезд: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Забронированные отели";
+
+"place_page_button_read_descriprion" = "Прочитать";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Посмотри";
 
+"continue_recent_track_background_button" = "Продолжить";
+
 "recent_track_background_dialog_message" = "MAPS.ME использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
+
+"whatsnew_car_navigation_header" = "Режим автонавигации стал удобнее";
+
+"whatsnew_car_navigation_message" = "• Элементы навигации занимают меньше места.\n• Показываем скорость и добавили автомасштабирование.";
+
+"whatsnew_cycle_navigation_2_header" = "Велонавигация";
+
+"whatsnew_cycle_navigation_2_message" = "• Велонавигация учитывает рельеф.\n• Мы строим оптимальный маршрут с учетом перепада высот.";
+
+"whatsnew_booking_2_header" = "Поиск отелей стал проще";
+
+"whatsnew_booking_2_message" = "При поиске отображается рейтинг и ценовая категория отеля.";
+
+"whatsnew_cycle_navigation_header" = "Велонавигация (бета-версия)";
+
+"whatsnew_cycle_navigation_message" = "К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с MAPS.ME и поделитесь с нами впечатлениями.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Оценить в Google Play";
@@ -1118,6 +1632,9 @@
 
 "date" = "Дата %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Что-то не работает";
+
 /* For the first routing */
 "accept" = "Принять";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "Отклонить";
+
+"whats_new_route_profile_title" = "Умный в гору не пойдет";
+
+"whats_new_route_profile_message" = "На пеших и веломаршрутах отображается профиль рельефа.";
+
+"whats_new_booking_improve_title" = "Экономь на бронировании отеля";
+
+"whats_new_booking_improve_message" = "Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "Удобства";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "Показать еще";
 
+"booking_reviews" = "Отзывы";
+
+"booking_hotel" = "Отель";
+
+/* hotel room */
+"booking_hotel_room" = "Номер";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Геочат";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Открыть";
+
+"whatsnew_uber_header" = "MAPS.ME и Uber";
+
+"whatsnew_uber_message" = "Закажите такси прямо из приложения!";
+
 "dialog_taxi_offline" = "Заказ такси недоступен офлайн.";
 
 "dialog_taxi_error" = "Заказ такси временно недоступен.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "Для отображения пробок необходимо обновить карты.";
 
+"traffic_outdated" = "Данные о пробках устарели.";
+
 "big_font" = "Увеличить шрифт на карте";
 
 "traffic_update_app" = "Обновите MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
+
+"banner_deliveryclub_title" = "Доставка еды";
+
+"banner_deliveryclub_message" = "Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.";
+
+"banner_lamoda_title" = "Интернет-магазин одежды и обуви";
+
+"banner_lamoda_message" = "Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.";
+
+"banner_tutu_title" = "Ж/д билеты онлайн";
+
+"banner_tutu_message" = "Ж/д билеты в любой город онлайн – цены, поиск и бронирование.";
+
+"banner_geerbest_title" = "Интернет-магазин электроники";
+
+"banner_geerbest_message" = "Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.";
+
+"banner_rentalcars_title" = "Прокат автомобилей онлайн";
+
+"banner_rentalcars_message" = "800 прокатных компаний в более чем 49 тысячах пунктах проката.";
+
+"banner_viator_title" = "Онлайн-поиск экскурсий";
+
+"banner_viator_message" = "Поиск по более чем 50 тысячам экскурсий по всему миру.";
+
+/* december */
+"whatsnew_traffic" = "Пробки в 36 странах мира";
+
+/* december */
+"whatsnew_traffic_text" = "Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Пробки даже в роуминге";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Требует менее 1 МБ мобильного трафика за поездку.";
+
+/* december */
+"whatsnew_order_taxi" = "Вызов такси";
+
+/* december */
+"whatsnew_order_taxi_text" = "В карточке большинства объектов появилась кнопка заказа такси.";
+
+/* january */
+"whatsnew_improved_search" = "Улучшен поиск";
+
+/* january */
+"whatsnew_improved_search_text" = "Опечатки в запросах не влияют на результаты поиска.";
+
+/* january */
+"whatsnew_filters_in_search" = "Фильтры в поиске";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Можно искать отели с учетом цены и рейтинга.";
+
+/* january */
+"whatsnew_font_size" = "Размер шрифта";
+
+/* january */
+"whatsnew_font_size_text" = "Названия объектов на карте теперь можно сделать крупнее.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "Включить запись логов";
 
+"whatsnew_more_info_on_hotels_title" = "Подробная информация об отелях";
+
+"whatsnew_more_info_on_hotels_message" = "Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.";
+
+"whatsnew_better_routing_title" = "Улучшено построение маршрутов";
+
+"whatsnew_better_routing_message" = "• Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.";
+
+"whatsnew_smaller_mwm_title" = "Карты стали меньше";
+
+"whatsnew_smaller_mwm_message" = "Занимают на 20% меньше места на телефоне.";
+
+"whatsnew_waypoints_title" = "Маршруты с промежуточными точками";
+
+"whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
+
 "whatsnew_viator_title" = "Забронируйте экскурсию";
 
 "whatsnew_viator_message" = "Выбирайте популярные экскурсии в туристических городах мира.";
+
+"whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
+
+"whatsnew_driving_style_message" = "Режим автомобильной навигации стал удобнее.";
 
 "more_on_bookingcom" = "Больше на Booking.com";
 
 "details_on_bookingcom" = "Подробней на Booking.com";
 
 "reviews_on_bookingcom" = "Больше отзывов на Booking.com";
+
+"offline_place_page_more_information" = "Подключитесь к интернету, чтобы получить больше информации о месте.";
+
+"failed_load_information" = "Не удалось загрузить информацию.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "Обновить (%s)";
 
 "whats_new_auto_update_button_later" = "Обновить вручную позже";
+
+"search_hotel_filter_apartment" = "Апартаменты";
+
+"search_hotel_filter_camp_site" = "Кемпинг";
+
+"search_hotel_filter_chalet" = "Шале";
+
+"search_hotel_filter_guest_house" = "Гостевой дом";
+
+"search_hotel_filter_hostel" = "Хостел";
+
+"search_hotel_filter_resort" = "Дом отдыха";
+
+"search_hotel_filter_hotel" = "Гостиница";
+
+"search_hotel_filter_motel" = "Мотель";
 
 "create_campaign_button" = "Я владелец компании";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "Латинская транслитерация";
 
+"whatsnew_transliteration_message" = "Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.";
+
 "yandex_taxi_title" = "Яндекс.Такси";
 
 "learn_more" = "Узнать больше";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "Добавьте конечную точку, чтобы построить маршрут";
 
+"onboarding_welcome_message" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Запуская приложение, вы соглашаетесь с условиями использования и политикой конфиденциальности.";
+
+"button_accept_and_continue" = "Принять и продолжить";
+
+"button_learn_more" = "Подробнее";
+
 "onboarding_storage_permissions_title" = "Предоставьте доступ";
 
 "onboarding_storage_permissions_message" = "Предоставьте MAPS.ME доступ к памяти в настройках вашего устройства, иначе использовать MAPS.ME будет невозможно.";
+
+"button_exit" = "Выход";
 
 "onboarding_detail_permissions_title" = "MAPS.ME нужен доступ к";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "В настройках можно изменить место хранения загруженных карт.";
 
+"settings_device_memory" = "Память устроства";
+
+"settings_card_memory" = "Карта памяти";
+
+"settings_storage_available" = "%s доступно";
+
+"toast_location_permission_denied" = "Определение местоположения запрещено";
+
 "place_page_viator_title" = "Экскурсии и достопримечательности";
 
+"button_use" = "Использовать";
+
+"planning_route_manage_route" = "Изменить маршрут";
+
+"button_plan" = "Построить";
+
+"button_add" = "Добавить";
+
 "placepage_remove_stop" = "Удалить";
+
+"planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
+
+"dialog_change_start_point_message" = "Заменить стартовую точку на текущее местоположение?";
+
+"button_replace" = "Заменить";
 
 "placepage_add_stop" = "Заехать";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Посмотреть цены";
-
-"disable_autodownload" = "Запретить автозагрузку";
 
 "add_my_position" = "Добавить мое местоположение";
 

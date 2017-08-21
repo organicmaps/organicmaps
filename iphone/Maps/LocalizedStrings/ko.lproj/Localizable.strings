@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "삭제하기";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "또 묻지 마세요.";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "아무것도 하지 마세요";
+
 "download_maps" = "지도 다운로드받기";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "%qu 다운로드하기";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "%qu 다운로드하기";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "(%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "%qu%%를 다운로드 중, 두드려 취소하십시요";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "다운로드 중…";
 
+"get_it_now" = "지금 가져오기";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "MAPS.ME를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "킬로미터";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "지도:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "다운로드로 표시하였습니다. 두드려 취소하십시요.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "승인";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "이후에 기억시키기";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "후";
+
+/* Don't show some dialog any more */
+"never" = "거절";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "문제 보고하기";
 
 /* View and button titles for accessibility */
 "search" = "검색하기";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "지도 검색하기";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "두드려 다운로드하세요";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "네";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "어느 측정 시스템을 선호하십니까?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "귀하의장치가 위치 서비스를 지원하지 않습니다.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "지도에 표시";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "소개";
 
+"downloading_touch_to_cancel" = "%d%%를 다운로드 중, 두드려 취소하십시요";
+
+"downloaded_touch_to_delete" = "(%@)가 다운로드 되었습니다, 두드려 삭제하십시요.";
+
 "connection_settings" = "연결 설정";
+
+"download_mb_or_kb" = "%@ 다운로드하기";
 
 "close" = "닫기";
 
@@ -111,11 +164,15 @@
 
 "download" = "다운로드";
 
+"external_storage_is_not_available" = "다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다";
+
 "disconnect_usb_cable" = "MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
 
 "not_enough_free_space_on_sdcard" = "응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오";
 
 "not_enough_memory" = "응용 프로그램을 실행하기위한 메모리가 충분하지 않다";
+
+"free_space_for_country" = "%2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요";
 
 "download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "계속";
 
+"downloaded_touch_to_update" = "다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법";
+
+"update_mb_or_kb" = "%@업데이트";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "당신은 검색 기능에 대한 업데이트된지도 필요";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "이지도에 사용할 수있는 업데이트:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@이 성공적으로 다운로드";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@다운로드가 실패했습니다";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "새로운 세트 추가";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "즐겨찾기에 추가";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "색상 즐겨찾기에 추가";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "북마크";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "색깔";
+
 /* Default bookmarks set name */
 "my_places" = "내 장소";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "주소";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "핀 제거";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "집합";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "눈에 보이는";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "측정 단위";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "마일과 킬로미터 중에서 선택하십시오";
+
+/* Do search in all sources */
+"search_mode_all" = "모든 곳";
+
+/* Do search near my position only */
+"search_mode_nearme" = "근처 검색";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "화면에";
 
 /* Search Suggestion */
 "food" = "음식";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "치안대";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "결과 없음";
+
 /* Notes field in Bookmarks view */
 "description" = "메모";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "귀하께서 현재 계신 국가인 을(를) 다운로드 (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "귀하께서 검색 중인 국가인 을(를) 다운로드 (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "국가 다운로드가 지금 진행 중입니다.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!";
+
+/* No, thanks */
+"no_thanks" = "평가하지 않겠습니다";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "MAPS.ME 지도에서 내 핀 보기";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "공유";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "메시지";
+
 /* Share by email button text, also used in editor. */
 "email" = "이메일";
+
+/* Copy Link */
+"copy_link" = "링크 복사하기";
+
+/* Text for the button that returns to caller application */
+"more_info" = "추가 정보 보기";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "클립보드에 복사됨: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "완료";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Choose Back Screen settings";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Back Screen Settings";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Show on Back screen";
 
 /* Prints version number in About dialog */
 "version" = "버전: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "내 위치 공유";
 
+"menu_search" = "검색";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "지도";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "기타";
 
 "prefs_group_route" = "네비게이션";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "주변 건물 3D";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "배터리 수명에 영향";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.";
 
+"pref_track_ios_caption" = "최근 추적은 여행한 경로를 보여줍니다.";
+
+"pref_track_ios_subcaption" = "추적을 저장하는 시간 범위를 선택하십시오.";
+
+"placepage_distance" = "거리";
+
+"placepage_coordinates" = "좌표";
+
+"placepage_unsorted" = "분류되지 않음";
+
 "search_show_on_map" = "지도 보기";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.";
+
+/* Used in More Apps menu */
+"free" = "무료";
+
+/* Used in More Apps menu */
+"buy" = "구입";
+
+/* 1st search button-like result */
+"search_on_map" = "지도에서 검색";
+
+/* toast with an error */
+"no_route_found" = "경로를 찾을 수 없음";
+
+/* route title */
+"route" = "경로";
 
 /* category title */
 "routes" = "경로";
 
+/* Show on first launch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first launch. */
+"agree" = "I agree";
+
+/* Show on first launch */
+"disagree" = "I disagree";
+
 /* text of notification */
 "download_map_notification" = "당신이 있는 장소의지도를 다운로드 하십시오";
 
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "다운로드된 지도가 성공적으로 MAPS.ME에 전송됨";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.";
+
+/* Text in menu */
+"settings_and_more" = "설정 및 기타";
+
 /* Text in menu */
 "website" = "웹사이트";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.ME 커뮤니티";
 
 /* Text in menu */
 "like_on_facebook" = "Facebook에서 좋아요";
 
 /* Text in menu */
 "follow_on_twitter" = "Twitter에서 팔로우";
+
+/* Text in menu */
+"contact_us" = "연락처";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "피드백";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.";
 
+/* About text */
+"about_text" = "MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, http://openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.";
+
 /* Alert text */
 "email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi 인터넷";
+
+/* Update map suggestion */
+"routing_map_outdated" = "경로를 생성하도록 지도를 업데이트하십시오.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.";
 
 /* Update all button text */
 "downloader_update_all_button" = "모두 업데이트";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "다운로드 중:";
 
 "downloader_search_results" = "검색 결과";
+
+/* Disclaimer message */
+"routing_disclaimer" = "MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "만료됨";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "최신";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "업데이트";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support@maps.me로 문의하시기 바랍니다.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "지도 + 라우팅 다운로드";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "라우팅 다운로드";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "라우팅 삭제";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "지도 다운로드";
+
+"downloader_download_map_no_routing" = "라우팅없이 지도 다운로드";
+
+/* Button for routing. */
+"routing_go" = "이동!";
 
 /* Item status in downloader. */
 "downloader_retry" = "반복";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "지도 + 라우팅";
 
 /* Item in context menu. */
 "downloader_delete_map" = "지도 삭제";
 
 /* Item in context menu. */
 "downloader_update_map" = "지도 업데이트";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "지도 + 라우팅 업데이트";
+
+/* Item in context menu. */
+"downloader_map_only" = "지도만";
+
+/* Toolbar title */
+"toolbar_application_menu" = "애플리케이션 메뉴";
 
 /* Preference text */
 "pref_use_google_play" = "Google Play 서비스를 사용하여 현재 위치 정보 얻기";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "경로를 따라 지도 다운로드";
 
 /* Text for routing error dialog */
+"routing_download_map" = "지도 가져오기";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 MAPS.ME 기능을 가져옵니다.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "라우팅 데이터 가져오기";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "추가 데이터는 사용자의 위치에서 경로를 생성하도록 필요합니다.";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "여유 공간 부족";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MB를 다운로드해야 하지만 %@ MB만 사용할 수 있습니다.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "모바일 데이터(로밍시)를 사용하여 %@ MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.";
 
 /* bookmark button text */
 "bookmark" = "북마크";
 
+/* map is not downloaded */
+"not_found_map" = "위치에 대한 지도가 다운로드되지 않음";
+
 /* location service disabled */
 "enable_location_services" = "위치 서비스를 작동시켜 주십시요.";
+
+/* download map */
+"download_map" = "위치에 대한 지도 다운로드";
+
+/* download map on iPhone */
+"download_map_iphone" = "아이폰에서 현재 위치의 지도 다운로드";
+
+/* clear pin */
+"nearby" = "근처에";
+
+/* clear pin */
+"clear_pin" = "핀 지우기";
+
+/* location is undefined */
+"undefined_location" = "현재 위치는 정의되지 않습니다.";
+
+/* download country of your location */
+"download_country" = "귀하께서 현재 계신 국가인 을(를) 다운로드";
 
 /* download failed */
 "download_failed" = "다운로드가 실패했습니다";
 
+/* get the map */
+"get_the_map" = "지도 가져오기";
+
 "save" = "저장";
 
 "edit_description_hint" = "설명(텍스트 또는 HTML)";
+
+"new_group" = "새 그룹";
+
+"create" = "만들기기";
 
 /* red color */
 "red" = "빨간색";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.";
 
+"dialog_routing_location_unknown" = "현재 GPS 좌표를 찾을 수 없습니다.";
+
 "dialog_routing_download_files" = "필수 파일 다운로드";
 
 "dialog_routing_download_and_update_all" = "경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.";
+
+"dialog_routing_routes_size" = "경로 정보 파일";
 
 "dialog_routing_unable_locate_route" = "경로를 찾을 수 없습니다";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "다시 시도해주세요.";
 
+"dialog_routing_send_error" = "문제 신고";
+
+"dialog_routing_if_get_cross_route" = "두 개 이상의 지도를 통과하는 더 직접적인 경로를 설정하시겠습니까?";
+
+"dialog_routing_cross_route_is_optimal" = "이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.";
+
 "not_now" = "나중에";
+
+"dialog_routing_build_route" = "만들기";
 
 "dialog_routing_download_and_build_cross_route" = "지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?";
 
 "dialog_routing_download_cross_route" = "이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.";
+
+"dialog_routing_cross_route_always" = "항상 이 경계 통과";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.";
 
 "search_select_map" = "지도 선택";
+
+"search_select_other_map" = "다른 지도 선택";
 
 /* «Show» context menu */
 "show" = "표시";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "다른 이름으로 변경";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "기타…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "경로 계획 실패";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "도착: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
 
 "rate_alert_title" = "앱을 좋아하나요?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "내역";
 
+"next_turn_then" = "그런 다음";
+
 "closed" = "닫음";
 
 "back_to" = "%@(으)로 복귀";
@@ -712,6 +1022,10 @@
 "search_not_found" = "죄송합니다. 아무것도 찾지 못했습니다.";
 
 "search_not_found_query" = "다른 쿼리를 시도하십시오.";
+
+"search_not_found_map" = "검색할 지도를 다운로드하십시오.";
+
+"search_not_found_location" = "현재 위치의 지도를 다운로드하십시오.";
 
 "search_history_title" = "검색 기록";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "경로 계획 중";
+
 "p2p_your_location" = "위치";
 
+"p2p_from" = "출발 지점";
+
+"p2p_to" = "도착 지점";
+
 "p2p_start" = "시작";
+
+"p2p_planning" = "계획 중…";
 
 "p2p_from_here" = "출발지";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "입력 수정";
 
+"editor_correct_mistake_message" = "잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.";
+
 "editor_add_select_location" = "위치";
 
 "editor_done_dialog_1" = "세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.";
 
 "editor_done_dialog_2" = "이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 %d번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.";
+
+"editor_done_dialog_3" = "지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.";
 
 "share_with_friends" = "친구들과 공유";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "중복된 장소";
 
+"first_launch_congrats_title" = "MAPS.ME를 사용할 준비가 완료되었습니다";
+
+"first_launch_congrats_text" = "무료로 세계 어디에서나 오프라인으로 검색하고 탐색할 수 있습니다.";
+
 "migrate_title" = "중요!";
 
+/* Android uses image instead of text. */
+"download_all" = "모두 다운로드";
+
+"delete_all" = "모두 삭제";
+
 "autodownload" = "자동 다운로드";
+
+"disable_autodownload" = "자동 다운로드 해제";
 
 /* Place Page opening hours text */
 "closed_now" = "지금 닫힘";
@@ -803,6 +1140,10 @@
 "day_off" = "종료됨";
 
 "today" = "오늘";
+
+"sunrise_to_sunset" = "일출에서 일몰로";
+
+"sunset_to_sunrise" = "일출에서 일몰까지";
 
 "add_opening_hours" = "영업일 추가";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "암호를 잊으 셨나요?";
 
+/* Forgot Password dialog title */
+"restore_password" = "암호 복원";
+
+"enter_email_address_to_reset_password" = "등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.";
+
+"reset_password" = "비밀번호 재 설정";
+
+"username" = "사용자 이름";
+
 "osm_account" = "OSM 계정";
 
 "logout" = "로그 아웃";
 
+"login_and_edit_map_motivation_message" = "로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "마지막 업로드";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!";
+
 "thank_you" = "고맙습니다.";
+
+"login_with_google" = "Google로 로그인";
+
+"login_with_facebook" = "Facebook으로 로그인";
+
+"login_with_openstreetmap" = "www.openstreetmap.org에 로그인";
 
 "edit_place" = "장소 편집";
 
 "place_name" = "지명";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "다른 언어";
+
+/* small button to open list with names in different languages */
+"show_more" = "더 많이 표시";
+
+/* small button to close list with names in different languages */
+"show_less" = "더 적게 표시";
 
 "add_language" = "언어 추가";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "거리 선택";
 
+"postal_code" = "우편 번호";
+
 "cuisine" = "요리";
 
 "select_cuisine" = "요리 선택";
@@ -863,6 +1235,8 @@
 "phone" = "전화";
 
 "please_note" = "참고 사항";
+
+"common_no_wifi_dialog" = "WiFi 연결이 없습니다. 모바일 데이터를 계속하시겠습니까?";
 
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "불필요한 데이터를 제거하십시오.";
 
+"editor_general_auth_error_dialog" = "일반 로그인 오류.";
+
 "editor_login_error_dialog" = "로그인 오류.";
 
+"editor_login_failed_dialog" = "로그인 실패";
+
+"editor_username_error_dialog" = "잘못된 사용자 이름";
+
+"editor_place_edited_dialog" = "개체를 편집했습니다!";
+
+"editor_login_with_osm" = "OpenStreetMap으로 로그인";
+
 "editor_profile_changes" = "변경사항 승인";
+
+"editor_profile_unsent_changes" = "전송되지 않음:";
 
 "editor_focus_map_on_location" = "개체의 정확한 위치를 선택하려면 지도를 당깁니다.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "다른 문제";
 
+"placepage_report_problem_button" = "문제 신고";
+
 "placepage_add_business_button" = "조직 추가";
 
 "whatsnew_smallmwm_header" = "여러분이 요청한 것을 저희가 해냈습니다";
 
 "whatsnew_smallmwm_message" = "지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.";
 
+"whatsnew_search_header" = "새로운 검색";
+
+"whatsnew_search_message" = "저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.";
+
+"whatsnew_editor_title" = "지도 편집*";
+
 "whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.";
 
 "onboarding_offline_navigation_title" = "다시 손실되지 않을 것임";
 
 "onboarding_offline_navigation_message" = "인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!";
 
+"onboarding_offline_navigation_title_2" = "오프라인 탐색";
+
+"onboarding_offline_navigation_message_2" = "최적의 자동차와 보행자 경로를 계획합니다.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용";
 
 "onboarding_offline_maps_message" = "한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.";
+
+"onboarding_notifications_message" = "최신지도를 받으려면, 업데이트 알림 받기";
+
+"onboarding_notifications_title" = "업데이트 알림 활성화";
+
+"onboarding_location_title" = "사용자를 찾도록 돕기";
+
+"onboarding_location_message" = "탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.";
 
 "onboarding_permissions_title" = "저장소 및 위치에 대한 MAPS.ME 액세스 허용";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.";
 
 "editor_sharing_title" = "나는 MAPS.ME 지도를 향상함";
+
+"editor_comment_will_be_sent" = "지도 제작자에게 의견을 보낼 것입니다.";
+
+"editor_unsupported_category_message" = "아직 지원하지 않는 카테고리의 장소를 추가했습니다. 시간이 좀 흐른 나중에 이 지도에 표시될 것입니다.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$d중의 %1$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "소유자";
 
+"editor_tag_description" = "회사, 조직 또는 시설 책임자를 입력하세요.";
+
+"editor_no_local_edits_title" = "편집한 지역정보가 없습니다";
+
+"editor_no_local_edits_description" = "이는 현재 귀하의 장치에서만 액세스할 수 있으며, 지도에서 만든 변경사항를 보여줍니다.";
+
+"editor_send_to_osm" = "OSM에 전송";
+
+"editor_remove" = "삭제";
+
 "downloader_my_maps_title" = "내 지도";
 
 "downloader_no_downloaded_maps_title" = "지도를 다운로드하지 않았습니다";
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
+
+"downloader_find_place_hint" = "도시/국가 검색";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "현재 위치검색을 계속하시겠습니까?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
 
+"whatsnew_update_editor_title" = "지도 편집기를 업데이트했습니다";
+
+"whatsnew_update_editor_message" = "MAPS.ME 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.";
+
 "location_services_disabled_header" = "위치 식별 사용할 수 없음";
 
 "location_services_disabled_message" = "장치 설정에서 위치 정보에 액세스할 수 있음";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. 앱 사용 중에 선택";
 
+"placepage_parking_surface" = "주차공간";
+
+"placepage_parking_multistorey" = "주차장 건물";
+
+"placepage_parking_underground" = "지하";
+
+"placepage_parking_rooftop" = "옥상";
+
+"placepage_parking_sheds" = "창고";
+
+"placepage_parking_carports" = "간이 차고";
+
+"placepage_parking_boxes" = "차고";
+
+"placepage_parking_pay" = "유료";
+
+"placepage_parking_free" = "무료";
+
+"placepage_parking_interval" = "주차요금 간격";
+
+"placepage_entrance_number" = "번호";
+
+"placepage_entrance_type" = "입구";
+
+"placepage_flat" = "앱";
+
+"placepage_open_24_7" = "연중무휴";
+
 "place_page_booking_rating" = "평가: %s";
 
 "place_page_starting_from" = "%s에서";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "km/시";
+
+"mile" = "mi";
+
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
+
+"day" = "d";
 
 "hour" = "t";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "삭제";
 
+"editor_status_sending" = "보내는 중…";
+
 "editor_place_doesnt_exist" = "존재하지 않는 장소입니다.";
 
 "text_more_button" = "…기타";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "유효한 이메일 주소 입력";
 
+"error_enter_correct" = "유효한 값 입력";
+
 "editor_profile_changes_for_next_place" = "다음 장소 변경: %d";
 
 "editor_profile_rating_place" = "평가 순위";
 
+"booking_dialog_not_connect_header" = "호텔을 예약하려면 인터넷에 연결하세요";
+
+"button_try" = "시도해보세요";
+
 "refresh" = "최신 정보";
 
 "last_update" = "마지막 업데이트: %s";
+
+"booking_checkin" = "체크인: %s";
+
+"booking_checkout" = "체크아웃: %s";
 
 "placepage_add_place_button" = "지도에 장소 추가";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.";
 
+"navigation_overview_button" = "개요";
+
+"navigation_stop_button" = "중지";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "북마크 저장";
+
+"bookmarks_empty_message_1" = "빠른 액세스를 위해 즐겨찾는 장소에 저장하기 위해 ★를 누릅니다.";
+
+"bookmarks_empty_message_2" = "이메일 및 웹에서 북마크를 가져옵니다.";
+
+"bookmarks_empty_message_3" = "체크아웃: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "호텔 예약함";
+
+"place_page_button_read_descriprion" = "읽기";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "체크아웃";
 
+"continue_recent_track_background_button" = "계속";
+
 "recent_track_background_dialog_message" = "MAPS.ME는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
+
+"whatsnew_car_navigation_header" = "사용자 친화적인 차량 네비게이션";
+
+"whatsnew_car_navigation_message" = "• 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.";
+
+"whatsnew_cycle_navigation_2_header" = "자전거 네비게이션";
+
+"whatsnew_cycle_navigation_2_message" = "• 자전거 탐색은 계정 지형 데이터를 고려합니다.\n• 저희는 계정 도로 경사를 고려하여 쉽게 경로를 만들 수 있습니다.";
+
+"whatsnew_booking_2_header" = "쉬운 호텔 검색";
+
+"whatsnew_booking_2_message" = "검색 결과는 호텔 평가 및 가격 범주를 표시합니다.";
+
+"whatsnew_cycle_navigation_header" = "자전거 네비게이션 (베타 버전)";
+
+"whatsnew_cycle_navigation_message" = "저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play에서 평가";
@@ -1118,6 +1632,9 @@
 
 "date" = "날짜 %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "문제가 발생했습니다.";
+
 /* For the first routing */
 "accept" = "동의";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "거부";
+
+"whats_new_route_profile_title" = "문제가 있으면 계속 어려움을 겪는 것보다 그만두는 게 낫습니다.";
+
+"whats_new_route_profile_message" = "보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.";
+
+"whats_new_booking_improve_title" = "호텔 예약 시 절약";
+
+"whats_new_booking_improve_message" = "이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "시설";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "자세히 표시";
 
+"booking_reviews" = "리뷰";
+
+"booking_hotel" = "호텔";
+
+/* hotel room */
+"booking_hotel_room" = "객실";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "열기";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Uber 택시를 직접 앱에서 예약하세요.";
+
 "dialog_taxi_offline" = "오프라인 모드에서는 택시를 예약할 수 없습니다.";
 
 "dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "교통 데이터를 표시하려면 지도를 업데이트해야 합니다.";
 
+"traffic_outdated" = "교통 데이터가 오래되었습니다.";
+
 "big_font" = "지도에서 글꼴 크기 늘리기";
 
 "traffic_update_app" = "MAPS.ME를 업데이트하세요.";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
+
+"banner_deliveryclub_title" = "음식 배달";
+
+"banner_deliveryclub_message" = "4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.";
+
+"banner_lamoda_title" = "온라인 의류 및 신발 스토어";
+
+"banner_lamoda_message" = "1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.";
+
+"banner_tutu_title" = "온라인 기차표";
+
+"banner_tutu_message" = "온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.";
+
+"banner_geerbest_title" = "온라인 전자 기기 스토어";
+
+"banner_geerbest_message" = "저렴한 가격의 50,000개 이상 품목에서 즉시 검색.";
+
+"banner_rentalcars_title" = "온라인 자동차 렌트";
+
+"banner_rentalcars_message" = "800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점";
+
+"banner_viator_title" = "온라인 투어 검색";
+
+"banner_viator_message" = "전 세계 50,000개 이상의 투어에서 검색하세요.";
+
+/* december */
+"whatsnew_traffic" = "36개국의 교통 데이터";
+
+/* december */
+"whatsnew_traffic_text" = "최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!";
+
+/* december */
+"whatsnew_traffic_roaming" = "로밍의 교통 정보";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "승차당 모바일 대역폭 1MB 미만이 필요합니다.";
+
+/* december */
+"whatsnew_order_taxi" = "택시 주문";
+
+/* december */
+"whatsnew_order_taxi_text" = "이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.";
+
+/* january */
+"whatsnew_improved_search" = "향상된 검색";
+
+/* january */
+"whatsnew_improved_search_text" = "철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.";
+
+/* january */
+"whatsnew_filters_in_search" = "검색 필터";
+
+/* january */
+"whatsnew_filters_in_search_text" = "가격 및 등급에 따라 호텔을 검색합니다.";
+
+/* january */
+"whatsnew_font_size" = "글꼴 크기";
+
+/* january */
+"whatsnew_font_size_text" = "지도의 레이블을 더 크게 할 수 있습니다.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "로깅 사용";
 
+"whatsnew_more_info_on_hotels_title" = "호텔에 대한 자세한 정보";
+
+"whatsnew_more_info_on_hotels_message" = "호텔 페이지의 새로운 모습: 온라인으로 사진, 사용자 리뷰 및 기타 정보를 확인하세요.";
+
+"whatsnew_better_routing_title" = "향상된 경로 계획";
+
+"whatsnew_better_routing_message" = "• 보다 정확한 도착 시간 추정. \n• 앱이 제한 지역 및 도로 표지판을 고려합니다.";
+
+"whatsnew_smaller_mwm_title" = "더 작아진 지도";
+
+"whatsnew_smaller_mwm_message" = "지도가 저장소를 최대 20% 적게 필요로 합니다.";
+
+"whatsnew_waypoints_title" = "경로의 중간 지점";
+
+"whatsnew_waypoints_message" = "경로에 중간 지점을 추가할 위치를 탭하세요.";
+
 "whatsnew_viator_title" = "투어 예약";
 
 "whatsnew_viator_message" = "전 세계 관광 도시에서 인기 투어를 선택하세요.";
+
+"whatsnew_driving_style_title" = "운전을 위한 새로운 지도 스타일";
+
+"whatsnew_driving_style_message" = "자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.";
 
 "more_on_bookingcom" = "Booking.com의 추가 정보";
 
 "details_on_bookingcom" = "Booking.com의 세부 정보";
 
 "reviews_on_bookingcom" = "Booking.com의 추가 리뷰";
+
+"offline_place_page_more_information" = "인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.";
+
+"failed_load_information" = "정보를 로드하지 못했습니다.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "업데이트(%s)";
 
 "whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
+
+"search_hotel_filter_apartment" = "아파트";
+
+"search_hotel_filter_camp_site" = "^캠핑";
+
+"search_hotel_filter_chalet" = "별장";
+
+"search_hotel_filter_guest_house" = "영빈관|호스텔";
+
+"search_hotel_filter_hostel" = "호스텔";
+
+"search_hotel_filter_resort" = "리조트";
+
+"search_hotel_filter_hotel" = "호텔";
+
+"search_hotel_filter_motel" = "모텔";
 
 "create_campaign_button" = "이 비즈니스 클레임";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "라틴어로 음역";
 
+"whatsnew_transliteration_message" = "거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "자세히 알아보기";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "경로 계획을 세우기 위한 끝 지점을 추가하세요";
 
+"onboarding_welcome_message" = "턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "애플리케이션을 시작하면, 이용 약관 및 개인정보취급방침에 동의하는 것입니다.";
+
+"button_accept_and_continue" = "동의하고 계속 진행";
+
+"button_learn_more" = "자세히 알아보기";
+
 "onboarding_storage_permissions_title" = "액세스 승인";
 
 "onboarding_storage_permissions_message" = "장치에서 권한 설정을 변경하세요. MAPS.ME를 사용하려면 저장소 액세스가 필요합니다.";
+
+"button_exit" = "끝내기";
 
 "onboarding_detail_permissions_title" = "MAPS.ME에는 다음에 대한 액세스가 필요합니다:";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.";
 
+"settings_device_memory" = "장치 메모리";
+
+"settings_card_memory" = "카드 메모리";
+
+"settings_storage_available" = "%s 사용 가능";
+
+"toast_location_permission_denied" = "앱 위치 권한 거부됨";
+
 "place_page_viator_title" = "관광 명소 및 투어";
 
+"button_use" = "사용";
+
+"planning_route_manage_route" = "경로 관리";
+
+"button_plan" = "계획";
+
+"button_add" = "추가";
+
 "placepage_remove_stop" = "제거";
+
+"planning_route_remove_title" = "여기로 끌어와서 제거";
+
+"dialog_change_start_point_message" = "시작 지점을 현재 위치로 바꾸시겠습니까?";
+
+"button_replace" = "바꾸기";
 
 "placepage_add_stop" = "스톱 추가";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "자동 다운로드 해제";
 
 "add_my_position" = "Add my position";
 

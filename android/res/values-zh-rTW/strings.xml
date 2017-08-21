@@ -14,11 +14,24 @@
 	<string name="cancel_download">取消下載</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">刪除</string>
+	<!-- Button to dismiss dialog forever -->
+	<string name="do_not_ask_me_again">不再詢問</string>
+	<!-- Button "do not interrupt download" if user touched actively downloading country -->
+	<string name="do_nothing">繼續</string>
 	<string name="download_maps">下載地圖</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_kb">下載 %qu kB</string>
+	<!-- Settings/Downloader - Download confirmation button -->
+	<string name="download_x_mb">下載 %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">下載失敗，輕觸以再試一次</string>
+	<!-- Settings/Downloader - info for downloaded country -->
+	<string name="downloaded_x_y_touch_to_delete">已下載的 (%1$qu %2$s), 輕觸以刪除</string>
+	<!-- Settings/Downloader - country info current download progress -->
+	<string name="downloading_x_touch_to_cancel">正在下載 %qu%%, 輕觸以取消</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">下載中…</string>
+	<string name="get_it_now">馬上取得</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,23 +42,39 @@
 	<string name="maps">地圖</string>
 	<!-- View and button titles for accessibility -->
 	<string name="downloader_maps">地圖：</string>
+	<!-- Settings/Downloader - info for country in the download queue -->
+	<string name="marked_for_downloading">標記為下載，輕觸以取消</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">英哩</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">我的位置</string>
 	<string name="ok">確定</string>
+	<!-- Settings/Downloader - No free space dialog message -->
+	<string name="free_disk_space_for_country_x">如要下載%s ，請先釋放一些空間！</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">稍後提醒我</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">稍後</string>
+	<!-- Don't show some dialog any more -->
+	<string name="never">不再提醒</string>
+	<!-- Leave Review dialog - Complain button (goes to support site) -->
+	<string name="report_an_issue">回報問題</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜尋</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">搜尋地圖</string>
+	<!-- Settings/Downloader - info for not downloaded country -->
+	<string name="touch_to_download">輕觸以下載</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">是</string>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<string name="use_wifi_recommendation_text">我們建議透過 WiFi 連線來下載較大的地圖</string>
+	<!-- Choose measurement on first launch alert - title -->
+	<string name="which_measurement_system">您偏好哪種度量單位系統？</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。</string>
+	<!-- Location Services are not available on the device alert - message -->
+	<string name="device_doesnot_support_location_services">您的裝置不支援定位服務</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">在地圖上顯示</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
@@ -63,13 +92,18 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
 	<string name="about_menu_title">關於 MAPS.ME</string>
+	<string name="downloading_touch_to_cancel">正在下載 %d%%, 輕觸以取消</string>
+	<string name="downloaded_touch_to_delete">已下載的 (%s)，輕觸以刪除</string>
 	<string name="connection_settings">連線設定</string>
+	<string name="download_mb_or_kb">下載 %s</string>
 	<string name="close">關閉</string>
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
 	<string name="download">下載</string>
+	<string name="external_storage_is_not_available">SD 卡/USB 無法有效儲存下載的地圖</string>
 	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟動應用程式</string>
+	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
 	<string name="download_resources">在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。</string>
 	<string name="getting_position">取得目前所在位置</string>
 	<string name="download_resources_continue">跳到地圖</string>
@@ -86,14 +120,22 @@
 	<string name="pause">暫停</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">繼續</string>
+	<string name="downloaded_touch_to_update">下載 (%s), 輕觸以更新或刪除</string>
+	<string name="update_mb_or_kb">更新 %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">您需要更新地圖以使用搜尋功能：</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下為可更新的地圖：</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">你再也不需要 MAPS.ME Lite 了，所以您可以移除它！</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s 已成功下載</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s 下載失敗</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">新增收藏夾</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">新增到書籤</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">書籤顏色</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
@@ -102,12 +144,16 @@
 	<string name="bookmark_sets">收藏夾</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">書籤</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">顏色</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名稱</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">位址</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">移除圖釘</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">收藏夾</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
@@ -126,10 +172,18 @@
 	<string name="wait_several_minutes">這可能需要幾分鐘\n請稍候…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">可見</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS 目前是關閉的，請在系統中設定為啟用</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">測量單位</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">請選擇公里或英哩</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">任何地方</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">我的附近</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">畫面中</string>
 	<!-- Search Suggestion -->
 	<string name="food">飲食</string>
 	<!-- Search Suggestion -->
@@ -160,6 +214,8 @@
 	<string name="post">郵局</string>
 	<!-- Search Suggestion -->
 	<string name="police">警察局</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">找不到搜尋結果</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">描述說明</string>
 	<!-- Button text -->
@@ -180,16 +236,24 @@
 	<string name="unknown_current_position">您的位置尚未定位完成</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
 	<string name="download_location_country">下載您目前所在位置的國家 地圖 (%s)</string>
+	<!-- Warning message when viewport country isn't downloaded during search -->
+	<string name="download_viewport_country_to_search">下載您正在搜尋的國家 地圖 (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">很抱歉，地圖儲存設定目前已停用。</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">國家地圖正在進行下載</string>
+	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
+	<string name="appStore_message">祝您使用 MAPS.ME 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
+	<!-- No, thanks -->
+	<string name="no_thanks">不，謝了</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">嘿，看看我在 MAPS.ME 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">嘿，在 MAPS.ME 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">嘿，看看我在 MAPS.ME 地圖上的圖釘！</string>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<string name="bookmark_share_email">嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$s。點擊此連結 %2$s 或此連結 %3$s 來察看地圖上的位置。\n\n謝謝。</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">嗨，到 MAPS.ME 地圖查看我的目前位置！</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -198,8 +262,14 @@
 	<string name="share_by_message">透過訊息分享</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">分享</string>
+	<!-- iOS share by Message button text (including SMS) -->
+	<string name="message">訊息</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">電子郵件</string>
+	<!-- Copy Link -->
+	<string name="copy_link">複製連結</string>
+	<!-- Text for the button that returns to caller application -->
+	<string name="more_info">顯示更多資訊</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">已複製到剪貼簿：%1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -208,6 +278,12 @@
 	<string name="info">簡介</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完成</string>
+	<!-- Summary for preferences in MWM -->
+	<string name="yopme_pref_summary">選擇第二螢幕設定</string>
+	<!-- Title for yopme preferences in MWM -->
+	<string name="yopme_pref_title">第二螢幕設定</string>
+	<!-- Hint for upper-right icon p2b -->
+	<string name="show_on_backscreen">在第二螢幕上顯示</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">版本： %s</string>
 	<!-- Data version in «About» screen -->
@@ -219,6 +295,11 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">長度</string>
 	<string name="share_my_location">分享我的位置</string>
+	<string name="menu_search">搜尋</string>
+	<!-- Settings screen: "Map" category title -->
+	<string name="prefs_group_map">地圖</string>
+	<!-- Settings screen: "Miscellaneous" category title -->
+	<string name="prefs_group_misc">其他</string>
 	<string name="prefs_group_route">導航</string>
 	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
@@ -234,6 +315,8 @@
 	<string name="pref_map_3d_title">透視圖</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D 建築</string>
+	<!-- Settings «Map» category: «3D buildings» summary -->
+	<string name="pref_map_3d_buildings_subtitle">增加電池消耗</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">語音指示</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -253,23 +336,60 @@
 	<string name="duration_12_hours">12小時</string>
 	<string name="duration_1_day">1天</string>
 	<string name="recent_track_help_text">它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。</string>
+	<string name="pref_track_ios_caption">近期軌跡顯示您的行進道路。</string>
+	<string name="pref_track_ios_subcaption">請選擇儲存軌跡的時間範圍。</string>
+	<string name="placepage_distance">距离</string>
+	<string name="placepage_coordinates">座標</string>
+	<string name="placepage_unsorted">未分類</string>
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。</string>
 	<!-- Used to warn user when fixing KitKat issue -->
+	<string name="bookmark_move_fail">我們需要將您的書籤移至內部記憶體中，但沒有足夠的存儲空間。請釋放一些記憶體，否則，書籤將不可用。</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">免費</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">購買</string>
+	<!-- 1st search button-like result -->
+	<string name="search_on_map">在地圖上搜尋</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">找不到路線</string>
+	<!-- route title -->
+	<string name="route">路線</string>
 	<!-- category title -->
 	<string name="routes">路線</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">此應用程式使用從 OpenStreetMap 專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證 OpenStreetMap 數據的一致性、準確性、完整性、或適用性。</string>
+	<!-- Show on first launch. -->
+	<string name="agree">我同意</string>
+	<!-- Show on first launch -->
+	<string name="disagree">我不同意</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">下載您所在地方的地圖</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">現在完整版 MAPS.ME 是免費的！馬上下載並告訴您的朋友。</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">我們正在將您從 MAPS.ME Lite 下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至 MAPS.ME。</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除 MAPS.ME Lite，然後再次下載地圖。</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">設定及更多</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME 社群</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">在 Facebook 上按讚</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">在Twitter 上關注</string>
+	<!-- Text in menu -->
+	<string name="contact_us">聯絡我們</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">意見反應</string>
 	<!-- Text in menu -->
@@ -286,6 +406,8 @@
 	<string name="subscribe_me_subject">請幫我訂閱 MAPS.ME 新聞郵件、</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%s</string>
 	<!-- Alert title -->
@@ -294,6 +416,10 @@
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線網路</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">請更新地圖以建立一條路線。</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">使用新版本的 MAPS.ME 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
@@ -309,6 +435,12 @@
 	<string name="downloader_download_all_button">下載全部</string>
 	<string name="downloader_downloading">正在下載：</string>
 	<string name="downloader_search_results">已找到</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">在 MAPS.ME 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">過時的</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">最新的</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">更新</string>
 	<!-- Status of failed country in the list -->
@@ -330,13 +462,28 @@
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support\@maps.me。</string>
 	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">下載地圖 + 路線</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">下載路線</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">刪除路線</string>
+	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下載地圖</string>
+	<string name="downloader_download_map_no_routing">下載不帶路線的地圖</string>
+	<!-- Button for routing. -->
+	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">重試</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">地圖 + 路線</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">刪除地圖</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">更新地圖</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">更新地圖 + 路線</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">只有地圖</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用 Google Play 服務來獲得您的目前位置</string>
 	<!-- Text for rating dialog -->
@@ -358,15 +505,47 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">下載沿線地圖</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">獲取地圖</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">下載更新的地圖和路線數據，獲取所有 MAPS.ME 的特色功能。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">獲取所需的路線數據</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">需要更多數據以從您的位置建立路線。</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">建立路線需要下載並更新好所有從您的位置到目的地的地圖。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">空間不足</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">您需要下載%1$s MB，但只有%2$s MB空間。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">您將使用行動數據下載%s MB（漫遊）。這取決於您的行動數據方案服務業者，可能會產生額外的費用。</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">書籤</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">您地點的地圖尚未下載</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">請啟用定位服務</string>
+	<!-- download map -->
+	<string name="download_map">為您的地點下載地圖</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">在您的 iPhone 上下載目前位置的地圖</string>
+	<!-- clear pin -->
+	<string name="nearby">附近的</string>
+	<!-- clear pin -->
+	<string name="clear_pin">清除圖釘</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">目前地點未定。</string>
+	<!-- download country of your location -->
+	<string name="download_country">下載您目前所在位置的國家 地圖</string>
 	<!-- download failed -->
 	<string name="download_failed">下載失敗</string>
+	<!-- get the map -->
+	<string name="get_the_map">獲取地圖</string>
 	<string name="save">儲存</string>
 	<string name="edit_description_hint">您的描述（文字或 html）</string>
+	<string name="new_group">新組</string>
+	<string name="create">建立</string>
 	<!-- red color -->
 	<string name="red">紅色</string>
 	<!-- yellow color -->
@@ -398,8 +577,10 @@
 	<string name="dialog_routing_location_turn_wifi">請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。</string>
 	<string name="dialog_routing_location_turn_on">啟用定位服務</string>
 	<string name="dialog_routing_location_unknown_turn_on">無法定位目前 GPS 座標。請啟用定位服務以產生路線。</string>
+	<string name="dialog_routing_location_unknown">無法定位目前 GPS 座標。</string>
 	<string name="dialog_routing_download_files">下載所需檔案</string>
 	<string name="dialog_routing_download_and_update_all">若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。</string>
+	<string name="dialog_routing_routes_size">路線資訊檔案</string>
 	<string name="dialog_routing_unable_locate_route">路線未找到</string>
 	<string name="dialog_routing_cant_build_route">無法產生路線。</string>
 	<string name="dialog_routing_change_start_or_end">請變更起點或最終目的地。</string>
@@ -414,21 +595,33 @@
 	<string name="dialog_routing_system_error">系統錯誤</string>
 	<string name="dialog_routing_application_error">由於此錯誤，尚未建立路線。</string>
 	<string name="dialog_routing_try_again">請再試一次</string>
+	<string name="dialog_routing_send_error">回報問題</string>
+	<string name="dialog_routing_if_get_cross_route">您想產生跨越邊界的更好路線嗎？</string>
+	<string name="dialog_routing_cross_route_is_optimal">有更理想的跨越邊界的路線可用。</string>
 	<string name="not_now">現在不要</string>
+	<string name="dialog_routing_build_route">產生</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，產生跨越邊界的更好路線？</string>
 	<string name="dialog_routing_download_cross_route">若要產生跨越邊界的更理想路線，您需要下載地圖。</string>
+	<string name="dialog_routing_cross_route_always">一律跨越此邊界</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。</string>
 	<string name="search_select_map">選擇地圖</string>
+	<string name="search_select_other_map">選擇另一個地圖</string>
 	<!-- «Show» context menu -->
 	<string name="show">顯示</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">隱藏</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">重新命名</string>
+	<!-- Bottom sheet: expand button (should be short) -->
+	<string name="bottom_sheet_more">更多…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">路線計劃失敗</string>
+	<!-- Arrive routing message in navigation view -->
+	<string name="routing_arrive">抵達:%s</string>
+	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">要建立路線，請下載並更新所有沿線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用程式嗎？</string>
 	<string name="rate_alert_default_message">感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
 	<string name="rate_alert_five_star_message">太棒了！我們也愛您！</string>
@@ -436,10 +629,13 @@
 	<string name="rate_alert_less_than_four_star_message">有沒有想法我們能怎麽把它變得更好？</string>
 	<string name="categories">類別</string>
 	<string name="history">記錄</string>
+	<string name="next_turn_then">然後</string>
 	<string name="closed">已關閉</string>
 	<string name="back_to">返回 %s</string>
 	<string name="search_not_found">很抱歉，找不到任何東西。</string>
 	<string name="search_not_found_query">請嘗試其他搜尋字詞。</string>
+	<string name="search_not_found_map">請下載你搜尋的地圖。</string>
+	<string name="search_not_found_location">下載您目前位置的地圖。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
 	<string name="search_history_text">檢視最近的搜尋。</string>
 	<string name="clear_search">清除搜尋記錄</string>
@@ -447,8 +643,12 @@
 	<string name="showcase_settings_title">顯示優惠</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">維基百科</string>
+	<string name="p2p_route_planning">路線計劃</string>
 	<string name="p2p_your_location">您的位置</string>
+	<string name="p2p_from">出發地點</string>
+	<string name="p2p_to">目的地點</string>
 	<string name="p2p_start">開始</string>
+	<string name="p2p_planning">計劃中…</string>
 	<string name="p2p_from_here">從</string>
 	<string name="p2p_to_here">路線終點</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
@@ -467,9 +667,11 @@
 	<string name="editor_hours_closed">休息時間</string>
 	<string name="editor_example_values">範例值</string>
 	<string name="editor_correct_mistake">修正錯誤</string>
+	<string name="editor_correct_mistake_message">編輯時出錯。請修正或切換到簡易模式。</string>
 	<string name="editor_add_select_location">位置</string>
 	<string name="editor_done_dialog_1">您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。</string>
 	<string name="editor_done_dialog_2">這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。</string>
+	<string name="editor_done_dialog_3">您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。</string>
 	<string name="share_with_friends">和朋友分享</string>
 	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。</string>
 	<string name="editor_report_problem_desription_2">或者在http://www.openstreetmap.org/上親自修復此錯誤</string>
@@ -478,8 +680,14 @@
 	<string name="editor_report_problem_no_place_title">該地點不存在</string>
 	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
 	<string name="editor_report_problem_duplicate_place_title">重複的地點</string>
+	<string name="first_launch_congrats_title">MAPS.ME 已做好使用準備</string>
+	<string name="first_launch_congrats_text">在世界各地離線搜尋和導航，免費。</string>
 	<string name="migrate_title">重要！</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全部下載</string>
+	<string name="delete_all">刪除全部</string>
 	<string name="autodownload">自動下載</string>
+	<string name="disable_autodownload">停用自動下載</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">現在關門</string>
 	<!-- Place Page opening hours text -->
@@ -488,6 +696,8 @@
 	<string name="day_off_today">今天沒有營業</string>
 	<string name="day_off">沒有營業</string>
 	<string name="today">今天</string>
+	<string name="sunrise_to_sunset">從日出到日落</string>
+	<string name="sunset_to_sunrise">從日落到日出</string>
 	<string name="add_opening_hours">新增營業時間</string>
 	<string name="edit_opening_hours">編輯營業時間</string>
 	<string name="profile">資料</string>
@@ -498,13 +708,30 @@
 	<string name="login">登入</string>
 	<string name="password">密碼</string>
 	<string name="forgot_password">忘記密碼</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">恢復密碼</string>
+	<string name="enter_email_address_to_reset_password">輸入您在註冊時所用的電子郵件地址，我們會發送連結給您更新密碼</string>
+	<string name="reset_password">重置密碼</string>
+	<string name="username">使用者名稱</string>
 	<string name="osm_account">OSM 帳號</string>
 	<string name="logout">登出</string>
+	<string name="login_and_edit_map_motivation_message">登錄並編輯地圖上的物件資訊，我們就會讓其他數百萬用戶看到。</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">上次上傳</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">您已編輯您的第一個物件！</string>
 	<string name="thank_you">謝謝您</string>
+	<string name="login_with_google">用 Google 登入</string>
+	<string name="login_with_facebook">用 Facebook 登入</string>
+	<string name="login_with_openstreetmap">登入到 www.openstreetmap.org</string>
 	<string name="edit_place">編輯地點</string>
 	<string name="place_name">地點名稱</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">其他語言</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">顯示更多</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">顯示較少</string>
 	<string name="add_language">新增語言</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -514,12 +741,14 @@
 	<string name="add_street">新增街道</string>
 	<string name="choose_language">選擇語言</string>
 	<string name="choose_street">選擇街道</string>
+	<string name="postal_code">郵遞區號</string>
 	<string name="cuisine">料理</string>
 	<string name="select_cuisine">選擇料理</string>
 	<!-- login text field -->
 	<string name="email_or_username">電子郵件或使用者名稱</string>
 	<string name="phone">電話</string>
 	<string name="please_note">請註意</string>
+	<string name="common_no_wifi_dialog">無 WiFi 連接。您想繼續使用行動數據進行連接嗎？</string>
 	<string name="downloader_delete_map_dialog">所有對地圖的修改都將與地圖一起被刪除。</string>
 	<string name="downloader_update_maps">更新地圖</string>
 	<string name="downloader_mwm_migration_dialog">為了建立路線，您需要更新全部地圖並重新規劃路線。</string>
@@ -530,8 +759,14 @@
 	<string name="common_check_internet_connection_dialog">請檢查您的設定並確保您的設備已連接至網路。</string>
 	<string name="downloader_no_space_title">無足夠的空間</string>
 	<string name="downloader_no_space_message">請刪除不必要的資料</string>
+	<string name="editor_general_auth_error_dialog">一般登入錯誤。</string>
 	<string name="editor_login_error_dialog">登入錯誤。</string>
+	<string name="editor_login_failed_dialog">登入失敗</string>
+	<string name="editor_username_error_dialog">使用者名稱不存在</string>
+	<string name="editor_place_edited_dialog">您已編輯了一個物件！</string>
+	<string name="editor_login_with_osm">使用 OpenStreetMap 進行登入</string>
 	<string name="editor_profile_changes">已驗證的變更</string>
+	<string name="editor_profile_unsent_changes">未發送：</string>
 	<string name="editor_focus_map_on_location">拖動地圖以選擇此物件的正確位置。</string>
 	<string name="editor_add_select_category">選擇類別</string>
 	<string name="editor_add_select_category_popular_subtitle">受歡迎的</string>
@@ -542,14 +777,25 @@
 	<string name="editor_edit_place_category_title">類別</string>
 	<string name="detailed_problem_description">問題的詳細描述</string>
 	<string name="editor_report_problem_other_title">一個不同的問題</string>
+	<string name="placepage_report_problem_button">回報問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="whatsnew_smallmwm_header">您一直在要求，而我們已經完成</string>
 	<string name="whatsnew_smallmwm_message">我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。</string>
+	<string name="whatsnew_search_header">新搜尋</string>
+	<string name="whatsnew_search_message">我們已明顯改進了按地址的搜尋。親自看看。</string>
+	<string name="whatsnew_editor_title">編輯此地圖*</string>
 	<string name="whatsnew_editor_message_1">新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME 使用 OpenStreetMap 社群的數據。</string>
 	<string name="onboarding_offline_navigation_title">您將不再迷路</string>
 	<string name="onboarding_offline_navigation_message">規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！</string>
+	<string name="onboarding_offline_navigation_title_2">離線導航</string>
+	<string name="onboarding_offline_navigation_message_2">規劃最佳的行車和步行路線。</string>
 	<string name="onboarding_offline_maps_title">MAPS.ME — 無需網際網路獲取全球地圖</string>
 	<string name="onboarding_offline_maps_message">一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。</string>
+	<string name="onboarding_notifications_message">為了接收最新的地圖，請接收更新通知</string>
+	<string name="onboarding_notifications_title">啟用更新通知</string>
+	<string name="onboarding_location_title">幫我們找到您</string>
+	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
 	<string name="onboarding_permissions_title">允許 MAPS.ME 存儲和定位的權限</string>
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="onboarding_welcome_title">歡迎來到 MAPS.ME</string>
@@ -562,6 +808,8 @@
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">為了下載，您需要更多的空間。請刪除不必要的數據。</string>
 	<string name="editor_sharing_title">我改進了 MAPS.ME 地圖</string>
+	<string name="editor_comment_will_be_sent">我們將把您的評論發送給地圖編輯者。</string>
+	<string name="editor_unsupported_category_message">您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
 	<string name="download_over_mobile_header">用手機網絡連接下載嗎？</string>
@@ -579,9 +827,15 @@
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
+	<string name="editor_tag_description">輸入公司、組織或設施負責人。</string>
+	<string name="editor_no_local_edits_title">您沒有本機編輯</string>
+	<string name="editor_no_local_edits_description">這顯示了對目前僅可在您的裝置上存取的地圖的建議修改數量。</string>
+	<string name="editor_send_to_osm">傳送至 OSM</string>
+	<string name="editor_remove">移除</string>
 	<string name="downloader_my_maps_title">我的地圖</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
+	<string name="downloader_find_place_hint">搜尋城市或國家</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">繼續偵測您的目前位置？</string>
 	<!-- Error that appears after certain time without location. -->
@@ -590,16 +844,39 @@
 	<string name="current_location_unknown_stop_button">停止</string>
 	<string name="current_location_unknown_error_title">目前位置未知。</string>
 	<string name="current_location_unknown_error_message">搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。</string>
+	<string name="whatsnew_update_editor_title">我們已更新地圖編輯器</string>
+	<string name="whatsnew_update_editor_message">MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！</string>
+	<!-- Additional text in whats new -->
+	<string name="whatsnew_update_editor_message_update">如要使用地圖編輯器，請更新所有地圖。</string>
 	<string name="location_services_disabled_header">地點定位被禁用</string>
 	<string name="location_services_disabled_message">啟用設備設置中的地理位置定位</string>
 	<string name="location_services_disabled_1">1. 打開設置</string>
 	<string name="location_services_disabled_2">2. 點擊位置</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. 使用應用時選擇</string>
+	<string name="placepage_parking_surface">表面</string>
+	<string name="placepage_parking_multistorey">多樓層</string>
+	<string name="placepage_parking_underground">未知的位置</string>
+	<string name="placepage_parking_rooftop">樓頂</string>
+	<string name="placepage_parking_sheds">小屋</string>
+	<string name="placepage_parking_carports">屋側車庫</string>
+	<string name="placepage_parking_boxes">停車房</string>
+	<string name="placepage_parking_pay">付款</string>
+	<string name="placepage_parking_free">免費</string>
+	<string name="placepage_parking_interval">間隔付款</string>
+	<string name="placepage_entrance_number">編號</string>
+	<string name="placepage_entrance_type">入口</string>
+	<string name="placepage_flat">公寓</string>
+	<string name="placepage_open_24_7">全天候</string>
 	<string name="place_page_booking_rating">評分： %s</string>
 	<string name="place_page_starting_from">從%s</string>
 	<string name="meter">米</string>
+	<string name="kilometer">公里</string>
+	<string name="kilometers_per_hour">公里每小時</string>
+	<string name="mile">英里</string>
 	<string name="foot">英尺</string>
+	<string name="miles_per_hour">英里每小時</string>
+	<string name="day">天</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">說明</string>
@@ -616,24 +893,38 @@
 	<string name="editor_reset_edits_button">重設</string>
 	<string name="editor_remove_place_message">移除已新增的位置？</string>
 	<string name="editor_remove_place_button">移除</string>
+	<string name="editor_status_sending">正在傳送…</string>
 	<string name="editor_place_doesnt_exist">位置不存在</string>
 	<string name="text_more_button">…更多</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">輸入正確的電話號碼</string>
 	<string name="error_enter_correct_web">輸入有效網址</string>
 	<string name="error_enter_correct_email">輸入有效電子郵箱</string>
+	<string name="error_enter_correct">輸入有效值</string>
 	<string name="editor_profile_changes_for_next_place">對下一個地點的變更：%d</string>
 	<string name="editor_profile_rating_place">排名位置</string>
+	<string name="booking_dialog_not_connect_header">要預訂酒店，請啟用您的網際網路連線</string>
+	<string name="button_try">試用</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">上次更新於：%s</string>
+	<string name="booking_checkin">入住： %s</string>
+	<string name="booking_checkout">退房： %s</string>
 	<string name="placepage_add_place_button">添加地點到地圖上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要發給所有用戶嗎？</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人數據。</string>
 	<string name="editor_share_to_all_dialog_message_2">我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。</string>
+	<string name="navigation_overview_button">概覽</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- Text on an empty bookmark page -->
 	<string name="bookmarks_empty_title">儲存書籤</string>
+	<string name="bookmarks_empty_message_1">按★ 儲存至愛地點以方便存取。</string>
+	<string name="bookmarks_empty_message_2">從 Mail及網上匯入書籤。</string>
+	<string name="bookmarks_empty_message_3">退房： %s</string>
+	<!-- Name of the group for booked hotels -->
+	<string name="bookmarks_group_name">預訂的酒店</string>
+	<string name="place_page_button_read_descriprion">閱讀</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">禁止記錄您最近去過的路徑？</string>
 	<!-- If a hotel is being shared -->
@@ -641,7 +932,16 @@
 	<string name="off_recent_track_background_button">禁用</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">看一看</string>
+	<string name="continue_recent_track_background_button">繼續</string>
 	<string name="recent_track_background_dialog_message">MAPS.ME使用背景中的地理位置記錄您最近去過的路徑。</string>
+	<string name="whatsnew_car_navigation_header">方便用戶使用的車輛導航</string>
+	<string name="whatsnew_car_navigation_message">• 導航元素所佔用的空間更小。\n• 我們顯示了速度並且已經添加了自動縮放功能。</string>
+	<string name="whatsnew_cycle_navigation_2_header">自行車導航</string>
+	<string name="whatsnew_cycle_navigation_2_message">• 自行車導航考慮了地形數據。\n• 考慮到道路斜坡，我們創建了更加優化便捷的路線。</string>
+	<string name="whatsnew_booking_2_header">便捷的酒店搜索</string>
+	<string name="whatsnew_booking_2_message">該搜索結果顯示酒店星級和價格分類。</string>
+	<string name="whatsnew_cycle_navigation_header">自行車導航（beta 版）</string>
+	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">在 Google Play 評分</string>
 	<!-- Share with friends: menu item title -->
@@ -656,10 +956,16 @@
 	<string name="allow_statistics_hint">收集匿名使用統計資訊有助於我們改善應用程式。</string>
 	<string name="general_settings">一般設定</string>
 	<string name="date">日期 %d</string>
+	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
+	<string name="something_is_not_working">某些地方出錯了</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
 	<string name="decline">拒絕</string>
+	<string name="whats_new_route_profile_title">與其長年勞而無功，不如奮起振作</string>
+	<string name="whats_new_route_profile_message">對於行人和自行車路線，我們現在顯示海拔剖面圖。</string>
+	<string name="whats_new_booking_improve_title">優惠預訂飯店</string>
+	<string name="whats_new_booking_improve_message">飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。</string>
 	<!-- For place page hotel facilities block -->
 	<string name="placepage_hotel_facilities">設施</string>
 	<!-- For place page hotel nearby block -->
@@ -691,6 +997,16 @@
 	<string name="search_in_table">清單</string>
 	<string name="booking_based_on_reviews">根據 %d 則飯店評論</string>
 	<string name="booking_show_more">顯示更多</string>
+	<string name="booking_reviews">評論</string>
+	<string name="booking_hotel">飯店</string>
+	<!-- hotel room -->
+	<string name="booking_hotel_room">客房</string>
+	<!-- A neologism for a chat based on geographical proximity -->
+	<string name="chat">Geochat</string>
+	<!-- Verb. Text on a button that opens the chat. -->
+	<string name="chat_open">開放</string>
+	<string name="whatsnew_uber_header">優步 &amp; MAPS.ME離綫地圖</string>
+	<string name="whatsnew_uber_message">直接從應用程序預訂計程車！</string>
 	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>
 	<string name="dialog_taxi_error">叫計程車服務暫時無法使用。</string>
 	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
@@ -702,12 +1018,49 @@
 	<string name="mobile_data_option_never">絕不使用</string>
 	<string name="mobile_data_option_ask">一律詢問</string>
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
+	<string name="traffic_outdated">交通資料已過時。</string>
 	<string name="big_font">增加地圖上的字體大小</string>
 	<string name="traffic_update_app">請更新 MAPS.ME</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">無法使用交通資訊</string>
+	<string name="banner_deliveryclub_title">送餐</string>
+	<string name="banner_deliveryclub_message">4,000 家餐廳的快速外送。向 Delivery Club 訂餐。</string>
+	<string name="banner_lamoda_title">線上服飾與鞋店</string>
+	<string name="banner_lamoda_message">超過 1,000 個品牌。最低三折起。全國免運費。</string>
+	<string name="banner_tutu_title">線上火車票</string>
+	<string name="banner_tutu_message">線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。</string>
+	<string name="banner_geerbest_title">線上電器行</string>
+	<string name="banner_geerbest_message">立即搜尋超過 50,000 樣低價品項。</string>
+	<string name="banner_rentalcars_title">線上租車</string>
+	<string name="banner_rentalcars_message">營運 49,000 多個租車地點的 800 家租車公司。</string>
+	<string name="banner_viator_title">線上行程搜尋</string>
+	<string name="banner_viator_message">搜尋全世界 50,000 多個行程。</string>
+	<!-- december -->
+	<string name="whatsnew_traffic">36 個國家的交通資料</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_text">最新交通資訊與據此得出的最快速路線！</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming">交通資訊使用漫遊</string>
+	<!-- december -->
+	<string name="whatsnew_traffic_roaming_text">每次行程需要的行動頻寬不到 1 MB。</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi">訂一部計程車</string>
+	<!-- december -->
+	<string name="whatsnew_order_taxi_text">大部分的地點頁面目前已包含可訂計程車的按鈕。</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search">改善的搜尋功能</string>
+	<!-- january -->
+	<string name="whatsnew_improved_search_text">即使拼錯查詢字詞也能獲得準確的搜尋結果。</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search">搜尋篩選</string>
+	<!-- january -->
+	<string name="whatsnew_filters_in_search_text">根據價格與評價搜尋飯店。</string>
+	<!-- january -->
+	<string name="whatsnew_font_size">字型大小</string>
+	<!-- january -->
+	<string name="whatsnew_font_size_text">可將地圖上的標籤變大。</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -717,16 +1070,36 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">簡化的交通狀況顏色</string>
 	<string name="enable_logging">啟用記錄</string>
+	<string name="whatsnew_more_info_on_hotels_title">了解飯店更多資訊</string>
+	<string name="whatsnew_more_info_on_hotels_message">飯店換新裝：線上查看相片、使用者評論和其他資訊。</string>
+	<string name="whatsnew_better_routing_title">經過改良的路線規劃</string>
+	<string name="whatsnew_better_routing_message">• 更精準估計到達時間。\n• 該應用程式已經考慮到限制性區域和道路標誌。</string>
+	<string name="whatsnew_smaller_mwm_title">Maps 變小</string>
+	<string name="whatsnew_smaller_mwm_message">Maps 所需存儲空間減少 20%。</string>
+	<string name="whatsnew_waypoints_title">在路線中新增路徑點</string>
+	<string name="whatsnew_waypoints_message">點按地點，即可向您的路線新增路徑點。</string>
 	<string name="whatsnew_viator_title">預訂行程</string>
 	<string name="whatsnew_viator_message">選擇全世界旅遊城市的熱門行程。</string>
+	<string name="whatsnew_driving_style_title">新的駕駛地圖模式</string>
+	<string name="whatsnew_driving_style_message">汽車導航模式更好用。</string>
 	<string name="more_on_bookingcom">Booking.com 上的更多資訊</string>
 	<string name="details_on_bookingcom">Booking.com 上的詳細資訊</string>
 	<string name="reviews_on_bookingcom">Booking.com 上的更多評價</string>
+	<string name="offline_place_page_more_information">連上網路以取得關於地點的更多資訊。</string>
+	<string name="failed_load_information">無法載入資訊。</string>
 	<string name="whats_new_auto_update_updating_maps">更新地圖</string>
 	<string name="whats_new_auto_update_title">更新您下載的地圖</string>
 	<string name="whats_new_auto_update_message">更新地圖以讓物件資訊保持在最新狀態</string>
 	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
 	<string name="whats_new_auto_update_button_later">稍後手動更新</string>
+	<string name="search_hotel_filter_apartment">公寓</string>
+	<string name="search_hotel_filter_camp_site">露營</string>
+	<string name="search_hotel_filter_chalet">木屋</string>
+	<string name="search_hotel_filter_guest_house">賓館</string>
+	<string name="search_hotel_filter_hostel">旅舍</string>
+	<string name="search_hotel_filter_resort">度假酒店</string>
+	<string name="search_hotel_filter_hotel">飯店</string>
+	<string name="search_hotel_filter_motel">汽車旅館</string>
 	<string name="create_campaign_button">聲明這是你的公司</string>
 	<string name="view_campaign_button">業務已發出廣告</string>
 	<string name="search_hotel_filters_type">類型</string>
@@ -738,12 +1111,19 @@
 	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play Market, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
 	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
 	<string name="whatsnew_transliteration_title">音譯為拉丁文</string>
+	<string name="whatsnew_transliteration_message">若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。</string>
 	<string name="learn_more">瞭解更多資訊</string>
 	<string name="exit">退出</string>
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
+	<string name="onboarding_welcome_message">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
+	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
+	<string name="onboarding_welcome_agree">啟動本應用程式，即表示您同意服務條款和隱私權原則。</string>
+	<string name="button_accept_and_continue">接受並繼續</string>
+	<string name="button_learn_more">瞭解更多資訊</string>
 	<string name="onboarding_storage_permissions_title">授與存取權</string>
 	<string name="onboarding_storage_permissions_message">變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。</string>
+	<string name="button_exit">退出</string>
 	<string name="onboarding_detail_permissions_title">MAPS.ME 需要下列存取權限：</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">存儲空間</string>
@@ -752,10 +1132,20 @@
 	<string name="onboarding_detail_permissions_location_title">位置</string>
 	<string name="onboarding_detail_permissions_location_message">查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="onboarding_detail_permissions_storage_path_message">在設定中，您還可變更下載的地圖之目的地。</string>
+	<string name="settings_device_memory">裝置記憶體</string>
+	<string name="settings_card_memory">卡記憶體</string>
+	<string name="settings_storage_available">%s 可用</string>
+	<string name="toast_location_permission_denied">應用程式地點存取權限被拒絕</string>
 	<string name="place_page_viator_title">景點和行程</string>
+	<string name="button_use">使用</string>
+	<string name="planning_route_manage_route">管理路線</string>
+	<string name="button_plan">計畫</string>
+	<string name="button_add">新增</string>
 	<string name="placepage_remove_stop">移除</string>
+	<string name="planning_route_remove_title">在此拖曳以移除</string>
+	<string name="dialog_change_start_point_message">取代目前位置的起點嗎？</string>
+	<string name="button_replace">取代</string>
 	<string name="placepage_add_stop">新增應用程式</string>
 	<string name="whatsnew_intermediate_point_title">其他站點</string>
 	<string name="whatsnew_intermediate_point_message">計劃有中途休息站的路線。</string>
-	<string name="disable_autodownload">停用自動下載</string>
 </resources>

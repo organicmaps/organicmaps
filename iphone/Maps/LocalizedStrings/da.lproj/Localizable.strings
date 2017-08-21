@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "Slet";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "Spørg mig ikke igen";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "Fortsæt";
+
 "download_maps" = "Download kort";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "Download %qu kB";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "Download %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Der skete en fejl ved download, tryk for at prøve igen.";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "Downloaded (%1$qu %2$@), tryk for at slette";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "Downloader %qu%%, tryk for at afbryde";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloader…";
 
+"get_it_now" = "Få det nu";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Tak for at du bruger MAPS.ME! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometre";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "Kort:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "Markeret til download, tryk for at afbryde";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "Ok";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "Frigør venligst noget plads på din telefon først for at downloade %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Påmind mig senere";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Senere";
+
+/* Don't show some dialog any more */
+"never" = "Aldrig";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "Rapporter et problem";
 
 /* View and button titles for accessibility */
 "search" = "Søg";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "Søg kort";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "Tryk for at downloade";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "Vi anbefaler, at du bruger WiFi for at downloade store kort";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "Hvilken måleenhed foretrækker du?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "Din enhed understøtter ikke lokationstjenester";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Vis på kortet";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "Om MAPS.ME";
 
+"downloading_touch_to_cancel" = "Downloader %d%%, tryk for at afbryde";
+
+"downloaded_touch_to_delete" = "Downloaded (%@), tryk for at slette";
+
 "connection_settings" = "Forbindelsesindstillinger";
+
+"download_mb_or_kb" = "Download %@";
 
 "close" = "Luk";
 
@@ -111,11 +164,15 @@
 
 "download" = "Download";
 
+"external_storage_is_not_available" = "SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt";
+
 "disconnect_usb_cable" = "Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME";
 
 "not_enough_free_space_on_sdcard" = "Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app";
 
 "not_enough_memory" = "Ikke nok hukommelse til at åbne app";
+
+"free_space_for_country" = "Frigør venligst %1$@ på din enhed først for at downloade %2$@";
 
 "download_resources" = "Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Fortsæt";
 
+"downloaded_touch_to_update" = "Downloadet (%@), tryk for at opdatere eller slet";
+
+"update_mb_or_kb" = "Opdater %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Du har brug for opdaterede kort for at benytte søgefunktionen:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Der er opdateringer klar til følgende kort:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ download succesfuldt";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ download mislykkedes";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Tilføj nyt sæt";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "Tilføj til Bogmærker";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Bogmærke Farve";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "Bogmærker";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "Farve";
+
 /* Default bookmarks set name */
 "my_places" = "Mine Steder";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "Adresse";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "Fjern knappenål";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Sæt";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Synligt";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS er deaktiveret. Aktiver venligst i Indstillinger.";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "Måleenhed";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Vælg mellem mil eller kilometer";
+
+/* Do search in all sources */
+"search_mode_all" = "Overalt";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Tæt på mig";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "På skærmen";
 
 /* Search Suggestion */
 "food" = "Mad";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "Politi";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Ingen resultater";
+
 /* Notes field in Bookmarks view */
 "description" = "Noter";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Download landet bestemt ud fra din nuværende lokation (%@)";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "Download landet som du har søgt på (%@)";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Beklager, Kort Lagring er ikke slået til i indstillinger.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Download af kort over land er i gang nu.";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!";
+
+/* No, thanks */
+"no_thanks" = "Nej, tak";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, tjek min knappenål på MAPS.ME kortet ud!";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "Hej\n\nJeg markerede: %1$@ på MAPS.ME, en verden af offline kort. Klik på dette link %2$@ eller dette %3$@ for at se stedet på kortet.\n\nTak.";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, tjek min nuværende lokation ud på MAPS.ME kortet!";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Del";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "Besked";
+
 /* Share by email button text, also used in editor. */
 "email" = "Email";
+
+/* Copy Link */
+"copy_link" = "Kopier link";
+
+/* Text for the button that returns to caller application */
+"more_info" = "Vis mere info";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopieret til udklipsholderen: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "Færdig";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "Vælg bagskærmsindstillinger";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "Bagskærmsindstillinger";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "Vis på bagskærm";
 
 /* Prints version number in About dialog */
 "version" = "Version: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "Del min lokation";
 
+"menu_search" = "Søg";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "Kort";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "Forskelligt";
 
 "prefs_group_route" = "Navigation";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-bygninger";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "Påvirker batteriets levetid";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Stemmeinstruktioner";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.";
 
+"pref_track_ios_caption" = "Seneste spor viser din rejste vej.";
+
+"pref_track_ios_subcaption" = "Vælg tidsinterval for at gemme sporet.";
+
+"placepage_distance" = "Afstand";
+
+"placepage_coordinates" = "Koordinater";
+
+"placepage_unsorted" = "Usorteret";
+
 "search_show_on_map" = "Vis på kortet";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.";
+
+/* Used in More Apps menu */
+"free" = "Gratis";
+
+/* Used in More Apps menu */
+"buy" = "Køb";
+
+/* 1st search button-like result */
+"search_on_map" = "Søg på kort";
+
+/* toast with an error */
+"no_route_found" = "Ingen rute blev fundet";
+
+/* route title */
+"route" = "Rute";
 
 /* category title */
 "routes" = "Ruter";
 
+/* Show on first launch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first launch. */
+"agree" = "I agree";
+
+/* Show on first launch */
+"disagree" = "I disagree";
+
 /* text of notification */
 "download_map_notification" = "Download kortet over det sted, hvor du befinder dig";
 
+/* text of notification */
+"pro_version_is_free_today" = "Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.";
+
+/* Text in menu */
+"settings_and_more" = "Indstillinger & Mere";
+
 /* Text in menu */
 "website" = "Hjemmeside";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.ME Samfund";
 
 /* Text in menu */
 "like_on_facebook" = "Synes godt om på Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Følg på Twitter";
+
+/* Text in menu */
+"contact_us" = "Kontakt os";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.";
 
+/* About text */
+"about_text" = "MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.";
+
 /* Alert text */
 "email_error_body" = "Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Venligst opdatér kortet for at oprette en rute.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Opdatér alle";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "Downloader:";
 
 "downloader_search_results" = "Fundet";
+
+/* Disclaimer message */
+"routing_disclaimer" = "Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Uddateret";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Up-to-date";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Opdater";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@maps.me.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Hent kort + ruteangivelse";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Hent ruteangivelse";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Slet ruteangivelse";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "Download kortet";
+
+"downloader_download_map_no_routing" = "Download kort uden ruteplanlægning";
+
+/* Button for routing. */
+"routing_go" = "Kør!";
 
 /* Item status in downloader. */
 "downloader_retry" = "Gentag";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Kort og rutevejledning";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Slet kort";
 
 /* Item in context menu. */
 "downloader_update_map" = "Opdater kort";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Opdater kort og rutevejledning";
+
+/* Item in context menu. */
+"downloader_map_only" = "Kun kort";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Programmenu";
 
 /* Preference text */
 "pref_use_google_play" = "Anvend Google Play Services til at få din aktuelle placering";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "Download kort på vejen";
 
 /* Text for routing error dialog */
+"routing_download_map" = "Få kort";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Få routing data";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Yderligere data er påkrævet for at oprette ruter fra din placering.";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Ikke nok plads";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Du skal downloade %@ MB, men kun %@ MB er tilgængeligt.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.";
 
 /* bookmark button text */
 "bookmark" = "bogmærke";
 
+/* map is not downloaded */
+"not_found_map" = "Kortet for dit område er ikke downloadet";
+
 /* location service disabled */
 "enable_location_services" = "Aktiver venligst lokationstjenester";
+
+/* download map */
+"download_map" = "Download kortet for dit område";
+
+/* download map on iPhone */
+"download_map_iphone" = "Download kortet for din placering til din iPhone";
+
+/* clear pin */
+"nearby" = "I nærheden";
+
+/* clear pin */
+"clear_pin" = "Slet nål";
+
+/* location is undefined */
+"undefined_location" = "Den nuværende placering er ikke defineret.";
+
+/* download country of your location */
+"download_country" = "Download landet bestemt ud fra din nuværende lokation";
 
 /* download failed */
 "download_failed" = "download mislykkedes";
 
+/* get the map */
+"get_the_map" = "Få kort";
+
 "save" = "Gem";
 
 "edit_description_hint" = "Dine beskrivelser (tekst eller html)";
+
+"new_group" = "ny gruppe";
+
+"create" = "skabe";
 
 /* red color */
 "red" = "Rød";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.";
 
+"dialog_routing_location_unknown" = "Det lykkedes ikke at finde de aktuelle GPS-koordinater.";
+
 "dialog_routing_download_files" = "Download de nødvendige filer";
 
 "dialog_routing_download_and_update_all" = "Download og opdatér alle kort og ruteoplysninger for at beregne en rute.";
+
+"dialog_routing_routes_size" = "Filer med ruteoplysninger";
 
 "dialog_routing_unable_locate_route" = "Der blev ikke fundet en rute";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "Prøv igen";
 
+"dialog_routing_send_error" = "Anmeld problemet";
+
+"dialog_routing_if_get_cross_route" = "Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?";
+
+"dialog_routing_cross_route_is_optimal" = "Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.";
+
 "not_now" = "Ikke nu";
+
+"dialog_routing_build_route" = "Opret";
 
 "dialog_routing_download_and_build_cross_route" = "Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?";
 
 "dialog_routing_download_cross_route" = "Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.";
+
+"dialog_routing_cross_route_always" = "Kryds altid denne grænse";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.";
 
 "search_select_map" = "Vælk kortet";
+
+"search_select_other_map" = "Vælg et andet kort";
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "Omdøb";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "Mere…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruteplanlægning mislykkedes";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Ankomst: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
 
 "rate_alert_title" = "Kan du lide appen?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "Historik";
 
+"next_turn_then" = "Så";
+
 "closed" = "Lukket";
 
 "back_to" = "Tilbage til %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "Desværre, jeg fandt ikke noget.";
 
 "search_not_found_query" = "Prøv en anden forespørgsel.";
+
+"search_not_found_map" = "Download kortet, som du søger i.";
+
+"search_not_found_location" = "Download kortet for din nuværende placering.";
 
 "search_history_title" = "Søgehistorik";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "Ruteplanlægning";
+
 "p2p_your_location" = "Din lokalitet";
 
+"p2p_from" = "Afgangssted";
+
+"p2p_to" = "Bestemmelsesstedet";
+
 "p2p_start" = "Start";
+
+"p2p_planning" = "Planlægger…";
 
 "p2p_from_here" = "Fra";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "Ret fejl";
 
+"editor_correct_mistake_message" = "Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.";
+
 "editor_add_select_location" = "Sted";
 
 "editor_done_dialog_1" = "Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.";
 
 "editor_done_dialog_2" = "Dette er din anden kortforbedring. Nu er du på en %d. plads på listen over kortredaktører. Fortæl dine venner om det.";
+
+"editor_done_dialog_3" = "Du har forbedret kortet, fortæl dine venner om det og redigér kortet sammen.";
 
 "share_with_friends" = "Del med venner";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplikeret sted";
 
+"first_launch_congrats_title" = "MAPS.ME er klart til brug";
+
+"first_launch_congrats_text" = "Søg og navigér i kort over alle verdens lande gratis.";
+
 "migrate_title" = "Vigtigt!";
 
+/* Android uses image instead of text. */
+"download_all" = "Download alle";
+
+"delete_all" = "Slet alle";
+
 "autodownload" = "Automatisk download";
+
+"disable_autodownload" = "Deaktiver automatisk download";
 
 /* Place Page opening hours text */
 "closed_now" = "Lukket nu";
@@ -803,6 +1140,10 @@
 "day_off" = "Fridag";
 
 "today" = "I dag";
+
+"sunrise_to_sunset" = "Fra solopgang til solnedgang";
+
+"sunset_to_sunrise" = "Fra solnedgang til solopgang";
 
 "add_opening_hours" = "Tilføj arbejdstid";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "Glemt adgangskode?";
 
+/* Forgot Password dialog title */
+"restore_password" = "Genopret adgangskode";
+
+"enter_email_address_to_reset_password" = "Indtast den emailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.";
+
+"reset_password" = "Nulstil adgangskode";
+
+"username" = "Brugernavn";
+
 "osm_account" = "OSM-konto";
 
 "logout" = "Log ud";
 
+"login_and_edit_map_motivation_message" = "Log ind og rediger oplysninger for objekter på kortet, så sørger vi for, at de er tilgængelige for millioner af andre brugere. Lad os sammen gøre verden bedre.";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Sidste overførsel";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Du har redigeret dit første objekt!";
+
 "thank_you" = "Mange tak";
+
+"login_with_google" = "Log ind med Google";
+
+"login_with_facebook" = "Log ind med Facebook";
+
+"login_with_openstreetmap" = "Log ind med www.openstreetmap.org";
 
 "edit_place" = "Redigér stedet";
 
 "place_name" = "Navn på sted";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Andre sprog";
+
+/* small button to open list with names in different languages */
+"show_more" = "Vis mere";
+
+/* small button to close list with names in different languages */
+"show_less" = "Vis mindre";
 
 "add_language" = "Tilføj et sprog";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "Vælg en gade";
 
+"postal_code" = "Postnummer";
+
 "cuisine" = "Køkken";
 
 "select_cuisine" = "Vælg køkken";
@@ -863,6 +1235,8 @@
 "phone" = "Telefon";
 
 "please_note" = "Bemærk venligst";
+
+"common_no_wifi_dialog" = "Ingen WiFi-forbindelse. Vil du fortsætte med mobildata?";
 
 "downloader_delete_map_dialog" = "Alle kortændringer vil blive slettet sammen med kortet.";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "Fjern unødvendig data";
 
+"editor_general_auth_error_dialog" = "Generel fejl ved login.";
+
 "editor_login_error_dialog" = "Login-fejl.";
 
+"editor_login_failed_dialog" = "Login mislykkedes";
+
+"editor_username_error_dialog" = "Ugyldigt brugernavn";
+
+"editor_place_edited_dialog" = "Du har redigeret et objekt!";
+
+"editor_login_with_osm" = "Login med OpenStreetMap";
+
 "editor_profile_changes" = "Bekræftede ændringer";
+
+"editor_profile_unsent_changes" = "Ikke sendt:";
 
 "editor_focus_map_on_location" = "Træk kortet for at vælge objektets korrekte placering.";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "Et anderledes problem";
 
+"placepage_report_problem_button" = "Anmeld et problem";
+
 "placepage_add_business_button" = "Tilføj organisationen";
 
 "whatsnew_smallmwm_header" = "I har bedt om det, og vi har gjort det";
 
 "whatsnew_smallmwm_message" = "Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.";
 
+"whatsnew_search_header" = "Ny søgning";
+
+"whatsnew_search_message" = "Vi har forbedret søgningen efter adresse betydeligt. Se selv.";
+
+"whatsnew_editor_title" = "Redigér kortet*";
+
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME bruger fællesskabsdata fra OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Du vil aldrig fare vild igen";
 
 "onboarding_offline_navigation_message" = "Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!";
 
+"onboarding_offline_navigation_title_2" = "Offline navigering";
+
+"onboarding_offline_navigation_message_2" = "Planlæg de optimale ruter i bil og til fods.";
+
 "onboarding_offline_maps_title" = "MAPS.ME — adgang til verdensomspændende kort uden internet";
 
 "onboarding_offline_maps_message" = "Download kortene til det ønskede område en gang, og brug navigerings- og søgefunktionerne uden internetforbindelse.";
+
+"onboarding_notifications_message" = "For at modtage de nyeste kort kan du få opdateringsnotifikationer";
+
+"onboarding_notifications_title" = "Aktivér opdateringsnotifikationer";
+
+"onboarding_location_title" = "Hjælp os med at finde dig";
+
+"onboarding_location_message" = "For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.";
 
 "onboarding_permissions_title" = "Giv MAPS.ME adgang til lager og position";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.";
 
 "editor_sharing_title" = "Jeg forbedrede MAPS.ME kortene";
+
+"editor_comment_will_be_sent" = "Vi vil sende dine kommentarer til kartograferne.";
+
+"editor_unsupported_category_message" = "Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d af %2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "Bruger";
 
+"editor_tag_description" = "Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.";
+
+"editor_no_local_edits_title" = "Du har ikke lokale ændringer";
+
+"editor_no_local_edits_description" = "Den viser antallet af dine foreslåede ændringer på kortet, der kun er tilgængelige på din enhed.";
+
+"editor_send_to_osm" = "Send til OSM";
+
+"editor_remove" = "Fjern";
+
 "downloader_my_maps_title" = "Mine kort";
 
 "downloader_no_downloaded_maps_title" = "Du har ikke hentet alle kort";
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
+
+"downloader_find_place_hint" = "Søg by eller land";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Fortsæt med at registrere din aktuelle position?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.";
 
+"whatsnew_update_editor_title" = "Har vi opdateret korteditoren";
+
+"whatsnew_update_editor_message" = "MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "For at bruge kortredigering, bedes du opdatere alle kort.";
+
 "location_services_disabled_header" = "Placeringsservices er slået fra";
 
 "location_services_disabled_message" = "Slå adgang til geoposition til i enhedens indstillinger";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Vælg Mens app'en bruges";
 
+"placepage_parking_surface" = "Overflade";
+
+"placepage_parking_multistorey" = "Flere etager";
+
+"placepage_parking_underground" = "Underjordisk";
+
+"placepage_parking_rooftop" = "Tagterrasse";
+
+"placepage_parking_sheds" = "Skure";
+
+"placepage_parking_carports" = "Carporte";
+
+"placepage_parking_boxes" = "Garagekasser";
+
+"placepage_parking_pay" = "Betal";
+
+"placepage_parking_free" = "Gratis";
+
+"placepage_parking_interval" = "Intervalbetaling";
+
+"placepage_entrance_number" = "Nr.";
+
+"placepage_entrance_type" = "Indgang";
+
+"placepage_flat" = "app.";
+
+"placepage_open_24_7" = "24 / 7";
+
 "place_page_booking_rating" = "Bedømmelse: %s";
 
 "place_page_starting_from" = "fra %s";
 
 "meter" = "m";
 
+"kilometer" = "km";
+
+"kilometers_per_hour" = "km/t";
+
+"mile" = "mil";
+
 "foot" = "fod";
+
+"miles_per_hour" = "mph";
+
+"day" = "dag";
 
 "hour" = "time";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "Fjern";
 
+"editor_status_sending" = "Send…";
+
 "editor_place_doesnt_exist" = "Stedet eksisterer ikke";
 
 "text_more_button" = "…mere";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "Indtast en gyldig emailadresse";
 
+"error_enter_correct" = "Indtast en gyldig værdi";
+
 "editor_profile_changes_for_next_place" = "Ændringer for næste sted: %d";
 
 "editor_profile_rating_place" = "Rangorden";
 
+"booking_dialog_not_connect_header" = "For at booke hotellet, bedes du aktivere din internetforbindelse";
+
+"button_try" = "Prøv det";
+
 "refresh" = "Opdater";
 
 "last_update" = "Sidste opdatering: %s";
+
+"booking_checkin" = "tjek ind: %s";
+
+"booking_checkout" = "tjek ud: %s";
 
 "placepage_add_place_button" = "Tilføj et sted på kortet";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.";
 
+"navigation_overview_button" = "oversigt";
+
+"navigation_stop_button" = "stop";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "Gem bogmærker";
+
+"bookmarks_empty_message_1" = "Tryk på ★ for at gemme foretrukne steder til hurtig adgang.";
+
+"bookmarks_empty_message_2" = "Importer bogmærker fra email og web.";
+
+"bookmarks_empty_message_3" = "tjek ud: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "Bookede hoteller";
+
+"place_page_button_read_descriprion" = "Læs";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vil du deaktivere gemningen af din seneste rejserute?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Tjek";
 
+"continue_recent_track_background_button" = "Fortsæt";
+
 "recent_track_background_dialog_message" = "MAPS.ME anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
+
+"whatsnew_car_navigation_header" = "Brugervenlig navigation i køretøjer";
+
+"whatsnew_car_navigation_message" = "• Navigationselementerne fylder mindre.\n• Vi viser hastigheden og har tilføjet auto-zoom.";
+
+"whatsnew_cycle_navigation_2_header" = "Cykelnavigation";
+
+"whatsnew_cycle_navigation_2_message" = "• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.";
+
+"whatsnew_booking_2_header" = "Enkel hotelsøgning";
+
+"whatsnew_booking_2_message" = "Søgeresultaterne viser hotelbedømmelser og priskategori.";
+
+"whatsnew_cycle_navigation_header" = "Cykelnavigation (beta-version)";
+
+"whatsnew_cycle_navigation_message" = "Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Bedøm på Google Play";
@@ -1118,6 +1632,9 @@
 
 "date" = "Dato %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "Der er noget der ikke fungerer";
+
 /* For the first routing */
 "accept" = "Accepter";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "Afvis";
+
+"whats_new_route_profile_title" = "Spring over hvor gærdet er lavest";
+
+"whats_new_route_profile_message" = "Vi viser nu højdeprofilen for fodgænger- og cykelruter.";
+
+"whats_new_booking_improve_title" = "Spar penge når du bestiller hotelværelser";
+
+"whats_new_booking_improve_message" = "Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "Faciliteter";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "Vis mere";
 
+"booking_reviews" = "Anmeldelser";
+
+"booking_hotel" = "Hotel";
+
+/* hotel room */
+"booking_hotel_room" = "Værelse";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "Åbn";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "Bestil Uber taxi direkte fra app'en!";
+
 "dialog_taxi_offline" = "Det er ikke muligt at bestille en taxi i offlinetilstand.";
 
 "dialog_taxi_error" = "Bestilling af en taxi er ikke muligt lige nu.";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "Kortet opdateres for kunne vise trafikdata.";
 
+"traffic_outdated" = "Trafikdata er forældede.";
+
 "big_font" = "Forøg skriftstørrelsen på kortet";
 
 "traffic_update_app" = "Opdater MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
+
+"banner_deliveryclub_title" = "Udbringning af mad";
+
+"banner_deliveryclub_message" = "Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.";
+
+"banner_lamoda_title" = "Online sko- og tøjbutik";
+
+"banner_lamoda_message" = "Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.";
+
+"banner_tutu_title" = "Togbilletter online";
+
+"banner_tutu_message" = "Køb togbilletter til enhver by online - priser, søgning og bestilling.";
+
+"banner_geerbest_title" = "Online elektronikbutik";
+
+"banner_geerbest_message" = "Hurtig søgning blandt over 50.000 varer til lave priser.";
+
+"banner_rentalcars_title" = "Udlejning biler online";
+
+"banner_rentalcars_message" = "800 biludlejningsselskaber på mere end 49.000 steder.";
+
+"banner_viator_title" = "Online rejsesøgning";
+
+"banner_viator_message" = "Søg blandt mere end 50.000 rejser over hele verden.";
+
+/* december */
+"whatsnew_traffic" = "Trafikdata i 36 lande";
+
+/* december */
+"whatsnew_traffic_text" = "Opdateret trafikinformation og hurtigste ruter baseret på den!";
+
+/* december */
+"whatsnew_traffic_roaming" = "Trafikinfo ved roaming";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "Kræver mindre end 1 MB mobildata pr. tur.";
+
+/* december */
+"whatsnew_order_taxi" = "Bestil en taxa";
+
+/* december */
+"whatsnew_order_taxi_text" = "De fleste af siderne indeholder nu en knap til bestilling af en taxa.";
+
+/* january */
+"whatsnew_improved_search" = "Forbedret søgning";
+
+/* january */
+"whatsnew_improved_search_text" = "Selv fejlstavede forespørgsler giver præcise søgeresultater.";
+
+/* january */
+"whatsnew_filters_in_search" = "Søgefiltre";
+
+/* january */
+"whatsnew_filters_in_search_text" = "Søg hoteller baseret på pris og vurdering.";
+
+/* january */
+"whatsnew_font_size" = "Skriftstørrelse";
+
+/* january */
+"whatsnew_font_size_text" = "Etiketterne på kortet kan gøres større.";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "Aktiver logføring";
 
+"whatsnew_more_info_on_hotels_title" = "Flere oplysninger om hoteller";
+
+"whatsnew_more_info_on_hotels_message" = "Helt nyt look på hotelsider: Tjek billeder, brugeranmeldelser og andre oplysninger på nettet.";
+
+"whatsnew_better_routing_title" = "Forbedret ruteplanlægning";
+
+"whatsnew_better_routing_message" = "• Mere præcis beregning af ankomsttid.\n• App tager hensyn til utilgængelige områder og vejskilte.";
+
+"whatsnew_smaller_mwm_title" = "Maps er blevet mindre";
+
+"whatsnew_smaller_mwm_message" = "Maps kræver op til 20% mindre lager.";
+
+"whatsnew_waypoints_title" = "Vejpunkter i ruteføring";
+
+"whatsnew_waypoints_message" = "Tryk på positioner for at føje vejsteder til din rute.";
+
 "whatsnew_viator_title" = "Bestil en tur";
 
 "whatsnew_viator_message" = "Vælg populære ture i turistbyer over hele verden.";
+
+"whatsnew_driving_style_title" = "Nyt kortformat til kørsel";
+
+"whatsnew_driving_style_message" = "Bilnavigationstilstand er blevet lettere at bruge.";
 
 "more_on_bookingcom" = "Mere på Booking.com";
 
 "details_on_bookingcom" = "Detaljer på Booking.com";
 
 "reviews_on_bookingcom" = "Flere anmeldelser på Booking.com";
+
+"offline_place_page_more_information" = "Opret forbindelse til internettet for at få flere oplysninger om stedet.";
+
+"failed_load_information" = "Kunne ikke indlæse oplysningerne.";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "Opdater (%s)";
 
 "whats_new_auto_update_button_later" = "Opdater manuelt senere";
+
+"search_hotel_filter_apartment" = "Lejligheder";
+
+"search_hotel_filter_camp_site" = "Camping";
+
+"search_hotel_filter_chalet" = "Hytte";
+
+"search_hotel_filter_guest_house" = "Gæstehus";
+
+"search_hotel_filter_hostel" = "Hostel";
+
+"search_hotel_filter_resort" = "Resort";
+
+"search_hotel_filter_hotel" = "Hotel";
+
+"search_hotel_filter_motel" = "Motel";
 
 "create_campaign_button" = "Denne virksomhed tilhører mig";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "Translitteration til latinsk";
 
+"whatsnew_transliteration_message" = "Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Flere oplysninger";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "Tilføj slutpunkt for at planlægge en rute";
 
+"onboarding_welcome_message" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "Ved at åbne programmet accepterer du vores Vilkår for anvendelse og Fortrolighedspolitik.";
+
+"button_accept_and_continue" = "Accepter og fortsæt";
+
+"button_learn_more" = "Flere oplysninger";
+
 "onboarding_storage_permissions_title" = "Giv adgang";
 
 "onboarding_storage_permissions_message" = "Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.";
+
+"button_exit" = "Afslut";
 
 "onboarding_detail_permissions_title" = "MAPS.ME skal have adgang til";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "Du kan også ændre placeringen af hentede kort i indstillingerne.";
 
+"settings_device_memory" = "Enhedens hukommelse";
+
+"settings_card_memory" = "Kortets hukommelse";
+
+"settings_storage_available" = "%s tilgængelig";
+
+"toast_location_permission_denied" = "App-position tilladelse nægtet";
+
 "place_page_viator_title" = "Seværdigheder og ture";
 
+"button_use" = "Brug";
+
+"planning_route_manage_route" = "Administrer rute";
+
+"button_plan" = "Planlæg";
+
+"button_add" = "Tilføj";
+
 "placepage_remove_stop" = "Fjern";
+
+"planning_route_remove_title" = "Træk herhen for at fjerne";
+
+"dialog_change_start_point_message" = "Flyt startpunktet til den aktuelle placering?";
+
+"button_replace" = "Flyt";
 
 "placepage_add_stop" = "Tilføj stop";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "Deaktiver automatisk download";
 
 "add_my_position" = "Add my position";
 

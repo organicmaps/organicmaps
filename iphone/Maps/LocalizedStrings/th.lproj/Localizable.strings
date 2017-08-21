@@ -21,16 +21,39 @@
 /* Button which deletes downloaded country */
 "delete" = "ลบ";
 
+/* Button to dismiss dialog forever */
+"do_not_ask_me_again" = "อย่าถามฉันอีก";
+
+/* Button "do not interrupt download" if user touched actively downloading country */
+"do_nothing" = "ดำเนินการต่อ";
+
 "download_maps" = "ดาวน์โหลดแผนที่";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_kb" = "ดาวน์โหลด %qu กิโลไบต์";
+
+/* Settings/Downloader - Download confirmation button */
+"download_x_mb" = "ดาวน์โหลด %qu เมกกะไบต์";
 
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่";
 
+/* Settings/Downloader - info for downloaded country */
+"downloaded_x_y_touch_to_delete" = "ดาวน์โหลดแล้ว (%1$qu %2$@), แตะเพื่อลบ";
+
+/* Settings/Downloader - country info current download progress */
+"downloading_x_touch_to_cancel" = "กำลังดาวน์โหลด %qu%%, แตะเพื่อยกเลิก";
+
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "กำลังดาวน์โหลด…";
 
+"get_it_now" = "รับมันตอนนี้";
+
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "ขอบพระคุณสำหรับการใช้ MAPS.ME! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา";
+
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"kb" = "กิโลไบต์";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "กิโลเมตร";
@@ -43,6 +66,9 @@
 
 /* View and button titles for accessibility */
 "downloader_maps" = "แผนที่:";
+
+/* Settings/Downloader - info for country in the download queue */
+"marked_for_downloading" = "ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -57,11 +83,20 @@
 
 "ok" = "ตกลง";
 
+/* Settings/Downloader - No free space dialog message */
+"free_disk_space_for_country_x" = "โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@";
+
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "เตือนฉันในภายหลัง";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "ภายหลัง";
+
+/* Don't show some dialog any more */
+"never" = "ไม่ต้องเตือนอีก";
+
+/* Leave Review dialog - Complain button (goes to support site) */
+"report_an_issue" = "รายงานปัญหา";
 
 /* View and button titles for accessibility */
 "search" = "ค้นหา";
@@ -69,11 +104,23 @@
 /* Search box placeholder text */
 "search_map" = "ค้นหาแผนที่";
 
+/* Settings/Downloader - info for not downloaded country */
+"touch_to_download" = "แตะเพื่อดาวน์โหลด";
+
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "ใช่";
 
+/* Settings/Downloader - No internet connection dialog message */
+"use_wifi_recommendation_text" = "เราขอแนะนำให้ใช้ WiFi เพื่อดาวน์โหลดแผนที่ขนาดใหญ่";
+
+/* Choose measurement on first launch alert - title */
+"which_measurement_system" = "ระบบการวัดใดที่คุณต้องการใช้?";
+
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า";
+
+/* Location Services are not available on the device alert - message */
+"device_doesnot_support_location_services" = "อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "แสดงบนแผนที่";
@@ -103,7 +150,13 @@
 
 "about_menu_title" = "เกี่ยวกับ MAPS.ME";
 
+"downloading_touch_to_cancel" = "กำลังดาวน์โหลด %d%%, แตะเพื่อยกเลิก";
+
+"downloaded_touch_to_delete" = "ดาวน์โหลดแล้ว (%@), แตะเพื่อลบ";
+
 "connection_settings" = "การตั้งค่าการเชื่อมต่อ";
+
+"download_mb_or_kb" = "ดาวน์โหลด %@";
 
 "close" = "ปิด";
 
@@ -111,11 +164,15 @@
 
 "download" = "ดาวน์โหลด";
 
+"external_storage_is_not_available" = "ไม่สามารถใช้การ์ด SD /พื้นที่จัดเก็บ USB ที่มีดาวน์โหลดแผนที่ได้";
+
 "disconnect_usb_cable" = "โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ MAPS.ME";
 
 "not_enough_free_space_on_sdcard" = "โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป";
 
 "not_enough_memory" = "มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป";
+
+"free_space_for_country" = "โปรดเพิ่ม %1$@ บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$@";
 
 "download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล";
 
@@ -144,17 +201,30 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "ดำเนินการต่อ";
 
+"downloaded_touch_to_update" = "ดาวน์โหลด (%@) แล้ว, แตะเพื่ออัปเดตหรือลบ";
+
+"update_mb_or_kb" = "ัปเดต %@";
+
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:";
+
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "สามารถใช้การอัปเดตสำหรับแผนที่เหล่านี้:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
 "suggest_uninstall_lite" = "คุณไม่จำเป็นต้องใช้ MAPS.ME ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง";
 
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ ได้รับการดาวน์โหลดสำเร็จแล้ว";
+
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "การดาวน์โหลด %@ ล้มเหลว";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";
+
+/* Place Page - Add To Bookmarks button */
+"add_to_bookmarks" = "เพิ่มไปยังบุ๊กมาร์ก";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "สีของบุ๊กมาร์ก";
@@ -168,6 +238,9 @@
 /* Bookmarks - dialog title */
 "bookmarks" = "บุ๊กมาร์ก";
 
+/* Add bookmark dialog - bookmark color */
+"color" = "สี";
+
 /* Default bookmarks set name */
 "my_places" = "สถานที่ของฉัน";
 
@@ -176,6 +249,9 @@
 
 /* Editor title above street and house number */
 "address" = "ที่อยู่";
+
+/* Place Page - Remove Pin button */
+"remove_pin" = "ลบหมุด";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "ชุด";
@@ -204,11 +280,23 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "มองเห็นได้";
 
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "มีการปิดใช้งาน GPS โปรดเปิดใช้งานในการตั้งค่า";
+
 /* Measurement units title in settings activity */
 "measurement_units" = "หน่วยการวัด";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "เลือกระหว่างไมล์และกิโลเมตร";
+
+/* Do search in all sources */
+"search_mode_all" = "ทุกที่";
+
+/* Do search near my position only */
+"search_mode_nearme" = "ใกล้ฉัน";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "บนหน้าจอ";
 
 /* Search Suggestion */
 "food" = "อาหาร";
@@ -255,6 +343,9 @@
 /* Search Suggestion */
 "police" = "ตำรวจ";
 
+/* String in search result list, when nothing found */
+"no_search_results_found" = "ไม่พบผลลัพธ์";
+
 /* Notes field in Bookmarks view */
 "description" = "บันทึก";
 
@@ -285,11 +376,20 @@
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "ดาวน์โหลด (%@) ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
 
+/* Warning message when viewport country isn't downloaded during search */
+"download_viewport_country_to_search" = "ดาวน์โหลดประเทศ (%@) ที่คุณกำลังค้นหา";
+
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้";
+
+/* Message that will be shown in alert view, when we ask user to leave review on App Store */
+"appStore_message" = "หวังว่าคุณจะสนุกกับการใช้ MAPS.ME! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!";
+
+/* No, thanks */
+"no_thanks" = "ไม่ ขอบคุณ";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "bookmark_share_sms" = "เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$@ หรือ %2$@";
@@ -299,6 +399,9 @@
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ MAPS.ME!";
+
+/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
+"bookmark_share_email" = "หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ MAPS.ME สิ!";
@@ -312,8 +415,17 @@
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "แชร์";
 
+/* iOS share by Message button text (including SMS) */
+"message" = "ข้อความ";
+
 /* Share by email button text, also used in editor. */
 "email" = "อีเมล";
+
+/* Copy Link */
+"copy_link" = "คัดลอกลิงก์";
+
+/* Text for the button that returns to caller application */
+"more_info" = "แสดงข้อมูลเพิ่มเติม";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "คัดลอกไปยังคลิปบอร์ด: %1$@";
@@ -326,6 +438,15 @@
 
 /* Used for bookmark editing */
 "done" = "เสร็จแล้ว";
+
+/* Summary for preferences in MWM */
+"yopme_pref_summary" = "เลือกการตั้งค่าหน้าจอส่วนหลัง";
+
+/* Title for yopme preferences in MWM */
+"yopme_pref_title" = "การตั้งค่าหน้าจอส่วนหลัง";
+
+/* Hint for upper-right icon p2b */
+"show_on_backscreen" = "แสดงหน้าจอส่วนหลัง";
 
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน: %@";
@@ -344,11 +465,19 @@
 
 "share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
 
+"menu_search" = "ค้นหา";
+
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
+
+/* Settings screen: "Map" category title */
+"prefs_group_map" = "แผนที่";
+
+/* Settings screen: "Miscellaneous" category title */
+"prefs_group_misc" = "เบ็ดเตล็ด";
 
 "prefs_group_route" = "การนำทาง";
 
@@ -373,6 +502,9 @@
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "ตึก 3D";
+
+/* Settings «Map» category: «3D buildings» summary */
+"pref_map_3d_buildings_subtitle" = "มีผลกระทบต่ออายุการใช้งานแบตเตอรี่";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
@@ -407,6 +539,16 @@
 
 "recent_track_help_text" = "ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด";
 
+"pref_track_ios_caption" = "เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ";
+
+"pref_track_ios_subcaption" = "โปรดเลือกช่วงเวลาในการบันทึกการติดตาม";
+
+"placepage_distance" = "ระยะห่าง";
+
+"placepage_coordinates" = "พิกัด";
+
+"placepage_unsorted" = "ไม่เรียงลำดับ";
+
 "search_show_on_map" = "ดูบนแผนที่";
 
 /* Used to warn user when fixing KitKat issue */
@@ -416,22 +558,70 @@
 "kitkat_migrate_failed" = "เนื่องจากการเปลี่ยนแปลงในแอนดรอยด์ 4.4 เราจำเป็นต้องทำการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ แต่มีพื้นที่ไม่เพียงพอสำหรับการคัดลอกข้อมูลแผนที่\n\nโปรดเพิ่มหน่วยความจำ มิฉะนั้นแล้วจะสามารถใช้แผนที่ได้ในโหมด อ่านอย่างเดียว";
 
 /* Used to warn user when fixing KitKat issue */
+"bookmark_move_fail" = "เราจำเป็นต้องลบบุ๊กมาร์กของคุณไปยังหน่วยความจำภายใน แต่ไม่มีพื้นที่ที่สามารถใช้ได้ โปรดเพิ่มหน่วยความจำ มิฉะนั้นจะไม่สามารถใช้บุ๊กมาร์กได้";
+
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "พื้นที่จัดเก็บแผนที่ของคุณกำลังได้รับการปรับประสิทธิภาพในตอนนี้ โปรดรอ โดยอาจใช้เวลาสองสามนาที";
+
+/* Used in More Apps menu */
+"free" = "ฟรี";
+
+/* Used in More Apps menu */
+"buy" = "ซื้อ";
+
+/* 1st search button-like result */
+"search_on_map" = "ค้นหาแผนที่";
+
+/* toast with an error */
+"no_route_found" = "ไม่พบเส้นทาง";
+
+/* route title */
+"route" = "เส้นทาง";
 
 /* category title */
 "routes" = "เส้นทาง";
 
+/* Show on first launch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first launch. */
+"agree" = "I agree";
+
+/* Show on first launch */
+"disagree" = "I disagree";
+
 /* text of notification */
 "download_map_notification" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";
 
+/* text of notification */
+"pro_version_is_free_today" = "เวอร์ชันเต็มของ MAPS.ME วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก MAPS.ME Lite ไปยัง MAPS.ME อาจใช้เวลาสองสามวินาที";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง MAPS.ME สำเร็จ";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง";
+
+/* Text in menu */
+"settings_and_more" = "การตั้งค่า & อื่น ๆ";
+
 /* Text in menu */
 "website" = "เว็บไซต์";
+
+/* Text in menu */
+"maps_me_community" = "ชุมชน MAPS.ME";
 
 /* Text in menu */
 "like_on_facebook" = "ถูกใจบน Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "ติดตามบน Twitter";
+
+/* Text in menu */
+"contact_us" = "ติดต่อเรา";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "ข้อเสนอแนะ";
@@ -457,6 +647,9 @@
 /* Email body */
 "subscribe_me_body" = "ฉันอยากเป็นคนแรกที่รู้เกี่ยวกับข่าว อัปเดตและโปรโมชั่นล่าสุด ฉันสามารถยกเลิกการเป็นสมาชิกของฉันได้ตลอดเวลา";
 
+/* About text */
+"about_text" = "MAPS.ME ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน MAPS.ME จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา MAPS.ME ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@maps.me โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ MAPS.ME และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/mapswithme\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ MAPS.ME :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ http://openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป MAPS.ME ในการปล่อยเวอร์ชันถัดไป";
+
 /* Alert text */
 "email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
 
@@ -468,6 +661,12 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi";
+
+/* Update map suggestion */
+"routing_map_outdated" = "โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง";
+
+/* Update maps suggestion */
+"routing_update_maps" = "เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้";
 
 /* Update all button text */
 "downloader_update_all_button" = "อัปเดตทั้งหมด";
@@ -493,6 +692,15 @@
 "downloader_downloading" = "กำลังดาวน์โหลด:";
 
 "downloader_search_results" = "พบ";
+
+/* Disclaimer message */
+"routing_disclaimer" = "การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "ล้าสมัย";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "ทันสมัย";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "ปรับปรุง";
@@ -525,16 +733,42 @@
 "routing_failed_internal_error" = "เกิดข้อผิดพลาดขึ้นภายใน โปรดลองลบและดาวน์โหลดแผนที่อีกครั้ง โปรดติดต่อเราได้ที่ support@maps.me.";
 
 /* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "ดาวน์โหลดแผนที่ + การเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "ดาวน์โหลดการเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "ลบการเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
 "downloader_download_map" = "ดาวน์โหลดแผนที่";
+
+"downloader_download_map_no_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง";
+
+/* Button for routing. */
+"routing_go" = "ไป!";
 
 /* Item status in downloader. */
 "downloader_retry" = "ทำซ้ำ";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "แผนที่ + เส้นทาง";
 
 /* Item in context menu. */
 "downloader_delete_map" = "ลบแผนที่";
 
 /* Item in context menu. */
 "downloader_update_map" = "อัปเดตแผนที่";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "อัปเดตแผนที่ + เส้นทาง";
+
+/* Item in context menu. */
+"downloader_map_only" = "แผนที่เท่านั้น";
+
+/* Toolbar title */
+"toolbar_application_menu" = "เมนูของแอปพลิเคชัน";
 
 /* Preference text */
 "pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ";
@@ -567,20 +801,69 @@
 "routing_download_maps_along" = "ดาวน์โหลดแผนที่ตามเส้นทาง";
 
 /* Text for routing error dialog */
+"routing_download_map" = "รับแผนที่";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "ดาวน์โหลดแผนที่มีการอัปเดตและการกำหนดเส้นทางข้อมูลเพื่อรับฟีเจอร์ MAPS.ME ทั้งหมด";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "รับข้อมูลการกำหนดเส้นทาง";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "ข้อมูลเพิ่มเติมที่จำเป็นสำหรับการสร้างเส้นทางจากสถานที่ตั้งของคุณ";
+
+/* Text for routing error dialog */
 "routing_requires_all_map" = "การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "มีพื้นที่ไม่เพียงพอ";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "คุณจำเป็นต้องดาวน์โหลด %@ MB แต่สามารถใช้ได้เพียง %@ MB เท่านั้น";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "คุณกำลังจะดาวน์โหลด %@ MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ";
 
 /* bookmark button text */
 "bookmark" = "บุ๊กมาร์ก";
 
+/* map is not downloaded */
+"not_found_map" = "ไม่พบแผนที่ของตำแหน่งของคุณ";
+
 /* location service disabled */
 "enable_location_services" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
+
+/* download map */
+"download_map" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";
+
+/* download map on iPhone */
+"download_map_iphone" = "ดาวน์โหลดแผนที่สำหรับตำแหน่งปัจจุบันบน iPhone ของคุณ";
+
+/* clear pin */
+"nearby" = "ใกล้เคียง";
+
+/* clear pin */
+"clear_pin" = "ล้างปักหมุด";
+
+/* location is undefined */
+"undefined_location" = "ไม่มีการกำหนดสถานที่ปัจจุบัน";
+
+/* download country of your location */
+"download_country" = "ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
 
 /* download failed */
 "download_failed" = "การดาวน์โหลด  ล้มเหลว";
 
+/* get the map */
+"get_the_map" = "รับแผนที่";
+
 "save" = "บันทึก";
 
 "edit_description_hint" = "คำอธิบายของคุณ (ข้อความหรือ html)";
+
+"new_group" = "กลุ่มใหม่";
+
+"create" = "สร้าง";
 
 /* red color */
 "red" = "สีแดง";
@@ -634,9 +917,13 @@
 
 "dialog_routing_location_unknown_turn_on" = "ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง";
 
+"dialog_routing_location_unknown" = "ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้";
+
 "dialog_routing_download_files" = "ดาวน์โหลดไฟล์ที่จำเป็น";
 
 "dialog_routing_download_and_update_all" = "ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง";
+
+"dialog_routing_routes_size" = "ไฟล์ข้อมูลเส้นทาง";
 
 "dialog_routing_unable_locate_route" = "ไม่สามารถหาเส้นทางได้";
 
@@ -666,11 +953,21 @@
 
 "dialog_routing_try_again" = "กรุณาลองอีกครั้ง";
 
+"dialog_routing_send_error" = "รายงานปัญหา";
+
+"dialog_routing_if_get_cross_route" = "คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
+
+"dialog_routing_cross_route_is_optimal" = "มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
+
 "not_now" = "ไว้คราวหลัง";
+
+"dialog_routing_build_route" = "สร้าง";
 
 "dialog_routing_download_and_build_cross_route" = "คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
 
 "dialog_routing_download_cross_route" = "ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
+
+"dialog_routing_cross_route_always" = "ข้ามขอบเขตนี้เสมอ";
 
 
 /********** Strings for downloading map from search **********/
@@ -678,6 +975,8 @@
 "search_without_internet_advertisement" = "เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป";
 
 "search_select_map" = "เลือกแผนที่";
+
+"search_select_other_map" = "เลือกแผนที่อื่น";
 
 /* «Show» context menu */
 "show" = "แสดง";
@@ -688,8 +987,17 @@
 /* «Rename» context menu */
 "rename" = "เปลี่ยนชื่อ";
 
+/* Bottom sheet: expand button (should be short) */
+"bottom_sheet_more" = "เพิ่มเติม…";
+
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "มาถึง: %s";
+
+/* Text for routing::IRouter::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
 
 "rate_alert_title" = "ชอบแอปหรือไม่?";
 
@@ -705,6 +1013,8 @@
 
 "history" = "ประวัติ";
 
+"next_turn_then" = "จากนั้น";
+
 "closed" = "ปิด";
 
 "back_to" = "กลับไป %@";
@@ -712,6 +1022,10 @@
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
 
 "search_not_found_query" = "โปรดลองใช้คำถามอื่น";
+
+"search_not_found_map" = "กรุณาดาวน์โหลดแผนที่ที่คุณกำลังค้นหา";
+
+"search_not_found_location" = "ดาวน์โหลดแผนที่ของตำแหน่งปัจจุบันของคุณ";
 
 "search_history_title" = "ประวัติการค้นหา";
 
@@ -725,9 +1039,17 @@
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
+"p2p_route_planning" = "การวางแผนเส้นทาง";
+
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 
+"p2p_from" = "จุดที่ออกเดินทาง";
+
+"p2p_to" = "จุดที่เป็นปลายทาง";
+
 "p2p_start" = "เริ่มต้น";
+
+"p2p_planning" = "กำลังวางแผน…";
 
 "p2p_from_here" = "จาก";
 
@@ -764,11 +1086,15 @@
 
 "editor_correct_mistake" = "แก้ไขข้อผิดพลาด";
 
+"editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
+
 "editor_add_select_location" = "ตำแหน่ง";
 
 "editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
 
 "editor_done_dialog_2" = "มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้";
+
+"editor_done_dialog_3" = "คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน";
 
 "share_with_friends" = "แชร์กับเพื่อน";
 
@@ -786,9 +1112,20 @@
 
 "editor_report_problem_duplicate_place_title" = "สถานที่ซ้ำ";
 
+"first_launch_congrats_title" = "MAPS.ME พร้อมใช้งานแล้ว";
+
+"first_launch_congrats_text" = "ค้นหาและนำทางไปทุกที่ในโลกแบบออฟไลน์ ไม่มีค่าใช้จ่าย";
+
 "migrate_title" = "สำคัญ!";
 
+/* Android uses image instead of text. */
+"download_all" = "ดาวน์โหลดทั้งหมด";
+
+"delete_all" = "ลบทั้งหมด";
+
 "autodownload" = "ดาวน์โหลดอัตโนมัติ";
+
+"disable_autodownload" = "หยุดการดาวน์โหลดแบบอัตโนมัติ";
 
 /* Place Page opening hours text */
 "closed_now" = "ปิดตอนนี้";
@@ -803,6 +1140,10 @@
 "day_off" = "ปิด";
 
 "today" = "วันนี้";
+
+"sunrise_to_sunset" = "ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก";
+
+"sunset_to_sunrise" = "ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น";
 
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 
@@ -824,18 +1165,47 @@
 
 "forgot_password" = "ลืมรหัสผ่าน?";
 
+/* Forgot Password dialog title */
+"restore_password" = "เรียกคืนรหัสผ่าน";
+
+"enter_email_address_to_reset_password" = "ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ";
+
+"reset_password" = "ตั้งรหัสผ่านใหม่";
+
+"username" = "ชื่อผู้ใช้";
+
 "osm_account" = "บัญชี OSM";
 
 "logout" = "ออกจากระบบ";
 
+"login_and_edit_map_motivation_message" = "ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน";
+
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "อัปโหลดครั้งสุดท้าย";
 
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "คุณได้แก้ไขวัตถุแรกของคุณ!";
+
 "thank_you" = "ขอบพระคุณ";
+
+"login_with_google" = "ล็อกอินด้วย Google";
+
+"login_with_facebook" = "ล็อกอินด้วย Facebook";
+
+"login_with_openstreetmap" = "ล็อกอินที่ www.openstreetmap.org";
 
 "edit_place" = "แก้ไขสถานที่";
 
 "place_name" = "ชื่อสถานที่";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "ภาษาอื่น ๆ";
+
+/* small button to open list with names in different languages */
+"show_more" = "แสดงมากขึ้น";
+
+/* small button to close list with names in different languages */
+"show_less" = "แสดงน้อยลง";
 
 "add_language" = "เพิ่มภาษา";
 
@@ -853,6 +1223,8 @@
 
 "choose_street" = "เลือกถนน";
 
+"postal_code" = "รหัสไปรษณีย์";
+
 "cuisine" = "ประเภทอาหาร";
 
 "select_cuisine" = "เลือกประเภทอาหาร";
@@ -863,6 +1235,8 @@
 "phone" = "โทรศัพท์";
 
 "please_note" = "โปรดทราบ";
+
+"common_no_wifi_dialog" = "ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?";
 
 "downloader_delete_map_dialog" = "การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่";
 
@@ -884,9 +1258,21 @@
 
 "downloader_no_space_message" = "กรุณาลบข้อมูลที่ไม่จำเป็น";
 
+"editor_general_auth_error_dialog" = "ข้อผิดพลาดในการล็อกอินทั่วไป";
+
 "editor_login_error_dialog" = "ข้อผิดพลาดในการล็อกอิน";
 
+"editor_login_failed_dialog" = "การล็อกอินล้มเหลว";
+
+"editor_username_error_dialog" = "ชื่อผู้ใช้ไม่ถูกต้อง";
+
+"editor_place_edited_dialog" = "คุณได้แก้ไขวัตถุ!";
+
+"editor_login_with_osm" = "ล็อกอินด้วย OpenStreetMap";
+
 "editor_profile_changes" = "การเปลี่ยนแปลงที่อนุมัติแล้ว";
+
+"editor_profile_unsent_changes" = "ไม่ได้ส่ง:";
 
 "editor_focus_map_on_location" = "ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง";
 
@@ -908,21 +1294,43 @@
 
 "editor_report_problem_other_title" = "ปัญหาอีกอย่างหนึ่ง";
 
+"placepage_report_problem_button" = "แจ้งปัญหา";
+
 "placepage_add_business_button" = "เพิ่มองค์กร";
 
 "whatsnew_smallmwm_header" = "คุณได้ขอมา เราจึงทำมัน";
 
 "whatsnew_smallmwm_message" = "เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว";
 
+"whatsnew_search_header" = "การค้นหาใหม่";
+
+"whatsnew_search_message" = "เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง";
+
+"whatsnew_editor_title" = "แก้ไขแผนที่*";
+
 "whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
+
+"whatsnew_editor_message_2" = "* MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap";
 
 "onboarding_offline_navigation_title" = "คุณจะไม่หลงทางอีกต่อไป";
 
 "onboarding_offline_navigation_message" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!";
 
+"onboarding_offline_navigation_title_2" = "การนำทางออฟไลน์";
+
+"onboarding_offline_navigation_message_2" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด";
+
 "onboarding_offline_maps_title" = "MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต";
 
 "onboarding_offline_maps_message" = "ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
+
+"onboarding_notifications_message" = "เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต";
+
+"onboarding_notifications_title" = "เปิดการแจ้งเตือนการอัปเดต";
+
+"onboarding_location_title" = "ช่วยให้เราค้นหาคุณ";
+
+"onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
 
 "onboarding_permissions_title" = "อนุญาตให้ MAPS.ME เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง";
 
@@ -946,6 +1354,10 @@
 "migration_no_space_message" = "ในการดาวน์โหลด คุณต้องมีพื้นที่มากขึ้น กรุณาลบเนื้อหาที่ไม่จำเป็นออกไป";
 
 "editor_sharing_title" = "ฉันได้ปรับปรุงแผนที่ MAPS.ME";
+
+"editor_comment_will_be_sent" = "เราจะส่งความคิดเห็นของคุณไปให้กับนักเขียนแผนที่";
+
+"editor_unsupported_category_message" = "คุณได้เพิ่มสถานที่ในหมวดหมู่ที่เรายังไม่รองรับ มันจะปรากฏบนแผนที่หลังจากนี้สักพักหนึ่ง";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d จาก %2$d";
@@ -978,11 +1390,23 @@
 
 "editor_operator" = "เจ้าของ";
 
+"editor_tag_description" = "ใส่ชื่อบริษัท, องค์กร หรือ บุคคลที่เป็นผู้รับผิดชอบสถานที่นี้";
+
+"editor_no_local_edits_title" = "คุณไม่มีการแก้ไขท้องถิ่น";
+
+"editor_no_local_edits_description" = "หมายเลขที่แสดงอยู่ คือ หมายเลขที่คุณได้ทำการแนะนำการเปลี่ยนแปลงบนแผนที่ที่สามารถเข้าถึงได้โดยอุปกรณ์ของคุณท่านั้น";
+
+"editor_send_to_osm" = "ส่งไปที่ OSM";
+
+"editor_remove" = "ลบออก";
+
 "downloader_my_maps_title" = "แผนที่ของฉัน";
 
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
+
+"downloader_find_place_hint" = "ค้นหาชื่อเมือง หรือ ประเทศ";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?";
@@ -998,6 +1422,13 @@
 
 "current_location_unknown_error_message" = "มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง";
 
+"whatsnew_update_editor_title" = "เราได้ทำการอัพเดตตัวแก้ไขแผนที่แล้ว";
+
+"whatsnew_update_editor_message" = "ผู้ใช้ MAPS.ME ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 200 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!";
+
+/* Additional text in whats new */
+"whatsnew_update_editor_message_update" = "ในการใช้เครื่องมือการแก้ไขแผนที่ โปรดอัปเดตแผนที่ทั้งหมด";
+
 "location_services_disabled_header" = "ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว";
 
 "location_services_disabled_message" = "เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์";
@@ -1009,13 +1440,51 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
+"placepage_parking_surface" = "กลางแจ้ง";
+
+"placepage_parking_multistorey" = "หลายชั้น";
+
+"placepage_parking_underground" = "ชั้นใต้ดิน";
+
+"placepage_parking_rooftop" = "ดาดฟ้า";
+
+"placepage_parking_sheds" = "ในร่ม";
+
+"placepage_parking_carports" = "โรงรถ";
+
+"placepage_parking_boxes" = "โรงรถแบบกล่อง";
+
+"placepage_parking_pay" = "เสียเงิน";
+
+"placepage_parking_free" = "ฟรี";
+
+"placepage_parking_interval" = "จ่ายตามช่วงเวลา";
+
+"placepage_entrance_number" = "หมายเลข";
+
+"placepage_entrance_type" = "ทางเข้า";
+
+"placepage_flat" = "ห้อง";
+
+"placepage_open_24_7" = "24 ชั่วโมง";
+
 "place_page_booking_rating" = "เรทติ้ง: %s";
 
 "place_page_starting_from" = "จาก %s";
 
 "meter" = "ม.";
 
+"kilometer" = "กม.";
+
+"kilometers_per_hour" = "กม./ชม.";
+
+"mile" = "ไมล์";
+
 "foot" = "ฟุต";
+
+"miles_per_hour" = "ไมล์/ชม.";
+
+"day" = "ว.";
 
 "hour" = "ชม.";
 
@@ -1051,6 +1520,8 @@
 
 "editor_remove_place_button" = "ลบออก";
 
+"editor_status_sending" = "กำลังส่ง…";
+
 "editor_place_doesnt_exist" = "ไม่พบสถานที่นี้";
 
 "text_more_button" = "…เพิ่มเติม";
@@ -1062,13 +1533,23 @@
 
 "error_enter_correct_email" = "กรอกอีเมลที่ถูกต้อง";
 
+"error_enter_correct" = "กรอกค่าที่ถูกต้อง";
+
 "editor_profile_changes_for_next_place" = "เปลี่ยนไปยังสถานที่ถัดไป: %d";
 
 "editor_profile_rating_place" = "ลำดับของตำแหน่ง";
 
+"booking_dialog_not_connect_header" = "โปรดเชื่อมต่อกับอินเตอร์เน็ตเพื่อจองโรงแรมนี้";
+
+"button_try" = "ลองดู";
+
 "refresh" = "อัปเดต";
 
 "last_update" = "การอัปเดตล่าสุด: %s";
+
+"booking_checkin" = "เช็คอิน: %s";
+
+"booking_checkout" = "เช็คเอาท์: %s";
 
 "placepage_add_place_button" = "เพิ่มสถานที่ไปยังแผนที่";
 
@@ -1080,8 +1561,23 @@
 
 "editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
 
+"navigation_overview_button" = "ภาพรวม";
+
+"navigation_stop_button" = "หยุด";
+
 /* Text on an empty bookmark page */
 "bookmarks_empty_title" = "บันทึกบุ๊กมาร์ก";
+
+"bookmarks_empty_message_1" = "แตะ ★ เพื่อบันทึกสถานที่โปรดเพื่อให้เข้าถึงได้อย่างรวดเร็ว";
+
+"bookmarks_empty_message_2" = "นำเข้าบุ๊กมาร์กจาก Mail และเว็บ";
+
+"bookmarks_empty_message_3" = "เช็คเอาท์: %s";
+
+/* Name of the group for booked hotels */
+"bookmarks_group_name" = "โรงแรมที่จอง";
+
+"place_page_button_read_descriprion" = "อ่าน";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?";
@@ -1094,7 +1590,25 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "ตรวจชม";
 
+"continue_recent_track_background_button" = "ดำเนินการต่อ";
+
 "recent_track_background_dialog_message" = "MAPS.ME ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
+
+"whatsnew_car_navigation_header" = "การนำทางยานพาหนะอย่างเป็นมิตรต่อผู้ใช้";
+
+"whatsnew_car_navigation_message" = "• องค์ประกอบการนำทางใช้พื้นที่น้อยลง\n• เราแสดงความเร็ว และได้เพิ่มการซูมอัตโนมัติ";
+
+"whatsnew_cycle_navigation_2_header" = "การนำทางจักรยาน";
+
+"whatsnew_cycle_navigation_2_message" = "• การนำทางจักรยานพิจารณาถึงข้อมูลด้านภูมิประเทศ\n• เราสร้างเส้นทางที่ง่ายยิ่งขึ้นโดยพิจารณาถึงความลาดเอียงของถนน";
+
+"whatsnew_booking_2_header" = "การค้นหาโรงแรมอย่างง่ายดาย";
+
+"whatsnew_booking_2_message" = "ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา";
+
+"whatsnew_cycle_navigation_header" = "การนำทางจักรยาน (beta-version)";
+
+"whatsnew_cycle_navigation_message" = "เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย MAPS.ME และแชร์ความคิดเห็นของคุณมาให้เรา";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "ให้คะแนนบน Google Play";
@@ -1118,6 +1632,9 @@
 
 "date" = "วันที่ %d";
 
+/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
+"something_is_not_working" = "มีบางอย่างไม่ทำงาน";
+
 /* For the first routing */
 "accept" = "ยอมรับ";
 
@@ -1125,6 +1642,14 @@
 
 /* For the first routing */
 "decline" = "ปฏิเสธ";
+
+"whats_new_route_profile_title" = "ทำให้มันจบดีกว่าปล่อยให้มันรบกวนอยู่";
+
+"whats_new_route_profile_message" = "สำหรับเส้นทางคนเดินเท้าและจักรยาน ตอนนี้เราแสดงโปรไฟล์ระดับความสูงแล้ว";
+
+"whats_new_booking_improve_title" = "ประหยัดเมื่อจองโรงแรม";
+
+"whats_new_booking_improve_message" = "การค้นหาโรงแรมตอนนี้มีหมวดหมู่ราคาแล้ว\nเรายังได้เพิ่มโรงแรมเข้ามากว่า 110,000 โรงแรมอีกด้วย";
 
 /* For place page hotel facilities block */
 "placepage_hotel_facilities" = "สิ่งอำนวยความสะดวก";
@@ -1179,6 +1704,23 @@
 
 "booking_show_more" = "แสดงเพิ่มเติม";
 
+"booking_reviews" = "รีวิว";
+
+"booking_hotel" = "โรงแรม";
+
+/* hotel room */
+"booking_hotel_room" = "ห้องพัก";
+
+/* A neologism for a chat based on geographical proximity */
+"chat" = "Geochat";
+
+/* Verb. Text on a button that opens the chat. */
+"chat_open" = "เปิด";
+
+"whatsnew_uber_header" = "MAPS.ME & Uber";
+
+"whatsnew_uber_message" = "เรียกแท็กซี่ Uber โดยตรงจากแอป!";
+
 "dialog_taxi_offline" = "ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์";
 
 "dialog_taxi_error" = "ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว";
@@ -1204,6 +1746,8 @@
 
 "traffic_update_maps_text" = "ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร";
 
+"traffic_outdated" = "ข้อมูลการจราจรเก่าเกินไปแล้ว";
+
 "big_font" = "เพิ่มขนาดฟอนต์บนแผนที่";
 
 "traffic_update_app" = "กรุณาอัปเดต MAPS.ME";
@@ -1213,6 +1757,66 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
+
+"banner_deliveryclub_title" = "อาหารส่งถึงที่";
+
+"banner_deliveryclub_message" = "อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.";
+
+"banner_lamoda_title" = "ร้านค้าเสื้อผ้าและรองเท้าออนไลน์";
+
+"banner_lamoda_message" = "กว่า 1,000 ยี่ห้อ ลดถึง 70% จัดส่งฟรีทั่วประเทศ";
+
+"banner_tutu_title" = "ตั๋วรถไฟออนไลน์";
+
+"banner_tutu_message" = "ตั๋วรถไฟออนไลน์ไปทุกเมือง - ราคา การค้นหา และการจอง";
+
+"banner_geerbest_title" = "ร้านอุปกรณ์อิเล็กทรอนิกส์ออนไลน์";
+
+"banner_geerbest_message" = "การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ";
+
+"banner_rentalcars_title" = "การเช่ารถออนไลน์";
+
+"banner_rentalcars_message" = "800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง";
+
+"banner_viator_title" = "การค้นหาทัวร์ออนไลน์";
+
+"banner_viator_message" = "ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก";
+
+/* december */
+"whatsnew_traffic" = "ข้อมูลการจราจรใน 36 ประเทศ";
+
+/* december */
+"whatsnew_traffic_text" = "ข้อมูลการจราจรที่ทันสมัยและเส้นทางการขับรถที่เร็วที่สุดตามข้อมูลนั้น!";
+
+/* december */
+"whatsnew_traffic_roaming" = "ข้อมูลการจราจรในการใช้โรมมิ่ง";
+
+/* december */
+"whatsnew_traffic_roaming_text" = "ใช้แบนด์วิดท์มือถือน้อยกว่า 1 MB ต่อเที่ยว";
+
+/* december */
+"whatsnew_order_taxi" = "เรียกแท็กซี่";
+
+/* december */
+"whatsnew_order_taxi_text" = "หน้าตำแหน่งที่ตั้งส่วนใหญ่ในขณะนี้มีปุ่มเรียกแท็กซี่";
+
+/* january */
+"whatsnew_improved_search" = "การค้นหาที่ได้รับการปรับปรุง";
+
+/* january */
+"whatsnew_improved_search_text" = "แม้แต่คำถามที่สะกดผิดก็ยังให้ผลลัพธ์การค้นหาที่ถูกต้องได้";
+
+/* january */
+"whatsnew_filters_in_search" = "ตัวกรองการค้นหา";
+
+/* january */
+"whatsnew_filters_in_search_text" = "ค้นหาโรงแรมตามราคาและการจัดอันดับ";
+
+/* january */
+"whatsnew_font_size" = "ขนาดฟอนต์";
+
+/* january */
+"whatsnew_font_size_text" = "ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้";
 
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
@@ -1237,15 +1841,39 @@
 
 "enable_logging" = "เปิดใช้งานการเก็บล็อก";
 
+"whatsnew_more_info_on_hotels_title" = "ข้อมูลเพิ่มเติมเกี่ยวกับโรงแรม";
+
+"whatsnew_more_info_on_hotels_message" = "หน้าเว็บโรงแรมโฉมใหม่: ลองดูรูป รีวิวจากผู้ใช้งาน และข้อมูลอื่น ๆ ทางออนไลน์";
+
+"whatsnew_better_routing_title" = "การวางแผนเส้นทางที่ดีขึ้น";
+
+"whatsnew_better_routing_message" = "• การประมาณเวลาที่ไปถึงจุดหมายแม่นยำยิ่งขึ้น\n• แอปมีการคำนึงถึงพื้นที่ต้องห้ามและป้ายถนน";
+
+"whatsnew_smaller_mwm_title" = "แผนที่เล็กลง";
+
+"whatsnew_smaller_mwm_message" = "แผนที่ใช้พื้นที่เก็บน้อยลง 20%";
+
+"whatsnew_waypoints_title" = "จุดกำหนดในเส้นทาง";
+
+"whatsnew_waypoints_message" = "แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ";
+
 "whatsnew_viator_title" = "จองทัวร์";
 
 "whatsnew_viator_message" = "เลือกทัวร์ยอดนิยมในเมืองท่องเที่ยวทั่วโลก";
+
+"whatsnew_driving_style_title" = "แผนที่รูปแบบใหม่สำหรับการขับขี่";
+
+"whatsnew_driving_style_message" = "โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น";
 
 "more_on_bookingcom" = "เพิ่มเติมบน Booking.com";
 
 "details_on_bookingcom" = "รายละเอียดบน Booking.com";
 
 "reviews_on_bookingcom" = "รีวิวเพิ่มเติมบน Booking.com";
+
+"offline_place_page_more_information" = "เชื่อมต่ออินเทอร์เน็ตเพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับสถานที่";
+
+"failed_load_information" = "ไม่สามารถโหลดข้อมูลได้";
 
 "booking_search" = "Booking.com";
 
@@ -1258,6 +1886,22 @@
 "whats_new_auto_update_button_size" = "อัปเดต (%s)";
 
 "whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
+
+"search_hotel_filter_apartment" = "อพาร์ตเมนต์";
+
+"search_hotel_filter_camp_site" = "การตั้งแคมป์";
+
+"search_hotel_filter_chalet" = "ชาเลต์";
+
+"search_hotel_filter_guest_house" = "เกสท์เฮ้าส์";
+
+"search_hotel_filter_hostel" = "หอพัก";
+
+"search_hotel_filter_resort" = "รีสอร์ต";
+
+"search_hotel_filter_hotel" = "โรงแรม";
+
+"search_hotel_filter_motel" = "โมเต็ล";
 
 "create_campaign_button" = "อ้างสิทธิ์ในธุรกิจนี้";
 
@@ -1280,6 +1924,8 @@
 
 "whatsnew_transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
+"whatsnew_transliteration_message" = "หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน";
+
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "ศึกษาเพิ่มเติม";
@@ -1290,9 +1936,20 @@
 
 "routing_add_finish_point" = "เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง";
 
+"onboarding_welcome_message" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
+
+/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
+"onboarding_welcome_agree" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว";
+
+"button_accept_and_continue" = "ตกลงและดำเนินการต่อไป";
+
+"button_learn_more" = "ศึกษาเพิ่มเติม";
+
 "onboarding_storage_permissions_title" = "ให้สิทธิ์เข้าถึง";
 
 "onboarding_storage_permissions_message" = "เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน MAPS.ME";
+
+"button_exit" = "ออก";
 
 "onboarding_detail_permissions_title" = "MAPS.ME จำเป็นต้องได้สิทธิ์การเข้าถึง";
 
@@ -1308,9 +1965,31 @@
 
 "onboarding_detail_permissions_storage_path_message" = "คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า";
 
+"settings_device_memory" = "หน่วยความจำเครื่อง";
+
+"settings_card_memory" = "หน่วยความจำการ์ด";
+
+"settings_storage_available" = "เหลือให้ใช้ได้ %s";
+
+"toast_location_permission_denied" = "สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ";
+
 "place_page_viator_title" = "สถานที่ท่องเที่ยวและทัวร์";
 
+"button_use" = "ใช้";
+
+"planning_route_manage_route" = "จัดการเส้นทาง";
+
+"button_plan" = "วางแผน";
+
+"button_add" = "เพิ่ม";
+
 "placepage_remove_stop" = "เอาออก";
+
+"planning_route_remove_title" = "ลากมาที่นี่เพื่อเอาออก";
+
+"dialog_change_start_point_message" = "แทนที่จุดเริ่มต้นไปยังตำแหน่งปัจจุบันหรือไม่?";
+
+"button_replace" = "แทนที่";
 
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
 
@@ -1338,8 +2017,6 @@
 
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
-
-"disable_autodownload" = "หยุดการดาวน์โหลดแบบอัตโนมัติ";
 
 "add_my_position" = "Add my position";
 
