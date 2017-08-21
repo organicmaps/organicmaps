@@ -74,18 +74,18 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
       diffFile->DeleteFromDisk(MapOptions::Diff);
     }
 
-    if (!result)
-    {
-      std::lock_guard<std::mutex> lock(m_mutex);
-      m_status = Status::NotAvailable;
-      // TODO: Log the diff applying error (Downloader_DiffScheme_error (Aloha)).
-    }
-    else
+    if (result)
     {
       std::lock_guard<std::mutex> lock(m_mutex);
       m_diffs.erase(countryId);
       if (m_diffs.empty())
         m_status = Status::NotAvailable;
+    }
+    else
+    {
+      std::lock_guard<std::mutex> lock(m_mutex);
+      m_status = Status::NotAvailable;
+      // TODO: Log the diff applying error (Downloader_DiffScheme_error (Aloha)).
     }
 
     task(result);
@@ -119,6 +119,8 @@ bool Manager::HasDiffFor(storage::TCountryId const & countryId) const
 
 bool Manager::HasDiffForUnsafe(storage::TCountryId const & countryId) const
 {
+  if (m_status != diffs::Status::Available)
+    return false;
   return m_diffs.find(countryId) != m_diffs.end();
 }
 

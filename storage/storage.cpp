@@ -1687,8 +1687,7 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
         GetNodeStatus(descendantNode).status != NodeStatus::OnDiskOutOfDate)
       return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1;  // It's not a group mwm.
-    if (m_diffManager.GetStatus() == diffs::Status::Available &&
-        m_diffManager.HasDiffFor(descendantNode.Value().Name()))
+    if (m_diffManager.HasDiffFor(descendantNode.Value().Name()))
     {
       updateInfo.m_totalUpdateSizeInBytes +=
         m_diffManager.InfoFor(descendantNode.Value().Name()).m_size;
@@ -1797,7 +1796,6 @@ void Storage::GetTopmostNodesFor(TCountryId const & countryId, TCountriesVec & n
   }
 }
 
-
 TCountryId const Storage::GetParentIdFor(TCountryId const & countryId) const
 {
   vector<TCountryTreeNode const *> nodes;
@@ -1817,19 +1815,14 @@ TCountryId const Storage::GetParentIdFor(TCountryId const & countryId) const
   return nodes[0]->Value().GetParent();
 }
 
-TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt,
-                                int64_t version) const
+TMwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_t version) const
 {
   if (version::IsSingleMwm(version))
   {
     if (opt == MapOptions::Nothing)
       return 0;
-
-    if (m_diffManager.GetStatus() == diffs::Status::Available &&
-        m_diffManager.HasDiffFor(file.GetName()))
-    {
+    if (m_diffManager.HasDiffFor(file.GetName()))
       return m_diffManager.InfoFor(file.GetName()).m_size;
-    }
     return file.GetRemoteSize(MapOptions::Map);
   }
 

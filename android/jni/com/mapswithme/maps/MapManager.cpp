@@ -22,7 +22,7 @@ namespace
 {
 using namespace storage;
 
-// Here we left 5% for diffs applying.
+// The last 5% are left for applying diffs.
 float const kMaxProgress = 95.0f;
 
 enum ItemCategory : uint32_t

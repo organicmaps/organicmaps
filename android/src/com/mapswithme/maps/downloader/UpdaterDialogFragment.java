@@ -24,6 +24,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -55,9 +56,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private boolean mAutoUpdate;
   @Nullable
   private String[] mOutdatedMaps;
+  /**
+   * Stores maps which are left to finish autoupdating process.
+   */
+  @Nullable
+  private Set<String> mLeftoverMaps;
+
   @Nullable
   private BaseNewsFragment.NewsDialogListener mDoneListener;
-  private Set<String> mLeftoverMaps;
 
   @NonNull
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -108,6 +114,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         }
         else if (item.isLeafNode && item.newStatus == CountryItem.STATUS_DONE)
         {
+          if (mLeftoverMaps == null)
+            throw new AssertionError("mLeftoverMaps can't be null if mOutdatedMaps != null");
           mLeftoverMaps.remove(item.countryId);
         }
       }
@@ -311,12 +319,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mTotalSize = args.getString(ARG_TOTAL_SIZE);
     mTotalSizeMb = args.getLong(ARG_TOTAL_SIZE_MB, 0L);
     mOutdatedMaps = args.getStringArray(ARG_OUTDATED_MAPS);
-    if (mOutdatedMaps != null)
-    {
-      mLeftoverMaps = new HashSet<String>();
-      for (String map : mOutdatedMaps)
-        mLeftoverMaps.add(map);
-    }
+    if (mOutdatedMaps != null && mOutdatedMaps.length > 0)
+      mLeftoverMaps = new HashSet<>(Arrays.asList(mOutdatedMaps));
   }
 
   private void initViews()
@@ -336,8 +340,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private boolean isAllUpdated()
   {
-    if (mOutdatedMaps == null)
-      return true;
-    return mLeftoverMaps.isEmpty();
+    return mOutdatedMaps == null || mLeftoverMaps == null || mLeftoverMaps.isEmpty();
   }
 }

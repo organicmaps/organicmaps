@@ -210,22 +210,20 @@ std::unordered_set<TCountryId> updatingCountries;
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status == NodeStatus::Error)
   {
-    if (!nodeStatuses.m_groupNode)
-      updatingCountries.erase(countryId);
     self.errorCode = nodeStatuses.m_error;
     SEL const process = @selector(processError);
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:process object:nil];
     [self performSelector:process withObject:nil afterDelay:0.2];
   }
-  else if (nodeStatuses.m_status == NodeStatus::OnDisk)
+
+  if (!nodeStatuses.m_groupNode)
   {
-    if (!nodeStatuses.m_groupNode)
-      updatingCountries.erase(countryId);
-  }
-  else
-  {
-    if (!nodeStatuses.m_groupNode)
-      updatingCountries.insert(countryId);
+    switch (nodeStatuses.m_status)
+    {
+    case NodeStatus::Error:
+    case NodeStatus::OnDisk: updatingCountries.erase(countryId); break;
+    default: updatingCountries.insert(countryId);
+    }
   }
   
   if (self.progressFinished && updatingCountries.empty())
@@ -266,8 +264,7 @@ std::unordered_set<TCountryId> updatingCountries;
   s.GetNodeAttrs(RootId(), nodeAttrs);
   auto const p = nodeAttrs.m_downloadingProgress;
   auto view = static_cast<MWMAutoupdateView *>(self.view);
-  // Here we left 5% for diffs applying.
-  view.progress = 0.95f * static_cast<CGFloat>(p.first) / p.second;
+  view.progress = kMaxProgress * static_cast<CGFloat>(p.first) / p.second;
   if (p.first == p.second)
     self.progressFinished = YES;
 }
