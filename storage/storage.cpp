@@ -229,7 +229,7 @@ void Storage::Clear()
   SaveDownloadQueue();
 }
 
-void Storage::RegisterAllLocalMaps()
+void Storage::RegisterAllLocalMaps(bool enableDiffs)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
@@ -276,7 +276,9 @@ void Storage::RegisterAllLocalMaps()
 
     i = j;
   }
-  LoadDiffScheme();
+
+  if (enableDiffs)
+    LoadDiffScheme();
   RestoreDownloadQueue();
 }
 
@@ -893,6 +895,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
   if (!success)
   {
     m_failedCountries.insert(countryId);
+    NotifyStatusChangedForHierarchy(countryId);
     return;
   }
 
@@ -902,6 +905,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
     if (!isSuccess)
     {
       m_failedCountries.insert(countryId);
+      NotifyStatusChangedForHierarchy(countryId);
       return;
     }
 

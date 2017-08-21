@@ -655,7 +655,7 @@ void Framework::RegisterAllMaps()
          ("Registering maps while map downloading leads to removing downloading maps from "
           "ActiveMapsListener::m_items."));
 
-  m_storage.RegisterAllLocalMaps();
+  m_storage.RegisterAllLocalMaps(true /* enableDiffs */);
 
   // Fast migrate in case there are no downloaded MWM.
   if (platform::migrate::NeedMigrate())

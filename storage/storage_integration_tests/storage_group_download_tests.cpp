@@ -269,7 +269,7 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   };
 
   storage.Init(onUpdatedFn, [](TCountryId const &, storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 
   tests_support::ScopedDir cleanupVersionDir(version);

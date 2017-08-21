@@ -45,7 +45,7 @@ void ChangeCountry(Storage & storage, TCountryId const & countryId)
 void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgressFn)
 {
   storage.Init(Update, [](TCountryId const &, storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }
