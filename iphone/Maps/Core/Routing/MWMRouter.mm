@@ -47,15 +47,13 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (point == nullptr)
     return;
 
-  NSString * pointTypeStr = @"";
+  NSString * pointTypeStr = nil;
   switch (point.type)
   {
   case MWMRoutePointTypeStart: pointTypeStr = kStatRoutingPointTypeStart; break;
   case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
   case MWMRoutePointTypeFinish: pointTypeStr = kStatRoutingPointTypeFinish; break;
   }
-  BOOL const isOnRoute =
-      [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateNavigation;
   NSString * method = nil;
   if ([MWMRouter router].isAPICall)
     method = kStatRoutingPointMethodApi;
@@ -69,7 +67,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
           kStatRoutingPointValue :
               (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
           kStatRoutingPointMethod : method,
-          kStatRoutingMode : (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+          kStatRoutingMode : ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
 }
 }  // namespace
@@ -150,7 +148,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 + (BOOL)isRouteBuilt { return GetFramework().GetRoutingManager().IsRouteBuilt(); }
 + (BOOL)isRouteFinished { return GetFramework().GetRoutingManager().IsRouteFinished(); }
 + (BOOL)isRouteRebuildingOnly { return GetFramework().GetRoutingManager().IsRouteRebuildingOnly(); }
-+ (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsOnRoute(); }
++ (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsRoutingFollowing(); }
 + (NSArray<MWMRoutePoint *> *)points
 {
   NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
@@ -559,11 +557,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  auto const & routingManager = GetFramework().GetRoutingManager();
-  if (!routingManager.IsRoutingActive())
+  if (![MWMRouter isRoutingActive])
     return;
   auto tts = [MWMTextToSpeech tts];
-  if (routingManager.IsOnRoute() && tts.active)
+  if ([MWMRouter isOnRoute] && tts.active)
     [tts playTurnNotifications];
 
   [self updateFollowingInfo];
