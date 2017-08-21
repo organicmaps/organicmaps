@@ -534,6 +534,7 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
   progress.Initialize(starter.GetStartVertex().GetPoint(), starter.GetFinishVertex().GetPoint());
 
   uint32_t visitCount = 0;
+  auto lastValue = progress.GetLastValue();
 
   auto onVisitJunction = [&](Segment const & from, Segment const & to) {
     if (++visitCount % kVisitPeriod != 0)
@@ -541,10 +542,12 @@ IRouter::ResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoin
 
     m2::PointD const & pointFrom = starter.GetPoint(from, true /* front */);
     m2::PointD const & pointTo = starter.GetPoint(to, true /* front */);
-    auto const lastValue = progress.GetLastValue();
     auto const newValue = progress.GetProgressForBidirectedAlgo(pointFrom, pointTo);
     if (newValue - lastValue > kProgressInterval)
+    {
+      lastValue = newValue;
       delegate.OnProgress(newValue);
+    }
 
     delegate.OnPointCheck(pointFrom);
   };
