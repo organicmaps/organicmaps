@@ -200,7 +200,7 @@ using CianIsReady = void (^)(NSArray<MWMCianItemModel *> * items);
 
 // Route points
 - (RouteMarkType)routeMarkType;
-- (int8_t)intermediateIndex;
+- (size_t)intermediateIndex;
 
 // Taxi
 - (std::vector<taxi::Provider::Type> const &)taxiProviders;

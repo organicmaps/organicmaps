@@ -495,7 +495,6 @@ using namespace osm_auth_ios;
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   [self.mapViewController onTerminate];
-  [MWMRouter saveRouteIfNeeded];
 
 #ifdef OMIM_PRODUCTION
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
@@ -539,6 +538,7 @@ using namespace osm_auth_ios;
     }
                                     with:AuthorizationGetCredentials()];
   }
+  [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
