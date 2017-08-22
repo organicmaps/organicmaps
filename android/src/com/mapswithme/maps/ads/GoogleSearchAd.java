@@ -1,9 +1,12 @@
 package com.mapswithme.maps.ads;
 
+import android.support.annotation.NonNull;
+
 import com.mapswithme.maps.Framework;
 
 public class GoogleSearchAd
 {
+  @NonNull
   private String mAdUnitId = "";
 
   public GoogleSearchAd()
@@ -22,5 +25,6 @@ public class GoogleSearchAd
     }
   }
 
-  String getAdUnitId() { return mAdUnitId; }
+  @NonNull
+  public String getAdUnitId() { return mAdUnitId; }
 }

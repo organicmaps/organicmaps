@@ -39,6 +39,31 @@
     <attr name="drawSmile" format="boolean"/>
   </declare-styleable>
 
+  <declare-styleable name="GoogleAds" >
+    <attr name="colorLocation" format="string"/>
+    <attr name="fontSizeLocation" format="string"/>
+    <attr name="clickToCall" format="string"/>
+    <attr name="location" format="string"/>
+    <attr name="sellerRatings" format="string"/>
+    <attr name="siteLinks" format="string"/>
+    <attr name="number" format="string"/>
+    <attr name="fontSizeAnnotation" format="string"/>
+    <attr name="fontSizeAttribution" format="string"/>
+    <attr name="fontSizeDescription" format="string"/>
+    <attr name="fontSizeDomainLink" format="string"/>
+    <attr name="fontSizeTitle" format="string"/>
+    <attr name="colorAdBorder" format="string"/>
+    <attr name="colorAnnotation" format="string"/>
+    <attr name="colorAttribution" format="string"/>
+    <attr name="colorBackground" format="string"/>
+    <attr name="colorDomainLink" format="string"/>
+    <attr name="colorText" format="string"/>
+    <attr name="colorTitleLink" format="string"/>
+    <attr name="attributionSpacingBelow" format="string"/>
+    <attr name="noTitleUnderline" format="string"/>
+    <attr name="titleBold" format="string"/>
+  </declare-styleable>
+
   <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
 </resources>

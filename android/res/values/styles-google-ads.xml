@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="GoogleAdsLight">
+    <item name="colorLocation">#FFF9EF</item>
+    <item name="fontSizeLocation">12</item>
+    <item name="clickToCall">true</item>
+    <item name="location">true</item>
+    <item name="sellerRatings">false</item>
+    <item name="siteLinks">false</item>
+    <item name="number">1</item>;
+    <item name="fontSizeAnnotation">12</item>
+    <item name="fontSizeAttribution">12</item>
+    <item name="fontSizeDescription">12</item>
+    <item name="fontSizeDomainLink">12</item>
+    <item name="fontSizeTitle">12</item>
+    <item name="colorAdBorder">#E0DAD1</item>
+    <item name="colorAnnotation">#75726D</item>
+    <item name="colorAttribution">#75726D</item>
+    <item name="colorBackground">#FFF9EF</item>
+    <item name="colorDomainLink">#1E96F0</item>
+    <item name="colorText">#75726D</item>
+    <item name="colorTitleLink">#21201E</item>
+    <item name="attributionSpacingBelow">4</item>
+    <item name="noTitleUnderline">true</item>
+    <item name="titleBold">true</item>
+  </style>
+
+  <style name="GoogleAdsDark">
+    <item name="colorLocation">#484B50</item>
+    <item name="fontSizeLocation">12</item>
+    <item name="clickToCall">true</item>
+    <item name="location">true</item>
+    <item name="sellerRatings">false</item>
+    <item name="siteLinks">false</item>
+    <item name="number">1</item>;
+    <item name="fontSizeAnnotation">12</item>
+    <item name="fontSizeAttribution">12</item>
+    <item name="fontSizeDescription">12</item>
+    <item name="fontSizeDomainLink">12</item>
+    <item name="fontSizeTitle">12</item>
+    <item name="colorAdBorder">#56595D</item>
+    <item name="colorAnnotation">#C8C9CA</item>
+    <item name="colorAttribution">#C8C9CA</item>
+    <item name="colorBackground">#484B50</item>
+    <item name="colorDomainLink">#51B5E6</item>
+    <item name="colorText">#C8C9CA</item>
+    <item name="colorTitleLink">#FFFFFF</item>
+    <item name="attributionSpacingBelow">4</item>
+    <item name="noTitleUnderline">true</item>
+    <item name="titleBold">true</item>
+  </style>
+</resources>
