@@ -141,7 +141,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)stopRouting
 {
-  [self stop];
+  [self stop:YES];
 }
 
 + (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
@@ -368,7 +368,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   auto const pointsCount = points.size();
   if (pointsCount < 2)
   {
-    [self stopRouting];
+    [self stop:NO];
     [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
   }
@@ -466,11 +466,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 }
 
-+ (void)stop
++ (void)stop:(BOOL)removeRoutePoints
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [MWMSearch clear];
-  [self doStop:YES];
+  [self doStop:removeRoutePoints];
   [[MWMMapViewControlsManager manager] onRouteStop];
   [MWMRouter router].canAutoAddLastLocation = YES;
 }
@@ -655,7 +655,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
         code:code
         cancelBlock:^{
           if (code != routing::IRouter::NeedMoreMaps)
-            [MWMRouter stop];
+            [MWMRouter stopRouting];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
