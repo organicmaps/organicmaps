@@ -27,12 +27,13 @@ double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
 }  // namespace
 
-FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(handle))
+FeaturesRoadGraph::Value::Value(Index const & index, MwmSet::MwmHandle handle)
+  : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
     return;
 
-  m_altitudeLoader = make_unique<feature::AltitudeLoader>(*m_mwmHandle.GetValue<MwmValue>());
+  m_altitudeLoader = make_unique<feature::AltitudeLoader>(index, m_mwmHandle.GetId());
 }
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
@@ -331,7 +332,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const 
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId))))
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index, m_index.GetMwmHandleById(mwmId))))
       .first->second;
 }
 }  // namespace routing

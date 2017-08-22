@@ -38,7 +38,7 @@ GeometryLoaderImpl::GeometryLoaderImpl(Index const & index, MwmSet::MwmHandle co
   : m_vehicleModel(move(vehicleModel))
   , m_guard(index, handle.GetId())
   , m_country(handle.GetInfo()->GetCountryName())
-  , m_altitudeLoader(*handle.GetValue<MwmValue>())
+  , m_altitudeLoader(index, handle.GetId())
   , m_loadAltitudes(loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());

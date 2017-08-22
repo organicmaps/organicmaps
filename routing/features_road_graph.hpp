@@ -6,6 +6,7 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
@@ -87,7 +88,7 @@ private:
   struct Value
   {
     Value() = default;
-    explicit Value(MwmSet::MwmHandle handle);
+    explicit Value(Index const & index, MwmSet::MwmHandle handle);
 
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
