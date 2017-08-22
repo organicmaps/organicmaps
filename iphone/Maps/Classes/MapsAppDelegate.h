@@ -36,4 +36,6 @@
 - (void)showMap;
 - (void)showAlertIfRequired;
 
+- (NSUInteger)badgeNumber;
+
 @end

@@ -22,7 +22,9 @@
 #include "Framework.h"
 
 #include "map/gps_tracker.hpp"
+
 #include "platform/http_thread_apple.h"
+#include "platform/local_country_file_utils.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -856,11 +858,17 @@ using namespace osm_auth_ios;
 
 - (void)updateApplicationIconBadgeNumber
 {
+  auto const number = [self badgeNumber];
+  [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+  [[MWMBottomMenuViewController controller] updateBadgeVisible:number != 0];
+}
+
+- (NSUInteger)badgeNumber
+{
   auto & s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  [UIApplication sharedApplication].applicationIconBadgeNumber =
-      updateInfo.m_numberOfMwmFilesToUpdate;
+  return updateInfo.m_numberOfMwmFilesToUpdate + (platform::migrate::NeedMigrate() ? 1 : 0);
 }
 
 #pragma mark - MWMFrameworkStorageObserver

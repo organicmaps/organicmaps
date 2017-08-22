@@ -7,6 +7,7 @@
 #import "MWMCommon.h"
 #import "MWMMapViewControlsManager.h"
 #import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 @property(weak, nonatomic) IBOutlet MWMButton * searchButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 @property(weak, nonatomic) MapViewController * controller;
 @property(weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
 
@@ -97,7 +99,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 }
 
 - (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
-
+- (void)updateBadgeVisible:(BOOL)visible { self.downloadBadge.hidden = !visible; }
 #pragma mark - Refresh Collection View layout
 
 - (void)refreshLayout
@@ -170,12 +172,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   }
   case MWMBottomMenuViewCellDownload:
   {
-    auto & s = GetFramework().GetStorage();
-    storage::Storage::UpdateInfo updateInfo{};
-    s.GetUpdateInfo(s.GetRootId(), updateInfo);
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
-                      badgeCount:updateInfo.m_numberOfMwmFilesToUpdate
+                      badgeCount:[[MapsAppDelegate theApp] badgeNumber]
                        isEnabled:YES];
   }
   break;
@@ -355,6 +354,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                          });
                        }];
   view.state = state;
+  [self updateBadgeVisible:[[MapsAppDelegate theApp] badgeNumber] != 0];
 }
 
 - (MWMBottomMenuState)state { return self.menuView.state; }

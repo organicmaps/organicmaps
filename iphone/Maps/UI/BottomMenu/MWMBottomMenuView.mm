@@ -3,10 +3,6 @@
 #import "MWMButton.h"
 #import "MWMCommon.h"
 
-#include "Framework.h"
-
-#include "platform/local_country_file_utils.hpp"
-
 namespace
 {
 CGFloat constexpr kAdditionalHeight = 64;
@@ -16,22 +12,17 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
 
 @interface MWMBottomMenuView ()
 
-@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
-
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
-
-@property(weak, nonatomic) IBOutlet UIView * downloadBadge;
-
-@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
-@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
-
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * mainButtonConstraintsLeftToRight;
-
 @property(nonatomic) CGFloat layoutDuration;
 @property(nonatomic) CGRect availableArea;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * mainButtonConstraintsLeftToRight;
+@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * additionalButtonsHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * menuButtonWidth;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * separatorHeight;
+@property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
+@property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
 @end
 
@@ -41,7 +32,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
 {
   [super awakeFromNib];
   self.additionalButtons.hidden = YES;
-  self.downloadBadge.hidden = YES;
 
   if (isInterfaceRightToLeft())
   {
@@ -191,15 +181,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
   [self setNeedsLayout];
 }
 
-- (void)updateBadge
-{
-  auto & s = GetFramework().GetStorage();
-  storage::Storage::UpdateInfo updateInfo{};
-  s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  self.downloadBadge.hidden =
-      (updateInfo.m_numberOfMwmFilesToUpdate == 0) && !platform::migrate::NeedMigrate();
-}
-
 #pragma mark - Properties
 
 - (void)setState:(MWMBottomMenuState)state
@@ -212,7 +193,6 @@ CGFloat constexpr kDefaultMenuButtonWidth = 60;
     [self morphMenuButtonTemplate:@"ic_menu_" direct:isActive];
   _state = state;
   [self refreshLayout];
-  [self updateBadge];
 }
 
 - (void)updateAvailableArea:(CGRect)frame
