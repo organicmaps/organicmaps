@@ -143,12 +143,12 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
 {
   Platform & platform = GetPlatform();
 
-  Platform::TFilesWithType fwts;
-  platform.GetFilesByType(dir, Platform::FILE_TYPE_REGULAR, fwts);
+  Platform::TFilesWithType files;
+  platform.GetFilesByType(dir, Platform::FILE_TYPE_REGULAR, files);
 
-  for (auto const & fwt : fwts)
+  for (auto const & fileWithType : files)
   {
-    string name = fwt.first;
+    string name = fileWithType.first;
 
     auto const isDiffReady =
         strings::EndsWith(name, strings::to_string(DIFF_FILE_EXTENSION) + READY_FILE_EXTENSION);

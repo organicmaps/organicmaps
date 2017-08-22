@@ -92,7 +92,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
       GetPlatform().GetMarketingService().SendMarketingEvent(
           marketing::kDiffSchemeError,
           {{"type", "patching"},
-           {"error", !isFilePrepared ? "Cannot to prepare file" : "Cannot to apply diff"}});
+           {"error", isFilePrepared ? "Cannot apply diff" : "Cannot prepare file"}});
     }
 
     task(result);
