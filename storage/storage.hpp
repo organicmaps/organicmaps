@@ -247,6 +247,7 @@ private:
   ThreadChecker m_threadChecker;
 
   diffs::Manager m_diffManager;
+  vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   vector<vector<string>> m_deferredDownloads;
 
@@ -271,9 +272,7 @@ private:
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
-  using DownloadedFilesProcessingFn = function<void(bool isSuccess)>;
-  void RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files,
-                               DownloadedFilesProcessingFn && fn);
+  void RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files);
 
   void OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions files);
 
@@ -508,8 +507,7 @@ public:
   bool IsInnerNode(TCountryId const & countryId) const;
 
   TLocalAndRemoteSize CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
-  TMwmSize GetRemoteSize(platform::CountryFile const & file, MapOptions opt,
-                         int64_t version) const;
+  TMwmSize GetRemoteSize(platform::CountryFile const & file, MapOptions opt, int64_t version) const;
   platform::CountryFile const & GetCountryFile(TCountryId const & countryId) const;
   TLocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
   TLocalFilePtr GetLatestLocalFile(TCountryId const & countryId) const;
@@ -660,8 +658,9 @@ private:
   void CalMaxMwmSizeBytes();
 
   void LoadDiffScheme();
+  void ApplyDiff(TCountryId const & countryId, function<void(bool isSuccess)> const & fn);
 
-  void OnDiffStatusReceived() override;
+  void OnDiffStatusReceived(diffs::Status const status) override;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);

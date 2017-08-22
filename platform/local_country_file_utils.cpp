@@ -138,6 +138,36 @@ inline string GetDataDirFullPath(string const & dataDir)
   return dataDir.empty() ? platform.WritableDir()
                          : my::JoinFoldersToPath(platform.WritableDir(), dataDir);
 }
+
+void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diffs)
+{
+  Platform & platform = GetPlatform();
+
+  Platform::TFilesWithType fwts;
+  platform.GetFilesByType(dir, Platform::FILE_TYPE_REGULAR, fwts);
+
+  for (auto const & fwt : fwts)
+  {
+    string name = fwt.first;
+
+    auto const isDiffReady =
+        strings::EndsWith(name, strings::to_string(DIFF_FILE_EXTENSION) + READY_FILE_EXTENSION);
+    auto const isDiff =
+        strings::EndsWith(name, DIFF_FILE_EXTENSION);
+
+    if (!isDiff && !isDiffReady)
+      continue;
+
+    my::GetNameWithoutExt(name);
+
+    if (isDiffReady)
+      my::GetNameWithoutExt(name);
+
+    LocalCountryFile localDiff(dir, CountryFile(name), 0 /* version */);
+
+    diffs.push_back(localDiff);
+  }
+}
 }  // namespace
 
 void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile)
@@ -162,7 +192,6 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
                                            int64_t latestVersion,
                                            vector<LocalCountryFile> & localFiles)
 {
-  vector<string> files;
   Platform & platform = GetPlatform();
 
   Platform::TFilesWithType fwts;
@@ -222,6 +251,18 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
       CountryIndexes::DeleteFromDisk(absentCountry);
     }
   }
+}
+
+void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
+{
+  string const dir = GetDataDirFullPath(dataDir);
+  FindAllDiffsInDirectory(dir, diffs);
+
+  Platform::TFilesWithType fwts;
+  Platform::GetFilesByType(dir, Platform::FILE_TYPE_DIRECTORY, fwts);
+
+  for (auto const & fwt : fwts)
+    FindAllDiffsInDirectory(my::JoinFoldersToPath(dir, fwt.first /* subdir */), diffs);
 }
 
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles)

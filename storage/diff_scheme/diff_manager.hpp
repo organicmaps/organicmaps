@@ -30,7 +30,7 @@ public:
   public:
     virtual ~Observer() = default;
 
-    virtual void OnDiffStatusReceived() = 0;
+    virtual void OnDiffStatusReceived(Status const status) = 0;
   };
 
   FileInfo const & InfoFor(storage::TCountryId const & countryId) const;

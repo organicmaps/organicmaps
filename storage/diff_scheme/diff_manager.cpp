@@ -39,9 +39,10 @@ void Manager::Load(LocalMapsInfo && info)
     }
 
     auto & observers = m_observers;
-    GetPlatform().RunOnGuiThread([observers]() mutable
+    auto status = m_status;
+    GetPlatform().RunOnGuiThread([observers, status]() mutable
     {
-      observers.ForEach(&Observer::OnDiffStatusReceived);
+      observers.ForEach(&Observer::OnDiffStatusReceived, status);
     });
   });
 }
@@ -55,29 +56,30 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
 
     auto & diffReadyPath = p.m_diffReadyPath;
     auto & diffFile = p.m_diffFile;
-    auto const countryId = diffFile->GetCountryName();
+    auto const diffPath = diffFile->GetPath(MapOptions::Diff);
     bool result = false;
 
-    if (!my::RenameFileX(diffReadyPath, diffFile->GetPath(MapOptions::Diff)))
-    {
-      diffFile->SyncWithDisk();
-      diffFile->DeleteFromDisk(MapOptions::Diff);
-    }
-    else
-    {
-      diffFile->SyncWithDisk();
+    diffFile->SyncWithDisk();
 
+    auto const isOnDisk = diffFile->OnDisk(MapOptions::Diff);
+
+    if (isOnDisk || my::RenameFileX(diffReadyPath, diffPath))
+    {
+      // Sync with disk after renaming.
+      if (!isOnDisk)
+        diffFile->SyncWithDisk();
+    
       string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
-      string const diffPath = diffFile->GetPath(MapOptions::Diff);
       result = generator::mwm_diff::ApplyDiff(oldMwmPath, newMwmPath, diffPath);
-      diffFile->DeleteFromDisk(MapOptions::Diff);
     }
+
+    diffFile->DeleteFromDisk(MapOptions::Diff);
 
     if (result)
     {
       std::lock_guard<std::mutex> lock(m_mutex);
-      m_diffs.erase(countryId);
+      m_diffs.erase(diffFile->GetCountryName());
       if (m_diffs.empty())
         m_status = Status::NotAvailable;
     }

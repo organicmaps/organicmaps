@@ -55,6 +55,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> 
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
                                 vector<LocalCountryFile> & localFiles);
 
+void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs);
+
 // This method removes:
 // * partially downloaded non-latest maps (with version less than |latestVersion|)
 // * empty directories
