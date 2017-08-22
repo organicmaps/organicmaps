@@ -33,6 +33,8 @@ extern char const * const kBookmarksBookmarkAction;
 extern char const * const kPlacepageHotelBook;
 extern char const * const kEditorAddStart;
 extern char const * const kEditorEditStart;
+extern char const * const kDiffSchemeFallback;
+extern char const * const kDiffSchemeError;
 
 // Settings.
 extern char const * const kFrom;

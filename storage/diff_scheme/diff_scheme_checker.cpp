@@ -6,6 +6,7 @@
 #include "base/logging.hpp"
 
 #include <memory>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -125,8 +126,12 @@ NameFileInfoMap Checker::Check(LocalMapsInfo const & info)
   }
   else
   {
-    LOG(LINFO, ("Request to diffs server failed. Code =", request.ErrorCode(),
-      ", Redirection =", request.WasRedirected()));
+    ostringstream ost;
+    ost << "Request to diffs server failed. Code = " << request.ErrorCode()
+        << ", redirection = " << request.WasRedirected();
+    LOG(LINFO, (ost.str()));
+    GetPlatform().GetMarketingService().SendMarketingEvent(
+        marketing::kDiffSchemeError, {{"type", "network"}, {"error", ost.str()}});
   }
 
   return diffs;

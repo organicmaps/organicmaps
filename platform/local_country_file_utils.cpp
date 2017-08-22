@@ -152,8 +152,7 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
 
     auto const isDiffReady =
         strings::EndsWith(name, strings::to_string(DIFF_FILE_EXTENSION) + READY_FILE_EXTENSION);
-    auto const isDiff =
-        strings::EndsWith(name, DIFF_FILE_EXTENSION);
+    auto const isDiff = strings::EndsWith(name, DIFF_FILE_EXTENSION);
 
     if (!isDiff && !isDiffReady)
       continue;

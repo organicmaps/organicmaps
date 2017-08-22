@@ -276,7 +276,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
     i = j;
   }
-  
+
   FindAllDiffs(m_dataDir, m_notAppliedDiffs);
   if (enableDiffs)
     LoadDiffScheme();

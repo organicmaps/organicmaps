@@ -31,7 +31,8 @@ void Manager::Load(LocalMapsInfo && info)
     if (diffs.empty())
     {
       m_status = Status::NotAvailable;
-      // TODO: Log fall back to the old scheme (Downloader_DiffScheme_OnStart_fallback (Aloha)).
+
+      GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDiffSchemeFallback, {});
     }
     else
     {
@@ -40,8 +41,7 @@ void Manager::Load(LocalMapsInfo && info)
 
     auto & observers = m_observers;
     auto status = m_status;
-    GetPlatform().RunOnGuiThread([observers, status]() mutable
-    {
+    GetPlatform().RunOnGuiThread([observers, status]() mutable {
       observers.ForEach(&Observer::OnDiffStatusReceived, status);
     });
   });
@@ -62,13 +62,14 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
     diffFile->SyncWithDisk();
 
     auto const isOnDisk = diffFile->OnDisk(MapOptions::Diff);
+    auto const isFilePrepared = isOnDisk || my::RenameFileX(diffReadyPath, diffPath);
 
-    if (isOnDisk || my::RenameFileX(diffReadyPath, diffPath))
+    if (isFilePrepared)
     {
       // Sync with disk after renaming.
       if (!isOnDisk)
         diffFile->SyncWithDisk();
-    
+
       string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
       result = generator::mwm_diff::ApplyDiff(oldMwmPath, newMwmPath, diffPath);
@@ -87,7 +88,11 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
     {
       std::lock_guard<std::mutex> lock(m_mutex);
       m_status = Status::NotAvailable;
-      // TODO: Log the diff applying error (Downloader_DiffScheme_error (Aloha)).
+
+      GetPlatform().GetMarketingService().SendMarketingEvent(
+          marketing::kDiffSchemeError,
+          {{"type", "patching"},
+           {"error", !isFilePrepared ? "Cannot to prepare file" : "Cannot to apply diff"}});
     }
 
     task(result);
