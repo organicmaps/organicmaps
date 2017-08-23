@@ -190,28 +190,28 @@ CGFloat const kMinOffset = 1;
   if ([scrollView isEqual:ppView.tableView])
     return;
 
-  auto const & offset = scrollView.contentOffset;
+  auto const & offsetY = scrollView.contentOffset.y;
   id<MWMPlacePageLayoutDelegate> delegate = self.delegate;
-  if (offset.y <= 0)
+  if (offsetY <= 0)
   {
     [delegate onPlacePageTopBoundChanged:0];
     [delegate closePlacePage];
     return;
   }
 
-  if (offset.y > ppView.height + kLuftDraggingOffset)
+  auto const bounded = ppView.height + kLuftDraggingOffset;
+  if (offsetY > bounded)
   {
-    auto const bounded = ppView.height + kLuftDraggingOffset;
     [scrollView setContentOffset:{0, bounded}];
     [delegate onPlacePageTopBoundChanged:bounded];
   }
   else
   {
-    [delegate onPlacePageTopBoundChanged:offset.y];
+    [delegate onPlacePageTopBoundChanged:offsetY];
   }
 
-  self.direction = self.lastContentOffset < offset.y ? ScrollDirection::Up : ScrollDirection::Down;
-  self.lastContentOffset = offset.y;
+  self.direction = self.lastContentOffset < offsetY ? ScrollDirection::Up : ScrollDirection::Down;
+  self.lastContentOffset = offsetY;
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView

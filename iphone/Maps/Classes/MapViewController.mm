@@ -586,8 +586,9 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   auto const kbHeight = [MWMKeyboard keyboardHeight];
   self.visibleAreaKeyboard.constant = kbHeight;
-  self.placePageAreaKeyboard.constant = kbHeight;
   self.sideButtonsAreaKeyboard.constant = kbHeight;
+  if (IPAD)
+    self.placePageAreaKeyboard.constant = kbHeight;
   [self.view layoutIfNeeded];
 }
 #pragma mark - Properties
