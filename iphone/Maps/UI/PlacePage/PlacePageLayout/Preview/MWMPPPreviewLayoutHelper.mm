@@ -1,4 +1,5 @@
 #import "MWMPPPreviewLayoutHelper.h"
+#import <Crashlytics/Crashlytics.h>
 #import "MWMCommon.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
@@ -364,6 +365,9 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   auto data = self.data;
   if (!data)
     return;
+
+  CLS_LOG(@"layoutInOpenState\tisOpen:%@\tLatitude:%@\tLongitude:%@", @(isOpen), @(data.latLon.lat),
+          @(data.latLon.lon));
 
   [self.tableView update:^{
     self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
