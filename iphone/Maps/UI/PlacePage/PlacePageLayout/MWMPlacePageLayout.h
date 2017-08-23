@@ -6,8 +6,8 @@ enum class NodeStatus;
 @protocol MWMPlacePageLayoutDelegate<NSObject>
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound;
-- (void)shouldDestroyLayout;
-- (void)shouldClose;
+- (void)destroyLayout;
+- (void)closePlacePage;
 
 - (BOOL)isExpandedOnShow;
 - (void)onExpanded;

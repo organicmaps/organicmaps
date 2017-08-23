@@ -98,7 +98,7 @@ CGFloat const kMinOffset = 1;
     [delegate onPlacePageTopBoundChanged:0];
     self.actionBar = nil;
     self.scrollView = nil;
-    [delegate shouldDestroyLayout];
+    [delegate destroyLayout];
   });
 }
 
@@ -195,7 +195,7 @@ CGFloat const kMinOffset = 1;
   if (offset.y <= 0)
   {
     [delegate onPlacePageTopBoundChanged:0];
-    [delegate shouldClose];
+    [delegate closePlacePage];
     return;
   }
 

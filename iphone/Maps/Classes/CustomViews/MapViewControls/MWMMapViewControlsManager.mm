@@ -113,7 +113,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)dismissPlacePage
 {
   self.trafficButtonHidden = NO;
-  [self.placePageManager close];
+  [self.placePageManager dismiss];
 }
 
 - (void)showPlacePage:(place_page::Info const &)info
@@ -191,7 +191,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.trafficButtonHidden = YES;
   self.menuState = MWMBottomMenuStateHidden;
   MapViewController * ownerController = self.ownerController;
-  [self.placePageManager close];
+  [self.placePageManager dismiss];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
   [MWMAddPlaceNavigationBar showInSuperview:ownerController.view

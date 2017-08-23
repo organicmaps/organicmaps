@@ -103,7 +103,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self processCountryEvent:self.data.countryId];
 }
 
-- (void)close
+- (void)dismiss
 {
   [self.layout close];
   self.data = nil;
@@ -129,7 +129,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
       bookmarkAndCategory.m_categoryIndex != deletedBookmarkAndCategory.m_categoryIndex)
     return;
 
-  [self shouldClose];
+  [self closePlacePage];
 }
 
 - (void)handleBookmarkCategoryDeleting:(NSNotification *)notification
@@ -144,7 +144,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (index != deletedIndex)
     return;
 
-  [self shouldClose];
+  [self closePlacePage];
 }
 
 #pragma mark - MWMPlacePageLayoutDataSource
@@ -229,8 +229,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [self.layout checkCellsVisible];
 }
 
-- (void)shouldDestroyLayout { self.layout = nil; }
-- (void)shouldClose { GetFramework().DeactivateMapSelection(true); }
+- (void)destroyLayout { self.layout = nil; }
+- (void)closePlacePage { GetFramework().DeactivateMapSelection(true); }
 - (BOOL)isExpandedOnShow
 {
   auto data = self.data;
@@ -302,7 +302,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
   MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeStart intermediateIndex:0];
   [MWMRouter buildFromPoint:point bestRouter:YES];
-  [self close];
+  [self closePlacePage];
 }
 
 - (void)routeTo
@@ -312,7 +312,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
   MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:YES];
-  [self close];
+  [self closePlacePage];
 }
 
 - (void)addStop
@@ -320,7 +320,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   MWMRoutePoint * point =
       [self routePointWithType:MWMRoutePointTypeIntermediate intermediateIndex:0];
   [MWMRouter addPointAndRebuild:point];
-  [self shouldClose];
+  [self closePlacePage];
 }
 
 - (void)removeStop
@@ -343,7 +343,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     break;
   }
   [MWMRouter removePointAndRebuild:point];
-  [self shouldClose];
+  [self closePlacePage];
 }
 
 - (void)orderTaxi:(MWMPlacePageTaxiProvider)provider
@@ -363,7 +363,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [MWMRouter setType:MWMRouterTypeTaxi];
   MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:NO];
-  [self close];
+  [self closePlacePage];
 }
 
 - (MWMRoutePoint *)routePointWithType:(MWMRoutePointType)type
