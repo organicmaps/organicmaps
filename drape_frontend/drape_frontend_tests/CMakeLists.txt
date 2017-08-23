@@ -51,6 +51,7 @@ omim_link_libraries(
   base
   expat
   stats_client
+  freetype
   stb_image
   sdf_image
   icu
