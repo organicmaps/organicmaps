@@ -188,18 +188,18 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  if (countryId == kInvalidCountryId)
+  auto data = self.data;
+  if (!data || data.countryId != countryId)
+    return;
+
+  if (data.countryId == kInvalidCountryId)
   {
     [self.layout processDownloaderEventWithStatus:storage::NodeStatus::Undefined progress:0];
     return;
   }
 
-  auto data = self.data;
-  if (!data || data.countryId != countryId)
-    return;
-
   NodeStatuses statuses;
-  GetFramework().GetStorage().GetNodeStatuses(countryId, statuses);
+  GetFramework().GetStorage().GetNodeStatuses(data.countryId, statuses);
 
   auto const status = statuses.m_status;
   if (status == self.currentDownloaderStatus)
