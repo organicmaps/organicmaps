@@ -891,7 +891,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   {
     info.SetSponsoredType(place_page::SponsoredType::Viator);
     auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.SetSponsoredDescriptionUrl(viator::Api::GetCityUrl(sponsoredId));
+    info.SetSponsoredUrl(viator::Api::GetCityUrl(sponsoredId));
     info.SetPreviewIsExtended();
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
