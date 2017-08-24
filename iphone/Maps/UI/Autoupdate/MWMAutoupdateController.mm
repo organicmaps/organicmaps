@@ -88,6 +88,8 @@ enum class State
   self.primaryButton.hidden = YES;
   self.spinnerView.hidden = NO;
   self.spinner = [MWMCircularProgress downloaderProgressForParentView:self.spinnerView];
+  [self.spinner setImageName:nil
+                   forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
   self.spinner.delegate = self.delegate;
   [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
@@ -175,13 +177,31 @@ std::unordered_set<TCountryId> updatingCountries;
 
 - (IBAction)cancelTap
 {
-  [MWMStorage cancelDownloadNode:RootId()];
-  [self dismiss];
   auto view = static_cast<MWMAutoupdateView *>(self.view);
-  [Statistics logEvent:view.state == State::Downloading ?
-                                     kStatDownloaderOnStartScreenCancelDownload :
-                                     kStatDownloaderOnStartScreenSelectLater
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
+  UIAlertController * alertController =
+      [UIAlertController alertControllerWithTitle:nil
+                                          message:nil
+                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.sourceView = view.secondaryButton;
+  alertController.popoverPresentationController.sourceRect = view.secondaryButton.bounds;
+  auto cancelDownloadAction =
+      [UIAlertAction actionWithTitle:L(@"cancel_download")
+                               style:UIAlertActionStyleDestructive
+                             handler:^(UIAlertAction * action) {
+                               [MWMStorage cancelDownloadNode:RootId()];
+                               [self dismiss];
+                               [Statistics logEvent:view.state == State::Downloading
+                                                        ? kStatDownloaderOnStartScreenCancelDownload
+                                                        : kStatDownloaderOnStartScreenSelectLater
+                                     withParameters:@{
+                                       kStatMapDataSize : @(self.sizeInMB)
+                                     }];
+                             }];
+  [alertController addAction:cancelDownloadAction];
+  auto cancelAction =
+      [UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil];
+  [alertController addAction:cancelAction];
+  [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -196,10 +216,6 @@ std::unordered_set<TCountryId> updatingCountries;
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress
 {
-  [MWMStorage cancelDownloadNode:RootId()];
-  [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
-  [Statistics logEvent:kStatDownloaderOnStartScreenCancelDownload
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
