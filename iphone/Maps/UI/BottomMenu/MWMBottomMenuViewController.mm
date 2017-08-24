@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   return self;
 }
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 - (void)viewDidLoad
 {
   [super viewDidLoad];

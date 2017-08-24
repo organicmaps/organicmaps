@@ -134,7 +134,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   }
 
   [taxiDataSource taxiURL:^(NSURL * url) {
-    [[UIApplication sharedApplication] openURL:url];
+    [UIApplication.sharedApplication openURL:url];
   }];
 }
 
@@ -484,7 +484,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   [self clearAltitudeImagesData];
   rm.CloseRouting(removeRoutePoints);
   [MWMThemeManager setAutoUpdates:NO];
-  [MapsAppDelegate.theApp showAlertIfRequired];
+  [[MapsAppDelegate theApp] showAlertIfRequired];
 }
 
 - (void)updateFollowingInfo

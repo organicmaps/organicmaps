@@ -370,7 +370,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   auto cell = self.offscreenCells[cls];
   if (!cell)
   {
-    cell = [[[NSBundle mainBundle] loadWithViewClass:cls owner:nil options:nil] firstObject];
+    cell = [NSBundle.mainBundle loadWithViewClass:cls owner:nil options:nil].firstObject;
     self.offscreenCells[cls] = cell;
   }
   return cell;
@@ -1085,7 +1085,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
 - (BOOL)showPersonalInfoWarningAlertIfNeeded
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   if ([ud boolForKey:kUDEditorPersonalInfoWarninWasShown])
     return NO;
 

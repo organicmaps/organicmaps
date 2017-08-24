@@ -28,7 +28,7 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force)
   }
 
   auto checkAndApply = ^bool {
-    NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
     NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
     if ([policyDate compare:[NSDate date]] == NSOrderedDescending)
     {
@@ -57,7 +57,7 @@ void CallPartnersApi(platform::PartnersApiFn fn, bool force)
 
 void SetStage(np::Stage state)
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   NSDate * policyDate = nil;
   switch (state)
   {
@@ -72,7 +72,7 @@ void SetStage(np::Stage state)
 
 np::Stage GetStage()
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
   if ([policyDate isEqualToDate:NSDate.distantFuture])
     return np::Stage::Always;
@@ -90,7 +90,7 @@ bool CanUseNetwork()
   case ct::CONNECTION_WIFI: return true;
   case ct::CONNECTION_WWAN:
   {
-    NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
     NSDate * policyDate = [ud objectForKey:kNetworkingPolicyTimeStamp];
     return [policyDate compare:[NSDate date]] == NSOrderedDescending;
   }

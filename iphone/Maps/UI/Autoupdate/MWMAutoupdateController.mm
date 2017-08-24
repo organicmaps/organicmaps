@@ -122,8 +122,8 @@ std::unordered_set<TCountryId> updatingCountries;
 
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
-  MWMAutoupdateController * controller = [[MWMAutoupdateController alloc] initWithNibName:[self className]
-                                                                                   bundle:[NSBundle mainBundle]];
+  MWMAutoupdateController * controller =
+      [[MWMAutoupdateController alloc] initWithNibName:[self className] bundle:NSBundle.mainBundle];
   controller.todo = todo;
   auto view = static_cast<MWMAutoupdateView *>(controller.view);
   view.delegate = controller;

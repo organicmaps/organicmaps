@@ -19,7 +19,7 @@ static inline NSString * formattedSpeedAndAltitude(CLLocation * location)
     [result appendString:[NSString stringWithFormat:@"%@ %@", @"\xE2\x96\xB2", @(measurement_utils::FormatAltitude(location.altitude).c_str())]];
 
   // Speed is actual only for just received location
-  if (location.speed > 0. && [location.timestamp timeIntervalSinceNow] >= -2.0)
+  if (location.speed > 0. && location.timestamp.timeIntervalSinceNow >= -2.0)
   {
     if (result.length)
       [result appendString:@"  "];

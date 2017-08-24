@@ -40,7 +40,7 @@
   if (!_pageControl)
   {
     _pageControl = [[UIPageControl alloc] init];
-    _pageControl.backgroundColor = [UIColor clearColor];
+    _pageControl.backgroundColor = UIColor.clearColor;
     [self.superview addSubview:_pageControl];
   }
   return _pageControl;
@@ -200,7 +200,7 @@ using namespace taxi;
   case MWMRoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
   case MWMRoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
   }
-  return [[UIApplication sharedApplication] canOpenURL:url];
+  return [UIApplication.sharedApplication canOpenURL:url];
 }
 
 - (void)taxiURL:(MWMURLBlock)block

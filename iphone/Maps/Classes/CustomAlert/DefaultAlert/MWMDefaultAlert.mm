@@ -393,8 +393,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                       statisticsEvent:(nonnull NSString *)statisticsEvent
 {
   [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMDefaultAlert * alert = [
-      [[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
+  MWMDefaultAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
   alert.titleLabel.text = title;
   alert.messageLabel.text = message;
   if (!message)

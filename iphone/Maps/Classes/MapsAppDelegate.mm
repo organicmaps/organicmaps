@@ -64,34 +64,34 @@ void InitLocalizedStrings()
 {
   Framework & f = GetFramework();
   // Texts on the map screen when map is not downloaded or is downloading
-  f.AddString("country_status_added_to_queue", [L(@"country_status_added_to_queue") UTF8String]);
-  f.AddString("country_status_downloading", [L(@"country_status_downloading") UTF8String]);
-  f.AddString("country_status_download", [L(@"country_status_download") UTF8String]);
+  f.AddString("country_status_added_to_queue", L(@"country_status_added_to_queue").UTF8String);
+  f.AddString("country_status_downloading", L(@"country_status_downloading").UTF8String);
+  f.AddString("country_status_download", L(@"country_status_download").UTF8String);
   f.AddString("country_status_download_without_routing",
-              [L(@"country_status_download_without_routing") UTF8String]);
-  f.AddString("country_status_download_failed", [L(@"country_status_download_failed") UTF8String]);
-  f.AddString("cancel", [L(@"cancel") UTF8String]);
-  f.AddString("try_again", [L(@"try_again") UTF8String]);
+              L(@"country_status_download_without_routing").UTF8String);
+  f.AddString("country_status_download_failed", L(@"country_status_download_failed").UTF8String);
+  f.AddString("cancel", L(@"cancel").UTF8String);
+  f.AddString("try_again", L(@"try_again").UTF8String);
   // Default texts for bookmarks added in C++ code (by URL Scheme API)
-  f.AddString("placepage_unknown_place", [L(@"placepage_unknown_place") UTF8String]);
-  f.AddString("my_places", [L(@"my_places") UTF8String]);
-  f.AddString("my_position", [L(@"my_position") UTF8String]);
-  f.AddString("routes", [L(@"routes") UTF8String]);
+  f.AddString("placepage_unknown_place", L(@"placepage_unknown_place").UTF8String);
+  f.AddString("my_places", L(@"my_places").UTF8String);
+  f.AddString("my_position", L(@"my_position").UTF8String);
+  f.AddString("routes", L(@"routes").UTF8String);
   f.AddString("wifi", L(@"wifi").UTF8String);
 
   f.AddString("routing_failed_unknown_my_position",
-              [L(@"routing_failed_unknown_my_position") UTF8String]);
+              L(@"routing_failed_unknown_my_position").UTF8String);
   f.AddString("routing_failed_has_no_routing_file",
-              [L(@"routing_failed_has_no_routing_file") UTF8String]);
+              L(@"routing_failed_has_no_routing_file").UTF8String);
   f.AddString("routing_failed_start_point_not_found",
-              [L(@"routing_failed_start_point_not_found") UTF8String]);
+              L(@"routing_failed_start_point_not_found").UTF8String);
   f.AddString("routing_failed_dst_point_not_found",
-              [L(@"routing_failed_dst_point_not_found") UTF8String]);
+              L(@"routing_failed_dst_point_not_found").UTF8String);
   f.AddString("routing_failed_cross_mwm_building",
-              [L(@"routing_failed_cross_mwm_building") UTF8String]);
-  f.AddString("routing_failed_route_not_found", [L(@"routing_failed_route_not_found") UTF8String]);
-  f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
-  f.AddString("place_page_booking_rating", [L(@"place_page_booking_rating") UTF8String]);
+              L(@"routing_failed_cross_mwm_building").UTF8String);
+  f.AddString("routing_failed_route_not_found", L(@"routing_failed_route_not_found").UTF8String);
+  f.AddString("routing_failed_internal_error", L(@"routing_failed_internal_error").UTF8String);
+  f.AddString("place_page_booking_rating", L(@"place_page_booking_rating").UTF8String);
 }
 
 void InitCrashTrackers()
@@ -119,7 +119,7 @@ void ConfigCrashTrackers()
 
 void OverrideUserAgent()
 {
-  [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+  [NSUserDefaults.standardUserDefaults registerDefaults:@{
     @"UserAgent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
                    @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
   }];
@@ -146,7 +146,7 @@ using namespace osm_auth_ios;
 
 + (MapsAppDelegate *)theApp
 {
-  return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
+  return (MapsAppDelegate *)UIApplication.sharedApplication.delegate;
 }
 
 #pragma mark - Notifications
@@ -198,7 +198,7 @@ using namespace osm_auth_ios;
   Framework & f = GetFramework();
   if (m_geoURL)
   {
-    if (f.ShowMapForURL([m_geoURL UTF8String]))
+    if (f.ShowMapForURL(m_geoURL.UTF8String))
     {
       [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
             withParameters:@{kStatValue : m_scheme}];
@@ -277,10 +277,10 @@ using namespace osm_auth_ios;
   }
   else if (m_fileURL)
   {
-    if (!f.AddBookmarksFile([m_fileURL UTF8String]))
+    if (!f.AddBookmarksFile(m_fileURL.UTF8String))
       [self showLoadFileAlertIsSuccessful:NO];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
+    [NSNotificationCenter.defaultCenter postNotificationName:@"KML file added" object:nil];
     [self showLoadFileAlertIsSuccessful:YES];
     [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
           withParameters:@{kStatValue : kStatKML}];
@@ -291,7 +291,7 @@ using namespace osm_auth_ios;
     NSString * pasteboard = [[UIPasteboard generalPasteboard].string copy];
     if (pasteboard && pasteboard.length)
     {
-      if (f.ShowMapForURL([pasteboard UTF8String]))
+      if (f.ShowMapForURL(pasteboard.UTF8String))
       {
         [self showMap];
         [UIPasteboard generalPasteboard].string = @"";
@@ -319,7 +319,7 @@ using namespace osm_auth_ios;
 
   self.standbyCounter = 0;
   NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
-  [[UIApplication sharedApplication]
+  [UIApplication.sharedApplication
       setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [MWMMyTarget startAdServerForbiddenCheckTimer];
   [self updateApplicationIconBadgeNumber];
@@ -576,7 +576,7 @@ using namespace osm_auth_ios;
   if (![topVc isKindOfClass:[MWMViewController class]])
     return;
 
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   if ([ud boolForKey:kUDTrackWarningAlertWasShown])
     return;
 
@@ -643,7 +643,7 @@ using namespace osm_auth_ios;
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [NSNotificationCenter.defaultCenter removeObserver:self];
   // Global cleanup
   DeleteFramework();
 }
@@ -677,7 +677,7 @@ using namespace osm_auth_ios;
           kStatConnection : connectionType
         }];
 
-  auto device = [UIDevice currentDevice];
+  auto device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
   auto charging = kStatUnknown;
   auto const state = device.batteryState;
@@ -701,11 +701,11 @@ using namespace osm_auth_ios;
   --m_activeDownloadsCounter;
   if (m_activeDownloadsCounter <= 0)
   {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
     m_activeDownloadsCounter = 0;
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
     {
-      [[UIApplication sharedApplication] endBackgroundTask:m_backgroundTask];
+      [UIApplication.sharedApplication endBackgroundTask:m_backgroundTask];
       m_backgroundTask = UIBackgroundTaskInvalid;
     }
   }
@@ -714,7 +714,7 @@ using namespace osm_auth_ios;
 - (void)enableDownloadIndicator
 {
   ++m_activeDownloadsCounter;
-  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+  UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
 }
 
 + (NSDictionary *)navigationBarTextAttributes
@@ -859,7 +859,7 @@ using namespace osm_auth_ios;
 - (void)updateApplicationIconBadgeNumber
 {
   auto const number = [self badgeNumber];
-  [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+  UIApplication.sharedApplication.applicationIconBadgeNumber = number;
   [[MWMBottomMenuViewController controller] updateBadgeVisible:number != 0];
 }
 
@@ -905,7 +905,7 @@ using namespace osm_auth_ios;
 - (void)setStandbyCounter:(NSInteger)standbyCounter
 {
   _standbyCounter = MAX(0, standbyCounter);
-  [UIApplication sharedApplication].idleTimerDisabled = (_standbyCounter != 0);
+  UIApplication.sharedApplication.idleTimerDisabled = (_standbyCounter != 0);
 }
 
 #pragma mark - Alert logic
@@ -914,8 +914,8 @@ using namespace osm_auth_ios;
 {
   [MWMSettings setStatisticsEnabled:YES];
   NSString * currentVersion =
-      [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSUserDefaults * standartDefaults = [NSUserDefaults standardUserDefaults];
+      [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSUserDefaults * standartDefaults = NSUserDefaults.standardUserDefaults;
   [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
   [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
   [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
@@ -926,7 +926,7 @@ using namespace osm_auth_ios;
 
 - (void)incrementSessionCount
 {
-  NSUserDefaults * standartDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * standartDefaults = NSUserDefaults.standardUserDefaults;
   NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
   NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
   if (sessionCount > kMaximumSessionCountForShowingShareAlert)
@@ -960,7 +960,7 @@ using namespace osm_auth_ios;
     [[MWMAlertViewController activeAlertController] presentRateAlert];
   else
     [[MWMAlertViewController activeAlertController] presentFacebookAlert];
-  [[NSUserDefaults standardUserDefaults]
+  [NSUserDefaults.standardUserDefaults
       setObject:NSDate.date
          forKey:isRate ? kUDLastRateRequestDate : kUDLastShareRequstDate];
 }
@@ -971,7 +971,7 @@ using namespace osm_auth_ios;
 - (BOOL)shouldShowFacebookAlert
 {
   NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
-  NSUserDefaults const * const standartDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults const * const standartDefaults = NSUserDefaults.standardUserDefaults;
   if ([standartDefaults boolForKey:kUDAlreadySharedKey])
     return NO;
 
@@ -1007,7 +1007,7 @@ using namespace osm_auth_ios;
 - (BOOL)shouldShowRateAlert
 {
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;
-  NSUserDefaults const * const standartDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults const * const standartDefaults = NSUserDefaults.standardUserDefaults;
   if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
     return NO;
 
@@ -1041,8 +1041,8 @@ using namespace osm_auth_ios;
 - (BOOL)userIsNew
 {
   NSString * currentVersion =
-      [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSString * firstVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kUDFirstVersionKey];
+      [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSString * firstVersion = [NSUserDefaults.standardUserDefaults stringForKey:kUDFirstVersionKey];
   if (!firstVersion.length || firstVersionIsLessThanSecond(firstVersion, currentVersion))
     return NO;
 
@@ -1055,7 +1055,7 @@ using namespace osm_auth_ios;
     return 0;
 
   NSDate * now = NSDate.date;
-  NSCalendar * calendar = [NSCalendar currentCalendar];
+  NSCalendar * calendar = NSCalendar.currentCalendar;
   [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:fromDate];
   [calendar rangeOfUnit:NSCalendarUnitDay startDate:&now interval:NULL forDate:now];
   NSDateComponents * difference =

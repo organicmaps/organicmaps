@@ -93,7 +93,9 @@ CGFloat const kAnimationDuration = .05;
 + (instancetype)alertWithCountries:(storage::TCountriesVec const &)countries
 {
   NSAssert(!countries.empty(), @"countries can not be empty.");
-  MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
+  MWMDownloadTransitMapAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil]
+          .firstObject;
 
   alert->m_countries = countries;
   [alert configure];

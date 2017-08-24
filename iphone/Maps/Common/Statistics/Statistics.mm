@@ -91,7 +91,7 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters
 {
   NSMutableDictionary * params = [parameters mutableCopy];
-  BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
+  BOOL isLandscape = UIDeviceOrientationIsLandscape(UIDevice.currentDevice.orientation);
   params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
   AppInfo * info = [AppInfo sharedInfo];
   params[kStatCountry] = info.countryCode;

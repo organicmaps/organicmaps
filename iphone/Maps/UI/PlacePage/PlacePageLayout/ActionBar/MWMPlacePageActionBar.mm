@@ -28,7 +28,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate
 {
   MWMPlacePageActionBar * bar =
-      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil] firstObject];
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   bar.delegate = delegate;
   return bar;
 }
@@ -36,7 +36,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)configureWithData:(id<MWMActionBarSharedData>)data
 {
   self.data = data;
-  self.isBookmark = data.isBookmark;
+  self.isBookmark = [data isBookmark];
   [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
   [self setNeedsLayout];
@@ -48,18 +48,18 @@ extern NSString * const kAlohalyticsTapEventKey;
   m_additionalButtons.clear();
   auto data = self.data;
 
-  BOOL const isBooking = data.isBooking;
-  BOOL const isOpentable = data.isOpentable;
-  BOOL const isBookingSearch = data.isBookingSearch;
+  BOOL const isBooking = [data isBooking];
+  BOOL const isOpentable = [data isOpentable];
+  BOOL const isBookingSearch = [data isBookingSearch];
   BOOL const isSponsored = isBooking || isOpentable || isBookingSearch;
   BOOL const isPhoneCallAvailable =
-      [AppInfo sharedInfo].canMakeCalls && data.phoneNumber.length > 0;
-  BOOL const isApi = data.isApi;
+      [AppInfo sharedInfo].canMakeCalls && [data phoneNumber].length > 0;
+  BOOL const isApi = [data isApi];
   auto const navigationState = [MWMNavigationDashboardManager manager].state;
   BOOL const isNavigationActive = navigationState == MWMNavigationDashboardStateNavigation;
   BOOL const isP2P = !isNavigationActive && navigationState != MWMNavigationDashboardStateHidden;
-  BOOL const isMyPosition = data.isMyPosition;
-  BOOL const isRoutePoint = data.isRoutePoint;
+  BOOL const isMyPosition = [data isMyPosition];
+  BOOL const isRoutePoint = [data isRoutePoint];
   BOOL const isNeedToAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
 
   EButton sponsoredButton = EButton::BookingSearch;
@@ -237,7 +237,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     MWMActionBarButton * button = view.subviews.firstObject;
     NSAssert(button, @"Subviews can't be empty!");
-    if (!button || button.type != EButton::Download)
+    if (!button || [button type] != EButton::Download)
       continue;
 
     return button.mapDownloadProgress;
@@ -304,15 +304,15 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   NSString * cancel = L(@"cancel");
   auto data = self.data;
-  BOOL const isTitleNotEmpty = data.title.length > 0;
-  NSString * title = isTitleNotEmpty ? data.title : data.subtitle;
-  NSString * subtitle = isTitleNotEmpty ? data.subtitle : nil;
+  BOOL const isTitleNotEmpty = [data title].length > 0;
+  NSString * title = isTitleNotEmpty ? [data title] : [data subtitle];
+  NSString * subtitle = isTitleNotEmpty ? [data subtitle] : nil;
 
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {
-    BOOL const isSelected = buttonType == EButton::Bookmark ? data.isBookmark : NO;
+    BOOL const isSelected = buttonType == EButton::Bookmark ? [data isBookmark] : NO;
     if (NSString * title = titleForButton(buttonType, isSelected))
       [titles addObject:title];
     else

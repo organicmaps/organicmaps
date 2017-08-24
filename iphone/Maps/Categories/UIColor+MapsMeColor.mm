@@ -142,7 +142,7 @@ UIColor * color(SEL cmd)
 
 - (UIColor *)opposite
 {
-  NSString * key = [[(isNightMode ? day : night) allKeysForObject:self] firstObject];
+  NSString * key = [(isNightMode ? day : night) allKeysForObject:self].firstObject;
   return key == nil ? nil : (isNightMode ? night : day)[key];
 }
 

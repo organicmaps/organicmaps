@@ -70,8 +70,8 @@ using namespace osm_auth_ios;
 
   if (!isConnected)
   {
-    self.loginGoogleButton.layer.borderColor = [UIColor clearColor].CGColor;
-    self.loginFacebookButton.layer.borderColor = [UIColor clearColor].CGColor;
+    self.loginGoogleButton.layer.borderColor = UIColor.clearColor.CGColor;
+    self.loginFacebookButton.layer.borderColor = UIColor.clearColor.CGColor;
   }
 }
 

@@ -56,10 +56,10 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 - (void)setupColors
 {
   self.colors = [NSMutableDictionary dictionary];
-  UIColor * progressColor = [_spinnerBackgroundColor isEqual:[UIColor clearColor]]
-                                ? [UIColor whiteColor]
+  UIColor * progressColor = [_spinnerBackgroundColor isEqual:UIColor.clearColor]
+                                ? UIColor.whiteColor
                                 : [UIColor linkBlue];
-  UIColor * clearColor = [UIColor clearColor];
+  UIColor * clearColor = UIColor.clearColor;
   [self setSpinnerColoring:MWMImageColoringGray];
   [self setColor:clearColor forState:MWMCircularProgressStateNormal];
   [self setColor:clearColor forState:MWMCircularProgressStateSelected];
@@ -227,7 +227,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
   switch (self.state)
   {
   case MWMCircularProgressStateProgress: return [UIColor pressBackground];
-  default: return [UIColor clearColor];
+  default: return UIColor.clearColor;
   }
 }
 

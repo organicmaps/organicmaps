@@ -50,7 +50,8 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)layoutXPosition:(BOOL)hidden
 {
-  if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft)
+  if (UIApplication.sharedApplication.userInterfaceLayoutDirection ==
+      UIUserInterfaceLayoutDirectionRightToLeft)
   {
     if (hidden)
       self.maxX = 0;

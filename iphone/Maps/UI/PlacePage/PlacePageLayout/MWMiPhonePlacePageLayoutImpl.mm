@@ -60,8 +60,8 @@ CGFloat const kMinOffset = 1;
     _placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
-    self.scrollView =
-        [[MWMPPScrollView alloc] initWithFrame:ownerView.frame inactiveView:placePageView];
+    [self setScrollView:[[MWMPPScrollView alloc] initWithFrame:ownerView.frame
+                                                  inactiveView:placePageView]];
     placePageView.frame = {{0, size.height}, size};
   }
   return self;

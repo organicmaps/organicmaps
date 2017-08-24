@@ -43,7 +43,7 @@ static Tcolor const g_color [] =
                             UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
 
     UILabel * header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, customWidth, HEADERHEIGHT)];
-    header.backgroundColor = [UIColor clearColor];
+    header.backgroundColor = UIColor.clearColor;
     header.text = L(@"bookmark_color");
     header.font = [UIFont fontWithName:@"Helvetica" size:20];
     header.textAlignment = NSTextAlignmentCenter;

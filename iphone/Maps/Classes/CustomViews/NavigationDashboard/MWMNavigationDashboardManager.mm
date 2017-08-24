@@ -87,7 +87,7 @@ using Observers = NSHashTable<Observer>;
 {
   NSString * title = nil;
   if ([MWMRouter isTaxi])
-    title = self.taxiDataSource.isTaxiInstalled ? L(@"taxi_order") : L(@"install_app");
+    title = [self.taxiDataSource isTaxiInstalled] ? L(@"taxi_order") : L(@"install_app");
   else
     title = L(@"p2p_start");
 
@@ -271,12 +271,12 @@ using Observers = NSHashTable<Observer>;
 
 + (void)addObserver:(id<MWMNavigationDashboardObserver>)observer
 {
-  [[MWMNavigationDashboardManager manager].observers addObject:observer];
+  [[self manager].observers addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer
 {
-  [[MWMNavigationDashboardManager manager].observers removeObject:observer];
+  [[self manager].observers removeObject:observer];
 }
 
 #pragma mark - MWMNavigationDashboardObserver
@@ -300,7 +300,7 @@ using Observers = NSHashTable<Observer>;
 
 + (void)updateNavigationInfoAvailableArea:(CGRect)frame
 {
-  [[MWMNavigationDashboardManager manager] updateNavigationInfoAvailableArea:frame];
+  [[self manager] updateNavigationInfoAvailableArea:frame];
 }
 
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame { _navigationInfoView.frame = frame; }
@@ -311,8 +311,8 @@ using Observers = NSHashTable<Observer>;
   if (!_etaAttributes)
   {
     _etaAttributes = @{
-      NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-      NSFontAttributeName : UIFont.medium17
+      NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+      NSFontAttributeName : [UIFont medium17]
     };
   }
   return _etaAttributes;

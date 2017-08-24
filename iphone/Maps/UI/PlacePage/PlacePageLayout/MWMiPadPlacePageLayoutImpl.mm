@@ -32,7 +32,7 @@ CGFloat const kBottomOffset = 36;
   {
     _ownerView = ownerView;
     _availableArea = ownerView.frame;
-    self.placePageView = placePageView;
+    [self setPlacePageView:placePageView];
     placePageView.tableView.delegate = self;
     _delegate = delegate;
     [self addShadow];

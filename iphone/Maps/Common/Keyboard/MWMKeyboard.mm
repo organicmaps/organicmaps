@@ -32,7 +32,7 @@ using Observers = NSHashTable<Observer>;
   if (self)
   {
     _observers = [Observers weakObjectsHashTable];
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
     [nc addObserver:self
            selector:@selector(keyboardWillShow:)
                name:UIKeyboardWillShowNotification
@@ -46,7 +46,7 @@ using Observers = NSHashTable<Observer>;
   return self;
 }
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 + (CGFloat)keyboardHeight { return [self manager].keyboardHeight; }
 #pragma mark - Add/Remove Observers
 

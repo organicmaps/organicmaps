@@ -62,7 +62,7 @@ CGFloat const kErrorLabelDefaultTopSpace = 4.;
           attributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]}];
   self.errorLabel.text = errorMessage;
   self.textField.keyboardType = keyboardType;
-  self.textField.backgroundColor = [UIColor clearColor];
+  self.textField.backgroundColor = UIColor.clearColor;
   self.isValid = isValid;
   self.textField.autocapitalizationType = capitalization;
   [self processValidation];

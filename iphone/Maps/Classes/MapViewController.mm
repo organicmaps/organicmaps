@@ -217,8 +217,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - ViewController lifecycle
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
-
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -238,9 +237,9 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:UIDeviceOrientationDidChangeNotification
-                                                object:nil];
+  [NSNotificationCenter.defaultCenter removeObserver:self
+                                                name:UIDeviceOrientationDidChangeNotification
+                                              object:nil];
 
   if (![MWMRouter isRoutingActive])
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
@@ -298,7 +297,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)showViralAlertIfNeeded
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
 
   using namespace osm_auth_ios;
   if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDViralAlertWasShown] ||
@@ -382,7 +381,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   using namespace osm_auth_ios;
 
-  auto const & featureID = self.controlsManager.featureHolder.featureId;
+  auto const & featureID = [self.controlsManager.featureHolder featureId];
 
   [Statistics logEvent:kStatEditorEditStart
         withParameters:@{

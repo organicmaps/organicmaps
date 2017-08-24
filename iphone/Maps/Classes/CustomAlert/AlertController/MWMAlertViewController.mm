@@ -33,7 +33,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   self = [super initWithNibName:kAlertControllerNibIdentifier bundle:nil];
   if (self)
-    self.ownerViewController = viewController;
+    _ownerViewController = viewController;
   return self;
 }
 
@@ -49,7 +49,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentRateAlert { [self displayAlert:MWMAlert.rateAlert]; }
+- (void)presentRateAlert { [self displayAlert:[MWMAlert rateAlert]]; }
 - (void)presentLocationAlert
 {
   if (![MapViewController controller].welcomePageController)
@@ -61,10 +61,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
-- (void)presentFacebookAlert { [self displayAlert:MWMAlert.facebookAlert]; }
+- (void)presentFacebookAlert { [self displayAlert:[MWMAlert facebookAlert]]; }
 - (void)presentLocationServiceNotSupportedAlert
 {
-  [self displayAlert:MWMAlert.locationServiceNotSupportedAlert];
+  [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];
 }
 
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
@@ -120,7 +120,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
 }
 
-- (void)presentDisabledLocationAlert { [self displayAlert:MWMAlert.disabledLocationAlert]; }
+- (void)presentDisabledLocationAlert { [self displayAlert:[MWMAlert disabledLocationAlert]]; }
 - (void)presentAlert:(routing::IRouter::ResultCode)type
 {
   [self displayAlert:[MWMAlert alert:type]];
@@ -244,7 +244,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                      alert.alpha = 1.;
                      alert.transform = CGAffineTransformIdentity;
                    }];
-  [MapsAppDelegate.theApp.window endEditing:YES];
+  [[MapsAppDelegate theApp].window endEditing:YES];
 }
 
 - (void)closeAlert:(nullable MWMVoidBlock)completion

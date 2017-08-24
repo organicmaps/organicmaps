@@ -64,7 +64,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
     self.selectedButtonTag = 1;
   else
     self.selectedButtonTag =
-        [[NSUserDefaults standardUserDefaults] integerForKey:kSelectedButtonTagKey];
+        [NSUserDefaults.standardUserDefaults integerForKey:kSelectedButtonTagKey];
 }
 
 - (void)resetCategories { [self.categoriesManager resetCategories]; }
@@ -210,7 +210,7 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
       }];
   _selectedButton = selectedButton;
   selectedButton.selected = YES;
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setInteger:selectedButton.tag forKey:kSelectedButtonTagKey];
   [ud synchronize];
 }

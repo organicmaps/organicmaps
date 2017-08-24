@@ -54,9 +54,10 @@ NSArray<NSString *> * arrayFromClosedTimes(TTimespans const & closedTimes)
 
 WeekDayView getWeekDayView()
 {
-  return [[[NSBundle mainBundle] loadNibNamed:@"MWMPlacePageOpeningHoursWeekDayView"
-                                        owner:nil
-                                      options:nil] firstObject];
+  return [NSBundle.mainBundle loadNibNamed:@"MWMPlacePageOpeningHoursWeekDayView"
+                                     owner:nil
+                                   options:nil]
+      .firstObject;
 }
 
 @implementation MWMPlacePageOpeningHoursCell
@@ -100,8 +101,8 @@ WeekDayView getWeekDayView()
 
 - (void)processSchedule
 {
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
+  NSCalendar * cal = NSCalendar.currentCalendar;
+  cal.locale = NSLocale.currentLocale;
   Weekday currentDay =
       static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   BOOL haveCurrentDay = NO;

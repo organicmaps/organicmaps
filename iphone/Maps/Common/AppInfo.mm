@@ -124,14 +124,14 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
     if ([carrier.isoCountryCode length])  // if device can access sim card info
       _countryCode = [carrier.isoCountryCode uppercaseString];
     else  // else, getting system country code
-      _countryCode = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] uppercaseString];
+      _countryCode = [[NSLocale.currentLocale objectForKey:NSLocaleCountryCode] uppercaseString];
 
     std::string codeString;
     if (settings::Get(kCountryCodeKey, codeString))  // if country code stored in settings
     {
       if (carrier.isoCountryCode)  // if device can access sim card info
         settings::Set(kCountryCodeKey,
-                      std::string([_countryCode UTF8String]));  // then save new code instead
+                      std::string(_countryCode.UTF8String));  // then save new code instead
       else
         _countryCode =
             @(codeString.c_str());  // if device can NOT access sim card info then using saved code
@@ -140,7 +140,7 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
     {
       if (_countryCode)
         settings::Set(kCountryCodeKey,
-                      std::string([_countryCode UTF8String]));  // saving code first time
+                      std::string(_countryCode.UTF8String));  // saving code first time
       else
         _countryCode = @"";
     }
@@ -159,9 +159,9 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
     }
     else  // if id not stored in settings
     {
-      _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+      _uniqueId = [UIDevice.currentDevice.identifierForVendor UUIDString];
       if (_uniqueId)  // then saving in settings
-        settings::Set(kUniqueIdKey, std::string([_uniqueId UTF8String]));
+        settings::Set(kUniqueIdKey, std::string(_uniqueId.UTF8String));
     }
   }
   return _uniqueId;
@@ -170,14 +170,14 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
 - (NSString *)bundleVersion
 {
   if (!_bundleVersion)
-    _bundleVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    _bundleVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
   return _bundleVersion;
 }
 
 - (NSString *)buildNumber
 {
   if (!_buildNumber)
-    _buildNumber = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
+    _buildNumber = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
   return _buildNumber;
 }
 
@@ -194,7 +194,7 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
 
 - (NSString *)languageId
 {
-  NSArray * languages = [NSLocale preferredLanguages];
+  NSArray * languages = NSLocale.preferredLanguages;
   return languages.count == 0 ? nil : languages[0];
 }
 
@@ -264,7 +264,7 @@ NSDictionary * const kDeviceNamesWithMetalDriver = @{
   if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone)
     return NO;
   NSURL * telURL = [NSURL URLWithString:@"tel://"];
-  if (![[UIApplication sharedApplication] canOpenURL:telURL])
+  if (![UIApplication.sharedApplication canOpenURL:telURL])
     return NO;
   NSString * networkCode =
       [[CTTelephonyNetworkInfo alloc] init].subscriberCellularProvider.mobileNetworkCode;

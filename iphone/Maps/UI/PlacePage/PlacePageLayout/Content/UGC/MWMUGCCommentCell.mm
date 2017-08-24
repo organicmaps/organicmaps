@@ -14,7 +14,7 @@ NSString * formattedDateFrom(ugc::Time time)
   NSTimeInterval const t = duration_cast<seconds>(time.time_since_epoch()).count();
 
   NSDate * date = [NSDate dateWithTimeIntervalSince1970:t];
-  NSCalendar * calendar = [NSCalendar currentCalendar];
+  NSCalendar * calendar = NSCalendar.currentCalendar;
   auto const mask = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitWeekOfMonth |
                 NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute);
   NSDateComponents * components = [calendar components:mask fromDate:date];

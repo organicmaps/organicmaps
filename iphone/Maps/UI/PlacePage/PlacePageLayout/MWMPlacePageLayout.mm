@@ -78,7 +78,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     _ownerView = view;
     _delegate = delegate;
     _dataSource = dataSource;
-    [[NSBundle mainBundle] loadNibNamed:[MWMPPView className] owner:self options:nil];
+    [NSBundle.mainBundle loadNibNamed:[MWMPPView className] owner:self options:nil];
     _placePageView.delegate = self;
 
     auto tableView = _placePageView.tableView;

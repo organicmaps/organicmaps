@@ -27,7 +27,7 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes)
     [breaks appendString:[NSString stringWithFormat:@"%@ %@", L(@"editor_hours_closed"),
                                                               stringFromTimeSpan(closedTimes[i])]];
   }
-  return breaks.copy;
+  return [breaks copy];
 }
 
 void addToday(ui::TimeTable const & tt, vector<Day> & allDays)
@@ -94,8 +94,8 @@ void addUnhandledDays(ui::TOpeningDays const & days, vector<Day> & allDays)
 
   vector<Day> days;
 
-  NSCalendar * cal = [NSCalendar currentCalendar];
-  cal.locale = [NSLocale currentLocale];
+  NSCalendar * cal = NSCalendar.currentCalendar;
+  cal.locale = NSLocale.currentLocale;
 
   auto const timeTablesSize = timeTableSet.Size();
   auto const today =

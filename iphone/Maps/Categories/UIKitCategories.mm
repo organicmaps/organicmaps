@@ -279,7 +279,7 @@
 
 @implementation UINavigationController (Autorotate)
 
-- (BOOL)shouldAutorotate { return [[self.viewControllers lastObject] shouldAutorotate]; }
+- (BOOL)shouldAutorotate { return [self.viewControllers.lastObject shouldAutorotate]; }
 @end
 
 @implementation UIViewController (Autorotate)
@@ -331,7 +331,7 @@
 
   if (isIOS8)
   {
-    auto app = [UIApplication sharedApplication];
+    auto app = UIApplication.sharedApplication;
     if ([app canOpenURL:url])
       [app openURL:url];
     return;

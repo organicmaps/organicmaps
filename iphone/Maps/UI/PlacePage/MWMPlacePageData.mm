@@ -442,7 +442,7 @@ using namespace place_page;
   m_ugcRows.push_back(UGCRow::SelectImpression);
 
   auto & f = GetFramework();
-  f.GetUGCApi().GetUGC(self.featureId, [self](ugc::UGC const & ugc) {
+  f.GetUGCApi().GetUGC([self featureId], [self](ugc::UGC const & ugc) {
     auto const it = find(self->m_sections.begin(), self->m_sections.end(), Sections::UGC);
     ASSERT(it != self->m_sections.end(), ());
 
@@ -768,7 +768,7 @@ using namespace place_page;
   case MetainfoRows::Coordinate:
     return @(m_info
                  .GetFormattedCoordinate(
-                     [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey])
+                     [NSUserDefaults.standardUserDefaults boolForKey:kUserDefaultsLatLonAsDMSKey])
                  .c_str());
   }
 }
@@ -794,7 +794,7 @@ using namespace place_page;
 + (void)toggleCoordinateSystem
 {
   // TODO: Move changing latlon's mode to the settings.
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:![ud boolForKey:kUserDefaultsLatLonAsDMSKey] forKey:kUserDefaultsLatLonAsDMSKey];
   [ud synchronize];
 }

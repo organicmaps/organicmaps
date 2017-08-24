@@ -1,4 +1,5 @@
 #import <AVFoundation/AVFoundation.h>
+#import <Crashlytics/Crashlytics.h>
 #import "MWMCommon.h"
 #import "MWMRouter.h"
 #import "MWMTextToSpeech+CPP.h"
@@ -23,7 +24,7 @@ std::vector<std::pair<string, string>> availableLanguages()
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
   std::vector<std::pair<string, string>> native;
   for (AVSpeechSynthesisVoice * v in voices)
-    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), [v.language UTF8String]));
+    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), v.language.UTF8String));
 
   using namespace routing::turns::sound;
   std::vector<std::pair<string, string>> result;
@@ -74,8 +75,9 @@ using Observers = NSHashTable<Observer>;
 
 + (void)applicationDidBecomeActive
 {
-  [MWMTextToSpeech tts].speechSynthesizer = nil;
-  [MWMTextToSpeech tts].speechVoice = nil;
+  auto tts = [self tts];
+  tts.speechSynthesizer = nil;
+  tts.speechVoice = nil;
 }
 
 - (instancetype)initTTS
@@ -94,7 +96,7 @@ using Observers = NSHashTable<Observer>;
       preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
     std::pair<string, string> const lan =
-        make_pair([preferedLanguageBcp47 UTF8String],
+        make_pair(preferedLanguageBcp47.UTF8String,
                   tts::translatedTwine(bcp47ToTwineLanguage(preferedLanguageBcp47)));
 
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) !=
@@ -131,25 +133,25 @@ using Observers = NSHashTable<Observer>;
 {
   [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
         withParameters:@{kStatValue : locale}];
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
   [ud synchronize];
   [self createVoice:locale];
 }
 
 - (BOOL)isValid { return _speechSynthesizer != nil && _speechVoice != nil; }
-+ (BOOL)isTTSEnabled { return [[NSUserDefaults standardUserDefaults] boolForKey:kIsTTSEnabled]; }
++ (BOOL)isTTSEnabled { return [NSUserDefaults.standardUserDefaults boolForKey:kIsTTSEnabled]; }
 + (void)setTTSEnabled:(BOOL)enabled
 {
   if ([self isTTSEnabled] == enabled)
     return;
+  auto tts = [self tts];
   if (!enabled)
-    [[self tts] setActive:NO];
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+    [tts setActive:NO];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:enabled forKey:kIsTTSEnabled];
   [ud synchronize];
 
-  auto tts = [MWMTextToSpeech tts];
   [tts onTTSStatusUpdated];
   if (enabled)
     [tts setActive:YES];
@@ -160,7 +162,7 @@ using Observers = NSHashTable<Observer>;
   if (![[self class] isTTSEnabled] || self.active == active)
     return;
   if (active && ![self isValid])
-    [self createVoice:[MWMTextToSpeech savedLanguage]];
+    [self createVoice:[[self class] savedLanguage]];
   [self setAudioSessionActive:active];
   [MWMRouter enableTurnNotifications:active];
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -171,7 +173,7 @@ using Observers = NSHashTable<Observer>;
 - (BOOL)active { return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled]; }
 + (NSString *)savedLanguage
 {
-  return [[NSUserDefaults standardUserDefaults] stringForKey:kUserDefaultsTTSLanguageBcp47];
+  return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
 - (void)createVoice:(NSString *)locale
@@ -228,7 +230,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)speakOneString:(NSString *)textToSpeak
 {
-  NSLog(@"Speak text: %@", textToSpeak);
+  CLS_LOG(@"Speak text: %@", textToSpeak);
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
   utterance.voice = self.speechVoice;
   utterance.rate = self.speechRate;
@@ -241,7 +243,7 @@ using Observers = NSHashTable<Observer>;
     return;
 
   if (self.active && ![self isValid])
-    [self createVoice:[MWMTextToSpeech savedLanguage]];
+    [self createVoice:[[self class] savedLanguage]];
 
   if (!self.active || ![self isValid])
     return;
@@ -277,12 +279,12 @@ using Observers = NSHashTable<Observer>;
 
 + (void)addObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[MWMTextToSpeech tts].observers addObject:observer];
+  [[self tts].observers addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMTextToSpeechObserver>)observer
 {
-  [[MWMTextToSpeech tts].observers removeObject:observer];
+  [[self tts].observers removeObject:observer];
 }
 
 @end
