@@ -1,6 +1,4 @@
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MWMConsts.h"
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {

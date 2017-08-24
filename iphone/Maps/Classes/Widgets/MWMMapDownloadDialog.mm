@@ -4,7 +4,6 @@
 #import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
-#import "MWMConsts.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationManager.h"

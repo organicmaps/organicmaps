@@ -1,5 +1,3 @@
-#import "MWMTypes.h"
-
 @interface MWMFrameworkHelper : NSObject
 
 + (void)processFirstLaunch;

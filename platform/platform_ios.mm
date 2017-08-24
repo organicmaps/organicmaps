@@ -24,15 +24,6 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#import <Foundation/NSAutoreleasePool.h>
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSPathUtilities.h>
-#import <Foundation/NSProcessInfo.h>
-
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UIScreenMode.h>
-
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
