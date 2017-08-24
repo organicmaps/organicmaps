@@ -6,8 +6,4 @@
 //  Copyright © 2016 Mail.ru. All rights reserved.
 //
 
-typedef enum
-{
-	MTRGNavigationTypeWeb,
-	MTRGNavigationTypeStore
-} MTRGNavigationType;
+typedef enum { MTRGNavigationTypeWeb, MTRGNavigationTypeStore } MTRGNavigationType;
