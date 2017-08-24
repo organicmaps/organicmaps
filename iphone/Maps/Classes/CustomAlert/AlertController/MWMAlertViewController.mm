@@ -87,7 +87,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentIncorrectFeauturePositionAlert
 {
-  [self displayAlert:[MWMAlert incorrectFeauturePositionAlert]];
+  [self displayAlert:[MWMAlert incorrectFeaturePositionAlert]];
 }
 
 - (void)presentInternalErrorAlert { [self displayAlert:[MWMAlert internalErrorAlert]]; }

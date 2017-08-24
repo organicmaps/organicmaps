@@ -83,9 +83,9 @@
   }
 }
 
-+ (MWMAlert *)incorrectFeauturePositionAlert
++ (MWMAlert *)incorrectFeaturePositionAlert
 {
-  return [MWMDefaultAlert incorrectFeauturePositionAlert];
+  return [MWMDefaultAlert incorrectFeaturePositionAlert];
 }
 
 + (MWMAlert *)internalErrorAlert { return [MWMDefaultAlert internalErrorAlert]; }

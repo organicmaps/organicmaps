@@ -551,7 +551,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [[MapViewController controller] presentViewController:photoVC animated:YES completion:nil];
 }
 
-- (void)showGalery
+- (void)showGallery
 {
   auto data = self.data;
   if (!data)

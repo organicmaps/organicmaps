@@ -23,10 +23,10 @@
   self.icon.mwm_coloring = MWMImageColoringBlack;
   self.label.text = text;
   self.switchControl.on = on;
-  [self setTextColorWithSwithValue:on];
+  [self setTextColorWithSwitchValue:on];
 }
 
-- (void)setTextColorWithSwithValue:(BOOL)value
+- (void)setTextColorWithSwitchValue:(BOOL)value
 {
   self.label.textColor = value ? [UIColor blackPrimaryText] : [UIColor blackHintText];
 }
@@ -35,7 +35,7 @@
 {
   BOOL const value = self.switchControl.on;
   [self.delegate cell:self changeSwitch:value];
-  [self setTextColorWithSwithValue:value];
+  [self setTextColorWithSwitchValue:value];
 }
 
 @end

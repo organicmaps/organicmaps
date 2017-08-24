@@ -16,7 +16,7 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
                          referenceView:(nullable UIView *)referenceView
     referenceViewWhenDismissingHandler:
         (nonnull MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
-- (void)showGalery;
+- (void)showGallery;
 
 - (void)openLocalAdsURL;
 - (void)reviewOn:(NSInteger)starNumber;
