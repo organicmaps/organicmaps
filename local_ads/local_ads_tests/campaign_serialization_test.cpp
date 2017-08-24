@@ -23,7 +23,7 @@ std::vector<Campaign> GenerateCampaignsV1(size_t number)
 {
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::uniform_int_distribution<> featureIds(1, Limits<uint32_t>::max());
+  std::uniform_int_distribution<uint32_t> featureIds(1, Limits<uint32_t>::max());
   std::uniform_int_distribution<> icons(1, Limits<uint16_t>::max());
   std::uniform_int_distribution<> expirationDays(1, Limits<uint8_t>::max());
 
@@ -42,7 +42,7 @@ std::vector<Campaign> GenerateCampaignsV2(size_t number)
 {
   int kSeed = 42;
   std::mt19937 gen(kSeed);
-  std::uniform_int_distribution<> featureIds(1, Limits<uint32_t>::max());
+  std::uniform_int_distribution<uint32_t> featureIds(1, Limits<uint32_t>::max());
   std::uniform_int_distribution<> icons(1, Limits<uint16_t>::max());
   std::uniform_int_distribution<> expirationDays(1, Limits<uint8_t>::max());
   std::uniform_int_distribution<> zoomLevels(10, 17);
