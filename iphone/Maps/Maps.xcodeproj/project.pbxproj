@@ -345,9 +345,6 @@
 		34763EF21F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EF11F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm */; };
 		34763EF31F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EF11F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm */; };
 		34763EF41F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EF11F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm */; };
-		34763EFA1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */; };
-		34763EFB1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */; };
-		34763EFC1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */; };
 		34763EFE1F3069BB00F4D2D3 /* RouteStartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34763EFD1F3069BB00F4D2D3 /* RouteStartButton.swift */; };
 		34763EFF1F3069BB00F4D2D3 /* RouteStartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34763EFD1F3069BB00F4D2D3 /* RouteStartButton.swift */; };
 		34763F001F3069BB00F4D2D3 /* RouteStartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34763EFD1F3069BB00F4D2D3 /* RouteStartButton.swift */; };
@@ -1962,7 +1959,6 @@
 		34763EEC1F2F5F2E00F4D2D3 /* MWMiPhoneRoutePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMiPhoneRoutePreview.xib; sourceTree = "<group>"; };
 		34763EF01F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMiPhoneRoutePreview.h; sourceTree = "<group>"; };
 		34763EF11F2F5F6400F4D2D3 /* MWMiPhoneRoutePreview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMiPhoneRoutePreview.mm; sourceTree = "<group>"; };
-		34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationRoutePreviewStatusView.xib; sourceTree = "<group>"; };
 		34763EFD1F3069BB00F4D2D3 /* RouteStartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteStartButton.swift; sourceTree = "<group>"; };
 		34763F011F30749000F4D2D3 /* RoutePreviewStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePreviewStatus.swift; sourceTree = "<group>"; };
 		34763F051F3092E700F4D2D3 /* String+Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Format.swift"; sourceTree = "<group>"; };
@@ -3174,7 +3170,6 @@
 				3407084B1F28EDD100029ECC /* MWMTaxiCollectionLayout.mm */,
 				340708471F28EDD100029ECC /* MWMTaxiPreviewDataSource.h */,
 				340708481F28EDD100029ECC /* MWMTaxiPreviewDataSource.mm */,
-				34763EF91F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib */,
 				34763F011F30749000F4D2D3 /* RoutePreviewStatus.swift */,
 				340708491F28EDD100029ECC /* RoutePreviewTaxiCell.swift */,
 				3407086C1F2B427400029ECC /* RoutePreviewTaxiCell.xib */,
@@ -5011,7 +5006,6 @@
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				671182E21C7F0DD400CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				4519503A1B7A3E070085DA05 /* patterns.txt in Resources */,
-				34763EFA1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */,
 				4A23D15C1B8B4DD700D4EB6F /* resources-6plus_clear in Resources */,
 				4A7D89C51B2EBF3B00AC843E /* resources-6plus_dark in Resources */,
 				A367C93B1B17334800E2B6E7 /* resources-default in Resources */,
@@ -5195,7 +5189,6 @@
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
-				34763EFB1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */,
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
@@ -5379,7 +5372,6 @@
 				849CF6411DE842290024A8A5 /* packed_polygons.bin in Resources */,
 				849CF5F51DE842290024A8A5 /* packed_polygons_obsolete.bin in Resources */,
 				849CF5E61DE842290024A8A5 /* patterns.txt in Resources */,
-				34763EFC1F2F74B200F4D2D3 /* NavigationRoutePreviewStatusView.xib in Resources */,
 				849CF5F61DE842290024A8A5 /* resources-6plus_clear in Resources */,
 				849CF63F1DE842290024A8A5 /* resources-6plus_dark in Resources */,
 				849CF6141DE842290024A8A5 /* resources-default in Resources */,
