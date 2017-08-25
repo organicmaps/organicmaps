@@ -35,7 +35,7 @@ UNIT_TEST(KMZ_UnzipTest)
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
   ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
 
-  Framework framework;
+  Framework framework(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
   BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(make_unique<FileReader>(kmlFile)), ());
 

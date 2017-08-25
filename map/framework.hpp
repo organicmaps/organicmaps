@@ -110,7 +110,14 @@ class Engine;
 
 struct FrameworkParams
 {
-  bool m_disableLocalAds = false;
+  bool m_enableLocalAds = true;
+  bool m_enableDiffs = true;
+
+  FrameworkParams() = default;
+  FrameworkParams(bool enableLocalAds, bool enableDiffs)
+    : m_enableLocalAds(enableLocalAds)
+    , m_enableDiffs(enableDiffs)
+  {}
 };
 
 class Framework : public search::ViewportSearchCallback::Delegate,
@@ -174,6 +181,7 @@ protected:
 
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
+  bool m_enabledDiffs;
 
   location::TMyPositionModeChanged m_myPositionListener;
 

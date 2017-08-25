@@ -280,7 +280,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     }
     else if (result == ChunksDownloadStrategy::ENoFreeServers)
     {
-      // There is no any server which is able to re-download chunk.
+      // There is no server which is able to re-download chunk.
       m_status = EFailed;
     }
 

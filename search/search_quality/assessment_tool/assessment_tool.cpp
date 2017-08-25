@@ -31,7 +31,7 @@ int main(int argc, char ** argv)
   QApplication app(argc, argv);
 
   FrameworkParams params;
-  params.m_disableLocalAds = true;
+  params.m_enableLocalAds = false;
 
   Framework framework(params);
   MainView view(framework);

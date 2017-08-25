@@ -405,6 +405,7 @@ Framework::Framework(FrameworkParams const & params)
       m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
+  , m_enabledDiffs(params.m_enableDiffs)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
@@ -468,7 +469,7 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Storage initialized"));
 
   // Local ads manager should be initialized after storage initialization.
-  if (!params.m_disableLocalAds)
+  if (params.m_enableLocalAds)
   {
     m_localAdsManager.SetBookmarkManager(&m_bmManager);
     m_localAdsManager.Startup();
@@ -655,7 +656,7 @@ void Framework::RegisterAllMaps()
          ("Registering maps while map downloading leads to removing downloading maps from "
           "ActiveMapsListener::m_items."));
 
-  m_storage.RegisterAllLocalMaps(true /* enableDiffs */);
+  m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
   // Fast migrate in case there are no downloaded MWM.
   if (platform::migrate::NeedMigrate())

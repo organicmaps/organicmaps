@@ -20,11 +20,13 @@
 using namespace platform;
 using namespace storage;
 
+static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
+
 UNIT_TEST(StorageFastMigrationTests)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  Framework f;
+  Framework f(kFrameworkParams);
   auto & s = f.GetStorage();
 
   uint32_t version;
@@ -43,7 +45,7 @@ UNIT_TEST(StorageMigrationTests)
 
   settings::Set("DisableFastMigrate", true);
 
-  Framework f;
+  Framework f(kFrameworkParams);
   auto & s = f.GetStorage();
 
   auto statePrefetchChanged = [&](TCountryId const & id)
