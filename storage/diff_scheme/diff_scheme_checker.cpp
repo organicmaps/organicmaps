@@ -112,7 +112,7 @@ namespace diffs
 NameFileInfoMap Checker::Check(LocalMapsInfo const & info)
 {
   if (info.m_localMaps.empty())
-    return {};
+    return NameFileInfoMap();
 
   platform::HttpClient request(DIFF_LIST_URL);
   string const body = SerializeCheckerData(info);

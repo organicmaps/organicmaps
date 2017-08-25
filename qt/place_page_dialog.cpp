@@ -146,6 +146,10 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       k = "Building Levels";
       v = info.GetBuildingLevels();
       break;
+    case osm::Props::Level:
+      k = "Level";
+      v = info.GetLevel();
+      break;
     }
     grid->addWidget(new QLabel(k), row, 0);
     QLabel * label = new QLabel(QString::fromStdString(v));
