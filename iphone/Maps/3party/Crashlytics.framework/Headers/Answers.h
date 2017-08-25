@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  This class exposes the Answers Events API, allowing you to track key
+ *  This class exposes the Answers Events API, allowing you to track key 
  *  user user actions and metrics in your app.
  */
 @interface Answers : NSObject
