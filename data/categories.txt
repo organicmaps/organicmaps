@@ -8284,7 +8284,7 @@ zh-Hans:^取水点
 zh-Hant:^飲水站
 
 emergency-defibrillator
-en:^Defibrillator
+en:^Defibrillator|AED
 ru:^Дефибриллятор
 ar:^مزيل الرجفان
 cs:^Defibrilátor
