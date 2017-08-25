@@ -197,6 +197,7 @@ protected:
     bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
     bool const processAssociatedStreet = type == "associatedStreet" &&
         TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
+    bool const isHighway = TBase::IsKeyTagExists("highway");
 
     for (auto const & p : e.tags)
     {
@@ -216,6 +217,10 @@ protected:
         continue;
 
       if (p.first == "place")
+        continue;
+
+      // Do not pass "ref" tags from boundaries and other, non-route relations to highways.
+      if (p.first == "ref" && isHighway)
         continue;
 
       TBase::AddCustomTag(p);
