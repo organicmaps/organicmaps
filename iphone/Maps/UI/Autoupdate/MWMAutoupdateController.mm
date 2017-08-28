@@ -110,6 +110,9 @@ enum class State
 @end
 
 @interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
+{
+  std::unordered_set<TCountryId> m_updatingCountries;
+}
 
 @property(nonatomic) Framework::DoAfterUpdate todo;
 @property(nonatomic) TMwmSize sizeInMB;
@@ -120,7 +123,6 @@ enum class State
 
 @implementation MWMAutoupdateController
 
-std::unordered_set<TCountryId> updatingCountries;
 
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
@@ -237,12 +239,12 @@ std::unordered_set<TCountryId> updatingCountries;
     switch (nodeStatuses.m_status)
     {
     case NodeStatus::Error:
-    case NodeStatus::OnDisk: updatingCountries.erase(countryId); break;
-    default: updatingCountries.insert(countryId);
+    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId); break;
+    default: m_updatingCountries.insert(countryId);
     }
   }
   
-  if (self.progressFinished && updatingCountries.empty())
+  if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
 }
 
