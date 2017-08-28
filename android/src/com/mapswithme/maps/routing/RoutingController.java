@@ -519,12 +519,12 @@ public class RoutingController implements TaxiManager.TaxiListener
   public void addStop(@NonNull MapObject mapObject)
   {
     addRoutePoint(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, mapObject);
+    trackPointAdd(mapObject, RoutePointInfo.ROUTE_MARK_INTERMEDIATE, isPlanning(), isNavigating(),
+                  false);
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
     backToPlaningStateIfNavigating();
-    trackPointAdd(mapObject, RoutePointInfo.ROUTE_MARK_INTERMEDIATE, isPlanning(), isNavigating(),
-                  false);
   }
 
   public void removeStop(@NonNull MapObject mapObject)
@@ -535,11 +535,11 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     applyRemovingIntermediatePointsTransaction();
     Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
+    trackPointRemove(mapObject, info.mMarkType, isPlanning(), isNavigating(), false);
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
     backToPlaningStateIfNavigating();
-    trackPointRemove(mapObject, info.mMarkType, isPlanning(), isNavigating(), false);
   }
 
   private void backToPlaningStateIfNavigating()
