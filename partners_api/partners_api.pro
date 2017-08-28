@@ -15,6 +15,7 @@ SOURCES += \
     cian_api.cpp \
     facebook_ads.cpp \
     google_ads.cpp \
+    locals_api.cpp \
     mopub_ads.cpp \
     opentable_api.cpp \
     rb_ads.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     cian_api.hpp \
     facebook_ads.hpp \
     google_ads.hpp \
+    locals_api.hpp \
     mopub_ads.hpp \
     opentable_api.hpp \
     rb_ads.hpp \

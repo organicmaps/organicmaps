@@ -46,6 +46,12 @@ enum class LocalAdsStatus
   Customer
 };
 
+enum class LocalsStatus
+{
+  NotAvailable,
+  Available
+};
+
 class Info : public osm::MapObject
 {
 public:
@@ -149,6 +155,12 @@ public:
     return m_reachableByProviders;
   }
 
+  /// Local experts
+  void SetLocalsStatus(LocalsStatus status) { m_localsStatus = status; }
+  LocalsStatus GetLocalsStatus() const { return m_localsStatus; }
+  void SetLocalsPageUrl(std::string const & url) { m_localsUrl = url; }
+  std::string const & GetLocalsPageUrl() const { return m_localsUrl; }
+
   /// Local ads
   void SetLocalAdsStatus(LocalAdsStatus status) { m_localAdsStatus = status; }
   LocalAdsStatus GetLocalAdsStatus() const { return m_localAdsStatus; }
@@ -251,5 +263,9 @@ private:
 
   /// Booking
   std::string m_bookingSearchUrl;
+
+  /// Local experts
+  std::string m_localsUrl;
+  LocalsStatus m_localsStatus = LocalsStatus::NotAvailable;
 };
 }  // namespace place_page

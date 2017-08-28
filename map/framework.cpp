@@ -552,6 +552,15 @@ cian::Api * Framework::GetCianApi(platform::NetworkPolicy const & policy)
   return nullptr;
 }
 
+locals::Api * Framework::GetLocalsApi(platform::NetworkPolicy const & policy)
+{
+  ASSERT(m_localsApi, ());
+  if (policy.CanUse())
+    return m_localsApi.get();
+
+  return nullptr;
+}
+
 void Framework::ShowNode(storage::TCountryId const & countryId)
 {
   StopLocationFollow();
@@ -890,6 +899,8 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredUrl(cian::Api::GetMainPageUrl());
     info.SetPreviewIsExtended();
   }
+
+  FillLocalExperts(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
@@ -3422,4 +3433,17 @@ void Framework::InjectViator(place_page::Info & info)
         info.SetSponsoredDescriptionUrl(viator::Api::GetCityUrl(sponsoredId));
       },
       rect, scales::GetUpperScale(), mwmId);
+}
+
+void Framework::FillLocalExperts(FeatureType const & ft, place_page::Info & info) const
+{
+  if (GetDrawScale() > scales::GetUpperWorldScale() ||
+      !ftypes::IsCityChecker::Instance()(ft))
+  {
+    info.SetLocalsStatus(place_page::LocalsStatus::NotAvailable);
+    return;
+  }
+
+  info.SetLocalsStatus(place_page::LocalsStatus::Available);
+  info.SetLocalsPageUrl(locals::Api::GetLocalsPageUrl());
 }
