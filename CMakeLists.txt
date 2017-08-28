@@ -145,6 +145,7 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
     find_package(Qt5Widgets REQUIRED)
     find_package(Qt5Xml REQUIRED)
     find_package(Qt5Svg REQUIRED)
+    find_package(Qt5WebEngineWidgets REQUIRED)
   endif()
 endif()
 
@@ -270,6 +271,13 @@ function(link_qt5_network target)
   omim_link_libraries(
     ${target}
     ${Qt5Network_LIBRARIES}
+  )
+endfunction()
+
+function(link_qt5_webengine target)
+  omim_link_libraries(
+    ${target}
+    ${Qt5WebEngineWidgets_LIBRARIES}
   )
 endfunction()
 

@@ -5,6 +5,7 @@
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_drawer_delegate_base.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/traffic_panel.hpp"
 #include "openlr/openlr_match_quality/openlr_assessment_tool/trafficmodeinitdlg.h"
+#include "openlr/openlr_match_quality/openlr_assessment_tool/web_view.hpp"
 
 #include "map/framework.hpp"
 
@@ -22,6 +23,7 @@
 
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QHBoxLayout>
 #include <QKeySequence>
 #include <QLayout>
 #include <QMenu>
@@ -231,14 +233,26 @@ private:
 };
 }  // namespace
 
-
-MainWindow::MainWindow(Framework & framework)
+MainWindow::MainWindow(Framework & framework, std::string const & url, std::string const & login,
+                       std::string const & paswd)
   : m_framework(framework)
 {
+
   m_mapWidget = new MapWidget(
       m_framework, false /* apiOpenGLES3 */, this /* parent */
   );
-  setCentralWidget(m_mapWidget);
+
+  m_webView = new WebView(url, login, paswd);
+
+  m_layout = new QHBoxLayout();
+  m_layout->addWidget(m_webView);
+  m_layout->addWidget(m_mapWidget);
+
+  auto * window = new QWidget();
+  window->setLayout(m_layout);
+  window->setGraphicsEffect(nullptr);
+
+  setCentralWidget(window);
 
   // setWindowTitle(tr("MAPS.ME"));
   // setWindowIcon(QIcon(":/ui/logo.png"));
@@ -302,6 +316,8 @@ void MainWindow::CreateTrafficPanel(string const & dataFilePath)
           m_trafficMode, &TrafficMode::OnClick);
   connect(m_trafficMode, &TrafficMode::EditingStopped,
           this, &MainWindow::OnPathEditingStop);
+  connect(m_trafficMode, &TrafficMode::SegmentSelected,
+          m_webView, &WebView::SetCurrentSegment);
 
   m_docWidget = new QDockWidget(tr("Routes"), this);
   addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, m_docWidget);

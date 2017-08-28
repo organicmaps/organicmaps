@@ -6,11 +6,30 @@
 
 #include <QApplication>
 
+namespace
+{
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");
+DEFINE_string(login, "", "Login string");
+DEFINE_string(paswd, "", "Password string");
+DEFINE_string(url, "", "Url to a partner map");
+
+bool ValidateStringFlag(char const * flagName, std::string const & val)
+{
+  if (!val.empty())
+    return true;
+
+  LOG(LERROR, (flagName, "cannot be empty. Please specify a proper", flagName));
+  return false;
+}
+}  // namespace
 
 int main(int argc, char * argv[])
 {
+  ::google::RegisterFlagValidator(&FLAGS_login, &ValidateStringFlag);
+  ::google::RegisterFlagValidator(&FLAGS_paswd, &ValidateStringFlag);
+  ::google::RegisterFlagValidator(&FLAGS_url, &ValidateStringFlag);
+
   google::SetUsageMessage("Visualize and check matched routes.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
@@ -27,7 +46,7 @@ int main(int argc, char * argv[])
   params.m_enableLocalAds = false;
 
   Framework framework(params);
-  MainWindow mainWindow(framework);
+  MainWindow mainWindow(framework, FLAGS_url, FLAGS_login, FLAGS_paswd);
 
   mainWindow.showMaximized();
 

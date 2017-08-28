@@ -27,6 +27,11 @@ public:
 
   void SetMode(Mode const mode) { m_mode = mode; }
 
+  QSize sizeHint() const override
+  {
+    return QSize(800, 600);
+  }
+
 signals:
   void TrafficMarkupClick(m2::PointD const & p, Qt::MouseButton const b);
 

@@ -227,17 +227,20 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
   CHECK_LESS(row, m_segments.size(), ());
   m_currentSegment = &m_segments[row];
 
-  auto const & partnerSegment = m_currentSegment->GetPartnerSegment().GetMercatorPoints();
-  auto const & viewportCenter = partnerSegment.front();
+  auto const & partnerSegment = m_currentSegment->GetPartnerSegment();
+  auto const & partnerSegmentPoints = partnerSegment.GetMercatorPoints();
+  auto const & viewportCenter = partnerSegmentPoints.front();
 
   m_drawerDelegate->ClearAllPaths();
   // TODO(mgsergio): Use a better way to set viewport and scale.
   m_drawerDelegate->SetViewportCenter(viewportCenter);
-  m_drawerDelegate->DrawEncodedSegment(partnerSegment);
+  m_drawerDelegate->DrawEncodedSegment(partnerSegmentPoints);
   if (!m_currentSegment->GetMatchedPath().empty())
     m_drawerDelegate->DrawDecodedSegments(GetPoints(m_currentSegment->GetMatchedPath()));
   if (!m_currentSegment->GetGoldenPath().empty())
     m_drawerDelegate->DrawGoldenPath(GetPoints(m_currentSegment->GetGoldenPath()));
+
+  emit SegmentSelected(static_cast<int>(partnerSegment.m_segmentId));
 }
 
 Qt::ItemFlags TrafficMode::flags(QModelIndex const & index) const

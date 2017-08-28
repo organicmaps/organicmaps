@@ -10,7 +10,9 @@
 
 class Framework;
 class MapWidget;
+class QHBoxLayout;
 class TrafficMode;
+class WebView;
 
 namespace df
 {
@@ -24,7 +26,8 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
 public:
-  MainWindow(Framework & framework);
+  MainWindow(Framework & framework, std::string const & url, std::string const & login,
+             std::string const & paswd);
 
 private:
   void CreateTrafficPanel(std::string const & dataFilePath);
@@ -48,4 +51,6 @@ private:
   QAction * m_ignorePathAction = nullptr;
 
   MapWidget * m_mapWidget = nullptr;
+  QHBoxLayout * m_layout = nullptr;
+  WebView * m_webView = nullptr;
 };

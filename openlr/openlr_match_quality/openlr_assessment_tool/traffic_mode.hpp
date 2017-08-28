@@ -104,6 +104,7 @@ public slots:
 
 signals:
   void EditingStopped();
+  void SegmentSelected(int segmentId);
 
 private:
   void HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button);
