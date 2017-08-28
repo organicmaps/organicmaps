@@ -475,8 +475,8 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     if (isDetailContentScrollable())
       translation = mDetailMaxHeight - mButtons.getHeight();
     else
-      translation = mContentHeight > mDetailMaxHeight ? mDetailMaxHeight : mContentHeight;
-
+      translation = mContentHeight > mDetailMaxHeight ? mDetailMaxHeight - mButtons.getHeight()
+                                                      : mContentHeight;
     mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
                                              mDetailsScroll.getHeight() - translation);
     mCurrentAnimator.addUpdateListener(new UpdateListener());
