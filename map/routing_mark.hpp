@@ -38,6 +38,7 @@ public:
 
   std::string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override { return Type::ROUTING; }
+  bool IsAvailableForSearch() const override { return !IsPassed(); }
 
   RouteMarkType GetRoutePointType() const { return m_markData.m_pointType; }
   void SetRoutePointType(RouteMarkType type);
