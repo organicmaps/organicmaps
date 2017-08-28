@@ -38,25 +38,12 @@
       android:layout_marginBottom="@dimen/margin_half_plus"
       android:orientation="horizontal"
       tools:ignore="ButtonStyle">
-
-      <ImageButton
-        android:id="@+id/login_google"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_marginEnd="@dimen/margin_half_plus"
-        android:layout_marginRight="@dimen/margin_half_plus"
-        android:layout_weight="1"
-        android:background="@drawable/button_editor_light"
-        android:src="@drawable/ic_login_google"/>
-
       <ImageButton
         android:id="@+id/login_facebook"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_weight="1"
         android:background="@drawable/com_facebook_button_background"
         android:src="@drawable/ic_login_fb"/>
-
     </LinearLayout>
 
     <Button
