@@ -3,6 +3,12 @@
 #import "MWMSearchManagerState.h"
 #import "MWMSearchTextField.h"
 
+typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
+  MWMSearchManagerRoutingTooltipSearchNone,
+  MWMSearchManagerRoutingTooltipSearchStart,
+  MWMSearchManagerRoutingTooltipSearchFinish
+};
+
 @interface MWMSearchManager : NSObject
 
 + (nonnull MWMSearchManager *)manager;
@@ -12,7 +18,7 @@
 @property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
-@property(nonatomic) BOOL isRoutingTooltipSearch;
+@property(nonatomic) MWMSearchManagerRoutingTooltipSearch routingTooltipSearch;
 
 @property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray * topViews;
 

@@ -190,23 +190,23 @@ using Observers = NSHashTable<Observer>;
 - (void)dismissKeyboard { [self.searchTextField resignFirstResponder]; }
 - (void)processSearchWithResult:(search::Result const &)result
 {
-  if (self.isRoutingTooltipSearch)
+  if (self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchNone)
   {
-    BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
+    [MWMSearch showResult:result];
+  }
+  else
+  {
+    BOOL const isStart = self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchStart;
     auto point = [[MWMRoutePoint alloc]
             initWithPoint:result.GetFeatureCenter()
                     title:@(result.GetString().c_str())
                  subtitle:@(result.GetAddress().c_str())
-                     type:hasFinish ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
+                     type:isStart ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
         intermediateIndex:0];
-    if (hasFinish)
+    if (isStart)
       [MWMRouter buildFromPoint:point bestRouter:NO];
     else
       [MWMRouter buildToPoint:point bestRouter:NO];
-  }
-  else
-  {
-    [MWMSearch showResult:result];
   }
   if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
     self.state = MWMSearchManagerStateHidden;
@@ -246,7 +246,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)changeToHiddenState
 {
-  self.isRoutingTooltipSearch = NO;
+  self.routingTooltipSearch = MWMSearchManagerRoutingTooltipSearchNone;
   [self endSearch];
   [self.tabbedController resetSelectedTab];
 

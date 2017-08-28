@@ -125,29 +125,31 @@ BOOL defaultOrientation(CGSize const & size)
 
   if (hasStart)
   {
-    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
+    [toastView configWithIsStart:NO withLocationButton:NO];
     return;
   }
 
   if (hasFinish)
   {
-    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:self.hasLocation];
+    [toastView configWithIsStart:YES withLocationButton:self.hasLocation];
     return;
   }
 
   if (self.hasLocation)
-    [toastView configWithText:L(@"routing_add_finish_point") withLocationButton:NO];
+    [toastView configWithIsStart:NO withLocationButton:NO];
   else
-    [toastView configWithText:L(@"routing_add_start_point") withLocationButton:NO];
+    [toastView configWithIsStart:YES withLocationButton:NO];
 }
 
 - (IBAction)openSearch
 {
-  BOOL const isStart = ([MWMRouter startPoint] == nil);
+  BOOL const isStart = self.toastView.isStart;
   auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
   [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType : type}];
   auto searchManager = [MWMSearchManager manager];
-  searchManager.isRoutingTooltipSearch = YES;
+
+  searchManager.routingTooltipSearch = isStart ? MWMSearchManagerRoutingTooltipSearchStart
+                                               : MWMSearchManagerRoutingTooltipSearchFinish;
   searchManager.state = MWMSearchManagerStateDefault;
 }
 
