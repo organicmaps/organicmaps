@@ -1141,4 +1141,14 @@
 	<string name="placepage_add_stop">Dodaj postój</string>
 	<string name="whatsnew_intermediate_point_title">Dodatkowy postój</string>
 	<string name="whatsnew_intermediate_point_message">Zaplanuj trasę z postojem.</string>
+	<string name="add_my_position">Dodaj moją pozycję</string>
+	<string name="choose_start_point">Wybierz punkty początkowy</string>
+	<string name="choose_destination">Wybierz punkt docelowy</string>
+	<string name="preloader_viator_title">Odkrywaj wycieczki i nietypowe aktywności</string>
+	<string name="preloader_viator_message">Turyści, aktywności, zwiedzanie i wiele innych</string>
+	<string name="preloader_viator_button">Dowiedz się więcej</string>
+	<string name="whats_new_title_route">Poprawione trasy rowerowe i piesze</string>
+	<string name="whats_new_message_route">Naprawione błędy, wielokrotnie szybsze budowanie tras, dodane postoje</string>
+	<string name="whats_new_message_title_update">Aktualizacje map 10-krotnie mniejsze</string>
+	<string name="whats_new_message_maps_update">Do zaktualizowania mapy wymagane jest jedynie pobranie brakujących danych</string>
 </resources>

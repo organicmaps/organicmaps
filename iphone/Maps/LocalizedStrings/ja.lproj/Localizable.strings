@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "自分の場所を追加";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "出発地点を選択";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "目的地を選択";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "旅行や通常ではないアクティビティを検知します";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "旅行、アクティビティ、観光など";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "詳細情報";
+
+"whats_new_title_route" = "自転車と歩行者用のルートが改良されました";
+
+"whats_new_message_route" = "エラーの修正を行い、ルート探索速度を数倍に改善し、中間停止地点を追加しました。";
+
+"whats_new_message_title_update" = "地図更新プログラムのサイズを 10 倍削減しました。";
+
+"whats_new_message_maps_update" = "地図を更新する際、不足しているデータのみをダウンロードするだけで良くなりました。";

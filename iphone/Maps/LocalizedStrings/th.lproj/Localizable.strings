@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "เพิ่มตำแหน่งของฉัน";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "เลือกจุดเริ่มต้น";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "เลือกปลายทาง";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "ค้นพบทัวร์และกิจกรรมที่แหวกแนว";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "ทัวร์ กิจกรรม การชมทิวทัศน์ และอื่น ๆ";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "เรียนรู้เพิ่มเติม";
+
+"whats_new_title_route" = "เส้นทางจักรยานและเส้นทางเดินเท้าได้รับการปรับปรุงยิ่งขึ้น";
+
+"whats_new_message_route" = "เราได้แก้ไขข้อผิดพลาด ทำให้การสร้างเส้นทางรวดเร็วขึ้นอีกหลายเท่า และเพิ่มจุดแวะพักระหว่างทาง";
+
+"whats_new_message_title_update" = "เราได้ทำให้การอัปเดตแผนที่เล็กลงอีก 10 เท่า";
+
+"whats_new_message_maps_update" = "ในการที่จะอัปเดตแผนที่ ตอนนี้คุณจำเป็นต้องดาวน์โหลดเพียงแค่ข้อมูลที่ขาดไปเท่านั้น";

@@ -1145,4 +1145,14 @@
 	<string name="placepage_add_stop">Přidat zastávku</string>
 	<string name="whatsnew_intermediate_point_title">Další zastávka</string>
 	<string name="whatsnew_intermediate_point_message">Naplánujte trasu s průjezdním bodem.</string>
+	<string name="add_my_position">Přidat moji polohu</string>
+	<string name="choose_start_point">Vybrat počáteční bod</string>
+	<string name="choose_destination">Vybrat cílové místo</string>
+	<string name="preloader_viator_title">Objevte výlety a neobvyklé aktivity</string>
+	<string name="preloader_viator_message">Výlety, aktivity, památky a více</string>
+	<string name="preloader_viator_button">Zjistit více</string>
+	<string name="whats_new_title_route">Byly vylepšeny cyklostezky a pěší trasy</string>
+	<string name="whats_new_message_route">Opravili jsme chyby, několikanásobně jsme zrychlili vypočítávání trasy a přidali jsme možnost nastavení průjezdního bodu</string>
+	<string name="whats_new_message_title_update">10krát jsme zmenšili soubory aktualizací map</string>
+	<string name="whats_new_message_maps_update">K aktualizaci mapy Vám nyní stačí stáhnout pouze chybějící data</string>
 </resources>

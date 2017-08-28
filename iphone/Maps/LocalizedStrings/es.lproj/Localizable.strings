@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Añadir mi posición";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Elegir un punto de partida";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Elegir un destino";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Descubrir tours y actividades extraordinarias";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Tours, actividades, excursiones y más";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Más información";
+
+"whats_new_title_route" = "Las rutas en bicicleta y a pie han sido mejoradas";
+
+"whats_new_message_route" = "Hemos corregido errores, hemos agilizado mucho la creación de rutas y hemos añadido paradas intermedias";
+
+"whats_new_message_title_update" = "Las actualizaciones de los mapas ahora son 10 veces más pequeñas";
+
+"whats_new_message_maps_update" = "Para actualizar un mapa, ahora basta con descargar los datos que faltan";

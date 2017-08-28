@@ -1138,4 +1138,14 @@
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
 	<string name="whatsnew_intermediate_point_title">Extra stop</string>
 	<string name="whatsnew_intermediate_point_message">Plan een route met een tussenstop.</string>
+	<string name="add_my_position">Voeg mijn positie toe</string>
+	<string name="choose_start_point">Kies een vertrekpunt</string>
+	<string name="choose_destination">Kies een bestemming</string>
+	<string name="preloader_viator_title">Ontdek tours en ongewone activiteiten</string>
+	<string name="preloader_viator_message">Tours, activiteiten, bezienswaardigheden en meer</string>
+	<string name="preloader_viator_button">Meer leren</string>
+	<string name="whats_new_title_route">Fietsroutes en wandelroutes zijn verbeterd</string>
+	<string name="whats_new_message_route">We hebben fouten hersteld, het bouwen van routes meermaals versneld, en tussenstops toegevoegd</string>
+	<string name="whats_new_message_title_update">We hebben kaartupdates 10 keer kleiner gemaakt</string>
+	<string name="whats_new_message_maps_update">Om een kaart bij te werken, moet u nu enkel de missende gegevens downloaden</string>
 </resources>

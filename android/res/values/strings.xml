@@ -1191,4 +1191,8 @@
 	<string name="preloader_viator_title">Discover tours and unusual activities</string>
 	<string name="preloader_viator_message">Tours, activities, sightseeing and more</string>
 	<string name="preloader_viator_button">Learn more</string>
+	<string name="whats_new_title_route">Bicycle routes and pedestrian routes were improved</string>
+	<string name="whats_new_message_route">We fixed errors, made route building several times faster, and added intermediate stops</string>
+	<string name="whats_new_message_title_update">We made map updates 10 times smaller</string>
+	<string name="whats_new_message_maps_update">To update a map, now you need to download just the missing data</string>
 </resources>

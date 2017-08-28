@@ -1142,4 +1142,14 @@
 	<string name="placepage_add_stop">Lägg till stopp</string>
 	<string name="whatsnew_intermediate_point_title">Ytterligare stopp</string>
 	<string name="whatsnew_intermediate_point_message">Planera rutter med ett uppehåll.</string>
+	<string name="add_my_position">Lägg till min position</string>
+	<string name="choose_start_point">Välj en startpunkt</string>
+	<string name="choose_destination">Välj en destination</string>
+	<string name="preloader_viator_title">Upptäck turer och ovanliga aktiviteter</string>
+	<string name="preloader_viator_message">Turer, aktiviteter, sightseeing med mera</string>
+	<string name="preloader_viator_button">Läs mer</string>
+	<string name="whats_new_title_route">Cykelturer och gångvägar har förbättrats</string>
+	<string name="whats_new_message_route">Vi har fixat problem, gjort det mycket lättare att skapa rutter och lagt till mellanliggande punkter</string>
+	<string name="whats_new_message_title_update">Vi har gjort kartuppdateringar 10 gånger mindre</string>
+	<string name="whats_new_message_maps_update">För att uppdatera en karta behöver du bara ladda ned data som saknas</string>
 </resources>

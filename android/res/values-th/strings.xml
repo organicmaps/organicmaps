@@ -1144,4 +1144,14 @@
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
 	<string name="whatsnew_intermediate_point_title">จุดแวะพักเพิ่มเติม</string>
 	<string name="whatsnew_intermediate_point_message">วางแผนเส้นทางด้วยจุดแวะพักระหว่างทาง</string>
+	<string name="add_my_position">เพิ่มตำแหน่งของฉัน</string>
+	<string name="choose_start_point">เลือกจุดเริ่มต้น</string>
+	<string name="choose_destination">เลือกปลายทาง</string>
+	<string name="preloader_viator_title">ค้นพบทัวร์และกิจกรรมที่แหวกแนว</string>
+	<string name="preloader_viator_message">ทัวร์ กิจกรรม การชมทิวทัศน์ และอื่น ๆ</string>
+	<string name="preloader_viator_button">เรียนรู้เพิ่มเติม</string>
+	<string name="whats_new_title_route">เส้นทางจักรยานและเส้นทางเดินเท้าได้รับการปรับปรุงยิ่งขึ้น</string>
+	<string name="whats_new_message_route">เราได้แก้ไขข้อผิดพลาด ทำให้การสร้างเส้นทางรวดเร็วขึ้นอีกหลายเท่า และเพิ่มจุดแวะพักระหว่างทาง</string>
+	<string name="whats_new_message_title_update">เราได้ทำให้การอัปเดตแผนที่เล็กลงอีก 10 เท่า</string>
+	<string name="whats_new_message_maps_update">ในการที่จะอัปเดตแผนที่ ตอนนี้คุณจำเป็นต้องดาวน์โหลดเพียงแค่ข้อมูลที่ขาดไปเท่านั้น</string>
 </resources>

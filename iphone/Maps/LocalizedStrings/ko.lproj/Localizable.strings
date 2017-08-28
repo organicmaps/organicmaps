@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "내 위치 추가";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "시작 지점 선택";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "목적지 선택";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "투어와 특별한 활동 알아보기";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "투어, 활동, 관광 등";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "자세히 알아보기";
+
+"whats_new_title_route" = "자전거 경로 및 보행자 경로가 개선되었습니다.";
+
+"whats_new_message_route" = "오류를 수정하고, 경로 탐색 속도를 몇 배 더 빠르게 개선하고, 중간 정지 지점을 추가했습니다.";
+
+"whats_new_message_title_update" = "지도 업데이트를 10배로 줄였습니다.";
+
+"whats_new_message_maps_update" = "지도를 업데이트하려면, 이제 누락된 데이터만 다운로드하면 됩니다.";

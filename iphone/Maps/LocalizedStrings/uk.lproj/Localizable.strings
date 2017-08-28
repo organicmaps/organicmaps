@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Додати моє розташування";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Вибрати відправну точку";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Вибрати пункт призначення";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Екскурсії та цікаві ідеї";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Екскурсії, розваги, відвідування пам'яток і багато іншого";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Докладніше";
+
+"whats_new_title_route" = "Вдосконалено велосипедні та пішохідні маршрути";
+
+"whats_new_message_route" = "Виправлено помилки, скорочено час прокладання маршруту, додано проміжні зупинки";
+
+"whats_new_message_title_update" = "У 10 разів зменшено розмір пакетів оновлення";
+
+"whats_new_message_maps_update" = "Тепер, щоб оновити карту, достатньо просто завантажити відсутні дані";

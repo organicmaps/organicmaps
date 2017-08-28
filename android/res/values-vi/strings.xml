@@ -1138,4 +1138,14 @@
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
 	<string name="whatsnew_intermediate_point_title">Điểm dừng bổ sung</string>
 	<string name="whatsnew_intermediate_point_message">Lập một lộ trình với một điểm trung gian.</string>
+	<string name="add_my_position">Thêm vị trí của tôi</string>
+	<string name="choose_start_point">Chọn một điểm bắt đầu</string>
+	<string name="choose_destination">Chọn một điểm đến</string>
+	<string name="preloader_viator_title">Khám phá các tour và hoạt động khác lạ</string>
+	<string name="preloader_viator_message">Tour, hoạt động, ngắm cảnh, v.v…</string>
+	<string name="preloader_viator_button">Tìm hiểu thêm</string>
+	<string name="whats_new_title_route">Các lộ trình đạp xe đạp và lộ trình đi bộ đã được cải thiện</string>
+	<string name="whats_new_message_route">Chúng tôi đã khắc phục các lỗi, giúp cải thiện thời gian xây dựng lộ trình nhanh hơn một vài lần, và bổ sung các điểm dừng trung gian</string>
+	<string name="whats_new_message_title_update">Chúng tôi đã giảm kích cỡ các bản cập nhật bản đồ xuống gấp 10 lần</string>
+	<string name="whats_new_message_maps_update">Để cập nhật bản đồ, giờ đây bạn chỉ cần tải về dữ liệu còn thiếu</string>
 </resources>

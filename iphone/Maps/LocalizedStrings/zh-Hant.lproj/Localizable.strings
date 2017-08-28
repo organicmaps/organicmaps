@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "新增我的位置";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "選擇起點";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "選擇目的地";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "探索行程與特殊活動";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "行程、活動、觀光等等";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "進一步了解";
+
+"whats_new_title_route" = "改善自行車路線與行人路線";
+
+"whats_new_message_route" = "我們修正了錯誤，讓路線產生的速度加快好幾倍，並新增了中途點";
+
+"whats_new_message_title_update" = "我們讓地圖體積小了 10 倍";
+
+"whats_new_message_maps_update" = "若要更新地圖，現在您只需要下載缺少的資料即可";

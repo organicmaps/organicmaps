@@ -1141,4 +1141,14 @@
 	<string name="placepage_add_stop">Pridať zastávku</string>
 	<string name="whatsnew_intermediate_point_title">Ďalšie zastávky</string>
 	<string name="whatsnew_intermediate_point_message">Naplánujte si trasu s zastávkou.</string>
+	<string name="add_my_position">Pridať moju polohu</string>
+	<string name="choose_start_point">Vyberte počiatočný bod</string>
+	<string name="choose_destination">Vyberte cieľ</string>
+	<string name="preloader_viator_title">Objavte výlety a nezvyčajné aktivity</string>
+	<string name="preloader_viator_message">Výlety, aktivity, prehliadky a ďalšie</string>
+	<string name="preloader_viator_button">Zistiť viac</string>
+	<string name="whats_new_title_route">Vylepšili sme cyklotrasy a pešie trasy</string>
+	<string name="whats_new_message_route">Opravili sme chyby, niekoľkonásobne sme zrýchlili zostavovanie trasy a pridali sme zastávky na trase</string>
+	<string name="whats_new_message_title_update">Desaťnásobne sme zmenšili veľkosť aktualizácií máp</string>
+	<string name="whats_new_message_maps_update">Odteraz na aktualizáciu máp stačí prevziať len chýbajúce dáta</string>
 </resources>

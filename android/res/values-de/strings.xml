@@ -1152,4 +1152,14 @@
 	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
 	<string name="whatsnew_intermediate_point_title">Zusätzlicher Stopp</string>
 	<string name="whatsnew_intermediate_point_message">Planen Sie eine Route mit Zwischenstopp.</string>
+	<string name="add_my_position">Meinen Standort hinzufügen</string>
+	<string name="choose_start_point">Startpunkt auswählen</string>
+	<string name="choose_destination">Ziel auswählen</string>
+	<string name="preloader_viator_title">Entdecken Sie Touren und ungewöhnliche Aktivitäten</string>
+	<string name="preloader_viator_message">Touren, Aktivitäten, Sehenswürdigkeiten und mehr</string>
+	<string name="preloader_viator_button">Weitere Informationen</string>
+	<string name="whats_new_title_route">Fahrradrouten und Routen für Fußgänger wurden verbessert</string>
+	<string name="whats_new_message_route">Wir haben Fehler behoben, die Routenerstellung deutlich schneller gemacht und Zwischenstopps hinzugefügt</string>
+	<string name="whats_new_message_title_update">Wir haben Karten-Updates zehnmal kleiner gemacht</string>
+	<string name="whats_new_message_maps_update">Um eine Karte zu aktualisieren, müssen Sie jetzt nur die fehlenden Daten herunterladen</string>
 </resources>

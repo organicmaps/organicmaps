@@ -1142,4 +1142,14 @@
 	<string name="placepage_add_stop">Додати зупинку</string>
 	<string name="whatsnew_intermediate_point_title">Додаткова зупинка</string>
 	<string name="whatsnew_intermediate_point_message">Прокласти маршрут з додатковою зупинкою посередині маршруту.</string>
+	<string name="add_my_position">Додати моє розташування</string>
+	<string name="choose_start_point">Вибрати відправну точку</string>
+	<string name="choose_destination">Вибрати пункт призначення</string>
+	<string name="preloader_viator_title">Екскурсії та цікаві ідеї</string>
+	<string name="preloader_viator_message">Екскурсії, розваги, відвідування пам\'яток і багато іншого</string>
+	<string name="preloader_viator_button">Докладніше</string>
+	<string name="whats_new_title_route">Вдосконалено велосипедні та пішохідні маршрути</string>
+	<string name="whats_new_message_route">Виправлено помилки, скорочено час прокладання маршруту, додано проміжні зупинки</string>
+	<string name="whats_new_message_title_update">У 10 разів зменшено розмір пакетів оновлення</string>
+	<string name="whats_new_message_maps_update">Тепер, щоб оновити карту, достатньо просто завантажити відсутні дані</string>
 </resources>

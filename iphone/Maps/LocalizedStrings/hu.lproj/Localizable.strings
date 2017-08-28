@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Add hozzá saját pozíciómat";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Válasszon egy kiindulási pontot";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Válassza ki a célt";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Fedezze fel a túrákat és a szokatlan tevékenységeket";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Túrák, tevékenységek, városnézés, és sok egyéb";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Tudjon meg többet";
+
+"whats_new_title_route" = "A kerékpáros és gyalogos útvonalakat is tovább javítottuk";
+
+"whats_new_message_route" = "Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be";
+
+"whats_new_message_title_update" = "A térkép frissítéseinek terjedelmét a tizedére csökkentettük";
+
+"whats_new_message_maps_update" = "Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése";

@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Konumumu ekle";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Bir başlangıç noktası seçin";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Bir hedef seçin";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Turları ve sıra dışı etkinlikleri keşfedin";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Turlar, etkinlikler, geziler ve çok daha fazlası";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Daha fazla bilgi edinin";
+
+"whats_new_title_route" = "Bisiklet ve yaya güzergahları iyileştirildi";
+
+"whats_new_message_route" = "Hataları düzelttik, güzergah oluşturmayı daha hızlı hale getirdik ve ara duraklar ekledik";
+
+"whats_new_message_title_update" = "Harita güncellemelerinin boyutunu 10 kat daha küçülttük";
+
+"whats_new_message_maps_update" = "Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli";

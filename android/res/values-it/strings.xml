@@ -1137,4 +1137,14 @@
 	<string name="placepage_add_stop">Aggiungi sosta</string>
 	<string name="whatsnew_intermediate_point_title">Ulteriore sosta</string>
 	<string name="whatsnew_intermediate_point_message">Pianifica un percorso con un punto intermedio.</string>
+	<string name="add_my_position">Aggiungi mia posizione</string>
+	<string name="choose_start_point">Scegli un punto di partenza</string>
+	<string name="choose_destination">Scegli una destinazione</string>
+	<string name="preloader_viator_title">Scopri tour e attività insolite</string>
+	<string name="preloader_viator_message">Tour, attività, turismo e altro</string>
+	<string name="preloader_viator_button">Ulteriori informazioni</string>
+	<string name="whats_new_title_route">Piste ciclabili e percorsi pedonali migliorati</string>
+	<string name="whats_new_message_route">Abbiamo corretto gli errori, reso la creazione dei percorsi notevolmente più veloce e aggiunto soste intermedie</string>
+	<string name="whats_new_message_title_update">Abbiamo reso gli aggiornamenti mappa 10 volte più piccoli</string>
+	<string name="whats_new_message_maps_update">Per aggiornare una mappa, ora devi solo scaricare i dati mancanti</string>
 </resources>

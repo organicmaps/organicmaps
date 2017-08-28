@@ -1144,4 +1144,14 @@
 	<string name="placepage_add_stop">添加经停点</string>
 	<string name="whatsnew_intermediate_point_title">其他经停点</string>
 	<string name="whatsnew_intermediate_point_message">规划带中间点的路线。</string>
+	<string name="add_my_position">添加我的位置</string>
+	<string name="choose_start_point">选择起点</string>
+	<string name="choose_destination">选择终点</string>
+	<string name="preloader_viator_title">探索行程和特殊活动</string>
+	<string name="preloader_viator_message">行程、活动、观光，等等</string>
+	<string name="preloader_viator_button">了解更多</string>
+	<string name="whats_new_title_route">已改进自行车路线和行人路线</string>
+	<string name="whats_new_message_route">我们修复了错误，使生成路线的速度加快几倍，并新增了中间点。</string>
+	<string name="whats_new_message_title_update">我们使地图更新量缩小 10 倍</string>
+	<string name="whats_new_message_maps_update">要更新地图，您现在只需下载缺少的数据即可</string>
 </resources>

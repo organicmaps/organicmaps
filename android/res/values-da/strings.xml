@@ -1142,4 +1142,14 @@
 	<string name="placepage_add_stop">Tilføj stop</string>
 	<string name="whatsnew_intermediate_point_title">Ekstra stop</string>
 	<string name="whatsnew_intermediate_point_message">Planlæg en rute med et mellemliggende punkt.</string>
+	<string name="add_my_position">Tilføj min position</string>
+	<string name="choose_start_point">Vælg et udgangspunkt</string>
+	<string name="choose_destination">Vælg en destination</string>
+	<string name="preloader_viator_title">Find ture og usædvanlige aktiviteter</string>
+	<string name="preloader_viator_message">Ture, aktiviteter, sightseeing med mere</string>
+	<string name="preloader_viator_button">Flere oplysninger</string>
+	<string name="whats_new_title_route">Cykelruter og vandreruter blev forbedret</string>
+	<string name="whats_new_message_route">Vi rettede fejl, gjorte ruteoprettelse flere gange hurtigere og tilføjede mellemliggende stop</string>
+	<string name="whats_new_message_title_update">Vi gjorde kortopdateringer 10 gange mindre</string>
+	<string name="whats_new_message_maps_update">For at opdatere et kort skal du nu blot downloade de manglende data</string>
 </resources>

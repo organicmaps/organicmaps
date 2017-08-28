@@ -1138,4 +1138,14 @@
 	<string name="placepage_add_stop">Lisää pysähdys</string>
 	<string name="whatsnew_intermediate_point_title">Lisäpysähdys</string>
 	<string name="whatsnew_intermediate_point_message">Suunnittele reitti välipisteellä.</string>
+	<string name="add_my_position">Lisää oma sijainti</string>
+	<string name="choose_start_point">Valitse aloituspiste</string>
+	<string name="choose_destination">Valitse kohde</string>
+	<string name="preloader_viator_title">Tutustu kierroksiin ja epätavallisiin aktiviteetteihin</string>
+	<string name="preloader_viator_message">Kierroksia, aktiviteetteja, nähtävyyksien katselua ja muuta</string>
+	<string name="preloader_viator_button">Lisätietoja</string>
+	<string name="whats_new_title_route">Parannetut pyörä- ja kävelyreitit</string>
+	<string name="whats_new_message_route">Korjasimme virheitä, teimme reittien muodostuksesta monta kertaa nopeampaa ja lisäsimme välipysähdyksiä</string>
+	<string name="whats_new_message_title_update">Teimme karttapäivityksistä 10 kertaa pienempiä</string>
+	<string name="whats_new_message_maps_update">Kun päivität kartan, sinun täytyy nyt ladata vain puuttuvat tiedot</string>
 </resources>

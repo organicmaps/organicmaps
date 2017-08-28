@@ -1136,4 +1136,14 @@
 	<string name="placepage_add_stop">Angi stopp</string>
 	<string name="whatsnew_intermediate_point_title">Ekstra mellomstopp</string>
 	<string name="whatsnew_intermediate_point_message">Planlegg rute med mellomstopp.</string>
+	<string name="add_my_position">Legg til min posisjon</string>
+	<string name="choose_start_point">Velg startpunkt</string>
+	<string name="choose_destination">Velg destinasjon</string>
+	<string name="preloader_viator_title">Finn omvisninger og aktiviteter utenom det vanlige</string>
+	<string name="preloader_viator_message">Omvisninger, aktiviteter, sightseeing og mye mer</string>
+	<string name="preloader_viator_button">Finn ut mer</string>
+	<string name="whats_new_title_route">Ruter for syklister og fotgjengere er blitt forbedret</string>
+	<string name="whats_new_message_route">Vi har rettet opp i feil, gjort ruteplanlegging mye kjappere og ordnet for muligheten til å legge til mellomstopp</string>
+	<string name="whats_new_message_title_update">Kartoppdateringene er gjort 10 ganger mindre</string>
+	<string name="whats_new_message_maps_update">Du trenger nå bare å laste ned manglende data for å oppdatere et kart</string>
 </resources>

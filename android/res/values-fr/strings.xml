@@ -1151,4 +1151,14 @@
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
 	<string name="whatsnew_intermediate_point_title">Arrêt supplémentaire</string>
 	<string name="whatsnew_intermediate_point_message">Planifiez un itinéraire avec un point intermédiaire.</string>
+	<string name="add_my_position">Ajouter ma position</string>
+	<string name="choose_start_point">Choisissez un point de départ</string>
+	<string name="choose_destination">Choisissez une destination</string>
+	<string name="preloader_viator_title">Découvrez les excursions et les activités insolites</string>
+	<string name="preloader_viator_message">Excursions, activités, visites et plus</string>
+	<string name="preloader_viator_button">En savoir plus</string>
+	<string name="whats_new_title_route">Les pistes cyclables et voies piétonnes ont été améliorées</string>
+	<string name="whats_new_message_route">Nous avons corrigé les erreurs, amélioré considérablement la vitesse de construction d\'itinéraires et ajouté des arrêts intermédiaires</string>
+	<string name="whats_new_message_title_update">Les mises à jour de la carte sont maintenant 10 fois plus petites</string>
+	<string name="whats_new_message_maps_update">Pour mettre une carte à jour, vous devez désormais télécharger les données manquantes uniquement</string>
 </resources>

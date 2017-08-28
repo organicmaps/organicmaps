@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Přidat moji polohu";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Vybrat počáteční bod";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Vybrat cílové místo";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Objevte výlety a neobvyklé aktivity";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Výlety, aktivity, památky a více";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Zjistit více";
+
+"whats_new_title_route" = "Byly vylepšeny cyklostezky a pěší trasy";
+
+"whats_new_message_route" = "Opravili jsme chyby, několikanásobně jsme zrychlili vypočítávání trasy a přidali jsme možnost nastavení průjezdního bodu";
+
+"whats_new_message_title_update" = "10krát jsme zmenšili soubory aktualizací map";
+
+"whats_new_message_maps_update" = "K aktualizaci mapy Vám nyní stačí stáhnout pouze chybějící data";

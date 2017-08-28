@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Voeg mijn positie toe";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Kies een vertrekpunt";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Kies een bestemming";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Ontdek tours en ongewone activiteiten";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Tours, activiteiten, bezienswaardigheden en meer";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Meer leren";
+
+"whats_new_title_route" = "Fietsroutes en wandelroutes zijn verbeterd";
+
+"whats_new_message_route" = "We hebben fouten hersteld, het bouwen van routes meermaals versneld, en tussenstops toegevoegd";
+
+"whats_new_message_title_update" = "We hebben kaartupdates 10 keer kleiner gemaakt";
+
+"whats_new_message_maps_update" = "Om een kaart bij te werken, moet u nu enkel de missende gegevens downloaden";

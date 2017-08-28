@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Thêm vị trí của tôi";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Chọn một điểm bắt đầu";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Chọn một điểm đến";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Khám phá các tour và hoạt động khác lạ";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Tour, hoạt động, ngắm cảnh, v.v…";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Tìm hiểu thêm";
+
+"whats_new_title_route" = "Các lộ trình đạp xe đạp và lộ trình đi bộ đã được cải thiện";
+
+"whats_new_message_route" = "Chúng tôi đã khắc phục các lỗi, giúp cải thiện thời gian xây dựng lộ trình nhanh hơn một vài lần, và bổ sung các điểm dừng trung gian";
+
+"whats_new_message_title_update" = "Chúng tôi đã giảm kích cỡ các bản cập nhật bản đồ xuống gấp 10 lần";
+
+"whats_new_message_maps_update" = "Để cập nhật bản đồ, giờ đây bạn chỉ cần tải về dữ liệu còn thiếu";

@@ -1144,4 +1144,14 @@
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
 	<string name="whatsnew_intermediate_point_title">نقطة توقف إضافية</string>
 	<string name="whatsnew_intermediate_point_message">خطط مسارًا مع نقطة وسيطة.</string>
+	<string name="add_my_position">إضافة موضعي</string>
+	<string name="choose_start_point">اختيار نقطة البداية</string>
+	<string name="choose_destination">اختيار الوجهة</string>
+	<string name="preloader_viator_title">اكتشاف الجولات والأنشطة غير المعتادة</string>
+	<string name="preloader_viator_message">الجولات والأنشطة ومشاهدة المعالم وغيره</string>
+	<string name="preloader_viator_button">تعلم المزيد</string>
+	<string name="whats_new_title_route">تم تحسين مسارات السيارات ومسارات المشاه</string>
+	<string name="whats_new_message_route">قمنا بتصحيح الأخطاء وجعلنا عملية بناء المسارات أسرع عدة مرات، وأضفنا نقاط توقف وسيطة</string>
+	<string name="whats_new_message_title_update">جعلنا تحديثات الخريطة أصغر 10 مرات</string>
+	<string name="whats_new_message_maps_update">لتحديث الخريطة، يلزمك الآن فقط تنزيل البيانات المفقودة</string>
 </resources>

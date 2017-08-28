@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Πρόσθεσε τη θέση μου";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Επιλέξτε αφετηρία";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Επιλέξτε προορισμό";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Μάθετε περισσότερα";
+
+"whats_new_title_route" = "Βελτιωμένες διαδρομές ποδηλάτων και πεζών";
+
+"whats_new_message_route" = "Επιδιορθώσαμε σφάλματα, κάναμε την δημιουργία διαδρομής αρκετές φορές γρηγορότερη, και προσθέσαμε ενδιάμεσες στάσεις";
+
+"whats_new_message_title_update" = "Κάναμε τις ενημερώσεις χάρτη 10 φορές μικρότερες";
+
+"whats_new_message_maps_update" = "Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν";

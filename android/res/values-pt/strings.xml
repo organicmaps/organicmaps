@@ -1141,4 +1141,14 @@
 	<string name="placepage_add_stop">Adicionar paragem</string>
 	<string name="whatsnew_intermediate_point_title">Paragem de adicional</string>
 	<string name="whatsnew_intermediate_point_message">Planeie uma rota com um ponto intermédio.</string>
+	<string name="add_my_position">Adicionar a minha posição</string>
+	<string name="choose_start_point">Escolher um ponto de partida</string>
+	<string name="choose_destination">Escolher um destino</string>
+	<string name="preloader_viator_title">Descubrir as excursões e atividades incomuns</string>
+	<string name="preloader_viator_message">Tours, atividades, passeios e muito mais</string>
+	<string name="preloader_viator_button">Saiba Mais</string>
+	<string name="whats_new_title_route">As ciclovias e rotas pedestres foram melhoradas</string>
+	<string name="whats_new_message_route">Corrigimos erros, tornamos a construção da rota várias vezes mais rápida e adicionamos paragens intermédias</string>
+	<string name="whats_new_message_title_update">Encurtamos 10 vezes o tempo de atualização dos mapas</string>
+	<string name="whats_new_message_maps_update">Para atualizar um mapa, agora apenas necessita de fazer download dos dados em falta</string>
 </resources>

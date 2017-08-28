@@ -902,4 +902,14 @@
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
 	<string name="whatsnew_intermediate_point_title">Επιπλέον στάση</string>
 	<string name="whatsnew_intermediate_point_message">Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.</string>
+	<string name="add_my_position">Πρόσθεσε τη θέση μου</string>
+	<string name="choose_start_point">Επιλέξτε αφετηρία</string>
+	<string name="choose_destination">Επιλέξτε προορισμό</string>
+	<string name="preloader_viator_title">Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες</string>
+	<string name="preloader_viator_message">Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα</string>
+	<string name="preloader_viator_button">Μάθετε περισσότερα</string>
+	<string name="whats_new_title_route">Βελτιωμένες διαδρομές ποδηλάτων και πεζών</string>
+	<string name="whats_new_message_route">Επιδιορθώσαμε σφάλματα, κάναμε την δημιουργία διαδρομής αρκετές φορές γρηγορότερη, και προσθέσαμε ενδιάμεσες στάσεις</string>
+	<string name="whats_new_message_title_update">Κάναμε τις ενημερώσεις χάρτη 10 φορές μικρότερες</string>
+	<string name="whats_new_message_maps_update">Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν</string>
 </resources>

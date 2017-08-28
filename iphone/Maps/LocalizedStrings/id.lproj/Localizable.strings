@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Tambahkan posisi saya";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Pilih titik awal";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Pilih destinasi";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Temukan wisata dan kegiatan yang unik";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Wisata, kegiatan, tamasya, dan lain-lain";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Pelajari selengkapnya";
+
+"whats_new_title_route" = "Rute sepeda dan pejalan kaki sudah diperbagus";
+
+"whats_new_message_route" = "Kami sudah memperbaiki kesalahan, membuat pembangunan rute menjadi berkali-kali lipat lebih cepat, dan menambahkan sejumlah perhentian antara";
+
+"whats_new_message_title_update" = "Kami sudah membuat pembaruan peta 10 kali lebih kecil";
+
+"whats_new_message_maps_update" = "Untuk memperbarui peta, Anda hanya harus mengunduh data yang tidak ada";

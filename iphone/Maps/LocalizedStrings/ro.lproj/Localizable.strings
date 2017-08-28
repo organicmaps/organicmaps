@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Adaugă poziția mea";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Alege un punct de plecare";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Alege o destinație";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Descoperă tururi și activități neobișnuite";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Tururi, activități, obiective turistice și multe altele";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Află mai multe";
+
+"whats_new_title_route" = "Au fost îmbunătățite traseele de biciclete și de pietoni";
+
+"whats_new_message_route" = "Am remediat erorile, am făcut crearea traseelor mai rapidă și am adăugat opriri intermediare";
+
+"whats_new_message_title_update" = "Am micșorat de 10 ori actualizările hărților";
+
+"whats_new_message_maps_update" = "Pentru a actualiza o hartă, nu trebuie decât să descarci datele care lipsesc";

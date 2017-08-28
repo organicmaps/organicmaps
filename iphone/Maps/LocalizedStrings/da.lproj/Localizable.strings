@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Tilføj min position";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Vælg et udgangspunkt";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Vælg en destination";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Find ture og usædvanlige aktiviteter";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Ture, aktiviteter, sightseeing med mere";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Flere oplysninger";
+
+"whats_new_title_route" = "Cykelruter og vandreruter blev forbedret";
+
+"whats_new_message_route" = "Vi rettede fejl, gjorte ruteoprettelse flere gange hurtigere og tilføjede mellemliggende stop";
+
+"whats_new_message_title_update" = "Vi gjorde kortopdateringer 10 gange mindre";
+
+"whats_new_message_maps_update" = "For at opdatere et kort skal du nu blot downloade de manglende data";

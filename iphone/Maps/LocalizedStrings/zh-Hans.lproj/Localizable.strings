@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "添加我的位置";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "选择起点";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "选择终点";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "探索行程和特殊活动";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "行程、活动、观光，等等";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "了解更多";
+
+"whats_new_title_route" = "已改进自行车路线和行人路线";
+
+"whats_new_message_route" = "我们修复了错误，使生成路线的速度加快几倍，并新增了中间点。";
+
+"whats_new_message_title_update" = "我们使地图更新量缩小 10 倍";
+
+"whats_new_message_maps_update" = "要更新地图，您现在只需下载缺少的数据即可";

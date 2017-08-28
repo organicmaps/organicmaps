@@ -1131,4 +1131,14 @@
 	<string name="placepage_add_stop">Añadir parada</string>
 	<string name="whatsnew_intermediate_point_title">Parada adicional</string>
 	<string name="whatsnew_intermediate_point_message">Planifique una ruta con una parada intermedia.</string>
+	<string name="add_my_position">Añadir mi posición</string>
+	<string name="choose_start_point">Elegir un punto de partida</string>
+	<string name="choose_destination">Elegir un destino</string>
+	<string name="preloader_viator_title">Descubrir tours y actividades extraordinarias</string>
+	<string name="preloader_viator_message">Tours, actividades, excursiones y más</string>
+	<string name="preloader_viator_button">Más información</string>
+	<string name="whats_new_title_route">Las rutas en bicicleta y a pie han sido mejoradas</string>
+	<string name="whats_new_message_route">Hemos corregido errores, hemos agilizado mucho la creación de rutas y hemos añadido paradas intermedias</string>
+	<string name="whats_new_message_title_update">Las actualizaciones de los mapas ahora son 10 veces más pequeñas</string>
+	<string name="whats_new_message_maps_update">Para actualizar un mapa, ahora basta con descargar los datos que faltan</string>
 </resources>

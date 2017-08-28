@@ -1144,4 +1144,14 @@
 	<string name="placepage_add_stop">Ara nokta ekle</string>
 	<string name="whatsnew_intermediate_point_title">Ek ara nokta</string>
 	<string name="whatsnew_intermediate_point_message">Güzergâhlarınızı ara noktalarla planlayın.</string>
+	<string name="add_my_position">Konumumu ekle</string>
+	<string name="choose_start_point">Bir başlangıç noktası seçin</string>
+	<string name="choose_destination">Bir hedef seçin</string>
+	<string name="preloader_viator_title">Turları ve sıra dışı etkinlikleri keşfedin</string>
+	<string name="preloader_viator_message">Turlar, etkinlikler, geziler ve çok daha fazlası</string>
+	<string name="preloader_viator_button">Daha fazla bilgi edinin</string>
+	<string name="whats_new_title_route">Bisiklet ve yaya güzergahları iyileştirildi</string>
+	<string name="whats_new_message_route">Hataları düzelttik, güzergah oluşturmayı daha hızlı hale getirdik ve ara duraklar ekledik</string>
+	<string name="whats_new_message_title_update">Harita güncellemelerinin boyutunu 10 kat daha küçülttük</string>
+	<string name="whats_new_message_maps_update">Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli</string>
 </resources>

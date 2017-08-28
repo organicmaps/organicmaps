@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Legg til min posisjon";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Velg startpunkt";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Velg destinasjon";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Finn omvisninger og aktiviteter utenom det vanlige";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Omvisninger, aktiviteter, sightseeing og mye mer";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Finn ut mer";
+
+"whats_new_title_route" = "Ruter for syklister og fotgjengere er blitt forbedret";
+
+"whats_new_message_route" = "Vi har rettet opp i feil, gjort ruteplanlegging mye kjappere og ordnet for muligheten til å legge til mellomstopp";
+
+"whats_new_message_title_update" = "Kartoppdateringene er gjort 10 ganger mindre";
+
+"whats_new_message_maps_update" = "Du trenger nå bare å laste ned manglende data for å oppdatere et kart";

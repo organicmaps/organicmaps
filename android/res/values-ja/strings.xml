@@ -1137,4 +1137,14 @@
 	<string name="placepage_add_stop">停止地点を追加</string>
 	<string name="whatsnew_intermediate_point_title">その他の停止地点</string>
 	<string name="whatsnew_intermediate_point_message">中間地点のあるルートを計画します。</string>
+	<string name="add_my_position">自分の場所を追加</string>
+	<string name="choose_start_point">出発地点を選択</string>
+	<string name="choose_destination">目的地を選択</string>
+	<string name="preloader_viator_title">旅行や通常ではないアクティビティを検知します</string>
+	<string name="preloader_viator_message">旅行、アクティビティ、観光など</string>
+	<string name="preloader_viator_button">詳細情報</string>
+	<string name="whats_new_title_route">自転車と歩行者用のルートが改良されました</string>
+	<string name="whats_new_message_route">エラーの修正を行い、ルート探索速度を数倍に改善し、中間停止地点を追加しました。</string>
+	<string name="whats_new_message_title_update">地図更新プログラムのサイズを 10 倍削減しました。</string>
+	<string name="whats_new_message_maps_update">地図を更新する際、不足しているデータのみをダウンロードするだけで良くなりました。</string>
 </resources>

@@ -1138,4 +1138,14 @@
 	<string name="placepage_add_stop">Hozzáad megállót</string>
 	<string name="whatsnew_intermediate_point_title">További megálló</string>
 	<string name="whatsnew_intermediate_point_message">Útvonaltervezés egy közbenső ponttal.</string>
+	<string name="add_my_position">Add hozzá saját pozíciómat</string>
+	<string name="choose_start_point">Válasszon egy kiindulási pontot</string>
+	<string name="choose_destination">Válassza ki a célt</string>
+	<string name="preloader_viator_title">Fedezze fel a túrákat és a szokatlan tevékenységeket</string>
+	<string name="preloader_viator_message">Túrák, tevékenységek, városnézés, és sok egyéb</string>
+	<string name="preloader_viator_button">Tudjon meg többet</string>
+	<string name="whats_new_title_route">A kerékpáros és gyalogos útvonalakat is tovább javítottuk</string>
+	<string name="whats_new_message_route">Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be</string>
+	<string name="whats_new_message_title_update">A térkép frissítéseinek terjedelmét a tizedére csökkentettük</string>
+	<string name="whats_new_message_maps_update">Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése</string>
 </resources>

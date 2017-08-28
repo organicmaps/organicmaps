@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "إضافة موضعي";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "اختيار نقطة البداية";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "اختيار الوجهة";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "اكتشاف الجولات والأنشطة غير المعتادة";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "الجولات والأنشطة ومشاهدة المعالم وغيره";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "تعلم المزيد";
+
+"whats_new_title_route" = "تم تحسين مسارات السيارات ومسارات المشاه";
+
+"whats_new_message_route" = "قمنا بتصحيح الأخطاء وجعلنا عملية بناء المسارات أسرع عدة مرات، وأضفنا نقاط توقف وسيطة";
+
+"whats_new_message_title_update" = "جعلنا تحديثات الخريطة أصغر 10 مرات";
+
+"whats_new_message_maps_update" = "لتحديث الخريطة، يلزمك الآن فقط تنزيل البيانات المفقودة";

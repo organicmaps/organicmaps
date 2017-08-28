@@ -1179,8 +1179,8 @@
 	<string name="preloader_viator_title">Откройте для себя экскурсии и необычные туры</string>
 	<string name="preloader_viator_message">Туры, достопримечательности, экскурсии и многое другое</string>
 	<string name="preloader_viator_button">Посмотреть</string>
-	<string name="whats_new_title_route">Вело и пешеходные маршруты стали лучше</string>
+	<string name="whats_new_title_route">Вело- и пешеходные маршруты стали лучше</string>
 	<string name="whats_new_message_route">Исправили ошибки, ускорили построение маршрутов в несколько раз, а также добавили промежуточные остановки</string>
 	<string name="whats_new_message_title_update">Мы уменьшили обновления карт в 10 раз</string>
-	<string name="whats_new_message_maps_update">Обновите карты, чтобы не прийти в кафе, которого уже нет. И строить кратчайшие маршруты к популярным местам</string>
+	<string name="whats_new_message_maps_update">Теперь для обновления карт нужно загрузить только недостающие данные</string>
 </resources>

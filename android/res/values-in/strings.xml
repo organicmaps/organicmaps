@@ -1137,4 +1137,14 @@
 	<string name="placepage_add_stop">Tambah perhentian</string>
 	<string name="whatsnew_intermediate_point_title">Perhentian tambahan</string>
 	<string name="whatsnew_intermediate_point_message">Rencanakan rute dengan titik antara.</string>
+	<string name="add_my_position">Tambahkan posisi saya</string>
+	<string name="choose_start_point">Pilih titik awal</string>
+	<string name="choose_destination">Pilih destinasi</string>
+	<string name="preloader_viator_title">Temukan wisata dan kegiatan yang unik</string>
+	<string name="preloader_viator_message">Wisata, kegiatan, tamasya, dan lain-lain</string>
+	<string name="preloader_viator_button">Pelajari selengkapnya</string>
+	<string name="whats_new_title_route">Rute sepeda dan pejalan kaki sudah diperbagus</string>
+	<string name="whats_new_message_route">Kami sudah memperbaiki kesalahan, membuat pembangunan rute menjadi berkali-kali lipat lebih cepat, dan menambahkan sejumlah perhentian antara</string>
+	<string name="whats_new_message_title_update">Kami sudah membuat pembaruan peta 10 kali lebih kecil</string>
+	<string name="whats_new_message_maps_update">Untuk memperbarui peta, Anda hanya harus mengunduh data yang tidak ada</string>
 </resources>

@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Lisää oma sijainti";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Valitse aloituspiste";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Valitse kohde";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Tutustu kierroksiin ja epätavallisiin aktiviteetteihin";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Kierroksia, aktiviteetteja, nähtävyyksien katselua ja muuta";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "Lisätietoja";
+
+"whats_new_title_route" = "Parannetut pyörä- ja kävelyreitit";
+
+"whats_new_message_route" = "Korjasimme virheitä, teimme reittien muodostuksesta monta kertaa nopeampaa ja lisäsimme välipysähdyksiä";
+
+"whats_new_message_title_update" = "Teimme karttapäivityksistä 10 kertaa pienempiä";
+
+"whats_new_message_maps_update" = "Kun päivität kartan, sinun täytyy nyt ladata vain puuttuvat tiedot";

@@ -2018,14 +2018,22 @@
 /* Only ru/en are needed */
 "preloader_cian_button" = "Learn more";
 
-"add_my_position" = "Add my position";
+"add_my_position" = "Ajouter ma position";
 
-"choose_start_point" = "Choose a starting point";
+"choose_start_point" = "Choisissez un point de départ";
 
-"choose_destination" = "Choose a destination";
+"choose_destination" = "Choisissez une destination";
 
-"preloader_viator_title" = "Discover tours and unusual activities";
+"preloader_viator_title" = "Découvrez les excursions et les activités insolites";
 
-"preloader_viator_message" = "Tours, activities, sightseeing and more";
+"preloader_viator_message" = "Excursions, activités, visites et plus";
 
-"preloader_viator_button" = "Learn more";
+"preloader_viator_button" = "En savoir plus";
+
+"whats_new_title_route" = "Les pistes cyclables et voies piétonnes ont été améliorées";
+
+"whats_new_message_route" = "Nous avons corrigé les erreurs, amélioré considérablement la vitesse de construction d'itinéraires et ajouté des arrêts intermédiaires";
+
+"whats_new_message_title_update" = "Les mises à jour de la carte sont maintenant 10 fois plus petites";
+
+"whats_new_message_maps_update" = "Pour mettre une carte à jour, vous devez désormais télécharger les données manquantes uniquement";

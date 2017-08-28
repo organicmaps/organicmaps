@@ -1148,4 +1148,14 @@
 	<string name="placepage_add_stop">新增應用程式</string>
 	<string name="whatsnew_intermediate_point_title">其他站點</string>
 	<string name="whatsnew_intermediate_point_message">計劃有中途休息站的路線。</string>
+	<string name="add_my_position">新增我的位置</string>
+	<string name="choose_start_point">選擇起點</string>
+	<string name="choose_destination">選擇目的地</string>
+	<string name="preloader_viator_title">探索行程與特殊活動</string>
+	<string name="preloader_viator_message">行程、活動、觀光等等</string>
+	<string name="preloader_viator_button">進一步了解</string>
+	<string name="whats_new_title_route">改善自行車路線與行人路線</string>
+	<string name="whats_new_message_route">我們修正了錯誤，讓路線產生的速度加快好幾倍，並新增了中途點</string>
+	<string name="whats_new_message_title_update">我們讓地圖體積小了 10 倍</string>
+	<string name="whats_new_message_maps_update">若要更新地圖，現在您只需要下載缺少的資料即可</string>
 </resources>
