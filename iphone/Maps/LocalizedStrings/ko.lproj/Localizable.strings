@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "지도 업데이트를 10배로 줄였습니다.";
 
 "whats_new_message_maps_update" = "지도를 업데이트하려면, 이제 누락된 데이터만 다운로드하면 됩니다.";
+
+"start_from_my_position" = "Start from";

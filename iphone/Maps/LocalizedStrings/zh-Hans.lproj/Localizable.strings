@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "我们使地图更新量缩小 10 倍";
 
 "whats_new_message_maps_update" = "要更新地图，您现在只需下载缺少的数据即可";
+
+"start_from_my_position" = "Start from";

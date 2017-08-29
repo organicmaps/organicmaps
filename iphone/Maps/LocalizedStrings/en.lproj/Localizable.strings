@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "We made map updates 10 times smaller";
 
 "whats_new_message_maps_update" = "To update a map, now you need to download just the missing data";
+
+"start_from_my_position" = "Start from";

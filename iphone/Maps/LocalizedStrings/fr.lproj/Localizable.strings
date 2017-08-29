@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Les mises à jour de la carte sont maintenant 10 fois plus petites";
 
 "whats_new_message_maps_update" = "Pour mettre une carte à jour, vous devez désormais télécharger les données manquantes uniquement";
+
+"start_from_my_position" = "Start from";

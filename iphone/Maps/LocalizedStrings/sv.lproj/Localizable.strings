@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Vi har gjort kartuppdateringar 10 gånger mindre";
 
 "whats_new_message_maps_update" = "För att uppdatera en karta behöver du bara ladda ned data som saknas";
+
+"start_from_my_position" = "Start from";

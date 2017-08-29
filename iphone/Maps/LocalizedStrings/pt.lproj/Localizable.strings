@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Encurtamos 10 vezes o tempo de atualização dos mapas";
 
 "whats_new_message_maps_update" = "Para atualizar um mapa, agora apenas necessita de fazer download dos dados em falta";
+
+"start_from_my_position" = "Start from";

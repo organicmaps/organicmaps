@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Aktualizacje map 10-krotnie mniejsze";
 
 "whats_new_message_maps_update" = "Do zaktualizowania mapy wymagane jest jedynie pobranie brakujących danych";
+
+"start_from_my_position" = "Start from";

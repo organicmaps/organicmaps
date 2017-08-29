@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Κάναμε τις ενημερώσεις χάρτη 10 φορές μικρότερες";
 
 "whats_new_message_maps_update" = "Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν";
+
+"start_from_my_position" = "Start from";

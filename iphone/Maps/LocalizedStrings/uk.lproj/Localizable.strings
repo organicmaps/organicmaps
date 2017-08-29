@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "У 10 разів зменшено розмір пакетів оновлення";
 
 "whats_new_message_maps_update" = "Тепер, щоб оновити карту, достатньо просто завантажити відсутні дані";
+
+"start_from_my_position" = "Start from";

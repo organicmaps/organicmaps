@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "เราได้ทำให้การอัปเดตแผนที่เล็กลงอีก 10 เท่า";
 
 "whats_new_message_maps_update" = "ในการที่จะอัปเดตแผนที่ ตอนนี้คุณจำเป็นต้องดาวน์โหลดเพียงแค่ข้อมูลที่ขาดไปเท่านั้น";
+
+"start_from_my_position" = "Start from";

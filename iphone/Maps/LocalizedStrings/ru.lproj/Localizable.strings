@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Мы уменьшили обновления карт в 10 раз";
 
 "whats_new_message_maps_update" = "Теперь для обновления карт нужно загрузить только недостающие данные";
+
+"start_from_my_position" = "Начать от";

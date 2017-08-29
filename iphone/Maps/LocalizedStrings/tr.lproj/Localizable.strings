@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "Harita güncellemelerinin boyutunu 10 kat daha küçülttük";
 
 "whats_new_message_maps_update" = "Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli";
+
+"start_from_my_position" = "Start from";

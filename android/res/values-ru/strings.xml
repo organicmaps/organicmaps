@@ -1183,4 +1183,5 @@
 	<string name="whats_new_message_route">Исправили ошибки, ускорили построение маршрутов в несколько раз, а также добавили промежуточные остановки</string>
 	<string name="whats_new_message_title_update">Мы уменьшили обновления карт в 10 раз</string>
 	<string name="whats_new_message_maps_update">Теперь для обновления карт нужно загрузить только недостающие данные</string>
+	<string name="start_from_my_position">Начать от</string>
 </resources>

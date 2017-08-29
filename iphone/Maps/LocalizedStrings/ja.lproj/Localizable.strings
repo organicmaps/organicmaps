@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "地図更新プログラムのサイズを 10 倍削減しました。";
 
 "whats_new_message_maps_update" = "地図を更新する際、不足しているデータのみをダウンロードするだけで良くなりました。";
+
+"start_from_my_position" = "Start from";

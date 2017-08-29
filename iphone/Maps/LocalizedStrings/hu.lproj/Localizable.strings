@@ -2037,3 +2037,5 @@
 "whats_new_message_title_update" = "A térkép frissítéseinek terjedelmét a tizedére csökkentettük";
 
 "whats_new_message_maps_update" = "Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése";
+
+"start_from_my_position" = "Start from";

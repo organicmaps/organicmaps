@@ -1195,4 +1195,5 @@
 	<string name="whats_new_message_route">We fixed errors, made route building several times faster, and added intermediate stops</string>
 	<string name="whats_new_message_title_update">We made map updates 10 times smaller</string>
 	<string name="whats_new_message_maps_update">To update a map, now you need to download just the missing data</string>
+	<string name="start_from_my_position">Start from</string>
 </resources>
