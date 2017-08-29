@@ -26204,3 +26204,7 @@
     el = Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν
     sk = Odteraz na aktualizáciu máp stačí prevziať len chýbajúce dáta
     sw = Ili kusasisha ramani, sasa unahitaji kupakua tu data inayokosa
+
+  [start_from_my_position]
+    en = Start from
+    ru = Начать от
