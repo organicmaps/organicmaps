@@ -156,6 +156,12 @@ public enum SearchEngine implements NativeSearchListener,
     nativeCancelEverywhereSearch();
   }
 
+  public static void cancelAllSearches()
+  {
+    sSavedQuery = "";
+    nativeCancelAllSearches();
+  }
+
   public static void showResult(int index)
   {
     sSavedQuery = "";
@@ -190,6 +196,8 @@ public enum SearchEngine implements NativeSearchListener,
   public static native void nativeCancelInteractiveSearch();
 
   public static native void nativeCancelEverywhereSearch();
+
+  public static native void nativeCancelAllSearches();
 
   /**
    * @return all existing hotel types

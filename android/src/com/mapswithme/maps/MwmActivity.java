@@ -461,7 +461,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)
     {
-      SearchEngine.cancelInteractiveSearch();
+      SearchEngine.cancelAllSearches();
       mSearchController.refreshToolbar();
       replaceFragment(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
     }

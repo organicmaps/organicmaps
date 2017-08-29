@@ -534,7 +534,7 @@ public class SearchFragment extends BaseMwmFragment
   private void stopSearch()
   {
     SearchEngine.cancelApiCall();
-    SearchEngine.cancelInteractiveSearch();
+    SearchEngine.cancelAllSearches();
     onSearchEnd();
   }
 

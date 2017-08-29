@@ -43,6 +43,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/iterator.hpp"
+#include "std/random.hpp"
 #include "std/sstream.hpp"
 #include "std/transform_iterator.hpp"
 #include "std/unique_ptr.hpp"
@@ -321,7 +322,7 @@ CBV DecimateCianResults(CBV const & cbv)
   // Leaving only a fraction of them does not seem
   // to worsen the percieved result.
   size_t const kMaxCianResults = 10000;
-  static minstd_rand rng;
+  minstd_rand rng(0);
   auto survivedIds = base::RandomSample(cbv.PopCount(), kMaxCianResults, rng);
   sort(survivedIds.begin(), survivedIds.end());
   auto it = survivedIds.begin();
