@@ -11,6 +11,8 @@
 #include "search/everywhere_search_params.hpp"
 #include "search/viewport_search_params.hpp"
 
+extern NSString * const kCianCategory;
+
 namespace
 {
 using Observer = id<MWMSearchObserver>;
@@ -40,6 +42,8 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) MWMSearchBanners * banners;
 
+@property(nonatomic) NSInteger searchCount;
+
 @end
 
 @implementation MWMSearch
@@ -63,6 +67,11 @@ using Observers = NSHashTable<Observer>;
   return manager;
 }
 
++ (BOOL)isCianSearch:(NSString *)query
+{
+  return [query isEqualToString:[L(kCianCategory) stringByAppendingString:@" "]];
+}
+
 - (instancetype)initManager
 {
   self = [super init];
@@ -81,32 +90,37 @@ using Observers = NSHashTable<Observer>;
       __strong auto self = weakSelf;
       if (!self)
         return;
-      if (timestamp != self.lastSearchStamp)
-        return;
-
-      self->m_everywhereResults = results;
-      self->m_isLocalAdsCustomer = isLocalAdsCustomer;
-      self.suggestionsCount = results.GetSuggestsCount();
-
-      if (results.IsEndMarker())
+      if (timestamp == self.lastSearchStamp)
       {
-        [self checkIsHotelResults:results];
-        if (results.IsEndedNormal())
+        self->m_everywhereResults = results;
+        self->m_isLocalAdsCustomer = isLocalAdsCustomer;
+        self.suggestionsCount = results.GetSuggestsCount();
+
+        if (results.IsEndMarker())
         {
-          self.everywhereSearchCompleted = YES;
-          if (IPAD || self.searchOnMap)
+          [self checkIsHotelResults:results];
+          if (results.IsEndedNormal())
           {
+            self.everywhereSearchCompleted = YES;
+            if ([MWMSearch isCianSearch:@(m_viewportParams.m_query.c_str())])
+            {
+              self.searchCount -= 1;
+              return;
+            }
+
             auto & f = GetFramework();
-            f.ShowSearchResults(m_everywhereResults);
+            if (IPAD || self.searchOnMap)
+              f.ShowSearchResults(m_everywhereResults);
             f.SearchInViewport(m_viewportParams);
           }
         }
-        [self onSearchCompleted];
+        else
+        {
+          [self onSearchResultsUpdated];
+        }
       }
-      else
-      {
-        [self onSearchResultsUpdated];
-      }
+      if (results.IsEndMarker())
+        self.searchCount -= 1;
     };
   }
   {
@@ -115,7 +129,7 @@ using Observers = NSHashTable<Observer>;
       __strong auto self = weakSelf;
       if (!self)
         return;
-      [self onSearchStarted];
+      self.searchCount += 1;
     };
   }
   {
@@ -130,9 +144,16 @@ using Observers = NSHashTable<Observer>;
         self.viewportResultsEmpty = results.GetCount() == 0;
         self.viewportSearchCompleted = YES;
       }
-      [self onSearchCompleted];
+      if (results.IsEndMarker())
+        self.searchCount -= 1;
     };
   }
+}
+
+- (void)searchEverywhere
+{
+  GetFramework().SearchEverywhere(m_everywhereParams);
+  self.searchCount += 1;
 }
 
 - (void)checkIsHotelResults:(search::Results const &)results
@@ -156,8 +177,9 @@ using Observers = NSHashTable<Observer>;
   [self updateCallbacks];
   [self updateFilters];
   auto & f = GetFramework();
-  f.SearchEverywhere(m_everywhereParams);
-  [self onSearchStarted];
+  if ([MWMSearch isCianSearch:@(m_everywhereParams.m_query.c_str())])
+    f.SearchInViewport(m_viewportParams);
+  [self searchEverywhere];
 }
 
 #pragma mark - Add/Remove Observers
@@ -251,7 +273,10 @@ using Observers = NSHashTable<Observer>;
 {
   auto manager = [MWMSearch manager];
   manager->m_everywhereResults.Clear();
+  manager->m_everywhereParams.m_query.clear();
+  manager->m_viewportParams.m_query.clear();
   manager.suggestionsCount = 0;
+  [manager.filter reset];
   [self reset];
 }
 
@@ -263,8 +288,6 @@ using Observers = NSHashTable<Observer>;
   if (manager.searchOnMap == searchOnMap)
     return;
   manager.searchOnMap = searchOnMap;
-  if (!IPAD)
-    [manager update];
 }
 
 + (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
@@ -288,7 +311,6 @@ using Observers = NSHashTable<Observer>;
   MWMSearch * manager = [MWMSearch manager];
   [manager.filter reset];
   [manager update];
-  [manager onSearchCompleted];
 }
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner
@@ -337,18 +359,6 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onSearchCompleted
 {
-// TODO: Uncomment on release with search filters. Update to less annoying behavior.
-//
-// BOOL allCompleted = self.viewportSearchCompleted;
-// BOOL allEmpty = self.viewportResultsEmpty;
-// if (IPAD)
-// {
-//   allCompleted = allCompleted && self.everywhereSearchCompleted;
-//   allEmpty = allEmpty && m_everywhereResults.GetCount() == 0;
-// }
-// if (allCompleted && allEmpty)
-//   [[MWMAlertViewController activeAlertController] presentSearchNoResultsAlert];
-
   [self updateItemsIndexWithBannerReload:YES];
   for (Observer observer in self.observers)
   {
@@ -365,6 +375,20 @@ using Observers = NSHashTable<Observer>;
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
       [observer onSearchResultsUpdated];
   }
+}
+
+#pragma mark - Properties
+
+- (void)setSearchCount:(NSInteger)searchCount
+{
+  NSAssert((searchCount >= 0) &&
+               ((_searchCount == searchCount - 1) || (_searchCount == searchCount + 1)),
+           @"Invalid search count update");
+  if (_searchCount == 0)
+    [self onSearchStarted];
+  else if (searchCount == 0)
+    [self onSearchCompleted];
+  _searchCount = searchCount;
 }
 
 @end

@@ -10,6 +10,8 @@ class Result;
 
 @interface MWMSearch : NSObject
 
++ (BOOL)isCianSearch:(NSString *)query;
+
 + (void)addObserver:(id<MWMSearchObserver>)observer;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
