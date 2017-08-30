@@ -18,8 +18,6 @@ using TLocalAndRemoteSize = pair<TMwmSize, TMwmSize>;
 
 bool HasOptions(MapOptions mask, MapOptions options);
 
-MapOptions IntersectOptions(MapOptions lhs, MapOptions rhs);
-
 MapOptions SetOptions(MapOptions mask, MapOptions options);
 
 MapOptions UnsetOptions(MapOptions mask, MapOptions options);
