@@ -183,6 +183,13 @@ namespace
         MercatorBounds::FromLatLon(50.93227, 1.82725), 60498.);
   }
 
+  UNIT_TEST(RussiaMoscowStartAtTwowayFeatureTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+      integration::GetOsrmComponents(), MercatorBounds::FromLatLon(55.771, 37.5184), {0., 0.},
+      MercatorBounds::FromLatLon(55.7718, 37.5178), 147.4);
+  }
+
   // Strange map edits in Africa borders. Routing not linked now.
   /*
   UNIT_TEST(RussiaMoscowLenigradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)
