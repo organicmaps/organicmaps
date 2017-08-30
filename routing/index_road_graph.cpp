@@ -119,8 +119,8 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
 
     edges.emplace_back(FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId()),
                        segment.IsForward(), segment.GetSegmentIdx(),
-                       GetJunction(segment, false /* front */),
-                       GetJunction(segment, true /* front */));
+                       m_starter.GetJunction(segment, false /* front */),
+                       m_starter.GetJunction(segment, true /* front */));
   }
 }
 
