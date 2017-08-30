@@ -94,7 +94,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
               text = String.valueOf(item.errorCode);
           }
           Statistics.INSTANCE.trackDownloaderDialogError(mTotalSizeMb, text);
-          MapManager.showError(getActivity(), item, new Utils.Proc<Boolean>()
+          MapManager.showErrorDialog(getActivity(), item, new Utils.Proc<Boolean>()
           {
             @Override
             public void invoke(@NonNull Boolean result)

@@ -84,7 +84,17 @@ public final class MapManager
     Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
   }
 
-  public static void showError(final Activity activity, final StorageCallbackData errorData, @Nullable final Utils.Proc<Boolean> dialogClickListener)
+  public static void showError(final Activity activity, final StorageCallbackData errorData,
+                               @Nullable final Utils.Proc<Boolean> dialogClickListener)
+  {
+    if (!nativeIsAutoretryFailed())
+      return;
+
+    showErrorDialog(activity, errorData, dialogClickListener);
+  }
+
+  public static void showErrorDialog(final Activity activity, final StorageCallbackData errorData,
+                                     @Nullable final Utils.Proc<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -92,9 +102,6 @@ public final class MapManager
       if (dlg != null && dlg.isShowing())
         return;
     }
-
-    if (!nativeIsAutoretryFailed())
-      return;
 
     @StringRes int text;
     switch (errorData.errorCode)
@@ -114,7 +121,16 @@ public final class MapManager
     AlertDialog dlg = new AlertDialog.Builder(activity)
                                      .setTitle(R.string.country_status_download_failed)
                                      .setMessage(text)
-                                     .setNegativeButton(android.R.string.cancel, null)
+                                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+                                     {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which)
+                                       {
+                                         sCurrentErrorDialog = null;
+                                         if (dialogClickListener != null)
+                                           dialogClickListener.invoke(false);
+                                       }
+                                     })
                                      .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
                                      {
                                        @Override
@@ -132,16 +148,8 @@ public final class MapManager
                                            }
                                          });
                                        }
-                                     }).setOnDismissListener(new DialogInterface.OnDismissListener()
-                                     {
-                                       @Override
-                                       public void onDismiss(DialogInterface dialog)
-                                       {
-                                         sCurrentErrorDialog = null;
-                                         if (dialogClickListener != null)
-                                           dialogClickListener.invoke(false);
-                                       }
                                      }).create();
+    dlg.setCanceledOnTouchOutside(false);
     dlg.show();
     sCurrentErrorDialog = new WeakReference<>(dlg);
   }
