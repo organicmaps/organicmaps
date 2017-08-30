@@ -640,6 +640,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     setState(State.NONE);
 
     applyRemovingIntermediatePointsTransaction();
+    Framework.nativeDeleteSavedRoutePoints();
     Framework.nativeCloseRouting();
   }
 
