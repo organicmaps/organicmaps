@@ -21,12 +21,16 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
                                  SurfaceHolder.Callback
 {
   public static final String ARG_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = MapFragment.class.getSimpleName();
 
   // Should correspond to android::MultiTouchAction from Framework.cpp
   private static final int NATIVE_ACTION_UP = 0x01;
@@ -158,6 +162,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
+    LOGGER.d(TAG, "surfaceCreated, mContextCreated = " + mContextCreated);
     final Surface surface = surfaceHolder.getSurface();
     if (nativeIsEngineCreated())
     {
@@ -205,6 +210,7 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
+    LOGGER.d(TAG, "surfaceChanged, mContextCreated = " + mContextCreated);
     if (!mContextCreated ||
         (!mRequireResize && surfaceHolder.isCreating()))
       return;
@@ -220,11 +226,14 @@ public class MapFragment extends BaseMwmFragment
   @Override
   public void surfaceDestroyed(SurfaceHolder surfaceHolder)
   {
+    LOGGER.d(TAG, "surfaceDestroyed");
     destroyContext();
   }
 
   void destroyContext()
   {
+    LOGGER.d(TAG, "destroyContext, mContextCreated = " + mContextCreated +
+                  ", isAdded = " + isAdded(), new Throwable());
     if (!mContextCreated || !isAdded())
       return;
 
@@ -244,12 +253,13 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResume()
+  public void onStart()
   {
-    super.onResume();
+    super.onStart();
     if (isGoingToBeRecreated())
       return;
 
+    LOGGER.d(TAG, "onStart, surface.addCallback");
     mSurfaceView.getHolder().addCallback(this);
   }
 
