@@ -423,6 +423,21 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
 
 void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 {
+  if (params.m_onStarted)
+    params.m_onStarted();
+
+  if (IsCancelled())
+  {
+    Results results;
+    results.SetEndMarker(true /* isCancelled */);
+
+    if (params.m_onResults)
+      params.m_onResults(results);
+    else
+      LOG(LERROR, ("OnResults is not set."));
+    return;
+  }
+
   SetMode(params.m_mode);
   bool const viewportSearch = m_mode == Mode::Viewport;
 
@@ -464,9 +479,6 @@ void Processor::Search(SearchParams const & params, m2::RectD const & viewport)
 
   try
   {
-    if (params.m_onStarted)
-      params.m_onStarted();
-
     SearchCoordinates();
 
     if (viewportSearch)
