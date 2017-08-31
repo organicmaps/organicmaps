@@ -84,6 +84,10 @@ else
 #define YANDEX_CLIENT_ID ""
 #define YANDEX_API_KEY ""
 #define YANDEX_TRACKING_ID ""
+#define LOCALS_API_KEY ""
+#define LOCALS_API_URL ""
+#define LOCALS_PAGE_URL ""
+
 ' > "$PRIVATE_HEADER"
     echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"
